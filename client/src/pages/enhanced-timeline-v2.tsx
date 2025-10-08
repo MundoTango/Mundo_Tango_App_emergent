@@ -232,7 +232,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
     <div className="relative group">
       {/* Ocean wave pattern background on hover */}
       <div className="absolute inset-0 rounded-3xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/10 via-cyan-400/10 to-[var(--color-ocean-500)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/10 via-cyan-400/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <div className="absolute bottom-0 left-0 right-0 h-32 opacity-0 group-hover:opacity-20 transition-opacity duration-700"
              style={{
                backgroundImage: `url("data:image/svg+xml,%3Csvg width='200' height='100' viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50c20-10 40-10 60 0s40 10 60 0s40-10 60 0s40 10 60 0' stroke='%2338b2ac' stroke-width='3' fill='none' /%3E%3C/svg%3E")`,
@@ -242,7 +242,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
              }} />
       </div>
 
-      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-[var(--color-ocean-300)] card-lift smooth-appear beautiful-hover bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
+      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
         {/* Ocean accent decoration */}
         <div className="absolute -top-2 -right-2 w-24 h-24 bg-gradient-to-br from-turquoise-200 to-cyan-200 rounded-full blur-2xl opacity-30" />
         <div className="absolute -bottom-2 -left-2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-full blur-2xl opacity-25" />
@@ -253,7 +253,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             <div className="relative">
               <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300">
                 <AvatarImage src={memory.userProfileImage || memory.user?.profileImage} />
-                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-[var(--color-ocean-500)] text-white font-bold">
+                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 text-white font-bold">
                   {(memory.userName || memory.user?.name || 'U').charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -263,16 +263,16 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-lg text-[var(--color-text)] dark:text-white group-hover:text-turquoise-700 transition-colors">
+                <h3 className="font-bold text-lg text-gray-900 group-hover:text-turquoise-700 transition-colors">
                   {memory.userName || memory.user?.name || 'Anonymous'}
                 </h3>
-                <span className="text-sm text-gray-500 dark:text-gray-400">@{memory.userUsername || memory.user?.username || 'user'}</span>
+                <span className="text-sm text-gray-500">@{memory.userUsername || memory.user?.username || 'user'}</span>
               </div>
 
               {/* Location and roles in same line for consistency */}
               <div className="flex items-center gap-3 mt-1">
                 {memory.user && formatUserLocation(memory.user) && (
-                  <div className="flex items-center gap-1 text-sm text-[var(--color-primary-hover)]">
+                  <div className="flex items-center gap-1 text-sm text-turquoise-600">
                     <MapPin className="h-3.5 w-3.5" />
                     <span>{formatUserLocation(memory.user)}</span>
                   </div>
@@ -287,8 +287,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-gradient-to-r from-turquoise-50 to-cyan-50 px-3 py-1.5 rounded-full">
-            <Clock className="h-3.5 w-3.5 text-[var(--color-primary-hover)]" />
+          <div className="flex items-center gap-2 text-sm text-gray-500 bg-gradient-to-r from-turquoise-50 to-cyan-50 px-3 py-1.5 rounded-full">
+            <Clock className="h-3.5 w-3.5 text-turquoise-600" />
             <time className="font-medium">{formatDistanceToNow(new Date(memory.createdAt))} ago</time>
           </div>
         </div>
@@ -298,7 +298,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
         <div className="flex items-center gap-4 text-sm p-3 bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-2xl">
           {memory.emotionTags && memory.emotionTags.length > 0 && (
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[var(--color-primary-hover)] animate-sparkle" />
+              <Sparkles className="h-4 w-4 text-turquoise-600 animate-sparkle" />
               <div className="flex gap-2 flex-wrap">
                 {memory.emotionTags.map((tag, i) => (
                   <span key={i} className="px-3 py-1.5 bg-gradient-to-r from-turquoise-100 to-cyan-100 text-turquoise-700 rounded-full text-xs font-medium hover:from-turquoise-200 hover:to-cyan-200 transition-all cursor-pointer">
@@ -314,7 +314,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           {memory.hashtags && memory.hashtags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {memory.hashtags.map((tag, i) => (
-                <span key={i} className="text-[var(--color-primary-hover)] hover:text-turquoise-700 transition-colors cursor-pointer">
+                <span key={i} className="text-cyan-600 hover:text-turquoise-700 transition-colors cursor-pointer">
                   #{tag}
                 </span>
               ))}
@@ -325,7 +325,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
       {/* Enhanced Content with better typography */}
       <div className="prose prose-lg max-w-none">
-        <p className="text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap">
+        <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
           {memory.content}
         </p>
       </div>
@@ -353,19 +353,19 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           />
 
           <button
-            onClick={() => setShowComments(!showComments)} aria-label="Button"
+            onClick={() => setShowComments(!showComments)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 mt-button ripple-container
                        ${showComments 
                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg' 
-                         : 'text-[var(--color-text-secondary)] hover:bg-gradient-to-r hover:from-turquoise-100 hover:to-cyan-100'}`}
+                         : 'text-gray-700 hover:bg-gradient-to-r hover:from-turquoise-100 hover:to-cyan-100'}`}
           >
             <MessageCircle className={`h-5 w-5 ${showComments ? 'fill-white' : ''} icon-glow`} />
             <span className="font-medium">{comments.length || 0}</span>
           </button>
 
           <button
-            onClick={() => setShowShareDialog(true)} aria-label="Button"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[var(--color-text-secondary)] hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover"
+            onClick={() => setShowShareDialog(true)}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover"
           >
             <Share2 className="h-5 w-5 icon-glow" />
             <span className="font-medium">Share</span>
@@ -447,11 +447,11 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <div className="bg-[var(--color-neutral-100)] rounded-lg p-3">
+                    <div className="bg-gray-100 rounded-lg p-3">
                       <p className="font-medium text-sm">{comment.user?.name || 'Unknown User'}</p>
                       <div className="text-sm" dangerouslySetInnerHTML={{ __html: comment.content }} />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-gray-500 mt-1">
                       {formatDistanceToNow(new Date(comment.createdAt))} ago
                     </p>
                   </div>
@@ -465,37 +465,38 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
       {/* Share Dialog */}
       {showShareDialog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
-          <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-bold mb-4">Share Memory</h3>
             <div className="space-y-3">
               <button
-                onClick={() => handleShare()} aria-label="Button"
-                className="w-full p-3 text-left hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors"
+                onClick={() => handleShare()}
+                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
               >
                 <p className="font-medium">Share to Timeline</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Share this memory on your timeline</p>
+                <p className="text-sm text-gray-600">Share this memory on your timeline</p>
               </button>
 
               <button
                 onClick={() => {
                   const comment = prompt("Add a comment to your share:");
-                  if (comment !== null) handleShare(comment);}} aria-label="Button"
-                className="w-full p-3 text-left hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors"
+                  if (comment !== null) handleShare(comment);
+                }}
+                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
               >
                 <p className="font-medium">Share with Comment</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Add your thoughts when sharing</p>
+                <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
               </button>
 
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin} aria-label="Button"/memories/${memory.id}`);
+                  navigator.clipboard.writeText(`${window.location.origin}/memories/${memory.id}`);
                   toast({ title: "Link copied!" });
                   setShowShareDialog(false);
                 }}
-                className="w-full p-3 text-left hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
               >
                 <p className="font-medium">Copy Link</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Copy memory link to clipboard</p>
+                <p className="text-sm text-gray-600">Copy memory link to clipboard</p>
               </button>
             </div>
           </div>
@@ -674,11 +675,11 @@ export default function EnhancedTimelineV2() {
                     <div className="p-2.5 lg:p-3 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-xl animate-float shadow-lg">
                       <Sparkles className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                     </div>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-turquoise-600 via-cyan-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-turquoise-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
                       Memories
                     </h1>
                   </div>
-                  <p className="text-sm sm:text-base text-[var(--color-text-secondary)] ml-0 sm:ml-[50px] lg:ml-[60px] font-medium">Share your precious moments with the Tango community</p>
+                  <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium">Share your precious moments with the Tango community</p>
                 </div>
               </div>
 
@@ -705,8 +706,8 @@ export default function EnhancedTimelineV2() {
             {/* Mobile Events Section - Placeholder */}
             <div className="block lg:hidden mb-6">
               <div className="glassmorphic-card p-4 rounded-xl">
-                <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">Upcoming Events</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Event integration coming soon!</p>
+                <h3 className="font-semibold text-gray-800 mb-2">Upcoming Events</h3>
+                <p className="text-sm text-gray-600">Event integration coming soon!</p>
               </div>
             </div>
 
@@ -770,11 +771,11 @@ export default function EnhancedTimelineV2() {
               ) : (
                 <div className="glassmorphic-card p-12 rounded-3xl text-center">
                   <div className="max-w-md mx-auto">
-                    <div className="p-4 bg-gradient-to-r from-turquoise-400 to-[var(--color-ocean-500)] rounded-2xl inline-block mb-4">
+                    <div className="p-4 bg-gradient-to-r from-turquoise-400 to-blue-500 rounded-2xl inline-block mb-4">
                       <Sparkles className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">No memories yet</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">No memories yet</h3>
+                    <p className="text-gray-600">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
                   </div>
                 </div>
               )}
@@ -785,8 +786,8 @@ export default function EnhancedTimelineV2() {
           <div className="lg:col-span-4">
             <div className="sticky top-6">
               <div className="glassmorphic-card p-6 rounded-xl">
-                <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-4">Upcoming Events</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Event integration coming soon!</p>
+                <h3 className="font-semibold text-gray-800 mb-4">Upcoming Events</h3>
+                <p className="text-sm text-gray-600">Event integration coming soon!</p>
               </div>
             </div>
           </div>

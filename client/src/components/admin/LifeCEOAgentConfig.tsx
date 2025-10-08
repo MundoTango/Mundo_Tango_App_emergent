@@ -5,8 +5,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle } from
-'@/components/ui/card';
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -18,8 +18,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue } from
-'@/components/ui/select';
+  SelectValue,
+} from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
@@ -34,8 +34,8 @@ import {
   Trash2,
   Edit,
   Check,
-  X } from
-'lucide-react';
+  X,
+} from 'lucide-react';
 
 interface AgentConfig {
   id: number;
@@ -60,7 +60,7 @@ const LifeCEOAgentConfig: React.FC = () => {
   // Fetch agent configurations
   const { data: configs, isLoading } = useQuery({
     queryKey: [`/api/life-ceo/agents/${agentId}/configs`],
-    enabled: !!agentId
+    enabled: !!agentId,
   });
 
   // Save configuration mutation
@@ -71,7 +71,7 @@ const LifeCEOAgentConfig: React.FC = () => {
     onSuccess: () => {
       toast({
         title: 'Configuration saved',
-        description: 'Agent configuration has been updated successfully.'
+        description: 'Agent configuration has been updated successfully.',
       });
       queryClient.invalidateQueries({ queryKey: [`/api/life-ceo/agents/${agentId}/configs`] });
       setEditingConfig(null);
@@ -81,9 +81,9 @@ const LifeCEOAgentConfig: React.FC = () => {
       toast({
         title: 'Error saving configuration',
         description: error.message,
-        variant: 'destructive'
+        variant: 'destructive',
       });
-    }
+    },
   });
 
   const getConfigIcon = (type: string) => {
@@ -114,56 +114,56 @@ const LifeCEOAgentConfig: React.FC = () => {
               {config.is_active && <Badge className="bg-green-100 text-green-800">Active</Badge>}
             </div>
             <div className="flex space-x-2">
-              {isEditing ?
-              <>
+              {isEditing ? (
+                <>
                   <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    try {
-                      const parsedData = JSON.parse(newConfigData);
-                      saveConfigMutation.mutate({
-                        config_type: config.config_type,
-                        config_name: config.config_name,
-                        config_data: parsedData
-                      });
-                    } catch (error) {
-                      toast({
-                        title: 'Invalid JSON',
-                        description: 'Please check your configuration format.',
-                        variant: 'destructive'
-                      });
-                    }
-                  }} data-testid="button-element">
-
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      try {
+                        const parsedData = JSON.parse(newConfigData);
+                        saveConfigMutation.mutate({
+                          config_type: config.config_type,
+                          config_name: config.config_name,
+                          config_data: parsedData,
+                        });
+                      } catch (error) {
+                        toast({
+                          title: 'Invalid JSON',
+                          description: 'Please check your configuration format.',
+                          variant: 'destructive',
+                        });
+                      }
+                    }}
+                  >
                     <Check className="w-4 h-4 mr-1" />
                     Save
                   </Button>
                   <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => {
-                    setEditingConfig(null);
-                    setNewConfigData('');
-                  }} data-testid="button-element">
-
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => {
+                      setEditingConfig(null);
+                      setNewConfigData('');
+                    }}
+                  >
                     <X className="w-4 h-4 mr-1" />
                     Cancel
                   </Button>
-                </> :
-
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => {
-                  setEditingConfig(config);
-                  setNewConfigData(JSON.stringify(config.config_data, null, 2));
-                }} data-testid="button-element">
-
+                </>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    setEditingConfig(config);
+                    setNewConfigData(JSON.stringify(config.config_data, null, 2));
+                  }}
+                >
                   <Edit className="w-4 h-4 mr-1" />
                   Edit
                 </Button>
-              }
+              )}
             </div>
           </div>
         </CardHeader>
@@ -173,24 +173,24 @@ const LifeCEOAgentConfig: React.FC = () => {
             rows={10}
             value={configDataStr}
             onChange={(e) => setNewConfigData(e.target.value)}
-            readOnly={!isEditing} data-testid="textarea-font-mono" />
-
+            readOnly={!isEditing}
+          />
         </CardContent>
-      </Card>);
-
+      </Card>
+    );
   };
 
   const configTypes = [
-  { value: '11l_system', label: '11L System', icon: Brain },
-  { value: 'governance', label: 'Governance', icon: Shield },
-  { value: 'ai_sentiment', label: 'AI Sentiment', icon: Heart }];
-
+    { value: '11l_system', label: '11L System', icon: Brain },
+    { value: 'governance', label: 'Governance', icon: Shield },
+    { value: 'ai_sentiment', label: 'AI Sentiment', icon: Heart },
+  ];
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Agent Configuration</h2>
-        <Button data-testid="button-element">
+        <Button>
           <Plus className="w-4 h-4 mr-2" />
           Add Configuration
         </Button>
@@ -198,41 +198,41 @@ const LifeCEOAgentConfig: React.FC = () => {
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-3">
-          {configTypes.map((type) =>
-          <TabsTrigger key={type.value} value={type.value} className="flex items-center space-x-2">
+          {configTypes.map((type) => (
+            <TabsTrigger key={type.value} value={type.value} className="flex items-center space-x-2">
               <type.icon className="w-4 h-4" />
               <span>{type.label}</span>
             </TabsTrigger>
-          )}
+          ))}
         </TabsList>
 
-        {configTypes.map((type) =>
-        <TabsContent key={type.value} value={type.value} className="space-y-4">
-            {isLoading ?
-          <Card>
-                <CardContent className="py-8 text-center text-gray-500 dark:text-gray-400">
+        {configTypes.map((type) => (
+          <TabsContent key={type.value} value={type.value} className="space-y-4">
+            {isLoading ? (
+              <Card>
+                <CardContent className="py-8 text-center text-gray-500">
                   Loading configurations...
                 </CardContent>
-              </Card> :
-
-          <>
-                {configs?.
-            filter((c: AgentConfig) => c.config_type === type.value).
-            map((config: AgentConfig) => renderConfigEditor(config))}
-                {(!configs || configs.filter((c: AgentConfig) => c.config_type === type.value).length === 0) &&
-            <Card>
-                    <CardContent className="py-8 text-center text-gray-500 dark:text-gray-400">
+              </Card>
+            ) : (
+              <>
+                {configs
+                  ?.filter((c: AgentConfig) => c.config_type === type.value)
+                  .map((config: AgentConfig) => renderConfigEditor(config))}
+                {(!configs || configs.filter((c: AgentConfig) => c.config_type === type.value).length === 0) && (
+                  <Card>
+                    <CardContent className="py-8 text-center text-gray-500">
                       No {type.label} configurations found. Click "Add Configuration" to create one.
                     </CardContent>
                   </Card>
-            }
+                )}
               </>
-          }
+            )}
           </TabsContent>
-        )}
+        ))}
       </Tabs>
-    </div>);
-
+    </div>
+  );
 };
 
 export default LifeCEOAgentConfig;

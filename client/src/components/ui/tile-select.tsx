@@ -48,7 +48,7 @@ export function TileSelect({
   return (
     <div className={cn("space-y-4", className)}>
       {selectedArray.length === 0 && (
-        <p className="text-sm text-gray-500 dark:text-gray-400 italic">{placeholder}</p>
+        <p className="text-sm text-gray-500 italic">{placeholder}</p>
       )}
       
       <div 
@@ -67,14 +67,14 @@ export function TileSelect({
             <button
               key={option.value}
               type="button"
-              onClick={() => handleToggle(option.value)} aria-label="Button"
+              onClick={() = data-testid="button-element"> handleToggle(option.value)}
               disabled={isDisabled}
               className={cn(
                 "relative p-4 border-2 rounded-xl text-left transition-all duration-200 group",
                 "hover:scale-105 hover:shadow-lg active:scale-95",
                 isSelected
                   ? "border-blue-500 bg-blue-50 text-blue-900 shadow-md"
-                  : "border-[var(--color-border)] bg-[var(--color-surface)] dark:bg-gray-900 hover:border-blue-300 hover:bg-blue-50/50",
+                  : "border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50/50",
                 isDisabled && "opacity-50 cursor-not-allowed hover:scale-100 hover:shadow-none"
               )}
             >
@@ -83,7 +83,7 @@ export function TileSelect({
                 "absolute top-2 right-2 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200",
                 isSelected 
                   ? "border-blue-500 bg-blue-500 text-white"
-                  : "border-gray-300 dark:border-gray-600 group-hover:border-blue-400"
+                  : "border-gray-300 group-hover:border-blue-400"
               )}>
                 {isSelected && <Check className="w-3 h-3" />}
               </div>
@@ -117,7 +117,7 @@ export function TileSelect({
       
       {/* Selection counter */}
       {maxSelected && (
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        <p className="text-xs text-gray-500 text-center">
           {selectedArray.length} of {maxSelected} selected
         </p>
       )}

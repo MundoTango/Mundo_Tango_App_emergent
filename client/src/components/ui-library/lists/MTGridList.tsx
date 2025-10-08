@@ -154,9 +154,9 @@ export default function MTGridList({
         key={item.id}
         className={cn(
           'group relative overflow-hidden rounded-xl',
-          'bg-[var(--color-surface)] dark:bg-gray-800 border border-[var(--color-border)]/50 dark:border-gray-700/50',
+          'bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-700/50',
           'hover:shadow-xl hover:scale-[1.02] transition-all duration-300',
-          isSelected && 'ring-2 ring-teal-400 bg-[var(--color-ocean-50)]/20 dark:bg-teal-900/20',
+          isSelected && 'ring-2 ring-teal-400 bg-teal-50/20 dark:bg-teal-900/20',
           item.disabled && 'opacity-50 cursor-not-allowed',
           !item.disabled && (item.onClick || onItemClick) && 'cursor-pointer',
           cardClass
@@ -176,8 +176,9 @@ export default function MTGridList({
               checked={isSelected}
               onChange={(e) => {
                 e.stopPropagation();
-                handleSelectItem(item.id);}} aria-label="Input field"
-              className="rounded border-white/50 bg-[var(--color-surface)]/90 text-[var(--color-primary-hover)] focus:ring-teal-500"
+                handleSelectItem(item.id);
+              }}
+              className="rounded border-white/50 bg-white/90 text-teal-600 focus:ring-teal-500"
               data-testid={`${testId}-select-${item.id}`}
             />
           </div>
@@ -195,11 +196,11 @@ export default function MTGridList({
               <div className="absolute top-2 right-2">
                 <span className={cn(
                   'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm',
-                  item.badgeVariant === 'primary' && 'bg-[var(--color-ocean-100)]/90 text-teal-800',
+                  item.badgeVariant === 'primary' && 'bg-teal-100/90 text-teal-800',
                   item.badgeVariant === 'success' && 'bg-green-100/90 text-green-800',
                   item.badgeVariant === 'warning' && 'bg-yellow-100/90 text-yellow-800',
                   item.badgeVariant === 'error' && 'bg-red-100/90 text-red-800',
-                  (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-[var(--color-neutral-100)]/90 text-gray-800'
+                  (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100/90 text-gray-800'
                 )}>
                   {item.badge}
                 </span>
@@ -215,7 +216,7 @@ export default function MTGridList({
           cardVariant === 'detailed' && 'p-5'
         )}>
           <h3 className={cn(
-            'font-semibold text-[var(--color-text)] dark:text-gray-100',
+            'font-semibold text-gray-900 dark:text-gray-100',
             cardVariant === 'compact' ? 'text-sm' : 'text-base'
           )}>
             {item.title}
@@ -238,7 +239,7 @@ export default function MTGridList({
           
           {/* Metadata */}
           {item.metadata && item.metadata.length > 0 && cardVariant !== 'compact' && (
-            <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-[var(--color-border)]/50 dark:border-gray-700/50">
+            <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-gray-200/50 dark:border-gray-700/50">
               {item.metadata.map((meta, idx) => (
                 <div key={idx} className="flex items-center gap-1 text-xs text-gray-500">
                   {meta.icon}
@@ -278,9 +279,9 @@ export default function MTGridList({
               <input
                 type="checkbox"
                 checked={localSelectedItems.size === items.length}
-                indeterminate={localSelectedItems.size  aria-label="Input field"> 0 && localSelectedItems.size < items.length}
+                indeterminate={localSelectedItems.size > 0 && localSelectedItems.size < items.length}
                 onChange={handleSelectAll}
-                className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
+                className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
                 data-testid={`${testId}-select-all`}
               />
               <span className="text-sm text-gray-600 dark:text-gray-400">
@@ -292,24 +293,24 @@ export default function MTGridList({
           {allowViewModeToggle && (
             <div className="flex items-center gap-1 ml-auto">
               <button
-                onClick={() => setViewMode('grid')} aria-label="Button"
+                onClick={() => setViewMode('grid')}
                 className={cn(
                   'p-2 rounded-lg transition-colors',
                   viewMode === 'grid'
-                    ? 'bg-[var(--color-ocean-100)] dark:bg-teal-900/30 text-[var(--color-primary-hover)] dark:text-teal-400'
-                    : 'text-gray-500 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800'
+                    ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400'
+                    : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 data-testid={`${testId}-view-grid`}
               >
                 <Grid className="w-4 h-4" />
               </button>
               <button
-                onClick={() => setViewMode('list')} aria-label="Button"
+                onClick={() => setViewMode('list')}
                 className={cn(
                   'p-2 rounded-lg transition-colors',
                   viewMode === 'list'
-                    ? 'bg-[var(--color-ocean-100)] dark:bg-teal-900/30 text-[var(--color-primary-hover)] dark:text-teal-400'
-                    : 'text-gray-500 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800'
+                    ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400'
+                    : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 data-testid={`${testId}-view-list`}
               >

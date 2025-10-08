@@ -140,10 +140,10 @@ class LifeCEORoleService {
       life_ceo_project_admin: { icon: '📊', color: 'text-green-600', badge: 'Project Admin' },
       life_ceo_team_lead: { icon: '👥', color: 'text-orange-600', badge: 'Team Lead' },
       life_ceo_contributor: { icon: '✏️', color: 'text-indigo-600', badge: 'Contributor' },
-      life_ceo_viewer: { icon: '👁️', color: 'text-gray-600 dark:text-gray-300', badge: 'Viewer' }
+      life_ceo_viewer: { icon: '👁️', color: 'text-gray-600', badge: 'Viewer' }
     };
 
-    return roleMap[roleName] || { icon: '👤', color: 'text-gray-500 dark:text-gray-400', badge: 'User' };
+    return roleMap[roleName] || { icon: '👤', color: 'text-gray-500', badge: 'User' };
   }
 
   // Check if user can access Life CEO admin

@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 interface CityPickerProps {
   value?: string;
-  onChange: (location: {city: string;country: string;}) => void;
+  onChange: (location: { city: string; country: string }) => void;
   placeholder?: string;
   showBusinesses?: boolean;
   className?: string;
@@ -48,19 +48,19 @@ export default function CityPicker({
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=10&addressdetails=1&featuretype=city`
         );
         const data = await response.json();
-
-        const cityResults: City[] = data.
-        filter((item: any) => item.addresstype === 'city' || item.type === 'city').
-        map((item: any) => ({
-          name: item.address?.city || item.address?.town || item.display_name.split(',')[0],
-          country: item.address?.country || '',
-          state: item.address?.state || '',
-          lat: parseFloat(item.lat),
-          lon: parseFloat(item.lon)
-        })).
-        filter((city: City, index: number, self: City[]) =>
-        index === self.findIndex((c) => c.name === city.name && c.country === city.country)
-        );
+        
+        const cityResults: City[] = data
+          .filter((item: any) => item.addresstype === 'city' || item.type === 'city')
+          .map((item: any) => ({
+            name: item.address?.city || item.address?.town || item.display_name.split(',')[0],
+            country: item.address?.country || '',
+            state: item.address?.state || '',
+            lat: parseFloat(item.lat),
+            lon: parseFloat(item.lon)
+          }))
+          .filter((city: City, index: number, self: City[]) => 
+            index === self.findIndex((c) => c.name === city.name && c.country === city.country)
+          );
 
         setCities(cityResults);
       } catch (error) {
@@ -96,8 +96,8 @@ export default function CityPicker({
             "w-full justify-between text-left font-normal",
             !displayValue && "text-muted-foreground",
             className
-          )} data-testid="button-element">
-
+          )}
+        >
           <span className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             {displayValue || placeholder}
@@ -110,26 +110,26 @@ export default function CityPicker({
           <CommandInput
             placeholder={placeholder}
             value={searchTerm}
-            onValueChange={setSearchTerm} />
-
+            onValueChange={setSearchTerm}
+          />
           <CommandList>
-            {loading &&
-            <CommandEmpty>Searching cities...</CommandEmpty>
-            }
-            {!loading && searchTerm.length < 2 &&
-            <CommandEmpty>Type at least 2 characters to search</CommandEmpty>
-            }
-            {!loading && searchTerm.length >= 2 && cities.length === 0 &&
-            <CommandEmpty>No cities found</CommandEmpty>
-            }
-            {!loading && cities.length > 0 &&
-            <CommandGroup>
-                {cities.map((city) =>
-              <CommandItem
-                key={`${city.name}-${city.country}-${city.state || ''}`}
-                value={`${city.name} ${city.country}`}
-                onSelect={() => handleSelect(city)}>
-
+            {loading && (
+              <CommandEmpty>Searching cities...</CommandEmpty>
+            )}
+            {!loading && searchTerm.length < 2 && (
+              <CommandEmpty>Type at least 2 characters to search</CommandEmpty>
+            )}
+            {!loading && searchTerm.length >= 2 && cities.length === 0 && (
+              <CommandEmpty>No cities found</CommandEmpty>
+            )}
+            {!loading && cities.length > 0 && (
+              <CommandGroup>
+                {cities.map((city) => (
+                  <CommandItem
+                    key={`${city.name}-${city.country}-${city.state || ''}`}
+                    value={`${city.name} ${city.country}`}
+                    onSelect={() => handleSelect(city)}
+                  >
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
                       <div>
@@ -140,12 +140,12 @@ export default function CityPicker({
                       </div>
                     </div>
                   </CommandItem>
-              )}
+                ))}
               </CommandGroup>
-            }
+            )}
           </CommandList>
         </Command>
       </PopoverContent>
-    </Popover>);
-
+    </Popover>
+  );
 }

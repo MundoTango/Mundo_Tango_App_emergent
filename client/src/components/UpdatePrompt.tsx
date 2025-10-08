@@ -22,7 +22,7 @@ export function UpdatePrompt() {
           <Button
             size="sm"
             onClick={handleUpdate}
-            className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)]"
+            className="bg-teal-500 hover:bg-teal-600"
           >
             Update
           </Button>
@@ -83,7 +83,7 @@ export function UpdatePrompt() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:text-gray-300"
+            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
             onClick={handleDismiss}
             disabled={updating}
             data-testid="button-dismiss-update"
@@ -100,7 +100,7 @@ export function UpdatePrompt() {
               </div>
 
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Update Available! 🎉
                 </h3>
                 
@@ -143,8 +143,8 @@ export function UpdatePrompt() {
             </div>
 
             {/* What's new section */}
-            <div className="mt-4 pt-4 border-t border-[var(--color-border)] dark:border-gray-700">
-              <p className="text-xs font-semibold text-[var(--color-text-secondary)] dark:text-gray-300 mb-2">
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 What's New:
               </p>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">

@@ -47,21 +47,21 @@ export const ProfileDocumentation: React.FC<{ userId: number }> = ({ userId }) =
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">API Documentation</span>
-                <span className="text-sm text-gray-600 dark:text-gray-300">{metrics.apiCoverage}%</span>
+                <span className="text-sm text-gray-600">{metrics.apiCoverage}%</span>
               </div>
               <Progress value={metrics.apiCoverage} className="h-2" />
             </div>
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Component Documentation</span>
-                <span className="text-sm text-gray-600 dark:text-gray-300">{metrics.componentDocs}%</span>
+                <span className="text-sm text-gray-600">{metrics.componentDocs}%</span>
               </div>
               <Progress value={metrics.componentDocs} className="h-2" />
             </div>
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Test Coverage</span>
-                <span className="text-sm text-gray-600 dark:text-gray-300">{metrics.testCoverage}%</span>
+                <span className="text-sm text-gray-600">{metrics.testCoverage}%</span>
               </div>
               <Progress value={metrics.testCoverage} className="h-2" />
             </div>
@@ -77,9 +77,9 @@ export const ProfileDocumentation: React.FC<{ userId: number }> = ({ userId }) =
         <CardContent>
           <div className="space-y-3">
             {documentationItems.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
-                  <FileText className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                  <FileText className="w-4 h-4 text-gray-600" />
                   <span className="font-medium">{item.title}</span>
                 </div>
                 <Badge variant={item.status === 'complete' ? 'default' : 'secondary'}>
@@ -104,7 +104,7 @@ export const ProfileDocumentation: React.FC<{ userId: number }> = ({ userId }) =
               <TabsTrigger value="examples">Examples</TabsTrigger>
             </TabsList>
             <TabsContent value="endpoints" className="mt-4">
-              <pre className="bg-[var(--color-neutral-100)] p-4 rounded-lg overflow-x-auto text-sm">
+              <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
 {`GET    /api/profile/:userId
 POST   /api/profile/update
 PUT    /api/profile/security
@@ -115,13 +115,13 @@ GET    /api/profile/export`}
             <TabsContent value="authentication" className="mt-4">
               <div className="prose prose-sm">
                 <p>All profile endpoints require authentication via JWT token in the Authorization header:</p>
-                <pre className="bg-[var(--color-neutral-100)] p-4 rounded-lg text-sm">
+                <pre className="bg-gray-100 p-4 rounded-lg text-sm">
 {`Authorization: Bearer <jwt-token>`}
                 </pre>
               </div>
             </TabsContent>
             <TabsContent value="examples" className="mt-4">
-              <pre className="bg-[var(--color-neutral-100)] p-4 rounded-lg overflow-x-auto text-sm">
+              <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
 {`// Fetch profile data
 const response = await fetch('/api/profile/123', {
   headers: {

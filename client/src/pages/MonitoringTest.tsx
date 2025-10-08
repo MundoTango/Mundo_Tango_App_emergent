@@ -25,7 +25,7 @@ export default function MonitoringTest() {
       posthogApiKey: !!import.meta.env.VITE_POSTHOG_API_KEY,
       posthogHost: !!import.meta.env.VITE_POSTHOG_HOST,
       openReplayKey: !!import.meta.env.VITE_OPENREPLAY_PROJECT_KEY,
-      openReplayEnabled: import.meta.env.VITE_ENABLE_OPENREPLAY === 'true'
+      openReplayEnabled: import.meta.env.VITE_ENABLE_OPENREPLAY === 'true',
     };
   };
 
@@ -35,7 +35,7 @@ export default function MonitoringTest() {
 
     // Test 1: Check environment variables
     const envVars = checkEnvironmentVariables();
-    results['env_vars'] = Object.values(envVars).every((v) => v !== false);
+    results['env_vars'] = Object.values(envVars).every(v => v !== false);
     results['env_details'] = JSON.stringify(envVars);
 
     // Test 2: Check consent status
@@ -122,7 +122,7 @@ export default function MonitoringTest() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Monitoring Test Page</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Monitoring Test Page</h1>
         <p className="text-gray-600 dark:text-gray-400">ESA Layer 48 - Performance Monitoring Agent</p>
       </div>
 
@@ -131,23 +131,23 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Shield className="w-4 h-4 text-[var(--color-primary)]" />
+              <Shield className="w-4 h-4 text-teal-500" />
               Consent Status
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
-              {hasConsent ?
-              <>
+              {hasConsent ? (
+                <>
                   <CheckCircle className="w-5 h-5 text-green-500" />
                   <span className="text-green-600 dark:text-green-400">Granted</span>
-                </> :
-
-              <>
+                </>
+              ) : (
+                <>
                   <XCircle className="w-5 h-5 text-red-500" />
                   <span className="text-red-600 dark:text-red-400">Not Granted</span>
                 </>
-              }
+              )}
             </div>
           </CardContent>
         </Card>
@@ -155,23 +155,23 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[var(--color-primary)]" />
+              <Activity className="w-4 h-4 text-teal-500" />
               Initialization
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
-              {isInitialized ?
-              <>
+              {isInitialized ? (
+                <>
                   <CheckCircle className="w-5 h-5 text-green-500" />
                   <span className="text-green-600 dark:text-green-400">Active</span>
-                </> :
-
-              <>
+                </>
+              ) : (
+                <>
                   <XCircle className="w-5 h-5 text-red-500" />
                   <span className="text-red-600 dark:text-red-400">Inactive</span>
                 </>
-              }
+              )}
             </div>
           </CardContent>
         </Card>
@@ -179,7 +179,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <BarChart className="w-4 h-4 text-[var(--color-primary)]" />
+              <BarChart className="w-4 h-4 text-teal-500" />
               Services
             </CardTitle>
           </CardHeader>
@@ -210,100 +210,100 @@ export default function MonitoringTest() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            {!hasConsent &&
-            <Button onClick={requestConsent} variant="default" data-testid="button-element">
+            {!hasConsent && (
+              <Button onClick={requestConsent} variant="default">
                 Request Consent
               </Button>
-            }
-            <Button onClick={() => setShowPrivacySettings(true)} variant="outline" data-testid="button-element">
+            )}
+            <Button onClick={() => setShowPrivacySettings(true)} variant="outline">
               Privacy Settings
             </Button>
-            <Button
-              onClick={runTests}
+            <Button 
+              onClick={runTests} 
               disabled={isTestRunning || !hasConsent}
-              className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
-
+              className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
+            >
               {isTestRunning ? 'Running Tests...' : 'Run All Tests'}
             </Button>
-            <Button
-              onClick={triggerTestError}
+            <Button 
+              onClick={triggerTestError} 
               variant="destructive"
-              disabled={!hasConsent} data-testid="button-element">
-
+              disabled={!hasConsent}
+            >
               Trigger Test Error
             </Button>
           </div>
 
-          {!hasConsent &&
-          <Alert>
+          {!hasConsent && (
+            <Alert>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Consent Required</AlertTitle>
               <AlertDescription>
                 Please grant consent to enable monitoring services and run tests.
               </AlertDescription>
             </Alert>
-          }
+          )}
         </CardContent>
       </Card>
 
       {/* Test Results */}
-      {Object.keys(testResults).length > 0 &&
-      <Card>
+      {Object.keys(testResults).length > 0 && (
+        <Card>
           <CardHeader>
             <CardTitle>Test Results</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               {Object.entries(testResults).map(([key, value]) => {
-              if (key.includes('error') || key.includes('details')) {
-                return null;
-              }
-
-              const isSuccess = value === true;
-              const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-
-              return (
-                <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800">
-                    <span className="text-sm font-medium text-[var(--color-text-secondary)] dark:text-gray-300">
+                if (key.includes('error') || key.includes('details')) {
+                  return null;
+                }
+                
+                const isSuccess = value === true;
+                const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                
+                return (
+                  <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-800">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {displayKey}
                     </span>
                     <div className="flex items-center gap-2">
-                      {isSuccess ?
-                    <CheckCircle className="w-5 h-5 text-green-500" /> :
-
-                    <XCircle className="w-5 h-5 text-red-500" />
-                    }
-                      {typeof value === 'string' && value !== 'true' && value !== 'false' &&
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{value}</span>
-                    }
+                      {isSuccess ? (
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <XCircle className="w-5 h-5 text-red-500" />
+                      )}
+                      {typeof value === 'string' && value !== 'true' && value !== 'false' && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{value}</span>
+                      )}
                     </div>
-                  </div>);
-
-            })}
+                  </div>
+                );
+              })}
               
               {/* Show errors if any */}
-              {Object.entries(testResults).
-            filter(([key]) => key.includes('error')).
-            map(([key, value]) =>
-            <Alert key={key} variant="destructive">
+              {Object.entries(testResults)
+                .filter(([key]) => key.includes('error'))
+                .map(([key, value]) => (
+                  <Alert key={key} variant="destructive">
                     <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>{key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}</AlertTitle>
+                    <AlertTitle>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</AlertTitle>
                     <AlertDescription>{value as string}</AlertDescription>
                   </Alert>
-            )}
+                ))}
               
               {/* Show details if any */}
-              {Object.entries(testResults).
-            filter(([key]) => key.includes('details')).
-            map(([key, value]) =>
-            <div key={key} className="mt-2 p-2 rounded bg-[var(--color-neutral-100)] dark:bg-gray-800">
+              {Object.entries(testResults)
+                .filter(([key]) => key.includes('details'))
+                .map(([key, value]) => (
+                  <div key={key} className="mt-2 p-2 rounded bg-gray-100 dark:bg-gray-800">
                     <p className="text-xs font-mono text-gray-600 dark:text-gray-400">{value as string}</p>
                   </div>
-            )}
+                ))}
             </div>
           </CardContent>
         </Card>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 }

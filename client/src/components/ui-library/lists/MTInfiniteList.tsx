@@ -149,7 +149,7 @@ export default function MTInfiniteList<T = any>({
       return (
         <div className="flex items-center justify-center py-12">
           {emptyComponent || (
-            <p className="text-gray-500 dark:text-gray-400">No items to display</p>
+            <p className="text-gray-500">No items to display</p>
           )}
         </div>
       );
@@ -163,8 +163,8 @@ export default function MTInfiniteList<T = any>({
             <div
               key={key}
               className={cn(
-                'border-b border-[var(--color-border)]/50 dark:border-gray-700/50',
-                'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20 transition-colors',
+                'border-b border-gray-200/50 dark:border-gray-700/50',
+                'hover:bg-teal-50/30 dark:hover:bg-teal-900/20 transition-colors',
                 onItemClick && 'cursor-pointer',
                 itemClassName
               )}
@@ -208,7 +208,7 @@ export default function MTInfiniteList<T = any>({
         
         {/* End of list indicator */}
         {!hasMore && items.length > 0 && (
-          <div className="text-center py-4 text-gray-500 dark:text-gray-400 text-sm">
+          <div className="text-center py-4 text-gray-500 text-sm">
             No more items to load
           </div>
         )}
@@ -249,8 +249,8 @@ export default function MTInfiniteList<T = any>({
 function DefaultLoadingComponent() {
   return (
     <div className="flex items-center gap-2">
-      <Loader2 className="w-5 h-5 animate-spin text-[var(--color-primary)]" />
-      <span className="text-gray-500 dark:text-gray-400">Loading more...</span>
+      <Loader2 className="w-5 h-5 animate-spin text-teal-500" />
+      <span className="text-gray-500">Loading more...</span>
     </div>
   );
 }
@@ -277,8 +277,8 @@ function DefaultErrorComponent({
       {retryCount < maxRetries && (
         <button
           onClick={onRetry}
-          className="px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white rounded-lg transition-colors"
-         aria-label="Button">
+          className="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-colors"
+        >
           Retry ({retryCount}/{maxRetries})
         </button>
       )}

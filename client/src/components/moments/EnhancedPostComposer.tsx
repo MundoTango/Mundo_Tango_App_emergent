@@ -1,5 +1,4 @@
-import React, { useState, useRef, useCallback, useMemo, useEffect, lazy, Suspense } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState, useRef, useCallback, useMemo, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import 'quill/dist/quill.snow.css';
 
@@ -9,8 +8,7 @@ type ReactQuillType = any;
 // ESA Framework Line 87: Memory posting with rich text editor (react-quill integration)
 // Use React.lazy for proper dynamic import in React 18 applications
 const ReactQuill = lazy(() => import('react-quill'))
-import {
-  const { t } = useTranslation(); 
+import { 
   Camera, Video, MapPin, Globe, Users, Lock, X, 
   ImageIcon, Smile, AtSign, Hash, Link, 
   Bold, Italic, List, Quote, Type, Palette 
@@ -280,7 +278,7 @@ export default function EnhancedPostComposer({
     },
     onError: (error) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to create post. Please try again.",
         variant: "destructive"
       });
@@ -387,9 +385,9 @@ export default function EnhancedPostComposer({
     };
 
     return (
-      <div key={index} className="relative mb-4 border border-[var(--color-border)] rounded-lg overflow-hidden">
+      <div key={index} className="relative mb-4 border border-gray-200 rounded-lg overflow-hidden">
         <button
-          onClick={() => removeEmbed(index)} aria-label="Button"
+          onClick={() => removeEmbed(index)}
           className="absolute top-2 right-2 z-10 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70"
         >
           <X className="h-4 w-4" />
@@ -410,14 +408,14 @@ export default function EnhancedPostComposer({
   // Skip collapsed view entirely when editing to ensure rich text editor is always available
   if (!showExpandedComposer && !editMode && !existingPost) {
     return (
-      <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <button
-            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
-            className="flex-1 text-left px-4 py-3 bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] rounded-full text-gray-500 dark:text-gray-400 transition-colors"
+            onClick={() => setShowExpandedComposer(true)}
+            className="flex-1 text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-full text-gray-500 transition-colors"
           >
             Share your tango moment...
           </button>
@@ -426,21 +424,21 @@ export default function EnhancedPostComposer({
         <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
           <div className="flex space-x-2">
             <button 
-              onClick={() => setShowExpandedComposer(true)} aria-label="Button"
+              onClick={() => setShowExpandedComposer(true)}
               className="flex items-center space-x-2 px-3 py-2 hover:bg-pink-50 rounded-lg text-pink-600 transition-colors"
             >
               <Camera className="h-4 w-4" />
               <span className="text-sm font-medium">Photo</span>
             </button>
             <button 
-              onClick={() => setShowExpandedComposer(true)} aria-label="Button"
+              onClick={() => setShowExpandedComposer(true)}
               className="flex items-center space-x-2 px-3 py-2 hover:bg-blue-50 rounded-lg text-blue-600 transition-colors"
             >
               <Video className="h-4 w-4" />
               <span className="text-sm font-medium">Video</span>
             </button>
             <button 
-              onClick={() => setShowExpandedComposer(true)} aria-label="Button"
+              onClick={() => setShowExpandedComposer(true)}
               className="flex items-center space-x-2 px-3 py-2 hover:bg-green-50 rounded-lg text-green-600 transition-colors"
             >
               <MapPin className="h-4 w-4" />
@@ -453,26 +451,27 @@ export default function EnhancedPostComposer({
   }
 
   return (
-    <div data-testid="enhanced-composer" className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-lg border border-[var(--color-border)] p-6 mb-6">
+    <div data-testid="enhanced-composer" className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <div>
-            <p className="font-semibold text-[var(--color-text)] dark:text-white">{user?.name}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">@{user?.username}</p>
+            <p className="font-semibold text-gray-900">{user?.name}</p>
+            <p className="text-sm text-gray-500">@{user?.username}</p>
           </div>
         </div>
         <button
           onClick={() => {
             // ESA Layer 7: In edit mode or when modal is used, close the modal entirely
             if (editMode || existingPost || onClose) {
-              onClose?.();} else {
+              onClose?.();
+            } else {
               setShowExpandedComposer(false);
             }
           }}
-          className="text-gray-400 hover:text-gray-600 dark:text-gray-300"
+          className="text-gray-400 hover:text-gray-600"
         >
           <X className="h-5 w-5" />
         </button>
@@ -482,11 +481,11 @@ export default function EnhancedPostComposer({
       <div className="mb-4">
         <Suspense fallback={
           <div className="w-full">
-            <div className="animate-pulse bg-[var(--color-neutral-100)] rounded-lg p-4 min-h-[200px]">
-              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+            <div className="animate-pulse bg-gray-100 rounded-lg p-4 min-h-[200px]">
+              <div className="h-8 bg-gray-200 rounded mb-2"></div>
               <div className="space-y-2">
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
               </div>
             </div>
           </div>
@@ -499,20 +498,20 @@ export default function EnhancedPostComposer({
             modules={modules}
             formats={formats}
             placeholder="What's happening in your tango world?"
-            className="bg-[var(--color-surface)] dark:bg-gray-900"
+            className="bg-white"
           />
         </Suspense>
       </div>
 
       {/* Emoji Picker */}
       {showEmojiPicker && (
-        <div className="mb-4 p-3 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface-elevated)]">
+        <div className="mb-4 p-3 border border-gray-200 rounded-lg bg-gray-50">
           <div className="grid grid-cols-10 gap-2">
             {commonEmojis.map((emoji, index) => (
               <button
                 key={index}
-                onClick={() => addEmoji(emoji)} aria-label="Button"
-                className="text-xl hover:bg-gray-200 dark:bg-gray-700 rounded p-1 transition-colors"
+                onClick={() => addEmoji(emoji)}
+                className="text-xl hover:bg-gray-200 rounded p-1 transition-colors"
               >
                 {emoji}
               </button>
@@ -527,15 +526,15 @@ export default function EnhancedPostComposer({
           <input
             type="text"
             value={embedUrl}
-            onChange={(e) => setEmbedUrl(e.target.value)} aria-label="Input field"
+            onChange={(e) => setEmbedUrl(e.target.value)}
             placeholder="Paste Instagram, Twitter, YouTube, TikTok, or Facebook URL..."
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           />
           <button
             onClick={handleAddEmbed}
             disabled={!embedUrl.trim()}
             className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed"
-           aria-label="Button">
+          >
             <Link className="h-4 w-4" />
           </button>
         </div>
@@ -544,7 +543,7 @@ export default function EnhancedPostComposer({
       {/* Media Embeds Preview */}
       {mediaEmbeds.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Embedded Media:</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2">Embedded Media:</h4>
           {mediaEmbeds.map((embed, index) => renderMediaEmbed(embed, index))}
         </div>
       )}
@@ -556,9 +555,9 @@ export default function EnhancedPostComposer({
           <input
             type="text"
             value={location}
-            onChange={(e) => setLocation(e.target.value)} aria-label="Input field"
+            onChange={(e) => setLocation(e.target.value)}
             placeholder="Add location..."
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           />
         </div>
       </div>
@@ -567,15 +566,15 @@ export default function EnhancedPostComposer({
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <div className="flex space-x-2">
           <button
-            onClick={() => setShowEmojiPicker(!showEmojiPicker)} aria-label="Button"
-            className="flex items-center space-x-2 px-3 py-2 hover:bg-[var(--color-neutral-100)] rounded-lg text-gray-600 dark:text-gray-300 transition-colors"
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors"
           >
             <Smile className="h-4 w-4" />
           </button>
-          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-[var(--color-neutral-100)] rounded-lg text-gray-600 dark:text-gray-300 transition-colors" aria-label="Button">
+          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors">
             <Camera className="h-4 w-4" />
           </button>
-          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-[var(--color-neutral-100)] rounded-lg text-gray-600 dark:text-gray-300 transition-colors" aria-label="Button">
+          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors">
             <Video className="h-4 w-4" />
           </button>
         </div>
@@ -585,7 +584,7 @@ export default function EnhancedPostComposer({
           <select
             value={visibility}
             onChange={(e) => setVisibility(e.target.value as 'public' | 'friends' | 'private')}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           >
             <option value="public">🌍 Public</option>
             <option value="friends">👥 Friends</option>
@@ -596,7 +595,7 @@ export default function EnhancedPostComposer({
             onClick={handleSubmit}
             disabled={isSubmitting || (!content.trim() && mediaEmbeds.length === 0)}
             className="px-6 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg hover:from-pink-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all"
-           aria-label="Button">
+          >
             {isSubmitting ? (editMode ? 'Updating...' : 'Sharing...') : (editMode ? 'Update' : 'Share')}
           </button>
         </div>

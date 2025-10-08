@@ -76,7 +76,7 @@ export default function AgentLearningDashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-purple-500/30 backdrop-blur">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <Database className="w-4 h-4" />
@@ -91,7 +91,7 @@ export default function AgentLearningDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-purple-500/30 backdrop-blur">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" />
@@ -106,7 +106,7 @@ export default function AgentLearningDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-purple-500/30 backdrop-blur">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <Zap className="w-4 h-4" />
@@ -125,7 +125,7 @@ export default function AgentLearningDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-purple-500/30 backdrop-blur">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <Activity className="w-4 h-4" />
@@ -144,7 +144,7 @@ export default function AgentLearningDashboard() {
         </div>
 
         {/* Pattern Discovery Feed */}
-        <Card className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-purple-500/30 backdrop-blur">
+        <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
           <CardHeader>
             <CardTitle className="text-xl text-white flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-green-400" />
@@ -156,7 +156,7 @@ export default function AgentLearningDashboard() {
               {patterns?.map((pattern) => (
                 <div
                   key={pattern.id}
-                  className="bg-[var(--color-surface)] dark:bg-gray-900/5 rounded-lg p-4 border border-purple-500/20 hover:border-purple-400/40 transition-colors"
+                  className="bg-white/5 rounded-lg p-4 border border-purple-500/20 hover:border-purple-400/40 transition-colors"
                   data-testid={`card-pattern-${pattern.id}`}
                 >
                   <div className="flex items-start justify-between mb-2">

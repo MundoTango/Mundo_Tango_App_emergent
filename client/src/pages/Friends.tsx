@@ -57,7 +57,7 @@ export function Friends() {
       return data.data || [];
     },
     enabled: activeTab === 'friends',
-    staleTime: 60000 // Cache for 1 minute
+    staleTime: 60000, // Cache for 1 minute
   });
 
   // Fetch friend suggestions - only when suggestions tab is active
@@ -69,7 +69,7 @@ export function Friends() {
       return data.data || [];
     },
     enabled: activeTab === 'suggestions',
-    staleTime: 300000 // Cache for 5 minutes
+    staleTime: 300000, // Cache for 5 minutes
   });
 
   // Fetch pending friend requests count - always fetch for badge count
@@ -80,14 +80,14 @@ export function Friends() {
       const data = await response.json();
       return data.data || [];
     },
-    staleTime: 30000 // Cache for 30 seconds
+    staleTime: 30000, // Cache for 30 seconds
   });
 
   const pendingRequestsCount = requestsData?.filter((r: any) => r.status === 'pending').length || 0;
 
   const filteredFriends = friends.filter((friend: Friend) =>
-  friend.friend.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  friend.friend.username.toLowerCase().includes(searchQuery.toLowerCase())
+    friend.friend.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    friend.friend.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSendRequest = (user: SuggestedFriend) => {
@@ -117,11 +117,11 @@ export function Friends() {
           <TabsTrigger value="requests" className="relative data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-400/20 data-[state=active]:to-cyan-500/20">
             <UserPlus className="mr-2 h-4 w-4" />
             Requests
-            {pendingRequestsCount > 0 &&
-            <Badge className="ml-2 bg-red-500 text-white">
+            {pendingRequestsCount > 0 && (
+              <Badge className="ml-2 bg-red-500 text-white">
                 {pendingRequestsCount}
               </Badge>
-            }
+            )}
           </TabsTrigger>
           <TabsTrigger value="suggestions" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-400/20 data-[state=active]:to-cyan-500/20">
             <UserCheck className="mr-2 h-4 w-4" />
@@ -145,33 +145,33 @@ export function Friends() {
                     placeholder="Search friends..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 glassmorphic-input" data-testid="input-pl-10" />
-
+                    className="pl-10 glassmorphic-input"
+                  />
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              {friendsLoading ?
-              <div className="space-y-4">
-                  {[1, 2, 3].map((i) =>
-                <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50">
-                      <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700" />
+              {friendsLoading ? (
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50">
+                      <div className="h-12 w-12 rounded-full bg-gray-200" />
                       <div className="flex-1 space-y-2">
-                        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
-                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
+                        <div className="h-4 w-32 bg-gray-200 rounded" />
+                        <div className="h-3 w-24 bg-gray-200 rounded" />
                       </div>
                     </div>
-                )}
-                </div> :
-              filteredFriends.length > 0 ?
-              <div className="grid gap-4">
-                  {filteredFriends.map((friend: Friend) =>
-                <div
-                  key={friend.id}
-                  className="flex items-center justify-between p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50 hover:bg-[var(--color-surface)] dark:bg-gray-900/70 transition-all duration-300">
-
+                  ))}
+                </div>
+              ) : filteredFriends.length > 0 ? (
+                <div className="grid gap-4">
+                  {filteredFriends.map((friend: Friend) => (
+                    <div
+                      key={friend.id}
+                      className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300"
+                    >
                       <div className="flex items-center gap-4">
-                        <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
+                        <Link href={`/profile/${friend.friend.username}`}>
                           <Avatar className="h-12 w-12 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer">
                             <AvatarImage src={friend.friend.profileImage} />
                             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">
@@ -180,45 +180,45 @@ export function Friends() {
                           </Avatar>
                         </Link>
                         <div>
-                          <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
-                            <h3 className="font-semibold hover:text-[var(--color-primary-hover)] transition-colors cursor-pointer">
+                          <Link href={`/profile/${friend.friend.username}`}>
+                            <h3 className="font-semibold hover:text-turquoise-600 transition-colors cursor-pointer">
                               {friend.friend.name}
                             </h3>
                           </Link>
                           <p className="text-sm text-muted-foreground">
                             @{friend.friend.username} • {friend.friend.city}, {friend.friend.country}
                           </p>
-                          {friend.connectionDegree && friend.connectionDegree > 1 &&
-                      <p className="text-xs text-[var(--color-primary-hover)] mt-1">
+                          {friend.connectionDegree && friend.connectionDegree > 1 && (
+                            <p className="text-xs text-turquoise-600 mt-1">
                               {friend.connectionDegree}° connection • {friend.mutualFriends} mutual friends
                             </p>
-                      }
+                          )}
                         </div>
-                        {friend.friend.isOnline &&
-                    <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse" />
-                    }
+                        {friend.friend.isOnline && (
+                          <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse" />
+                        )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <Link href="/messages" data-testid="link-element">
-                          <Button size="sm" variant="outline" data-testid="button-element">
+                        <Link href="/messages">
+                          <Button size="sm" variant="outline">
                             <MessageCircle className="h-4 w-4" />
                           </Button>
                         </Link>
-                        <Button size="sm" variant="ghost" data-testid="button-element">
+                        <Button size="sm" variant="ghost">
                           <MoreVertical className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
-                )}
-                </div> :
-
-              <div className="text-center py-12">
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
                   <Users className="h-12 w-12 text-muted-foreground/50 mx-auto mb-4" />
                   <p className="text-muted-foreground">
                     {searchQuery ? 'No friends found matching your search' : 'No friends yet. Start connecting!'}
                   </p>
                 </div>
-              }
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -236,27 +236,27 @@ export function Friends() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {suggestionsLoading ?
-              <div className="space-y-4">
-                  {[1, 2, 3].map((i) =>
-                <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50">
-                      <div className="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700" />
+              {suggestionsLoading ? (
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50">
+                      <div className="h-16 w-16 rounded-full bg-gray-200" />
                       <div className="flex-1 space-y-2">
-                        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
-                        <div className="h-3 w-48 bg-gray-200 dark:bg-gray-700 rounded" />
+                        <div className="h-4 w-32 bg-gray-200 rounded" />
+                        <div className="h-3 w-48 bg-gray-200 rounded" />
                       </div>
                     </div>
-                )}
-                </div> :
-              suggestions.length > 0 ?
-              <div className="grid gap-4">
-                  {suggestions.map((suggestion: SuggestedFriend) =>
-                <div
-                  key={suggestion.id}
-                  className="flex items-center justify-between p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50 hover:bg-[var(--color-surface)] dark:bg-gray-900/70 transition-all duration-300">
-
+                  ))}
+                </div>
+              ) : suggestions.length > 0 ? (
+                <div className="grid gap-4">
+                  {suggestions.map((suggestion: SuggestedFriend) => (
+                    <div
+                      key={suggestion.id}
+                      className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300"
+                    >
                       <div className="flex items-center gap-4">
-                        <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
+                        <Link href={`/profile/${suggestion.username}`}>
                           <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer">
                             <AvatarImage src={suggestion.profileImage} />
                             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white text-lg">
@@ -265,8 +265,8 @@ export function Friends() {
                           </Avatar>
                         </Link>
                         <div>
-                          <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
-                            <h3 className="font-semibold text-lg hover:text-[var(--color-primary-hover)] transition-colors cursor-pointer">
+                          <Link href={`/profile/${suggestion.username}`}>
+                            <h3 className="font-semibold text-lg hover:text-turquoise-600 transition-colors cursor-pointer">
                               {suggestion.name}
                             </h3>
                           </Link>
@@ -274,51 +274,51 @@ export function Friends() {
                             @{suggestion.username} • {suggestion.city}, {suggestion.country}
                           </p>
                           <div className="flex items-center gap-3 mt-1">
-                            {suggestion.mutualFriends && suggestion.mutualFriends > 0 &&
-                        <span className="text-xs text-[var(--color-primary-hover)]">
+                            {suggestion.mutualFriends && suggestion.mutualFriends > 0 && (
+                              <span className="text-xs text-turquoise-600">
                                 {suggestion.mutualFriends} mutual friends
                               </span>
-                        }
-                            {suggestion.commonGroups && suggestion.commonGroups > 0 &&
-                        <span className="text-xs text-[var(--color-primary-hover)]">
+                            )}
+                            {suggestion.commonGroups && suggestion.commonGroups > 0 && (
+                              <span className="text-xs text-cyan-600">
                                 {suggestion.commonGroups} common groups
                               </span>
-                        }
+                            )}
                           </div>
-                          {suggestion.tangoRoles && suggestion.tangoRoles.length > 0 &&
-                      <div className="flex gap-1 mt-2">
-                              {suggestion.tangoRoles.slice(0, 3).map((role) =>
-                        <Badge
-                          key={role}
-                          variant="secondary"
-                          className="text-xs bg-turquoise-100 text-turquoise-700">
-
+                          {suggestion.tangoRoles && suggestion.tangoRoles.length > 0 && (
+                            <div className="flex gap-1 mt-2">
+                              {suggestion.tangoRoles.slice(0, 3).map((role) => (
+                                <Badge
+                                  key={role}
+                                  variant="secondary"
+                                  className="text-xs bg-turquoise-100 text-turquoise-700"
+                                >
                                   {role}
                                 </Badge>
-                        )}
+                              ))}
                             </div>
-                      }
+                          )}
                         </div>
                       </div>
                       <Button
-                    size="sm"
-                    onClick={() => handleSendRequest(suggestion)}
-                    className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md" data-testid="button-bg-gradient-to-r">
-
+                        size="sm"
+                        onClick={() => handleSendRequest(suggestion)}
+                        className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md"
+                      >
                         <UserPlus className="mr-1 h-4 w-4" />
                         Connect
                       </Button>
                     </div>
-                )}
-                </div> :
-
-              <div className="text-center py-12">
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
                   <UserCheck className="h-12 w-12 text-muted-foreground/50 mx-auto mb-4" />
                   <p className="text-muted-foreground">
                     No suggestions available right now
                   </p>
                 </div>
-              }
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -327,24 +327,24 @@ export function Friends() {
       {/* Friend Request Dialog */}
       <Dialog open={showFriendRequestDialog} onOpenChange={setShowFriendRequestDialog}>
         <DialogContent className="max-w-2xl">
-          {selectedUser &&
-          <FriendRequestForm
-            receiverId={selectedUser.id}
-            receiverName={selectedUser.name}
-            onSuccess={() => {
-              setShowFriendRequestDialog(false);
-              setSelectedUser(null);
-            }}
-            onCancel={() => {
-              setShowFriendRequestDialog(false);
-              setSelectedUser(null);
-            }} />
-
-          }
+          {selectedUser && (
+            <FriendRequestForm
+              receiverId={selectedUser.id}
+              receiverName={selectedUser.name}
+              onSuccess={() => {
+                setShowFriendRequestDialog(false);
+                setSelectedUser(null);
+              }}
+              onCancel={() => {
+                setShowFriendRequestDialog(false);
+                setSelectedUser(null);
+              }}
+            />
+          )}
         </DialogContent>
       </Dialog>
-    </div>);
-
+    </div>
+  );
 }
 
 export default Friends;

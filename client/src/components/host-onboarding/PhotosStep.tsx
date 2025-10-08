@@ -29,7 +29,7 @@ export default function PhotosStep({ data, updateData }: PhotosStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Add photos & videos of your place</h2>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-gray-600">
           Great media is key to attracting guests. Upload at least 5 photos or videos to get started.
         </p>
       </div>

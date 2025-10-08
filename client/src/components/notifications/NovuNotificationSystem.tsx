@@ -10,10 +10,10 @@ interface NotificationSystemProps {
   className?: string;
 }
 
-export default function NovuNotificationSystem({
-  applicationIdentifier,
-  subscriberId,
-  className = ''
+export default function NovuNotificationSystem({ 
+  applicationIdentifier, 
+  subscriberId, 
+  className = '' 
 }: NotificationSystemProps) {
   const { user } = useAuthContext();
   const [unreadCount, setUnreadCount] = useState(0);
@@ -69,7 +69,7 @@ export default function NovuNotificationSystem({
     try {
       const audio = new Audio(soundFile);
       audio.volume = 0.3;
-      audio.play().catch((e) => console.log('Could not play notification sound:', e));
+      audio.play().catch(e => console.log('Could not play notification sound:', e));
     } catch (error) {
       console.log('Audio not supported:', error);
     }
@@ -79,7 +79,7 @@ export default function NovuNotificationSystem({
   const renderNotification = (notification: any) => {
     const template = notificationTemplates[notification.templateIdentifier] || notificationTemplates['comment-on-post'];
     const IconComponent = template.icon;
-
+    
     return (
       <div className={`flex items-start space-x-3 p-4 rounded-lg ${template.bgColor} border border-gray-100 hover:shadow-md transition-all cursor-pointer`}>
         <div className={`p-2 rounded-full ${template.bgColor} ${template.color}`}>
@@ -87,26 +87,26 @@ export default function NovuNotificationSystem({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-[var(--color-text)] dark:text-white">{template.title}</p>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-sm font-semibold text-gray-900">{template.title}</p>
+            <span className="text-xs text-gray-500">
               {new Date(notification.createdAt).toLocaleDateString()}
             </span>
           </div>
-          <p className="text-sm text-[var(--color-text-secondary)] mt-1">{notification.content}</p>
-          {notification.data?.actionUrl &&
-          <button
-            className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
-            onClick={() => window.location.href = notification.data.actionUrl} aria-label="Button" data-testid="button-text-sm">
-
+          <p className="text-sm text-gray-700 mt-1">{notification.content}</p>
+          {notification.data?.actionUrl && (
+            <button 
+              className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
+              onClick={() => window.location.href = notification.data.actionUrl}
+            >
               View →
             </button>
-          }
+          )}
         </div>
-        {!notification.read &&
-        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-        }
-      </div>);
-
+        {!notification.read && (
+          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -116,8 +116,8 @@ export default function NovuNotificationSystem({
       initialFetchingStrategy={{
         fetchNotifications: true,
         fetchUserPreferences: true
-      }}>
-
+      }}
+    >
       <div className={className}>
         <PopoverNotificationCenter
           colorScheme="light"
@@ -140,7 +140,7 @@ export default function NovuNotificationSystem({
             if (notification.data?.actionUrl) {
               window.location.href = notification.data.actionUrl;
             }
-
+            
             // Play sound for real-time notifications
             const template = notificationTemplates[notification.templateIdentifier];
             if (template?.sound) {
@@ -151,49 +151,49 @@ export default function NovuNotificationSystem({
             setUnreadCount(count);
           }}
           tabs={[
-          {
-            name: 'All',
-            storeId: 'default_store'
-          },
-          {
-            name: 'Comments',
-            storeId: 'comments_store'
-          },
-          {
-            name: 'Likes',
-            storeId: 'likes_store'
-          },
-          {
-            name: 'Events',
-            storeId: 'events_store'
-          }]
-          }
+            {
+              name: 'All',
+              storeId: 'default_store'
+            },
+            {
+              name: 'Comments',
+              storeId: 'comments_store'
+            },
+            {
+              name: 'Likes',
+              storeId: 'likes_store'
+            },
+            {
+              name: 'Events',
+              storeId: 'events_store'
+            }
+          ]}
           allowedNotificationActions={false}
           showUserPreferences={true}
           emptyState={
-          <div className="text-center py-8">
+            <div className="text-center py-8">
               <Bell className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500 dark:text-gray-400">No notifications yet</p>
+              <p className="text-gray-500">No notifications yet</p>
               <p className="text-sm text-gray-400 mt-1">
                 You'll see updates about your tango community here
               </p>
             </div>
-          }>
-
-          {({ unseenCount }) =>
-          <button className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white transition-colors" data-testid="button-relative" aria-label="Button">
+          }
+        >
+          {({ unseenCount }) => (
+            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
               <Bell className="h-5 w-5" />
-              {unseenCount > 0 &&
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+              {unseenCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
                   {unseenCount > 99 ? '99+' : unseenCount}
                 </span>
-            }
+              )}
             </button>
-          }
+          )}
         </PopoverNotificationCenter>
       </div>
-    </NovuProvider>);
-
+    </NovuProvider>
+  );
 }
 
 // Real-time notification hook for manual triggering
@@ -201,20 +201,20 @@ export function useRealtimeNotifications() {
   const { user } = useAuthContext();
 
   const triggerNotification = async (
-  templateId: string,
-  recipientId: string,
-  data: any,
-  options?: {
-    sound?: boolean;
-    browser?: boolean;
-    email?: boolean;
-  }) =>
-  {
+    templateId: string, 
+    recipientId: string, 
+    data: any,
+    options?: {
+      sound?: boolean;
+      browser?: boolean;
+      email?: boolean;
+    }
+  ) => {
     try {
       const response = await fetch('/api/notifications/trigger', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -234,7 +234,7 @@ export function useRealtimeNotifications() {
       }
 
       const result = await response.json();
-
+      
       // Show browser notification if permissions granted
       if (options?.browser && 'Notification' in window && Notification.permission === 'granted') {
         new Notification(data.title || 'Mundo Tango', {
@@ -258,7 +258,7 @@ export function useRealtimeNotifications() {
       if (permission === 'granted') {
         toast({
           title: "Notifications Enabled",
-          description: "You'll receive browser notifications for important updates."
+          description: "You'll receive browser notifications for important updates.",
         });
       }
     }

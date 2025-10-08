@@ -12,10 +12,10 @@ interface LiveMetrics {
   requestsPerSecond: number;
   errorRate: number;
   deploymentProgress: number;
-  regions: {name: string;status: 'active' | 'pending';latency: number;}[];
+  regions: { name: string; status: 'active' | 'pending'; latency: number }[];
 }
 
-export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
+export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
   const [metrics, setMetrics] = useState<LiveMetrics>({
     status: 'live',
     activeUsers: 1245,
@@ -23,27 +23,27 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
     errorRate: 0.05,
     deploymentProgress: 100,
     regions: [
-    { name: 'US East', status: 'active', latency: 32 },
-    { name: 'US West', status: 'active', latency: 45 },
-    { name: 'Europe', status: 'active', latency: 58 },
-    { name: 'Asia Pacific', status: 'active', latency: 72 },
-    { name: 'South America', status: 'active', latency: 85 }]
-
+      { name: 'US East', status: 'active', latency: 32 },
+      { name: 'US West', status: 'active', latency: 45 },
+      { name: 'Europe', status: 'active', latency: 58 },
+      { name: 'Asia Pacific', status: 'active', latency: 72 },
+      { name: 'South America', status: 'active', latency: 85 }
+    ]
   });
 
   const [timeline] = useState([
-  { time: '00:00', event: 'Deployment initiated', status: 'complete' },
-  { time: '00:02', event: 'Database migrations complete', status: 'complete' },
-  { time: '00:05', event: 'CDN cache cleared', status: 'complete' },
-  { time: '00:08', event: 'Health checks passing', status: 'complete' },
-  { time: '00:10', event: 'Traffic routing updated', status: 'complete' },
-  { time: '00:12', event: 'Profile system live', status: 'complete' }]
-  );
+    { time: '00:00', event: 'Deployment initiated', status: 'complete' },
+    { time: '00:02', event: 'Database migrations complete', status: 'complete' },
+    { time: '00:05', event: 'CDN cache cleared', status: 'complete' },
+    { time: '00:08', event: 'Health checks passing', status: 'complete' },
+    { time: '00:10', event: 'Traffic routing updated', status: 'complete' },
+    { time: '00:12', event: 'Profile system live', status: 'complete' }
+  ]);
 
   // Simulate real-time metrics
   useEffect(() => {
     const interval = setInterval(() => {
-      setMetrics((prev) => ({
+      setMetrics(prev => ({
         ...prev,
         activeUsers: Math.max(500, prev.activeUsers + Math.floor((Math.random() - 0.3) * 100)),
         requestsPerSecond: Math.max(100, prev.requestsPerSecond + Math.floor((Math.random() - 0.5) * 50)),
@@ -77,54 +77,54 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
               Profile System Status
             </div>
             <Badge className={`text-lg px-4 py-2 ${
-            metrics.status === 'live' ? 'bg-green-600' :
-            metrics.status === 'preparing' ? 'bg-yellow-600' : 'bg-red-600'}`
-            }>
+              metrics.status === 'live' ? 'bg-green-600' :
+              metrics.status === 'preparing' ? 'bg-yellow-600' : 'bg-red-600'
+            }`}>
               {metrics.status === 'live' ? '🟢 LIVE' :
-              metrics.status === 'preparing' ? '🟡 PREPARING' : '🔴 OFFLINE'}
+               metrics.status === 'preparing' ? '🟡 PREPARING' : '🔴 OFFLINE'}
             </Badge>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-3 bg-white/70 rounded-lg">
               <Users className="w-6 h-6 text-blue-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.activeUsers.toLocaleString()}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Active Users</div>
+              <div className="text-sm text-gray-600">Active Users</div>
             </div>
-            <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-3 bg-white/70 rounded-lg">
               <Activity className="w-6 h-6 text-green-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.requestsPerSecond}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Requests/sec</div>
+              <div className="text-sm text-gray-600">Requests/sec</div>
             </div>
-            <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-3 bg-white/70 rounded-lg">
               <AlertCircle className="w-6 h-6 text-red-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.errorRate.toFixed(2)}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Error Rate</div>
+              <div className="text-sm text-gray-600">Error Rate</div>
             </div>
-            <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-3 bg-white/70 rounded-lg">
               <Globe className="w-6 h-6 text-purple-500 mx-auto mb-1" />
-              <div className="text-2xl font-bold">{metrics.regions.filter((r) => r.status === 'active').length}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Active Regions</div>
+              <div className="text-2xl font-bold">{metrics.regions.filter(r => r.status === 'active').length}</div>
+              <div className="text-sm text-gray-600">Active Regions</div>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Deployment Progress */}
-      {metrics.deploymentProgress < 100 &&
-      <Card>
+      {metrics.deploymentProgress < 100 && (
+        <Card>
           <CardHeader>
             <CardTitle>Deployment Progress</CardTitle>
           </CardHeader>
           <CardContent>
             <Progress value={metrics.deploymentProgress} className="h-4 mb-2" />
-            <div className="text-sm text-gray-600 dark:text-gray-300 text-center">
+            <div className="text-sm text-gray-600 text-center">
               {metrics.deploymentProgress}% Complete
             </div>
           </CardContent>
         </Card>
-      }
+      )}
 
       {/* Regional Status */}
       <Card>
@@ -133,20 +133,20 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {metrics.regions.map((region, index) =>
-            <div key={index} className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+            {metrics.regions.map((region, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <Globe className={`w-4 h-4 ${region.status === 'active' ? 'text-green-600' : 'text-gray-400'}`} />
                   <span className="font-medium">{region.name}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">{region.latency}ms</span>
-                  <Badge className={region.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300'}>
+                  <span className="text-sm text-gray-600">{region.latency}ms</span>
+                  <Badge className={region.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}>
                     {region.status}
                   </Badge>
                 </div>
               </div>
-            )}
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -158,16 +158,16 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {timeline.map((item, index) =>
-            <div key={index} className="flex items-center gap-3">
-                <div className="w-16 text-sm text-gray-600 dark:text-gray-300">{item.time}</div>
+            {timeline.map((item, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <div className="w-16 text-sm text-gray-600">{item.time}</div>
                 <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
                 <div className="flex-1">
                   <div className="font-medium">{item.event}</div>
                 </div>
                 <Badge className="bg-green-100 text-green-800">Complete</Badge>
               </div>
-            )}
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -179,16 +179,16 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               View Live Metrics Dashboard
             </Button>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               Check System Health
             </Button>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               Scale Resources
             </Button>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               Emergency Rollback
             </Button>
           </div>
@@ -196,8 +196,8 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
       </Card>
 
       {/* Success Alert */}
-      {metrics.status === 'live' && metrics.errorRate < 0.1 &&
-      <Alert className="border-green-200 bg-green-50">
+      {metrics.status === 'live' && metrics.errorRate < 0.1 && (
+        <Alert className="border-green-200 bg-green-50">
           <CheckCircle className="h-4 w-4 text-green-600" />
           <AlertDescription>
             <div className="font-medium text-green-800">Profile System Operating Normally</div>
@@ -206,7 +206,7 @@ export const ProfileGoLive: React.FC<{userId: number;}> = ({ userId }) => {
             </div>
           </AlertDescription>
         </Alert>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 };

@@ -39,14 +39,14 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
       <GlassCard depth={1} className="fixed inset-0"
       
       {/* Modal */}
-      <div className="relative bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4 transform transition-all animate-in slide-in-from-bottom-5 sm:slide-in-from-bottom-0 duration-300">
+      <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4 transform transition-all animate-in slide-in-from-bottom-5 sm:slide-in-from-bottom-0 duration-300">
         {/* Header */}
         <div className="flex items-center space-x-3">
-          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-500 rounded-full flex items-center justify-center">
+          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center">
             <Shield className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Privacy & Analytics</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy & Analytics</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">Help us improve your experience</p>
           </div>
         </div>
@@ -64,11 +64,11 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
         {/* Options */}
         <div className="space-y-3">
           {/* Analytics Option */}
-          <div className="flex items-start justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 border border-[var(--color-border)] dark:border-gray-700">
+          <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <BarChart className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-1" />
+              <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
-                <Label htmlFor="analytics-toggle" className="text-sm font-medium text-[var(--color-text)] dark:text-white cursor-pointer">
+                <Label htmlFor="analytics-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Product Analytics
                 </Label>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -85,11 +85,11 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           </div>
 
           {/* Session Recording Option */}
-          <div className="flex items-start justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 border border-[var(--color-border)] dark:border-gray-700">
+          <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <Eye className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-1" />
+              <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
-                <Label htmlFor="session-toggle" className="text-sm font-medium text-[var(--color-text)] dark:text-white cursor-pointer">
+                <Label htmlFor="session-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Session Recording
                 </Label>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -106,11 +106,11 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           </div>
 
           {/* Error Tracking Option */}
-          <div className="flex items-start justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 border border-[var(--color-border)] dark:border-gray-700">
+          <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-1" />
+              <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
-                <Label htmlFor="error-toggle" className="text-sm font-medium text-[var(--color-text)] dark:text-white cursor-pointer">
+                <Label htmlFor="error-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Error Tracking
                 </Label>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -148,7 +148,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           </Button>
           <Button
             onClick={handleAcceptAll}
-            className="flex-1 bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
+            className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
             data-testid="button-accept-all"
           >
             Accept All

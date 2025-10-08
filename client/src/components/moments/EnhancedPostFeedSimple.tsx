@@ -3,8 +3,7 @@
  * Simplified version that works with the new MemoryFilters component
  */
 
-import React, { useState, useCallback } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState, useCallback } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Sparkles, Heart } from 'lucide-react';
@@ -77,8 +76,7 @@ interface EnhancedPostFeedProps {
   onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
 }
 
-const EnhancedPostFeed = React.memo(({
-  const { t } = useTranslation(); filters, onEdit }: EnhancedPostFeedProps) => {
+const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -149,7 +147,7 @@ const EnhancedPostFeed = React.memo(({
     },
     onError: (error) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to update like",
         variant: "destructive",
       });
@@ -179,18 +177,18 @@ const EnhancedPostFeed = React.memo(({
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-[var(--color-border)]/50">
+          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-gray-200/50"
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-gray-200 dark:bg-gray-700 rounded-2xl"></div>
+              <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-32 mb-2"></div>
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-lg w-24"></div>
+                <div className="h-4 bg-gray-200 rounded-lg w-32 mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded-lg w-24"></div>
               </div>
             </div>
             <div className="space-y-3">
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-full"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-4/5"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-3/5"></div>
+              <div className="h-4 bg-gray-200 rounded-lg w-full"></div>
+              <div className="h-4 bg-gray-200 rounded-lg w-4/5"></div>
+              <div className="h-4 bg-gray-200 rounded-lg w-3/5"></div>
             </div>
           </div>
         ))}
@@ -207,19 +205,19 @@ const EnhancedPostFeed = React.memo(({
             {/* Feed Header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] rounded-xl">
+                <div className="p-2 bg-gradient-to-r from-turquoise-500 to-blue-500 rounded-xl">
                   <Sparkles className="h-5 w-5 text-white animate-pulse" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent">
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-blue-600 bg-clip-text text-transparent">
                     {filters?.filterType === 'all' ? 'All Posts' : 
                      filters?.filterType === 'following' ? 'Following' : 
                      'Nearby Memories'}
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600">
                     {posts.length} {posts.length === 1 ? 'memory' : 'memories'} found
                     {filters?.tags && filters.tags.length > 0 && (
-                      <span className="ml-2 text-[var(--color-primary-hover)]">
+                      <span className="ml-2 text-turquoise-600">
                         • Filtered by {filters.tags.length} tag{filters.tags.length !== 1 ? 's' : ''}
                       </span>
                     )}
@@ -248,8 +246,8 @@ const EnhancedPostFeed = React.memo(({
               <div className="w-24 h-24 bg-gradient-to-r from-turquoise-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Heart className="h-12 w-12 text-turquoise-400" />
               </div>
-              <h3 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-4">No memories found</h3>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">No memories found</h3>
+              <p className="text-gray-600 leading-relaxed">
                 {filters?.filterType === 'following' 
                   ? "No memories from people you're following yet. Start following dancers to see their memories here!"
                   : filters?.filterType === 'nearby'

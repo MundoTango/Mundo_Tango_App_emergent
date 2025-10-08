@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import {
+import { 
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue } from
-'@/components/ui/select';
-import {
-  FileText,
-  User,
+  SelectValue,
+} from '@/components/ui/select';
+import { 
+  FileText, 
+  User, 
   Calendar,
   Shield,
   Edit3,
@@ -22,8 +22,8 @@ import {
   CheckCircle,
   XCircle,
   Search,
-  Download } from
-'lucide-react';
+  Download
+} from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 
@@ -52,131 +52,131 @@ export default function AuditTrailViewer() {
 
   // Mock audit data for demonstration
   const mockAuditEvents: AuditEvent[] = [
-  {
-    id: 1,
-    action: 'user_role_updated',
-    resource: 'user',
-    resourceId: 4,
-    actor: {
-      id: 3,
-      name: 'Scott Boddye',
-      username: 'admin'
-    },
-    timestamp: '2025-06-30T14:30:00Z',
-    details: {
-      targetUser: 'Maria Rodriguez',
-      oldRoles: ['dancer'],
-      newRoles: ['dancer', 'teacher'],
-      reason: 'Promoted to teacher status'
-    },
-    severity: 'medium',
-    ipAddress: '192.168.1.100',
-    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'
-  },
-  {
-    id: 2,
-    action: 'consent_approved',
-    resource: 'memory_consent',
-    resourceId: 102,
-    actor: {
-      id: 3,
-      name: 'Scott Boddye',
-      username: 'admin'
-    },
-    timestamp: '2025-06-30T13:45:00Z',
-    details: {
-      memoryTitle: 'Overcoming fear on the dance floor',
-      memoryAuthor: 'Elena Fernandez',
-      requester: 'David Kim',
-      reviewNotes: 'Beautiful story that will inspire other dancers'
-    },
-    severity: 'low',
-    ipAddress: '192.168.1.100',
-    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'
-  },
-  {
-    id: 3,
-    action: 'failed_login_attempt',
-    resource: 'authentication',
-    resourceId: 0,
-    actor: {
-      id: 0,
-      name: 'Unknown',
-      username: 'unknown'
-    },
-    timestamp: '2025-06-30T12:15:00Z',
-    details: {
-      attemptedUsername: 'admin',
-      failureReason: 'invalid_password',
-      attempts: 3
-    },
-    severity: 'high',
-    ipAddress: '45.123.456.789',
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-  },
-  {
-    id: 4,
-    action: 'memory_created',
-    resource: 'memory',
-    resourceId: 105,
-    actor: {
-      id: 5,
-      name: 'Carlos Martinez',
-      username: 'carlos_dj'
-    },
-    timestamp: '2025-06-30T11:20:00Z',
-    details: {
-      title: 'DJ set memories from last night',
-      emotionTags: ['joy', 'excitement'],
-      trustLevel: 2
-    },
-    severity: 'low',
-    ipAddress: '192.168.1.105',
-    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X)'
-  },
-  {
-    id: 5,
-    action: 'system_backup',
-    resource: 'system',
-    resourceId: 0,
-    actor: {
+    {
       id: 1,
-      name: 'System',
-      username: 'system'
+      action: 'user_role_updated',
+      resource: 'user',
+      resourceId: 4,
+      actor: {
+        id: 3,
+        name: 'Scott Boddye',
+        username: 'admin'
+      },
+      timestamp: '2025-06-30T14:30:00Z',
+      details: {
+        targetUser: 'Maria Rodriguez',
+        oldRoles: ['dancer'],
+        newRoles: ['dancer', 'teacher'],
+        reason: 'Promoted to teacher status'
+      },
+      severity: 'medium',
+      ipAddress: '192.168.1.100',
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'
     },
-    timestamp: '2025-06-30T02:00:00Z',
-    details: {
-      backupType: 'full',
-      dataSize: '2.3GB',
-      duration: '45 minutes',
-      status: 'completed'
+    {
+      id: 2,
+      action: 'consent_approved',
+      resource: 'memory_consent',
+      resourceId: 102,
+      actor: {
+        id: 3,
+        name: 'Scott Boddye',
+        username: 'admin'
+      },
+      timestamp: '2025-06-30T13:45:00Z',
+      details: {
+        memoryTitle: 'Overcoming fear on the dance floor',
+        memoryAuthor: 'Elena Fernandez',
+        requester: 'David Kim',
+        reviewNotes: 'Beautiful story that will inspire other dancers'
+      },
+      severity: 'low',
+      ipAddress: '192.168.1.100',
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'
     },
-    severity: 'low',
-    ipAddress: '127.0.0.1',
-    userAgent: 'System/1.0'
-  },
-  {
-    id: 6,
-    action: 'suspicious_activity_detected',
-    resource: 'security',
-    resourceId: 0,
-    actor: {
-      id: 0,
-      name: 'Security System',
-      username: 'security'
+    {
+      id: 3,
+      action: 'failed_login_attempt',
+      resource: 'authentication',
+      resourceId: 0,
+      actor: {
+        id: 0,
+        name: 'Unknown',
+        username: 'unknown'
+      },
+      timestamp: '2025-06-30T12:15:00Z',
+      details: {
+        attemptedUsername: 'admin',
+        failureReason: 'invalid_password',
+        attempts: 3
+      },
+      severity: 'high',
+      ipAddress: '45.123.456.789',
+      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
     },
-    timestamp: '2025-06-29T23:45:00Z',
-    details: {
-      type: 'unusual_login_pattern',
-      description: 'Multiple failed login attempts from different IPs',
-      riskScore: 85,
-      blocked: true
+    {
+      id: 4,
+      action: 'memory_created',
+      resource: 'memory',
+      resourceId: 105,
+      actor: {
+        id: 5,
+        name: 'Carlos Martinez',
+        username: 'carlos_dj'
+      },
+      timestamp: '2025-06-30T11:20:00Z',
+      details: {
+        title: 'DJ set memories from last night',
+        emotionTags: ['joy', 'excitement'],
+        trustLevel: 2
+      },
+      severity: 'low',
+      ipAddress: '192.168.1.105',
+      userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X)'
     },
-    severity: 'critical',
-    ipAddress: 'Multiple',
-    userAgent: 'Various'
-  }];
-
+    {
+      id: 5,
+      action: 'system_backup',
+      resource: 'system',
+      resourceId: 0,
+      actor: {
+        id: 1,
+        name: 'System',
+        username: 'system'
+      },
+      timestamp: '2025-06-30T02:00:00Z',
+      details: {
+        backupType: 'full',
+        dataSize: '2.3GB',
+        duration: '45 minutes',
+        status: 'completed'
+      },
+      severity: 'low',
+      ipAddress: '127.0.0.1',
+      userAgent: 'System/1.0'
+    },
+    {
+      id: 6,
+      action: 'suspicious_activity_detected',
+      resource: 'security',
+      resourceId: 0,
+      actor: {
+        id: 0,
+        name: 'Security System',
+        username: 'security'
+      },
+      timestamp: '2025-06-29T23:45:00Z',
+      details: {
+        type: 'unusual_login_pattern',
+        description: 'Multiple failed login attempts from different IPs',
+        riskScore: 85,
+        blocked: true
+      },
+      severity: 'critical',
+      ipAddress: 'Multiple',
+      userAgent: 'Various'
+    }
+  ];
 
   const getSeverityBadge = (severity: string) => {
     const styles = {
@@ -185,16 +185,16 @@ export default function AuditTrailViewer() {
       'high': 'bg-orange-100 text-orange-700 border-orange-200',
       'critical': 'bg-red-100 text-red-700 border-red-200'
     };
-    return styles[severity as keyof typeof styles] || 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] border-[var(--color-border)]';
+    return styles[severity as keyof typeof styles] || 'bg-gray-100 text-gray-700 border-gray-200';
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
-      case 'low':return <CheckCircle className="h-3 w-3" />;
-      case 'medium':return <Eye className="h-3 w-3" />;
-      case 'high':return <AlertTriangle className="h-3 w-3" />;
-      case 'critical':return <XCircle className="h-3 w-3" />;
-      default:return <FileText className="h-3 w-3" />;
+      case 'low': return <CheckCircle className="h-3 w-3" />;
+      case 'medium': return <Eye className="h-3 w-3" />;
+      case 'high': return <AlertTriangle className="h-3 w-3" />;
+      case 'critical': return <XCircle className="h-3 w-3" />;
+      default: return <FileText className="h-3 w-3" />;
     }
   };
 
@@ -203,28 +203,28 @@ export default function AuditTrailViewer() {
     if (action.includes('update') || action.includes('edit')) return <Edit3 className="h-4 w-4 text-blue-600" />;
     if (action.includes('delete') || action.includes('remove')) return <Trash2 className="h-4 w-4 text-red-600" />;
     if (action.includes('login') || action.includes('auth')) return <Shield className="h-4 w-4 text-purple-600" />;
-    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600 dark:text-gray-300" />;
-    return <FileText className="h-4 w-4 text-gray-600 dark:text-gray-300" />;
+    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600" />;
+    return <FileText className="h-4 w-4 text-gray-600" />;
   };
 
-  const filteredEvents = mockAuditEvents.filter((event) => {
+  const filteredEvents = mockAuditEvents.filter(event => {
     const matchesAction = actionFilter === 'all' || event.action.includes(actionFilter);
     const matchesSeverity = severityFilter === 'all' || event.severity === severityFilter;
-    const matchesSearch =
-    event.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    event.actor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    event.resource.toLowerCase().includes(searchTerm.toLowerCase());
-
+    const matchesSearch = 
+      event.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.actor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.resource.toLowerCase().includes(searchTerm.toLowerCase());
+    
     return matchesAction && matchesSeverity && matchesSearch;
   });
 
   const exportAuditLog = () => {
     const csvContent = [
-    'Timestamp,Action,Resource,Actor,Severity,IP Address,Details',
-    ...filteredEvents.map((event) =>
-    `"${event.timestamp}","${event.action}","${event.resource}","${event.actor.name}","${event.severity}","${event.ipAddress}","${JSON.stringify(event.details).replace(/"/g, '""')}"`
-    )].
-    join('\n');
+      'Timestamp,Action,Resource,Actor,Severity,IP Address,Details',
+      ...filteredEvents.map(event => 
+        `"${event.timestamp}","${event.action}","${event.resource}","${event.actor.name}","${event.severity}","${event.ipAddress}","${JSON.stringify(event.details).replace(/"/g, '""')}"`
+      )
+    ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -247,13 +247,13 @@ export default function AuditTrailViewer() {
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-[var(--color-border)] focus:border-indigo-300 focus:ring-indigo-200" data-testid="input-pl-10" />
-
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+          />
         </div>
         
         <div className="flex gap-3">
-          <Select value={actionFilter} onValueChange={setActionFilter} data-testid="select-element">
-            <SelectTrigger className="w-48 rounded-xl border-[var(--color-border)]">
+          <Select value={actionFilter} onValueChange={setActionFilter}>
+            <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Filter by action" />
             </SelectTrigger>
             <SelectContent>
@@ -266,8 +266,8 @@ export default function AuditTrailViewer() {
             </SelectContent>
           </Select>
 
-          <Select value={severityFilter} onValueChange={setSeverityFilter} data-testid="select-element">
-            <SelectTrigger className="w-48 rounded-xl border-[var(--color-border)]">
+          <Select value={severityFilter} onValueChange={setSeverityFilter}>
+            <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
             <SelectContent>
@@ -282,8 +282,8 @@ export default function AuditTrailViewer() {
           <Button
             onClick={exportAuditLog}
             variant="outline"
-            className="rounded-xl border-[var(--color-border)] hover:bg-indigo-50 hover:border-indigo-300" data-testid="button-rounded-xl">
-
+            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
+          >
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>
@@ -299,7 +299,7 @@ export default function AuditTrailViewer() {
             </div>
             <div>
               <div className="text-2xl font-bold text-green-900">
-                {mockAuditEvents.filter((e) => e.severity === 'low').length}
+                {mockAuditEvents.filter(e => e.severity === 'low').length}
               </div>
               <div className="text-sm font-medium text-green-700">Low</div>
             </div>
@@ -313,7 +313,7 @@ export default function AuditTrailViewer() {
             </div>
             <div>
               <div className="text-2xl font-bold text-yellow-900">
-                {mockAuditEvents.filter((e) => e.severity === 'medium').length}
+                {mockAuditEvents.filter(e => e.severity === 'medium').length}
               </div>
               <div className="text-sm font-medium text-yellow-700">Medium</div>
             </div>
@@ -327,7 +327,7 @@ export default function AuditTrailViewer() {
             </div>
             <div>
               <div className="text-2xl font-bold text-orange-900">
-                {mockAuditEvents.filter((e) => e.severity === 'high').length}
+                {mockAuditEvents.filter(e => e.severity === 'high').length}
               </div>
               <div className="text-sm font-medium text-orange-700">High</div>
             </div>
@@ -341,7 +341,7 @@ export default function AuditTrailViewer() {
             </div>
             <div>
               <div className="text-2xl font-bold text-red-900">
-                {mockAuditEvents.filter((e) => e.severity === 'critical').length}
+                {mockAuditEvents.filter(e => e.severity === 'critical').length}
               </div>
               <div className="text-sm font-medium text-red-700">Critical</div>
             </div>
@@ -351,16 +351,16 @@ export default function AuditTrailViewer() {
 
       {/* Audit events list */}
       <div className="space-y-3">
-        {filteredEvents.map((event) =>
-        <div key={event.id} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl border border-[var(--color-border)] p-6 hover:shadow-lg transition-shadow">
+        {filteredEvents.map((event) => (
+          <div key={event.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-[var(--color-surface-elevated)] rounded-xl">
+                <div className="p-2 bg-gray-50 rounded-xl">
                   {getActionIcon(event.action)}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-[var(--color-text)] dark:text-white">{event.action.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}</h3>
+                    <h3 className="font-semibold text-gray-900">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
                     <Badge className={`${getSeverityBadge(event.severity)} border`}>
                       <div className="flex items-center gap-1">
                         {getSeverityIcon(event.severity)}
@@ -368,14 +368,14 @@ export default function AuditTrailViewer() {
                       </div>
                     </Badge>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                  <div className="text-sm text-gray-600">
                     Resource: <span className="font-medium">{event.resource}</span>
                     {event.resourceId > 0 && <span className="ml-1">#{event.resourceId}</span>}
                   </div>
                 </div>
               </div>
               
-              <div className="text-right text-sm text-gray-500 dark:text-gray-400">
+              <div className="text-right text-sm text-gray-500">
                 <div>{format(new Date(event.timestamp), 'MMM d, yyyy')}</div>
                 <div>{format(new Date(event.timestamp), 'h:mm a')}</div>
               </div>
@@ -384,43 +384,43 @@ export default function AuditTrailViewer() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
               <div className="flex items-center gap-2 text-sm">
                 <User className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600 dark:text-gray-300">Actor:</span>
+                <span className="text-gray-600">Actor:</span>
                 <span className="font-medium">{event.actor.name}</span>
-                <span className="text-gray-500 dark:text-gray-400">(@{event.actor.username})</span>
+                <span className="text-gray-500">(@{event.actor.username})</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Shield className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600 dark:text-gray-300">IP:</span>
+                <span className="text-gray-600">IP:</span>
                 <span className="font-mono text-xs">{event.ipAddress}</span>
               </div>
             </div>
 
-            {event.details && Object.keys(event.details).length > 0 &&
-          <div className="bg-[var(--color-surface-elevated)] rounded-xl p-4">
-                <div className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Event Details:</div>
+            {event.details && Object.keys(event.details).length > 0 && (
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="text-sm font-medium text-gray-700 mb-2">Event Details:</div>
                 <div className="space-y-1">
-                  {Object.entries(event.details).map(([key, value]) =>
-              <div key={key} className="text-sm">
-                      <span className="text-gray-600 dark:text-gray-300 capitalize">{key.replace(/_/g, ' ')}:</span>
+                  {Object.entries(event.details).map(([key, value]) => (
+                    <div key={key} className="text-sm">
+                      <span className="text-gray-600 capitalize">{key.replace(/_/g, ' ')}:</span>
                       <span className="font-medium ml-2">
                         {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                       </span>
                     </div>
-              )}
+                  ))}
                 </div>
               </div>
-          }
+            )}
           </div>
-        )}
+        ))}
       </div>
 
-      {filteredEvents.length === 0 &&
-      <div className="text-center py-12">
+      {filteredEvents.length === 0 && (
+        <div className="text-center py-12">
           <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No audit events found</h3>
-          <p className="text-gray-600 dark:text-gray-300">Try adjusting your filters or search terms</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No audit events found</h3>
+          <p className="text-gray-600">Try adjusting your filters or search terms</p>
         </div>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 }

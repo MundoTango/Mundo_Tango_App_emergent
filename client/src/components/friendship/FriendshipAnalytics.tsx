@@ -59,7 +59,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
                 {analytics.totalFriends || 0}
               </p>
             </div>
-            <Users className="w-8 h-8 text-[var(--color-primary)]" />
+            <Users className="w-8 h-8 text-turquoise-500" />
           </div>
         </Card>
 
@@ -104,7 +104,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
         {/* Friendship Growth Over Time */}
         <Card className="p-6 glassmorphic-card">
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-[var(--color-primary)]" />
+            <TrendingUp className="w-5 h-5 text-turquoise-500" />
             Friendship Growth
           </h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -231,7 +231,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {(analytics.friendsByCity || []).map((city: any) => (
             <div key={city.name} className="text-center">
-              <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{city.count}</div>
+              <div className="text-2xl font-bold text-turquoise-600">{city.count}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">{city.name}</div>
             </div>
           ))}

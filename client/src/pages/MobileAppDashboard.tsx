@@ -8,11 +8,11 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Smartphone,
-  Download,
-  Bell,
-  Wifi,
+import { 
+  Smartphone, 
+  Download, 
+  Bell, 
+  Wifi, 
   WifiOff,
   Battery,
   Zap,
@@ -26,12 +26,12 @@ import {
   Activity,
   Globe,
   Shield,
-  Gauge } from
-"lucide-react";
+  Gauge
+} from "lucide-react";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
-  userChoice: Promise<{outcome: 'accepted' | 'dismissed';}>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
 const MobileAppDashboard: React.FC = () => {
@@ -42,7 +42,7 @@ const MobileAppDashboard: React.FC = () => {
   const [pushPermission, setPushPermission] = useState<NotificationPermission>('default');
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
   const [networkType, setNetworkType] = useState<string>('unknown');
-
+  
   // PWA installation detection
   useEffect(() => {
     // Check if already installed
@@ -99,15 +99,15 @@ const MobileAppDashboard: React.FC = () => {
 
     installPrompt.prompt();
     const { outcome } = await installPrompt.userChoice;
-
+    
     if (outcome === 'accepted') {
       setIsInstalled(true);
       toast({
         title: "App Installed!",
-        description: "Mundo Tango has been added to your home screen"
+        description: "Mundo Tango has been added to your home screen",
       });
     }
-
+    
     setInstallPrompt(null);
   };
 
@@ -115,11 +115,11 @@ const MobileAppDashboard: React.FC = () => {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
       setPushPermission(permission);
-
+      
       if (permission === 'granted') {
         toast({
           title: "Notifications Enabled",
-          description: "You'll now receive push notifications"
+          description: "You'll now receive push notifications",
         });
       }
     }
@@ -127,11 +127,11 @@ const MobileAppDashboard: React.FC = () => {
 
   const handleUpdateCheck = () => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then((registration) => {
+      navigator.serviceWorker.ready.then(registration => {
         registration.update();
         toast({
           title: "Checking for updates...",
-          description: "We'll notify you if an update is available"
+          description: "We'll notify you if an update is available",
         });
       });
     }
@@ -144,7 +144,7 @@ const MobileAppDashboard: React.FC = () => {
         <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Mobile App Dashboard
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">Manage your Progressive Web App experience and mobile features</p>
+        <p className="text-gray-600">Manage your Progressive Web App experience and mobile features</p>
       </div>
 
       {/* Status Overview */}
@@ -153,7 +153,7 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">App Status</p>
+                <p className="text-sm text-gray-600">App Status</p>
                 <p className="text-2xl font-bold">
                   {isInstalled ? 'Installed' : 'Web Version'}
                 </p>
@@ -169,17 +169,17 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Connection</p>
+                <p className="text-sm text-gray-600">Connection</p>
                 <p className="text-2xl font-bold">
                   {isOnline ? networkType.toUpperCase() : 'Offline'}
                 </p>
               </div>
               <div className={`p-3 rounded-full ${isOnline ? 'bg-turquoise-100' : 'bg-red-100'}`}>
-                {isOnline ?
-                <Wifi className="h-6 w-6 text-[var(--color-primary-hover)]" /> :
-
-                <WifiOff className="h-6 w-6 text-red-600" />
-                }
+                {isOnline ? (
+                  <Wifi className="h-6 w-6 text-turquoise-600" />
+                ) : (
+                  <WifiOff className="h-6 w-6 text-red-600" />
+                )}
               </div>
             </div>
           </CardContent>
@@ -189,13 +189,13 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Battery</p>
+                <p className="text-sm text-gray-600">Battery</p>
                 <p className="text-2xl font-bold">
                   {batteryLevel !== null ? `${Math.round(batteryLevel)}%` : 'N/A'}
                 </p>
               </div>
               <div className="p-3 rounded-full bg-cyan-100">
-                <Battery className="h-6 w-6 text-[var(--color-primary-hover)]" />
+                <Battery className="h-6 w-6 text-cyan-600" />
               </div>
             </div>
           </CardContent>
@@ -205,13 +205,13 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Notifications</p>
+                <p className="text-sm text-gray-600">Notifications</p>
                 <p className="text-2xl font-bold capitalize">
                   {pushPermission}
                 </p>
               </div>
-              <div className={`p-3 rounded-full ${pushPermission === 'granted' ? 'bg-green-100' : 'bg-[var(--color-neutral-100)]'}`}>
-                <Bell className={`h-6 w-6 ${pushPermission === 'granted' ? 'text-green-600' : 'text-gray-600 dark:text-gray-300'}`} />
+              <div className={`p-3 rounded-full ${pushPermission === 'granted' ? 'bg-green-100' : 'bg-gray-100'}`}>
+                <Bell className={`h-6 w-6 ${pushPermission === 'granted' ? 'text-green-600' : 'text-gray-600'}`} />
               </div>
             </div>
           </CardContent>
@@ -233,7 +233,7 @@ const MobileAppDashboard: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Download className="h-5 w-5 text-[var(--color-primary)]" />
+                <Download className="h-5 w-5 text-turquoise-500" />
                 App Installation
               </CardTitle>
               <CardDescription>
@@ -241,8 +241,8 @@ const MobileAppDashboard: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {!isInstalled ?
-              <>
+              {!isInstalled ? (
+                <>
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
@@ -250,34 +250,34 @@ const MobileAppDashboard: React.FC = () => {
                     </AlertDescription>
                   </Alert>
                   
-                  {installPrompt &&
-                <Button
-                  onClick={handleInstallClick}
-                  className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-                  size="lg" data-testid="button-w-full">
-
+                  {installPrompt && (
+                    <Button 
+                      onClick={handleInstallClick}
+                      className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
+                      size="lg"
+                    >
                       <Download className="mr-2 h-5 w-5" />
                       Install Mundo Tango App
                     </Button>
-                }
+                  )}
                   
                   <div className="space-y-2">
                     <h4 className="font-semibold">Manual Installation Steps:</h4>
-                    <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                    <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
                       <li>Open browser menu (⋮ or ⋯)</li>
                       <li>Look for "Add to Home Screen" or "Install App"</li>
                       <li>Follow the prompts to install</li>
                       <li>Find Mundo Tango on your home screen</li>
                     </ol>
                   </div>
-                </> :
-
-              <div className="text-center py-8">
+                </>
+              ) : (
+                <div className="text-center py-8">
                   <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold mb-2">App Installed Successfully!</h3>
-                  <p className="text-gray-600 dark:text-gray-300">You're enjoying the full PWA experience</p>
+                  <p className="text-gray-600">You're enjoying the full PWA experience</p>
                 </div>
-              }
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -299,17 +299,17 @@ const MobileAppDashboard: React.FC = () => {
                 {/* Push Notifications */}
                 <div className="flex items-center justify-between p-4 rounded-lg bg-gradient-to-r from-turquoise-50 to-cyan-50">
                   <div className="flex items-center gap-3">
-                    <Bell className="h-5 w-5 text-[var(--color-primary-hover)]" />
+                    <Bell className="h-5 w-5 text-turquoise-600" />
                     <div>
                       <p className="font-medium">Push Notifications</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Receive event reminders and updates</p>
+                      <p className="text-sm text-gray-600">Receive event reminders and updates</p>
                     </div>
                   </div>
                   <Button
                     onClick={handleNotificationPermission}
                     disabled={pushPermission === 'granted'}
-                    variant={pushPermission === 'granted' ? 'default' : 'outline'} data-testid="button-element">
-
+                    variant={pushPermission === 'granted' ? 'default' : 'outline'}
+                  >
                     {pushPermission === 'granted' ? 'Enabled' : 'Enable'}
                   </Button>
                 </div>
@@ -317,10 +317,10 @@ const MobileAppDashboard: React.FC = () => {
                 {/* Offline Mode */}
                 <div className="flex items-center justify-between p-4 rounded-lg bg-gradient-to-r from-cyan-50 to-blue-50">
                   <div className="flex items-center gap-3">
-                    <WifiOff className="h-5 w-5 text-[var(--color-primary-hover)]" />
+                    <WifiOff className="h-5 w-5 text-cyan-600" />
                     <div>
                       <p className="font-medium">Offline Mode</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Access content without internet</p>
+                      <p className="text-sm text-gray-600">Access content without internet</p>
                     </div>
                   </div>
                   <Badge variant="secondary">Active</Badge>
@@ -332,7 +332,7 @@ const MobileAppDashboard: React.FC = () => {
                     <Share2 className="h-5 w-5 text-blue-600" />
                     <div>
                       <p className="font-medium">App Shortcuts</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Quick access from home screen</p>
+                      <p className="text-sm text-gray-600">Quick access from home screen</p>
                     </div>
                   </div>
                   <Badge variant="secondary">Available</Badge>
@@ -344,7 +344,7 @@ const MobileAppDashboard: React.FC = () => {
                     <RefreshCw className="h-5 w-5 text-indigo-600" />
                     <div>
                       <p className="font-medium">Background Sync</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Sync data when back online</p>
+                      <p className="text-sm text-gray-600">Sync data when back online</p>
                     </div>
                   </div>
                   <Badge variant="secondary">Enabled</Badge>
@@ -371,47 +371,47 @@ const MobileAppDashboard: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Page Load Time</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">2.1s</span>
+                  <span className="text-sm text-gray-600">2.1s</span>
                 </div>
                 <Progress value={79} className="h-2" />
-                <p className="text-xs text-gray-500 dark:text-gray-400">Target: Under 3 seconds</p>
+                <p className="text-xs text-gray-500">Target: Under 3 seconds</p>
               </div>
 
               {/* Cache Hit Rate */}
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Cache Hit Rate</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">87%</span>
+                  <span className="text-sm text-gray-600">87%</span>
                 </div>
                 <Progress value={87} className="h-2" />
-                <p className="text-xs text-gray-500 dark:text-gray-400">Higher is better</p>
+                <p className="text-xs text-gray-500">Higher is better</p>
               </div>
 
               {/* Offline Coverage */}
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Offline Coverage</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">65%</span>
+                  <span className="text-sm text-gray-600">65%</span>
                 </div>
                 <Progress value={65} className="h-2" />
-                <p className="text-xs text-gray-500 dark:text-gray-400">Pages available offline</p>
+                <p className="text-xs text-gray-500">Pages available offline</p>
               </div>
 
               {/* Storage Usage */}
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Storage Usage</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">124 MB</span>
+                  <span className="text-sm text-gray-600">124 MB</span>
                 </div>
                 <Progress value={24} className="h-2" />
-                <p className="text-xs text-gray-500 dark:text-gray-400">24% of 500MB quota</p>
+                <p className="text-xs text-gray-500">24% of 500MB quota</p>
               </div>
 
-              <Button
+              <Button 
                 onClick={handleUpdateCheck}
                 variant="outline"
-                className="w-full" data-testid="button-w-full">
-
+                className="w-full"
+              >
                 <RefreshCw className="mr-2 h-4 w-4" />
                 Check for App Updates
               </Button>
@@ -437,19 +437,19 @@ const MobileAppDashboard: React.FC = () => {
                 <div>
                   <h4 className="font-medium mb-3">Cached Content</h4>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Profile Data</span>
                       <Badge variant="secondary">Synced</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Recent Posts</span>
                       <Badge variant="secondary">50 items</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Event Details</span>
                       <Badge variant="secondary">12 events</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Images</span>
                       <Badge variant="secondary">234 files</Badge>
                     </div>
@@ -481,7 +481,7 @@ const MobileAppDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full" data-testid="button-w-full">
+                <Button variant="outline" className="w-full">
                   Clear Offline Cache
                 </Button>
               </div>
@@ -494,7 +494,7 @@ const MobileAppDashboard: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Settings className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                <Settings className="h-5 w-5 text-gray-500" />
                 App Settings
               </CardTitle>
               <CardDescription>
@@ -544,10 +544,10 @@ const MobileAppDashboard: React.FC = () => {
                 {/* Advanced */}
                 <div>
                   <h4 className="font-medium mb-3">Advanced</h4>
-                  <Button variant="outline" className="w-full mb-2" data-testid="button-w-full">
+                  <Button variant="outline" className="w-full mb-2">
                     Export App Data
                   </Button>
-                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700" data-testid="button-w-full">
+                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700">
                     Reset App
                   </Button>
                 </div>
@@ -556,8 +556,8 @@ const MobileAppDashboard: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>);
-
+    </div>
+  );
 };
 
 export default MobileAppDashboard;

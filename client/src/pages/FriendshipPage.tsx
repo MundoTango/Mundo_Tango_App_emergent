@@ -18,7 +18,7 @@ import { apiRequest } from '@/lib/queryClient'; // Import apiRequest
 import DashboardLayout from '@/layouts/DashboardLayout';
 
 export default function FriendshipPage() {
-  const { friendId } = useParams<{friendId: string;}>();
+  const { friendId } = useParams<{ friendId: string }>();
   const [showDanceHistoryForm, setShowDanceHistoryForm] = useState(false);
 
   // ESA Layer 24: Social Features Agent - Friendship data fetching
@@ -29,7 +29,7 @@ export default function FriendshipPage() {
       if (!response.ok) throw new Error('Failed to fetch friendship details');
       return response.json();
     },
-    enabled: !!friendId // Only fetch if friendId is present
+    enabled: !!friendId, // Only fetch if friendId is present
   });
 
   // ESA Layer 24: Social Features Agent - Mutual friends fetching
@@ -40,7 +40,7 @@ export default function FriendshipPage() {
       if (!response.ok) throw new Error('Failed to fetch mutual friends');
       return response.json();
     },
-    enabled: !!friendId // Only fetch if friendId is present
+    enabled: !!friendId, // Only fetch if friendId is present
   });
 
   // ESA Layer 24: Social Features Agent - Shared memories fetching
@@ -51,7 +51,7 @@ export default function FriendshipPage() {
       if (!response.ok) throw new Error('Failed to fetch shared memories');
       return response.json();
     },
-    enabled: !!friendId // Only fetch if friendId is present
+    enabled: !!friendId, // Only fetch if friendId is present
   });
 
   if (isLoading || isLoadingMutualFriends || isLoadingSharedMemories) {
@@ -59,12 +59,12 @@ export default function FriendshipPage() {
       <DashboardLayout>
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-4">
-            <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-lg" />
-            <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+            <div className="h-64 bg-gray-200 rounded-lg" />
+            <div className="h-32 bg-gray-200 rounded-lg" />
           </div>
         </div>
-      </DashboardLayout>);
-
+      </DashboardLayout>
+    );
   }
 
   if (error || !friendship || !friendship.user || !friendship.stats) {
@@ -77,8 +77,8 @@ export default function FriendshipPage() {
             </p>
           </Card>
         </div>
-      </DashboardLayout>);
-
+      </DashboardLayout>
+    );
   }
 
   return (
@@ -104,29 +104,29 @@ export default function FriendshipPage() {
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {friendship.user.name || 'Friend'}
                 </h1>
-                {(friendship.user.city || friendship.user.country) &&
+                {(friendship.user.city || friendship.user.country) && (
                   <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
                     <MapPin className="w-4 h-4" />
                     {friendship.user.city}{friendship.user.city && friendship.user.country && ', '}{friendship.user.country}
                   </p>
-                  }
-                {friendship.friendsSince &&
+                )}
+                {friendship.friendsSince && (
                   <p className="text-gray-600 dark:text-gray-400 mt-1">
                     Friends since {new Date(friendship.friendsSince).toLocaleDateString()}
                   </p>
-                  }
+                )}
               </div>
             </div>
 
             <div className="flex gap-3">
               <Button
-                  onClick={() => setShowDanceHistoryForm(true)}
-                  className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600" data-testid="button-bg-gradient-to-r">
-
+                onClick={() => setShowDanceHistoryForm(true)}
+                className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600"
+              >
                 <Music className="w-4 h-4 mr-2" />
                 Add Dance Memory
               </Button>
-              <Button variant="outline" className="glassmorphic-button" data-testid="button-glassmorphic-button">
+              <Button variant="outline" className="glassmorphic-button">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
@@ -136,11 +136,11 @@ export default function FriendshipPage() {
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
             <div className="text-center">
-              <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{friendship.stats?.totalDances || 0}</div>
+              <div className="text-2xl font-bold text-turquoise-600">{friendship.stats?.totalDances || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Dances Together</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{friendship.stats?.sharedEvents || 0}</div>
+              <div className="text-2xl font-bold text-cyan-600">{friendship.stats?.sharedEvents || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Shared Events</div>
             </div>
             <div className="text-center">
@@ -160,15 +160,15 @@ export default function FriendshipPage() {
       </Card>
 
       {/* Mutual Friends Section */}
-      {mutualFriends && mutualFriends.length > 0 &&
+      {mutualFriends && mutualFriends.length > 0 && (
         <Card className="p-6 glassmorphic-card">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-[var(--color-primary)]" />
+            <Users className="w-5 h-5 text-turquoise-500" />
             Mutual Friends ({mutualFriends.length})
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {mutualFriends.slice(0, 6).map((friend: any) =>
-            <div key={friend.id} className="text-center">
+            {mutualFriends.slice(0, 6).map((friend: any) => (
+              <div key={friend.id} className="text-center">
                 <Avatar className="w-16 h-16 mx-auto mb-2">
                   <AvatarImage src={friend.profileImage} alt={friend.name || 'Friend'} />
                   <AvatarFallback>{friend.name?.[0] || 'F'}</AvatarFallback>
@@ -176,26 +176,26 @@ export default function FriendshipPage() {
                 <p className="text-sm font-medium truncate">{friend.name || 'Unknown'}</p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">{friend.city || ''}</p>
               </div>
-            )}
+            ))}
           </div>
         </Card>
-        }
+      )}
 
       {/* Shared Memories Gallery */}
-      {sharedMemories && sharedMemories.length > 0 &&
+      {sharedMemories && sharedMemories.length > 0 && (
         <Card className="p-6 glassmorphic-card">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Camera className="w-5 h-5 text-purple-500" />
             Shared Memories
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {sharedMemories.slice(0, 8).map((memory: any) =>
-            <div key={memory.id} className="relative group">
+            {sharedMemories.slice(0, 8).map((memory: any) => (
+              <div key={memory.id} className="relative group">
                 <img
-                src={memory.photoUrl}
-                alt={memory.description}
-                className="rounded-lg w-full h-40 object-cover group-hover:scale-105 transition-transform" />
-
+                  src={memory.photoUrl}
+                  alt={memory.description}
+                  className="rounded-lg w-full h-40 object-cover group-hover:scale-105 transition-transform"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
                   <div className="absolute bottom-2 left-2 right-2">
                     <p className="text-white text-sm truncate">{memory.description}</p>
@@ -203,10 +203,10 @@ export default function FriendshipPage() {
                   </div>
                 </div>
               </div>
-            )}
+            ))}
           </div>
         </Card>
-        }
+      )}
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="timeline" className="space-y-4">
@@ -227,10 +227,10 @@ export default function FriendshipPage() {
 
         <TabsContent value="timeline">
           <FriendshipTimeline
-              friendId={parseInt(friendId!)}
-              friendName={friendship.user.name || 'Friend'}
-              friendImage={friendship.user.profileImage} />
-
+            friendId={parseInt(friendId!)}
+            friendName={friendship.user.name || 'Friend'}
+            friendImage={friendship.user.profileImage}
+          />
         </TabsContent>
 
         <TabsContent value="analytics">
@@ -249,18 +249,18 @@ export default function FriendshipPage() {
       </Tabs>
 
       {/* Dance History Form Modal */}
-      {showDanceHistoryForm &&
+      {showDanceHistoryForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="max-w-2xl w-full">
             <DanceHistoryForm
               partnerId={parseInt(friendId!)}
               partnerName={friendship.user.name || 'Friend'}
-              onComplete={() => setShowDanceHistoryForm(false)} />
-
+              onComplete={() => setShowDanceHistoryForm(false)}
+            />
           </div>
         </div>
-        }
+      )}
     </div>
-    </DashboardLayout>);
-
+    </DashboardLayout>
+  );
 }

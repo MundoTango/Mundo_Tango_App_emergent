@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect, memo } from 'react'
-import { useTranslation } from 'react-i18next';;
+import { useState, useMemo, useEffect, memo } from 'react';
 import { 
   Heart, 
   MessageCircle, 
@@ -118,8 +117,7 @@ function EnhancedPostItem({
   const [comments, setComments] = useState(post.comments || []);
 
   // Fetch comments when section is opened
-  const {
-  data: fetchedComments } = useQuery({
+  const { data: fetchedComments } = useQuery({
     queryKey: [`${apiBasePath}/${post.id}/comments`],
     queryFn: async () => {
       const response = await fetch(`${apiBasePath}/${post.id}/comments`, {
@@ -164,7 +162,7 @@ function EnhancedPostItem({
       'gratitude': 'bg-green-100 text-green-800 border-green-200',
       'inspiration': 'bg-blue-100 text-blue-800 border-blue-200'
     };
-    return colors[emotion.toLowerCase()] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]';
+    return colors[emotion.toLowerCase()] || 'bg-gray-100 text-gray-800 border-gray-200';
   };
 
   const getMentionIcon = (type: string) => {
@@ -362,7 +360,7 @@ function EnhancedPostItem({
       } catch (error) {
         // Delete error occurred
         toast({
-          title: t('states.error', 'Error'),
+          title: "Error",
           description: "Failed to delete post. Please try again.",
           variant: "destructive"
         });
@@ -484,13 +482,13 @@ function EnhancedPostItem({
               <div className="flex flex-col gap-1 mb-1">
                 <Link href={`/profile/${post.user?.id || post.userId}`}>
                   <h3 
-                    className="font-bold text-xl text-[var(--color-text)] dark:text-white hover:text-indigo-600 cursor-pointer transition-colors"
+                    className="font-bold text-xl text-gray-900 hover:text-indigo-600 cursor-pointer transition-colors"
                     title={post.user?.fullName || post.user?.name || 'Anonymous'}
                   >
                     {post.user?.name || 'Anonymous'}
                   </h3>
                 </Link>
-                <div className="text-gray-500 dark:text-gray-400 text-sm">
+                <div className="text-gray-500 text-sm">
                   {formatUserLocation({ 
                     city: post.user?.city, 
                     state: post.user?.state, 
@@ -513,7 +511,7 @@ function EnhancedPostItem({
 
           {/* Enhanced timestamp and actions */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-2 text-gray-500">
               <Clock className="h-4 w-4" />
               <time className="text-sm font-medium">
                 {(() => {
@@ -573,7 +571,7 @@ function EnhancedPostItem({
 
         {/* Enhanced Content Section - ESA Layer 7 & 23: Content display only, edit via PostEditCreatorDialog */}
         <section className="prose prose-lg max-w-none">
-          <div className="text-gray-800 dark:text-gray-100 leading-relaxed text-lg">
+          <div className="text-gray-800 leading-relaxed text-lg">
             {renderWithMentions ? renderWithMentions(post.content) : post.content}
           </div>
 
@@ -721,8 +719,8 @@ function EnhancedPostItem({
                   </div>
                 ))}
                 {allMedia.length > 4 && (
-                  <div className="rounded-2xl bg-[var(--color-neutral-100)] flex items-center justify-center p-4">
-                    <span className="text-gray-600 dark:text-gray-300 font-medium">+{allMedia.length - 4} more</span>
+                  <div className="rounded-2xl bg-gray-100 flex items-center justify-center p-4">
+                    <span className="text-gray-600 font-medium">+{allMedia.length - 4} more</span>
                   </div>
                 )}
               </div>
@@ -758,8 +756,8 @@ function EnhancedPostItem({
 
             {/* Comment button */}
             <button
-              onClick={() => setShowComments(!showComments)} aria-label="Button"
-              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+              onClick={() => setShowComments(!showComments)}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
             >
               <MessageCircle className="h-5 w-5" />
               <span>{comments.length || 0}</span>
@@ -768,8 +766,8 @@ function EnhancedPostItem({
             {/* Share button */}
             <button
               onClick={handleShare}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 dark:text-gray-300 hover:bg-green-50 hover:text-green-600 transition-all duration-200"
-             aria-label="Button">
+              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-green-50 hover:text-green-600 transition-all duration-200"
+            >
               <Share2 className="h-5 w-5" />
             </button>
 
@@ -793,7 +791,7 @@ function EnhancedPostItem({
                 return (
                   <Link 
                     href={`/friendship/${post.user.id}`}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-[var(--color-primary)]/10 to-cyan-600/10 text-[var(--color-primary-hover)] hover:from-[var(--color-primary)]/20 hover:to-cyan-600/20 hover:text-[var(--color-primary-hover)] transition-all duration-200 border border-teal-200/30 hover:border-[var(--color-ocean-300)]/50"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200 border border-teal-200/30 hover:border-teal-300/50"
                     data-testid={`button-see-friendship-${post.user.id}`}
                     title={`View friendship details with ${post.user?.name}`}
                   >
@@ -825,14 +823,14 @@ function EnhancedPostItem({
             {comments && comments.length > 0 && (
               <div className="space-y-3">
                 {comments.map((comment) => (
-                  <div key={comment.id} className="flex gap-3 p-3 bg-[var(--color-surface-elevated)] rounded-xl">
-                    <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-[var(--color-ocean-500)] rounded-full flex items-center justify-center text-white text-sm font-bold">
+                  <div key={comment.id} className="flex gap-3 p-3 bg-gray-50 rounded-xl">
+                    <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
                       {getAvatarFallback(comment.user?.name || 'Anonymous')}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-[var(--color-text)] dark:text-white">{comment.user?.name || 'Anonymous'}</span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="font-medium text-gray-900">{comment.user?.name || 'Anonymous'}</span>
+                        <span className="text-xs text-gray-500">
                           {(() => {
                             const commentDate = comment.createdAt ? new Date(comment.createdAt) : new Date();
                             if (isNaN(commentDate.getTime())) {
@@ -842,7 +840,7 @@ function EnhancedPostItem({
                           })()}
                         </span>
                       </div>
-                      <div className="text-[var(--color-text-secondary)]" dangerouslySetInnerHTML={{ __html: comment.content }} />
+                      <div className="text-gray-700" dangerouslySetInnerHTML={{ __html: comment.content }} />
                     </div>
                   </div>
                 ))}
@@ -858,21 +856,21 @@ function EnhancedPostItem({
         {/* Share Options Dialog */}
         {showShareOptions && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
+            <div className="bg-white rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
               <h3 className="text-xl font-bold mb-4">Share Post</h3>
               
               <div className="space-y-3">
                 {/* Share to Timeline */}
                 <button
-                  onClick={() => handleShareToWall()} aria-label="Button"
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors"
+                  onClick={() => handleShareToWall()}
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
                 >
                   <div className="p-2 bg-blue-100 rounded-full">
                     <Share2 className="h-5 w-5 text-blue-600" />
                   </div>
                   <div className="text-left">
                     <p className="font-medium">Share to Timeline</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Share this post on your timeline</p>
+                    <p className="text-sm text-gray-600">Share this post on your timeline</p>
                   </div>
                 </button>
 
@@ -882,15 +880,14 @@ function EnhancedPostItem({
                     setShowShareOptions(false);
                     setShowShareWithCommentModal(true);
                   }}
-                  aria-label="Share with comment button"
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
                 >
                   <div className="p-2 bg-green-100 rounded-full">
                     <MessageCircle className="h-5 w-5 text-green-600" />
                   </div>
                   <div className="text-left">
                     <p className="font-medium">Share with Comment</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Add your thoughts when sharing</p>
+                    <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
                   </div>
                 </button>
 
@@ -927,21 +924,21 @@ function EnhancedPostItem({
                       });
                     }
                   }}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
                 >
                   <div className="p-2 bg-purple-100 rounded-full">
                     <Share2 className="h-5 w-5 text-purple-600" />
                   </div>
                   <div className="text-left">
                     <p className="font-medium">Copy Link</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Copy post link to clipboard</p>
+                    <p className="text-sm text-gray-600">Copy post link to clipboard</p>
                   </div>
                 </button>
               </div>
 
               <button
-                onClick={() => setShowShareOptions(false)} aria-label="Button"
-                className="mt-4 w-full p-2 text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors"
+                onClick={() => setShowShareOptions(false)}
+                className="mt-4 w-full p-2 text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Cancel
               </button>
@@ -952,35 +949,35 @@ function EnhancedPostItem({
         {/* Share with Comment Modal */}
         {showShareWithCommentModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
+            <div className="bg-white rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <MessageCircle className="h-5 w-5 text-green-600" />
                 Share with Comment
               </h3>
               
               {/* Original Post Preview */}
-              <div className="bg-[var(--color-surface-elevated)] p-4 rounded-lg mb-4">
+              <div className="bg-gray-50 p-4 rounded-lg mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-pink-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
                     {getAvatarFallback(post.user?.name || 'Anonymous')}
                   </div>
                   <span className="font-medium text-sm">{post.user?.name}</span>
                 </div>
-                <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">
+                <p className="text-sm text-gray-700 line-clamp-3">
                   {post.content}
                 </p>
               </div>
 
               {/* Comment Input */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Add your thoughts (optional):
                 </label>
                 <textarea
                   value={shareComment}
                   onChange={(e) => setShareComment(e.target.value)}
                   placeholder="What do you think about this?"
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   rows={3}
                 />
               </div>
@@ -990,8 +987,9 @@ function EnhancedPostItem({
                 <button
                   onClick={() => {
                     setShowShareWithCommentModal(false);
-                    setShareComment('');}} aria-label="Button"
-                  className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors"
+                    setShareComment('');
+                  }}
+                  className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
                 >
                   Cancel
                 </button>
@@ -999,7 +997,8 @@ function EnhancedPostItem({
                   onClick={() => {
                     handleShareToWall(shareComment);
                     setShowShareWithCommentModal(false);
-                    setShareComment('');}} aria-label="Button"
+                    setShareComment('');
+                  }}
                   className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-xl transition-colors"
                 >
                   Share

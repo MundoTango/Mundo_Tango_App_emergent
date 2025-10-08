@@ -27,37 +27,37 @@ export default function NotificationIndicator() {
   return (
     <div className="flex items-center space-x-4">
       {/* Messages */}
-      <Link href="/messages" data-testid="link-element">
-        <button className="relative p-2 rounded-lg hover:bg-[var(--color-neutral-100)] transition-colors" data-testid="button-relative" aria-label="Button">
-          <MessageCircle className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+      <Link href="/messages">
+        <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <MessageCircle className="w-5 h-5 text-gray-600" />
         </button>
       </Link>
 
       {/* Notifications */}
-      <button className="relative p-2 rounded-lg hover:bg-[var(--color-neutral-100)] transition-colors" data-testid="button-relative" aria-label="Button">
-        <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-        {totalCount > 0 &&
-        <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+      <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
+        <Bell className="w-5 h-5 text-gray-600" />
+        {totalCount > 0 && (
+          <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
             <Badge className="h-5 min-w-[20px] px-1 bg-gradient-to-r from-turquoise-400 to-cyan-500 border-0">
               <span className="text-xs text-white">{totalCount}</span>
             </Badge>
           </span>
-        }
+        )}
       </button>
 
       {/* Friend Requests */}
-      <Link href="/friends" data-testid="link-element">
-        <button className="relative p-2 rounded-lg hover:bg-[var(--color-neutral-100)] transition-colors" data-testid="button-relative" aria-label="Button">
-          <Users className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-          {friendRequests > 0 &&
-          <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+      <Link href="/friends">
+        <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <Users className="w-5 h-5 text-gray-600" />
+          {friendRequests > 0 && (
+            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
               <Badge className="h-5 min-w-[20px] px-1 bg-gradient-to-r from-turquoise-400 to-cyan-500 border-0">
                 <span className="text-xs text-white">{friendRequests}</span>
               </Badge>
             </span>
-          }
+          )}
         </button>
       </Link>
-    </div>);
-
+    </div>
+  );
 }

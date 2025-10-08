@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -18,7 +17,6 @@ import { apiRequest } from '@/lib/queryClient';
 import { useMutation } from '@tanstack/react-query';
 
 const recurringEventSchema = z.object({
-  const { t } = useTranslation();
   title: z.string().min(1, "Title is required"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   location: z.string().min(1, "Location is required"),
@@ -33,7 +31,7 @@ const recurringEventSchema = z.object({
   price: z.number().min(0),
   isEventPage: z.boolean().default(true),
   allowEventPagePosts: z.boolean().default(true),
-  eventPageAdmins: z.array(z.number()).default([])
+  eventPageAdmins: z.array(z.number()).default([]),
 });
 
 type RecurringEventFormData = z.infer<typeof recurringEventSchema>;
@@ -52,7 +50,7 @@ export default function RecurringEventManager() {
       allowEventPagePosts: true,
       maxAttendees: 100,
       price: 0,
-      eventPageAdmins: []
+      eventPageAdmins: [],
     }
   });
 
@@ -64,15 +62,15 @@ export default function RecurringEventManager() {
     onSuccess: () => {
       toast({
         title: "Success!",
-        description: "Recurring events created successfully"
+        description: "Recurring events created successfully",
       });
       form.reset();
     },
     onError: (error: Error) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: error.message,
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   });
@@ -115,7 +113,7 @@ export default function RecurringEventManager() {
       <Card className="glassmorphic-card">
         <CardHeader>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent flex items-center gap-2">
-            <Repeat className="w-6 h-6 text-[var(--color-primary)]" />
+            <Repeat className="w-6 h-6 text-turquoise-500" />
             Create Recurring Event Series
           </CardTitle>
         </CardHeader>
@@ -127,24 +125,24 @@ export default function RecurringEventManager() {
                 <FormField
                   control={form.control}
                   name="title"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>Event Title</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Weekly Milonga at Salon Canning" className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+                        <Input {...field} placeholder="Weekly Milonga at Salon Canning" className="glassmorphic-input" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
 
                 <FormField
                   control={form.control}
                   name="eventType"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>Event Type</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="glassmorphic-input">
                             <SelectValue placeholder="Select event type" />
@@ -160,117 +158,117 @@ export default function RecurringEventManager() {
                       </Select>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
               </div>
 
               <FormField
                 control={form.control}
                 name="description"
-                render={({ field }) =>
-                <FormItem>
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Describe your recurring event..." className="glassmorphic-input min-h-[100px]" data-testid="textarea-glassmorphic-input" />
+                      <Textarea {...field} placeholder="Describe your recurring event..." className="glassmorphic-input min-h-[100px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                } />
-
+                )}
+              />
 
               <FormField
                 control={form.control}
                 name="location"
-                render={({ field }) =>
-                <FormItem>
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel>Location</FormLabel>
                     <FormControl>
                       <div className="relative">
-                        <MapPin className="absolute left-3 top-3 w-4 h-4 text-[var(--color-primary)]" />
-                        <Input {...field} placeholder="Salon Canning, Buenos Aires" className="glassmorphic-input pl-10" data-testid="input-glassmorphic-input" />
+                        <MapPin className="absolute left-3 top-3 w-4 h-4 text-turquoise-500" />
+                        <Input {...field} placeholder="Salon Canning, Buenos Aires" className="glassmorphic-input pl-10" />
                       </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                } />
-
+                )}
+              />
 
               {/* Date and Time */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="startDate"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>First Event Date</FormLabel>
                       <FormControl>
                         <Input {...field} type="date" className="glassmorphic-input" onChange={(e) => {
-                        field.onChange(e);
-                        generatePreviewDates(form.getValues());
-                      }} data-testid="input-date" />
+                          field.onChange(e);
+                          generatePreviewDates(form.getValues());
+                        }} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
 
                 <FormField
                   control={form.control}
                   name="recurrenceEndDate"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>Series End Date</FormLabel>
                       <FormControl>
                         <Input {...field} type="date" className="glassmorphic-input" onChange={(e) => {
-                        field.onChange(e);
-                        generatePreviewDates(form.getValues());
-                      }} data-testid="input-date" />
+                          field.onChange(e);
+                          generatePreviewDates(form.getValues());
+                        }} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
 
                 <FormField
                   control={form.control}
                   name="startTime"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>Start Time</FormLabel>
                       <FormControl>
-                        <Input {...field} type="time" className="glassmorphic-input" data-testid="input-time" />
+                        <Input {...field} type="time" className="glassmorphic-input" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
 
                 <FormField
                   control={form.control}
                   name="endTime"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>End Time</FormLabel>
                       <FormControl>
-                        <Input {...field} type="time" className="glassmorphic-input" data-testid="input-time" />
+                        <Input {...field} type="time" className="glassmorphic-input" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
               </div>
 
               {/* Recurrence Pattern */}
               <FormField
                 control={form.control}
                 name="recurrenceType"
-                render={({ field }) =>
-                <FormItem>
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel>Recurrence Pattern</FormLabel>
                     <Select onValueChange={(value) => {
-                    field.onChange(value);
-                    generatePreviewDates(form.getValues());
-                  }} defaultValue={field.value} data-testid="select-element">
+                      field.onChange(value);
+                      generatePreviewDates(form.getValues());
+                    }} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger className="glassmorphic-input">
                           <SelectValue placeholder="Select recurrence" />
@@ -285,60 +283,60 @@ export default function RecurringEventManager() {
                     </Select>
                     <FormMessage />
                   </FormItem>
-                } />
-
+                )}
+              />
 
               {/* Preview Dates */}
-              {previewDates.length > 0 &&
-              <div className="glassmorphic-card p-4">
+              {previewDates.length > 0 && (
+                <div className="glassmorphic-card p-4">
                   <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                    <CalendarCheck className="w-5 h-5 text-[var(--color-primary)]" />
+                    <CalendarCheck className="w-5 h-5 text-turquoise-500" />
                     Preview of Event Dates
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {previewDates.map((date, index) =>
-                  <Badge key={index} variant="secondary" className="bg-turquoise-100 text-turquoise-800">
+                    {previewDates.map((date, index) => (
+                      <Badge key={index} variant="secondary" className="bg-turquoise-100 text-turquoise-800">
                         {format(date, 'MMM d, yyyy')}
                       </Badge>
-                  )}
-                    {previewDates.length >= 10 &&
-                  <Badge variant="outline" className="border-[var(--color-ocean-300)]">
+                    ))}
+                    {previewDates.length >= 10 && (
+                      <Badge variant="outline" className="border-turquoise-300">
                         + more...
                       </Badge>
-                  }
+                    )}
                   </div>
                 </div>
-              }
+              )}
 
               {/* Event Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="maxAttendees"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>Max Attendees</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e) => field.onChange(parseInt(e.target.value))} data-testid="input-number" />
+                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e) => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
 
                 <FormField
                   control={form.control}
                   name="price"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel>Price (USD)</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e) => field.onChange(parseFloat(e.target.value))} data-testid="input-number" />
+                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e) => field.onChange(parseFloat(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  } />
-
+                  )}
+                />
               </div>
 
               {/* Event Page Settings */}
@@ -348,57 +346,57 @@ export default function RecurringEventManager() {
                 <FormField
                   control={form.control}
                   name="isEventPage"
-                  render={({ field }) =>
-                  <FormItem className="flex items-center justify-between">
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between">
                       <div className="space-y-0.5">
                         <FormLabel>Create Event Page</FormLabel>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">Create a dedicated page for this event series</p>
+                        <p className="text-sm text-gray-600">Create a dedicated page for this event series</p>
                       </div>
                       <FormControl>
                         <Switch checked={field.value} onCheckedChange={(checked) => {
-                        field.onChange(checked);
-                        setShowDelegation(checked);
-                      }} />
+                          field.onChange(checked);
+                          setShowDelegation(checked);
+                        }} />
                       </FormControl>
                     </FormItem>
-                  } />
+                  )}
+                />
 
-
-                {form.watch('isEventPage') &&
-                <FormField
-                  control={form.control}
-                  name="allowEventPagePosts"
-                  render={({ field }) =>
-                  <FormItem className="flex items-center justify-between">
+                {form.watch('isEventPage') && (
+                  <FormField
+                    control={form.control}
+                    name="allowEventPagePosts"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <FormLabel>Allow Community Posts</FormLabel>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">Let attendees post on the event page</p>
+                          <p className="text-sm text-gray-600">Let attendees post on the event page</p>
                         </div>
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} />
                         </FormControl>
                       </FormItem>
-                  } />
-
-                }
+                    )}
+                  />
+                )}
               </div>
 
               <div className="flex justify-end gap-4">
-                <Button type="button" variant="outline" onClick={() => form.reset()} data-testid="button-button">
+                <Button type="button" variant="outline" onClick={() => form.reset()}>
                   Cancel
                 </Button>
-                <Button type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending} data-testid="button-submit">
-                  {createRecurringEventsMutation.isPending ?
-                  <>Creating Events...</> :
-
-                  <>Create Recurring Events</>
-                  }
+                <Button type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending}>
+                  {createRecurringEventsMutation.isPending ? (
+                    <>Creating Events...</>
+                  ) : (
+                    <>Create Recurring Events</>
+                  )}
                 </Button>
               </div>
             </form>
           </Form>
         </CardContent>
       </Card>
-    </div>);
-
+    </div>
+  );
 }

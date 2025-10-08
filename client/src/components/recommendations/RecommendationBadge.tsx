@@ -25,7 +25,7 @@ const getCategoryInfo = (type: string) => {
   return categories[type.toLowerCase() as keyof typeof categories] || {
     emoji: '📍',
     label: type,
-    color: 'from-[var(--color-primary)] to-teal-500'
+    color: 'from-cyan-500 to-teal-500'
   };
 };
 
@@ -56,7 +56,7 @@ export default function RecommendationBadge({
           {/* Price Level */}
           {priceLevel && (
             <div 
-              className="px-2 py-1 rounded-md bg-[var(--color-surface)]/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm font-semibold border border-slate-200 dark:border-slate-700"
+              className="px-2 py-1 rounded-md bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm font-semibold border border-slate-200 dark:border-slate-700"
               data-testid={`badge-price-${priceLevel}`}
             >
               {priceLevel}
@@ -89,7 +89,7 @@ export default function RecommendationBadge({
           className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400"
           data-testid="badge-location"
         >
-          <MapPin className="w-3.5 h-3.5 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+          <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
           <span>
             {city}{country && `, ${country}`}
           </span>

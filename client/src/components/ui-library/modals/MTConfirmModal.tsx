@@ -1,8 +1,7 @@
 // MT Ocean Confirmation Modal Component
 // ESA LIFE CEO 61x21 - Confirmation Dialogs
 
-import React from 'react'
-import { useTranslation } from 'react-i18next';;
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { AlertTriangle, CheckCircle, Info, AlertCircle, Trash2, LucideIcon } from 'lucide-react';
 import MTModalBase from './MTModalBase';

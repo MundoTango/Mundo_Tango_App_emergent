@@ -102,7 +102,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
   const variants = {
     glass: {
       className: cn(
-        'bg-[var(--color-surface)]/90 dark:bg-gray-900/90',
+        'bg-white/90 dark:bg-gray-900/90',
         'backdrop-blur-2xl backdrop-saturate-150',
         'border border-white/30 dark:border-white/10',
         'shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]'
@@ -111,8 +111,8 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
     },
     solid: {
       className: cn(
-        'bg-[var(--color-surface)] dark:bg-gray-900',
-        'border border-[var(--color-border)] dark:border-gray-800',
+        'bg-white dark:bg-gray-900',
+        'border border-gray-200 dark:border-gray-800',
         'shadow-2xl'
       ),
       style: {}
@@ -206,7 +206,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
               className={cn(
                 'absolute top-4 right-4 z-10',
                 'p-2 rounded-full',
-                'bg-[var(--color-surface)]/20 hover:bg-[var(--color-surface)]/30 dark:bg-gray-800/20 dark:hover:bg-gray-800/30',
+                'bg-white/20 hover:bg-white/30 dark:bg-gray-800/20 dark:hover:bg-gray-800/30',
                 'backdrop-blur-md',
                 'border border-white/20 dark:border-white/10',
                 'transition-all duration-200',
@@ -216,7 +216,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
               aria-label="Close modal"
               data-testid={`${testId}-close`}
             >
-              <X className="w-5 h-5 text-[var(--color-text-secondary)] dark:text-gray-300 group-hover:text-[var(--color-text)] dark:group-hover:text-white" />
+              <X className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white" />
             </button>
           )}
 

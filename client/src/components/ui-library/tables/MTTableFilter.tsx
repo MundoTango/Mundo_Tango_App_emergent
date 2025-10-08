@@ -68,7 +68,7 @@ export default function MTTableFilter({
       data-testid={testId}
     >
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-[var(--color-text-secondary)] dark:text-gray-300">
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
           Filters
         </h3>
         {hasActiveFilters && (
@@ -76,7 +76,7 @@ export default function MTTableFilter({
             onClick={handleClearAll}
             className="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
             data-testid={`${testId}-clear-all`}
-           aria-label="Button">
+          >
             Clear all
           </button>
         )}
@@ -97,7 +97,7 @@ export default function MTTableFilter({
               />
               {activeFilters[column.id] && (
                 <button
-                  onClick={() => handleFilterChange(column.id, '')} aria-label="Button"
+                  onClick={() => handleFilterChange(column.id, '')}
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
                   data-testid={`${testId}-${column.id}-clear`}
                 >
@@ -119,12 +119,12 @@ export default function MTTableFilter({
             return (
               <div
                 key={columnId}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-ocean-100)] dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full text-sm"
+                className="inline-flex items-center gap-1 px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full text-sm"
               >
                 <span className="font-medium">{column.header}:</span>
                 <span>{String(value)}</span>
                 <button
-                  onClick={() => handleFilterChange(columnId, '')} aria-label="Button"
+                  onClick={() => handleFilterChange(columnId, '')}
                   className="ml-1 p-0.5 hover:bg-teal-200 dark:hover:bg-teal-800 rounded-full transition-colors"
                 >
                   <X className="w-3 h-3" />
@@ -158,9 +158,9 @@ function FilterInput({
 }: FilterInputProps) {
   const inputClass = cn(
     'w-full px-3 py-1.5 text-sm rounded-lg',
-    'bg-[var(--color-surface)] dark:bg-gray-800',
+    'bg-white dark:bg-gray-800',
     'border border-gray-300 dark:border-gray-700',
-    'focus:border-teal-400 dark:focus:border-[var(--color-primary)]',
+    'focus:border-teal-400 dark:focus:border-teal-500',
     'focus:ring-2 focus:ring-teal-400/20',
     'transition-all duration-200'
   );
@@ -188,7 +188,7 @@ function FilterInput({
         <input
           type="date"
           value={value}
-          onChange={(e) => onChange(e.target.value)} aria-label="Input field"
+          onChange={(e) => onChange(e.target.value)}
           className={inputClass}
           data-testid={testId}
         />
@@ -199,7 +199,7 @@ function FilterInput({
         <input
           type="number"
           value={value}
-          onChange={(e) => onChange(e.target.value)} aria-label="Input field"
+          onChange={(e) => onChange(e.target.value)}
           placeholder="Filter..."
           className={inputClass}
           data-testid={testId}
@@ -211,7 +211,7 @@ function FilterInput({
         <input
           type="text"
           value={value}
-          onChange={(e) => onChange(e.target.value)} aria-label="Input field"
+          onChange={(e) => onChange(e.target.value)}
           placeholder="Filter..."
           className={inputClass}
           data-testid={testId}

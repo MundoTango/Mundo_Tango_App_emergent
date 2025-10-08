@@ -17,19 +17,19 @@ interface CustomRoleRequestFormProps {
 export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequestFormProps) {
   const [roleName, setRoleName] = useState('');
   const [roleDescription, setRoleDescription] = useState('');
-  const [errors, setErrors] = useState<{[key: string]: string;}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const queryClient = useQueryClient();
 
   const submitMutation = useMutation({
-    mutationFn: async (data: {roleName: string;roleDescription: string;}) => {
+    mutationFn: async (data: { roleName: string; roleDescription: string }) => {
       return await apiRequest('POST', '/api/roles/custom/request', data);
     },
     onSuccess: () => {
       setSubmitSuccess(true);
       queryClient.invalidateQueries({ queryKey: ['/api/roles/custom/my-requests'] });
-
+      
       // Reset form after a delay
       setTimeout(() => {
         setRoleName('');
@@ -40,14 +40,14 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
     },
     onError: (error: any) => {
       console.error('Error submitting custom role request:', error);
-      setErrors({
-        submit: error?.message || 'Failed to submit custom role request. Please try again.'
+      setErrors({ 
+        submit: error?.message || 'Failed to submit custom role request. Please try again.' 
       });
-    }
+    },
   });
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string;} = {};
+    const newErrors: { [key: string]: string } = {};
 
     if (!roleName.trim()) {
       newErrors.roleName = 'Role name is required';
@@ -71,14 +71,14 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!validateForm()) {
       return;
     }
 
     submitMutation.mutate({
       roleName: roleName.trim(),
-      roleDescription: roleDescription.trim()
+      roleDescription: roleDescription.trim(),
     });
   };
 
@@ -92,15 +92,15 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             </div>
             <div>
               <h3 className="text-lg font-semibold text-green-800">Request Submitted Successfully!</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+              <p className="text-sm text-gray-600 mt-2">
                 Your custom role request for "{roleName}" has been submitted and is now pending admin review.
                 You'll be notified once it's been processed.
               </p>
             </div>
           </div>
         </CardContent>
-      </Card>);
-
+      </Card>
+    );
   }
 
   return (
@@ -115,11 +115,11 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
 
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {errors.submit &&
-          <Alert variant="destructive">
+          {errors.submit && (
+            <Alert variant="destructive">
               <AlertDescription>{errors.submit}</AlertDescription>
             </Alert>
-          }
+          )}
 
           <div className="space-y-2">
             <Label htmlFor="roleName">Role Name *</Label>
@@ -130,12 +130,12 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
               onChange={(e) => setRoleName(e.target.value)}
               placeholder="e.g., Tango Shoe Designer"
               className={errors.roleName ? 'border-red-500' : ''}
-              disabled={submitMutation.isPending} data-testid="input-rolename" />
-
-            {errors.roleName &&
-            <p className="text-sm text-red-600">{errors.roleName}</p>
-            }
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+              disabled={submitMutation.isPending}
+            />
+            {errors.roleName && (
+              <p className="text-sm text-red-600">{errors.roleName}</p>
+            )}
+            <p className="text-xs text-gray-500">
               Choose a clear, descriptive name for your role ({roleName.length}/50 characters)
             </p>
           </div>
@@ -149,12 +149,12 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
               placeholder="Describe what this role involves in the tango community. Include key activities, responsibilities, or services provided..."
               rows={4}
               className={errors.roleDescription ? 'border-red-500' : ''}
-              disabled={submitMutation.isPending} data-testid="textarea-roledescription" />
-
-            {errors.roleDescription &&
-            <p className="text-sm text-red-600">{errors.roleDescription}</p>
-            }
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+              disabled={submitMutation.isPending}
+            />
+            {errors.roleDescription && (
+              <p className="text-sm text-red-600">{errors.roleDescription}</p>
+            )}
+            <p className="text-xs text-gray-500">
               Provide a detailed description of the role ({roleDescription.length}/500 characters)
             </p>
           </div>
@@ -173,34 +173,34 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             <Button
               type="submit"
               disabled={submitMutation.isPending}
-              className="flex-1" data-testid="button-submit">
-
-              {submitMutation.isPending ?
-              <>
+              className="flex-1"
+            >
+              {submitMutation.isPending ? (
+                <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Submitting...
-                </> :
-
-              <>
+                </>
+              ) : (
+                <>
                   <Send className="w-4 h-4 mr-2" />
                   Submit Request
                 </>
-              }
+              )}
             </Button>
             
-            {onCancel &&
-            <Button
-              type="button"
-              variant="outline"
-              onClick={onCancel}
-              disabled={submitMutation.isPending} data-testid="button-button">
-
+            {onCancel && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onCancel}
+                disabled={submitMutation.isPending}
+              >
                 Cancel
               </Button>
-            }
+            )}
           </div>
         </form>
       </CardContent>
-    </Card>);
-
+    </Card>
+  );
 }

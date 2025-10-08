@@ -12,11 +12,11 @@ import { cn } from '@/lib/utils';
  * Using Lucide icons for consistency
  */
 export const IconTypes = {
-  info: Info, // General information (ISO standard "i")
-  help: HelpCircle, // Help/guidance
+  info: Info,           // General information (ISO standard "i")
+  help: HelpCircle,     // Help/guidance
   warning: AlertCircle, // Warning/caution
   success: CheckCircle, // Success/confirmation
-  error: XCircle // Error/problem
+  error: XCircle,       // Error/problem
 } as const;
 
 export type IconType = keyof typeof IconTypes;
@@ -63,7 +63,7 @@ const InternationalIconTooltip = ({
   iconClassName = '',
   tooltipClassName = '',
   ariaLabel,
-  maxWidth = '350px' // 150% expansion buffer from base 200px
+  maxWidth = '350px', // 150% expansion buffer from base 200px
 }: InternationalIconTooltipProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -82,11 +82,11 @@ const InternationalIconTooltip = ({
 
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       if (
-      iconRef.current &&
-      tooltipRef.current &&
-      !iconRef.current.contains(e.target as Node) &&
-      !tooltipRef.current.contains(e.target as Node))
-      {
+        iconRef.current &&
+        tooltipRef.current &&
+        !iconRef.current.contains(e.target as Node) &&
+        !tooltipRef.current.contains(e.target as Node)
+      ) {
         setIsVisible(false);
       }
     };
@@ -113,17 +113,17 @@ const InternationalIconTooltip = ({
   // Position styles with RTL support
   const getPositionStyles = () => {
     const isRTL = textDirection === 'rtl';
-
+    
     const positions: Record<TooltipPosition, string> = {
       top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
       bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-      left: isRTL ?
-      'left-full top-1/2 -translate-y-1/2 ml-2' :
-      'right-full top-1/2 -translate-y-1/2 mr-2',
-      right: isRTL ?
-      'right-full top-1/2 -translate-y-1/2 mr-2' :
-      'left-full top-1/2 -translate-y-1/2 ml-2',
-      auto: 'top-full left-1/2 -translate-x-1/2 mt-2'
+      left: isRTL 
+        ? 'left-full top-1/2 -translate-y-1/2 ml-2'
+        : 'right-full top-1/2 -translate-y-1/2 mr-2',
+      right: isRTL
+        ? 'right-full top-1/2 -translate-y-1/2 mr-2'
+        : 'left-full top-1/2 -translate-y-1/2 ml-2',
+      auto: 'top-full left-1/2 -translate-x-1/2 mt-2',
     };
 
     return positions[position];
@@ -132,11 +132,11 @@ const InternationalIconTooltip = ({
   // Icon color variants
   const getIconColor = () => {
     const colors: Record<IconType, string> = {
-      info: 'text-[var(--color-primary-hover)] dark:text-cyan-400',
+      info: 'text-cyan-600 dark:text-cyan-400',
       help: 'text-blue-600 dark:text-blue-400',
       warning: 'text-amber-600 dark:text-amber-400',
       success: 'text-green-600 dark:text-green-400',
-      error: 'text-red-600 dark:text-red-400'
+      error: 'text-red-600 dark:text-red-400',
     };
 
     return colors[iconType];
@@ -156,7 +156,7 @@ const InternationalIconTooltip = ({
         ref={iconRef}
         type="button"
         onClick={handleToggle}
-        onMouseEnter={() => !isTouchDevice && setIsVisible(true)} aria-label="Button"
+        onMouseEnter={() => !isTouchDevice && setIsVisible(true)}
         onMouseLeave={() => !isTouchDevice && setIsVisible(false)}
         onFocus={() => setIsVisible(true)}
         onBlur={() => setIsVisible(false)}
@@ -166,65 +166,65 @@ const InternationalIconTooltip = ({
         className={cn(
           'inline-flex items-center justify-center',
           'rounded-full p-1',
-          'hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800',
+          'hover:bg-gray-100 dark:hover:bg-gray-800',
           'focus:outline-none focus:ring-2 focus:ring-cyan-500/50',
           'transition-colors duration-150',
           'cursor-help',
           getIconColor(),
           iconClassName
-        )} data-testid="button-button">
-
+        )}
+      >
         <Icon size={18} aria-hidden="true" />
       </button>
 
       {/* Tooltip */}
-      {isVisible &&
-      <div
-        ref={tooltipRef}
-        id={tooltipId.current}
-        role="tooltip"
-        dir={textDirection}
-        onKeyDown={handleKeyDown}
-        className={cn(
-          'absolute z-50',
-          'glass-card glass-depth-2',
-          'px-3 py-2 rounded-lg',
-          'border border-white/20 dark:border-white/10',
-          'text-sm text-slate-900 dark:text-white',
-          'shadow-lg backdrop-blur-md',
-          'animate-in fade-in-0 zoom-in-95',
-          'duration-150',
-          getPositionStyles(),
-          tooltipClassName
-        )}
-        style={{
-          maxWidth,
-          // Ensure text can expand 150% for translations
-          minWidth: '150px',
-          wordWrap: 'break-word',
-          hyphens: 'auto'
-        }}>
-
+      {isVisible && (
+        <div
+          ref={tooltipRef}
+          id={tooltipId.current}
+          role="tooltip"
+          dir={textDirection}
+          onKeyDown={handleKeyDown}
+          className={cn(
+            'absolute z-50',
+            'glass-card glass-depth-2',
+            'px-3 py-2 rounded-lg',
+            'border border-white/20 dark:border-white/10',
+            'text-sm text-slate-900 dark:text-white',
+            'shadow-lg backdrop-blur-md',
+            'animate-in fade-in-0 zoom-in-95',
+            'duration-150',
+            getPositionStyles(),
+            tooltipClassName
+          )}
+          style={{
+            maxWidth,
+            // Ensure text can expand 150% for translations
+            minWidth: '150px',
+            wordWrap: 'break-word',
+            hyphens: 'auto',
+          }}
+        >
           {/* Arrow indicator */}
           <div
-          className={cn(
-            'absolute w-2 h-2 bg-[var(--color-surface)]/70 dark:bg-slate-800/70',
-            'border border-white/20 dark:border-white/10',
-            'rotate-45',
-            position === 'top' && 'bottom-[-5px] left-1/2 -translate-x-1/2',
-            position === 'bottom' && 'top-[-5px] left-1/2 -translate-x-1/2',
-            position === 'left' && textDirection === 'ltr' && 'right-[-5px] top-1/2 -translate-y-1/2',
-            position === 'right' && textDirection === 'ltr' && 'left-[-5px] top-1/2 -translate-y-1/2',
-            position === 'left' && textDirection === 'rtl' && 'left-[-5px] top-1/2 -translate-y-1/2',
-            position === 'right' && textDirection === 'rtl' && 'right-[-5px] top-1/2 -translate-y-1/2'
-          )} />
-
+            className={cn(
+              'absolute w-2 h-2 bg-white/70 dark:bg-slate-800/70',
+              'border border-white/20 dark:border-white/10',
+              'rotate-45',
+              position === 'top' && 'bottom-[-5px] left-1/2 -translate-x-1/2',
+              position === 'bottom' && 'top-[-5px] left-1/2 -translate-x-1/2',
+              position === 'left' && textDirection === 'ltr' && 'right-[-5px] top-1/2 -translate-y-1/2',
+              position === 'right' && textDirection === 'ltr' && 'left-[-5px] top-1/2 -translate-y-1/2',
+              position === 'left' && textDirection === 'rtl' && 'left-[-5px] top-1/2 -translate-y-1/2',
+              position === 'right' && textDirection === 'rtl' && 'right-[-5px] top-1/2 -translate-y-1/2',
+            )}
+          />
           
           <div className="relative z-10">{content}</div>
         </div>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 };
 
 /**
@@ -237,19 +237,19 @@ interface QuickInfoTooltipProps {
   position?: TooltipPosition;
 }
 
-const QuickInfoTooltip = ({
-  content,
+const QuickInfoTooltip = ({ 
+  content, 
   textDirection = 'ltr',
-  position = 'top'
-}: QuickInfoTooltipProps) =>
-<InternationalIconTooltip
-  content={content}
-  iconType="info"
-  textDirection={textDirection}
-  position={position}
-  ariaLabel="Information" />;
-
-
+  position = 'top',
+}: QuickInfoTooltipProps) => (
+  <InternationalIconTooltip
+    content={content}
+    iconType="info"
+    textDirection={textDirection}
+    position={position}
+    ariaLabel="Information"
+  />
+);
 
 /**
  * Help Tooltip
@@ -261,19 +261,19 @@ interface HelpTooltipProps {
   position?: TooltipPosition;
 }
 
-const HelpTooltip = ({
-  content,
+const HelpTooltip = ({ 
+  content, 
   textDirection = 'ltr',
-  position = 'top'
-}: HelpTooltipProps) =>
-<InternationalIconTooltip
-  content={content}
-  iconType="help"
-  textDirection={textDirection}
-  position={position}
-  ariaLabel="Help" />;
-
-
+  position = 'top',
+}: HelpTooltipProps) => (
+  <InternationalIconTooltip
+    content={content}
+    iconType="help"
+    textDirection={textDirection}
+    position={position}
+    ariaLabel="Help"
+  />
+);
 
 /**
  * Cultural Icon Validator
@@ -286,12 +286,12 @@ const HelpTooltip = ({
  * - Check mark (universal ✓)
  */
 const validateIconForCulture = (
-iconType: IconType,
-cultureCode: string)
-: {valid: boolean;alternative?: IconType;reason?: string;} => {
+  iconType: IconType,
+  cultureCode: string
+): { valid: boolean; alternative?: IconType; reason?: string } => {
   // ISO standard icons are universally valid
   const universalIcons: IconType[] = ['info', 'warning', 'error', 'success'];
-
+  
   if (universalIcons.includes(iconType)) {
     return { valid: true };
   }
@@ -303,7 +303,7 @@ cultureCode: string)
 
   // Default: approve but log for review
   console.warn(`Icon "${iconType}" not validated for culture "${cultureCode}". Using default.`);
-  return {
+  return { 
     valid: true,
     reason: 'Not explicitly validated - using ISO standard fallback'
   };
@@ -316,4 +316,5 @@ export {
   InternationalIconTooltip,
   QuickInfoTooltip,
   HelpTooltip,
-  validateIconForCulture };
+  validateIconForCulture,
+};

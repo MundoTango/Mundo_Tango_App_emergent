@@ -525,7 +525,7 @@ export default function GroupDetailPageMT() {
         <div className="flex items-center justify-center h-96">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-turquoise-500 mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-300">Loading group details...</p>
+            <p className="text-gray-600">Loading group details...</p>
           </div>
         </div>
       </DashboardLayout>
@@ -540,7 +540,7 @@ export default function GroupDetailPageMT() {
           <div className="text-center">
             <AlertCircle className="h-16 w-16 text-red-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Group not found</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">This group may have been removed or you don't have access.</p>
+            <p className="text-gray-600 mb-6">This group may have been removed or you don't have access.</p>
             <Button 
               onClick={() => setLocation('/groups')}
               className="mt-action-button mt-action-button-primary"
@@ -592,10 +592,10 @@ export default function GroupDetailPageMT() {
             <div className="mt-info-card-content space-y-3">
               {group.activities.map((activity: any, index: number) => (
                 <div key={index} className="flex items-start gap-3">
-                  {activity.icon === 'music' && <Music className="h-5 w-5 text-[var(--color-primary)] mt-0.5" />}
+                  {activity.icon === 'music' && <Music className="h-5 w-5 text-turquoise-500 mt-0.5" />}
                   {activity.icon === 'book' && <BookOpen className="h-5 w-5 text-blue-500 mt-0.5" />}
-                  {activity.icon === 'trophy' && <Trophy className="h-5 w-5 text-[var(--color-primary)] mt-0.5" />}
-                  {!activity.icon && <Zap className="h-5 w-5 text-[var(--color-primary)] mt-0.5" />}
+                  {activity.icon === 'trophy' && <Trophy className="h-5 w-5 text-cyan-500 mt-0.5" />}
+                  {!activity.icon && <Zap className="h-5 w-5 text-cyan-500 mt-0.5" />}
                   <div>
                     <h4 className="font-semibold">{activity.title}</h4>
                     <p className="text-sm">{activity.description}</p>
@@ -616,7 +616,7 @@ export default function GroupDetailPageMT() {
             <div className="mt-info-card-content">
               <div className="flex flex-wrap gap-2">
                 {group.tags.map((tag: string, index: number) => (
-                  <span key={index} className="px-3 py-1 bg-gradient-to-r from-turquoise-100 to-cyan-100 text-sm rounded-full text-[var(--color-text-secondary)]">
+                  <span key={index} className="px-3 py-1 bg-gradient-to-r from-turquoise-100 to-cyan-100 text-sm rounded-full text-gray-700">
                     {tag}
                   </span>
                 ))}
@@ -636,21 +636,21 @@ export default function GroupDetailPageMT() {
           </div>
           <div className="mt-info-card-content space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 dark:text-gray-300">Members</span>
+              <span className="text-gray-600">Members</span>
               <span className="font-semibold">{group.memberCount || 0}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 dark:text-gray-300">Created</span>
+              <span className="text-gray-600">Created</span>
               <span className="font-semibold">
                 {new Date(group.createdAt).toLocaleDateString()}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 dark:text-gray-300">Type</span>
+              <span className="text-gray-600">Type</span>
               <span className="font-semibold capitalize">{group.type}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 dark:text-gray-300">Privacy</span>
+              <span className="text-gray-600">Privacy</span>
               <span className="font-semibold capitalize">{group.privacy || 'public'}</span>
             </div>
           </div>
@@ -670,7 +670,7 @@ export default function GroupDetailPageMT() {
                 </div>
                 <div>
                   <p className="font-semibold text-sm">{admin.user.name}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">@{admin.user.username}</p>
+                  <p className="text-xs text-gray-500">@{admin.user.username}</p>
                 </div>
               </div>
             ))}
@@ -777,7 +777,7 @@ export default function GroupDetailPageMT() {
 
         {/* Filters Panel */}
         {showFilters && (
-          <div className="bg-[var(--color-surface-elevated)] p-4 rounded-lg space-y-4">
+          <div className="bg-gray-50 p-4 rounded-lg space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Search */}
               <div>
@@ -787,7 +787,6 @@ export default function GroupDetailPageMT() {
                   placeholder="Search events..."
                   value={eventFilters.search}
                   onChange={(e) => setEventFilters({...eventFilters, search: e.target.value})}
-                  aria-label="Search events input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -817,7 +816,6 @@ export default function GroupDetailPageMT() {
                   placeholder="Search location..."
                   value={eventFilters.location}
                   onChange={(e) => setEventFilters({...eventFilters, location: e.target.value})}
-                  aria-label="Location input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -829,7 +827,6 @@ export default function GroupDetailPageMT() {
                   type="date"
                   value={eventFilters.dateRange.start}
                   onChange={(e) => setEventFilters({...eventFilters, dateRange: {...eventFilters.dateRange, start: e.target.value}})}
-                  aria-label="Start date input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -839,7 +836,6 @@ export default function GroupDetailPageMT() {
                   type="date"
                   value={eventFilters.dateRange.end}
                   onChange={(e) => setEventFilters({...eventFilters, dateRange: {...eventFilters.dateRange, end: e.target.value}})}
-                  aria-label="End date input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -851,7 +847,6 @@ export default function GroupDetailPageMT() {
                     type="checkbox"
                     checked={eventFilters.hasSpace}
                     onChange={(e) => setEventFilters({...eventFilters, hasSpace: e.target.checked})}
-                    aria-label="Events with space checkbox"
                     className="rounded"
                   />
                   <span className="text-sm">Only show events with space</span>
@@ -936,7 +931,7 @@ export default function GroupDetailPageMT() {
         {!isPostCreatorExpanded ? (
           /* Collapsed: Floating send button */
           <button
-            onClick={() => setIsPostCreatorExpanded(true)} aria-label="Button"
+            onClick={() => setIsPostCreatorExpanded(true)}
             className="group relative w-14 h-14 rounded-2xl bg-gradient-to-br from-turquoise-400 to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 mx-auto block animate-pulse"
             data-testid="button-expand-post-creator"
           >
@@ -965,8 +960,8 @@ export default function GroupDetailPageMT() {
               onActivity={handlePostCreatorActivity}
             />
             <button
-              onClick={() => setIsPostCreatorExpanded(false)} aria-label="Button"
-              className="mt-2 text-sm text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)] transition-colors"
+              onClick={() => setIsPostCreatorExpanded(false)}
+              className="mt-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
               data-testid="button-collapse-post-creator"
             >
               ✕ Collapse
@@ -983,11 +978,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('all');}} aria-label="Button"
+                        setMentionFilter('all'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-all-posts"
                     >
@@ -1001,11 +997,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('residents');}} aria-label="Button"
+                        setMentionFilter('residents'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'residents'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-residents"
                     >
@@ -1019,11 +1016,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('visitors');}} aria-label="Button"
+                        setMentionFilter('visitors'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'visitors'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-visitors"
                     >
@@ -1037,11 +1035,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('friends');}} aria-label="Button"
+                        setMentionFilter('friends'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'friends'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-friends"
                     >
@@ -1057,11 +1056,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('all');}} aria-label="Button"
+                        setMentionFilter('all'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-all-posts"
                     >
@@ -1075,11 +1075,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('members');}} aria-label="Button"
+                        setMentionFilter('members'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'members'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-members"
                     >
@@ -1093,11 +1094,12 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('non-members');}} aria-label="Button"
+                        setMentionFilter('non-members'); 
+                      }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'non-members'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                          : 'bg-[var(--color-neutral-100)] opacity-60 hover:opacity-100'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
                       data-testid="filter-non-members"
                     >
@@ -1124,7 +1126,7 @@ export default function GroupDetailPageMT() {
           />
         ) : (
           <div className="flex justify-center py-8">
-            <div className="text-sm text-gray-500 dark:text-gray-400">Loading group data...</div>
+            <div className="text-sm text-gray-500">Loading group data...</div>
           </div>
         )}
           </div>
@@ -1171,7 +1173,7 @@ export default function GroupDetailPageMT() {
               {userContext.isLocal && (
                 <PulseButton
                   onClick={() => setLocation('/host-onboarding')}
-                  className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold"
+                  className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
                   pulseColor="rgba(6, 182, 212, 0.6)"
                   data-testid="button-become-host"
                 >
@@ -1231,14 +1233,14 @@ export default function GroupDetailPageMT() {
             >
               <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center housing-stat-card" data-testid="stat-total-homes">
-                  <Home className="h-8 w-8 mx-auto mb-2 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+                  <Home className="h-8 w-8 mx-auto mb-2 text-cyan-600 dark:text-cyan-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">{totalHomes}</div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
                     {t('housing.city_housing_tab.total_homes', 'Total Homes')}
                   </div>
                 </div>
                 <div className="text-center housing-stat-card" data-testid="stat-avg-price">
-                  <DollarSign className="h-8 w-8 mx-auto mb-2 text-[var(--color-primary-hover)] dark:text-teal-400" />
+                  <DollarSign className="h-8 w-8 mx-auto mb-2 text-teal-600 dark:text-teal-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">${avgPrice}</div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
                     {t('housing.city_housing_tab.avg_night', 'Avg/Night')}
@@ -1298,11 +1300,11 @@ export default function GroupDetailPageMT() {
               <ScaleIn delay={0.2}>
                 <GlassCard
                   depth={2}
-                  className="text-center py-16 px-6 border-2 border-dashed border-[var(--color-ocean-300)] dark:border-cyan-600"
+                  className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
                   data-testid="housing-empty-state"
                 >
                   <ScaleIn delay={0.3}>
-                    <Home className="h-16 w-16 mx-auto mb-4 text-[var(--color-primary)] dark:text-cyan-400" />
+                    <Home className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -1319,7 +1321,7 @@ export default function GroupDetailPageMT() {
                     {userContext.isLocal && (
                       <PulseButton
                         onClick={() => setLocation('/host-onboarding')}
-                        className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold px-6 py-3"
+                        className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3"
                         pulseColor="rgba(6, 182, 212, 0.6)"
                         data-testid="button-empty-state-host"
                       >
@@ -1362,10 +1364,10 @@ export default function GroupDetailPageMT() {
               <ScaleIn delay={0.2}>
                 <GlassCard
                   depth={2}
-                  className="text-center py-16 px-6 border-2 border-dashed border-[var(--color-ocean-300)] dark:border-cyan-600"
+                  className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
                 >
                   <ScaleIn delay={0.3}>
-                    <MapPin className="h-16 w-16 mx-auto mb-4 text-[var(--color-primary)] dark:text-cyan-400" />
+                    <MapPin className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -1682,7 +1684,7 @@ export default function GroupDetailPageMT() {
                   </>
                 )}
                 
-                <Button variant="ghost" size="icon" className="text-white hover:bg-[var(--color-surface)] dark:bg-gray-900/20">
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
@@ -1694,13 +1696,13 @@ export default function GroupDetailPageMT() {
         {/* Content Area */}
         <div className="max-w-7xl mx-auto px-4 py-6">
           {/* Tabs - Icon Design with Instant Tooltips */}
-          <div className="border-b border-[var(--color-border)] mb-6">
+          <div className="border-b border-gray-200 mb-6">
             <TooltipProvider>
               <nav className="flex gap-6" aria-label="Tabs">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => handleTabChange('posts')} aria-label="Button"
+                      onClick={() => handleTabChange('posts')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'posts' 
@@ -1719,7 +1721,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => handleTabChange('events')} aria-label="Button"
+                      onClick={() => handleTabChange('events')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'events' 
@@ -1738,7 +1740,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => handleTabChange('members')} aria-label="Button"
+                      onClick={() => handleTabChange('members')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'members' 
@@ -1759,7 +1761,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() => handleTabChange('community-hub')} aria-label="Button"
+                          onClick={() => handleTabChange('community-hub')}
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'community-hub' 
@@ -1778,7 +1780,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() => handleTabChange('housing')} aria-label="Button"
+                          onClick={() => handleTabChange('housing')}
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'housing' 
@@ -1797,7 +1799,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() => handleTabChange('recommendations')} aria-label="Button"
+                          onClick={() => handleTabChange('recommendations')}
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'recommendations' 
@@ -1832,12 +1834,13 @@ export default function GroupDetailPageMT() {
       {/* Post Edit Modal - Unified with Memories Feed */}
       {createPostModal && editingPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[var(--color-surface)] dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
             <button
               onClick={() => {
                 setCreatePostModal(false);
-                setEditingPost(null);}} aria-label="Button"
-              className="absolute top-4 right-4 p-2 rounded-full bg-[var(--color-neutral-100)] dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                setEditingPost(null);
+              }}
+              className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               data-testid="button-close-edit-modal"
             >
               <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1845,7 +1848,7 @@ export default function GroupDetailPageMT() {
               </svg>
             </button>
             
-            <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-gray-100 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
               ✏️ Edit Your Post
             </h2>
             

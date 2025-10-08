@@ -12,7 +12,7 @@ const LoadingFallback = () => (
   <div className="min-h-screen bg-gradient-to-br from-turquoise-50/50 via-cyan-50/50 to-white flex items-center justify-center">
     <div className="text-center">
       <div className="w-16 h-16 border-4 border-turquoise-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-      <p className="text-gray-600 dark:text-gray-300 text-lg">Loading...</p>
+      <p className="text-gray-600 text-lg">Loading...</p>
     </div>
   </div>
 );

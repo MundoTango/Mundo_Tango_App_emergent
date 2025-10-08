@@ -1,6 +1,5 @@
 // ESA LIFE CEO 61x21 - Phase 19: Admin Layout Component
-import { ReactNode, useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -52,10 +51,9 @@ interface AdminLayoutProps {
 
 const navigation = [
   {
-  const { t } = useTranslation();
     title: 'Overview',
     items: [
-      { name: t('navigation.dashboard', 'Dashboard'), href: '/admin', icon: LayoutDashboard, badge: null },
+      { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, badge: null },
       { name: 'Real-time Activity', href: '/admin/activity', icon: Activity, badge: 'Live' },
     ]
   },
@@ -117,8 +115,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
         <div className="text-center">
           <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-2">Access Denied</h1>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">You don't have permission to access this area.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
+          <p className="text-gray-600 mb-4">You don't have permission to access this area.</p>
           <Button onClick={() => setLocation('/')} variant="outline">
             Go to Homepage
           </Button>
@@ -130,7 +128,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50/30 via-cyan-50/20 to-blue-50/30">
       {/* Top Navigation Bar */}
-      <GlassCard depth={1} className="fixed top-0 left-0 right-0 h-16 border-b border-teal-100 z-40">
+      <GlassCard depth={1} className="fixed top-0 left-0 right-0 h-16 border-b border-teal-100 z-40"
         <div className="flex items-center justify-between h-full px-6">
           {/* Left Section */}
           <div className="flex items-center gap-4">
@@ -138,17 +136,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               variant="ghost"
               size="icon"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)]"
+              className="text-gray-600 hover:text-teal-600"
             >
               {sidebarCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
             </Button>
             
             <div className="flex items-center gap-2">
-              <Layers className="w-6 h-6 text-[var(--color-primary-hover)]" />
+              <Layers className="w-6 h-6 text-teal-600" />
               <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
                 ESA Admin Center
               </span>
-              <Badge variant="outline" className="ml-2 border-teal-200 text-[var(--color-primary-hover)]">
+              <Badge variant="outline" className="ml-2 border-teal-200 text-teal-700">
                 61×21
               </Badge>
             </div>
@@ -162,7 +160,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search users, content, or settings..."
-                className="pl-10 bg-[var(--color-surface-elevated)] border-[var(--color-border)] focus:border-[var(--color-ocean-300)]"
+                className="pl-10 bg-gray-50 border-gray-200 focus:border-teal-300"
               />
             </div>
           </div>
@@ -171,7 +169,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex items-center gap-4">
             {/* Notifications */}
             <Button variant="ghost" size="icon" className="relative">
-              <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+              <Bell className="w-5 h-5 text-gray-600" />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
             </Button>
 
@@ -181,7 +179,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={user?.profileImage} alt={user?.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-[var(--color-primary)] to-cyan-500 text-white">
+                    <AvatarFallback className="bg-gradient-to-br from-teal-500 to-cyan-500 text-white">
                       {user?.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
@@ -215,18 +213,18 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </DropdownMenu>
           </div>
         </div>
-      </GlassCard>
+      </div>
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed left-0 top-16 bottom-0 bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-sm border-r border-teal-100 transition-all duration-300 z-30",
+        "fixed left-0 top-16 bottom-0 bg-white/95 backdrop-blur-sm border-r border-teal-100 transition-all duration-300 z-30",
         sidebarCollapsed ? "w-16" : "w-64"
       )}>
         <ScrollArea className="h-full py-4">
           {navigation.map((section) => (
             <div key={section.title} className="mb-6">
               {!sidebarCollapsed && (
-                <h3 className="px-4 mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <h3 className="px-4 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                   {section.title}
                 </h3>
               )}
@@ -240,10 +238,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       <a
                         className={cn(
                           "flex items-center gap-3 px-4 py-2 text-sm font-medium transition-colors",
-                          "hover:bg-[var(--color-ocean-50)] hover:text-[var(--color-primary-hover)]",
+                          "hover:bg-teal-50 hover:text-teal-700",
                           isActive
-                            ? "bg-gradient-to-r from-teal-50 to-cyan-50 text-[var(--color-primary-hover)] border-r-2 border-[var(--color-primary)]"
-                            : "text-gray-600 dark:text-gray-300"
+                            ? "bg-gradient-to-r from-teal-50 to-cyan-50 text-teal-700 border-r-2 border-teal-500"
+                            : "text-gray-600"
                         )}
                         data-testid={`admin-nav-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                       >

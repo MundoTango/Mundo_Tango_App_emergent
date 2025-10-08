@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import { useState } from 'react';
 import { useNavigate } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -53,7 +52,6 @@ export default function BillingDashboard() {
 
   // Cancel subscription mutation
   const cancelMutation = useMutation({
-  const { t } = useTranslation();
     mutationFn: async () => {
       return apiRequest('/api/payments/cancel-subscription', {
         method: 'POST'
@@ -68,7 +66,7 @@ export default function BillingDashboard() {
     },
     onError: (error: any) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: error.message || 'Failed to cancel subscription',
         variant: 'destructive'
       });
@@ -134,7 +132,7 @@ export default function BillingDashboard() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Billing & Subscription</h1>
-          <p className="text-gray-600 dark:text-gray-300 mt-2">Manage your subscription and payment methods</p>
+          <p className="text-gray-600 mt-2">Manage your subscription and payment methods</p>
         </div>
 
         {/* Subscription Overview */}
@@ -155,11 +153,11 @@ export default function BillingDashboard() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Plan</p>
+                <p className="text-sm text-gray-600">Plan</p>
                 <p className="text-2xl font-bold capitalize">{subscription?.tier || 'Free'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Next Billing Date</p>
+                <p className="text-sm text-gray-600">Next Billing Date</p>
                 <p className="text-lg">
                   {subscription?.subscription?.currentPeriodEnd 
                     ? format(new Date(subscription.subscription.currentPeriodEnd), 'MMM dd, yyyy')
@@ -167,7 +165,7 @@ export default function BillingDashboard() {
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Monthly Cost</p>
+                <p className="text-sm text-gray-600">Monthly Cost</p>
                 <p className="text-2xl font-bold">
                   {subscription?.tier === 'free' ? '$0' : 
                    subscription?.tier === 'pro' ? '$9.99' :
@@ -271,7 +269,7 @@ export default function BillingDashboard() {
                         <span>AI Agents</span>
                         <span>{subscription?.limits?.agents === -1 ? 'Unlimited' : `${subscription?.limits?.agents || 0} per month`}</span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-[#5EEAD4] h-2 rounded-full" style={{ width: '60%' }} />
                       </div>
                     </div>
@@ -280,7 +278,7 @@ export default function BillingDashboard() {
                         <span>Storage</span>
                         <span>{subscription?.limits?.storage === -1 ? 'Unlimited' : `${subscription?.limits?.storage || 0} MB`}</span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-[#5EEAD4] h-2 rounded-full" style={{ width: '30%' }} />
                       </div>
                     </div>
@@ -289,7 +287,7 @@ export default function BillingDashboard() {
                         <span>API Calls</span>
                         <span>{subscription?.limits?.apiCalls === -1 ? 'Unlimited' : `${subscription?.limits?.apiCalls || 0} per month`}</span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-[#5EEAD4] h-2 rounded-full" style={{ width: '45%' }} />
                       </div>
                     </div>
@@ -321,7 +319,7 @@ export default function BillingDashboard() {
                     <tbody>
                       {payments?.length === 0 ? (
                         <tr>
-                          <td colSpan={5} className="text-center p-8 text-gray-500 dark:text-gray-400">
+                          <td colSpan={5} className="text-center p-8 text-gray-500">
                             No payment history
                           </td>
                         </tr>
@@ -384,7 +382,7 @@ export default function BillingDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {paymentMethods?.length === 0 ? (
-                    <div className="text-center p-8 text-gray-500 dark:text-gray-400">
+                    <div className="text-center p-8 text-gray-500">
                       <CreditCard className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                       <p>No payment methods on file</p>
                       <Button 
@@ -403,7 +401,7 @@ export default function BillingDashboard() {
                             <p className="font-semibold">
                               {method.brand} •••• {method.lastFour}
                             </p>
-                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                            <p className="text-sm text-gray-600">
                               Expires {method.expiryMonth}/{method.expiryYear}
                             </p>
                           </div>
@@ -436,12 +434,12 @@ export default function BillingDashboard() {
               <CardContent>
                 <div className="space-y-2">
                   {payments?.filter((p: any) => p.status === 'succeeded').map((payment: any) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-[var(--color-surface-elevated)]">
+                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                       <div>
                         <p className="font-semibold">
                           Invoice #{payment.id.toString().slice(-8).toUpperCase()}
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <p className="text-sm text-gray-600">
                           {format(new Date(payment.createdAt), 'MMMM dd, yyyy')} • {formatCurrency(payment.amount)}
                         </p>
                       </div>
@@ -456,7 +454,7 @@ export default function BillingDashboard() {
                     </div>
                   ))}
                   {(!payments || payments.filter((p: any) => p.status === 'succeeded').length === 0) && (
-                    <div className="text-center p-8 text-gray-500 dark:text-gray-400">
+                    <div className="text-center p-8 text-gray-500">
                       No invoices available
                     </div>
                   )}
@@ -472,7 +470,7 @@ export default function BillingDashboard() {
             <Shield className="h-8 w-8 text-[#5EEAD4]" />
             <div>
               <p className="font-semibold">Your payment information is secure</p>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-gray-600">
                 We use industry-standard encryption and never store your card details on our servers.
                 All payments are processed securely through Stripe.
               </p>

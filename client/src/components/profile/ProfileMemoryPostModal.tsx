@@ -12,44 +12,44 @@ interface ProfileMemoryPostModalProps {
   onMemoryCreated?: () => void;
 }
 
-export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
-  isOpen,
+export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({ 
+  isOpen, 
   onClose,
-  onMemoryCreated
+  onMemoryCreated 
 }) => {
   const { user } = useAuth();
   const [selectedPrompt, setSelectedPrompt] = useState<string | null>(null);
 
   const memoryPrompts = [
-  {
-    id: 'dance',
-    icon: <Star className="w-5 h-5" />,
-    title: "Dance Memory",
-    prompt: "Share a memorable dance experience...",
-    color: "from-purple-400 to-pink-500"
-  },
-  {
-    id: 'travel',
-    icon: <MapPin className="w-5 h-5" />,
-    title: "Travel Memory",
-    prompt: "Tell us about your tango travels...",
-    color: "from-turquoise-400 to-cyan-500"
-  },
-  {
-    id: 'connection',
-    icon: <Heart className="w-5 h-5" />,
-    title: "Connection Memory",
-    prompt: "Share a special connection you made...",
-    color: "from-pink-400 to-red-500"
-  },
-  {
-    id: 'learning',
-    icon: <PenLine className="w-5 h-5" />,
-    title: "Learning Memory",
-    prompt: "What have you learned in tango?",
-    color: "from-blue-400 to-indigo-500"
-  }];
-
+    {
+      id: 'dance',
+      icon: <Star className="w-5 h-5" />,
+      title: "Dance Memory",
+      prompt: "Share a memorable dance experience...",
+      color: "from-purple-400 to-pink-500"
+    },
+    {
+      id: 'travel',
+      icon: <MapPin className="w-5 h-5" />,
+      title: "Travel Memory",
+      prompt: "Tell us about your tango travels...",
+      color: "from-turquoise-400 to-cyan-500"
+    },
+    {
+      id: 'connection',
+      icon: <Heart className="w-5 h-5" />,
+      title: "Connection Memory",
+      prompt: "Share a special connection you made...",
+      color: "from-pink-400 to-red-500"
+    },
+    {
+      id: 'learning',
+      icon: <PenLine className="w-5 h-5" />,
+      title: "Learning Memory",
+      prompt: "What have you learned in tango?",
+      color: "from-blue-400 to-indigo-500"
+    }
+  ];
 
   const handleMemoryCreated = () => {
     onMemoryCreated?.();
@@ -75,73 +75,73 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
 
         <div className="p-6 space-y-6">
           {/* Memory Prompts */}
-          {!selectedPrompt &&
-          <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+          {!selectedPrompt && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">
                 What kind of memory would you like to share?
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                {memoryPrompts.map((prompt) =>
-              <Card
-                key={prompt.id}
-                className="p-4 cursor-pointer hover:shadow-lg transition-all transform hover:-translate-y-1 border-2 border-transparent hover:border-turquoise-200"
-                onClick={() => setSelectedPrompt(prompt.id)}>
-
+                {memoryPrompts.map((prompt) => (
+                  <Card
+                    key={prompt.id}
+                    className="p-4 cursor-pointer hover:shadow-lg transition-all transform hover:-translate-y-1 border-2 border-transparent hover:border-turquoise-200"
+                    onClick={() => setSelectedPrompt(prompt.id)}
+                  >
                     <div className="flex items-start gap-3">
                       <div className={`p-2 bg-gradient-to-r ${prompt.color} rounded-lg`}>
                         <div className="text-white">{prompt.icon}</div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-800 dark:text-gray-100">{prompt.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{prompt.prompt}</p>
+                        <h4 className="font-medium text-gray-800">{prompt.title}</h4>
+                        <p className="text-sm text-gray-600 mt-1">{prompt.prompt}</p>
                       </div>
                     </div>
                   </Card>
-              )}
+                ))}
               </div>
               <div className="mt-4 text-center">
                 <Button
-                variant="ghost"
-                onClick={() => setSelectedPrompt('custom')}
-                className="text-[var(--color-primary-hover)] hover:text-turquoise-700" data-testid="button-text-[var(--color-primary-hover)]">
-
+                  variant="ghost"
+                  onClick={() => setSelectedPrompt('custom')}
+                  className="text-turquoise-600 hover:text-turquoise-700"
+                >
                   Or write your own memory...
                 </Button>
               </div>
             </div>
-          }
+          )}
 
           {/* Post Creator */}
-          {selectedPrompt &&
-          <div className="animate-in">
-              {selectedPrompt !== 'custom' &&
-            <div className="mb-4 p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
-                  <p className="text-sm text-[var(--color-text-secondary)]">
+          {selectedPrompt && (
+            <div className="animate-in">
+              {selectedPrompt !== 'custom' && (
+                <div className="mb-4 p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
+                  <p className="text-sm text-gray-700">
                     <span className="font-medium">Prompt:</span>{' '}
-                    {memoryPrompts.find((p) => p.id === selectedPrompt)?.prompt}
+                    {memoryPrompts.find(p => p.id === selectedPrompt)?.prompt}
                   </p>
                 </div>
-            }
+              )}
               
               <PostCreator
-              context={{ type: 'memory' }}
-              user={user || undefined}
-              onPostCreated={handleMemoryCreated} />
-
+                context={{ type: 'memory' }}
+                user={user || undefined}
+                onPostCreated={handleMemoryCreated}
+              />
 
               <div className="mt-4 flex justify-start">
                 <Button
-                variant="ghost"
-                onClick={() => setSelectedPrompt(null)}
-                className="text-gray-600 dark:text-gray-300" data-testid="button-text-gray-600 dark:text-gray-300">
-
+                  variant="ghost"
+                  onClick={() => setSelectedPrompt(null)}
+                  className="text-gray-600"
+                >
                   ← Back to prompts
                 </Button>
               </div>
             </div>
-          }
+          )}
         </div>
       </DialogContent>
-    </Dialog>);
-
+    </Dialog>
+  );
 };

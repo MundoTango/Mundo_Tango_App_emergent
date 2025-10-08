@@ -91,19 +91,19 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600">{metrics.uptime}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Uptime</div>
+              <div className="text-sm text-gray-600">Uptime</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">{metrics.avgResponseTime}ms</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Avg Response</div>
+              <div className="text-sm text-gray-600">Avg Response</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600">{metrics.errorRate}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Error Rate</div>
+              <div className="text-sm text-gray-600">Error Rate</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600">{metrics.apdex}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Apdex Score</div>
+              <div className="text-sm text-gray-600">Apdex Score</div>
             </div>
           </div>
         </CardContent>
@@ -200,21 +200,21 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="font-medium">Alert Threshold</span>
-              <span className="text-sm text-gray-600 dark:text-gray-300">Error rate &gt; 1%</span>
+              <span className="text-sm text-gray-600">Error rate &gt; 1%</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="font-medium">Check Interval</span>
-              <span className="text-sm text-gray-600 dark:text-gray-300">Every 30 seconds</span>
+              <span className="text-sm text-gray-600">Every 30 seconds</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="font-medium">Alert Channels</span>
-              <span className="text-sm text-gray-600 dark:text-gray-300">Email, Slack, PagerDuty</span>
+              <span className="text-sm text-gray-600">Email, Slack, PagerDuty</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="font-medium">Data Retention</span>
-              <span className="text-sm text-gray-600 dark:text-gray-300">90 days</span>
+              <span className="text-sm text-gray-600">90 days</span>
             </div>
           </div>
         </CardContent>

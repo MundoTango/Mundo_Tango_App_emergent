@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import { useState } from 'react';
 import { useNavigate } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -34,7 +33,6 @@ export default function PricingPage() {
 
   // Subscribe mutation
   const subscribeMutation = useMutation({
-  const { t } = useTranslation();
     mutationFn: async ({ tier }: { tier: string }) => {
       return apiRequest('/api/payments/create-subscription', {
         method: 'POST',
@@ -49,7 +47,7 @@ export default function PricingPage() {
     },
     onError: (error: any) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: error.message || 'Failed to start subscription',
         variant: 'destructive'
       });
@@ -76,10 +74,10 @@ export default function PricingPage() {
       <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10 p-8">
         <div className="mx-auto max-w-7xl">
           <div className="animate-pulse space-y-8">
-            <div className="h-12 w-96 bg-gray-200 dark:bg-gray-700 rounded mx-auto" />
+            <div className="h-12 w-96 bg-gray-200 rounded mx-auto" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[1, 2, 3].map(i => (
-                <div key={i} className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+                <div key={i} className="h-96 bg-gray-200 rounded-lg" />
               ))}
             </div>
           </div>
@@ -94,13 +92,13 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10">
       {/* Header */}
-      <div className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-b">
+      <div className="bg-white/80 backdrop-blur-sm border-b">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
               Choose Your Plan
             </h1>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            <p className="mt-4 text-lg text-gray-600">
               Unlock the full potential of ESA LIFE CEO 61x21
             </p>
             
@@ -128,7 +126,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Free Tier */}
-          <Card className="relative border-[var(--color-border)] hover:shadow-lg transition-shadow">
+          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 Free
@@ -136,7 +134,7 @@ export default function PricingPage() {
               <CardDescription>Get started with basic features</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$0</span>
-                <span className="text-gray-500 dark:text-gray-400">/month</span>
+                <span className="text-gray-500">/month</span>
               </div>
             </CardHeader>
             <CardContent>
@@ -184,7 +182,7 @@ export default function PricingPage() {
                     ? Math.round(9.99 * (1 - annualDiscount) * 100) / 100
                     : 9.99}
                 </span>
-                <span className="text-gray-500 dark:text-gray-400">/month</span>
+                <span className="text-gray-500">/month</span>
                 {billingCycle === 'annual' && (
                   <div className="text-sm text-green-600 mt-1">
                     Save ${(9.99 * 12 * annualDiscount).toFixed(2)}/year
@@ -222,7 +220,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Business Tier */}
-          <Card className="relative border-[var(--color-border)] hover:shadow-lg transition-shadow">
+          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-blue-600" />
@@ -235,7 +233,7 @@ export default function PricingPage() {
                     ? Math.round(29.99 * (1 - annualDiscount) * 100) / 100
                     : 29.99}
                 </span>
-                <span className="text-gray-500 dark:text-gray-400">/month</span>
+                <span className="text-gray-500">/month</span>
                 {billingCycle === 'annual' && (
                   <div className="text-sm text-green-600 mt-1">
                     Save ${(29.99 * 12 * annualDiscount).toFixed(2)}/year
@@ -282,7 +280,7 @@ export default function PricingPage() {
               <CardDescription>Custom solutions at scale</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">Custom</span>
-                <span className="text-gray-500 dark:text-gray-400 block text-sm mt-1">Contact sales</span>
+                <span className="text-gray-500 block text-sm mt-1">Contact sales</span>
               </div>
             </CardHeader>
             <CardContent>
@@ -372,7 +370,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Can I change plans anytime?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and are prorated.
                 </p>
               </CardContent>
@@ -382,7 +380,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Is there a free trial?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   Yes, all paid plans come with a 14-day free trial. No credit card required to start.
                 </p>
               </CardContent>
@@ -392,7 +390,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">What payment methods do you accept?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   We accept all major credit cards, debit cards, and support multiple currencies (USD, EUR, GBP).
                 </p>
               </CardContent>
@@ -402,7 +400,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Can I cancel anytime?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your billing period.
                 </p>
               </CardContent>

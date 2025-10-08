@@ -24,13 +24,13 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
 
   return (
     <Card className="p-4 glass-card-depth-1">
-      <h3 className="font-semibold text-sm mb-3 text-[var(--color-text-secondary)] dark:text-gray-300">
+      <h3 className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">
         Map Layers
       </h3>
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-[var(--color-primary-hover)]" />
+            <Calendar className="h-4 w-4 text-cyan-600" />
             <Label htmlFor="layer-events" className="text-sm cursor-pointer">
               Events
             </Label>
@@ -45,7 +45,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Home className="h-4 w-4 text-[var(--color-primary-hover)]" />
+            <Home className="h-4 w-4 text-turquoise-600" />
             <Label htmlFor="layer-housing" className="text-sm cursor-pointer">
               Housing
             </Label>

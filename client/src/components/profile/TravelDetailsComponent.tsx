@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { Calendar, MapPin, Globe, Edit2, Trash2, Plus, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -65,16 +64,16 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: t('states.success', 'Success'),
-        description: "Travel detail deleted successfully"
+        title: "Success",
+        description: "Travel detail deleted successfully",
       });
       setDeletingTravelId(null);
     },
     onError: (error: any) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: error.message || "Failed to delete travel detail",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   });
@@ -98,11 +97,11 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       case 'ongoing':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'completed':
-        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
       case 'cancelled':
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
     }
   };
 
@@ -131,20 +130,20 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
     return (
       <div className="flex items-center justify-center p-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-turquoise-500"></div>
-      </div>);
-
+      </div>
+    );
   }
 
-  const upcomingTravels = travelDetails?.filter((t: TravelDetail) =>
-  t.status === 'planned' || t.status === 'ongoing'
-  ).sort((a: TravelDetail, b: TravelDetail) =>
-  new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  const upcomingTravels = travelDetails?.filter((t: TravelDetail) => 
+    t.status === 'planned' || t.status === 'ongoing'
+  ).sort((a: TravelDetail, b: TravelDetail) => 
+    new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
   );
 
-  const pastTravels = travelDetails?.filter((t: TravelDetail) =>
-  t.status === 'completed'
-  ).sort((a: TravelDetail, b: TravelDetail) =>
-  new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+  const pastTravels = travelDetails?.filter((t: TravelDetail) => 
+    t.status === 'completed'
+  ).sort((a: TravelDetail, b: TravelDetail) => 
+    new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
 
   return (
@@ -152,92 +151,92 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold flex items-center gap-2">
-          <Globe className="w-5 h-5 text-[var(--color-primary)]" />
+          <Globe className="w-5 h-5 text-turquoise-500" />
           Travel Details
         </h3>
-        {isOwnProfile &&
-        <Button
-          onClick={() => setShowAddModal(true)}
-          size="sm"
-          className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
-
+        {isOwnProfile && (
+          <Button
+            onClick={() => setShowAddModal(true)}
+            size="sm"
+            className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
+          >
             <Plus className="w-4 h-4 mr-1" />
             Add Travel
           </Button>
-        }
+        )}
       </div>
 
       {/* No travel details message */}
-      {(!travelDetails || travelDetails.length === 0) &&
-      <Card className="p-8 text-center border-dashed glassmorphic-card">
-          <Globe className="w-12 h-12 mx-auto mb-4 text-[var(--color-primary)]" />
+      {(!travelDetails || travelDetails.length === 0) && (
+        <Card className="p-8 text-center border-dashed glassmorphic-card">
+          <Globe className="w-12 h-12 mx-auto mb-4 text-turquoise-500" />
           <p className="text-gray-600 mb-4">
             {isOwnProfile ? "You haven't added any travel details yet." : "No travel details available."}
           </p>
-          {isOwnProfile &&
-        <Button
-          onClick={() => setShowAddModal(true)}
-          variant="outline"
-          className="border-[var(--color-ocean-300)] hover:bg-[var(--color-ocean-50)] dark:hover:bg-turquoise-900/20" data-testid="button-border-[var(--color-ocean-300)]">
-
+          {isOwnProfile && (
+            <Button
+              onClick={() => setShowAddModal(true)}
+              variant="outline"
+              className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20"
+            >
               <Plus className="w-4 h-4 mr-1" />
               Add Your First Travel
             </Button>
-        }
+          )}
         </Card>
-      }
+      )}
 
       {/* Upcoming Travels */}
-      {upcomingTravels && upcomingTravels.length > 0 &&
-      <div className="space-y-4">
-          <h4 className="font-medium text-[var(--color-text-secondary)] dark:text-gray-300">Upcoming & Ongoing</h4>
+      {upcomingTravels && upcomingTravels.length > 0 && (
+        <div className="space-y-4">
+          <h4 className="font-medium text-gray-700 dark:text-gray-300">Upcoming & Ongoing</h4>
           <div className="grid gap-4">
-            {upcomingTravels.map((travel: TravelDetail) =>
-          <TravelCard
-            key={travel.id}
-            travel={travel}
-            isOwnProfile={isOwnProfile}
-            onEdit={() => setEditingTravel(travel)}
-            onDelete={() => setDeletingTravelId(travel.id)} />
-
-          )}
+            {upcomingTravels.map((travel: TravelDetail) => (
+              <TravelCard
+                key={travel.id}
+                travel={travel}
+                isOwnProfile={isOwnProfile}
+                onEdit={() => setEditingTravel(travel)}
+                onDelete={() => setDeletingTravelId(travel.id)}
+              />
+            ))}
           </div>
         </div>
-      }
+      )}
 
       {/* Past Travels */}
-      {pastTravels && pastTravels.length > 0 &&
-      <div className="space-y-4">
-          <h4 className="font-medium text-[var(--color-text-secondary)] dark:text-gray-300">Past Travels</h4>
+      {pastTravels && pastTravels.length > 0 && (
+        <div className="space-y-4">
+          <h4 className="font-medium text-gray-700 dark:text-gray-300">Past Travels</h4>
           <div className="grid gap-4">
-            {pastTravels.map((travel: TravelDetail) =>
-          <TravelCard
-            key={travel.id}
-            travel={travel}
-            isOwnProfile={isOwnProfile}
-            onEdit={() => setEditingTravel(travel)}
-            onDelete={() => setDeletingTravelId(travel.id)} />
-
-          )}
+            {pastTravels.map((travel: TravelDetail) => (
+              <TravelCard
+                key={travel.id}
+                travel={travel}
+                isOwnProfile={isOwnProfile}
+                onEdit={() => setEditingTravel(travel)}
+                onDelete={() => setDeletingTravelId(travel.id)}
+              />
+            ))}
           </div>
         </div>
-      }
+      )}
 
       {/* Modals */}
-      {showAddModal &&
-      <AddTravelDetailModal
-        isOpen={showAddModal}
-        onClose={() => setShowAddModal(false)} />
+      {showAddModal && (
+        <AddTravelDetailModal
+          isOpen={showAddModal}
+          onClose={() => setShowAddModal(false)}
+        />
+      )}
 
-      }
-
-      {editingTravel &&
-      <EditTravelDetailModal
-        isOpen={!!editingTravel}
-        onClose={() => setEditingTravel(null)}
-        travelDetail={editingTravel} />
-
-      }
+      {editingTravel && (
+        <EditTravelDetailModal
+          isOpen={!!editingTravel}
+          onClose={() => setEditingTravel(null)}
+          travelDetail={editingTravel}
+        />
+      )}
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!deletingTravelId} onOpenChange={() => setDeletingTravelId(null)}>
@@ -252,15 +251,15 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deletingTravelId && deleteTravelDetailMutation.mutate(deletingTravelId)}
-              className="bg-red-500 hover:bg-red-600">
-
+              className="bg-red-500 hover:bg-red-600"
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>);
-
+    </div>
+  );
 };
 
 // Travel Card Component
@@ -291,11 +290,11 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
       case 'ongoing':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'completed':
-        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
       case 'cancelled':
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
     }
   };
 
@@ -328,11 +327,11 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
           <div className="flex items-center gap-2">
             <span className="text-2xl">{getEventTypeIcon(travel.eventType)}</span>
             <div>
-              {travel.eventName &&
-              <h5 className="font-medium text-[var(--color-text)] dark:text-gray-100">
+              {travel.eventName && (
+                <h5 className="font-medium text-gray-900 dark:text-gray-100">
                   {travel.eventName}
                 </h5>
-              }
+              )}
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <MapPin className="w-3 h-3" />
                 <span>{travel.city}{travel.country ? `, ${travel.country}` : ''}</span>
@@ -354,47 +353,47 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
           </div>
 
           {/* Notes */}
-          {travel.notes &&
-          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+          {travel.notes && (
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
               {travel.notes}
             </p>
-          }
+          )}
 
           {/* Status and Visibility */}
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className={getStatusColor(travel.status)}>
               {travel.status}
             </Badge>
-            {!travel.isPublic &&
-            <Badge variant="outline" className="text-xs">
+            {!travel.isPublic && (
+              <Badge variant="outline" className="text-xs">
                 Private
               </Badge>
-            }
+            )}
           </div>
         </div>
 
         {/* Actions */}
-        {isOwnProfile &&
-        <div className="flex items-center gap-1 ml-4">
+        {isOwnProfile && (
+          <div className="flex items-center gap-1 ml-4">
             <Button
-            variant="ghost"
-            size="sm"
-            onClick={onEdit}
-            className="h-8 w-8 p-0" data-testid="button-h-8">
-
+              variant="ghost"
+              size="sm"
+              onClick={onEdit}
+              className="h-8 w-8 p-0"
+            >
               <Edit2 className="w-4 h-4" />
             </Button>
             <Button
-            variant="ghost"
-            size="sm"
-            onClick={onDelete}
-            className="h-8 w-8 p-0 text-red-500 hover:text-red-600" data-testid="button-h-8">
-
+              variant="ghost"
+              size="sm"
+              onClick={onDelete}
+              className="h-8 w-8 p-0 text-red-500 hover:text-red-600"
+            >
               <Trash2 className="w-4 h-4" />
             </Button>
           </div>
-        }
+        )}
       </div>
-    </Card>);
-
+    </Card>
+  );
 };

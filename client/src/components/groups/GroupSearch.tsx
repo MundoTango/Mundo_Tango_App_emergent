@@ -137,21 +137,22 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
             />
             
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full mt-2 w-full bg-[var(--color-surface)] dark:bg-gray-900 border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+              <div className="absolute top-full mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
                    data-testid="search-suggestions">
                 {suggestions.map((group) => (
                   <button
                     key={group.id}
-                    className="w-full px-4 py-3 hover:bg-[var(--color-surface-elevated)] text-left flex items-center gap-3 border-b last:border-b-0"
+                    className="w-full px-4 py-3 hover:bg-gray-50 text-left flex items-center gap-3 border-b last:border-b-0"
                     onClick={() => {
                       updateFilter('query', group.name);
-                      setShowSuggestions(false);}} aria-label="Button"
+                      setShowSuggestions(false);
+                    }}
                     data-testid={`suggestion-${group.id}`}
                   >
                     <MapPin className="h-4 w-4 text-gray-400" />
                     <div>
                       <div className="font-medium">{group.name}</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">{group.city}, {group.country}</div>
+                      <div className="text-sm text-gray-500">{group.city}, {group.country}</div>
                     </div>
                     <Badge variant="secondary" className="ml-auto">{group.memberCount} members</Badge>
                   </button>
@@ -293,7 +294,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
         )}
         
         {isSearching && (
-          <div className="text-sm text-gray-500 dark:text-gray-400 text-center py-2" aria-live="polite">
+          <div className="text-sm text-gray-500 text-center py-2" aria-live="polite">
             Searching...
           </div>
         )}

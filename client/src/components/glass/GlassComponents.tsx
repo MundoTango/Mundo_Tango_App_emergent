@@ -49,11 +49,11 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
             'shadow-lg backdrop-blur-md',
             'transition-all duration-300',
             className
-          )}>
-
+          )}
+        >
           {children}
-        </motion.div>);
-
+        </motion.div>
+      );
     }
 
     return (
@@ -67,11 +67,11 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           'transition-all duration-300',
           className
         )}
-        {...props}>
-
+        {...props}
+      >
         {children}
-      </div>);
-
+      </div>
+    );
   }
 );
 
@@ -94,17 +94,17 @@ const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
       <div
         ref={ref}
         className={cn(
-          'bg-[var(--color-surface)]/70 dark:bg-slate-900/70',
+          'bg-white/70 dark:bg-slate-900/70',
           !reducedTransparency && 'backdrop-blur-lg',
           'border-y border-white/20 dark:border-white/10',
           'transition-all duration-300',
           className
         )}
-        {...props}>
-
+        {...props}
+      >
         {children}
-      </div>);
-
+      </div>
+    );
   }
 );
 
@@ -126,26 +126,26 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
 
     const variantStyles = {
       primary: cn(
-        'bg-gradient-to-r from-[var(--color-primary)]/80 to-teal-500/80',
-        'dark:from-[var(--color-ocean-400)]/80 dark:to-teal-400/80',
-        'hover:from-[var(--color-primary)]/90 hover:to-teal-500/90',
+        'bg-gradient-to-r from-cyan-500/80 to-teal-500/80',
+        'dark:from-cyan-400/80 dark:to-teal-400/80',
+        'hover:from-cyan-500/90 hover:to-teal-500/90',
         'text-white dark:text-slate-900',
         'font-semibold',
         !reducedTransparency && 'backdrop-blur-sm'
       ),
       secondary: cn(
-        'bg-[var(--color-surface)]/60 dark:bg-slate-800/60',
-        'hover:bg-[var(--color-surface)]/70 dark:hover:bg-slate-800/70',
+        'bg-white/60 dark:bg-slate-800/60',
+        'hover:bg-white/70 dark:hover:bg-slate-800/70',
         'text-slate-900 dark:text-white',
         !reducedTransparency && 'backdrop-blur-md',
         'border border-white/30 dark:border-white/10'
       ),
       ghost: cn(
         'bg-transparent',
-        'hover:bg-[var(--color-surface)]/20 dark:hover:bg-[var(--color-surface)]/10',
+        'hover:bg-white/20 dark:hover:bg-white/10',
         'text-slate-900 dark:text-white',
         !reducedTransparency && 'backdrop-blur-sm'
-      )
+      ),
     };
 
     return (
@@ -162,11 +162,11 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
           variantStyles[variant],
           className
         )}
-        {...props}>
-
+        {...props}
+      >
         {children}
-      </motion.button>);
-
+      </motion.button>
+    );
   }
 );
 
@@ -192,13 +192,13 @@ interface GlassModalProps {
   ariaDescribedBy?: string;
 }
 
-const GlassModal = ({
-  children,
-  isOpen,
-  onClose,
+const GlassModal = ({ 
+  children, 
+  isOpen, 
+  onClose, 
   className = '',
   ariaLabelledBy,
-  ariaDescribedBy
+  ariaDescribedBy,
 }: GlassModalProps) => {
   const reducedTransparency = prefersReducedTransparency();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -209,7 +209,7 @@ const GlassModal = ({
     if (isOpen) {
       // Store the currently focused element to restore later
       previouslyFocusedElement.current = document.activeElement as HTMLElement;
-
+      
       // Focus the modal content
       if (modalRef.current) {
         modalRef.current.focus();
@@ -261,16 +261,16 @@ const GlassModal = ({
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
-      role="presentation">
-
+      role="presentation"
+    >
       {/* Backdrop */}
-      <div
+      <div 
         className={cn(
           'absolute inset-0 bg-black/40',
           !reducedTransparency && 'backdrop-blur-sm'
         )}
-        aria-hidden="true" />
-
+        aria-hidden="true"
+      />
 
       {/* Modal Content */}
       <motion.div
@@ -293,12 +293,12 @@ const GlassModal = ({
           'shadow-2xl',
           'focus:outline-none focus:ring-2 focus:ring-cyan-500/50',
           className
-        )}>
-
+        )}
+      >
         {children}
       </motion.div>
-    </motion.div>);
-
+    </motion.div>
+  );
 };
 
 /**
@@ -312,9 +312,9 @@ interface GlassTooltipProps {
   className?: string;
 }
 
-const GlassTooltip = ({
-  children,
-  content,
+const GlassTooltip = ({ 
+  children, 
+  content, 
   position = 'top',
   className = ''
 }: GlassTooltipProps) => {
@@ -324,7 +324,7 @@ const GlassTooltip = ({
     top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
     bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
     left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-    right: 'left-full top-1/2 -translate-y-1/2 ml-2'
+    right: 'left-full top-1/2 -translate-y-1/2 ml-2',
   };
 
   return (
@@ -348,8 +348,8 @@ const GlassTooltip = ({
           {content}
         </div>
       </div>
-    </div>);
-
+    </div>
+  );
 };
 
 /**
@@ -367,10 +367,10 @@ const GlassBadge = forwardRef<HTMLSpanElement, GlassBadgeProps>(
     const reducedTransparency = prefersReducedTransparency();
 
     const variantStyles = {
-      info: 'bg-[var(--color-primary)]/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+      info: 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
       success: 'bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30',
       warning: 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30',
-      error: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30'
+      error: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30',
     };
 
     return (
@@ -384,11 +384,11 @@ const GlassBadge = forwardRef<HTMLSpanElement, GlassBadgeProps>(
           variantStyles[variant],
           className
         )}
-        {...props}>
-
+        {...props}
+      >
         {children}
-      </span>);
-
+      </span>
+    );
   }
 );
 
@@ -415,7 +415,7 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
         placeholder={placeholder}
         className={cn(
           'w-full px-4 py-2 rounded-lg',
-          'bg-[var(--color-surface)]/60 dark:bg-slate-800/60',
+          'bg-white/60 dark:bg-slate-800/60',
           'border border-white/30 dark:border-white/10',
           !reducedTransparency && 'backdrop-blur-md',
           'text-slate-900 dark:text-white',
@@ -425,9 +425,9 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
           'transition-all duration-200',
           className
         )}
-        {...props} data-testid="input-element" />);
-
-
+        {...props}
+      />
+    );
   }
 );
 
@@ -454,7 +454,7 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
         rows={rows}
         className={cn(
           'w-full px-4 py-2 rounded-lg',
-          'bg-[var(--color-surface)]/60 dark:bg-slate-800/60',
+          'bg-white/60 dark:bg-slate-800/60',
           'border border-white/30 dark:border-white/10',
           !reducedTransparency && 'backdrop-blur-md',
           'text-slate-900 dark:text-white',
@@ -465,9 +465,9 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
           'resize-none',
           className
         )}
-        {...props} data-testid="textarea-element" />);
-
-
+        {...props}
+      />
+    );
   }
 );
 
@@ -491,17 +491,17 @@ const GlassNavbar = forwardRef<HTMLElement, GlassNavbarProps>(
         ref={ref}
         className={cn(
           'sticky top-0 z-40',
-          'bg-[var(--color-surface)]/80 dark:bg-slate-900/80',
+          'bg-white/80 dark:bg-slate-900/80',
           !reducedTransparency && 'backdrop-blur-lg',
           'border-b border-white/20 dark:border-white/10',
           'shadow-sm',
           className
         )}
-        {...props}>
-
+        {...props}
+      >
         {children}
-      </nav>);
-
+      </nav>
+    );
   }
 );
 
@@ -536,11 +536,11 @@ const GlassDropdown = ({ children, isOpen, className = '' }: GlassDropdownProps)
         'shadow-xl',
         'z-50',
         className
-      )}>
-
+      )}
+    >
       {children}
-    </motion.div>);
-
+    </motion.div>
+  );
 };
 
 /**
@@ -556,4 +556,5 @@ export {
   GlassInput,
   GlassTextarea,
   GlassNavbar,
-  GlassDropdown };
+  GlassDropdown,
+};

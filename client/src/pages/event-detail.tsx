@@ -202,9 +202,9 @@ export default function EventDetailPage() {
         <Card>
           <CardContent className="p-12">
             <div className="animate-pulse space-y-4">
-              <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded"></div>
-              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+              <div className="h-64 bg-gray-200 rounded"></div>
+              <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
             </div>
           </CardContent>
         </Card>
@@ -219,7 +219,7 @@ export default function EventDetailPage() {
           <CardContent className="p-12 text-center">
             <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Event not found</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">This event may have been deleted or you don't have permission to view it.</p>
+            <p className="text-gray-600 mb-4">This event may have been deleted or you don't have permission to view it.</p>
             <Button onClick={() => window.history.back()}>
               Back
             </Button>
@@ -247,19 +247,19 @@ export default function EventDetailPage() {
             {/* Event Badges */}
             <div className="absolute top-4 left-4 flex flex-wrap gap-2">
               {event.isVirtual && (
-                <Badge className="bg-[var(--color-primary)]/90 text-white">
+                <Badge className="bg-cyan-500/90 text-white">
                   <Video className="mr-1 h-3 w-3" />
                   Virtual Event
                 </Badge>
               )}
               {event.isRecurring && (
-                <Badge className="bg-[var(--color-primary)]/90 text-white">
+                <Badge className="bg-turquoise-500/90 text-white">
                   <RefreshCw className="mr-1 h-3 w-3" />
                   {event.recurringPattern}
                 </Badge>
               )}
               {event.eventType && (
-                <Badge className="bg-[var(--color-surface)]/90 text-gray-800 dark:text-gray-100">
+                <Badge className="bg-white/90 text-gray-800">
                   {event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
                 </Badge>
               )}
@@ -270,7 +270,7 @@ export default function EventDetailPage() {
               <Button 
                 variant="ghost" 
                 size="sm"
-                className="bg-[var(--color-surface)] dark:bg-gray-900/20 backdrop-blur-sm text-white hover:bg-[var(--color-surface)] dark:bg-gray-900/30"
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                 onClick={() => {
                   navigator.share({
                     title: event.title,
@@ -293,7 +293,7 @@ export default function EventDetailPage() {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="bg-[var(--color-surface)] dark:bg-gray-900/20 backdrop-blur-sm text-white hover:bg-[var(--color-surface)] dark:bg-gray-900/30"
+                    className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                     onClick={() => setShowEditDialog(true)}
                   >
                     <Edit className="h-4 w-4" />
@@ -345,23 +345,23 @@ export default function EventDetailPage() {
               <CardTitle>About this event</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-[var(--color-text-secondary)]">{event.description}</p>
+              <p className="text-gray-700">{event.description}</p>
               
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Date & Time</p>
+                  <p className="text-sm text-gray-500 mb-1">Date & Time</p>
                   <p className="font-medium">
                     {safeFormatDate(event.startDate, 'MMM d, yyyy', 'Date TBA')} • {safeFormatTime(event.startDate, '20:00')}
                   </p>
                   {event.endDate && (
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-gray-600">
                       to {safeFormatTime(event.endDate, 'Time TBA')}
                     </p>
                   )}
                 </div>
                 
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Level</p>
+                  <p className="text-sm text-gray-500 mb-1">Level</p>
                   <p className="font-medium">
                     {event.level ? 
                       event.level.replace('_', ' ').charAt(0).toUpperCase() + event.level.replace('_', ' ').slice(1) 
@@ -371,7 +371,7 @@ export default function EventDetailPage() {
               </div>
 
               {event.isVirtual && event.virtualUrl && (
-                <div className="mt-4 p-4 bg-[var(--color-ocean-50)] rounded-lg border border-cyan-200">
+                <div className="mt-4 p-4 bg-cyan-50 rounded-lg border border-cyan-200">
                   <p className="text-sm font-medium text-cyan-900 mb-2">Virtual Event Access</p>
                   <Button
                     variant="outline"
@@ -460,7 +460,7 @@ export default function EventDetailPage() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+                    <p className="text-gray-500 text-center py-8">
                       No attendees yet. Be the first to RSVP!
                     </p>
                   )}
@@ -472,33 +472,33 @@ export default function EventDetailPage() {
                   {/* Mention Filter Tabs */}
                   <div className="flex items-center gap-2 border-b">
                     <button
-                      onClick={() => setMentionFilter('all')} aria-label="Button"
+                      onClick={() => setMentionFilter('all')}
                       className={`px-4 py-2 font-medium transition-colors ${
                         mentionFilter === 'all' 
                           ? 'text-pink-600 border-b-2 border-pink-600' 
-                          : 'text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]'
+                          : 'text-gray-500 hover:text-gray-700'
                       }`}
                       data-testid="filter-all-posts"
                     >
                       All Posts
                     </button>
                     <button
-                      onClick={() => setMentionFilter('participants')} aria-label="Button"
+                      onClick={() => setMentionFilter('participants')}
                       className={`px-4 py-2 font-medium transition-colors ${
                         mentionFilter === 'participants' 
                           ? 'text-pink-600 border-b-2 border-pink-600' 
-                          : 'text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]'
+                          : 'text-gray-500 hover:text-gray-700'
                       }`}
                       data-testid="filter-participants"
                     >
                       Participants Only
                     </button>
                     <button
-                      onClick={() => setMentionFilter('guests')} aria-label="Button"
+                      onClick={() => setMentionFilter('guests')}
                       className={`px-4 py-2 font-medium transition-colors ${
                         mentionFilter === 'guests' 
                           ? 'text-pink-600 border-b-2 border-pink-600' 
-                          : 'text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]'
+                          : 'text-gray-500 hover:text-gray-700'
                       }`}
                       data-testid="filter-guests"
                     >
@@ -525,11 +525,11 @@ export default function EventDetailPage() {
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-2">
                                 <p className="font-semibold">{post.user?.name || post.user?.username}</p>
-                                <span className="text-sm text-gray-500 dark:text-gray-400">
+                                <span className="text-sm text-gray-500">
                                   {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
                                 </span>
                               </div>
-                              <p className="text-[var(--color-text-secondary)]">{post.content}</p>
+                              <p className="text-gray-700">{post.content}</p>
                               {post.imageUrl && (
                                 <img 
                                   src={post.imageUrl} 
@@ -545,7 +545,7 @@ export default function EventDetailPage() {
                   ) : (
                     <div className="text-center py-12">
                       <MessageSquare className="mx-auto h-12 w-12 text-gray-400 mb-3" />
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <p className="text-gray-500">
                         No posts yet for this filter. Start the discussion!
                       </p>
                     </div>
@@ -564,7 +564,7 @@ export default function EventDetailPage() {
                       className={`transition-all ${
                         postFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                          : 'border-[var(--color-ocean-300)] text-turquoise-700 hover:bg-[var(--color-ocean-50)]'
+                          : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
                       data-testid="posts-filter-all"
                     >
@@ -577,7 +577,7 @@ export default function EventDetailPage() {
                       className={`transition-all ${
                         postFilter === 'participants'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                          : 'border-[var(--color-ocean-300)] text-turquoise-700 hover:bg-[var(--color-ocean-50)]'
+                          : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
                       data-testid="posts-filter-participants"
                     >
@@ -590,7 +590,7 @@ export default function EventDetailPage() {
                       className={`transition-all ${
                         postFilter === 'guests'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                          : 'border-[var(--color-ocean-300)] text-turquoise-700 hover:bg-[var(--color-ocean-50)]'
+                          : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
                       data-testid="posts-filter-guests"
                     >
@@ -615,13 +615,13 @@ export default function EventDetailPage() {
                     <Card>
                       <CardContent className="p-4 text-center">
                         <p className="text-2xl font-bold">{event.analytics?.views || 0}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Page Views</p>
+                        <p className="text-sm text-gray-500">Page Views</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="p-4 text-center">
                         <p className="text-2xl font-bold">{event.analytics?.shares || 0}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Shares</p>
+                        <p className="text-sm text-gray-500">Shares</p>
                       </CardContent>
                     </Card>
                     <Card>
@@ -629,7 +629,7 @@ export default function EventDetailPage() {
                         <p className="text-2xl font-bold">
                           {event.analytics?.conversionRate || 0}%
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Conversion Rate</p>
+                        <p className="text-sm text-gray-500">Conversion Rate</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -673,7 +673,7 @@ export default function EventDetailPage() {
                     <p className="text-3xl font-bold">
                       {event.currency || 'USD'} {event.price}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">per ticket</p>
+                    <p className="text-sm text-gray-500">per ticket</p>
                   </div>
                   
                   <Button 
@@ -685,7 +685,7 @@ export default function EventDetailPage() {
                   </Button>
                   
                   {event.maxAttendees && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+                    <p className="text-sm text-gray-500 text-center">
                       {event.maxAttendees - (event.currentAttendees || 0)} tickets left
                     </p>
                   )}
@@ -813,7 +813,7 @@ export default function EventDetailPage() {
                 </Avatar>
                 <div>
                   <p className="font-medium">{event.user?.name}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">@{event.user?.username}</p>
+                  <p className="text-sm text-gray-500">@{event.user?.username}</p>
                 </div>
               </div>
               
@@ -834,20 +834,20 @@ export default function EventDetailPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500 dark:text-gray-400">Capacity</span>
+                <span className="text-sm text-gray-500">Capacity</span>
                 <span className="font-medium">
                   {event.currentAttendees || 0} / {event.maxAttendees || '∞'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500 dark:text-gray-400">Type</span>
+                <span className="text-sm text-gray-500">Type</span>
                 <Badge variant="outline">
                   {event.isPublic ? 'Public' : 'Private'}
                 </Badge>
               </div>
               {event.isRecurring && (
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">Frequency</span>
+                  <span className="text-sm text-gray-500">Frequency</span>
                   <span className="font-medium">{event.recurringPattern}</span>
                 </div>
               )}
@@ -915,7 +915,7 @@ export default function EventDetailPage() {
                 {purchaseTicketMutation.isPending ? 'Processing...' : `Pay ${event.currency || 'USD'} ${event.price}`}
               </Button>
               
-              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+              <p className="text-xs text-gray-500 text-center">
                 Your payment information is secure and encrypted
               </p>
             </div>

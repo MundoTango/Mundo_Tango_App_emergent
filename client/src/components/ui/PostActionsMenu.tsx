@@ -3,8 +3,7 @@
  * Comprehensive post actions with edit/delete for authors and report for non-authors
  */
 
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { 
   MoreVertical, 
   Edit3, 
@@ -73,7 +72,6 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
   
   // ESA Debug: Log ownership check details
   if (process.env.NODE_ENV === 'development') {
-  const { t } = useTranslation();
     console.log('[ESA PostActionsMenu] Ownership check:', {
       currentUserId: user?.id,
       postUserId: post.userId,
@@ -103,7 +101,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     },
     onError: (error) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to delete post. Please try again.",
         variant: "destructive",
       });
@@ -218,7 +216,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
             size="sm" 
             className="h-10 w-10 p-0 hover:bg-indigo-50 hover:ring-2 hover:ring-indigo-200 rounded-full transition-all duration-200"
            data-testid="button-h-10">
-            <MoreVertical className="h-5 w-5 text-[var(--color-text-secondary)] hover:text-indigo-600 dark:text-neutral-300" />
+            <MoreVertical className="h-5 w-5 text-gray-700 hover:text-indigo-600 dark:text-neutral-300" />
             <span className="sr-only">Post options</span>
           </Button>
         </DropdownMenuTrigger>
@@ -316,11 +314,11 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
           <AlertDialogFooter data-testid="link-element">
             <AlertDialogCancel data-testid="link-element">Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => deleteMutation.mutate()}
+              onClick={() = data-testid="link-element"> deleteMutation.mutate()}
               className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? "Deleting..." : t('actions.delete', 'Delete')}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -344,18 +342,18 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
                     name="reportReason"
                     value={reason}
                     checked={reportReason === reason}
-                    onChange={(e) => setReportReason(e.target.value)} aria-label="Input field"
+                    onChange={(e) = data-testid="input-element"> setReportReason(e.target.value)}
                     className="w-4 h-4 text-red-600 border-gray-300 focus:ring-red-500 dark:border-neutral-600"
                   />
-                  <span className="text-sm text-[var(--color-text-secondary)] dark:text-neutral-300">{reason}</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">{reason}</span>
                 </label>
               ))}
             </div>
           </div>
           <AlertDialogFooter data-testid="link-element">
-            <AlertDialogCancel onClick={() => setReportReason('')}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={() = data-testid="link-element"> setReportReason('')}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => reportMutation.mutate({ reason: reportReason })}
+              onClick={() = data-testid="link-element"> reportMutation.mutate({ reason: reportReason })}
               disabled={!reportReason || reportMutation.isPending}
               className="bg-red-600 hover:bg-red-700"
             >

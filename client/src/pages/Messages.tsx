@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import { useTranslation } from 'react-i18next';;
+import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { io, Socket } from 'socket.io-client';
 import { format } from 'date-fns';
@@ -40,8 +39,7 @@ export default function Messages() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const {
-  const { t } = useTranslation(); toast } = useToast();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
 
   // Get current user
@@ -74,7 +72,7 @@ export default function Messages() {
       // Show notification
       toast({
         title: 'New Message',
-        description: data.content.substring(0, 50) + '...'
+        description: data.content.substring(0, 50) + '...',
       });
     });
 
@@ -118,7 +116,7 @@ export default function Messages() {
 
   // Send message mutation
   const sendMessageMutation = useMutation({
-    mutationFn: async (data: {recipientId: number;content: string;}) => {
+    mutationFn: async (data: { recipientId: number; content: string }) => {
       return apiRequest('/api/messages/send', {
         method: 'POST',
         body: data
@@ -130,7 +128,7 @@ export default function Messages() {
     },
     onError: () => {
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: 'Failed to send message',
         variant: 'destructive'
       });
@@ -188,86 +186,86 @@ export default function Messages() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Messages
         </h1>
-        <p className="text-gray-600 dark:text-gray-300 mt-2">Connect with your tango community</p>
+        <p className="text-gray-600 mt-2">Connect with your tango community</p>
       </div>
 
       <Card className="glassmorphic-card h-[600px] overflow-hidden">
         <div className="flex h-full">
           {/* Conversations list */}
-          <div className={`w-full md:w-1/3 border-r border-[var(--color-border)] ${selectedConversation ? 'hidden md:block' : ''}`}>
-            <div className="p-4 border-b border-[var(--color-border)]">
+          <div className={`w-full md:w-1/3 border-r border-gray-200 ${selectedConversation ? 'hidden md:block' : ''}`}>
+            <div className="p-4 border-b border-gray-200">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   placeholder="Search conversations..."
-                  className="pl-10 glassmorphic-input" data-testid="input-pl-10" />
-
+                  className="pl-10 glassmorphic-input"
+                />
               </div>
             </div>
             
             <ScrollArea className="h-[calc(100%-73px)]">
-              {conversations.length === 0 ?
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+              {conversations.length === 0 ? (
+                <div className="p-8 text-center text-gray-500">
                   <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                   <p>No conversations yet</p>
                   <p className="text-sm mt-2">Start a conversation from a user's profile</p>
-                </div> :
-
-              conversations.map((conversation: Conversation) =>
-              <div
-                key={conversation.id}
-                onClick={() => setSelectedConversation(conversation.id)}
-                className={`p-4 hover:bg-[var(--color-surface-elevated)] cursor-pointer transition-colors ${
-                selectedConversation === conversation.id ? 'bg-[var(--color-ocean-50)]' : ''}`
-                }>
-
+                </div>
+              ) : (
+                conversations.map((conversation: Conversation) => (
+                  <div
+                    key={conversation.id}
+                    onClick={() => setSelectedConversation(conversation.id)}
+                    className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
+                      selectedConversation === conversation.id ? 'bg-turquoise-50' : ''
+                    }`}
+                  >
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <Avatar>
                           <AvatarImage src={conversation.user.profileImage} />
                           <AvatarFallback>{conversation.user.name[0]}</AvatarFallback>
                         </Avatar>
-                        {conversation.user.isOnline &&
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
-                    }
+                        {conversation.user.isOnline && (
+                          <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-baseline">
                           <h3 className="font-semibold truncate">{conversation.user.name}</h3>
-                          {conversation.lastMessage &&
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                          {conversation.lastMessage && (
+                            <span className="text-xs text-gray-500">
                               {format(new Date(conversation.lastMessage.createdAt), 'MMM d')}
                             </span>
-                      }
+                          )}
                         </div>
-                        {conversation.lastMessage &&
-                    <p className="text-sm text-gray-600 dark:text-gray-300 truncate">
+                        {conversation.lastMessage && (
+                          <p className="text-sm text-gray-600 truncate">
                             {conversation.lastMessage.content}
                           </p>
-                    }
+                        )}
                       </div>
-                      {conversation.unreadCount > 0 &&
-                  <div className="bg-[var(--color-primary)] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {conversation.unreadCount > 0 && (
+                        <div className="bg-turquoise-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                           {conversation.unreadCount}
                         </div>
-                  }
+                      )}
                     </div>
                   </div>
-              )
-              }
+                ))
+              )}
             </ScrollArea>
           </div>
 
           {/* Messages view */}
-          {selectedConversation ?
-          <div className="flex-1 flex flex-col">
+          {selectedConversation ? (
+            <div className="flex-1 flex flex-col">
               {/* Header */}
-              <div className="p-4 border-b border-[var(--color-border)] bg-gradient-to-r from-turquoise-50 to-cyan-50">
+              <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50">
                 <div className="flex items-center space-x-3">
                   <button
-                  onClick={() => setSelectedConversation(null)} aria-label="Button"
-                  className="md:hidden" data-testid="button-md-hidden">
-
+                    onClick={() => setSelectedConversation(null)}
+                    className="md:hidden"
+                  >
                     <ArrowLeft className="w-5 h-5" />
                   </button>
                   <Avatar>
@@ -280,9 +278,9 @@ export default function Messages() {
                     <h2 className="font-semibold">
                       {conversations.find((c: Conversation) => c.id === selectedConversation)?.user.name}
                     </h2>
-                    {isTyping &&
-                  <p className="text-sm text-gray-600 dark:text-gray-300">typing...</p>
-                  }
+                    {isTyping && (
+                      <p className="text-sm text-gray-600">typing...</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -290,68 +288,68 @@ export default function Messages() {
               {/* Messages */}
               <ScrollArea className="flex-1 p-4" ref={scrollRef}>
                 <div className="space-y-4">
-                  {messages.map((msg: Message) =>
-                <div
-                  key={msg.id}
-                  className={`flex ${msg.senderId === user?.id ? 'justify-end' : 'justify-start'}`}>
-
+                  {messages.map((msg: Message) => (
+                    <div
+                      key={msg.id}
+                      className={`flex ${msg.senderId === user?.id ? 'justify-end' : 'justify-start'}`}
+                    >
                       <div
-                    className={`max-w-[70%] px-4 py-2 rounded-lg ${
-                    msg.senderId === user?.id ?
-                    'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white' :
-                    'bg-[var(--color-neutral-100)]'}`
-                    }>
-
+                        className={`max-w-[70%] px-4 py-2 rounded-lg ${
+                          msg.senderId === user?.id
+                            ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white'
+                            : 'bg-gray-100'
+                        }`}
+                      >
                         <p>{msg.content}</p>
                         <p className={`text-xs mt-1 ${
-                    msg.senderId === user?.id ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'}`
-                    }>
+                          msg.senderId === user?.id ? 'text-white/70' : 'text-gray-500'
+                        }`}>
                           {format(new Date(msg.createdAt), 'HH:mm')}
                         </p>
                       </div>
                     </div>
-                )}
+                  ))}
                 </div>
               </ScrollArea>
 
               {/* Input */}
-              <div className="p-4 border-t border-[var(--color-border)]">
+              <div className="p-4 border-t border-gray-200">
                 <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSendMessage();
-                }}
-                className="flex space-x-2">
-
-                  <Input
-                  value={message}
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                    handleTyping();
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSendMessage();
                   }}
-                  placeholder="Type a message..."
-                  className="flex-1 glassmorphic-input" data-testid="input-flex-1" />
-
+                  className="flex space-x-2"
+                >
+                  <Input
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                      handleTyping();
+                    }}
+                    placeholder="Type a message..."
+                    className="flex-1 glassmorphic-input"
+                  />
                   <Button
-                  type="submit"
-                  disabled={!message.trim() || sendMessageMutation.isPending}
-                  className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white" data-testid="button-submit">
-
+                    type="submit"
+                    disabled={!message.trim() || sendMessageMutation.isPending}
+                    className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
+                  >
                     <Send className="w-4 h-4" />
                   </Button>
                 </form>
               </div>
-            </div> :
-
-          <div className="flex-1 hidden md:flex items-center justify-center">
-              <div className="text-center text-gray-500 dark:text-gray-400">
+            </div>
+          ) : (
+            <div className="flex-1 hidden md:flex items-center justify-center">
+              <div className="text-center text-gray-500">
                 <MessageCircle className="w-16 h-16 mx-auto mb-4 text-gray-300" />
                 <p className="text-lg">Select a conversation to start messaging</p>
               </div>
             </div>
-          }
+          )}
         </div>
       </Card>
-    </div>);
-
+    </div>
+  );
 }

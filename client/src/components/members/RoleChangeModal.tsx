@@ -69,7 +69,7 @@ export const RoleChangeModal = ({
       case 'admin':
         return 'text-orange-600 dark:text-orange-400';
       case 'moderator':
-        return 'text-[var(--color-primary-hover)] dark:text-cyan-400';
+        return 'text-cyan-600 dark:text-cyan-400';
       default:
         return 'text-blue-600 dark:text-blue-400';
     }
@@ -82,7 +82,7 @@ export const RoleChangeModal = ({
       case 'admin':
         return 'from-orange-500 to-red-500';
       case 'moderator':
-        return 'from-[var(--color-primary)] to-[var(--color-ocean-500)]';
+        return 'from-cyan-500 to-blue-500';
       default:
         return 'from-blue-500 to-teal-500';
     }
@@ -116,15 +116,15 @@ export const RoleChangeModal = ({
                 </div>
               )}
 
-              <DialogTitle className="text-center text-xl font-semibold text-[var(--color-text)] dark:text-gray-100">
+              <DialogTitle className="text-center text-xl font-semibold text-gray-900 dark:text-gray-100">
                 {t('members.roleChange.title', 'Change Member Role?')}
               </DialogTitle>
 
               <DialogDescription className="text-center space-y-4">
                 {/* Member Info */}
-                <div className="text-base text-[var(--color-text-secondary)] dark:text-gray-300">
+                <div className="text-base text-gray-700 dark:text-gray-300">
                   {t('members.roleChange.description', 'You are about to change the role of')}
-                  <span className="font-semibold text-[var(--color-text)] dark:text-gray-100 mx-1">
+                  <span className="font-semibold text-gray-900 dark:text-gray-100 mx-1">
                     @{memberUsername}
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export const RoleChangeModal = ({
                 </div>
 
                 {/* Consequences Message */}
-                <div className="text-sm text-gray-600 dark:text-gray-400 bg-[var(--color-neutral-100)]/50 dark:bg-gray-800/50 rounded-lg p-3">
+                <div className="text-sm text-gray-600 dark:text-gray-400 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg p-3">
                   {isPromotion && (
                     <p>{t('members.roleChange.promotionNote', 'This will grant additional permissions to this member.')}</p>
                   )}
@@ -188,7 +188,7 @@ export const RoleChangeModal = ({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
-                className="border-gray-300 dark:border-gray-600 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800"
+                className="border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
                 data-testid="button-cancel-role-change"
               >
                 {t('common.cancel', 'Cancel')}

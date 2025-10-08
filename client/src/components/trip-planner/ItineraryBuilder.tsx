@@ -74,7 +74,7 @@ export default function ItineraryBuilder({
 
   const getItemTypeColor = (type: string) => {
     switch (type) {
-      case 'event': return 'from-[var(--color-primary)] to-[var(--color-ocean-500)]';
+      case 'event': return 'from-cyan-500 to-blue-500';
       case 'housing': return 'from-turquoise-500 to-cyan-500';
       case 'recommendation': return 'from-pink-500 to-purple-500';
       default: return 'from-gray-500 to-gray-600';
@@ -95,7 +95,7 @@ export default function ItineraryBuilder({
         </div>
         <Button
           onClick={onSave}
-          className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)] hover:from-cyan-600 hover:to-[var(--color-ocean-600)]"
+          className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600"
           data-testid="button-save-trip"
         >
           Save My Trip
@@ -112,12 +112,12 @@ export default function ItineraryBuilder({
             <Card key={index} className="overflow-hidden glass-card-depth-1">
               {/* Day Header */}
               <button
-                onClick={() => toggleDay(index)} aria-label="Button"
-                className="w-full p-4 flex items-center justify-between hover:bg-[var(--color-surface-elevated)] dark:hover:bg-gray-800/50 transition"
+                onClick={() => toggleDay(index)}
+                className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition"
                 data-testid={`button-toggle-day-${index}`}
               >
                 <div className="flex items-center gap-3">
-                  <Calendar className="h-5 w-5 text-[var(--color-primary-hover)]" />
+                  <Calendar className="h-5 w-5 text-cyan-600" />
                   <div className="text-left">
                     <h4 className="font-semibold">Day {index + 1}</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{getDayDate(index)}</p>
@@ -136,7 +136,7 @@ export default function ItineraryBuilder({
 
               {/* Day Items */}
               {isExpanded && (
-                <div className="border-t border-[var(--color-border)] dark:border-gray-700 p-4 space-y-3">
+                <div className="border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
                   {dayItems.length === 0 ? (
                     <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                       <p className="text-sm">No activities planned for this day</p>
@@ -144,7 +144,7 @@ export default function ItineraryBuilder({
                     </div>
                   ) : (
                     dayItems.map((item) => (
-                      <Card key={item.id} className="p-3 bg-[var(--color-surface)] dark:bg-gray-800/50" data-testid={`itinerary-item-${item.id}`}>
+                      <Card key={item.id} className="p-3 bg-white dark:bg-gray-800/50" data-testid={`itinerary-item-${item.id}`}>
                         <div className="space-y-2">
                           {/* Item Header */}
                           <div className="flex items-start justify-between gap-3">
@@ -194,7 +194,7 @@ export default function ItineraryBuilder({
       {totalItems === 0 && (
         <Card className="p-8 text-center glass-card-depth-1">
           <div className="max-w-md mx-auto space-y-4">
-            <div className="h-16 w-16 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)] rounded-full flex items-center justify-center mx-auto">
+            <div className="h-16 w-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto">
               <Plus className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold">Start Building Your Itinerary</h3>

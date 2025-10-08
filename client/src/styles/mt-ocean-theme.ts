@@ -183,19 +183,19 @@ export const MTOceanTheme = {
 // Tailwind class utilities for MT Ocean theme
 export const mtOceanClasses = {
   // Glassmorphic card
-  card: 'bg-[var(--color-surface)]/85 dark:bg-gray-900/85 backdrop-blur-xl border border-white/30 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300',
+  card: 'bg-white/85 dark:bg-gray-900/85 backdrop-blur-xl border border-white/30 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300',
   
   // Primary button with gradient
-  buttonPrimary: 'bg-gradient-to-r from-teal-300 to-blue-900 hover:from-[var(--color-ocean-400)] hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300',
+  buttonPrimary: 'bg-gradient-to-r from-teal-300 to-blue-900 hover:from-teal-400 hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300',
   
   // Input field
-  input: 'bg-[var(--color-surface)]/90 dark:bg-gray-800/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 focus:border-teal-400 dark:focus:border-[var(--color-primary)] rounded-lg px-4 py-2 transition-all duration-300',
+  input: 'bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 focus:border-teal-400 dark:focus:border-teal-500 rounded-lg px-4 py-2 transition-all duration-300',
   
   // Badge
   badge: 'bg-gradient-to-r from-teal-100 to-blue-100 dark:from-teal-900 dark:to-blue-900 text-teal-800 dark:text-teal-200 px-3 py-1 rounded-full text-sm font-medium',
   
   // Text gradients
-  textGradient: 'bg-gradient-to-r from-[var(--color-ocean-400)] to-blue-900 bg-clip-text text-transparent',
+  textGradient: 'bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent',
   
   // Hover effects
   hoverScale: 'hover:scale-105 transition-transform duration-300',

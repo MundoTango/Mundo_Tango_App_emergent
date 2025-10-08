@@ -4,11 +4,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Activity, AlertCircle, CheckCircle, Clock, Database, FileText,
+import { 
+  Activity, AlertCircle, CheckCircle, Clock, Database, FileText, 
   Gauge, Globe, Heart, Loader2, Monitor, Package, Play, Shield,
-  Terminal, TrendingUp, Zap } from
-'lucide-react';
+  Terminal, TrendingUp, Zap
+} from 'lucide-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { toast } from '@/hooks/use-toast';
@@ -44,7 +44,7 @@ export function Phase4ToolsDashboard() {
     onSuccess: (data) => {
       toast({
         title: 'Load Test Complete',
-        description: `Phase ${data.phase} test completed successfully`
+        description: `Phase ${data.phase} test completed successfully`,
       });
       setLoadTestRunning(false);
       refetch();
@@ -60,78 +60,78 @@ export function Phase4ToolsDashboard() {
   });
 
   const tools: ToolStatus[] = [
-  {
-    name: 'PM2 Process Manager',
-    status: toolStatuses?.pm2?.status || 'operational',
-    icon: Monitor,
-    description: 'Zero-downtime deployments & crash recovery',
-    metrics: toolStatuses?.pm2?.metrics,
-    url: '/pm2-dashboard'
-  },
-  {
-    name: 'Pino Structured Logging',
-    status: 'operational',
-    icon: FileText,
-    description: '5x faster logging with JSON output',
-    metrics: { logsPerSecond: 12500, structured: true }
-  },
-  {
-    name: 'OpenAPI/Swagger',
-    status: 'operational',
-    icon: Globe,
-    description: 'Auto-generated API documentation',
-    url: '/api-docs'
-  },
-  {
-    name: 'k6 Load Testing',
-    status: loadTestRunning ? 'partial' : 'operational',
-    icon: Gauge,
-    description: 'Performance validation across all phases',
-    metrics: toolStatuses?.k6?.lastResults
-  },
-  {
-    name: 'Redis Cache',
-    status: toolStatuses?.redis?.connected ? 'operational' : 'partial',
-    icon: Database,
-    description: 'In-memory caching with 99.7% hit rate',
-    metrics: { hitRate: '99.7%', operations: '50k/s' }
-  },
-  {
-    name: 'BullMQ Queues',
-    status: 'operational',
-    icon: Package,
-    description: 'Background job processing',
-    metrics: { queues: 6, workers: 12 }
-  },
-  {
-    name: 'Prometheus Metrics',
-    status: 'operational',
-    icon: TrendingUp,
-    description: 'Real-time performance monitoring',
-    url: '/api/metrics'
-  },
-  {
-    name: 'Elasticsearch',
-    status: toolStatuses?.elasticsearch?.connected ? 'operational' : 'failed',
-    icon: Activity,
-    description: 'Full-text search engine',
-    metrics: { indices: 3, documents: '100k+' }
-  },
-  {
-    name: 'Sentry Error Tracking',
-    status: 'operational',
-    icon: AlertCircle,
-    description: 'Real-time error monitoring',
-    metrics: { errors24h: 12, crashFreeRate: '99.8%' }
-  },
-  {
-    name: 'Service Worker',
-    status: 'operational',
-    icon: Shield,
-    description: 'Offline support & caching',
-    metrics: { cacheSize: '16MB', cachedPages: 147 }
-  }];
-
+    {
+      name: 'PM2 Process Manager',
+      status: toolStatuses?.pm2?.status || 'operational',
+      icon: Monitor,
+      description: 'Zero-downtime deployments & crash recovery',
+      metrics: toolStatuses?.pm2?.metrics,
+      url: '/pm2-dashboard'
+    },
+    {
+      name: 'Pino Structured Logging',
+      status: 'operational',
+      icon: FileText,
+      description: '5x faster logging with JSON output',
+      metrics: { logsPerSecond: 12500, structured: true }
+    },
+    {
+      name: 'OpenAPI/Swagger',
+      status: 'operational',
+      icon: Globe,
+      description: 'Auto-generated API documentation',
+      url: '/api-docs'
+    },
+    {
+      name: 'k6 Load Testing',
+      status: loadTestRunning ? 'partial' : 'operational',
+      icon: Gauge,
+      description: 'Performance validation across all phases',
+      metrics: toolStatuses?.k6?.lastResults
+    },
+    {
+      name: 'Redis Cache',
+      status: toolStatuses?.redis?.connected ? 'operational' : 'partial',
+      icon: Database,
+      description: 'In-memory caching with 99.7% hit rate',
+      metrics: { hitRate: '99.7%', operations: '50k/s' }
+    },
+    {
+      name: 'BullMQ Queues',
+      status: 'operational',
+      icon: Package,
+      description: 'Background job processing',
+      metrics: { queues: 6, workers: 12 }
+    },
+    {
+      name: 'Prometheus Metrics',
+      status: 'operational',
+      icon: TrendingUp,
+      description: 'Real-time performance monitoring',
+      url: '/api/metrics'
+    },
+    {
+      name: 'Elasticsearch',
+      status: toolStatuses?.elasticsearch?.connected ? 'operational' : 'failed',
+      icon: Activity,
+      description: 'Full-text search engine',
+      metrics: { indices: 3, documents: '100k+' }
+    },
+    {
+      name: 'Sentry Error Tracking',
+      status: 'operational',
+      icon: AlertCircle,
+      description: 'Real-time error monitoring',
+      metrics: { errors24h: 12, crashFreeRate: '99.8%' }
+    },
+    {
+      name: 'Service Worker',
+      status: 'operational',
+      icon: Shield,
+      description: 'Offline support & caching',
+      metrics: { cacheSize: '16MB', cachedPages: 147 }
+    }
+  ];
 
   const phaseTools = {
     phase1: ['PM2', 'Pino', 'Redis', 'Service Worker'],
@@ -143,8 +143,8 @@ export function Phase4ToolsDashboard() {
   const getToolsByPhase = (phase: string) => {
     if (phase === 'all') return tools;
     const phaseToolNames = phaseTools[phase as keyof typeof phaseTools];
-    return tools.filter((tool) =>
-    phaseToolNames?.some((name) => tool.name.toLowerCase().includes(name.toLowerCase()))
+    return tools.filter(tool => 
+      phaseToolNames?.some(name => tool.name.toLowerCase().includes(name.toLowerCase()))
     );
   };
 
@@ -172,12 +172,12 @@ export function Phase4ToolsDashboard() {
       case 'failed':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const operationalCount = tools.filter((t) => t.status === 'operational').length;
-  const healthPercentage = operationalCount / tools.length * 100;
+  const operationalCount = tools.filter(t => t.status === 'operational').length;
+  const healthPercentage = (operationalCount / tools.length) * 100;
 
   return (
     <div className="space-y-6">
@@ -188,7 +188,7 @@ export function Phase4ToolsDashboard() {
             <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-600">
               Phase 4 Open Source Tools
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-gray-600 mt-1">
               Enterprise-grade tooling integrated across all phases
             </p>
           </div>
@@ -196,7 +196,7 @@ export function Phase4ToolsDashboard() {
             <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-600">
               {operationalCount}/{tools.length}
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Tools Operational</p>
+            <p className="text-sm text-gray-600">Tools Operational</p>
           </div>
         </div>
         
@@ -223,48 +223,48 @@ export function Phase4ToolsDashboard() {
         <TabsContent value={selectedPhase} className="mt-6">
           {/* Tools Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {displayTools.map((tool) =>
-            <Card key={tool.name} className="glassmorphic-card hover:shadow-lg transition-shadow">
+            {displayTools.map((tool) => (
+              <Card key={tool.name} className="glassmorphic-card hover:shadow-lg transition-shadow">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <tool.icon className="w-6 h-6 text-[var(--color-primary-hover)]" />
+                      <tool.icon className="w-6 h-6 text-turquoise-600" />
                       <CardTitle className="text-lg">{tool.name}</CardTitle>
                     </div>
                     {getStatusIcon(tool.status)}
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{tool.description}</p>
+                  <p className="text-sm text-gray-600 mb-3">{tool.description}</p>
                   
                   <Badge className={`mb-3 ${getStatusColor(tool.status)}`}>
                     {tool.status.toUpperCase()}
                   </Badge>
                   
-                  {tool.metrics &&
-                <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-                      {Object.entries(tool.metrics).map(([key, value]) =>
-                  <div key={key} className="flex justify-between">
+                  {tool.metrics && (
+                    <div className="text-xs text-gray-500 space-y-1">
+                      {Object.entries(tool.metrics).map(([key, value]) => (
+                        <div key={key} className="flex justify-between">
                           <span>{key}:</span>
                           <span className="font-medium">{String(value)}</span>
                         </div>
-                  )}
+                      ))}
                     </div>
-                }
+                  )}
                   
-                  {tool.url &&
-                <a
-                  href={tool.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 text-xs text-[var(--color-primary-hover)] hover:text-turquoise-700 flex items-center" data-testid="a-mt-3">
-
+                  {tool.url && (
+                    <a 
+                      href={tool.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="mt-3 text-xs text-turquoise-600 hover:text-turquoise-700 flex items-center"
+                    >
                       View Dashboard →
                     </a>
-                }
+                  )}
                 </CardContent>
               </Card>
-            )}
+            ))}
           </div>
         </TabsContent>
       </Tabs>
@@ -279,43 +279,43 @@ export function Phase4ToolsDashboard() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {['phase1', 'phase2', 'phase3', 'phase4'].map((phase) =>
-            <Button
-              key={phase}
-              onClick={() => runLoadTest.mutate(phase)}
-              disabled={loadTestRunning}
-              variant="outline"
-              className="w-full" data-testid="button-w-full">
-
-                {loadTestRunning ?
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" /> :
-
-              <Play className="w-4 h-4 mr-2" />
-              }
+            {['phase1', 'phase2', 'phase3', 'phase4'].map((phase) => (
+              <Button
+                key={phase}
+                onClick={() => runLoadTest.mutate(phase)}
+                disabled={loadTestRunning}
+                variant="outline"
+                className="w-full"
+              >
+                {loadTestRunning ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Play className="w-4 h-4 mr-2" />
+                )}
                 {phase.replace('phase', 'Phase ')}
               </Button>
-            )}
+            ))}
           </div>
           
-          {toolStatuses?.k6?.lastResults &&
-          <div className="mt-4 p-4 bg-[var(--color-surface-elevated)] rounded-lg">
+          {toolStatuses?.k6?.lastResults && (
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
               <h4 className="text-sm font-medium mb-2">Last Test Results</h4>
               <div className="grid grid-cols-3 gap-2 text-xs">
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">Success Rate:</span>
+                  <span className="text-gray-500">Success Rate:</span>
                   <p className="font-medium">{toolStatuses.k6.lastResults.successRate}%</p>
                 </div>
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">Avg Response:</span>
+                  <span className="text-gray-500">Avg Response:</span>
                   <p className="font-medium">{toolStatuses.k6.lastResults.avgResponse}ms</p>
                 </div>
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">RPS:</span>
+                  <span className="text-gray-500">RPS:</span>
                   <p className="font-medium">{toolStatuses.k6.lastResults.rps}</p>
                 </div>
               </div>
             </div>
-          }
+          )}
         </CardContent>
       </Card>
 
@@ -323,24 +323,24 @@ export function Phase4ToolsDashboard() {
       <Card className="glassmorphic-card bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Zap className="w-5 h-5 text-[var(--color-primary-hover)]" />
+            <Zap className="w-5 h-5 text-turquoise-600" />
             <span>40x20s Framework Learning</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-[var(--color-text-secondary)]">
+          <p className="text-sm text-gray-700">
             <strong>Phase 4 Achievement:</strong> Successfully integrated 10+ enterprise-grade open source tools
             across all phases, achieving 60-70% performance improvement with self-healing capabilities.
             The system now automatically detects anomalies and applies optimizations without manual intervention.
           </p>
           <div className="mt-3 flex items-center space-x-2">
             <Heart className="w-4 h-4 text-red-500" />
-            <span className="text-xs text-gray-600 dark:text-gray-300">
+            <span className="text-xs text-gray-600">
               Confidence: 95% | Applied: Real-time monitoring, structured logging, load testing
             </span>
           </div>
         </CardContent>
       </Card>
-    </div>);
-
+    </div>
+  );
 }

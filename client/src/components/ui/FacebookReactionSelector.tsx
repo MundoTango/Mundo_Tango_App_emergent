@@ -48,7 +48,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
     <div className={`relative flex items-center gap-2 ${className}`} data-testid={`reactions-container-${postId}`}>
       {/* Reaction Button */}
       <button
-        onMouseEnter={() => setShowReactions(true)} aria-label="Button"
+        onMouseEnter={() => setShowReactions(true)}
         onMouseLeave={() => setShowReactions(false)}
         onClick={() => {
           if (currentReaction) {
@@ -61,7 +61,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
           flex items-center gap-2 px-3 py-2 rounded-xl font-medium transition-all duration-200
           ${currentReaction 
             ? 'bg-blue-50 text-blue-600' 
-            : 'text-gray-600 dark:text-gray-300 hover:bg-[var(--color-surface-elevated)]'
+            : 'text-gray-600 hover:bg-gray-50'
           }
         `}
         data-testid={`button-reaction-toggle-${postId}`}
@@ -95,7 +95,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
 
       {/* Reaction Picker */}
       {showReactions && (
-        <div className="absolute bottom-full left-0 mb-3 bg-[var(--color-surface)] rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200 border border-gray-100 dark:bg-neutral-900" data-testid={`popover-reactions-${postId}`}>
+        <div className="absolute bottom-full left-0 mb-3 bg-white rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200 border border-gray-100 dark:bg-neutral-900" data-testid={`popover-reactions-${postId}`}>
           <div className="grid grid-cols-6 gap-1">
             {FACEBOOK_REACTIONS.map((reaction) => (
               <button
@@ -103,10 +103,11 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
                 onClick={(e) => {
                   e.stopPropagation();
                   onReact(reaction.id);
-                  setShowReactions(false);}} aria-label="Button"
+                  setShowReactions(false);
+                }}
                 className={`
-                  w-14 h-14 flex items-center justify-center rounded-xl hover:bg-[var(--color-neutral-100)] transition-colors duration-150
-                  ${currentReaction === reaction.id ? 'bg-[var(--color-neutral-100)] ring-2 ring-blue-500' : ''}
+                  w-14 h-14 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors duration-150
+                  ${currentReaction === reaction.id ? 'bg-gray-100 ring-2 ring-blue-500' : ''}
                 `}
                 title={reaction.label}
                 data-testid={`button-reaction-${postId}-${reaction.id}`}
@@ -118,7 +119,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
             ))}
           </div>
           {/* Tooltip arrow */}
-          <div className="absolute -bottom-2 left-4 w-4 h-4 bg-[var(--color-surface)] border-r border-b border-gray-100 transform rotate-45 dark:bg-neutral-900"></div>
+          <div className="absolute -bottom-2 left-4 w-4 h-4 bg-white border-r border-b border-gray-100 transform rotate-45 dark:bg-neutral-900"></div>
         </div>
       )}
     </div>

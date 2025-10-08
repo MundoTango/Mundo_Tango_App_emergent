@@ -38,7 +38,7 @@ export function SimpleCommentEditor({
   };
 
   return (
-    <div className={`bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] ${className}`}>
+    <div className={`bg-white rounded-xl border border-gray-200 ${className}`}>
       {/* Simple emoji picker at the top */}
       <SimpleEmojiPicker onEmojiSelect={addEmoji} />
       
@@ -47,11 +47,10 @@ export function SimpleCommentEditor({
         <textarea
           ref={inputRef}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
-          data-testid="textarea-comment"
+          onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="w-full min-h-[60px] p-2 outline-none resize-none text-[var(--color-text)] placeholder-gray-400 dark:text-neutral-100"
+          className="w-full min-h-[60px] p-2 outline-none resize-none text-gray-900 placeholder-gray-400 dark:text-neutral-100"
           rows={2}
         />
         
@@ -64,10 +63,10 @@ export function SimpleCommentEditor({
               flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
               ${content.trim() 
                 ? 'bg-pink-500 text-white hover:bg-pink-600' 
-                : 'bg-[var(--color-neutral-100)] text-gray-400 cursor-not-allowed'
+                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
               }
             `}
-            data-testid="button-submit-comment" aria-label="Button">
+           data-testid="button-element">
             <Send className="h-4 w-4" />
             Comment
           </button>

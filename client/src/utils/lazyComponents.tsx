@@ -3,21 +3,19 @@
  * Phase 8: Performance Optimization (35L Framework)
  */
 
-import React, { lazy, Suspense, ComponentType } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { lazy, Suspense, ComponentType } from 'react';
 import { Loader2 } from 'lucide-react';
 
 // Loading component with MT ocean theme
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[200px]">
-    <Loader2 className="w-8 h-8 animate-spin text-[var(--color-primary)]" />
+    <Loader2 className="w-8 h-8 animate-spin text-turquoise-500" />
   </div>
 );
 
 // Error boundary for lazy loaded components
 class LazyErrorBoundary extends React.Component<
-  {
-  children: React.ReactNode },
+  { children: React.ReactNode },
   { hasError: boolean }
 > {
   constructor(props: { children: React.ReactNode }) {
@@ -35,8 +33,8 @@ class LazyErrorBoundary extends React.Component<
         <div className="flex flex-col items-center justify-center min-h-[200px] text-center p-4">
           <p className="text-red-500 mb-2">Failed to load component</p>
           <button
-            onClick={() => window.location.reload()} aria-label="Button"
-            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded hover:bg-turquoise-600 transition-colors"
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-turquoise-500 text-white rounded hover:bg-turquoise-600 transition-colors"
           >
             Reload Page
           </button>
@@ -110,7 +108,7 @@ export const LazyRoutes = {
 export function useRoutePreloader() {
   const preloadRoute = (routeName: keyof typeof LazyRoutes) => {
     switch (routeName) {
-      case {t('navigation.profile', 'Profile')}:
+      case 'Profile':
         import('@/pages/profile');
         break;
       case 'AdminCenter':

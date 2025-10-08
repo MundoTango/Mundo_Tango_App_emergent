@@ -10,11 +10,11 @@ interface ConnectionDegreeDisplayProps {
   showTooltip?: boolean;
 }
 
-export function ConnectionDegreeDisplay({
-  degree,
-  mutualFriends = 0,
+export function ConnectionDegreeDisplay({ 
+  degree, 
+  mutualFriends = 0, 
   size = 'md',
-  showTooltip = true
+  showTooltip = true 
 }: ConnectionDegreeDisplayProps) {
   const getConnectionInfo = () => {
     switch (degree) {
@@ -24,7 +24,7 @@ export function ConnectionDegreeDisplay({
           text: '1st',
           label: 'Direct Connection',
           color: 'from-turquoise-400 to-cyan-500',
-          bgColor: 'bg-[var(--color-ocean-50)] dark:bg-turquoise-900/20',
+          bgColor: 'bg-turquoise-50 dark:bg-turquoise-900/20',
           borderColor: 'border-turquoise-200 dark:border-turquoise-700',
           description: 'You are directly connected'
         };
@@ -54,8 +54,8 @@ export function ConnectionDegreeDisplay({
           text: '3+',
           label: 'Not Connected',
           color: 'from-gray-400 to-gray-500',
-          bgColor: 'bg-[var(--color-surface-elevated)] dark:bg-gray-900/20',
-          borderColor: 'border-[var(--color-border)] dark:border-gray-700',
+          bgColor: 'bg-gray-50 dark:bg-gray-900/20',
+          borderColor: 'border-gray-200 dark:border-gray-700',
           description: 'Not connected within 3 degrees'
         };
     }
@@ -63,7 +63,7 @@ export function ConnectionDegreeDisplay({
 
   const info = getConnectionInfo();
   const Icon = info.icon;
-
+  
   const sizeClasses = {
     sm: {
       container: 'text-xs',
@@ -87,30 +87,30 @@ export function ConnectionDegreeDisplay({
 
   const classes = sizeClasses[size];
 
-  const content =
-  <div className={`inline-flex items-center ${classes.gap}`}>
-      <div
-      className={`
+  const content = (
+    <div className={`inline-flex items-center ${classes.gap}`}>
+      <div 
+        className={`
           ${classes.badge} 
           ${info.bgColor} 
           border ${info.borderColor}
           rounded-full
           flex items-center ${classes.gap}
           backdrop-blur-sm
-        `}>
-
+        `}
+      >
         <Icon className={`${classes.icon} bg-gradient-to-r ${info.color} text-transparent bg-clip-text`} />
         <span className={`font-semibold bg-gradient-to-r ${info.color} text-transparent bg-clip-text`}>
           {info.text}
         </span>
       </div>
-      {degree <= 2 && mutualFriends > 0 &&
-    <span className="text-gray-500 dark:text-gray-400">
+      {degree <= 2 && mutualFriends > 0 && (
+        <span className="text-gray-500 dark:text-gray-400">
           • {mutualFriends} mutual
         </span>
-    }
-    </div>;
-
+      )}
+    </div>
+  );
 
   if (!showTooltip) {
     return content;
@@ -131,46 +131,46 @@ export function ConnectionDegreeDisplay({
           </div>
         </TooltipContent>
       </Tooltip>
-    </TooltipProvider>);
-
+    </TooltipProvider>
+  );
 }
 
 interface ConnectionPathProps {
-  path: Array<{id: number;name: string;profileImage?: string;}>;
+  path: Array<{ id: number; name: string; profileImage?: string }>;
 }
 
 export function ConnectionPath({ path }: ConnectionPathProps) {
   if (path.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 p-4 bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 rounded-lg">
-      <Link className="w-4 h-4 text-gray-400" data-testid="link-w-4" />
+    <div className="flex items-center gap-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+      <Link className="w-4 h-4 text-gray-400" />
       <span className="text-sm text-gray-600 dark:text-gray-400">Connected via:</span>
       <div className="flex items-center -space-x-2">
-        {path.map((person, index) =>
-        <React.Fragment key={person.id}>
-            {index > 0 &&
-          <span className="mx-2 text-gray-400">→</span>
-          }
+        {path.map((person, index) => (
+          <React.Fragment key={person.id}>
+            {index > 0 && (
+              <span className="mx-2 text-gray-400">→</span>
+            )}
             <div className="flex items-center gap-2">
-              {person.profileImage ?
-            <img
-              src={person.profileImage}
-              alt={person.name}
-              className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-800" /> :
-
-
-            <div className="w-6 h-6 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              {person.profileImage ? (
+                <img 
+                  src={person.profileImage} 
+                  alt={person.name}
+                  className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-800"
+                />
+              ) : (
+                <div className="w-6 h-6 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
                   {person.name[0]}
                 </div>
-            }
+              )}
               <span className="text-sm font-medium">{person.name}</span>
             </div>
           </React.Fragment>
-        )}
+        ))}
       </div>
-    </div>);
-
+    </div>
+  );
 }
 
 interface ConnectionStatsProps {
@@ -180,11 +180,11 @@ interface ConnectionStatsProps {
   thirdDegree: number;
 }
 
-export function ConnectionStats({
-  totalConnections,
-  firstDegree,
-  secondDegree,
-  thirdDegree
+export function ConnectionStats({ 
+  totalConnections, 
+  firstDegree, 
+  secondDegree, 
+  thirdDegree 
 }: ConnectionStatsProps) {
   return (
     <div className="grid grid-cols-4 gap-4 p-6 glassmorphic-card">
@@ -195,7 +195,7 @@ export function ConnectionStats({
         <div className="text-sm text-gray-600 dark:text-gray-400">Total Network</div>
       </div>
       <div className="text-center">
-        <div className="text-2xl font-bold text-[var(--color-primary-hover)] dark:text-turquoise-400">
+        <div className="text-2xl font-bold text-turquoise-600 dark:text-turquoise-400">
           {firstDegree}
         </div>
         <div className="text-sm text-gray-600 dark:text-gray-400">1st Degree</div>
@@ -212,6 +212,6 @@ export function ConnectionStats({
         </div>
         <div className="text-sm text-gray-600 dark:text-gray-400">3rd Degree</div>
       </div>
-    </div>);
-
+    </div>
+  );
 }

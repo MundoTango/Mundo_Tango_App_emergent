@@ -100,7 +100,7 @@ export const RoleEmojiDisplay = ({
             ${config.emoji} 
             text-gray-400 
             cursor-pointer 
-            hover:text-gray-600 dark:text-gray-300 
+            hover:text-gray-600 
             transition-colors
           `}
           title={`${tangoRoles.length - maxRoles} more roles`}

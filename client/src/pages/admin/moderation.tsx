@@ -217,7 +217,7 @@ export default function AdminModerationPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Content Moderation
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-gray-600 mt-1">
               Review reported content and maintain platform safety
             </p>
           </div>
@@ -231,7 +231,7 @@ export default function AdminModerationPage() {
               <Shield className="w-4 h-4 mr-2" />
               AI Settings
             </Button>
-            <Button className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 text-white">
+            <Button className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white">
               <Filter className="w-4 h-4 mr-2" />
               Configure Filters
             </Button>
@@ -243,14 +243,14 @@ export default function AdminModerationPage() {
           <Card className="border-red-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   Pending Reports
                 </CardTitle>
                 <AlertTriangle className="w-4 h-4 text-red-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.pendingReports || 0}
               </div>
               <div className="text-sm text-red-600 mt-2">
@@ -262,17 +262,17 @@ export default function AdminModerationPage() {
           <Card className="border-yellow-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   Under Review
                 </CardTitle>
                 <Eye className="w-4 h-4 text-yellow-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.reviewingReports || 0}
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              <div className="text-sm text-gray-500 mt-2">
                 By {stats?.activeReviewers || 0} reviewers
               </div>
             </CardContent>
@@ -281,17 +281,17 @@ export default function AdminModerationPage() {
           <Card className="border-green-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   Resolved Today
                 </CardTitle>
                 <CheckCircle className="w-4 h-4 text-green-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.resolvedToday || 0}
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              <div className="text-sm text-gray-500 mt-2">
                 Avg time: {stats?.averageResponseTime || 'N/A'}
               </div>
             </CardContent>
@@ -300,14 +300,14 @@ export default function AdminModerationPage() {
           <Card className="border-purple-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   AI Detection
                 </CardTitle>
                 <Brain className="w-4 h-4 text-purple-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.aiDetected || 0}
               </div>
               <div className="text-sm text-purple-600 mt-2">
@@ -397,19 +397,19 @@ export default function AdminModerationPage() {
           <CardContent className="space-y-4">
             {isLoading ? (
               <div className="text-center py-8">
-                <RefreshCw className="w-6 h-6 animate-spin text-[var(--color-primary)] mx-auto mb-2" />
-                <p className="text-gray-500 dark:text-gray-400">Loading reports...</p>
+                <RefreshCw className="w-6 h-6 animate-spin text-teal-500 mx-auto mb-2" />
+                <p className="text-gray-500">Loading reports...</p>
               </div>
             ) : reportsData?.reports?.length === 0 ? (
               <div className="text-center py-8">
                 <ShieldCheck className="w-12 h-12 text-green-500 mx-auto mb-2" />
-                <p className="text-gray-500 dark:text-gray-400">No reports in this category</p>
+                <p className="text-gray-500">No reports in this category</p>
               </div>
             ) : (
               reportsData?.reports?.map((report: ReportedContent) => (
                 <div
                   key={report.id}
-                  className="border rounded-lg p-4 hover:bg-[var(--color-surface-elevated)] transition-colors"
+                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
                   data-testid={`report-${report.id}`}
                 >
                   <div className="flex items-start justify-between">
@@ -425,7 +425,7 @@ export default function AdminModerationPage() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
                             <span className="font-medium">{report.reportedUser.name}</span>
-                            <span className="text-sm text-gray-500 dark:text-gray-400">@{report.reportedUser.username}</span>
+                            <span className="text-sm text-gray-500">@{report.reportedUser.username}</span>
                             {report.reportedUser.warningCount > 0 && (
                               <Badge variant="outline" className="text-orange-600">
                                 {report.reportedUser.warningCount} warnings
@@ -435,7 +435,7 @@ export default function AdminModerationPage() {
                               <Badge variant="destructive">Suspended</Badge>
                             )}
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mt-1">
+                          <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
                             <span className="flex items-center gap-1">
                               <Clock className="w-3 h-3" />
                               {format(new Date(report.createdAt), 'MMM d, h:mm a')}
@@ -450,7 +450,7 @@ export default function AdminModerationPage() {
                       </div>
 
                       {/* Content Preview */}
-                      <div className="bg-[var(--color-surface-elevated)] rounded-lg p-3 mb-3">
+                      <div className="bg-gray-50 rounded-lg p-3 mb-3">
                         <div className="flex items-start gap-2 mb-2">
                           <Badge variant="outline">{report.type}</Badge>
                           {report.aiFlags && report.aiFlags.length > 0 && (
@@ -462,13 +462,13 @@ export default function AdminModerationPage() {
                             </div>
                           )}
                         </div>
-                        <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3">
+                        <p className="text-sm text-gray-700 line-clamp-3">
                           {report.content}
                         </p>
                         {report.mediaUrls && report.mediaUrls.length > 0 && (
                           <div className="flex gap-2 mt-2">
                             {report.mediaUrls.slice(0, 3).map((url, idx) => (
-                              <div key={idx} className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+                              <div key={idx} className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
                                 {url.includes('video') ? (
                                   <Video className="w-6 h-6 text-gray-400" />
                                 ) : (
@@ -477,8 +477,8 @@ export default function AdminModerationPage() {
                               </div>
                             ))}
                             {report.mediaUrls.length > 3 && (
-                              <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
-                                <span className="text-sm text-gray-600 dark:text-gray-300">
+                              <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
+                                <span className="text-sm text-gray-600">
                                   +{report.mediaUrls.length - 3}
                                 </span>
                               </div>
@@ -490,10 +490,10 @@ export default function AdminModerationPage() {
                       {/* Report Details */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-gray-600 dark:text-gray-300">
+                          <span className="text-gray-600">
                             Reported by: <span className="font-medium">{report.reportedBy.name}</span>
                           </span>
-                          <span className="text-gray-600 dark:text-gray-300">
+                          <span className="text-gray-600">
                             Reason: <span className="font-medium">{report.reason}</span>
                           </span>
                           {report.reportCount > 1 && (
@@ -607,7 +607,7 @@ export default function AdminModerationPage() {
               </Button>
               <Button 
                 onClick={confirmAction}
-                className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 text-white"
+                className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white"
                 disabled={!reviewNote.trim()}
               >
                 Confirm Action

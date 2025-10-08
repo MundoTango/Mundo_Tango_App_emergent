@@ -98,11 +98,11 @@ export function InstallPrompt() {
         exit={{ opacity: 0, y: 100 }}
         className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:right-4 md:w-96"
       >
-        <Card className="relative bg-gradient-to-br from-[var(--color-primary)]/10 via-cyan-600/10 to-teal-700/10 backdrop-blur-lg border-teal-400/20 shadow-2xl">
+        <Card className="relative bg-gradient-to-br from-teal-500/10 via-cyan-600/10 to-teal-700/10 backdrop-blur-lg border-teal-400/20 shadow-2xl">
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:text-gray-300"
+            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
             onClick={handleDismiss}
             data-testid="button-dismiss-install"
           >
@@ -112,13 +112,13 @@ export function InstallPrompt() {
           <div className="p-6">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-600 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-cyan-600 flex items-center justify-center">
                   <Smartphone className="h-6 w-6 text-white" />
                 </div>
               </div>
 
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Install Mundo Tango
                 </h3>
                 
@@ -133,7 +133,7 @@ export function InstallPrompt() {
                     <div className="flex flex-col gap-2">
                       <Button
                         onClick={handleInstall}
-                        className="w-full bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white"
+                        className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white"
                         data-testid="button-install-app"
                       >
                         <Download className="h-4 w-4 mr-2" />
@@ -156,7 +156,7 @@ export function InstallPrompt() {
 
             {/* Features list */}
             {!showIOSInstructions && (
-              <div className="mt-4 pt-4 border-t border-[var(--color-border)] dark:border-gray-700">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400">
                   <div className="flex items-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
@@ -195,13 +195,13 @@ function IOSInstructions({ instructions }: { instructions: string[] | null }) {
       
       <ol className="space-y-2">
         {instructions.map((step, index) => (
-          <li key={index} className="flex items-start gap-2 text-sm text-[var(--color-text-secondary)] dark:text-gray-300">
-            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[var(--color-ocean-100)] dark:bg-teal-900 text-[var(--color-primary-hover)] dark:text-teal-400 text-xs flex items-center justify-center font-semibold">
+          <li key={index} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-400 text-xs flex items-center justify-center font-semibold">
               {index + 1}
             </span>
             <span>{step}</span>
-            {index === 0 && <Share2 className="h-4 w-4 text-[var(--color-primary)] ml-auto" />}
-            {index === 1 && <Plus className="h-4 w-4 text-[var(--color-primary)] ml-auto" />}
+            {index === 0 && <Share2 className="h-4 w-4 text-teal-500 ml-auto" />}
+            {index === 1 && <Plus className="h-4 w-4 text-teal-500 ml-auto" />}
           </li>
         ))}
       </ol>

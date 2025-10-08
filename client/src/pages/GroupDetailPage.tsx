@@ -100,7 +100,7 @@ export default function GroupDetailPage() {
       <DashboardLayout>
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold mb-2">Group not found</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">This group may have been removed or you don't have access.</p>
+          <p className="text-gray-600 mb-4">This group may have been removed or you don't have access.</p>
           <Button onClick={() => setLocation('/groups')}>Back to Groups</Button>
         </div>
       </DashboardLayout>
@@ -122,7 +122,7 @@ export default function GroupDetailPage() {
           
           <div className="mt-group-header-content">
             <button
-              onClick={() => setLocation('/groups')} aria-label="Button"
+              onClick={() => setLocation('/groups')}
               className="flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
@@ -130,7 +130,7 @@ export default function GroupDetailPage() {
             </button>
 
             <div className="flex items-end gap-3">
-              <div className="w-20 h-20 bg-[var(--color-surface)] dark:bg-gray-900 rounded-full border-4 border-white shadow-lg">
+              <div className="w-20 h-20 bg-white rounded-full border-4 border-white shadow-lg">
                 {group.imageUrl ? (
                   <img src={group.imageUrl} alt={group.name} className="w-full h-full rounded-full object-cover" />
                 ) : (
@@ -141,7 +141,7 @@ export default function GroupDetailPage() {
               </div>
               <div className="flex-1">
                 <h1 className="text-3xl font-bold">{group.name}</h1>
-                <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300 text-sm mt-1">
+                <div className="flex items-center gap-4 text-gray-600 text-sm mt-1">
                   <span className="flex items-center gap-1">
                     {group.privacy === 'public' ? <Globe className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
                     {group.privacy === 'public' ? 'Public' : 'Private'} Group
@@ -165,14 +165,14 @@ export default function GroupDetailPage() {
                       <Button
                         onClick={() => leaveGroupMutation.mutate()}
                         variant="outline"
-                        className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-white/20 text-white hover:bg-[var(--color-surface)] dark:bg-gray-900/20"
+                        className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                       >
                         Leave Group
                       </Button>
                       {group.isAdmin && (
                         <Button
                           onClick={() => setLocation(`/groups/${slug}/edit`)}
-                          className="bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] dark:text-white hover:bg-[var(--color-neutral-100)]"
+                          className="bg-white text-gray-900 hover:bg-gray-100"
                         >
                           <Settings className="h-4 w-4 mr-2" />
                           Manage
@@ -182,7 +182,7 @@ export default function GroupDetailPage() {
                   ) : (
                     <Button
                       onClick={() => joinGroupMutation.mutate()}
-                      className="bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] dark:text-white hover:bg-[var(--color-neutral-100)]"
+                      className="bg-white text-gray-900 hover:bg-gray-100"
                     >
                       <UserPlus className="h-4 w-4 mr-2" />
                       Join Group
@@ -191,7 +191,7 @@ export default function GroupDetailPage() {
                   
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="text-white hover:bg-[var(--color-surface)] dark:bg-gray-900/20">
+                      <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                         <MoreVertical className="h-5 w-5" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -216,7 +216,7 @@ export default function GroupDetailPage() {
         {group.description && (
           <Card className="p-6 mb-6">
             <h3 className="font-semibold mb-2">About</h3>
-            <p className="text-gray-600 dark:text-gray-300">{group.description}</p>
+            <p className="text-gray-600">{group.description}</p>
           </Card>
         )}
 
@@ -240,7 +240,7 @@ export default function GroupDetailPage() {
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <button className="w-full text-left px-4 py-2 bg-[var(--color-neutral-100)] rounded-lg text-gray-500 hover:bg-gray-200 dark:bg-gray-700" aria-label="Button">
+                    <button className="w-full text-left px-4 py-2 bg-gray-100 rounded-lg text-gray-500 hover:bg-gray-200">
                       Share something with the group...
                     </button>
                     <div className="flex gap-2 mt-2">
@@ -273,23 +273,23 @@ export default function GroupDetailPage() {
                     </Avatar>
                     <div className="flex-1">
                       <h4 className="font-semibold">Member {i}</h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">2 hours ago</p>
+                      <p className="text-sm text-gray-500">2 hours ago</p>
                     </div>
                   </div>
                   <p className="mb-4">
                     Just had an amazing practice session! Working on my ochos and feeling great progress. 
                     Who else is practicing today? 💃
                   </p>
-                  <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
-                    <button className="flex items-center gap-1 hover:text-red-500" aria-label="Button">
+                  <div className="flex items-center gap-4 text-gray-500">
+                    <button className="flex items-center gap-1 hover:text-red-500">
                       <Heart className="h-4 w-4" />
                       <span className="text-sm">12</span>
                     </button>
-                    <button className="flex items-center gap-1 hover:text-blue-500" aria-label="Button">
+                    <button className="flex items-center gap-1 hover:text-blue-500">
                       <MessageCircle className="h-4 w-4" />
                       <span className="text-sm">5</span>
                     </button>
-                    <button className="flex items-center gap-1 hover:text-green-500" aria-label="Button">
+                    <button className="flex items-center gap-1 hover:text-green-500">
                       <Share2 className="h-4 w-4" />
                       <span className="text-sm">Share</span>
                     </button>
@@ -310,7 +310,7 @@ export default function GroupDetailPage() {
                     </Avatar>
                     <div className="flex-1">
                       <h4 className="font-semibold">Member {i}</h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Joined 2 months ago</p>
+                      <p className="text-sm text-gray-500">Joined 2 months ago</p>
                     </div>
                     <Button variant="outline" size="sm">
                       View Profile
@@ -322,7 +322,7 @@ export default function GroupDetailPage() {
           </TabsContent>
 
           <TabsContent value="events">
-            <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-12 text-gray-500">
               <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
               <p>No upcoming events</p>
               {group.isMember && (
@@ -334,7 +334,7 @@ export default function GroupDetailPage() {
           <TabsContent value="media">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <div key={i} className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden">
+                <div key={i} className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
                   <img 
                     src={`/api/placeholder/300/300?${i}`} 
                     alt={`Media ${i}`}
@@ -350,16 +350,16 @@ export default function GroupDetailPage() {
               <h3 className="font-semibold mb-4">Group Information</h3>
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Created</p>
+                  <p className="text-sm text-gray-500">Created</p>
                   <p>{new Date(group.createdAt).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Type</p>
+                  <p className="text-sm text-gray-500">Type</p>
                   <p className="capitalize">{group.type}</p>
                 </div>
                 {group.rules && (
                   <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Group Rules</p>
+                    <p className="text-sm text-gray-500 mb-2">Group Rules</p>
                     <p className="whitespace-pre-wrap">{group.rules}</p>
                   </div>
                 )}

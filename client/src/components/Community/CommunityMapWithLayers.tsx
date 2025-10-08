@@ -157,10 +157,10 @@ export default function CommunityMapWithLayers({
 
   if (isLoading) {
     return (
-      <div className="h-full flex items-center justify-center bg-[var(--color-surface-elevated)] rounded-lg">
+      <div className="h-full flex items-center justify-center bg-gray-50 rounded-lg">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading map...</p>
+          <p className="text-gray-600">Loading map...</p>
         </div>
       </div>
     );
@@ -169,13 +169,13 @@ export default function CommunityMapWithLayers({
   return (
     <div className="flex flex-col w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <GlassCard depth={2} className="dark:bg-slate-900/80 rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]">
+      <GlassCard depth={2} className="dark:bg-slate-900/80 rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]"
         <CommunityMapFilters 
           filters={filters} 
           onFiltersChange={setFilters} 
           compact={false} 
         />
-      </GlassCard>
+      </div>
 
       {/* Map Container - ESA Layer 8 + 22 Unified Map */}
       <div className="relative rounded-lg overflow-hidden h-[650px] z-0">
@@ -202,16 +202,16 @@ export default function CommunityMapWithLayers({
           >
             <Popup>
               <div className="p-2 max-w-sm">
-                <h3 className="font-semibold text-[var(--color-text)] dark:text-white mb-1">{item.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{item.description}</p>
+                <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
+                <p className="text-sm text-gray-600 mb-2">{item.description}</p>
                 {item.address && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-1">
+                  <p className="text-xs text-gray-500 mb-2 flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
                     {item.address}
                   </p>
                 )}
                 {item.metadata && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                  <div className="text-xs text-gray-500 space-y-1">
                     {item.metadata.price && <p>Price: {item.metadata.price}</p>}
                     {item.metadata.date && <p>Date: {item.metadata.date}</p>}
                     {item.metadata.rating && <p>Rating: {item.metadata.rating}/5</p>}

@@ -92,7 +92,7 @@ export function OnboardingWizard() {
 
   return (
     <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center"
-      <Card className="relative w-full max-w-2xl mx-4 bg-gradient-to-br from-[var(--color-ocean-400)]/95 via-cyan-500/95 to-[var(--color-ocean-600)]/95 backdrop-blur-md border-white/20 shadow-2xl">
+      <Card className="relative w-full max-w-2xl mx-4 bg-gradient-to-br from-teal-400/95 via-cyan-500/95 to-blue-600/95 backdrop-blur-md border-white/20 shadow-2xl">
         <button
           onClick={handleSkip}
           className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
@@ -102,7 +102,7 @@ export function OnboardingWizard() {
         </button>
 
         <div className="p-8">
-          <Progress value={progress} className="mb-6 h-2 bg-[var(--color-surface)] dark:bg-gray-900/20" />
+          <Progress value={progress} className="mb-6 h-2 bg-white/20" />
           
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-3">
@@ -124,7 +124,7 @@ export function OnboardingWizard() {
               onClick={handlePrevious}
               disabled={currentStep === 0}
               variant="ghost"
-              className="text-white hover:bg-[var(--color-surface)] dark:bg-gray-900/20 disabled:opacity-50"
+              className="text-white hover:bg-white/20 disabled:opacity-50"
             >
               <ChevronLeft className="mr-2 h-4 w-4" />
               Previous
@@ -136,10 +136,10 @@ export function OnboardingWizard() {
                   key={index}
                   className={`h-2 w-2 rounded-full transition-all ${
                     index === currentStep
-                      ? 'bg-[var(--color-surface)] dark:bg-gray-900 w-8'
+                      ? 'bg-white w-8'
                       : index < currentStep
-                      ? 'bg-[var(--color-surface)] dark:bg-gray-900/70'
-                      : 'bg-[var(--color-surface)] dark:bg-gray-900/30'
+                      ? 'bg-white/70'
+                      : 'bg-white/30'
                   }`}
                 />
               ))}
@@ -147,7 +147,7 @@ export function OnboardingWizard() {
 
             <Button
               onClick={handleNext}
-              className="bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-primary-hover)] hover:bg-[var(--color-surface)] dark:bg-gray-900/90"
+              className="bg-white text-cyan-600 hover:bg-white/90"
             >
               {currentStep === ONBOARDING_STEPS.length - 1 ? 'Get Started' : 'Next'}
               <ChevronRight className="ml-2 h-4 w-4" />
@@ -156,7 +156,7 @@ export function OnboardingWizard() {
         </div>
 
         {isCompleted && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[var(--color-ocean-400)] via-cyan-500 to-[var(--color-ocean-600)] rounded-lg">
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-600 rounded-lg">
             <div className="text-center text-white">
               <div className="text-6xl mb-4">🎉</div>
               <h3 className="text-2xl font-bold">Welcome to the Family!</h3>

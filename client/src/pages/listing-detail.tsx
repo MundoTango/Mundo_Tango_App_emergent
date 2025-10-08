@@ -411,7 +411,7 @@ export default function ListingDetail() {
   if (isLoading) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-[var(--color-surface-elevated)] p-6">
+        <div className="min-h-screen bg-gray-50 p-6">
           <div className="max-w-7xl mx-auto">
             <Skeleton className="h-8 w-32 mb-6" />
             <Skeleton className="h-96 w-full mb-6" />
@@ -431,11 +431,11 @@ export default function ListingDetail() {
   if (error || !listing?.data) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-[var(--color-surface-elevated)] flex items-center justify-center p-6">
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
           <Card className="max-w-md w-full">
             <CardContent className="pt-6 text-center">
               <h2 className="text-2xl font-bold mb-2">{t('housing.listing_detail.not_found_title', 'Listing Not Found')}</h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <p className="text-gray-600 mb-4">
                 {t('housing.listing_detail.not_found_desc', "The listing you're looking for doesn't exist or has been removed.")}
               </p>
               <Button onClick={() => navigate('/housing-marketplace')}>
@@ -553,7 +553,7 @@ export default function ListingDetail() {
               })}
               {orderedMedia && orderedMedia.length > 5 && (
                 <div
-                  className="w-full h-24 md:h-[120px] bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
+                  className="w-full h-24 md:h-[120px] bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
                   onClick={() => setSelectedImage(5)}
                   data-testid="button-more-media"
                 >
@@ -613,19 +613,19 @@ export default function ListingDetail() {
 
                 <div className="flex items-center gap-6 text-slate-700 dark:text-slate-300 border-t border-slate-200/50 dark:border-slate-700/50 pt-4">
                   <div className="flex items-center">
-                    <Home className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400" />
+                    <Home className="h-5 w-5 mr-2 text-gray-500" />
                     <span>Entire place</span>
                   </div>
                   <div className="flex items-center">
-                    <Users className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400" />
+                    <Users className="h-5 w-5 mr-2 text-gray-500" />
                     <span>{home.maxGuests} guests</span>
                   </div>
                   <div className="flex items-center">
-                    <Bed className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400" />
+                    <Bed className="h-5 w-5 mr-2 text-gray-500" />
                     <span>2 bedrooms</span>
                   </div>
                   <div className="flex items-center">
-                    <Bath className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400" />
+                    <Bath className="h-5 w-5 mr-2 text-gray-500" />
                     <span>1 bathroom</span>
                   </div>
                 </div>
@@ -656,7 +656,7 @@ export default function ListingDetail() {
                           className="flex items-center text-slate-700 dark:text-slate-300"
                           data-testid={`amenity-${amenity.toLowerCase().replace(/\s+/g, '-')}`}
                         >
-                          <Icon className="h-5 w-5 mr-3 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+                          <Icon className="h-5 w-5 mr-3 text-cyan-600 dark:text-cyan-400" />
                           <span>{amenity}</span>
                         </div>
                       );
@@ -691,10 +691,10 @@ export default function ListingDetail() {
               <Card data-testid="section-location">
                 <CardContent className="pt-6">
                   <h2 className="text-2xl font-bold mb-4">Location</h2>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{home.address}</p>
-                  <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                  <p className="text-gray-600 mb-4">{home.address}</p>
+                  <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
                     <MapPin className="h-12 w-12 text-gray-400" />
-                    <span className="ml-2 text-gray-500 dark:text-gray-400">Map integration coming soon</span>
+                    <span className="ml-2 text-gray-500">Map integration coming soon</span>
                   </div>
                 </CardContent>
               </Card>
@@ -776,10 +776,10 @@ export default function ListingDetail() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-lg">Host Name</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Joined in 2023</p>
+                    <p className="text-sm text-gray-600">Joined in 2023</p>
                   </div>
                 </div>
-                <div className="space-y-2 text-sm text-[var(--color-text-secondary)] mb-4">
+                <div className="space-y-2 text-sm text-gray-700 mb-4">
                   <div>⭐ 4.9 Host rating</div>
                   <div>📝 12 Reviews</div>
                   <div>✓ Identity verified</div>
@@ -864,7 +864,7 @@ export default function ListingDetail() {
               <Label className="text-base font-semibold">Select Dates</Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm text-gray-600 dark:text-gray-300 mb-2 block">Check-in</Label>
+                  <Label className="text-sm text-gray-600 mb-2 block">Check-in</Label>
                   <Calendar
                     mode="single"
                     selected={checkInDate}
@@ -887,7 +887,7 @@ export default function ListingDetail() {
                   )}
                 </div>
                 <div>
-                  <Label className="text-sm text-gray-600 dark:text-gray-300 mb-2 block">Check-out</Label>
+                  <Label className="text-sm text-gray-600 mb-2 block">Check-out</Label>
                   <Calendar
                     mode="single"
                     selected={checkOutDate}
@@ -912,7 +912,7 @@ export default function ListingDetail() {
                 </div>
               </div>
               {nights > 0 && (
-                <p className="text-sm text-gray-600 dark:text-gray-300" data-testid="text-nights-count">
+                <p className="text-sm text-gray-600" data-testid="text-nights-count">
                   {nights} night{nights > 1 ? 's' : ''} selected
                 </p>
               )}
@@ -987,13 +987,13 @@ export default function ListingDetail() {
                 className="resize-none"
                 data-testid="textarea-message"
               />
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-500">
                 Tip: Mention your tango experience and what brings you to the area!
               </p>
             </div>
 
             {/* House Rules Checkbox */}
-            <div className="flex items-start space-x-3 p-4 bg-[var(--color-surface-elevated)] rounded-lg">
+            <div className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
               <Checkbox
                 id="house-rules"
                 checked={hasReadRules}
@@ -1047,7 +1047,7 @@ export default function ListingDetail() {
             <PulseButton
               onClick={handleSubmitBooking}
               disabled={createBookingMutation.isPending}
-              className="flex-1 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold disabled:opacity-50"
+              className="flex-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold disabled:opacity-50"
               pulseColor="rgba(6, 182, 212, 0.6)"
               data-testid="button-submit-booking"
             >

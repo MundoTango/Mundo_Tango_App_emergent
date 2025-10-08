@@ -1,41 +1,40 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow } from
-'@/components/ui/table';
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import {
+import { 
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue } from
-'@/components/ui/select';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger } from
-'@/components/ui/dialog';
-import {
-  Search,
-  UserPlus,
-  Edit3,
-  Shield,
-  Crown,
+  SelectValue,
+} from '@/components/ui/select';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger 
+} from '@/components/ui/dialog';
+import { 
+  Search, 
+  UserPlus, 
+  Edit3, 
+  Shield, 
+  Crown, 
   Users,
   Plus,
-  Trash2 } from
-'lucide-react';
+  Trash2
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -67,59 +66,58 @@ export default function UserRoleTable() {
 
   // Mock data for demonstration - in production this would come from API
   const mockUsers: User[] = [
-  {
-  const { t } = useTranslation();
-    id: 3,
-    name: 'Scott Boddye',
-    username: 'admin',
-    email: 'admin@mundotango.life',
-    roles: ['super_admin', 'admin', 'dancer', 'teacher', 'organizer'],
-    primaryRole: 'super_admin',
-    lastActive: '2 minutes ago',
-    isActive: true
-  },
-  {
-    id: 4,
-    name: 'Maria Rodriguez',
-    username: 'maria_tango',
-    email: 'maria@mundotango.life',
-    roles: ['dancer', 'teacher'],
-    primaryRole: 'teacher',
-    lastActive: '1 hour ago',
-    isActive: true
-  },
-  {
-    id: 5,
-    name: 'Carlos Martinez',
-    username: 'carlos_dj',
-    email: 'carlos@mundotango.life',
-    roles: ['dj', 'organizer', 'dancer'],
-    primaryRole: 'dj',
-    lastActive: '3 hours ago',
-    isActive: true
-  },
-  {
-    id: 6,
-    name: 'Elena Fernandez',
-    username: 'elena_performer',
-    email: 'elena@mundotango.life',
-    roles: ['performer', 'dancer', 'teacher'],
-    primaryRole: 'performer',
-    lastActive: '1 day ago',
-    isActive: false
-  }];
-
+    {
+      id: 3,
+      name: 'Scott Boddye',
+      username: 'admin',
+      email: 'admin@mundotango.life',
+      roles: ['super_admin', 'admin', 'dancer', 'teacher', 'organizer'],
+      primaryRole: 'super_admin',
+      lastActive: '2 minutes ago',
+      isActive: true
+    },
+    {
+      id: 4,
+      name: 'Maria Rodriguez',
+      username: 'maria_tango',
+      email: 'maria@mundotango.life',
+      roles: ['dancer', 'teacher'],
+      primaryRole: 'teacher',
+      lastActive: '1 hour ago',
+      isActive: true
+    },
+    {
+      id: 5,
+      name: 'Carlos Martinez',
+      username: 'carlos_dj',
+      email: 'carlos@mundotango.life',
+      roles: ['dj', 'organizer', 'dancer'],
+      primaryRole: 'dj',
+      lastActive: '3 hours ago',
+      isActive: true
+    },
+    {
+      id: 6,
+      name: 'Elena Fernandez',
+      username: 'elena_performer',
+      email: 'elena@mundotango.life',
+      roles: ['performer', 'dancer', 'teacher'],
+      primaryRole: 'performer',
+      lastActive: '1 day ago',
+      isActive: false
+    }
+  ];
 
   const mockRoles: Role[] = [
-  { id: 'super_admin', name: 'Super Admin', type: 'platform', description: 'Full system access' },
-  { id: 'admin', name: 'Admin', type: 'platform', description: 'Administrative access' },
-  { id: 'moderator', name: 'Moderator', type: 'platform', description: 'Content moderation' },
-  { id: 'dancer', name: 'Dancer', type: 'community', description: 'Tango dancer' },
-  { id: 'teacher', name: 'Teacher', type: 'community', description: 'Tango instructor' },
-  { id: 'dj', name: 'DJ', type: 'community', description: 'Music curator' },
-  { id: 'organizer', name: 'Organizer', type: 'community', description: 'Event organizer' },
-  { id: 'performer', name: 'Performer', type: 'community', description: 'Stage performer' }];
-
+    { id: 'super_admin', name: 'Super Admin', type: 'platform', description: 'Full system access' },
+    { id: 'admin', name: 'Admin', type: 'platform', description: 'Administrative access' },
+    { id: 'moderator', name: 'Moderator', type: 'platform', description: 'Content moderation' },
+    { id: 'dancer', name: 'Dancer', type: 'community', description: 'Tango dancer' },
+    { id: 'teacher', name: 'Teacher', type: 'community', description: 'Tango instructor' },
+    { id: 'dj', name: 'DJ', type: 'community', description: 'Music curator' },
+    { id: 'organizer', name: 'Organizer', type: 'community', description: 'Event organizer' },
+    { id: 'performer', name: 'Performer', type: 'community', description: 'Stage performer' }
+  ];
 
   const getRoleBadgeColor = (role: string) => {
     const colors: Record<string, string> = {
@@ -132,7 +130,7 @@ export default function UserRoleTable() {
       'dj': 'bg-purple-100 text-purple-700 border-purple-200',
       'performer': 'bg-indigo-100 text-indigo-700 border-indigo-200'
     };
-    return colors[role] || 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] border-[var(--color-border)]';
+    return colors[role] || 'bg-gray-100 text-gray-700 border-gray-200';
   };
 
   const getRoleIcon = (role: string) => {
@@ -143,11 +141,11 @@ export default function UserRoleTable() {
 
   const filteredUsers = mockUsers.filter((user: User) => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase());
-
+                         user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
     const matchesRole = roleFilter === 'all' || user.roles.includes(roleFilter);
-
+    
     return matchesSearch && matchesRole;
   });
 
@@ -161,12 +159,12 @@ export default function UserRoleTable() {
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-[var(--color-border)] focus:border-indigo-300 focus:ring-indigo-200" data-testid="input-pl-10" />
-
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+          />
         </div>
         
-        <Select value={roleFilter} onValueChange={setRoleFilter} data-testid="select-element">
-          <SelectTrigger className="w-full sm:w-48 rounded-xl border-[var(--color-border)]">
+        <Select value={roleFilter} onValueChange={setRoleFilter}>
+          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
@@ -182,29 +180,29 @@ export default function UserRoleTable() {
       </div>
 
       {/* User table */}
-      <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl border border-[var(--color-border)] overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="bg-[var(--color-surface-elevated)]/50">
-              <TableHead className="font-semibold text-[var(--color-text)] dark:text-white">User</TableHead>
-              <TableHead className="font-semibold text-[var(--color-text)] dark:text-white">Primary Role</TableHead>
-              <TableHead className="font-semibold text-[var(--color-text)] dark:text-white">All Roles</TableHead>
-              <TableHead className="font-semibold text-[var(--color-text)] dark:text-white">Last Active</TableHead>
-              <TableHead className="font-semibold text-[var(--color-text)] dark:text-white">Status</TableHead>
-              <TableHead className="font-semibold text-[var(--color-text)] dark:text-white">Actions</TableHead>
+            <TableRow className="bg-gray-50/50">
+              <TableHead className="font-semibold text-gray-900">User</TableHead>
+              <TableHead className="font-semibold text-gray-900">Primary Role</TableHead>
+              <TableHead className="font-semibold text-gray-900">All Roles</TableHead>
+              <TableHead className="font-semibold text-gray-900">Last Active</TableHead>
+              <TableHead className="font-semibold text-gray-900">Status</TableHead>
+              <TableHead className="font-semibold text-gray-900">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredUsers.map((user: User) =>
-            <TableRow key={user.id} className="hover:bg-[var(--color-surface-elevated)]/30 transition-colors">
+            {filteredUsers.map((user: User) => (
+              <TableRow key={user.id} className="hover:bg-gray-50/30 transition-colors">
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-xl flex items-center justify-center text-white font-bold text-sm">
-                      {user.name.split(' ').map((n) => n[0]).join('').toUpperCase()}
+                      {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                     </div>
                     <div>
-                      <div className="font-semibold text-[var(--color-text)] dark:text-white">{user.name}</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">@{user.username}</div>
+                      <div className="font-semibold text-gray-900">{user.name}</div>
+                      <div className="text-sm text-gray-500">@{user.username}</div>
                       <div className="text-xs text-gray-400">{user.email}</div>
                     </div>
                   </div>
@@ -219,42 +217,42 @@ export default function UserRoleTable() {
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
-                    {user.roles.slice(0, 3).map((role, index) =>
-                  <Badge key={index} className={`${getRoleBadgeColor(role)} border text-xs`}>
+                    {user.roles.slice(0, 3).map((role, index) => (
+                      <Badge key={index} className={`${getRoleBadgeColor(role)} border text-xs`}>
                         {role.replace('_', ' ')}
                       </Badge>
-                  )}
-                    {user.roles.length > 3 &&
-                  <Badge className="bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300 border-[var(--color-border)] text-xs">
+                    ))}
+                    {user.roles.length > 3 && (
+                      <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs">
                         +{user.roles.length - 3}
                       </Badge>
-                  }
+                    )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{user.lastActive}</div>
+                  <div className="text-sm text-gray-600">{user.lastActive}</div>
                 </TableCell>
                 <TableCell>
-                  <Badge className={user.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] border-[var(--color-border)]'}>
+                  <Badge className={user.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-700 border-gray-200'}>
                     {user.isActive ? 'Active' : 'Inactive'}
                   </Badge>
                 </TableCell>
                 <TableCell>
                   <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setSelectedUser(user);
-                    setIsEditDialogOpen(true);
-                  }}
-                  className="rounded-lg hover:bg-indigo-50 hover:border-indigo-300 transition-colors" data-testid="button-rounded-lg">
-
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setIsEditDialogOpen(true);
+                    }}
+                    className="rounded-lg hover:bg-indigo-50 hover:border-indigo-300 transition-colors"
+                  >
                     <Edit3 className="h-3 w-3 mr-1" />
                     Edit
                   </Button>
                 </TableCell>
               </TableRow>
-            )}
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -266,83 +264,83 @@ export default function UserRoleTable() {
             <DialogTitle className="text-xl font-bold">Edit User Roles</DialogTitle>
           </DialogHeader>
           
-          {selectedUser &&
-          <div className="space-y-6">
-              <div className="text-center p-4 bg-[var(--color-surface-elevated)] rounded-2xl">
+          {selectedUser && (
+            <div className="space-y-6">
+              <div className="text-center p-4 bg-gray-50 rounded-2xl">
                 <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
-                  {selectedUser.name.split(' ').map((n) => n[0]).join('').toUpperCase()}
+                  {selectedUser.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </div>
-                <h3 className="font-semibold text-[var(--color-text)] dark:text-white">{selectedUser.name}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">@{selectedUser.username}</p>
+                <h3 className="font-semibold text-gray-900">{selectedUser.name}</h3>
+                <p className="text-sm text-gray-500">@{selectedUser.username}</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">Primary Role</label>
-                  <Select defaultValue={selectedUser.primaryRole} data-testid="select-element">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Primary Role</label>
+                  <Select defaultValue={selectedUser.primaryRole}>
                     <SelectTrigger className="rounded-xl">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {mockRoles.map((role: Role) =>
-                    <SelectItem key={role.id} value={role.id}>
+                      {mockRoles.map((role: Role) => (
+                        <SelectItem key={role.id} value={role.id}>
                           <div className="flex items-center gap-2">
                             {getRoleIcon(role.id)}
                             <span className="capitalize">{role.name}</span>
                           </div>
                         </SelectItem>
-                    )}
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">Additional Roles</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Additional Roles</label>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
-                    {mockRoles.filter((role: Role) => role.id !== selectedUser.primaryRole).map((role: Role) =>
-                  <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-[var(--color-surface-elevated)] rounded-lg cursor-pointer">
+                    {mockRoles.filter((role: Role) => role.id !== selectedUser.primaryRole).map((role: Role) => (
+                      <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
                         <input
-                      type="checkbox"
-                      defaultChecked={selectedUser.roles.includes(role.id)}
-                      className="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500" data-testid="input-checkbox" />
-
+                          type="checkbox"
+                          defaultChecked={selectedUser.roles.includes(role.id)}
+                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
                         <div className="flex items-center gap-2">
                           {getRoleIcon(role.id)}
                           <span className="text-sm font-medium">{role.name}</span>
                         </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">{role.type}</span>
+                        <span className="text-xs text-gray-500 ml-auto">{role.type}</span>
                       </label>
-                  )}
+                    ))}
                   </div>
                 </div>
               </div>
 
               <div className="flex gap-3">
                 <Button
-                variant="outline"
-                onClick={() => setIsEditDialogOpen(false)}
-                className="flex-1 rounded-xl" data-testid="button-flex-1">
-
+                  variant="outline"
+                  onClick={() => setIsEditDialogOpen(false)}
+                  className="flex-1 rounded-xl"
+                >
                   Cancel
                 </Button>
                 <Button
-                onClick={() => {
-                  toast({
-                    title: t('states.success', 'Success'),
-                    description: "User roles updated successfully"
-                  });
-                  setIsEditDialogOpen(false);
-                  setSelectedUser(null);
-                }}
-                className="flex-1 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600" data-testid="button-flex-1">
-
+                  onClick={() => {
+                    toast({
+                      title: "Success",
+                      description: "User roles updated successfully"
+                    });
+                    setIsEditDialogOpen(false);
+                    setSelectedUser(null);
+                  }}
+                  className="flex-1 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600"
+                >
                   Save Changes
                 </Button>
               </div>
             </div>
-          }
+          )}
         </DialogContent>
       </Dialog>
-    </div>);
-
+    </div>
+  );
 }

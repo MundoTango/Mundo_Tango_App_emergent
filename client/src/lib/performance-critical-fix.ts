@@ -133,7 +133,7 @@ export function OptimizedImage({ src, alt, className, ...props }: OptimizedImage
   
   if (isError) {
     return React.createElement('div', {
-      className: `${className} bg-gray-200 dark:bg-gray-700 flex items-center justify-center`
+      className: `${className} bg-gray-200 flex items-center justify-center`
     }, 'Failed to load');
   }
   

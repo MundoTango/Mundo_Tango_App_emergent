@@ -136,24 +136,24 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
   const variants = {
     glass: {
       className: cn(
-        'bg-[var(--color-surface)]/95 dark:bg-gray-900/95',
+        'bg-white/95 dark:bg-gray-900/95',
         'backdrop-blur-2xl backdrop-saturate-150',
         'border-opacity-30',
-        position === 'left' && 'border-r border-[var(--color-border)] dark:border-gray-700',
-        position === 'right' && 'border-l border-[var(--color-border)] dark:border-gray-700',
-        position === 'top' && 'border-b border-[var(--color-border)] dark:border-gray-700',
-        position === 'bottom' && 'border-t border-[var(--color-border)] dark:border-gray-700'
+        position === 'left' && 'border-r border-gray-200 dark:border-gray-700',
+        position === 'right' && 'border-l border-gray-200 dark:border-gray-700',
+        position === 'top' && 'border-b border-gray-200 dark:border-gray-700',
+        position === 'bottom' && 'border-t border-gray-200 dark:border-gray-700'
       ),
       style: applyGlassmorphism()
     },
     solid: {
       className: cn(
-        'bg-[var(--color-surface)] dark:bg-gray-900',
+        'bg-white dark:bg-gray-900',
         'shadow-2xl',
-        position === 'left' && 'border-r border-[var(--color-border)] dark:border-gray-800',
-        position === 'right' && 'border-l border-[var(--color-border)] dark:border-gray-800',
-        position === 'top' && 'border-b border-[var(--color-border)] dark:border-gray-800',
-        position === 'bottom' && 'border-t border-[var(--color-border)] dark:border-gray-800'
+        position === 'left' && 'border-r border-gray-200 dark:border-gray-800',
+        position === 'right' && 'border-l border-gray-200 dark:border-gray-800',
+        position === 'top' && 'border-b border-gray-200 dark:border-gray-800',
+        position === 'bottom' && 'border-t border-gray-200 dark:border-gray-800'
       ),
       style: {}
     },
@@ -222,10 +222,10 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
       >
         {/* Header */}
         {showHeader && (title || showCloseButton) && (
-          <div className="flex items-center justify-between p-6 border-b border-[var(--color-border)] dark:border-gray-700">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
             <div className="flex-1">
               {title && (
-                <h2 className="text-xl font-bold bg-gradient-to-r from-[var(--color-ocean-400)] to-blue-900 bg-clip-text text-transparent">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
                   {title}
                 </h2>
               )}
@@ -240,14 +240,14 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
                 onClick={onClose}
                 className={cn(
                   'ml-4 p-2 rounded-lg',
-                  'hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800',
+                  'hover:bg-gray-100 dark:hover:bg-gray-800',
                   'transition-colors duration-200',
                   'group'
                 )}
                 aria-label="Close drawer"
                 data-testid={`${testId}-close`}
               >
-                <X className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-[var(--color-text-secondary)] dark:group-hover:text-gray-200" />
+                <X className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
               </button>
             )}
           </div>

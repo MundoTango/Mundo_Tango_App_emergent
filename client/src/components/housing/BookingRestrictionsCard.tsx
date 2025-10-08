@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -24,7 +23,6 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
   const [minimumCloseness, setMinimumCloseness] = useState(currentSettings?.minimumClosenessScore || 50);
 
   const updateRestrictionsMutation = useMutation({
-  const { t } = useTranslation();
     mutationFn: async (data: any) => {
       return apiRequest(`/api/host-homes/${propertyId}/booking-restrictions`, {
         method: 'PATCH',
@@ -40,7 +38,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
     },
     onError: () => {
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: 'Failed to update booking restrictions',
         variant: 'destructive',
       });

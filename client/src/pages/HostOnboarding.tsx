@@ -281,11 +281,11 @@ export default function HostOnboarding() {
         {/* Aurora Tide Progress Bar */}
         <div ref={progressRef}>
           <ScaleIn delay={0.1}>
-            <div className="progress-indicator bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+            <div className="progress-indicator bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative h-1 bg-slate-200 dark:bg-slate-700">
                   <div 
-                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] transition-all duration-300"
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-300"
                     style={{ width: `${progressPercentage}%` }}
                     data-testid="onboarding-progress-bar"
                   />
@@ -296,7 +296,7 @@ export default function HostOnboarding() {
         </div>
 
       {/* Aurora Tide Step Indicators */}
-      <div ref={stepsRef} className="bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+      <div ref={stepsRef} className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerContainer className="flex justify-between py-4 overflow-x-auto">
             {STEPS.map((step, index) => {
@@ -318,9 +318,9 @@ export default function HostOnboarding() {
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-all duration-300 ${
                       isCompleted
-                        ? 'bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white'
+                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white'
                         : isCurrent
-                        ? 'bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)] text-white'
+                        ? 'bg-gradient-to-r from-teal-500 to-blue-500 text-white'
                         : 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500'
                     }`}
                   >
@@ -329,7 +329,7 @@ export default function HostOnboarding() {
                   <span
                     className={`text-xs text-center transition-colors ${
                       isCurrent 
-                        ? 'text-[var(--color-primary-hover)] dark:text-cyan-400 font-medium' 
+                        ? 'text-cyan-600 dark:text-cyan-400 font-medium' 
                         : 'text-slate-600 dark:text-slate-400'
                     }`}
                   >
@@ -378,7 +378,7 @@ export default function HostOnboarding() {
                   </div>
                   <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] h-2 rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${uploadProgress}%` }}
                     />
                   </div>
@@ -387,7 +387,7 @@ export default function HostOnboarding() {
               <PulseButton
                 onClick={handleSubmit}
                 disabled={createHostHomeMutation.isPending}
-                className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold px-8 py-3"
+                className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
                 pulseColor="rgba(6, 182, 212, 0.6)"
                 data-testid="button-submit"
               >
@@ -400,7 +400,7 @@ export default function HostOnboarding() {
           ) : (
             <PulseButton
               onClick={nextStep}
-              className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold px-8 py-3"
+              className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
               pulseColor="rgba(6, 182, 212, 0.6)"
               data-testid="button-continue"
             >

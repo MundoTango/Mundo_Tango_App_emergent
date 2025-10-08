@@ -62,8 +62,8 @@ export default function PublicResumePage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-gray-500 dark:text-gray-400" />
-          <span className="ml-2 text-gray-600 dark:text-gray-300">Loading resume...</span>
+          <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+          <span className="ml-2 text-gray-600">Loading resume...</span>
         </div>
       </div>
     );
@@ -74,8 +74,8 @@ export default function PublicResumePage() {
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
           <AlertCircle className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-          <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">Resume not found</h3>
-          <p className="text-gray-600 dark:text-gray-300">
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Resume not found</h3>
+          <p className="text-gray-600">
             {error?.message === 'User not found' 
               ? `User @${username} not found or resume is private`
               : 'Unable to load this resume. Please try again later.'}
@@ -106,15 +106,15 @@ export default function PublicResumePage() {
                 className="w-16 h-16 rounded-full object-cover"
               />
             ) : (
-              <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
                 <User className="h-8 w-8 text-gray-400" />
               </div>
             )}
             <div>
-              <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">{resumeData.display_name}</h1>
-              <p className="text-gray-600 dark:text-gray-300">@{resumeData.username}</p>
+              <h1 className="text-3xl font-bold text-gray-900">{resumeData.display_name}</h1>
+              <p className="text-gray-600">@{resumeData.username}</p>
               {(resumeData.country || resumeData.city) && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500">
                   {resumeData.city && resumeData.country 
                     ? `${resumeData.city}, ${resumeData.country}`
                     : resumeData.country || resumeData.city}
@@ -126,8 +126,8 @@ export default function PublicResumePage() {
 
         <div className="text-center py-12">
           <Star className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-          <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No resume entries yet</h3>
-          <p className="text-gray-600 dark:text-gray-300">This user hasn't participated in any public events yet.</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No resume entries yet</h3>
+          <p className="text-gray-600">This user hasn't participated in any public events yet.</p>
         </div>
       </div>
     );
@@ -164,15 +164,15 @@ export default function PublicResumePage() {
               className="w-16 h-16 rounded-full object-cover"
             />
           ) : (
-            <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
               <User className="h-8 w-8 text-gray-400" />
             </div>
           )}
           <div>
-            <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">{resumeData.display_name}</h1>
-            <p className="text-gray-600 dark:text-gray-300">@{resumeData.username}</p>
+            <h1 className="text-3xl font-bold text-gray-900">{resumeData.display_name}</h1>
+            <p className="text-gray-600">@{resumeData.username}</p>
             {(resumeData.country || resumeData.city) && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500">
                 {resumeData.city && resumeData.country 
                   ? `${resumeData.city}, ${resumeData.country}`
                   : resumeData.country || resumeData.city}
@@ -184,24 +184,24 @@ export default function PublicResumePage() {
 
       {/* Resume Statistics */}
       <div className="mb-8">
-        <Card className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-md">
+        <Card className="bg-white rounded-xl shadow-md">
           <CardContent className="p-4">
             <div className="flex justify-around">
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#8E142E]">{resumeEntries.length}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Total Roles</div>
+                <div className="text-sm text-gray-600">Total Roles</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#8E142E]">
                   {new Set(resumeEntries.map(entry => entry.event_name)).size}
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Events Participated</div>
+                <div className="text-sm text-gray-600">Events Participated</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#8E142E]">
                   {new Set(resumeEntries.map(entry => entry.role)).size}
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Unique Roles</div>
+                <div className="text-sm text-gray-600">Unique Roles</div>
               </div>
             </div>
           </CardContent>
@@ -212,19 +212,19 @@ export default function PublicResumePage() {
       <div className="space-y-8">
         {sortedYears.map((year) => (
           <div key={year}>
-            <h2 className="text-2xl font-semibold text-[var(--color-text)] dark:text-white mb-4">{year}</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{year}</h2>
             <div className="space-y-4">
               {groupedResume[year]
                 .sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime())
                 .map((entry, index) => (
-                  <Card key={`${entry.event_name}-${entry.role}-${index}`} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-md">
+                  <Card key={`${entry.event_name}-${entry.role}-${index}`} className="bg-white rounded-xl shadow-md">
                     <CardHeader className="pb-3">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <CardTitle className="text-lg font-bold text-[var(--color-text)] dark:text-white mb-2">
+                          <CardTitle className="text-lg font-bold text-gray-900 mb-2">
                             {entry.event_name}
                           </CardTitle>
-                          <div className="flex items-center space-x-4 text-xs text-gray-600 dark:text-gray-300">
+                          <div className="flex items-center space-x-4 text-xs text-gray-600">
                             <div className="flex items-center space-x-1">
                               <Calendar className="h-3 w-3" />
                               <span>{format(parseISO(entry.event_date), 'PPP')}</span>

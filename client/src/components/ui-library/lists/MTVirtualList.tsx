@@ -215,7 +215,7 @@ export default function MTVirtualList<T = any>({
           {items.length === 0 && !loading ? (
             <div className="flex items-center justify-center h-full">
               {emptyComponent || (
-                <p className="text-gray-500 dark:text-gray-400">No items to display</p>
+                <p className="text-gray-500">No items to display</p>
               )}
             </div>
           ) : (
@@ -227,8 +227,8 @@ export default function MTVirtualList<T = any>({
           <div className="flex items-center justify-center py-4">
             {loadingComponent || (
               <div className="flex items-center gap-2">
-                <div className="animate-spin h-5 w-5 border-2 border-[var(--color-primary)] border-t-transparent rounded-full" />
-                <span className="text-gray-500 dark:text-gray-400">Loading more...</span>
+                <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
+                <span className="text-gray-500">Loading more...</span>
               </div>
             )}
           </div>
@@ -254,8 +254,8 @@ export const VirtualListItem = memo(({
     <div 
       style={style}
       className={cn(
-        'px-4 py-3 border-b border-[var(--color-border)]/50 dark:border-gray-700/50',
-        'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20 transition-colors',
+        'px-4 py-3 border-b border-gray-200/50 dark:border-gray-700/50',
+        'hover:bg-teal-50/30 dark:hover:bg-teal-900/20 transition-colors',
         className
       )}
     >

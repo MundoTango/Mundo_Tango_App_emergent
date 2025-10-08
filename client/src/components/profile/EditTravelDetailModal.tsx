@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState, useEffect } from 'react';
 import { X, Calendar, MapPin, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -46,21 +45,20 @@ interface TravelDetailForm {
 }
 
 const eventTypes = [
-{
-  value: 'festival', label: 'Festival' },
-{ value: 'marathon', label: 'Marathon' },
-{ value: 'workshop', label: 'Workshop' },
-{ value: 'conference', label: 'Conference' },
-{ value: 'vacation', label: 'Vacation' },
-{ value: 'competition', label: 'Competition' },
-{ value: 'performance', label: 'Performance' },
-{ value: 'other', label: 'Other' }];
-
+  { value: 'festival', label: 'Festival' },
+  { value: 'marathon', label: 'Marathon' },
+  { value: 'workshop', label: 'Workshop' },
+  { value: 'conference', label: 'Conference' },
+  { value: 'vacation', label: 'Vacation' },
+  { value: 'competition', label: 'Competition' },
+  { value: 'performance', label: 'Performance' },
+  { value: 'other', label: 'Other' }
+];
 
 export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ isOpen, onClose, travelDetail }) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-
+  
   const [formData, setFormData] = useState<TravelDetailForm>({
     eventName: '',
     eventType: '',
@@ -97,16 +95,16 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: t('states.success', 'Success'),
-        description: "Travel detail updated successfully"
+        title: "Success",
+        description: "Travel detail updated successfully",
       });
       onClose();
     },
     onError: (error: any) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: error.message || "Failed to update travel detail",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   });
@@ -117,7 +115,7 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
   };
 
   const handleInputChange = (field: keyof TravelDetailForm, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -125,7 +123,7 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Globe className="w-5 h-5 text-[var(--color-primary)]" />
+            <Globe className="w-5 h-5 text-turquoise-500" />
             Edit Travel Detail
           </DialogTitle>
         </DialogHeader>
@@ -138,25 +136,25 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
                 id="eventName"
                 value={formData.eventName}
                 onChange={(e) => handleInputChange('eventName', e.target.value)}
-                placeholder="e.g., Buenos Aires Tango Festival" data-testid="input-eventname" />
-
+                placeholder="e.g., Buenos Aires Tango Festival"
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="eventType">Event Type</Label>
-              <Select
-                value={formData.eventType}
-                onValueChange={(value) => handleInputChange('eventType', value)} data-testid="select-element">
-
+              <Select 
+                value={formData.eventType} 
+                onValueChange={(value) => handleInputChange('eventType', value)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select event type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {eventTypes.map((type) =>
-                  <SelectItem key={type.value} value={type.value}>
+                  {eventTypes.map(type => (
+                    <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
-                  )}
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -170,8 +168,8 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
                 value={formData.city}
                 onChange={(e) => handleInputChange('city', e.target.value)}
                 placeholder="e.g., Buenos Aires"
-                required data-testid="input-city" />
-
+                required
+              />
             </div>
 
             <div className="space-y-2">
@@ -180,8 +178,8 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
                 id="country"
                 value={formData.country}
                 onChange={(e) => handleInputChange('country', e.target.value)}
-                placeholder="e.g., Argentina" data-testid="input-country" />
-
+                placeholder="e.g., Argentina"
+              />
             </div>
           </div>
 
@@ -196,8 +194,8 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
                   value={formData.startDate}
                   onChange={(e) => handleInputChange('startDate', e.target.value)}
                   className="pl-10"
-                  required data-testid="input-startdate" />
-
+                  required
+                />
               </div>
             </div>
 
@@ -212,8 +210,8 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
                   onChange={(e) => handleInputChange('endDate', e.target.value)}
                   className="pl-10"
                   required
-                  min={formData.startDate} data-testid="input-enddate" />
-
+                  min={formData.startDate}
+                />
               </div>
             </div>
           </div>
@@ -221,10 +219,10 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="status">Status</Label>
-              <Select
-                value={formData.status}
-                onValueChange={(value: any) => handleInputChange('status', value)} data-testid="select-element">
-
+              <Select 
+                value={formData.status} 
+                onValueChange={(value: any) => handleInputChange('status', value)}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -241,10 +239,10 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
 
             <div className="space-y-2">
               <Label htmlFor="visibility">Visibility</Label>
-              <Select
-                value={formData.isPublic ? 'public' : 'private'}
-                onValueChange={(value) => handleInputChange('isPublic', value === 'public')} data-testid="select-element">
-
+              <Select 
+                value={formData.isPublic ? 'public' : 'private'} 
+                onValueChange={(value) => handleInputChange('isPublic', value === 'public')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -263,8 +261,8 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
               value={formData.notes}
               onChange={(e) => handleInputChange('notes', e.target.value)}
               placeholder="Any additional details about your travel..."
-              rows={3} data-testid="textarea-notes" />
-
+              rows={3}
+            />
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
@@ -272,20 +270,20 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
               type="button"
               variant="outline"
               onClick={onClose}
-              disabled={updateTravelDetailMutation.isPending} data-testid="button-button">
-
+              disabled={updateTravelDetailMutation.isPending}
+            >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={updateTravelDetailMutation.isPending}
-              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-submit">
-
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
+            >
               {updateTravelDetailMutation.isPending ? 'Updating...' : 'Update Travel Detail'}
             </Button>
           </div>
         </form>
       </DialogContent>
-    </Dialog>);
-
+    </Dialog>
+  );
 };

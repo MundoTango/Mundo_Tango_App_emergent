@@ -11,7 +11,7 @@ export default function Landing() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme as 'light' | 'dark' || 'light';
+    return (savedTheme as 'light' | 'dark') || 'light';
   });
 
   const toggleTheme = () => {
@@ -33,31 +33,31 @@ export default function Landing() {
   if (isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
-        <UnifiedTopBar
+        <UnifiedTopBar 
           onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
           theme={theme}
           onThemeToggle={toggleTheme}
-          showMenuButton={true} />
-
+          showMenuButton={true}
+        />
         
         <div className="flex">
-          <Sidebar
-            isOpen={isSidebarOpen}
+          <Sidebar 
+            isOpen={isSidebarOpen} 
             setIsOpen={setIsSidebarOpen}
-            onClose={handleCloseSidebar} />
-
+            onClose={handleCloseSidebar}
+          />
           
           {/* Overlay for mobile */}
-          {isSidebarOpen &&
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
-            onClick={handleCloseSidebar} />
-
-          }
+          {isSidebarOpen && (
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
+              onClick={handleCloseSidebar}
+            />
+          )}
           
           <main className={`flex-1 transition-all duration-300 ${
-          isSidebarOpen ? 'lg:ml-64' : ''}`
-          }>
+            isSidebarOpen ? 'lg:ml-64' : ''
+          }`}>
             <div className="max-w-7xl mx-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Main Content */}
@@ -71,67 +71,67 @@ export default function Landing() {
                           <div className="p-3 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-xl animate-float shadow-lg">
                             <Music className="h-6 w-6 text-white" />
                           </div>
-                          <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-600 via-cyan-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent">
+                          <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
                             Welcome Back!
                           </h1>
                         </div>
-                        <p className="text-[var(--color-text-secondary)] ml-[60px] font-medium">Ready to connect with your tango community?</p>
+                        <p className="text-gray-700 ml-[60px] font-medium">Ready to connect with your tango community?</p>
                       </div>
                     </div>
 
                     {/* Quick Actions Grid */}
                     <div className="grid md:grid-cols-2 gap-6">
-                      <Card className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
+                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-turquoise-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Heart className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Share Memories</CardTitle>
+                          <CardTitle className="text-xl text-gray-900">Share Memories</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+                          <CardDescription className="text-gray-600 text-center">
                             Document and share your beautiful tango moments with the community.
                           </CardDescription>
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/events'}>
+                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/events'}>
                         <CardHeader className="text-center">
-                          <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-ocean-600)] rounded-lg flex items-center justify-center mx-auto mb-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Calendar className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Find Events</CardTitle>
+                          <CardTitle className="text-xl text-gray-900">Find Events</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+                          <CardDescription className="text-gray-600 text-center">
                             Discover milongas, workshops, and festivals in your city.
                           </CardDescription>
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/community'}>
+                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/community'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Users className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Explore Community</CardTitle>
+                          <CardTitle className="text-xl text-gray-900">Explore Community</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+                          <CardDescription className="text-gray-600 text-center">
                             Connect with dancers worldwide and join local groups.
                           </CardDescription>
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/life-ceo'}>
+                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/life-ceo'}>
                         <CardHeader className="text-center">
-                          <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-ocean-600)] rounded-lg flex items-center justify-center mx-auto mb-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Star className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Life CEO</CardTitle>
+                          <CardTitle className="text-xl text-gray-900">Life CEO</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+                          <CardDescription className="text-gray-600 text-center">
                             Your AI-powered life management system with 16 specialized agents.
                           </CardDescription>
                         </CardContent>
@@ -150,8 +150,8 @@ export default function Landing() {
             </div>
           </main>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 
   // Show marketing landing page for non-authenticated users
@@ -161,24 +161,24 @@ export default function Landing() {
         {/* Header */}
         <header className="flex justify-between items-center mb-16">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-ocean-600)] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
               <Music className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">Mundo Tango</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
           </div>
-          <Button
+          <Button 
             onClick={() => window.location.href = '/api/login'}
-            className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-600)] hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl" data-testid="button-bg-gradient-to-r">
-
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
             Join the Community
           </Button>
         </header>
 
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold text-[var(--color-text)] dark:text-white mb-6 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
             Welcome to the
-            <span className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-600)] bg-clip-text text-transparent block">
+            <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent block">
               Global Tango Community
             </span>
           </h2>
@@ -187,16 +187,16 @@ export default function Landing() {
             and immerse yourself in the beautiful world of Argentine Tango.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
+            <Button 
               onClick={() => window.location.href = '/api/login'}
-              className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-600)] hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl" data-testid="button-bg-gradient-to-r">
-
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
               Start Your Tango Journey
             </Button>
-            <Button
-              variant="outline"
-              className="border-2 border-cyan-500 text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)] dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200" data-testid="button-border-2">
-
+            <Button 
+              variant="outline" 
+              className="border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
+            >
               Learn More
             </Button>
           </div>
@@ -204,12 +204,12 @@ export default function Landing() {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          <Card className="bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-ocean-600)] rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Connect & Share</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white">Connect & Share</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -218,12 +218,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Calendar className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Discover Events</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white">Discover Events</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -232,12 +232,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Global Network</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white">Global Network</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -246,12 +246,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Share Stories</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white">Share Stories</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -260,12 +260,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-ocean-600)] rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Music className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Learn & Grow</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white">Learn & Grow</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -274,12 +274,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Star className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-[var(--color-text)] dark:text-white">Authentic Community</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white">Authentic Community</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -290,18 +290,18 @@ export default function Landing() {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-ocean-600)]/10 dark:from-[var(--color-primary)]/20 dark:to-[var(--color-ocean-600)]/20 rounded-2xl p-12 backdrop-blur-sm">
-          <h3 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-4">
+        <div className="text-center bg-gradient-to-r from-cyan-500/10 to-blue-600/10 dark:from-cyan-500/20 dark:to-blue-600/20 rounded-2xl p-12 backdrop-blur-sm">
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Ready to Join the Movement?
           </h3>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             Whether you're a beginner taking your first steps or a seasoned dancer, 
             Mundo Tango welcomes you with open arms.
           </p>
-          <Button
+          <Button 
             onClick={() => window.location.href = '/api/login'}
-            className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-600)] hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl" data-testid="button-bg-gradient-to-r">
-
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
             Begin Your Journey Today
           </Button>
         </div>
@@ -311,6 +311,6 @@ export default function Landing() {
           <p>&copy; 2025 Mundo Tango. Connecting hearts through dance.</p>
         </footer>
       </div>
-    </div>);
-
+    </div>
+  );
 }

@@ -93,7 +93,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {t('members.roleMetrics.title', 'Community Roles')}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -133,7 +133,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                   return (
                     <button
                       key={role.id}
-                      onClick={() => onRoleToggle?.(role.id)} aria-label="Button"
+                      onClick={() => onRoleToggle?.(role.id)}
                       className="text-left w-full"
                       data-testid={`button-filter-role-${role.id}`}
                     >
@@ -141,7 +141,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                         depth={isSelected ? 2 : 1}
                         className={`role-metric-card p-3 transition-all duration-300 group ${
                           isSelected 
-                            ? 'border-cyan-500 dark:border-cyan-400 bg-[var(--color-primary)]/10 dark:bg-cyan-400/10' 
+                            ? 'border-cyan-500 dark:border-cyan-400 bg-cyan-500/10 dark:bg-cyan-400/10' 
                             : 'hover:border-cyan-500/50 dark:hover:border-cyan-400/30'
                         }`}
                         data-testid={`card-role-metric-${role.id}`}
@@ -154,14 +154,14 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                             <p className={`text-xs font-medium truncate ${
                               isSelected 
                                 ? 'text-cyan-700 dark:text-cyan-300' 
-                                : 'text-[var(--color-text-secondary)] dark:text-gray-300'
+                                : 'text-gray-700 dark:text-gray-300'
                             }`}>
                               {t(`members.tangoRole.${role.id}`, role.name)}
                             </p>
                             <p className={`text-lg font-bold ${
                               isSelected
-                                ? 'text-[var(--color-primary-hover)] dark:text-cyan-400'
-                                : 'bg-gradient-to-r from-cyan-600 to-[var(--color-ocean-600)] dark:from-[var(--color-ocean-400)] dark:to-blue-400 bg-clip-text text-transparent'
+                                ? 'text-cyan-600 dark:text-cyan-400'
+                                : 'bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent'
                             }`}>
                               {role.count}
                             </p>

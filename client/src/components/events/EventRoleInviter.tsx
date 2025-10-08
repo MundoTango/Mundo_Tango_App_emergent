@@ -16,19 +16,19 @@ interface EventRoleInviterProps {
 }
 
 const TANGO_ROLES = [
-'DJ',
-'Teacher',
-'Musician',
-'Performer',
-'Photographer',
-'Videographer',
-'Sound Technician',
-'Lighting Technician',
-'Event Coordinator',
-'Master of Ceremonies',
-'Security',
-'Host/Hostess'];
-
+  'DJ',
+  'Teacher',
+  'Musician',
+  'Performer',
+  'Photographer',
+  'Videographer',
+  'Sound Technician',
+  'Lighting Technician',
+  'Event Coordinator',
+  'Master of Ceremonies',
+  'Security',
+  'Host/Hostess'
+];
 
 export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }: EventRoleInviterProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,26 +41,26 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
   const { data: searchResults } = useQuery({
     queryKey: ['/api/user/global-search', searchQuery],
     enabled: searchQuery.length >= 2,
-    queryFn: () => apiRequest(`/api/user/global-search?query=${encodeURIComponent(searchQuery)}`)
+    queryFn: () => apiRequest(`/api/user/global-search?query=${encodeURIComponent(searchQuery)}`),
   });
 
   // Get event participants
   const { data: participantsData, isLoading: loadingParticipants } = useQuery({
     queryKey: ['/api/events', eventId, 'participants'],
-    queryFn: () => apiRequest(`/api/events/${eventId}/participants`)
+    queryFn: () => apiRequest(`/api/events/${eventId}/participants`),
   });
 
   // Invite user mutation
   const inviteUserMutation = useMutation({
-    mutationFn: ({ userId, role }: {userId: number;role: string;}) =>
-    apiRequest(`/api/events/${eventId}/participants`, {
-      method: 'POST',
-      body: { userId, role }
-    }),
+    mutationFn: ({ userId, role }: { userId: number; role: string }) =>
+      apiRequest(`/api/events/${eventId}/participants`, {
+        method: 'POST',
+        body: { userId, role },
+      }),
     onSuccess: () => {
       toast({
         title: 'Invitation sent',
-        description: 'User has been invited to participate in the event'
+        description: 'User has been invited to participate in the event',
       });
       queryClient.invalidateQueries({ queryKey: ['/api/events', eventId, 'participants'] });
       setSelectedUserId('');
@@ -71,9 +71,9 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
       toast({
         title: 'Failed to send invitation',
         description: error.message || 'An error occurred',
-        variant: 'destructive'
+        variant: 'destructive',
       });
-    }
+    },
   });
 
   const handleInviteUser = () => {
@@ -81,14 +81,14 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
       toast({
         title: 'Missing information',
         description: 'Please select a user and role',
-        variant: 'destructive'
+        variant: 'destructive',
       });
       return;
     }
 
     inviteUserMutation.mutate({
       userId: parseInt(selectedUserId),
-      role: selectedRole
+      role: selectedRole,
     });
   };
 
@@ -136,51 +136,51 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
               placeholder="Search users by name or username..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10" data-testid="input-pl-10" />
-
+              className="pl-10"
+            />
           </div>
 
           {/* Search Results */}
-          {searchResults?.data?.users && searchResults.data.users.length > 0 &&
-          <div className="border rounded-lg max-h-40 overflow-y-auto">
-              {searchResults.data.users.map((user: any) =>
-            <div
-              key={user.id}
-              className={`p-3 cursor-pointer hover:bg-[var(--color-surface-elevated)] flex items-center justify-between ${
-              selectedUserId === user.id.toString() ? 'bg-blue-50 border-l-4 border-blue-500' : ''}`
-              }
-              onClick={() => setSelectedUserId(user.id.toString())}>
-
+          {searchResults?.data?.users && searchResults.data.users.length > 0 && (
+            <div className="border rounded-lg max-h-40 overflow-y-auto">
+              {searchResults.data.users.map((user: any) => (
+                <div
+                  key={user.id}
+                  className={`p-3 cursor-pointer hover:bg-gray-50 flex items-center justify-between ${
+                    selectedUserId === user.id.toString() ? 'bg-blue-50 border-l-4 border-blue-500' : ''
+                  }`}
+                  onClick={() => setSelectedUserId(user.id.toString())}
+                >
                   <div className="flex items-center space-x-3">
                     <img
-                  src={user.profileImage || '/api/placeholder/40/40'}
-                  alt={user.name}
-                  className="w-8 h-8 rounded-full" />
-
+                      src={user.profileImage || '/api/placeholder/40/40'}
+                      alt={user.name}
+                      className="w-8 h-8 rounded-full"
+                    />
                     <div>
                       <p className="font-medium text-sm">{user.name}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">@{user.username}</p>
+                      <p className="text-xs text-gray-500">@{user.username}</p>
                     </div>
                   </div>
-                  {selectedUserId === user.id.toString() &&
-              <CheckCircle className="h-4 w-4 text-blue-600" />
-              }
+                  {selectedUserId === user.id.toString() && (
+                    <CheckCircle className="h-4 w-4 text-blue-600" />
+                  )}
                 </div>
-            )}
+              ))}
             </div>
-          }
+          )}
 
           {/* Role Selection */}
-          <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+          <Select value={selectedRole} onValueChange={setSelectedRole}>
             <SelectTrigger>
               <SelectValue placeholder="Select a role for this event" />
             </SelectTrigger>
             <SelectContent>
-              {TANGO_ROLES.map((role) =>
-              <SelectItem key={role} value={role}>
+              {TANGO_ROLES.map((role) => (
+                <SelectItem key={role} value={role}>
                   {role}
                 </SelectItem>
-              )}
+              ))}
             </SelectContent>
           </Select>
 
@@ -188,8 +188,8 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           <Button
             onClick={handleInviteUser}
             disabled={!selectedUserId || !selectedRole || inviteUserMutation.isPending}
-            className="w-full bg-[#8E142E] hover:bg-[#6B0F22]" data-testid="button-w-full">
-
+            className="w-full bg-[#8E142E] hover:bg-[#6B0F22]"
+          >
             <Plus className="h-4 w-4 mr-2" />
             {inviteUserMutation.isPending ? 'Sending Invitation...' : 'Send Invitation'}
           </Button>
@@ -202,26 +202,26 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           <CardTitle className="text-lg">Event Participants</CardTitle>
         </CardHeader>
         <CardContent>
-          {loadingParticipants ?
-          <div className="flex items-center justify-center py-8">
+          {loadingParticipants ? (
+            <div className="flex items-center justify-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
-            </div> :
-          participantsData?.data && participantsData.data.length > 0 ?
-          <div className="space-y-3">
-              {participantsData.data.map((participant: any) =>
-            <div
-              key={participant.id}
-              className="flex items-center justify-between p-3 border rounded-lg">
-
+            </div>
+          ) : participantsData?.data && participantsData.data.length > 0 ? (
+            <div className="space-y-3">
+              {participantsData.data.map((participant: any) => (
+                <div
+                  key={participant.id}
+                  className="flex items-center justify-between p-3 border rounded-lg"
+                >
                   <div className="flex items-center space-x-3">
                     <img
-                  src={participant.userProfileImage || '/api/placeholder/40/40'}
-                  alt={participant.userName}
-                  className="w-8 h-8 rounded-full" />
-
+                      src={participant.userProfileImage || '/api/placeholder/40/40'}
+                      alt={participant.userName}
+                      className="w-8 h-8 rounded-full"
+                    />
                     <div>
                       <p className="font-medium text-sm">{participant.userName}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{participant.role}</p>
+                      <p className="text-xs text-gray-500">{participant.role}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -231,17 +231,17 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
                     </Badge>
                   </div>
                 </div>
-            )}
-            </div> :
-
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
               <UserPlus className="h-12 w-12 mx-auto mb-4 text-gray-300" />
               <p>No participants invited yet</p>
               <p className="text-sm">Start by inviting users to specific roles</p>
             </div>
-          }
+          )}
         </CardContent>
       </Card>
-    </div>);
-
+    </div>
+  );
 }

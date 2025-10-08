@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
+import { 
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue } from
-'@/components/ui/select';
-import {
-  BarChart3,
-  Users,
+  SelectValue,
+} from '@/components/ui/select';
+import { 
+  BarChart3, 
+  Users, 
   Activity,
   Database,
   Clock,
@@ -22,8 +22,8 @@ import {
   TrendingUp,
   TrendingDown,
   RefreshCw,
-  Download } from
-'lucide-react';
+  Download
+} from 'lucide-react';
 import { format, subDays } from 'date-fns';
 
 interface SystemStats {
@@ -111,18 +111,18 @@ export default function SystemStatsPanel() {
       tablet: 7
     },
     topLocations: [
-    { country: 'Argentina', users: 287, percentage: 23.0 },
-    { country: 'United States', users: 189, percentage: 15.2 },
-    { country: 'Spain', users: 156, percentage: 12.5 },
-    { country: 'Italy', users: 134, percentage: 10.7 },
-    { country: 'Brazil', users: 98, percentage: 7.9 }]
-
+      { country: 'Argentina', users: 287, percentage: 23.0 },
+      { country: 'United States', users: 189, percentage: 15.2 },
+      { country: 'Spain', users: 156, percentage: 12.5 },
+      { country: 'Italy', users: 134, percentage: 10.7 },
+      { country: 'Brazil', users: 98, percentage: 7.9 }
+    ]
   };
 
   const refreshStats = async () => {
     setRefreshing(true);
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
     setRefreshing(false);
   };
 
@@ -132,7 +132,7 @@ export default function SystemStatsPanel() {
       timeRange,
       ...mockStats
     };
-
+    
     const blob = new Blob([JSON.stringify(statsData, null, 2)], { type: 'application/json' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -144,35 +144,35 @@ export default function SystemStatsPanel() {
     window.URL.revokeObjectURL(url);
   };
 
-  const StatCard = ({ title, value, subtitle, icon: Icon, trend, trendValue, color = 'blue' }: any) =>
-  <Card className="hover:shadow-lg transition-shadow">
+  const StatCard = ({ title, value, subtitle, icon: Icon, trend, trendValue, color = 'blue' }: any) => (
+    <Card className="hover:shadow-lg transition-shadow">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className={`p-3 bg-${color}-100 rounded-xl`}>
             <Icon className={`h-6 w-6 text-${color}-600`} />
           </div>
-          {trend &&
-        <div className={`flex items-center gap-1 text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+          {trend && (
+            <div className={`flex items-center gap-1 text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
               {trend === 'up' ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
               <span>{trendValue}%</span>
             </div>
-        }
+          )}
         </div>
         <div className="mt-4">
-          <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{value}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-300">{subtitle}</div>
+          <div className="text-2xl font-bold text-gray-900">{value}</div>
+          <div className="text-sm text-gray-600">{subtitle}</div>
         </div>
       </CardContent>
-    </Card>;
-
+    </Card>
+  );
 
   return (
     <div className="space-y-6">
       {/* Controls */}
       <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div className="flex gap-3">
-          <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
-            <SelectTrigger className="w-48 rounded-xl border-[var(--color-border)]">
+          <Select value={timeRange} onValueChange={setTimeRange}>
+            <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Select time range" />
             </SelectTrigger>
             <SelectContent>
@@ -187,8 +187,8 @@ export default function SystemStatsPanel() {
             onClick={refreshStats}
             disabled={refreshing}
             variant="outline"
-            className="rounded-xl border-[var(--color-border)] hover:bg-indigo-50 hover:border-indigo-300" data-testid="button-rounded-xl">
-
+            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
+          >
             <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
@@ -197,8 +197,8 @@ export default function SystemStatsPanel() {
         <Button
           onClick={exportStats}
           variant="outline"
-          className="rounded-xl border-[var(--color-border)] hover:bg-indigo-50 hover:border-indigo-300" data-testid="button-rounded-xl">
-
+          className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
+        >
           <Download className="h-4 w-4 mr-2" />
           Export Report
         </Button>
@@ -206,7 +206,7 @@ export default function SystemStatsPanel() {
 
       {/* User Statistics */}
       <div>
-        <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-4">User Metrics</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">User Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Total Users"
@@ -215,99 +215,99 @@ export default function SystemStatsPanel() {
             icon={Users}
             trend="up"
             trendValue={mockStats.users.growth}
-            color="blue" />
-
+            color="blue"
+          />
           <StatCard
             title="Active Users"
             value={mockStats.users.active.toLocaleString()}
             subtitle="Currently active"
             icon={Activity}
-            color="green" />
-
+            color="green"
+          />
           <StatCard
             title="New Today"
             value={mockStats.users.newToday}
             subtitle="New registrations"
             icon={TrendingUp}
-            color="purple" />
-
+            color="purple"
+          />
           <StatCard
             title="Daily Active"
             value={mockStats.engagement.dailyActiveUsers}
             subtitle="Active in last 24h"
             icon={Zap}
-            color="orange" />
-
+            color="orange"
+          />
         </div>
       </div>
 
       {/* Content Statistics */}
       <div>
-        <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-4">Content Metrics</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Total Memories"
             value={mockStats.memories.total.toLocaleString()}
             subtitle="Created memories"
             icon={Database}
-            color="indigo" />
-
+            color="indigo"
+          />
           <StatCard
             title="Today's Memories"
             value={mockStats.memories.todayCreated}
             subtitle="Created today"
             icon={Clock}
-            color="pink" />
-
+            color="pink"
+          />
           <StatCard
             title="With Consent"
             value={mockStats.memories.withConsent.toLocaleString()}
             subtitle="Approved for sharing"
             icon={Activity}
-            color="green" />
-
+            color="green"
+          />
           <StatCard
             title="Avg Trust Level"
             value={mockStats.memories.avgTrustLevel.toFixed(1)}
             subtitle="Out of 5"
             icon={BarChart3}
-            color="blue" />
-
+            color="blue"
+          />
         </div>
       </div>
 
       {/* Performance Statistics */}
       <div>
-        <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-4">System Performance</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">System Performance</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Response Time"
             value={`${mockStats.performance.avgResponseTime}ms`}
             subtitle="Average response"
             icon={Zap}
-            color="green" />
-
+            color="green"
+          />
           <StatCard
             title="Uptime"
             value={`${mockStats.performance.uptime}%`}
             subtitle="System availability"
             icon={Activity}
-            color="blue" />
-
+            color="blue"
+          />
           <StatCard
             title="Error Rate"
             value={`${mockStats.performance.errorRate}%`}
             subtitle="Request errors"
             icon={TrendingDown}
-            color="red" />
-
+            color="red"
+          />
           <StatCard
             title="Active Connections"
             value={mockStats.performance.activeConnections}
             subtitle="Real-time connections"
             icon={Globe}
-            color="purple" />
-
+            color="purple"
+          />
         </div>
       </div>
 
@@ -325,15 +325,15 @@ export default function SystemStatsPanel() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Smartphone className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+                  <Smartphone className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium">Mobile</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div
-                      className="bg-indigo-600 h-2 rounded-full"
-                      style={{ width: `${mockStats.deviceBreakdown.mobile}%` }}>
-                    </div>
+                  <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-indigo-600 h-2 rounded-full" 
+                      style={{ width: `${mockStats.deviceBreakdown.mobile}%` }}
+                    ></div>
                   </div>
                   <span className="text-sm font-medium w-10 text-right">{mockStats.deviceBreakdown.mobile}%</span>
                 </div>
@@ -341,15 +341,15 @@ export default function SystemStatsPanel() {
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Monitor className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+                  <Monitor className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium">Desktop</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div
-                      className="bg-green-600 h-2 rounded-full"
-                      style={{ width: `${mockStats.deviceBreakdown.desktop}%` }}>
-                    </div>
+                  <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-green-600 h-2 rounded-full" 
+                      style={{ width: `${mockStats.deviceBreakdown.desktop}%` }}
+                    ></div>
                   </div>
                   <span className="text-sm font-medium w-10 text-right">{mockStats.deviceBreakdown.desktop}%</span>
                 </div>
@@ -361,11 +361,11 @@ export default function SystemStatsPanel() {
                   <span className="text-sm font-medium">Tablet</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div
-                      className="bg-orange-600 h-2 rounded-full"
-                      style={{ width: `${mockStats.deviceBreakdown.tablet}%` }}>
-                    </div>
+                  <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-orange-600 h-2 rounded-full" 
+                      style={{ width: `${mockStats.deviceBreakdown.tablet}%` }}
+                    ></div>
                   </div>
                   <span className="text-sm font-medium w-10 text-right">{mockStats.deviceBreakdown.tablet}%</span>
                 </div>
@@ -384,8 +384,8 @@ export default function SystemStatsPanel() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {mockStats.topLocations.map((location, index) =>
-              <div key={location.country} className="flex items-center justify-between">
+              {mockStats.topLocations.map((location, index) => (
+                <div key={location.country} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
                       {index + 1}
@@ -393,16 +393,16 @@ export default function SystemStatsPanel() {
                     <span className="text-sm font-medium">{location.country}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div
-                      className="bg-blue-600 h-2 rounded-full"
-                      style={{ width: `${location.percentage}%` }}>
-                    </div>
+                    <div className="w-24 bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-blue-600 h-2 rounded-full" 
+                        style={{ width: `${location.percentage}%` }}
+                      ></div>
                     </div>
                     <span className="text-sm font-medium w-12 text-right">{location.users}</span>
                   </div>
                 </div>
-              )}
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -410,38 +410,38 @@ export default function SystemStatsPanel() {
 
       {/* Additional Metrics */}
       <div>
-        <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-4">Engagement Metrics</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Engagement Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Session Duration"
             value={`${mockStats.engagement.avgSessionDuration}min`}
             subtitle="Average session"
             icon={Clock}
-            color="purple" />
-
+            color="purple"
+          />
           <StatCard
             title="Posts Created"
             value={mockStats.engagement.postCreated}
             subtitle="Today"
             icon={Database}
-            color="green" />
-
+            color="green"
+          />
           <StatCard
             title="Interactions"
             value={mockStats.engagement.interactions.toLocaleString()}
             subtitle="Likes, comments, shares"
             icon={Activity}
-            color="pink" />
-
+            color="pink"
+          />
           <StatCard
             title="Event RSVPs"
             value={mockStats.events.rsvps.toLocaleString()}
             subtitle="Total confirmations"
             icon={Users}
-            color="orange" />
-
+            color="orange"
+          />
         </div>
       </div>
-    </div>);
-
+    </div>
+  );
 }

@@ -48,7 +48,7 @@ export function MemberCard({ member }: MemberCardProps) {
         <Link href={`/profile/${member.username}`}>
           <Avatar className="h-12 w-12 cursor-pointer hover:ring-2 hover:ring-cyan-500 transition-all">
             <AvatarImage src={member.profilePicture || undefined} alt={member.fullName || member.username} />
-            <AvatarFallback className="bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-500)] text-white font-semibold">
+            <AvatarFallback className="bg-gradient-to-br from-turquoise-500 to-blue-500 text-white font-semibold">
               {(member.fullName || member.username)[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -57,7 +57,7 @@ export function MemberCard({ member }: MemberCardProps) {
         {/* Member Info */}
         <div className="flex-1 min-w-0">
           <Link href={`/profile/${member.username}`}>
-            <h3 className="font-semibold bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] bg-clip-text text-transparent hover:from-cyan-600 hover:to-[var(--color-ocean-600)] transition-all cursor-pointer truncate">
+            <h3 className="font-semibold bg-gradient-to-r from-turquoise-500 to-blue-500 bg-clip-text text-transparent hover:from-cyan-600 hover:to-blue-600 transition-all cursor-pointer truncate">
               {member.fullName || member.username}
             </h3>
           </Link>
@@ -85,7 +85,7 @@ export function MemberCard({ member }: MemberCardProps) {
           <Button 
             variant="ghost" 
             size="sm"
-            className="hover:bg-[var(--color-primary)]/20 dark:hover:bg-cyan-400/20 gap-2"
+            className="hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 gap-2"
             data-testid={`button-view-profile-${member.id}`}
           >
             <Eye className="h-4 w-4" />

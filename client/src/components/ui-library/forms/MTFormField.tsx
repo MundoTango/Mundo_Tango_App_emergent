@@ -59,7 +59,7 @@ export default function MTFormField<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-2', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -74,11 +74,11 @@ export default function MTFormField<
                 autoComplete={autoComplete}
                 className={cn(
                   'h-12 px-4',
-                  'border-[var(--color-border)] focus:border-teal-400',
+                  'border-gray-200 focus:border-teal-400',
                   'focus:ring-2 focus:ring-teal-400/20',
                   'rounded-xl',
                   'transition-all duration-200',
-                  'hover:border-[var(--color-ocean-300)]',
+                  'hover:border-teal-300',
                   fieldState.error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20',
                   isPassword && 'pr-12'
                 )}
@@ -87,8 +87,8 @@ export default function MTFormField<
               {isPassword && (
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)} aria-label="Button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)] transition-colors"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
                   data-testid={`toggle-password-${name}`}
                 >
                   {showPassword ? (
@@ -101,7 +101,7 @@ export default function MTFormField<
             </div>
           </FormControl>
           {description && (
-            <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <FormDescription className="text-xs text-gray-500">
               {description}
             </FormDescription>
           )}

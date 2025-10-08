@@ -147,8 +147,8 @@ const WorldMap = forwardRef((props, ref) => {
         />
         
         {/* Map Legend - Positioned on top of the map */}
-        <GlassCard depth={2} className="absolute top-4 left-4 z-[1000] rounded-lg shadow-lg p-4 border border-cyan-200/50">
-          <h3 className="font-semibold text-sm mb-3 text-gray-800 dark:text-gray-100">City Sizes</h3>
+        <GlassCard depth={2} className="absolute top-4 left-4 z-[1000] rounded-lg shadow-lg p-4 border border-cyan-200/50"
+          <h3 className="font-semibold text-sm mb-3 text-gray-800">City Sizes</h3>
           <div className="space-y-2 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FF1744' }}></div>
@@ -171,7 +171,7 @@ const WorldMap = forwardRef((props, ref) => {
               <span>&lt;50 people</span>
             </div>
           </div>
-        </GlassCard>
+        </div>
         
         {/* Render city group markers */}
         {!isLoading && cityGroups.length > 0 && cityGroups.map((group: CityGroup) => {
@@ -192,20 +192,20 @@ const WorldMap = forwardRef((props, ref) => {
                      borderRadius: '12px'
                    }}>
                 {/* City Header */}
-                <div className="mb-3 pb-2 border-b border-[var(--color-border)]">
+                <div className="mb-3 pb-2 border-b border-gray-200">
                   <h3 className="font-bold text-lg flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-[var(--color-primary-hover)]" />
+                    <MapPin className="h-5 w-5 text-cyan-600" />
                     {group.city}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">{group.country}</p>
+                  <p className="text-sm text-gray-600">{group.country}</p>
                 </div>
                 
                 {/* Statistics Grid */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-cyan-50 to-transparent">
-                    <Users className="h-4 w-4 text-[var(--color-primary-hover)]" />
+                    <Users className="h-4 w-4 text-cyan-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">People</p>
+                      <p className="text-xs text-gray-600">People</p>
                       <p className="font-semibold">{group.memberCount || 0}</p>
                     </div>
                   </div>
@@ -213,7 +213,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-purple-50 to-transparent">
                     <Calendar className="h-4 w-4 text-purple-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Events</p>
+                      <p className="text-xs text-gray-600">Events</p>
                       <p className="font-semibold">{group.eventCount || 0}</p>
                     </div>
                   </div>
@@ -221,7 +221,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-blue-50 to-transparent">
                     <Home className="h-4 w-4 text-blue-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Housing Hosts</p>
+                      <p className="text-xs text-gray-600">Housing Hosts</p>
                       <p className="font-semibold">{group.hostCount || 0}</p>
                     </div>
                   </div>
@@ -229,7 +229,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-amber-50 to-transparent">
                     <Star className="h-4 w-4 text-amber-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Recommendations</p>
+                      <p className="text-xs text-gray-600">Recommendations</p>
                       <p className="font-semibold">{group.recommendationCount || 0}</p>
                     </div>
                   </div>
@@ -238,8 +238,7 @@ const WorldMap = forwardRef((props, ref) => {
                 {/* View Group Button */}
                 <button 
                   onClick={() => window.location.href = `/groups/${group.slug || group.id}`}
-                  aria-label={`View ${group.city} group`}
-                  className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition-all text-sm font-medium"
+                  className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition-all text-sm font-medium"
                 >
                   View {group.city} Group
                 </button>
@@ -252,10 +251,10 @@ const WorldMap = forwardRef((props, ref) => {
       
       {/* Loading overlay */}
       {isLoading && (
-        <div className="absolute inset-0 bg-[var(--color-surface)] dark:bg-gray-900/80 flex items-center justify-center z-[1000]">
+        <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-[1000]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-cyan-500 mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-300">Loading world map...</p>
+            <p className="text-gray-600">Loading world map...</p>
           </div>
         </div>
       )}

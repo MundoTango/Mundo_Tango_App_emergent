@@ -46,18 +46,18 @@ export default function TrendingTags({
 
   return (
     <Card className={cn(
-      "backdrop-blur-md bg-[var(--color-surface)]/80 dark:bg-gray-900/80",
+      "backdrop-blur-md bg-white/80 dark:bg-gray-900/80",
       "border border-white/20 dark:border-gray-800/50",
       "p-4"
     )}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <div className="p-2 bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-600 rounded-lg">
+          <div className="p-2 bg-gradient-to-br from-teal-400 to-cyan-600 rounded-lg">
             <TrendingUp className="h-4 w-4 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-[var(--color-text)] dark:text-white">
+            <h3 className="font-semibold text-gray-900 dark:text-white">
               Trending Tags
             </h3>
             <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -108,8 +108,8 @@ export default function TrendingTags({
                     "transition-all duration-200",
                     "border",
                     isSelected 
-                      ? "bg-gradient-to-r from-[var(--color-ocean-400)]/20 to-cyan-600/20 border-teal-400/50" 
-                      : "bg-[var(--color-surface)]/50 dark:bg-gray-800/50 border-[var(--color-border)] dark:border-gray-700",
+                      ? "bg-gradient-to-r from-teal-400/20 to-cyan-600/20 border-teal-400/50" 
+                      : "bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700",
                     "hover:shadow-md"
                   )}
                   data-testid={`tag-${tag.name.toLowerCase()}`}
@@ -120,12 +120,12 @@ export default function TrendingTags({
                       "flex items-center justify-center w-8 h-8 rounded-full",
                       tag.isHot 
                         ? "bg-gradient-to-br from-orange-400 to-red-500" 
-                        : "bg-gradient-to-br from-[var(--color-ocean-400)]/20 to-cyan-600/20"
+                        : "bg-gradient-to-br from-teal-400/20 to-cyan-600/20"
                     )}>
                       {tag.isHot ? (
                         <Flame className="h-4 w-4 text-white" />
                       ) : (
-                        <Hash className="h-4 w-4 text-[var(--color-primary-hover)] dark:text-teal-400" />
+                        <Hash className="h-4 w-4 text-teal-600 dark:text-teal-400" />
                       )}
                     </div>
 
@@ -135,8 +135,8 @@ export default function TrendingTags({
                         <span className={cn(
                           "font-medium",
                           isSelected 
-                            ? "text-[var(--color-primary-hover)] dark:text-teal-300" 
-                            : "text-[var(--color-text)] dark:text-white"
+                            ? "text-teal-700 dark:text-teal-300" 
+                            : "text-gray-900 dark:text-white"
                         )}>
                           {tag.name}
                         </span>
@@ -208,7 +208,7 @@ export default function TrendingTags({
       </div>
 
       {/* Footer Stats */}
-      <div className="mt-4 pt-3 border-t border-[var(--color-border)] dark:border-gray-700">
+      <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
           <span>{tags.length} total tags</span>
           <span>{tags.filter(t => t.isHot).length} trending now 🔥</span>

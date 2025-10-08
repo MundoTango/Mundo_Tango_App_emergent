@@ -192,14 +192,14 @@ export default function AdminAnalyticsPage() {
     <Card className={cn("border-l-4", color)}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+          <CardTitle className="text-sm font-medium text-gray-600">
             {title}
           </CardTitle>
           <Icon className="w-4 h-4 text-gray-400" />
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{value}</div>
+        <div className="text-2xl font-bold text-gray-900">{value}</div>
         {change !== undefined && (
           <div className="flex items-center mt-2 text-sm">
             {change > 0 ? (
@@ -213,7 +213,7 @@ export default function AdminAnalyticsPage() {
                 <span className="text-red-600">{change}%</span>
               </>
             )}
-            <span className="text-gray-500 dark:text-gray-400 ml-1">vs last period</span>
+            <span className="text-gray-500 ml-1">vs last period</span>
           </div>
         )}
       </CardContent>
@@ -229,7 +229,7 @@ export default function AdminAnalyticsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Analytics Dashboard
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-gray-600 mt-1">
               Comprehensive platform insights and metrics
             </p>
           </div>
@@ -253,7 +253,7 @@ export default function AdminAnalyticsPage() {
               Refresh
             </Button>
             
-            <Button className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 text-white">
+            <Button className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white">
               <Download className="w-4 h-4 mr-2" />
               Export Report
             </Button>
@@ -267,7 +267,7 @@ export default function AdminAnalyticsPage() {
             value={analytics?.userMetrics?.totalUsers?.toLocaleString() || '0'}
             change={analytics?.userMetrics?.growthRate}
             icon={Users}
-            color="border-[var(--color-primary)]"
+            color="border-teal-500"
           />
           <MetricCard
             title="Monthly Revenue"
@@ -347,12 +347,12 @@ export default function AdminAnalyticsPage() {
                       return (
                         <div key={week} className="space-y-2">
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-300">{week}</span>
+                            <span className="text-gray-600">{week}</span>
                             <span className="font-medium">{retention}%</span>
                           </div>
-                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div className="w-full bg-gray-200 rounded-full h-2">
                             <div 
-                              className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 h-2 rounded-full"
+                              className="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full"
                               style={{ width: `${retention}%` }}
                             />
                           </div>
@@ -363,11 +363,11 @@ export default function AdminAnalyticsPage() {
                   
                   <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t">
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Avg. Retention</p>
-                      <p className="text-xl font-bold text-[var(--color-primary-hover)]">62.5%</p>
+                      <p className="text-sm text-gray-600">Avg. Retention</p>
+                      <p className="text-xl font-bold text-teal-600">62.5%</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Churn Rate</p>
+                      <p className="text-sm text-gray-600">Churn Rate</p>
                       <p className="text-xl font-bold text-red-600">37.5%</p>
                     </div>
                   </div>
@@ -405,7 +405,7 @@ export default function AdminAnalyticsPage() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Avg. Session Duration</p>
+                      <p className="text-sm text-gray-600">Avg. Session Duration</p>
                       <p className="text-2xl font-bold">5m 32s</p>
                       <Badge variant="outline" className="text-green-600">
                         <TrendingUp className="w-3 h-3 mr-1" />
@@ -413,7 +413,7 @@ export default function AdminAnalyticsPage() {
                       </Badge>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Pages per Session</p>
+                      <p className="text-sm text-gray-600">Pages per Session</p>
                       <p className="text-2xl font-bold">4.2</p>
                       <Badge variant="outline" className="text-green-600">
                         <TrendingUp className="w-3 h-3 mr-1" />
@@ -423,17 +423,17 @@ export default function AdminAnalyticsPage() {
                   </div>
                   
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">Active Users</p>
+                    <p className="text-sm text-gray-600 mb-3">Active Users</p>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-sm">Daily (DAU)</span>
-                        <Badge className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500">
+                        <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500">
                           {analytics?.engagementMetrics?.dailyActiveUsers?.toLocaleString() || '1,234'}
                         </Badge>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">Weekly (WAU)</span>
-                        <Badge className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)]">
+                        <Badge className="bg-gradient-to-r from-cyan-500 to-blue-500">
                           {analytics?.engagementMetrics?.weeklyActiveUsers?.toLocaleString() || '5,678'}
                         </Badge>
                       </div>
@@ -496,7 +496,7 @@ export default function AdminAnalyticsPage() {
                     {['#tango', '#milonga', '#buenosaires', '#tangoargentino', '#tangodance'].map((tag, idx) => (
                       <div key={tag} className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Hash className="w-4 h-4 text-[var(--color-primary)]" />
+                          <Hash className="w-4 h-4 text-teal-500" />
                           <span className="text-sm font-medium">{tag}</span>
                         </div>
                         <Badge variant="outline">
@@ -516,30 +516,30 @@ export default function AdminAnalyticsPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Avg. Likes per Post</span>
+                      <span className="text-sm text-gray-600">Avg. Likes per Post</span>
                       <span className="font-bold">24.5</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Avg. Comments per Post</span>
+                      <span className="text-sm text-gray-600">Avg. Comments per Post</span>
                       <span className="font-bold">8.3</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Avg. Shares per Post</span>
+                      <span className="text-sm text-gray-600">Avg. Shares per Post</span>
                       <span className="font-bold">3.7</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Posts per User</span>
+                      <span className="text-sm text-gray-600">Posts per User</span>
                       <span className="font-bold">2.1</span>
                     </div>
                   </div>
                   
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">Top Performing Post</p>
+                    <p className="text-sm text-gray-600 mb-2">Top Performing Post</p>
                     <div className="p-3 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg">
-                      <p className="text-sm font-medium text-[var(--color-primary-hover)]">
+                      <p className="text-sm font-medium text-teal-700">
                         "First milonga after lockdown..."
                       </p>
-                      <div className="flex items-center gap-4 mt-2 text-xs text-[var(--color-primary-hover)]">
+                      <div className="flex items-center gap-4 mt-2 text-xs text-teal-600">
                         <span className="flex items-center gap-1">
                           <Eye className="w-3 h-3" /> 12.5k
                         </span>
@@ -589,7 +589,7 @@ export default function AdminAnalyticsPage() {
                 <CardContent>
                   <div className="space-y-4">
                     {[
-                      { tier: 'Free', users: 450, revenue: 0, color: 'bg-[var(--color-surface-elevated)] dark:bg-gray-8000' },
+                      { tier: 'Free', users: 450, revenue: 0, color: 'bg-gray-500' },
                       { tier: 'Basic', users: 320, revenue: 3200, color: 'bg-blue-500' },
                       { tier: 'Enthusiast', users: 180, revenue: 5400, color: 'bg-purple-500' },
                       { tier: 'Professional', users: 120, revenue: 7200, color: 'bg-amber-500' },
@@ -603,10 +603,10 @@ export default function AdminAnalyticsPage() {
                           </div>
                           <div className="text-right">
                             <p className="font-bold">${tier.revenue.toLocaleString()}</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">{tier.users} users</p>
+                            <p className="text-xs text-gray-500">{tier.users} users</p>
                           </div>
                         </div>
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
                             className={cn("h-2 rounded-full", tier.color)}
                             style={{ width: `${(tier.users / 1100) * 100}%` }}
@@ -623,7 +623,7 @@ export default function AdminAnalyticsPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-gray-300">MRR</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">MRR</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$21,800</p>
@@ -636,7 +636,7 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-gray-300">ARR</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">ARR</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$261,600</p>
@@ -649,7 +649,7 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-gray-300">ARPU</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">ARPU</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$19.82</p>
@@ -662,7 +662,7 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-gray-300">LTV</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">LTV</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$237.84</p>
@@ -735,11 +735,11 @@ export default function AdminAnalyticsPage() {
                 <CardContent className="space-y-2">
                   {['18-24', '25-34', '35-44', '45-54', '55+'].map((age, idx) => (
                     <div key={age} className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-300">{age}</span>
+                      <span className="text-gray-600">{age}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        <div className="w-24 bg-gray-200 rounded-full h-2">
                           <div 
-                            className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 h-2 rounded-full"
+                            className="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full"
                             style={{ width: `${80 - idx * 15}%` }}
                           />
                         </div>
@@ -766,7 +766,7 @@ export default function AdminAnalyticsPage() {
                     { lang: 'Portuguese', pct: 3 },
                   ].map((item) => (
                     <div key={item.lang} className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-300">{item.lang}</span>
+                      <span className="text-gray-600">{item.lang}</span>
                       <Badge variant="outline">{item.pct}%</Badge>
                     </div>
                   ))}
@@ -781,15 +781,15 @@ export default function AdminAnalyticsPage() {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Female</span>
+                      <span className="text-sm text-gray-600">Female</span>
                       <span className="font-bold">52%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Male</span>
+                      <span className="text-sm text-gray-600">Male</span>
                       <span className="font-bold">46%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Other</span>
+                      <span className="text-sm text-gray-600">Other</span>
                       <span className="font-bold">2%</span>
                     </div>
                   </div>
