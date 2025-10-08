@@ -62,11 +62,11 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
         
         {/* Floating member/event badges */}
         <div className="absolute top-3 right-3 flex gap-2">
-          <GlassCard depth={1} className="rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
+          <GlassCard depth={1} className="rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
             <Users className="h-3.5 w-3.5 text-blue-600" />
             <span className="text-xs font-semibold text-gray-800">{community.memberCount}</span>
           </div>
-          <GlassCard depth={1} className="rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
+          <GlassCard depth={1} className="rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
             <Calendar className="h-3.5 w-3.5 text-green-600" />
             <span className="text-xs font-semibold text-gray-800">{community.eventCount}</span>
           </div>

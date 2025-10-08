@@ -21,7 +21,7 @@ const AlertDialogOverlay = React.forwardRef<
     )}
     {...props}
     ref={ref}
-  / data-testid="link-element">
+  data-testid="alert-dialog-element" />
 ))
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
 
@@ -30,7 +30,7 @@ const AlertDialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >(({ className, ...props }, ref) => (
   <AlertDialogPortal data-testid="link-element">
-    <AlertDialogOverlay / data-testid="link-element">
+    <AlertDialogOverlay data-testid="alert-dialog-overlay" />
     <AlertDialogPrimitive.Content
       ref={ref}
       className={cn(
@@ -38,7 +38,7 @@ const AlertDialogContent = React.forwardRef<
         className
       )}
       {...props}
-    / data-testid="link-element">
+    data-testid="alert-dialog-element" />
   </AlertDialogPortal>
 ))
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
@@ -79,7 +79,7 @@ const AlertDialogTitle = React.forwardRef<
     ref={ref}
     className={cn("text-lg font-semibold", className)}
     {...props}
-  / data-testid="link-element">
+  data-testid="alert-dialog-element" />
 ))
 AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName
 
@@ -91,7 +91,7 @@ const AlertDialogDescription = React.forwardRef<
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
-  / data-testid="link-element">
+  data-testid="alert-dialog-element" />
 ))
 AlertDialogDescription.displayName =
   AlertDialogPrimitive.Description.displayName
@@ -104,7 +104,7 @@ const AlertDialogAction = React.forwardRef<
     ref={ref}
     className={cn(buttonVariants(), className)}
     {...props}
-  / data-testid="link-element">
+  data-testid="alert-dialog-element" />
 ))
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName
 
@@ -120,7 +120,7 @@ const AlertDialogCancel = React.forwardRef<
       className
     )}
     {...props}
-  / data-testid="link-element">
+  data-testid="alert-dialog-element" />
 ))
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
 

@@ -286,7 +286,7 @@ export default function EnhancedPostCreator({
   // Compact composer button
   if (!showExpandedComposer) {
     return (
-      <GlassCard depth={1} className="rounded-xl shadow-lg border border-white/20 p-4 mb-6"
+      <GlassCard depth={1} className="rounded-xl shadow-lg border border-white/20 p-4 mb-6">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
@@ -315,7 +315,7 @@ export default function EnhancedPostCreator({
 
   // Expanded composer modal
   return (
-    <GlassCard depth={1} className="fixed inset-0 flex items-center justify-center z-[100] p-4"
+    <GlassCard depth={1} className="fixed inset-0 flex items-center justify-center z-[100] p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">

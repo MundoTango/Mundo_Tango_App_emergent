@@ -124,7 +124,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
   return ReactDOM.createPortal(
     <>
       {/* Backdrop */}
-      <GlassCard depth={1} className="fixed inset-0"
+      <GlassCard depth={1} className="fixed inset-0">
       {/* Modal content */}
       <div 
         className="fixed inset-0 flex items-center justify-center p-4"

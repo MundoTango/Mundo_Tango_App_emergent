@@ -506,7 +506,7 @@ const PostFeed = memo(({
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-gray-200/50"
+          <GlassCard depth={1} key={i} className="rounded-3xl p-8 animate-pulse border border-gray-200/50">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
@@ -518,7 +518,7 @@ const PostFeed = memo(({
               <div className="h-4 bg-gray-200 rounded-lg w-full"></div>
               <div className="h-4 bg-gray-200 rounded-lg w-4/5"></div>
             </div>
-          </div>
+          </GlassCard>
         ))}
       </div>
     );
@@ -528,7 +528,7 @@ const PostFeed = memo(({
     <div className={`space-y-6 ${className}`}>
       {/* Filters Section - Shown when showFilters or showSearch is true */}
       {(showFilters || showSearch) && (
-        <GlassCard depth={1} className="relative group rounded-3xl p-6 border border-gray-200/50 shadow-lg"
+        <GlassCard depth={1} className="relative group rounded-3xl p-6 border border-gray-200/50 shadow-lg">
           {/* Search Bar */}
           {showSearch && (
           <div className="mb-4">
@@ -702,7 +702,7 @@ const PostFeed = memo(({
               COMING SOON
             </span>
           </div>
-        </div>
+        </GlassCard>
       )}
 
       {/* Posts Feed Header */}
@@ -735,12 +735,12 @@ const PostFeed = memo(({
       <div className="relative space-y-6">
         {/* Loading Overlay during filter transitions */}
         {isFetching && filteredPosts.length > 0 && (
-          <GlassCard depth={1} className="absolute inset-0 z-10 flex items-center justify-center rounded-xl"
+          <GlassCard depth={1} className="absolute inset-0 z-10 flex items-center justify-center rounded-xl">
             <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg">
               <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
               <span className="text-sm font-medium text-gray-700">Updating feed...</span>
             </div>
-          </div>
+          </GlassCard>
         )}
 
         {filteredPosts.map((post: Post) => (

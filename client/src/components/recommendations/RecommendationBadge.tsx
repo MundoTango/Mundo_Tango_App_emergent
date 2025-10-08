@@ -40,7 +40,7 @@ export default function RecommendationBadge({
   const categoryInfo = getCategoryInfo(type);
 
   return (
-    <GlassCard depth={1} className="mt-3 p-3 rounded-lg bg-gradient-to-r from-cyan-50/80 to-teal-50/80 dark:from-cyan-950/30 dark:to-teal-950/30 border border-cyan-200/50 dark:border-cyan-800/50"
+    <GlassCard depth={1} className="mt-3 p-3 rounded-lg bg-gradient-to-r from-cyan-50/80 to-teal-50/80 dark:from-cyan-950/30 dark:to-teal-950/30 border border-cyan-200/50 dark:border-cyan-800/50">
       {/* Category and Location Row */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
