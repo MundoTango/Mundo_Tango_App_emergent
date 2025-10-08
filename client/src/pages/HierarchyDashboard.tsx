@@ -5,18 +5,18 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { 
-  AlertCircle, 
-  CheckCircle, 
-  FileText, 
-  FolderOpen, 
+import {
+  AlertCircle,
+  CheckCircle,
+  FileText,
+  FolderOpen,
   GitBranch,
   Zap,
   TrendingUp,
   Archive,
   AlertTriangle,
-  RefreshCw
-} from 'lucide-react';
+  RefreshCw } from
+'lucide-react';
 
 interface HierarchyMetrics {
   totalFiles: number;
@@ -50,7 +50,7 @@ export default function HierarchyDashboard() {
 
   useEffect(() => {
     fetchMetrics();
-    
+
     if (autoRefresh) {
       const interval = setInterval(fetchMetrics, 30000); // Refresh every 30 seconds
       return () => clearInterval(interval);
@@ -62,14 +62,14 @@ export default function HierarchyDashboard() {
       const response = await fetch('/api/evolution/metrics/latest', {
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         }
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setMetrics(data);
     } catch (error) {
@@ -96,10 +96,10 @@ export default function HierarchyDashboard() {
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
-      case 'high': return 'destructive';
-      case 'medium': return 'secondary';
-      case 'low': return 'outline';
-      default: return 'default';
+      case 'high':return 'destructive';
+      case 'medium':return 'secondary';
+      case 'low':return 'outline';
+      default:return 'default';
     }
   };
 
@@ -107,8 +107,8 @@ export default function HierarchyDashboard() {
     return (
       <div className="flex items-center justify-center h-screen">
         <RefreshCw className="h-8 w-8 animate-spin" />
-      </div>
-    );
+      </div>);
+
   }
 
   if (!metrics) {
@@ -119,8 +119,8 @@ export default function HierarchyDashboard() {
         <AlertDescription>
           The evolution service is still analyzing your project structure.
         </AlertDescription>
-      </Alert>
-    );
+      </Alert>);
+
   }
 
   const healthScore = getHealthScore();
@@ -138,15 +138,15 @@ export default function HierarchyDashboard() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setAutoRefresh(!autoRefresh)}
-          >
+            onClick={() => setAutoRefresh(!autoRefresh)} data-testid="button-element">
+
             {autoRefresh ? 'Disable' : 'Enable'} Auto-refresh
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={fetchMetrics}
-          >
+            onClick={fetchMetrics} data-testid="button-element">
+
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh
           </Button>
@@ -190,11 +190,11 @@ export default function HierarchyDashboard() {
           <TabsTrigger value="metrics">Metrics</TabsTrigger>
           <TabsTrigger value="suggestions">
             Suggestions
-            {metrics.suggestions.length > 0 && (
-              <Badge className="ml-2" variant="secondary">
+            {metrics.suggestions.length > 0 &&
+            <Badge className="ml-2" variant="secondary">
                 {metrics.suggestions.length}
               </Badge>
-            )}
+            }
           </TabsTrigger>
           <TabsTrigger value="issues">Issues</TabsTrigger>
         </TabsList>
@@ -228,9 +228,9 @@ export default function HierarchyDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{metrics.hierarchy.maxDepth}</div>
-                {metrics.hierarchy.maxDepth > 5 && (
-                  <p className="text-xs text-yellow-600 mt-1">Consider flattening</p>
-                )}
+                {metrics.hierarchy.maxDepth > 5 &&
+                <p className="text-xs text-yellow-600 mt-1">Consider flattening</p>
+                }
               </CardContent>
             </Card>
 
@@ -249,17 +249,17 @@ export default function HierarchyDashboard() {
         </TabsContent>
 
         <TabsContent value="suggestions" className="space-y-4">
-          {metrics.suggestions.length === 0 ? (
-            <Alert>
+          {metrics.suggestions.length === 0 ?
+          <Alert>
               <CheckCircle className="h-4 w-4" />
               <AlertTitle>No Suggestions</AlertTitle>
               <AlertDescription>
                 Your project structure looks good! No improvements needed at this time.
               </AlertDescription>
-            </Alert>
-          ) : (
-            metrics.suggestions.map((suggestion, index) => (
-              <Alert key={index}>
+            </Alert> :
+
+          metrics.suggestions.map((suggestion, index) =>
+          <Alert key={index}>
                 <Zap className="h-4 w-4" />
                 <AlertTitle className="flex items-center gap-2">
                   {suggestion.type.charAt(0).toUpperCase() + suggestion.type.slice(1)} Suggestion
@@ -275,13 +275,13 @@ export default function HierarchyDashboard() {
                   <p className="text-sm mt-1">{suggestion.reason}</p>
                 </AlertDescription>
               </Alert>
-            ))
-          )}
+          )
+          }
         </TabsContent>
 
         <TabsContent value="issues" className="space-y-4">
-          {metrics.hierarchy.misplacedFiles.length > 0 && (
-            <Alert>
+          {metrics.hierarchy.misplacedFiles.length > 0 &&
+          <Alert>
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle>Misplaced Files</AlertTitle>
               <AlertDescription>
@@ -289,19 +289,19 @@ export default function HierarchyDashboard() {
                   {metrics.hierarchy.misplacedFiles.length} files appear to be in the wrong location:
                 </p>
                 <ul className="list-disc list-inside text-sm">
-                  {metrics.hierarchy.misplacedFiles.slice(0, 5).map((file, index) => (
-                    <li key={index} className="font-mono">{file}</li>
-                  ))}
-                  {metrics.hierarchy.misplacedFiles.length > 5 && (
-                    <li>...and {metrics.hierarchy.misplacedFiles.length - 5} more</li>
-                  )}
+                  {metrics.hierarchy.misplacedFiles.slice(0, 5).map((file, index) =>
+                <li key={index} className="font-mono">{file}</li>
+                )}
+                  {metrics.hierarchy.misplacedFiles.length > 5 &&
+                <li>...and {metrics.hierarchy.misplacedFiles.length - 5} more</li>
+                }
                 </ul>
               </AlertDescription>
             </Alert>
-          )}
+          }
 
-          {metrics.hierarchy.orphanedFiles.length > 0 && (
-            <Alert>
+          {metrics.hierarchy.orphanedFiles.length > 0 &&
+          <Alert>
               <Archive className="h-4 w-4" />
               <AlertTitle>Orphaned Files</AlertTitle>
               <AlertDescription>
@@ -309,33 +309,33 @@ export default function HierarchyDashboard() {
                   {metrics.hierarchy.orphanedFiles.length} files have no connections to other files:
                 </p>
                 <ul className="list-disc list-inside text-sm">
-                  {metrics.hierarchy.orphanedFiles.slice(0, 5).map((file, index) => (
-                    <li key={index} className="font-mono">{file}</li>
-                  ))}
-                  {metrics.hierarchy.orphanedFiles.length > 5 && (
-                    <li>...and {metrics.hierarchy.orphanedFiles.length - 5} more</li>
-                  )}
+                  {metrics.hierarchy.orphanedFiles.slice(0, 5).map((file, index) =>
+                <li key={index} className="font-mono">{file}</li>
+                )}
+                  {metrics.hierarchy.orphanedFiles.length > 5 &&
+                <li>...and {metrics.hierarchy.orphanedFiles.length - 5} more</li>
+                }
                 </ul>
               </AlertDescription>
             </Alert>
-          )}
+          }
 
-          {metrics.hierarchy.misplacedFiles.length === 0 && 
-           metrics.hierarchy.orphanedFiles.length === 0 && (
-            <Alert>
+          {metrics.hierarchy.misplacedFiles.length === 0 &&
+          metrics.hierarchy.orphanedFiles.length === 0 &&
+          <Alert>
               <CheckCircle className="h-4 w-4" />
               <AlertTitle>No Issues Found</AlertTitle>
               <AlertDescription>
                 Your project structure has no detected issues.
               </AlertDescription>
             </Alert>
-          )}
+          }
         </TabsContent>
       </Tabs>
 
       <div className="text-sm text-gray-500 text-right">
         Last updated: {new Date(metrics.timestamp).toLocaleString()}
       </div>
-    </div>
-  );
+    </div>);
+
 }

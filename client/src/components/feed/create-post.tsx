@@ -8,14 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useFastUpload } from "@/hooks/useFastUpload";
-import { 
-  Image as ImageIcon, 
-  Video, 
-  Calendar, 
+import {
+  Image as ImageIcon,
+  Video,
+  Calendar,
   X,
   Clock,
-  Upload
-} from "lucide-react";
+  Upload } from
+"lucide-react";
 
 export default function CreatePost() {
   const [content, setContent] = useState("");
@@ -27,7 +27,7 @@ export default function CreatePost() {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   // Use the fast upload hook for Facebook/Instagram-style instant posting
   const { upload, isUploading, progress, jobId, reset } = useFastUpload();
 
@@ -46,7 +46,7 @@ export default function CreatePost() {
     const files = Array.from(e.target.files || []);
     if (files.length > 0) {
       // Check for large files and warn user
-      const largeFiles = files.filter(f => f.size > 50 * 1024 * 1024); // 50MB
+      const largeFiles = files.filter((f) => f.size > 50 * 1024 * 1024); // 50MB
       if (largeFiles.length > 0) {
         toast({
           title: "Large files detected",
@@ -54,16 +54,16 @@ export default function CreatePost() {
           duration: 3000
         });
       }
-      
+
       setSelectedFiles(files);
-      const urls = files.map(file => URL.createObjectURL(file));
+      const urls = files.map((file) => URL.createObjectURL(file));
       setPreviewUrls(urls);
     }
   };
 
   const removeFiles = () => {
     setSelectedFiles([]);
-    previewUrls.forEach(url => URL.revokeObjectURL(url));
+    previewUrls.forEach((url) => URL.revokeObjectURL(url));
     setPreviewUrls([]);
   };
 
@@ -72,14 +72,14 @@ export default function CreatePost() {
       toast({
         title: "Empty post",
         description: "Please add some content or upload an image/video.",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
 
     // Track upload start time for processing display
     setUploadStartTime(Date.now());
-    
+
     const postData = {
       content,
       isPublic: true,
@@ -89,23 +89,23 @@ export default function CreatePost() {
     try {
       // ESA LIFE CEO 61x21 - Optimized direct upload
       console.log('🚀 Starting optimized upload with', selectedFiles.length, 'files');
-      
+
       await upload(selectedFiles, postData, {
         onSuccess: (result) => {
           const totalTime = Date.now() - uploadStartTime;
           // Post created successfully
-          
+
           // Show success immediately
           toast({
             title: "Posted! 🎉",
-            description: `Your post is live! (${(totalTime/1000).toFixed(1)}s)`,
+            description: `Your post is live! (${(totalTime / 1000).toFixed(1)}s)`,
             duration: 3000
           });
-          
+
           // Update feed immediately
           queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
           queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
-          
+
           // Reset form
           setContent("");
           setSelectedFiles([]);
@@ -145,35 +145,35 @@ export default function CreatePost() {
             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{user?.name?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            {!isExpanded ? (
-              <button
-                onClick={() => setIsExpanded(true)}
-                className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-turquoise-600 hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300"
-              >
+            {!isExpanded ?
+            <button
+              onClick={() => setIsExpanded(true)}
+              className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-turquoise-600 hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300" data-testid="button-w-full">
+
                 Share your tango experience...
-              </button>
-            ) : (
-              <Textarea
-                placeholder="Share your tango experience..."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="resize-none border-none p-0 text-base placeholder:text-turquoise-400 focus-visible:ring-0 bg-transparent"
-                rows={3}
-              />
-            )}
+              </button> :
+
+            <Textarea
+              placeholder="Share your tango experience..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="resize-none border-none p-0 text-base placeholder:text-turquoise-400 focus-visible:ring-0 bg-transparent"
+              rows={3} data-testid="textarea-resize-none" />
+
+            }
           </div>
         </div>
 
         {/* Upload Progress Bar - Facebook/Instagram style */}
-        {isUploading && (
-          <div className="mb-4 p-3 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
+        {isUploading &&
+        <div className="mb-4 p-3 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-2">
                 <Upload className="h-4 w-4 text-turquoise-600 animate-pulse" />
                 <span className="text-sm font-medium text-turquoise-700">
-                  {progress < 30 ? 'Compressing...' : 
-                   progress < 90 ? 'Uploading...' : 
-                   progress < 100 ? 'Creating post...' : 'Complete!'}
+                  {progress < 30 ? 'Compressing...' :
+                progress < 90 ? 'Uploading...' :
+                progress < 100 ? 'Creating post...' : 'Complete!'}
                 </span>
               </div>
               <div className="flex items-center space-x-2">
@@ -188,37 +188,37 @@ export default function CreatePost() {
               {progress}% • {selectedFiles.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024 > 5 ? 'Large file optimization' : 'Fast upload'}
             </div>
           </div>
-        )}
+        }
 
-        {previewUrls.length > 0 && (
-          <div className="mb-4 relative">
+        {previewUrls.length > 0 &&
+        <div className="mb-4 relative">
             <button
-              onClick={removeFiles}
-              className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70 z-10"
-            >
+            onClick={removeFiles}
+            className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70 z-10" data-testid="button-absolute">
+
               <X className="h-4 w-4" />
             </button>
             <div className="grid grid-cols-2 gap-2">
-              {previewUrls.map((url, index) => (
-                <div key={index} className="relative">
-                  {selectedFiles[index]?.type.startsWith('image/') ? (
-                    <img
-                      src={url}
-                      alt={`Preview ${index + 1}`}
-                      className="w-full rounded-lg object-cover h-48"
-                    />
-                  ) : (
-                    <video
-                      src={url}
-                      controls
-                      className="w-full rounded-lg h-48"
-                    />
-                  )}
+              {previewUrls.map((url, index) =>
+            <div key={index} className="relative">
+                  {selectedFiles[index]?.type.startsWith('image/') ?
+              <img
+                src={url}
+                alt={`Preview ${index + 1}`}
+                className="w-full rounded-lg object-cover h-48" /> :
+
+
+              <video
+                src={url}
+                controls
+                className="w-full rounded-lg h-48" />
+
+              }
                 </div>
-              ))}
+            )}
             </div>
           </div>
-        )}
+        }
 
         <div className="flex items-center justify-between">
           <div className="flex space-x-4">
@@ -229,46 +229,46 @@ export default function CreatePost() {
                 multiple
                 onChange={handleFileSelect}
                 className="hidden"
-                disabled={isUploading}
-              />
+                disabled={isUploading} data-testid="input-file" />
+
               <ImageIcon className="h-5 w-5" />
               <span className="text-sm">Photo/Video</span>
             </label>
             
-            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors">
+            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors" data-testid="button-text-turquoise-600">
               <Calendar className="h-5 w-5 mr-2" />
               <span className="text-sm">Event</span>
             </Button>
           </div>
           
-          {isExpanded && (
-            <div className="flex space-x-2">
+          {isExpanded &&
+          <div className="flex space-x-2">
               <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setIsExpanded(false);
-                  setContent("");
-                  removeFiles();
-                  reset();
-                }}
-                className="border-turquoise-200 text-turquoise-600 hover:bg-turquoise-50"
-                disabled={isUploading}
-              >
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setIsExpanded(false);
+                setContent("");
+                removeFiles();
+                reset();
+              }}
+              className="border-turquoise-200 text-turquoise-600 hover:bg-turquoise-50"
+              disabled={isUploading} data-testid="button-border-turquoise-200">
+
                 Cancel
               </Button>
               <Button
-                size="sm"
-                onClick={handleSubmit}
-                disabled={isUploading}
-                className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white transition-all duration-300"
-              >
+              size="sm"
+              onClick={handleSubmit}
+              disabled={isUploading}
+              className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white transition-all duration-300" data-testid="button-bg-gradient-to-r">
+
                 {isUploading ? `Uploading... ${progress}%` : "Post ⚡"}
               </Button>
             </div>
-          )}
+          }
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }

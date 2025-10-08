@@ -11,27 +11,27 @@ export default function ProfileSwitcher() {
 
   // Only show Life CEO for super admins
   const isSuperAdmin = user?.roles?.includes('super_admin') || user?.tangoRoles?.includes('super_admin');
-  
+
   const profiles = [
-    {
-      id: 'mundo-tango',
-      name: 'Mundo Tango',
-      description: 'Global tango community platform',
-      icon: '🌎',
-      color: 'from-pink-500 to-blue-500',
-      route: '/memories',
-      active: true
-    },
-    ...(isSuperAdmin ? [{
-      id: 'life-ceo',
-      name: 'Life CEO',
-      description: 'AI-powered life management system',
-      icon: '🧠',
-      color: 'from-purple-500 to-indigo-500',
-      route: '/life-ceo',
-      active: true
-    }] : [])
-  ];
+  {
+    id: 'mundo-tango',
+    name: 'Mundo Tango',
+    description: 'Global tango community platform',
+    icon: '🌎',
+    color: 'from-pink-500 to-blue-500',
+    route: '/memories',
+    active: true
+  },
+  ...(isSuperAdmin ? [{
+    id: 'life-ceo',
+    name: 'Life CEO',
+    description: 'AI-powered life management system',
+    icon: '🧠',
+    color: 'from-purple-500 to-indigo-500',
+    route: '/life-ceo',
+    active: true
+  }] : [])];
+
 
   const handleProfileSwitch = (profile: any) => {
     setActiveProfile(profile.id);
@@ -49,8 +49,8 @@ export default function ProfileSwitcher() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => window.history.back()}
-          >
+            onClick={() => window.history.back()} data-testid="button-element">
+
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <h1 className="text-lg font-semibold">Switch Profile</h1>
@@ -76,14 +76,14 @@ export default function ProfileSwitcher() {
       <div className="px-4 pb-6">
         <h2 className="text-sm font-medium text-gray-500 mb-3">YOUR PROFILES</h2>
         <div className="space-y-3">
-          {profiles.map((profile) => (
-            <button
-              key={profile.id}
-              onClick={() => handleProfileSwitch(profile)}
-              className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
-                activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''
-              }`}
-            >
+          {profiles.map((profile) =>
+          <button
+            key={profile.id}
+            onClick={() => handleProfileSwitch(profile)}
+            className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
+            activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''}`
+            } data-testid="button-element">
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${profile.color} flex items-center justify-center text-2xl`}>
@@ -97,13 +97,13 @@ export default function ProfileSwitcher() {
                 <ChevronRight className="h-5 w-5 text-gray-400" />
               </div>
             </button>
-          ))}
+          )}
         </div>
       </div>
 
       {/* Create New Profile */}
       <div className="px-4 pb-6">
-        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors">
+        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors" data-testid="button-w-full">
           <div className="flex items-center justify-center gap-3 text-gray-600">
             <Plus className="h-5 w-5" />
             <span className="font-medium">Create New Profile</span>
@@ -115,24 +115,24 @@ export default function ProfileSwitcher() {
       <div className="px-4 pb-6">
         <h2 className="text-sm font-medium text-gray-500 mb-3">QUICK ACTIONS</h2>
         <div className="bg-white rounded-xl p-4 shadow-sm space-y-3">
-          {isSuperAdmin && (
-            <button
-              onClick={() => setLocation('/life-ceo')}
-              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
-            >
+          {isSuperAdmin &&
+          <button
+            onClick={() => setLocation('/life-ceo')}
+            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors" data-testid="button-w-full">
+
               <Brain className="h-5 w-5 text-purple-500" />
               <span className="text-sm font-medium">Open Life CEO Voice Assistant</span>
             </button>
-          )}
+          }
           <button
             onClick={() => setLocation('/memories')}
-            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
-          >
+            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors" data-testid="button-w-full">
+
             <Globe className="h-5 w-5 text-blue-500" />
             <span className="text-sm font-medium">Return to Mundo Tango</span>
           </button>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }

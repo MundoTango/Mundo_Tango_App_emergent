@@ -2,12 +2,12 @@ import { Bell, Menu, Search, MessageCircle, Users, ChevronDown } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  DropdownMenuTrigger } from
+"@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
@@ -18,11 +18,11 @@ interface NavbarProps {
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
   const { user } = useAuth();
-  
+
   const handleLogout = () => {
     // Clear any local storage data
     localStorage.clear();
-    
+
     // Redirect to auth logout endpoint which will clear the session and redirect to home
     window.location.href = '/api/auth/logout';
   };
@@ -35,8 +35,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           variant="ghost"
           size="icon"
           onClick={onMenuClick}
-          className="p-2"
-        >
+          className="p-2" data-testid="button-p-2">
+
           <Menu className="h-5 w-5" />
         </Button>
       </div>
@@ -48,10 +48,10 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             placeholder="Search posts, events, people..."
             className="pl-10 bg-gray-50 border-gray-300 rounded-lg"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          {searchQuery && (
-            <div className="absolute w-full max-h-96 overflow-y-auto left-0 top-full mt-1 bg-white rounded-lg border border-gray-200 shadow-lg z-50">
+            onChange={(e) => setSearchQuery(e.target.value)} data-testid="input-pl-10" />
+
+          {searchQuery &&
+          <div className="absolute w-full max-h-96 overflow-y-auto left-0 top-full mt-1 bg-white rounded-lg border border-gray-200 shadow-lg z-50">
               <div className="grid grid-cols-4 gap-4 p-4">
                 <div>
                   <h3 className="font-semibold text-sm text-gray-700 mb-2">Posts</h3>
@@ -74,10 +74,10 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                 <div>
                   <h3 className="font-semibold text-sm text-gray-700 mb-2">Friends</h3>
                   <div className="space-y-2">
-                    <div 
-                      className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer"
-                      onClick={() => window.location.href = '/profile/1'}
-                    >
+                    <div
+                    className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer"
+                    onClick={() => window.location.href = '/profile/1'}>
+
                       <img src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
                       <span className="text-sm">Maria Rodriguez</span>
                     </div>
@@ -94,14 +94,14 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                 </div>
               </div>
             </div>
-          )}
+          }
         </div>
       </div>
 
       <div className="mr-1 md:mr-4 flex items-center md:space-x-5">
         <div className="flex items-center gap-5">
           <div className="relative">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative" data-testid="button-relative">
               <Users className="h-5 w-5 text-gray-600" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 2
@@ -110,15 +110,15 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           </div>
           
           <div>
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/messages">
+            <Button variant="ghost" size="icon" asChild data-testid="button-element">
+              <Link href="/messages" data-testid="link-element">
                 <MessageCircle className="h-5 w-5 text-gray-600" />
               </Link>
             </Button>
           </div>
           
           <div className="relative">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative" data-testid="button-relative">
               <Bell className="h-5 w-5 text-gray-600" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 3
@@ -131,10 +131,10 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           <DropdownMenuTrigger asChild>
             <div className="cursor-pointer pl-2 md:pl-0 flex items-center gap-2">
               <Avatar className="h-10 w-10">
-                <AvatarImage 
-                  src={user?.profileImage || "/images/user-placeholder.jpeg"} 
-                  className="object-cover"
-                />
+                <AvatarImage
+                  src={user?.profileImage || "/images/user-placeholder.jpeg"}
+                  className="object-cover" />
+
                 <AvatarFallback className="bg-red-600 text-white">
                   {user?.name?.charAt(0) || "U"}
                 </AvatarFallback>
@@ -160,10 +160,10 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             <DropdownMenuItem className="font-semibold text-gray-700 px-3 py-3">
               Terms & Conditions
             </DropdownMenuItem>
-            <DropdownMenuItem 
+            <DropdownMenuItem
               className="font-semibold text-red-600 px-3 py-3"
-              onClick={handleLogout}
-            >
+              onClick={handleLogout}>
+
               Logout
             </DropdownMenuItem>
             <DropdownMenuItem className="font-semibold text-red-600 px-3 py-3">
@@ -172,6 +172,6 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </div>
-  );
+    </div>);
+
 }

@@ -9,14 +9,14 @@ interface SimpleMentionRendererProps {
   onClick?: (type: string, id: string) => void;
 }
 
-const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({ 
-  content, 
-  className = "", 
-  onClick 
+const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({
+  content,
+  className = "",
+  onClick
 }) => {
   // Regex pattern for parsing mentions in format: @[Display Name](type:user,id:123)
   const MENTION_REGEX = /@\[([^\]]+)\]\(type:(\w+),id:([^)]+)\)/g;
-  
+
   const getMentionColor = (type: string) => {
     switch (type) {
       case 'user':
@@ -61,25 +61,25 @@ const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({
     const parts = [];
     let lastIndex = 0;
     let match;
-    
+
     // Reset regex
     MENTION_REGEX.lastIndex = 0;
-    
+
     while ((match = MENTION_REGEX.exec(text)) !== null) {
       // Add text before mention
       if (match.index > lastIndex) {
         parts.push(text.slice(lastIndex, match.index));
       }
-      
+
       // Add styled mention
       const display = match[1];
       const type = match[2];
       const id = match[3];
       const colorClass = getMentionColor(type);
       const route = getMentionRoute(type, id);
-      
+
       parts.push(
-        <Link key={`${type}-${id}-${match.index}`} href={route}>
+        <Link key={`${type}-${id}-${match.index}`} href={route} data-testid="link-element">
           <span
             className={`
               inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-sm font-medium
@@ -92,22 +92,22 @@ const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({
                 onClick(type, id);
               }
             }}
-            title={`${type}: ${display}`}
-          >
+            title={`${type}: ${display}`}>
+
             {getTypeIcon(type)}
             @{display}
           </span>
         </Link>
       );
-      
+
       lastIndex = match.index + match[0].length;
     }
-    
+
     // Add remaining text
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
-    
+
     return parts;
   };
 
@@ -116,8 +116,8 @@ const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({
       <div className="whitespace-pre-wrap leading-relaxed">
         {renderWithMentions(content)}
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default SimpleMentionRenderer;

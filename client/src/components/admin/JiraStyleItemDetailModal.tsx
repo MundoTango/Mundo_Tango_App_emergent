@@ -4,11 +4,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { 
-  X, Globe, FileText, Code2, Users, CheckCircle, Clock, 
+import {
+  X, Globe, FileText, Code2, Users, CheckCircle, Clock,
   Eye, BarChart3, Wrench, TestTube, Github, Layers,
-  AlertTriangle, Calendar, Star, Link, GitBranch
-} from 'lucide-react';
+  AlertTriangle, Calendar, Star, Link, GitBranch } from
+'lucide-react';
 
 interface JiraStyleItemDetailModalProps {
   selectedItem: any;
@@ -32,7 +32,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
     };
 
     document.addEventListener('keydown', handleEscape);
-    
+
     // Cleanup
     return () => {
       document.removeEventListener('keydown', handleEscape);
@@ -43,7 +43,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    
+
     return () => {
       document.body.style.overflow = originalOverflow;
     };
@@ -70,20 +70,20 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'completed': return 'bg-green-600 text-white';
-      case 'in progress': return 'bg-blue-600 text-white';
-      case 'blocked': return 'bg-red-600 text-white';
-      case 'pending': return 'bg-yellow-600 text-white';
-      default: return 'bg-gray-600 text-white';
+      case 'completed':return 'bg-green-600 text-white';
+      case 'in progress':return 'bg-blue-600 text-white';
+      case 'blocked':return 'bg-red-600 text-white';
+      case 'pending':return 'bg-yellow-600 text-white';
+      default:return 'bg-gray-600 text-white';
     }
   };
 
   const getRiskColor = (risk: string) => {
     switch (risk?.toLowerCase()) {
-      case 'high': return 'border-red-500 text-red-700';
-      case 'medium': case 'moderate': return 'border-yellow-500 text-yellow-700';
-      case 'low': return 'border-green-500 text-green-700';
-      default: return 'border-gray-500 text-gray-700';
+      case 'high':return 'border-red-500 text-red-700';
+      case 'medium':case 'moderate':return 'border-yellow-500 text-yellow-700';
+      case 'low':return 'border-green-500 text-green-700';
+      default:return 'border-gray-500 text-gray-700';
     }
   };
 
@@ -92,153 +92,153 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
     ttFiles: {
       title: 'Original TrangoTech Files',
       items: [
-        'EventCard.jsx - Basic event display with TT styling',
-        'ProfileHead.jsx - User profile component with role badges',
-        'CommunityCard.jsx - Community display cards',
-        'TT Colors: #8E142E (primary red), #0D448A (secondary blue)',
-        'Gilroy font family, card-based design system'
-      ]
+      'EventCard.jsx - Basic event display with TT styling',
+      'ProfileHead.jsx - User profile component with role badges',
+      'CommunityCard.jsx - Community display cards',
+      'TT Colors: #8E142E (primary red), #0D448A (secondary blue)',
+      'Gilroy font family, card-based design system']
+
     },
     migration: {
       title: 'Migration to Mundo Tango (June 28-30, 2025)',
       items: [
-        'Extracted TT CSS classes and variables',
-        'Created TrangoTechPostComposer component',
-        'Applied authentic TT styling across 7 pages',
-        'Migrated 55 tables from MySQL to PostgreSQL',
-        'Implemented Row-Level Security (RLS) policies'
-      ]
+      'Extracted TT CSS classes and variables',
+      'Created TrangoTechPostComposer component',
+      'Applied authentic TT styling across 7 pages',
+      'Migrated 55 tables from MySQL to PostgreSQL',
+      'Implemented Row-Level Security (RLS) policies']
+
     },
     currentState: {
       title: 'Current Implementation (January 7, 2025)',
       items: [
-        '576 project features in hierarchical structure',
-        '23L Framework with 23-layer validation system',
-        '16 Life CEO AI agents with memory systems',
-        'Complete RBAC/ABAC implementation',
-        'Production readiness at 87%'
-      ]
+      '576 project features in hierarchical structure',
+      '23L Framework with 23-layer validation system',
+      '16 Life CEO AI agents with memory systems',
+      'Complete RBAC/ABAC implementation',
+      'Production readiness at 87%']
+
     },
     appVersion: {
       title: 'Mobile App Development Requirements',
       items: [
-        'Convert React components to React Native',
-        'Implement native navigation (React Navigation)',
-        'Add offline-first architecture with local storage',
-        'Create native push notifications',
-        'Optimize for iOS and Android platforms',
-        'Implement biometric authentication',
-        'Add native camera and media handling',
-        'Create app store deployment pipeline'
-      ]
+      'Convert React components to React Native',
+      'Implement native navigation (React Navigation)',
+      'Add offline-first architecture with local storage',
+      'Create native push notifications',
+      'Optimize for iOS and Android platforms',
+      'Implement biometric authentication',
+      'Add native camera and media handling',
+      'Create app store deployment pipeline']
+
     }
   };
 
   // Development work phases with authentic progress tracking
   const developmentPhases = [
-    {
-      id: 'analysis',
-      title: 'TT Files Analysis',
-      description: 'Original TrangoTech files and requirements extraction',
-      status: 'completed',
-      icon: FileText,
-      color: 'bg-blue-600',
-      progress: 100,
-      metrics: { files: 127, requirements: 43, components: 18 },
-      startDate: '2025-06-27',
-      endDate: '2025-06-28',
-      codeRefs: [
-        'attached_assets/MundoTango-Backend-main/',
-        'attached_assets/MundoTango-WebApp-main/'
-      ]
-    },
-    {
-      id: 'architecture',
-      title: 'Architecture & Design',
-      description: '11L framework application and system architecture design',
-      status: 'completed',
-      icon: Layers,
-      color: 'bg-purple-600',
-      progress: 100,
-      metrics: { layers: '11/11', components: 47, apis: 23 },
-      startDate: '2025-06-28',
-      endDate: '2025-06-29',
-      codeRefs: [
-        'replit.md',
-        '11L_ENHANCED_VALIDATION_TESTING_FRAMEWORK.md'
-      ]
-    },
-    {
-      id: 'implementation',
-      title: 'Core Implementation',
-      description: 'Frontend components, backend APIs, and database implementation',
-      status: 'in progress',
-      icon: Wrench,
-      color: 'bg-orange-600',
-      progress: 78,
-      metrics: { frontend: '89%', backend: '76%', testing: '67%' },
-      startDate: '2025-06-29',
-      endDate: null,
-      codeRefs: [
-        'client/src/components/admin/Comprehensive11LProjectTracker.tsx',
-        'server/routes.ts',
-        'shared/schema.ts'
-      ]
-    },
-    {
-      id: 'testing',
-      title: 'Testing & QA',
-      description: 'Comprehensive testing, performance optimization, and security review',
-      status: 'pending',
-      icon: TestTube,
-      color: 'bg-yellow-600',
-      progress: 45,
-      metrics: { unit: '45/67', integration: '12/18', e2e: '8/15' },
-      startDate: null,
-      endDate: null,
-      codeRefs: [
-        'tests/',
-        'cypress.config.ts',
-        'playwright.config.ts'
-      ]
-    },
-    {
-      id: 'review',
-      title: 'Human Review & Sign-off',
-      description: 'Technical review, stakeholder approval, and production readiness',
-      status: 'required',
-      icon: Users,
-      color: 'bg-red-600',
-      progress: 17,
-      metrics: { completed: '1/6', pending: 5 },
-      startDate: null,
-      endDate: null,
-      codeRefs: []
-    }
-  ];
+  {
+    id: 'analysis',
+    title: 'TT Files Analysis',
+    description: 'Original TrangoTech files and requirements extraction',
+    status: 'completed',
+    icon: FileText,
+    color: 'bg-blue-600',
+    progress: 100,
+    metrics: { files: 127, requirements: 43, components: 18 },
+    startDate: '2025-06-27',
+    endDate: '2025-06-28',
+    codeRefs: [
+    'attached_assets/MundoTango-Backend-main/',
+    'attached_assets/MundoTango-WebApp-main/']
+
+  },
+  {
+    id: 'architecture',
+    title: 'Architecture & Design',
+    description: '11L framework application and system architecture design',
+    status: 'completed',
+    icon: Layers,
+    color: 'bg-purple-600',
+    progress: 100,
+    metrics: { layers: '11/11', components: 47, apis: 23 },
+    startDate: '2025-06-28',
+    endDate: '2025-06-29',
+    codeRefs: [
+    'replit.md',
+    '11L_ENHANCED_VALIDATION_TESTING_FRAMEWORK.md']
+
+  },
+  {
+    id: 'implementation',
+    title: 'Core Implementation',
+    description: 'Frontend components, backend APIs, and database implementation',
+    status: 'in progress',
+    icon: Wrench,
+    color: 'bg-orange-600',
+    progress: 78,
+    metrics: { frontend: '89%', backend: '76%', testing: '67%' },
+    startDate: '2025-06-29',
+    endDate: null,
+    codeRefs: [
+    'client/src/components/admin/Comprehensive11LProjectTracker.tsx',
+    'server/routes.ts',
+    'shared/schema.ts']
+
+  },
+  {
+    id: 'testing',
+    title: 'Testing & QA',
+    description: 'Comprehensive testing, performance optimization, and security review',
+    status: 'pending',
+    icon: TestTube,
+    color: 'bg-yellow-600',
+    progress: 45,
+    metrics: { unit: '45/67', integration: '12/18', e2e: '8/15' },
+    startDate: null,
+    endDate: null,
+    codeRefs: [
+    'tests/',
+    'cypress.config.ts',
+    'playwright.config.ts']
+
+  },
+  {
+    id: 'review',
+    title: 'Human Review & Sign-off',
+    description: 'Technical review, stakeholder approval, and production readiness',
+    status: 'required',
+    icon: Users,
+    color: 'bg-red-600',
+    progress: 17,
+    metrics: { completed: '1/6', pending: 5 },
+    startDate: null,
+    endDate: null,
+    codeRefs: []
+  }];
+
 
   // Human review areas with authentic status
   const reviewAreas = [
-    { area: 'Technical Architecture', reviewer: 'Scott Boddye', status: 'approved', date: '2025-07-01', signedOff: true },
-    { area: 'Code Quality', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
-    { area: 'UI/UX Design', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
-    { area: 'Security Review', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
-    { area: 'Performance', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
-    { area: 'Business Logic', reviewer: 'Pending', status: 'pending', date: null, signedOff: false }
-  ];
+  { area: 'Technical Architecture', reviewer: 'Scott Boddye', status: 'approved', date: '2025-07-01', signedOff: true },
+  { area: 'Code Quality', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
+  { area: 'UI/UX Design', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
+  { area: 'Security Review', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
+  { area: 'Performance', reviewer: 'Pending', status: 'pending', date: null, signedOff: false },
+  { area: 'Business Logic', reviewer: 'Pending', status: 'pending', date: null, signedOff: false }];
 
-  const completedReviews = reviewAreas.filter(r => r.status === 'approved').length;
-  const reviewProgress = (completedReviews / reviewAreas.length) * 100;
 
-  const modalContent = (
-    <div 
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-[9999]"
-      onClick={handleClose}
-    >
-      <div 
-        className="bg-white rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
+  const completedReviews = reviewAreas.filter((r) => r.status === 'approved').length;
+  const reviewProgress = completedReviews / reviewAreas.length * 100;
+
+  const modalContent =
+  <div
+    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-[9999]"
+    onClick={handleClose}>
+
+      <div
+      className="bg-white rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
+      onClick={(e) => e.stopPropagation()}>
+
         
         {/* Jira-Style Header */}
         <div className="border-b border-gray-200 px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50">
@@ -259,24 +259,24 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 <Badge className={getStatusColor(selectedItem.status || selectedItem.mvpStatus || 'In Progress')}>
                   {selectedItem.status || selectedItem.mvpStatus || 'In Progress'}
                 </Badge>
-                {selectedItem.riskLevel && (
-                  <Badge variant="outline" className={getRiskColor(selectedItem.riskLevel)}>
+                {selectedItem.riskLevel &&
+              <Badge variant="outline" className={getRiskColor(selectedItem.riskLevel)}>
                     {selectedItem.riskLevel} Risk
                   </Badge>
-                )}
-                {selectedItem.priority && (
-                  <Badge variant="outline" className="text-purple-600 border-purple-300">
+              }
+                {selectedItem.priority &&
+              <Badge variant="outline" className="text-purple-600 border-purple-300">
                     {selectedItem.priority} Priority
                   </Badge>
-                )}
+              }
               </div>
             </div>
             <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClose}
-              className="text-gray-500 hover:text-gray-700"
-            >
+            variant="ghost"
+            size="sm"
+            onClick={handleClose}
+            className="text-gray-500 hover:text-gray-700" data-testid="button-text-gray-500">
+
               <X className="h-5 w-5" />
             </Button>
           </div>
@@ -286,31 +286,31 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         <div className="border-b border-gray-200 px-6">
           <div className="flex space-x-8">
             {[
-              { id: 'overview', label: 'Overview', icon: BarChart3 },
-              { id: 'evolution', label: 'Project Evolution', icon: GitBranch },
-              { id: 'development', label: 'Development Work', icon: Code2 },
-              { id: 'reviews', label: 'Human Reviews', icon: Users }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
+          { id: 'overview', label: 'Overview', icon: BarChart3 },
+          { id: 'evolution', label: 'Project Evolution', icon: GitBranch },
+          { id: 'development', label: 'Development Work', icon: Code2 },
+          { id: 'reviews', label: 'Human Reviews', icon: Users }].
+          map((tab) =>
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
+            activeTab === tab.id ?
+            'border-blue-500 text-blue-600' :
+            'border-transparent text-gray-500 hover:text-gray-700'}`
+            } data-testid="button-element">
+
                 <tab.icon className="h-4 w-4" />
                 {tab.label}
               </button>
-            ))}
+          )}
           </div>
         </div>
 
         {/* Tab Content */}
         <div className="flex-1 overflow-y-auto p-6">
-          {activeTab === 'overview' && (
-            <div className="space-y-6">
+          {activeTab === 'overview' &&
+        <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Project Overview</CardTitle>
@@ -339,10 +339,10 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 </CardContent>
               </Card>
             </div>
-          )}
+        }
 
-          {activeTab === 'evolution' && (
-            <div className="space-y-6">
+          {activeTab === 'evolution' &&
+        <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -356,19 +356,19 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
-                    {Object.entries(projectEvolution).map(([key, section]) => (
-                      <div key={key} className="border-l-4 border-blue-500 pl-4">
+                    {Object.entries(projectEvolution).map(([key, section]) =>
+                <div key={key} className="border-l-4 border-blue-500 pl-4">
                         <h3 className="font-semibold text-lg mb-2">{section.title}</h3>
                         <ul className="space-y-2">
-                          {section.items.map((item, index) => (
-                            <li key={index} className="flex items-start gap-2">
+                          {section.items.map((item, index) =>
+                    <li key={index} className="flex items-start gap-2">
                               <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
                               <span className="text-sm text-gray-700">{item}</span>
                             </li>
-                          ))}
+                    )}
                         </ul>
                       </div>
-                    ))}
+                )}
                   </div>
 
                   <div className="mt-8 p-4 bg-amber-50 rounded-lg border border-amber-200">
@@ -390,10 +390,10 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 </CardContent>
               </Card>
             </div>
-          )}
+        }
 
-          {activeTab === 'development' && (
-            <div className="space-y-6">
+          {activeTab === 'development' &&
+        <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -406,12 +406,12 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-8">
-                    {developmentPhases.map((phase, index) => (
-                      <div key={phase.id} className="relative">
+                    {developmentPhases.map((phase, index) =>
+                <div key={phase.id} className="relative">
                         {/* Timeline connector */}
-                        {index < developmentPhases.length - 1 && (
-                          <div className="absolute left-4 top-16 bottom-0 w-0.5 bg-gray-200 -z-10"></div>
-                        )}
+                        {index < developmentPhases.length - 1 &&
+                  <div className="absolute left-4 top-16 bottom-0 w-0.5 bg-gray-200 -z-10"></div>
+                  }
                         
                         <div className="flex items-start gap-4">
                           {/* Phase icon */}
@@ -442,70 +442,70 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             {/* Metrics and details */}
                             <div className="bg-gray-50 rounded-lg p-4">
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                                {Object.entries(phase.metrics).map(([key, value]) => (
-                                  <div key={key} className="text-sm">
+                                {Object.entries(phase.metrics).map(([key, value]) =>
+                          <div key={key} className="text-sm">
                                     <span className="font-medium capitalize">{key}:</span> {value}
                                   </div>
-                                ))}
+                          )}
                               </div>
                               
                               {/* Dates */}
                               <div className="flex flex-wrap gap-4 text-xs text-gray-600 mb-4">
-                                {phase.startDate && (
-                                  <div className="flex items-center gap-1">
+                                {phase.startDate &&
+                          <div className="flex items-center gap-1">
                                     <Calendar className="h-3 w-3" />
                                     Started: {phase.startDate}
                                   </div>
-                                )}
-                                {phase.endDate && (
-                                  <div className="flex items-center gap-1">
+                          }
+                                {phase.endDate &&
+                          <div className="flex items-center gap-1">
                                     <CheckCircle className="h-3 w-3" />
                                     Completed: {phase.endDate}
                                   </div>
-                                )}
+                          }
                               </div>
                               
                               {/* Code references */}
-                              {phase.codeRefs.length > 0 && (
-                                <div>
+                              {phase.codeRefs.length > 0 &&
+                        <div>
                                   <h5 className="font-medium text-sm mb-2">Code References:</h5>
                                   <div className="space-y-1">
-                                    {phase.codeRefs.map((ref, i) => (
-                                      <div key={i} className="flex items-center gap-2 text-xs">
-                                        <Link className="h-3 w-3 text-blue-500" />
+                                    {phase.codeRefs.map((ref, i) =>
+                            <div key={i} className="flex items-center gap-2 text-xs">
+                                        <Link className="h-3 w-3 text-blue-500" data-testid="link-h-3" />
                                         <code className="bg-gray-100 px-2 py-1 rounded">{ref}</code>
                                       </div>
-                                    ))}
+                            )}
                                   </div>
                                 </div>
-                              )}
+                        }
                               
                               {/* Action buttons */}
                               <div className="flex gap-2 mt-4">
-                                <Button variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs" data-testid="button-text-xs">
                                   <Eye className="h-3 w-3 mr-1" />
                                   View Details
                                 </Button>
-                                {phase.status === 'in progress' && (
-                                  <Button variant="outline" size="sm" className="text-xs">
+                                {phase.status === 'in progress' &&
+                          <Button variant="outline" size="sm" className="text-xs" data-testid="button-text-xs">
                                     <Github className="h-3 w-3 mr-1" />
                                     View Code
                                   </Button>
-                                )}
+                          }
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
+                )}
                   </div>
                 </CardContent>
               </Card>
             </div>
-          )}
+        }
 
-          {activeTab === 'reviews' && (
-            <div className="space-y-6">
+          {activeTab === 'reviews' &&
+        <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -539,8 +539,8 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     
                     {/* Review checklist */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                      {reviewAreas.map((review, index) => (
-                        <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      {reviewAreas.map((review, index) =>
+                  <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                           <div className="flex items-center justify-between mb-3">
                             <h5 className="font-medium text-sm">{review.area}</h5>
                             <Badge className={review.status === 'approved' ? 'bg-green-600 text-white' : 'bg-gray-400 text-white'}>
@@ -553,32 +553,32 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             {review.date && <div>Approved: {review.date}</div>}
                           </div>
                           
-                          {review.status === 'pending' && (
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              className="w-full text-xs"
-                              onClick={() => onSignOff(review.area)}
-                            >
+                          {review.status === 'pending' &&
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-xs"
+                      onClick={() => onSignOff(review.area)} data-testid="button-w-full">
+
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Sign Off
                             </Button>
-                          )}
+                    }
                           
-                          {review.status === 'approved' && (
-                            <div className="flex items-center gap-2 text-green-600 text-xs">
+                          {review.status === 'approved' &&
+                    <div className="flex items-center gap-2 text-green-600 text-xs">
                               <CheckCircle className="h-3 w-3" />
                               <span>Signed off by {review.reviewer}</span>
                             </div>
-                          )}
+                    }
                         </div>
-                      ))}
+                  )}
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-          )}
+        }
         </div>
 
         {/* Footer actions */}
@@ -588,10 +588,10 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
               Last updated: {new Date().toLocaleDateString()}
             </div>
             <div className="flex gap-3">
-              <Button variant="outline" onClick={handleClose}>
+              <Button variant="outline" onClick={handleClose} data-testid="button-element">
                 Close
               </Button>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-blue-600 hover:bg-blue-700" data-testid="button-bg-blue-600">
                 <Star className="h-4 w-4 mr-2" />
                 Mark as Favorite
               </Button>
@@ -599,8 +599,8 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
+
 
   // Portal rendering to prevent z-index and rendering conflicts
   return ReactDOM.createPortal(

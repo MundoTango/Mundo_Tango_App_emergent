@@ -7,18 +7,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { toast } from '@/hooks/use-toast';
-import { 
-  BookOpen, 
-  Heart, 
-  MessageCircle, 
-  Share2, 
+import {
+  BookOpen,
+  Heart,
+  MessageCircle,
+  Share2,
   Calendar,
   MapPin,
   Music,
   PenTool,
   Search,
-  TrendingUp
-} from 'lucide-react';
+  TrendingUp } from
+'lucide-react';
 
 interface TangoStory {
   id: number;
@@ -57,7 +57,7 @@ export default function TangoStories() {
       const params = new URLSearchParams();
       if (searchQuery) params.append('search', searchQuery);
       if (selectedTag) params.append('tag', selectedTag);
-      
+
       const response = await fetch(`/api/stories?${params}`, {
         credentials: 'include'
       });
@@ -81,7 +81,7 @@ export default function TangoStories() {
     onSuccess: () => {
       toast({
         title: 'Story Published!',
-        description: 'Your tango story has been shared with the community.',
+        description: 'Your tango story has been shared with the community.'
       });
       setShowCreateModal(false);
       setNewStory({ title: '', content: '', tags: [], location: '' });
@@ -104,15 +104,15 @@ export default function TangoStories() {
   });
 
   const popularTags = [
-    'First Tanda',
-    'Buenos Aires',
-    'Milonga Stories',
-    'Teacher Memories',
-    'Festival Adventures',
-    'Tango Journey',
-    'Dance Partners',
-    'Music Discovery'
-  ];
+  'First Tanda',
+  'Buenos Aires',
+  'Milonga Stories',
+  'Teacher Memories',
+  'Festival Adventures',
+  'Tango Journey',
+  'Dance Partners',
+  'Music Discovery'];
+
 
   const handleCreateStory = () => {
     if (!newStory.title || !newStory.content) {
@@ -146,13 +146,13 @@ export default function TangoStories() {
               placeholder="Search stories..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 glassmorphic-input"
-            />
+              className="pl-10 glassmorphic-input" data-testid="input-text" />
+
           </div>
           <Button
             onClick={() => setShowCreateModal(true)}
-            className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-          >
+            className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-bg-gradient-to-r">
+
             <PenTool className="w-4 h-4 mr-2" />
             Share Your Story
           </Button>
@@ -162,41 +162,41 @@ export default function TangoStories() {
         <div className="mb-8">
           <h3 className="text-lg font-semibold mb-4">Popular Topics</h3>
           <div className="flex flex-wrap gap-2">
-            {popularTags.map(tag => (
-              <Button
-                key={tag}
-                variant={selectedTag === tag ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                className={selectedTag === tag ? "bg-turquoise-600 hover:bg-turquoise-700" : ""}
-              >
+            {popularTags.map((tag) =>
+            <Button
+              key={tag}
+              variant={selectedTag === tag ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+              className={selectedTag === tag ? "bg-turquoise-600 hover:bg-turquoise-700" : ""} data-testid="button-element">
+
                 {tag}
               </Button>
-            ))}
+            )}
           </div>
         </div>
 
         {/* Stories Grid */}
-        {isLoading ? (
-          <div className="flex justify-center py-12">
+        {isLoading ?
+        <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600"></div>
-          </div>
-        ) : stories.length === 0 ? (
-          <Card className="glassmorphic-card p-12 text-center">
+          </div> :
+        stories.length === 0 ?
+        <Card className="glassmorphic-card p-12 text-center">
             <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">No Stories Yet</h3>
             <p className="text-gray-600 mb-4">Be the first to share your tango journey!</p>
             <Button
-              onClick={() => setShowCreateModal(true)}
-              className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-            >
+            onClick={() => setShowCreateModal(true)}
+            className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-bg-gradient-to-r">
+
               Share Your Story
             </Button>
-          </Card>
-        ) : (
-          <div className="grid gap-6">
-            {stories.map((story: TangoStory) => (
-              <Card key={story.id} className="glassmorphic-card overflow-hidden">
+          </Card> :
+
+        <div className="grid gap-6">
+            {stories.map((story: TangoStory) =>
+          <Card key={story.id} className="glassmorphic-card overflow-hidden">
                 <CardHeader className="pb-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -210,7 +210,7 @@ export default function TangoStories() {
                         </p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       <Share2 className="w-4 h-4" />
                     </Button>
                   </div>
@@ -222,51 +222,51 @@ export default function TangoStories() {
                   </p>
                   
                   {/* Story Metadata */}
-                  {(story.location || story.tags.length > 0) && (
-                    <div className="flex flex-wrap items-center gap-2 mb-4">
-                      {story.location && (
-                        <span className="flex items-center gap-1 text-sm text-gray-600">
+                  {(story.location || story.tags.length > 0) &&
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                      {story.location &&
+                <span className="flex items-center gap-1 text-sm text-gray-600">
                           <MapPin className="w-3 h-3" />
                           {story.location}
                         </span>
-                      )}
-                      {story.tags.map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-turquoise-100 text-turquoise-700 text-xs rounded-full">
+                }
+                      {story.tags.map((tag) =>
+                <span key={tag} className="px-2 py-1 bg-turquoise-100 text-turquoise-700 text-xs rounded-full">
                           {tag}
                         </span>
-                      ))}
+                )}
                     </div>
-                  )}
+              }
 
                   {/* Engagement Stats */}
                   <div className="flex items-center gap-4 pt-4 border-t">
                     <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => likeStoryMutation.mutate(story.id)}
-                      className={story.isLiked ? 'text-red-500' : ''}
-                    >
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => likeStoryMutation.mutate(story.id)}
+                  className={story.isLiked ? 'text-red-500' : ''} data-testid="button-element">
+
                       <Heart className={`w-4 h-4 mr-1 ${story.isLiked ? 'fill-current' : ''}`} />
                       {story.likes}
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       <MessageCircle className="w-4 h-4 mr-1" />
                       {story.comments}
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       <Share2 className="w-4 h-4 mr-1" />
                       {story.shares}
                     </Button>
                   </div>
                 </CardContent>
               </Card>
-            ))}
+          )}
           </div>
-        )}
+        }
 
         {/* Create Story Modal */}
-        {showCreateModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        {showCreateModal &&
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <Card className="w-full max-w-2xl glassmorphic-card">
               <CardHeader>
                 <CardTitle>Share Your Tango Story</CardTitle>
@@ -276,71 +276,71 @@ export default function TangoStories() {
                   <div>
                     <label className="block text-sm font-medium mb-2">Title</label>
                     <Input
-                      value={newStory.title}
-                      onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
-                      placeholder="Give your story a title..."
-                      className="glassmorphic-input"
-                    />
+                    value={newStory.title}
+                    onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
+                    placeholder="Give your story a title..."
+                    className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium mb-2">Your Story</label>
                     <Textarea
-                      value={newStory.content}
-                      onChange={(e) => setNewStory({ ...newStory, content: e.target.value })}
-                      placeholder="Share your tango journey, memorable moments, or lessons learned..."
-                      className="glassmorphic-input min-h-[200px]"
-                    />
+                    value={newStory.content}
+                    onChange={(e) => setNewStory({ ...newStory, content: e.target.value })}
+                    placeholder="Share your tango journey, memorable moments, or lessons learned..."
+                    className="glassmorphic-input min-h-[200px]" data-testid="textarea-glassmorphic-input" />
+
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">Location (Optional)</label>
                     <Input
-                      value={newStory.location}
-                      onChange={(e) => setNewStory({ ...newStory, location: e.target.value })}
-                      placeholder="Buenos Aires, Argentina"
-                      className="glassmorphic-input"
-                    />
+                    value={newStory.location}
+                    onChange={(e) => setNewStory({ ...newStory, location: e.target.value })}
+                    placeholder="Buenos Aires, Argentina"
+                    className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">Tags</label>
                     <div className="flex flex-wrap gap-2">
-                      {popularTags.map(tag => (
-                        <Button
-                          key={tag}
-                          type="button"
-                          variant={newStory.tags.includes(tag) ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => {
-                            setNewStory({
-                              ...newStory,
-                              tags: newStory.tags.includes(tag)
-                                ? newStory.tags.filter(t => t !== tag)
-                                : [...newStory.tags, tag]
-                            });
-                          }}
-                          className={newStory.tags.includes(tag) ? "bg-turquoise-600 hover:bg-turquoise-700" : ""}
-                        >
+                      {popularTags.map((tag) =>
+                    <Button
+                      key={tag}
+                      type="button"
+                      variant={newStory.tags.includes(tag) ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => {
+                        setNewStory({
+                          ...newStory,
+                          tags: newStory.tags.includes(tag) ?
+                          newStory.tags.filter((t) => t !== tag) :
+                          [...newStory.tags, tag]
+                        });
+                      }}
+                      className={newStory.tags.includes(tag) ? "bg-turquoise-600 hover:bg-turquoise-700" : ""} data-testid="button-button">
+
                           {tag}
                         </Button>
-                      ))}
+                    )}
                     </div>
                   </div>
 
                   <div className="flex gap-4 pt-4">
                     <Button
-                      onClick={handleCreateStory}
-                      disabled={createStoryMutation.isPending}
-                      className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-                    >
+                    onClick={handleCreateStory}
+                    disabled={createStoryMutation.isPending}
+                    className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-flex-1">
+
                       {createStoryMutation.isPending ? 'Publishing...' : 'Publish Story'}
                     </Button>
                     <Button
-                      onClick={() => setShowCreateModal(false)}
-                      variant="outline"
-                      className="flex-1"
-                    >
+                    onClick={() => setShowCreateModal(false)}
+                    variant="outline"
+                    className="flex-1" data-testid="button-flex-1">
+
                       Cancel
                     </Button>
                   </div>
@@ -348,8 +348,8 @@ export default function TangoStories() {
               </CardContent>
             </Card>
           </div>
-        )}
+        }
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

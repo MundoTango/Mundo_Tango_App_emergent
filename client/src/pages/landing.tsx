@@ -11,7 +11,7 @@ export default function Landing() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return (savedTheme as 'light' | 'dark') || 'light';
+    return savedTheme as 'light' | 'dark' || 'light';
   });
 
   const toggleTheme = () => {
@@ -33,31 +33,31 @@ export default function Landing() {
   if (isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
-        <UnifiedTopBar 
+        <UnifiedTopBar
           onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
           theme={theme}
           onThemeToggle={toggleTheme}
-          showMenuButton={true}
-        />
+          showMenuButton={true} />
+
         
         <div className="flex">
-          <Sidebar 
-            isOpen={isSidebarOpen} 
+          <Sidebar
+            isOpen={isSidebarOpen}
             setIsOpen={setIsSidebarOpen}
-            onClose={handleCloseSidebar}
-          />
+            onClose={handleCloseSidebar} />
+
           
           {/* Overlay for mobile */}
-          {isSidebarOpen && (
-            <div 
-              className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
-              onClick={handleCloseSidebar}
-            />
-          )}
+          {isSidebarOpen &&
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
+            onClick={handleCloseSidebar} />
+
+          }
           
           <main className={`flex-1 transition-all duration-300 ${
-            isSidebarOpen ? 'lg:ml-64' : ''
-          }`}>
+          isSidebarOpen ? 'lg:ml-64' : ''}`
+          }>
             <div className="max-w-7xl mx-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Main Content */}
@@ -150,8 +150,8 @@ export default function Landing() {
             </div>
           </main>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   // Show marketing landing page for non-authenticated users
@@ -166,10 +166,10 @@ export default function Landing() {
             </div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
           </div>
-          <Button 
+          <Button
             onClick={() => window.location.href = '/api/login'}
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
-          >
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl" data-testid="button-bg-gradient-to-r">
+
             Join the Community
           </Button>
         </header>
@@ -187,16 +187,16 @@ export default function Landing() {
             and immerse yourself in the beautiful world of Argentine Tango.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
+            <Button
               onClick={() => window.location.href = '/api/login'}
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
-            >
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl" data-testid="button-bg-gradient-to-r">
+
               Start Your Tango Journey
             </Button>
-            <Button 
-              variant="outline" 
-              className="border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
-            >
+            <Button
+              variant="outline"
+              className="border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200" data-testid="button-border-2">
+
               Learn More
             </Button>
           </div>
@@ -298,10 +298,10 @@ export default function Landing() {
             Whether you're a beginner taking your first steps or a seasoned dancer, 
             Mundo Tango welcomes you with open arms.
           </p>
-          <Button 
+          <Button
             onClick={() => window.location.href = '/api/login'}
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
-          >
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl" data-testid="button-bg-gradient-to-r">
+
             Begin Your Journey Today
           </Button>
         </div>
@@ -311,6 +311,6 @@ export default function Landing() {
           <p>&copy; 2025 Mundo Tango. Connecting hearts through dance.</p>
         </footer>
       </div>
-    </div>
-  );
+    </div>);
+
 }

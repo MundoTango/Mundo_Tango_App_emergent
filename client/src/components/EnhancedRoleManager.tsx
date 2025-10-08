@@ -6,11 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Shield, Users, Settings, Crown, GraduationCap, Music, UserCheck, 
+import {
+  Shield, Users, Settings, Crown, GraduationCap, Music, UserCheck,
   Camera, Palette, MapPin, Heart, ShoppingBag, Hotel, Building,
-  Plane, Star, Mic, MonitorSpeaker
-} from 'lucide-react';
+  Plane, Star, Mic, MonitorSpeaker } from
+'lucide-react';
 
 interface UserWithRoles {
   id: number;
@@ -41,7 +41,7 @@ export default function EnhancedRoleManager() {
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [newPrimaryRole, setNewPrimaryRole] = useState<string>('');
   const [updating, setUpdating] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const [message, setMessage] = useState<{type: 'success' | 'error';text: string;} | null>(null);
 
   const roleIcons: Record<string, any> = {
     // Community roles
@@ -62,7 +62,7 @@ export default function EnhancedRoleManager() {
     wellness_provider: Heart,
     tango_school: Building,
     tango_hotel: Hotel,
-    
+
     // Platform roles
     guest: UserCheck,
     super_admin: Crown,
@@ -91,7 +91,7 @@ export default function EnhancedRoleManager() {
     wellness_provider: 'bg-lime-100 text-lime-800 border-lime-200',
     tango_school: 'bg-slate-100 text-slate-800 border-slate-200',
     tango_hotel: 'bg-stone-100 text-stone-800 border-stone-200',
-    
+
     // Platform roles - administrative colors
     guest: 'bg-gray-100 text-gray-800 border-gray-200',
     super_admin: 'bg-red-100 text-red-800 border-red-200',
@@ -109,10 +109,10 @@ export default function EnhancedRoleManager() {
     try {
       setLoading(true);
       await Promise.all([
-        loadCurrentUser(),
-        loadAllRoles(),
-        loadUsers()
-      ]);
+      loadCurrentUser(),
+      loadAllRoles(),
+      loadUsers()]
+      );
     } finally {
       setLoading(false);
     }
@@ -123,7 +123,7 @@ export default function EnhancedRoleManager() {
       const response = await fetch('/api/roles/enhanced/me', {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         setCurrentUser(result.data);
@@ -138,7 +138,7 @@ export default function EnhancedRoleManager() {
       const response = await fetch('/api/roles/enhanced/all', {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         setAllRoles(result.data.roles || []);
@@ -153,7 +153,7 @@ export default function EnhancedRoleManager() {
       const response = await fetch('/api/roles/users', {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         setUsers(result.data.users || []);
@@ -182,7 +182,7 @@ export default function EnhancedRoleManager() {
       });
 
       const result = await response.json();
-      
+
       if (response.ok) {
         setMessage({ type: 'success', text: `Role ${selectedRole} assigned successfully` });
         setSelectedUser('');
@@ -209,7 +209,7 @@ export default function EnhancedRoleManager() {
       });
 
       const result = await response.json();
-      
+
       if (response.ok) {
         setMessage({ type: 'success', text: `Role ${roleName} removed successfully` });
         loadData();
@@ -242,7 +242,7 @@ export default function EnhancedRoleManager() {
       });
 
       const result = await response.json();
-      
+
       if (response.ok) {
         setMessage({ type: 'success', text: `Primary role updated to ${newPrimaryRole}` });
         setSelectedUser('');
@@ -263,12 +263,12 @@ export default function EnhancedRoleManager() {
       const response = await fetch(`/api/roles/permissions/check?permission=${permission}`, {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
-        setMessage({ 
-          type: result.data.hasPermission ? 'success' : 'error', 
-          text: `Permission '${permission}': ${result.data.hasPermission ? 'Granted' : 'Denied'}` 
+        setMessage({
+          type: result.data.hasPermission ? 'success' : 'error',
+          text: `Permission '${permission}': ${result.data.hasPermission ? 'Granted' : 'Denied'}`
         });
       }
     } catch (error) {
@@ -285,16 +285,16 @@ export default function EnhancedRoleManager() {
     return roleColors[role] || roleColors.guest;
   };
 
-  const communityRoles = allRoles.filter(role => !role.isPlatformRole);
-  const platformRoles = allRoles.filter(role => role.isPlatformRole);
+  const communityRoles = allRoles.filter((role) => !role.isPlatformRole);
+  const platformRoles = allRoles.filter((role) => role.isPlatformRole);
   const isAdmin = currentUser?.roles.includes('admin') || currentUser?.roles.includes('super_admin');
 
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
         <p className="text-gray-500">Loading comprehensive role system...</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -307,13 +307,13 @@ export default function EnhancedRoleManager() {
         </p>
       </div>
 
-      {message && (
-        <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'}>
+      {message &&
+      <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'}>
           <AlertDescription className={message.type === 'success' ? 'text-green-800' : 'text-red-800'}>
             {message.text}
           </AlertDescription>
         </Alert>
-      )}
+      }
 
       <Tabs defaultValue="current" className="space-y-6">
         <TabsList className="grid w-full grid-cols-4">
@@ -335,8 +335,8 @@ export default function EnhancedRoleManager() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {currentUser ? (
-                <div className="space-y-4">
+              {currentUser ?
+              <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     {getRoleIcon(currentUser.primaryRole)}
                     <span className="font-medium">Primary Role:</span>
@@ -348,51 +348,51 @@ export default function EnhancedRoleManager() {
                   <div>
                     <h4 className="font-medium mb-2">All Roles ({currentUser.roles.length}):</h4>
                     <div className="flex flex-wrap gap-2">
-                      {currentUser.roles.map(role => (
-                        <Badge key={role} className={getRoleColor(role)}>
+                      {currentUser.roles.map((role) =>
+                    <Badge key={role} className={getRoleColor(role)}>
                           <div className="flex items-center gap-1">
                             {getRoleIcon(role)}
                             <span>{role.replace(/_/g, ' ')}</span>
                           </div>
                         </Badge>
-                      ))}
+                    )}
                     </div>
                   </div>
                   
                   <div>
                     <h4 className="font-medium mb-2">Active Permissions:</h4>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm max-h-48 overflow-y-auto">
-                      {Object.entries(currentUser.permissions)
-                        .filter(([_, has]) => has)
-                        .map(([perm]) => (
-                        <div key={perm} className="p-2 rounded border bg-green-50 border-green-200">
+                      {Object.entries(currentUser.permissions).
+                    filter(([_, has]) => has).
+                    map(([perm]) =>
+                    <div key={perm} className="p-2 rounded border bg-green-50 border-green-200">
                           <span className="text-green-800">
                             {perm.replace(/_/g, ' ')}
                           </span>
                         </div>
-                      ))}
+                    )}
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <h4 className="font-medium">Test Key Permissions:</h4>
                     <div className="flex gap-2 flex-wrap">
-                      {['create_events', 'moderate_content', 'manage_users', 'upload_media', 'create_posts'].map(perm => (
-                        <Button
-                          key={perm}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => checkPermission(perm)}
-                        >
+                      {['create_events', 'moderate_content', 'manage_users', 'upload_media', 'create_posts'].map((perm) =>
+                    <Button
+                      key={perm}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => checkPermission(perm)} data-testid="button-element">
+
                           Test {perm.replace(/_/g, ' ')}
                         </Button>
-                      ))}
+                    )}
                     </div>
                   </div>
-                </div>
-              ) : (
-                <p className="text-gray-500">Loading user profile...</p>
-              )}
+                </div> :
+
+              <p className="text-gray-500">Loading user profile...</p>
+              }
             </CardContent>
           </Card>
         </TabsContent>
@@ -411,8 +411,8 @@ export default function EnhancedRoleManager() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 max-h-96 overflow-y-auto">
-                  {communityRoles.map(role => (
-                    <div key={role.name} className="p-3 border rounded-lg">
+                  {communityRoles.map((role) =>
+                  <div key={role.name} className="p-3 border rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
                         {getRoleIcon(role.name)}
                         <Badge className={getRoleColor(role.name)}>
@@ -424,7 +424,7 @@ export default function EnhancedRoleManager() {
                         {Object.keys(role.permissions).length} permissions
                       </p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -441,8 +441,8 @@ export default function EnhancedRoleManager() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {platformRoles.map(role => (
-                    <div key={role.name} className="p-3 border rounded-lg">
+                  {platformRoles.map((role) =>
+                  <div key={role.name} className="p-3 border rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
                         {getRoleIcon(role.name)}
                         <Badge className={getRoleColor(role.name)}>
@@ -454,7 +454,7 @@ export default function EnhancedRoleManager() {
                         {Object.keys(role.permissions).length} permissions
                       </p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -462,8 +462,8 @@ export default function EnhancedRoleManager() {
         </TabsContent>
 
         <TabsContent value="users" className="space-y-6">
-          {isAdmin ? (
-            <>
+          {isAdmin ?
+          <>
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -478,13 +478,13 @@ export default function EnhancedRoleManager() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="text-sm font-medium">Select User</label>
-                      <Select value={selectedUser} onValueChange={setSelectedUser}>
+                      <Select value={selectedUser} onValueChange={setSelectedUser} data-testid="select-element">
                         <SelectTrigger>
                           <SelectValue placeholder="Choose a user" />
                         </SelectTrigger>
                         <SelectContent>
-                          {users.map(user => (
-                            <SelectItem key={user.id} value={user.id.toString()}>
+                          {users.map((user) =>
+                        <SelectItem key={user.id} value={user.id.toString()}>
                               <div className="flex items-center gap-2">
                                 <span>{user.name} (@{user.username})</span>
                                 <Badge className={`${getRoleColor(user.primaryRole)} text-xs`}>
@@ -492,37 +492,37 @@ export default function EnhancedRoleManager() {
                                 </Badge>
                               </div>
                             </SelectItem>
-                          ))}
+                        )}
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
                       <label className="text-sm font-medium">Role to Assign</label>
-                      <Select value={selectedRole} onValueChange={setSelectedRole}>
+                      <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
                         <SelectTrigger>
                           <SelectValue placeholder="Choose a role" />
                         </SelectTrigger>
                         <SelectContent>
-                          {allRoles.map(role => (
-                            <SelectItem key={role.name} value={role.name}>
+                          {allRoles.map((role) =>
+                        <SelectItem key={role.name} value={role.name}>
                               <div className="flex items-center gap-2">
                                 {getRoleIcon(role.name)}
                                 <span>{role.name.replace(/_/g, ' ')}</span>
                                 {role.isPlatformRole && <Crown className="h-3 w-3" />}
                               </div>
                             </SelectItem>
-                          ))}
+                        )}
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="flex items-end">
-                      <Button 
-                        onClick={assignRole} 
-                        disabled={updating || !selectedUser || !selectedRole}
-                        className="w-full"
-                      >
+                      <Button
+                      onClick={assignRole}
+                      disabled={updating || !selectedUser || !selectedRole}
+                      className="w-full" data-testid="button-w-full">
+
                         {updating ? 'Assigning...' : 'Assign Role'}
                       </Button>
                     </div>
@@ -539,18 +539,18 @@ export default function EnhancedRoleManager() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4 max-h-96 overflow-y-auto">
-                    {users.map(user => (
-                      <div key={user.id} className="p-4 border rounded-lg">
+                    {users.map((user) =>
+                  <div key={user.id} className="p-4 border rounded-lg">
                         <div className="flex items-start justify-between">
                           <div className="space-y-2">
                             <div className="flex items-center gap-2">
                               <span className="font-medium">{user.name}</span>
                               <span className="text-sm text-gray-600">@{user.username}</span>
-                              {!user.isActive && (
-                                <Badge variant="outline" className="text-red-600 border-red-200">
+                              {!user.isActive &&
+                          <Badge variant="outline" className="text-red-600 border-red-200">
                                   Inactive
                                 </Badge>
-                              )}
+                          }
                             </div>
                             <div>
                               <span className="text-sm text-gray-600">Primary: </span>
@@ -559,36 +559,36 @@ export default function EnhancedRoleManager() {
                               </Badge>
                             </div>
                             <div className="flex flex-wrap gap-1">
-                              {user.roles.map(role => (
-                                <div key={role} className="flex items-center gap-1">
+                              {user.roles.map((role) =>
+                          <div key={role} className="flex items-center gap-1">
                                   <Badge variant="outline" className={`text-xs ${getRoleColor(role)}`}>
                                     <div className="flex items-center gap-1">
                                       {getRoleIcon(role)}
                                       <span>{role.replace(/_/g, ' ')}</span>
-                                      {role !== 'guest' && (
-                                        <button
-                                          onClick={() => removeRole(user.id, role)}
-                                          className="ml-1 text-red-500 hover:text-red-700"
-                                          title="Remove role"
-                                        >
+                                      {role !== 'guest' &&
+                                <button
+                                  onClick={() => removeRole(user.id, role)}
+                                  className="ml-1 text-red-500 hover:text-red-700"
+                                  title="Remove role" data-testid="button-ml-1">
+
                                           ×
                                         </button>
-                                      )}
+                                }
                                     </div>
                                   </Badge>
                                 </div>
-                              ))}
+                          )}
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
+                  )}
                   </div>
                 </CardContent>
               </Card>
-            </>
-          ) : (
-            <Card>
+            </> :
+
+          <Card>
               <CardContent className="p-8 text-center">
                 <Crown className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                 <h3 className="text-lg font-medium mb-2">Admin Access Required</h3>
@@ -597,7 +597,7 @@ export default function EnhancedRoleManager() {
                 </p>
               </CardContent>
             </Card>
-          )}
+          }
         </TabsContent>
 
         <TabsContent value="permissions" className="space-y-6">
@@ -611,18 +611,18 @@ export default function EnhancedRoleManager() {
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {[
-                  'create_posts', 'create_events', 'moderate_content', 'manage_users',
-                  'upload_media', 'create_memories', 'manage_playlists', 'sell_products',
-                  'organize_tours', 'offer_wellness_services', 'create_educational_content',
-                  'manage_accommodations', 'curate_memories', 'handle_reports'
-                ].map(permission => (
-                  <Button
-                    key={permission}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => checkPermission(permission)}
-                    className="justify-start text-left h-auto p-3"
-                  >
+                'create_posts', 'create_events', 'moderate_content', 'manage_users',
+                'upload_media', 'create_memories', 'manage_playlists', 'sell_products',
+                'organize_tours', 'offer_wellness_services', 'create_educational_content',
+                'manage_accommodations', 'curate_memories', 'handle_reports'].
+                map((permission) =>
+                <Button
+                  key={permission}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => checkPermission(permission)}
+                  className="justify-start text-left h-auto p-3" data-testid="button-justify-start">
+
                     <div>
                       <div className="font-medium text-xs">
                         {permission.replace(/_/g, ' ')}
@@ -632,7 +632,7 @@ export default function EnhancedRoleManager() {
                       </div>
                     </div>
                   </Button>
-                ))}
+                )}
               </div>
             </CardContent>
           </Card>
@@ -645,6 +645,6 @@ export default function EnhancedRoleManager() {
           multi-role users, role-based routing, and comprehensive permission management.
         </p>
       </div>
-    </div>
-  );
+    </div>);
+
 }

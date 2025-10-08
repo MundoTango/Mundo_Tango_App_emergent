@@ -43,12 +43,12 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
     if (!acc[userId]) {
       acc[userId] = {
         user: story.user,
-        stories: [],
+        stories: []
       };
     }
     acc[userId].stories.push(story);
     return acc;
-  }, {} as Record<number, { user: any; stories: Story[] }>);
+  }, {} as Record<number, {user: any;stories: Story[];}>);
 
   const userGroups = Object.values(groupedStories);
 
@@ -58,12 +58,12 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
       const response = await fetch(`/api/stories/${storyId}/view`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${getAuthToken()}`,
-        },
+          'Authorization': `Bearer ${getAuthToken()}`
+        }
       });
       if (!response.ok) throw new Error('Failed to record story view');
       return response.json();
-    },
+    }
   });
 
   // Create story mutation
@@ -72,9 +72,9 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
       const response = await fetch('/api/stories', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${getAuthToken()}`,
+          'Authorization': `Bearer ${getAuthToken()}`
         },
-        body: formData,
+        body: formData
       });
       if (!response.ok) throw new Error('Failed to create story');
       return response.json();
@@ -84,16 +84,16 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
       setIsAddingStory(false);
       toast({
         title: "Story uploaded!",
-        description: "Your story has been shared with your followers.",
+        description: "Your story has been shared with your followers."
       });
     },
     onError: (error: any) => {
       toast({
         title: "Error",
         description: error.message || "Failed to upload story",
-        variant: "destructive",
+        variant: "destructive"
       });
-    },
+    }
   });
 
   const handleStoryClick = (groupIndex: number) => {
@@ -113,7 +113,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
 
   const navigateStory = (direction: 'prev' | 'next') => {
     if (selectedStoryIndex === null) return;
-    
+
     if (direction === 'prev' && selectedStoryIndex > 0) {
       setSelectedStoryIndex(selectedStoryIndex - 1);
     } else if (direction === 'next' && selectedStoryIndex < userGroups.length - 1) {
@@ -125,7 +125,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
     const now = new Date();
     const storyDate = new Date(dateString);
     const diffInHours = Math.floor((now.getTime() - storyDate.getTime()) / (1000 * 60 * 60));
-    
+
     if (diffInHours < 1) return 'now';
     if (diffInHours < 24) return `${diffInHours}h`;
     return `${Math.floor(diffInHours / 24)}d`;
@@ -148,8 +148,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   type="file"
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
-                  className="hidden"
-                />
+                  className="hidden" data-testid="input-file" />
+
               </label>
             </div>
             <div className="flex-1 flex items-center justify-center">
@@ -157,8 +157,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
             </div>
           </div>
         </CardContent>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
@@ -178,18 +178,18 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   type="file"
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
-                  className="hidden"
-                />
+                  className="hidden" data-testid="input-file" />
+
               </label>
             </div>
 
             {/* Story Thumbnails */}
-            {userGroups.map((group, index) => (
-              <div
-                key={group.user.id}
-                className="flex flex-col items-center flex-shrink-0 cursor-pointer"
-                onClick={() => handleStoryClick(index)}
-              >
+            {userGroups.map((group, index) =>
+            <div
+              key={group.user.id}
+              className="flex flex-col items-center flex-shrink-0 cursor-pointer"
+              onClick={() => handleStoryClick(index)}>
+
                 <div className="story-ring">
                   <Avatar className="w-14 h-14">
                     <AvatarImage src={group.user.profileImage} alt={group.user.name} />
@@ -200,7 +200,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   {group.user.username}
                 </span>
               </div>
-            ))}
+            )}
           </div>
         </CardContent>
       </Card>
@@ -208,8 +208,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
       {/* Story Modal */}
       <Dialog open={selectedStoryIndex !== null} onOpenChange={() => setSelectedStoryIndex(null)}>
         <DialogContent className="max-w-sm w-full h-[80vh] p-0 bg-black">
-          {selectedStoryIndex !== null && (
-            <div className="relative h-full flex flex-col">
+          {selectedStoryIndex !== null &&
+          <div className="relative h-full flex flex-col">
               {/* Header */}
               <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/50 to-transparent">
                 <div className="flex items-center justify-between">
@@ -228,79 +228,79 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                     </div>
                   </div>
                   <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setSelectedStoryIndex(null)}
-                    className="text-white hover:bg-white/10"
-                  >
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectedStoryIndex(null)}
+                  className="text-white hover:bg-white/10" data-testid="button-text-white">
+
                     <X className="h-5 w-5" />
                   </Button>
                 </div>
 
                 {/* Progress Indicators */}
                 <div className="flex space-x-1 mt-4">
-                  {userGroups[selectedStoryIndex].stories.map((_, storyIndex) => (
-                    <div key={storyIndex} className="flex-1 h-0.5 bg-white/30 rounded">
+                  {userGroups[selectedStoryIndex].stories.map((_, storyIndex) =>
+                <div key={storyIndex} className="flex-1 h-0.5 bg-white/30 rounded">
                       <div className="h-full bg-white rounded" style={{ width: storyIndex === 0 ? '100%' : '0%' }}></div>
                     </div>
-                  ))}
+                )}
                 </div>
               </div>
 
               {/* Story Content */}
               <div className="flex-1 relative">
-                {userGroups[selectedStoryIndex].stories[0].mediaType === 'image' ? (
-                  <img
-                    src={userGroups[selectedStoryIndex].stories[0].mediaUrl}
-                    alt="Story"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <video
-                    src={userGroups[selectedStoryIndex].stories[0].mediaUrl}
-                    autoPlay
-                    loop
-                    muted
-                    className="w-full h-full object-cover"
-                  />
-                )}
+                {userGroups[selectedStoryIndex].stories[0].mediaType === 'image' ?
+              <img
+                src={userGroups[selectedStoryIndex].stories[0].mediaUrl}
+                alt="Story"
+                className="w-full h-full object-cover" /> :
+
+
+              <video
+                src={userGroups[selectedStoryIndex].stories[0].mediaUrl}
+                autoPlay
+                loop
+                muted
+                className="w-full h-full object-cover" />
+
+              }
 
                 {/* Navigation */}
-                {selectedStoryIndex > 0 && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => navigateStory('prev')}
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10"
-                  >
+                {selectedStoryIndex > 0 &&
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigateStory('prev')}
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10" data-testid="button-absolute">
+
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
-                )}
+              }
                 
-                {selectedStoryIndex < userGroups.length - 1 && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => navigateStory('next')}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10"
-                  >
+                {selectedStoryIndex < userGroups.length - 1 &&
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigateStory('next')}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10" data-testid="button-absolute">
+
                     <ChevronRight className="h-6 w-6" />
                   </Button>
-                )}
+              }
               </div>
 
               {/* Caption */}
-              {userGroups[selectedStoryIndex].stories[0].caption && (
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
+              {userGroups[selectedStoryIndex].stories[0].caption &&
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
                   <p className="text-white text-sm">
                     {userGroups[selectedStoryIndex].stories[0].caption}
                   </p>
                 </div>
-              )}
+            }
             </div>
-          )}
+          }
         </DialogContent>
       </Dialog>
-    </>
-  );
+    </>);
+
 }

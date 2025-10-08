@@ -27,15 +27,15 @@ interface EventRoleInvitationWorkflowProps {
 }
 
 const EVENT_ROLES = [
-  { value: 'dj', label: 'DJ', description: 'Music curator and playlist manager' },
-  { value: 'teacher', label: 'Teacher', description: 'Tango instructor and lesson leader' },
-  { value: 'musician', label: 'Musician', description: 'Live music performer' },
-  { value: 'performer', label: 'Performer', description: 'Dance performance artist' },
-  { value: 'host', label: 'Host', description: 'Event host and MC' },
-  { value: 'volunteer', label: 'Volunteer', description: 'Event support and assistance' },
-  { value: 'photographer', label: 'Photographer', description: 'Event photography' },
-  { value: 'organizer', label: 'Co-Organizer', description: 'Event planning and coordination' },
-];
+{ value: 'dj', label: 'DJ', description: 'Music curator and playlist manager' },
+{ value: 'teacher', label: 'Teacher', description: 'Tango instructor and lesson leader' },
+{ value: 'musician', label: 'Musician', description: 'Live music performer' },
+{ value: 'performer', label: 'Performer', description: 'Dance performance artist' },
+{ value: 'host', label: 'Host', description: 'Event host and MC' },
+{ value: 'volunteer', label: 'Volunteer', description: 'Event support and assistance' },
+{ value: 'photographer', label: 'Photographer', description: 'Event photography' },
+{ value: 'organizer', label: 'Co-Organizer', description: 'Event planning and coordination' }];
+
 
 export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRoleInvitationWorkflowProps) {
   const [userIdentifier, setUserIdentifier] = useState('');
@@ -50,16 +50,16 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
       if (!response.ok) throw new Error('Failed to fetch participants');
       const result = await response.json();
       return result.data || [];
-    },
+    }
   });
 
   // Invite participant mutation
   const inviteParticipantMutation = useMutation({
-    mutationFn: async ({ userId, role }: { userId: number; role: string }) => {
+    mutationFn: async ({ userId, role }: {userId: number;role: string;}) => {
       const response = await fetch(`/api/events/${eventId}/participants`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, role }),
+        body: JSON.stringify({ userId, role })
       });
       if (!response.ok) {
         const error = await response.json();
@@ -74,21 +74,21 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
       setSelectedRole('');
     },
     onError: (error: Error) => {
-      toast({ 
-        title: 'Failed to send invitation', 
+      toast({
+        title: 'Failed to send invitation',
         description: error.message,
         variant: 'destructive'
       });
-    },
+    }
   });
 
   // Update participant status mutation
   const updateStatusMutation = useMutation({
-    mutationFn: async ({ participantId, status }: { participantId: number; status: string }) => {
+    mutationFn: async ({ participantId, status }: {participantId: number;status: string;}) => {
       const response = await fetch(`/api/event-participants/${participantId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status })
       });
       if (!response.ok) throw new Error('Failed to update status');
       return response.json();
@@ -96,13 +96,13 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/events', eventId, 'participants'] });
       toast({ title: 'Invitation status updated' });
-    },
+    }
   });
 
   const handleInviteParticipant = () => {
     if (!userIdentifier.trim() || !selectedRole) {
-      toast({ 
-        title: 'Missing information', 
+      toast({
+        title: 'Missing information',
         description: 'Please enter user ID/email and select a role',
         variant: 'destructive'
       });
@@ -113,8 +113,8 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
     // In production, you'd implement user lookup by email
     const userId = parseInt(userIdentifier);
     if (isNaN(userId)) {
-      toast({ 
-        title: 'Invalid user ID', 
+      toast({
+        title: 'Invalid user ID',
         description: 'Please enter a valid numeric user ID',
         variant: 'destructive'
       });
@@ -130,19 +130,19 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'accepted': return <Check className="w-4 h-4 text-green-600" />;
-      case 'declined': return <X className="w-4 h-4 text-red-600" />;
-      case 'pending': return <Clock className="w-4 h-4 text-orange-600" />;
-      default: return <AlertCircle className="w-4 h-4 text-gray-400" />;
+      case 'accepted':return <Check className="w-4 h-4 text-green-600" />;
+      case 'declined':return <X className="w-4 h-4 text-red-600" />;
+      case 'pending':return <Clock className="w-4 h-4 text-orange-600" />;
+      default:return <AlertCircle className="w-4 h-4 text-gray-400" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'accepted': return 'bg-green-100 text-green-800 border-green-200';
-      case 'declined': return 'bg-red-100 text-red-800 border-red-200';
-      case 'pending': return 'bg-orange-100 text-orange-800 border-orange-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'accepted':return 'bg-green-100 text-green-800 border-green-200';
+      case 'declined':return 'bg-red-100 text-red-800 border-red-200';
+      case 'pending':return 'bg-orange-100 text-orange-800 border-orange-200';
+      default:return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
@@ -156,8 +156,8 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
   return (
     <div className="space-y-6">
       {/* Role Invitation Form (Only for Event Creators) */}
-      {isEventCreator && (
-        <Card>
+      {isEventCreator &&
+      <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserPlus className="w-5 h-5" />
@@ -169,45 +169,45 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
               <div>
                 <label className="text-sm font-medium mb-2 block">User ID or Email</label>
                 <Input
-                  placeholder="Enter user ID or email..."
-                  value={userIdentifier}
-                  onChange={(e) => setUserIdentifier(e.target.value)}
-                />
+                placeholder="Enter user ID or email..."
+                value={userIdentifier}
+                onChange={(e) => setUserIdentifier(e.target.value)} data-testid="input-element" />
+
               </div>
               
               <div>
                 <label className="text-sm font-medium mb-2 block">Role</label>
-                <Select value={selectedRole} onValueChange={setSelectedRole}>
+                <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
                   <SelectTrigger>
                     <SelectValue placeholder="Select role..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {EVENT_ROLES.map((role) => (
-                      <SelectItem key={role.value} value={role.value}>
+                    {EVENT_ROLES.map((role) =>
+                  <SelectItem key={role.value} value={role.value}>
                         <div>
                           <div className="font-medium">{role.label}</div>
                           <div className="text-xs text-muted-foreground">{role.description}</div>
                         </div>
                       </SelectItem>
-                    ))}
+                  )}
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="flex items-end">
                 <Button
-                  onClick={handleInviteParticipant}
-                  disabled={!userIdentifier.trim() || !selectedRole || inviteParticipantMutation.isPending}
-                  className="w-full"
-                >
-                  {inviteParticipantMutation.isPending ? (
-                    <>Sending...</>
-                  ) : (
-                    <>
+                onClick={handleInviteParticipant}
+                disabled={!userIdentifier.trim() || !selectedRole || inviteParticipantMutation.isPending}
+                className="w-full" data-testid="button-w-full">
+
+                  {inviteParticipantMutation.isPending ?
+                <>Sending...</> :
+
+                <>
                       <Mail className="w-4 h-4 mr-2" />
                       Send Invitation
                     </>
-                  )}
+                }
                 </Button>
               </div>
             </div>
@@ -217,36 +217,36 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
             </div>
           </CardContent>
         </Card>
-      )}
+      }
 
       {/* Current Participants by Role */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Event Team</h3>
         
-        {isLoading ? (
-          <div className="space-y-4">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="animate-pulse">
+        {isLoading ?
+        <div className="space-y-4">
+            {Array.from({ length: 3 }).map((_, i) =>
+          <Card key={i} className="animate-pulse">
                 <CardContent className="p-4">
                   <div className="h-4 bg-muted rounded mb-2" />
                   <div className="h-3 bg-muted rounded w-2/3" />
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        ) : Object.keys(participantsByRole).length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(participantsByRole).map(([role, roleParticipants]) => (
-              <Card key={role}>
+          )}
+          </div> :
+        Object.keys(participantsByRole).length > 0 ?
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Object.entries(participantsByRole).map(([role, roleParticipants]) =>
+          <Card key={role}>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base capitalize flex items-center justify-between">
-                    {EVENT_ROLES.find(r => r.value === role)?.label || role}
+                    {EVENT_ROLES.find((r) => r.value === role)?.label || role}
                     <Badge variant="outline">{(roleParticipants as any[]).length}</Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {(roleParticipants as any[]).map((participant: any) => (
-                    <div key={participant.id} className="flex items-center justify-between p-3 rounded-lg border">
+                  {(roleParticipants as any[]).map((participant: any) =>
+              <div key={participant.id} className="flex items-center justify-between p-3 rounded-lg border">
                       <div className="flex-1">
                         <div className="font-medium">
                           User {participant.userId}
@@ -258,50 +258,50 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <Badge 
-                          variant="outline" 
-                          className={`flex items-center gap-1 ${getStatusColor(participant.status)}`}
-                        >
+                        <Badge
+                    variant="outline"
+                    className={`flex items-center gap-1 ${getStatusColor(participant.status)}`}>
+
                           {getStatusIcon(participant.status)}
                           {participant.status}
                         </Badge>
                         
                         {/* Allow participants to accept/decline their own invitations */}
-                        {participant.status === 'pending' && (
-                          <div className="flex gap-1">
+                        {participant.status === 'pending' &&
+                  <div className="flex gap-1">
                             <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleStatusUpdate(participant.id, 'accepted')}
-                              disabled={updateStatusMutation.isPending}
-                            >
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleStatusUpdate(participant.id, 'accepted')}
+                      disabled={updateStatusMutation.isPending} data-testid="button-element">
+
                               <Check className="w-3 h-3" />
                             </Button>
                             <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleStatusUpdate(participant.id, 'declined')}
-                              disabled={updateStatusMutation.isPending}
-                            >
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleStatusUpdate(participant.id, 'declined')}
+                      disabled={updateStatusMutation.isPending} data-testid="button-element">
+
                               <X className="w-3 h-3" />
                             </Button>
                           </div>
-                        )}
+                  }
                       </div>
                     </div>
-                  ))}
+              )}
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        ) : (
-          <Card>
+          )}
+          </div> :
+
+        <Card>
             <CardContent className="p-8 text-center text-muted-foreground">
               No team members assigned yet.
               {isEventCreator && " Use the form above to invite participants with specific roles."}
             </CardContent>
           </Card>
-        )}
+        }
       </div>
 
       {/* Role Information */}
@@ -311,15 +311,15 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {EVENT_ROLES.map((role) => (
-              <div key={role.value} className="p-3 rounded-lg border">
+            {EVENT_ROLES.map((role) =>
+            <div key={role.value} className="p-3 rounded-lg border">
                 <div className="font-medium">{role.label}</div>
                 <div className="text-sm text-muted-foreground">{role.description}</div>
               </div>
-            ))}
+            )}
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

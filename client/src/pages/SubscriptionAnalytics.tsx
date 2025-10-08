@@ -21,8 +21,8 @@ import {
   Legend,
   ResponsiveContainer,
   RadialBarChart,
-  RadialBar
-} from 'recharts';
+  RadialBar } from
+'recharts';
 import {
   TrendingUp,
   TrendingDown,
@@ -35,8 +35,8 @@ import {
   Zap,
   Target,
   Award,
-  AlertCircle
-} from 'lucide-react';
+  AlertCircle } from
+'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
@@ -63,7 +63,7 @@ interface MetricCardProps {
 
 const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, prefix = '' }) => {
   const isPositive = change > 0;
-  
+
   return (
     <Card className="glassmorphic-card">
       <CardContent className="p-6">
@@ -74,11 +74,11 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
               {prefix}{value}
             </h3>
             <div className="flex items-center gap-1 mt-2">
-              {isPositive ? (
-                <TrendingUp className="w-4 h-4 text-green-500" />
-              ) : (
-                <TrendingDown className="w-4 h-4 text-red-500" />
-              )}
+              {isPositive ?
+              <TrendingUp className="w-4 h-4 text-green-500" /> :
+
+              <TrendingDown className="w-4 h-4 text-red-500" />
+              }
               <span className={`text-sm font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
                 {isPositive ? '+' : ''}{change}%
               </span>
@@ -90,21 +90,21 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 };
 
 const SubscriptionAnalytics: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
   const [timeRange, setTimeRange] = useState('30d');
-  
+
   // Fetch analytics data
   const { data: analytics, isLoading } = useQuery({
     queryKey: ['/api/payments/analytics', timeRange],
     queryFn: async () => {
       return apiRequest(`/api/payments/analytics?range=${timeRange}`, { method: 'GET' });
     },
-    enabled: isAuthenticated,
+    enabled: isAuthenticated
   });
 
   if (!isAuthenticated) {
@@ -128,25 +128,25 @@ const SubscriptionAnalytics: React.FC = () => {
       subscribers: 400 + Math.floor(Math.random() * 100) + i * 2
     })),
     tierDistribution: [
-      { name: 'Basic', value: 245, percentage: 53.7 },
-      { name: 'Enthusiast', value: 128, percentage: 28.1 },
-      { name: 'Professional', value: 65, percentage: 14.3 },
-      { name: 'Enterprise', value: 18, percentage: 3.9 }
-    ],
+    { name: 'Basic', value: 245, percentage: 53.7 },
+    { name: 'Enthusiast', value: 128, percentage: 28.1 },
+    { name: 'Professional', value: 65, percentage: 14.3 },
+    { name: 'Enterprise', value: 18, percentage: 3.9 }],
+
     churnAnalysis: [
-      { month: 'Jan', rate: 4.2, rescued: 12 },
-      { month: 'Feb', rate: 3.8, rescued: 15 },
-      { month: 'Mar', rate: 3.5, rescued: 18 },
-      { month: 'Apr', rate: 3.2, rescued: 22 },
-      { month: 'May', rate: 3.0, rescued: 25 },
-      { month: 'Jun', rate: 3.2, rescued: 20 }
-    ],
+    { month: 'Jan', rate: 4.2, rescued: 12 },
+    { month: 'Feb', rate: 3.8, rescued: 15 },
+    { month: 'Mar', rate: 3.5, rescued: 18 },
+    { month: 'Apr', rate: 3.2, rescued: 22 },
+    { month: 'May', rate: 3.0, rescued: 25 },
+    { month: 'Jun', rate: 3.2, rescued: 20 }],
+
     growthMetrics: [
-      { metric: 'Trial to Paid', value: 68, target: 70 },
-      { metric: 'Upgrade Rate', value: 22, target: 25 },
-      { metric: 'Retention', value: 92, target: 90 },
-      { metric: 'Referral Rate', value: 15, target: 20 }
-    ]
+    { metric: 'Trial to Paid', value: 68, target: 70 },
+    { metric: 'Upgrade Rate', value: 22, target: 25 },
+    { metric: 'Retention', value: 92, target: 90 },
+    { metric: 'Referral Rate', value: 15, target: 20 }]
+
   };
 
   const data = analytics || demoData;
@@ -160,7 +160,7 @@ const SubscriptionAnalytics: React.FC = () => {
             <p className="text-gray-600">Monitor your subscription performance and growth metrics</p>
           </div>
           <div className="flex items-center gap-4">
-            <Select value={timeRange} onValueChange={setTimeRange}>
+            <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select time range" />
               </SelectTrigger>
@@ -171,7 +171,7 @@ const SubscriptionAnalytics: React.FC = () => {
                 <SelectItem value="1y">Last year</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline">
+            <Button variant="outline" data-testid="button-element">
               <Download className="mr-2 h-4 w-4" />
               Export Report
             </Button>
@@ -185,27 +185,27 @@ const SubscriptionAnalytics: React.FC = () => {
             value={data.metrics.mrr.value.toLocaleString()}
             change={data.metrics.mrr.change}
             icon={<DollarSign className="w-6 h-6 text-turquoise-600" />}
-            prefix="$"
-          />
+            prefix="$" />
+
           <MetricCard
             title="Total Subscribers"
             value={data.metrics.totalSubscribers.value.toString()}
             change={data.metrics.totalSubscribers.change}
-            icon={<Users className="w-6 h-6 text-cyan-600" />}
-          />
+            icon={<Users className="w-6 h-6 text-cyan-600" />} />
+
           <MetricCard
             title="Churn Rate"
             value={`${data.metrics.churnRate.value}%`}
             change={data.metrics.churnRate.change}
-            icon={<Activity className="w-6 h-6 text-orange-600" />}
-          />
+            icon={<Activity className="w-6 h-6 text-orange-600" />} />
+
           <MetricCard
             title="Average Revenue per User"
             value={data.metrics.averageRevenue.value.toFixed(2)}
             change={data.metrics.averageRevenue.change}
             icon={<CreditCard className="w-6 h-6 text-green-600" />}
-            prefix="$"
-          />
+            prefix="$" />
+
         </div>
 
         {/* Charts */}
@@ -229,12 +229,12 @@ const SubscriptionAnalytics: React.FC = () => {
                   <AreaChart data={data.revenueChart}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={CHART_COLORS.primary} stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor={CHART_COLORS.primary} stopOpacity={0.1}/>
+                        <stop offset="5%" stopColor={CHART_COLORS.primary} stopOpacity={0.8} />
+                        <stop offset="95%" stopColor={CHART_COLORS.primary} stopOpacity={0.1} />
                       </linearGradient>
                       <linearGradient id="colorSubscribers" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={CHART_COLORS.secondary} stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor={CHART_COLORS.secondary} stopOpacity={0.1}/>
+                        <stop offset="5%" stopColor={CHART_COLORS.secondary} stopOpacity={0.8} />
+                        <stop offset="95%" stopColor={CHART_COLORS.secondary} stopOpacity={0.1} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -250,8 +250,8 @@ const SubscriptionAnalytics: React.FC = () => {
                       stroke={CHART_COLORS.primary}
                       fillOpacity={1}
                       fill="url(#colorRevenue)"
-                      name="Revenue ($)"
-                    />
+                      name="Revenue ($)" />
+
                     <Area
                       yAxisId="right"
                       type="monotone"
@@ -259,8 +259,8 @@ const SubscriptionAnalytics: React.FC = () => {
                       stroke={CHART_COLORS.secondary}
                       fillOpacity={1}
                       fill="url(#colorSubscribers)"
-                      name="Subscribers"
-                    />
+                      name="Subscribers" />
+
                   </AreaChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -283,11 +283,11 @@ const SubscriptionAnalytics: React.FC = () => {
                         label={({ name, percentage }) => `${name} ${percentage}%`}
                         outerRadius={80}
                         fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {data.tierDistribution.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
+                        dataKey="value">
+
+                        {data.tierDistribution.map((entry, index) =>
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        )}
                       </Pie>
                       <Tooltip />
                     </PieChart>
@@ -377,16 +377,16 @@ const SubscriptionAnalytics: React.FC = () => {
                       dataKey="rate"
                       stroke={CHART_COLORS.danger}
                       name="Churn Rate (%)"
-                      strokeWidth={2}
-                    />
+                      strokeWidth={2} />
+
                     <Line
                       yAxisId="right"
                       type="monotone"
                       dataKey="rescued"
                       stroke={CHART_COLORS.success}
                       name="Customers Rescued"
-                      strokeWidth={2}
-                    />
+                      strokeWidth={2} />
+
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -409,16 +409,16 @@ const SubscriptionAnalytics: React.FC = () => {
                     outerRadius="90%"
                     data={data.growthMetrics}
                     startAngle={180}
-                    endAngle={0}
-                  >
+                    endAngle={0}>
+
                     <RadialBar
                       minAngle={15}
                       label={{ position: 'insideStart', fill: '#fff' }}
                       background
                       clockWise
                       dataKey="value"
-                      fill={CHART_COLORS.primary}
-                    />
+                      fill={CHART_COLORS.primary} />
+
                     <Legend />
                     <Tooltip />
                   </RadialBarChart>
@@ -428,8 +428,8 @@ const SubscriptionAnalytics: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default SubscriptionAnalytics;

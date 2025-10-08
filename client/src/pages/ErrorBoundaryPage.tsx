@@ -35,20 +35,20 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         timestamp: new Date().toISOString(),
         url: window.location.href
       };
-      
+
       // Simulate sending report
       console.error('Error Report:', errorReport);
-      
+
       // For now, just mark as sent
       setReportSent(true);
-      
+
       // In production, you would send to Sentry or similar:
       // await fetch('/api/error-reports', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify(errorReport)
       // });
-      
+
     } catch (err) {
       console.error('Failed to send error report:', err);
     }
@@ -76,8 +76,8 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             </p>
           </div>
 
-          {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+          {error &&
+          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
               <h4 className="font-semibold text-red-800 mb-2 flex items-center gap-2">
                 <Bug className="w-4 h-4" />
                 Error Details
@@ -85,8 +85,8 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               <p className="text-sm text-red-700 font-mono break-all">
                 {error.message || 'An unexpected error occurred'}
               </p>
-              {process.env.NODE_ENV === 'development' && error.stack && (
-                <details className="mt-2">
+              {process.env.NODE_ENV === 'development' && error.stack &&
+            <details className="mt-2">
                   <summary className="text-xs text-red-600 cursor-pointer hover:underline">
                     View Stack Trace
                   </summary>
@@ -94,15 +94,15 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
                     {error.stack}
                   </pre>
                 </details>
-              )}
+            }
             </div>
-          )}
+          }
 
           <div className="grid gap-3">
             <Button
               onClick={handleReload}
-              className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-            >
+              className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-w-full">
+
               <RefreshCw className="w-4 h-4 mr-2" />
               Try Again
             </Button>
@@ -110,8 +110,8 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleGoHome}
               variant="outline"
-              className="w-full border-turquoise-200 hover:bg-turquoise-50"
-            >
+              className="w-full border-turquoise-200 hover:bg-turquoise-50" data-testid="button-w-full">
+
               <Home className="w-4 h-4 mr-2" />
               Go to Homepage
             </Button>
@@ -120,19 +120,19 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               onClick={handleReportError}
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
-              disabled={reportSent}
-            >
-              {reportSent ? (
-                <>
+              disabled={reportSent} data-testid="button-w-full">
+
+              {reportSent ?
+              <>
                   <AlertTriangle className="w-4 h-4 mr-2 text-green-600" />
                   Error Report Sent
-                </>
-              ) : (
-                <>
+                </> :
+
+              <>
                   <Mail className="w-4 h-4 mr-2" />
                   Report This Error
                 </>
-              )}
+              }
             </Button>
           </div>
 
@@ -164,13 +164,13 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
           <div className="text-center pt-4 border-t">
             <p className="text-sm text-gray-500">
               Need more help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline" data-testid="a-text-turquoise-600">
                 support@mundotango.life
               </a>
             </p>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

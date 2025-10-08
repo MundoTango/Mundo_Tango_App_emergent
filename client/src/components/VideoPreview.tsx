@@ -35,7 +35,7 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
     // Generate thumbnail from first frame
     const handleLoadedData = () => {
       setDuration(video.duration);
-      
+
       // Capture thumbnail
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth;
@@ -75,7 +75,7 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
   const toggleMute = () => {
     const video = videoRef.current;
     if (!video) return;
-    
+
     video.muted = !isMuted;
     setIsMuted(!isMuted);
   };
@@ -83,7 +83,7 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const video = videoRef.current;
     if (!video) return;
-    
+
     const newTime = parseFloat(e.target.value);
     video.currentTime = newTime;
     setCurrentTime(newTime);
@@ -92,7 +92,7 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
   const toggleFullscreen = () => {
     const video = videoRef.current;
     if (!video) return;
-    
+
     if (video.requestFullscreen) {
       video.requestFullscreen();
     }
@@ -113,50 +113,50 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
         autoPlay={autoPlay}
         muted={isMuted}
         loop
-        playsInline
-      />
+        playsInline />
+
       
-      {showControls && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+      {showControls &&
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="flex items-center gap-3">
             <button
-              onClick={togglePlay}
-              className="text-white hover:text-turquoise-400 transition"
-            >
+            onClick={togglePlay}
+            className="text-white hover:text-turquoise-400 transition" data-testid="button-text-white">
+
               {isPlaying ? <Pause size={20} /> : <Play size={20} />}
             </button>
             
             <input
-              type="range"
-              min="0"
-              max={duration}
-              value={currentTime}
-              onChange={handleSeek}
-              className="flex-1"
-            />
+            type="range"
+            min="0"
+            max={duration}
+            value={currentTime}
+            onChange={handleSeek}
+            className="flex-1" data-testid="input-range" />
+
             
             <span className="text-white text-sm">
               {formatTime(currentTime)} / {formatTime(duration)}
             </span>
             
             <button
-              onClick={toggleMute}
-              className="text-white hover:text-turquoise-400 transition"
-            >
+            onClick={toggleMute}
+            className="text-white hover:text-turquoise-400 transition" data-testid="button-text-white">
+
               {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
             
             <button
-              onClick={toggleFullscreen}
-              className="text-white hover:text-turquoise-400 transition"
-            >
+            onClick={toggleFullscreen}
+            className="text-white hover:text-turquoise-400 transition" data-testid="button-text-white">
+
               <Maximize2 size={20} />
             </button>
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default VideoPreview;

@@ -8,20 +8,20 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog';
-import { 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger } from
+'@/components/ui/dialog';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  SelectValue } from
+'@/components/ui/select';
 import {
   HelpCircle,
   Flag,
@@ -41,8 +41,8 @@ import {
   Zap,
   TrendingUp,
   Shield,
-  Star
-} from 'lucide-react';
+  Star } from
+'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { apiRequest } from '@/lib/queryClient';
@@ -50,25 +50,25 @@ import { cn } from '@/lib/utils';
 
 // Help request categories
 const HELP_CATEGORIES = [
-  { value: 'housing', label: 'Housing / Accommodation', icon: MapPin },
-  { value: 'dance_partner', label: 'Dance Partner', icon: Users },
-  { value: 'practice_space', label: 'Practice Space', icon: MapPin },
-  { value: 'lessons', label: 'Lessons / Teaching', icon: User },
-  { value: 'event_info', label: 'Event Information', icon: Calendar },
-  { value: 'transportation', label: 'Transportation', icon: MapPin },
-  { value: 'emergency', label: 'Emergency', icon: AlertTriangle },
-  { value: 'other', label: 'Other', icon: HelpCircle }
-];
+{ value: 'housing', label: 'Housing / Accommodation', icon: MapPin },
+{ value: 'dance_partner', label: 'Dance Partner', icon: Users },
+{ value: 'practice_space', label: 'Practice Space', icon: MapPin },
+{ value: 'lessons', label: 'Lessons / Teaching', icon: User },
+{ value: 'event_info', label: 'Event Information', icon: Calendar },
+{ value: 'transportation', label: 'Transportation', icon: MapPin },
+{ value: 'emergency', label: 'Emergency', icon: AlertTriangle },
+{ value: 'other', label: 'Other', icon: HelpCircle }];
+
 
 // Report categories for memories
 const REPORT_CATEGORIES = [
-  { value: 'harassment', label: 'Harassment', severity: 'high' },
-  { value: 'inappropriate', label: 'Inappropriate Content', severity: 'medium' },
-  { value: 'spam', label: 'Spam', severity: 'low' },
-  { value: 'misinformation', label: 'Misinformation', severity: 'medium' },
-  { value: 'impersonation', label: 'Impersonation', severity: 'high' },
-  { value: 'other', label: 'Other', severity: 'medium' }
-];
+{ value: 'harassment', label: 'Harassment', severity: 'high' },
+{ value: 'inappropriate', label: 'Inappropriate Content', severity: 'medium' },
+{ value: 'spam', label: 'Spam', severity: 'low' },
+{ value: 'misinformation', label: 'Misinformation', severity: 'medium' },
+{ value: 'impersonation', label: 'Impersonation', severity: 'high' },
+{ value: 'other', label: 'Other', severity: 'medium' }];
+
 
 interface HelpRequest {
   id: string;
@@ -115,7 +115,7 @@ export default function TTfilesHelpCenter() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedUrgency, setSelectedUrgency] = useState<string>('');
-  
+
   const [newHelpRequest, setNewHelpRequest] = useState({
     title: '',
     description: '',
@@ -123,7 +123,7 @@ export default function TTfilesHelpCenter() {
     location: '',
     urgency: 'medium' as const
   });
-  
+
   const [reportData, setReportData] = useState({
     memoryId: '',
     reportType: '',
@@ -138,11 +138,11 @@ export default function TTfilesHelpCenter() {
       if (searchQuery) params.append('q', searchQuery);
       if (selectedCategory) params.append('category', selectedCategory);
       if (selectedUrgency) params.append('urgency', selectedUrgency);
-      
+
       const response = await fetch(`/api/ttfiles/help-requests?${params}`, {
         credentials: 'include'
       });
-      
+
       if (!response.ok) throw new Error('Failed to fetch help requests');
       const result = await response.json();
       return result.data || [];
@@ -156,7 +156,7 @@ export default function TTfilesHelpCenter() {
       const response = await fetch('/api/ttfiles/my-help-requests', {
         credentials: 'include'
       });
-      
+
       if (!response.ok) throw new Error('Failed to fetch my help requests');
       const result = await response.json();
       return result.data || [];
@@ -170,7 +170,7 @@ export default function TTfilesHelpCenter() {
       const response = await fetch('/api/ttfiles/reported-memories', {
         credentials: 'include'
       });
-      
+
       if (!response.ok) throw new Error('Failed to fetch reported memories');
       const result = await response.json();
       return result.data || [];
@@ -189,7 +189,7 @@ export default function TTfilesHelpCenter() {
     onSuccess: () => {
       toast({
         title: "Help request created",
-        description: "Your request has been posted to the community.",
+        description: "Your request has been posted to the community."
       });
       setShowCreateHelp(false);
       setNewHelpRequest({
@@ -205,7 +205,7 @@ export default function TTfilesHelpCenter() {
       toast({
         title: "Error",
         description: "Failed to create help request. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -222,7 +222,7 @@ export default function TTfilesHelpCenter() {
     onSuccess: () => {
       toast({
         title: "Report submitted",
-        description: "Thank you for helping keep our community safe.",
+        description: "Thank you for helping keep our community safe."
       });
       setShowReportDialog(false);
       setReportData({
@@ -236,7 +236,7 @@ export default function TTfilesHelpCenter() {
       toast({
         title: "Error",
         description: "Failed to submit report. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -246,11 +246,11 @@ export default function TTfilesHelpCenter() {
       toast({
         title: "Missing information",
         description: "Please provide a title and category for your request.",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
-    
+
     createHelpMutation.mutate(newHelpRequest);
   };
 
@@ -259,11 +259,11 @@ export default function TTfilesHelpCenter() {
       toast({
         title: "Missing information",
         description: "Please select a memory and report type.",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
-    
+
     reportMemoryMutation.mutate(reportData);
   };
 
@@ -274,12 +274,12 @@ export default function TTfilesHelpCenter() {
       medium: 'bg-yellow-100 text-yellow-800 border-yellow-200',
       low: 'bg-blue-100 text-blue-800 border-blue-200'
     };
-    
+
     return (
       <Badge className={cn('border', styles[urgency as keyof typeof styles])}>
         {urgency.charAt(0).toUpperCase() + urgency.slice(1)}
-      </Badge>
-    );
+      </Badge>);
+
   };
 
   const getStatusBadge = (status: string) => {
@@ -289,20 +289,20 @@ export default function TTfilesHelpCenter() {
       resolved: 'bg-gray-100 text-gray-800',
       closed: 'bg-gray-100 text-gray-600'
     };
-    
+
     const icons = {
       open: <Clock className="h-3 w-3" />,
       in_progress: <Zap className="h-3 w-3" />,
       resolved: <CheckCircle className="h-3 w-3" />,
       closed: <X className="h-3 w-3" />
     };
-    
+
     return (
       <Badge className={cn('gap-1', styles[status as keyof typeof styles])}>
         {icons[status as keyof typeof icons]}
         {status.replace('_', ' ').charAt(0).toUpperCase() + status.slice(1).replace('_', ' ')}
-      </Badge>
-    );
+      </Badge>);
+
   };
 
   return (
@@ -320,7 +320,7 @@ export default function TTfilesHelpCenter() {
               {/* Create Help Request */}
               <Dialog open={showCreateHelp} onOpenChange={setShowCreateHelp}>
                 <DialogTrigger asChild>
-                  <Button className="gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+                  <Button className="gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600" data-testid="button-gap-2">
                     <HelpCircle className="h-4 w-4" />
                     Ask for Help
                   </Button>
@@ -336,28 +336,28 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Brief description of what you need help with"
                         value={newHelpRequest.title}
-                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
-                      />
+                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, title: e.target.value })} data-testid="input-element" />
+
                     </div>
 
                     <div>
                       <label className="text-sm font-medium mb-1 block">Category *</label>
                       <Select
                         value={newHelpRequest.category}
-                        onValueChange={(value) => setNewHelpRequest({ ...newHelpRequest, category: value })}
-                      >
+                        onValueChange={(value) => setNewHelpRequest({ ...newHelpRequest, category: value })} data-testid="select-element">
+
                         <SelectTrigger>
                           <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
                         <SelectContent>
-                          {HELP_CATEGORIES.map(cat => (
-                            <SelectItem key={cat.value} value={cat.value}>
+                          {HELP_CATEGORIES.map((cat) =>
+                          <SelectItem key={cat.value} value={cat.value}>
                               <div className="flex items-center gap-2">
                                 <cat.icon className="h-4 w-4" />
                                 {cat.label}
                               </div>
                             </SelectItem>
-                          ))}
+                          )}
                         </SelectContent>
                       </Select>
                     </div>
@@ -368,8 +368,8 @@ export default function TTfilesHelpCenter() {
                         placeholder="Provide more details about your request..."
                         value={newHelpRequest.description}
                         onChange={(e) => setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
-                        rows={4}
-                      />
+                        rows={4} data-testid="textarea-element" />
+
                     </div>
 
                     <div>
@@ -377,16 +377,16 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="e.g., Buenos Aires, Paris, New York"
                         value={newHelpRequest.location}
-                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
-                      />
+                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, location: e.target.value })} data-testid="input-element" />
+
                     </div>
 
                     <div>
                       <label className="text-sm font-medium mb-1 block">Urgency Level</label>
                       <Select
                         value={newHelpRequest.urgency}
-                        onValueChange={(value: any) => setNewHelpRequest({ ...newHelpRequest, urgency: value })}
-                      >
+                        onValueChange={(value: any) => setNewHelpRequest({ ...newHelpRequest, urgency: value })} data-testid="select-element">
+
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
@@ -400,14 +400,14 @@ export default function TTfilesHelpCenter() {
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={() => setShowCreateHelp(false)}>
+                      <Button variant="outline" onClick={() => setShowCreateHelp(false)} data-testid="button-element">
                         Cancel
                       </Button>
                       <Button
                         onClick={handleCreateHelpRequest}
                         disabled={createHelpMutation.isPending}
-                        className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
-                      >
+                        className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
+
                         {createHelpMutation.isPending ? 'Creating...' : 'Post Request'}
                       </Button>
                     </div>
@@ -418,7 +418,7 @@ export default function TTfilesHelpCenter() {
               {/* Report Memory */}
               <Dialog open={showReportDialog} onOpenChange={setShowReportDialog}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" className="gap-2" data-testid="button-gap-2">
                     <Flag className="h-4 w-4" />
                     Report Content
                   </Button>
@@ -434,38 +434,38 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Enter the ID of the memory to report"
                         value={reportData.memoryId}
-                        onChange={(e) => setReportData({ ...reportData, memoryId: e.target.value })}
-                      />
+                        onChange={(e) => setReportData({ ...reportData, memoryId: e.target.value })} data-testid="input-element" />
+
                     </div>
 
                     <div>
                       <label className="text-sm font-medium mb-1 block">Report Type *</label>
                       <Select
                         value={reportData.reportType}
-                        onValueChange={(value) => setReportData({ ...reportData, reportType: value })}
-                      >
+                        onValueChange={(value) => setReportData({ ...reportData, reportType: value })} data-testid="select-element">
+
                         <SelectTrigger>
                           <SelectValue placeholder="Select report type" />
                         </SelectTrigger>
                         <SelectContent>
-                          {REPORT_CATEGORIES.map(cat => (
-                            <SelectItem key={cat.value} value={cat.value}>
+                          {REPORT_CATEGORIES.map((cat) =>
+                          <SelectItem key={cat.value} value={cat.value}>
                               <div className="flex items-center justify-between w-full">
                                 <span>{cat.label}</span>
-                                <Badge 
-                                  variant="outline" 
-                                  className={cn(
-                                    'ml-2 text-xs',
-                                    cat.severity === 'high' && 'border-red-300 text-red-700',
-                                    cat.severity === 'medium' && 'border-yellow-300 text-yellow-700',
-                                    cat.severity === 'low' && 'border-blue-300 text-blue-700'
-                                  )}
-                                >
+                                <Badge
+                                variant="outline"
+                                className={cn(
+                                  'ml-2 text-xs',
+                                  cat.severity === 'high' && 'border-red-300 text-red-700',
+                                  cat.severity === 'medium' && 'border-yellow-300 text-yellow-700',
+                                  cat.severity === 'low' && 'border-blue-300 text-blue-700'
+                                )}>
+
                                   {cat.severity}
                                 </Badge>
                               </div>
                             </SelectItem>
-                          ))}
+                          )}
                         </SelectContent>
                       </Select>
                     </div>
@@ -476,19 +476,19 @@ export default function TTfilesHelpCenter() {
                         placeholder="Please provide any additional context..."
                         value={reportData.description}
                         onChange={(e) => setReportData({ ...reportData, description: e.target.value })}
-                        rows={3}
-                      />
+                        rows={3} data-testid="textarea-element" />
+
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={() => setShowReportDialog(false)}>
+                      <Button variant="outline" onClick={() => setShowReportDialog(false)} data-testid="button-element">
                         Cancel
                       </Button>
                       <Button
                         onClick={handleReportMemory}
                         disabled={reportMemoryMutation.isPending}
-                        variant="destructive"
-                      >
+                        variant="destructive" data-testid="button-element">
+
                         {reportMemoryMutation.isPending ? 'Submitting...' : 'Submit Report'}
                       </Button>
                     </div>
@@ -519,24 +519,24 @@ export default function TTfilesHelpCenter() {
                           placeholder="Search help requests..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="pl-10"
-                        />
+                          className="pl-10" data-testid="input-pl-10" />
+
                       </div>
                     </div>
-                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
                       <SelectTrigger className="w-full sm:w-[200px]">
                         <SelectValue placeholder="All Categories" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">All Categories</SelectItem>
-                        {HELP_CATEGORIES.map(cat => (
-                          <SelectItem key={cat.value} value={cat.value}>
+                        {HELP_CATEGORIES.map((cat) =>
+                        <SelectItem key={cat.value} value={cat.value}>
                             {cat.label}
                           </SelectItem>
-                        ))}
+                        )}
                       </SelectContent>
                     </Select>
-                    <Select value={selectedUrgency} onValueChange={setSelectedUrgency}>
+                    <Select value={selectedUrgency} onValueChange={setSelectedUrgency} data-testid="select-element">
                       <SelectTrigger className="w-full sm:w-[150px]">
                         <SelectValue placeholder="All Urgency" />
                       </SelectTrigger>
@@ -553,25 +553,25 @@ export default function TTfilesHelpCenter() {
               </Card>
 
               {/* Help Request List */}
-              {helpLoading ? (
-                <div className="text-center py-8">
+              {helpLoading ?
+              <div className="text-center py-8">
                   <div className="inline-flex items-center gap-2 text-gray-500">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
                     Loading help requests...
                   </div>
-                </div>
-              ) : helpRequests?.length === 0 ? (
-                <Card>
+                </div> :
+              helpRequests?.length === 0 ?
+              <Card>
                   <CardContent className="text-center py-12">
                     <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">No help requests found</p>
                     <p className="text-gray-400 text-sm mt-1">Be the first to ask for help!</p>
                   </CardContent>
-                </Card>
-              ) : (
-                <div className="space-y-4">
-                  {helpRequests?.map((request: HelpRequest) => (
-                    <Card key={request.id} className="hover:shadow-md transition-shadow">
+                </Card> :
+
+              <div className="space-y-4">
+                  {helpRequests?.map((request: HelpRequest) =>
+                <Card key={request.id} className="hover:shadow-md transition-shadow">
                       <CardContent className="p-6">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -579,25 +579,25 @@ export default function TTfilesHelpCenter() {
                               {getUrgencyBadge(request.urgency)}
                               {getStatusBadge(request.status)}
                               <Badge variant="outline">
-                                {HELP_CATEGORIES.find(c => c.value === request.category)?.label || request.category}
+                                {HELP_CATEGORIES.find((c) => c.value === request.category)?.label || request.category}
                               </Badge>
-                              {request.location && (
-                                <span className="text-sm text-gray-500 flex items-center gap-1">
+                              {request.location &&
+                          <span className="text-sm text-gray-500 flex items-center gap-1">
                                   <MapPin className="h-3 w-3" />
                                   {request.location}
                                 </span>
-                              )}
+                          }
                             </div>
                             
                             <h3 className="text-lg font-semibold text-gray-900 mb-2">
                               {request.title}
                             </h3>
                             
-                            {request.description && (
-                              <p className="text-gray-600 mb-3 line-clamp-2">
+                            {request.description &&
+                        <p className="text-gray-600 mb-3 line-clamp-2">
                                 {request.description}
                               </p>
-                            )}
+                        }
                             
                             <div className="flex items-center gap-4 text-sm text-gray-500">
                               <div className="flex items-center gap-2">
@@ -608,50 +608,50 @@ export default function TTfilesHelpCenter() {
                               </div>
                               <span>•</span>
                               <span>{format(new Date(request.createdAt), 'MMM d, h:mm a')}</span>
-                              {request.responses && request.responses > 0 && (
-                                <>
+                              {request.responses && request.responses > 0 &&
+                          <>
                                   <span>•</span>
                                   <span className="flex items-center gap-1">
                                     <MessageSquare className="h-3 w-3" />
                                     {request.responses} responses
                                   </span>
                                 </>
-                              )}
+                          }
                             </div>
                           </div>
                           
-                          <Button variant="outline" size="sm" className="ml-4">
+                          <Button variant="outline" size="sm" className="ml-4" data-testid="button-ml-4">
                             <MessageSquare className="h-4 w-4 mr-1" />
                             Respond
                           </Button>
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
+                )}
                 </div>
-              )}
+              }
             </TabsContent>
 
             {/* My Requests */}
             <TabsContent value="my-requests" className="space-y-4">
-              {myHelpRequests?.length === 0 ? (
-                <Card>
+              {myHelpRequests?.length === 0 ?
+              <Card>
                   <CardContent className="text-center py-12">
                     <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">You haven't created any help requests yet</p>
-                    <Button 
-                      className="mt-4" 
-                      variant="outline"
-                      onClick={() => setShowCreateHelp(true)}
-                    >
+                    <Button
+                    className="mt-4"
+                    variant="outline"
+                    onClick={() => setShowCreateHelp(true)} data-testid="button-mt-4">
+
                       Create your first request
                     </Button>
                   </CardContent>
-                </Card>
-              ) : (
-                <div className="space-y-4">
-                  {myHelpRequests?.map((request: HelpRequest) => (
-                    <Card key={request.id} className="hover:shadow-md transition-shadow">
+                </Card> :
+
+              <div className="space-y-4">
+                  {myHelpRequests?.map((request: HelpRequest) =>
+                <Card key={request.id} className="hover:shadow-md transition-shadow">
                       <CardContent className="p-6">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -659,7 +659,7 @@ export default function TTfilesHelpCenter() {
                               {getUrgencyBadge(request.urgency)}
                               {getStatusBadge(request.status)}
                               <Badge variant="outline">
-                                {HELP_CATEGORIES.find(c => c.value === request.category)?.label || request.category}
+                                {HELP_CATEGORIES.find((c) => c.value === request.category)?.label || request.category}
                               </Badge>
                             </div>
                             
@@ -669,34 +669,34 @@ export default function TTfilesHelpCenter() {
                             
                             <div className="flex items-center gap-4 text-sm text-gray-500">
                               <span>Created {format(new Date(request.createdAt), 'MMM d, h:mm a')}</span>
-                              {request.responses && request.responses > 0 && (
-                                <>
+                              {request.responses && request.responses > 0 &&
+                          <>
                                   <span>•</span>
                                   <span className="flex items-center gap-1">
                                     <MessageSquare className="h-3 w-3" />
                                     {request.responses} responses
                                   </span>
                                 </>
-                              )}
+                          }
                             </div>
                           </div>
                           
                           <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" data-testid="button-element">
                               Edit
                             </Button>
-                            {request.status === 'open' && (
-                              <Button variant="outline" size="sm" className="text-green-600 hover:text-green-700">
+                            {request.status === 'open' &&
+                        <Button variant="outline" size="sm" className="text-green-600 hover:text-green-700" data-testid="button-text-green-600">
                                 Mark Resolved
                               </Button>
-                            )}
+                        }
                           </div>
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
+                )}
                 </div>
-              )}
+              }
             </TabsContent>
 
             {/* Reported Content */}
@@ -706,43 +706,43 @@ export default function TTfilesHelpCenter() {
                   <CardTitle className="text-lg">Reported Memories</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {reportsLoading ? (
-                    <div className="text-center py-8">
+                  {reportsLoading ?
+                  <div className="text-center py-8">
                       <div className="inline-flex items-center gap-2 text-gray-500">
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
                         Loading reports...
                       </div>
-                    </div>
-                  ) : reportedMemories?.length === 0 ? (
-                    <div className="text-center py-8">
+                    </div> :
+                  reportedMemories?.length === 0 ?
+                  <div className="text-center py-8">
                       <Shield className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                       <p className="text-gray-500">No reported content</p>
                       <p className="text-gray-400 text-sm mt-1">Our community is keeping it clean!</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {reportedMemories?.map((report: MemoryReport) => (
-                        <div key={report.id} className="border border-gray-200 rounded-lg p-4">
+                    </div> :
+
+                  <div className="space-y-4">
+                      {reportedMemories?.map((report: MemoryReport) =>
+                    <div key={report.id} className="border border-gray-200 rounded-lg p-4">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <div className="flex items-center gap-3 mb-2">
-                                <Badge 
-                                  variant="outline"
-                                  className={cn(
-                                    report.reportType === 'harassment' && 'border-red-300 text-red-700',
-                                    report.reportType === 'inappropriate' && 'border-orange-300 text-orange-700',
-                                    report.reportType === 'spam' && 'border-yellow-300 text-yellow-700'
-                                  )}
-                                >
-                                  {REPORT_CATEGORIES.find(c => c.value === report.reportType)?.label || report.reportType}
+                                <Badge
+                              variant="outline"
+                              className={cn(
+                                report.reportType === 'harassment' && 'border-red-300 text-red-700',
+                                report.reportType === 'inappropriate' && 'border-orange-300 text-orange-700',
+                                report.reportType === 'spam' && 'border-yellow-300 text-yellow-700'
+                              )}>
+
+                                  {REPORT_CATEGORIES.find((c) => c.value === report.reportType)?.label || report.reportType}
                                 </Badge>
                                 <Badge variant="outline">
                                   {report.status}
                                 </Badge>
                               </div>
                               
-                              {report.memory && (
-                                <div className="bg-gray-50 rounded p-3 mb-3">
+                              {report.memory &&
+                          <div className="bg-gray-50 rounded p-3 mb-3">
                                   <p className="text-sm text-gray-600 line-clamp-2">
                                     "{report.memory.content}"
                                   </p>
@@ -750,35 +750,35 @@ export default function TTfilesHelpCenter() {
                                     by @{report.memory.user.username}
                                   </p>
                                 </div>
-                              )}
+                          }
                               
-                              {report.description && (
-                                <p className="text-sm text-gray-600 mb-2">
+                              {report.description &&
+                          <p className="text-sm text-gray-600 mb-2">
                                   Report reason: {report.description}
                                 </p>
-                              )}
+                          }
                               
                               <p className="text-xs text-gray-500">
                                 Reported on {format(new Date(report.createdAt), 'MMM d, yyyy')}
                               </p>
                             </div>
                             
-                            {report.status === 'pending' && user?.roles?.includes('admin') && (
-                              <Button variant="outline" size="sm" className="ml-4">
+                            {report.status === 'pending' && user?.roles?.includes('admin') &&
+                        <Button variant="outline" size="sm" className="ml-4" data-testid="button-ml-4">
                                 Review
                               </Button>
-                            )}
+                        }
                           </div>
                         </div>
-                      ))}
+                    )}
                     </div>
-                  )}
+                  }
                 </CardContent>
               </Card>
             </TabsContent>
           </Tabs>
         </div>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

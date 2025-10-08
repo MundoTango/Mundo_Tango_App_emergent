@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { 
-  Activity, 
-  Zap, 
-  TrendingUp, 
+import {
+  Activity,
+  Zap,
+  TrendingUp,
   AlertCircle,
   CheckCircle,
   Clock,
@@ -12,8 +12,8 @@ import {
   Wifi,
   HardDrive,
   BarChart3,
-  RefreshCw
-} from 'lucide-react';
+  RefreshCw } from
+'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -51,7 +51,7 @@ const PerformanceMonitor: React.FC = () => {
       const clsObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
           if (entry.entryType === 'layout-shift' && !(entry as any).hadRecentInput) {
-            setMetrics(prev => ({
+            setMetrics((prev) => ({
               ...prev,
               cls: [...prev.cls, (entry as any).value]
             }));
@@ -64,7 +64,7 @@ const PerformanceMonitor: React.FC = () => {
       const lcpObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
-        setMetrics(prev => ({
+        setMetrics((prev) => ({
           ...prev,
           lcp: [...prev.lcp, lastEntry.startTime]
         }));
@@ -75,7 +75,7 @@ const PerformanceMonitor: React.FC = () => {
       const fidObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
           if (entry.entryType === 'first-input') {
-            setMetrics(prev => ({
+            setMetrics((prev) => ({
               ...prev,
               fid: [...prev.fid, (entry as any).processingStart - entry.startTime]
             }));
@@ -95,27 +95,27 @@ const PerformanceMonitor: React.FC = () => {
   // Run API performance tests
   const runPerformanceTests = async () => {
     setIsRunningTests(true);
-    
+
     try {
       // Single API call test
       const singleStart = performance.now();
       await fetch('/api/posts/feed');
       const singleEnd = performance.now();
-      
+
       // Parallel API calls test
       const parallelStart = performance.now();
       await Promise.all([
-        fetch('/api/posts/feed'),
-        fetch('/api/notifications/count'),
-        fetch('/api/events/sidebar')
-      ]);
+      fetch('/api/posts/feed'),
+      fetch('/api/notifications/count'),
+      fetch('/api/events/sidebar')]
+      );
       const parallelEnd = performance.now();
-      
+
       // Cache performance test
       const cacheStart = performance.now();
       await fetch('/api/posts/feed'); // Should be cached
       const cacheEnd = performance.now();
-      
+
       setApiPerformance({
         singleCall: singleEnd - singleStart,
         parallelCalls: parallelEnd - parallelStart,
@@ -129,15 +129,15 @@ const PerformanceMonitor: React.FC = () => {
   };
 
   // Calculate averages
-  const avgCLS = metrics.cls.length > 0 
-    ? metrics.cls.reduce((a, b) => a + b, 0) / metrics.cls.length 
-    : 0;
-  const avgLCP = metrics.lcp.length > 0 
-    ? metrics.lcp[metrics.lcp.length - 1] 
-    : 0;
-  const avgFID = metrics.fid.length > 0 
-    ? metrics.fid.reduce((a, b) => a + b, 0) / metrics.fid.length 
-    : 0;
+  const avgCLS = metrics.cls.length > 0 ?
+  metrics.cls.reduce((a, b) => a + b, 0) / metrics.cls.length :
+  0;
+  const avgLCP = metrics.lcp.length > 0 ?
+  metrics.lcp[metrics.lcp.length - 1] :
+  0;
+  const avgFID = metrics.fid.length > 0 ?
+  metrics.fid.reduce((a, b) => a + b, 0) / metrics.fid.length :
+  0;
 
   // Get performance ratings
   const getCLSRating = (cls: number) => {
@@ -173,22 +173,22 @@ const PerformanceMonitor: React.FC = () => {
           </h2>
           <p className="text-gray-600 mt-1">Real-time performance metrics and optimization tracking</p>
         </div>
-        <Button 
+        <Button
           onClick={runPerformanceTests}
           disabled={isRunningTests}
-          className="bg-gradient-to-r from-turquoise-600 to-blue-600 text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
-        >
-          {isRunningTests ? (
-            <>
+          className="bg-gradient-to-r from-turquoise-600 to-blue-600 text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all" data-testid="button-bg-gradient-to-r">
+
+          {isRunningTests ?
+          <>
               <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
               Running Tests...
-            </>
-          ) : (
-            <>
+            </> :
+
+          <>
               <Zap className="w-4 h-4 mr-2" />
               Run Performance Tests
             </>
-          )}
+          }
         </Button>
       </div>
 
@@ -216,10 +216,10 @@ const PerformanceMonitor: React.FC = () => {
               <div className="text-xs text-gray-500 mt-2">
                 Target: &lt; 2.5s
               </div>
-              <Progress 
-                value={Math.min((2500 / avgLCP) * 100, 100)} 
-                className="mt-3 h-2"
-              />
+              <Progress
+                value={Math.min(2500 / avgLCP * 100, 100)}
+                className="mt-3 h-2" />
+
             </CardContent>
           </Card>
 
@@ -240,10 +240,10 @@ const PerformanceMonitor: React.FC = () => {
               <div className="text-xs text-gray-500 mt-2">
                 Target: &lt; 0.1
               </div>
-              <Progress 
-                value={Math.min((0.1 / avgCLS) * 100, 100)} 
-                className="mt-3 h-2"
-              />
+              <Progress
+                value={Math.min(0.1 / avgCLS * 100, 100)}
+                className="mt-3 h-2" />
+
             </CardContent>
           </Card>
 
@@ -264,18 +264,18 @@ const PerformanceMonitor: React.FC = () => {
               <div className="text-xs text-gray-500 mt-2">
                 Target: &lt; 100ms
               </div>
-              <Progress 
-                value={Math.min((100 / avgFID) * 100, 100)} 
-                className="mt-3 h-2"
-              />
+              <Progress
+                value={Math.min(100 / avgFID * 100, 100)}
+                className="mt-3 h-2" />
+
             </CardContent>
           </Card>
         </div>
       </div>
 
       {/* API Performance */}
-      {apiPerformance.singleCall > 0 && (
-        <div>
+      {apiPerformance.singleCall > 0 &&
+      <div>
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <Server className="w-5 h-5 text-turquoise-600" />
             API Performance Tests
@@ -333,7 +333,7 @@ const PerformanceMonitor: React.FC = () => {
             </Card>
           </div>
         </div>
-      )}
+      }
 
       {/* Active Optimizations */}
       <div>
@@ -426,8 +426,8 @@ const PerformanceMonitor: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 };
 
 export default PerformanceMonitor;

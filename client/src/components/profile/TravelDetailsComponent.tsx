@@ -65,7 +65,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
         title: "Success",
-        description: "Travel detail deleted successfully",
+        description: "Travel detail deleted successfully"
       });
       setDeletingTravelId(null);
     },
@@ -73,7 +73,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       toast({
         title: "Error",
         description: error.message || "Failed to delete travel detail",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -130,20 +130,20 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
     return (
       <div className="flex items-center justify-center p-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-turquoise-500"></div>
-      </div>
-    );
+      </div>);
+
   }
 
-  const upcomingTravels = travelDetails?.filter((t: TravelDetail) => 
-    t.status === 'planned' || t.status === 'ongoing'
-  ).sort((a: TravelDetail, b: TravelDetail) => 
-    new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  const upcomingTravels = travelDetails?.filter((t: TravelDetail) =>
+  t.status === 'planned' || t.status === 'ongoing'
+  ).sort((a: TravelDetail, b: TravelDetail) =>
+  new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
   );
 
-  const pastTravels = travelDetails?.filter((t: TravelDetail) => 
-    t.status === 'completed'
-  ).sort((a: TravelDetail, b: TravelDetail) => 
-    new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+  const pastTravels = travelDetails?.filter((t: TravelDetail) =>
+  t.status === 'completed'
+  ).sort((a: TravelDetail, b: TravelDetail) =>
+  new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
 
   return (
@@ -154,89 +154,89 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
           <Globe className="w-5 h-5 text-turquoise-500" />
           Travel Details
         </h3>
-        {isOwnProfile && (
-          <Button
-            onClick={() => setShowAddModal(true)}
-            size="sm"
-            className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-          >
+        {isOwnProfile &&
+        <Button
+          onClick={() => setShowAddModal(true)}
+          size="sm"
+          className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
+
             <Plus className="w-4 h-4 mr-1" />
             Add Travel
           </Button>
-        )}
+        }
       </div>
 
       {/* No travel details message */}
-      {(!travelDetails || travelDetails.length === 0) && (
-        <Card className="p-8 text-center border-dashed glassmorphic-card">
+      {(!travelDetails || travelDetails.length === 0) &&
+      <Card className="p-8 text-center border-dashed glassmorphic-card">
           <Globe className="w-12 h-12 mx-auto mb-4 text-turquoise-500" />
           <p className="text-gray-600 mb-4">
             {isOwnProfile ? "You haven't added any travel details yet." : "No travel details available."}
           </p>
-          {isOwnProfile && (
-            <Button
-              onClick={() => setShowAddModal(true)}
-              variant="outline"
-              className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20"
-            >
+          {isOwnProfile &&
+        <Button
+          onClick={() => setShowAddModal(true)}
+          variant="outline"
+          className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20" data-testid="button-border-turquoise-300">
+
               <Plus className="w-4 h-4 mr-1" />
               Add Your First Travel
             </Button>
-          )}
+        }
         </Card>
-      )}
+      }
 
       {/* Upcoming Travels */}
-      {upcomingTravels && upcomingTravels.length > 0 && (
-        <div className="space-y-4">
+      {upcomingTravels && upcomingTravels.length > 0 &&
+      <div className="space-y-4">
           <h4 className="font-medium text-gray-700 dark:text-gray-300">Upcoming & Ongoing</h4>
           <div className="grid gap-4">
-            {upcomingTravels.map((travel: TravelDetail) => (
-              <TravelCard
-                key={travel.id}
-                travel={travel}
-                isOwnProfile={isOwnProfile}
-                onEdit={() => setEditingTravel(travel)}
-                onDelete={() => setDeletingTravelId(travel.id)}
-              />
-            ))}
+            {upcomingTravels.map((travel: TravelDetail) =>
+          <TravelCard
+            key={travel.id}
+            travel={travel}
+            isOwnProfile={isOwnProfile}
+            onEdit={() => setEditingTravel(travel)}
+            onDelete={() => setDeletingTravelId(travel.id)} />
+
+          )}
           </div>
         </div>
-      )}
+      }
 
       {/* Past Travels */}
-      {pastTravels && pastTravels.length > 0 && (
-        <div className="space-y-4">
+      {pastTravels && pastTravels.length > 0 &&
+      <div className="space-y-4">
           <h4 className="font-medium text-gray-700 dark:text-gray-300">Past Travels</h4>
           <div className="grid gap-4">
-            {pastTravels.map((travel: TravelDetail) => (
-              <TravelCard
-                key={travel.id}
-                travel={travel}
-                isOwnProfile={isOwnProfile}
-                onEdit={() => setEditingTravel(travel)}
-                onDelete={() => setDeletingTravelId(travel.id)}
-              />
-            ))}
+            {pastTravels.map((travel: TravelDetail) =>
+          <TravelCard
+            key={travel.id}
+            travel={travel}
+            isOwnProfile={isOwnProfile}
+            onEdit={() => setEditingTravel(travel)}
+            onDelete={() => setDeletingTravelId(travel.id)} />
+
+          )}
           </div>
         </div>
-      )}
+      }
 
       {/* Modals */}
-      {showAddModal && (
-        <AddTravelDetailModal
-          isOpen={showAddModal}
-          onClose={() => setShowAddModal(false)}
-        />
-      )}
+      {showAddModal &&
+      <AddTravelDetailModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)} />
 
-      {editingTravel && (
-        <EditTravelDetailModal
-          isOpen={!!editingTravel}
-          onClose={() => setEditingTravel(null)}
-          travelDetail={editingTravel}
-        />
-      )}
+      }
+
+      {editingTravel &&
+      <EditTravelDetailModal
+        isOpen={!!editingTravel}
+        onClose={() => setEditingTravel(null)}
+        travelDetail={editingTravel} />
+
+      }
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!deletingTravelId} onOpenChange={() => setDeletingTravelId(null)}>
@@ -251,15 +251,15 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deletingTravelId && deleteTravelDetailMutation.mutate(deletingTravelId)}
-              className="bg-red-500 hover:bg-red-600"
-            >
+              className="bg-red-500 hover:bg-red-600">
+
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
-  );
+    </div>);
+
 };
 
 // Travel Card Component
@@ -327,11 +327,11 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
           <div className="flex items-center gap-2">
             <span className="text-2xl">{getEventTypeIcon(travel.eventType)}</span>
             <div>
-              {travel.eventName && (
-                <h5 className="font-medium text-gray-900 dark:text-gray-100">
+              {travel.eventName &&
+              <h5 className="font-medium text-gray-900 dark:text-gray-100">
                   {travel.eventName}
                 </h5>
-              )}
+              }
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <MapPin className="w-3 h-3" />
                 <span>{travel.city}{travel.country ? `, ${travel.country}` : ''}</span>
@@ -353,47 +353,47 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
           </div>
 
           {/* Notes */}
-          {travel.notes && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+          {travel.notes &&
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
               {travel.notes}
             </p>
-          )}
+          }
 
           {/* Status and Visibility */}
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className={getStatusColor(travel.status)}>
               {travel.status}
             </Badge>
-            {!travel.isPublic && (
-              <Badge variant="outline" className="text-xs">
+            {!travel.isPublic &&
+            <Badge variant="outline" className="text-xs">
                 Private
               </Badge>
-            )}
+            }
           </div>
         </div>
 
         {/* Actions */}
-        {isOwnProfile && (
-          <div className="flex items-center gap-1 ml-4">
+        {isOwnProfile &&
+        <div className="flex items-center gap-1 ml-4">
             <Button
-              variant="ghost"
-              size="sm"
-              onClick={onEdit}
-              className="h-8 w-8 p-0"
-            >
+            variant="ghost"
+            size="sm"
+            onClick={onEdit}
+            className="h-8 w-8 p-0" data-testid="button-h-8">
+
               <Edit2 className="w-4 h-4" />
             </Button>
             <Button
-              variant="ghost"
-              size="sm"
-              onClick={onDelete}
-              className="h-8 w-8 p-0 text-red-500 hover:text-red-600"
-            >
+            variant="ghost"
+            size="sm"
+            onClick={onDelete}
+            className="h-8 w-8 p-0 text-red-500 hover:text-red-600" data-testid="button-h-8">
+
               <Trash2 className="w-4 h-4" />
             </Button>
           </div>
-        )}
+        }
       </div>
-    </Card>
-  );
+    </Card>);
+
 };

@@ -18,23 +18,23 @@ export default function GroupsPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   // GSAP scroll reveal for community cards - Aurora Tide standards
   const gridRef = useScrollReveal(
     '.community-card-item',
     { opacity: 0, y: 30 },
-    { 
+    {
       start: 'top 80%',
       stagger: 0.1,
       respectReducedMotion: true
     }
   );
-  
+
   const handleSearchResults = (results: any[]) => {
     console.log('📊 Search results received:', results.length);
     setSearchResults(results);
   };
-  
+
   const handleClearFilters = () => {
     console.log('🧹 Clearing search filters');
     setSearchResults(null);
@@ -83,7 +83,7 @@ export default function GroupsPage() {
       toast({
         title: "Joined Community!",
         description: "You have successfully joined this community.",
-        variant: "default",
+        variant: "default"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
     }
@@ -103,7 +103,7 @@ export default function GroupsPage() {
       toast({
         title: "Left Community",
         description: "You have left this community.",
-        variant: "default",
+        variant: "default"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
     }
@@ -121,7 +121,7 @@ export default function GroupsPage() {
   const getEventCount = (groupId: number) => {
     const eventCounts: Record<number, number> = {
       33: 8,
-      34: 16, 
+      34: 16,
       35: 22,
       36: 14,
       37: 7,
@@ -133,12 +133,12 @@ export default function GroupsPage() {
 
   // Filter groups based on active filter and search
   const filteredGroups = groupsData?.filter((group: any) => {
-    const matchesSearch = searchQuery === '' || 
-      group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      group.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    
+    const matchesSearch = searchQuery === '' ||
+    group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    group.description?.toLowerCase().includes(searchQuery.toLowerCase());
+
     if (!matchesSearch) return false;
-    
+
     switch (activeFilter) {
       case 'city':
         return group.type === 'city';
@@ -154,17 +154,17 @@ export default function GroupsPage() {
         return true;
     }
   }) || [];
-  
+
   const displayedGroups = searchResults !== null ? searchResults : filteredGroups;
 
   const filterButtons = [
-    { key: 'all', label: 'All Communities', icon: Globe },
-    { key: 'city', label: 'City Groups', icon: MapPin },
-    { key: 'professional', label: 'Professional', icon: Users },
-    { key: 'music', label: 'Music', icon: Music },
-    { key: 'practice', label: 'Practice', icon: Code },
-    { key: 'festivals', label: 'Festivals', icon: Calendar }
-  ];
+  { key: 'all', label: 'All Communities', icon: Globe },
+  { key: 'city', label: 'City Groups', icon: MapPin },
+  { key: 'professional', label: 'Professional', icon: Users },
+  { key: 'music', label: 'Music', icon: Music },
+  { key: 'practice', label: 'Practice', icon: Code },
+  { key: 'festivals', label: 'Festivals', icon: Calendar }];
+
 
   return (
     <DashboardLayout>
@@ -175,8 +175,8 @@ export default function GroupsPage() {
           <p className="text-gray-600 mb-3">Connect with tango dancers around the world</p>
           <button
             onClick={() => setLocation('/community-world-map')}
-            className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
-          >
+            className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm" data-testid="button-text-turquoise-600">
+
             View Community World Map →
           </button>
         </div>
@@ -214,81 +214,80 @@ export default function GroupsPage() {
         </div>
 
         {/* Advanced Search Component */}
-        <GroupSearch 
+        <GroupSearch
           onSearchResults={handleSearchResults}
-          onClearFilters={handleClearFilters}
-        />
+          onClearFilters={handleClearFilters} />
+
 
         {/* AI Recommendations */}
         <RecommendedGroups />
 
         {/* Communities Grid */}
-        {isLoading ? (
-          <div className="text-center py-12">
+        {isLoading ?
+        <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
             <p className="text-gray-600">Loading communities...</p>
-          </div>
-        ) : displayedGroups.length > 0 ? (
-          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          </div> :
+        displayedGroups.length > 0 ?
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedGroups.map((group: any) => {
-              // Use EnhancedCityGroupCard for city groups
-              if (group.type === 'city') {
-                return (
-                  <div key={group.id} className="community-card-item">
-                    <EnhancedCityGroupCard
-                      group={{
-                        id: group.id,
-                        name: group.name,
-                        slug: group.slug,
-                        description: group.description,
-                        imageUrl: group.image_url || group.imageUrl,
-                        city: group.city,
-                        country: group.country,
-                        memberCount: group.member_count || group.memberCount || 0,
-                        eventCount: getEventCount(group.id),
-                        isJoined: group.membershipStatus === 'member',
-                        type: group.type
-                      }}
-                      onJoin={() => joinGroupMutation.mutate(group.slug)}
-                      onLeave={() => leaveGroupMutation.mutate(group.slug)}
-                    />
-                  </div>
-                );
-              }
-              
-              // Use regular CommunityCard for other groups
+            // Use EnhancedCityGroupCard for city groups
+            if (group.type === 'city') {
               return (
                 <div key={group.id} className="community-card-item">
-                  <CommunityCard
-                    community={{
+                    <EnhancedCityGroupCard
+                    group={{
                       id: group.id,
                       name: group.name,
-                      description: group.description || 'Connect with fellow tango enthusiasts and share your passion.',
-                      imageUrl: group.image_url,
-                      location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || 'Global'),
-                      memberCount: group.member_count || 0,
+                      slug: group.slug,
+                      description: group.description,
+                      imageUrl: group.image_url || group.imageUrl,
+                      city: group.city,
+                      country: group.country,
+                      memberCount: group.member_count || group.memberCount || 0,
                       eventCount: getEventCount(group.id),
-                      isJoined: group.membershipStatus === 'member'
+                      isJoined: group.membershipStatus === 'member',
+                      type: group.type
                     }}
                     onJoin={() => joinGroupMutation.mutate(group.slug)}
-                    onLeave={() => leaveGroupMutation.mutate(group.slug)}
-                    onClick={() => setLocation(`/groups/${group.slug}`)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="text-center py-12">
+                    onLeave={() => leaveGroupMutation.mutate(group.slug)} />
+
+                  </div>);
+
+            }
+
+            // Use regular CommunityCard for other groups
+            return (
+              <div key={group.id} className="community-card-item">
+                  <CommunityCard
+                  community={{
+                    id: group.id,
+                    name: group.name,
+                    description: group.description || 'Connect with fellow tango enthusiasts and share your passion.',
+                    imageUrl: group.image_url,
+                    location: group.city && group.country ? `${group.city}, ${group.country}` : group.city || group.country || 'Global',
+                    memberCount: group.member_count || 0,
+                    eventCount: getEventCount(group.id),
+                    isJoined: group.membershipStatus === 'member'
+                  }}
+                  onJoin={() => joinGroupMutation.mutate(group.slug)}
+                  onLeave={() => leaveGroupMutation.mutate(group.slug)}
+                  onClick={() => setLocation(`/groups/${group.slug}`)} />
+
+                </div>);
+
+          })}
+          </div> :
+
+        <div className="text-center py-12">
             <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No communities found</h3>
             <p className="text-gray-600 max-w-md mx-auto">
               Try adjusting your search or filters to find communities that match your interests.
             </p>
           </div>
-        )}
+        }
       </div>
-    </DashboardLayout>
-  );
-}
+    </DashboardLayout>);
 
+}

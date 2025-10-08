@@ -7,9 +7,9 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { useToast } from '../hooks/use-toast';
-import { 
-  Shield, 
-  Lock, 
+import {
+  Shield,
+  Lock,
   Eye,
   Database,
   CheckCircle,
@@ -25,8 +25,8 @@ import {
   BarChart3,
   ShieldCheck,
   History,
-  UserCheck
-} from 'lucide-react';
+  UserCheck } from
+'lucide-react';
 
 interface SecurityMetrics {
   rlsEnabled: number;
@@ -84,79 +84,79 @@ export default function DatabaseSecurity() {
 
   // Mock audit logs
   const mockAuditLogs: AuditLog[] = [
-    {
-      id: '1',
-      table_name: 'users',
-      action: 'UPDATE',
-      user_id: 1,
-      timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(),
-      changed_fields: ['profile_image', 'bio'],
-    },
-    {
-      id: '2',
-      table_name: 'posts',
-      action: 'INSERT',
-      user_id: 2,
-      timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
-    },
-    {
-      id: '3',
-      table_name: 'events',
-      action: 'UPDATE',
-      user_id: 3,
-      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-      changed_fields: ['start_date', 'location'],
-    }
-  ];
+  {
+    id: '1',
+    table_name: 'users',
+    action: 'UPDATE',
+    user_id: 1,
+    timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(),
+    changed_fields: ['profile_image', 'bio']
+  },
+  {
+    id: '2',
+    table_name: 'posts',
+    action: 'INSERT',
+    user_id: 2,
+    timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString()
+  },
+  {
+    id: '3',
+    table_name: 'events',
+    action: 'UPDATE',
+    user_id: 3,
+    timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+    changed_fields: ['start_date', 'location']
+  }];
+
 
   // Mock RLS policies
   const mockRLSPolicies: RLSPolicy[] = [
-    {
-      table_name: 'posts',
-      policy_name: 'posts_select_policy',
-      permissive: true,
-      roles: ['authenticated'],
-      using_expression: 'visibility = \'public\' OR user_id = get_current_user_id()',
-      enabled: true
-    },
-    {
-      table_name: 'memories',
-      policy_name: 'memories_select_policy',
-      permissive: true,
-      roles: ['authenticated'],
-      using_expression: 'emotion != \'private\' OR user_id = get_current_user_id()',
-      enabled: true
-    },
-    {
-      table_name: 'events',
-      policy_name: 'events_update_policy',
-      permissive: true,
-      roles: ['authenticated'],
-      using_expression: 'organizer_id = get_current_user_id()',
-      with_check_expression: 'organizer_id = get_current_user_id()',
-      enabled: true
-    }
-  ];
+  {
+    table_name: 'posts',
+    policy_name: 'posts_select_policy',
+    permissive: true,
+    roles: ['authenticated'],
+    using_expression: 'visibility = \'public\' OR user_id = get_current_user_id()',
+    enabled: true
+  },
+  {
+    table_name: 'memories',
+    policy_name: 'memories_select_policy',
+    permissive: true,
+    roles: ['authenticated'],
+    using_expression: 'emotion != \'private\' OR user_id = get_current_user_id()',
+    enabled: true
+  },
+  {
+    table_name: 'events',
+    policy_name: 'events_update_policy',
+    permissive: true,
+    roles: ['authenticated'],
+    using_expression: 'organizer_id = get_current_user_id()',
+    with_check_expression: 'organizer_id = get_current_user_id()',
+    enabled: true
+  }];
+
 
   // Tables with security status
   const securityTables = [
-    { name: 'users', rls: true, audit: true, sensitive: true },
-    { name: 'posts', rls: true, audit: true, sensitive: false },
-    { name: 'memories', rls: true, audit: true, sensitive: true },
-    { name: 'events', rls: true, audit: true, sensitive: false },
-    { name: 'user_roles', rls: true, audit: true, sensitive: true },
-    { name: 'event_participants', rls: true, audit: true, sensitive: false },
-    { name: 'media_assets', rls: true, audit: true, sensitive: false },
-    { name: 'friends', rls: false, audit: false, sensitive: true },
-    { name: 'chat_messages', rls: false, audit: false, sensitive: true },
-    { name: 'notifications', rls: true, audit: false, sensitive: false }
-  ];
+  { name: 'users', rls: true, audit: true, sensitive: true },
+  { name: 'posts', rls: true, audit: true, sensitive: false },
+  { name: 'memories', rls: true, audit: true, sensitive: true },
+  { name: 'events', rls: true, audit: true, sensitive: false },
+  { name: 'user_roles', rls: true, audit: true, sensitive: true },
+  { name: 'event_participants', rls: true, audit: true, sensitive: false },
+  { name: 'media_assets', rls: true, audit: true, sensitive: false },
+  { name: 'friends', rls: false, audit: false, sensitive: true },
+  { name: 'chat_messages', rls: false, audit: false, sensitive: true },
+  { name: 'notifications', rls: true, audit: false, sensitive: false }];
+
 
   // Run health check
   const runHealthCheckMutation = useMutation({
     mutationFn: async () => {
       // In a real app, this would call the health check API
-      return new Promise(resolve => setTimeout(resolve, 2000));
+      return new Promise((resolve) => setTimeout(resolve, 2000));
     },
     onSuccess: () => {
       toast({
@@ -192,7 +192,7 @@ export default function DatabaseSecurity() {
     const now = new Date();
     const diff = now.getTime() - date.getTime();
     const minutes = Math.floor(diff / 60000);
-    
+
     if (minutes < 60) return `${minutes}m ago`;
     const hours = Math.floor(minutes / 60);
     if (hours < 24) return `${hours}h ago`;
@@ -215,8 +215,8 @@ export default function DatabaseSecurity() {
             <Button
               onClick={() => runHealthCheckMutation.mutate()}
               disabled={runHealthCheckMutation.isPending}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-            >
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white" data-testid="button-bg-gradient-to-r">
+
               <RefreshCw className={`w-4 h-4 mr-2 ${runHealthCheckMutation.isPending ? 'animate-spin' : ''}`} />
               Run Health Check
             </Button>
@@ -231,8 +231,8 @@ export default function DatabaseSecurity() {
                   <p className="text-2xl font-bold text-gray-900">
                     {mockMetrics.rlsEnabled}/{mockMetrics.totalTables}
                   </p>
-                  <p className={`text-sm font-medium ${getStatusColor((mockMetrics.rlsEnabled / mockMetrics.totalTables) * 100)}`}>
-                    {((mockMetrics.rlsEnabled / mockMetrics.totalTables) * 100).toFixed(1)}% Protected
+                  <p className={`text-sm font-medium ${getStatusColor(mockMetrics.rlsEnabled / mockMetrics.totalTables * 100)}`}>
+                    {(mockMetrics.rlsEnabled / mockMetrics.totalTables * 100).toFixed(1)}% Protected
                   </p>
                 </div>
                 <Lock className="w-8 h-8 text-indigo-600" />
@@ -255,9 +255,9 @@ export default function DatabaseSecurity() {
                 <div>
                   <p className="text-sm text-gray-600">Health Status</p>
                   <p className="text-2xl font-bold text-gray-900">
-                    {mockMetrics.healthChecksPassed ? 
-                      <span className="text-green-600">Healthy</span> : 
-                      <span className="text-red-600">Issues</span>
+                    {mockMetrics.healthChecksPassed ?
+                    <span className="text-green-600">Healthy</span> :
+                    <span className="text-red-600">Issues</span>
                     }
                   </p>
                   <p className="text-sm text-gray-600">
@@ -273,9 +273,9 @@ export default function DatabaseSecurity() {
                 <div>
                   <p className="text-sm text-gray-600">GDPR Status</p>
                   <p className="text-2xl font-bold text-gray-900">
-                    {mockMetrics.gdprCompliant ? 
-                      <span className="text-green-600">Compliant</span> : 
-                      <span className="text-red-600">Review</span>
+                    {mockMetrics.gdprCompliant ?
+                    <span className="text-green-600">Compliant</span> :
+                    <span className="text-red-600">Review</span>
                     }
                   </p>
                   <p className="text-sm text-gray-600">All functions ready</p>
@@ -335,9 +335,9 @@ export default function DatabaseSecurity() {
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Row Level Security Policies</h3>
               <div className="space-y-4">
-                {mockRLSPolicies.map(policy => (
-                  <div key={`${policy.table_name}-${policy.policy_name}`} 
-                       className="border rounded-lg p-4 hover:bg-gray-50">
+                {mockRLSPolicies.map((policy) =>
+                <div key={`${policy.table_name}-${policy.policy_name}`}
+                className="border rounded-lg p-4 hover:bg-gray-50">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
@@ -350,19 +350,19 @@ export default function DatabaseSecurity() {
                         <p className="text-sm text-gray-600 mb-2">
                           <span className="font-medium">Using:</span> {policy.using_expression}
                         </p>
-                        {policy.with_check_expression && (
-                          <p className="text-sm text-gray-600">
+                        {policy.with_check_expression &&
+                      <p className="text-sm text-gray-600">
                             <span className="font-medium">Check:</span> {policy.with_check_expression}
                           </p>
-                        )}
+                      }
                       </div>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" data-testid="button-element">
                         <Eye className="w-4 h-4 mr-1" />
                         Test
                       </Button>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
             </Card>
           </TabsContent>
@@ -372,19 +372,19 @@ export default function DatabaseSecurity() {
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Audit Logs</h3>
               <div className="space-y-3">
-                {mockAuditLogs.map(log => (
-                  <div key={log.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                {mockAuditLogs.map((log) =>
+                <div key={log.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-4">
                       <div className={`p-2 rounded-lg ${
-                        log.action === 'INSERT' ? 'bg-green-100' :
-                        log.action === 'UPDATE' ? 'bg-blue-100' :
-                        'bg-red-100'
-                      }`}>
+                    log.action === 'INSERT' ? 'bg-green-100' :
+                    log.action === 'UPDATE' ? 'bg-blue-100' :
+                    'bg-red-100'}`
+                    }>
                         <History className={`w-4 h-4 ${
-                          log.action === 'INSERT' ? 'text-green-600' :
-                          log.action === 'UPDATE' ? 'text-blue-600' :
-                          'text-red-600'
-                        }`} />
+                      log.action === 'INSERT' ? 'text-green-600' :
+                      log.action === 'UPDATE' ? 'text-blue-600' :
+                      'text-red-600'}`
+                      } />
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">
@@ -396,14 +396,14 @@ export default function DatabaseSecurity() {
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" variant="ghost">
+                    <Button size="sm" variant="ghost" data-testid="button-element">
                       View Details
                     </Button>
                   </div>
-                ))}
+                )}
               </div>
               <div className="mt-4 text-center">
-                <Button variant="outline">
+                <Button variant="outline" data-testid="button-element">
                   View All Audit Logs
                 </Button>
               </div>
@@ -426,8 +426,8 @@ export default function DatabaseSecurity() {
                     </tr>
                   </thead>
                   <tbody>
-                    {securityTables.map(table => (
-                      <tr key={table.name} className="border-b hover:bg-gray-50">
+                    {securityTables.map((table) =>
+                    <tr key={table.name} className="border-b hover:bg-gray-50">
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-2">
                             <Database className="w-4 h-4 text-gray-500" />
@@ -435,37 +435,37 @@ export default function DatabaseSecurity() {
                           </div>
                         </td>
                         <td className="text-center py-3 px-4">
-                          {table.rls ? (
-                            <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
-                          ) : (
-                            <AlertTriangle className="w-5 h-5 text-yellow-600 mx-auto" />
-                          )}
+                          {table.rls ?
+                        <CheckCircle className="w-5 h-5 text-green-600 mx-auto" /> :
+
+                        <AlertTriangle className="w-5 h-5 text-yellow-600 mx-auto" />
+                        }
                         </td>
                         <td className="text-center py-3 px-4">
-                          {table.audit ? (
-                            <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
-                          ) : (
-                            <AlertCircle className="w-5 h-5 text-gray-400 mx-auto" />
-                          )}
+                          {table.audit ?
+                        <CheckCircle className="w-5 h-5 text-green-600 mx-auto" /> :
+
+                        <AlertCircle className="w-5 h-5 text-gray-400 mx-auto" />
+                        }
                         </td>
                         <td className="text-center py-3 px-4">
-                          {table.sensitive && (
-                            <Badge variant="destructive" className="text-xs">
+                          {table.sensitive &&
+                        <Badge variant="destructive" className="text-xs">
                               Sensitive
                             </Badge>
-                          )}
+                        }
                         </td>
                         <td className="text-center py-3 px-4">
                           <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => setSelectedTable(table.name)}
-                          >
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => setSelectedTable(table.name)} data-testid="button-element">
+
                             Configure
                           </Button>
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -492,14 +492,14 @@ export default function DatabaseSecurity() {
                     <input
                       type="text"
                       placeholder="Enter user ID or email"
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
+                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" data-testid="input-text" />
+
                   </div>
                   <Button
                     onClick={() => exportGDPRDataMutation.mutate(1)}
                     disabled={exportGDPRDataMutation.isPending}
-                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-                  >
+                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white" data-testid="button-w-full">
+
                     Export User Data
                   </Button>
                 </div>
@@ -522,14 +522,14 @@ export default function DatabaseSecurity() {
                     <input
                       type="text"
                       placeholder="Enter user ID or email"
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
+                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" data-testid="input-text" />
+
                   </div>
                   <Button
                     variant="destructive"
                     className="w-full"
-                    disabled
-                  >
+                    disabled data-testid="button-w-full">
+
                     Anonymize User Data
                   </Button>
                   <p className="text-xs text-red-600 text-center">
@@ -567,6 +567,6 @@ export default function DatabaseSecurity() {
           </TabsContent>
         </Tabs>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

@@ -49,11 +49,11 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
             'shadow-lg backdrop-blur-md',
             'transition-all duration-300',
             className
-          )}
-        >
+          )}>
+
           {children}
-        </motion.div>
-      );
+        </motion.div>);
+
     }
 
     return (
@@ -67,11 +67,11 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           'transition-all duration-300',
           className
         )}
-        {...props}
-      >
+        {...props}>
+
         {children}
-      </div>
-    );
+      </div>);
+
   }
 );
 
@@ -100,11 +100,11 @@ const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
           'transition-all duration-300',
           className
         )}
-        {...props}
-      >
+        {...props}>
+
         {children}
-      </div>
-    );
+      </div>);
+
   }
 );
 
@@ -145,7 +145,7 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         'hover:bg-white/20 dark:hover:bg-white/10',
         'text-slate-900 dark:text-white',
         !reducedTransparency && 'backdrop-blur-sm'
-      ),
+      )
     };
 
     return (
@@ -162,11 +162,11 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
           variantStyles[variant],
           className
         )}
-        {...props}
-      >
+        {...props}>
+
         {children}
-      </motion.button>
-    );
+      </motion.button>);
+
   }
 );
 
@@ -192,13 +192,13 @@ interface GlassModalProps {
   ariaDescribedBy?: string;
 }
 
-const GlassModal = ({ 
-  children, 
-  isOpen, 
-  onClose, 
+const GlassModal = ({
+  children,
+  isOpen,
+  onClose,
   className = '',
   ariaLabelledBy,
-  ariaDescribedBy,
+  ariaDescribedBy
 }: GlassModalProps) => {
   const reducedTransparency = prefersReducedTransparency();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -209,7 +209,7 @@ const GlassModal = ({
     if (isOpen) {
       // Store the currently focused element to restore later
       previouslyFocusedElement.current = document.activeElement as HTMLElement;
-      
+
       // Focus the modal content
       if (modalRef.current) {
         modalRef.current.focus();
@@ -261,16 +261,16 @@ const GlassModal = ({
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
-      role="presentation"
-    >
+      role="presentation">
+
       {/* Backdrop */}
-      <div 
+      <div
         className={cn(
           'absolute inset-0 bg-black/40',
           !reducedTransparency && 'backdrop-blur-sm'
         )}
-        aria-hidden="true"
-      />
+        aria-hidden="true" />
+
 
       {/* Modal Content */}
       <motion.div
@@ -293,12 +293,12 @@ const GlassModal = ({
           'shadow-2xl',
           'focus:outline-none focus:ring-2 focus:ring-cyan-500/50',
           className
-        )}
-      >
+        )}>
+
         {children}
       </motion.div>
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 /**
@@ -312,9 +312,9 @@ interface GlassTooltipProps {
   className?: string;
 }
 
-const GlassTooltip = ({ 
-  children, 
-  content, 
+const GlassTooltip = ({
+  children,
+  content,
   position = 'top',
   className = ''
 }: GlassTooltipProps) => {
@@ -324,7 +324,7 @@ const GlassTooltip = ({
     top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
     bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
     left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-    right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+    right: 'left-full top-1/2 -translate-y-1/2 ml-2'
   };
 
   return (
@@ -348,8 +348,8 @@ const GlassTooltip = ({
           {content}
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 /**
@@ -370,7 +370,7 @@ const GlassBadge = forwardRef<HTMLSpanElement, GlassBadgeProps>(
       info: 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
       success: 'bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30',
       warning: 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30',
-      error: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30',
+      error: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30'
     };
 
     return (
@@ -384,11 +384,11 @@ const GlassBadge = forwardRef<HTMLSpanElement, GlassBadgeProps>(
           variantStyles[variant],
           className
         )}
-        {...props}
-      >
+        {...props}>
+
         {children}
-      </span>
-    );
+      </span>);
+
   }
 );
 
@@ -425,9 +425,9 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
           'transition-all duration-200',
           className
         )}
-        {...props}
-      />
-    );
+        {...props} data-testid="input-element" />);
+
+
   }
 );
 
@@ -465,9 +465,9 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
           'resize-none',
           className
         )}
-        {...props}
-      />
-    );
+        {...props} data-testid="textarea-element" />);
+
+
   }
 );
 
@@ -497,11 +497,11 @@ const GlassNavbar = forwardRef<HTMLElement, GlassNavbarProps>(
           'shadow-sm',
           className
         )}
-        {...props}
-      >
+        {...props}>
+
         {children}
-      </nav>
-    );
+      </nav>);
+
   }
 );
 
@@ -536,11 +536,11 @@ const GlassDropdown = ({ children, isOpen, className = '' }: GlassDropdownProps)
         'shadow-xl',
         'z-50',
         className
-      )}
-    >
+      )}>
+
       {children}
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 /**
@@ -556,5 +556,4 @@ export {
   GlassInput,
   GlassTextarea,
   GlassNavbar,
-  GlassDropdown,
-};
+  GlassDropdown };

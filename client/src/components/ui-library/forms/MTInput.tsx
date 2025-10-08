@@ -87,18 +87,18 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
 
   return (
     <div className="w-full">
-      {label && (
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      {label &&
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           {label}
         </label>
-      )}
+      }
       
       <div className="relative">
-        {icon && iconPosition === 'left' && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+        {icon && iconPosition === 'left' &&
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
             {icon}
           </div>
-        )}
+        }
 
         <input
           ref={ref}
@@ -117,49 +117,49 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
           )}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          {...props}
-        />
+          {...props} data-testid="input-element" />
 
-        {icon && iconPosition === 'right' && !showPasswordToggle && !showClearButton && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+
+        {icon && iconPosition === 'right' && !showPasswordToggle && !showClearButton &&
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
             {icon}
           </div>
-        )}
+        }
 
-        {type === 'password' && showPasswordToggle && (
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-          >
+        {type === 'password' && showPasswordToggle &&
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button">
+
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
-        )}
+        }
 
-        {showClearButton && value && !disabled && (
-          <button
-            type="button"
-            onClick={onClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-          >
+        {showClearButton && value && !disabled &&
+        <button
+          type="button"
+          onClick={onClear}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button">
+
             <X className="w-5 h-5" />
           </button>
-        )}
+        }
       </div>
 
-      {error && (
-        <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+      {error &&
+      <p className="mt-2 text-sm text-red-600 dark:text-red-400">
           {error}
         </p>
-      )}
+      }
 
-      {helperText && !error && (
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+      {helperText && !error &&
+      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           {helperText}
         </p>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 });
 
 MTInput.displayName = 'MTInput';

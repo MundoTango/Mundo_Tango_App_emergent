@@ -32,8 +32,8 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             value={data.title || ''}
             onChange={(e) => updateData({ title: e.target.value })}
             className="mt-1"
-            maxLength={255}
-          />
+            maxLength={255} data-testid="input-title" />
+
           <p className="text-xs text-gray-500 mt-1">{data.title?.length || 0}/255 characters</p>
         </div>
 
@@ -45,8 +45,8 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             value={data.description || ''}
             onChange={(e) => updateData({ description: e.target.value })}
             className="mt-1 min-h-[120px]"
-            maxLength={1000}
-          />
+            maxLength={1000} data-testid="textarea-description" />
+
           <p className="text-xs text-gray-500 mt-1">{data.description?.length || 0}/1000 characters</p>
         </div>
       </div>
@@ -61,16 +61,16 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
               <button
                 type="button"
                 onClick={() => handleNumberChange('maxGuests', (data.maxGuests || 1) - 1, 1, 20)}
-                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-              >
+                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
+
                 <Minus className="w-4 h-4" />
               </button>
               <span className="w-12 text-center font-medium">{data.maxGuests || 1}</span>
               <button
                 type="button"
                 onClick={() => handleNumberChange('maxGuests', (data.maxGuests || 1) + 1, 1, 20)}
-                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-              >
+                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
+
                 <Plus className="w-4 h-4" />
               </button>
             </div>
@@ -83,32 +83,32 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
         <Label className="text-lg font-medium mb-4 block">Rooms and beds</Label>
         <div className="space-y-4">
           {[
-            { field: 'bedrooms', label: 'Bedrooms', min: 0, max: 50 },
-            { field: 'beds', label: 'Beds', min: 1, max: 50 },
-          ].map((item) => (
-            <div key={item.field} className="bg-gray-50 p-4 rounded-lg">
+          { field: 'bedrooms', label: 'Bedrooms', min: 0, max: 50 },
+          { field: 'beds', label: 'Beds', min: 1, max: 50 }].
+          map((item) =>
+          <div key={item.field} className="bg-gray-50 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{item.label}</span>
                 <div className="flex items-center gap-3">
                   <button
-                    type="button"
-                    onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)}
-                    className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                  >
+                  type="button"
+                  onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)}
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
+
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="w-12 text-center font-medium">{data[item.field] || item.min}</span>
                   <button
-                    type="button"
-                    onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)}
-                    className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                  >
+                  type="button"
+                  onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)}
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
+
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             </div>
-          ))}
+          )}
 
           {/* Bathrooms with decimal support */}
           <div className="bg-gray-50 p-4 rounded-lg">
@@ -122,8 +122,8 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                     const newValue = Math.max(0.5, current - 0.5);
                     updateData({ bathrooms: newValue });
                   }}
-                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                >
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
+
                   <Minus className="w-4 h-4" />
                 </button>
                 <span className="w-12 text-center font-medium">{data.bathrooms || 1}</span>
@@ -134,8 +134,8 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                     const newValue = Math.min(10, current + 0.5);
                     updateData({ bathrooms: newValue });
                   }}
-                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                >
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
+
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
@@ -143,6 +143,6 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }

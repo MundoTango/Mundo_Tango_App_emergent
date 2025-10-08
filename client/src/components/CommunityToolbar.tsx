@@ -4,11 +4,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MTCard, MTButton, MTBadge } from '@/components/ui-library';
-import { 
-  Home, 
-  MapPin, 
-  Calendar, 
-  Heart, 
+import {
+  Home,
+  MapPin,
+  Calendar,
+  Heart,
   Star,
   Users,
   Utensils,
@@ -19,8 +19,8 @@ import {
   Music,
   Filter,
   ChevronDown,
-  Navigation
-} from 'lucide-react';
+  Navigation } from
+'lucide-react';
 import HostHomesList from './Housing/HostHomesList';
 import RecommendationsList from './Recommendations/RecommendationsList';
 import CommunityMapWithLayers from './Community/CommunityMapWithLayers';
@@ -38,33 +38,33 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
   const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState('map');
   const [showFilters, setShowFilters] = useState(false);
-  
+
   // Role-based check for super admin
   const isSuperAdmin = user?.roles?.includes('super_admin');
-  
+
   // Map layer toggles
   const [mapLayers, setMapLayers] = useState({
     events: true,
     housing: true,
     recommendations: true
   });
-  
+
   // Date filter for events
   const [dateFilter, setDateFilter] = useState<{
     startDate?: Date;
     endDate?: Date;
   }>({});
-  
+
   // Event metadata filters
   const [eventFilters, setEventFilters] = useState({
     category: 'all',
     priceRange: 'all',
     timeOfDay: 'all'
   });
-  
+
   // Friend relationship filter
   const [friendFilter, setFriendFilter] = useState<'all' | 'direct' | 'friend-of-friend' | 'community'>('all');
-  
+
   // Local vs visitor filter for recommendations
   const [recommendationType, setRecommendationType] = useState<'all' | 'local' | 'visitor'>('all');
 
@@ -83,33 +83,33 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
         
         {/* Context-based buttons */}
         <div className="flex gap-2">
-          {userContext?.isLocal && !userContext.hasHostProfile && (
-            <MTButton 
-              onClick={() => setLocation('/host-onboarding')}
-              variant="gradient"
-              icon={<Home className="h-4 w-4" />}
-            >
+          {userContext?.isLocal && !userContext.hasHostProfile &&
+          <MTButton
+            onClick={() => setLocation('/host-onboarding')}
+            variant="gradient"
+            icon={<Home className="h-4 w-4" />}>
+
               Become a Host
             </MTButton>
-          )}
-          {userContext?.privileges.canSeeVisitors && (
-            <MTButton 
-              variant="glass"
-              onClick={() => setShowFilters(!showFilters)}
-              icon={<Users className="h-4 w-4" />}
-            >
+          }
+          {userContext?.privileges.canSeeVisitors &&
+          <MTButton
+            variant="glass"
+            onClick={() => setShowFilters(!showFilters)}
+            icon={<Users className="h-4 w-4" />}>
+
               View Incoming Visitors
             </MTButton>
-          )}
-          {userContext?.isVisitor && userContext.privileges.canRequestStay && (
-            <MTButton 
-              variant="glass"
-              onClick={() => setLocation('/housing-marketplace')}
-              icon={<Home className="h-4 w-4" />}
-            >
+          }
+          {userContext?.isVisitor && userContext.privileges.canRequestStay &&
+          <MTButton
+            variant="glass"
+            onClick={() => setLocation('/housing-marketplace')}
+            icon={<Home className="h-4 w-4" />}>
+
               Request a Stay
             </MTButton>
-          )}
+          }
         </div>
       </div>
 
@@ -140,8 +140,8 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 variant="glass"
                 size="sm"
                 onClick={() => setShowFilters(!showFilters)}
-                icon={<Filter className="h-4 w-4" />}
-              >
+                icon={<Filter className="h-4 w-4" />}>
+
                 Filters
                 <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
               </MTButton>
@@ -154,8 +154,8 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                   type="checkbox"
                   checked={mapLayers.events}
                   onChange={(e) => setMapLayers({ ...mapLayers, events: e.target.checked })}
-                  className="rounded"
-                />
+                  className="rounded" data-testid="input-checkbox" />
+
                 <Calendar className="h-4 w-4 text-teal-500" />
                 Events
               </label>
@@ -164,8 +164,8 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                   type="checkbox"
                   checked={mapLayers.housing}
                   onChange={(e) => setMapLayers({ ...mapLayers, housing: e.target.checked })}
-                  className="rounded"
-                />
+                  className="rounded" data-testid="input-checkbox" />
+
                 <Home className="h-4 w-4 text-green-500" />
                 Housing
               </label>
@@ -174,44 +174,44 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                   type="checkbox"
                   checked={mapLayers.recommendations}
                   onChange={(e) => setMapLayers({ ...mapLayers, recommendations: e.target.checked })}
-                  className="rounded"
-                />
+                  className="rounded" data-testid="input-checkbox" />
+
                 <Star className="h-4 w-4 text-blue-600" />
                 Recommendations
               </label>
             </div>
             
             {/* Filters Section */}
-            {showFilters && (
-              <div className="mt-4 pt-4 border-t space-y-4">
+            {showFilters &&
+            <div className="mt-4 pt-4 border-t space-y-4">
                 {/* Date Filter */}
                 <div>
                   <label className="text-sm font-medium mb-2 block">Date Range</label>
                   <div className="flex gap-2">
                     <input
-                      type="date"
-                      className="flex-1 rounded-md border px-3 py-2"
-                      onChange={(e) => setDateFilter({ ...dateFilter, startDate: new Date(e.target.value) })}
-                    />
+                    type="date"
+                    className="flex-1 rounded-md border px-3 py-2"
+                    onChange={(e) => setDateFilter({ ...dateFilter, startDate: new Date(e.target.value) })} data-testid="input-date" />
+
                     <span className="self-center">to</span>
                     <input
-                      type="date"
-                      className="flex-1 rounded-md border px-3 py-2"
-                      onChange={(e) => setDateFilter({ ...dateFilter, endDate: new Date(e.target.value) })}
-                    />
+                    type="date"
+                    className="flex-1 rounded-md border px-3 py-2"
+                    onChange={(e) => setDateFilter({ ...dateFilter, endDate: new Date(e.target.value) })} data-testid="input-date" />
+
                   </div>
                 </div>
                 
                 {/* Event Filters */}
-                {mapLayers.events && (
-                  <div>
+                {mapLayers.events &&
+              <div>
                     <label className="text-sm font-medium mb-2 block">Event Filters</label>
                     <div className="grid grid-cols-3 gap-2">
                       <select
-                        value={eventFilters.category}
-                        onChange={(e) => setEventFilters({ ...eventFilters, category: e.target.value })}
-                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
-                      >
+                    value={eventFilters.category}
+                    onChange={(e) => setEventFilters({ ...eventFilters, category: e.target.value })}
+                    className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-rounded-xl">
+
                         <option value="all">All Categories</option>
                         <option value="milonga">Milonga</option>
                         <option value="practica">Práctica</option>
@@ -219,10 +219,10 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                         <option value="festival">Festival</option>
                       </select>
                       <select
-                        value={eventFilters.priceRange}
-                        onChange={(e) => setEventFilters({ ...eventFilters, priceRange: e.target.value })}
-                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
-                      >
+                    value={eventFilters.priceRange}
+                    onChange={(e) => setEventFilters({ ...eventFilters, priceRange: e.target.value })}
+                    className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-rounded-xl">
+
                         <option value="all">Any Price</option>
                         <option value="free">Free</option>
                         <option value="0-20">$0-20</option>
@@ -230,10 +230,10 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                         <option value="50+">$50+</option>
                       </select>
                       <select
-                        value={eventFilters.timeOfDay}
-                        onChange={(e) => setEventFilters({ ...eventFilters, timeOfDay: e.target.value })}
-                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
-                      >
+                    value={eventFilters.timeOfDay}
+                    onChange={(e) => setEventFilters({ ...eventFilters, timeOfDay: e.target.value })}
+                    className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-rounded-xl">
+
                         <option value="all">Any Time</option>
                         <option value="morning">Morning</option>
                         <option value="afternoon">Afternoon</option>
@@ -242,42 +242,42 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       </select>
                     </div>
                   </div>
-                )}
+              }
                 
                 {/* Friend Relationship Filter */}
-                {(mapLayers.housing || mapLayers.recommendations) && (
-                  <div>
+                {(mapLayers.housing || mapLayers.recommendations) &&
+              <div>
                     <label className="text-sm font-medium mb-2 block">Friend Connections</label>
                     <select
-                      value={friendFilter}
-                      onChange={(e) => setFriendFilter(e.target.value as any)}
-                      className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
-                    >
+                  value={friendFilter}
+                  onChange={(e) => setFriendFilter(e.target.value as any)}
+                  className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-w-full">
+
                       <option value="all">All Users</option>
                       <option value="direct">Direct Friends Only</option>
                       <option value="friend-of-friend">Friends of Friends</option>
                       <option value="community">Community Members</option>
                     </select>
                   </div>
-                )}
+              }
                 
                 {/* Local vs Visitor Filter for Recommendations */}
-                {mapLayers.recommendations && (
-                  <div>
+                {mapLayers.recommendations &&
+              <div>
                     <label className="text-sm font-medium mb-2 block">Recommendation Type</label>
                     <select
-                      value={recommendationType}
-                      onChange={(e) => setRecommendationType(e.target.value as any)}
-                      className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
-                    >
+                  value={recommendationType}
+                  onChange={(e) => setRecommendationType(e.target.value as any)}
+                  className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-w-full">
+
                       <option value="all">All Recommendations</option>
                       <option value="local">From Locals (e.g., best steaks)</option>
                       <option value="visitor">From Visitors (e.g., authentic Chinese food)</option>
                     </select>
                   </div>
-                )}
+              }
               </div>
-            )}
+            }
           </MTCard>
           
           {/* Enhanced Map Component */}
@@ -290,32 +290,32 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
               eventFilters={eventFilters}
               friendFilter={friendFilter}
               recommendationType={recommendationType}
-              showDirections={true}
-            />
+              showDirections={true} />
+
           </div>
         </TabsContent>
 
         {/* Housing Tab */}
         <TabsContent value="housing">
-          <HostHomesList 
-            city={city} 
+          <HostHomesList
+            city={city}
             groupSlug={groupSlug}
             showFilters={true}
-            friendFilter={friendFilter}
-          />
+            friendFilter={friendFilter} />
+
         </TabsContent>
 
         {/* Recommendations Tab */}
         <TabsContent value="recommendations">
-          <RecommendationsList 
+          <RecommendationsList
             city={city}
             groupSlug={groupSlug}
             showFilters={true}
             friendFilter={friendFilter}
-            recommendationType={recommendationType}
-          />
+            recommendationType={recommendationType} />
+
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 }

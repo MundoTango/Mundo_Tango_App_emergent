@@ -16,20 +16,20 @@ export default function EventInvitationManager() {
   // Get user's event invitations
   const { data: invitationsData, isLoading } = useQuery({
     queryKey: ['/api/users/me/event-invitations'],
-    queryFn: () => apiRequest('/api/users/me/event-invitations'),
+    queryFn: () => apiRequest('/api/users/me/event-invitations')
   });
 
   // Update invitation status mutation
   const updateStatusMutation = useMutation({
-    mutationFn: ({ participantId, status }: { participantId: number; status: 'accepted' | 'declined' }) =>
-      apiRequest(`/api/event-participants/${participantId}/status`, {
-        method: 'PATCH',
-        body: { status },
-      }),
+    mutationFn: ({ participantId, status }: {participantId: number;status: 'accepted' | 'declined';}) =>
+    apiRequest(`/api/event-participants/${participantId}/status`, {
+      method: 'PATCH',
+      body: { status }
+    }),
     onSuccess: (data, variables) => {
       toast({
         title: `Invitation ${variables.status}`,
-        description: `You have ${variables.status} the event role invitation`,
+        description: `You have ${variables.status} the event role invitation`
       });
       queryClient.invalidateQueries({ queryKey: ['/api/users/me/event-invitations'] });
     },
@@ -37,9 +37,9 @@ export default function EventInvitationManager() {
       toast({
         title: 'Failed to update invitation',
         description: error.message || 'An error occurred',
-        variant: 'destructive',
+        variant: 'destructive'
       });
-    },
+    }
   });
 
   const handleAccept = (participantId: number) => {
@@ -78,8 +78,8 @@ export default function EventInvitationManager() {
     return invitationsData.data.filter((inv: any) => inv.status === status);
   };
 
-  const InvitationCard = ({ invitation }: { invitation: any }) => (
-    <Card className="mb-4">
+  const InvitationCard = ({ invitation }: {invitation: any;}) =>
+  <Card className="mb-4">
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -114,40 +114,40 @@ export default function EventInvitationManager() {
             </div>
           </div>
           
-          {invitation.status === 'pending' && (
-            <div className="flex space-x-2 ml-4">
+          {invitation.status === 'pending' &&
+        <div className="flex space-x-2 ml-4">
               <Button
-                size="sm"
-                onClick={() => handleAccept(invitation.id)}
-                disabled={updateStatusMutation.isPending}
-                className="bg-green-600 hover:bg-green-700"
-              >
+            size="sm"
+            onClick={() => handleAccept(invitation.id)}
+            disabled={updateStatusMutation.isPending}
+            className="bg-green-600 hover:bg-green-700" data-testid="button-bg-green-600">
+
                 <CheckCircle className="h-4 w-4 mr-1" />
                 Accept
               </Button>
               <Button
-                size="sm"
-                variant="outline"
-                onClick={() => handleDecline(invitation.id)}
-                disabled={updateStatusMutation.isPending}
-                className="border-red-300 text-red-600 hover:bg-red-50"
-              >
+            size="sm"
+            variant="outline"
+            onClick={() => handleDecline(invitation.id)}
+            disabled={updateStatusMutation.isPending}
+            className="border-red-300 text-red-600 hover:bg-red-50" data-testid="button-border-red-300">
+
                 <XCircle className="h-4 w-4 mr-1" />
                 Decline
               </Button>
             </div>
-          )}
+        }
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
+
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
-      </div>
-    );
+      </div>);
+
   }
 
   const pendingInvitations = filterInvitations('pending');
@@ -166,11 +166,11 @@ export default function EventInvitationManager() {
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="pending" className="relative">
             Pending
-            {pendingInvitations.length > 0 && (
-              <Badge className="ml-2 h-5 w-5 flex items-center justify-center p-0 bg-red-500 text-white text-xs">
+            {pendingInvitations.length > 0 &&
+            <Badge className="ml-2 h-5 w-5 flex items-center justify-center p-0 bg-red-500 text-white text-xs">
                 {pendingInvitations.length}
               </Badge>
-            )}
+            }
           </TabsTrigger>
           <TabsTrigger value="accepted">
             Accepted ({acceptedInvitations.length})
@@ -184,89 +184,89 @@ export default function EventInvitationManager() {
         </TabsList>
 
         <TabsContent value="pending" className="mt-6">
-          {pendingInvitations.length > 0 ? (
-            <div>
+          {pendingInvitations.length > 0 ?
+          <div>
               <p className="text-sm text-gray-600 mb-4">
                 You have {pendingInvitations.length} pending invitation{pendingInvitations.length !== 1 ? 's' : ''}
               </p>
-              {pendingInvitations.map((invitation: any) => (
-                <InvitationCard key={invitation.id} invitation={invitation} />
-              ))}
-            </div>
-          ) : (
-            <Card>
+              {pendingInvitations.map((invitation: any) =>
+            <InvitationCard key={invitation.id} invitation={invitation} />
+            )}
+            </div> :
+
+          <Card>
               <CardContent className="p-8 text-center">
                 <Clock className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No pending invitations</h3>
                 <p className="text-gray-500">You're all caught up! Check back later for new opportunities.</p>
               </CardContent>
             </Card>
-          )}
+          }
         </TabsContent>
 
         <TabsContent value="accepted" className="mt-6">
-          {acceptedInvitations.length > 0 ? (
-            <div>
+          {acceptedInvitations.length > 0 ?
+          <div>
               <p className="text-sm text-gray-600 mb-4">
                 You have accepted {acceptedInvitations.length} role invitation{acceptedInvitations.length !== 1 ? 's' : ''}
               </p>
-              {acceptedInvitations.map((invitation: any) => (
-                <InvitationCard key={invitation.id} invitation={invitation} />
-              ))}
-            </div>
-          ) : (
-            <Card>
+              {acceptedInvitations.map((invitation: any) =>
+            <InvitationCard key={invitation.id} invitation={invitation} />
+            )}
+            </div> :
+
+          <Card>
               <CardContent className="p-8 text-center">
                 <CheckCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No accepted invitations</h3>
                 <p className="text-gray-500">Accept invitations to build your tango resume.</p>
               </CardContent>
             </Card>
-          )}
+          }
         </TabsContent>
 
         <TabsContent value="declined" className="mt-6">
-          {declinedInvitations.length > 0 ? (
-            <div>
+          {declinedInvitations.length > 0 ?
+          <div>
               <p className="text-sm text-gray-600 mb-4">
                 You have declined {declinedInvitations.length} role invitation{declinedInvitations.length !== 1 ? 's' : ''}
               </p>
-              {declinedInvitations.map((invitation: any) => (
-                <InvitationCard key={invitation.id} invitation={invitation} />
-              ))}
-            </div>
-          ) : (
-            <Card>
+              {declinedInvitations.map((invitation: any) =>
+            <InvitationCard key={invitation.id} invitation={invitation} />
+            )}
+            </div> :
+
+          <Card>
               <CardContent className="p-8 text-center">
                 <XCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No declined invitations</h3>
                 <p className="text-gray-500">All your invitations are still active.</p>
               </CardContent>
             </Card>
-          )}
+          }
         </TabsContent>
 
         <TabsContent value="all" className="mt-6">
-          {allInvitations.length > 0 ? (
-            <div>
+          {allInvitations.length > 0 ?
+          <div>
               <p className="text-sm text-gray-600 mb-4">
                 You have {allInvitations.length} total invitation{allInvitations.length !== 1 ? 's' : ''}
               </p>
-              {allInvitations.map((invitation: any) => (
-                <InvitationCard key={invitation.id} invitation={invitation} />
-              ))}
-            </div>
-          ) : (
-            <Card>
+              {allInvitations.map((invitation: any) =>
+            <InvitationCard key={invitation.id} invitation={invitation} />
+            )}
+            </div> :
+
+          <Card>
               <CardContent className="p-8 text-center">
                 <User className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No invitations yet</h3>
                 <p className="text-gray-500">Event organizers will invite you to participate in their events.</p>
               </CardContent>
             </Card>
-          )}
+          }
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 }

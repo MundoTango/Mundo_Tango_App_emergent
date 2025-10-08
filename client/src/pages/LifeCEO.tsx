@@ -17,10 +17,10 @@ export default function LifeCEO() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
   const [activeAgents, setActiveAgents] = useState([
-    { name: 'Business Agent', status: 'active', icon: '💼' },
-    { name: 'Finance Agent', status: 'active', icon: '💰' },
-    { name: 'Health Agent', status: 'active', icon: '❤️' },
-  ]);
+  { name: 'Business Agent', status: 'active', icon: '💼' },
+  { name: 'Finance Agent', status: 'active', icon: '💰' },
+  { name: 'Health Agent', status: 'active', icon: '❤️' }]
+  );
 
   // Check if user is super admin
   const isSuperAdmin = user?.roles?.includes('super_admin') || user?.tangoRoles?.includes('super_admin');
@@ -44,7 +44,7 @@ export default function LifeCEO() {
         let interimTranscript = '';
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           if (event.results[i].isFinal) {
-            setTranscript(prev => prev + event.results[i][0].transcript + ' ');
+            setTranscript((prev) => prev + event.results[i][0].transcript + ' ');
           } else {
             interimTranscript += event.results[i][0].transcript;
           }
@@ -85,16 +85,16 @@ export default function LifeCEO() {
       const response = await fetch('http://localhost:4001/api/voice/command', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          command, 
-          userId: user?.id || 1, 
-          language 
+        body: JSON.stringify({
+          command,
+          userId: user?.id || 1,
+          language
         })
       });
-      
+
       const data = await response.json();
       setResponse(data.response || 'Processing your request...');
-      
+
       // Text-to-speech response
       if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(data.response);
@@ -121,10 +121,10 @@ export default function LifeCEO() {
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setLocation('/profile-switcher')}
-            >
+                variant="ghost"
+                size="icon"
+                onClick={() => setLocation('/profile-switcher')} data-testid="button-element">
+
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
@@ -136,23 +136,23 @@ export default function LifeCEO() {
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                language === 'en' 
-                  ? 'bg-purple-100 text-purple-700' 
-                  : 'text-gray-500 hover:bg-gray-100'
-              }`}
-            >
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                language === 'en' ?
+                'bg-purple-100 text-purple-700' :
+                'text-gray-500 hover:bg-gray-100'}`
+                } data-testid="button-element">
+
               EN
             </button>
             <button
-              onClick={() => setLanguage('es')}
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                language === 'es' 
-                  ? 'bg-purple-100 text-purple-700' 
-                  : 'text-gray-500 hover:bg-gray-100'
-              }`}
-            >
+                onClick={() => setLanguage('es')}
+                className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                language === 'es' ?
+                'bg-purple-100 text-purple-700' :
+                'text-gray-500 hover:bg-gray-100'}`
+                } data-testid="button-element">
+
               ES
             </button>
           </div>
@@ -163,7 +163,7 @@ export default function LifeCEO() {
       <div className="container mx-auto px-4 py-6 max-w-4xl">
         {/* Agent Status */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          {activeAgents.map((agent) => (
+          {activeAgents.map((agent) =>
             <Card key={agent.name} className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -176,7 +176,7 @@ export default function LifeCEO() {
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               </div>
             </Card>
-          ))}
+            )}
         </div>
 
         {/* Voice Interface */}
@@ -184,39 +184,39 @@ export default function LifeCEO() {
           <div className="text-center">
             {/* Recording Button */}
             <button
-              onClick={toggleRecording}
-              disabled={isProcessing}
-              className={`w-32 h-32 rounded-full transition-all transform ${
-                isRecording 
-                  ? 'bg-red-500 hover:bg-red-600 scale-110 animate-pulse' 
-                  : 'bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600'
-              } text-white shadow-lg hover:shadow-xl disabled:opacity-50`}
-            >
-              {isRecording ? (
-                <MicOff className="w-12 h-12 mx-auto" />
-              ) : (
+                onClick={toggleRecording}
+                disabled={isProcessing}
+                className={`w-32 h-32 rounded-full transition-all transform ${
+                isRecording ?
+                'bg-red-500 hover:bg-red-600 scale-110 animate-pulse' :
+                'bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600'} text-white shadow-lg hover:shadow-xl disabled:opacity-50`
+                } data-testid="button-element">
+
+              {isRecording ?
+                <MicOff className="w-12 h-12 mx-auto" /> :
+
                 <Mic className="w-12 h-12 mx-auto" />
-              )}
+                }
             </button>
             
             <p className="mt-4 text-sm text-gray-600">
-              {isRecording 
-                ? language === 'en' ? 'Listening...' : 'Escuchando...'
-                : language === 'en' ? 'Tap to speak' : 'Toca para hablar'
-              }
+              {isRecording ?
+                language === 'en' ? 'Listening...' : 'Escuchando...' :
+                language === 'en' ? 'Tap to speak' : 'Toca para hablar'
+                }
             </p>
 
             {/* Transcript */}
-            {transcript && (
+            {transcript &&
               <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left">
                 <p className="text-sm text-gray-700">
                   <strong>{language === 'en' ? 'You said:' : 'Dijiste:'}</strong> {transcript}
                 </p>
               </div>
-            )}
+              }
 
             {/* Response */}
-            {response && (
+            {response &&
               <div className="mt-4 p-4 bg-purple-50 rounded-lg text-left">
                 <div className="flex items-start gap-3">
                   <Brain className="w-5 h-5 text-purple-600 mt-0.5" />
@@ -225,7 +225,7 @@ export default function LifeCEO() {
                   </div>
                 </div>
               </div>
-            )}
+              }
           </div>
         </Card>
 
@@ -273,6 +273,6 @@ export default function LifeCEO() {
         </div>
         </div>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

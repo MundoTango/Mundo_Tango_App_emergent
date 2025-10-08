@@ -29,7 +29,7 @@ export interface UploadMediaProps {
   onUploadComplete?: (result: UploadedMedia) => void;
   onUploadError?: (error: string) => void;
   maxSize?: number; // in MB
-  maxDimensions?: { width: number; height: number };
+  maxDimensions?: {width: number;height: number;};
   multiple?: boolean;
   acceptedTypes?: string[];
   autoResize?: boolean;
@@ -70,7 +70,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
   const [currentVisibility, setCurrentVisibility] = useState(visibility);
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
-  const [previews, setPreviews] = useState<{ [key: string]: string }>({});
+  const [previews, setPreviews] = useState<{[key: string]: string;}>({});
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (disabled || isUploading) return;
@@ -86,7 +86,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       if (showPreview && file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          setPreviews(prev => ({ ...prev, [file.name]: e.target?.result as string }));
+          setPreviews((prev) => ({ ...prev, [file.name]: e.target?.result as string }));
         };
         reader.readAsDataURL(file);
       }
@@ -100,18 +100,18 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
         formData.append('folder', folder);
         formData.append('visibility', currentVisibility);
         formData.append('tags', JSON.stringify(tags));
-        
+
         if (context) formData.append('context', context);
         if (usedIn) formData.append('usedIn', usedIn);
         if (refId) formData.append('refId', refId.toString());
 
         // Simulate progress for better UX
         const progressInterval = setInterval(() => {
-          setUploadProgress(prev => Math.min(prev + 10, 90));
+          setUploadProgress((prev) => Math.min(prev + 10, 90));
         }, 200);
 
         const result = await uploadMedia(formData);
-        
+
         clearInterval(progressInterval);
         setUploadProgress(100);
 
@@ -126,7 +126,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             tags: tags.length > 0 ? [...tags] : undefined
           };
 
-          setUploadedFiles(prev => [...prev, uploadedMedia]);
+          setUploadedFiles((prev) => [...prev, uploadedMedia]);
           onUploadComplete?.(uploadedMedia);
 
           // Track upload analytics
@@ -153,19 +153,19 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       }
     }
   }, [
-    disabled,
-    isUploading,
-    maxSize,
-    folder,
-    currentVisibility,
-    tags,
-    context,
-    usedIn,
-    refId,
-    onUploadComplete,
-    onUploadError,
-    showPreview
-  ]);
+  disabled,
+  isUploading,
+  maxSize,
+  folder,
+  currentVisibility,
+  tags,
+  context,
+  usedIn,
+  refId,
+  onUploadComplete,
+  onUploadError,
+  showPreview]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -179,17 +179,17 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
 
   const addTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
-      setTags(prev => [...prev, newTag.trim()]);
+      setTags((prev) => [...prev, newTag.trim()]);
       setNewTag('');
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setTags(prev => prev.filter(tag => tag !== tagToRemove));
+    setTags((prev) => prev.filter((tag) => tag !== tagToRemove));
   };
 
   const removeFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const getFileIcon = (type: string) => {
@@ -201,10 +201,10 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
   return (
     <div className={`space-y-4 ${className}`}>
       {/* Visibility Settings */}
-      {showVisibility && (
-        <div className="space-y-2">
+      {showVisibility &&
+      <div className="space-y-2">
           <Label>Visibility</Label>
-          <Select value={currentVisibility} onValueChange={(value) => setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
+          <Select value={currentVisibility} onValueChange={(value) => setCurrentVisibility(value as 'public' | 'private' | 'mutual')} data-testid="select-element">
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -215,37 +215,37 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             </SelectContent>
           </Select>
         </div>
-      )}
+      }
 
       {/* Tags */}
-      {showTags && (
-        <div className="space-y-2">
+      {showTags &&
+      <div className="space-y-2">
           <Label>Tags</Label>
           <div className="flex gap-2 flex-wrap">
-            {tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="flex items-center gap-1">
+            {tags.map((tag) =>
+          <Badge key={tag} variant="secondary" className="flex items-center gap-1">
                 {tag}
-                <X 
-                  className="w-3 h-3 cursor-pointer hover:text-red-500" 
-                  onClick={() => removeTag(tag)} 
-                />
+                <X
+              className="w-3 h-3 cursor-pointer hover:text-red-500"
+              onClick={() => removeTag(tag)} />
+
               </Badge>
-            ))}
+          )}
           </div>
           <div className="flex gap-2">
             <Input
-              value={newTag}
-              onChange={(e) => setNewTag(e.target.value)}
-              placeholder="Add a tag..."
-              onKeyPress={(e) => e.key === 'Enter' && addTag()}
-              className="flex-1"
-            />
-            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()}>
+            value={newTag}
+            onChange={(e) => setNewTag(e.target.value)}
+            placeholder="Add a tag..."
+            onKeyPress={(e) => e.key === 'Enter' && addTag()}
+            className="flex-1" data-testid="input-flex-1" />
+
+            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()} data-testid="button-button">
               <Plus className="w-4 h-4" />
             </Button>
           </div>
         </div>
-      )}
+      }
 
       {/* Upload Area */}
       <div
@@ -254,9 +254,9 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
           ${isDragActive ? 'border-primary bg-primary/5' : 'border-gray-300 hover:border-primary/50'}
           ${disabled || isUploading ? 'opacity-50 cursor-not-allowed' : ''}
-        `}
-      >
-        <input {...getInputProps()} />
+        `}>
+
+        <input {...getInputProps()} data-testid="input-element" />
         <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
         <p className="text-sm text-gray-600 mb-1">
           {isDragActive ? 'Drop files here...' : placeholder}
@@ -267,35 +267,35 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       </div>
 
       {/* Upload Progress */}
-      {isUploading && (
-        <div className="space-y-2">
+      {isUploading &&
+      <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span>Uploading...</span>
             <span>{uploadProgress}%</span>
           </div>
           <Progress value={uploadProgress} className="w-full" />
         </div>
-      )}
+      }
 
       {/* Uploaded Files */}
-      {uploadedFiles.length > 0 && (
-        <div className="space-y-2">
+      {uploadedFiles.length > 0 &&
+      <div className="space-y-2">
           <Label>Uploaded Files</Label>
           <div className="space-y-2">
-            {uploadedFiles.map((file, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50"
-              >
-                {showPreview && previews[file.originalName] ? (
-                  <img
-                    src={previews[file.originalName]}
-                    alt={file.originalName}
-                    className="w-10 h-10 object-cover rounded"
-                  />
-                ) : (
-                  getFileIcon(file.type)
-                )}
+            {uploadedFiles.map((file, index) =>
+          <div
+            key={index}
+            className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50">
+
+                {showPreview && previews[file.originalName] ?
+            <img
+              src={previews[file.originalName]}
+              alt={file.originalName}
+              className="w-10 h-10 object-cover rounded" /> :
+
+
+            getFileIcon(file.type)
+            }
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{file.originalName}</p>
                   <p className="text-xs text-gray-500">
@@ -303,21 +303,21 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
                   </p>
                 </div>
                 <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => removeFile(index)}
-                  className="text-red-500 hover:text-red-700"
-                >
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => removeFile(index)}
+              className="text-red-500 hover:text-red-700" data-testid="button-button">
+
                   <X className="w-4 h-4" />
                 </Button>
               </div>
-            ))}
+          )}
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default UploadMedia;

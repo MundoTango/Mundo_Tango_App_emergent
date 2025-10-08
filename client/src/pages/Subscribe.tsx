@@ -35,14 +35,14 @@ const Subscribe: React.FC = () => {
   const [selectedTier, setSelectedTier] = useState<string>('');
 
   // Fetch subscription tiers
-  const { data: tiers, isLoading: tiersLoading } = useQuery<{ success: boolean; data: SubscriptionTiersResponse }>({
-    queryKey: ['/api/payments/subscription-tiers'],
+  const { data: tiers, isLoading: tiersLoading } = useQuery<{success: boolean;data: SubscriptionTiersResponse;}>({
+    queryKey: ['/api/payments/subscription-tiers']
   });
 
   // Fetch current subscription
-  const { data: currentSubscription } = useQuery<{ subscription: any }>({
+  const { data: currentSubscription } = useQuery<{subscription: any;}>({
     queryKey: ['/api/payments/subscription'],
-    enabled: isAuthenticated,
+    enabled: isAuthenticated
   });
 
   // Create subscription mutation
@@ -60,9 +60,9 @@ const Subscribe: React.FC = () => {
         // Redirect to checkout page with the selected tier
         toast({
           title: "Subscription Created",
-          description: "Redirecting to secure payment...",
+          description: "Redirecting to secure payment..."
         });
-        
+
         // Store the client secret and redirect to checkout
         sessionStorage.setItem('stripe_client_secret', data.clientSecret);
         sessionStorage.setItem('selected_tier', data.tier);
@@ -82,7 +82,7 @@ const Subscribe: React.FC = () => {
     // Temporarily bypass auth check for testing payment flow
     // Remove this bypass in production
     const skipAuthForTesting = true;
-    
+
     if (!isAuthenticated && !skipAuthForTesting) {
       toast({
         title: "Authentication Required",
@@ -110,46 +110,46 @@ const Subscribe: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-turquoise-500 border-t-transparent rounded-full" />
-      </div>
-    );
+      </div>);
+
   }
 
   const tierData = tiers?.data;
   const currentTier = currentSubscription?.subscription?.tier || 'free';
 
   const tiersList = [
-    {
-      key: 'free',
-      name: 'Free',
-      price: 0,
-      description: 'Perfect for exploring the platform',
-      icon: <Sparkles className="w-6 h-6" />,
-      features: [
-        'Basic profile',
-        'View events',
-        'Join city & professional groups',
-        '100MB storage',
-        'Community access'
-      ],
-      notIncluded: ['Create events', 'Join other groups', 'Advanced analytics']
-    },
-    {
-      key: 'basic',
-      name: 'Basic',
-      price: 5,
-      description: 'Great for active dancers',
-      icon: <Star className="w-6 h-6" />,
-      features: [
-        'Everything in Free',
-        '5GB storage',
-        'Create basic events',
-        'Join all groups',
-        'Advanced search'
-      ],
-      notIncluded: ['Analytics dashboard', 'Custom branding'],
-      popular: true
-    }
-  ];
+  {
+    key: 'free',
+    name: 'Free',
+    price: 0,
+    description: 'Perfect for exploring the platform',
+    icon: <Sparkles className="w-6 h-6" />,
+    features: [
+    'Basic profile',
+    'View events',
+    'Join city & professional groups',
+    '100MB storage',
+    'Community access'],
+
+    notIncluded: ['Create events', 'Join other groups', 'Advanced analytics']
+  },
+  {
+    key: 'basic',
+    name: 'Basic',
+    price: 5,
+    description: 'Great for active dancers',
+    icon: <Star className="w-6 h-6" />,
+    features: [
+    'Everything in Free',
+    '5GB storage',
+    'Create basic events',
+    'Join all groups',
+    'Advanced search'],
+
+    notIncluded: ['Analytics dashboard', 'Custom branding'],
+    popular: true
+  }];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
@@ -165,37 +165,37 @@ const Subscribe: React.FC = () => {
         </div>
 
         {/* Current Plan Banner */}
-        {isAuthenticated && currentTier !== 'free' && (
-          <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
+        {isAuthenticated && currentTier !== 'free' &&
+        <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
             <p className="text-gray-700">
               You're currently on the <span className="font-semibold">{currentTier}</span> plan.
-              <Link href="/settings/billing">
-                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline">
+              <Link href="/settings/billing" data-testid="link-element">
+                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline" data-testid="a-ml-2">
                   Manage billing
                 </a>
               </Link>
             </p>
           </div>
-        )}
+        }
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {tiersList.map((tier) => {
             const isCurrentPlan = currentTier === tier.key;
-            const isUpgrade = tiersList.findIndex(t => t.key === currentTier) < tiersList.findIndex(t => t.key === tier.key);
-            
+            const isUpgrade = tiersList.findIndex((t) => t.key === currentTier) < tiersList.findIndex((t) => t.key === tier.key);
+
             return (
-              <Card 
+              <Card
                 key={tier.key}
                 className={`relative glassmorphic-card hover:scale-105 transition-transform duration-300 ${
-                  tier.popular ? 'ring-2 ring-turquoise-500' : ''
-                }`}
-              >
-                {tier.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-turquoise-500 to-cyan-500">
+                tier.popular ? 'ring-2 ring-turquoise-500' : ''}`
+                }>
+
+                {tier.popular &&
+                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-turquoise-500 to-cyan-500">
                     Most Popular
                   </Badge>
-                )}
+                }
                 
                 <CardHeader className="text-center pb-8 pt-6">
                   <div className="mx-auto mb-4 p-3 bg-gradient-to-br from-turquoise-100 to-cyan-100 rounded-full w-fit">
@@ -212,60 +212,60 @@ const Subscribe: React.FC = () => {
                 <CardContent className="space-y-4">
                   {/* Included Features */}
                   <div className="space-y-2">
-                    {tier.features.map((feature, index) => (
-                      <div key={index} className="flex items-start gap-2">
+                    {tier.features.map((feature, index) =>
+                    <div key={index} className="flex items-start gap-2">
                         <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                         <span className="text-sm text-gray-700">{feature}</span>
                       </div>
-                    ))}
+                    )}
                   </div>
                   
                   {/* Not Included Features */}
-                  {tier.notIncluded.length > 0 && (
-                    <div className="space-y-2 pt-4 border-t border-gray-200">
-                      {tier.notIncluded.map((feature, index) => (
-                        <div key={index} className="flex items-start gap-2">
+                  {tier.notIncluded.length > 0 &&
+                  <div className="space-y-2 pt-4 border-t border-gray-200">
+                      {tier.notIncluded.map((feature, index) =>
+                    <div key={index} className="flex items-start gap-2">
                           <X className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                           <span className="text-sm text-gray-500">{feature}</span>
                         </div>
-                      ))}
+                    )}
                     </div>
-                  )}
+                  }
                   
                   {/* Action Button */}
                   <div className="pt-4">
-                    {isCurrentPlan ? (
-                      <Button 
-                        className="w-full" 
-                        variant="outline"
-                        disabled
-                      >
+                    {isCurrentPlan ?
+                    <Button
+                      className="w-full"
+                      variant="outline"
+                      disabled data-testid="button-w-full">
+
                         Current Plan
-                      </Button>
-                    ) : tier.key === 'free' ? (
-                      <Button 
-                        className="w-full" 
-                        variant="outline"
-                        onClick={() => setLocation('/settings/billing')}
-                      >
+                      </Button> :
+                    tier.key === 'free' ?
+                    <Button
+                      className="w-full"
+                      variant="outline"
+                      onClick={() => setLocation('/settings/billing')} data-testid="button-w-full">
+
                         Downgrade
+                      </Button> :
+
+                    <Button
+                      className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
+                      onClick={() => handleSubscribe(tier.key)}
+                      disabled={createSubscriptionMutation.isPending && selectedTier === tier.key} data-testid="button-w-full">
+
+                        {createSubscriptionMutation.isPending && selectedTier === tier.key ?
+                      'Processing...' :
+                      isUpgrade ? 'Upgrade' : 'Select Plan'
+                      }
                       </Button>
-                    ) : (
-                      <Button 
-                        className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                        onClick={() => handleSubscribe(tier.key)}
-                        disabled={createSubscriptionMutation.isPending && selectedTier === tier.key}
-                      >
-                        {createSubscriptionMutation.isPending && selectedTier === tier.key
-                          ? 'Processing...'
-                          : isUpgrade ? 'Upgrade' : 'Select Plan'
-                        }
-                      </Button>
-                    )}
+                    }
                   </div>
                 </CardContent>
-              </Card>
-            );
+              </Card>);
+
           })}
         </div>
 
@@ -275,17 +275,17 @@ const Subscribe: React.FC = () => {
         <div className="mt-12 text-center">
           <p className="text-gray-600">
             Questions about our plans?{' '}
-            <a 
-              href="mailto:support@mundotango.life" 
-              className="text-turquoise-600 hover:text-turquoise-700 underline"
-            >
+            <a
+              href="mailto:support@mundotango.life"
+              className="text-turquoise-600 hover:text-turquoise-700 underline" data-testid="a-text-turquoise-600">
+
               Contact support
             </a>
           </p>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Subscribe;

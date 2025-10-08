@@ -18,7 +18,7 @@ vi.mock('@/hooks/use-toast', () => ({
 vi.mock('wouter', () => ({
   useParams: () => ({ username: 'testuser' }),
   useLocation: () => ['/profile/testuser', vi.fn()],
-  Link: ({ children, ...props }: any) => <a {...props}>{children}</a>
+  Link: ({ children, ...props }: any) => <a {...props} data-testid="a-element">{children}</a>
 }));
 
 // Mock fetch
@@ -27,9 +27,9 @@ global.fetch = vi.fn();
 const createTestQueryClient = () => new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
-    },
-  },
+      retry: false
+    }
+  }
 });
 
 const renderWithProviders = (component: React.ReactElement) => {
@@ -55,26 +55,26 @@ describe('Profile Page Test Suite', () => {
           <EventAutocomplete
             label="Event"
             placeholder="Search events"
-            onSelect={vi.fn()}
-          />
+            onSelect={vi.fn()} />
+
         );
-        
+
         expect(screen.getByText('Event')).toBeInTheDocument();
         expect(screen.getByPlaceholderText('Search events')).toBeInTheDocument();
       });
 
       it('should show loading state while searching', async () => {
-        (global.fetch as any).mockImplementationOnce(() => 
-          new Promise(() => {}) // Never resolves to simulate loading
+        (global.fetch as any).mockImplementationOnce(() =>
+        new Promise(() => {}) // Never resolves to simulate loading
         );
 
         renderWithProviders(
           <EventAutocomplete onSelect={vi.fn()} />
         );
-        
+
         const input = screen.getByPlaceholderText('Search for an event...');
         await userEvent.type(input, 'Buenos Aires');
-        
+
         await waitFor(() => {
           expect(screen.getByText('Searching events...')).toBeInTheDocument();
         });
@@ -82,14 +82,14 @@ describe('Profile Page Test Suite', () => {
 
       it('should display search results', async () => {
         const mockEvents = [
-          {
-            id: 1,
-            title: 'Buenos Aires Tango Festival',
-            startDate: '2025-08-01',
-            city: 'Buenos Aires',
-            currentAttendees: 50
-          }
-        ];
+        {
+          id: 1,
+          title: 'Buenos Aires Tango Festival',
+          startDate: '2025-08-01',
+          city: 'Buenos Aires',
+          currentAttendees: 50
+        }];
+
 
         (global.fetch as any).mockResolvedValueOnce({
           ok: true,
@@ -100,10 +100,10 @@ describe('Profile Page Test Suite', () => {
         renderWithProviders(
           <EventAutocomplete onSelect={onSelect} />
         );
-        
+
         const input = screen.getByPlaceholderText('Search for an event...');
         await userEvent.type(input, 'Buenos Aires');
-        
+
         await waitFor(() => {
           expect(screen.getByText('Buenos Aires Tango Festival')).toBeInTheDocument();
         });
@@ -116,28 +116,28 @@ describe('Profile Page Test Suite', () => {
     describe('CityGroupAutocomplete Component', () => {
       it('should filter and display city groups', async () => {
         const mockGroups = [
-          {
-            id: 1,
-            name: 'Buenos Aires, Argentina',
-            slug: 'buenos-aires-argentina',
-            type: 'city',
-            memberCount: 100
-          },
-          {
-            id: 2,
-            name: 'Paris, France',
-            slug: 'paris-france',
-            type: 'city',
-            memberCount: 50
-          },
-          {
-            id: 3,
-            name: 'Tango Teachers Network',
-            slug: 'tango-teachers',
-            type: 'professional',
-            memberCount: 200
-          }
-        ];
+        {
+          id: 1,
+          name: 'Buenos Aires, Argentina',
+          slug: 'buenos-aires-argentina',
+          type: 'city',
+          memberCount: 100
+        },
+        {
+          id: 2,
+          name: 'Paris, France',
+          slug: 'paris-france',
+          type: 'city',
+          memberCount: 50
+        },
+        {
+          id: 3,
+          name: 'Tango Teachers Network',
+          slug: 'tango-teachers',
+          type: 'professional',
+          memberCount: 200
+        }];
+
 
         (global.fetch as any).mockResolvedValueOnce({
           ok: true,
@@ -147,10 +147,10 @@ describe('Profile Page Test Suite', () => {
         renderWithProviders(
           <CityGroupAutocomplete onSelect={vi.fn()} />
         );
-        
+
         const input = screen.getByPlaceholderText('Search for a city...');
         fireEvent.focus(input);
-        
+
         await waitFor(() => {
           // Should only show city groups, not professional groups
           expect(screen.getByText('Buenos Aires')).toBeInTheDocument();
@@ -176,26 +176,26 @@ describe('Profile Page Test Suite', () => {
 
       it('should integrate event selection with travel form', async () => {
         // Mock user profile fetch
-        (global.fetch as any)
-          .mockResolvedValueOnce({
-            ok: true,
-            json: async () => ({ success: true, data: mockUser })
-          })
-          // Mock travel details fetch
-          .mockResolvedValueOnce({
-            ok: true,
-            json: async () => ({ data: [] })
-          });
+        (global.fetch as any).
+        mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({ success: true, data: mockUser })
+        })
+        // Mock travel details fetch
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({ data: [] })
+        });
 
         renderWithProviders(<Profile />);
-        
+
         await waitFor(() => {
           expect(screen.getByText('Travel')).toBeInTheDocument();
         });
-        
+
         // Click Travel tab
         fireEvent.click(screen.getByText('Travel'));
-        
+
         await waitFor(() => {
           expect(screen.getByText('Add Travel')).toBeInTheDocument();
         });
@@ -235,83 +235,83 @@ describe('Profile Page Test Suite', () => {
       };
 
       // Setup all mocks
-      (global.fetch as any)
-        // User profile
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({ success: true, data: mockUser })
+      (global.fetch as any
+      // User profile
+      ).mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true, data: mockUser })
+      })
+      // Travel details (empty)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ data: [] })
+      })
+      // Event search
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ data: [mockEvent] })
+      })
+      // City groups
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ data: [mockCityGroup] })
+      })
+      // Create travel detail
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true })
+      })
+      // Refresh travel details
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          data: [{
+            id: 1,
+            eventName: mockEvent.title,
+            city: 'Buenos Aires',
+            country: 'Argentina',
+            startDate: mockEvent.startDate,
+            endDate: mockEvent.endDate,
+            status: 'planned'
+          }]
         })
-        // Travel details (empty)
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({ data: [] })
-        })
-        // Event search
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({ data: [mockEvent] })
-        })
-        // City groups
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({ data: [mockCityGroup] })
-        })
-        // Create travel detail
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({ success: true })
-        })
-        // Refresh travel details
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({ 
-            data: [{
-              id: 1,
-              eventName: mockEvent.title,
-              city: 'Buenos Aires',
-              country: 'Argentina',
-              startDate: mockEvent.startDate,
-              endDate: mockEvent.endDate,
-              status: 'planned'
-            }]
-          })
-        });
+      });
 
       renderWithProviders(<Profile />);
-      
+
       // Wait for profile to load
       await waitFor(() => {
         expect(screen.getByText('Test User')).toBeInTheDocument();
       });
-      
+
       // Navigate to Travel tab
       fireEvent.click(screen.getByText('Travel'));
-      
+
       // Click Add Travel button
       await waitFor(() => {
         expect(screen.getByText('Add Travel')).toBeInTheDocument();
       });
       fireEvent.click(screen.getByText('Add Travel'));
-      
+
       // Modal should open
       await waitFor(() => {
         expect(screen.getByText('Add Travel Detail')).toBeInTheDocument();
       });
-      
+
       // Search for event
       const eventInput = screen.getByPlaceholderText('Search for an event or type a new name');
       await userEvent.type(eventInput, 'Buenos Aires');
-      
+
       // Select event from dropdown
       await waitFor(() => {
         expect(screen.getByText('Buenos Aires Tango Festival')).toBeInTheDocument();
       });
       fireEvent.click(screen.getByText('Buenos Aires Tango Festival'));
-      
+
       // Submit form
       const submitButton = screen.getByText('Add Travel Detail');
       fireEvent.click(submitButton);
-      
+
       // Verify travel detail was created
       await waitFor(() => {
         expect(screen.getByText('Buenos Aires Tango Festival')).toBeInTheDocument();
@@ -336,21 +336,21 @@ describe('Profile Page Test Suite', () => {
       });
 
       const startTime = performance.now();
-      
+
       renderWithProviders(
         <EventAutocomplete onSelect={vi.fn()} />
       );
-      
+
       const input = screen.getByPlaceholderText('Search for an event...');
       await userEvent.type(input, 'Event');
-      
+
       await waitFor(() => {
         expect(screen.getByText('Event 0')).toBeInTheDocument();
       });
-      
+
       const endTime = performance.now();
       const renderTime = endTime - startTime;
-      
+
       // Should render within reasonable time (< 2 seconds)
       expect(renderTime).toBeLessThan(2000);
     });
@@ -363,10 +363,10 @@ describe('Profile Page Test Suite', () => {
       renderWithProviders(
         <EventAutocomplete onSelect={vi.fn()} />
       );
-      
+
       const input = screen.getByPlaceholderText('Search for an event...');
       await userEvent.type(input, 'Buenos Aires');
-      
+
       // Should not crash and should show no results
       await waitFor(() => {
         expect(screen.getByText('No events found matching "Buenos Aires"')).toBeInTheDocument();
@@ -375,12 +375,12 @@ describe('Profile Page Test Suite', () => {
 
     it('should validate required fields', async () => {
       renderWithProviders(
-        <CityGroupAutocomplete 
+        <CityGroupAutocomplete
           required={true}
-          onSelect={vi.fn()} 
-        />
+          onSelect={vi.fn()} />
+
       );
-      
+
       expect(screen.getByText('*')).toBeInTheDocument();
     });
   });

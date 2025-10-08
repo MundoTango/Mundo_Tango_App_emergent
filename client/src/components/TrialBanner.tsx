@@ -6,15 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
-import { 
-  Clock, 
-  Sparkles, 
+import {
+  Clock,
+  Sparkles,
   TrendingUp,
   Gift,
   ChevronRight,
   X,
-  Zap
-} from 'lucide-react';
+  Zap } from
+'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { Link } from 'wouter';
@@ -41,7 +41,7 @@ const TrialBanner: React.FC = () => {
   // Fetch trial status
   const { data: trialStatus, isLoading } = useQuery({
     queryKey: ['/api/payments/trial-status'],
-    enabled: isAuthenticated,
+    enabled: isAuthenticated
   });
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const TrialBanner: React.FC = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const dismissUntil = tomorrow.toISOString();
-    
+
     localStorage.setItem('trialBannerDismissedUntil', dismissUntil);
     setDismissedUntil(dismissUntil);
     setShowBanner(false);
@@ -72,19 +72,19 @@ const TrialBanner: React.FC = () => {
     if (completed) {
       return (
         <div className="text-red-600 font-semibold">
-          Trial Expired - <Link href="/subscribe" className="underline">Subscribe Now</Link>
-        </div>
-      );
+          Trial Expired - <Link href="/subscribe" className="underline" data-testid="link-underline">Subscribe Now</Link>
+        </div>);
+
     } else {
       const totalHours = days * 24 + hours;
       const urgency = days <= 1 ? 'text-red-600' : days <= 3 ? 'text-orange-600' : 'text-green-600';
-      
+
       return (
         <div className={`font-mono text-lg ${urgency}`}>
           {days > 0 && <span>{days}d </span>}
           {totalHours}h {minutes}m {seconds}s
-        </div>
-      );
+        </div>);
+
     }
   };
 
@@ -100,53 +100,53 @@ const TrialBanner: React.FC = () => {
   }
 
   const daysRemaining = status.daysRemaining;
-  const progress = Math.max(0, Math.min(100, ((7 - daysRemaining) / 7) * 100));
+  const progress = Math.max(0, Math.min(100, (7 - daysRemaining) / 7 * 100));
   const isUrgent = daysRemaining <= 3;
   const isLastDay = daysRemaining <= 1;
 
   return (
     <>
-      {showConfetti && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          recycle={false}
-          numberOfPieces={200}
-          gravity={0.1}
-          colors={['#14b8a6', '#06b6d4', '#0891b2', '#0e7490']}
-          onConfettiComplete={() => setShowConfetti(false)}
-        />
-      )}
+      {showConfetti &&
+      <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        recycle={false}
+        numberOfPieces={200}
+        gravity={0.1}
+        colors={['#14b8a6', '#06b6d4', '#0891b2', '#0e7490']}
+        onConfettiComplete={() => setShowConfetti(false)} />
+
+      }
 
       <div className={`fixed top-0 left-0 right-0 z-50 p-4 ${isLastDay ? 'animate-pulse' : ''}`}>
         <Card className={`glassmorphic-card border ${
-          isLastDay ? 'border-red-500 bg-red-50/80' : 
-          isUrgent ? 'border-orange-500 bg-orange-50/80' : 
-          'border-turquoise-500 bg-turquoise-50/80'
-        } backdrop-blur-xl shadow-lg`}>
+        isLastDay ? 'border-red-500 bg-red-50/80' :
+        isUrgent ? 'border-orange-500 bg-orange-50/80' :
+        'border-turquoise-500 bg-turquoise-50/80'} backdrop-blur-xl shadow-lg`
+        }>
           <div className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 {/* Icon */}
                 <div className={`p-3 rounded-full ${
-                  isLastDay ? 'bg-red-100' : 
-                  isUrgent ? 'bg-orange-100' : 
-                  'bg-turquoise-100'
-                }`}>
-                  {isLastDay ? (
-                    <Zap className="w-6 h-6 text-red-600" />
-                  ) : (
-                    <Sparkles className="w-6 h-6 text-turquoise-600" />
-                  )}
+                isLastDay ? 'bg-red-100' :
+                isUrgent ? 'bg-orange-100' :
+                'bg-turquoise-100'}`
+                }>
+                  {isLastDay ?
+                  <Zap className="w-6 h-6 text-red-600" /> :
+
+                  <Sparkles className="w-6 h-6 text-turquoise-600" />
+                  }
                 </div>
 
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="font-semibold text-lg">
-                      {isLastDay ? '⚡ Last Day of Your Trial!' : 
-                       isUrgent ? '⏰ Trial Ending Soon!' : 
-                       '✨ You\'re on a Free Trial'}
+                      {isLastDay ? '⚡ Last Day of Your Trial!' :
+                      isUrgent ? '⏰ Trial Ending Soon!' :
+                      '✨ You\'re on a Free Trial'}
                     </h3>
                     <Badge variant={isLastDay ? "destructive" : isUrgent ? "secondary" : "default"}>
                       {daysRemaining} {daysRemaining === 1 ? 'day' : 'days'} left
@@ -157,10 +157,10 @@ const TrialBanner: React.FC = () => {
                     {/* Countdown */}
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-gray-500" />
-                      <Countdown 
-                        date={new Date(status.trialEndsAt)} 
-                        renderer={renderer}
-                      />
+                      <Countdown
+                        date={new Date(status.trialEndsAt)}
+                        renderer={renderer} />
+
                     </div>
 
                     {/* Progress */}
@@ -171,29 +171,29 @@ const TrialBanner: React.FC = () => {
                     </div>
 
                     {/* Special Offer */}
-                    {isUrgent && (
-                      <div className="flex items-center gap-2 px-3 py-1 bg-yellow-100 rounded-full">
+                    {isUrgent &&
+                    <div className="flex items-center gap-2 px-3 py-1 bg-yellow-100 rounded-full">
                         <Gift className="w-4 h-4 text-yellow-700" />
                         <span className="text-sm font-medium text-yellow-800">
                           20% OFF if you subscribe today!
                         </span>
                       </div>
-                    )}
+                    }
                   </div>
                 </div>
 
                 {/* CTA */}
                 <div className="flex items-center gap-3">
-                  <Link href="/subscribe">
-                    <Button 
+                  <Link href="/subscribe" data-testid="link-element">
+                    <Button
                       className={`${
-                        isLastDay ? 'bg-red-600 hover:bg-red-700' : 
-                        'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
-                      } text-white`}
+                      isLastDay ? 'bg-red-600 hover:bg-red-700' :
+                      'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'} text-white`
+                      }
                       onClick={() => {
                         if (!isLastDay) setShowConfetti(true);
-                      }}
-                    >
+                      }} data-testid="button-element">
+
                       {isLastDay ? 'Subscribe Now' : 'Upgrade to Pro'}
                       <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>
@@ -203,8 +203,8 @@ const TrialBanner: React.FC = () => {
                     variant="ghost"
                     size="icon"
                     onClick={handleDismiss}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
+                    className="text-gray-500 hover:text-gray-700" data-testid="button-text-gray-500">
+
                     <X className="w-4 h-4" />
                   </Button>
                 </div>
@@ -212,8 +212,8 @@ const TrialBanner: React.FC = () => {
             </div>
 
             {/* Benefits reminder */}
-            {isUrgent && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
+            {isUrgent &&
+            <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex items-center justify-center gap-8 text-sm">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-green-600" />
@@ -229,12 +229,12 @@ const TrialBanner: React.FC = () => {
                   </div>
                 </div>
               </div>
-            )}
+            }
           </div>
         </Card>
       </div>
-    </>
-  );
+    </>);
+
 };
 
 export default TrialBanner;

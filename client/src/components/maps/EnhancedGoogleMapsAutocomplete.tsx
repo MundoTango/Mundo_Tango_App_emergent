@@ -37,7 +37,7 @@ interface EnhancedGoogleMapsAutocompleteProps {
   showMap?: boolean;
   className?: string;
   required?: boolean;
-  currentLocation?: { lat: number; lng: number };
+  currentLocation?: {lat: number;lng: number;};
   suggestions?: LocationSuggestion[];
   allowBusinessSearch?: boolean;
 }
@@ -60,7 +60,7 @@ export default function EnhancedGoogleMapsAutocomplete({
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [nearbyPlaces, setNearbyPlaces] = useState<google.maps.places.PlaceResult[]>([]);
-  
+
   const inputRef = useRef<HTMLInputElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
@@ -75,7 +75,7 @@ export default function EnhancedGoogleMapsAutocomplete({
         setIsLoaded(true);
         return;
       }
-      
+
       try {
         await loadGoogleMaps();
         setIsLoaded(true);
@@ -96,19 +96,19 @@ export default function EnhancedGoogleMapsAutocomplete({
       // Configure autocomplete for both addresses and businesses
       const options: google.maps.places.AutocompleteOptions = {
         fields: [
-          'place_id', 
-          'formatted_address', 
-          'name', 
-          'geometry', 
-          'address_components',
-          'types',
-          'business_status',
-          'rating',
-          'price_level',
-          'opening_hours',
-          'website',
-          'formatted_phone_number'
-        ]
+        'place_id',
+        'formatted_address',
+        'name',
+        'geometry',
+        'address_components',
+        'types',
+        'business_status',
+        'rating',
+        'price_level',
+        'opening_hours',
+        'website',
+        'formatted_phone_number']
+
       };
 
       // If we have current location, bias results to that area
@@ -136,7 +136,7 @@ export default function EnhancedGoogleMapsAutocomplete({
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
-        
+
         if (!place.geometry || !place.geometry.location) {
           setError('No location data available for this place.');
           return;
@@ -176,7 +176,7 @@ export default function EnhancedGoogleMapsAutocomplete({
 
     try {
       const center = currentLocation || { lat: -34.6037, lng: -58.3816 }; // Default to Buenos Aires
-      
+
       const map = new google.maps.Map(mapRef.current, {
         zoom: 15,
         center,
@@ -199,14 +199,14 @@ export default function EnhancedGoogleMapsAutocomplete({
             fillColor: '#4285F4',
             fillOpacity: 1,
             strokeColor: '#ffffff',
-            strokeWeight: 2,
+            strokeWeight: 2
           },
           title: 'Your location'
         });
       }
 
       // Add suggestion markers
-      suggestions.forEach(suggestion => {
+      suggestions.forEach((suggestion) => {
         const marker = new google.maps.Marker({
           position: { lat: suggestion.lat, lng: suggestion.lng },
           map,
@@ -288,15 +288,15 @@ export default function EnhancedGoogleMapsAutocomplete({
 
   // Extract enhanced location data from Google Places result
   const extractEnhancedLocationData = (
-    place: google.maps.places.PlaceResult | google.maps.GeocoderResult
-  ): LocationData => {
+  place: google.maps.places.PlaceResult | google.maps.GeocoderResult)
+  : LocationData => {
     const components = place.address_components || [];
     let city = '';
     let state = '';
     let country = '';
     let address = '';
 
-    components.forEach(component => {
+    components.forEach((component) => {
       const types = component.types;
       if (types.includes('street_number') || types.includes('route')) {
         address += component.long_name + ' ';
@@ -332,7 +332,7 @@ export default function EnhancedGoogleMapsAutocomplete({
       website: isPlaceResult ? place.website : undefined,
       openingHours: isPlaceResult && place.opening_hours ? place.opening_hours.weekday_text : undefined,
       rating: isPlaceResult ? place.rating : undefined,
-      priceLevel: isPlaceResult ? place.price_level : undefined,
+      priceLevel: isPlaceResult ? place.price_level : undefined
     };
   };
 
@@ -341,7 +341,7 @@ export default function EnhancedGoogleMapsAutocomplete({
     if (!mapInstanceRef.current) return;
 
     const position = new google.maps.LatLng(location.latitude, location.longitude);
-    
+
     // Update or create marker
     if (markerRef.current) {
       markerRef.current.setPosition(position);
@@ -350,7 +350,7 @@ export default function EnhancedGoogleMapsAutocomplete({
         position,
         map: mapInstanceRef.current,
         draggable: true,
-        animation: google.maps.Animation.DROP,
+        animation: google.maps.Animation.DROP
       });
 
       markerRef.current.addListener('dragend', (event: google.maps.MapMouseEvent) => {
@@ -384,7 +384,7 @@ export default function EnhancedGoogleMapsAutocomplete({
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          
+
           // Reverse geocode to get address
           const geocoder = new google.maps.Geocoder();
           geocoder.geocode(
@@ -442,95 +442,95 @@ export default function EnhancedGoogleMapsAutocomplete({
               placeholder={placeholder}
               className="pl-10 pr-10"
               required={required}
-              disabled={!isLoaded}
-            />
-            {inputValue && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setInputValue('');
-                  setSelectedLocation(null);
-                  onClear?.();
-                }}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-auto"
-              >
+              disabled={!isLoaded} data-testid="input-text" />
+
+            {inputValue &&
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setInputValue('');
+                setSelectedLocation(null);
+                onClear?.();
+              }}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-auto" data-testid="button-absolute">
+
                 <X className="h-4 w-4" />
               </Button>
-            )}
+            }
           </div>
           
-          {isLoaded && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={useCurrentLocation}
-              className="whitespace-nowrap"
-              title="Use current location"
-            >
+          {isLoaded &&
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={useCurrentLocation}
+            className="whitespace-nowrap"
+            title="Use current location" data-testid="button-whitespace-nowrap">
+
               <Navigation className="h-4 w-4" />
             </Button>
-          )}
+          }
         </div>
 
         {/* Error message */}
-        {error && (
-          <p className="text-sm text-red-600 mt-1">{error}</p>
-        )}
+        {error &&
+        <p className="text-sm text-red-600 mt-1">{error}</p>
+        }
 
         {/* Business details if selected */}
-        {selectedLocation && selectedLocation.name && (
-          <div className="mt-2 p-3 bg-purple-50 rounded-lg text-sm">
+        {selectedLocation && selectedLocation.name &&
+        <div className="mt-2 p-3 bg-purple-50 rounded-lg text-sm">
             <p className="font-semibold">{selectedLocation.name}</p>
-            {selectedLocation.rating && (
-              <p className="text-gray-600">
+            {selectedLocation.rating &&
+          <p className="text-gray-600">
                 Rating: {'⭐'.repeat(Math.round(selectedLocation.rating))} ({selectedLocation.rating})
               </p>
-            )}
-            {selectedLocation.phoneNumber && (
-              <p className="text-gray-600">📞 {selectedLocation.phoneNumber}</p>
-            )}
-            {selectedLocation.website && (
-              <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+          }
+            {selectedLocation.phoneNumber &&
+          <p className="text-gray-600">📞 {selectedLocation.phoneNumber}</p>
+          }
+            {selectedLocation.website &&
+          <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline" data-testid="a-text-blue-600">
                 🌐 Website
               </a>
-            )}
+          }
           </div>
-        )}
+        }
 
         {/* Nearby places suggestions */}
-        {showSuggestions && nearbyPlaces.length > 0 && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
+        {showSuggestions && nearbyPlaces.length > 0 &&
+        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
             <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b">Nearby places:</p>
-            {nearbyPlaces.map((place, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  const locationData = extractEnhancedLocationData(place);
-                  setSelectedLocation(locationData);
-                  setInputValue(locationData.name || locationData.formattedAddress);
-                  onLocationSelect(locationData);
-                  setShowSuggestions(false);
-                  if (showMap) updateMap(locationData);
-                }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm"
-              >
+            {nearbyPlaces.map((place, index) =>
+          <button
+            key={index}
+            onClick={() => {
+              const locationData = extractEnhancedLocationData(place);
+              setSelectedLocation(locationData);
+              setInputValue(locationData.name || locationData.formattedAddress);
+              onLocationSelect(locationData);
+              setShowSuggestions(false);
+              if (showMap) updateMap(locationData);
+            }}
+            className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm" data-testid="button-w-full">
+
                 <p className="font-medium">{place.name}</p>
                 <p className="text-gray-500">{place.vicinity}</p>
               </button>
-            ))}
+          )}
           </div>
-        )}
+        }
       </div>
 
       {/* Map container */}
-      {showMap && (
-        <div 
-          ref={mapRef} 
-          className="w-full h-64 rounded-lg border border-gray-200"
-          style={{ minHeight: '250px' }}
-        />
-      )}
-    </div>
-  );
+      {showMap &&
+      <div
+        ref={mapRef}
+        className="w-full h-64 rounded-lg border border-gray-200"
+        style={{ minHeight: '250px' }} />
+
+      }
+    </div>);
+
 }

@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Heart, 
-  MessageCircle, 
-  Share2, 
+import {
+  Heart,
+  MessageCircle,
+  Share2,
   MoreHorizontal,
-  Send
-} from "lucide-react";
+  Send } from
+"lucide-react";
 
 interface Post {
   id: number;
@@ -53,8 +53,8 @@ export default function PostCard({ post }: PostCardProps) {
       const response = await fetch(`/api/posts/${post.id}/like`, {
         method,
         headers: {
-          'Authorization': `Bearer ${getAuthToken()}`,
-        },
+          'Authorization': `Bearer ${getAuthToken()}`
+        }
       });
       if (!response.ok) throw new Error('Failed to update like');
       return response.json();
@@ -67,9 +67,9 @@ export default function PostCard({ post }: PostCardProps) {
       toast({
         title: "Error",
         description: error.message || "Failed to update like",
-        variant: "destructive",
+        variant: "destructive"
       });
-    },
+    }
   });
 
   // Comment mutation
@@ -79,15 +79,15 @@ export default function PostCard({ post }: PostCardProps) {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${getAuthToken()}`,
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ content })
       });
       if (!response.ok) throw new Error('Failed to add comment');
       return response.json();
     },
     onSuccess: (data) => {
-      setComments(prev => [data.data, ...prev]);
+      setComments((prev) => [data.data, ...prev]);
       setNewComment("");
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
     },
@@ -95,9 +95,9 @@ export default function PostCard({ post }: PostCardProps) {
       toast({
         title: "Error",
         description: error.message || "Failed to add comment",
-        variant: "destructive",
+        variant: "destructive"
       });
-    },
+    }
   });
 
   const handleLike = () => {
@@ -114,13 +114,13 @@ export default function PostCard({ post }: PostCardProps) {
       navigator.share({
         title: `${post.user?.name}'s post`,
         text: post.content,
-        url: window.location.href,
+        url: window.location.href
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
       toast({
         title: "Link copied!",
-        description: "Post link copied to clipboard.",
+        description: "Post link copied to clipboard."
       });
     }
   };
@@ -129,7 +129,7 @@ export default function PostCard({ post }: PostCardProps) {
     const now = new Date();
     const postDate = new Date(dateString);
     const diffInSeconds = Math.floor((now.getTime() - postDate.getTime()) / 1000);
-    
+
     if (diffInSeconds < 60) return 'now';
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
     if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
@@ -154,7 +154,7 @@ export default function PostCard({ post }: PostCardProps) {
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600">
+          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600" data-testid="button-text-turquoise-400">
             <MoreHorizontal className="h-5 w-5" />
           </Button>
         </div>
@@ -162,62 +162,62 @@ export default function PostCard({ post }: PostCardProps) {
 
       {/* Post Content */}
       <CardContent className="p-4">
-        {post.content && (
-          <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.content}</p>
-        )}
+        {post.content &&
+        <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.content}</p>
+        }
         
         {/* ESA LIFE CEO 61x21 - Display media files with proper video detection */}
         {(() => {
           // Check if we have any media to display from multiple sources
-          const mediaToDisplay = post.mediaUrls || 
-            (post.mediaEmbeds && Array.isArray(post.mediaEmbeds) ? post.mediaEmbeds : []) ||
-            (post.imageUrl ? [post.imageUrl] : []) ||
-            (post.videoUrl ? [post.videoUrl] : []);
-          
+          const mediaToDisplay = post.mediaUrls || (
+          post.mediaEmbeds && Array.isArray(post.mediaEmbeds) ? post.mediaEmbeds : []) || (
+          post.imageUrl ? [post.imageUrl] : []) || (
+          post.videoUrl ? [post.videoUrl] : []);
+
           if (!mediaToDisplay || mediaToDisplay.length === 0) return null;
-          
+
           // Display media based on count
           return (
             <div className={`grid gap-2 mb-4 ${
-              mediaToDisplay.length === 1 ? 'grid-cols-1' : 
-              mediaToDisplay.length === 2 ? 'grid-cols-2' : 
-              'grid-cols-2'
-            }`}>
+            mediaToDisplay.length === 1 ? 'grid-cols-1' :
+            mediaToDisplay.length === 2 ? 'grid-cols-2' :
+            'grid-cols-2'}`
+            }>
               {mediaToDisplay.map((url: string, index: number) => {
                 // ESA LIFE CEO 61x21 - Proper video detection
-                const isVideo = url.toLowerCase().endsWith('.mp4') || 
-                  url.toLowerCase().endsWith('.mov') || 
-                  url.toLowerCase().endsWith('.webm') ||
-                  url.toLowerCase().endsWith('.avi');
-                
+                const isVideo = url.toLowerCase().endsWith('.mp4') ||
+                url.toLowerCase().endsWith('.mov') ||
+                url.toLowerCase().endsWith('.webm') ||
+                url.toLowerCase().endsWith('.avi');
+
                 return (
                   <div key={index} className="relative">
-                    {isVideo ? (
-                      <video
-                        src={url}
-                        controls
-                        className="w-full rounded-lg object-cover max-h-64"
-                        preload="metadata"
-                        onError={(e) => {
-                          console.error('Video load error:', url);
-                        }}
-                      />
-                    ) : (
-                      <img
-                        src={url}
-                        alt={`Media ${index + 1}`}
-                        className="w-full rounded-lg object-cover max-h-64"
-                        onError={(e) => {
-                          console.error('Image load error:', url);
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    )}
-                  </div>
-                );
+                    {isVideo ?
+                    <video
+                      src={url}
+                      controls
+                      className="w-full rounded-lg object-cover max-h-64"
+                      preload="metadata"
+                      onError={(e) => {
+                        console.error('Video load error:', url);
+                      }} /> :
+
+
+                    <img
+                      src={url}
+                      alt={`Media ${index + 1}`}
+                      className="w-full rounded-lg object-cover max-h-64"
+                      onError={(e) => {
+                        console.error('Image load error:', url);
+                        e.currentTarget.style.display = 'none';
+                      }} />
+
+                    }
+                  </div>);
+
               })}
-            </div>
-          );
+            </div>);
+
         })()}
         {/* Removed duplicate media rendering code */}
       </CardContent>
@@ -247,8 +247,8 @@ export default function PostCard({ post }: PostCardProps) {
             size="sm"
             onClick={handleLike}
             disabled={likeMutation.isPending}
-            className={`flex items-center space-x-2 ${isLiked ? 'text-pink-500' : 'text-turquoise-600'} hover:text-pink-500 transition-colors`}
-          >
+            className={`flex items-center space-x-2 ${isLiked ? 'text-pink-500' : 'text-turquoise-600'} hover:text-pink-500 transition-colors`} data-testid="button-element">
+
             <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
             <span>Like</span>
           </Button>
@@ -257,8 +257,8 @@ export default function PostCard({ post }: PostCardProps) {
             variant="ghost"
             size="sm"
             onClick={() => setShowComments(!showComments)}
-            className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
-          >
+            className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors" data-testid="button-flex">
+
             <MessageCircle className="h-5 w-5" />
             <span>Comment</span>
           </Button>
@@ -267,16 +267,16 @@ export default function PostCard({ post }: PostCardProps) {
             variant="ghost"
             size="sm"
             onClick={handleShare}
-            className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
-          >
+            className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors" data-testid="button-flex">
+
             <Share2 className="h-5 w-5" />
             <span>Share</span>
           </Button>
         </div>
 
         {/* Comments Section */}
-        {showComments && (
-          <div className="mt-4 space-y-4">
+        {showComments &&
+        <div className="mt-4 space-y-4">
             {/* Add Comment */}
             <div className="flex space-x-3">
               <Avatar className="w-8 h-8">
@@ -284,28 +284,28 @@ export default function PostCard({ post }: PostCardProps) {
               </Avatar>
               <div className="flex-1 flex space-x-2">
                 <Textarea
-                  placeholder="Write a comment..."
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  className="resize-none"
-                  rows={2}
-                />
+                placeholder="Write a comment..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                className="resize-none"
+                rows={2} data-testid="textarea-resize-none" />
+
                 <Button
-                  size="sm"
-                  onClick={handleComment}
-                  disabled={commentMutation.isPending || !newComment.trim()}
-                  className="bg-tango-red hover:bg-tango-red/90"
-                >
+                size="sm"
+                onClick={handleComment}
+                disabled={commentMutation.isPending || !newComment.trim()}
+                className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
+
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
             </div>
 
             {/* Comments List */}
-            {comments.length > 0 && (
-              <div className="space-y-3">
-                {comments.map((comment) => (
-                  <div key={comment.id} className="flex space-x-3">
+            {comments.length > 0 &&
+          <div className="space-y-3">
+                {comments.map((comment) =>
+            <div key={comment.id} className="flex space-x-3">
                     <Avatar className="w-8 h-8">
                       <AvatarImage src={comment.user?.profileImage} alt={comment.user?.name} />
                       <AvatarFallback>{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -320,12 +320,12 @@ export default function PostCard({ post }: PostCardProps) {
                       </p>
                     </div>
                   </div>
-                ))}
-              </div>
             )}
+              </div>
+          }
           </div>
-        )}
+        }
       </div>
-    </Card>
-  );
+    </Card>);
+
 }

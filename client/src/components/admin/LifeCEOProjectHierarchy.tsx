@@ -41,149 +41,149 @@ const LifeCEOProjectHierarchy: React.FC = () => {
     webCompletion: 45,
     mobileCompletion: 40,
     children: [
+    {
+      id: 2,
+      parentId: 1,
+      name: "Core Infrastructure",
+      type: "section",
+      description: "Foundation systems and architecture",
+      status: "in_progress",
+      priority: "critical",
+      webCompletion: 75,
+      mobileCompletion: 70,
+      children: [
       {
-        id: 2,
-        parentId: 1,
-        name: "Core Infrastructure",
-        type: "section",
-        description: "Foundation systems and architecture",
+        id: 3,
+        parentId: 2,
+        name: "Authentication & RBAC",
+        type: "feature",
+        description: "Role-based access control system",
+        status: "completed",
+        priority: "critical",
+        webCompletion: 100,
+        mobileCompletion: 100,
+        children: [
+        {
+          id: 4,
+          parentId: 3,
+          name: "Role Hierarchy Implementation",
+          type: "task",
+          description: "6-tier role system with permissions",
+          status: "completed",
+          priority: "high",
+          webCompletion: 100,
+          mobileCompletion: 100
+        }]
+
+      },
+      {
+        id: 5,
+        parentId: 2,
+        name: "Agent System Architecture",
+        type: "feature",
+        description: "12-agent system design and communication",
         status: "in_progress",
         priority: "critical",
-        webCompletion: 75,
-        mobileCompletion: 70,
+        webCompletion: 60,
+        mobileCompletion: 50,
         children: [
-          {
-            id: 3,
-            parentId: 2,
-            name: "Authentication & RBAC",
-            type: "feature",
-            description: "Role-based access control system",
-            status: "completed",
-            priority: "critical",
-            webCompletion: 100,
-            mobileCompletion: 100,
-            children: [
-              {
-                id: 4,
-                parentId: 3,
-                name: "Role Hierarchy Implementation",
-                type: "task",
-                description: "6-tier role system with permissions",
-                status: "completed",
-                priority: "high",
-                webCompletion: 100,
-                mobileCompletion: 100
-              }
-            ]
-          },
-          {
-            id: 5,
-            parentId: 2,
-            name: "Agent System Architecture",
-            type: "feature",
-            description: "12-agent system design and communication",
-            status: "in_progress",
-            priority: "critical",
-            webCompletion: 60,
-            mobileCompletion: 50,
-            children: [
-              {
-                id: 6,
-                parentId: 5,
-                name: "Agent Communication Protocol",
-                type: "task",
-                description: "Inter-agent messaging system",
-                status: "in_progress",
-                priority: "high",
-                webCompletion: 70,
-                mobileCompletion: 60
-              }
-            ]
-          }
-        ]
-      },
+        {
+          id: 6,
+          parentId: 5,
+          name: "Agent Communication Protocol",
+          type: "task",
+          description: "Inter-agent messaging system",
+          status: "in_progress",
+          priority: "high",
+          webCompletion: 70,
+          mobileCompletion: 60
+        }]
+
+      }]
+
+    },
+    {
+      id: 7,
+      parentId: 1,
+      name: "Agent Development",
+      type: "section",
+      description: "Individual agent implementation",
+      status: "in_progress",
+      priority: "high",
+      webCompletion: 35,
+      mobileCompletion: 30,
+      children: [
       {
-        id: 7,
-        parentId: 1,
-        name: "Agent Development",
-        type: "section",
-        description: "Individual agent implementation",
+        id: 8,
+        parentId: 7,
+        name: "Health & Wellness Agent",
+        type: "feature",
+        description: "Physical and mental health tracking",
         status: "in_progress",
         priority: "high",
-        webCompletion: 35,
-        mobileCompletion: 30,
-        children: [
-          {
-            id: 8,
-            parentId: 7,
-            name: "Health & Wellness Agent",
-            type: "feature",
-            description: "Physical and mental health tracking",
-            status: "in_progress",
-            priority: "high",
-            webCompletion: 50,
-            mobileCompletion: 45
-          },
-          {
-            id: 9,
-            parentId: 7,
-            name: "Finance Agent",
-            type: "feature",
-            description: "Financial planning and tracking",
-            status: "not_started",
-            priority: "high",
-            webCompletion: 0,
-            mobileCompletion: 0
-          },
-          {
-            id: 10,
-            parentId: 7,
-            name: "Social Agent",
-            type: "feature",
-            description: "Relationship and social activity management",
-            status: "not_started",
-            priority: "medium",
-            webCompletion: 0,
-            mobileCompletion: 0
-          }
-        ]
+        webCompletion: 50,
+        mobileCompletion: 45
       },
       {
-        id: 11,
-        parentId: 1,
-        name: "Mundo Tango Integration",
-        type: "section",
-        description: "Integration with existing Mundo Tango platform",
-        status: "in_progress",
+        id: 9,
+        parentId: 7,
+        name: "Finance Agent",
+        type: "feature",
+        description: "Financial planning and tracking",
+        status: "not_started",
         priority: "high",
-        webCompletion: 80,
-        mobileCompletion: 75,
-        children: [
-          {
-            id: 12,
-            parentId: 11,
-            name: "Unified Authentication",
-            type: "feature",
-            description: "Single sign-on between systems",
-            status: "completed",
-            priority: "high",
-            webCompletion: 100,
-            mobileCompletion: 100
-          },
-          {
-            id: 13,
-            parentId: 11,
-            name: "Project Status Sync",
-            type: "feature",
-            description: "Real-time status synchronization",
-            status: "in_progress",
-            priority: "medium",
-            webCompletion: 60,
-            mobileCompletion: 55
-          }
-        ]
-      }
-    ]
+        webCompletion: 0,
+        mobileCompletion: 0
+      },
+      {
+        id: 10,
+        parentId: 7,
+        name: "Social Agent",
+        type: "feature",
+        description: "Relationship and social activity management",
+        status: "not_started",
+        priority: "medium",
+        webCompletion: 0,
+        mobileCompletion: 0
+      }]
+
+    },
+    {
+      id: 11,
+      parentId: 1,
+      name: "Mundo Tango Integration",
+      type: "section",
+      description: "Integration with existing Mundo Tango platform",
+      status: "in_progress",
+      priority: "high",
+      webCompletion: 80,
+      mobileCompletion: 75,
+      children: [
+      {
+        id: 12,
+        parentId: 11,
+        name: "Unified Authentication",
+        type: "feature",
+        description: "Single sign-on between systems",
+        status: "completed",
+        priority: "high",
+        webCompletion: 100,
+        mobileCompletion: 100
+      },
+      {
+        id: 13,
+        parentId: 11,
+        name: "Project Status Sync",
+        type: "feature",
+        description: "Real-time status synchronization",
+        status: "in_progress",
+        priority: "medium",
+        webCompletion: 60,
+        mobileCompletion: 55
+      }]
+
+    }]
+
   };
 
   const toggleExpanded = (id: number) => {
@@ -239,12 +239,12 @@ const LifeCEOProjectHierarchy: React.FC = () => {
     }
   };
 
-  const calculateRollupStatus = (project: LifeCEOProject): { webCompletion: number; mobileCompletion: number } => {
+  const calculateRollupStatus = (project: LifeCEOProject): {webCompletion: number;mobileCompletion: number;} => {
     if (!project.children || project.children.length === 0) {
       return { webCompletion: project.webCompletion, mobileCompletion: project.mobileCompletion };
     }
 
-    const childStats = project.children.map(child => calculateRollupStatus(child));
+    const childStats = project.children.map((child) => calculateRollupStatus(child));
     const avgWeb = Math.round(childStats.reduce((sum, stat) => sum + stat.webCompletion, 0) / childStats.length);
     const avgMobile = Math.round(childStats.reduce((sum, stat) => sum + stat.mobileCompletion, 0) / childStats.length);
 
@@ -255,27 +255,27 @@ const LifeCEOProjectHierarchy: React.FC = () => {
     const hasChildren = project.children && project.children.length > 0;
     const isExpanded = expandedItems.has(project.id);
     const rollupStats = calculateRollupStatus(project);
-    
+
     return (
       <div key={project.id} className="mb-1">
         <div
           className={`flex items-center px-2 py-2 hover:bg-gray-50 cursor-pointer rounded-lg transition-colors ${
-            selectedItem?.id === project.id ? 'bg-blue-50' : ''
-          }`}
+          selectedItem?.id === project.id ? 'bg-blue-50' : ''}`
+          }
           style={{ paddingLeft: `${level * 24 + 8}px` }}
-          onClick={() => setSelectedItem(project)}
-        >
-          {hasChildren && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleExpanded(project.id);
-              }}
-              className="mr-1"
-            >
+          onClick={() => setSelectedItem(project)}>
+
+          {hasChildren &&
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleExpanded(project.id);
+            }}
+            className="mr-1" data-testid="button-mr-1">
+
               {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
             </button>
-          )}
+          }
           {!hasChildren && <div className="w-5" />}
           
           <div className="flex items-center space-x-2 flex-1">
@@ -300,13 +300,13 @@ const LifeCEOProjectHierarchy: React.FC = () => {
           </div>
         </div>
         
-        {hasChildren && isExpanded && (
-          <div>
+        {hasChildren && isExpanded &&
+        <div>
             {project.children?.map((child) => renderProjectNode(child, level + 1))}
           </div>
-        )}
-      </div>
-    );
+        }
+      </div>);
+
   };
 
   return (
@@ -335,8 +335,8 @@ const LifeCEOProjectHierarchy: React.FC = () => {
             <CardTitle>Project Details</CardTitle>
           </CardHeader>
           <CardContent>
-            {selectedItem ? (
-              <div className="space-y-4">
+            {selectedItem ?
+            <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-lg">{selectedItem.name}</h3>
                   <p className="text-sm text-gray-600 mt-1">{selectedItem.description}</p>
@@ -382,23 +382,23 @@ const LifeCEOProjectHierarchy: React.FC = () => {
                   </div>
                 </div>
 
-                {selectedItem.startDate && (
-                  <div className="pt-2 border-t">
+                {selectedItem.startDate &&
+              <div className="pt-2 border-t">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-gray-600">Timeline</span>
                       <span className="text-sm">{selectedItem.startDate} - {selectedItem.endDate || 'Ongoing'}</span>
                     </div>
                   </div>
-                )}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500">Select a project to view details</p>
-            )}
+              }
+              </div> :
+
+            <p className="text-sm text-gray-500">Select a project to view details</p>
+            }
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default LifeCEOProjectHierarchy;

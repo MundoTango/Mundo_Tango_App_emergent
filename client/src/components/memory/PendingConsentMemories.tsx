@@ -9,16 +9,16 @@ import { Clock, User, MapPin, Heart, X, CheckCircle, AlertCircle, Shield } from 
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
-import { 
-  Chip, 
-  Box, 
-  Typography, 
-  Avatar as MuiAvatar, 
-  Divider, 
+import {
+  Chip,
+  Box,
+  Typography,
+  Avatar as MuiAvatar,
+  Divider,
   Tooltip,
   Paper,
-  Grid
-} from '@mui/material';
+  Grid } from
+'@mui/material';
 import { Can } from '@casl/react';
 import { useAbility, useCanViewPendingRequests } from '../../lib/casl/abilities';
 
@@ -59,7 +59,7 @@ export default function PendingConsentMemories() {
   // Fetch pending consent memories
   const { data: pendingMemories = [], isLoading, error } = useQuery({
     queryKey: ['/api/memories/pending-consent'],
-    enabled: !!user?.id && canViewPending,
+    enabled: !!user?.id && canViewPending
   });
 
   // Consent action mutation
@@ -72,16 +72,16 @@ export default function PendingConsentMemories() {
       });
     },
     onMutate: ({ memoryId }) => {
-      setProcessingMemories(prev => new Set(prev).add(memoryId));
+      setProcessingMemories((prev) => new Set(prev).add(memoryId));
     },
     onSuccess: (data, { memoryId, action }) => {
       toast({
         title: action === 'approve' ? 'Memory Approved' : 'Memory Denied',
-        description: action === 'approve' 
-          ? 'The memory has been approved and is now visible to participants.'
-          : 'The memory has been denied and will remain private.',
+        description: action === 'approve' ?
+        'The memory has been approved and is now visible to participants.' :
+        'The memory has been denied and will remain private.'
       });
-      
+
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['/api/memories/pending-consent'] });
       queryClient.invalidateQueries({ queryKey: ['/api/memories/user-memories'] });
@@ -90,11 +90,11 @@ export default function PendingConsentMemories() {
       toast({
         title: 'Action Failed',
         description: `Failed to ${action} memory. Please try again.`,
-        variant: 'destructive',
+        variant: 'destructive'
       });
     },
     onSettled: ({ memoryId }) => {
-      setProcessingMemories(prev => {
+      setProcessingMemories((prev) => {
         const newSet = new Set(prev);
         newSet.delete(memoryId);
         return newSet;
@@ -115,7 +115,7 @@ export default function PendingConsentMemories() {
       energetic: 'bg-orange-100 text-orange-800',
       melancholic: 'bg-gray-100 text-gray-800',
       romantic: 'bg-pink-100 text-pink-800',
-      triumphant: 'bg-green-100 text-green-800',
+      triumphant: 'bg-green-100 text-green-800'
     };
     return colors[emotion.toLowerCase()] || 'bg-gray-100 text-gray-800';
   };
@@ -125,7 +125,7 @@ export default function PendingConsentMemories() {
       basic: 'bg-gray-100 text-gray-800',
       close: 'bg-blue-100 text-blue-800',
       intimate: 'bg-purple-100 text-purple-800',
-      sacred: 'bg-amber-100 text-amber-800',
+      sacred: 'bg-amber-100 text-amber-800'
     };
     return colors[level.toLowerCase()] || 'bg-gray-100 text-gray-800';
   };
@@ -134,8 +134,8 @@ export default function PendingConsentMemories() {
     return (
       <div className="container mx-auto p-6">
         <div className="grid gap-4">
-          {[...Array(3)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
+          {[...Array(3)].map((_, i) =>
+          <Card key={i} className="animate-pulse">
               <CardHeader className="pb-4">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
@@ -152,10 +152,10 @@ export default function PendingConsentMemories() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   // Check permissions first
@@ -172,8 +172,8 @@ export default function PendingConsentMemories() {
             This feature is available to users who can approve memory consent requests.
           </Typography>
         </Paper>
-      </div>
-    );
+      </div>);
+
   }
 
   if (error) {
@@ -188,8 +188,8 @@ export default function PendingConsentMemories() {
             There was an error loading pending consent memories. Please refresh the page or try again later.
           </Typography>
         </Paper>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -201,72 +201,72 @@ export default function PendingConsentMemories() {
         </p>
       </div>
 
-      {pendingMemories.length === 0 ? (
-        <Paper elevation={3} sx={{ 
-          p: 6, 
-          textAlign: 'center',
-          background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-          border: '1px solid #b3e5fc'
-        }}>
+      {pendingMemories.length === 0 ?
+      <Paper elevation={3} sx={{
+        p: 6,
+        textAlign: 'center',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+        border: '1px solid #b3e5fc'
+      }}>
           <Box sx={{ mb: 3 }}>
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
           </Box>
-          <Typography variant="h4" gutterBottom sx={{ 
-            fontWeight: 600, 
-            color: '#1e293b',
-            mb: 2
-          }}>
+          <Typography variant="h4" gutterBottom sx={{
+          fontWeight: 600,
+          color: '#1e293b',
+          mb: 2
+        }}>
             All Caught Up! 🎉
           </Typography>
-          <Typography variant="body1" color="textSecondary" sx={{ 
-            maxWidth: '500px', 
-            mx: 'auto',
-            lineHeight: 1.6
-          }}>
+          <Typography variant="body1" color="textSecondary" sx={{
+          maxWidth: '500px',
+          mx: 'auto',
+          lineHeight: 1.6
+        }}>
             You don't have any memories waiting for your consent approval. 
             When someone tags you in a memory, it will appear here for your review.
           </Typography>
           <Box sx={{ mt: 4 }}>
-            <Chip 
-              label="No Pending Requests" 
-              color="success" 
-              variant="outlined"
-              sx={{ fontSize: '0.9rem', py: 2 }}
-            />
+            <Chip
+            label="No Pending Requests"
+            color="success"
+            variant="outlined"
+            sx={{ fontSize: '0.9rem', py: 2 }} />
+
           </Box>
-        </Paper>
-      ) : (
-        <div className="grid gap-6">
+        </Paper> :
+
+      <div className="grid gap-6">
           {pendingMemories.map((memory: PendingMemory) => {
-            const isProcessing = processingMemories.has(memory.id);
-            
-            return (
-              <Paper 
-                key={memory.id} 
-                elevation={3}
-                sx={{ 
-                  overflow: 'hidden',
-                  borderLeft: '6px solid #f59e0b',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    elevation: 8,
-                    transform: 'translateY(-2px)'
-                  }
-                }}
-              >
+          const isProcessing = processingMemories.has(memory.id);
+
+          return (
+            <Paper
+              key={memory.id}
+              elevation={3}
+              sx={{
+                overflow: 'hidden',
+                borderLeft: '6px solid #f59e0b',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  elevation: 8,
+                  transform: 'translateY(-2px)'
+                }
+              }}>
+
                 {/* Header with gradient */}
-                <Box sx={{ 
-                  background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)',
-                  p: 3,
-                  borderBottom: '1px solid #e5e7eb'
-                }}>
+                <Box sx={{
+                background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)',
+                p: 3,
+                borderBottom: '1px solid #e5e7eb'
+              }}>
                   <Grid container spacing={2} alignItems="center">
                     <Grid item>
-                      <MuiAvatar 
-                        src={memory.creator.profileImage}
-                        sx={{ width: 56, height: 56 }}
-                      >
-                        {memory.creator.name.split(' ').map(n => n[0]).join('')}
+                      <MuiAvatar
+                      src={memory.creator.profileImage}
+                      sx={{ width: 56, height: 56 }}>
+
+                        {memory.creator.name.split(' ').map((n) => n[0]).join('')}
                       </MuiAvatar>
                     </Grid>
                     <Grid item xs>
@@ -274,30 +274,30 @@ export default function PendingConsentMemories() {
                         {memory.title}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
-                        <Chip 
-                          icon={<User size={14} />}
-                          label={`by ${memory.creator.name}`}
-                          size="small"
-                          variant="outlined"
-                        />
-                        <Chip 
-                          icon={<Clock size={14} />}
-                          label={new Date(memory.createdAt).toLocaleDateString()}
-                          size="small"
-                          variant="outlined"
-                        />
+                        <Chip
+                        icon={<User size={14} />}
+                        label={`by ${memory.creator.name}`}
+                        size="small"
+                        variant="outlined" />
+
+                        <Chip
+                        icon={<Clock size={14} />}
+                        label={new Date(memory.createdAt).toLocaleDateString()}
+                        size="small"
+                        variant="outlined" />
+
                       </Box>
                     </Grid>
                     <Grid item>
-                      <Chip 
-                        label="Awaiting Consent"
-                        color="warning"
-                        variant="outlined"
-                        sx={{ 
-                          fontWeight: 500,
-                          backgroundColor: 'rgba(245, 158, 11, 0.1)'
-                        }}
-                      />
+                      <Chip
+                      label="Awaiting Consent"
+                      color="warning"
+                      variant="outlined"
+                      sx={{
+                        fontWeight: 500,
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)'
+                      }} />
+
                     </Grid>
                   </Grid>
                 </Box>
@@ -305,48 +305,48 @@ export default function PendingConsentMemories() {
                 {/* Content */}
                 <Box sx={{ p: 3 }}>
                   {/* Memory Preview */}
-                  <Paper 
-                    variant="outlined" 
-                    sx={{ 
-                      p: 3, 
-                      mb: 3, 
-                      backgroundColor: '#f8fafc',
-                      border: '1px solid #e2e8f0'
-                    }}
-                  >
-                    <Typography variant="body1" sx={{ 
-                      lineHeight: 1.6,
-                      color: '#374151'
-                    }}>
+                  <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 3,
+                    mb: 3,
+                    backgroundColor: '#f8fafc',
+                    border: '1px solid #e2e8f0'
+                  }}>
+
+                    <Typography variant="body1" sx={{
+                    lineHeight: 1.6,
+                    color: '#374151'
+                  }}>
                       {memory.previewText}
                     </Typography>
                   </Paper>
 
                   {/* Emotion Tags */}
-                  {memory.emotionTags.length > 0 && (
-                    <Box sx={{ mb: 3 }}>
+                  {memory.emotionTags.length > 0 &&
+                <Box sx={{ mb: 3 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: '#6b7280' }}>
                         Emotion Tags:
                       </Typography>
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {memory.emotionTags.map((emotion) => (
-                          <Chip 
-                            key={emotion}
-                            label={emotion}
-                            size="small"
-                            sx={{
-                              backgroundColor: '#fce7f3',
-                              color: '#be185d',
-                              fontWeight: 500,
-                              '&:hover': {
-                                backgroundColor: '#fbcfe8'
-                              }
-                            }}
-                          />
-                        ))}
+                        {memory.emotionTags.map((emotion) =>
+                    <Chip
+                      key={emotion}
+                      label={emotion}
+                      size="small"
+                      sx={{
+                        backgroundColor: '#fce7f3',
+                        color: '#be185d',
+                        fontWeight: 500,
+                        '&:hover': {
+                          backgroundColor: '#fbcfe8'
+                        }
+                      }} />
+
+                    )}
                       </Box>
                     </Box>
-                  )}
+                }
 
                   {/* Trust Level & Event Info */}
                   <Box sx={{ mb: 3 }}>
@@ -354,56 +354,56 @@ export default function PendingConsentMemories() {
                       <Grid item>
                         <Tooltip title={`This memory requires ${memory.trustLevel} level trust to view`}>
                           <Chip
-                            label={`${memory.trustLevel} trust`}
-                            size="small"
-                            sx={{
-                              backgroundColor: getTrustLevelColor(memory.trustLevel).includes('gray') ? '#f3f4f6' : 
-                                getTrustLevelColor(memory.trustLevel).includes('blue') ? '#dbeafe' :
-                                getTrustLevelColor(memory.trustLevel).includes('purple') ? '#e9d5ff' : '#fef3c7',
-                              color: getTrustLevelColor(memory.trustLevel).includes('gray') ? '#374151' : 
-                                getTrustLevelColor(memory.trustLevel).includes('blue') ? '#1d4ed8' :
-                                getTrustLevelColor(memory.trustLevel).includes('purple') ? '#7c3aed' : '#92400e',
-                              fontWeight: 500
-                            }}
-                          />
+                          label={`${memory.trustLevel} trust`}
+                          size="small"
+                          sx={{
+                            backgroundColor: getTrustLevelColor(memory.trustLevel).includes('gray') ? '#f3f4f6' :
+                            getTrustLevelColor(memory.trustLevel).includes('blue') ? '#dbeafe' :
+                            getTrustLevelColor(memory.trustLevel).includes('purple') ? '#e9d5ff' : '#fef3c7',
+                            color: getTrustLevelColor(memory.trustLevel).includes('gray') ? '#374151' :
+                            getTrustLevelColor(memory.trustLevel).includes('blue') ? '#1d4ed8' :
+                            getTrustLevelColor(memory.trustLevel).includes('purple') ? '#7c3aed' : '#92400e',
+                            fontWeight: 500
+                          }} />
+
                         </Tooltip>
                       </Grid>
-                      {memory.eventTitle && (
-                        <Grid item>
+                      {memory.eventTitle &&
+                    <Grid item>
                           <Chip
-                            icon={<Heart size={14} />}
-                            label={memory.eventTitle}
-                            size="small"
-                            color="primary"
-                            variant="outlined"
-                          />
+                        icon={<Heart size={14} />}
+                        label={memory.eventTitle}
+                        size="small"
+                        color="primary"
+                        variant="outlined" />
+
                         </Grid>
-                      )}
-                      {memory.location && (
-                        <Grid item>
+                    }
+                      {memory.location &&
+                    <Grid item>
                           <Chip
-                            icon={<MapPin size={14} />}
-                            label={memory.location}
-                            size="small"
-                            color="secondary"
-                            variant="outlined"
-                          />
+                        icon={<MapPin size={14} />}
+                        label={memory.location}
+                        size="small"
+                        color="secondary"
+                        variant="outlined" />
+
                         </Grid>
-                      )}
+                    }
                     </Grid>
                   </Box>
 
                   <Divider sx={{ my: 3 }} />
 
                   {/* Consent Actions */}
-                  <Paper 
-                    variant="outlined" 
-                    sx={{ 
-                      p: 3, 
-                      backgroundColor: '#fffbeb',
-                      border: '1px solid #fcd34d'
-                    }}
-                  >
+                  <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 3,
+                    backgroundColor: '#fffbeb',
+                    border: '1px solid #fcd34d'
+                  }}>
+
                     <Typography variant="body2" sx={{ mb: 2, color: '#92400e', fontWeight: 500 }}>
                       🤝 Consent Required: Do you approve sharing this memory with other participants?
                     </Typography>
@@ -411,35 +411,35 @@ export default function PendingConsentMemories() {
                       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
                         <Can I="deny" a="ConsentRequest" this={memory}>
                           <Button
-                            variant="outlined"
-                            size="medium"
-                            onClick={() => handleConsentAction(memory.id, 'deny')}
-                            disabled={isProcessing}
-                            sx={{
-                              color: '#dc2626',
-                              borderColor: '#fca5a5',
-                              '&:hover': {
-                                backgroundColor: '#fef2f2',
-                                borderColor: '#ef4444'
-                              }
-                            }}
-                          >
+                          variant="outlined"
+                          size="medium"
+                          onClick={() => handleConsentAction(memory.id, 'deny')}
+                          disabled={isProcessing}
+                          sx={{
+                            color: '#dc2626',
+                            borderColor: '#fca5a5',
+                            '&:hover': {
+                              backgroundColor: '#fef2f2',
+                              borderColor: '#ef4444'
+                            }
+                          }} data-testid="button-element">
+
                             <X className="h-4 w-4 mr-2" />
                             Deny Consent
                           </Button>
                         </Can>
                         <Button
-                          variant="contained"
-                          size="medium"
-                          onClick={() => handleConsentAction(memory.id, 'approve')}
-                          disabled={isProcessing}
-                          sx={{
-                            backgroundColor: '#16a34a',
-                            '&:hover': {
-                              backgroundColor: '#15803d'
-                            }
-                          }}
-                        >
+                        variant="contained"
+                        size="medium"
+                        onClick={() => handleConsentAction(memory.id, 'approve')}
+                        disabled={isProcessing}
+                        sx={{
+                          backgroundColor: '#16a34a',
+                          '&:hover': {
+                            backgroundColor: '#15803d'
+                          }
+                        }} data-testid="button-element">
+
                           <CheckCircle className="h-4 w-4 mr-2" />
                           Approve Consent
                         </Button>
@@ -447,11 +447,11 @@ export default function PendingConsentMemories() {
                     </Can>
                   </Paper>
                 </Box>
-              </Paper>
-            );
-          })}
+              </Paper>);
+
+        })}
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }

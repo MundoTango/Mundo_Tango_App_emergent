@@ -13,8 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { format, addDays, differenceInDays } from "date-fns";
-import { 
-  Plane, 
+import {
+  Plane,
   Calendar as CalendarIcon,
   MapPin,
   Hotel,
@@ -32,8 +32,8 @@ import {
   Plus,
   X,
   ChevronRight,
-  Info
-} from "lucide-react";
+  Info } from
+"lucide-react";
 
 interface TripDestination {
   id: string;
@@ -79,13 +79,13 @@ const TravelPlanner: React.FC = () => {
 
   // Fetch events for selected destinations
   const { data: destinationEvents } = useQuery({
-    queryKey: ['/api/events', destinations.map(d => d.city)],
+    queryKey: ['/api/events', destinations.map((d) => d.city)],
     enabled: destinations.length > 0,
     queryFn: async () => {
       const events = await Promise.all(
-        destinations.map(dest => 
-          fetch(`/api/events?city=${dest.city}&startDate=${dest.startDate}&endDate=${dest.endDate}`)
-            .then(res => res.json())
+        destinations.map((dest) =>
+        fetch(`/api/events?city=${dest.city}&startDate=${dest.startDate}&endDate=${dest.endDate}`).
+        then((res) => res.json())
         )
       );
       return events.flat();
@@ -107,13 +107,13 @@ const TravelPlanner: React.FC = () => {
 
   // Remove destination
   const removeDestination = (id: string) => {
-    setDestinations(destinations.filter(d => d.id !== id));
+    setDestinations(destinations.filter((d) => d.id !== id));
   };
 
   // Update destination
   const updateDestination = (id: string, updates: Partial<TripDestination>) => {
-    setDestinations(destinations.map(d => 
-      d.id === id ? { ...d, ...updates } : d
+    setDestinations(destinations.map((d) =>
+    d.id === id ? { ...d, ...updates } : d
     ));
   };
 
@@ -132,7 +132,7 @@ const TravelPlanner: React.FC = () => {
     onSuccess: () => {
       toast({
         title: "Trip Saved!",
-        description: "Your tango travel plan has been saved successfully",
+        description: "Your tango travel plan has been saved successfully"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/travel-plans'] });
     }
@@ -167,8 +167,8 @@ const TravelPlanner: React.FC = () => {
       </div>
 
       {/* User Travel Stats */}
-      {userProfile && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      {userProfile &&
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="glassmorphic-card">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -219,7 +219,7 @@ const TravelPlanner: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-      )}
+      }
 
       {/* Main Content */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
@@ -252,8 +252,8 @@ const TravelPlanner: React.FC = () => {
                     placeholder="e.g., Summer Tango Tour 2025"
                     value={tripName}
                     onChange={(e) => setTripName(e.target.value)}
-                    className="glassmorphic-input"
-                  />
+                    className="glassmorphic-input" data-testid="input-trip-name" />
+
                 </div>
                 <div>
                   <Label htmlFor="budget">Total Budget</Label>
@@ -263,8 +263,8 @@ const TravelPlanner: React.FC = () => {
                     placeholder="0"
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
-                    className="glassmorphic-input"
-                  />
+                    className="glassmorphic-input" data-testid="input-budget" />
+
                 </div>
                 <div>
                   <Label htmlFor="travelers">Number of Travelers</Label>
@@ -274,8 +274,8 @@ const TravelPlanner: React.FC = () => {
                     min="1"
                     value={travelers}
                     onChange={(e) => setTravelers(e.target.value)}
-                    className="glassmorphic-input"
-                  />
+                    className="glassmorphic-input" data-testid="input-travelers" />
+
                 </div>
               </div>
 
@@ -287,24 +287,24 @@ const TravelPlanner: React.FC = () => {
                     onClick={addDestination}
                     variant="outline"
                     size="sm"
-                    className="border-turquoise-200"
-                  >
+                    className="border-turquoise-200" data-testid="button-border-turquoise-200">
+
                     <Plus className="h-4 w-4 mr-1" />
                     Add City
                   </Button>
                 </div>
 
-                {destinations.length === 0 ? (
-                  <Alert>
+                {destinations.length === 0 ?
+                <Alert>
                     <Info className="h-4 w-4" />
                     <AlertDescription>
                       Add cities to start planning your tango journey
                     </AlertDescription>
-                  </Alert>
-                ) : (
-                  <div className="space-y-4">
-                    {destinations.map((dest, index) => (
-                      <Card key={dest.id} className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50">
+                  </Alert> :
+
+                <div className="space-y-4">
+                    {destinations.map((dest, index) =>
+                  <Card key={dest.id} className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50">
                         <CardContent className="p-4">
                           <div className="flex items-start justify-between mb-4">
                             <div className="flex items-center gap-2">
@@ -314,11 +314,11 @@ const TravelPlanner: React.FC = () => {
                               </span>
                             </div>
                             <Button
-                              onClick={() => removeDestination(dest.id)}
-                              variant="ghost"
-                              size="sm"
-                              className="text-red-500"
-                            >
+                          onClick={() => removeDestination(dest.id)}
+                          variant="ghost"
+                          size="sm"
+                          className="text-red-500" data-testid="button-text-red-500">
+
                               <X className="h-4 w-4" />
                             </Button>
                           </div>
@@ -327,109 +327,109 @@ const TravelPlanner: React.FC = () => {
                             <div>
                               <Label>City</Label>
                               <Input
-                                placeholder="e.g., Buenos Aires"
-                                value={dest.city}
-                                onChange={(e) => updateDestination(dest.id, { city: e.target.value })}
-                                className="glassmorphic-input"
-                              />
+                            placeholder="e.g., Buenos Aires"
+                            value={dest.city}
+                            onChange={(e) => updateDestination(dest.id, { city: e.target.value })}
+                            className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+
                             </div>
                             <div>
                               <Label>Country</Label>
                               <Input
-                                placeholder="e.g., Argentina"
-                                value={dest.country}
-                                onChange={(e) => updateDestination(dest.id, { country: e.target.value })}
-                                className="glassmorphic-input"
-                              />
+                            placeholder="e.g., Argentina"
+                            value={dest.country}
+                            onChange={(e) => updateDestination(dest.id, { country: e.target.value })}
+                            className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+
                             </div>
                             <div>
                               <Label>Start Date</Label>
                               <Input
-                                type="date"
-                                value={format(dest.startDate, 'yyyy-MM-dd')}
-                                onChange={(e) => updateDestination(dest.id, { startDate: new Date(e.target.value) })}
-                                className="glassmorphic-input"
-                              />
+                            type="date"
+                            value={format(dest.startDate, 'yyyy-MM-dd')}
+                            onChange={(e) => updateDestination(dest.id, { startDate: new Date(e.target.value) })}
+                            className="glassmorphic-input" data-testid="input-date" />
+
                             </div>
                             <div>
                               <Label>End Date</Label>
                               <Input
-                                type="date"
-                                value={format(dest.endDate, 'yyyy-MM-dd')}
-                                onChange={(e) => updateDestination(dest.id, { endDate: new Date(e.target.value) })}
-                                className="glassmorphic-input"
-                              />
+                            type="date"
+                            value={format(dest.endDate, 'yyyy-MM-dd')}
+                            onChange={(e) => updateDestination(dest.id, { endDate: new Date(e.target.value) })}
+                            className="glassmorphic-input" data-testid="input-date" />
+
                             </div>
                             <div className="md:col-span-2">
                               <Label>Accommodation</Label>
                               <Input
-                                placeholder="Hotel name or address"
-                                value={dest.accommodation || ''}
-                                onChange={(e) => updateDestination(dest.id, { accommodation: e.target.value })}
-                                className="glassmorphic-input"
-                              />
+                            placeholder="Hotel name or address"
+                            value={dest.accommodation || ''}
+                            onChange={(e) => updateDestination(dest.id, { accommodation: e.target.value })}
+                            className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+
                             </div>
                             <div className="md:col-span-2">
                               <Label>Notes</Label>
                               <Textarea
-                                placeholder="Special notes for this destination"
-                                value={dest.notes || ''}
-                                onChange={(e) => updateDestination(dest.id, { notes: e.target.value })}
-                                className="glassmorphic-input min-h-[80px]"
-                              />
+                            placeholder="Special notes for this destination"
+                            value={dest.notes || ''}
+                            onChange={(e) => updateDestination(dest.id, { notes: e.target.value })}
+                            className="glassmorphic-input min-h-[80px]" data-testid="textarea-glassmorphic-input" />
+
                             </div>
                           </div>
 
                           {/* Events for this destination */}
-                          {dest.city && (
-                            <div className="mt-4">
+                          {dest.city &&
+                      <div className="mt-4">
                               <p className="text-sm text-gray-600 mb-2">
                                 {dest.events?.length || 0} tango events during your stay
                               </p>
-                              {dest.events?.length > 0 && (
-                                <div className="flex flex-wrap gap-2">
-                                  {dest.events.slice(0, 3).map((event: any) => (
-                                    <Badge key={event.id} variant="outline">
+                              {dest.events?.length > 0 &&
+                        <div className="flex flex-wrap gap-2">
+                                  {dest.events.slice(0, 3).map((event: any) =>
+                          <Badge key={event.id} variant="outline">
                                       {event.title}
                                     </Badge>
-                                  ))}
-                                  {dest.events.length > 3 && (
-                                    <Badge variant="outline">+{dest.events.length - 3} more</Badge>
-                                  )}
-                                </div>
-                              )}
-                            </div>
                           )}
+                                  {dest.events.length > 3 &&
+                          <Badge variant="outline">+{dest.events.length - 3} more</Badge>
+                          }
+                                </div>
+                        }
+                            </div>
+                      }
                         </CardContent>
                       </Card>
-                    ))}
+                  )}
                   </div>
-                )}
+                }
               </div>
 
               {/* Save Button */}
-              {destinations.length > 0 && (
-                <div className="flex justify-end gap-2">
+              {destinations.length > 0 &&
+              <div className="flex justify-end gap-2">
                   <Button
-                    variant="outline"
-                    onClick={() => {
-                      setDestinations([]);
-                      setTripName('');
-                      setBudget('');
-                      setTravelers('1');
-                    }}
-                  >
+                  variant="outline"
+                  onClick={() => {
+                    setDestinations([]);
+                    setTripName('');
+                    setBudget('');
+                    setTravelers('1');
+                  }} data-testid="button-element">
+
                     Clear All
                   </Button>
                   <Button
-                    onClick={handleSaveTrip}
-                    className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-                    disabled={saveTripMutation.isPending}
-                  >
+                  onClick={handleSaveTrip}
+                  className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
+                  disabled={saveTripMutation.isPending} data-testid="button-bg-gradient-to-r">
+
                     {saveTripMutation.isPending ? 'Saving...' : 'Save Trip Plan'}
                   </Button>
                 </div>
-              )}
+              }
             </CardContent>
           </Card>
         </TabsContent>
@@ -447,27 +447,27 @@ const TravelPlanner: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {destinations.length === 0 ? (
-                <Alert>
+              {destinations.length === 0 ?
+              <Alert>
                   <Info className="h-4 w-4" />
                   <AlertDescription>
                     Add destinations in the Itinerary tab to see available events
                   </AlertDescription>
-                </Alert>
-              ) : (
-                <div className="space-y-6">
-                  {destinations.map((dest) => (
-                    <div key={dest.id}>
+                </Alert> :
+
+              <div className="space-y-6">
+                  {destinations.map((dest) =>
+                <div key={dest.id}>
                       <h3 className="font-semibold text-lg mb-3 text-turquoise-600">
                         {dest.city}, {dest.country}
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {destinationEvents?.filter((event: any) => 
-                          event.city === dest.city &&
-                          new Date(event.startDate) >= dest.startDate &&
-                          new Date(event.startDate) <= dest.endDate
-                        ).map((event: any) => (
-                          <Card key={event.id} className="hover:shadow-lg transition-shadow">
+                        {destinationEvents?.filter((event: any) =>
+                    event.city === dest.city &&
+                    new Date(event.startDate) >= dest.startDate &&
+                    new Date(event.startDate) <= dest.endDate
+                    ).map((event: any) =>
+                    <Card key={event.id} className="hover:shadow-lg transition-shadow">
                             <CardContent className="p-4">
                               <div className="flex justify-between items-start mb-2">
                                 <h4 className="font-medium">{event.title}</h4>
@@ -485,23 +485,23 @@ const TravelPlanner: React.FC = () => {
                                 </span>
                               </div>
                               <Button
-                                variant="outline"
-                                size="sm"
-                                className="w-full mt-3"
-                                onClick={() => updateDestination(dest.id, {
-                                  events: [...(dest.events || []), event]
-                                })}
-                              >
+                          variant="outline"
+                          size="sm"
+                          className="w-full mt-3"
+                          onClick={() => updateDestination(dest.id, {
+                            events: [...(dest.events || []), event]
+                          })} data-testid="button-w-full">
+
                                 Add to Itinerary
                               </Button>
                             </CardContent>
                           </Card>
-                        ))}
+                    )}
                       </div>
                     </div>
-                  ))}
+                )}
                 </div>
-              )}
+              }
             </CardContent>
           </Card>
         </TabsContent>
@@ -542,10 +542,10 @@ const TravelPlanner: React.FC = () => {
                     <CardContent className="p-4">
                       <p className="text-sm text-gray-600">Per Day</p>
                       <p className="text-2xl font-bold text-purple-600">
-                        ${budget && destinations.length ? 
-                          Math.round(parseFloat(budget) / destinations.reduce((acc, d) => 
-                            acc + differenceInDays(d.endDate, d.startDate), 0
-                          )) : '0'}
+                        ${budget && destinations.length ?
+                        Math.round(parseFloat(budget) / destinations.reduce((acc, d) =>
+                        acc + differenceInDays(d.endDate, d.startDate), 0
+                        )) : '0'}
                       </p>
                     </CardContent>
                   </Card>
@@ -563,8 +563,8 @@ const TravelPlanner: React.FC = () => {
                       <Input
                         type="number"
                         placeholder="0"
-                        className="w-32 glassmorphic-input"
-                      />
+                        className="w-32 glassmorphic-input" data-testid="input-number" />
+
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
@@ -574,8 +574,8 @@ const TravelPlanner: React.FC = () => {
                       <Input
                         type="number"
                         placeholder="0"
-                        className="w-32 glassmorphic-input"
-                      />
+                        className="w-32 glassmorphic-input" data-testid="input-number" />
+
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
@@ -585,8 +585,8 @@ const TravelPlanner: React.FC = () => {
                       <Input
                         type="number"
                         placeholder="0"
-                        className="w-32 glassmorphic-input"
-                      />
+                        className="w-32 glassmorphic-input" data-testid="input-number" />
+
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
@@ -596,8 +596,8 @@ const TravelPlanner: React.FC = () => {
                       <Input
                         type="number"
                         placeholder="0"
-                        className="w-32 glassmorphic-input"
-                      />
+                        className="w-32 glassmorphic-input" data-testid="input-number" />
+
                     </div>
                   </div>
                 </div>
@@ -628,8 +628,8 @@ const TravelPlanner: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 };
 
 export default TravelPlanner;

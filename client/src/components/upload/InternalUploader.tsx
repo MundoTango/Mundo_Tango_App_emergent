@@ -50,10 +50,10 @@ export function InternalUploader({
     const files = Array.from(event.target.files || []);
     if (files.length === 0) return;
 
-    console.log(`📁 [InternalUploader] File selection: ${files.length} files`, files.map(f => ({
+    console.log(`📁 [InternalUploader] File selection: ${files.length} files`, files.map((f) => ({
       name: f.name,
       type: f.type,
-      size: `${(f.size/1024/1024).toFixed(2)}MB`
+      size: `${(f.size / 1024 / 1024).toFixed(2)}MB`
     })));
 
     // Validate file count
@@ -71,7 +71,7 @@ export function InternalUploader({
     onProgress?.(0, true);
 
     // Check for special formats (HEIC, MOV, etc)
-    const fileTypes = files.map(f => {
+    const fileTypes = files.map((f) => {
       const name = f.name.toLowerCase();
       if (name.endsWith('.heic') || name.endsWith('.heif')) return 'HEIC (iPhone)';
       if (name.endsWith('.mov')) return 'MOV (iPhone Video)';
@@ -89,21 +89,21 @@ export function InternalUploader({
       // PHASE 1: Compression (0-40%)
       currentPhase = 'compression';
       console.log(`🔄 [InternalUploader] Phase 1: Starting compression for ${files.length} files`);
-      
+
       const processedFiles = await processMultipleMedia(
         files,
         (current, total, status) => {
-          const progress = Math.min((current / total) * 40, 40); // First 40% for compression
+          const progress = Math.min(current / total * 40, 40); // First 40% for compression
           setUploadProgress(progress);
           onProgress?.(progress, true);
           console.log(`📊 [InternalUploader] Compression progress: ${current}/${total} - ${status} (${progress.toFixed(0)}%)`);
         }
       );
-      
+
       console.log(`✅ [InternalUploader] Phase 1 complete: ${processedFiles.length} files compressed`);
 
       // Check if files are now within size limits after processing
-      const oversizedFiles = processedFiles.filter(file => file.size > maxFileSize * 1024 * 1024);
+      const oversizedFiles = processedFiles.filter((file) => file.size > maxFileSize * 1024 * 1024);
       if (oversizedFiles.length > 0) {
         toast({
           title: "Files still too large",
@@ -111,7 +111,7 @@ export function InternalUploader({
           variant: "destructive"
         });
         // Continue with the files that are within limits
-        const validFiles = processedFiles.filter(file => file.size <= maxFileSize * 1024 * 1024);
+        const validFiles = processedFiles.filter((file) => file.size <= maxFileSize * 1024 * 1024);
         if (validFiles.length === 0) {
           setIsUploading(false);
           return;
@@ -122,9 +122,9 @@ export function InternalUploader({
       currentPhase = 'upload-preparation';
       setUploadProgress(45);
       onProgress?.(45, true);
-      
+
       const formData = new FormData();
-      processedFiles.forEach(file => {
+      processedFiles.forEach((file) => {
         formData.append('files', file);
       });
 
@@ -136,16 +136,16 @@ export function InternalUploader({
       // PHASE 3: Network upload (50-95%)
       currentPhase = 'network-upload';
       console.log(`🌐 [InternalUploader] Phase 3: Starting network upload to /api/upload`);
-      
+
       const xhr = new XMLHttpRequest();
-      
+
       // Track upload progress
       xhr.upload.addEventListener('progress', (e) => {
         if (e.lengthComputable) {
-          const uploadProgress = 50 + Math.round((e.loaded / e.total) * 45); // 50-95%
+          const uploadProgress = 50 + Math.round(e.loaded / e.total * 45); // 50-95%
           setUploadProgress(uploadProgress);
           onProgress?.(uploadProgress, true);
-          console.log(`📡 [InternalUploader] Network upload: ${uploadProgress}% (${(e.loaded/1024/1024).toFixed(2)}MB / ${(e.total/1024/1024).toFixed(2)}MB)`);
+          console.log(`📡 [InternalUploader] Network upload: ${uploadProgress}% (${(e.loaded / 1024 / 1024).toFixed(2)}MB / ${(e.total / 1024 / 1024).toFixed(2)}MB)`);
         }
       });
 
@@ -183,24 +183,24 @@ export function InternalUploader({
       xhr.send(formData);
 
       const newFiles = await uploadPromise;
-      
+
       // PHASE 4: Storage & Display (95-100%)
       currentPhase = 'storage-display';
       console.log(`💾 [InternalUploader] Phase 4: Storage successful, displaying files`);
       setUploadProgress(98);
       onProgress?.(98, true);
-      
-      setUploadedFiles(prev => [...prev, ...newFiles]);
+
+      setUploadedFiles((prev) => [...prev, ...newFiles]);
       onUploadComplete(newFiles);
-      
+
       setUploadProgress(100);
       onProgress?.(100, true);
-      
+
       console.log(`🎉 [InternalUploader] COMPLETE! ${newFiles.length} files uploaded successfully:`, newFiles);
-      
+
       toast({
         title: "✅ Upload successful",
-        description: `${newFiles.length} files uploaded (${compressionRatio}% compressed)`,
+        description: `${newFiles.length} files uploaded (${compressionRatio}% compressed)`
       });
 
       // Reset file input
@@ -218,21 +218,21 @@ export function InternalUploader({
       // Enhanced error handling with phase detection
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       const errorStack = error instanceof Error ? error.stack : '';
-      
+
       console.error(`❌ [InternalUploader] UPLOAD FAILED at phase: ${currentPhase}`);
       console.error(`❌ Error message:`, errorMessage);
       console.error(`❌ Error stack:`, errorStack);
       console.error(`❌ Error object:`, error);
-      
+
       // Reset progress
       setUploadProgress(0);
       onProgress?.(0, false);
-      
+
       // User-friendly error messages based on phase
       let userMessage = errorMessage;
       let phaseContext = '';
-      
-      switch(currentPhase) {
+
+      switch (currentPhase) {
         case 'compression':
           phaseContext = 'during media compression';
           userMessage = `Compression failed: ${errorMessage}. Try smaller files or different format.`;
@@ -252,20 +252,20 @@ export function InternalUploader({
         default:
           phaseContext = 'unknown phase';
       }
-      
+
       console.error(`❌ [InternalUploader] User will see: "${userMessage}" (failed ${phaseContext})`);
-      
+
       toast({
         title: `❌ Upload failed ${phaseContext}`,
         description: userMessage,
         variant: "destructive"
       });
-      
+
       // Reset file input to allow retry
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
-      
+
     } finally {
       setTimeout(() => {
         setIsUploading(false);
@@ -275,7 +275,7 @@ export function InternalUploader({
   };
 
   const removeFile = (fileId: string) => {
-    setUploadedFiles(prev => prev.filter(f => f.id !== fileId));
+    setUploadedFiles((prev) => prev.filter((f) => f.id !== fileId));
   };
 
   const formatFileSize = (bytes: number) => {
@@ -293,20 +293,20 @@ export function InternalUploader({
         <Button
           onClick={handleFileSelect}
           disabled={isUploading}
-          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105"
-        >
-          {isUploading ? (
-            <>
+          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105" data-testid="button-flex">
+
+          {isUploading ?
+          <>
               <Upload className="h-5 w-5 animate-pulse" />
               <span>Uploading... {uploadProgress}%</span>
-            </>
-          ) : (
-            <>
+            </> :
+
+          <>
               <Camera className="h-5 w-5" />
               <span>Upload Media Files</span>
               <Video className="h-5 w-5" />
             </>
-          )}
+          }
         </Button>
 
         <input
@@ -315,8 +315,8 @@ export function InternalUploader({
           accept={accept}
           multiple={multiple}
           onChange={handleFileChange}
-          className="hidden"
-        />
+          className="hidden" data-testid="input-file" />
+
 
         <p className="text-sm text-gray-600 text-center">
           Support images and videos • Max {maxFiles} files • Up to {maxFileSize}MB each
@@ -324,47 +324,47 @@ export function InternalUploader({
       </div>
 
       {/* Upload Progress */}
-      {isUploading && (
-        <div className="space-y-2">
+      {isUploading &&
+      <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span className="font-medium">Uploading files...</span>
             <span>{uploadProgress}%</span>
           </div>
           <Progress value={uploadProgress} className="h-2" />
         </div>
-      )}
+      }
 
       {/* Uploaded Files Preview */}
-      {uploadedFiles.length > 0 && (
-        <div className="space-y-2">
+      {uploadedFiles.length > 0 &&
+      <div className="space-y-2">
           <h4 className="font-medium text-sm text-gray-700">
             Uploaded Files ({uploadedFiles.length})
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {uploadedFiles.map((file) => (
-              <div key={file.id} className="relative group">
+            {uploadedFiles.map((file) =>
+          <div key={file.id} className="relative group">
                 <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
-                  {file.mimetype.startsWith('image/') ? (
-                    <img
-                      src={file.thumbnailUrl || file.url}
-                      alt={file.originalname}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : file.mimetype.startsWith('video/') ? (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-900">
+                  {file.mimetype.startsWith('image/') ?
+              <img
+                src={file.thumbnailUrl || file.url}
+                alt={file.originalname}
+                className="w-full h-full object-cover" /> :
+
+              file.mimetype.startsWith('video/') ?
+              <div className="w-full h-full flex items-center justify-center bg-gray-900">
                       <Video className="h-8 w-8 text-white" />
-                    </div>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
+                    </div> :
+
+              <div className="w-full h-full flex items-center justify-center">
                       <Upload className="h-8 w-8 text-gray-400" />
                     </div>
-                  )}
+              }
                   
                   {/* Remove button */}
                   <button
-                    onClick={() => removeFile(file.id)}
-                    className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
-                  >
+                onClick={() => removeFile(file.id)}
+                className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600" data-testid="button-absolute">
+
                     <X className="h-3 w-3" />
                   </button>
                   
@@ -381,10 +381,10 @@ export function InternalUploader({
                   {formatFileSize(file.size)}
                 </p>
               </div>
-            ))}
+          )}
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }

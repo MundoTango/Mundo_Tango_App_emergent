@@ -27,14 +27,14 @@ interface MagneticButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const MagneticButton = ({ 
-  children, 
-  strength = 0.3, 
+const MagneticButton = ({
+  children,
+  strength = 0.3,
   className = '',
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: MagneticButtonProps) => {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
@@ -46,15 +46,15 @@ const MagneticButton = ({
 
   const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
     if (prefersReducedMotion()) return;
-    
+
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     const deltaX = (e.clientX - centerX) * strength;
     const deltaY = (e.clientY - centerY) * strength;
-    
+
     x.set(deltaX);
     y.set(deltaY);
   };
@@ -73,11 +73,11 @@ const MagneticButton = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={cn('relative', className)}
-    >
+      className={cn('relative', className)}>
+
       {children}
-    </motion.button>
-  );
+    </motion.button>);
+
 };
 
 /**
@@ -92,14 +92,14 @@ interface RippleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const RippleButton = ({ 
-  children, 
-  rippleColor = 'rgba(6, 182, 212, 0.4)', 
+const RippleButton = ({
+  children,
+  rippleColor = 'rgba(6, 182, 212, 0.4)',
   className = '',
   onClick,
-  ...props 
+  ...props
 }: RippleButtonProps) => {
-  const [ripples, setRipples] = useState<{ x: number; y: number; size: number; id: number }[]>([]);
+  const [ripples, setRipples] = useState<{x: number;y: number;size: number;id: number;}[]>([]);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (!prefersReducedMotion()) {
@@ -110,10 +110,10 @@ const RippleButton = ({
       const y = e.clientY - rect.top - size / 2;
       const id = Date.now();
 
-      setRipples(prev => [...prev, { x, y, size, id }]);
+      setRipples((prev) => [...prev, { x, y, size, id }]);
 
       setTimeout(() => {
-        setRipples(prev => prev.filter(r => r.id !== id));
+        setRipples((prev) => prev.filter((r) => r.id !== id));
       }, 300);
     }
 
@@ -124,24 +124,24 @@ const RippleButton = ({
     <button
       className={cn('relative overflow-hidden', className)}
       onClick={handleClick}
-      {...props}
-    >
-      {ripples.map(ripple => (
-        <span
-          key={ripple.id}
-          className="absolute rounded-full pointer-events-none animate-ripple"
-          style={{
-            left: ripple.x,
-            top: ripple.y,
-            width: ripple.size,
-            height: ripple.size,
-            background: `radial-gradient(circle, ${rippleColor} 0%, transparent 70%)`,
-          }}
-        />
-      ))}
+      {...props} data-testid="button-element">
+
+      {ripples.map((ripple) =>
+      <span
+        key={ripple.id}
+        className="absolute rounded-full pointer-events-none animate-ripple"
+        style={{
+          left: ripple.x,
+          top: ripple.y,
+          width: ripple.size,
+          height: ripple.size,
+          background: `radial-gradient(circle, ${rippleColor} 0%, transparent 70%)`
+        }} />
+
+      )}
       {children}
-    </button>
-  );
+    </button>);
+
 };
 
 /**
@@ -156,30 +156,30 @@ interface HoverGlowButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const HoverGlowButton = ({ 
-  children, 
+const HoverGlowButton = ({
+  children,
   glowColor = 'rgba(6, 182, 212, 0.5)',
   className = '',
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: HoverGlowButtonProps) => {
   return (
     <motion.button
-      whileHover={prefersReducedMotion() ? {} : { 
-        boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}` 
+      whileHover={prefersReducedMotion() ? {} : {
+        boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`
       }}
       whileTap={prefersReducedMotion() ? {} : { scale: 0.98 }}
       transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={cn('transition-all duration-200', className)}
-    >
+      className={cn('transition-all duration-200', className)}>
+
       {children}
-    </motion.button>
-  );
+    </motion.button>);
+
 };
 
 /**
@@ -195,15 +195,15 @@ interface ScaleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const ScaleButton = ({ 
-  children, 
-  hoverScale = 1.05, 
+const ScaleButton = ({
+  children,
+  hoverScale = 1.05,
   tapScale = 0.95,
   className = '',
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: ScaleButtonProps) => {
   return (
     <motion.button
@@ -213,11 +213,11 @@ const ScaleButton = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={className}
-    >
+      className={className}>
+
       {children}
-    </motion.button>
-  );
+    </motion.button>);
+
 };
 
 /**
@@ -234,8 +234,8 @@ interface IconMorphButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const IconMorphButton = ({ 
-  children, 
+const IconMorphButton = ({
+  children,
   icon,
   iconPosition = 'left',
   morphType = 'scale',
@@ -243,12 +243,12 @@ const IconMorphButton = ({
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: IconMorphButtonProps) => {
   const morphVariants = {
     rotate: { rotate: 180 },
     scale: { scale: 1.2 },
-    both: { rotate: 180, scale: 1.2 },
+    both: { rotate: 180, scale: 1.2 }
   };
 
   return (
@@ -257,27 +257,27 @@ const IconMorphButton = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={cn('flex items-center gap-2', className)}
-    >
-      {iconPosition === 'left' && (
-        <motion.span
-          whileHover={prefersReducedMotion() ? {} : morphVariants[morphType]}
-          transition={{ duration: 0.2 }}
-        >
+      className={cn('flex items-center gap-2', className)}>
+
+      {iconPosition === 'left' &&
+      <motion.span
+        whileHover={prefersReducedMotion() ? {} : morphVariants[morphType]}
+        transition={{ duration: 0.2 }}>
+
           {icon}
         </motion.span>
-      )}
+      }
       {children}
-      {iconPosition === 'right' && (
-        <motion.span
-          whileHover={prefersReducedMotion() ? {} : morphVariants[morphType]}
-          transition={{ duration: 0.2 }}
-        >
+      {iconPosition === 'right' &&
+      <motion.span
+        whileHover={prefersReducedMotion() ? {} : morphVariants[morphType]}
+        transition={{ duration: 0.2 }}>
+
           {icon}
         </motion.span>
-      )}
-    </motion.button>
-  );
+      }
+    </motion.button>);
+
 };
 
 /**
@@ -292,14 +292,14 @@ interface PulseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const PulseButton = ({ 
-  children, 
+const PulseButton = ({
+  children,
   pulseColor = 'rgba(6, 182, 212, 0.6)',
   className = '',
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: PulseButtonProps) => {
   return (
     <motion.button
@@ -307,27 +307,27 @@ const PulseButton = ({
       whileTap={prefersReducedMotion() ? {} : { scale: 0.95 }}
       onClick={onClick}
       disabled={disabled}
-      type={type}
-    >
-      {!prefersReducedMotion() && (
-        <motion.span
-          className="absolute inset-0 rounded-lg"
-          animate={{
-            boxShadow: [
-              `0 0 0 0 ${pulseColor}`,
-              `0 0 0 8px ${pulseColor.replace('0.6', '0')}`,
-            ],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: 'easeOut',
-          }}
-        />
-      )}
+      type={type}>
+
+      {!prefersReducedMotion() &&
+      <motion.span
+        className="absolute inset-0 rounded-lg"
+        animate={{
+          boxShadow: [
+          `0 0 0 0 ${pulseColor}`,
+          `0 0 0 8px ${pulseColor.replace('0.6', '0')}`]
+
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: 'easeOut'
+        }} />
+
+      }
       <span className="relative z-10">{children}</span>
-    </motion.button>
-  );
+    </motion.button>);
+
 };
 
 /**
@@ -341,13 +341,13 @@ interface GradientShiftButtonProps extends ButtonHTMLAttributes<HTMLButtonElemen
   className?: string;
 }
 
-const GradientShiftButton = ({ 
-  children, 
+const GradientShiftButton = ({
+  children,
   className = '',
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: GradientShiftButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -359,19 +359,19 @@ const GradientShiftButton = ({
       whileTap={prefersReducedMotion() ? {} : { scale: 0.98 }}
       onClick={onClick}
       disabled={disabled}
-      type={type}
-    >
-      {!prefersReducedMotion() && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-teal-500"
-          initial={{ x: '-100%' }}
-          animate={{ x: isHovered ? '0%' : '-100%' }}
-          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        />
-      )}
+      type={type}>
+
+      {!prefersReducedMotion() &&
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-teal-500"
+        initial={{ x: '-100%' }}
+        animate={{ x: isHovered ? '0%' : '-100%' }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }} />
+
+      }
       <span className="relative z-10">{children}</span>
-    </motion.button>
-  );
+    </motion.button>);
+
 };
 
 /**
@@ -385,19 +385,19 @@ interface FloatingActionButtonProps extends ButtonHTMLAttributes<HTMLButtonEleme
   className?: string;
 }
 
-const FloatingActionButton = ({ 
-  children, 
+const FloatingActionButton = ({
+  children,
   className = '',
   onClick,
   disabled,
   type,
-  ...props 
+  ...props
 }: FloatingActionButtonProps) => {
   return (
     <motion.button
-      whileHover={prefersReducedMotion() ? {} : { 
+      whileHover={prefersReducedMotion() ? {} : {
         y: -4,
-        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)'
       }}
       whileTap={prefersReducedMotion() ? {} : { scale: 0.95 }}
       transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
@@ -409,11 +409,11 @@ const FloatingActionButton = ({
         'bg-gradient-to-r from-cyan-500 to-teal-500',
         'text-white',
         className
-      )}
-    >
+      )}>
+
       {children}
-    </motion.button>
-  );
+    </motion.button>);
+
 };
 
 /**
@@ -436,11 +436,11 @@ const RotateOnHoverIcon = ({ children, className = '' }: RotateOnHoverIconProps)
       onMouseLeave={() => setIsHovered(false)}
       animate={!prefersReducedMotion() && isHovered ? { rotate: 360 } : { rotate: 0 }}
       transition={{ duration: 1, ease: 'linear', repeat: isHovered ? Infinity : 0 }}
-      className={className}
-    >
+      className={className}>
+
       {children}
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 /**
@@ -471,11 +471,11 @@ const BounceOnClick = ({ children, className = '', onClick }: BounceOnClickProps
       animate={isBouncing ? { y: [0, -10, 0] } : { y: 0 }}
       transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
       className={cn('cursor-pointer', className)}
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
+
       {children}
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 /**
@@ -494,14 +494,14 @@ const ShakeOnError = ({ children, trigger, className = '' }: ShakeOnErrorProps) 
   return (
     <motion.div
       animate={trigger && !prefersReducedMotion() ? {
-        x: [0, -10, 10, -10, 10, 0],
+        x: [0, -10, 10, -10, 10, 0]
       } : {}}
       transition={{ duration: 0.25 }}
-      className={className}
-    >
+      className={className}>
+
       {children}
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 /**
@@ -518,5 +518,4 @@ export {
   FloatingActionButton,
   RotateOnHoverIcon,
   BounceOnClick,
-  ShakeOnError,
-};
+  ShakeOnError };

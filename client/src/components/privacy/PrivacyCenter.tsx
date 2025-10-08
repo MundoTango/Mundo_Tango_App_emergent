@@ -10,17 +10,17 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { 
-  Shield, 
-  Download, 
-  Trash2, 
-  Eye, 
-  Settings, 
+import {
+  Shield,
+  Download,
+  Trash2,
+  Eye,
+  Settings,
   FileText,
   AlertTriangle,
   CheckCircle,
-  Clock
-} from 'lucide-react';
+  Clock } from
+'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ConsentRecord {
@@ -40,35 +40,35 @@ export default function PrivacyCenter() {
 
   // Consent types configuration
   const consentTypes = [
-    {
-      type: 'necessary',
-      title: 'Necessary Cookies',
-      description: 'Essential for the website to function properly',
-      required: true,
-      purpose: 'Core functionality and security'
-    },
-    {
-      type: 'functional',
-      title: 'Functional Cookies',
-      description: 'Enable enhanced features and personalization',
-      required: false,
-      purpose: 'Enhanced user experience'
-    },
-    {
-      type: 'analytics',
-      title: 'Analytics Cookies',
-      description: 'Help us understand how you use our website',
-      required: false,
-      purpose: 'Service improvement and optimization'
-    },
-    {
-      type: 'marketing',
-      title: 'Marketing Cookies',
-      description: 'Used to deliver relevant advertisements',
-      required: false,
-      purpose: 'Personalized advertising'
-    }
-  ];
+  {
+    type: 'necessary',
+    title: 'Necessary Cookies',
+    description: 'Essential for the website to function properly',
+    required: true,
+    purpose: 'Core functionality and security'
+  },
+  {
+    type: 'functional',
+    title: 'Functional Cookies',
+    description: 'Enable enhanced features and personalization',
+    required: false,
+    purpose: 'Enhanced user experience'
+  },
+  {
+    type: 'analytics',
+    title: 'Analytics Cookies',
+    description: 'Help us understand how you use our website',
+    required: false,
+    purpose: 'Service improvement and optimization'
+  },
+  {
+    type: 'marketing',
+    title: 'Marketing Cookies',
+    description: 'Used to deliver relevant advertisements',
+    required: false,
+    purpose: 'Personalized advertising'
+  }];
+
 
   useEffect(() => {
     loadPrivacyData();
@@ -77,12 +77,12 @@ export default function PrivacyCenter() {
   const loadPrivacyData = async () => {
     try {
       setLoading(true);
-      
+
       // Load consent status
       const consentResponse = await fetch('/api/gdpr/consent/status', {
         headers: { 'Content-Type': 'application/json' }
       });
-      
+
       if (consentResponse.ok) {
         const consentData = await consentResponse.json();
         setConsents(consentData.data || []);
@@ -90,7 +90,7 @@ export default function PrivacyCenter() {
 
       // Initialize default consents if none exist
       if (consents.length === 0) {
-        const defaultConsents = consentTypes.map(type => ({
+        const defaultConsents = consentTypes.map((type) => ({
           consent_type: type.type,
           consent_given: type.required,
           consent_date: new Date().toISOString(),
@@ -123,7 +123,7 @@ export default function PrivacyCenter() {
             consent_type: consentType,
             consent_given: true,
             legal_basis: 'consent',
-            purpose: consentTypes.find(t => t.type === consentType)?.purpose || 'user_preference',
+            purpose: consentTypes.find((t) => t.type === consentType)?.purpose || 'user_preference',
             data_categories: ['usage_data', 'technical_data']
           })
         });
@@ -136,15 +136,15 @@ export default function PrivacyCenter() {
       }
 
       // Update local state
-      setConsents(prev => prev.map(consent => 
-        consent.consent_type === consentType 
-          ? { ...consent, consent_given: given, consent_date: new Date().toISOString() }
-          : consent
+      setConsents((prev) => prev.map((consent) =>
+      consent.consent_type === consentType ?
+      { ...consent, consent_given: given, consent_date: new Date().toISOString() } :
+      consent
       ));
 
       toast({
         title: "Success",
-        description: `Privacy preference updated for ${consentType}`,
+        description: `Privacy preference updated for ${consentType}`
       });
     } catch (error) {
       console.error('Error updating consent:', error);
@@ -159,20 +159,20 @@ export default function PrivacyCenter() {
   const exportUserData = async () => {
     try {
       setExportingData(true);
-      
+
       const response = await fetch('/api/gdpr/export-data', {
         headers: { 'Content-Type': 'application/json' }
       });
 
       if (response.ok) {
         const data = await response.json();
-        
+
         // Create and download JSON file
         const dataStr = JSON.stringify(data.data, null, 2);
-        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-        
+        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
         const exportFileDefaultName = `mundo-tango-data-export-${new Date().toISOString().split('T')[0]}.json`;
-        
+
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
         linkElement.setAttribute('download', exportFileDefaultName);
@@ -180,7 +180,7 @@ export default function PrivacyCenter() {
 
         toast({
           title: "Success",
-          description: "Your data has been exported and downloaded",
+          description: "Your data has been exported and downloaded"
         });
       } else {
         throw new Error('Export failed');
@@ -198,7 +198,7 @@ export default function PrivacyCenter() {
   };
 
   const getConsentStatus = (consentType: string) => {
-    const consent = consents.find(c => c.consent_type === consentType);
+    const consent = consents.find((c) => c.consent_type === consentType);
     return consent?.consent_given || false;
   };
 
@@ -211,8 +211,8 @@ export default function PrivacyCenter() {
             <p>Loading privacy settings...</p>
           </div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -243,25 +243,25 @@ export default function PrivacyCenter() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {consentTypes.map((type) => (
-                <div key={type.type} className="flex items-center justify-between p-4 border rounded-lg">
+              {consentTypes.map((type) =>
+              <div key={type.type} className="flex items-center justify-between p-4 border rounded-lg">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-semibold">{type.title}</h3>
-                      {type.required && (
-                        <Badge variant="secondary" className="text-xs">Required</Badge>
-                      )}
+                      {type.required &&
+                    <Badge variant="secondary" className="text-xs">Required</Badge>
+                    }
                     </div>
                     <p className="text-sm text-gray-600 mb-2">{type.description}</p>
                     <p className="text-xs text-gray-500">Purpose: {type.purpose}</p>
                   </div>
                   <Switch
-                    checked={getConsentStatus(type.type)}
-                    onCheckedChange={(checked) => updateConsent(type.type, checked)}
-                    disabled={type.required}
-                  />
+                  checked={getConsentStatus(type.type)}
+                  onCheckedChange={(checked) => updateConsent(type.type, checked)}
+                  disabled={type.required} />
+
                 </div>
-              ))}
+              )}
               
               <Alert>
                 <AlertTriangle className="h-4 w-4" />
@@ -292,11 +292,11 @@ export default function PrivacyCenter() {
                   <p className="text-sm text-gray-600 mb-3">
                     Download a complete copy of all your personal data we store.
                   </p>
-                  <Button 
+                  <Button
                     onClick={exportUserData}
                     disabled={exportingData}
-                    className="w-full"
-                  >
+                    className="w-full" data-testid="button-w-full">
+
                     {exportingData ? 'Exporting...' : 'Export My Data'}
                   </Button>
                 </Card>
@@ -309,10 +309,10 @@ export default function PrivacyCenter() {
                   <p className="text-sm text-gray-600 mb-3">
                     Request correction of incorrect or incomplete personal data.
                   </p>
-                  <Button 
+                  <Button
                     variant="outline"
-                    className="w-full"
-                  >
+                    className="w-full" data-testid="button-w-full">
+
                     Request Correction
                   </Button>
                 </Card>
@@ -378,6 +378,6 @@ export default function PrivacyCenter() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 }
