@@ -15,6 +15,7 @@ import esSocial from '@/i18n/locales/es/social.json';
 import esAgents from '@/i18n/locales/es/agents.json';
 
 import frCommon from '@/i18n/locales/fr/common.json';
+import deCommon from '@/i18n/locales/de/common.json';
 import itCommon from '@/i18n/locales/it/common.json';
 import ptCommon from '@/i18n/locales/pt/common.json';
 
@@ -35,6 +36,9 @@ const resources = {
   },
   fr: {
     common: frCommon
+  },
+  de: {
+    common: deCommon
   },
   it: {
     common: itCommon
