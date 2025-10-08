@@ -1102,6 +1102,118 @@
           "throughput": "100 component audits/hour",
           "availability": "99.0%"
         }
+      },
+      "12_data_viz_expert": {
+        "id": "data_viz",
+        "name": "Data Visualization Expert",
+        "layers": [40, 41, 42],
+        "responsibilities": [
+          "Manage charts and dashboards across the platform",
+          "Optimize data visualization performance",
+          "Ensure chart accessibility compliance",
+          "Suggest appropriate chart types for data",
+          "Evaluate open source viz tools (ECharts, Victory, Recharts)",
+          "Implement responsive and mobile-friendly visualizations",
+          "Optimize real-time data rendering",
+          "Generate dashboard performance reports"
+        ],
+        "state_management": "Chart cache with analysis data",
+        "communication": ["File system analysis", "Performance monitoring"],
+        "resource_requirements": {
+          "cpu": "2 cores",
+          "memory": "2GB",
+          "scaling": "Horizontal"
+        },
+        "failure_recovery": "Graceful fallback to cached metrics",
+        "performance_sla": {
+          "latency": "<1s for chart analysis",
+          "throughput": "200 charts/hour",
+          "availability": "99.0%"
+        }
+      },
+      "13_content_media_expert": {
+        "id": "content_media",
+        "name": "Content & Media Expert",
+        "layers": [25, 26, 58],
+        "responsibilities": [
+          "Optimize images using Sharp (WebP conversion, compression)",
+          "Process videos using FFmpeg.wasm (transcoding, thumbnails)",
+          "Analyze media usage and storage patterns",
+          "Suggest optimal media formats and compression",
+          "Implement responsive images and lazy loading",
+          "Manage CDN integration for media delivery",
+          "Evaluate open source media tools (Sharp, FFmpeg, Imagemin)",
+          "Generate media optimization reports"
+        ],
+        "state_management": "Media optimization cache",
+        "communication": ["File system analysis", "Cloudinary API", "Pexels API"],
+        "resource_requirements": {
+          "cpu": "2 cores",
+          "memory": "3GB",
+          "scaling": "Horizontal"
+        },
+        "failure_recovery": "Graceful fallback to original media",
+        "performance_sla": {
+          "latency": "<2s for optimization",
+          "throughput": "100 images/hour",
+          "availability": "99.0%"
+        }
+      },
+      "14_code_quality_expert": {
+        "id": "code_quality",
+        "name": "Code Quality Expert",
+        "layers": [6, 7, 57],
+        "responsibilities": [
+          "Run ESLint and TypeScript checks across codebase",
+          "Perform security vulnerability scans (Snyk)",
+          "Analyze code complexity and maintainability",
+          "Suggest code improvements and refactoring",
+          "Enforce coding standards and best practices",
+          "Detect anti-patterns and code smells",
+          "Evaluate open source quality tools (ESLint, SonarQube, Prettier)",
+          "Generate code quality reports"
+        ],
+        "state_management": "Issue cache with historical data",
+        "communication": ["File system analysis", "Snyk API", "GitHub API"],
+        "resource_requirements": {
+          "cpu": "2 cores",
+          "memory": "2GB",
+          "scaling": "Horizontal"
+        },
+        "failure_recovery": "Graceful fallback to cached issues",
+        "performance_sla": {
+          "latency": "<3s for full scan",
+          "throughput": "1000 files/hour",
+          "availability": "99.0%"
+        }
+      },
+      "15_dev_experience_expert": {
+        "id": "dev_experience",
+        "name": "Developer Experience Expert",
+        "layers": [1, 2, 3, 57],
+        "responsibilities": [
+          "Analyze test coverage (unit, integration, E2E)",
+          "Suggest tests for uncovered code",
+          "Monitor documentation completeness",
+          "Audit developer tooling setup",
+          "Optimize development workflows",
+          "Evaluate open source DX tools (Vitest, Storybook, TypeDoc)",
+          "Generate developer onboarding guides",
+          "Track developer productivity metrics"
+        ],
+        "state_management": "Tools and coverage cache",
+        "communication": ["File system analysis", "Test runners", "Documentation generators"],
+        "resource_requirements": {
+          "cpu": "2 cores",
+          "memory": "2GB",
+          "scaling": "Horizontal"
+        },
+        "failure_recovery": "Graceful fallback to cached metrics",
+        "performance_sla": {
+          "latency": "<2s for coverage analysis",
+          "throughput": "500 files/hour",
+          "availability": "99.0%"
+        }
       }
     },
     
