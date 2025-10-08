@@ -1,8 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { allSupportedLanguages, isRTL as checkRTL } from './i18n-languages';
 
-// Import translation files
+// Import translation files for languages that have them
 import enCommon from '@/i18n/locales/en/common.json';
 import enEvents from '@/i18n/locales/en/events.json';
 import enSocial from '@/i18n/locales/en/social.json';
@@ -20,7 +21,7 @@ import itCommon from '@/i18n/locales/it/common.json';
 import ptCommon from '@/i18n/locales/pt/common.json';
 
 // Translation resources organized by namespace
-const resources = {
+const resources: Record<string, any> = {
   en: {
     common: enCommon,
     events: enEvents,
@@ -48,17 +49,10 @@ const resources = {
   }
 };
 
-// Supported languages with metadata
-export const supportedLanguages = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', direction: 'ltr' },
-  { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', direction: 'ltr' },
-  { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷', direction: 'ltr' },
-  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', direction: 'ltr' },
-  { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: '🇮🇹', direction: 'ltr' },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', direction: 'ltr' }
-];
+// Export all supported languages from the centralized metadata
+export const supportedLanguages = allSupportedLanguages;
 
-// RTL languages (for future expansion)
+// RTL languages
 export const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
 
 i18n
@@ -92,16 +86,58 @@ i18n
     // React options
     react: {
       useSuspense: false
+    },
+    
+    // Load namespaces on demand
+    partialBundledLanguages: true,
+    
+    // Missing key handler for development
+    saveMissing: false,
+    missingKeyHandler: (lngs, ns, key) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`Missing translation key: ${key} in namespace: ${ns} for languages: ${lngs.join(', ')}`);
+      }
     }
   });
 
-// Helper to check if language is RTL
-export const isRTL = (lang: string): boolean => {
-  return rtlLanguages.includes(lang);
+// Dynamic translation loading for languages without static imports
+export const loadLanguageTranslations = async (languageCode: string) => {
+  // If already loaded, skip
+  if (resources[languageCode]) {
+    return;
+  }
+
+  try {
+    // Try to load common.json for this language
+    const commonModule = await import(`@/i18n/locales/${languageCode}/common.json`);
+    
+    // Add to resources
+    if (!resources[languageCode]) {
+      resources[languageCode] = {};
+    }
+    resources[languageCode].common = commonModule.default || commonModule;
+    
+    // Add the resource bundle to i18n
+    i18n.addResourceBundle(languageCode, 'common', resources[languageCode].common, true, true);
+    
+    console.log(`✅ Loaded translations for ${languageCode}`);
+  } catch (error) {
+    console.warn(`⚠️  Translations not available for ${languageCode}, falling back to English`);
+    // Fallback is already configured, no action needed
+  }
 };
 
-// Helper to change language
+// Helper to check if language is RTL
+export const isRTL = (lang: string): boolean => {
+  return checkRTL(lang);
+};
+
+// Helper to change language with dynamic loading
 export const changeLanguage = async (lang: string) => {
+  // Load translations if not already loaded
+  await loadLanguageTranslations(lang);
+  
+  // Change language in i18n
   await i18n.changeLanguage(lang);
   
   // Update document direction for RTL support
