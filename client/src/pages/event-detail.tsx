@@ -694,7 +694,7 @@ export default function EventDetailPage() {
                 <div className="space-y-2">
                   <Button
                     variant={event.userStatus === 'going' ? 'default' : 'outline'}
-                    className={`w-full ${event.userStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+                    className={`w-full ${event.userStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#2DD4BF] hover:from-[#0d9488] hover:to-[#14B8A6]' : ''}`}
                     onClick={() => rsvpMutation.mutate({ 
                       eventId: id!,
                       status: event.userStatus === 'going' ? null : 'going' 
@@ -707,7 +707,7 @@ export default function EventDetailPage() {
                   </Button>
                   <Button
                     variant={event.userStatus === 'interested' ? 'default' : 'outline'}
-                    className={`w-full ${event.userStatus === 'interested' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+                    className={`w-full ${event.userStatus === 'interested' ? 'bg-gradient-to-r from-[#14b8a6] to-[#2DD4BF] hover:from-[#0d9488] hover:to-[#14B8A6]' : ''}`}
                     onClick={() => rsvpMutation.mutate({ 
                       eventId: id!,
                       status: event.userStatus === 'interested' ? null : 'interested' 
@@ -720,7 +720,7 @@ export default function EventDetailPage() {
                   </Button>
                   <Button
                     variant={event.userStatus === 'maybe' ? 'default' : 'outline'}
-                    className={`w-full ${event.userStatus === 'maybe' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+                    className={`w-full ${event.userStatus === 'maybe' ? 'bg-gradient-to-r from-[#14b8a6] to-[#2DD4BF] hover:from-[#0d9488] hover:to-[#14B8A6]' : ''}`}
                     onClick={() => rsvpMutation.mutate({ 
                       eventId: id!,
                       status: event.userStatus === 'maybe' ? null : 'maybe' 
