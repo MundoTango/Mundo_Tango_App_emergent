@@ -63,7 +63,11 @@
     "a11y:dual": "npm run a11y:axe && npm run a11y:pa11y",
     "component:audit": "node design-system/scripts/component-audit.js",
     "journey:map": "node design-system/scripts/journey-mapping.js",
-    "design:validate": "npm run tokens:validate && npm run component:audit"
+    "journey:analyze": "node design-system/scripts/analyze-onboarding-friction.js",
+    "design:validate": "npm run tokens:validate && npm run component:audit",
+    "ladle": "ladle serve",
+    "ladle:build": "ladle build",
+    "ladle:preview": "ladle preview"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
