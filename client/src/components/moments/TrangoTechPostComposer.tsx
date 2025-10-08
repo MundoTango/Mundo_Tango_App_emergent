@@ -179,7 +179,7 @@ export default function TrangoTechPostComposer() {
       {showExpandedComposer && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
           <GlassCard depth={1} className="absolute inset-0" setShowExpandedComposer(false)}
-          />
+          >
           <div 
             className="relative bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10"
             onClick={(e) => e.stopPropagation()}

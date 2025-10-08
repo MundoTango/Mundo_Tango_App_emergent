@@ -128,7 +128,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50/30 via-cyan-50/20 to-blue-50/30">
       {/* Top Navigation Bar */}
-      <GlassCard depth={1} className="fixed top-0 left-0 right-0 h-16 border-b border-teal-100 z-40"
+      <GlassCard depth={1} className="fixed top-0 left-0 right-0 h-16 border-b border-teal-100 z-40">
         <div className="flex items-center justify-between h-full px-6">
           {/* Left Section */}
           <div className="flex items-center gap-4">
@@ -213,7 +213,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </DropdownMenu>
           </div>
         </div>
-      </div>
+      </GlassCard>
 
       {/* Sidebar */}
       <div className={cn(

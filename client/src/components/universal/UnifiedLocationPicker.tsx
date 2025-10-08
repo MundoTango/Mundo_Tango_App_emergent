@@ -523,7 +523,7 @@ export default function UnifiedLocationPicker({
 
       {showSuggestions && suggestions.length > 0 && (
         <GlassCard depth={2} className="absolute z-popover w-full mt-2 dark:bg-gray-800/95 
-            border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
+            border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden">
           <div className="max-h-80 overflow-y-auto">
             {suggestions.map((suggestion, index) => (
               <div
@@ -569,7 +569,7 @@ export default function UnifiedLocationPicker({
               </div>
             ))}
           </div>
-        </div>
+        </GlassCard>
       )}
     </div>
   );

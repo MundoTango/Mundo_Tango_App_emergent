@@ -298,7 +298,7 @@ export default function PostDetailModal({
   if (!isOpen) return null;
 
   return (
-    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div 
         className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}

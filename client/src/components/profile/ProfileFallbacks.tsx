@@ -28,7 +28,7 @@ export const PostsFallback = () => (
       <h3 className="text-lg font-semibold">Posts</h3>
       <Skeleton className="h-10 w-32" />
     </div>
-    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
+    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center">
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
           <AlertCircle className="w-8 h-8 text-gray-400" />
@@ -41,7 +41,7 @@ export const PostsFallback = () => (
           Try refreshing the page
         </button>
       </div>
-    </div>
+    </GlassCard>
   </div>
 );
 
@@ -51,7 +51,7 @@ export const TravelDetailsFallback = () => (
       <h3 className="text-lg font-semibold">Travel History</h3>
       <Skeleton className="h-10 w-40" />
     </div>
-    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
+    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center">
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
           <MapPin className="w-8 h-8 text-gray-400" />
@@ -59,7 +59,7 @@ export const TravelDetailsFallback = () => (
         <p className="text-gray-600 dark:text-gray-300">Travel details temporarily unavailable</p>
         <p className="text-sm text-gray-500 dark:text-gray-400">We're having trouble loading your travel history</p>
       </div>
-    </div>
+    </GlassCard>
   </div>
 );
 
@@ -68,7 +68,7 @@ export const TabContentFallback = ({ icon: Icon, title, message }: {
   title: string, 
   message?: string 
 }) => (
-  <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-8 text-center"
+  <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-8 text-center">
     <div className="flex flex-col items-center space-y-4">
       <div className="w-20 h-20 bg-gradient-to-br from-turquoise-100 to-cyan-100 dark:from-turquoise-900/20 dark:to-cyan-900/20 rounded-full flex items-center justify-center">
         <Icon className="w-10 h-10 text-turquoise-600 dark:text-turquoise-400" />
@@ -78,7 +78,7 @@ export const TabContentFallback = ({ icon: Icon, title, message }: {
         {message || `${title} content is temporarily unavailable. Please try again later.`}
       </p>
     </div>
-  </div>
+  </GlassCard>
 );
 
 // Specific fallbacks for each tab
@@ -144,7 +144,7 @@ export const OfflineIndicator = () => (
 
 // Network error retry component
 export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
-  <GlassCard depth={1} className="dark:bg-gray-800/90 rounded-lg p-6 text-center border border-red-200 dark:border-red-800"
+  <GlassCard depth={1} className="dark:bg-gray-800/90 rounded-lg p-6 text-center border border-red-200 dark:border-red-800">
     <div className="flex flex-col items-center space-y-4">
       <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
         <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
@@ -160,5 +160,5 @@ export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
         Try Again
       </button>
     </div>
-  </div>
+  </GlassCard>
 );

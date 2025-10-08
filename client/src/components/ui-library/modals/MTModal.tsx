@@ -82,7 +82,7 @@ const MTModal: React.FC<MTModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay */}
-      <GlassCard depth={1} className="absolute inset-0 animate-fadeIn"
+      <GlassCard depth={1} className="absolute inset-0 animate-fadeIn" />
 
       {/* Modal */}
       <div

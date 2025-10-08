@@ -320,7 +320,7 @@ export default function EnhancedMemoriesRealtime() {
       <ModernMemoriesHeader onCreatePost={() => setShowComposer(true)} />
       
       {/* Real-time Status Bar */}
-      <GlassCard depth={1} className="border-b border-white/30"
+      <GlassCard depth={1} className="border-b border-white/30">
         <div className="max-w-4xl mx-auto px-6 py-2 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* Connection Status */}
@@ -355,14 +355,14 @@ export default function EnhancedMemoriesRealtime() {
             </button>
           </div>
         </div>
-      </div>
+      </GlassCard>
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Enhanced Post Composer Modal */}
         {showComposer && (
-          <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-6"
-            <GlassCard depth={2} className="max-w-2xl w-full max-h-[90vh] overflow-auto rounded-2xl border border-white/30"
+          <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-6">
+            <GlassCard depth={2} className="max-w-2xl w-full max-h-[90vh] overflow-auto rounded-2xl border border-white/30">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
@@ -388,8 +388,8 @@ export default function EnhancedMemoriesRealtime() {
                   onClose={() => setShowComposer(false)}
                 />
               </div>
-            </div>
-          </div>
+            </GlassCard>
+          </GlassCard>
         )}
 
         {/* Tag Filter */}
@@ -401,7 +401,7 @@ export default function EnhancedMemoriesRealtime() {
 
         {/* Live Activity Feed */}
         {liveUpdates.likes.length > 0 && (
-          <GlassCard depth={1} className="mb-6 p-4 rounded-xl border border-white/40"
+          <GlassCard depth={1} className="mb-6 p-4 rounded-xl border border-white/40">
             <h3 className="text-sm font-medium text-gray-700 mb-2">Live Activity</h3>
             <div className="space-y-1">
               {liveUpdates.likes.slice(-3).map((like, index) => (
@@ -412,7 +412,7 @@ export default function EnhancedMemoriesRealtime() {
                 </div>
               ))}
             </div>
-          </div>
+          </GlassCard>
         )}
 
         {/* Posts Feed */}
@@ -458,7 +458,7 @@ export default function EnhancedMemoriesRealtime() {
             })
           ) : (
             <div className="text-center py-16">
-              <GlassCard depth={1} className="rounded-3xl shadow-lg border border-white/30 p-12"
+              <GlassCard depth={1} className="rounded-3xl shadow-lg border border-white/30 p-12">
                 <div className="mb-6">
                   <div className="w-24 h-24 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-3xl 
                                 flex items-center justify-center mx-auto mb-4">
@@ -486,7 +486,7 @@ export default function EnhancedMemoriesRealtime() {
                     Share Your First Memory
                   </button>
                 </div>
-              </div>
+              </GlassCard>
             </div>
           )}
         </div>

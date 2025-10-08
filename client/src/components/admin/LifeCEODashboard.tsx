@@ -193,7 +193,7 @@ export const LifeCEODashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header - MT Ocean Theme */}
-      <GlassCard depth={1} className="p-6 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-200/20"
+      <GlassCard depth={1} className="p-6 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-200/20">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
@@ -206,7 +206,7 @@ export const LifeCEODashboard: React.FC = () => {
             ESA LIFE CEO 56x21
           </Badge>
         </div>
-      </div>
+      </GlassCard>
 
       {/* Metrics Overview */}
       {metrics && (
