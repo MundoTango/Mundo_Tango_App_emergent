@@ -479,6 +479,10 @@ export class MasterControlSystem {
     // Import specialized expert agents
     const { AIResearchExpert } = await import('./ai-research-expert');
     const { UIUXDesignExpert } = await import('./ui-ux-expert');
+    const { DataVisualizationExpert } = await import('./data-viz-expert');
+    const { ContentMediaExpert } = await import('./content-media-expert');
+    const { CodeQualityExpert } = await import('./code-quality-expert');
+    const { DeveloperExperienceExpert } = await import('./dev-experience-expert');
     
     // Create all agents based on knowledge graph
     const agents = [
@@ -487,6 +491,10 @@ export class MasterControlSystem {
       new BackgroundProcessor(),
       new AIResearchExpert(), // Agent 10: AI Research & Innovation Expert
       new UIUXDesignExpert(), // Agent 11: UI/UX & Graphic Design Expert
+      new DataVisualizationExpert(), // Agent 12: Data Visualization Expert
+      new ContentMediaExpert(), // Agent 13: Content & Media Expert
+      new CodeQualityExpert(), // Agent 14: Code Quality Expert
+      new DeveloperExperienceExpert(), // Agent 15: Developer Experience Expert
       // Additional agents would be created here
       // new RealtimeCommunications(),
       // new BusinessLogicManager(),
