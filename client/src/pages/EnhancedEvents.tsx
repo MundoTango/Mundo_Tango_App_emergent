@@ -140,13 +140,13 @@ interface EventApiResponse {
 const localizer = momentLocalizer(moment);
 
 const categoryColors: Record<string, string> = {
-  milonga: '#38b2ac',
-  class: '#3182ce',
-  workshop: '#8b5cf6',
-  festival: '#ec4899',
-  performance: '#f59e0b',
-  practice: '#10b981',
-  social: '#06b6d4'
+  milonga: 'hsl(177, 72%, 56%)',    // ocean-seafoam-400
+  class: 'hsl(218, 100%, 34%)',     // ocean-teal-500
+  workshop: 'hsl(258, 86%, 64%)',   // violet-500
+  festival: 'hsl(330, 81%, 60%)',   // pink-500
+  performance: 'hsl(38, 92%, 50%)', // amber-500
+  practice: 'hsl(158, 64%, 52%)',   // emerald-500
+  social: 'hsl(210, 100%, 56%)'     // ocean-cyan-400
 };
 
 const viewOptions = [
