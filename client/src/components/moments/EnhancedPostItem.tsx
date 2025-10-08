@@ -19,6 +19,7 @@ import { MTCard, MTButton, MTBadge } from '@/components/ui-library';
 import { renderWithMentions } from '@/utils/renderWithMentions';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { formatUserLocation } from '@/utils/locationUtils';
+import { formatTimeAgo } from '@/utils/dateLocale';
 import { SimpleLikeButton } from '@/components/ui/SimpleLikeButton';
 import { SimpleCommentEditor } from '@/components/ui/SimpleCommentEditor';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
@@ -27,6 +28,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n/config';
 
 interface Post {
   id: number; // Using integer as stored in database
@@ -516,13 +518,7 @@ function EnhancedPostItem({
             <div className="flex items-center gap-2 text-gray-500">
               <Clock className="h-4 w-4" />
               <time className="text-sm font-medium">
-                {(() => {
-                  const createdDate = post.createdAt ? new Date(post.createdAt) : new Date();
-                  if (isNaN(createdDate.getTime())) {
-                    return t('time.recently');
-                  }
-                  return `${formatDistanceToNow(createdDate)} ${t('time.ago')}`;
-                })()}
+                {post.createdAt ? formatTimeAgo(post.createdAt, i18n.language) : t('time.recently')}
               </time>
             </div>
             
