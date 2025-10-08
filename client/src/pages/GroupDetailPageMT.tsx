@@ -44,7 +44,6 @@ import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MembersList } from '@/components/members';
 import Confetti from 'react-confetti';
-import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
 interface GroupMember {

@@ -22,7 +22,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/useAuth';
-import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
 export default function GroupDetailPage() {

@@ -1444,10 +1444,10 @@ export default function PostCreator({
                 <div 
                   className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative backdrop-blur-xl dark:backdrop-blur-2xl"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.15) 0%, rgba(20, 184, 166, 0.12) 25%, rgba(13, 148, 136, 0.10) 50%, rgba(21, 94, 117, 0.12) 75%, rgba(94, 234, 212, 0.15) 100%)',
+                    background: 'linear-gradient(135deg, hsl(173 80% 64% / 0.15) 0%, hsl(177 72% 56% / 0.12) 25%, hsl(180 64% 50% / 0.10) 50%, hsl(194 53% 27% / 0.12) 75%, hsl(173 80% 64% / 0.15) 100%)', // ocean-300 to ocean-500
                     backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(94, 234, 212, 0.3)',
-                    boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.5)'
+                    border: '1px solid hsl(173 80% 64% / 0.3)', // ocean-300
+                    boxShadow: '0 8px 32px hsl(220 29% 33% / 0.15), inset 0 1px 1px hsl(0 0% 100% / 0.5)'
                   }}
                 >
                   {/* Glassmorphic Header */}
@@ -1458,8 +1458,8 @@ export default function PostCreator({
                     <div 
                       className="relative px-6 py-3 rounded-full shadow-lg backdrop-blur-md"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.25), rgba(20, 184, 166, 0.20))',
-                        border: '1px solid rgba(94, 234, 212, 0.4)'
+                        background: 'linear-gradient(135deg, hsl(173 80% 64% / 0.25), hsl(177 72% 56% / 0.20))', // ocean-300 to ocean-500
+                        border: '1px solid hsl(173 80% 64% / 0.4)' // ocean-300
                       }}
                     >
                       <span className="text-sm font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 dark:from-turquoise-300 dark:to-cyan-300 bg-clip-text text-transparent flex items-center gap-2">
@@ -1482,7 +1482,7 @@ export default function PostCreator({
                           onChange={(e) => setRecommendationType(e.target.value)}
                           className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
                           style={{
-                            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(240, 253, 250, 0.75))',
+                            background: 'linear-gradient(to bottom, hsl(0 0% 100% / 0.85), hsl(166 76% 97% / 0.75))', // white to teal-50
                             backdropFilter: 'blur(12px)'
                           }}
                           data-testid="select-recommendation-type"
@@ -1523,12 +1523,12 @@ export default function PostCreator({
                             style={
                               priceRange === price
                                 ? {
-                                    background: 'linear-gradient(135deg, #5EEAD4, #14B8A6, #0D9488)',
-                                    border: '1px solid rgba(94, 234, 212, 0.5)',
-                                    boxShadow: '0 8px 24px rgba(20, 184, 166, 0.4)'
+                                    background: 'linear-gradient(135deg, hsl(173 80% 64%), hsl(177 72% 56%), hsl(180 64% 50%))', // ocean-300 to ocean-500 to ocean-600
+                                    border: '1px solid hsl(173 80% 64% / 0.5)', // ocean-300
+                                    boxShadow: '0 8px 24px hsl(177 72% 56% / 0.4)' // ocean-500
                                   }
                                 : {
-                                    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(240, 253, 250, 0.6))',
+                                    background: 'linear-gradient(to bottom, hsl(0 0% 100% / 0.7), hsl(166 76% 97% / 0.6))', // white to teal-50
                                     backdropFilter: 'blur(10px)'
                                   }
                             }
@@ -1552,8 +1552,8 @@ export default function PostCreator({
                       <div 
                         className="relative p-1 rounded-xl shadow-md"
                         style={{
-                          background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.15), rgba(20, 184, 166, 0.10))',
-                          border: '1px solid rgba(94, 234, 212, 0.3)'
+                          background: 'linear-gradient(135deg, hsl(173 80% 64% / 0.15), hsl(177 72% 56% / 0.10))', // ocean-300 to ocean-500
+                          border: '1px solid hsl(173 80% 64% / 0.3)' // ocean-300
                         }}
                       >
                         <div className="relative">
@@ -1573,8 +1573,8 @@ export default function PostCreator({
                         <div 
                           className="mt-2 p-3 rounded-lg flex items-center gap-2 backdrop-blur-md"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.2), rgba(20, 184, 166, 0.15))',
-                            border: '1px solid rgba(94, 234, 212, 0.4)'
+                            background: 'linear-gradient(135deg, hsl(173 80% 64% / 0.2), hsl(177 72% 56% / 0.15))', // ocean-300 to ocean-500
+                            border: '1px solid hsl(173 80% 64% / 0.4)' // ocean-300
                           }}
                         >
                           <MapPin className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
@@ -1636,7 +1636,7 @@ export default function PostCreator({
                   className="absolute top-0 left-0 h-full bg-gradient-to-r from-turquoise-500 via-cyan-500 to-blue-500 transition-all duration-300 ease-out rounded-full shadow-lg"
                   style={{ 
                     width: `${uploadProgress}%`,
-                    boxShadow: '0 4px 6px rgba(0, 184, 217, 0.5)'
+                    boxShadow: '0 4px 6px hsl(192 100% 43% / 0.5)' // cyan-600
                   }}
                 >
                   {/* Animated stripe effect */}
