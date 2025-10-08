@@ -1,9 +1,9 @@
 # Aurora Tide Design System
 
-**Last Updated:** October 6, 2025  
-**Status:** ✅ Production-Ready + Complete Developer Documentation  
-**Coverage:** All Housing Platform Components + 4 Developer Guides  
-**ESA Framework:** Layer 9 (UI Framework) + Layer 48 (Performance)
+**Last Updated:** October 8, 2025  
+**Status:** ✅ Production-Ready + Design Token Migration (82% complete)  
+**Coverage:** All Housing Platform Components + Design Token System  
+**ESA Framework:** Layer 9 (UI Framework) + Layer 48 (Performance) + Layer 61 (Validation)
 
 ---
 
@@ -13,12 +13,32 @@ Aurora Tide is the unified design system for the Life CEO & Mundo Tango housing 
 
 ### Design Philosophy
 
+- **Design Token Architecture**: 3-layer system (primitives → semantic → components) for perfect UI/UX separation
 - **Glassmorphic Depth**: Layered transparency with blur effects creating depth perception
-- **MT Ocean Theme**: Cyan-to-teal-to-blue gradient palette (#5EEAD4 → #14B8A6 → #0D9488 → #155E75)
+- **MT Ocean Theme**: Ocean palette with systematic color tokens (seafoam, cyan, teal)
 - **Motion Design**: GSAP + Framer Motion for fluid, purposeful animations
 - **Micro-interactions**: Magnetic buttons, pulse effects, ripple feedback
 - **Dark Mode First**: All components designed for both light and dark themes
-- **Internationalization**: i18next integration with 6 languages (EN, ES, FR, DE, IT, PT)
+- **Internationalization**: i18next integration with 73 languages (6 primary: EN, ES, FR, DE, IT, PT)
+
+### Design Token Migration (New!)
+
+**Status:** Phase 4 - 82% complete (Week 3.5/4)  
+**Progress:** 607 → 586 violations (21 hardcoded colors eliminated)
+
+Aurora Tide now uses a systematic design token system. See [Design Token Migration Guide](./design-token-migration.md) for:
+- Ocean palette reference (84 CSS custom properties)
+- Migration patterns and examples
+- Automated validation (pre-commit hooks + CI/CD)
+- Brand protection guidelines
+
+**Quick Reference:**
+```css
+/* Use design tokens instead of hardcoded colors */
+background: var(--ocean-seafoam-400);        /* Primary turquoise */
+border: 1px solid hsl(177 72% 56% / 0.3);   /* Ocean accent with alpha */
+background: var(--gradient-primary);         /* Predefined gradient */
+```
 
 ---
 
