@@ -7,7 +7,7 @@ import { toast } from '@/hooks/use-toast';
 // 40x20s Layer 8: Frontend Error Testing Component
 export function SentryErrorTester() {
   const [loading, setLoading] = useState(false);
-  const [sentryStatus, setSentryStatus] = useState<any data-testid="link-element">(null);
+  const [sentryStatus, setSentryStatus] = useState<any>(null);
 
   // Check Sentry status
   const checkSentryStatus = async () => {
@@ -129,13 +129,13 @@ export function SentryErrorTester() {
               onClick={checkSentryStatus}
               disabled={loading}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-             data-testid="button-bg-gradient-to-r">
+            >
               <CheckCircle className="mr-2 h-4 w-4" />
               Check Sentry Status
             </Button>
 
             <Button
-              onClick={()> triggerError('sync')}
+              onClick={()  => triggerError('sync')}
               disabled={loading}
               variant="destructive"
             >
@@ -144,7 +144,7 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={()> triggerError('async')}
+              onClick={()  => triggerError('async')}
               disabled={loading}
               variant="destructive"
             >
@@ -153,7 +153,7 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={()> triggerError('api')}
+              onClick={()  => triggerError('api')}
               disabled={loading}
               variant="destructive"
             >
@@ -162,7 +162,7 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={()> triggerError('reference')}
+              onClick={()  => triggerError('reference')}
               disabled={loading}
               variant="destructive"
             >
@@ -171,7 +171,7 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={()> triggerError('promise')}
+              onClick={()  => triggerError('promise')}
               disabled={loading}
               variant="destructive"
             >

@@ -29,9 +29,9 @@ export default function PostComposer() {
     location: '',
     visibility: 'Public' as 'Public' | 'Friend' | 'Private'
   });
-  const [uploadedMedia, setUploadedMedia] = useState<any[] data-testid="link-element">([]);
+  const [uploadedMedia, setUploadedMedia] = useState<any[]>([]);
   const [showMediaLibrary, setShowMediaLibrary] = useState(false);
-  const [reusedMedia, setReusedMedia] = useState<any[] data-testid="link-element">([]);
+  const [reusedMedia, setReusedMedia] = useState<any[]>([]);
 
   // Function to save reused media with metadata
   const saveReusedMediaToMemory = async (memoryId: number) => {
@@ -174,7 +174,7 @@ export default function PostComposer() {
         
         <div className="flex-1">
           <button
-            onClick={()> setShowExpandedComposer(true)}
+            onClick={()  => setShowExpandedComposer(true)}
             className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200 dark:bg-neutral-800"
           >
             <span className="text-gray-500 font-medium">Share your tango moment...</span>
@@ -183,28 +183,28 @@ export default function PostComposer() {
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-3">
               <button
-                onClick={()> setShowExpandedComposer(true)}
+                onClick={()  => setShowExpandedComposer(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <Camera className="h-4 w-4" />
                 <span className="text-sm font-medium">Photo</span>
               </button>
               <button
-                onClick={()> setShowExpandedComposer(true)}
+                onClick={()  => setShowExpandedComposer(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <Video className="h-4 w-4" />
                 <span className="text-sm font-medium">Video</span>
               </button>
               <button
-                onClick={()> setShowExpandedComposer(true)}
+                onClick={()  => setShowExpandedComposer(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">Location</span>
               </button>
               <button
-                onClick={()> setShowMediaLibrary(true)}
+                onClick={()  => setShowMediaLibrary(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <FolderOpen className="h-4 w-4" />
@@ -243,7 +243,7 @@ export default function PostComposer() {
                   </div>
                 </div>
                 <button
-                  onClick={()> setShowExpandedComposer(false)}
+                  onClick={()  => setShowExpandedComposer(false)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
                 >
                   <X className="h-5 w-5 text-gray-500" />
@@ -255,7 +255,7 @@ export default function PostComposer() {
                 <textarea
                   placeholder="Share your tango moment with the community..."
                   value={newPost.content}
-                  onChange={(e)> setNewPost(prev => ({ ...prev, content: e.target.value }))}
+                  onChange={(e)  => setNewPost(prev => ({ ...prev, content: e.target.value }))}
                   className="w-full min-h-[140px] text-lg border-none resize-none focus:outline-none p-0 placeholder-gray-400"
                 />
                 
@@ -267,7 +267,7 @@ export default function PostComposer() {
                       type="text"
                       placeholder="Add tags (comma separated)"
                       value={newPost.tags}
-                      onChange={(e)> setNewPost(prev => ({ ...prev, tags: e.target.value }))}
+                      onChange={(e)  => setNewPost(prev => ({ ...prev, tags: e.target.value }))}
                       className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all dark:border-neutral-700"
                     />
                   </div>
@@ -277,7 +277,7 @@ export default function PostComposer() {
                       type="text"
                       placeholder="Add location"
                       value={newPost.location}
-                      onChange={(e)> setNewPost(prev => ({ ...prev, location: e.target.value }))}
+                      onChange={(e)  => setNewPost(prev => ({ ...prev, location: e.target.value }))}
                       className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all dark:border-neutral-700"
                     />
                   </div>
@@ -308,7 +308,7 @@ export default function PostComposer() {
                             )}
                           </div>
                           <button
-                            onClick={()> {
+                            onClick={()  => {
                               if (media.id) {
                                 removeReusedMedia(media.id);
                               } else {
@@ -338,7 +338,7 @@ export default function PostComposer() {
                       {(['Public', 'Friend', 'Private'] as const).map((vis) => (
                         <button
                           key={vis}
-                          onClick={()> setNewPost(prev => ({ ...prev, visibility: vis }))}
+                          onClick={()  => setNewPost(prev => ({ ...prev, visibility: vis }))}
                           className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 font-medium ${
                             newPost.visibility === vis
                               ? 'bg-gradient-to-r from-turquoise-500 to-blue-500 text-white'
@@ -356,7 +356,7 @@ export default function PostComposer() {
                   
                   <div className="flex gap-3">
                     <button
-                      onClick={()> setShowExpandedComposer(false)}
+                      onClick={()  => setShowExpandedComposer(false)}
                       className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-medium dark:bg-neutral-800"
                     >
                       Cancel
@@ -365,7 +365,7 @@ export default function PostComposer() {
                       onClick={handleCreatePost}
                       disabled={createPostMutation.isPending || !newPost.content.trim()}
                       className="px-5 py-2.5 bg-gradient-to-r from-turquoise-500 to-blue-500 text-white rounded-xl hover:from-turquoise-600 hover:to-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-                     data-testid="button-px-5">
+                    >
                       {createPostMutation.isPending ? 'Sharing...' : 'Share Moment'}
                     </button>
                   </div>

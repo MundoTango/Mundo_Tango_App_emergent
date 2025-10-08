@@ -257,7 +257,7 @@ const TravelPlanner: React.FC = () => {
                     id="trip-name"
                     placeholder="e.g., Summer Tango Tour 2025"
                     value={tripName}
-                    onChange={(e)> setTripName(e.target.value)}
+                    onChange={(e)  => setTripName(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -268,7 +268,7 @@ const TravelPlanner: React.FC = () => {
                     type="number"
                     placeholder="0"
                     value={budget}
-                    onChange={(e)> setBudget(e.target.value)}
+                    onChange={(e)  => setBudget(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -279,7 +279,7 @@ const TravelPlanner: React.FC = () => {
                     type="number"
                     min="1"
                     value={travelers}
-                    onChange={(e)> setTravelers(e.target.value)}
+                    onChange={(e)  => setTravelers(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -294,7 +294,7 @@ const TravelPlanner: React.FC = () => {
                     variant="outline"
                     size="sm"
                     className="border-turquoise-200"
-                   data-testid="button-border-turquoise-200">
+                  >
                     <Plus className="h-4 w-4 mr-1" />
                     Add City
                   </Button>
@@ -320,7 +320,7 @@ const TravelPlanner: React.FC = () => {
                               </span>
                             </div>
                             <Button
-                              onClick={()> removeDestination(dest.id)}
+                              onClick={()  => removeDestination(dest.id)}
                               variant="ghost"
                               size="sm"
                               className="text-red-500"
@@ -335,7 +335,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 placeholder="e.g., Buenos Aires"
                                 value={dest.city}
-                                onChange={(e)> updateDestination(dest.id, { city: e.target.value })}
+                                onChange={(e)  => updateDestination(dest.id, { city: e.target.value })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -344,7 +344,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 placeholder="e.g., Argentina"
                                 value={dest.country}
-                                onChange={(e)> updateDestination(dest.id, { country: e.target.value })}
+                                onChange={(e)  => updateDestination(dest.id, { country: e.target.value })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -353,7 +353,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 type="date"
                                 value={format(dest.startDate, 'yyyy-MM-dd')}
-                                onChange={(e)> updateDestination(dest.id, { startDate: new Date(e.target.value) })}
+                                onChange={(e)  => updateDestination(dest.id, { startDate: new Date(e.target.value) })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -362,7 +362,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 type="date"
                                 value={format(dest.endDate, 'yyyy-MM-dd')}
-                                onChange={(e)> updateDestination(dest.id, { endDate: new Date(e.target.value) })}
+                                onChange={(e)  => updateDestination(dest.id, { endDate: new Date(e.target.value) })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -371,7 +371,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 placeholder="Hotel name or address"
                                 value={dest.accommodation || ''}
-                                onChange={(e)> updateDestination(dest.id, { accommodation: e.target.value })}
+                                onChange={(e)  => updateDestination(dest.id, { accommodation: e.target.value })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -380,7 +380,7 @@ const TravelPlanner: React.FC = () => {
                               <Textarea
                                 placeholder="Special notes for this destination"
                                 value={dest.notes || ''}
-                                onChange={(e)> updateDestination(dest.id, { notes: e.target.value })}
+                                onChange={(e)  => updateDestination(dest.id, { notes: e.target.value })}
                                 className="glassmorphic-input min-h-[80px]"
                               />
                             </div>
@@ -418,7 +418,7 @@ const TravelPlanner: React.FC = () => {
                 <div className="flex justify-end gap-2">
                   <Button
                     variant="outline"
-                    onClick={()> {
+                    onClick={()  => {
                       setDestinations([]);
                       setTripName('');
                       setBudget('');
@@ -431,7 +431,7 @@ const TravelPlanner: React.FC = () => {
                     onClick={handleSaveTrip}
                     className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
                     disabled={saveTripMutation.isPending}
-                   data-testid="button-bg-gradient-to-r">
+                  >
                     {saveTripMutation.isPending ? 'Saving...' : 'Save Trip Plan'}
                   </Button>
                 </div>
@@ -494,7 +494,7 @@ const TravelPlanner: React.FC = () => {
                                 variant="outline"
                                 size="sm"
                                 className="w-full mt-3"
-                                onClick={()> updateDestination(dest.id, {
+                                onClick={()  => updateDestination(dest.id, {
                                   events: [...(dest.events || []), event]
                                 })}
                               >

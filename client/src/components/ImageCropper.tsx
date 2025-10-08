@@ -205,7 +205,7 @@ export default function ImageCropper({
                 size="sm"
                 onClick={handleRotate}
                 className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-               data-testid="button-border-turquoise-200">
+              >
                 <RotateCw className="w-4 h-4 mr-2" />
                 Rotate 90°
               </Button>
@@ -229,14 +229,14 @@ export default function ImageCropper({
             variant="outline"
             onClick={onClose}
             className="border-gray-300 dark:border-neutral-600"
-           data-testid="button-border-gray-300">
+          >
             <X className="w-4 h-4 mr-2" />
             Cancel
           </Button>
           <Button
             onClick={handleCrop}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-           data-testid="button-bg-gradient-to-r">
+          >
             <Download className="w-4 h-4 mr-2" />
             Apply & Save
           </Button>

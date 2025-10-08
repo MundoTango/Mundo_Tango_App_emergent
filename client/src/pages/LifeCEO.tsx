@@ -16,7 +16,7 @@ export default function LifeCEO() {
   const [transcript, setTranscript] = useState('');
   const [response, setResponse] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [recognition, setRecognition] = useState<any data-testid="link-element">(null);
+  const [recognition, setRecognition] = useState<any>(null);
   const [activeAgents, setActiveAgents] = useState([
     { name: 'Business Agent', status: 'active', icon: '💼' },
     { name: 'Finance Agent', status: 'active', icon: '💰' },
@@ -129,7 +129,7 @@ export default function LifeCEO() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={()> setLocation('/profile-switcher')}
+              onClick={()  => setLocation('/profile-switcher')}
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
@@ -142,7 +142,7 @@ export default function LifeCEO() {
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
             <button
-              onClick={()> setLanguage('en')}
+              onClick={()  => setLanguage('en')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'en' 
                   ? 'bg-purple-100 text-purple-700' 
@@ -152,7 +152,7 @@ export default function LifeCEO() {
               EN
             </button>
             <button
-              onClick={()> setLanguage('es')}
+              onClick={()  => setLanguage('es')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'es' 
                   ? 'bg-purple-100 text-purple-700' 
@@ -197,7 +197,7 @@ export default function LifeCEO() {
                   ? 'bg-red-500 hover:bg-red-600 scale-110 animate-pulse' 
                   : 'bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600'
               } text-white shadow-lg hover:shadow-xl disabled:opacity-50`}
-             data-testid="button-element">
+            >
               {isRecording ? (
                 <MicOff className="w-12 h-12 mx-auto" />
               ) : (

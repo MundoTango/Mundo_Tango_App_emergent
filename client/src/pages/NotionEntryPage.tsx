@@ -135,7 +135,7 @@ export function NotionEntryPage() {
             <p className="text-gray-600 mb-6 dark:text-neutral-600 dark:text-neutral-400">
               The story you're looking for doesn't exist or may have been removed.
             </p>
-            <Link href="/notion" data-testid="link-element">
+            <Link href="/notion">
               <Button>
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Stories
@@ -152,8 +152,8 @@ export function NotionEntryPage() {
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b dark:bg-neutral-900">
         <div className="max-w-4xl mx-auto px-6 py-6">
-          <Link href="/notion" data-testid="link-element">
-            <Button variant="ghost" className="mb-4" data-testid="button-mb-4">
+          <Link href="/notion">
+            <Button variant="ghost" className="mb-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Stories
             </Button>
@@ -323,8 +323,8 @@ export function NotionEntryPage() {
             {/* Back to Homepage */}
             <Card className="animate-in fade-in slide-in-from-right-4 duration-1000">
               <CardContent className="p-4">
-                <Link href="/notion" data-testid="link-element">
-                  <Button variant="outline" className="w-full" data-testid="button-w-full">
+                <Link href="/notion">
+                  <Button variant="outline" className="w-full">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Explore More Stories
                   </Button>

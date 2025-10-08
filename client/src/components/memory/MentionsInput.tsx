@@ -111,7 +111,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         {/* Avatar or Icon */}
         <div className="flex-shrink-0">
           {suggestion.avatar ? (
-            <Avatar className="h-8 w-8" data-testid="link-h-8">
+            <Avatar className="h-8 w-8">
               <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
               <AvatarFallback>
                 {suggestion.display.substring(0, 2).toUpperCase()}
@@ -314,7 +314,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
               {/* Avatar or Icon */}
               <div className="flex-shrink-0">
                 {suggestion.avatar ? (
-                  <Avatar className="h-8 w-8" data-testid="link-h-8">
+                  <Avatar className="h-8 w-8">
                     <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
                     <AvatarFallback>
                       {suggestion.display.substring(0, 2).toUpperCase()}

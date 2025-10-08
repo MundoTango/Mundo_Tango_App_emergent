@@ -99,7 +99,7 @@ export default function FriendshipPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <div className="relative">
-                <Avatar className="w-24 h-24 border-4 border-white shadow-xl" data-testid="link-w-24">
+                <Avatar className="w-24 h-24 border-4 border-white shadow-xl">
                   <AvatarImage src={friendship.user.profileImage} alt={friendship.user.name || 'Friend'} />
                   <AvatarFallback>{friendship.user.name?.[0] || 'F'}</AvatarFallback>
                 </Avatar>
@@ -128,13 +128,13 @@ export default function FriendshipPage() {
 
             <div className="flex gap-3">
               <Button
-                onClick={()> setShowDanceHistoryForm(true)}
+                onClick={()  => setShowDanceHistoryForm(true)}
                 className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600"
               >
                 <Music className="w-4 h-4 mr-2" />
                 Add Dance Memory
               </Button>
-              <Button variant="outline" className="glassmorphic-button" data-testid="button-glassmorphic-button">
+              <Button variant="outline" className="glassmorphic-button">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
@@ -177,7 +177,7 @@ export default function FriendshipPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {mutualFriends.slice(0, 6).map((friend: any) => (
               <div key={friend.id} className="text-center">
-                <Avatar className="w-16 h-16 mx-auto mb-2" data-testid="link-w-16">
+                <Avatar className="w-16 h-16 mx-auto mb-2">
                   <AvatarImage src={friend.profileImage} alt={friend.name || 'Friend'} />
                   <AvatarFallback>{friend.name?.[0] || 'F'}</AvatarFallback>
                 </Avatar>

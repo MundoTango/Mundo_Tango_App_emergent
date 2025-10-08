@@ -48,7 +48,7 @@ export default function RecommendedGroups() {
   
   if (isLoading) {
     return (
-      <Card className="mb-6" data-testid="recommended-groups-loading">
+      <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Star className="h-5 w-5 text-yellow-500" />
@@ -71,7 +71,7 @@ export default function RecommendedGroups() {
   }
   
   return (
-    <Card className="mb-6" data-testid="recommended-groups-card">
+    <Card className="mb-6">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
@@ -82,7 +82,7 @@ export default function RecommendedGroups() {
             variant="ghost"
             size="sm"
             onClick={() => refetch()}
-            data-testid="button-refresh-recommendations"
+           
             aria-label="Refresh recommendations"
           >
             <RefreshCw className="h-4 w-4" />
@@ -143,7 +143,7 @@ export default function RecommendedGroups() {
             variant="outline"
             className="w-full mt-4"
             onClick={() => setShowAll(!showAll)}
-            data-testid="button-see-more"
+           
             aria-label={showAll ? "Show fewer recommendations" : "Show more recommendations"}
           >
             {showAll ? 'Show Less' : `See ${recommendations.length - 5} More`}

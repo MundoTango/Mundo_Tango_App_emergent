@@ -150,7 +150,7 @@ export function Friends() {
                   <Input
                     placeholder="Search friends..."
                     value={searchQuery}
-                    onChange={(e)> setSearchQuery(e.target.value)}
+                    onChange={(e)  => setSearchQuery(e.target.value)}
                     className="pl-10 glassmorphic-input"
                   />
                 </div>
@@ -177,16 +177,16 @@ export function Friends() {
                       className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300 dark:bg-neutral-900"
                     >
                       <div className="flex items-center gap-4">
-                        <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
-                          <Avatar className="h-12 w-12 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer" data-testid="link-h-12">
+                        <Link href={`/profile/${friend.friend.username}`}>
+                          <Avatar className="h-12 w-12 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer">
                             <AvatarImage src={friend.friend.profileImage} />
-                            <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">
+                            <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">
                               {friend.friend.name?.[0] || 'U'}
                             </AvatarFallback>
                           </Avatar>
                         </Link>
                         <div>
-                          <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
+                          <Link href={`/profile/${friend.friend.username}`}>
                             <h3 className="font-semibold hover:text-turquoise-600 transition-colors cursor-pointer">
                               {friend.friend.name}
                             </h3>
@@ -205,12 +205,12 @@ export function Friends() {
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <Link href="/messages" data-testid="link-element">
-                          <Button size="sm" variant="outline" data-testid="button-element">
+                        <Link href="/messages">
+                          <Button size="sm" variant="outline">
                             <MessageCircle className="h-4 w-4" />
                           </Button>
                         </Link>
-                        <Button size="sm" variant="ghost" data-testid="button-element">
+                        <Button size="sm" variant="ghost">
                           <MoreVertical className="h-4 w-4" />
                         </Button>
                       </div>
@@ -262,16 +262,16 @@ export function Friends() {
                       className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300 dark:bg-neutral-900"
                     >
                       <div className="flex items-center gap-4">
-                        <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
-                          <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer" data-testid="link-h-16">
+                        <Link href={`/profile/${suggestion.username}`}>
+                          <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer">
                             <AvatarImage src={suggestion.profileImage} />
-                            <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white text-lg" data-testid="link-bg-gradient-to-br">
+                            <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white text-lg">
                               {suggestion.name?.[0] || 'U'}
                             </AvatarFallback>
                           </Avatar>
                         </Link>
                         <div>
-                          <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
+                          <Link href={`/profile/${suggestion.username}`}>
                             <h3 className="font-semibold text-lg hover:text-turquoise-600 transition-colors cursor-pointer">
                               {suggestion.name}
                             </h3>
@@ -308,7 +308,7 @@ export function Friends() {
                       </div>
                       <Button
                         size="sm"
-                        onClick={()> handleSendRequest(suggestion)}
+                        onClick={()  => handleSendRequest(suggestion)}
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md"
                       >
                         <UserPlus className="mr-1 h-4 w-4" />

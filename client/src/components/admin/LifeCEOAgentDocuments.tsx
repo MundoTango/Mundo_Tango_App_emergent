@@ -48,7 +48,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
   const { id: agentId } = useParams();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [selectedDocument, setSelectedDocument] = useState<AgentDocument | null data-testid="link-element">(null);
+  const [selectedDocument, setSelectedDocument] = useState<AgentDocument | null>(null);
   const [reviewNotes, setReviewNotes] = useState('');
 
   // Fetch agent documents
@@ -207,7 +207,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                   </div>
                 )}
                 <div className="flex space-x-2">
-                  <Button size="sm" variant="outline" data-testid="button-element">
+                  <Button size="sm" variant="outline">
                     <Eye className="w-4 h-4 mr-1" />
                     View
                   </Button>
@@ -215,13 +215,13 @@ const LifeCEOAgentDocuments: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={()> setSelectedDocument(doc)}
+                      onClick={()  => setSelectedDocument(doc)}
                     >
                       <Edit className="w-4 h-4 mr-1" />
                       Review
                     </Button>
                   )}
-                  <Button size="sm" variant="outline" data-testid="button-element">
+                  <Button size="sm" variant="outline">
                     <Download className="w-4 h-4 mr-1" />
                     Download
                   </Button>
@@ -253,7 +253,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <label className="text-sm font-medium">Review Notes</label>
                 <Textarea
                   value={reviewNotes}
-                  onChange={(e)> setReviewNotes(e.target.value)}
+                  onChange={(e)  => setReviewNotes(e.target.value)}
                   placeholder="Add your review notes here..."
                   rows={4}
                   className="mt-1"
@@ -262,7 +262,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <div className="flex space-x-2">
                 <Button
                   className="flex-1"
-                  onClick={()> {
+                  onClick={()  => {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'approved',
@@ -276,7 +276,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <Button
                   variant="destructive"
                   className="flex-1"
-                  onClick={()> {
+                  onClick={()  => {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'rejected',
@@ -289,7 +289,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={()> {
+                  onClick={()  => {
                     setSelectedDocument(null);
                     setReviewNotes('');
                   }}

@@ -830,7 +830,7 @@ import { Helmet } from 'react-helmet';
                       checked={privacy.shareAnalytics}
                       onCheckedChange={(checked) => handlePrivacyChange('shareAnalytics', checked)}
                       className="mt-switch"
-                      data-testid="switch-analytics"
+                     
                     />
                   </div>
 
@@ -851,7 +851,7 @@ import { Helmet } from 'react-helmet';
                       checked={privacy.dataExportEnabled}
                       onCheckedChange={(checked) => handlePrivacyChange('dataExportEnabled', checked)}
                       className="mt-switch"
-                      data-testid="switch-session"
+                     
                     />
                   </div>
 
@@ -872,7 +872,7 @@ import { Helmet } from 'react-helmet';
                       checked={privacy.thirdPartySharing}
                       onCheckedChange={(checked) => handlePrivacyChange('thirdPartySharing', checked)}
                       className="mt-switch"
-                      data-testid="switch-errors"
+                     
                     />
                   </div>
 

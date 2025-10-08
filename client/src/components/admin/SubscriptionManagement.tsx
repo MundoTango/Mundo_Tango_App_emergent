@@ -104,7 +104,7 @@ const SubscriptionManagement: React.FC = () => {
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">Feature Flag → Subscription Tier Mapping</h3>
             <Button
-              onClick={()> editMode ? saveChanges() : setEditMode(true)}
+              onClick={()  => editMode ? saveChanges() : setEditMode(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
             >
               {editMode ? (

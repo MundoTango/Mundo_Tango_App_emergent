@@ -177,7 +177,7 @@ const PerformanceMonitor: React.FC = () => {
           onClick={runPerformanceTests}
           disabled={isRunningTests}
           className="bg-gradient-to-r from-turquoise-600 to-blue-600 text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
-         data-testid="button-bg-gradient-to-r">
+        >
           {isRunningTests ? (
             <>
               <RefreshCw className="w-4 h-4 mr-2 animate-spin" />

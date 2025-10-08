@@ -146,7 +146,7 @@ export default function HierarchyDashboard() {
           <Button
             variant="outline"
             size="sm"
-            onClick={()> setAutoRefresh(!autoRefresh)}
+            onClick={()  => setAutoRefresh(!autoRefresh)}
           >
             {autoRefresh ? 'Disable' : 'Enable'} Auto-refresh
           </Button>
@@ -154,7 +154,7 @@ export default function HierarchyDashboard() {
             variant="outline"
             size="sm"
             onClick={fetchMetrics}
-           data-testid="button-element">
+          >
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh
           </Button>
@@ -267,9 +267,9 @@ export default function HierarchyDashboard() {
             </Alert>
           ) : (
             metrics.suggestions.map((suggestion, index) => (
-              <Alert key={index} data-testid="link-element">
+              <Alert key={index}>
                 <Zap className="h-4 w-4" />
-                <AlertTitle className="flex items-center gap-2" data-testid="link-flex">
+                <AlertTitle className="flex items-center gap-2">
                   {suggestion.type.charAt(0).toUpperCase() + suggestion.type.slice(1)} Suggestion
                   <Badge variant={getImpactColor(suggestion.impact)}>
                     {suggestion.impact} impact
@@ -278,7 +278,7 @@ export default function HierarchyDashboard() {
                     {(suggestion.confidence * 100).toFixed(0)}% confidence
                   </Badge>
                 </AlertTitle>
-                <AlertDescription className="mt-2" data-testid="link-mt-2">
+                <AlertDescription className="mt-2">
                   <p className="font-medium">{suggestion.target}</p>
                   <p className="text-sm mt-1">{suggestion.reason}</p>
                 </AlertDescription>

@@ -194,15 +194,15 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <Button className="w-full" size="lg" disabled={launchStatus !== 'ready'} data-testid="button-w-full">
+            <Button className="w-full" size="lg" disabled={launchStatus !== 'ready'}>
               <Rocket className="mr-2 h-5 w-5" />
               Initiate Launch Sequence
             </Button>
-            <Button className="w-full" variant="outline" data-testid="button-w-full">
+            <Button className="w-full" variant="outline">
               <TrendingUp className="mr-2 h-5 w-5" />
               Run Final Performance Test
             </Button>
-            <Button className="w-full" variant="outline" data-testid="button-w-full">
+            <Button className="w-full" variant="outline">
               Download Launch Report
             </Button>
           </div>
@@ -211,7 +211,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
 
       {/* Launch Warnings */}
       {launchStatus !== 'ready' && (
-        <Alert className="border-yellow-200 bg-yellow-50" data-testid="link-border-yellow-200">
+        <Alert className="border-yellow-200 bg-yellow-50">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
             <div className="font-medium mb-1">Launch Preparation Required</div>

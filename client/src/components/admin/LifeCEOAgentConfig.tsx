@@ -54,7 +54,7 @@ const LifeCEOAgentConfig: React.FC = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState('11l_system');
-  const [editingConfig, setEditingConfig] = useState<AgentConfig | null data-testid="link-element">(null);
+  const [editingConfig, setEditingConfig] = useState<AgentConfig | null>(null);
   const [newConfigData, setNewConfigData] = useState('');
 
   // Fetch agent configurations
@@ -119,7 +119,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={()> {
+                    onClick={()  => {
                       try {
                         const parsedData = JSON.parse(newConfigData);
                         saveConfigMutation.mutate({
@@ -142,7 +142,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={()> {
+                    onClick={()  => {
                       setEditingConfig(null);
                       setNewConfigData('');
                     }}
@@ -155,7 +155,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={()> {
+                  onClick={()  => {
                     setEditingConfig(config);
                     setNewConfigData(JSON.stringify(config.config_data, null, 2));
                   }}
@@ -172,7 +172,7 @@ const LifeCEOAgentConfig: React.FC = () => {
             className="font-mono text-sm"
             rows={10}
             value={configDataStr}
-            onChange={(e)> setNewConfigData(e.target.value)}
+            onChange={(e)  => setNewConfigData(e.target.value)}
             readOnly={!isEditing}
           />
         </CardContent>

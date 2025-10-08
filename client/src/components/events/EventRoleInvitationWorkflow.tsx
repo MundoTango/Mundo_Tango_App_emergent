@@ -171,19 +171,19 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                 <Input
                   placeholder="Enter user ID or email..."
                   value={userIdentifier}
-                  onChange={(e)> setUserIdentifier(e.target.value)}
+                  onChange={(e)  => setUserIdentifier(e.target.value)}
                 />
               </div>
               
               <div>
                 <label className="text-sm font-medium mb-2 block">Role</label>
-                <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+                <Select value={selectedRole} onValueChange={setSelectedRole}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select role..." />
                   </SelectTrigger>
                   <SelectContent>
                     {EVENT_ROLES.map((role) => (
-                      <SelectItem key={role.value} value={role.value} data-testid="select-element">
+                      <SelectItem key={role.value} value={role.value}>
                         <div>
                           <div className="font-medium">{role.label}</div>
                           <div className="text-xs text-muted-foreground">{role.description}</div>
@@ -199,7 +199,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                   onClick={handleInviteParticipant}
                   disabled={!userIdentifier.trim() || !selectedRole || inviteParticipantMutation.isPending}
                   className="w-full"
-                 data-testid="button-w-full">
+                >
                   {inviteParticipantMutation.isPending ? (
                     <>Sending...</>
                   ) : (
@@ -272,7 +272,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={()> handleStatusUpdate(participant.id, 'accepted')}
+                              onClick={()  => handleStatusUpdate(participant.id, 'accepted')}
                               disabled={updateStatusMutation.isPending}
                             >
                               <Check className="w-3 h-3" />
@@ -280,7 +280,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={()> handleStatusUpdate(participant.id, 'declined')}
+                              onClick={()  => handleStatusUpdate(participant.id, 'declined')}
                               disabled={updateStatusMutation.isPending}
                             >
                               <X className="w-3 h-3" />

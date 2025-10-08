@@ -80,14 +80,14 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
               variant="outline"
               onClick={handleShareResume}
               className="flex items-center space-x-2"
-             data-testid="button-flex">
+            >
               <Share2 className="h-4 w-4" />
               <span>Share</span>
             </Button>
             <Button
               onClick={handleDownloadPDF}
               className="bg-[#8E142E] hover:bg-[#6B0F22] flex items-center space-x-2"
-             data-testid="button-bg-[#8E142E]">
+            >
               <Download className="h-4 w-4" />
               <span>Download PDF</span>
             </Button>

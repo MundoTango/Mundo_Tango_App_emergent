@@ -25,7 +25,7 @@ export default function UnifiedMapLegend({
   return (
     <div 
       className={`absolute ${positionClasses[position]} bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 z-[1000] min-w-[150px]`}
-      data-testid="map-legend"
+     
     >
       <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-white">
         {title}

@@ -220,7 +220,7 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
       </Card>
 
       {/* Data Protection Officer */}
-      <Alert className="border-blue-200 bg-blue-50" data-testid="link-border-blue-200">
+      <Alert className="border-blue-200 bg-blue-50">
         <Globe className="h-4 w-4" />
         <AlertDescription>
           <div className="font-medium mb-1">Data Protection Officer</div>

@@ -162,7 +162,7 @@ export default function GroupPage() {
                   </div>
                 ) : (
                   <Button
-                    onClick={()> joinGroupMutation.mutate()}
+                    onClick={()  => joinGroupMutation.mutate()}
                     disabled={joinGroupMutation.isPending}
                     className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm dark:bg-neutral-900"
                     size="lg"
@@ -213,9 +213,9 @@ export default function GroupPage() {
                 <CardContent className="space-y-4">
                   {group.members.slice(0, 8).map((member) => (
                     <div key={member.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800">
-                      <Avatar className="h-10 w-10" data-testid="link-h-10">
+                      <Avatar className="h-10 w-10">
                         <AvatarImage src={member.user.profileImage || undefined} />
-                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-indigo-500 text-white" data-testid="link-bg-gradient-to-br">
+                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-indigo-500 text-white">
                           {member.user.name.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -231,7 +231,7 @@ export default function GroupPage() {
                   
                   {group.members.length > 8 && (
                     <div className="text-center pt-4">
-                      <Button variant="ghost" className="text-coral-600 hover:text-coral-700" data-testid="button-text-coral-600">
+                      <Button variant="ghost" className="text-coral-600 hover:text-coral-700">
                         View All Members
                       </Button>
                     </div>
@@ -345,7 +345,7 @@ export default function GroupPage() {
                       </div>
                       <h3 className="text-xl font-bold text-gray-800 mb-2 dark:text-neutral-200">No memories shared yet</h3>
                       <p className="text-gray-600 mb-6 dark:text-neutral-600 dark:text-neutral-400">Be the first to share a tango memory with this group!</p>
-                      <Button className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white" data-testid="button-bg-gradient-to-r">
+                      <Button className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white">
                         Share a Memory
                       </Button>
                     </div>

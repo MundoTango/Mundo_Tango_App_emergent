@@ -177,20 +177,20 @@ export function NotionHomePage() {
                 <Input
                   placeholder="Search stories, memories, and events..."
                   value={searchTerm}
-                  onChange={(e)> setSearchTerm(e.target.value)}
+                  onChange={(e)  => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
               <Button
                 variant="outline"
-                onClick={()> setShowFilters(!showFilters)}
+                onClick={()  => setShowFilters(!showFilters)}
                 className="flex items-center gap-2"
               >
                 <Filter className="w-4 h-4" />
                 Filters
               </Button>
               {(selectedType || selectedTone || selectedTags.length > 0) && (
-                <Button variant="ghost" onClick={clearFilters} size="sm" data-testid="button-element">
+                <Button variant="ghost" onClick={clearFilters} size="sm">
                   Clear All
                 </Button>
               )}
@@ -203,14 +203,14 @@ export function NotionHomePage() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <Label>Type</Label>
-                      <Select value={selectedType} onValueChange={setSelectedType} data-testid="select-element">
+                      <Select value={selectedType} onValueChange={setSelectedType}>
                         <SelectTrigger>
                           <SelectValue placeholder="All types" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="" data-testid="select-element">All types</SelectItem>
+                          <SelectItem value="">All types</SelectItem>
                           {filterOptions?.types.map(type => (
-                            <SelectItem key={type} value={type} data-testid="select-element">
+                            <SelectItem key={type} value={type}>
                               {type.charAt(0).toUpperCase() + type.slice(1)}
                             </SelectItem>
                           ))}
@@ -220,14 +220,14 @@ export function NotionHomePage() {
 
                     <div>
                       <Label>Emotional Tone</Label>
-                      <Select value={selectedTone} onValueChange={setSelectedTone} data-testid="select-element">
+                      <Select value={selectedTone} onValueChange={setSelectedTone}>
                         <SelectTrigger>
                           <SelectValue placeholder="All tones" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="" data-testid="select-element">All tones</SelectItem>
+                          <SelectItem value="">All tones</SelectItem>
                           {filterOptions?.emotionalTones.map(tone => (
-                            <SelectItem key={tone} value={tone} data-testid="select-element">
+                            <SelectItem key={tone} value={tone}>
                               {tone.charAt(0).toUpperCase() + tone.slice(1)}
                             </SelectItem>
                           ))}
@@ -243,7 +243,7 @@ export function NotionHomePage() {
                             key={tag}
                             variant={selectedTags.includes(tag) ? "default" : "outline"}
                             size="sm"
-                            onClick={()> handleTagToggle(tag)}
+                            onClick={()  => handleTagToggle(tag)}
                             className="text-xs"
                           >
                             {tag}
@@ -289,7 +289,7 @@ export function NotionHomePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {typeEntries.map((entry, index) => (
-                    <Link key={entry.id} href={`/${entry.slug}`} data-testid="link-element">
+                    <Link key={entry.id} href={`/${entry.slug}`}>
                       <Card 
                         className="group hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-4"
                         style={{ animationDelay: `${index * 100}ms` }}
@@ -366,7 +366,7 @@ export function NotionHomePage() {
               <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                 Try adjusting your search terms or filters to find more stories.
               </p>
-              <Button onClick={clearFilters} variant="outline" data-testid="button-element">
+              <Button onClick={clearFilters} variant="outline">
                 Clear all filters
               </Button>
             </div>

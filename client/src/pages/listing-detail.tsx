@@ -478,7 +478,7 @@ export default function ListingDetail() {
         />
       )}
       
-      <div ref={containerRef} className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800" data-testid="page-listing-detail">
+      <div ref={containerRef} className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
       <div className="max-w-7xl mx-auto p-6">
         {/* Back Button - Aurora Tide */}
         <FadeIn>
@@ -486,7 +486,7 @@ export default function ListingDetail() {
             strength={0.2}
             onClick={() => navigate('/housing-marketplace')}
             className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 mb-4 px-4 py-2 rounded-md flex items-center gap-2"
-            data-testid="button-back-to-marketplace"
+           
           >
             <ArrowLeft className="h-4 w-4" />
             {t('housing.listing_detail.back_to_marketplace', 'Back to Marketplace')}
@@ -494,7 +494,7 @@ export default function ListingDetail() {
         </FadeIn>
 
         {/* Media Gallery - Aurora Tide Hero */}
-        <div ref={heroRef} className="mb-6 relative" data-testid="section-photo-gallery">
+        <div ref={heroRef} className="mb-6 relative">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
             {/* Main Media Display */}
             <div className="md:col-span-3 h-96 md:h-[500px]">
@@ -504,7 +504,7 @@ export default function ListingDetail() {
                     src={currentMedia}
                     controls
                     className="w-full h-full object-cover rounded-lg"
-                    data-testid="video-main-media"
+                   
                   >
                     Your browser does not support the video tag.
                   </video>
@@ -514,7 +514,7 @@ export default function ListingDetail() {
                     alt={home.title}
                     className="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-95 transition"
                     onClick={() => setSelectedImage(0)}
-                    data-testid="img-main-photo"
+                   
                   />
                 )
               ) : (
@@ -563,7 +563,7 @@ export default function ListingDetail() {
                 <div
                   className="w-full h-24 md:h-[120px] bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
                   onClick={() => setSelectedImage(5)}
-                  data-testid="button-more-media"
+                 
                  role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(5)(e); } }}>
                   <span className="text-sm font-semibold">+{orderedMedia.length - 5} more</span>
                 </div>
@@ -577,16 +577,16 @@ export default function ListingDetail() {
           {/* Left Column - Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Header - Aurora Tide */}
-            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" data-testid="section-property-header" ref={(el) => sectionsRef.current[0] = el}>
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" ref={(el) => sectionsRef.current[0] = el}>
               <CardContent className="pt-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h1 className="text-3xl font-bold mb-2 text-brand-gradient" data-testid="text-listing-title">
+                    <h1 className="text-3xl font-bold mb-2 text-brand-gradient">
                       {home.title}
                     </h1>
                     <div className="flex items-center text-slate-600 dark:text-slate-400 mb-2">
                       <MapPin className="h-4 w-4 mr-1" />
-                      <span data-testid="text-location">{home.city}, {home.country}</span>
+                      <span>{home.city}, {home.country}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge className="glass-card glass-depth-1 border-cyan-200/30 text-cyan-700 dark:text-cyan-300">
@@ -604,7 +604,7 @@ export default function ListingDetail() {
                       strength={0.2}
                       onClick={handleShare}
                       className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 rounded-md"
-                      data-testid="button-share"
+                     
                     >
                       <Share2 className="h-4 w-4" />
                     </MagneticButton>
@@ -612,7 +612,7 @@ export default function ListingDetail() {
                       strength={0.2}
                       onClick={handleFavorite}
                       className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 rounded-md"
-                      data-testid="button-favorite"
+                     
                     >
                       <Heart className={`h-4 w-4 ${isFavorited ? 'fill-rose-500 text-rose-500' : ''}`} />
                     </MagneticButton>
@@ -641,17 +641,17 @@ export default function ListingDetail() {
             </GlassCard>
 
             {/* Description - Aurora Tide */}
-            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" data-testid="section-description" ref={(el) => sectionsRef.current[1] = el}>
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" ref={(el) => sectionsRef.current[1] = el}>
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">About this space</h2>
-                <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line" data-testid="text-description">
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                   {home.description}
                 </p>
               </CardContent>
             </GlassCard>
 
             {/* Amenities - Aurora Tide */}
-            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" data-testid="section-amenities" ref={(el) => sectionsRef.current[2] = el}>
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" ref={(el) => sectionsRef.current[2] = el}>
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">What this place offers</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -709,7 +709,7 @@ export default function ListingDetail() {
             )}
 
             {/* Reviews Section - Aurora Tide */}
-            <div data-testid="section-reviews" ref={(el) => sectionsRef.current[4] = el}>
+            <div ref={(el) => sectionsRef.current[4] = el}>
               <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
                 {t('housing.listing_detail.guest_reviews', 'Guest Reviews')}
               </h2>
@@ -724,7 +724,7 @@ export default function ListingDetail() {
           {/* Right Column - Booking Card (Sticky) - Aurora Tide */}
           <div className="lg:sticky lg:top-6 h-fit">
             <ScaleIn delay={0.3}>
-              <GlassCard depth={3} className="shadow-aurora border border-cyan-200/30 dark:border-ocean-500/30" data-testid="card-booking">
+              <GlassCard depth={3} className="shadow-aurora border border-cyan-200/30 dark:border-ocean-500/30">
                 <CardContent className="pt-6">
                   <div className="mb-6">
                     {/* TODO: PAYMENT PREP - Stripe integration 
@@ -762,7 +762,7 @@ export default function ListingDetail() {
                     className="w-full aurora-gradient text-white font-semibold py-6 text-lg rounded-lg hover:shadow-aurora transition-all"
                     onClick={handleRequestToBook}
                     pulseColor="rgba(6, 182, 212, 0.6)"
-                    data-testid="button-request-to-book"
+                   
                   >
                     Request to Stay
                   </PulseButton>
@@ -775,7 +775,7 @@ export default function ListingDetail() {
             </ScaleIn>
 
             {/* Host Card */}
-            <Card className="mt-6" data-testid="card-host">
+            <Card className="mt-6">
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-4">Meet your host</h3>
                 <div className="flex items-center gap-4 mb-4">
@@ -793,7 +793,7 @@ export default function ListingDetail() {
                   <div>✓ Identity verified</div>
                   <div>⚡ Responds within an hour</div>
                 </div>
-                <Button variant="outline" className="w-full" data-testid="button-contact-host">
+                <Button variant="outline" className="w-full">
                   Contact Host
                 </Button>
               </CardContent>
@@ -815,7 +815,7 @@ export default function ListingDetail() {
 
       {/* Booking Modal - Aurora Tide */}
       <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-booking-request">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
           <FadeIn>
             <DialogHeader>
               <div className="flex items-center gap-3 mb-2">
@@ -886,10 +886,10 @@ export default function ListingDetail() {
                     }}
                     fromDate={new Date()}
                     className="border rounded-lg"
-                    data-testid="calendar-check-in"
+                   
                   />
                   {checkInDate && (
-                    <p className="text-sm text-center mt-2 font-medium" data-testid="text-check-in-date">
+                    <p className="text-sm text-center mt-2 font-medium">
                       {format(checkInDate, 'PPP')}
                     </p>
                   )}
@@ -910,17 +910,17 @@ export default function ListingDetail() {
                     }}
                     fromDate={checkInDate || new Date()}
                     className="border rounded-lg"
-                    data-testid="calendar-check-out"
+                   
                   />
                   {checkOutDate && (
-                    <p className="text-sm text-center mt-2 font-medium" data-testid="text-check-out-date">
+                    <p className="text-sm text-center mt-2 font-medium">
                       {format(checkOutDate, 'PPP')}
                     </p>
                   )}
                 </div>
               </div>
               {nights > 0 && (
-                <p className="text-sm text-gray-600" data-testid="text-nights-count">
+                <p className="text-sm text-gray-600">
                   {nights} night{nights > 1 ? 's' : ''} selected
                 </p>
               )}
@@ -938,11 +938,11 @@ export default function ListingDetail() {
                     onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
                     disabled={guestCount <= 1}
                     className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    data-testid="button-decrease-guests"
+                   
                   >
                     -
                   </MagneticButton>
-                  <span className="text-lg font-medium w-12 text-center text-slate-900 dark:text-white" data-testid="text-guest-count">
+                  <span className="text-lg font-medium w-12 text-center text-slate-900 dark:text-white">
                     {guestCount}
                   </span>
                   <MagneticButton
@@ -950,7 +950,7 @@ export default function ListingDetail() {
                     onClick={() => setGuestCount(Math.min(listing?.data.maxGuests || 10, guestCount + 1))}
                     disabled={guestCount >= (listing?.data.maxGuests || 10)}
                     className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    data-testid="button-increase-guests"
+                   
                   >
                     +
                   </MagneticButton>
@@ -967,7 +967,7 @@ export default function ListingDetail() {
                 Purpose of Stay
               </Label>
               <Select value={purpose} onValueChange={setPurpose}>
-                <SelectTrigger id="purpose" data-testid="select-purpose">
+                <SelectTrigger id="purpose">
                   <SelectValue placeholder="Select purpose..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -993,7 +993,7 @@ export default function ListingDetail() {
                 onChange={(e) => setMessage(e.target.value)}
                 rows={4}
                 className="resize-none"
-                data-testid="textarea-message"
+               
               />
               <p className="text-xs text-gray-500">
                 Tip: Mention your tango experience and what brings you to the area!
@@ -1006,7 +1006,7 @@ export default function ListingDetail() {
                 id="house-rules"
                 checked={hasReadRules}
                 onCheckedChange={(checked) => setHasReadRules(checked as boolean)}
-                data-testid="checkbox-house-rules"
+               
               />
               <label
                 htmlFor="house-rules"
@@ -1025,15 +1025,15 @@ export default function ListingDetail() {
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm text-slate-700 dark:text-slate-300">
                         <span>${listing?.data.pricePerNight} × {nights} nights</span>
-                        <span data-testid="text-subtotal">${totalPrice}</span>
+                        <span>${totalPrice}</span>
                       </div>
                       <div className="flex justify-between text-sm text-slate-700 dark:text-slate-300">
                         <span>Service fee (10%)</span>
-                        <span data-testid="text-service-fee">${serviceFee}</span>
+                        <span>${serviceFee}</span>
                       </div>
                       <div className="flex justify-between font-bold text-lg border-t border-cyan-200/30 dark:border-ocean-500/30 pt-2 mt-2 text-slate-900 dark:text-white">
                         <span>Total</span>
-                        <span data-testid="text-grand-total">${grandTotal}</span>
+                        <span>${grandTotal}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -1048,7 +1048,7 @@ export default function ListingDetail() {
               variant="outline"
               onClick={() => setShowBookingModal(false)}
               className="flex-1 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30"
-              data-testid="button-cancel-booking"
+             
             >
               Cancel
             </Button>
@@ -1057,7 +1057,7 @@ export default function ListingDetail() {
               disabled={createBookingMutation.isPending}
               className="flex-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold disabled:opacity-50"
               pulseColor="rgba(6, 182, 212, 0.6)"
-              data-testid="button-submit-booking"
+             
             >
               {createBookingMutation.isPending ? 'Submitting...' : 'Send Request'}
             </PulseButton>

@@ -281,7 +281,7 @@ export default function FeatureNavigation() {
                 {feature.route && feature.status !== 'missing' && (
                   <Button 
                     className="w-full"
-                    onClick={()> setLocation(feature.route!)}
+                    onClick={()  => setLocation(feature.route!)}
                   >
                     Navigate to Feature
                     <ArrowRight className="w-4 h-4 ml-2" />

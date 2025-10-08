@@ -79,7 +79,7 @@ const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({
       const route = getMentionRoute(type, id);
       
       parts.push(
-        <Link key={`${type}-${id}-${match.index}`} href={route} data-testid="link-element">
+        <Link key={`${type}-${id}-${match.index}`} href={route}>
           <span
             className={`
               inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-sm font-medium

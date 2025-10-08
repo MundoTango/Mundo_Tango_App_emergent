@@ -337,14 +337,14 @@ export default function AdminModerationPage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search reports by content or user..."
                     className="pl-10"
-                    data-testid="moderation-search"
+                   
                   />
                 </div>
               </div>
               
               <div className="flex gap-3">
                 <Select value={filterCategory} onValueChange={setFilterCategory}>
-                  <SelectTrigger className="w-40" data-testid="filter-category">
+                  <SelectTrigger className="w-40">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -359,7 +359,7 @@ export default function AdminModerationPage() {
                 </Select>
 
                 <Select value={filterSeverity} onValueChange={setFilterSeverity}>
-                  <SelectTrigger className="w-40" data-testid="filter-severity">
+                  <SelectTrigger className="w-40">
                     <SelectValue placeholder="Severity" />
                   </SelectTrigger>
                   <SelectContent>

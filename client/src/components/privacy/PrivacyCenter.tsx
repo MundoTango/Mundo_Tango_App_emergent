@@ -296,7 +296,7 @@ export default function PrivacyCenter() {
                     onClick={exportUserData}
                     disabled={exportingData}
                     className="w-full"
-                   data-testid="button-w-full">
+                  >
                     {exportingData ? 'Exporting...' : 'Export My Data'}
                   </Button>
                 </Card>
@@ -312,7 +312,7 @@ export default function PrivacyCenter() {
                   <Button 
                     variant="outline"
                     className="w-full"
-                   data-testid="button-w-full">
+                  >
                     Request Correction
                   </Button>
                 </Card>

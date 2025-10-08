@@ -55,7 +55,7 @@ import { Helmet } from 'react-helmet';
     return components;
   };
 
-  const [componentStatus, setComponentStatus] = React.useState<any data-testid="link-element">(null);
+  const [componentStatus, setComponentStatus] = React.useState<any>(null);
 
   React.useEffect(() => {
     checkComponents().then(setComponentStatus);
@@ -135,7 +135,7 @@ import { Helmet } from 'react-helmet';
               cursor: 'pointer',
               fontSize: '16px'
             }}
-           data-testid="button-element">
+          >
             Clear All Caches & Reload
           </button>
         </div>
@@ -163,7 +163,7 @@ import { Helmet } from 'react-helmet';
                 borderRadius: '5px',
                 fontWeight: 'bold'
               }}
-             data-testid="link-element">
+            >
               Go to /memories
             </a>
             <a 
@@ -175,11 +175,11 @@ import { Helmet } from 'react-helmet';
                 textDecoration: 'none', 
                 borderRadius: '5px'
               }}
-             data-testid="link-element">
+            >
               Go to /timeline (redirect test)
             </a>
             <button 
-              onClick={()> window.location.reload()}
+              onClick={()  => window.location.reload()}
               style={{
                 background: '#0F766E',
                 color: 'white',

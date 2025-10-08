@@ -59,7 +59,7 @@ export default function RecommendationFilters({
   return (
     <div
       className={`glass-card glass-depth-2 rounded-xl p-6 mt-ocean-gradient border border-white/20 backdrop-blur-md ${className}`}
-      data-testid="recommendation-filters"
+     
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -85,7 +85,7 @@ export default function RecommendationFilters({
               size="sm"
               onClick={resetFilters}
               className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:text-turquoise-600"
-              data-testid="button-reset-filters"
+             
             >
               Reset all
             </Button>
@@ -93,7 +93,7 @@ export default function RecommendationFilters({
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="p-2 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
-            data-testid="button-toggle-filters"
+           
           >
             {isExpanded ? (
               <ChevronUp className="h-5 w-5 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
@@ -162,7 +162,7 @@ export default function RecommendationFilters({
                   value={filters.minClosenessScore || 50}
                   onChange={(e) => updateFilter('minClosenessScore', parseInt(e.target.value))}
                   className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                  data-testid="input-closeness-score"
+                 
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-1">
                   Higher scores mean closer friendships (0-100)
@@ -217,13 +217,13 @@ export default function RecommendationFilters({
                 onChange={(e) => updateFilter('city', e.target.value || undefined)}
                 placeholder="e.g., Buenos Aires, Paris, Tokyo..."
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-                data-testid="input-city-filter"
+               
               />
               {filters.city && (
                 <button
                   onClick={() => updateFilter('city', undefined)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-turquoise-600"
-                  data-testid="button-clear-city-filter"
+                 
                 >
                   ✕
                 </button>
@@ -305,7 +305,7 @@ export default function RecommendationFilters({
                 value={filters.cuisine || ''}
                 onChange={(e) => updateFilter('cuisine', e.target.value || undefined)}
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                data-testid="select-cuisine"
+               
               >
                 <option value="">All cuisines</option>
                 <option value="Italian">🇮🇹 Italian</option>
@@ -339,7 +339,7 @@ export default function RecommendationFilters({
               value={filters.originCountry || ''}
               onChange={(e) => updateFilter('originCountry', e.target.value || undefined)}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              data-testid="select-origin-country"
+             
             >
               <option value="">All countries</option>
               <option value="Argentina">🇦🇷 Argentina</option>
@@ -411,7 +411,7 @@ export default function RecommendationFilters({
                 value={filters.minRating || 0}
                 onChange={(e) => updateFilter('minRating', parseFloat(e.target.value) || undefined)}
                 className="flex-1 accent-turquoise-600"
-                data-testid="input-min-rating"
+               
               />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 w-12 text-right">
                 {filters.minRating ? `${filters.minRating}+` : 'Any'}

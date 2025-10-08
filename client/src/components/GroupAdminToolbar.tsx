@@ -151,7 +151,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
         
         <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="border-red-200 text-red-700 hover:bg-red-50" data-testid="button-border-red-200">
+            <Button variant="outline" size="sm" className="border-red-200 text-red-700 hover:bg-red-50">
               <Settings className="h-4 w-4 mr-2" />
               Group Management
             </Button>
@@ -196,7 +196,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm" 
                         className="w-full mt-2"
                         disabled={!permissions.canManageMembers}
-                        onClick={()> setActiveTab('members')}
+                        onClick={()  => setActiveTab('members')}
                       >
                         Manage Members
                       </Button>
@@ -223,7 +223,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm" 
                         className="w-full mt-2"
                         disabled={!permissions.canModerateContent}
-                        onClick={()> setActiveTab('moderation')}
+                        onClick={()  => setActiveTab('moderation')}
                       >
                         Review Content
                       </Button>
@@ -250,7 +250,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm" 
                         className="w-full mt-2"
                         disabled={!permissions.canViewAnalytics}
-                        onClick={()> setActiveTab('analytics')}
+                        onClick={()  => setActiveTab('analytics')}
                       >
                         View Analytics
                       </Button>
@@ -270,7 +270,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm"
                         disabled={!permissions.canManageEvents}
                         className="flex items-center space-x-2"
-                       data-testid="button-flex">
+                      >
                         <Calendar className="h-4 w-4" />
                         <span>Create Event</span>
                       </Button>
@@ -279,7 +279,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm"
                         disabled={!permissions.canModifyGroup}
                         className="flex items-center space-x-2"
-                       data-testid="button-flex">
+                      >
                         <Image className="h-4 w-4" />
                         <span>Update Photo</span>
                       </Button>
@@ -288,7 +288,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm"
                         disabled={!permissions.canManageMembers}
                         className="flex items-center space-x-2"
-                       data-testid="button-flex">
+                      >
                         <UserPlus className="h-4 w-4" />
                         <span>Invite Members</span>
                       </Button>
@@ -297,7 +297,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         size="sm"
                         disabled={!permissions.canChangeSettings}
                         className="flex items-center space-x-2"
-                       data-testid="button-flex">
+                      >
                         <Settings className="h-4 w-4" />
                         <span>Group Settings</span>
                       </Button>
@@ -332,8 +332,8 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                                 <div className="text-xs text-gray-500">@{request.username}</div>
                               </div>
                               <div className="flex space-x-1">
-                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs" data-testid="button-h-7">Accept</Button>
-                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs" data-testid="button-h-7">Decline</Button>
+                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs">Accept</Button>
+                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs">Decline</Button>
                               </div>
                             </div>
                           ))}
@@ -351,18 +351,18 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                               placeholder="Search members..." 
                               className="flex-1 h-8" 
                             />
-                            <Button size="sm" variant="outline" className="h-8" data-testid="button-h-8">
+                            <Button size="sm" variant="outline" className="h-8">
                               Search
                             </Button>
                           </div>
                           <Select>
-                            <SelectTrigger className="h-8" data-testid="select-h-8">
+                            <SelectTrigger className="h-8">
                               <SelectValue placeholder="Assign role to member" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="admin" data-testid="select-element">Admin</SelectItem>
-                              <SelectItem value="moderator" data-testid="select-element">Moderator</SelectItem>
-                              <SelectItem value="member" data-testid="select-element">Member</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                              <SelectItem value="moderator">Moderator</SelectItem>
+                              <SelectItem value="member">Member</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -376,28 +376,28 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canManageMembers}
-                         data-testid="button-element">
+                        >
                           Bulk Invite
                         </Button>
                         <Button 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canManageMembers}
-                         data-testid="button-element">
+                        >
                           Export Members
                         </Button>
                         <Button 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canPromoteMembers}
-                         data-testid="button-element">
+                        >
                           Promote Member
                         </Button>
                         <Button 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canManageMembers}
-                         data-testid="button-element">
+                        >
                           Remove Member
                         </Button>
                       </div>
@@ -465,27 +465,27 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                       <div className="space-y-4">
                         <div>
                           <label className="text-sm font-medium">Privacy Level</label>
-                          <Select disabled={!permissions.canChangeSettings} data-testid="select-element">
-                            <SelectTrigger className="mt-1" data-testid="select-mt-1">
+                          <Select disabled={!permissions.canChangeSettings}>
+                            <SelectTrigger className="mt-1">
                               <SelectValue placeholder={group.isPrivate ? "Private" : "Public"} />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="public" data-testid="select-element">Public</SelectItem>
-                              <SelectItem value="private" data-testid="select-element">Private</SelectItem>
-                              <SelectItem value="invite-only" data-testid="select-element">Invite Only</SelectItem>
+                              <SelectItem value="public">Public</SelectItem>
+                              <SelectItem value="private">Private</SelectItem>
+                              <SelectItem value="invite-only">Invite Only</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
                           <label className="text-sm font-medium">Member Approval</label>
-                          <Select disabled={!permissions.canChangeSettings} data-testid="select-element">
-                            <SelectTrigger className="mt-1" data-testid="select-mt-1">
+                          <Select disabled={!permissions.canChangeSettings}>
+                            <SelectTrigger className="mt-1">
                               <SelectValue placeholder="Auto-approve" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="auto" data-testid="select-element">Auto-approve</SelectItem>
-                              <SelectItem value="manual" data-testid="select-element">Manual approval</SelectItem>
-                              <SelectItem value="invite-only" data-testid="select-element">Invite only</SelectItem>
+                              <SelectItem value="auto">Auto-approve</SelectItem>
+                              <SelectItem value="manual">Manual approval</SelectItem>
+                              <SelectItem value="invite-only">Invite only</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -494,7 +494,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                     
                     {permissions.canChangeSettings && (
                       <div className="pt-4 border-t">
-                        <Button className="bg-blue-600 hover:bg-blue-700" data-testid="button-bg-blue-600">
+                        <Button className="bg-blue-600 hover:bg-blue-700">
                           Save Settings
                         </Button>
                       </div>

@@ -235,14 +235,14 @@ const ProjectTrackerDashboard: React.FC = () => {
       {/* Action Buttons */}
       <div className="flex justify-end gap-2">
         <Button 
-          onClick={()> refetchProjects()}
+          onClick={()  => refetchProjects()}
           variant="outline"
           className="flex items-center gap-2 border-cyan-300 text-cyan-700"
         >
           <RefreshCw className="h-4 w-4" />
           Refresh
         </Button>
-        <Button className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0" data-testid="button-flex">
+        <Button className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0">
           <Plus className="h-4 w-4" />
           Add Project
         </Button>
@@ -263,7 +263,7 @@ const ProjectTrackerDashboard: React.FC = () => {
               <Input
                 placeholder="Search items..."
                 value={searchQuery}
-                onChange={(e)> setSearchQuery(e.target.value)}
+                onChange={(e)  => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -273,39 +273,39 @@ const ProjectTrackerDashboard: React.FC = () => {
                 <SelectValue placeholder="Select Layer" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all" data-testid="select-element">All Layers</SelectItem>
+                <SelectItem value="all">All Layers</SelectItem>
                 {LAYER_DEFINITIONS.map(layer => (
-                  <SelectItem key={layer.id} value={layer.id.toString()} data-testid="select-element">
+                  <SelectItem key={layer.id} value={layer.id.toString()}>
                     {layer.icon} {layer.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
 
-            <Select value={selectedType} onValueChange={setSelectedType} data-testid="select-element">
+            <Select value={selectedType} onValueChange={setSelectedType}>
               <SelectTrigger>
                 <SelectValue placeholder="Select Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all" data-testid="select-element">All Types</SelectItem>
-                <SelectItem value="Feature" data-testid="select-element">Feature</SelectItem>
-                <SelectItem value="Framework" data-testid="select-element">Framework</SelectItem>
-                <SelectItem value="Automation" data-testid="select-element">Automation</SelectItem>
-                <SelectItem value="Enhancement" data-testid="select-element">Enhancement</SelectItem>
-                <SelectItem value="Fix" data-testid="select-element">Fix</SelectItem>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="Feature">Feature</SelectItem>
+                <SelectItem value="Framework">Framework</SelectItem>
+                <SelectItem value="Automation">Automation</SelectItem>
+                <SelectItem value="Enhancement">Enhancement</SelectItem>
+                <SelectItem value="Fix">Fix</SelectItem>
               </SelectContent>
             </Select>
 
-            <Select value={selectedStatus} onValueChange={setSelectedStatus} data-testid="select-element">
+            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
               <SelectTrigger>
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all" data-testid="select-element">All Status</SelectItem>
-                <SelectItem value="Completed" data-testid="select-element">Completed</SelectItem>
-                <SelectItem value="In Progress" data-testid="select-element">In Progress</SelectItem>
-                <SelectItem value="Planned" data-testid="select-element">Planned</SelectItem>
-                <SelectItem value="Blocked" data-testid="select-element">Blocked</SelectItem>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="Completed">Completed</SelectItem>
+                <SelectItem value="In Progress">In Progress</SelectItem>
+                <SelectItem value="Planned">Planned</SelectItem>
+                <SelectItem value="Blocked">Blocked</SelectItem>
               </SelectContent>
             </Select>
 

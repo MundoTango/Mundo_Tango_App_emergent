@@ -218,13 +218,13 @@ export default function ModernCommentsSection({
           placeholder="Write a comment..."
           className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-teal-400/50 focus:border-teal-400/50 dark:bg-neutral-900"
           disabled={isAddingComment}
-          data-testid="input-new-comment"
+         
         />
         <button
           type="submit"
           disabled={!newComment.trim() || isAddingComment}
           className="px-4 py-2 bg-gradient-to-r from-teal-400 to-cyan-600 hover:from-teal-500 hover:to-cyan-700 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-          data-testid="button-submit-comment"
+         
         >
           <Send className="w-4 h-4" />
           {isAddingComment ? 'Sending...' : 'Send'}

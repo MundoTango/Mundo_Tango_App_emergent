@@ -65,13 +65,13 @@ export default function RecommendationsBrowsePage() {
                       onChange={(e) => setSearchCity(e.target.value)}
                       onKeyPress={handleKeyPress}
                       className="pl-10 pr-4 h-12 bg-white/50 dark:bg-gray-800/50 border-white/20 dark:border-gray-700/20 focus:ring-2 focus:ring-turquoise-500 dark:focus:ring-turquoise-400"
-                      data-testid="input-city-search"
+                     
                     />
                   </div>
                   <Button
                     onClick={handleSearch}
                     className="h-12 px-6 bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700 text-white font-medium shadow-lg hover:shadow-xl transition-all"
-                    data-testid="button-search-city"
+                   
                   >
                     <Search className="h-5 w-5 mr-2" />
                     {t('recommendations.browse.search', 'Search')}
@@ -95,7 +95,7 @@ export default function RecommendationsBrowsePage() {
                         setSearchCity('');
                       }}
                       className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
-                      data-testid="button-clear-city"
+                     
                     >
                       {t('recommendations.browse.clear', 'Clear')}
                     </Button>

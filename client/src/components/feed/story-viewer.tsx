@@ -191,7 +191,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 onClick={() => handleStoryClick(index)}
                role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleStoryClick(index)(e); } }}>
                 <div className="story-ring">
-                  <Avatar className="w-14 h-14" data-testid="link-w-14">
+                  <Avatar className="w-14 h-14">
                     <AvatarImage src={group.user.profileImage} alt={group.user.name} />
                     <AvatarFallback>{group.user.name.charAt(0)}</AvatarFallback>
                   </Avatar>
@@ -214,7 +214,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
               <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/50 to-transparent">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <Avatar className="w-8 h-8" data-testid="link-w-8">
+                    <Avatar className="w-8 h-8">
                       <AvatarImage src={userGroups[selectedStoryIndex].user.profileImage} />
                       <AvatarFallback>{userGroups[selectedStoryIndex].user.name.charAt(0)}</AvatarFallback>
                     </Avatar>
@@ -230,7 +230,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()> setSelectedStoryIndex(null)}
+                    onClick={()  => setSelectedStoryIndex(null)}
                     className="text-white hover:bg-white/10 dark:bg-neutral-900"
                   >
                     <X className="h-5 w-5" />
@@ -270,7 +270,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()> navigateStory('prev')}
+                    onClick={()  => navigateStory('prev')}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 dark:bg-neutral-900"
                   >
                     <ChevronLeft className="h-6 w-6" />
@@ -281,7 +281,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()> navigateStory('next')}
+                    onClick={()  => navigateStory('next')}
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 dark:bg-neutral-900"
                   >
                     <ChevronRight className="h-6 w-6" />

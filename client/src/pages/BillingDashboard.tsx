@@ -186,7 +186,7 @@ const BillingDashboard: React.FC = () => {
                 </div>
 
                 {status === 'cancelling' && (
-                  <Alert className="bg-yellow-50 border-yellow-200" data-testid="link-bg-yellow-50">
+                  <Alert className="bg-yellow-50 border-yellow-200">
                     <AlertCircle className="h-4 w-4 text-yellow-600" />
                     <AlertDescription>
                       Your subscription is set to cancel on {format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy')}. 
@@ -198,14 +198,14 @@ const BillingDashboard: React.FC = () => {
                 <div className="flex gap-3">
                   {status === 'active' ? (
                     <>
-                      <Link href="/subscribe" data-testid="link-element">
-                        <Button variant="outline" data-testid="button-element">
+                      <Link href="/subscribe">
+                        <Button variant="outline">
                           Change Plan
                         </Button>
                       </Link>
                       <Button 
                         variant="destructive"
-                        onClick={()> {
+                        onClick={()  => {
                           if (confirm('Are you sure you want to cancel your subscription?')) {
                             cancelSubscriptionMutation.mutate();
                           }
@@ -224,7 +224,7 @@ const BillingDashboard: React.FC = () => {
                     </>
                   ) : status === 'cancelling' ? (
                     <Button 
-                      onClick={()> resumeSubscriptionMutation.mutate()}
+                      onClick={()  => resumeSubscriptionMutation.mutate()}
                       disabled={resumeSubscriptionMutation.isPending}
                     >
                       {resumeSubscriptionMutation.isPending ? (
@@ -242,8 +242,8 @@ const BillingDashboard: React.FC = () => {
             ) : (
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">You don't have an active subscription</p>
-                <Link href="/subscribe" data-testid="link-element">
-                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
+                <Link href="/subscribe">
+                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600">
                     View Plans
                   </Button>
                 </Link>
@@ -263,7 +263,7 @@ const BillingDashboard: React.FC = () => {
               <Button 
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                onClick={()> toast({ 
+                onClick={()  => toast({ 
                   title: "Coming Soon", 
                   description: "Payment method management will be available soon." 
                 })}
@@ -293,7 +293,7 @@ const BillingDashboard: React.FC = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={()> {
+                      onClick={()  => {
                         if (confirm('Are you sure you want to remove this payment method?')) {
                           deletePaymentMethodMutation.mutate(method.id);
                         }
@@ -343,7 +343,7 @@ const BillingDashboard: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={()> window.open(invoice.invoicePdf, '_blank')}
+                        onClick={()  => window.open(invoice.invoicePdf, '_blank')}
                       >
                         <Download className="w-4 h-4" />
                       </Button>
@@ -364,7 +364,7 @@ const BillingDashboard: React.FC = () => {
             <a 
               href="mailto:support@mundotango.life" 
               className="text-turquoise-600 hover:text-turquoise-700 underline"
-             data-testid="link-text-turquoise-600">
+            >
               Contact Support
             </a>
           </p>

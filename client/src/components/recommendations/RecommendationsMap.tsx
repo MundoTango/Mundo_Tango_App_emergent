@@ -224,7 +224,7 @@ export default function RecommendationsMap({
   });
 
   return (
-    <div className="relative w-full h-full" data-testid="recommendations-map">
+    <div className="relative w-full h-full">
       <UnifiedMapBase 
         center={cityLat && cityLng ? [cityLat, cityLng] : DEFAULT_MAP_CENTER}
         zoom={13}

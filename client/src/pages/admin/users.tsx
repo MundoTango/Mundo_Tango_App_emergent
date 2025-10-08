@@ -396,14 +396,14 @@ export default function AdminUsersPage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by name, email, or username..."
                     className="pl-10"
-                    data-testid="admin-user-search"
+                   
                   />
                 </div>
               </div>
               
               <div className="flex gap-3">
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
-                  <SelectTrigger className="w-40" data-testid="filter-status">
+                  <SelectTrigger className="w-40">
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -416,7 +416,7 @@ export default function AdminUsersPage() {
                 </Select>
 
                 <Select value={filterRole} onValueChange={setFilterRole}>
-                  <SelectTrigger className="w-40" data-testid="filter-role">
+                  <SelectTrigger className="w-40">
                     <SelectValue placeholder="Role" />
                   </SelectTrigger>
                   <SelectContent>
@@ -430,7 +430,7 @@ export default function AdminUsersPage() {
                 </Select>
 
                 <Select value={filterSubscription} onValueChange={setFilterSubscription}>
-                  <SelectTrigger className="w-40" data-testid="filter-subscription">
+                  <SelectTrigger className="w-40">
                     <SelectValue placeholder="Subscription" />
                   </SelectTrigger>
                   <SelectContent>
@@ -514,7 +514,7 @@ export default function AdminUsersPage() {
                         <Checkbox
                           checked={selectedUsers.length === usersData?.users?.length}
                           onCheckedChange={handleSelectAll}
-                          data-testid="select-all-users"
+                         
                         />
                       </TableHead>
                     )}

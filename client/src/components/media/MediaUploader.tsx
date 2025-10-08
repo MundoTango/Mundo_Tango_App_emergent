@@ -181,7 +181,7 @@ export default function MediaUploader({
   };
 
   return (
-    <div className="space-y-4" data-testid="media-uploader">
+    <div className="space-y-4">
       {/* Upload Button */}
       <div className="flex gap-3">
         <Button
@@ -190,7 +190,7 @@ export default function MediaUploader({
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading || mediaItems.length >= maxFiles}
           className="flex items-center gap-2"
-          data-testid="button-upload-media"
+         
         >
           <Upload className="w-4 h-4" />
           {mediaItems.length === 0 ? 'Upload Media' : 'Add More'}
@@ -210,7 +210,7 @@ export default function MediaUploader({
         accept={acceptedFormats.join(',')}
         onChange={handleFileSelect}
         className="hidden"
-        data-testid="input-file-upload"
+       
       />
 
       {/* Upload Progress */}
@@ -232,7 +232,7 @@ export default function MediaUploader({
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                data-testid="media-grid"
+               
               >
                 {mediaItems.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>

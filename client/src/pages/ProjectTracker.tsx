@@ -364,7 +364,7 @@ const ProjectTracker: React.FC = () => {
                     <Button
                       variant={selectedFilter === 'all' ? 'default' : 'outline'}
                       size="sm"
-                      onClick={()> setSelectedFilter('all')}
+                      onClick={()  => setSelectedFilter('all')}
                     >
                       All ({projects.length})
                     </Button>
@@ -373,7 +373,7 @@ const ProjectTracker: React.FC = () => {
                         key={status}
                         variant={selectedFilter === status ? 'default' : 'outline'}
                         size="sm"
-                        onClick={()> setSelectedFilter(status)}
+                        onClick={()  => setSelectedFilter(status)}
                       >
                         {status} ({count})
                       </Button>

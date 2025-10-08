@@ -186,20 +186,20 @@ export function MemoryRoleManager() {
               <Select
                 value={selectedRole}
                 onValueChange={setSelectedRole}
-               data-testid="select-element">
-                <SelectTrigger className="w-full" data-testid="select-w-full">
+              >
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a role to switch to" />
                 </SelectTrigger>
                 <SelectContent>
                   {userRoles.availableRoles.map((role: any) => (
-                    <SelectItem key={role.id} value={role.id} data-testid="select-element">
+                    <SelectItem key={role.id} value={role.id}>
                       {role.name} (Level {role.memory_access_level})
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <Button 
-                onClick={()> switchRole.mutate(selectedRole)}
+                onClick={()  => switchRole.mutate(selectedRole)}
                 disabled={!selectedRole || switchRole.isPending}
               >
                 Switch Role
@@ -233,7 +233,7 @@ export function MemoryRoleManager() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline">Level {circle.trust_level}</Badge>
-                    <Button variant="ghost" size="sm" data-testid="button-element">
+                    <Button variant="ghost" size="sm">
                       <Settings className="h-4 w-4" />
                     </Button>
                   </div>
@@ -244,7 +244,7 @@ export function MemoryRoleManager() {
             <div className="text-center py-8 text-gray-500">
               <Users className="h-12 w-12 mx-auto mb-3 opacity-30" />
               <p>No trust circles established yet</p>
-              <Button variant="outline" className="mt-3" data-testid="button-mt-3">
+              <Button variant="outline" className="mt-3">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Trust Circle
               </Button>
@@ -266,7 +266,7 @@ export function MemoryRoleManager() {
         </CardHeader>
         <CardContent>
           <Button 
-            onClick={()> setShowCreateMemoryModal(true)}
+            onClick={()  => setShowCreateMemoryModal(true)}
             className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -286,7 +286,7 @@ export function MemoryRoleManager() {
         <CardContent>
           <Dialog open={showCustomRoleModal} onOpenChange={setShowCustomRoleModal}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="w-full" data-testid="button-w-full">
+              <Button variant="outline" className="w-full">
                 <Plus className="h-4 w-4 mr-2" />
                 Request Custom Memory Role
               </Button>
@@ -308,7 +308,7 @@ export function MemoryRoleManager() {
                     className="w-full p-2 border rounded-md"
                     placeholder="e.g., Memory Curator, Emotional Guide"
                     value={customRoleRequest.roleName}
-                    onChange={(e)> setCustomRoleRequest(prev => ({ ...prev, roleName: e.target.value }))}
+                    onChange={(e)  => setCustomRoleRequest(prev => ({ ...prev, roleName: e.target.value }))}
                   />
                 </div>
 
@@ -318,7 +318,7 @@ export function MemoryRoleManager() {
                     id="description"
                     placeholder="Explain why you need this role and how you'll use these permissions..."
                     value={customRoleRequest.description}
-                    onChange={(e)> setCustomRoleRequest(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e)  => setCustomRoleRequest(prev => ({ ...prev, description: e.target.value }))}
                     rows={4}
                   />
                 </div>
@@ -389,12 +389,12 @@ export function MemoryRoleManager() {
                 <div className="flex justify-end gap-2 pt-4">
                   <Button
                     variant="outline"
-                    onClick={()> setShowCustomRoleModal(false)}
+                    onClick={()  => setShowCustomRoleModal(false)}
                   >
                     Cancel
                   </Button>
                   <Button
-                    onClick={()> submitCustomRole.mutate(customRoleRequest)}
+                    onClick={()  => submitCustomRole.mutate(customRoleRequest)}
                     disabled={!customRoleRequest.roleName || !customRoleRequest.description || submitCustomRole.isPending}
                   >
                     {submitCustomRole.isPending ? 'Submitting...' : 'Submit Request'}

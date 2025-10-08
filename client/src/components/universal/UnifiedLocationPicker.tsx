@@ -53,12 +53,12 @@ export default function UnifiedLocationPicker({
   const [initState, setInitState] = useState<InitState>('idle');
   const [strategy, setStrategy] = useState<LocationStrategy>('none');
   const [isSearching, setIsSearching] = useState(false);
-  const [suggestions, setSuggestions] = useState<any[] data-testid="link-element">([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const autocompleteServiceRef = useRef<any data-testid="link-element">(null);
+  const autocompleteServiceRef = useRef<any>(null);
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
@@ -193,7 +193,7 @@ export default function UnifiedLocationPicker({
       const effectiveBias = userLocation || biasToLocation;
       
       // ESA Layer 15: Enhanced business search with multiple strategies
-      const searchPromises: Promise<any[] data-testid="link-element">[] = [];
+      const searchPromises: Promise<any[]>[] = [];
       
       // Strategy 1: Standard location search with business priority
       const standardUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`;
@@ -492,7 +492,7 @@ export default function UnifiedLocationPicker({
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={()> value && suggestions.length > 0 && setShowSuggestions(true)}
+          onFocus={()  => value && suggestions.length > 0 && setShowSuggestions(true)}
           placeholder={initState === 'loading' ? 'Loading...' : placeholder}
           disabled={initState === 'loading'}
           required={required}
@@ -508,7 +508,7 @@ export default function UnifiedLocationPicker({
         {!isLoading && value && allowManualEntry && (
           <button
             type="button"
-            onClick={()> {
+            onClick={()  => {
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);

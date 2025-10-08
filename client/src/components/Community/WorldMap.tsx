@@ -142,7 +142,7 @@ const WorldMap = forwardRef((props, ref) => {
           onMapReady={(map) => { mapInstanceRef.current = map; }}
         />
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a>'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
@@ -237,7 +237,7 @@ const WorldMap = forwardRef((props, ref) => {
                 
                 {/* View Group Button */}
                 <button 
-                  onClick={()> window.location.href = `/groups/${group.slug || group.id}`}
+                  onClick={()  => window.location.href = `/groups/${group.slug || group.id}`}
                   className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition-all text-sm font-medium"
                 >
                   View {group.city} Group

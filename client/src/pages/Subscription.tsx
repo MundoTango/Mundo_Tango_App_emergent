@@ -130,7 +130,7 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
         type="submit"
         disabled={!stripe || subscribeMutation.isPending || isProcessing}
         className="w-full"
-       data-testid="button-w-full">
+      >
         {subscribeMutation.isPending || isProcessing ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -268,7 +268,7 @@ export default function Subscription() {
                     className="w-full"
                     variant={isCurrentPlan ? "outline" : "default"}
                     disabled={isCurrentPlan}
-                    onClick={()> handleSelectTier(tierKey)}
+                    onClick={()  => handleSelectTier(tierKey)}
                   >
                     {isCurrentPlan ? "Current Plan" : tierKey === 'free' ? "Downgrade" : "Upgrade"}
                   </Button>
@@ -298,7 +298,7 @@ export default function Subscription() {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={()> {
+                onClick={()  => {
                   setShowPaymentForm(false);
                   setSelectedTier(null);
                 }}

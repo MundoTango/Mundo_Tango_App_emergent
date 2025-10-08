@@ -257,9 +257,9 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
             <div className="relative">
-              <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300" data-testid="link-h-12">
+              <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300">
                 <AvatarImage src={memory.userProfileImage || memory.user?.profileImage} />
-                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 text-white font-bold" data-testid="link-bg-gradient-to-br">
+                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 text-white font-bold">
                   {(memory.userName || memory.user?.name || 'U').charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -359,7 +359,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           />
 
           <button
-            onClick={()> setShowComments(!showComments)}
+            onClick={()  => setShowComments(!showComments)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 mt-button ripple-container
                        ${showComments 
                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg' 
@@ -370,7 +370,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           </button>
 
           <button
-            onClick={()> setShowShareDialog(true)}
+            onClick={()  => setShowShareDialog(true)}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover dark:text-neutral-600 dark:text-neutral-300"
           >
             <Share2 className="h-5 w-5 icon-glow" />
@@ -381,7 +381,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
         <div className="flex items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0" data-testid="button-h-8">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -447,8 +447,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             <div className="space-y-3">
               {comments.map((comment: any) => (
                 <div key={comment.id} className="flex gap-3">
-                  <Avatar className="h-8 w-8" data-testid="link-h-8">
-                    <AvatarFallback className="text-xs" data-testid="link-text-xs">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="text-xs">
                       {comment.user?.name?.charAt(0) || 'U'}
                     </AvatarFallback>
                   </Avatar>
@@ -475,7 +475,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             <h3 className="text-xl font-bold mb-4">Share Memory</h3>
             <div className="space-y-3">
               <button
-                onClick={()> handleShare()}
+                onClick={()  => handleShare()}
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Share to Timeline</p>
@@ -483,7 +483,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
               </button>
 
               <button
-                onClick={()> {
+                onClick={()  => {
                   const comment = prompt("Add a comment to your share:");
                   if (comment !== null) handleShare(comment);
                 }}
@@ -494,7 +494,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
               </button>
 
               <button
-                onClick={()> {
+                onClick={()  => {
                   navigator.clipboard.writeText(`${window.location.origin}/memories/${memory.id}`);
                   toast({ title: "Link copied!" });
                   setShowShareDialog(false);

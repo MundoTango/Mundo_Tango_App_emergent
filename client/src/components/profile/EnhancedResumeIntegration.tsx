@@ -165,7 +165,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-muted p-1 rounded-lg">
         <button
-          onClick={()> setActiveTab('resume')}
+          onClick={()  => setActiveTab('resume')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'resume'
               ? 'bg-background text-foreground shadow-sm'
@@ -177,7 +177,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
         </button>
         {isOwnProfile && (
           <button
-            onClick={()> setActiveTab('invitations')}
+            onClick={()  => setActiveTab('invitations')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'invitations'
                 ? 'bg-background text-foreground shadow-sm'
@@ -372,7 +372,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                     <div className="flex gap-2">
                       <Button
                         size="sm"
-                        onClick={()> handleInvitationResponse(invitation.id, 'accepted')}
+                        onClick={()  => handleInvitationResponse(invitation.id, 'accepted')}
                         disabled={updateInvitationMutation.isPending}
                         className="bg-green-600 hover:bg-green-700"
                       >
@@ -382,7 +382,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={()> handleInvitationResponse(invitation.id, 'declined')}
+                        onClick={()  => handleInvitationResponse(invitation.id, 'declined')}
                         disabled={updateInvitationMutation.isPending}
                         className="border-red-200 text-red-600 hover:bg-red-50"
                       >

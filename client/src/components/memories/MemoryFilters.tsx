@@ -112,7 +112,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         <div className="flex gap-2 mb-4 flex-wrap">
           <Button
             variant={filterType === 'all' ? 'default' : 'outline'}
-            onClick={()> setFilterType('all')}
+            onClick={()  => setFilterType('all')}
             className={`flex items-center gap-2 ${
               filterType === 'all' 
                 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
@@ -125,7 +125,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
           
           <Button
             variant={filterType === 'following' ? 'default' : 'outline'}
-            onClick={()> setFilterType('following')}
+            onClick={()  => setFilterType('following')}
             className={`flex items-center gap-2 ${
               filterType === 'following' 
                 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
@@ -138,7 +138,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
           
           <Button
             variant={filterType === 'nearby' ? 'default' : 'outline'}
-            onClick={()> setFilterType('nearby')}
+            onClick={()  => setFilterType('nearby')}
             className={`flex items-center gap-2 ${
               filterType === 'nearby' 
                 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
@@ -164,7 +164,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
             <Input
               placeholder="Add tag to filter memories..."
               value={tagInput}
-              onChange={(e)> setTagInput(e.target.value)}
+              onChange={(e)  => setTagInput(e.target.value)}
               onKeyPress={handleKeyPress}
               className="flex-1 bg-white/70 dark:bg-gray-800/70 border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400"
             />
@@ -173,7 +173,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
               size="sm"
               variant="outline"
               className="px-3 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-             data-testid="button-px-3">
+            >
               Add
             </Button>
           </div>

@@ -194,7 +194,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
       size="md"
       variant="ocean"
       animationType="scale"
-      data-testid="share-modal"
+     
     >
       <div className="p-6">
         {/* Header */}
@@ -265,7 +265,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
           fullWidth
           icon={Share2}
           className="mb-6 mt-ocean-gradient"
-          data-testid="share-timeline"
+         
         >
           Share to My Timeline
         </MTButton>
@@ -326,7 +326,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
               whileTap={{ scale: 0.95 }}
               onClick={handleCopyLink}
               className="p-3 mt-ocean-gradient rounded-xl text-white transition-all duration-200"
-              data-testid="copy-link"
+             
             >
               <AnimatePresence mode="wait">
                 {linkCopied ? (

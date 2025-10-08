@@ -442,13 +442,13 @@ export default function HostBookings() {
                     <MagneticButton
                       strength={0.15}
                       className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2"
-                      data-testid="button-back-marketplace"
+                     
                     >
                       <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                     </MagneticButton>
                   </Link>
                   <div className="flex-1">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-bookings">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
                       {t('housing.host_bookings.title', 'Host Dashboard')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -472,7 +472,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="pending" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                    data-testid="tab-pending"
+                   
                   >
                     <Clock className="w-4 h-4" />
                     {t('housing.host_bookings.tab_pending', 'Pending')} ({pendingBookings.length})
@@ -480,7 +480,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="approved" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                    data-testid="tab-approved"
+                   
                   >
                     <CheckCircle className="w-4 h-4" />
                     {t('housing.host_bookings.tab_approved', 'Approved')} ({approvedBookings.length})
@@ -488,7 +488,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="rejected" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                    data-testid="tab-rejected"
+                   
                   >
                     <XCircle className="w-4 h-4" />
                     {t('housing.host_bookings.tab_rejected', 'Rejected')} ({rejectedBookings.length})
@@ -496,7 +496,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="all" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                    data-testid="tab-all"
+                   
                   >
                     <Filter className="w-4 h-4" />
                     {t('housing.host_bookings.tab_all', 'All')} ({bookings.length})
@@ -592,7 +592,7 @@ export default function HostBookings() {
             }
           }}
         >
-          <DialogContent className="max-w-md glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-respond-booking">
+          <DialogContent className="max-w-md glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
             <DialogHeader>
               <DialogTitle className="text-slate-900 dark:text-white">
                 {responseAction === 'approve' 
@@ -620,7 +620,7 @@ export default function HostBookings() {
                   placeholder={responseAction === 'approve' 
                     ? t('housing.host_bookings.message_placeholder_approve', 'Welcome the guest and provide any additional details...')
                     : t('housing.host_bookings.message_placeholder_reject', 'Explain why you cannot accept this booking...')}
-                  data-testid="textarea-host-response"
+                 
                 />
               </div>
             </div>
@@ -635,7 +635,7 @@ export default function HostBookings() {
                 disabled={respondToBookingMutation.isPending}
                 strength={0.15}
                 className="glass-card glass-depth-1 border-slate-200/30 dark:border-slate-600/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-                data-testid="button-cancel-response"
+               
               >
                 {t('housing.host_bookings.cancel', 'Cancel')}
               </MagneticButton>
@@ -643,7 +643,7 @@ export default function HostBookings() {
                 onClick={handleSubmitResponse}
                 disabled={respondToBookingMutation.isPending}
                 className={`px-4 py-2 text-white rounded-xl ${responseAction === 'approve' ? 'bg-gradient-to-r from-cyan-500 to-teal-500' : 'bg-gradient-to-r from-red-500 to-rose-500'}`}
-                data-testid="button-submit-response"
+               
               >
                 {respondToBookingMutation.isPending 
                   ? t('housing.host_bookings.sending', 'Sending...') 
@@ -657,7 +657,7 @@ export default function HostBookings() {
 
         {/* Review Dialog */}
         <Dialog open={bookingToReview !== null} onOpenChange={(open) => !open && setBookingToReview(null)}>
-          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-review-guest">
+          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
             <DialogHeader>
               <DialogTitle className="text-slate-900 dark:text-white">
                 {t('housing.host_bookings.review_dialog_title', 'Review Your Guest')}

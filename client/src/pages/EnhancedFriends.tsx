@@ -342,7 +342,7 @@ export default function EnhancedFriendsPage() {
 
   return (
     <DashboardLayout>
-      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6" data-testid="link-max-w-7xl">
+      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -356,12 +356,12 @@ export default function EnhancedFriendsPage() {
               onClick={exportFriendsToCSV}
               variant="outline"
               className="border-turquoise-200 hover:bg-turquoise-50"
-             data-testid="button-border-turquoise-200">
+            >
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
             <Button
-              onClick={()> setShowSendRequestModal(true)}
+              onClick={()  => setShowSendRequestModal(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
               <UserPlus className="w-4 h-4 mr-2" />
@@ -426,7 +426,7 @@ export default function EnhancedFriendsPage() {
                 type="text"
                 placeholder="Search friends by name, username, or location... (Cmd+F)"
                 value={searchQuery}
-                onChange={(e)> setSearchQuery(e.target.value)}
+                onChange={(e)  => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -452,14 +452,14 @@ export default function EnhancedFriendsPage() {
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
-                onClick={()> setViewMode('grid')}
+                onClick={()  => setViewMode('grid')}
               >
                 <Grid className="w-4 h-4" />
               </Button>
               <Button
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="icon"
-                onClick={()> setViewMode('list')}
+                onClick={()  => setViewMode('list')}
               >
                 <List className="w-4 h-4" />
               </Button>
@@ -638,11 +638,11 @@ export default function EnhancedFriendsPage() {
                                         </div>
                                       </div>
                                       <div className="flex gap-1">
-                                        <Button size="icon" variant="ghost" data-testid="button-element">
+                                        <Button size="icon" variant="ghost">
                                           <MessageCircle className="w-4 h-4" />
                                         </Button>
                                         <div className="relative group">
-                                          <Button size="icon" variant="ghost" data-testid="button-element">
+                                          <Button size="icon" variant="ghost">
                                             <Share2 className="w-4 h-4" />
                                           </Button>
                                           <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2 dark:bg-neutral-900">
@@ -708,7 +708,7 @@ export default function EnhancedFriendsPage() {
                   type="text"
                   placeholder="Enter username or email"
                   className="w-full"
-                  onChange={(e)> setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
+                  onChange={(e)  => setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
                 />
               </div>
               <div>
@@ -718,7 +718,7 @@ export default function EnhancedFriendsPage() {
                 <Textarea
                   placeholder="Hi! I'd love to connect..."
                   value={requestNote}
-                  onChange={(e)> setRequestNote(e.target.value)}
+                  onChange={(e)  => setRequestNote(e.target.value)}
                   rows={3}
                   className="w-full"
                 />
@@ -726,7 +726,7 @@ export default function EnhancedFriendsPage() {
               <div className="flex justify-end gap-2">
                 <Button
                   variant="outline"
-                  onClick={()> {
+                  onClick={()  => {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');
@@ -735,7 +735,7 @@ export default function EnhancedFriendsPage() {
                   Cancel
                 </Button>
                 <Button
-                  onClick={()> {
+                  onClick={()  => {
                     if (selectedUser?.id) {
                       sendFriendRequest(
                         { 

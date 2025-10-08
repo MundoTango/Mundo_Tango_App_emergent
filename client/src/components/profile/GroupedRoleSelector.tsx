@@ -178,7 +178,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             size="icon"
             onClick={prevCategory}
             className="hover:bg-turquoise-50"
-           data-testid="button-hover:bg-turquoise-50">
+          >
             <ChevronLeft className="h-5 w-5" />
           </Button>
 
@@ -195,7 +195,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             size="icon"
             onClick={nextCategory}
             className="hover:bg-turquoise-50"
-           data-testid="button-hover:bg-turquoise-50">
+          >
             <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
@@ -205,7 +205,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
           {roleCategories.map((_, index) => (
             <button
               key={index}
-              onClick={()> {
+              onClick={()  => {
                 setCurrentCategoryIndex(index);
                 setFlippedCards(new Set());
               }}
@@ -268,7 +268,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                             size="icon"
                             variant="ghost"
                             className="h-6 w-6"
-                            onClick={(e)> {
+                            onClick={(e)  => {
                               e.stopPropagation();
                               flipCard(role.id);
                             }}
@@ -285,7 +285,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                           "w-full",
                           isSelected && "bg-gradient-to-r from-turquoise-400 to-cyan-500"
                         )}
-                        onClick={(e)> {
+                        onClick={(e)  => {
                           e.stopPropagation();
                           handleRoleToggle(role.id);
                         }}

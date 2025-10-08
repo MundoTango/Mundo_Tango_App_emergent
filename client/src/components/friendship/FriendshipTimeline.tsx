@@ -91,7 +91,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
       <Card className="p-6 glassmorphic-card">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Avatar className="w-16 h-16" data-testid="link-w-16">
+            <Avatar className="w-16 h-16">
               <AvatarImage src={friendImage} alt={friendName || 'Friend'} />
               <AvatarFallback>{friendName?.[0] || 'F'}</AvatarFallback>
             </Avatar>

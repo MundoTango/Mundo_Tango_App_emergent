@@ -107,28 +107,28 @@ export function GuestReviewForm({
               onRatingChange={(rating) => setRatings({ ...ratings, overall: rating })}
               showLabel
               label={t('housing.reviews.overall_experience', 'Overall Experience')}
-              data-testid="rating-overall"
+             
             />
             <StarRating
               rating={ratings.respect}
               onRatingChange={(rating) => setRatings({ ...ratings, respect: rating })}
               showLabel
               label={t('housing.reviews.respect_property', 'Respect for Property')}
-              data-testid="rating-respect"
+             
             />
             <StarRating
               rating={ratings.cleanliness}
               onRatingChange={(rating) => setRatings({ ...ratings, cleanliness: rating })}
               showLabel
               label={t('housing.reviews.cleanliness', 'Cleanliness')}
-              data-testid="rating-cleanliness"
+             
             />
             <StarRating
               rating={ratings.communication}
               onRatingChange={(rating) => setRatings({ ...ratings, communication: rating })}
               showLabel
               label={t('housing.reviews.communication', 'Communication')}
-              data-testid="rating-communication"
+             
             />
           </div>
         </div>
@@ -143,7 +143,7 @@ export function GuestReviewForm({
             placeholder={t('housing.reviews.guest_review_placeholder', 'Share your experience hosting this guest...')}
             rows={5}
             className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
-            data-testid="input-review-text"
+           
           />
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {t('housing.reviews.min_characters', 'Minimum 10 characters')} ({reviewText.length}/10)
@@ -157,7 +157,7 @@ export function GuestReviewForm({
             checked={wouldHostAgain}
             onChange={(e) => setWouldHostAgain(e.target.checked)}
             className="w-4 h-4 rounded border-cyan-300 text-ocean-500 focus:ring-cyan-500"
-            data-testid="checkbox-would-host-again"
+           
           />
           <label htmlFor="would-host-again" className="text-sm text-slate-700 dark:text-slate-300">
             {t('housing.reviews.would_host_again', 'I would host this guest again')}
@@ -171,7 +171,7 @@ export function GuestReviewForm({
               variant="outline"
               onClick={onCancel}
               className="glass-card glass-depth-1 border-slate-200/30 dark:border-slate-600/30"
-              data-testid="button-cancel"
+             
             >
               {t('housing.reviews.cancel', 'Cancel')}
             </Button>
@@ -180,7 +180,7 @@ export function GuestReviewForm({
             type="submit"
             disabled={submitReviewMutation.isPending}
             className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600"
-            data-testid="button-submit-review"
+           
           >
             {submitReviewMutation.isPending 
               ? t('housing.reviews.submitting', 'Submitting...') 

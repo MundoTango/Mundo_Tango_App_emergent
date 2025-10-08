@@ -105,7 +105,7 @@ export default function Messages() {
                   <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
-                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
+                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
@@ -116,7 +116,7 @@ export default function Messages() {
                       <Input
                         placeholder="Search conversations..."
                         value={searchQuery}
-                        onChange={(e)> setSearchQuery(e.target.value)}
+                        onChange={(e)  => setSearchQuery(e.target.value)}
                         className="pl-9"
                       />
                     </div>
@@ -153,7 +153,7 @@ export default function Messages() {
                                 {room.title.substring(0, 2).toUpperCase()}
                               </div>
                             ) : (
-                              <Avatar className="w-12 h-12" data-testid="link-w-12">
+                              <Avatar className="w-12 h-12">
                                 <AvatarImage src={room.imageUrl} alt={room.title} />
                                 <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
                               </Avatar>

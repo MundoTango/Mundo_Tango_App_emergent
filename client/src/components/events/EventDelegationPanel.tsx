@@ -159,7 +159,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
           </span>
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
+              <Button size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600">
                 <UserCheck className="w-4 h-4 mr-2" />
                 Add Admin
               </Button>
@@ -174,7 +174,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                   <Input
                     placeholder="Search by name or username..."
                     value={searchTerm}
-                    onChange={(e)> setSearchTerm(e.target.value)}
+                    onChange={(e)  => setSearchTerm(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -182,12 +182,12 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                 <div>
                   <Label>Role</Label>
                   <Select value={selectedRole} onValueChange={(value: 'admin' | 'moderator')> setSelectedRole(value)}>
-                    <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
+                    <SelectTrigger className="glassmorphic-input">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="admin" data-testid="select-element">Admin</SelectItem>
-                      <SelectItem value="moderator" data-testid="select-element">Moderator</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="moderator">Moderator</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -197,7 +197,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                     {searchResults.users.map((user: any) => (
                       <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                         <div className="flex items-center gap-3">
-                          <Avatar className="w-10 h-10" data-testid="link-w-10">
+                          <Avatar className="w-10 h-10">
                             <AvatarImage src={user.profileImage} />
                             <AvatarFallback>{user.name?.[0]}</AvatarFallback>
                           </Avatar>
@@ -208,7 +208,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                         </div>
                         <Button
                           size="sm"
-                          onClick={()> addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
+                          onClick={()  => addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
                           disabled={addAdminMutation.isPending}
                         >
                           Add
@@ -231,7 +231,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
               <div key={admin.id} className="glassmorphic-card p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <Avatar className="w-12 h-12 ring-2 ring-turquoise-200" data-testid="link-w-12">
+                    <Avatar className="w-12 h-12 ring-2 ring-turquoise-200">
                       <AvatarImage src={admin.user.profileImage || undefined} />
                       <AvatarFallback>{admin.user.name?.[0]}</AvatarFallback>
                     </Avatar>
@@ -251,7 +251,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={()> removeAdminMutation.mutate(admin.id)}
+                      onClick={()  => removeAdminMutation.mutate(admin.id)}
                       className="text-red-600 hover:text-red-700"
                     >
                       <UserX className="w-4 h-4" />

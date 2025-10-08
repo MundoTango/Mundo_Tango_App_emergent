@@ -89,7 +89,7 @@ export default function StoryHighlights({
         {/* Add Highlight Button */}
         {isOwnProfile && (
           <button
-            onClick={()> setCreateDialogOpen(true)}
+            onClick={()  => setCreateDialogOpen(true)}
             className="flex-shrink-0 group"
           >
             <div className="relative">
@@ -105,7 +105,7 @@ export default function StoryHighlights({
         {displayHighlights.map((highlight) => (
           <button
             key={highlight.id}
-            onClick={()> setSelectedHighlight(highlight)}
+            onClick={()  => setSelectedHighlight(highlight)}
             className="flex-shrink-0 group"
           >
             <div className="relative">
@@ -154,14 +154,14 @@ export default function StoryHighlights({
                 id="highlight-title"
                 placeholder="e.g., Buenos Aires 2024"
                 value={newHighlightTitle}
-                onChange={(e)> setNewHighlightTitle(e.target.value)}
+                onChange={(e)  => setNewHighlightTitle(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleCreateHighlight()}
               />
             </div>
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
-                onClick={()> {
+                onClick={()  => {
                   setCreateDialogOpen(false);
                   setNewHighlightTitle('');
                 }}
@@ -171,7 +171,7 @@ export default function StoryHighlights({
               <Button
                 onClick={handleCreateHighlight}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-               data-testid="button-bg-gradient-to-r">
+              >
                 Create Highlight
               </Button>
             </div>

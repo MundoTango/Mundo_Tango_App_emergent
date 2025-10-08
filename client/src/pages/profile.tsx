@@ -315,7 +315,7 @@ export default function Profile() {
                               size="sm" 
                               variant="outline"
                               className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                             data-testid="button-w-full">
+                            >
                               View Full Profile
                             </Button>
                           </div>
@@ -325,7 +325,7 @@ export default function Profile() {
                             <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create your guest profile to be housed by Hosts in the global tango community</p>
                             <Button 
                               size="sm"
-                              onClick={()> setLocation('/guest-onboarding')}
+                              onClick={()  => setLocation('/guest-onboarding')}
                               className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                             >
                               Create Profile
@@ -351,7 +351,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={()> setActiveTab('about')}
+                            onClick={()  => setActiveTab('about')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             Edit
@@ -380,7 +380,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={()> setActiveTab('travel')}
+                            onClick={()  => setActiveTab('travel')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             View
@@ -411,7 +411,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={()> setActiveTab('friends')}
+                            onClick={()  => setActiveTab('friends')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             View All
@@ -476,7 +476,7 @@ export default function Profile() {
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                       data-testid="button-border-turquoise-200">
+                      >
                         <Calendar className="w-4 h-4 mr-2" />
                         Create Event
                       </Button>
@@ -518,7 +518,7 @@ export default function Profile() {
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={()> setActiveTab('about')}
+                          onClick={()  => setActiveTab('about')}
                         >
                           Explore Events
                         </Button>
@@ -546,11 +546,11 @@ export default function Profile() {
                         Media Gallery
                       </h3>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photo
                         </Button>
-                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-border-cyan-200">
+                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50">
                           <Video className="w-4 h-4 mr-2" />
                           Upload Video
                         </Button>
@@ -563,28 +563,28 @@ export default function Profile() {
                         variant="default" 
                         size="sm"
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
-                       data-testid="button-bg-gradient-to-r">
+                      >
                         All Media
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                       data-testid="button-border-turquoise-200">
+                      >
                         📸 Photos Only
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-cyan-200 text-cyan-700 hover:bg-cyan-50"
-                       data-testid="button-border-cyan-200">
+                      >
                         🎥 Videos Only
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-purple-200 text-purple-700 hover:bg-purple-50"
-                       data-testid="button-border-purple-200">
+                      >
                         🎵 Dance Videos
                       </Button>
                     </div>
@@ -610,7 +610,7 @@ export default function Profile() {
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white dark:bg-neutral-900" data-testid="button-h-8">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white dark:bg-neutral-900">
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
@@ -632,7 +632,7 @@ export default function Profile() {
                         <Button 
                           size="sm"
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                         data-testid="button-bg-gradient-to-r">
+                        >
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photos
                         </Button>
@@ -640,7 +640,7 @@ export default function Profile() {
                           size="sm"
                           variant="outline"
                           className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                         data-testid="button-border-turquoise-200">
+                        >
                           <Video className="w-4 h-4 mr-2" />
                           Upload Videos
                         </Button>
@@ -661,7 +661,7 @@ export default function Profile() {
                     </p>
                     <Button 
                       className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                      onClick={()> setActiveTab('photos')}
+                      onClick={()  => setActiveTab('photos')}
                     >
                       View Media Gallery
                     </Button>
@@ -737,7 +737,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200" data-testid="button-text-turquoise-600">
+                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200">
                               + Add Entry
                             </Button>
                           </div>
@@ -761,7 +761,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200" data-testid="button-text-cyan-600">
+                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200">
                               + Add Entry
                             </Button>
                           </div>
@@ -785,7 +785,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200" data-testid="button-text-purple-600">
+                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
                               + Add Entry
                             </Button>
                           </div>
@@ -817,7 +817,7 @@ export default function Profile() {
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={()> setActiveTab('events')}
+                          onClick={()  => setActiveTab('events')}
                         >
                           Browse Events
                         </Button>
@@ -853,7 +853,7 @@ export default function Profile() {
                       <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                         Create your guest profile to start browsing and requesting stays with hosts.
                       </p>
-                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="link-inline-flex">
+                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700">
                         Create Guest Profile
                       </a>
                     </CardContent>

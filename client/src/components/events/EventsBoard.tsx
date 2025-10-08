@@ -45,7 +45,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         </h1>
         <Dialog open={showRecurringManager} onOpenChange={setShowRecurringManager}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
+            <Button className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600">
               <Plus className="w-4 h-4 mr-2" />
               Create Recurring Events
             </Button>
@@ -105,7 +105,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={()> {
+                        onClick={()  => {
                           setSelectedEvent(event);
                           setShowDelegationPanel(true);
                         }}
@@ -128,7 +128,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
               Manage your recurring events here. You can create weekly milongas, monthly workshops, or any repeating event pattern.
             </p>
             <Button
-              onClick={()> setShowRecurringManager(true)}
+              onClick={()  => setShowRecurringManager(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500"
             >
               Create New Series

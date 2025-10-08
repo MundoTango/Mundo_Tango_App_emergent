@@ -151,7 +151,7 @@ const FRAMEWORK_MAPPINGS: FrameworkMapping[] = [
 const LifeCEOFrameworkAgent: React.FC = () => {
   const { toast } = useToast();
   const { user } = useAuth();
-  const [messages, setMessages] = useState<AgentMessage[] data-testid="link-element">([]);
+  const [messages, setMessages] = useState<AgentMessage[]>([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCapabilities, setShowCapabilities] = useState(false);
@@ -460,7 +460,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
         <Button
           variant="outline"
           size="sm"
-          onClick={()> setShowCapabilities(!showCapabilities)}
+          onClick={()  => setShowCapabilities(!showCapabilities)}
         >
           <Layers className="w-4 h-4 mr-2" />
           {showCapabilities ? 'Hide' : 'Show'} Capabilities
@@ -589,7 +589,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <div className="flex gap-2">
               <Textarea
                 value={input}
-                onChange={(e)> setInput(e.target.value)}
+                onChange={(e)  => setInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -604,7 +604,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isProcessing}
                 className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
-               data-testid="button-bg-gradient-to-r">
+              >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
@@ -628,7 +628,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()> setInput('Check security compliance for the entire platform')}
+              onClick={()  => setInput('Check security compliance for the entire platform')}
             >
               <Shield className="w-4 h-4 mr-2" />
               Security Check
@@ -636,7 +636,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()> setInput('Run performance analysis and optimization recommendations')}
+              onClick={()  => setInput('Run performance analysis and optimization recommendations')}
             >
               <Activity className="w-4 h-4 mr-2" />
               Performance
@@ -644,7 +644,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()> setInput('Generate API documentation for all endpoints')}
+              onClick={()  => setInput('Generate API documentation for all endpoints')}
             >
               <BookOpen className="w-4 h-4 mr-2" />
               Documentation
@@ -652,7 +652,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()> setInput('Prepare for production deployment')}
+              onClick={()  => setInput('Prepare for production deployment')}
             >
               <Gauge className="w-4 h-4 mr-2" />
               Deploy Check

@@ -125,7 +125,7 @@ const RippleButton = ({
       className={cn('relative overflow-hidden', className)}
       onClick={handleClick}
       {...props}
-     data-testid="button-element">
+    >
       {ripples.map(ripple => (
         <span
           key={ripple.id}

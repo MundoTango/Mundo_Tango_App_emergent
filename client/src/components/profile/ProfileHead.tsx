@@ -102,7 +102,7 @@ export default function ProfileHead({
             variant="ghost"
             size="sm"
             className="absolute top-4 right-4 bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
-           data-testid="button-absolute">
+          >
             <Camera className="mr-2 h-4 w-4" />
             Edit Cover
           </Button>
@@ -113,9 +113,9 @@ export default function ProfileHead({
         {/* Profile Picture */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between -mt-16 mb-6">
           <div className="relative">
-            <Avatar className="h-32 w-32 border-4 border-white shadow-lg" data-testid="link-h-32">
+            <Avatar className="h-32 w-32 border-4 border-white shadow-lg">
               <AvatarImage src={user.profileImage} />
-              <AvatarFallback className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white" data-testid="link-text-2xl">
+              <AvatarFallback className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white">
                 {user.name?.[0] || user.username?.[0]}
               </AvatarFallback>
             </Avatar>
@@ -125,7 +125,7 @@ export default function ProfileHead({
                 variant="ghost"
                 size="sm"
                 className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2 dark:bg-neutral-900"
-               data-testid="button-absolute">
+              >
                 <Camera className="h-4 w-4" />
               </Button>
             )}
@@ -139,21 +139,21 @@ export default function ProfileHead({
                   variant="outline" 
                   onClick={onAddTravelDetails}
                   className="text-blue-600 border-blue-600 hover:bg-blue-50"
-                 data-testid="button-text-blue-600">
+                >
                   <Plus className="mr-2 h-4 w-4" />
                   Add Travel Details
                 </Button>
                 <Button 
                   onClick={onEditProfile}
                   className="bg-blue-600 hover:bg-blue-700"
-                 data-testid="button-bg-blue-600">
+                >
                   <Edit className="mr-2 h-4 w-4" />
                   Edit Profile
                 </Button>
               </>
             ) : (
               <>
-                <Button variant="outline" data-testid="button-element">
+                <Button variant="outline">
                   <Users className="mr-2 h-4 w-4" />
                   Add Friend
                 </Button>

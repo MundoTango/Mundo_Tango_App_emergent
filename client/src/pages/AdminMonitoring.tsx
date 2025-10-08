@@ -117,7 +117,7 @@ export default function AdminMonitoring() {
         <div className="flex gap-4">
           <Button
             variant={autoRefresh ? 'default' : 'outline'}
-            onClick={()> setAutoRefresh(!autoRefresh)}
+            onClick={()  => setAutoRefresh(!autoRefresh)}
             className="gap-2"
           >
             {autoRefresh ? <Activity className="w-4 h-4 animate-pulse" /> : <Clock className="w-4 h-4" />}
@@ -125,7 +125,7 @@ export default function AdminMonitoring() {
           </Button>
           <select
             value={selectedTimeRange}
-            onChange={(e)> setSelectedTimeRange(e.target.value)}
+            onChange={(e)  => setSelectedTimeRange(e.target.value)}
             className="px-4 py-2 border rounded-md"
           >
             <option value="1h">Last 1 hour</option>
@@ -274,7 +274,7 @@ export default function AdminMonitoring() {
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={timeSeries?.requestRate || []} data-testid="link-element">
+                <AreaChart data={timeSeries?.requestRate || []}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="time" />
                   <YAxis />
@@ -445,9 +445,9 @@ export default function AdminMonitoring() {
                   {alerts?.filter((a: AlertData) => !a.resolved).map((alert: AlertData) => (
                     <Alert key={alert.id} variant={
                       alert.severity === 'critical' ? 'destructive' : 'default'
-                    } data-testid="link-element">
+                    }>
                       <AlertTriangle className="h-4 w-4" />
-                      <AlertTitle className="flex items-center justify-between" data-testid="link-flex">
+                      <AlertTitle className="flex items-center justify-between">
                         <span>{alert.title}</span>
                         <Badge variant={
                           alert.severity === 'critical' ? 'destructive' :

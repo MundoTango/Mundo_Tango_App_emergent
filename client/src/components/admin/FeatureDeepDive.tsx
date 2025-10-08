@@ -152,31 +152,31 @@ export function FeatureDeepDive() {
             <Input
               placeholder="Search features..."
               value={searchQuery}
-              onChange={(e)> setSearchQuery(e.target.value)}
+              onChange={(e)  => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
 
-          <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="select-element">
-            <SelectTrigger className="w-[180px]" data-testid="select-w-[180px]">
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all" data-testid="select-element">All Statuses</SelectItem>
+              <SelectItem value="all">All Statuses</SelectItem>
               {uniqueStatuses.map(status => (
-                <SelectItem key={status} value={status} data-testid="select-element">{status}</SelectItem>
+                <SelectItem key={status} value={status}>{status}</SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          <Select value={teamFilter} onValueChange={setTeamFilter} data-testid="select-element">
-            <SelectTrigger className="w-[180px]" data-testid="select-w-[180px]">
+          <Select value={teamFilter} onValueChange={setTeamFilter}>
+            <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by team" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all" data-testid="select-element">All Teams</SelectItem>
+              <SelectItem value="all">All Teams</SelectItem>
               {uniqueTeams.map(team => (
-                <SelectItem key={team} value={team} data-testid="select-element">{team}</SelectItem>
+                <SelectItem key={team} value={team}>{team}</SelectItem>
               ))}
             </SelectContent>
           </Select>

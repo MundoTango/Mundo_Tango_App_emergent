@@ -107,7 +107,7 @@ export default function TripConfigurationWizard({
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               className="w-full"
-              data-testid="input-start-date"
+             
             />
           </div>
 
@@ -120,7 +120,7 @@ export default function TripConfigurationWizard({
               onChange={(e) => setEndDate(e.target.value)}
               min={startDate}
               className="w-full"
-              data-testid="input-end-date"
+             
             />
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function TripConfigurationWizard({
         </div>
 
         <Select value={travelStyle} onValueChange={setTravelStyle}>
-          <SelectTrigger className="w-full" data-testid="select-travel-style">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Select your travel style" />
           </SelectTrigger>
           <SelectContent>
@@ -215,7 +215,7 @@ export default function TripConfigurationWizard({
         onClick={handleSubmit}
         disabled={!startDate || !endDate || tripDuration === 0}
         className="w-full h-12 text-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
-        data-testid="button-find-activities"
+       
       >
         Find Activities & Stays
       </Button>

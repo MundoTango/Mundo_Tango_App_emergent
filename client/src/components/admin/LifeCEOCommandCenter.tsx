@@ -206,7 +206,7 @@ const LifeCEOCommandCenter: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Button 
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
-              onClick={()> setActiveTab('agent')}
+              onClick={()  => setActiveTab('agent')}
             >
               <Bot className="w-4 h-4 mr-2" />
               Chat with Agent
@@ -214,7 +214,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <Button 
               variant="outline" 
               className="border-turquoise-200 hover:bg-turquoise-50"
-              onClick={()> setActiveTab('insights')}
+              onClick={()  => setActiveTab('insights')}
             >
               <Lightbulb className="w-4 h-4 mr-2" />
               View Insights
@@ -222,7 +222,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <Button 
               variant="outline"
               className="border-purple-200 hover:bg-purple-50"
-              onClick={()> setActiveTab('framework')}
+              onClick={()  => setActiveTab('framework')}
             >
               <Layers className="w-4 h-4 mr-2" />
               Framework Status
@@ -230,7 +230,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <Button 
               variant="outline"
               className="border-blue-200 hover:bg-blue-50"
-             data-testid="button-border-blue-200">
+            >
               <Activity className="w-4 h-4 mr-2" />
               View Reports
             </Button>

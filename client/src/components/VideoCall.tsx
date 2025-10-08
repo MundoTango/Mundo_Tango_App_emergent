@@ -331,7 +331,7 @@ export default function VideoCall({
                    participantArray.length <= 9 ? 3 : 4;
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-900 flex flex-col" data-testid="video-call-container">
+    <div className="fixed inset-0 z-50 bg-gray-900 flex flex-col">
       {/* Header */}
       <div className="bg-gray-800 p-4 flex justify-between items-center">
         <div className="flex items-center space-x-4">
@@ -348,7 +348,7 @@ export default function VideoCall({
             size="icon"
             onClick={() => setViewMode(viewMode === "grid" ? "speaker" : "grid")}
             className="text-white hover:bg-gray-700"
-            data-testid="button-view-mode"
+           
           >
             <Grid className="h-4 w-4" />
           </Button>
@@ -356,7 +356,7 @@ export default function VideoCall({
             variant="ghost"
             size="icon"
             className="text-white hover:bg-gray-700"
-            data-testid="button-settings"
+           
           >
             <Settings className="h-4 w-4" />
           </Button>
@@ -373,7 +373,7 @@ export default function VideoCall({
           }`}
         >
           {/* Local Video */}
-          <Card className="relative bg-gray-800 overflow-hidden" data-testid="video-local">
+          <Card className="relative bg-gray-800 overflow-hidden">
             <video
               ref={localVideoRef}
               autoPlay
@@ -429,7 +429,7 @@ export default function VideoCall({
             size="icon"
             onClick={toggleAudio}
             className="rounded-full w-12 h-12"
-            data-testid="button-toggle-audio"
+           
           >
             {isAudioEnabled ? <Mic className="h-5 w-5" /> : <MicOff className="h-5 w-5" />}
           </Button>
@@ -439,7 +439,7 @@ export default function VideoCall({
             size="icon"
             onClick={toggleVideo}
             className="rounded-full w-12 h-12"
-            data-testid="button-toggle-video"
+           
           >
             {isVideoEnabled ? <Video className="h-5 w-5" /> : <VideoOff className="h-5 w-5" />}
           </Button>
@@ -449,7 +449,7 @@ export default function VideoCall({
             size="icon"
             onClick={isScreenSharing ? stopScreenShare : startScreenShare}
             className="rounded-full w-12 h-12"
-            data-testid="button-screen-share"
+           
           >
             <Share2 className="h-5 w-5" />
           </Button>
@@ -458,7 +458,7 @@ export default function VideoCall({
             variant="secondary"
             size="icon"
             className="rounded-full w-12 h-12"
-            data-testid="button-chat"
+           
           >
             <MessageCircle className="h-5 w-5" />
           </Button>
@@ -468,7 +468,7 @@ export default function VideoCall({
             size="icon"
             onClick={leaveCall}
             className="rounded-full w-12 h-12"
-            data-testid="button-leave-call"
+           
           >
             <PhoneOff className="h-5 w-5" />
           </Button>

@@ -373,7 +373,7 @@ export const LifeCEODashboard: React.FC = () => {
               <div className="flex gap-2">
                 <Input
                   value={message}
-                  onChange={(e)> setMessage(e.target.value)}
+                  onChange={(e)  => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   placeholder="Ask anything... I'm here to help optimize your life"
                   className="flex-1 border-cyan-300 focus:border-ocean-500"
@@ -383,7 +383,7 @@ export const LifeCEODashboard: React.FC = () => {
                   onClick={handleSendMessage}
                   disabled={!message.trim() || chatMutation.isPending}
                   className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0"
-                 data-testid="button-bg-gradient-to-r">
+                >
                   {chatMutation.isPending ? (
                     <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
                   ) : (
@@ -411,8 +411,8 @@ export const LifeCEODashboard: React.FC = () => {
                     <p className="text-sm font-medium mb-1">{rec.item.title || 'Recommendation'}</p>
                     <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{rec.reasoning}</p>
                     <div className="flex gap-2 mt-3">
-                      <Button size="sm" variant="outline" className="text-xs" data-testid="button-text-xs">Accept</Button>
-                      <Button size="sm" variant="ghost" className="text-xs" data-testid="button-text-xs">Dismiss</Button>
+                      <Button size="sm" variant="outline" className="text-xs">Accept</Button>
+                      <Button size="sm" variant="ghost" className="text-xs">Dismiss</Button>
                     </div>
                   </CardContent>
                 </Card>

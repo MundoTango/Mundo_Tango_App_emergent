@@ -17,7 +17,7 @@ interface UserVideosGalleryProps {
 }
 
 export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryProps) {
-  const [selectedVideo, setSelectedVideo] = useState<any data-testid="link-element">(null);
+  const [selectedVideo, setSelectedVideo] = useState<any>(null);
   const [showUploadDialog, setShowUploadDialog] = useState(false);
 
   const { data: videos = [], isLoading, error } = useQuery({
@@ -56,7 +56,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
         {isOwnProfile && (
           <div className="flex justify-end">
             <Button
-              onClick={()> setShowUploadDialog(true)}
+              onClick={()  => setShowUploadDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
             >
               <Plus className="mr-2 h-4 w-4" />

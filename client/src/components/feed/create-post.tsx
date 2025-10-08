@@ -140,14 +140,14 @@ export default function CreatePost() {
     <Card className="glassmorphic-card rounded-xl shadow-lg mb-6">
       <CardContent className="p-4">
         <div className="flex items-center space-x-3 mb-4">
-          <Avatar className="w-10 h-10 ring-2 ring-turquoise-200" data-testid="link-w-10">
+          <Avatar className="w-10 h-10 ring-2 ring-turquoise-200">
             <AvatarImage src={user?.profileImage || ""} alt={user?.name} />
-            <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">{user?.name?.charAt(0) || 'U'}</AvatarFallback>
+            <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{user?.name?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
             {!isExpanded ? (
               <button
-                onClick={()> setIsExpanded(true)}
+                onClick={()  => setIsExpanded(true)}
                 className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-turquoise-600 hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300"
               >
                 Share your tango experience...
@@ -156,7 +156,7 @@ export default function CreatePost() {
               <Textarea
                 placeholder="Share your tango experience..."
                 value={content}
-                onChange={(e)> setContent(e.target.value)}
+                onChange={(e)  => setContent(e.target.value)}
                 className="resize-none border-none p-0 text-base placeholder:text-turquoise-400 focus-visible:ring-0 bg-transparent"
                 rows={3}
               />
@@ -195,7 +195,7 @@ export default function CreatePost() {
             <button
               onClick={removeFiles}
               className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70 z-10"
-             data-testid="button-absolute">
+            >
               <X className="h-4 w-4" />
             </button>
             <div className="grid grid-cols-2 gap-2">
@@ -235,7 +235,7 @@ export default function CreatePost() {
               <span className="text-sm">Photo/Video</span>
             </label>
             
-            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors" data-testid="button-text-turquoise-600">
+            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors">
               <Calendar className="h-5 w-5 mr-2" />
               <span className="text-sm">Event</span>
             </Button>
@@ -246,7 +246,7 @@ export default function CreatePost() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={()> {
+                onClick={()  => {
                   setIsExpanded(false);
                   setContent("");
                   removeFiles();
@@ -262,7 +262,7 @@ export default function CreatePost() {
                 onClick={handleSubmit}
                 disabled={isUploading}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white transition-all duration-300"
-               data-testid="button-bg-gradient-to-r">
+              >
                 {isUploading ? `Uploading... ${progress}%` : "Post ⚡"}
               </Button>
             </div>

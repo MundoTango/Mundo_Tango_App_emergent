@@ -69,7 +69,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
     <div className={`relative ${className}`}>
       {/* Main Like Button */}
       <button
-        onClick={()> setShowDropdown(!showDropdown)}
+        onClick={()  => setShowDropdown(!showDropdown)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105 dark:bg-neutral-800"
@@ -101,7 +101,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
             {SIMPLE_REACTIONS.map((reaction, index) => (
               <button
                 key={reaction.id}
-                onClick={()> {
+                onClick={()  => {
                   onReact(reaction.id);
                   setShowDropdown(false);
                 }}

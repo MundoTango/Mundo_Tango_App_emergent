@@ -334,7 +334,7 @@ export const PageTransition = ({
   mode = 'wait',
   className = '',
 }: PageTransitionProps) => (
-  <AnimatePresence mode={mode} data-testid="link-element">
+  <AnimatePresence mode={mode}>
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}

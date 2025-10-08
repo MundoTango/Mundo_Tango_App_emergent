@@ -45,7 +45,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
                        text-white px-8 py-4 rounded-2xl font-bold shadow-2xl hover:shadow-cyan-500/30 
                        transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 
                        flex items-center space-x-3 group"
-             data-testid="button-mt-ocean-gradient">
+            >
               <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
               <span>Create Memory</span>
             </button>
@@ -76,7 +76,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
             <button className="bg-white/90 backdrop-blur-md border-2 border-blue-200/50 hover:border-teal-300 
                              px-6 py-5 rounded-2xl text-blue-600 hover:text-teal-600 font-bold text-lg
                              shadow-xl hover:shadow-2xl hover:bg-teal-50 transform hover:-translate-y-0.5
-                             transition-all duration-300 flex items-center space-x-3 dark:bg-neutral-900" data-testid="button-bg-white/90">
+                             transition-all duration-300 flex items-center space-x-3 dark:bg-neutral-900">
               <Filter className="w-5 h-5" />
               <span>Filter</span>
             </button>
@@ -84,7 +84,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
             <button className="bg-white/90 backdrop-blur-md border-2 border-blue-200/50 hover:border-pink-300 
                              px-6 py-5 rounded-2xl text-blue-600 hover:text-pink-600 font-bold text-lg
                              shadow-xl hover:shadow-2xl hover:bg-pink-50 transform hover:-translate-y-0.5
-                             transition-all duration-300 flex items-center space-x-3 dark:bg-neutral-900" data-testid="button-bg-white/90">
+                             transition-all duration-300 flex items-center space-x-3 dark:bg-neutral-900">
               <MapPin className="w-5 h-5" />
               <span>Nearby</span>
             </button>

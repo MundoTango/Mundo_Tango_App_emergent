@@ -165,7 +165,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             size="icon"
             onClick={prevCategory}
             className="shrink-0"
-           data-testid="button-shrink-0">
+          >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           
@@ -189,7 +189,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             size="icon"
             onClick={nextCategory}
             className="shrink-0"
-           data-testid="button-shrink-0">
+          >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -261,7 +261,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                           "w-full mt-3",
                           isSelected && "bg-gradient-to-r from-turquoise-400 to-cyan-500"
                         )}
-                        onClick={(e)> {
+                        onClick={(e)  => {
                           e.stopPropagation();
                           handleAgentToggle(agent.id);
                         }}

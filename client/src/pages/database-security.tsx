@@ -219,7 +219,7 @@ export default function DatabaseSecurity() {
               <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Monitor and manage database security policies, audit logs, and compliance</p>
             </div>
             <Button
-              onClick={()> runHealthCheckMutation.mutate()}
+              onClick={()  => runHealthCheckMutation.mutate()}
               disabled={runHealthCheckMutation.isPending}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
             >
@@ -362,7 +362,7 @@ export default function DatabaseSecurity() {
                           </p>
                         )}
                       </div>
-                      <Button size="sm" variant="outline" data-testid="button-element">
+                      <Button size="sm" variant="outline">
                         <Eye className="w-4 h-4 mr-1" />
                         Test
                       </Button>
@@ -402,14 +402,14 @@ export default function DatabaseSecurity() {
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" variant="ghost" data-testid="button-element">
+                    <Button size="sm" variant="ghost">
                       View Details
                     </Button>
                   </div>
                 ))}
               </div>
               <div className="mt-4 text-center">
-                <Button variant="outline" data-testid="button-element">
+                <Button variant="outline">
                   View All Audit Logs
                 </Button>
               </div>
@@ -465,7 +465,7 @@ export default function DatabaseSecurity() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={()> setSelectedTable(table.name)}
+                            onClick={()  => setSelectedTable(table.name)}
                           >
                             Configure
                           </Button>
@@ -502,7 +502,7 @@ export default function DatabaseSecurity() {
                     />
                   </div>
                   <Button
-                    onClick={()> exportGDPRDataMutation.mutate(1)}
+                    onClick={()  => exportGDPRDataMutation.mutate(1)}
                     disabled={exportGDPRDataMutation.isPending}
                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
                   >
@@ -535,7 +535,7 @@ export default function DatabaseSecurity() {
                     variant="destructive"
                     className="w-full"
                     disabled
-                   data-testid="button-w-full">
+                  >
                     Anonymize User Data
                   </Button>
                   <p className="text-xs text-red-600 text-center">

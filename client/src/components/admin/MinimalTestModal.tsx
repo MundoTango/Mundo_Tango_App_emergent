@@ -26,7 +26,7 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
             <button
               onClick={onClose}
               className="p-1 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
-             data-testid="button-p-1">
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -38,7 +38,7 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
             <button
               onClick={onClose}
               className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-             data-testid="button-w-full">
+            >
               Close Modal
             </button>
           </div>

@@ -71,7 +71,7 @@ const LifeCEOPortal: React.FC = () => {
   if (!hasLifeCEOAccess) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <Alert className="max-w-md" data-testid="link-max-w-md">
+        <Alert className="max-w-md">
           <Lock className="h-4 w-4" />
           <AlertTitle>Access Denied</AlertTitle>
           <AlertDescription>

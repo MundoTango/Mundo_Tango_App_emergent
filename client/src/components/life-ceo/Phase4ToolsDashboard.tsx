@@ -258,7 +258,7 @@ export function Phase4ToolsDashboard() {
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="mt-3 text-xs text-turquoise-600 hover:text-turquoise-700 flex items-center"
-                     data-testid="link-mt-3">
+                    >
                       View Dashboard →
                     </a>
                   )}
@@ -282,7 +282,7 @@ export function Phase4ToolsDashboard() {
             {['phase1', 'phase2', 'phase3', 'phase4'].map((phase) => (
               <Button
                 key={phase}
-                onClick={()> runLoadTest.mutate(phase)}
+                onClick={()  => runLoadTest.mutate(phase)}
                 disabled={loadTestRunning}
                 variant="outline"
                 className="w-full"

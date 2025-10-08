@@ -100,7 +100,7 @@ export const RoleChangeModal = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
         className="sm:max-w-md bg-transparent border-0 shadow-none"
-        data-testid="modal-role-change"
+       
       >
         <GlassCard depth={3} className="p-6">
           <motion.div
@@ -189,7 +189,7 @@ export const RoleChangeModal = ({
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
                 className="border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
-                data-testid="button-cancel-role-change"
+               
               >
                 {t('common.cancel', 'Cancel')}
               </Button>
@@ -200,7 +200,7 @@ export const RoleChangeModal = ({
                 }}
                 disabled={isLoading}
                 className={`bg-gradient-to-r ${getRoleGradient(targetRole)} text-white hover:opacity-90 transition-opacity`}
-                data-testid="button-confirm-role-change"
+               
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">

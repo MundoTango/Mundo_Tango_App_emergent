@@ -107,7 +107,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             <Button
               size="sm"
               variant={view === 'month' ? 'default' : 'outline'}
-              onClick={()> setView('month')}
+              onClick={()  => setView('month')}
               className={view === 'month' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' : ''}
             >
               <Calendar className="h-4 w-4 mr-1" />
@@ -116,7 +116,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             <Button
               size="sm"
               variant={view === 'week' ? 'default' : 'outline'}
-              onClick={()> setView('week')}
+              onClick={()  => setView('week')}
               className={view === 'week' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' : ''}
             >
               <Grid className="h-4 w-4 mr-1" />
@@ -125,7 +125,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             <Button
               size="sm"
               variant={view === 'day' ? 'default' : 'outline'}
-              onClick={()> setView('day')}
+              onClick={()  => setView('day')}
               className={view === 'day' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' : ''}
             >
               <List className="h-4 w-4 mr-1" />
@@ -253,7 +253,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               
               <Button 
                 className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-600"
-                onClick={()> {
+                onClick={()  => {
                   window.location.href = `/events/${selectedEvent.id}`;
                 }}
               >

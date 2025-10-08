@@ -291,7 +291,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   }, [cityGroupsResponse]);
   
   // Fetch events
-  const { data: events = [], isLoading: loadingEvents } = useQuery<any[] data-testid="link-element">({
+  const { data: events = [], isLoading: loadingEvents } = useQuery<any[]>({
     queryKey: ['/api/community/events-map', { city, groupSlug, dateFilter, eventFilters }],
     enabled: false, // ESA LIFE CEO 56x21 - Events disabled
     staleTime: 5 * 60 * 1000,
@@ -299,7 +299,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   });
   
   // Fetch host homes
-  const { data: homes = [], isLoading: loadingHomes } = useQuery<any[] data-testid="link-element">({
+  const { data: homes = [], isLoading: loadingHomes } = useQuery<any[]>({
     queryKey: ['/api/community/homes-map', { city, groupSlug, friendFilter }],
     enabled: false, // ESA LIFE CEO 56x21 - Housing disabled
     staleTime: 5 * 60 * 1000,
@@ -307,7 +307,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   });
   
   // Fetch recommendations
-  const { data: recommendations = [], isLoading: loadingRecs } = useQuery<any[] data-testid="link-element">({
+  const { data: recommendations = [], isLoading: loadingRecs } = useQuery<any[]>({
     queryKey: ['/api/community/recommendations-map', { city, groupSlug, friendFilter, recommendationType }],
     enabled: false, // ESA LIFE CEO 56x21 - Recommendations disabled
     staleTime: 5 * 60 * 1000,
@@ -691,7 +691,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                 type="text"
                 placeholder="Search locations..."
                 value={searchQuery}
-                onChange={(e)> setSearchQuery(e.target.value)}
+                onChange={(e)  => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4"
               />
             </div>
@@ -711,7 +711,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             {Object.entries(LAYER_CONFIG).filter(([key]) => key === 'cityGroup').map(([key, config]) => (
               <button
                 key={key}
-                onClick={()> toggleLayer(key as keyof typeof layerVisibility)}
+                onClick={()  => toggleLayer(key as keyof typeof layerVisibility)}
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm",
                   layerVisibility[key as keyof typeof layerVisibility]
@@ -759,7 +759,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         <Button
           size="sm"
           variant="outline"
-          onClick={()> setShowClusters(!showClusters)}
+          onClick={()  => setShowClusters(!showClusters)}
           className="glassmorphic-card"
           data-tooltip-id="cluster-tooltip"
           data-tooltip-content={showClusters ? "Disable clustering" : "Enable clustering"}
@@ -774,7 +774,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           className="glassmorphic-card"
           data-tooltip-id="refresh-tooltip"
           data-tooltip-content="Refresh map data"
-         data-testid="button-glassmorphic-card">
+        >
           <RefreshCw className="h-4 w-4" />
         </Button>
         
@@ -789,7 +789,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             className="glassmorphic-card"
             data-tooltip-id="export-tooltip"
             data-tooltip-content="Export map data as CSV"
-           data-testid="button-glassmorphic-card">
+          >
             <Download className="h-4 w-4" />
           </Button>
         </CSVLink>
@@ -801,7 +801,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           className="glassmorphic-card"
           data-tooltip-id="fullscreen-tooltip"
           data-tooltip-content={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-         data-testid="button-glassmorphic-card">
+        >
           {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
         </Button>
       </div>
@@ -822,7 +822,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a> contributors'
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             
             <ZoomControl position="bottomright" />

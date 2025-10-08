@@ -34,7 +34,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-4" data-testid="consent-modal">
+    <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-4">
       {/* Backdrop */}
       <GlassCard depth={1} className="fixed inset-0"
       
@@ -80,7 +80,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
               id="analytics-toggle"
               checked={analytics}
               onCheckedChange={setAnalytics}
-              data-testid="switch-analytics"
+             
             />
           </div>
 
@@ -101,7 +101,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
               id="session-toggle"
               checked={sessionRecording}
               onCheckedChange={setSessionRecording}
-              data-testid="switch-session"
+             
             />
           </div>
 
@@ -122,7 +122,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
               id="error-toggle"
               checked={errorTracking}
               onCheckedChange={setErrorTracking}
-              data-testid="switch-errors"
+             
             />
           </div>
         </div>
@@ -133,7 +133,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
             variant="outline"
             onClick={handleRejectAll}
             className="flex-1"
-            data-testid="button-reject-all"
+           
           >
             Reject All
           </Button>
@@ -142,14 +142,14 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
             onClick={handleAcceptSelected}
             disabled={!analytics && !sessionRecording && !errorTracking}
             className="flex-1"
-            data-testid="button-accept-selected"
+           
           >
             Accept Selected
           </Button>
           <Button
             onClick={handleAcceptAll}
             className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-            data-testid="button-accept-all"
+           
           >
             Accept All
           </Button>

@@ -271,7 +271,7 @@ export default function Messages() {
               <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50 dark:border-neutral-700">
                 <div className="flex items-center space-x-3">
                   <button
-                    onClick={()> setSelectedConversation(null)}
+                    onClick={()  => setSelectedConversation(null)}
                     className="md:hidden"
                   >
                     <ArrowLeft className="w-5 h-5" />
@@ -331,7 +331,7 @@ export default function Messages() {
                 >
                   <Input
                     value={message}
-                    onChange={(e)> {
+                    onChange={(e)  => {
                       setMessage(e.target.value);
                       handleTyping();
                     }}
@@ -342,7 +342,7 @@ export default function Messages() {
                     type="submit"
                     disabled={!message.trim() || sendMessageMutation.isPending}
                     className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
-                   data-testid="button-bg-gradient-to-r">
+                  >
                     <Send className="w-4 h-4" />
                   </Button>
                 </form>

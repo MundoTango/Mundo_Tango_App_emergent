@@ -99,7 +99,7 @@ export const ProfileSecurityLayer: React.FC<{ userId: number }> = ({ userId }) =
       </Card>
 
       {securityMetrics.cspViolations > 0 && (
-        <Alert className="border-yellow-200 bg-yellow-50" data-testid="link-border-yellow-200">
+        <Alert className="border-yellow-200 bg-yellow-50">
           <AlertTriangle className="h-4 w-4 text-yellow-600" />
           <AlertDescription>
             Content Security Policy violations detected. Review security logs for details.

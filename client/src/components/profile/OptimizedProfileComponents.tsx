@@ -84,7 +84,7 @@ export const TabTriggerMemo = memo(({ value, icon: Icon, label, isActive, onClic
     className={`flex items-center px-6 py-4 ${
       isActive ? 'border-b-2 border-turquoise-500' : ''
     }`}
-   data-testid="button-element">
+  >
     <Icon className="mr-2 h-4 w-4" />
     <span className="font-medium">{label}</span>
   </button>

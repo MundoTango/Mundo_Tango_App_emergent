@@ -242,7 +242,7 @@ export default function AdminAnalyticsPage() {
           
           <div className="flex items-center gap-3">
             <Select value={dateRange} onValueChange={setDateRange}>
-              <SelectTrigger className="w-40" data-testid="date-range-selector">
+              <SelectTrigger className="w-40">
                 <SelectValue placeholder="Select range" />
               </SelectTrigger>
               <SelectContent>

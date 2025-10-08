@@ -97,15 +97,15 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
       </div>
 
       {errorMessage && (
-        <Alert variant="destructive" data-testid="link-element">
+        <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>
       )}
 
       <div className="flex gap-4">
-        <Link href="/subscribe" data-testid="link-element">
-          <Button type="button" variant="outline" className="flex items-center gap-2" data-testid="button-flex">
+        <Link href="/subscribe">
+          <Button type="button" variant="outline" className="flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" />
             Back to Plans
           </Button>
@@ -115,7 +115,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
           type="submit" 
           disabled={!stripe || isProcessing}
           className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-         data-testid="button-flex-1">
+        >
           {isProcessing ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -149,7 +149,7 @@ const Checkout: React.FC = () => {
   
   const [promoCode, setPromoCode] = useState('');
   const [isApplyingPromo, setIsApplyingPromo] = useState(false);
-  const [appliedPromo, setAppliedPromo] = useState<any data-testid="link-element">(null);
+  const [appliedPromo, setAppliedPromo] = useState<any>(null);
   
   // Fetch subscription tiers for pricing display
   const { data: tiersData } = useQuery({
@@ -223,14 +223,14 @@ const Checkout: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
         <div className="max-w-md mx-auto px-4">
-          <Alert variant="destructive" data-testid="link-element">
+          <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
               {error?.message || 'Failed to initialize payment. Please try again.'}
             </AlertDescription>
           </Alert>
-          <Link href="/subscribe" className="mt-4 inline-block" data-testid="link-mt-4">
-            <Button variant="outline" data-testid="button-element">Back to Plans</Button>
+          <Link href="/subscribe" className="mt-4 inline-block">
+            <Button variant="outline">Back to Plans</Button>
           </Link>
         </div>
       </div>
@@ -297,14 +297,14 @@ const Checkout: React.FC = () => {
                         id="promo"
                         placeholder="Enter code"
                         value={promoCode}
-                        onChange={(e)> setPromoCode(e.target.value)}
+                        onChange={(e)  => setPromoCode(e.target.value)}
                         className="flex-1"
                       />
                       <Button
                         onClick={handleApplyPromo}
                         disabled={applyPromoMutation.isPending || !promoCode.trim()}
                         variant="outline"
-                       data-testid="button-element">
+                      >
                         {applyPromoMutation.isPending ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (

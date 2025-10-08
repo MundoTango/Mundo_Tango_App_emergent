@@ -166,8 +166,8 @@ export default function RoleManagement() {
       </div>
 
       {message && (
-        <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'} data-testid="link-element">
-          <AlertDescription className={message.type === 'success' ? 'text-green-800' : 'text-red-800'} data-testid="link-element">
+        <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'}>
+          <AlertDescription className={message.type === 'success' ? 'text-green-800' : 'text-red-800'}>
             {message.text}
           </AlertDescription>
         </Alert>
@@ -218,7 +218,7 @@ export default function RoleManagement() {
                         key={perm}
                         variant="outline"
                         size="sm"
-                        onClick={()> checkPermission(perm)}
+                        onClick={()  => checkPermission(perm)}
                       >
                         Test {perm.replace(/_/g, ' ')}
                       </Button>
@@ -246,13 +246,13 @@ export default function RoleManagement() {
             <CardContent className="space-y-4">
               <div>
                 <label className="text-sm font-medium">Select User</label>
-                <Select value={selectedUser} onValueChange={setSelectedUser} data-testid="select-element">
+                <Select value={selectedUser} onValueChange={setSelectedUser}>
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a user" />
                   </SelectTrigger>
                   <SelectContent>
                     {users.map(user => (
-                      <SelectItem key={user.id} value={user.id.toString()} data-testid="select-element">
+                      <SelectItem key={user.id} value={user.id.toString()}>
                         <div className="flex items-center gap-2">
                           {getRoleIcon(user.role)}
                           <span>{user.name} ({user.username})</span>
@@ -268,13 +268,13 @@ export default function RoleManagement() {
 
               <div>
                 <label className="text-sm font-medium">New Role</label>
-                <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+                <Select value={selectedRole} onValueChange={setSelectedRole}>
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a role" />
                   </SelectTrigger>
                   <SelectContent>
                     {['admin', 'organizer', 'teacher', 'dancer', 'guest'].map(role => (
-                      <SelectItem key={role} value={role} data-testid="select-element">
+                      <SelectItem key={role} value={role}>
                         <div className="flex items-center gap-2">
                           {getRoleIcon(role)}
                           <span>{role.charAt(0).toUpperCase() + role.slice(1)}</span>
@@ -289,7 +289,7 @@ export default function RoleManagement() {
                 onClick={updateUserRole} 
                 disabled={updating || !selectedUser || !selectedRole}
                 className="w-full"
-               data-testid="button-w-full">
+              >
                 {updating ? 'Updating...' : 'Update Role'}
               </Button>
             </CardContent>

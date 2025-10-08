@@ -104,7 +104,7 @@ export function InstallPrompt() {
             size="icon"
             className="absolute top-2 right-2 text-gray-600 dark:text-gray-400 hover:text-gray-600"
             onClick={handleDismiss}
-            data-testid="button-dismiss-install"
+           
           >
             <X className="h-4 w-4" />
           </Button>
@@ -134,7 +134,7 @@ export function InstallPrompt() {
                       <Button
                         onClick={handleInstall}
                         className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white"
-                        data-testid="button-install-app"
+                       
                       >
                         <Download className="h-4 w-4 mr-2" />
                         Install App
@@ -144,7 +144,7 @@ export function InstallPrompt() {
                         variant="ghost"
                         onClick={handleDismiss}
                         className="w-full text-gray-600 dark:text-gray-600 dark:text-gray-400"
-                        data-testid="button-maybe-later"
+                       
                       >
                         Maybe Later
                       </Button>
@@ -261,7 +261,7 @@ export function MiniInstallButton() {
         size="icon"
         onClick={handleInstall}
         className="relative"
-        data-testid="button-mini-install"
+       
       >
         <Download className="h-5 w-5" />
         <span className="absolute -top-1 -right-1 w-2 h-2 bg-teal-400 rounded-full animate-pulse" />

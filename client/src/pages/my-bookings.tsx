@@ -204,13 +204,13 @@ export default function MyBookings() {
                     <MagneticButton
                       strength={0.15}
                       className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2"
-                      data-testid="button-back-to-marketplace"
+                     
                     >
                       <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                     </MagneticButton>
                   </Link>
                   <div>
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-my-bookings">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
                       {t('housing.my_bookings.title', 'My Bookings')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -225,7 +225,7 @@ export default function MyBookings() {
           {/* Empty State */}
           {bookings.length === 0 && (
             <ScaleIn delay={0.1}>
-              <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30" data-testid="card-empty-state">
+              <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-ocean-500/30">
                     <Calendar className="w-8 h-8 text-ocean-500 dark:text-cyan-400" />
@@ -238,7 +238,7 @@ export default function MyBookings() {
                       {t('housing.my_bookings.no_bookings_desc', 'Start exploring accommodations and make your first booking request!')}
                     </p>
                     <Link href="/housing-marketplace">
-                      <PulseButton className="px-6 py-3 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white rounded-xl" data-testid="button-browse-listings">
+                      <PulseButton className="px-6 py-3 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white rounded-xl">
                         {t('housing.my_bookings.browse_listings', 'Browse Listings')}
                       </PulseButton>
                     </Link>
@@ -417,7 +417,7 @@ export default function MyBookings() {
             }
           }}
         >
-          <AlertDialogContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-cancel-confirmation">
+          <AlertDialogContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-slate-900 dark:text-white">
                 {t('housing.my_bookings.dialog_cancel_title', 'Cancel Booking Request')}
@@ -432,7 +432,7 @@ export default function MyBookings() {
                 disabled={cancelBookingMutation.isPending}
                 strength={0.15}
                 className="glass-card glass-depth-1 border-slate-200/30 dark:border-slate-600/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-                data-testid="button-cancel-dialog-no"
+               
               >
                 {t('housing.my_bookings.keep_it', 'No, keep it')}
               </MagneticButton>
@@ -445,7 +445,7 @@ export default function MyBookings() {
                 }}
                 disabled={cancelBookingMutation.isPending}
                 className="px-4 py-2 bg-gradient-to-r from-red-500 to-rose-500 text-white rounded-xl"
-                data-testid="button-cancel-dialog-yes"
+               
               >
                 {cancelBookingMutation.isPending ? t('housing.my_bookings.cancelling', 'Cancelling...') : t('housing.my_bookings.yes_cancel', 'Yes, cancel')}
               </PulseButton>
@@ -455,7 +455,7 @@ export default function MyBookings() {
 
         {/* Review Dialog */}
         <Dialog open={bookingToReview !== null} onOpenChange={(open) => !open && setBookingToReview(null)}>
-          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-write-review">
+          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
             <DialogHeader>
               <DialogTitle className="text-slate-900 dark:text-white">
                 {t('housing.my_bookings.review_dialog_title', 'Write a Review')}

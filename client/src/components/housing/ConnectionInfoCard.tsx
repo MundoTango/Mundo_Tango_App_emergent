@@ -72,7 +72,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
         {/* Connection Degree */}
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">Connection Level</span>
-          <Badge className={degree.color} data-testid="badge-connection-degree">
+          <Badge className={degree.color}>
             {degree.label}
           </Badge>
         </div>
@@ -84,7 +84,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
               <TrendingUp className="w-4 h-4" />
               Closeness Score
             </span>
-            <span className={`text-lg font-bold ${getClosenessColor()}`} data-testid="text-closeness-score">
+            <span className={`text-lg font-bold ${getClosenessColor()}`}>
               {closenessScore}/100
             </span>
           </div>
@@ -110,21 +110,21 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
             <div className="flex items-center justify-center mb-1">
               <Users className="w-4 h-4 text-blue-500" />
             </div>
-            <div className="text-xl font-bold" data-testid="text-mutual-friends">{mutualFriends}</div>
+            <div className="text-xl font-bold">{mutualFriends}</div>
             <div className="text-xs text-muted-foreground">Mutual Friends</div>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
               <Calendar className="w-4 h-4 text-purple-500" />
             </div>
-            <div className="text-xl font-bold" data-testid="text-shared-events">{sharedEvents || 0}</div>
+            <div className="text-xl font-bold">{sharedEvents || 0}</div>
             <div className="text-xs text-muted-foreground">Shared Events</div>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
               <MessageCircle className="w-4 h-4 text-green-500" />
             </div>
-            <div className="text-xl font-bold" data-testid="text-shared-memories">{sharedMemories}</div>
+            <div className="text-xl font-bold">{sharedMemories}</div>
             <div className="text-xs text-muted-foreground">Interactions</div>
           </div>
         </div>

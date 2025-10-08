@@ -168,18 +168,18 @@ const SubscriptionAnalytics: React.FC = () => {
             <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Monitor your subscription performance and growth metrics</p>
           </div>
           <div className="flex items-center gap-4">
-            <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
-              <SelectTrigger className="w-[180px]" data-testid="select-w-[180px]">
+            <Select value={timeRange} onValueChange={setTimeRange}>
+              <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select time range" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="7d" data-testid="select-element">Last 7 days</SelectItem>
-                <SelectItem value="30d" data-testid="select-element">Last 30 days</SelectItem>
-                <SelectItem value="90d" data-testid="select-element">Last 90 days</SelectItem>
-                <SelectItem value="1y" data-testid="select-element">Last year</SelectItem>
+                <SelectItem value="7d">Last 7 days</SelectItem>
+                <SelectItem value="30d">Last 30 days</SelectItem>
+                <SelectItem value="90d">Last 90 days</SelectItem>
+                <SelectItem value="1y">Last year</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               <Download className="mr-2 h-4 w-4" />
               Export Report
             </Button>
@@ -234,7 +234,7 @@ const SubscriptionAnalytics: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={400}>
-                  <AreaChart data={data.revenueChart} data-testid="link-element">
+                  <AreaChart data={data.revenueChart}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor={CHART_COLORS.primary} stopOpacity={0.8}/>

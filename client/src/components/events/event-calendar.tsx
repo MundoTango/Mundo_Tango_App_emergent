@@ -91,14 +91,14 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={()> navigateMonth('prev')}
+                  onClick={()  => navigateMonth('prev')}
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={()> navigateMonth('next')}
+                  onClick={()  => navigateMonth('next')}
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -127,7 +127,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 return (
                   <button
                     key={index}
-                    onClick={()> setSelectedDate(date)}
+                    onClick={()  => setSelectedDate(date)}
                     className={`
                       p-2 h-16 text-sm border rounded-lg transition-colors relative
                       ${!isCurrentMonth ? 'text-gray-600 dark:text-gray-400 bg-gray-50' : ''}
@@ -208,7 +208,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                         <Badge variant="secondary" className="text-xs">
                           {event.currentAttendees} attending
                         </Badge>
-                        <Button size="sm" className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
+                        <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
                           View Details
                         </Button>
                       </div>

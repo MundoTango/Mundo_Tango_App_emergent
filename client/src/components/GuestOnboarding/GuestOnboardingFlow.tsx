@@ -160,21 +160,21 @@ export function GuestOnboardingFlow() {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-6" data-testid="guest-onboarding-accommodation">
+          <div className="space-y-6">
             <div className="text-center space-y-2">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
                 <Home className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-accommodation">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('housing.guest_onboarding.accommodation_title', 'Accommodation Preferences')}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400" data-testid="step-description-accommodation">
+              <p className="text-slate-600 dark:text-slate-400">
                 {t('housing.guest_onboarding.accommodation_description', 'What type of place are you looking for?')}
               </p>
             </div>
             
             <div className="space-y-6">
-              <div data-testid="section-property-types">
+              <div>
                 <Label className="text-slate-700 dark:text-slate-300">
                   {t('housing.guest_onboarding.property_types', 'Property Types')}
                 </Label>
@@ -198,7 +198,7 @@ export function GuestOnboardingFlow() {
                 </div>
               </div>
 
-              <div data-testid="section-room-types">
+              <div>
                 <Label className="text-slate-700 dark:text-slate-300">
                   {t('housing.guest_onboarding.room_types', 'Room Types')}
                 </Label>
@@ -221,7 +221,7 @@ export function GuestOnboardingFlow() {
                 </div>
               </div>
 
-              <div data-testid="section-amenities">
+              <div>
                 <Label className="text-slate-700 dark:text-slate-300">
                   {t('housing.guest_onboarding.amenities', 'Must-Have Amenities')}
                 </Label>
@@ -249,20 +249,20 @@ export function GuestOnboardingFlow() {
 
       case 2:
         return (
-          <div className="space-y-6" data-testid="guest-onboarding-dietary">
+          <div className="space-y-6">
             <div className="text-center space-y-2">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
                 <Utensils className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-dietary">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('housing.guest_onboarding.dietary_title', 'Dietary Preferences')}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400" data-testid="step-description-dietary">
+              <p className="text-slate-600 dark:text-slate-400">
                 {t('housing.guest_onboarding.dietary_description', 'Let us know about any dietary restrictions or preferences')}
               </p>
             </div>
             
-            <div className="grid grid-cols-2 gap-3" data-testid="section-dietary-restrictions">
+            <div className="grid grid-cols-2 gap-3">
               {dietaryOptions.map(diet => {
                 const dietId = diet.toLowerCase().replace(/\s+/g, '-');
                 return (
@@ -286,7 +286,7 @@ export function GuestOnboardingFlow() {
               </Label>
               <Textarea
                 id="specialNeeds"
-                data-testid="textarea-special-needs"
+               
                 placeholder={t('housing.guest_onboarding.special_needs_placeholder', 'E.g., wheelchair accessibility, medical conditions, etc.')}
                 value={profileData.specialNeeds}
                 onChange={(e) => setProfileData(prev => ({ ...prev, specialNeeds: e.target.value }))}
@@ -298,20 +298,20 @@ export function GuestOnboardingFlow() {
 
       case 3:
         return (
-          <div className="space-y-6" data-testid="guest-onboarding-languages">
+          <div className="space-y-6">
             <div className="text-center space-y-2">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
                 <Globe className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-languages-interests">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('housing.guest_onboarding.languages_title', 'Languages & Interests')}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400" data-testid="step-description-languages-interests">
+              <p className="text-slate-600 dark:text-slate-400">
                 {t('housing.guest_onboarding.languages_description', 'Help us connect you with the right people and experiences')}
               </p>
             </div>
             
-            <div data-testid="section-languages">
+            <div>
               <Label className="text-slate-700 dark:text-slate-300">
                 {t('housing.guest_onboarding.languages_spoken', 'Languages You Speak')}
               </Label>
@@ -334,7 +334,7 @@ export function GuestOnboardingFlow() {
               </div>
             </div>
 
-            <div data-testid="section-interests">
+            <div>
               <Label className="text-slate-700 dark:text-slate-300">
                 {t('housing.guest_onboarding.interests', 'Your Interests')}
               </Label>
@@ -357,7 +357,7 @@ export function GuestOnboardingFlow() {
               </div>
             </div>
 
-            <div data-testid="section-travel-style">
+            <div>
               <Label htmlFor="travelStyle" className="text-slate-700 dark:text-slate-300">
                 {t('housing.guest_onboarding.travel_style', 'Travel Style')}
               </Label>
@@ -365,20 +365,20 @@ export function GuestOnboardingFlow() {
                 value={profileData.travelStyle}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, travelStyle: value }))}
               >
-                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-travel-style">
+                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800">
                   <SelectValue placeholder={t('housing.guest_onboarding.travel_style_placeholder', 'Select your travel style')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="solo-travel" data-testid="option-travel-style-solo-travel">
+                  <SelectItem value="solo-travel">
                     {t('housing.guest_onboarding.travel_style_solo', 'Solo Travel')}
                   </SelectItem>
-                  <SelectItem value="couples" data-testid="option-travel-style-couples">
+                  <SelectItem value="couples">
                     {t('housing.guest_onboarding.travel_style_couples', 'Couples')}
                   </SelectItem>
-                  <SelectItem value="groups" data-testid="option-travel-style-groups">
+                  <SelectItem value="groups">
                     {t('housing.guest_onboarding.travel_style_groups', 'Groups')}
                   </SelectItem>
-                  <SelectItem value="family" data-testid="option-travel-style-family">
+                  <SelectItem value="family">
                     {t('housing.guest_onboarding.travel_style_family', 'Family')}
                   </SelectItem>
                 </SelectContent>
@@ -389,20 +389,20 @@ export function GuestOnboardingFlow() {
 
       case 4:
         return (
-          <div className="space-y-6" data-testid="guest-onboarding-location">
+          <div className="space-y-6">
             <div className="text-center space-y-2">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
                 <MapPin className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-location">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('housing.guest_onboarding.location_title', 'Location & Duration')}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400" data-testid="step-description-location">
+              <p className="text-slate-600 dark:text-slate-400">
                 {t('housing.guest_onboarding.location_description', 'Where do you want to stay and for how long?')}
               </p>
             </div>
             
-            <div data-testid="section-neighborhoods">
+            <div>
               <Label className="text-slate-700 dark:text-slate-300">
                 {t('housing.guest_onboarding.neighborhoods', 'Preferred Neighborhoods')}
               </Label>
@@ -436,20 +436,20 @@ export function GuestOnboardingFlow() {
                 value={profileData.stayDurationPreference}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, stayDurationPreference: value }))}
               >
-                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-stay-duration">
+                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="short" data-testid="option-duration-short">
+                  <SelectItem value="short">
                     {t('housing.guest_onboarding.duration_short', 'Few days (1-7 days)')}
                   </SelectItem>
-                  <SelectItem value="medium" data-testid="option-duration-medium">
+                  <SelectItem value="medium">
                     {t('housing.guest_onboarding.duration_medium', 'Few weeks (1-4 weeks)')}
                   </SelectItem>
-                  <SelectItem value="long" data-testid="option-duration-long">
+                  <SelectItem value="long">
                     {t('housing.guest_onboarding.duration_long', 'Month or more (1-3 months)')}
                   </SelectItem>
-                  <SelectItem value="extended" data-testid="option-duration-extended">
+                  <SelectItem value="extended">
                     {t('housing.guest_onboarding.duration_extended', 'Extended stay (3+ months)')}
                   </SelectItem>
                 </SelectContent>
@@ -460,15 +460,15 @@ export function GuestOnboardingFlow() {
 
       case 5:
         return (
-          <div className="space-y-6" data-testid="guest-onboarding-budget">
+          <div className="space-y-6">
             <div className="text-center space-y-2">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
                 <DollarSign className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-budget">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('housing.guest_onboarding.budget_title', 'Budget Range')}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400" data-testid="step-description-budget">
+              <p className="text-slate-600 dark:text-slate-400">
                 {t('housing.guest_onboarding.budget_description', 'Help us find options within your budget')}
               </p>
             </div>
@@ -485,14 +485,14 @@ export function GuestOnboardingFlow() {
                     budgetRange: { ...prev.budgetRange, currency: value }
                   }))}
                 >
-                  <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-currency">
+                  <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="USD" data-testid="option-currency-USD">USD - US Dollar</SelectItem>
-                    <SelectItem value="EUR" data-testid="option-currency-EUR">EUR - Euro</SelectItem>
-                    <SelectItem value="ARS" data-testid="option-currency-ARS">ARS - Argentine Peso</SelectItem>
-                    <SelectItem value="GBP" data-testid="option-currency-GBP">GBP - British Pound</SelectItem>
+                    <SelectItem value="USD">USD - US Dollar</SelectItem>
+                    <SelectItem value="EUR">EUR - Euro</SelectItem>
+                    <SelectItem value="ARS">ARS - Argentine Peso</SelectItem>
+                    <SelectItem value="GBP">GBP - British Pound</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -503,7 +503,7 @@ export function GuestOnboardingFlow() {
                 </Label>
                 <Input
                   id="minBudget"
-                  data-testid="input-min-budget"
+                 
                   type="number"
                   placeholder="0"
                   value={profileData.budgetRange.min || ''}
@@ -521,7 +521,7 @@ export function GuestOnboardingFlow() {
                 </Label>
                 <Input
                   id="maxBudget"
-                  data-testid="input-max-budget"
+                 
                   type="number"
                   placeholder="0"
                   value={profileData.budgetRange.max || ''}
@@ -538,15 +538,15 @@ export function GuestOnboardingFlow() {
 
       case 6:
         return (
-          <div className="space-y-6" data-testid="guest-onboarding-emergency">
+          <div className="space-y-6">
             <div className="text-center space-y-2">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
                 <Phone className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-emergency">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('housing.guest_onboarding.emergency_title', 'Emergency Contact')}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400" data-testid="step-description-emergency">
+              <p className="text-slate-600 dark:text-slate-400">
                 {t('housing.guest_onboarding.emergency_description', 'For your safety, please provide an emergency contact')}
               </p>
             </div>
@@ -558,7 +558,7 @@ export function GuestOnboardingFlow() {
                 </Label>
                 <Input
                   id="contactName"
-                  data-testid="input-emergency-name"
+                 
                   placeholder={t('housing.guest_onboarding.contact_name_placeholder', 'Full name')}
                   value={profileData.emergencyContact.name}
                   onChange={(e) => setProfileData(prev => ({ 
@@ -575,7 +575,7 @@ export function GuestOnboardingFlow() {
                 </Label>
                 <Input
                   id="contactPhone"
-                  data-testid="input-emergency-phone"
+                 
                   placeholder={t('housing.guest_onboarding.contact_phone_placeholder', '+1 234 567 8900')}
                   value={profileData.emergencyContact.phone}
                   onChange={(e) => setProfileData(prev => ({ 
@@ -592,7 +592,7 @@ export function GuestOnboardingFlow() {
                 </Label>
                 <Input
                   id="contactRelationship"
-                  data-testid="input-emergency-relationship"
+                 
                   placeholder={t('housing.guest_onboarding.contact_relationship_placeholder', 'E.g., Spouse, Parent, Friend')}
                   value={profileData.emergencyContact.relationship}
                   onChange={(e) => setProfileData(prev => ({ 
@@ -604,7 +604,7 @@ export function GuestOnboardingFlow() {
               </div>
             </div>
 
-            <GlassCard depth={1} className="p-4 border-cyan-200/30 dark:border-ocean-500/30" data-testid="privacy-notice-emergency">
+            <GlassCard depth={1} className="p-4 border-cyan-200/30 dark:border-ocean-500/30">
               <p className="text-sm text-cyan-800 dark:text-cyan-200">
                 <strong>{t('housing.guest_onboarding.privacy_note', 'Privacy Note:')}</strong>{' '}
                 {t('housing.guest_onboarding.privacy_text', 'This information is kept strictly confidential and will only be used in case of emergency.')}
@@ -619,7 +619,7 @@ export function GuestOnboardingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8" data-testid="guest-onboarding-container">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         <FadeIn>
           <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-ocean-500/30">
@@ -642,7 +642,7 @@ export function GuestOnboardingFlow() {
                     onClick={() => setLocation('/housing')}
                     strength={0.15}
                     className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-                    data-testid="button-exit-onboarding"
+                   
                   >
                     <X className="w-4 h-4" />
                   </MagneticButton>
@@ -654,7 +654,7 @@ export function GuestOnboardingFlow() {
                   <div 
                     className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-500 ease-out"
                     style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-                    data-testid="progress-bar"
+                   
                     aria-valuenow={(currentStep / totalSteps) * 100}
                     aria-label={`Step ${currentStep} of ${totalSteps}`}
                     role="progressbar"
@@ -739,7 +739,7 @@ export function GuestOnboardingFlow() {
                   onClick={handleSubmit}
                   disabled={isSubmitting}
                   className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-medium rounded-xl disabled:opacity-50"
-                  data-testid="button-complete-onboarding"
+                 
                 >
                   {isSubmitting 
                     ? t('housing.guest_onboarding.button_saving', 'Saving...') 

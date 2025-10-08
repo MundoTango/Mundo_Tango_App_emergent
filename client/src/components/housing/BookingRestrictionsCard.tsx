@@ -53,7 +53,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
   };
 
   return (
-    <Card className="border-2 border-primary/10" data-testid="card-booking-restrictions">
+    <Card className="border-2 border-primary/10">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Shield className="w-5 h-5 text-primary" />
@@ -66,7 +66,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
       <CardContent className="space-y-6">
         <div className="space-y-4">
           <Label className="text-base font-medium">Who can book this property?</Label>
-          <RadioGroup value={whoCanBook} onValueChange={setWhoCanBook} data-testid="radiogroup-who-can-book">
+          <RadioGroup value={whoCanBook} onValueChange={setWhoCanBook}>
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
               <RadioGroupItem value="anyone" id="anyone" />
               <div className="flex-1">
@@ -132,7 +132,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
                   <div className="space-y-2 pt-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">Minimum score:</span>
-                      <span className="text-sm font-bold text-primary" data-testid="text-closeness-value">
+                      <span className="text-sm font-bold text-primary">
                         {minimumCloseness}/100
                       </span>
                     </div>
@@ -143,7 +143,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
                       max={100}
                       step={5}
                       className="w-full"
-                      data-testid="slider-closeness"
+                     
                     />
                     <p className="text-xs text-muted-foreground">
                       Higher scores indicate stronger friendships based on shared activities and interactions
@@ -159,7 +159,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
           onClick={handleSave} 
           disabled={updateRestrictionsMutation.isPending}
           className="w-full"
-          data-testid="button-save-restrictions"
+         
         >
           <Save className="w-4 h-4 mr-2" />
           {updateRestrictionsMutation.isPending ? 'Saving...' : 'Save Restrictions'}

@@ -272,7 +272,7 @@ export default function AgentMetrics() {
               variant="outline"
               size="sm"
               onClick={() => setAutoRefresh(!autoRefresh)}
-              data-testid="button-auto-refresh"
+             
             >
               {autoRefresh ? 'Pause' : 'Resume'} Refresh
             </Button>

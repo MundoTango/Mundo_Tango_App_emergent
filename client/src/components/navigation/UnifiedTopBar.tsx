@@ -415,7 +415,7 @@ export default function UnifiedTopBar({
             <Button 
               variant="ghost" 
               size="icon"
-              data-testid="button-favorites"
+             
               className={cn(
                 "transition-all",
                 theme === 'light'

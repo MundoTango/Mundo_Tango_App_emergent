@@ -41,7 +41,7 @@ export function ConnectionInfoPanel({ userId, hostId, hostName }: ConnectionInfo
   }
 
   return (
-    <Card className="border-2 border-primary/10" data-testid="card-connection-info">
+    <Card className="border-2 border-primary/10">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -64,7 +64,7 @@ export function ConnectionInfoPanel({ userId, hostId, hostName }: ConnectionInfo
               <div className="space-y-1 text-center p-3 rounded-lg bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20">
                 <div className="flex items-center justify-center gap-1">
                   <Heart className="w-4 h-4 text-pink-500" />
-                  <p className="text-2xl font-bold text-pink-600 dark:text-pink-400" data-testid="text-closeness-score">
+                  <p className="text-2xl font-bold text-pink-600 dark:text-pink-400">
                     {connectionInfo.closenessScore}
                   </p>
                 </div>
@@ -74,7 +74,7 @@ export function ConnectionInfoPanel({ userId, hostId, hostName }: ConnectionInfo
               <div className="space-y-1 text-center p-3 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20">
                 <div className="flex items-center justify-center gap-1">
                   <Users className="w-4 h-4 text-blue-500" />
-                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400" data-testid="text-mutual-friends">
+                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {connectionInfo.mutualFriends}
                   </p>
                 </div>
@@ -84,7 +84,7 @@ export function ConnectionInfoPanel({ userId, hostId, hostName }: ConnectionInfo
               <div className="space-y-1 text-center p-3 rounded-lg bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/20 dark:to-indigo-950/20">
                 <div className="flex items-center justify-center gap-1">
                   <Clock className="w-4 h-4 text-purple-500" />
-                  <p className="text-2xl font-bold text-purple-600 dark:text-purple-400" data-testid="text-shared-memories">
+                  <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                     {connectionInfo.sharedMemories}
                   </p>
                 </div>

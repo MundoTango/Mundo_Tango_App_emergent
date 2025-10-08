@@ -51,7 +51,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [sessionId, setSessionId] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any data-testid="link-element">(null);
+  const recognitionRef = useRef<any>(null);
   const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   // Agent info - real agent data
@@ -233,7 +233,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
               <Avatar>
-                <AvatarFallback className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white" data-testid="link-bg-gradient-to-r">
+                <AvatarFallback className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
                   <Bot className="w-5 h-5" />
                 </AvatarFallback>
               </Avatar>
@@ -243,7 +243,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
               </div>
               <Badge className="bg-green-100 text-green-800">Active</Badge>
             </div>
-            <Button variant="ghost" size="sm" data-testid="button-element">
+            <Button variant="ghost" size="sm">
               <Settings className="w-4 h-4" />
             </Button>
           </div>
@@ -267,8 +267,8 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
                   } rounded-lg p-3`}
                 >
                   <div className="flex items-start space-x-2">
-                    <Avatar className="w-6 h-6" data-testid="link-w-6">
-                      <AvatarFallback className={message.role === 'user' ? 'bg-blue-600' : 'bg-gray-300'} data-testid="link-element">
+                    <Avatar className="w-6 h-6">
+                      <AvatarFallback className={message.role === 'user' ? 'bg-blue-600' : 'bg-gray-300'}>
                         {message.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                       </AvatarFallback>
                     </Avatar>
@@ -293,7 +293,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
           <div className="flex space-x-2">
             <Input
               value={inputMessage}
-              onChange={(e)> setInputMessage(e.target.value)}
+              onChange={(e)  => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message or use voice..."
               disabled={isLoading}
@@ -304,7 +304,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
               size="icon"
               onClick={toggleListening}
               className={isListening ? 'bg-red-50' : ''}
-             data-testid="button-element">
+            >
               {isListening ? <MicOff className="w-4 h-4 text-red-500" /> : <Mic className="w-4 h-4" />}
             </Button>
             <Button
@@ -315,7 +315,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
             >
               {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </Button>
-            <Button onClick={sendMessage} disabled={isLoading || !inputMessage.trim()} data-testid="button-element">
+            <Button onClick={sendMessage} disabled={isLoading || !inputMessage.trim()}>
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </Button>
           </div>

@@ -111,7 +111,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
                 <GlassCard depth={1} className="relative border-cyan-200/30 dark:border-ocean-500/30 p-0">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 h-4 w-4 z-10" />
                   <Input
-                    data-testid="input-search-city"
+                   
                     placeholder="Search city..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -120,7 +120,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
                   />
                 </GlassCard>
                 <MagneticButton 
-                  data-testid="button-search"
+                 
                   onClick={handleSearch}
                   strength={0.2}
                   className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"

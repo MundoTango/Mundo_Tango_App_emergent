@@ -53,12 +53,12 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
   const [content, setContent] = useState('');
   const [emotionTags, setEmotionTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [location, setLocation] = useState<any data-testid="link-element">(null);
+  const [location, setLocation] = useState<any>(null);
   const [visibilityTier, setVisibilityTier] = useState('public');
-  const [mediaFiles, setMediaFiles] = useState<any[] data-testid="link-element">([]);
+  const [mediaFiles, setMediaFiles] = useState<any[]>([]);
   const [coTaggedUsers, setCoTaggedUsers] = useState<CoTaggedUser[]>([]);
   const [userSearchQuery, setUserSearchQuery] = useState('');
-  const [searchedUsers, setSearchedUsers] = useState<any[] data-testid="link-element">([]);
+  const [searchedUsers, setSearchedUsers] = useState<any[]>([]);
   const [showUserSearch, setShowUserSearch] = useState(false);
 
   // Validation states
@@ -280,7 +280,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Input
               id="title"
               value={title}
-              onChange={(e)> setTitle(e.target.value)}
+              onChange={(e)  => setTitle(e.target.value)}
               placeholder="What would you like to call this memory?"
               className="text-lg"
             />
@@ -292,7 +292,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Textarea
               id="content"
               value={content}
-              onChange={(e)> setContent(e.target.value)}
+              onChange={(e)  => setContent(e.target.value)}
               placeholder="Describe this memory... What happened? How did it feel?"
               className="min-h-[100px]"
             />
@@ -336,7 +336,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                     "w-full justify-start text-left font-normal",
                     !selectedDate && "text-muted-foreground"
                   )}
-                 data-testid="button-element">
+                >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {selectedDate ? format(selectedDate, "PPP") : "Select date"}
                 </Button>
@@ -392,7 +392,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <div className="relative">
               <Input
                 value={userSearchQuery}
-                onChange={(e)> {
+                onChange={(e)  => {
                   setUserSearchQuery(e.target.value);
                   searchUsers(e.target.value);
                   setShowUserSearch(true);
@@ -466,13 +466,13 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           {/* Visibility Tier */}
           <div className="space-y-2">
             <Label>Visibility</Label>
-            <Select value={visibilityTier} onValueChange={setVisibilityTier} data-testid="select-element">
+            <Select value={visibilityTier} onValueChange={setVisibilityTier}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {VISIBILITY_TIERS.map((tier) => (
-                  <SelectItem key={tier.value} value={tier.value} data-testid="select-element">
+                  <SelectItem key={tier.value} value={tier.value}>
                     <div>
                       <div className="font-medium">{tier.label}</div>
                       <div className="text-sm text-gray-500">{tier.description}</div>
@@ -485,14 +485,14 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button variant="outline" onClick={onClose} disabled={loading} data-testid="button-element">
+            <Button variant="outline" onClick={onClose} disabled={loading}>
               Cancel
             </Button>
             <Button 
               onClick={handleSubmit} 
               disabled={loading}
               className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600"
-             data-testid="button-bg-gradient-to-r">
+            >
               {loading ? 'Creating...' : 'Create Memory'}
             </Button>
           </div>

@@ -158,7 +158,7 @@ export default function Framework41x21sDashboard() {
             <Progress value={calculateOverallProgress()} className="h-4" />
           </div>
 
-          <Alert className="mb-6 border-turquoise-200 bg-turquoise-50" data-testid="link-mb-6">
+          <Alert className="mb-6 border-turquoise-200 bg-turquoise-50">
             <Sparkles className="h-4 w-4 text-turquoise-600" />
             <AlertDescription>
               <strong className="text-turquoise-800">Framework Evolution:</strong> Added Layers 42-44 and Phases 0 & 21 based on 4 days of intensive development learnings.

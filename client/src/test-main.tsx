@@ -23,7 +23,7 @@ function TestApp() {
       </div>
       
       <div style={{ marginTop: '30px' }}>
-        <a href="/" style={{ fontSize: '20px', color: 'blue' }} data-testid="link-element">Go to Home</a>
+        <a href="/" style={{ fontSize: '20px', color: 'blue' }}>Go to Home</a>
       </div>
     </div>
   );

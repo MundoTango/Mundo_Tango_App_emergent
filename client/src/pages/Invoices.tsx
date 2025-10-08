@@ -172,7 +172,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
         <Button
           onClick={downloadPDF}
           className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-         data-testid="button-bg-gradient-to-r">
+        >
           <Download className="mr-2 h-4 w-4" />
           Download PDF
         </Button>
@@ -237,7 +237,7 @@ const Invoices: React.FC = () => {
               </div>
               <Button
                 variant="outline"
-                onClick={()> refetch()}
+                onClick={()  => refetch()}
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -307,7 +307,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
       <Button
         variant="outline"
         size="sm"
-        onClick={()> setIsOpen(true)}
+        onClick={()  => setIsOpen(true)}
       >
         <FileText className="h-4 w-4 mr-1" />
         View
@@ -322,7 +322,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={()> setIsOpen(false)}
+                  onClick={()  => setIsOpen(false)}
                 >
                   ✕
                 </Button>

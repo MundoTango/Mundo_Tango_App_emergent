@@ -116,7 +116,7 @@ export default function PreDevelopmentChecklist() {
               onClick={runChecklist}
               disabled={isChecking}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
-             data-testid="button-bg-gradient-to-r">
+            >
               {isChecking ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -143,7 +143,7 @@ export default function PreDevelopmentChecklist() {
               </div>
 
               {checklistData.blockers.length > 0 && (
-                <Alert className="mb-6 border-red-200 bg-red-50" data-testid="link-mb-6">
+                <Alert className="mb-6 border-red-200 bg-red-50">
                   <AlertCircle className="h-4 w-4 text-red-600" />
                   <AlertDescription>
                     <strong className="text-red-800">Blockers Found:</strong>
@@ -216,7 +216,7 @@ export default function PreDevelopmentChecklist() {
                           {!result.passed && result.autoFixAvailable && (
                             <Button
                               size="sm"
-                              onClick={()> runAutoFix(category)}
+                              onClick={()  => runAutoFix(category)}
                               disabled={autoFixing === category}
                               className="bg-gradient-to-r from-blue-500 to-purple-600"
                             >

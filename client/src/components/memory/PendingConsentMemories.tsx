@@ -413,7 +413,7 @@ export default function PendingConsentMemories() {
                           <Button
                             variant="outlined"
                             size="medium"
-                            onClick={()> handleConsentAction(memory.id, 'deny')}
+                            onClick={()  => handleConsentAction(memory.id, 'deny')}
                             disabled={isProcessing}
                             sx={{
                               color: '#dc2626',
@@ -431,7 +431,7 @@ export default function PendingConsentMemories() {
                         <Button
                           variant="contained"
                           size="medium"
-                          onClick={()> handleConsentAction(memory.id, 'approve')}
+                          onClick={()  => handleConsentAction(memory.id, 'approve')}
                           disabled={isProcessing}
                           sx={{
                             backgroundColor: '#16a34a',

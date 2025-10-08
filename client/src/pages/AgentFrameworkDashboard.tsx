@@ -57,7 +57,7 @@ interface AchievementData {
 
 export default function AgentFrameworkDashboard() {
   const [frameworkStatus, setFrameworkStatus] = useState<FrameworkStatus | null>(null);
-  const [achievements, setAchievements] = useState<AchievementData | null data-testid="link-element">(null);
+  const [achievements, setAchievements] = useState<AchievementData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -158,7 +158,7 @@ export default function AgentFrameworkDashboard() {
             </CardHeader>
             <CardContent>
               <p className="text-red-600 mb-4">{error}</p>
-              <Button onClick={loadFrameworkData} variant="outline" data-testid="button-element">
+              <Button onClick={loadFrameworkData} variant="outline">
                 Retry
               </Button>
             </CardContent>
@@ -424,14 +424,14 @@ export default function AgentFrameworkDashboard() {
             onClick={runFullAudit}
             disabled={isLoading}
             className="bg-teal-600 hover:bg-teal-700"
-           data-testid="button-bg-teal-600">
+          >
             {isLoading ? 'Running Audit...' : 'Run Full Audit'}
           </Button>
           <Button 
             variant="outline"
             onClick={loadFrameworkData}
             disabled={isLoading}
-           data-testid="button-element">
+          >
             Refresh Data
           </Button>
         </div>

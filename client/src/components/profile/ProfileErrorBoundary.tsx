@@ -120,7 +120,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                   <button
                     onClick={this.handleRetry}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-                   data-testid="button-flex-1">
+                  >
                     <RefreshCw className="w-4 h-4" />
                     Try Again {retryCount > 0 && `(${3 - retryCount} left)`}
                   </button>
@@ -129,13 +129,13 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                 <button
                   onClick={this.handleReload}
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                 data-testid="button-flex-1">
+                >
                   <RefreshCw className="w-4 h-4" />
                   Reload Page
                 </button>
 
-                <Link href="/" data-testid="link-element">
-                  <a className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" data-testid="link-flex-1">
+                <Link href="/">
+                  <a className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                     <Home className="w-4 h-4" />
                     Go Home
                   </a>

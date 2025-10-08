@@ -86,7 +86,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
       size="sm"
       variant="ocean"
       animationType="scale"
-      data-testid="share-modal"
+     
     >
       <div className="p-6">
         {/* Header */}
@@ -117,7 +117,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
               variant="primary"
               fullWidth
               icon={Share2}
-              data-testid="share-timeline"
+             
             >
               Share to Timeline
             </MTButton>
@@ -128,7 +128,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
               variant="outline"
               fullWidth
               icon={MessageSquare}
-              data-testid="share-comment"
+             
             >
               Share with Comment
             </MTButton>
@@ -138,7 +138,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
               variant="outline"
               fullWidth
               icon={Link}
-              data-testid="share-copy-link"
+             
             >
               Copy Link
             </MTButton>
