@@ -55,7 +55,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
       <div className="space-y-4">
         {isOwnProfile && (
           <div className="flex justify-end">
-            <Button
+            <Button data-testid="button-from"
               onClick={() => setShowUploadDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
             >
@@ -113,7 +113,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
               alt={selectedPhoto?.caption || 'Photo'}
               className="w-full h-auto rounded-lg"
             />
-            <Button
+            <Button data-testid="button-absolute"
               onClick={() => setSelectedPhoto(null)}
               variant="ghost"
               size="icon"

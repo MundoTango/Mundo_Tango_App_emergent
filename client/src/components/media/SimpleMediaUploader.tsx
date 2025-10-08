@@ -23,7 +23,7 @@ export function SimpleMediaUploader() {
       <h1 style={{ fontSize: '30px', color: 'white' }}>
         🎯 TEST: SIMPLE MEDIA UPLOADER
       </h1>
-      <input 
+      <input data-testid="input-element" 
         type="file" 
         multiple 
         accept="image/*,video/*"

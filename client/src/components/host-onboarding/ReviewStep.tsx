@@ -137,7 +137,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
                     </p>
                   </div>
                 </div>
-                <button
+                <button data-testid="button-hover-text"
                   type="button"
                   className="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-1"
                   onClick={() => {

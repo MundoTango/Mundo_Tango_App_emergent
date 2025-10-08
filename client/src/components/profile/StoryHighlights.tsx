@@ -88,7 +88,7 @@ export default function StoryHighlights({
       <div className="flex items-center gap-6 overflow-x-auto pb-2 scrollbar-hide">
         {/* Add Highlight Button */}
         {isOwnProfile && (
-          <button
+          <button data-testid="button-flex"
             onClick={() => setCreateDialogOpen(true)}
             className="flex-shrink-0 group"
           >
@@ -103,7 +103,7 @@ export default function StoryHighlights({
 
         {/* Highlights */}
         {displayHighlights.map((highlight) => (
-          <button
+          <button data-testid="button-flex"
             key={highlight.id}
             onClick={() => setSelectedHighlight(highlight)}
             className="flex-shrink-0 group"
@@ -150,7 +150,7 @@ export default function StoryHighlights({
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
               <Label htmlFor="highlight-title">Highlight Title</Label>
-              <Input
+              <Input data-testid="input-element"
                 id="highlight-title"
                 placeholder="e.g., Buenos Aires 2024"
                 value={newHighlightTitle}
@@ -159,7 +159,7 @@ export default function StoryHighlights({
               />
             </div>
             <div className="flex justify-end gap-3">
-              <Button
+              <Button data-testid="button-cancel"
                 variant="outline"
                 onClick={() => {
                   setCreateDialogOpen(false);
@@ -168,7 +168,7 @@ export default function StoryHighlights({
               >
                 Cancel
               </Button>
-              <Button
+              <Button data-testid="button-from"
                 onClick={handleCreateHighlight}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
               >

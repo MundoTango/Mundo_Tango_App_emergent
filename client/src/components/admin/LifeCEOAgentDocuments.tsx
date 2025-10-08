@@ -156,7 +156,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             >
-              <input {...getInputProps()} />
+              <input data-testid="input-element" {...getInputProps()} />
               <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
               {isDragActive ? (
                 <p className="text-blue-600">Drop the files here...</p>
@@ -207,12 +207,12 @@ const LifeCEOAgentDocuments: React.FC = () => {
                   </div>
                 )}
                 <div className="flex space-x-2">
-                  <Button size="sm" variant="outline">
+                  <Button data-testid="button-element" size="sm" variant="outline">
                     <Eye className="w-4 h-4 mr-1" />
                     View
                   </Button>
                   {doc.status === 'pending_review' && (
-                    <Button
+                    <Button data-testid="button-element"
                       size="sm"
                       variant="outline"
                       onClick={() => setSelectedDocument(doc)}
@@ -221,7 +221,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                       Review
                     </Button>
                   )}
-                  <Button size="sm" variant="outline">
+                  <Button data-testid="button-element" size="sm" variant="outline">
                     <Download className="w-4 h-4 mr-1" />
                     Download
                   </Button>
@@ -251,7 +251,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
             <CardContent className="space-y-4">
               <div>
                 <label className="text-sm font-medium">Review Notes</label>
-                <Textarea
+                <Textarea data-testid="textarea-mt"
                   value={reviewNotes}
                   onChange={(e) => setReviewNotes(e.target.value)}
                   placeholder="Add your review notes here..."
@@ -260,7 +260,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 />
               </div>
               <div className="flex space-x-2">
-                <Button
+                <Button data-testid="button-flex"
                   className="flex-1"
                   onClick={() => {
                     reviewDocumentMutation.mutate({
@@ -273,7 +273,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                   <Check className="w-4 h-4 mr-1" />
                   Approve
                 </Button>
-                <Button
+                <Button data-testid="button-flex"
                   variant="destructive"
                   className="flex-1"
                   onClick={() => {
@@ -287,7 +287,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                   <X className="w-4 h-4 mr-1" />
                   Reject
                 </Button>
-                <Button
+                <Button data-testid="button-cancel"
                   variant="outline"
                   onClick={() => {
                     setSelectedDocument(null);

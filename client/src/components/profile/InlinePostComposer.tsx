@@ -97,7 +97,7 @@ export default function InlinePostComposer({
         <div className="space-y-3">
           {/* Main Input Area */}
           <div className="relative">
-            <Textarea
+            <Textarea data-testid="textarea-element"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder={placeholder}
@@ -124,7 +124,7 @@ export default function InlinePostComposer({
                 <div className="text-sm text-gray-600">Add tags:</div>
                 <div className="flex flex-wrap gap-2">
                   {quickTags.map((tag) => (
-                    <Button
+                    <Button data-testid="button"
                       key={tag}
                       size="sm"
                       variant={tags.includes(tag) ? "default" : "outline"}
@@ -151,7 +151,7 @@ export default function InlinePostComposer({
                       className="flex items-center gap-1 px-2 py-1 bg-turquoise-100 text-turquoise-700 rounded-full text-xs"
                     >
                       #{tag}
-                      <button
+                      <button data-testid="button-hover-text"
                         onClick={() => removeTag(tag)}
                         className="hover:text-turquoise-900"
                       >
@@ -165,7 +165,7 @@ export default function InlinePostComposer({
               {/* Location Input */}
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-turquoise-600" />
-                <input
+                <input data-testid="input-flex"
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
@@ -179,7 +179,7 @@ export default function InlinePostComposer({
           {/* Action Buttons */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Button
+              <Button data-testid="button-h"
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
@@ -187,7 +187,7 @@ export default function InlinePostComposer({
               >
                 <Image className="h-4 w-4" />
               </Button>
-              <Button
+              <Button data-testid="button-h"
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
@@ -195,7 +195,7 @@ export default function InlinePostComposer({
               >
                 <Video className="h-4 w-4" />
               </Button>
-              <Button
+              <Button data-testid="button-h"
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
@@ -207,7 +207,7 @@ export default function InlinePostComposer({
 
             <div className="flex items-center gap-2">
               {isExpanded && (
-                <Button
+                <Button data-testid="button-h"
                   size="sm"
                   variant="ghost"
                   onClick={() => {
@@ -221,7 +221,7 @@ export default function InlinePostComposer({
                   Cancel
                 </Button>
               )}
-              <Button
+              <Button data-testid="button-h"
                 size="sm"
                 onClick={handleSubmit}
                 disabled={!content.trim() || createPostMutation.isPending}

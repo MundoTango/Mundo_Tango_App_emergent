@@ -142,7 +142,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
     <div className="space-y-4">
       <div>
         <Label htmlFor="title">Event Title *</Label>
-        <Input
+        <Input data-testid="input-element"
           id="title"
           {...register('title')}
           placeholder="Amazing Tango Milonga"
@@ -155,7 +155,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 
       <div>
         <Label htmlFor="description">Description</Label>
-        <Textarea
+        <Textarea data-testid="textarea-element"
           id="description"
           {...register('description')}
           placeholder="Join us for an incredible evening of tango..."
@@ -166,7 +166,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 
       <div>
         <Label htmlFor="imageUrl">Event Image URL</Label>
-        <Input
+        <Input data-testid="input-element"
           id="imageUrl"
           type="url"
           {...register('imageUrl')}
@@ -182,7 +182,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="startDate">Start Date *</Label>
-          <Input
+          <Input data-testid="input-element"
             id="startDate"
             type="date"
             {...register('startDate')}
@@ -194,7 +194,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
         </div>
         <div>
           <Label htmlFor="startTime">Start Time *</Label>
-          <Input
+          <Input data-testid="input-element"
             id="startTime"
             type="time"
             {...register('startTime')}
@@ -209,7 +209,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="endDate">End Date</Label>
-          <Input
+          <Input data-testid="input-element"
             id="endDate"
             type="date"
             {...register('endDate')}
@@ -218,7 +218,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
         </div>
         <div>
           <Label htmlFor="endTime">End Time</Label>
-          <Input
+          <Input data-testid="input-element"
             id="endTime"
             type="time"
             {...register('endTime')}
@@ -245,7 +245,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
     <div className="space-y-4">
       <div>
         <Label htmlFor="maxAttendees">Maximum Attendees</Label>
-        <Input
+        <Input data-testid="input-element"
           id="maxAttendees"
           type="number"
           min="1"
@@ -257,7 +257,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 
       <div>
         <Label htmlFor="visibility">Visibility</Label>
-        <Select
+        <Select data-testid="select-element"
           value={watchedFields.visibility}
           onValueChange={(value: 'public' | 'private' | 'group') => setValue('visibility', value)}
         >
@@ -283,7 +283,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
         </div>
         <div className="flex gap-2">
           {['milonga', 'practica', 'class', 'workshop', 'social'].map((tag) => (
-            <Button
+            <Button data-testid="button"
               key={tag}
               type="button"
               variant="outline"
@@ -303,7 +303,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
     <div className="space-y-4">
       <div>
         <Label htmlFor="frequency">Recurring Pattern</Label>
-        <Select
+        <Select data-testid="select-element"
           value={watchedFields.recurringPattern?.frequency || 'none'}
           onValueChange={(value) => setValue('recurringPattern.frequency', value as any)}
         >
@@ -324,7 +324,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           <div>
             <Label htmlFor="interval">Repeat Every</Label>
             <div className="flex items-center gap-2">
-              <Input
+              <Input data-testid="input-w"
                 id="interval"
                 type="number"
                 min="1"
@@ -341,7 +341,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 
           <div>
             <Label htmlFor="endDate">Recurring End Date</Label>
-            <Input
+            <Input data-testid="input-element"
               id="endDate"
               type="date"
               {...register('recurringPattern.endDate')}
@@ -396,7 +396,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
         </div>
       </CardHeader>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form data-testid="form-element" onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-6">
           {currentStep === 0 && renderBasicInfo()}
           {currentStep === 1 && renderDetails()}
@@ -407,7 +407,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           <div className="flex justify-between pt-6 border-t border-gray-200/50">
             <div className="flex gap-2">
               {currentStep > 0 && (
-                <Button
+                <Button data-testid="button-element"
                   type="button"
                   variant="outline"
                   onClick={prevStep}
@@ -418,7 +418,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                 </Button>
               )}
               
-              <Button
+              <Button data-testid="button-cancel"
                 type="button"
                 variant="outline"
                 onClick={onCancel}
@@ -430,7 +430,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 
             <div>
               {currentStep < steps.length - 1 ? (
-                <Button
+                <Button data-testid="button-from"
                   type="button"
                   onClick={nextStep}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
@@ -439,7 +439,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               ) : (
-                <Button
+                <Button data-testid="button-from"
                   type="submit"
                   disabled={isSubmitting}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"

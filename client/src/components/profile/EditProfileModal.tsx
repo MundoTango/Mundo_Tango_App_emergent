@@ -148,7 +148,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
@@ -158,7 +158,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <User className="w-4 h-4 inline mr-2" />
                 Display Name
               </Label>
-              <Input
+              <Input data-testid="input-element"
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
@@ -168,7 +168,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
             <div className="space-y-2">
               <Label htmlFor="bio">Bio</Label>
-              <Textarea
+              <Textarea data-testid="textarea-element"
                 id="bio"
                 value={formData.bio}
                 onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
@@ -205,7 +205,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <div className="grid grid-cols-2 gap-2">
                 {tangoRoles.map(role => (
                   <label key={role.value} className="flex items-center space-x-2">
-                    <input
+                    <input data-testid="input-rounded"
                       type="checkbox"
                       checked={formData.tangoRoles.includes(role.value)}
                       onChange={(e) => {
@@ -232,7 +232,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="yearsOfDancing">Years of Dancing</Label>
-                <Input
+                <Input data-testid="input-element"
                   id="yearsOfDancing"
                   type="number"
                   min="0"
@@ -247,7 +247,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   <Languages className="w-4 h-4 inline mr-2" />
                   Languages
                 </Label>
-                <Input
+                <Input data-testid="input-element"
                   placeholder="e.g., English, Spanish, Italian"
                   value={formData.languages.join(', ')}
                   onChange={(e) => setFormData(prev => ({
@@ -261,7 +261,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Leader Level</Label>
-                <Select
+                <Select data-testid="select-element"
                   value={formData.leaderLevel}
                   onValueChange={(value) => setFormData(prev => ({ ...prev, leaderLevel: value }))}
                 >
@@ -280,7 +280,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
               <div className="space-y-2">
                 <Label>Follower Level</Label>
-                <Select
+                <Select data-testid="select-element"
                   value={formData.followerLevel}
                   onValueChange={(value) => setFormData(prev => ({ ...prev, followerLevel: value }))}
                 >
@@ -306,7 +306,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="instagram">Instagram</Label>
-                <Input
+                <Input data-testid="input-element"
                   id="instagram"
                   value={formData.instagram}
                   onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
@@ -316,7 +316,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
               <div className="space-y-2">
                 <Label htmlFor="facebook">Facebook</Label>
-                <Input
+                <Input data-testid="input-element"
                   id="facebook"
                   value={formData.facebook}
                   onChange={(e) => setFormData(prev => ({ ...prev, facebook: e.target.value }))}
@@ -326,7 +326,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
               <div className="space-y-2">
                 <Label htmlFor="twitter">Twitter</Label>
-                <Input
+                <Input data-testid="input-element"
                   id="twitter"
                   value={formData.twitter}
                   onChange={(e) => setFormData(prev => ({ ...prev, twitter: e.target.value }))}
@@ -339,7 +339,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   <Globe className="w-4 h-4 inline mr-2" />
                   Website
                 </Label>
-                <Input
+                <Input data-testid="input-element"
                   id="website"
                   value={formData.website}
                   onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
@@ -350,7 +350,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
           </div>
 
           <DialogFooter>
-            <Button
+            <Button data-testid="button-cancel"
               type="button"
               variant="outline"
               onClick={onClose}
@@ -358,7 +358,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
             >
               Cancel
             </Button>
-            <Button
+            <Button data-testid="button-from"
               type="submit"
               disabled={updateProfileMutation.isPending}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"

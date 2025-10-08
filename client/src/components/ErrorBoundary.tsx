@@ -46,8 +46,8 @@ class ErrorBoundary extends Component<Props, State> {
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
             <div className="flex gap-2 justify-center">
-              <Button onClick={this.handleReset}>Try Again</Button>
-              <Button variant="outline" onClick={() => window.location.href = '/'}>
+              <Button data-testid="button-try-again" onClick={this.handleReset}>Try Again</Button>
+              <Button data-testid="button-go-home" variant="outline" onClick={() => window.location.href = '/'}>
                 Go Home
               </Button>
             </div>

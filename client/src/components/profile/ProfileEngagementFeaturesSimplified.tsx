@@ -110,7 +110,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                     {challenge.progress}/{challenge.total} completed
                   </div>
                 </div>
-                <Button size="sm" variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                <Button data-testid="button-hover-bg" size="sm" variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                   {challenge.progress === challenge.total ? 'Claim' : 'Continue'}
                 </Button>
               </div>
@@ -175,7 +175,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 </h3>
                 <p className="text-sm text-gray-600">{feature.description}</p>
               </div>
-              <Button 
+              <Button data-testid="button-hover-bg" 
                 variant="outline" 
                 size="sm"
                 className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"

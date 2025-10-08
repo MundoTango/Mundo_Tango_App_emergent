@@ -173,7 +173,7 @@ export default function PostComposer() {
         </div>
         
         <div className="flex-1">
-          <button
+          <button data-testid="button-w"
             onClick={() => setShowExpandedComposer(true)}
             className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200"
           >
@@ -182,28 +182,28 @@ export default function PostComposer() {
           
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-3">
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setShowExpandedComposer(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200"
               >
                 <Camera className="h-4 w-4" />
                 <span className="text-sm font-medium">Photo</span>
               </button>
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setShowExpandedComposer(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
               >
                 <Video className="h-4 w-4" />
                 <span className="text-sm font-medium">Video</span>
               </button>
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setShowExpandedComposer(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200"
               >
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">Location</span>
               </button>
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setShowMediaLibrary(true)}
                 className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200"
               >
@@ -242,7 +242,7 @@ export default function PostComposer() {
                     </div>
                   </div>
                 </div>
-                <button
+                <button data-testid="button-p"
                   onClick={() => setShowExpandedComposer(false)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >
@@ -252,7 +252,7 @@ export default function PostComposer() {
               
               {/* Content */}
               <div className="space-y-5">
-                <textarea
+                <textarea data-testid="textarea-w"
                   placeholder="Share your tango moment with the community..."
                   value={newPost.content}
                   onChange={(e) => setNewPost(prev => ({ ...prev, content: e.target.value }))}
@@ -263,7 +263,7 @@ export default function PostComposer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative">
                     <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <input
+                    <input data-testid="input-w"
                       type="text"
                       placeholder="Add tags (comma separated)"
                       value={newPost.tags}
@@ -273,7 +273,7 @@ export default function PostComposer() {
                   </div>
                   <div className="relative">
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <input
+                    <input data-testid="input-w"
                       type="text"
                       placeholder="Add location"
                       value={newPost.location}
@@ -307,7 +307,7 @@ export default function PostComposer() {
                               </div>
                             )}
                           </div>
-                          <button
+                          <button data-testid="button-absolute"
                             onClick={() => {
                               if (media.id) {
                                 removeReusedMedia(media.id);
@@ -336,7 +336,7 @@ export default function PostComposer() {
                     <span className="text-sm font-medium text-gray-600">Visibility:</span>
                     <div className="flex gap-2">
                       {(['Public', 'Friend', 'Private'] as const).map((vis) => (
-                        <button
+                        <button data-testid="button-element"
                           key={vis}
                           onClick={() => setNewPost(prev => ({ ...prev, visibility: vis }))}
                           className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 font-medium ${
@@ -355,13 +355,13 @@ export default function PostComposer() {
                   </div>
                   
                   <div className="flex gap-3">
-                    <button
+                    <button data-testid="button-px"
                       onClick={() => setShowExpandedComposer(false)}
                       className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-medium"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button data-testid="button-px" 
                       onClick={handleCreatePost}
                       disabled={createPostMutation.isPending || !newPost.content.trim()}
                       className="px-5 py-2.5 bg-gradient-to-r from-turquoise-500 to-blue-500 text-white rounded-xl hover:from-turquoise-600 hover:to-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"

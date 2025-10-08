@@ -185,7 +185,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Badge className={getStatusColor(agent.status)}>
                       {agent.status}
                     </Badge>
-                    <Button variant="ghost" size="sm">
+                    <Button data-testid="button-element" variant="ghost" size="sm">
                       {agent.status === 'active' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                     </Button>
                   </div>
@@ -233,17 +233,17 @@ const LifeCEOPortal: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700">
+            <Button data-testid="button-from" className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700">
               <Calendar className="w-4 h-4 mr-2" />
               Trigger Daily Review
             </Button>
             
-            <Button variant="outline">
+            <Button data-testid="button-element" variant="outline">
               <RefreshCw className="w-4 h-4 mr-2" />
               Sync All Agents
             </Button>
             
-            <Button variant="outline">
+            <Button data-testid="button-element" variant="outline">
               <Eye className="w-4 h-4 mr-2" />
               View Memory Store
             </Button>
@@ -259,22 +259,22 @@ const LifeCEOPortal: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button data-testid="button-h" variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
               <GitCommit className="w-6 h-6" />
               <span className="text-sm">Agent Logs</span>
             </Button>
             
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button data-testid="button-h" variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
               <Database className="w-6 h-6" />
               <span className="text-sm">Memory Bank</span>
             </Button>
             
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button data-testid="button-h" variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
               <Shield className="w-6 h-6" />
               <span className="text-sm">Security</span>
             </Button>
             
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button data-testid="button-h" variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
               <BarChart3 className="w-6 h-6" />
               <span className="text-sm">Analytics</span>
             </Button>

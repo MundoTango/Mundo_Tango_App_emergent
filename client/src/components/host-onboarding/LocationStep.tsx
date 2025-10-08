@@ -270,7 +270,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
         {/* Directions links */}
         {data.latitude && data.longitude && (
           <div className="flex gap-4">
-            <a
+            <a data-testid="a-flex"
               href={getDirectionsUrl()}
               target="_blank"
               rel="noopener noreferrer"
@@ -280,7 +280,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               Get Google Maps directions
               <ExternalLink className="h-3 w-3" />
             </a>
-            <a
+            <a data-testid="a-flex"
               href={getAppleMapsUrl()}
               target="_blank"
               rel="noopener noreferrer"
@@ -297,7 +297,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
       <div className="space-y-4">
         <div className="relative">
           <Label htmlFor="address">Street address</Label>
-          <Input
+          <Input data-testid="input-mt"
             id="address"
             placeholder="123 Main Street"
             value={data.address || ''}
@@ -317,7 +317,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
                 </div>
               ) : (
                 addressSuggestions.map((suggestion, index) => (
-                  <button
+                  <button data-testid="button-w"
                     key={index}
                     type="button"
                     onClick={() => handleSuggestionSelect(suggestion)}
@@ -345,7 +345,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label htmlFor="city">City</Label>
-            <Input
+            <Input data-testid="input-mt"
               id="city"
               placeholder="San Francisco"
               value={data.city || ''}
@@ -355,7 +355,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           </div>
           <div>
             <Label htmlFor="state">State/Province</Label>
-            <Input
+            <Input data-testid="input-mt"
               id="state"
               placeholder="California"
               value={data.state || ''}
@@ -368,7 +368,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label htmlFor="country">Country</Label>
-            <Input
+            <Input data-testid="input-mt"
               id="country"
               placeholder="United States"
               value={data.country || ''}
@@ -378,7 +378,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           </div>
           <div>
             <Label htmlFor="zipCode">ZIP/Postal code</Label>
-            <Input
+            <Input data-testid="input-mt"
               id="zipCode"
               placeholder="94105"
               value={data.zipCode || ''}
@@ -391,7 +391,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
 
       {/* Verify location button */}
       <div className="flex justify-center">
-        <Button
+        <Button data-testid="button-flex"
           type="button"
           onClick={geocodeAddress}
           disabled={isGeocoding}

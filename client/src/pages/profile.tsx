@@ -303,7 +303,7 @@ export default function Profile() {
                               <span className="text-sm text-green-600">Verified Guest</span>
                             </div>
                             <p className="text-xs text-gray-600">Ready to request stays with hosts</p>
-                            <Button 
+                            <Button data-testid="button-w" 
                               size="sm" 
                               variant="outline"
                               className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
@@ -315,7 +315,7 @@ export default function Profile() {
                           <div className="text-center space-y-3">
                             <UserCheck className="w-8 h-8 text-gray-300 mx-auto" />
                             <p className="text-xs text-gray-600">Create your guest profile to be housed by Hosts in the global tango community</p>
-                            <Button 
+                            <Button data-testid="button-w" 
                               size="sm"
                               onClick={() => setLocation('/guest-onboarding')}
                               className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
@@ -340,7 +340,7 @@ export default function Profile() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">About</h3>
-                          <Button 
+                          <Button data-testid="button-hover-text" 
                             variant="ghost" 
                             size="sm" 
                             onClick={() => setActiveTab('about')}
@@ -369,7 +369,7 @@ export default function Profile() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Travel</h3>
-                          <Button 
+                          <Button data-testid="button-hover-text" 
                             variant="ghost" 
                             size="sm" 
                             onClick={() => setActiveTab('travel')}
@@ -400,7 +400,7 @@ export default function Profile() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Friends</h3>
-                          <Button 
+                          <Button data-testid="button-hover-text" 
                             variant="ghost" 
                             size="sm" 
                             onClick={() => setActiveTab('friends')}
@@ -464,7 +464,7 @@ export default function Profile() {
                       <h3 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                         Tango Events
                       </h3>
-                      <Button 
+                      <Button data-testid="button-hover-bg" 
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
@@ -508,7 +508,7 @@ export default function Profile() {
                         <p className="text-turquoise-600 text-sm mb-4">
                           Start attending milongas, workshops, and festivals to see them here.
                         </p>
-                        <Button 
+                        <Button data-testid="button-from" 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                           onClick={() => setActiveTab('about')}
                         >
@@ -538,11 +538,11 @@ export default function Profile() {
                         Media Gallery
                       </h3>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                        <Button data-testid="button-hover-bg" variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photo
                         </Button>
-                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50">
+                        <Button data-testid="button-hover-bg" variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50">
                           <Video className="w-4 h-4 mr-2" />
                           Upload Video
                         </Button>
@@ -551,28 +551,28 @@ export default function Profile() {
                     
                     {/* Media Filter Tabs */}
                     <div className="flex items-center gap-2 mb-6">
-                      <Button 
+                      <Button data-testid="button-from" 
                         variant="default" 
                         size="sm"
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
                       >
                         All Media
                       </Button>
-                      <Button 
+                      <Button data-testid="button-hover-bg" 
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
                       >
                         📸 Photos Only
                       </Button>
-                      <Button 
+                      <Button data-testid="button-hover-bg" 
                         variant="outline" 
                         size="sm"
                         className="border-cyan-200 text-cyan-700 hover:bg-cyan-50"
                       >
                         🎥 Videos Only
                       </Button>
-                      <Button 
+                      <Button data-testid="button-hover-bg" 
                         variant="outline" 
                         size="sm"
                         className="border-purple-200 text-purple-700 hover:bg-purple-50"
@@ -602,7 +602,7 @@ export default function Profile() {
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white">
+                            <Button data-testid="button-h" variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white">
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
@@ -621,14 +621,14 @@ export default function Profile() {
                         Upload photos and videos of your tango experiences, performances, and memories.
                       </p>
                       <div className="flex items-center justify-center gap-2">
-                        <Button 
+                        <Button data-testid="button-from" 
                           size="sm"
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                         >
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photos
                         </Button>
-                        <Button 
+                        <Button data-testid="button-hover-bg" 
                           size="sm"
                           variant="outline"
                           className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
@@ -651,7 +651,7 @@ export default function Profile() {
                     <p className="text-gray-600 mb-4">
                       We've combined photos and videos into one place with smart filtering.
                     </p>
-                    <Button 
+                    <Button data-testid="button-from" 
                       className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                       onClick={() => setActiveTab('photos')}
                     >
@@ -729,7 +729,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200">
+                            <Button data-testid="button-add-entry" variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200">
                               + Add Entry
                             </Button>
                           </div>
@@ -753,7 +753,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200">
+                            <Button data-testid="button-add-entry" variant="outline" size="sm" className="text-cyan-600 border-cyan-200">
                               + Add Entry
                             </Button>
                           </div>
@@ -777,7 +777,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
+                            <Button data-testid="button-add-entry" variant="outline" size="sm" className="text-purple-600 border-purple-200">
                               + Add Entry
                             </Button>
                           </div>
@@ -807,7 +807,7 @@ export default function Profile() {
                         <p className="text-turquoise-600 text-sm mb-4">
                           When event organizers select you for roles and you accept, they'll automatically appear here as professional experience.
                         </p>
-                        <Button 
+                        <Button data-testid="button-from" 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                           onClick={() => setActiveTab('events')}
                         >
@@ -845,7 +845,7 @@ export default function Profile() {
                       <p className="text-gray-600 mb-4">
                         Create your guest profile to start browsing and requesting stays with hosts.
                       </p>
-                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700">
+                      <a data-testid="a-inline" href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700">
                         Create Guest Profile
                       </a>
                     </CardContent>

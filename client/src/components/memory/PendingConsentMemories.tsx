@@ -410,7 +410,7 @@ export default function PendingConsentMemories() {
                     <Can I="approve" a="ConsentRequest" this={memory}>
                       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
                         <Can I="deny" a="ConsentRequest" this={memory}>
-                          <Button
+                          <Button data-testid="button-element"
                             variant="outlined"
                             size="medium"
                             onClick={() => handleConsentAction(memory.id, 'deny')}
@@ -428,7 +428,7 @@ export default function PendingConsentMemories() {
                             Deny Consent
                           </Button>
                         </Can>
-                        <Button
+                        <Button data-testid="button-element"
                           variant="contained"
                           size="medium"
                           onClick={() => handleConsentAction(memory.id, 'approve')}

@@ -438,7 +438,7 @@ export const PlatformAuditDashboard: React.FC = () => {
             Comprehensive 40x20s framework analysis of platform components
           </p>
         </div>
-        <Button
+        <Button data-testid="button-from"
           onClick={handleRefresh}
           disabled={isRefreshing}
           className="bg-gradient-to-r from-turquoise-600 to-cyan-600 text-white"

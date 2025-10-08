@@ -129,14 +129,14 @@ export default function CreateCommunity() {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
                 
                 <div>
                   <Label htmlFor="name">Community Name *</Label>
-                  <Input
+                  <Input data-testid="input-glassmorphic"
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -148,7 +148,7 @@ export default function CreateCommunity() {
 
                 <div>
                   <Label htmlFor="type">Community Type *</Label>
-                  <Select 
+                  <Select data-testid="select-element" 
                     value={formData.type} 
                     onValueChange={(value) => setFormData({ ...formData, type: value })}
                   >
@@ -170,7 +170,7 @@ export default function CreateCommunity() {
 
                 <div>
                   <Label htmlFor="description">Description *</Label>
-                  <Textarea
+                  <Textarea data-testid="textarea-glassmorphic"
                     id="description"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -189,7 +189,7 @@ export default function CreateCommunity() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="city">City</Label>
-                      <Input
+                      <Input data-testid="input-glassmorphic"
                         id="city"
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
@@ -200,7 +200,7 @@ export default function CreateCommunity() {
                     
                     <div>
                       <Label htmlFor="country">Country</Label>
-                      <Input
+                      <Input data-testid="input-glassmorphic"
                         id="country"
                         value={formData.country}
                         onChange={(e) => setFormData({ ...formData, country: e.target.value })}
@@ -219,7 +219,7 @@ export default function CreateCommunity() {
                 
                 <div className="grid grid-cols-3 gap-3">
                   {CATEGORIES.map(category => (
-                    <button
+                    <button data-testid="button-element"
                       key={category}
                       type="button"
                       onClick={() => toggleCategory(category)}
@@ -276,7 +276,7 @@ export default function CreateCommunity() {
               {/* Community Rules */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900">Community Rules (Optional)</h3>
-                <Textarea
+                <Textarea data-testid="textarea-glassmorphic"
                   value={formData.rules}
                   onChange={(e) => setFormData({ ...formData, rules: e.target.value })}
                   placeholder="Add any specific rules or guidelines for your community members..."
@@ -286,14 +286,14 @@ export default function CreateCommunity() {
 
               {/* Submit Buttons */}
               <div className="flex gap-4 pt-6">
-                <Button
+                <Button data-testid="button-flex"
                   type="submit"
                   disabled={createCommunityMutation.isPending}
                   className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
                 >
                   {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
                 </Button>
-                <Button
+                <Button data-testid="button-flex"
                   type="button"
                   variant="outline"
                   onClick={() => setLocation('/groups')}

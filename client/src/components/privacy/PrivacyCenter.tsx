@@ -292,7 +292,7 @@ export default function PrivacyCenter() {
                   <p className="text-sm text-gray-600 mb-3">
                     Download a complete copy of all your personal data we store.
                   </p>
-                  <Button 
+                  <Button data-testid="button-w" 
                     onClick={exportUserData}
                     disabled={exportingData}
                     className="w-full"
@@ -309,7 +309,7 @@ export default function PrivacyCenter() {
                   <p className="text-sm text-gray-600 mb-3">
                     Request correction of incorrect or incomplete personal data.
                   </p>
-                  <Button 
+                  <Button data-testid="button-w" 
                     variant="outline"
                     className="w-full"
                   >

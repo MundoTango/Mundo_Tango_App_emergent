@@ -214,7 +214,7 @@ export default function Notifications() {
             </div>
             
             {unreadCount > 0 && (
-              <Button
+              <Button data-testid="button-backdrop"
                 onClick={() => markAllAsReadMutation.mutate()}
                 variant="outline"
                 className="bg-white/50 backdrop-blur-sm hover:bg-white/70"
@@ -305,7 +305,7 @@ export default function Notifications() {
                           
                           <div className="flex items-center gap-1">
                             {!notification.isRead && (
-                              <Button
+                              <Button data-testid="button-h"
                                 size="icon"
                                 variant="ghost"
                                 onClick={(e) => {
@@ -317,7 +317,7 @@ export default function Notifications() {
                                 <Check className="h-4 w-4" />
                               </Button>
                             )}
-                            <Button
+                            <Button data-testid="button-h"
                               size="icon"
                               variant="ghost"
                               onClick={(e) => {

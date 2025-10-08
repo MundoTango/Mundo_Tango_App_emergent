@@ -332,7 +332,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
       {/* Message Input */}
       <div className="flex-shrink-0 p-4 border-t">
         <div className="flex gap-2">
-          <Input
+          <Input data-testid="input-flex"
             ref={inputRef}
             value={newMessage}
             onChange={(e) => handleTyping(e.target.value)}
@@ -341,7 +341,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             disabled={!isConnected || isSending}
             className="flex-1"
           />
-          <Button
+          <Button data-testid="button-element"
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || !isConnected || isSending}
             size="sm"

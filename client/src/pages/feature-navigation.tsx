@@ -273,7 +273,7 @@ export default function FeatureNavigation() {
                 )}
                 
                 {feature.route && feature.status !== 'missing' && (
-                  <Button 
+                  <Button data-testid="button-w" 
                     className="w-full"
                     onClick={() => setLocation(feature.route!)}
                   >

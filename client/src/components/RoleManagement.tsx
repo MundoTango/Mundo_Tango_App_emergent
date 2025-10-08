@@ -214,7 +214,7 @@ export default function RoleManagement() {
                   <h4 className="font-medium">Test Permissions:</h4>
                   <div className="flex gap-2 flex-wrap">
                     {['manage_users', 'create_events', 'moderate_content'].map(perm => (
-                      <Button
+                      <Button data-testid="button-test"
                         key={perm}
                         variant="outline"
                         size="sm"
@@ -246,7 +246,7 @@ export default function RoleManagement() {
             <CardContent className="space-y-4">
               <div>
                 <label className="text-sm font-medium">Select User</label>
-                <Select value={selectedUser} onValueChange={setSelectedUser}>
+                <Select data-testid="select-element" value={selectedUser} onValueChange={setSelectedUser}>
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a user" />
                   </SelectTrigger>
@@ -268,7 +268,7 @@ export default function RoleManagement() {
 
               <div>
                 <label className="text-sm font-medium">New Role</label>
-                <Select value={selectedRole} onValueChange={setSelectedRole}>
+                <Select data-testid="select-element" value={selectedRole} onValueChange={setSelectedRole}>
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a role" />
                   </SelectTrigger>
@@ -285,7 +285,7 @@ export default function RoleManagement() {
                 </Select>
               </div>
 
-              <Button 
+              <Button data-testid="button-w" 
                 onClick={updateUserRole} 
                 disabled={updating || !selectedUser || !selectedRole}
                 className="w-full"

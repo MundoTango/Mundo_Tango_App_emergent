@@ -123,7 +123,7 @@ export default function GlobalStatistics() {
             </div>
             <div className="flex gap-2">
               {['week', 'month', 'year', 'all'].map(period => (
-                <Button
+                <Button data-testid="button-element"
                   key={period}
                   variant={selectedPeriod === period ? 'default' : 'outline'}
                   size="sm"

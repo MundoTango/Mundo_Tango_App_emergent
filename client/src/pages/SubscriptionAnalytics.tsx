@@ -160,7 +160,7 @@ const SubscriptionAnalytics: React.FC = () => {
             <p className="text-gray-600">Monitor your subscription performance and growth metrics</p>
           </div>
           <div className="flex items-center gap-4">
-            <Select value={timeRange} onValueChange={setTimeRange}>
+            <Select data-testid="select-element" value={timeRange} onValueChange={setTimeRange}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select time range" />
               </SelectTrigger>
@@ -171,7 +171,7 @@ const SubscriptionAnalytics: React.FC = () => {
                 <SelectItem value="1y">Last year</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline">
+            <Button data-testid="button-element" variant="outline">
               <Download className="mr-2 h-4 w-4" />
               Export Report
             </Button>

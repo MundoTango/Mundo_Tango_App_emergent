@@ -118,8 +118,8 @@ export default function RecurringEventManager() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <Form data-testid="form-element" {...form}>
+            <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Basic Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
@@ -129,7 +129,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Event Title</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Weekly Milonga at Salon Canning" className="glassmorphic-input" />
+                        <Input data-testid="input-glassmorphic" {...field} placeholder="Weekly Milonga at Salon Canning" className="glassmorphic-input" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -142,7 +142,7 @@ export default function RecurringEventManager() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Event Type</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="glassmorphic-input">
                             <SelectValue placeholder="Select event type" />
@@ -169,7 +169,7 @@ export default function RecurringEventManager() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Describe your recurring event..." className="glassmorphic-input min-h-[100px]" />
+                      <Textarea data-testid="textarea-glassmorphic" {...field} placeholder="Describe your recurring event..." className="glassmorphic-input min-h-[100px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -185,7 +185,7 @@ export default function RecurringEventManager() {
                     <FormControl>
                       <div className="relative">
                         <MapPin className="absolute left-3 top-3 w-4 h-4 text-turquoise-500" />
-                        <Input {...field} placeholder="Salon Canning, Buenos Aires" className="glassmorphic-input pl-10" />
+                        <Input data-testid="input-glassmorphic" {...field} placeholder="Salon Canning, Buenos Aires" className="glassmorphic-input pl-10" />
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -202,7 +202,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>First Event Date</FormLabel>
                       <FormControl>
-                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e) => {
+                        <Input data-testid="input-glassmorphic" {...field} type="date" className="glassmorphic-input" onChange={(e) => {
                           field.onChange(e);
                           generatePreviewDates(form.getValues());
                         }} />
@@ -219,7 +219,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Series End Date</FormLabel>
                       <FormControl>
-                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e) => {
+                        <Input data-testid="input-glassmorphic" {...field} type="date" className="glassmorphic-input" onChange={(e) => {
                           field.onChange(e);
                           generatePreviewDates(form.getValues());
                         }} />
@@ -236,7 +236,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Start Time</FormLabel>
                       <FormControl>
-                        <Input {...field} type="time" className="glassmorphic-input" />
+                        <Input data-testid="input-glassmorphic" {...field} type="time" className="glassmorphic-input" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -250,7 +250,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>End Time</FormLabel>
                       <FormControl>
-                        <Input {...field} type="time" className="glassmorphic-input" />
+                        <Input data-testid="input-glassmorphic" {...field} type="time" className="glassmorphic-input" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -265,7 +265,7 @@ export default function RecurringEventManager() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Recurrence Pattern</FormLabel>
-                    <Select onValueChange={(value) => {
+                    <Select data-testid="select-element" onValueChange={(value) => {
                       field.onChange(value);
                       generatePreviewDates(form.getValues());
                     }} defaultValue={field.value}>
@@ -317,7 +317,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Max Attendees</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e) => field.onChange(parseInt(e.target.value))} />
+                        <Input data-testid="input-glassmorphic" {...field} type="number" className="glassmorphic-input" onChange={(e) => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -331,7 +331,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Price (USD)</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e) => field.onChange(parseFloat(e.target.value))} />
+                        <Input data-testid="input-glassmorphic" {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e) => field.onChange(parseFloat(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -382,10 +382,10 @@ export default function RecurringEventManager() {
               </div>
 
               <div className="flex justify-end gap-4">
-                <Button type="button" variant="outline" onClick={() => form.reset()}>
+                <Button data-testid="button-cancel" type="button" variant="outline" onClick={() => form.reset()}>
                   Cancel
                 </Button>
-                <Button type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending}>
+                <Button data-testid="button-from" type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending}>
                   {createRecurringEventsMutation.isPending ? (
                     <>Creating Events...</>
                   ) : (

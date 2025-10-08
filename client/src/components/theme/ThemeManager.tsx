@@ -29,7 +29,7 @@ const ThemeManager: React.FC = () => {
     <div className="fixed bottom-4 right-4 z-50">
       {!isExpanded ? (
         // Collapsed Theme Toggle Button
-        <button
+        <button data-testid="button-dark-bg"
           onClick={() => setIsExpanded(true)}
           className="bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
           title="Change Theme"
@@ -47,7 +47,7 @@ const ThemeManager: React.FC = () => {
                 Choose Theme
               </h3>
             </div>
-            <button
+            <button data-testid="button-hover-text"
               onClick={() => setIsExpanded(false)}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
@@ -85,7 +85,7 @@ const ThemeManager: React.FC = () => {
               
               <div className="grid grid-cols-2 gap-2">
                 {themes.map((theme) => (
-                  <button
+                  <button data-testid="button-element"
                     key={theme.id}
                     onClick={() => setTheme(theme.id)}
                     className={`p-3 rounded-lg border-2 transition-all duration-200 group hover:shadow-md ${
@@ -115,13 +115,13 @@ const ThemeManager: React.FC = () => {
           {/* Quick Actions */}
           <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
             <div className="flex gap-2">
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setTheme('mundo-tango')}
                 className="flex-1 px-3 py-2 text-sm bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-lg hover:from-pink-600 hover:to-blue-600 transition-all"
               >
                 Default
               </button>
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setTheme('life-ceo')}
                 className="flex-1 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all"
               >

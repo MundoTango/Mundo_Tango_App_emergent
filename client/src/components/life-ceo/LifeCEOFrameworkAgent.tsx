@@ -457,7 +457,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <p className="text-sm text-gray-600">Natural language interface to the 40L x 20P framework</p>
           </div>
         </div>
-        <Button
+        <Button data-testid="button-element"
           variant="outline"
           size="sm"
           onClick={() => setShowCapabilities(!showCapabilities)}
@@ -587,7 +587,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
           {/* Input */}
           <div className="p-4 border-t">
             <div className="flex gap-2">
-              <Textarea
+              <Textarea data-testid="textarea-flex"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -600,7 +600,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
                 className="flex-1 min-h-[60px] max-h-[120px]"
                 disabled={isProcessing}
               />
-              <Button
+              <Button data-testid="button-from"
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isProcessing}
                 className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
@@ -625,7 +625,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button
+            <Button data-testid="button-element"
               variant="outline"
               size="sm"
               onClick={() => setInput('Check security compliance for the entire platform')}
@@ -633,7 +633,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
               <Shield className="w-4 h-4 mr-2" />
               Security Check
             </Button>
-            <Button
+            <Button data-testid="button-element"
               variant="outline"
               size="sm"
               onClick={() => setInput('Run performance analysis and optimization recommendations')}
@@ -641,7 +641,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
               <Activity className="w-4 h-4 mr-2" />
               Performance
             </Button>
-            <Button
+            <Button data-testid="button-element"
               variant="outline"
               size="sm"
               onClick={() => setInput('Generate API documentation for all endpoints')}
@@ -649,7 +649,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
               <BookOpen className="w-4 h-4 mr-2" />
               Documentation
             </Button>
-            <Button
+            <Button data-testid="button-element"
               variant="outline"
               size="sm"
               onClick={() => setInput('Prepare for production deployment')}

@@ -125,7 +125,7 @@ export function SentryErrorTester() {
 
           {/* Action Buttons */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Button
+            <Button data-testid="button-from"
               onClick={checkSentryStatus}
               disabled={loading}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
@@ -134,7 +134,7 @@ export function SentryErrorTester() {
               Check Sentry Status
             </Button>
 
-            <Button
+            <Button data-testid="button-element"
               onClick={() => triggerError('sync')}
               disabled={loading}
               variant="destructive"
@@ -143,7 +143,7 @@ export function SentryErrorTester() {
               Trigger Sync Error
             </Button>
 
-            <Button
+            <Button data-testid="button-element"
               onClick={() => triggerError('async')}
               disabled={loading}
               variant="destructive"
@@ -152,7 +152,7 @@ export function SentryErrorTester() {
               Trigger Async Error
             </Button>
 
-            <Button
+            <Button data-testid="button-element"
               onClick={() => triggerError('api')}
               disabled={loading}
               variant="destructive"
@@ -161,7 +161,7 @@ export function SentryErrorTester() {
               Trigger API Error
             </Button>
 
-            <Button
+            <Button data-testid="button-element"
               onClick={() => triggerError('reference')}
               disabled={loading}
               variant="destructive"
@@ -170,7 +170,7 @@ export function SentryErrorTester() {
               Trigger Reference Error
             </Button>
 
-            <Button
+            <Button data-testid="button-element"
               onClick={() => triggerError('promise')}
               disabled={loading}
               variant="destructive"

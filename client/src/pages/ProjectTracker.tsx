@@ -355,7 +355,7 @@ const ProjectTracker: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <CardTitle>Project Management</CardTitle>
                   <div className="flex items-center gap-2">
-                    <Button
+                    <Button data-testid="button-all"
                       variant={selectedFilter === 'all' ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setSelectedFilter('all')}
@@ -363,7 +363,7 @@ const ProjectTracker: React.FC = () => {
                       All ({projects.length})
                     </Button>
                     {Object.entries(metrics.statusCounts || {}).map(([status, count]) => (
-                      <Button
+                      <Button data-testid="button-element"
                         key={status}
                         variant={selectedFilter === status ? 'default' : 'outline'}
                         size="sm"

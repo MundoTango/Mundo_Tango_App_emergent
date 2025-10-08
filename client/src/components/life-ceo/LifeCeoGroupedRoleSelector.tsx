@@ -160,7 +160,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
       {/* Category carousel */}
       <div className="relative">
         <div className="flex items-center gap-2">
-          <Button
+          <Button data-testid="button-shrink"
             variant="ghost"
             size="icon"
             onClick={prevCategory}
@@ -184,7 +184,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             </div>
           </div>
           
-          <Button
+          <Button data-testid="button-shrink"
             variant="ghost"
             size="icon"
             onClick={nextCategory}
@@ -254,7 +254,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                         </h5>
                         <p className="text-xs text-gray-600 mt-2">{agent.description}</p>
                       </div>
-                      <Button
+                      <Button data-testid="button-element"
                         variant={isSelected ? "default" : "outline"}
                         size="sm"
                         className={cn(

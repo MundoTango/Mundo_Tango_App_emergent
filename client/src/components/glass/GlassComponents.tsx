@@ -409,7 +409,7 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
     const reducedTransparency = prefersReducedTransparency();
 
     return (
-      <input
+      <input data-testid="input-element"
         ref={ref}
         type={type}
         placeholder={placeholder}
@@ -448,7 +448,7 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
     const reducedTransparency = prefersReducedTransparency();
 
     return (
-      <textarea
+      <textarea data-testid="textarea-element"
         ref={ref}
         placeholder={placeholder}
         rows={rows}

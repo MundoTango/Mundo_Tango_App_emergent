@@ -169,7 +169,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 <p className="text-sm text-yellow-600">Free milonga entrance - expires in 3 days</p>
               </div>
             </div>
-            <Button size="sm" className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white">
+            <Button data-testid="button-from" size="sm" className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white">
               Claim
             </Button>
           </div>
@@ -215,7 +215,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 </h3>
                 <p className="text-sm text-gray-600">{feature.description}</p>
               </div>
-              <Button 
+              <Button data-testid="button-hover-bg" 
                 variant="outline" 
                 size="sm"
                 className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"

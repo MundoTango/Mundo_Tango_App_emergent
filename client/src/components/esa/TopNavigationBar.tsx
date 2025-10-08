@@ -31,7 +31,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
       <div className="flex items-center justify-between h-16 px-4 lg:px-8">
         {/* Left Section - Mundo Tango Brand */}
         <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link data-testid="link-flex" href="/" className="flex items-center gap-2 group">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-shadow">
                 MT
               </div>
@@ -55,7 +55,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
               "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5",
               theme === 'light' ? "text-gray-400" : "text-slate-400"
             )} />
-            <input
+            <input data-testid="input-element"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -73,7 +73,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
         {/* Right Section - User Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Theme Toggle */}
-          <button
+          <button data-testid="button-element"
             onClick={onThemeToggle}
             className={cn(
               "p-2 rounded-lg transition-all",
@@ -87,7 +87,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           </button>
 
           {/* Language Selector */}
-          <button className={cn(
+          <button data-testid="button-element" className={cn(
             "hidden sm:flex items-center gap-1 px-3 py-2 rounded-lg transition-all",
             theme === 'light'
               ? "hover:bg-gray-100 text-gray-600"
@@ -98,8 +98,8 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           </button>
 
           {/* Favorites - Heart Icon */}
-          <Link href="/favorites">
-              <button className={cn(
+          <Link data-testid="link-element" href="/favorites">
+              <button data-testid="button-element" className={cn(
                 "p-2 rounded-lg transition-all",
                 theme === 'light'
                   ? "hover:bg-gray-100 text-gray-600"
@@ -110,7 +110,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           </Link>
 
           {/* Messages */}
-          <button className={cn(
+          <button data-testid="button-element" className={cn(
             "relative p-2 rounded-lg transition-all",
             theme === 'light'
               ? "hover:bg-gray-100 text-gray-600"
@@ -120,7 +120,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           </button>
 
           {/* Notifications */}
-          <button className={cn(
+          <button data-testid="button-element" className={cn(
             "relative p-2 rounded-lg transition-all",
             theme === 'light'
               ? "hover:bg-gray-100 text-gray-600"
@@ -133,8 +133,8 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           </button>
 
           {/* Settings Icon */}
-          <Link href="/settings">
-              <button className={cn(
+          <Link data-testid="link-element" href="/settings">
+              <button data-testid="button-element" className={cn(
                 "p-2 rounded-lg transition-all",
                 theme === 'light'
                   ? "hover:bg-gray-100 text-gray-600"
@@ -145,8 +145,8 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           </Link>
 
           {/* Help Icon */}
-          <Link href="/help">
-              <button className={cn(
+          <Link data-testid="link-element" href="/help">
+              <button data-testid="button-element" className={cn(
                 "p-2 rounded-lg transition-all",
                 theme === 'light'
                   ? "hover:bg-gray-100 text-gray-600"
@@ -158,7 +158,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
 
           {/* Profile Dropdown */}
           <div className="relative">
-            <button
+            <button data-testid="button-element"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className={cn(
                 "flex items-center gap-2 p-1.5 rounded-lg transition-all",
@@ -213,7 +213,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
 
                   {/* Menu Items */}
                   <div className="py-2">
-                    <Link href="/profile" className={cn(
+                    <Link data-testid="link-element" href="/profile" className={cn(
                         "flex items-center gap-3 px-4 py-2 transition-colors",
                         theme === 'light'
                           ? "hover:bg-gray-100 text-gray-700"
@@ -222,7 +222,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                         <User className="w-4 h-4" />
                         <span>Your Profile</span>
                     </Link>
-                    <Link href="/settings" className={cn(
+                    <Link data-testid="link-element" href="/settings" className={cn(
                         "flex items-center gap-3 px-4 py-2 transition-colors",
                         theme === 'light'
                           ? "hover:bg-gray-100 text-gray-700"
@@ -235,7 +235,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                       "my-2 border-t",
                       theme === 'light' ? "border-gray-200" : "border-slate-800"
                     )} />
-                    <button className={cn(
+                    <button data-testid="button-element" className={cn(
                       "flex items-center gap-3 w-full px-4 py-2 transition-colors text-left",
                       theme === 'light'
                         ? "hover:bg-gray-100 text-gray-700"

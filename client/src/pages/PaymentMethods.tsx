@@ -101,7 +101,7 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-6">
       <div className="glassmorphic-card p-6 rounded-lg">
         <CardElement
           options={{
@@ -129,7 +129,7 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
       )}
 
       <div className="flex gap-4">
-        <Button
+        <Button data-testid="button-flex"
           type="submit"
           disabled={!stripe || isProcessing}
           className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
@@ -247,7 +247,7 @@ const PaymentMethods: React.FC = () => {
               <CardTitle>Your Payment Methods</CardTitle>
               <CardDescription>Add or remove payment methods from your account</CardDescription>
             </div>
-            <Button
+            <Button data-testid="button-from"
               onClick={() => setShowAddDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
             >
@@ -294,7 +294,7 @@ const PaymentMethods: React.FC = () => {
                     
                     <div className="flex items-center gap-2">
                       {!method.is_default && (
-                        <Button
+                        <Button data-testid="button-element"
                           variant="outline"
                           size="sm"
                           onClick={() => setDefaultMutation.mutate(method.id)}
@@ -310,7 +310,7 @@ const PaymentMethods: React.FC = () => {
                           )}
                         </Button>
                       )}
-                      <Button
+                      <Button data-testid="button-hover-text"
                         variant="ghost"
                         size="sm"
                         onClick={() => handleDelete(method.id)}

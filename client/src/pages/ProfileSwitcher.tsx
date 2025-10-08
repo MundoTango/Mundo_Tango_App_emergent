@@ -46,7 +46,7 @@ export default function ProfileSwitcher() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4">
         <div className="flex items-center gap-4">
-          <Button
+          <Button data-testid="button-element"
             variant="ghost"
             size="icon"
             onClick={() => window.history.back()}
@@ -77,7 +77,7 @@ export default function ProfileSwitcher() {
         <h2 className="text-sm font-medium text-gray-500 mb-3">YOUR PROFILES</h2>
         <div className="space-y-3">
           {profiles.map((profile) => (
-            <button
+            <button data-testid="button-element"
               key={profile.id}
               onClick={() => handleProfileSwitch(profile)}
               className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
@@ -103,7 +103,7 @@ export default function ProfileSwitcher() {
 
       {/* Create New Profile */}
       <div className="px-4 pb-6">
-        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors">
+        <button data-testid="button-w" className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors">
           <div className="flex items-center justify-center gap-3 text-gray-600">
             <Plus className="h-5 w-5" />
             <span className="font-medium">Create New Profile</span>
@@ -116,7 +116,7 @@ export default function ProfileSwitcher() {
         <h2 className="text-sm font-medium text-gray-500 mb-3">QUICK ACTIONS</h2>
         <div className="bg-white rounded-xl p-4 shadow-sm space-y-3">
           {isSuperAdmin && (
-            <button
+            <button data-testid="button-w"
               onClick={() => setLocation('/life-ceo')}
               className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
@@ -124,7 +124,7 @@ export default function ProfileSwitcher() {
               <span className="text-sm font-medium">Open Life CEO Voice Assistant</span>
             </button>
           )}
-          <button
+          <button data-testid="button-w"
             onClick={() => setLocation('/memories')}
             className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
           >

@@ -478,7 +478,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
             <div className="flex items-center gap-3 flex-1">
               {/* Expand/Collapse Button */}
               {hasChildren && (
-                <Button
+                <Button data-testid="button-p"
                   variant="ghost"
                   size="sm"
                   className="p-1 h-6 w-6"
@@ -626,7 +626,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
     <div className="space-y-4">
       {/* Tree Controls */}
       <div className="flex items-center gap-2 mb-4">
-        <Button
+        <Button data-testid="button-expand-all"
           variant="outline"
           size="sm"
           onClick={handleExpandAll}
@@ -634,7 +634,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
         >
           Expand All
         </Button>
-        <Button
+        <Button data-testid="button-collapse-all"
           variant="outline"
           size="sm"
           onClick={handleCollapseAll}

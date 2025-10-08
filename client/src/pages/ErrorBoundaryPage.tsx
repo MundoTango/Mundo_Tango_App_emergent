@@ -99,7 +99,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
           )}
 
           <div className="grid gap-3">
-            <Button
+            <Button data-testid="button-w"
               onClick={handleReload}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
@@ -107,7 +107,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               Try Again
             </Button>
             
-            <Button
+            <Button data-testid="button-w"
               onClick={handleGoHome}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
@@ -116,7 +116,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               Go to Homepage
             </Button>
             
-            <Button
+            <Button data-testid="button-w"
               onClick={handleReportError}
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
@@ -164,7 +164,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
           <div className="text-center pt-4 border-t">
             <p className="text-sm text-gray-500">
               Need more help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
+              <a data-testid="a-hover-underline" href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
                 support@mundotango.life
               </a>
             </p>

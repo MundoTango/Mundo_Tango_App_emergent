@@ -60,7 +60,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
       {friends.length > 0 && (
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input
+          <Input data-testid="input-pl"
             type="text"
             placeholder="Search friends..."
             value={searchQuery}
@@ -92,7 +92,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
                     </div>
                   </div>
                   {isOwnProfile && (
-                    <Button
+                    <Button data-testid="button-hover-text"
                       variant="ghost"
                       size="sm"
                       className="text-gray-600 hover:text-red-600"

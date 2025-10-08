@@ -601,7 +601,7 @@ export function PlatformFeaturesSurface() {
         <div className="flex-1">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <input
+            <input data-testid="input-pl"
               type="text"
               placeholder="Search across all 11 layers of platform features..."
               value={searchTerm}

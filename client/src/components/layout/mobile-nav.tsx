@@ -23,8 +23,8 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 z-40 shadow-2xl">
       <div className="grid grid-cols-5 gap-1">
-        <Link href="/memories">
-          <Button 
+        <Link data-testid="link-element" href="/memories">
+          <Button data-testid="button-element" 
             variant="ghost" 
             className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/memories' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
           >
@@ -33,8 +33,8 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
           </Button>
         </Link>
         
-        <Link href="/events">
-          <Button 
+        <Link data-testid="link-element" href="/events">
+          <Button data-testid="button-element" 
             variant="ghost" 
             className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/events' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
           >
@@ -43,8 +43,8 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
           </Button>
         </Link>
         
-        <Link href="/groups">
-          <Button 
+        <Link data-testid="link-element" href="/groups">
+          <Button data-testid="button-element" 
             variant="ghost" 
             className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/groups' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
           >
@@ -53,8 +53,8 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
           </Button>
         </Link>
         
-        <Link href="/messages">
-          <Button 
+        <Link data-testid="link-element" href="/messages">
+          <Button data-testid="button-element" 
             variant="ghost" 
             className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] relative h-auto ${location === '/messages' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
             onClick={onOpenChat}
@@ -67,8 +67,8 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
           </Button>
         </Link>
         
-        <Link href="/profile">
-          <Button 
+        <Link data-testid="link-element" href="/profile">
+          <Button data-testid="button-element" 
             variant="ghost" 
             className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/profile' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
           >

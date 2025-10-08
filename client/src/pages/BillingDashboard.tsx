@@ -190,12 +190,12 @@ const BillingDashboard: React.FC = () => {
                 <div className="flex gap-3">
                   {status === 'active' ? (
                     <>
-                      <Link href="/subscribe">
-                        <Button variant="outline">
+                      <Link data-testid="link-element" href="/subscribe">
+                        <Button data-testid="button-change-plan" variant="outline">
                           Change Plan
                         </Button>
                       </Link>
-                      <Button 
+                      <Button data-testid="button-element" 
                         variant="destructive"
                         onClick={() => {
                           if (confirm('Are you sure you want to cancel your subscription?')) {
@@ -215,7 +215,7 @@ const BillingDashboard: React.FC = () => {
                       </Button>
                     </>
                   ) : status === 'cancelling' ? (
-                    <Button 
+                    <Button data-testid="button-element" 
                       onClick={() => resumeSubscriptionMutation.mutate()}
                       disabled={resumeSubscriptionMutation.isPending}
                     >
@@ -234,8 +234,8 @@ const BillingDashboard: React.FC = () => {
             ) : (
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-4">You don't have an active subscription</p>
-                <Link href="/subscribe">
-                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600">
+                <Link data-testid="link-element" href="/subscribe">
+                  <Button data-testid="button-from" className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600">
                     View Plans
                   </Button>
                 </Link>
@@ -252,7 +252,7 @@ const BillingDashboard: React.FC = () => {
                 <CardTitle>Payment Methods</CardTitle>
                 <CardDescription>Manage your saved payment methods</CardDescription>
               </div>
-              <Button 
+              <Button data-testid="button-from" 
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
                 onClick={() => toast({ 
@@ -282,7 +282,7 @@ const BillingDashboard: React.FC = () => {
                         <Badge variant="secondary" className="ml-2">Default</Badge>
                       )}
                     </div>
-                    <Button
+                    <Button data-testid="button-element"
                       variant="ghost"
                       size="sm"
                       onClick={() => {
@@ -332,7 +332,7 @@ const BillingDashboard: React.FC = () => {
                       >
                         {invoice.status}
                       </Badge>
-                      <Button
+                      <Button data-testid="button-element"
                         variant="ghost"
                         size="sm"
                         onClick={() => window.open(invoice.invoicePdf, '_blank')}
@@ -353,7 +353,7 @@ const BillingDashboard: React.FC = () => {
         <div className="mt-8 text-center">
           <p className="text-gray-600">
             Need help with billing?{' '}
-            <a 
+            <a data-testid="a-hover-text" 
               href="mailto:support@mundotango.life" 
               className="text-turquoise-600 hover:text-turquoise-700 underline"
             >

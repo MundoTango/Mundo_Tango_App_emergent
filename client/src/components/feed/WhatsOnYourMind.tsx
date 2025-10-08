@@ -55,7 +55,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
         <h2 className="text-2xl font-bold text-gray-900">New Feeds</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600">
+            <Button data-testid="button-hover-bg" variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600">
               {visibility || "ALL"}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
@@ -99,7 +99,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 <div className="text-sm text-gray-500">@{user?.username}</div>
               </div>
             </div>
-            <Button 
+            <Button data-testid="button-flex" 
               variant="ghost" 
               size="sm"
               onClick={() => onCreatePost()}
@@ -113,13 +113,13 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
 
           {/* Text input */}
           <div className="relative mb-6">
-            <Input
+            <Input data-testid="input-w"
               placeholder="What's on your mind?"
               className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500"
               onClick={() => onCreatePost()}
               readOnly
             />
-            <Button
+            <Button data-testid="button-absolute"
               variant="ghost"
               size="sm"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
@@ -134,7 +134,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
           {/* Action buttons */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <Button
+              <Button data-testid="button-flex"
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
@@ -143,7 +143,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 <MapPin className="h-4 w-4" />
                 Location
               </Button>
-              <Button
+              <Button data-testid="button-flex"
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
@@ -152,7 +152,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 <ImageIcon className="h-4 w-4" />
                 Image/Video
               </Button>
-              <Button
+              <Button data-testid="button-flex"
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
@@ -162,7 +162,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 Activity
               </Button>
             </div>
-            <Button
+            <Button data-testid="button-hover-bg"
               onClick={() => onCreatePost()}
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-lg font-semibold"
             >

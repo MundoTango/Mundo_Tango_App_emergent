@@ -171,7 +171,7 @@ export default function SystemStatsPanel() {
       {/* Controls */}
       <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div className="flex gap-3">
-          <Select value={timeRange} onValueChange={setTimeRange}>
+          <Select data-testid="select-element" value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Select time range" />
             </SelectTrigger>
@@ -183,7 +183,7 @@ export default function SystemStatsPanel() {
             </SelectContent>
           </Select>
 
-          <Button
+          <Button data-testid="button-rounded"
             onClick={refreshStats}
             disabled={refreshing}
             variant="outline"
@@ -194,7 +194,7 @@ export default function SystemStatsPanel() {
           </Button>
         </div>
 
-        <Button
+        <Button data-testid="button-rounded"
           onClick={exportStats}
           variant="outline"
           className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"

@@ -93,7 +93,7 @@ export const renderWithMentions = (text: string) => {
     const hasQueryParams = href.includes('?');
     parts.push(
       hasQueryParams ? (
-        <a
+        <a data-testid="a-element"
           key={`mention-${type}-${id}-${startIndex}`}
           href={href}
           className={className}
@@ -104,7 +104,7 @@ export const renderWithMentions = (text: string) => {
           @{name}
         </a>
       ) : (
-        <Link
+        <Link data-testid="link-element"
           key={`mention-${type}-${id}-${startIndex}`}
           href={href}
           className={className}

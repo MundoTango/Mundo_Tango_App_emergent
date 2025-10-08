@@ -181,7 +181,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       <CardHeader className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Button
+            <Button data-testid="button-lg-hidden"
               variant="ghost"
               size="sm"
               onClick={onBack}
@@ -210,13 +210,13 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
           </div>
           
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="text-gray-600">
+            <Button data-testid="button-element" variant="ghost" size="sm" className="text-gray-600">
               <Phone className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600">
+            <Button data-testid="button-element" variant="ghost" size="sm" className="text-gray-600">
               <Video className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600">
+            <Button data-testid="button-element" variant="ghost" size="sm" className="text-gray-600">
               <MoreVertical className="h-5 w-5" />
             </Button>
           </div>
@@ -287,19 +287,19 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
 
       {/* Message Input */}
       <div className="p-4 border-t border-gray-200">
-        <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" type="button" className="text-gray-600">
+        <form data-testid="form-flex" onSubmit={handleSendMessage} className="flex items-center space-x-2">
+          <Button data-testid="button-element" variant="ghost" size="sm" type="button" className="text-gray-600">
             <Paperclip className="h-5 w-5" />
           </Button>
           
           <div className="flex-1 relative">
-            <Input
+            <Input data-testid="input-pr"
               placeholder="Type a message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               className="pr-10"
             />
-            <Button 
+            <Button data-testid="button-absolute" 
               variant="ghost" 
               size="sm" 
               type="button"
@@ -309,7 +309,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             </Button>
           </div>
           
-          <Button
+          <Button data-testid="button-hover-bg"
             type="submit"
             disabled={!newMessage.trim() || sendMessageMutation.isPending}
             className="bg-tango-red hover:bg-tango-red/90"

@@ -94,7 +94,7 @@ export default function NovuNotificationSystem({
           </div>
           <p className="text-sm text-gray-700 mt-1">{notification.content}</p>
           {notification.data?.actionUrl && (
-            <button 
+            <button data-testid="button-hover-text" 
               className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
               onClick={() => window.location.href = notification.data.actionUrl}
             >
@@ -181,7 +181,7 @@ export default function NovuNotificationSystem({
           }
         >
           {({ unseenCount }) => (
-            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <button data-testid="button-relative" className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
               <Bell className="h-5 w-5" />
               {unseenCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">

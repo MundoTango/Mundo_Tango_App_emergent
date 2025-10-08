@@ -153,7 +153,7 @@ export default function GroupPage() {
                     </div>
                   </div>
                 ) : (
-                  <Button
+                  <Button data-testid="button-hover-bg"
                     onClick={() => joinGroupMutation.mutate()}
                     disabled={joinGroupMutation.isPending}
                     className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
@@ -223,7 +223,7 @@ export default function GroupPage() {
                   
                   {group.members.length > 8 && (
                     <div className="text-center pt-4">
-                      <Button variant="ghost" className="text-coral-600 hover:text-coral-700">
+                      <Button data-testid="button-hover-text" variant="ghost" className="text-coral-600 hover:text-coral-700">
                         View All Members
                       </Button>
                     </div>
@@ -337,7 +337,7 @@ export default function GroupPage() {
                       </div>
                       <h3 className="text-xl font-bold text-gray-800 mb-2">No memories shared yet</h3>
                       <p className="text-gray-600 mb-6">Be the first to share a tango memory with this group!</p>
-                      <Button className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white">
+                      <Button data-testid="button-from" className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white">
                         Share a Memory
                       </Button>
                     </div>
