@@ -483,6 +483,7 @@ export class MasterControlSystem {
     const { ContentMediaExpert } = await import('./content-media-expert');
     const { CodeQualityExpert } = await import('./code-quality-expert');
     const { DeveloperExperienceExpert } = await import('./dev-experience-expert');
+    const { TranslationExpert } = await import('./translation-expert');
     
     // Create all agents based on knowledge graph
     const agents = [
@@ -495,6 +496,7 @@ export class MasterControlSystem {
       new ContentMediaExpert(), // Agent 13: Content & Media Expert
       new CodeQualityExpert(), // Agent 14: Code Quality Expert
       new DeveloperExperienceExpert(), // Agent 15: Developer Experience Expert
+      new TranslationExpert(), // Agent 16: Translation & i18n Expert
       // Additional agents would be created here
       // new RealtimeCommunications(),
       // new BusinessLogicManager(),
