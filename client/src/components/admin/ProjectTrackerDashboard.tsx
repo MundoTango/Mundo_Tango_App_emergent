@@ -176,9 +176,9 @@ const ProjectTrackerDashboard: React.FC = () => {
         <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <GlassCard depth={1} className="p-2 rounded-lg"
+              <GlassCard depth={1} className="p-2 rounded-lg">
                 <GitCommit className="h-6 w-6 text-white" />
-              </div>
+              </GlassCard>
               <div>
                 <h1 className="text-2xl font-bold">61x21 Project Tracker System</h1>
                 <p className="text-cyan-100 text-sm mt-1">

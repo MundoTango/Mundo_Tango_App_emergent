@@ -169,13 +169,13 @@ export default function CommunityMapWithLayers({
   return (
     <div className="flex flex-col w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <GlassCard depth={2} className="dark:bg-slate-900/80 rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]"
+      <GlassCard depth={2} className="dark:bg-slate-900/80 rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]">
         <CommunityMapFilters 
           filters={filters} 
           onFiltersChange={setFilters} 
           compact={false} 
         />
-      </div>
+      </GlassCard>
 
       {/* Map Container - ESA Layer 8 + 22 Unified Map */}
       <div className="relative rounded-lg overflow-hidden h-[650px] z-0">

@@ -88,7 +88,7 @@ export class ResilientBoundary extends Component<Props, State> {
       return (
         <div className="min-h-[200px] flex items-center justify-center p-6">
           <div className="max-w-md w-full">
-            <GlassCard depth={1} className="border border-red-200 rounded-lg p-6 shadow-lg"
+            <GlassCard depth={1} className="border border-red-200 rounded-lg p-6 shadow-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <AlertCircle className="w-6 h-6 text-red-500" />
@@ -143,7 +143,7 @@ export class ResilientBoundary extends Component<Props, State> {
                   )}
                 </div>
               </div>
-            </div>
+            </GlassCard>
           </div>
         </div>
       );

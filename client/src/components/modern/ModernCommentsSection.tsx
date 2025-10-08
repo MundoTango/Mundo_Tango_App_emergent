@@ -128,7 +128,7 @@ export default function ModernCommentsSection({
                         </button>
                         
                         {showActions === comment.id && (
-                          <GlassCard depth={3} className="absolute right-0 top-8 rounded-xl shadow-xl border border-white/20 py-1 z-10"
+                          <GlassCard depth={3} className="absolute right-0 top-8 rounded-xl shadow-xl border border-white/20 py-1 z-10">
                             <button
                               onClick={() => handleEditComment(comment)}
                               className="flex items-center gap-2 px-4 py-2 hover:bg-white/10 text-white/80 text-sm w-full text-left"

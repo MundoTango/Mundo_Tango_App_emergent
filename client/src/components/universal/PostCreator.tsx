@@ -1443,18 +1443,18 @@ export default function PostCreator({
 
               {/* Aurora Tide Recommendations - Glassmorphic Design */}
               {isRecommendation && (
-                <GlassCard depth={3} className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative"
+                <GlassCard depth={3} className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative">
                   {/* Glassmorphic Header */}
                   <div className="flex items-center justify-center mb-4 relative">
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full border-t border-turquoise-400/30 dark:border-turquoise-300/20"></div>
                     </div>
-                    <GlassCard depth={2} className="relative px-6 py-3 rounded-full shadow-lg"
+                    <GlassCard depth={2} className="relative px-6 py-3 rounded-full shadow-lg">
                       <span className="text-sm font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 dark:from-turquoise-300 dark:to-cyan-300 bg-clip-text text-transparent flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                         Share a Recommendation
                       </span>
-                    </div>
+                    </GlassCard>
                   </div>
 
                   <div className="space-y-5 relative z-10">
@@ -1558,16 +1558,16 @@ export default function PostCreator({
                         </div>
                       </div>
                       {location && (
-                        <GlassCard depth={2} className="mt-2 p-3 rounded-lg flex items-center gap-2"
+                        <GlassCard depth={2} className="mt-2 p-3 rounded-lg flex items-center gap-2">
                           <MapPin className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
                           <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
                             {location}
                           </span>
-                        </div>
+                        </GlassCard>
                       )}
                     </label>
                   </div>
-                </div>
+                </GlassCard>
               )}
             </div>
 

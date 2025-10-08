@@ -58,10 +58,10 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
           )}
           
           {/* City Flag/Icon */}
-          <GlassCard depth={1} className="absolute top-4 left-4 rounded-lg px-3 py-2 flex items-center gap-2"
+          <GlassCard depth={1} className="absolute top-4 left-4 rounded-lg px-3 py-2 flex items-center gap-2">
             <Globe className="h-4 w-4 text-purple-600" />
             <span className="text-sm font-medium text-gray-800">City Group</span>
-          </div>
+          </GlassCard>
           
           {/* Member Status Badge */}
           {group.isJoined && (

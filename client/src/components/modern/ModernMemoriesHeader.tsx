@@ -34,10 +34,10 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
           
           <div className="flex items-center gap-4">
             <GlassCard depth={1} className="flex items-center gap-2 px-4 py-2 rounded-2xl 
-                          border border-blue-200/50 shadow-lg"
+                          border border-blue-200/50 shadow-lg">
               <Users className="w-4 h-4 text-teal-500" />
               <span className="text-sm font-semibold text-blue-900">3.2K Online</span>
-            </div>
+            </GlassCard>
             
             <button
               onClick={onCreatePost}
