@@ -21,14 +21,14 @@ export function FeatureDeepDive() {
   const { uniqueTeams, uniqueStatuses } = useMemo(() => {
     const teams = new Set<string>();
     const statuses = new Set<string>();
-
-    allFeatures.forEach((feature) => {
+    
+    allFeatures.forEach(feature => {
       if (feature.status) statuses.add(feature.status);
       if (feature.team) {
-        feature.team.forEach((t) => teams.add(t));
+        feature.team.forEach(t => teams.add(t));
       }
     });
-
+    
     return {
       uniqueTeams: Array.from(teams).sort(),
       uniqueStatuses: Array.from(statuses).sort()
@@ -37,12 +37,12 @@ export function FeatureDeepDive() {
 
   // Filter features based on search and filters
   const filteredFeatures = useMemo(() => {
-    return allFeatures.filter((feature) => {
+    return allFeatures.filter(feature => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
         const matchesSearch = feature.title.toLowerCase().includes(query) ||
-        feature.description && feature.description.toLowerCase().includes(query);
+          (feature.description && feature.description.toLowerCase().includes(query));
         if (!matchesSearch) return false;
       }
 
@@ -63,32 +63,32 @@ export function FeatureDeepDive() {
   // Group features by status
   const groupedFeatures = useMemo(() => {
     const groups = new Map<string, ProjectItem[]>();
-
-    filteredFeatures.forEach((feature) => {
+    
+    filteredFeatures.forEach(feature => {
       const status = feature.status || 'No Status';
       if (!groups.has(status)) {
         groups.set(status, []);
       }
       groups.get(status)!.push(feature);
     });
-
+    
     // Sort groups by status priority
     const statusOrder = ['In Progress', 'Completed', 'Planning', 'Blocked', 'No Status'];
     const sortedGroups = new Map<string, ProjectItem[]>();
-
-    statusOrder.forEach((status) => {
+    
+    statusOrder.forEach(status => {
       if (groups.has(status)) {
         sortedGroups.set(status, groups.get(status)!);
       }
     });
-
+    
     // Add any remaining statuses
     groups.forEach((features, status) => {
       if (!sortedGroups.has(status)) {
         sortedGroups.set(status, features);
       }
     });
-
+    
     return sortedGroups;
   }, [filteredFeatures]);
 
@@ -116,12 +116,12 @@ export function FeatureDeepDive() {
       case 'Planning':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
       default:
-        return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
 
   const getTeamBadgeColor = (team: string) => {
-    const colors: {[key: string]: string;} = {
+    const colors: { [key: string]: string } = {
       'Frontend': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
       'Backend': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
       'Database': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
@@ -129,9 +129,9 @@ export function FeatureDeepDive() {
       'Security': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
       'Performance': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
       'Mobile': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
-      'Integration': 'bg-[var(--color-ocean-100)] text-teal-800 dark:bg-teal-900 dark:text-teal-200'
+      'Integration': 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200'
     };
-    return colors[team] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    return colors[team] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
   };
 
   return (
@@ -153,31 +153,31 @@ export function FeatureDeepDive() {
               placeholder="Search features..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10" data-testid="input-pl-10" />
-
+              className="pl-10"
+            />
           </div>
 
-          <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="select-element">
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Statuses</SelectItem>
-              {uniqueStatuses.map((status) =>
-              <SelectItem key={status} value={status}>{status}</SelectItem>
-              )}
+              {uniqueStatuses.map(status => (
+                <SelectItem key={status} value={status}>{status}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
 
-          <Select value={teamFilter} onValueChange={setTeamFilter} data-testid="select-element">
+          <Select value={teamFilter} onValueChange={setTeamFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by team" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Teams</SelectItem>
-              {uniqueTeams.map((team) =>
-              <SelectItem key={team} value={team}>{team}</SelectItem>
-              )}
+              {uniqueTeams.map(team => (
+                <SelectItem key={team} value={team}>{team}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -185,8 +185,8 @@ export function FeatureDeepDive() {
 
       {/* Features grouped by status */}
       <div className="space-y-6">
-        {Array.from(groupedFeatures.entries()).map(([status, features]) =>
-        <div key={status} className="space-y-4">
+        {Array.from(groupedFeatures.entries()).map(([status, features]) => (
+          <div key={status} className="space-y-4">
             <div className="flex items-center gap-2">
               {getStatusIcon(status)}
               <h3 className="text-lg font-semibold">{status}</h3>
@@ -196,37 +196,37 @@ export function FeatureDeepDive() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {features.map((feature) =>
-            <Card
-              key={feature.id}
-              className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => setSelectedFeature(feature)}>
-
+              {features.map((feature) => (
+                <Card
+                  key={feature.id}
+                  className="cursor-pointer hover:shadow-lg transition-shadow"
+                  onClick={() => setSelectedFeature(feature)}
+                >
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
                       <CardTitle className="text-base font-medium line-clamp-2">
                         {feature.title}
                       </CardTitle>
                       <div className="ml-2">
-                        {feature.webCompletion && feature.mobileCompletion ?
-                    <div className="flex gap-1">
+                        {feature.webCompletion && feature.mobileCompletion ? (
+                          <div className="flex gap-1">
                             <Monitor className="w-4 h-4 text-gray-400" />
                             <Smartphone className="w-4 h-4 text-gray-400" />
-                          </div> :
-                    feature.webCompletion ?
-                    <Monitor className="w-4 h-4 text-gray-400" /> :
-                    feature.mobileCompletion ?
-                    <Smartphone className="w-4 h-4 text-gray-400" /> :
-                    null}
+                          </div>
+                        ) : feature.webCompletion ? (
+                          <Monitor className="w-4 h-4 text-gray-400" />
+                        ) : feature.mobileCompletion ? (
+                          <Smartphone className="w-4 h-4 text-gray-400" />
+                        ) : null}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {feature.description &&
-                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                    {feature.description && (
+                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                         {feature.description}
                       </p>
-                }
+                    )}
 
                     {/* Progress bar */}
                     <div className="space-y-1">
@@ -243,53 +243,53 @@ export function FeatureDeepDive() {
                         {feature.status || 'No Status'}
                       </Badge>
                       
-                      {feature.priority &&
-                  <Badge variant={feature.priority === 'Critical' ? 'destructive' : 'secondary'}>
+                      {feature.priority && (
+                        <Badge variant={feature.priority === 'Critical' ? 'destructive' : 'secondary'}>
                           {feature.priority}
                         </Badge>
-                  }
+                      )}
 
-                      {feature.team && feature.team.map((team) =>
-                  <Badge key={team} className={getTeamBadgeColor(team)}>
+                      {feature.team && feature.team.map(team => (
+                        <Badge key={team} className={getTeamBadgeColor(team)}>
                           <Users className="w-3 h-3 mr-1" />
                           {team}
                         </Badge>
-                  )}
+                      ))}
                     </div>
 
                     {/* Platform-specific completion */}
-                    {(feature.webCompletion !== undefined || feature.mobileCompletion !== undefined) &&
-                <div className="flex gap-4 text-xs text-gray-500">
-                        {feature.webCompletion !== undefined &&
-                  <span className="flex items-center gap-1">
+                    {(feature.webCompletion !== undefined || feature.mobileCompletion !== undefined) && (
+                      <div className="flex gap-4 text-xs text-gray-500">
+                        {feature.webCompletion !== undefined && (
+                          <span className="flex items-center gap-1">
                             <Monitor className="w-3 h-3" />
                             Web: {feature.webCompletion}%
                           </span>
-                  }
-                        {feature.mobileCompletion !== undefined &&
-                  <span className="flex items-center gap-1">
+                        )}
+                        {feature.mobileCompletion !== undefined && (
+                          <span className="flex items-center gap-1">
                             <Smartphone className="w-3 h-3" />
                             Mobile: {feature.mobileCompletion}%
                           </span>
-                  }
+                        )}
                       </div>
-                }
+                    )}
                   </CardContent>
                 </Card>
-            )}
+              ))}
             </div>
           </div>
-        )}
+        ))}
       </div>
 
       {/* Detail modal */}
-      {selectedFeature &&
-      <JiraStyleItemDetailModal
-        isOpen={!!selectedFeature}
-        onClose={() => setSelectedFeature(null)}
-        item={selectedFeature} />
-
-      }
-    </div>);
-
+      {selectedFeature && (
+        <JiraStyleItemDetailModal
+          isOpen={!!selectedFeature}
+          onClose={() => setSelectedFeature(null)}
+          item={selectedFeature}
+        />
+      )}
+    </div>
+  );
 }

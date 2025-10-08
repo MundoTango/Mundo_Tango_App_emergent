@@ -8,12 +8,12 @@ const ThemeManager: React.FC = () => {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'business':return <Shield className="w-4 h-4" />;
-      case 'personal':return <Eye className="w-4 h-4" />;
-      case 'cultural':return <Globe className="w-4 h-4" />;
-      case 'agent':return <Sparkles className="w-4 h-4" />;
-      case 'accessibility':return <Sun className="w-4 h-4" />;
-      default:return <Palette className="w-4 h-4" />;
+      case 'business': return <Shield className="w-4 h-4" />;
+      case 'personal': return <Eye className="w-4 h-4" />;
+      case 'cultural': return <Globe className="w-4 h-4" />;
+      case 'agent': return <Sparkles className="w-4 h-4" />;
+      case 'accessibility': return <Sun className="w-4 h-4" />;
+      default: return <Palette className="w-4 h-4" />;
     }
   };
 
@@ -27,43 +27,43 @@ const ThemeManager: React.FC = () => {
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      {!isExpanded ?
-      // Collapsed Theme Toggle Button
-      <button
-        onClick={() => setIsExpanded(true)} aria-label="Button"
-        className="bg-[var(--color-surface)] dark:bg-gray-800 rounded-full p-3 shadow-lg border border-[var(--color-border)] dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
-        title="Change Theme" data-testid="button-bg-[var(--color-surface)]">
-
+      {!isExpanded ? (
+        // Collapsed Theme Toggle Button
+        <button
+          onClick={() => setIsExpanded(true)}
+          className="bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
+          title="Change Theme"
+        >
           <Palette className="w-6 h-6 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" />
-        </button> :
-
-      // Expanded Theme Selector
-      <div className="bg-[var(--color-surface)] dark:bg-gray-800 rounded-2xl shadow-2xl border border-[var(--color-border)] dark:border-gray-700 p-6 w-80 max-h-96 overflow-y-auto">
+        </button>
+      ) : (
+        // Expanded Theme Selector
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 p-6 w-80 max-h-96 overflow-y-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Palette className="w-5 h-5 text-blue-500" />
-              <h3 className="font-semibold text-[var(--color-text)] dark:text-white">
+              <h3 className="font-semibold text-gray-900 dark:text-white">
                 Choose Theme
               </h3>
             </div>
             <button
-            onClick={() => setIsExpanded(false)} aria-label="Button"
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" data-testid="button-text-gray-400">
-
+              onClick={() => setIsExpanded(false)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            >
               ✕
             </button>
           </div>
 
           {/* Current Theme Preview */}
-          <div className="mb-4 p-3 rounded-lg border border-[var(--color-border)] dark:border-gray-600">
+          <div className="mb-4 p-3 rounded-lg border border-gray-200 dark:border-gray-600">
             <div className="flex items-center gap-3">
-              <div
-              className="w-8 h-8 rounded-lg flex-shrink-0"
-              style={{ background: currentTheme.preview }} />
-
+              <div 
+                className="w-8 h-8 rounded-lg flex-shrink-0"
+                style={{ background: currentTheme.preview }}
+              />
               <div>
-                <div className="font-medium text-[var(--color-text)] dark:text-white">
+                <div className="font-medium text-gray-900 dark:text-white">
                   {currentTheme.name}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -74,32 +74,32 @@ const ThemeManager: React.FC = () => {
           </div>
 
           {/* Theme Categories */}
-          {Object.entries(groupedThemes).map(([category, themes]) =>
-        <div key={category} className="mb-4">
+          {Object.entries(groupedThemes).map(([category, themes]) => (
+            <div key={category} className="mb-4">
               <div className="flex items-center gap-2 mb-2">
                 {getCategoryIcon(category)}
-                <h4 className="text-sm font-medium text-[var(--color-text-secondary)] dark:text-gray-300 capitalize">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 capitalize">
                   {category}
                 </h4>
               </div>
               
               <div className="grid grid-cols-2 gap-2">
-                {themes.map((theme) =>
-            <button
-              key={theme.id}
-              onClick={() => setTheme(theme.id)} aria-label="Button"
-              className={`p-3 rounded-lg border-2 transition-all duration-200 group hover:shadow-md ${
-              currentTheme.id === theme.id ?
-              'border-blue-500 bg-blue-50 dark:bg-blue-900/20' :
-              'border-[var(--color-border)] dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'}`
-              } data-testid="button-element">
-
+                {themes.map((theme) => (
+                  <button
+                    key={theme.id}
+                    onClick={() => setTheme(theme.id)}
+                    className={`p-3 rounded-lg border-2 transition-all duration-200 group hover:shadow-md ${
+                      currentTheme.id === theme.id
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                    }`}
+                  >
                     <div className="flex items-center gap-2 mb-1">
-                      <div
-                  className="w-4 h-4 rounded-full flex-shrink-0"
-                  style={{ background: theme.preview }} />
-
-                      <span className="text-sm font-medium text-[var(--color-text)] dark:text-white truncate">
+                      <div 
+                        className="w-4 h-4 rounded-full flex-shrink-0"
+                        style={{ background: theme.preview }}
+                      />
+                      <span className="text-sm font-medium text-gray-900 dark:text-white truncate">
                         {theme.name}
                       </span>
                     </div>
@@ -107,32 +107,32 @@ const ThemeManager: React.FC = () => {
                       {theme.description}
                     </p>
                   </button>
-            )}
+                ))}
               </div>
             </div>
-        )}
+          ))}
 
           {/* Quick Actions */}
-          <div className="border-t border-[var(--color-border)] dark:border-gray-600 pt-4">
+          <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
             <div className="flex gap-2">
               <button
-              onClick={() => setTheme('mundo-tango')} aria-label="Button"
-              className="flex-1 px-3 py-2 text-sm bg-gradient-to-r from-pink-500 to-[var(--color-ocean-500)] text-white rounded-lg hover:from-pink-600 hover:to-[var(--color-ocean-600)] transition-all" data-testid="button-flex-1">
-
+                onClick={() => setTheme('mundo-tango')}
+                className="flex-1 px-3 py-2 text-sm bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-lg hover:from-pink-600 hover:to-blue-600 transition-all"
+              >
                 Default
               </button>
               <button
-              onClick={() => setTheme('life-ceo')} aria-label="Button"
-              className="flex-1 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all" data-testid="button-flex-1">
-
+                onClick={() => setTheme('life-ceo')}
+                className="flex-1 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all"
+              >
                 Executive
               </button>
             </div>
           </div>
         </div>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 };
 
 export default ThemeManager;

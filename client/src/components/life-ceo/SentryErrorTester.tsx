@@ -18,14 +18,14 @@ export function SentryErrorTester() {
       setSentryStatus(data);
       toast({
         title: "Sentry Status Retrieved",
-        description: data.message || "Status check complete"
+        description: data.message || "Status check complete",
       });
     } catch (error) {
       console.error('Failed to check Sentry status:', error);
       toast({
         title: "Status Check Failed",
         description: "Could not retrieve Sentry status",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -40,7 +40,7 @@ export function SentryErrorTester() {
         case 'sync':
           // Synchronous error
           throw new Error('40x20s Test: Synchronous error from UI');
-
+          
         case 'async':
           // Asynchronous error
           setTimeout(() => {
@@ -48,32 +48,32 @@ export function SentryErrorTester() {
           }, 1000);
           toast({
             title: "Async Error Triggered",
-            description: "Error will be thrown in 1 second"
+            description: "Error will be thrown in 1 second",
           });
           break;
-
+          
         case 'api':
           // API error
           const response = await fetch('/api/test/error');
           const data = await response.json();
           toast({
             title: "API Error Logged",
-            description: data.message || "Error sent to server"
+            description: data.message || "Error sent to server",
           });
           break;
-
+          
         case 'reference':
           // Reference error
           // @ts-ignore - Intentional error
           nonExistentFunction();
           break;
-
+          
         case 'promise':
           // Unhandled promise rejection
           Promise.reject(new Error('40x20s Test: Unhandled promise rejection'));
           toast({
             title: "Promise Rejection Triggered",
-            description: "Check console for unhandled rejection"
+            description: "Check console for unhandled rejection",
           });
           break;
       }
@@ -82,7 +82,7 @@ export function SentryErrorTester() {
       toast({
         title: "Error Triggered",
         description: error.message,
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -106,30 +106,30 @@ export function SentryErrorTester() {
           </p>
 
           {/* Sentry Status */}
-          {sentryStatus &&
-          <div className="bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 dark:from-turquoise-900/20 dark:to-cyan-900/20 rounded-lg p-4">
+          {sentryStatus && (
+            <div className="bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 dark:from-turquoise-900/20 dark:to-cyan-900/20 rounded-lg p-4">
               <h3 className="font-medium mb-2 flex items-center gap-2">
                 <Shield className="h-4 w-4" />
                 Sentry Configuration
               </h3>
               <div className="space-y-1 text-sm">
-                <p>Status: {sentryStatus.sentryEnabled ?
-                <span className="text-green-600">✅ Enabled</span> :
-                <span className="text-yellow-600">⚠️ Disabled</span>
+                <p>Status: {sentryStatus.sentryEnabled ? 
+                  <span className="text-green-600">✅ Enabled</span> : 
+                  <span className="text-yellow-600">⚠️ Disabled</span>
                 }</p>
                 <p>Environment: {sentryStatus.environment}</p>
                 <p>Sample Rate: {sentryStatus.sampleRate}</p>
               </div>
             </div>
-          }
+          )}
 
           {/* Action Buttons */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Button
               onClick={checkSentryStatus}
               disabled={loading}
-              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
-
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
+            >
               <CheckCircle className="mr-2 h-4 w-4" />
               Check Sentry Status
             </Button>
@@ -137,8 +137,8 @@ export function SentryErrorTester() {
             <Button
               onClick={() => triggerError('sync')}
               disabled={loading}
-              variant="destructive" data-testid="button-element">
-
+              variant="destructive"
+            >
               <AlertTriangle className="mr-2 h-4 w-4" />
               Trigger Sync Error
             </Button>
@@ -146,8 +146,8 @@ export function SentryErrorTester() {
             <Button
               onClick={() => triggerError('async')}
               disabled={loading}
-              variant="destructive" data-testid="button-element">
-
+              variant="destructive"
+            >
               <Zap className="mr-2 h-4 w-4" />
               Trigger Async Error
             </Button>
@@ -155,8 +155,8 @@ export function SentryErrorTester() {
             <Button
               onClick={() => triggerError('api')}
               disabled={loading}
-              variant="destructive" data-testid="button-element">
-
+              variant="destructive"
+            >
               <Bug className="mr-2 h-4 w-4" />
               Trigger API Error
             </Button>
@@ -164,8 +164,8 @@ export function SentryErrorTester() {
             <Button
               onClick={() => triggerError('reference')}
               disabled={loading}
-              variant="destructive" data-testid="button-element">
-
+              variant="destructive"
+            >
               <AlertTriangle className="mr-2 h-4 w-4" />
               Trigger Reference Error
             </Button>
@@ -173,8 +173,8 @@ export function SentryErrorTester() {
             <Button
               onClick={() => triggerError('promise')}
               disabled={loading}
-              variant="destructive" data-testid="button-element">
-
+              variant="destructive"
+            >
               <Zap className="mr-2 h-4 w-4" />
               Trigger Promise Rejection
             </Button>
@@ -193,6 +193,6 @@ export function SentryErrorTester() {
           </div>
         </div>
       </Card>
-    </div>);
-
+    </div>
+  );
 }

@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
         {/* Main Content Area - Full width with sidebar offset */}
-        <main className="flex-1 bg-[var(--color-surface-elevated)] transition-all duration-300">
+        <main className="flex-1 bg-gray-50 transition-all duration-300">
           <div className={cn(
             "transition-all duration-300",
             sidebarOpen ? "lg:pl-64" : "lg:pl-0"

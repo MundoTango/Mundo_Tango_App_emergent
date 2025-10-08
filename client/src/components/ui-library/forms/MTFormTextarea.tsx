@@ -63,7 +63,7 @@ export default function MTFormTextarea<
         return (
           <FormItem className={cn('space-y-2', className)}>
             {label && (
-              <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center justify-between">
+              <FormLabel className="text-sm font-medium text-gray-700 flex items-center justify-between">
                 <span className="flex items-center gap-1">
                   {label}
                   {required && <span className="text-red-500">*</span>}
@@ -87,11 +87,11 @@ export default function MTFormTextarea<
                 maxLength={maxLength}
                 className={cn(
                   'px-4 py-3',
-                  'border-[var(--color-border)] focus:border-teal-400',
+                  'border-gray-200 focus:border-teal-400',
                   'focus:ring-2 focus:ring-teal-400/20',
                   'rounded-xl',
                   'transition-all duration-200',
-                  'hover:border-[var(--color-ocean-300)]',
+                  'hover:border-teal-300',
                   'resize-none',
                   fieldState.error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
                 )}
@@ -103,7 +103,7 @@ export default function MTFormTextarea<
               />
             </FormControl>
             {description && (
-              <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
+              <FormDescription className="text-xs text-gray-500">
                 {description}
               </FormDescription>
             )}

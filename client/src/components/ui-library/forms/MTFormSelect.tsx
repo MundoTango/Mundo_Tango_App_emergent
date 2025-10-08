@@ -64,7 +64,7 @@ export default function MTFormSelect<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-2', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -78,11 +78,11 @@ export default function MTFormSelect<
               <SelectTrigger
                 className={cn(
                   'h-12 px-4',
-                  'border-[var(--color-border)] focus:border-teal-400',
+                  'border-gray-200 focus:border-teal-400',
                   'focus:ring-2 focus:ring-teal-400/20',
                   'rounded-xl',
                   'transition-all duration-200',
-                  'hover:border-[var(--color-ocean-300)]',
+                  'hover:border-teal-300',
                   fieldState.error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
                 )}
                 data-testid={testId || `select-${name}`}
@@ -90,13 +90,13 @@ export default function MTFormSelect<
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent className="rounded-xl border-[var(--color-border)] shadow-xl">
+            <SelectContent className="rounded-xl border-gray-200 shadow-xl">
               {options.map((option) => (
                 <SelectItem
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}
-                  className="hover:bg-[var(--color-ocean-50)] cursor-pointer transition-colors"
+                  className="hover:bg-teal-50 cursor-pointer transition-colors"
                   data-testid={`option-${option.value}`}
                 >
                   <span className="flex items-center gap-2">
@@ -108,7 +108,7 @@ export default function MTFormSelect<
             </SelectContent>
           </Select>
           {description && (
-            <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <FormDescription className="text-xs text-gray-500">
               {description}
             </FormDescription>
           )}

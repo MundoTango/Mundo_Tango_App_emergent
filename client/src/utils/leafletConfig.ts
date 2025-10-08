@@ -43,7 +43,7 @@ export function createCustomMarker(color: string, iconSvgPath: string) {
   const iconHtml = `
     <div class="relative">
       <div class="absolute -inset-1 bg-gradient-to-r from-${color} to-cyan-500 rounded-full blur opacity-75"></div>
-      <div class="relative bg-[var(--color-surface)] dark:bg-gray-900 rounded-full p-2 shadow-lg">
+      <div class="relative bg-white rounded-full p-2 shadow-lg">
         <svg class="w-6 h-6 text-${color}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           ${iconSvgPath}
         </svg>

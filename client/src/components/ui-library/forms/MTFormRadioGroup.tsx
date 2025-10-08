@@ -59,13 +59,13 @@ export default function MTFormRadioGroup<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-3', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
           )}
           {description && (
-            <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <FormDescription className="text-xs text-gray-500">
               {description}
             </FormDescription>
           )}
@@ -92,8 +92,8 @@ export default function MTFormRadioGroup<
                       disabled={option.disabled}
                       className={cn(
                         'mt-1',
-                        'border-gray-300 dark:border-gray-600',
-                        'text-[var(--color-primary-hover)]',
+                        'border-gray-300',
+                        'text-teal-600',
                         'focus:ring-teal-400',
                         'transition-all duration-200',
                         fieldState.error && 'border-red-500'
@@ -107,7 +107,7 @@ export default function MTFormRadioGroup<
                       {option.label}
                     </FormLabel>
                     {option.description && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      <p className="text-xs text-gray-500 mt-1">
                         {option.description}
                       </p>
                     )}
@@ -146,13 +146,13 @@ export function MTFormRadioCards<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-3', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
           )}
           {description && (
-            <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <FormDescription className="text-xs text-gray-500">
               {description}
             </FormDescription>
           )}
@@ -192,7 +192,7 @@ export function MTFormRadioCards<
                     </FormControl>
                     <div className={cn(
                       'rounded-xl border-2 p-4',
-                      'hover:border-[var(--color-ocean-300)] hover:bg-[var(--color-ocean-50)]/50',
+                      'hover:border-teal-300 hover:bg-teal-50/50',
                       'transition-all duration-200',
                       option.disabled && 'opacity-50 cursor-not-allowed',
                       fieldState.error && 'border-red-500'
@@ -202,11 +202,11 @@ export function MTFormRadioCards<
                           <span className="text-2xl">{option.icon}</span>
                         )}
                         <div className="flex-1">
-                          <p className="font-medium text-[var(--color-text)] dark:text-white">
+                          <p className="font-medium text-gray-900">
                             {option.label}
                           </p>
                           {option.description && (
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <p className="text-xs text-gray-500 mt-1">
                               {option.description}
                             </p>
                           )}

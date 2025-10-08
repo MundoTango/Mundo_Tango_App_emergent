@@ -57,7 +57,7 @@ const PIERRE_DUBOIS = {
 
 // ESA Framework: Community Statistics Component
 const CommunityStats = () => (
-  <div className="bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
+  <div className="bg-white/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
     <h3 className="text-lg font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent mb-4">
       Community
     </h3>
@@ -67,9 +67,9 @@ const CommunityStats = () => (
           <div className="p-2 bg-purple-100 rounded-lg">
             <Users className="h-5 w-5 text-purple-600" />
           </div>
-          <span className="text-sm font-medium text-[var(--color-text-secondary)]">Global Dancers</span>
+          <span className="text-sm font-medium text-gray-700">Global Dancers</span>
         </div>
-        <span className="text-xl font-bold text-[var(--color-text)] dark:text-white">3.2K</span>
+        <span className="text-xl font-bold text-gray-900">3.2K</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -77,9 +77,9 @@ const CommunityStats = () => (
           <div className="p-2 bg-orange-100 rounded-lg">
             <Calendar className="h-5 w-5 text-orange-600" />
           </div>
-          <span className="text-sm font-medium text-[var(--color-text-secondary)]">Active Events</span>
+          <span className="text-sm font-medium text-gray-700">Active Events</span>
         </div>
-        <span className="text-xl font-bold text-[var(--color-text)] dark:text-white">945</span>
+        <span className="text-xl font-bold text-gray-900">945</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -87,9 +87,9 @@ const CommunityStats = () => (
           <div className="p-2 bg-blue-100 rounded-lg">
             <Globe2 className="h-5 w-5 text-blue-600" />
           </div>
-          <span className="text-sm font-medium text-[var(--color-text-secondary)]">Communities</span>
+          <span className="text-sm font-medium text-gray-700">Communities</span>
         </div>
-        <span className="text-xl font-bold text-[var(--color-text)] dark:text-white">6.8K</span>
+        <span className="text-xl font-bold text-gray-900">6.8K</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -97,13 +97,13 @@ const CommunityStats = () => (
           <div className="p-2 bg-green-100 rounded-lg">
             <Building className="h-5 w-5 text-green-600" />
           </div>
-          <span className="text-sm font-medium text-[var(--color-text-secondary)]">Your City</span>
+          <span className="text-sm font-medium text-gray-700">Your City</span>
         </div>
-        <span className="text-xl font-bold text-[var(--color-text)] dark:text-white">184</span>
+        <span className="text-xl font-bold text-gray-900">184</span>
       </div>
     </div>
 
-    <div className="mt-6 pt-6 border-t border-[var(--color-border)]">
+    <div className="mt-6 pt-6 border-t border-gray-200">
       <Button className="w-full bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white hover:opacity-90">
         <Music className="h-4 w-4 mr-2" />
         Mundo Tango
@@ -114,11 +114,11 @@ const CommunityStats = () => (
 
 // ESA Framework: Upcoming Events Component
 const UpcomingEvents = () => (
-  <div className="bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
+  <div className="bg-white/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
     <h3 className="text-lg font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent mb-4">
       Upcoming Events
     </h3>
-    <div className="text-gray-600 dark:text-gray-300 text-sm space-y-3">
+    <div className="text-gray-600 text-sm space-y-3">
       <p>No upcoming events found</p>
       <p>Check your city or join our community</p>
     </div>
@@ -127,7 +127,7 @@ const UpcomingEvents = () => (
 
 // ESA Framework: Memory Card Component
 const MemoryCard = ({ memory }: { memory: any }) => (
-  <Card className="bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border border-cyan-200/20 hover:shadow-xl transition-all">
+  <Card className="bg-white/95 backdrop-blur-lg shadow-lg border border-cyan-200/20 hover:shadow-xl transition-all">
     <CardContent className="p-6">
       <div className="flex items-start gap-4">
         <Avatar className="h-10 w-10 border-2 border-[#5EEAD4]">
@@ -138,10 +138,10 @@ const MemoryCard = ({ memory }: { memory: any }) => (
         </Avatar>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{memory.user?.name || 'Unknown'}</h4>
-            <span className="text-gray-500 dark:text-gray-400 text-sm">@{memory.user?.username || 'unknown'}</span>
+            <h4 className="font-semibold text-gray-900">{memory.user?.name || 'Unknown'}</h4>
+            <span className="text-gray-500 text-sm">@{memory.user?.username || 'unknown'}</span>
           </div>
-          <p className="text-[var(--color-text-secondary)] mb-3">{memory.content}</p>
+          <p className="text-gray-700 mb-3">{memory.content}</p>
           {memory.imageUrl && (
             <img 
               src={memory.imageUrl} 
@@ -149,16 +149,16 @@ const MemoryCard = ({ memory }: { memory: any }) => (
               className="rounded-lg w-full max-h-96 object-cover mb-3"
             />
           )}
-          <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
-            <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors" aria-label="Button">
+          <div className="flex items-center gap-6 text-sm text-gray-600">
+            <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors">
               <Heart className="h-4 w-4" />
               <span>{memory.likesCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors" aria-label="Button">
+            <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors">
               <MessageCircle className="h-4 w-4" />
               <span>{memory.commentsCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors" aria-label="Button">
+            <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors">
               <Share2 className="h-4 w-4" />
               <span>{memory.sharesCount || 0}</span>
             </button>
@@ -239,9 +239,9 @@ const ModernMemoriesPage = () => {
       className={`p-2.5 rounded-lg border transition-all ${
         active 
           ? 'bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white border-transparent shadow-md' 
-          : 'bg-[var(--color-surface)] dark:bg-gray-900/70 hover:bg-[var(--color-surface)] dark:bg-gray-900 border-[var(--color-border)] hover:border-[#5EEAD4]'
+          : 'bg-white/70 hover:bg-white border-gray-200 hover:border-[#5EEAD4]'
       }`}
-     aria-label="Button">
+    >
       <Icon className="h-4 w-4" />
     </button>
   );
@@ -276,7 +276,7 @@ const ModernMemoriesPage = () => {
         <div className="text-xl mt-2">If you see this, ModernMemoriesPage.tsx is working!</div>
       </div>
       {/* ESA Framework: Header Section */}
-      <div className="bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-lg border-b border-cyan-200/30">
+      <div className="bg-white/95 backdrop-blur-lg border-b border-cyan-200/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-gradient-to-br from-[#5EEAD4] to-[#155E75] rounded-xl shadow-lg">
@@ -286,7 +286,7 @@ const ModernMemoriesPage = () => {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
                 Memories (CORRECT PAGE)
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-gray-600 mt-1">
                 Share your tango moments, connect with dancers, and create lasting memories together
               </p>
             </div>
@@ -300,7 +300,7 @@ const ModernMemoriesPage = () => {
 
           {/* Left Sidebar - Navigation */}
           <div className="lg:col-span-2">
-            <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-sm shadow-lg border border-cyan-200/20 sticky top-4">
+            <Card className="bg-white/90 backdrop-blur-sm shadow-lg border border-cyan-200/20 sticky top-4">
               <CardContent className="p-6">
                 <div className="space-y-1">
                   <Button variant="ghost" className="w-full justify-start text-[#155E75] hover:bg-[#5EEAD4]/20">
@@ -339,7 +339,7 @@ const ModernMemoriesPage = () => {
           {/* Center - Main Feed */}
           <div className="lg:col-span-7 space-y-6">
             {/* ESA Framework: Pierre Dubois Post Creator */}
-            <Card className="bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border border-cyan-200/20">
+            <Card className="bg-white/95 backdrop-blur-lg shadow-lg border border-cyan-200/20">
               <CardContent className="p-6">
                 {/* Pierre Dubois User Header */}
                 <div className="flex items-center gap-4 mb-4">
@@ -351,8 +351,8 @@ const ModernMemoriesPage = () => {
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-[var(--color-text)] dark:text-white">{PIERRE_DUBOIS.name}</h3>
-                      <span className="text-gray-500 dark:text-gray-400 text-sm">@{PIERRE_DUBOIS.username}</span>
+                      <h3 className="font-semibold text-gray-900">{PIERRE_DUBOIS.name}</h3>
+                      <span className="text-gray-500 text-sm">@{PIERRE_DUBOIS.username}</span>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
                       <Badge variant="secondary" className="text-xs">
@@ -388,7 +388,7 @@ const ModernMemoriesPage = () => {
 
                 {/* Tag Selection */}
                 <div className="mt-4 mb-4">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">Add tags to your memory</p>
+                  <p className="text-sm text-gray-500 mb-3">Add tags to your memory</p>
                   <div className="flex gap-2 flex-wrap">
                     {tagOptions.map(tag => (
                       <TagButton
@@ -465,9 +465,9 @@ const ModernMemoriesPage = () => {
                   <MemoryCard key={memory.id} memory={memory} />
                 ))
               ) : (
-                <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-sm">
+                <Card className="bg-white/90 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
-                    <p className="text-gray-500 dark:text-gray-400">No memories yet. Be the first to share!</p>
+                    <p className="text-gray-500">No memories yet. Be the first to share!</p>
                   </CardContent>
                 </Card>
               )}

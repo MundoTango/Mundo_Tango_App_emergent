@@ -31,8 +31,8 @@ interface ProjectMetrics {
   avgCompletion: number;
   totalEstimatedHours: number;
   totalActualHours: number;
-  statusCounts: {[key: string]: number;};
-  layerDistribution: Array<{layer: number;count: number;}>;
+  statusCounts: { [key: string]: number };
+  layerDistribution: Array<{ layer: number; count: number }>;
 }
 
 interface AuditResult {
@@ -50,130 +50,130 @@ const ProjectTracker: React.FC = () => {
   // Fetch projects data
   const { data: projectsData, isLoading: projectsLoading } = useQuery({
     queryKey: ['/api/projects'],
-    enabled: true
+    enabled: true,
   });
 
   // Fetch project metrics
   const { data: metricsData, isLoading: metricsLoading } = useQuery({
     queryKey: ['/api/projects/metrics/summary'],
-    enabled: true
+    enabled: true,
   });
 
   // Mock audit results based on the comprehensive audit report
   const auditResults: AuditResult[] = [
-  {
-    category: '@Mentions System',
-    score: 100,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'Facebook-style @mention detection implemented',
-    'Real-time user search integration active',
-    'Event and group mentions supported',
-    'Rich mention storage with metadata',
-    'Real-time notification system operational'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'Friendship Algorithm',
-    score: 98,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'AI-powered friend recommendations active',
-    'Smart friend request management implemented',
-    'Mutual connections algorithm working',
-    'Interest-based matching operational',
-    'Location proximity suggestions enabled'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'Memories Feed Algorithm',
-    score: 99,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'AI-powered content curation active',
-    'Intelligent memory prioritization working',
-    'Multi-factor scoring algorithm operational',
-    'Real-time feed updates functioning',
-    'Advanced filtering system implemented'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'Memory Filtering System',
-    score: 97,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'Advanced content filtering implemented',
-    'Privacy controls operational',
-    'Tag-based filtering working',
-    'Location-based filtering active',
-    'Visibility controls functioning'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'Enhanced Posting System',
-    score: 96,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'Multi-media post creation implemented',
-    'Rich text editing functional',
-    'Media upload system operational',
-    'Post actions menu implemented',
-    'Edit/delete functionality working'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'Media Management',
-    score: 95,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'Comprehensive image/video handling active',
-    'Cloud storage integration operational',
-    'Media compression implemented',
-    'Upload progress tracking working',
-    'Media preview generation functional'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'AI Recommendations',
-    score: 94,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'Intelligent content suggestions active',
-    'User recommendation engine working',
-    'Event recommendations operational',
-    'Group suggestions implemented',
-    'Personalization algorithms functional'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  },
-  {
-    category: 'Post Visibility Controls',
-    score: 98,
-    maxScore: 100,
-    status: 'passed',
-    details: [
-    'Privacy access control system operational',
-    'Post visibility settings implemented',
-    'User blocking functionality active',
-    'Report system working',
-    'Content moderation tools functional'],
-
-    lastUpdated: '2025-08-12T16:00:00.000Z'
-  }];
-
+    {
+      category: '@Mentions System',
+      score: 100,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'Facebook-style @mention detection implemented',
+        'Real-time user search integration active',
+        'Event and group mentions supported',
+        'Rich mention storage with metadata',
+        'Real-time notification system operational'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'Friendship Algorithm',
+      score: 98,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'AI-powered friend recommendations active',
+        'Smart friend request management implemented',
+        'Mutual connections algorithm working',
+        'Interest-based matching operational',
+        'Location proximity suggestions enabled'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'Memories Feed Algorithm',
+      score: 99,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'AI-powered content curation active',
+        'Intelligent memory prioritization working',
+        'Multi-factor scoring algorithm operational',
+        'Real-time feed updates functioning',
+        'Advanced filtering system implemented'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'Memory Filtering System',
+      score: 97,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'Advanced content filtering implemented',
+        'Privacy controls operational',
+        'Tag-based filtering working',
+        'Location-based filtering active',
+        'Visibility controls functioning'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'Enhanced Posting System',
+      score: 96,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'Multi-media post creation implemented',
+        'Rich text editing functional',
+        'Media upload system operational',
+        'Post actions menu implemented',
+        'Edit/delete functionality working'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'Media Management',
+      score: 95,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'Comprehensive image/video handling active',
+        'Cloud storage integration operational',
+        'Media compression implemented',
+        'Upload progress tracking working',
+        'Media preview generation functional'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'AI Recommendations',
+      score: 94,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'Intelligent content suggestions active',
+        'User recommendation engine working',
+        'Event recommendations operational',
+        'Group suggestions implemented',
+        'Personalization algorithms functional'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    },
+    {
+      category: 'Post Visibility Controls',
+      score: 98,
+      maxScore: 100,
+      status: 'passed',
+      details: [
+        'Privacy access control system operational',
+        'Post visibility settings implemented',
+        'User blocking functionality active',
+        'Report system working',
+        'Content moderation tools functional'
+      ],
+      lastUpdated: '2025-08-12T16:00:00.000Z'
+    }
+  ];
 
   const projects: Project[] = (projectsData as any)?.data || [];
   const metrics: ProjectMetrics = (metricsData as any)?.data || {
@@ -191,36 +191,36 @@ const ProjectTracker: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'passed':return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'warning':return <AlertCircle className="h-5 w-5 text-yellow-500" />;
-      case 'failed':return <AlertCircle className="h-5 w-5 text-red-500" />;
-      default:return <Clock className="h-5 w-5 text-gray-500 dark:text-gray-400" />;
+      case 'passed': return <CheckCircle className="h-5 w-5 text-green-500" />;
+      case 'warning': return <AlertCircle className="h-5 w-5 text-yellow-500" />;
+      case 'failed': return <AlertCircle className="h-5 w-5 text-red-500" />;
+      default: return <Clock className="h-5 w-5 text-gray-500" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed':return 'bg-green-100 text-green-800';
-      case 'in_progress':return 'bg-blue-100 text-blue-800';
-      case 'planning':return 'bg-yellow-100 text-yellow-800';
-      case 'on_hold':return 'bg-red-100 text-red-800';
-      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
+      case 'completed': return 'bg-green-100 text-green-800';
+      case 'in_progress': return 'bg-blue-100 text-blue-800';
+      case 'planning': return 'bg-yellow-100 text-yellow-800';
+      case 'on_hold': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical':return 'bg-red-100 text-red-800';
-      case 'high':return 'bg-orange-100 text-orange-800';
-      case 'medium':return 'bg-yellow-100 text-yellow-800';
-      case 'low':return 'bg-green-100 text-green-800';
-      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
+      case 'critical': return 'bg-red-100 text-red-800';
+      case 'high': return 'bg-orange-100 text-orange-800';
+      case 'medium': return 'bg-yellow-100 text-yellow-800';
+      case 'low': return 'bg-green-100 text-green-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const filteredProjects = selectedFilter === 'all' ?
-  projects :
-  projects.filter((p) => p.status === selectedFilter);
+  const filteredProjects = selectedFilter === 'all' 
+    ? projects 
+    : projects.filter(p => p.status === selectedFilter);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
@@ -230,7 +230,7 @@ const ProjectTracker: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
             ESA LIFE CEO 61x21 Project Tracker
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
+          <p className="text-gray-600 text-lg">
             Comprehensive platform audit and project management dashboard
           </p>
         </div>
@@ -312,8 +312,8 @@ const ProjectTracker: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {auditResults.map((result, index) =>
-                  <Card key={index} className="border-l-4 border-l-green-500">
+                  {auditResults.map((result, index) => (
+                    <Card key={index} className="border-l-4 border-l-green-500">
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">
                           <CardTitle className="text-lg">{result.category}</CardTitle>
@@ -326,23 +326,23 @@ const ProjectTracker: React.FC = () => {
                         </div>
                       </CardHeader>
                       <CardContent className="pt-0">
-                        <Progress value={result.score / result.maxScore * 100} className="mb-3" />
+                        <Progress value={(result.score / result.maxScore) * 100} className="mb-3" />
                         <ScrollArea className="h-24">
-                          <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                            {result.details.map((detail, i) =>
-                          <li key={i} className="flex items-start gap-2">
+                          <ul className="text-sm text-gray-600 space-y-1">
+                            {result.details.map((detail, i) => (
+                              <li key={i} className="flex items-start gap-2">
                                 <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
                                 {detail}
                               </li>
-                          )}
+                            ))}
                           </ul>
                         </ScrollArea>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                        <p className="text-xs text-gray-500 mt-2">
                           Last updated: {format(new Date(result.lastUpdated), 'MMM d, yyyy HH:mm')}
                         </p>
                       </CardContent>
                     </Card>
-                  )}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -358,33 +358,33 @@ const ProjectTracker: React.FC = () => {
                     <Button
                       variant={selectedFilter === 'all' ? 'default' : 'outline'}
                       size="sm"
-                      onClick={() => setSelectedFilter('all')} data-testid="button-element">
-
+                      onClick={() => setSelectedFilter('all')}
+                    >
                       All ({projects.length})
                     </Button>
-                    {Object.entries(metrics.statusCounts || {}).map(([status, count]) =>
-                    <Button
-                      key={status}
-                      variant={selectedFilter === status ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setSelectedFilter(status)} data-testid="button-element">
-
+                    {Object.entries(metrics.statusCounts || {}).map(([status, count]) => (
+                      <Button
+                        key={status}
+                        variant={selectedFilter === status ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedFilter(status)}
+                      >
                         {status} ({count})
                       </Button>
-                    )}
+                    ))}
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                {projectsLoading ?
-                <div className="text-center py-8">
+                {projectsLoading ? (
+                  <div className="text-center py-8">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">Loading projects...</p>
-                  </div> :
-                filteredProjects.length > 0 ?
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredProjects.map((project) =>
-                  <Card key={project.id} className="hover:shadow-lg transition-shadow">
+                    <p className="text-gray-500 mt-2">Loading projects...</p>
+                  </div>
+                ) : filteredProjects.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {filteredProjects.map((project) => (
+                      <Card key={project.id} className="hover:shadow-lg transition-shadow">
                         <CardHeader className="pb-3">
                           <div className="flex items-start justify-between">
                             <CardTitle className="text-lg line-clamp-2">{project.name}</CardTitle>
@@ -393,18 +393,18 @@ const ProjectTracker: React.FC = () => {
                             </Badge>
                           </div>
                           <div className="flex items-center gap-2">
-                            {project.layer &&
-                        <Badge variant="outline" className="text-xs">
+                            {project.layer && (
+                              <Badge variant="outline" className="text-xs">
                                 Layer {project.layer}
                               </Badge>
-                        }
+                            )}
                             <Badge className={getPriorityColor(project.priority)} variant="secondary">
                               {project.priority}
                             </Badge>
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">{project.description}</p>
+                          <p className="text-sm text-gray-600 mb-3 line-clamp-2">{project.description}</p>
                           <div className="space-y-2">
                             <div className="flex items-center justify-between text-sm">
                               <span>Progress</span>
@@ -412,27 +412,27 @@ const ProjectTracker: React.FC = () => {
                             </div>
                             <Progress value={project.completion} />
                           </div>
-                          {project.estimatedHours &&
-                      <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-2">
+                          {project.estimatedHours && (
+                            <div className="flex items-center justify-between text-sm text-gray-500 mt-2">
                               <span>Estimated: {project.estimatedHours}h</span>
-                              {project.actualHours &&
-                        <span>Actual: {project.actualHours}h</span>
-                        }
+                              {project.actualHours && (
+                                <span>Actual: {project.actualHours}h</span>
+                              )}
                             </div>
-                      }
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                          )}
+                          <p className="text-xs text-gray-500 mt-2">
                             Updated: {format(new Date(project.updatedAt), 'MMM d, yyyy')}
                           </p>
                         </CardContent>
                       </Card>
-                  )}
-                  </div> :
-
-                <div className="text-center py-8">
-                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-500 dark:text-gray-400">No projects found for the selected filter</p>
+                    ))}
                   </div>
-                }
+                ) : (
+                  <div className="text-center py-8">
+                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+                    <p className="text-gray-500">No projects found for the selected filter</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -445,23 +445,23 @@ const ProjectTracker: React.FC = () => {
                   <CardTitle>Project Status Distribution</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {metricsLoading ?
-                  <div className="text-center py-8">
+                  {metricsLoading ? (
+                    <div className="text-center py-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                    </div> :
-
-                  <div className="space-y-3">
-                      {Object.entries(metrics.statusCounts || {}).map(([status, count]) =>
-                    <div key={status} className="flex items-center justify-between">
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {Object.entries(metrics.statusCounts || {}).map(([status, count]) => (
+                        <div key={status} className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <div className={`w-3 h-3 rounded-full ${getStatusColor(status).replace('text-', 'bg-').replace('100', '500')}`}></div>
                             <span className="capitalize">{status.replace('_', ' ')}</span>
                           </div>
                           <Badge variant="secondary">{count}</Badge>
                         </div>
-                    )}
+                      ))}
                     </div>
-                  }
+                  )}
                 </CardContent>
               </Card>
 
@@ -470,22 +470,22 @@ const ProjectTracker: React.FC = () => {
                   <CardTitle>Development Layers</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {metricsLoading ?
-                  <div className="text-center py-8">
+                  {metricsLoading ? (
+                    <div className="text-center py-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                    </div> :
-
-                  <div className="space-y-3">
-                      {metrics.layerDistribution?.slice(0, 10).map((item) =>
-                    <div key={item.layer} className="flex items-center justify-between">
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {metrics.layerDistribution?.slice(0, 10).map((item) => (
+                        <div key={item.layer} className="flex items-center justify-between">
                           <span>Layer {item.layer}</span>
                           <Badge variant="outline">{item.count} projects</Badge>
                         </div>
-                    ) ||
-                    <p className="text-gray-500 dark:text-gray-400 text-center py-4">No layer data available</p>
-                    }
+                      )) || (
+                        <p className="text-gray-500 text-center py-4">No layer data available</p>
+                      )}
                     </div>
-                  }
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -498,19 +498,19 @@ const ProjectTracker: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center">
                     <p className="text-2xl font-bold text-blue-600">{metrics.totalProjects}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Total Projects</p>
+                    <p className="text-sm text-gray-600">Total Projects</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-green-600">{metrics.avgCompletion?.toFixed(1) || 0}%</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Avg Completion</p>
+                    <p className="text-sm text-gray-600">Avg Completion</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-purple-600">{metrics.totalEstimatedHours || 0}h</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Est. Hours</p>
+                    <p className="text-sm text-gray-600">Est. Hours</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-orange-600">{metrics.totalActualHours || 0}h</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Actual Hours</p>
+                    <p className="text-sm text-gray-600">Actual Hours</p>
                   </div>
                 </div>
               </CardContent>
@@ -518,8 +518,8 @@ const ProjectTracker: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>);
-
+    </div>
+  );
 };
 
 export default ProjectTracker;

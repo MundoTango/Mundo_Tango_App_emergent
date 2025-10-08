@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,16 +11,16 @@ import { toast } from '@/hooks/use-toast';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useLocation } from 'wouter';
-import {
-  Users,
-  Globe,
-  Lock,
-  MapPin,
+import { 
+  Users, 
+  Globe, 
+  Lock, 
+  MapPin, 
   Calendar,
   Music,
   Code,
-  Star } from
-'lucide-react';
+  Star
+} from 'lucide-react';
 
 interface CommunityFormData {
   name: string;
@@ -36,26 +35,25 @@ interface CommunityFormData {
 }
 
 const COMMUNITY_TYPES = [
-{
-  value: 'city', label: 'City Group', icon: MapPin },
-{ value: 'practice', label: 'Practice Group', icon: Code },
-{ value: 'professional', label: 'Professional Network', icon: Users },
-{ value: 'music', label: 'Music & DJs', icon: Music },
-{ value: 'festival', label: 'Festival', icon: Calendar },
-{ value: 'special', label: 'Special Interest', icon: Star }];
-
+  { value: 'city', label: 'City Group', icon: MapPin },
+  { value: 'practice', label: 'Practice Group', icon: Code },
+  { value: 'professional', label: 'Professional Network', icon: Users },
+  { value: 'music', label: 'Music & DJs', icon: Music },
+  { value: 'festival', label: 'Festival', icon: Calendar },
+  { value: 'special', label: 'Special Interest', icon: Star }
+];
 
 const CATEGORIES = [
-'Milonga',
-'Práctica',
-'Classes',
-'Workshops',
-'Social Events',
-'Performances',
-'Music',
-'Travel',
-'Online Events'];
-
+  'Milonga',
+  'Práctica',
+  'Classes',
+  'Workshops',
+  'Social Events',
+  'Performances',
+  'Music',
+  'Travel',
+  'Online Events'
+];
 
 export default function CreateCommunity() {
   const [, setLocation] = useLocation();
@@ -83,28 +81,28 @@ export default function CreateCommunity() {
     onSuccess: (data) => {
       toast({
         title: 'Community Created!',
-        description: 'Your community has been created successfully.'
+        description: 'Your community has been created successfully.',
       });
       queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
       setLocation(`/groups/${data.slug}`);
     },
     onError: (error: any) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: error.message || 'Failed to create community. Please try again.',
-        variant: 'destructive'
+        variant: 'destructive',
       });
     }
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!formData.name || !formData.description) {
       toast({
         title: 'Missing Information',
         description: 'Please fill in all required fields.',
-        variant: 'destructive'
+        variant: 'destructive',
       });
       return;
     }
@@ -113,11 +111,11 @@ export default function CreateCommunity() {
   };
 
   const toggleCategory = (category: string) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      categories: prev.categories.includes(category) ?
-      prev.categories.filter((c) => c !== category) :
-      [...prev.categories, category]
+      categories: prev.categories.includes(category)
+        ? prev.categories.filter(c => c !== category)
+        : [...prev.categories, category]
     }));
   };
 
@@ -134,7 +132,7 @@ export default function CreateCommunity() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Basic Information</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
                 
                 <div>
                   <Label htmlFor="name">Community Name *</Label>
@@ -144,28 +142,28 @@ export default function CreateCommunity() {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g., Buenos Aires Tango Community"
                     className="glassmorphic-input"
-                    required data-testid="input-name" />
-
+                    required
+                  />
                 </div>
 
                 <div>
                   <Label htmlFor="type">Community Type *</Label>
-                  <Select
-                    value={formData.type}
-                    onValueChange={(value) => setFormData({ ...formData, type: value })} data-testid="select-element">
-
+                  <Select 
+                    value={formData.type} 
+                    onValueChange={(value) => setFormData({ ...formData, type: value })}
+                  >
                     <SelectTrigger className="glassmorphic-input">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {COMMUNITY_TYPES.map((type) =>
-                      <SelectItem key={type.value} value={type.value}>
+                      {COMMUNITY_TYPES.map(type => (
+                        <SelectItem key={type.value} value={type.value}>
                           <div className="flex items-center gap-2">
                             <type.icon className="w-4 h-4" />
                             {type.label}
                           </div>
                         </SelectItem>
-                      )}
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -178,76 +176,76 @@ export default function CreateCommunity() {
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Describe your community's purpose and what makes it unique..."
                     className="glassmorphic-input min-h-[120px]"
-                    required data-testid="textarea-description" />
-
+                    required
+                  />
                 </div>
               </div>
 
               {/* Location (for city groups) */}
-              {formData.type === 'city' &&
-              <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Location</h3>
+              {formData.type === 'city' && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Location</h3>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="city">City</Label>
                       <Input
-                      id="city"
-                      value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      placeholder="Buenos Aires"
-                      className="glassmorphic-input" data-testid="input-city" />
-
+                        id="city"
+                        value={formData.city}
+                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        placeholder="Buenos Aires"
+                        className="glassmorphic-input"
+                      />
                     </div>
                     
                     <div>
                       <Label htmlFor="country">Country</Label>
                       <Input
-                      id="country"
-                      value={formData.country}
-                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                      placeholder="Argentina"
-                      className="glassmorphic-input" data-testid="input-country" />
-
+                        id="country"
+                        value={formData.country}
+                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                        placeholder="Argentina"
+                        className="glassmorphic-input"
+                      />
                     </div>
                   </div>
                 </div>
-              }
+              )}
 
               {/* Categories */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Event Categories</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Select the types of events your community will host</p>
+                <h3 className="text-lg font-semibold text-gray-900">Event Categories</h3>
+                <p className="text-sm text-gray-600">Select the types of events your community will host</p>
                 
                 <div className="grid grid-cols-3 gap-3">
-                  {CATEGORIES.map((category) =>
-                  <button
-                    key={category}
-                    type="button"
-                    onClick={() => toggleCategory(category)} aria-label="Button"
-                    className={`p-3 rounded-lg border-2 transition-all ${
-                    formData.categories.includes(category) ?
-                    'border-turquoise-500 bg-[var(--color-ocean-50)] text-turquoise-700' :
-                    'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'}`
-                    } data-testid="button-button">
-
+                  {CATEGORIES.map(category => (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => toggleCategory(category)}
+                      className={`p-3 rounded-lg border-2 transition-all ${
+                        formData.categories.includes(category)
+                          ? 'border-turquoise-500 bg-turquoise-50 text-turquoise-700'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
                       {category}
                     </button>
-                  )}
+                  ))}
                 </div>
               </div>
 
               {/* Privacy Settings */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Privacy Settings</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Privacy Settings</h3>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    {formData.visibility === 'public' ?
-                    <Globe className="w-5 h-5 text-[var(--color-primary-hover)]" /> :
-
-                    <Lock className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                    }
+                    {formData.visibility === 'public' ? (
+                      <Globe className="w-5 h-5 text-turquoise-600" />
+                    ) : (
+                      <Lock className="w-5 h-5 text-gray-600" />
+                    )}
                     <Label htmlFor="visibility" className="cursor-pointer">
                       {formData.visibility === 'public' ? 'Public Community' : 'Private Community'}
                     </Label>
@@ -255,10 +253,10 @@ export default function CreateCommunity() {
                   <Switch
                     id="visibility"
                     checked={formData.visibility === 'private'}
-                    onCheckedChange={(checked) =>
-                    setFormData({ ...formData, visibility: checked ? 'private' : 'public' })
-                    } />
-
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, visibility: checked ? 'private' : 'public' })
+                    }
+                  />
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -268,22 +266,22 @@ export default function CreateCommunity() {
                   <Switch
                     id="approval"
                     checked={formData.requireApproval}
-                    onCheckedChange={(checked) =>
-                    setFormData({ ...formData, requireApproval: checked })
-                    } />
-
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, requireApproval: checked })
+                    }
+                  />
                 </div>
               </div>
 
               {/* Community Rules */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Community Rules (Optional)</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Community Rules (Optional)</h3>
                 <Textarea
                   value={formData.rules}
                   onChange={(e) => setFormData({ ...formData, rules: e.target.value })}
                   placeholder="Add any specific rules or guidelines for your community members..."
-                  className="glassmorphic-input min-h-[100px]" data-testid="textarea-glassmorphic-input" />
-
+                  className="glassmorphic-input min-h-[100px]"
+                />
               </div>
 
               {/* Submit Buttons */}
@@ -291,16 +289,16 @@ export default function CreateCommunity() {
                 <Button
                   type="submit"
                   disabled={createCommunityMutation.isPending}
-                  className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-submit">
-
+                  className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
+                >
                   {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setLocation('/groups')}
-                  className="flex-1" data-testid="button-button">
-
+                  className="flex-1"
+                >
                   Cancel
                 </Button>
               </div>
@@ -308,6 +306,6 @@ export default function CreateCommunity() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>);
-
+    </DashboardLayout>
+  );
 }

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -14,9 +13,8 @@ import { initializeLeaflet } from '@/utils/leafletConfig';
 initializeLeaflet();
 
 const defaultCenter = {
-  const { t } = useTranslation();
   lat: -34.603722, // Buenos Aires default
-  lng: -58.381592
+  lng: -58.381592,
 };
 
 interface LocationStepProps {
@@ -41,11 +39,11 @@ interface AddressSuggestion {
 }
 
 // Custom component to handle map clicks in Leaflet
-function MapClickHandler({ onMapClick }: {onMapClick: (lat: number, lng: number) => void;}) {
+function MapClickHandler({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) {
   useMapEvents({
     click: (e) => {
       onMapClick(e.latlng.lat, e.latlng.lng);
-    }
+    },
   });
   return null;
 }
@@ -66,7 +64,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     setMarkerPosition([lat, lng]);
     updateData({
       latitude: lat,
-      longitude: lng
+      longitude: lng,
     });
 
     // Reverse geocode using OpenStreetMap Nominatim
@@ -75,14 +73,14 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
         `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`
       );
       const data = await response.json();
-
+      
       if (data && data.address) {
         updateData({
           address: [data.address.house_number, data.address.road].filter(Boolean).join(' ') || '',
           city: data.address.city || data.address.town || data.address.village || '',
           state: data.address.state || '',
           country: data.address.country || '',
-          zipCode: data.address.postcode || ''
+          zipCode: data.address.postcode || '',
         });
       }
     } catch (error) {
@@ -98,13 +96,13 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
       toast({
         title: 'Missing information',
         description: 'Please fill in address, city, and country before verifying location.',
-        variant: 'destructive'
+        variant: 'destructive',
       });
       return;
     }
 
     setIsGeocoding(true);
-
+    
     try {
       // Always use OpenStreetMap for manual verification to avoid Google Maps issues
       const fullAddress = `${data.address}, ${data.city}, ${data.state || ''}, ${data.country}`.trim();
@@ -115,32 +113,32 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
         const { lat, lon } = results[0];
         updateData({
           latitude: parseFloat(lat),
-          longitude: parseFloat(lon)
+          longitude: parseFloat(lon),
         });
-
+        
         // Update map position
         setMarkerPosition([parseFloat(lat), parseFloat(lon)]);
         if (mapRef.current) {
           mapRef.current.setView([parseFloat(lat), parseFloat(lon)], 17);
         }
-
+        
         toast({
           title: 'Location verified',
-          description: 'We found your property on the map!'
+          description: 'We found your property on the map!',
         });
       } else {
         toast({
           title: 'Location not found',
           description: 'Please check your address and try again.',
-          variant: 'destructive'
+          variant: 'destructive',
         });
       }
     } catch (error) {
       console.error('Geocoding error:', error);
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: 'Failed to verify location. Please try again.',
-        variant: 'destructive'
+        variant: 'destructive',
       });
     } finally {
       setIsGeocoding(false);
@@ -161,14 +159,14 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`
       );
       const results = await response.json();
-
+      
       const formattedResults = results.map((result: any) => ({
         display_name: result.display_name,
         lat: result.lat,
         lon: result.lon,
-        address: result.address || {}
+        address: result.address || {},
       }));
-
+      
       setAddressSuggestions(formattedResults);
       setShowSuggestions(formattedResults.length > 0);
     } catch (error) {
@@ -198,12 +196,12 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
   // Handle suggestion selection
   const handleSuggestionSelect = useCallback((suggestion: any) => {
     const { address } = suggestion;
-
+    
     // Build complete address with house number
     const streetName = address.road || address.pedestrian || address.footway || '';
     const houseNumber = address.house_number || '';
     const fullAddress = houseNumber ? `${streetName} ${houseNumber}` : streetName;
-
+    
     updateData({
       address: fullAddress,
       city: address.city || address.town || address.village || address.municipality || '',
@@ -211,7 +209,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
       country: address.country || '',
       zipCode: address.postcode || '', // Add zip code from address
       latitude: parseFloat(suggestion.lat),
-      longitude: parseFloat(suggestion.lon)
+      longitude: parseFloat(suggestion.lon),
     });
 
     setShowSuggestions(false);
@@ -225,7 +223,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
 
     toast({
       title: 'Address selected',
-      description: 'Location has been updated on the map.'
+      description: 'Location has been updated on the map.',
     });
   }, [updateData, toast]);
 
@@ -247,53 +245,53 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Where's your place located?</h2>
-        <p className="text-gray-600 dark:text-gray-300">Your address is only shared with guests after they've made a reservation</p>
+        <p className="text-gray-600">Your address is only shared with guests after they've made a reservation</p>
       </div>
 
       {/* OpenStreetMap/Leaflet integration */}
       <div className="space-y-4">
         {/* Interactive Leaflet Map */}
-        <div className="rounded-lg overflow-hidden border border-[var(--color-border)]" style={{ height: '400px' }}>
+        <div className="rounded-lg overflow-hidden border border-gray-200" style={{ height: '400px' }}>
           <MapContainer
             center={markerPosition || [defaultCenter.lat, defaultCenter.lng]}
             zoom={markerPosition ? 17 : 15}
             style={{ height: '100%', width: '100%' }}
-            ref={mapRef}>
-
+            ref={mapRef}
+          >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
             <MapClickHandler onMapClick={handleMapClick} />
             {markerPosition && <Marker position={markerPosition} />}
           </MapContainer>
         </div>
 
         {/* Directions links */}
-        {data.latitude && data.longitude &&
-        <div className="flex gap-4">
+        {data.latitude && data.longitude && (
+          <div className="flex gap-4">
             <a
-            href={getDirectionsUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800" data-testid="a-flex">
-
+              href={getDirectionsUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+            >
               <Navigation className="h-4 w-4" />
               Get Google Maps directions
               <ExternalLink className="h-3 w-3" />
             </a>
             <a
-            href={getAppleMapsUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800" data-testid="a-flex">
-
+              href={getAppleMapsUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+            >
               <Navigation className="h-4 w-4" />
               Open in Apple Maps
               <ExternalLink className="h-3 w-3" />
             </a>
           </div>
-        }
+        )}
       </div>
 
       <div className="space-y-4">
@@ -306,42 +304,42 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
             onChange={handleAddressChange}
             onFocus={() => data.address && searchAddressSuggestions(data.address)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            className="mt-1" data-testid="input-address" />
-
+            className="mt-1"
+          />
           
           {/* Address suggestions dropdown */}
-          {showSuggestions &&
-          <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)] rounded-md shadow-lg max-h-60 overflow-auto">
-              {isSearching ?
-            <div className="p-3 text-center text-gray-500 dark:text-gray-400">
+          {showSuggestions && (
+            <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+              {isSearching ? (
+                <div className="p-3 text-center text-gray-500">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-pink-500 mx-auto"></div>
                   <p className="mt-2 text-sm">Searching...</p>
-                </div> :
-
-            addressSuggestions.map((suggestion, index) =>
-            <button
-              key={index}
-              type="button"
-              onClick={() => handleSuggestionSelect(suggestion)} aria-label="Button"
-              className="w-full text-left px-3 py-2 hover:bg-[var(--color-surface-elevated)] focus:bg-[var(--color-surface-elevated)] focus:outline-none border-b border-gray-100 last:border-0" data-testid="button-button">
-
-                    <p className="text-sm font-medium text-[var(--color-text)] dark:text-white line-clamp-1">
+                </div>
+              ) : (
+                addressSuggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => handleSuggestionSelect(suggestion)}
+                    className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0"
+                  >
+                    <p className="text-sm font-medium text-gray-900 line-clamp-1">
                       {suggestion.display_name}
                     </p>
-                    {suggestion.address &&
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {suggestion.address && (
+                      <p className="text-xs text-gray-500 mt-1">
                         {[
-                suggestion.address.city || suggestion.address.town,
-                suggestion.address.state,
-                suggestion.address.country].
-                filter(Boolean).join(', ')}
+                          suggestion.address.city || suggestion.address.town,
+                          suggestion.address.state,
+                          suggestion.address.country
+                        ].filter(Boolean).join(', ')}
                       </p>
-              }
+                    )}
                   </button>
-            )
-            }
+                ))
+              )}
             </div>
-          }
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -352,8 +350,8 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               placeholder="San Francisco"
               value={data.city || ''}
               onChange={(e) => updateData({ city: e.target.value })}
-              className="mt-1" data-testid="input-city" />
-
+              className="mt-1"
+            />
           </div>
           <div>
             <Label htmlFor="state">State/Province</Label>
@@ -362,8 +360,8 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               placeholder="California"
               value={data.state || ''}
               onChange={(e) => updateData({ state: e.target.value })}
-              className="mt-1" data-testid="input-state" />
-
+              className="mt-1"
+            />
           </div>
         </div>
 
@@ -375,8 +373,8 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               placeholder="United States"
               value={data.country || ''}
               onChange={(e) => updateData({ country: e.target.value })}
-              className="mt-1" data-testid="input-country" />
-
+              className="mt-1"
+            />
           </div>
           <div>
             <Label htmlFor="zipCode">ZIP/Postal code</Label>
@@ -385,8 +383,8 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               placeholder="94105"
               value={data.zipCode || ''}
               onChange={(e) => updateData({ zipCode: e.target.value })}
-              className="mt-1" data-testid="input-zipcode" />
-
+              className="mt-1"
+            />
           </div>
         </div>
       </div>
@@ -398,19 +396,19 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           onClick={geocodeAddress}
           disabled={isGeocoding}
           variant="outline"
-          className="flex items-center gap-2" data-testid="button-button">
-
-          {isGeocoding ?
-          <>
+          className="flex items-center gap-2"
+        >
+          {isGeocoding ? (
+            <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
               Verifying location...
-            </> :
-
-          <>
+            </>
+          ) : (
+            <>
               <Search className="w-4 h-4" />
               Verify location on map
             </>
-          }
+          )}
         </Button>
       </div>
 
@@ -424,6 +422,6 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           they'll see an approximate location.
         </p>
       </div>
-    </div>);
-
+    </div>
+  );
 }

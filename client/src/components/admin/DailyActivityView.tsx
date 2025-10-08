@@ -48,33 +48,33 @@ function DailyActivityView() {
       // The API returns { success: true, data: [...] }
       return result.data || [];
     },
-    refetchInterval: 30000 // Refresh every 30 seconds
+    refetchInterval: 30000, // Refresh every 30 seconds
   });
 
   // Convert API activities and merge with project data
   const todayActivities = useMemo(() => {
     const activities: ActivityItem[] = [];
-
+    
     // Filter activities to only show selected date
     const selectedDateStr = selectedDate.toISOString().split('T')[0];
     const filteredActivities = apiActivities.filter((activity: DailyActivity) => {
       const activityDate = new Date(activity.timestamp).toISOString().split('T')[0];
       return activityDate === selectedDateStr;
     });
-
+    
 
 
     // Process API activities
     filteredActivities.forEach((activity: DailyActivity) => {
       // Try to find matching project item from comprehensive data
       let projectItem: ProjectItem | undefined;
-
+      
       // Search through project data to find matching item
-      comprehensiveProjectData.forEach((section) => {
+      comprehensiveProjectData.forEach(section => {
         if (projectItem) return;
-
+        
         const searchInChildren = (items: ProjectItem[]) => {
-          items.forEach((item) => {
+          items.forEach(item => {
             if (item.id === activity.project_id || item.title === activity.project_title) {
               projectItem = item;
               return;
@@ -84,7 +84,7 @@ function DailyActivityView() {
             }
           });
         };
-
+        
         if (section.id === activity.project_id || section.title === activity.project_title) {
           projectItem = section;
         } else if (section.children) {
@@ -106,14 +106,14 @@ function DailyActivityView() {
         },
         type: activity.activity_type,
         timestamp: new Date(activity.timestamp),
-        changes: activity.changes || activity.metadata?.changes || [activity.description],
+        changes: activity.changes || (activity.metadata?.changes) || [activity.description],
         rawData: activity
       });
     });
 
     // Remove duplicates based on project_id and description
     const uniqueActivities = new Map<string, ActivityItem>();
-    activities.forEach((activity) => {
+    activities.forEach(activity => {
       const key = `${activity.item.id}-${activity.item.description}`;
       if (!uniqueActivities.has(key)) {
         uniqueActivities.set(key, activity);
@@ -129,36 +129,36 @@ function DailyActivityView() {
 
   const getActivityIcon = (type: ActivityItem['type']) => {
     switch (type) {
-      case 'created':return <Activity className="h-4 w-4 text-green-500" />;
-      case 'updated':return <Code2 className="h-4 w-4 text-blue-500" />;
-      case 'completed':return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
-      case 'reviewed':return <FileText className="h-4 w-4 text-purple-500" />;
-      case 'blocked':return <AlertCircle className="h-4 w-4 text-red-500" />;
+      case 'created': return <Activity className="h-4 w-4 text-green-500" />;
+      case 'updated': return <Code2 className="h-4 w-4 text-blue-500" />;
+      case 'completed': return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
+      case 'reviewed': return <FileText className="h-4 w-4 text-purple-500" />;
+      case 'blocked': return <AlertCircle className="h-4 w-4 text-red-500" />;
     }
   };
 
   const getActivityColor = (type: ActivityItem['type']) => {
     switch (type) {
-      case 'created':return 'bg-green-100 text-green-800';
-      case 'updated':return 'bg-blue-100 text-blue-800';
-      case 'completed':return 'bg-emerald-100 text-emerald-800';
-      case 'reviewed':return 'bg-purple-100 text-purple-800';
-      case 'blocked':return 'bg-red-100 text-red-800';
+      case 'created': return 'bg-green-100 text-green-800';
+      case 'updated': return 'bg-blue-100 text-blue-800';
+      case 'completed': return 'bg-emerald-100 text-emerald-800';
+      case 'reviewed': return 'bg-purple-100 text-purple-800';
+      case 'blocked': return 'bg-red-100 text-red-800';
     }
   };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
+    return date.toLocaleTimeString('en-US', { 
+      hour: 'numeric', 
       minute: '2-digit',
-      hour12: true
+      hour12: true 
     });
   };
 
   const stats = useMemo(() => {
-    const completed = todayActivities.filter((a) => a.type === 'completed').length;
-    const updated = todayActivities.filter((a) => a.type === 'updated').length;
-    const reviewed = todayActivities.filter((a) => a.type === 'reviewed').length;
+    const completed = todayActivities.filter(a => a.type === 'completed').length;
+    const updated = todayActivities.filter(a => a.type === 'updated').length;
+    const reviewed = todayActivities.filter(a => a.type === 'reviewed').length;
     const total = todayActivities.length;
 
     return { completed, updated, reviewed, total };
@@ -176,18 +176,19 @@ function DailyActivityView() {
             value={selectedDate.toISOString().split('T')[0]}
             onChange={(e) => {
               const newDate = new Date(e.target.value + 'T00:00:00');
-              setSelectedDate(newDate);}} aria-label="Input field"
-            className="px-3 py-1 border rounded-md text-sm" data-testid="input-date" />
-
+              setSelectedDate(newDate);
+            }}
+            className="px-3 py-1 border rounded-md text-sm"
+          />
           <Badge className="bg-blue-100 text-blue-800">
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
           <button
-            onClick={() => refetch()} aria-label="Button"
+            onClick={() => refetch()}
             disabled={isLoading}
-            className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white hover:bg-[var(--color-neutral-100)] rounded-md transition-colors disabled:opacity-50"
-            title="Refresh activities" data-testid="button-p-1-5">
-
+            className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"
+            title="Refresh activities"
+          >
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </button>
         </div>
@@ -213,35 +214,35 @@ function DailyActivityView() {
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-5 w-5" />
             Activity Timeline
-            {isLoading && <span className="text-sm font-normal text-gray-500 dark:text-gray-400">(Loading...)</span>}
+            {isLoading && <span className="text-sm font-normal text-gray-500">(Loading...)</span>}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {isLoading ?
-          <div className="flex items-center justify-center py-12">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
                 <RefreshCw className="h-8 w-8 text-gray-400 animate-spin mx-auto" />
-                <p className="text-gray-500 dark:text-gray-400">Loading activities...</p>
+                <p className="text-gray-500">Loading activities...</p>
               </div>
-            </div> :
-          todayActivities.length === 0 ?
-          <div className="flex items-center justify-center py-12">
+            </div>
+          ) : todayActivities.length === 0 ? (
+            <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
                 <Activity className="h-8 w-8 text-gray-400 mx-auto" />
-                <p className="text-gray-500 dark:text-gray-400">No activities recorded for this date</p>
+                <p className="text-gray-500">No activities recorded for this date</p>
                 <p className="text-sm text-gray-400">Activities will appear here as you work on projects</p>
               </div>
-            </div> :
-
-          <div className="space-y-4">
-              {todayActivities.map((activity, index) =>
-            <div
-              key={index}
-              className="flex gap-4 p-4 rounded-lg hover:bg-[var(--color-surface-elevated)] cursor-pointer transition-colors"
-              onClick={() => setSelectedItem(activity.item)}>
-
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {todayActivities.map((activity, index) => (
+                <div 
+                  key={index} 
+                  className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                  onClick={() => setSelectedItem(activity.item)}
+                >
                   {/* Time */}
-                  <div className="flex-none text-sm text-gray-500 dark:text-gray-400 w-20">
+                  <div className="flex-none text-sm text-gray-500 w-20">
                     {formatTime(activity.timestamp)}
                   </div>
 
@@ -255,7 +256,7 @@ function DailyActivityView() {
                     <div className="flex items-start justify-between">
                       <div>
                         <h4 className="font-medium">{activity.item.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">{activity.item.description}</p>
+                        <p className="text-sm text-gray-600">{activity.item.description}</p>
                       </div>
                       <Badge className={getActivityColor(activity.type)}>
                         {activity.type}
@@ -263,57 +264,57 @@ function DailyActivityView() {
                     </div>
 
                     {/* Changes */}
-                    {activity.changes && activity.changes.length > 0 &&
-                <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                        {activity.changes.map((change, idx) =>
-                  <li key={idx} className="flex items-center gap-2">
+                    {activity.changes && activity.changes.length > 0 && (
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        {activity.changes.map((change, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
                             <span className="w-1 h-1 bg-gray-400 rounded-full" />
                             {change}
                           </li>
-                  )}
+                        ))}
                       </ul>
-                }
+                    )}
 
                     {/* Progress */}
                     <div className="flex gap-4 items-center text-xs">
-                      {activity.item.completion !== undefined &&
-                  <div className="flex items-center gap-2">
-                          <Monitor className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+                      {activity.item.completion !== undefined && (
+                        <div className="flex items-center gap-2">
+                          <Monitor className="h-3 w-3 text-gray-500" />
                           <Progress value={activity.item.completion} className="h-1.5 w-16" />
-                          <span className="text-gray-600 dark:text-gray-300">{activity.item.completion}%</span>
+                          <span className="text-gray-600">{activity.item.completion}%</span>
                         </div>
-                  }
-                      {activity.item.mobileCompletion !== undefined &&
-                  <div className="flex items-center gap-2">
-                          <Smartphone className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+                      )}
+                      {activity.item.mobileCompletion !== undefined && (
+                        <div className="flex items-center gap-2">
+                          <Smartphone className="h-3 w-3 text-gray-500" />
                           <Progress value={activity.item.mobileCompletion} className="h-1.5 w-16" />
-                          <span className="text-gray-600 dark:text-gray-300">{activity.item.mobileCompletion}%</span>
+                          <span className="text-gray-600">{activity.item.mobileCompletion}%</span>
                         </div>
-                  }
-                      {activity.item.team &&
-                  <div className="flex items-center gap-1">
-                          <Users className="h-3 w-3 text-gray-500 dark:text-gray-400" />
-                          <span className="text-gray-600 dark:text-gray-300">{activity.item.team.join(', ')}</span>
+                      )}
+                      {activity.item.team && (
+                        <div className="flex items-center gap-1">
+                          <Users className="h-3 w-3 text-gray-500" />
+                          <span className="text-gray-600">{activity.item.team.join(', ')}</span>
                         </div>
-                  }
+                      )}
                     </div>
                   </div>
                 </div>
-            )}
+              ))}
             </div>
-          }
+          )}
         </CardContent>
       </Card>
 
       {/* Modal */}
-      {selectedItem &&
-      <JiraStyleItemDetailModal
-        selectedItem={selectedItem}
-        onClose={() => setSelectedItem(null)} />
-
-      }
-    </div>);
-
+      {selectedItem && (
+        <JiraStyleItemDetailModal
+          selectedItem={selectedItem}
+          onClose={() => setSelectedItem(null)}
+        />
+      )}
+    </div>
+  );
 }
 
 export default DailyActivityView;

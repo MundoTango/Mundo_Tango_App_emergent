@@ -64,7 +64,7 @@ const LifeCEOPortal: React.FC = () => {
       case 'error':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -84,7 +84,7 @@ const LifeCEOPortal: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-surface-elevated)]">
+    <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-6 space-y-6">
         {/* Header with Role Badge */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-lg p-6 text-white">
@@ -93,7 +93,7 @@ const LifeCEOPortal: React.FC = () => {
               <div className="flex items-center space-x-3 mb-2">
                 <Crown className="w-8 h-8" />
                 <h1 className="text-3xl font-bold">Life CEO Portal</h1>
-                <Badge className="bg-[var(--color-surface)] dark:bg-gray-900/20 text-white border-white/30">
+                <Badge className="bg-white/20 text-white border-white/30">
                   <span className="mr-1">{userRoleInfo.icon}</span>
                   {userRoleInfo.badge}
                 </Badge>
@@ -132,7 +132,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Users className="w-5 h-5 text-blue-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.activeAgents}/{systemStats.totalAgents}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">Active Agents</div>
+                      <div className="text-sm text-gray-600">Active Agents</div>
                     </div>
                   </div>
                 </CardContent>
@@ -144,7 +144,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Brain className="w-5 h-5 text-purple-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.memoryEntries}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">Memory Entries</div>
+                      <div className="text-sm text-gray-600">Memory Entries</div>
                     </div>
                   </div>
                 </CardContent>
@@ -156,7 +156,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Clock className="w-5 h-5 text-green-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.dailyReviewTime}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">Daily Review</div>
+                      <div className="text-sm text-gray-600">Daily Review</div>
                     </div>
                   </div>
                 </CardContent>
@@ -168,7 +168,7 @@ const LifeCEOPortal: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-orange-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.tasksCompleted}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">Tasks Completed</div>
+                      <div className="text-sm text-gray-600">Tasks Completed</div>
                     </div>
                   </div>
                 </CardContent>
@@ -216,14 +216,14 @@ const LifeCEOPortal: React.FC = () => {
                         <div className="w-2 h-2 rounded-full bg-green-500"></div>
                         <div>
                           <div className="font-medium">{agent.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{agent.lastActive}</div>
+                          <div className="text-sm text-gray-500">{agent.lastActive}</div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Badge className={getStatusColor(agent.status)}>
                           {agent.status}
                         </Badge>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">{agent.taskCount} tasks</span>
+                        <span className="text-sm text-gray-500">{agent.taskCount} tasks</span>
                       </div>
                     </div>
                   ))}
@@ -235,7 +235,7 @@ const LifeCEOPortal: React.FC = () => {
           {/* AI Chat Tab */}
           <TabsContent value="chat" className="space-y-6">
             {/* <LifeCEOAgentChat agentId="life-manager" /> */}
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-gray-500">
               Chat component temporarily disabled for debugging
             </div>
           </TabsContent>

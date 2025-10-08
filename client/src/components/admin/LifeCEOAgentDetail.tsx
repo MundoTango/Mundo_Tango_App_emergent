@@ -12,20 +12,20 @@ const LifeCEOAgentDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
 
   return (
-    <div className="min-h-screen bg-[var(--color-surface-elevated)]">
+    <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <Link href="/life-ceo" data-testid="link-element">
-              <Button variant="ghost" size="sm" className="gap-2" data-testid="button-gap-2">
+            <Link href="/life-ceo">
+              <Button variant="ghost" size="sm" className="gap-2">
                 <ChevronLeft className="w-4 h-4" />
                 Back to Life CEO Portal
               </Button>
             </Link>
           </div>
-          <h1 className="text-4xl font-bold text-[var(--color-text)] dark:text-white mb-2">Agent Management</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Agent Management</h1>
+          <p className="text-lg text-gray-600">
             Configure and interact with your Life CEO agent
           </p>
         </div>
@@ -60,8 +60,8 @@ const LifeCEOAgentDetail: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>);
-
+    </div>
+  );
 };
 
 export default LifeCEOAgentDetail;

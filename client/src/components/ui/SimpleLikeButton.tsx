@@ -69,10 +69,10 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
     <div className={`relative ${className}`}>
       {/* Main Like Button */}
       <button
-        onClick={() => setShowDropdown(!showDropdown)} aria-label="Button"
+        onClick={() = data-testid="button-element"> setShowDropdown(!showDropdown)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-neutral-100)] hover:bg-gray-200 transition-all duration-200 hover:scale-105 dark:bg-neutral-800"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105 dark:bg-neutral-800"
       >
         <span style={{ display: 'inline-block', width: '20px', textAlign: 'center' }}>
           {currentReactionData ? currentReactionData.text : '👍'}
@@ -85,7 +85,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Simple Dropdown */}
       {showDropdown && (
         <div 
-          className="absolute bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg shadow-2xl p-1 transition-all duration-300 ease-out dark:bg-neutral-900"
+          className="absolute bg-white border border-gray-200 rounded-lg shadow-2xl p-1 transition-all duration-300 ease-out dark:bg-neutral-900"
           style={{ 
             zIndex: 99999,
             width: '180px',
@@ -101,9 +101,10 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
             {SIMPLE_REACTIONS.map((reaction, index) => (
               <button
                 key={reaction.id}
-                onClick={() => {
+                onClick={() = data-testid="button-element"> {
                   onReact(reaction.id);
-                  setShowDropdown(false);}} aria-label="Button"
+                  setShowDropdown(false);
+                }}
                 className="flex items-center justify-center p-1 rounded hover:bg-blue-50 transition-all duration-200 hover:scale-125 hover:rotate-12 group"
                 style={{ 
                   width: '40px', 

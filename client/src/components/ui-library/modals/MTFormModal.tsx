@@ -1,8 +1,7 @@
 // MT Ocean Form Modal Component
 // ESA LIFE CEO 61x21 - Modal with Embedded Forms
 
-import React, { FormEvent } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { FormEvent } from 'react';
 import { cn } from '@/lib/utils';
 import { Save, X, Loader2 } from 'lucide-react';
 import MTModalBase from './MTModalBase';
@@ -88,7 +87,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
         <div className="px-6 py-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-[var(--color-ocean-400)] to-blue-900 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
                 {title}
               </h2>
               {description && (
@@ -102,7 +101,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
               disabled={isSubmitting || loading}
               className={cn(
                 'ml-4 p-1.5 rounded-lg',
-                'hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800',
+                'hover:bg-gray-100 dark:hover:bg-gray-800',
                 'transition-colors duration-200',
                 'disabled:opacity-50 disabled:cursor-not-allowed'
               )}
@@ -113,7 +112,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
             </button>
           </div>
           {showHeaderDivider && (
-            <div className="mt-4 -mx-6 border-b border-[var(--color-border)] dark:border-gray-700" />
+            <div className="mt-4 -mx-6 border-b border-gray-200 dark:border-gray-700" />
           )}
         </div>
 
@@ -133,7 +132,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
         {showFooter && (
           <>
             {showFooterDivider && (
-              <div className="border-t border-[var(--color-border)] dark:border-gray-700" />
+              <div className="border-t border-gray-200 dark:border-gray-700" />
             )}
             <div className="px-6 py-4">
               <div className="flex items-center justify-between">

@@ -176,9 +176,9 @@ export default function AdminDashboardPage() {
       event: 'text-orange-600',
       payment: 'text-emerald-600',
       moderation: 'text-yellow-600',
-      system: 'text-gray-600 dark:text-gray-300',
+      system: 'text-gray-600',
     };
-    return colors[type] || 'text-gray-600 dark:text-gray-300';
+    return colors[type] || 'text-gray-600';
   };
 
   return (
@@ -190,7 +190,7 @@ export default function AdminDashboardPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Admin Dashboard
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-gray-600 mt-1">
               Platform overview and real-time monitoring
             </p>
           </div>
@@ -217,14 +217,14 @@ export default function AdminDashboardPage() {
           <Card className="border-teal-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   Total Users
                 </CardTitle>
-                <Users className="w-4 h-4 text-[var(--color-primary)]" />
+                <Users className="w-4 h-4 text-teal-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.users?.total?.toLocaleString() || '0'}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -248,7 +248,7 @@ export default function AdminDashboardPage() {
                 value={stats?.users?.active / stats?.users?.total * 100 || 0} 
                 className="mt-2"
               />
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-gray-500 mt-1">
                 {stats?.users?.active?.toLocaleString() || '0'} active users
               </p>
             </CardContent>
@@ -258,14 +258,14 @@ export default function AdminDashboardPage() {
           <Card className="border-cyan-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   Monthly Revenue
                 </CardTitle>
-                <DollarSign className="w-4 h-4 text-[var(--color-primary)]" />
+                <DollarSign className="w-4 h-4 text-cyan-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 ${stats?.revenue?.mrr?.toLocaleString() || '0'}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -287,13 +287,13 @@ export default function AdminDashboardPage() {
               </div>
               <div className="mt-2 space-y-1">
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 dark:text-gray-400">ARR</span>
+                  <span className="text-gray-500">ARR</span>
                   <span className="font-medium">
                     ${stats?.revenue?.arr?.toLocaleString() || '0'}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 dark:text-gray-400">Churn</span>
+                  <span className="text-gray-500">Churn</span>
                   <span className="font-medium text-orange-600">
                     {stats?.revenue?.churn || '0'}%
                   </span>
@@ -306,17 +306,17 @@ export default function AdminDashboardPage() {
           <Card className="border-purple-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   Content Activity
                 </CardTitle>
                 <Activity className="w-4 h-4 text-purple-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.content?.posts?.toLocaleString() || '0'}
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">posts today</div>
+              <div className="text-sm text-gray-500">posts today</div>
               <div className="grid grid-cols-3 gap-2 mt-3">
                 <div className="text-center">
                   <MessageSquare className="w-4 h-4 text-gray-400 mx-auto" />
@@ -344,32 +344,32 @@ export default function AdminDashboardPage() {
           <Card className="border-green-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                <CardTitle className="text-sm font-medium text-gray-600">
                   System Health
                 </CardTitle>
                 <Monitor className="w-4 h-4 text-green-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+              <div className="text-2xl font-bold text-gray-900">
                 {stats?.system?.uptime || '99.9'}%
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">uptime</div>
+              <div className="text-sm text-gray-500">uptime</div>
               <div className="space-y-2 mt-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500 dark:text-gray-400">Response</span>
+                  <span className="text-gray-500">Response</span>
                   <Badge variant="outline" className="text-green-600">
                     {stats?.system?.responseTime || '45'}ms
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500 dark:text-gray-400">Errors</span>
+                  <span className="text-gray-500">Errors</span>
                   <Badge variant="outline" className="text-orange-600">
                     {stats?.system?.errorRate || '0.1'}%
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500 dark:text-gray-400">Queue</span>
+                  <span className="text-gray-500">Queue</span>
                   <Badge variant="outline">
                     {stats?.system?.queueSize || '0'}
                   </Badge>
@@ -465,7 +465,7 @@ export default function AdminDashboardPage() {
                   {activity?.items?.map((item: ActivityItem) => (
                     <div
                       key={item.id}
-                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors"
+                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                       data-testid={`activity-${item.id}`}
                     >
                       <div className={cn(
@@ -478,19 +478,19 @@ export default function AdminDashboardPage() {
                         <div className="flex items-center justify-between">
                           <p className="text-sm">
                             <span className="font-medium">{item.user}</span>
-                            <span className="text-gray-600 dark:text-gray-300 ml-1">{item.action}</span>
+                            <span className="text-gray-600 ml-1">{item.action}</span>
                           </p>
                           <span className="text-xs text-gray-400">
                             {format(new Date(item.timestamp), 'h:mm a')}
                           </span>
                         </div>
                         {item.details && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{item.details}</p>
+                          <p className="text-xs text-gray-500 mt-1">{item.details}</p>
                         )}
                       </div>
                     </div>
                   )) || (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                    <div className="text-center py-8 text-gray-500">
                       No recent activity
                     </div>
                   )}
@@ -509,15 +509,15 @@ export default function AdminDashboardPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Active Agents</span>
-                <Badge className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500">
+                <span className="text-sm text-gray-600">Active Agents</span>
+                <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500">
                   {stats?.agents?.active || 61}/61
                 </Badge>
               </div>
               
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">Tasks Processed</span>
+                  <span className="text-gray-600">Tasks Processed</span>
                   <span className="font-medium">{stats?.agents?.tasks || '1,234'}</span>
                 </div>
                 <Progress value={85} className="h-2" />
@@ -525,7 +525,7 @@ export default function AdminDashboardPage() {
 
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">Performance</span>
+                  <span className="text-gray-600">Performance</span>
                   <span className="font-medium text-green-600">
                     {stats?.agents?.performance || 95}%
                   </span>
@@ -537,7 +537,7 @@ export default function AdminDashboardPage() {
                 <div className="space-y-2">
                   {['Layer 1-10', 'Layer 11-20', 'Layer 21-30', 'Layer 31-40', 'Layer 41-50', 'Layer 51-61'].map((layer, idx) => (
                     <div key={layer} className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500 dark:text-gray-400">{layer}</span>
+                      <span className="text-gray-500">{layer}</span>
                       <Badge variant="outline" className="text-xs">
                         <CheckCircle className="w-3 h-3 text-green-500 mr-1" />
                         Active
@@ -548,7 +548,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <Button 
-                className="w-full bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 text-white"
+                className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white"
                 size="sm"
               >
                 <Settings className="w-4 h-4 mr-2" />
@@ -566,11 +566,11 @@ export default function AdminDashboardPage() {
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Button variant="outline" className="h-auto py-4 flex-col">
-                <Mail className="w-5 h-5 mb-2 text-[var(--color-primary-hover)]" />
+                <Mail className="w-5 h-5 mb-2 text-teal-600" />
                 <span className="text-xs">Send Announcement</span>
               </Button>
               <Button variant="outline" className="h-auto py-4 flex-col">
-                <Shield className="w-5 h-5 mb-2 text-[var(--color-primary-hover)]" />
+                <Shield className="w-5 h-5 mb-2 text-cyan-600" />
                 <span className="text-xs">Moderation Queue</span>
               </Button>
               <Button variant="outline" className="h-auto py-4 flex-col">

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Heart, 
@@ -92,8 +91,7 @@ export default function PostDetailModal({
   const [reusedMedia, setReusedMedia] = useState<ReusedMedia[]>([]);
 
   // Fetch post comments - FIXED: Use memories endpoint
-  const {
-  data: comments = [], isLoading: commentsLoading } = useQuery({
+  const { data: comments = [], isLoading: commentsLoading } = useQuery({
     queryKey: ['/api/memories', post.id, 'comments'],
     queryFn: async () => {
       const response = await fetch(`/api/memories/${post.id}/comments`, {
@@ -121,7 +119,7 @@ export default function PostDetailModal({
     },
     onError: () => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to post comment. Please try again.",
         variant: "destructive",
       });
@@ -292,7 +290,7 @@ export default function PostDetailModal({
       'performer': 'bg-yellow-100 text-yellow-700',
       'musician': 'bg-indigo-100 text-indigo-700'
     };
-    return colors[role.toLowerCase()] || 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]';
+    return colors[role.toLowerCase()] || 'bg-gray-100 text-gray-700';
   };
 
 
@@ -300,9 +298,9 @@ export default function PostDetailModal({
   if (!isOpen) return null;
 
   return (
-    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4"
       <div 
-        className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
+        className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -316,14 +314,14 @@ export default function PostDetailModal({
                 className="w-10 h-10 object-cover rounded-full ring-2 ring-gray-100"
               />
             ) : (
-              <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-[var(--color-ocean-500)] rounded-full flex items-center justify-center text-white font-semibold text-sm">
+              <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                 {getAvatarFallback(post.user.name)}
               </div>
             )}
             
             <div>
-              <h3 className="font-semibold text-[var(--color-text)] dark:text-white">{post.user.name}</h3>
-              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+              <h3 className="font-semibold text-gray-900">{post.user.name}</h3>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>@{post.user.username}</span>
                 <span>•</span>
                 <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
@@ -342,9 +340,9 @@ export default function PostDetailModal({
 
           <button
             onClick={onClose}
-            className="p-2 hover:bg-[var(--color-neutral-100)] rounded-full transition-colors"
-           aria-label="Button">
-            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <X className="h-5 w-5 text-gray-500" />
           </button>
         </div>
 
@@ -375,7 +373,7 @@ export default function PostDetailModal({
           <div className="lg:w-96 flex flex-col">
             {/* Post Content */}
             <div className="p-4 border-b border-gray-100">
-              <p className="text-[var(--color-text)] dark:text-white text-base leading-relaxed mb-3">
+              <p className="text-gray-900 text-base leading-relaxed mb-3">
                 {renderWithMentions(post.content)}
               </p>
 
@@ -404,8 +402,8 @@ export default function PostDetailModal({
 
               {/* Reused Media Section */}
               {reusedMedia.length > 0 && (
-                <div className="mb-4 p-3 bg-[var(--color-surface-elevated)] rounded-lg border-l-4 border-blue-500">
-                  <h4 className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Shared Media</h4>
+                <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-blue-500">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Shared Media</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {reusedMedia.map((media, index) => (
                       <div key={media.id} className="relative group">
@@ -422,8 +420,8 @@ export default function PostDetailModal({
                             muted
                           />
                         ) : (
-                          <div className="w-full h-20 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center">
-                            <span className="text-xs text-gray-500 dark:text-gray-400">{media.original_filename}</span>
+                          <div className="w-full h-20 bg-gray-200 rounded-md flex items-center justify-center">
+                            <span className="text-xs text-gray-500">{media.original_filename}</span>
                           </div>
                         )}
                         {media.caption && (
@@ -442,36 +440,36 @@ export default function PostDetailModal({
               {/* Interaction Buttons */}
               <div className="flex items-center gap-4">
                 <button
-                  onClick={() => onLike(post.id)} aria-label="Button"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-all duration-200 group"
+                  onClick={() => onLike(post.id)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 group"
                 >
                   <Heart 
                     className={`h-5 w-5 transition-all duration-200 ${
                       post.isLiked 
                         ? 'fill-red-500 text-red-500' 
-                        : 'text-gray-500 dark:text-gray-400 group-hover:text-red-500'
+                        : 'text-gray-500 group-hover:text-red-500'
                     }`}
                   />
                   <span className={`text-sm font-medium ${
-                    post.isLiked ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'
+                    post.isLiked ? 'text-red-500' : 'text-gray-500'
                   }`}>
                     {post.likes || 0}
                   </span>
                 </button>
 
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-all duration-200" aria-label="Button">
-                  <MessageCircle className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                  <MessageCircle className="h-5 w-5 text-gray-500" />
+                  <span className="text-gray-500 text-sm font-medium">
                     {comments.length}
                   </span>
                 </button>
 
                 <button
-                  onClick={() => onShare(post)} aria-label="Button"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-all duration-200"
+                  onClick={() => onShare(post)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200"
                 >
-                  <Share2 className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">Share</span>
+                  <Share2 className="h-5 w-5 text-gray-500" />
+                  <span className="text-gray-500 text-sm font-medium">Share</span>
                 </button>
               </div>
             </div>
@@ -483,7 +481,7 @@ export default function PostDetailModal({
                   <div className="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
                 </div>
               ) : comments.length === 0 ? (
-                <div className="p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
+                <div className="p-4 text-center text-gray-500 text-sm">
                   No comments yet. Be the first to comment!
                 </div>
               ) : (
@@ -497,14 +495,14 @@ export default function PostDetailModal({
                           className="w-8 h-8 object-cover rounded-full flex-shrink-0"
                         />
                       ) : (
-                        <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-[var(--color-ocean-500)] rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                        <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                           {getAvatarFallback(comment.user.name)}
                         </div>
                       )}
                       <div className="flex-1">
-                        <div className="bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2">
+                        <div className="bg-gray-50 rounded-lg px-3 py-2">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-sm text-[var(--color-text)] dark:text-white">
+                            <span className="font-medium text-sm text-gray-900">
                               {comment.user.name}
                             </span>
                             <RoleEmojiDisplay 
@@ -515,11 +513,11 @@ export default function PostDetailModal({
                               size="sm"
                               maxRoles={3}
                             />
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                            <span className="text-xs text-gray-500">
                               {formatDistanceToNow(new Date(comment.createdAt))} ago
                             </span>
                           </div>
-                          <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                          <p className="text-sm text-gray-700 leading-relaxed">
                             {renderWithMentions(comment.content)}
                           </p>
                         </div>
@@ -533,23 +531,23 @@ export default function PostDetailModal({
             {/* Comment Input */}
             <div className="p-4 border-t border-gray-100">
               <form onSubmit={handleSubmitComment} className="flex gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-[var(--color-ocean-500)] rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                   {user ? getAvatarFallback(user.name) : 'U'}
                 </div>
                 <div className="flex-1 flex gap-2">
                   <input
                     type="text"
                     value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)} aria-label="Input field"
+                    onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     disabled={commentMutation.isPending}
                   />
                   <button
                     type="submit"
                     disabled={!newComment.trim() || commentMutation.isPending}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-                   aria-label="Button">
+                  >
                     <Send className="h-4 w-4" />
                   </button>
                 </div>

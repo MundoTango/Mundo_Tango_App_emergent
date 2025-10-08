@@ -7,26 +7,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useQuery } from "@tanstack/react-query";
-import {
-  AreaChart,
-  Area,
-  BarChart,
+import { 
+  AreaChart, 
+  Area, 
+  BarChart, 
   Bar,
   LineChart,
   Line,
   PieChart,
   Pie,
   Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer } from
-'recharts';
-import {
-  TrendingUp,
-  Users,
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer 
+} from 'recharts';
+import { 
+  TrendingUp, 
+  Users, 
   Activity,
   Globe,
   Calendar,
@@ -43,8 +43,8 @@ import {
   LineChartIcon,
   Download,
   RefreshCw,
-  Info } from
-"lucide-react";
+  Info
+} from "lucide-react";
 
 // Color palette for charts
 const COLORS = ['#38b2ac', '#06b6d4', '#3182ce', '#6366f1', '#8b5cf6', '#a855f8', '#ec4899', '#f43f5e'];
@@ -72,41 +72,41 @@ const AnalyticsDashboard: React.FC = () => {
           returningUsers: 3187
         },
         userGrowth: [
-        { date: 'Mon', users: 1200, newUsers: 150 },
-        { date: 'Tue', users: 1350, newUsers: 180 },
-        { date: 'Wed', users: 1420, newUsers: 120 },
-        { date: 'Thu', users: 1580, newUsers: 200 },
-        { date: 'Fri', users: 1650, newUsers: 170 },
-        { date: 'Sat', users: 1820, newUsers: 220 },
-        { date: 'Sun', users: 1900, newUsers: 190 }],
-
+          { date: 'Mon', users: 1200, newUsers: 150 },
+          { date: 'Tue', users: 1350, newUsers: 180 },
+          { date: 'Wed', users: 1420, newUsers: 120 },
+          { date: 'Thu', users: 1580, newUsers: 200 },
+          { date: 'Fri', users: 1650, newUsers: 170 },
+          { date: 'Sat', users: 1820, newUsers: 220 },
+          { date: 'Sun', users: 1900, newUsers: 190 }
+        ],
         contentEngagement: [
-        { type: 'Posts', views: 23456, likes: 12345, comments: 3456, shares: 890 },
-        { type: 'Events', views: 18234, likes: 8456, comments: 2134, shares: 567 },
-        { type: 'Stories', views: 15678, likes: 7234, comments: 1890, shares: 456 },
-        { type: 'Groups', views: 12345, likes: 5678, comments: 1234, shares: 345 }],
-
+          { type: 'Posts', views: 23456, likes: 12345, comments: 3456, shares: 890 },
+          { type: 'Events', views: 18234, likes: 8456, comments: 2134, shares: 567 },
+          { type: 'Stories', views: 15678, likes: 7234, comments: 1890, shares: 456 },
+          { type: 'Groups', views: 12345, likes: 5678, comments: 1234, shares: 345 }
+        ],
         cityDistribution: [
-        { city: 'Buenos Aires', users: 4532, percentage: 29.8 },
-        { city: 'Paris', users: 2134, percentage: 14.0 },
-        { city: 'Berlin', users: 1876, percentage: 12.3 },
-        { city: 'New York', users: 1567, percentage: 10.3 },
-        { city: 'Tokyo', users: 1234, percentage: 8.1 },
-        { city: 'Others', users: 3891, percentage: 25.5 }],
-
+          { city: 'Buenos Aires', users: 4532, percentage: 29.8 },
+          { city: 'Paris', users: 2134, percentage: 14.0 },
+          { city: 'Berlin', users: 1876, percentage: 12.3 },
+          { city: 'New York', users: 1567, percentage: 10.3 },
+          { city: 'Tokyo', users: 1234, percentage: 8.1 },
+          { city: 'Others', users: 3891, percentage: 25.5 }
+        ],
         deviceStats: [
-        { device: 'Mobile', users: 9140, percentage: 60 },
-        { device: 'Desktop', users: 4571, percentage: 30 },
-        { device: 'Tablet', users: 1523, percentage: 10 }],
-
+          { device: 'Mobile', users: 9140, percentage: 60 },
+          { device: 'Desktop', users: 4571, percentage: 30 },
+          { device: 'Tablet', users: 1523, percentage: 10 }
+        ],
         roleDistribution: [
-        { role: 'Dancer', count: 8234 },
-        { role: 'Teacher', count: 2345 },
-        { role: 'Organizer', count: 1567 },
-        { role: 'DJ', count: 890 },
-        { role: 'Musician', count: 567 },
-        { role: 'Other', count: 1631 }]
-
+          { role: 'Dancer', count: 8234 },
+          { role: 'Teacher', count: 2345 },
+          { role: 'Organizer', count: 1567 },
+          { role: 'DJ', count: 890 },
+          { role: 'Musician', count: 567 },
+          { role: 'Other', count: 1631 }
+        ]
       };
     }
   });
@@ -131,10 +131,10 @@ const AnalyticsDashboard: React.FC = () => {
             <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
               Analytics Dashboard
             </h1>
-            <p className="text-gray-600 dark:text-gray-300">Platform insights and performance metrics</p>
+            <p className="text-gray-600">Platform insights and performance metrics</p>
           </div>
           <div className="flex items-center gap-2">
-            <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
+            <Select value={timeRange} onValueChange={setTimeRange}>
               <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
@@ -149,11 +149,11 @@ const AnalyticsDashboard: React.FC = () => {
               variant="outline"
               size="icon"
               onClick={handleRefresh}
-              disabled={isRefreshing} data-testid="button-element">
-
+              disabled={isRefreshing}
+            >
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             </Button>
-            <Button variant="outline" onClick={handleExport} data-testid="button-element">
+            <Button variant="outline" onClick={handleExport}>
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -167,12 +167,12 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Active Users</p>
+                <p className="text-sm text-gray-600">Active Users</p>
                 <p className="text-2xl font-bold">{analyticsData?.overview.activeUsers.toLocaleString()}</p>
                 <p className="text-xs text-green-600 mt-1">+12.5% from last period</p>
               </div>
               <div className="p-3 rounded-full bg-turquoise-100">
-                <Users className="h-6 w-6 text-[var(--color-primary-hover)]" />
+                <Users className="h-6 w-6 text-turquoise-600" />
               </div>
             </div>
           </CardContent>
@@ -182,12 +182,12 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Avg Session</p>
+                <p className="text-sm text-gray-600">Avg Session</p>
                 <p className="text-2xl font-bold">{analyticsData?.overview.avgSessionDuration}m</p>
                 <p className="text-xs text-green-600 mt-1">+8.3% from last period</p>
               </div>
               <div className="p-3 rounded-full bg-cyan-100">
-                <Clock className="h-6 w-6 text-[var(--color-primary-hover)]" />
+                <Clock className="h-6 w-6 text-cyan-600" />
               </div>
             </div>
           </CardContent>
@@ -197,7 +197,7 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Total Events</p>
+                <p className="text-sm text-gray-600">Total Events</p>
                 <p className="text-2xl font-bold">{analyticsData?.overview.totalEvents}</p>
                 <p className="text-xs text-green-600 mt-1">+23 this week</p>
               </div>
@@ -212,7 +212,7 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Engagement Rate</p>
+                <p className="text-sm text-gray-600">Engagement Rate</p>
                 <p className="text-2xl font-bold">67.8%</p>
                 <p className="text-xs text-green-600 mt-1">+5.2% from last period</p>
               </div>
@@ -240,7 +240,7 @@ const AnalyticsDashboard: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-[var(--color-primary)]" />
+                <TrendingUp className="h-5 w-5 text-turquoise-500" />
                 User Growth Trend
               </CardTitle>
               <CardDescription>
@@ -253,30 +253,30 @@ const AnalyticsDashboard: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                   <XAxis dataKey="date" stroke="#666" />
                   <YAxis stroke="#666" />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)', 
                       border: '1px solid #e0e0e0',
                       borderRadius: '8px'
-                    }} />
-
+                    }} 
+                  />
                   <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="users"
-                    stroke="#38b2ac"
-                    fill="#38b2ac"
+                  <Area 
+                    type="monotone" 
+                    dataKey="users" 
+                    stroke="#38b2ac" 
+                    fill="#38b2ac" 
                     fillOpacity={0.3}
-                    name="Active Users" />
-
-                  <Area
-                    type="monotone"
-                    dataKey="newUsers"
-                    stroke="#06b6d4"
-                    fill="#06b6d4"
+                    name="Active Users"
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="newUsers" 
+                    stroke="#06b6d4" 
+                    fill="#06b6d4" 
                     fillOpacity={0.3}
-                    name="New Users" />
-
+                    name="New Users"
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -287,7 +287,7 @@ const AnalyticsDashboard: React.FC = () => {
             <Card className="glassmorphic-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5 text-[var(--color-primary)]" />
+                  <Globe className="h-5 w-5 text-cyan-500" />
                   User Distribution by City
                 </CardTitle>
               </CardHeader>
@@ -302,11 +302,11 @@ const AnalyticsDashboard: React.FC = () => {
                       label={({ city, percentage }) => `${city} ${percentage}%`}
                       outerRadius={80}
                       fill="#8884d8"
-                      dataKey="users">
-
-                      {analyticsData?.cityDistribution.map((entry, index) =>
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      )}
+                      dataKey="users"
+                    >
+                      {analyticsData?.cityDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
                     </Pie>
                     <Tooltip />
                   </PieChart>
@@ -324,22 +324,22 @@ const AnalyticsDashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {analyticsData?.deviceStats.map((device, index) =>
-                  <div key={device.device} className="space-y-2">
+                  {analyticsData?.deviceStats.map((device, index) => (
+                    <div key={device.device} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="font-medium">{device.device}</span>
-                        <span className="text-gray-600 dark:text-gray-300">{device.percentage}%</span>
+                        <span className="text-gray-600">{device.percentage}%</span>
                       </div>
-                      <Progress
-                      value={device.percentage}
-                      className="h-2"
-                      style={{
-                        '--progress-color': COLORS[index % COLORS.length]
-                      } as React.CSSProperties} />
-
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{device.users.toLocaleString()} users</p>
+                      <Progress 
+                        value={device.percentage} 
+                        className="h-2"
+                        style={{ 
+                          '--progress-color': COLORS[index % COLORS.length] 
+                        } as React.CSSProperties}
+                      />
+                      <p className="text-xs text-gray-500">{device.users.toLocaleString()} users</p>
                     </div>
-                  )}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -362,12 +362,12 @@ const AnalyticsDashboard: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <Card className="bg-gradient-to-r from-turquoise-50 to-cyan-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-gray-600 dark:text-gray-300">New vs Returning</p>
+                    <p className="text-sm text-gray-600">New vs Returning</p>
                     <div className="flex items-baseline gap-2 mt-1">
                       <span className="text-xl font-bold">
                         {analyticsData?.overview.newUsers}
                       </span>
-                      <span className="text-gray-500 dark:text-gray-400">/</span>
+                      <span className="text-gray-500">/</span>
                       <span className="text-xl font-bold">
                         {analyticsData?.overview.returningUsers}
                       </span>
@@ -377,7 +377,7 @@ const AnalyticsDashboard: React.FC = () => {
 
                 <Card className="bg-gradient-to-r from-cyan-50 to-blue-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Bounce Rate</p>
+                    <p className="text-sm text-gray-600">Bounce Rate</p>
                     <p className="text-2xl font-bold mt-1">
                       {analyticsData?.overview.bounceRate}%
                     </p>
@@ -386,7 +386,7 @@ const AnalyticsDashboard: React.FC = () => {
 
                 <Card className="bg-gradient-to-r from-blue-50 to-indigo-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Total Users</p>
+                    <p className="text-sm text-gray-600">Total Users</p>
                     <p className="text-2xl font-bold mt-1">
                       {analyticsData?.overview.totalUsers.toLocaleString()}
                     </p>
@@ -402,17 +402,17 @@ const AnalyticsDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                     <XAxis dataKey="role" stroke="#666" />
                     <YAxis stroke="#666" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)', 
                         border: '1px solid #e0e0e0',
                         borderRadius: '8px'
-                      }} />
-
+                      }} 
+                    />
                     <Bar dataKey="count" fill="#38b2ac">
-                      {analyticsData?.roleDistribution.map((entry, index) =>
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      )}
+                      {analyticsData?.roleDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
@@ -439,13 +439,13 @@ const AnalyticsDashboard: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                   <XAxis dataKey="type" stroke="#666" />
                   <YAxis stroke="#666" />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)', 
                       border: '1px solid #e0e0e0',
                       borderRadius: '8px'
-                    }} />
-
+                    }} 
+                  />
                   <Legend />
                   <Bar dataKey="views" fill="#38b2ac" name="Views" />
                   <Bar dataKey="likes" fill="#06b6d4" name="Likes" />
@@ -456,29 +456,29 @@ const AnalyticsDashboard: React.FC = () => {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 <div className="text-center">
-                  <Eye className="h-8 w-8 text-[var(--color-primary)] mx-auto mb-2" />
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Views</p>
+                  <Eye className="h-8 w-8 text-turquoise-500 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600">Total Views</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.views, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center">
                   <Heart className="h-8 w-8 text-red-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Likes</p>
+                  <p className="text-sm text-gray-600">Total Likes</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.likes, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center">
                   <MessageSquare className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Comments</p>
+                  <p className="text-sm text-gray-600">Total Comments</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.comments, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center">
                   <Share2 className="h-8 w-8 text-purple-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Shares</p>
+                  <p className="text-sm text-gray-600">Total Shares</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.shares, 0).toLocaleString()}
                   </p>
@@ -505,19 +505,19 @@ const AnalyticsDashboard: React.FC = () => {
                 <div className="space-y-4">
                   <h3 className="font-semibold">Performance Metrics</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Page Load Time</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">2.1s</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">API Response Time</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">145ms</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Cache Hit Rate</span>
                       <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">87%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Error Rate</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">0.12%</Badge>
                     </div>
@@ -527,19 +527,19 @@ const AnalyticsDashboard: React.FC = () => {
                 <div className="space-y-4">
                   <h3 className="font-semibold">System Health</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Server Uptime</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">99.98%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Database Health</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">Healthy</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Memory Usage</span>
                       <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">72%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)]">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">CPU Usage</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">45%</Badge>
                     </div>
@@ -596,8 +596,8 @@ const AnalyticsDashboard: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>);
-
+    </div>
+  );
 };
 
 export default AnalyticsDashboard;

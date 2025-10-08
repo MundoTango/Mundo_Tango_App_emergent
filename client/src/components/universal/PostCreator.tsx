@@ -958,14 +958,14 @@ export default function PostCreator({
         {/* Enhanced gradient background with advanced animations */}
         <div className="absolute inset-0">
           {/* Simple gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/30 via-cyan-400/20 to-[var(--color-ocean-500)]/30 animate-gradient" />
+          <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/30 via-cyan-400/20 to-blue-500/30 animate-gradient" />
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/10 via-transparent to-pink-400/10 animate-gradient-reverse" />
         </div>
 
         <div className="relative z-10 p-8">
           {/* Enhanced Header with better styling */}
           <div className="flex items-start space-x-4 mb-6">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-turquoise-400 to-[var(--color-ocean-600)] flex items-center justify-center text-white font-bold text-xl shadow-lg">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
               {user?.profileImage ? (
                 <img src={user.profileImage} alt={user.name} className="w-full h-full rounded-full object-cover" />
               ) : (
@@ -974,8 +974,8 @@ export default function PostCreator({
             </div>
 
             <div className="flex-1">
-              <h3 className="font-bold text-[var(--color-text)] dark:text-white text-lg">{user?.name}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">@{user?.username}</p>
+              <h3 className="font-bold text-gray-900 text-lg">{user?.name}</h3>
+              <p className="text-sm text-gray-500">@{user?.username}</p>
             </div>
           </div>
 
@@ -1015,19 +1015,19 @@ export default function PostCreator({
 
               {/* ESA LIFE CEO 61x21 - @Mention Dropdown - Now handled by SimpleMentionsInput */}
               {false && showMentions && users.length > 0 && (
-                <div className="absolute z-50 mt-2 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-xl border border-[var(--color-border)] max-h-48 overflow-y-auto">
+                <div className="absolute z-50 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 max-h-48 overflow-y-auto">
                   {users.map((user: any) => (
                     <button
                       key={user.id}
                       type="button"
-                      className="w-full px-4 py-2 text-left hover:bg-[var(--color-ocean-50)] flex items-center gap-2 transition-colors"
+                      className="w-full px-4 py-2 text-left hover:bg-turquoise-50 flex items-center gap-2 transition-colors"
                       onClick={() => {
                         // Insert mention into rich text editor
                         const plainTextIndex = content.lastIndexOf('@', content.length);
                         if (plainTextIndex !== -1) {
                           const beforeMention = richContent.substring(0, richContent.lastIndexOf('@'));
                           const afterMention = '';
-                          const mentionHtml = `${beforeMention} aria-label="Button"<strong>@${user.username}</strong>&nbsp;${afterMention}`;
+                          const mentionHtml = `${beforeMention}<strong>@${user.username}</strong>&nbsp;${afterMention}`;
                           setRichContent(mentionHtml);
                           setContent(content.replace(/@[^\s]*$/, `@${user.username} `));
                           setShowMentions(false);
@@ -1039,9 +1039,9 @@ export default function PostCreator({
                         {user.username.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="font-medium text-gray-800 dark:text-gray-100">@{user.username}</div>
+                        <div className="font-medium text-gray-800">@{user.username}</div>
                         {user.email && (
-                          <div className="text-xs text-gray-500 dark:text-gray-400">{user.email}</div>
+                          <div className="text-xs text-gray-500">{user.email}</div>
                         )}
                       </div>
                     </button>
@@ -1060,7 +1060,7 @@ export default function PostCreator({
                   const isVideo = isInternalUrl ? preview.includes('.mp4') || preview.includes('.mov') || preview.includes('.webm') : file?.type?.startsWith('video/');
 
                   return (
-                    <div key={index} className="relative group rounded-lg overflow-hidden bg-[var(--color-neutral-100)]">
+                    <div key={index} className="relative group rounded-lg overflow-hidden bg-gray-100">
                       {isVideo ? (
                         <div className="relative w-full h-32">
                           <video 
@@ -1118,7 +1118,7 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setIsRecommendation(!isRecommendation)} aria-label="Button"
+                      onClick={() => setIsRecommendation(!isRecommendation)}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s backwards',
                       }}
@@ -1167,14 +1167,14 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setShowTags(!showTags)} aria-label="Button"
+                      onClick={() => setShowTags(!showTags)}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards',
                       }}
                       className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 group ${
                         showTags || selectedTags.length > 0
                           ? 'bg-gradient-to-br from-turquoise-500 to-cyan-600 text-white shadow-xl animate-pulse' 
-                          : 'bg-gradient-to-br from-turquoise-50 to-cyan-100 hover:from-turquoise-100 hover:to-cyan-200 text-[var(--color-primary-hover)] shadow-lg hover:shadow-2xl'
+                          : 'bg-gradient-to-br from-turquoise-50 to-cyan-100 hover:from-turquoise-100 hover:to-cyan-200 text-turquoise-600 shadow-lg hover:shadow-2xl'
                       }`}
                     >
                       <Hash className={`h-6 w-6 transition-transform duration-500 ${showTags ? 'rotate-180' : 'group-hover:animate-hash-flip'}`} />
@@ -1199,7 +1199,8 @@ export default function PostCreator({
                     <button
                       onClick={() => {
                         const fileInput = document.querySelector('input[type="file"][accept*="image"]') as HTMLInputElement;
-                        if (fileInput) fileInput.click();}} aria-label="Button"
+                        if (fileInput) fileInput.click();
+                      }}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards',
                       }}
@@ -1238,7 +1239,7 @@ export default function PostCreator({
                           ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-pink-600 text-white shadow-xl animate-pulse'
                           : 'bg-gradient-to-br from-purple-50 to-pink-100 hover:from-purple-100 hover:to-pink-200 text-purple-600 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed'
                       }`}
-                     aria-label="Button">
+                    >
                       <Sparkles className={`h-6 w-6 ${isEnhancing ? 'animate-spin' : 'group-hover:animate-sparkle-twinkle'}`} />
                     </button>
                   </TooltipTrigger>
@@ -1262,7 +1263,7 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setShowVisibility(!showVisibility)} aria-label="Button"
+                      onClick={() => setShowVisibility(!showVisibility)}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s backwards',
                       }}
@@ -1304,15 +1305,16 @@ export default function PostCreator({
                   <TooltipTrigger asChild>
                     <button
                       onClick={(e) => {
-                        handleSubmit(e);}} aria-label="Button"
+                        handleSubmit(e);
+                      }}
                       disabled={createPostMutation.isPending || isUploading || (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0)}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards',
                       }}
                       className={`relative group p-6 rounded-2xl transition-all duration-500 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
                         createPostMutation.isPending || isUploading
-                          ? 'bg-gradient-to-br from-turquoise-400 via-cyan-500 to-[var(--color-ocean-500)] text-white shadow-2xl animate-pulse'
-                          : 'bg-gradient-to-br from-turquoise-500 via-cyan-500 to-[var(--color-ocean-600)] hover:from-turquoise-600 hover:via-cyan-600 hover:to-blue-700 text-white shadow-xl hover:shadow-3xl'
+                          ? 'bg-gradient-to-br from-turquoise-400 via-cyan-500 to-blue-500 text-white shadow-2xl animate-pulse'
+                          : 'bg-gradient-to-br from-turquoise-500 via-cyan-500 to-blue-600 hover:from-turquoise-600 hover:via-cyan-600 hover:to-blue-700 text-white shadow-xl hover:shadow-3xl'
                       }`}
                     >
                       {/* Animated gradient overlay */}
@@ -1320,7 +1322,7 @@ export default function PostCreator({
                       
                       {/* Pulsing glow ring when ready to post */}
                       {!createPostMutation.isPending && !isUploading && (content.trim() || internalMediaUrls.length > 0) && (
-                        <div className="absolute -inset-1 bg-gradient-to-r from-turquoise-400 via-cyan-400 to-[var(--color-ocean-500)] rounded-2xl opacity-75 blur animate-pulse" />
+                        <div className="absolute -inset-1 bg-gradient-to-r from-turquoise-400 via-cyan-400 to-blue-500 rounded-2xl opacity-75 blur animate-pulse" />
                       )}
                       
                       {(createPostMutation.isPending || isUploading) ? (
@@ -1356,11 +1358,12 @@ export default function PostCreator({
                 <button
                   onClick={() => {
                     setVisibility('public');
-                    setShowVisibility(false);}} aria-label="Button"
+                    setShowVisibility(false);
+                  }}
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'public'
                       ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl'
-                      : 'bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)]/60 hover:border-green-300 shadow-sm hover:shadow-lg'
+                      : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-green-300 shadow-sm hover:shadow-lg'
                   }`}
                 >
                   <div className="flex flex-col items-center space-y-2">
@@ -1376,11 +1379,12 @@ export default function PostCreator({
                 <button
                   onClick={() => {
                     setVisibility('friends');
-                    setShowVisibility(false);}} aria-label="Button"
+                    setShowVisibility(false);
+                  }}
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'friends'
                       ? 'bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-xl'
-                      : 'bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)]/60 hover:border-blue-300 shadow-sm hover:shadow-lg'
+                      : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-blue-300 shadow-sm hover:shadow-lg'
                   }`}
                 >
                   <div className="flex flex-col items-center space-y-2">
@@ -1396,15 +1400,16 @@ export default function PostCreator({
                 <button
                   onClick={() => {
                     setVisibility('private');
-                    setShowVisibility(false);}} aria-label="Button"
+                    setShowVisibility(false);
+                  }}
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'private'
                       ? 'bg-gradient-to-br from-gray-500 to-gray-700 text-white shadow-xl'
-                      : 'bg-[var(--color-surface)]/80 backdrop-blur-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] border border-[var(--color-border)]/60 hover:border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-lg'
+                      : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-gray-300 shadow-sm hover:shadow-lg'
                   }`}
                 >
                   <div className="flex flex-col items-center space-y-2">
-                    <Lock className={`h-6 w-6 ${visibility === 'private' ? 'text-white' : 'text-gray-600 dark:text-gray-300'}`} />
+                    <Lock className={`h-6 w-6 ${visibility === 'private' ? 'text-white' : 'text-gray-600'}`} />
                     <span className="text-sm font-semibold">Private</span>
                     <span className="text-xs opacity-75">Only me</span>
                   </div>
@@ -1438,18 +1443,18 @@ export default function PostCreator({
 
               {/* Aurora Tide Recommendations - Glassmorphic Design */}
               {isRecommendation && (
-                <GlassCard depth={3} className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative">
+                <GlassCard depth={3} className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative"
                   {/* Glassmorphic Header */}
                   <div className="flex items-center justify-center mb-4 relative">
                     <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-turquoise-400/30 dark:border-[var(--color-ocean-300)]/20"></div>
+                      <div className="w-full border-t border-turquoise-400/30 dark:border-turquoise-300/20"></div>
                     </div>
-                    <GlassCard depth={2} className="relative px-6 py-3 rounded-full shadow-lg">
+                    <GlassCard depth={2} className="relative px-6 py-3 rounded-full shadow-lg"
                       <span className="text-sm font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 dark:from-turquoise-300 dark:to-cyan-300 bg-clip-text text-transparent flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-[var(--color-primary-hover)] dark:text-turquoise-400" />
+                        <MapPin className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                         Share a Recommendation
                       </span>
-                    </GlassCard>
+                    </div>
                   </div>
 
                   <div className="space-y-5 relative z-10">
@@ -1463,7 +1468,7 @@ export default function PostCreator({
                         <select
                           value={recommendationType}
                           onChange={(e) => setRecommendationType(e.target.value)}
-                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-[var(--color-ocean-300)]/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-[var(--color-text)] dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
+                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
                           style={{
                             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(240, 253, 250, 0.75))',
                             backdropFilter: 'blur(12px)'
@@ -1482,7 +1487,7 @@ export default function PostCreator({
                            recommendationType === 'hotel' ? '🏨' :
                            recommendationType === 'venue' ? '💃' : '📍'}
                         </div>
-                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--color-primary-hover)] dark:text-cyan-400 pointer-events-none" />
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-turquoise-600 dark:text-cyan-400 pointer-events-none" />
                       </div>
                     </label>
 
@@ -1497,11 +1502,11 @@ export default function PostCreator({
                           <button
                             key={price}
                             type="button"
-                            onClick={() => setPriceRange(price)} aria-label="Button"
+                            onClick={() => setPriceRange(price)}
                             className={`relative p-4 rounded-xl font-semibold transition-all duration-300 overflow-hidden backdrop-blur-md ${
                               priceRange === price
                                 ? 'text-white shadow-xl transform scale-105'
-                                : 'text-[var(--color-text-secondary)] dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
+                                : 'text-gray-700 dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
                             }`}
                             style={
                               priceRange === price
@@ -1544,7 +1549,7 @@ export default function PostCreator({
                             value={location}
                             onChange={handleLocationChange}
                             placeholder="Search for a place..."
-                            className="border-[var(--color-ocean-300)]/40 dark:border-cyan-500/30 rounded-lg shadow-sm"
+                            className="border-turquoise-300/40 dark:border-cyan-500/30 rounded-lg shadow-sm"
                             biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
                             searchTypes={[]}
                             showBusinessDetails={true}
@@ -1553,16 +1558,16 @@ export default function PostCreator({
                         </div>
                       </div>
                       {location && (
-                        <GlassCard depth={2} className="mt-2 p-3 rounded-lg flex items-center gap-2">
-                          <MapPin className="h-5 w-5 text-[var(--color-primary-hover)] dark:text-turquoise-400" />
+                        <GlassCard depth={2} className="mt-2 p-3 rounded-lg flex items-center gap-2"
+                          <MapPin className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
                           <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
                             {location}
                           </span>
-                        </GlassCard>
+                        </div>
                       )}
                     </label>
                   </div>
-                </GlassCard>
+                </div>
               )}
             </div>
 
@@ -1577,11 +1582,12 @@ export default function PostCreator({
                         prev.includes(tag.value) 
                           ? prev.filter(t => t !== tag.value)
                           : [...prev, tag.value]
-                      );}} aria-label="Button"
+                      );
+                    }}
                     className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                       selectedTags.includes(tag.value)
                         ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'
-                        : 'bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)]/60 hover:border-[var(--color-ocean-300)] shadow-sm hover:shadow-lg'
+                        : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-turquoise-300 shadow-sm hover:shadow-lg'
                     }`}
                   >
                     <span className="relative z-10 flex items-center space-x-2">
@@ -1601,7 +1607,7 @@ export default function PostCreator({
           {(isUploading || uploadProgress > 0) && (
             <div className="mt-4 p-6 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-xl border-2 border-turquoise-400 shadow-2xl animate-pulse">
               <div className="flex items-center justify-between text-base mb-4">
-                <span className="text-gray-800 dark:text-gray-100 flex items-center gap-3">
+                <span className="text-gray-800 flex items-center gap-3">
                   <Loader className="h-7 w-7 animate-spin text-turquoise-700" />
                   <span className="font-bold text-lg">Uploading your media...</span>
                 </span>
@@ -1609,17 +1615,17 @@ export default function PostCreator({
               </div>
               <div className="relative h-8 bg-gray-300 rounded-full overflow-hidden shadow-inner">
                 <div 
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-turquoise-500 via-cyan-500 to-[var(--color-ocean-500)] transition-all duration-300 ease-out rounded-full shadow-lg"
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-turquoise-500 via-cyan-500 to-blue-500 transition-all duration-300 ease-out rounded-full shadow-lg"
                   style={{ 
                     width: `${uploadProgress}%`,
                     boxShadow: '0 4px 6px rgba(0, 184, 217, 0.5)'
                   }}
                 >
                   {/* Animated stripe effect */}
-                  <div className="absolute inset-0 bg-[var(--color-surface)] dark:bg-gray-900/20 animate-pulse" />
+                  <div className="absolute inset-0 bg-white/20 animate-pulse" />
                 </div>
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mt-3 flex items-center gap-2 font-medium">
+              <p className="text-sm text-gray-700 mt-3 flex items-center gap-2 font-medium">
                 📤 Upload progress
                 {uploadProgress > 0 && uploadProgress < 100 && `: ${uploadProgress}%`}
                 {uploadProgress === 100 && ': Complete! Processing...'}
@@ -1636,8 +1642,7 @@ export default function PostCreator({
             accept="image/*,video/*"
             onChange={handleMediaUpload}
             className="hidden"
-              aria-label="Input field"
-            /> */}
+          /> */}
 
 
           {/* AI Enhancement Preview Modal */}
@@ -1661,14 +1666,14 @@ export default function PostCreator({
 
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium text-sm text-gray-600 dark:text-gray-300 mb-2">Original:</h4>
-                      <div className="p-3 bg-[var(--color-surface-elevated)] rounded-lg text-sm">
+                      <h4 className="font-medium text-sm text-gray-600 mb-2">Original:</h4>
+                      <div className="p-3 bg-gray-50 rounded-lg text-sm">
                         {content}
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-medium text-sm text-gray-600 dark:text-gray-300 mb-2">Enhanced:</h4>
+                      <h4 className="font-medium text-sm text-gray-600 mb-2">Enhanced:</h4>
                       <div className="p-3 bg-purple-50 rounded-lg text-sm">
                         {enhancedContent}
                       </div>

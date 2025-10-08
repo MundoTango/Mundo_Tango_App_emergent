@@ -137,7 +137,7 @@ export default function MTList({
     >
       {/* Search Bar */}
       {searchable && (
-        <div className="p-4 border-b border-[var(--color-border)]/50 dark:border-gray-700/50">
+        <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -147,14 +147,13 @@ export default function MTList({
               placeholder={searchPlaceholder}
               className={cn(
                 'w-full pl-10 pr-4 py-2 rounded-lg',
-                'bg-[var(--color-surface)]/90 dark:bg-gray-800/90',
+                'bg-white/90 dark:bg-gray-800/90',
                 'border border-teal-200/50 dark:border-teal-700/50',
-                'focus:border-teal-400 dark:focus:border-[var(--color-primary)]',
+                'focus:border-teal-400 dark:focus:border-teal-500',
                 'focus:ring-2 focus:ring-teal-400/20',
                 'transition-all duration-300'
               )}
               data-testid={`${testId}-search`}
-              aria-label="Input field"
             />
           </div>
         </div>
@@ -162,16 +161,15 @@ export default function MTList({
 
       {/* Select All */}
       {selectable && filteredItems.length > 0 && (
-        <div className="px-4 py-2 border-b border-[var(--color-border)]/50 dark:border-gray-700/50 bg-[var(--color-surface-elevated)]/50 dark:bg-gray-800/50">
+        <div className="px-4 py-2 border-b border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="checkbox"
               checked={allSelected}
               indeterminate={someSelected}
               onChange={handleSelectAll}
-              className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
+              className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
               data-testid={`${testId}-select-all`}
-              aria-label="Input field"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               Select all ({filteredItems.length})
@@ -184,7 +182,7 @@ export default function MTList({
       {header}
 
       {/* List Items */}
-      <div className={cn('mt-list-content', !glassmorphic && 'bg-[var(--color-surface)] dark:bg-gray-900')}>
+      <div className={cn('mt-list-content', !glassmorphic && 'bg-white dark:bg-gray-900')}>
         {loading ? (
           <LoadingState count={loadingItems} compact={compact} />
         ) : filteredItems.length === 0 ? (
@@ -271,9 +269,9 @@ function ListItemComponent({
       className={cn(
         'flex items-center gap-3',
         compact ? 'px-4 py-2' : 'px-4 py-3',
-        hoverable && !item.disabled && 'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20',
+        hoverable && !item.disabled && 'hover:bg-teal-50/30 dark:hover:bg-teal-900/20',
         isClickable && !item.disabled && 'cursor-pointer',
-        selected && 'bg-[var(--color-ocean-100)]/40 dark:bg-teal-800/30',
+        selected && 'bg-teal-100/40 dark:bg-teal-800/30',
         item.disabled && 'opacity-50 cursor-not-allowed',
         'transition-colors duration-200',
         className
@@ -286,10 +284,10 @@ function ListItemComponent({
         <input
           type="checkbox"
           checked={selected}
-          onChange={(e) => onSelect?.(item.id, e)} aria-label="Input field"
+          onChange={(e) => onSelect?.(item.id, e)}
           onClick={(e) => e.stopPropagation()}
           disabled={item.disabled}
-          className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
+          className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
           data-testid={`${testId}-checkbox`}
         />
       )}
@@ -308,7 +306,7 @@ function ListItemComponent({
             />
           ) : item.avatar ? (
             <div className={cn(
-              'rounded-full bg-gradient-to-br from-[var(--color-ocean-400)] to-[var(--color-ocean-600)] flex items-center justify-center text-white',
+              'rounded-full bg-gradient-to-br from-teal-400 to-blue-600 flex items-center justify-center text-white',
               compact ? 'w-8 h-8' : 'w-10 h-10'
             )}>
               {item.avatar}
@@ -323,7 +321,7 @@ function ListItemComponent({
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <p className={cn(
-            'font-medium text-[var(--color-text)] dark:text-gray-100 truncate',
+            'font-medium text-gray-900 dark:text-gray-100 truncate',
             compact && 'text-sm'
           )}>
             {item.primary}
@@ -331,11 +329,11 @@ function ListItemComponent({
           {item.badge !== undefined && (
             <span className={cn(
               'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium',
-              item.badgeVariant === 'primary' && 'bg-[var(--color-ocean-100)] text-teal-800 dark:bg-teal-900/30 dark:text-teal-300',
+              item.badgeVariant === 'primary' && 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300',
               item.badgeVariant === 'success' && 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
               item.badgeVariant === 'warning' && 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
               item.badgeVariant === 'error' && 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-              (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+              (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
             )}>
               {item.badge}
             </span>

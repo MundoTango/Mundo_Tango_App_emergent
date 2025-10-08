@@ -356,7 +356,7 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
             {suggestions.map((suggestion) => (
               <div
                 key={`${suggestion.type}-${suggestion.id}`}
-                className="flex items-center gap-3 p-2 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 rounded cursor-pointer"
+                className="flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded cursor-pointer"
                 onClick={() => insertMention(suggestion)}
                 data-testid={`mention-suggestion-${suggestion.type}-${suggestion.id}`}
               >
@@ -370,7 +370,7 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
                 <div className="flex-1 min-w-0">
                   <div className="font-medium truncate">{suggestion.display}</div>
                   {suggestion.status && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 truncate">{suggestion.status}</div>
+                    <div className="text-sm text-gray-500 truncate">{suggestion.status}</div>
                   )}
                 </div>
                 

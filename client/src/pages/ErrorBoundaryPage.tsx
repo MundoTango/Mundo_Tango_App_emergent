@@ -35,20 +35,20 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         timestamp: new Date().toISOString(),
         url: window.location.href
       };
-
+      
       // Simulate sending report
       console.error('Error Report:', errorReport);
-
+      
       // For now, just mark as sent
       setReportSent(true);
-
+      
       // In production, you would send to Sentry or similar:
       // await fetch('/api/error-reports', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify(errorReport)
       // });
-
+      
     } catch (err) {
       console.error('Failed to send error report:', err);
     }
@@ -68,16 +68,16 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         
         <CardContent className="space-y-6">
           <div className="text-center">
-            <p className="text-gray-600 dark:text-gray-300 mb-2">
+            <p className="text-gray-600 mb-2">
               We're sorry, but something unexpected happened. Don't worry, your data is safe!
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500">
               The error has been logged and our team will look into it.
             </p>
           </div>
 
-          {error &&
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+          {error && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
               <h4 className="font-semibold text-red-800 mb-2 flex items-center gap-2">
                 <Bug className="w-4 h-4" />
                 Error Details
@@ -85,8 +85,8 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               <p className="text-sm text-red-700 font-mono break-all">
                 {error.message || 'An unexpected error occurred'}
               </p>
-              {process.env.NODE_ENV === 'development' && error.stack &&
-            <details className="mt-2">
+              {process.env.NODE_ENV === 'development' && error.stack && (
+                <details className="mt-2">
                   <summary className="text-xs text-red-600 cursor-pointer hover:underline">
                     View Stack Trace
                   </summary>
@@ -94,15 +94,15 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
                     {error.stack}
                   </pre>
                 </details>
-            }
+              )}
             </div>
-          }
+          )}
 
           <div className="grid gap-3">
             <Button
               onClick={handleReload}
-              className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-w-full">
-
+              className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
+            >
               <RefreshCw className="w-4 h-4 mr-2" />
               Try Again
             </Button>
@@ -110,8 +110,8 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleGoHome}
               variant="outline"
-              className="w-full border-turquoise-200 hover:bg-[var(--color-ocean-50)]" data-testid="button-w-full">
-
+              className="w-full border-turquoise-200 hover:bg-turquoise-50"
+            >
               <Home className="w-4 h-4 mr-2" />
               Go to Homepage
             </Button>
@@ -119,58 +119,58 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleReportError}
               variant="ghost"
-              className="w-full hover:bg-[var(--color-ocean-50)]"
-              disabled={reportSent} data-testid="button-w-full">
-
-              {reportSent ?
-              <>
+              className="w-full hover:bg-turquoise-50"
+              disabled={reportSent}
+            >
+              {reportSent ? (
+                <>
                   <AlertTriangle className="w-4 h-4 mr-2 text-green-600" />
                   Error Report Sent
-                </> :
-
-              <>
+                </>
+              ) : (
+                <>
                   <Mail className="w-4 h-4 mr-2" />
                   Report This Error
                 </>
-              }
+              )}
             </Button>
           </div>
 
           <div className="border-t pt-6">
             <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <FileQuestion className="w-5 h-5 text-[var(--color-primary-hover)]" />
+              <FileQuestion className="w-5 h-5 text-turquoise-600" />
               Common Solutions
             </h4>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li className="flex items-start gap-2">
-                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
+                <span className="text-turquoise-600 mt-0.5">•</span>
                 <span>Clear your browser cache and cookies</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
+                <span className="text-turquoise-600 mt-0.5">•</span>
                 <span>Check your internet connection</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
+                <span className="text-turquoise-600 mt-0.5">•</span>
                 <span>Try using a different browser</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
+                <span className="text-turquoise-600 mt-0.5">•</span>
                 <span>Disable browser extensions temporarily</span>
               </li>
             </ul>
           </div>
 
           <div className="text-center pt-4 border-t">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500">
               Need more help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-[var(--color-primary-hover)] hover:underline" data-testid="a-text-[var(--color-primary-hover)]">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
                 support@mundotango.life
               </a>
             </p>
           </div>
         </CardContent>
       </Card>
-    </div>);
-
+    </div>
+  );
 }

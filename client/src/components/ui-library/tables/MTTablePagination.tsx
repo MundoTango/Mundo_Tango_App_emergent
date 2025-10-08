@@ -100,17 +100,17 @@ export default function MTTablePagination({
     
     return (
       <button
-        onClick={() => page && onPageChange(page)} aria-label="Button"
+        onClick={() => page && onPageChange(page)}
         disabled={disabled}
         className={cn(
           'transition-all duration-200',
           compact ? 'px-2 py-1 text-sm' : 'px-3 py-2',
           variant === 'icon' && 'p-2',
           isActive
-            ? 'bg-gradient-to-r from-[var(--color-ocean-400)] to-[var(--color-ocean-600)] text-white shadow-md'
-            : 'bg-[var(--color-surface)] dark:bg-gray-800 text-[var(--color-text-secondary)] dark:text-gray-300 hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30',
+            ? 'bg-gradient-to-r from-teal-400 to-blue-600 text-white shadow-md'
+            : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30',
           'border border-gray-300 dark:border-gray-700',
-          disabled && 'opacity-50 cursor-not-allowed hover:bg-[var(--color-surface)] dark:hover:bg-gray-800',
+          disabled && 'opacity-50 cursor-not-allowed hover:bg-white dark:hover:bg-gray-800',
           'rounded-lg'
         )}
         data-testid={`${testId}-page-${page || variant}`}
@@ -135,11 +135,11 @@ export default function MTTablePagination({
             ) : (
               <>
                 Showing{' '}
-                <span className="font-semibold text-[var(--color-text)] dark:text-gray-100">
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {startItem}-{endItem}
                 </span>{' '}
                 of{' '}
-                <span className="font-semibold text-[var(--color-text)] dark:text-gray-100">
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {totalItems}
                 </span>
               </>
@@ -157,9 +157,9 @@ export default function MTTablePagination({
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
               className={cn(
                 'rounded-lg border border-gray-300 dark:border-gray-700',
-                'bg-[var(--color-surface)] dark:bg-gray-800',
-                'text-[var(--color-text-secondary)] dark:text-gray-300',
-                'focus:border-teal-400 dark:focus:border-[var(--color-primary)]',
+                'bg-white dark:bg-gray-800',
+                'text-gray-700 dark:text-gray-300',
+                'focus:border-teal-400 dark:focus:border-teal-500',
                 'focus:ring-2 focus:ring-teal-400/20',
                 compact ? 'px-2 py-1 text-sm' : 'px-3 py-2'
               )}
@@ -217,8 +217,8 @@ export default function MTTablePagination({
         )}
 
         {/* Mobile page indicator */}
-        <div className="flex sm:hidden items-center px-3 py-2 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
-          <span className="text-[var(--color-text-secondary)] dark:text-gray-300">
+        <div className="flex sm:hidden items-center px-3 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
+          <span className="text-gray-700 dark:text-gray-300">
             {currentPage} / {calculatedTotalPages}
           </span>
         </div>

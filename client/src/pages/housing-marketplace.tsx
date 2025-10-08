@@ -283,7 +283,7 @@ export default function HousingMarketplace() {
             <motion.div variants={AuroraVariants.fadeInUp}>
               <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
-                  <Home className="w-8 h-8 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+                  <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : listings.length}</p>
                     <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.active_listings', 'Active Listings')}</p>
@@ -294,7 +294,7 @@ export default function HousingMarketplace() {
             <motion.div variants={AuroraVariants.fadeInUp}>
               <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-8 h-8 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+                  <MapPin className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">
                       {isLoading ? '...' : new Set(listings.map(l => l.city)).size}
@@ -307,7 +307,7 @@ export default function HousingMarketplace() {
             <motion.div variants={AuroraVariants.fadeInUp}>
               <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
-                  <Star className="w-8 h-8 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+                  <Star className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">
                       {isLoading ? '...' : listings.filter(l => l.rating).length > 0 
@@ -322,7 +322,7 @@ export default function HousingMarketplace() {
             <motion.div variants={AuroraVariants.fadeInUp}>
               <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
-                  <Music className="w-8 h-8 text-[var(--color-primary-hover)] dark:text-cyan-400" />
+                  <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : filteredListings.length}</p>
                     <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.matching_filters', 'Matching Filters')}</p>
@@ -344,7 +344,7 @@ export default function HousingMarketplace() {
                     placeholder={t('housing.marketplace.search_placeholder', 'Search by location, title, or description...')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-[var(--color-surface)]/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
+                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
                     data-testid="input-search"
                   />
                 </div>
@@ -365,7 +365,7 @@ export default function HousingMarketplace() {
                     variant="outline" 
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
-                    className={showFilters ? 'glass-card glass-depth-2 border-[var(--color-ocean-300)]/50 dark:border-cyan-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
+                    className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-cyan-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
                     data-testid="button-toggle-filters"
                   >
                     <Filter className="w-4 h-4 mr-1" />
@@ -388,7 +388,7 @@ export default function HousingMarketplace() {
 
             {/* Expanded Filter Panel */}
             {showFilters && (
-              <Card className="p-6 bg-[var(--color-surface-elevated)]" data-testid="filter-panel">
+              <Card className="p-6 bg-gray-50" data-testid="filter-panel">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Room Types */}
                   <div data-testid="filter-room-types">
@@ -403,7 +403,7 @@ export default function HousingMarketplace() {
                               id={roomTypeId}
                               checked={selectedRoomTypes.includes(roomType)}
                               onChange={() => toggleRoomType(roomType)}
-                              className="w-4 h-4 text-indigo-600 border-gray-300 dark:border-gray-600 rounded focus:ring-indigo-500"
+                              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                               data-testid={`checkbox-roomtype-${roomType.toLowerCase().replace(/\s+/g, '-')}`}
                             />
                             <Label htmlFor={roomTypeId} className="font-normal cursor-pointer">
@@ -430,7 +430,7 @@ export default function HousingMarketplace() {
                         className="mt-2"
                         data-testid="slider-price-range"
                       />
-                      <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300">
+                      <div className="flex justify-between text-xs text-gray-600">
                         <span>$0</span>
                         <span>$300+</span>
                       </div>
@@ -442,7 +442,7 @@ export default function HousingMarketplace() {
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.capacity', 'Capacity')}</Label>
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-xs text-gray-600 dark:text-gray-300">{t('housing.marketplace.guests', 'Guests')}</Label>
+                        <Label className="text-xs text-gray-600">{t('housing.marketplace.guests', 'Guests')}</Label>
                         <div className="flex items-center gap-2 mt-1">
                           <Button
                             variant="outline"
@@ -453,7 +453,7 @@ export default function HousingMarketplace() {
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-[var(--color-surface)] dark:bg-gray-900 border rounded text-sm font-medium" data-testid="text-guest-count">
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-guest-count">
                             {guestCount}
                           </span>
                           <Button
@@ -467,7 +467,7 @@ export default function HousingMarketplace() {
                         </div>
                       </div>
                       <div>
-                        <Label className="text-xs text-gray-600 dark:text-gray-300">{t('housing.marketplace.bedrooms', 'Bedrooms')}</Label>
+                        <Label className="text-xs text-gray-600">{t('housing.marketplace.bedrooms', 'Bedrooms')}</Label>
                         <div className="flex items-center gap-2 mt-1">
                           <Button
                             variant="outline"
@@ -478,7 +478,7 @@ export default function HousingMarketplace() {
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-[var(--color-surface)] dark:bg-gray-900 border rounded text-sm font-medium" data-testid="text-bedroom-count">
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-bedroom-count">
                             {bedroomCount === 0 ? t('housing.marketplace.any', 'Any') : bedroomCount}
                           </span>
                           <Button
@@ -505,7 +505,7 @@ export default function HousingMarketplace() {
                             id={`amenity-${amenity}`}
                             checked={selectedAmenities.includes(amenity)}
                             onChange={() => toggleAmenity(amenity)}
-                            className="w-4 h-4 text-indigo-600 border-gray-300 dark:border-gray-600 rounded focus:ring-indigo-500"
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                             data-testid={`checkbox-amenity-${amenity}`}
                           />
                           <Label htmlFor={`amenity-${amenity}`} className="font-normal cursor-pointer text-sm">
@@ -522,7 +522,7 @@ export default function HousingMarketplace() {
 
           {/* Results Count */}
           <div className="mb-4">
-            <p className="text-gray-600 dark:text-gray-300" data-testid="text-results-count">
+            <p className="text-gray-600" data-testid="text-results-count">
               {isLoading ? t('housing.marketplace.loading', 'Loading...') : t('housing.marketplace.showing_results', 'Showing {{count}} of {{total}} listings', { count: filteredListings.length, total: listings.length })}
               {!isLoading && activeFilterCount > 0 && ` ${t('housing.marketplace.with_filters', 'with {{count}} filter applied', { count: activeFilterCount })}`}
             </p>
@@ -533,11 +533,11 @@ export default function HousingMarketplace() {
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="overflow-hidden animate-pulse">
-                <div className="h-48 bg-gray-200 dark:bg-gray-700" />
+                <div className="h-48 bg-gray-200" />
                 <div className="p-4 space-y-3">
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+                  <div className="h-6 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                  <div className="h-4 bg-gray-200 rounded w-full" />
                 </div>
               </Card>
             ))
@@ -562,7 +562,7 @@ export default function HousingMarketplace() {
                 <div key={listing.id} ref={el => cardsRef.current[index] = el}>
                   <GlassCard 
                     depth={2}
-                    className="overflow-hidden hover:glass-depth-3 hover:border-[var(--color-ocean-300)]/50 dark:hover:border-cyan-500/50 transition-all duration-300 group" 
+                    className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-cyan-500/50 transition-all duration-300 group" 
                     data-testid={`card-listing-${listing.id}`}
                   >
                   {/* Media Thumbnail */}
@@ -610,10 +610,10 @@ export default function HousingMarketplace() {
                   {/* Content */}
                   <div className="p-4">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[var(--color-primary-hover)] dark:group-hover:text-cyan-400 transition-colors" data-testid={`text-title-${listing.id}`}>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" data-testid={`text-title-${listing.id}`}>
                         {listing.title}
                       </h3>
-                      <div className="flex items-center text-lg font-bold text-[var(--color-primary-hover)] dark:text-cyan-400" data-testid={`text-price-${listing.id}`}>
+                      <div className="flex items-center text-lg font-bold text-cyan-600 dark:text-cyan-400" data-testid={`text-price-${listing.id}`}>
                         <DollarSign className="w-4 h-4" />
                         {priceUSD}
                         <span className="text-sm font-normal text-slate-600 dark:text-slate-400">/{t('housing.marketplace.night', 'night')}</span>
@@ -691,8 +691,8 @@ export default function HousingMarketplace() {
         {!isLoading && filteredListings.length === 0 && (
           <Card className="p-12 text-center">
             <Home className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
-            <p className="text-gray-600 dark:text-gray-300">{t('housing.marketplace.try_adjusting', 'Try adjusting your search or filters')}</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
+            <p className="text-gray-600">{t('housing.marketplace.try_adjusting', 'Try adjusting your search or filters')}</p>
           </Card>
         )}
 
@@ -702,7 +702,7 @@ export default function HousingMarketplace() {
             <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{selectedListing.title}</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">{selectedListing.title}</h2>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -713,28 +713,28 @@ export default function HousingMarketplace() {
                 </div>
 
                 <div className="space-y-4">
-                  <p className="text-[var(--color-text-secondary)]">{selectedListing.description}</p>
+                  <p className="text-gray-700">{selectedListing.description}</p>
                   
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-[var(--color-text-secondary)]">{selectedListing.address || `${selectedListing.city}, ${selectedListing.country}`}</span>
+                    <MapPin className="w-5 h-5 text-gray-500" />
+                    <span className="text-gray-700">{selectedListing.address || `${selectedListing.city}, ${selectedListing.country}`}</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 py-4">
-                    <div className="bg-[var(--color-surface-elevated)] rounded-lg p-4">
-                      <h4 className="font-semibold text-[var(--color-text)] dark:text-white mb-2">Amenities</h4>
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">Amenities</h4>
                       <div className="space-y-2">
                         {selectedListing.amenities.slice(0, 5).map(amenity => {
                           const Icon = amenityIcons[amenity] || Check;
                           return (
-                            <div key={amenity} className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
+                            <div key={amenity} className="flex items-center gap-2 text-sm text-gray-700">
                               <Icon className="w-4 h-4" />
                               {amenity.replace(/_/g, ' ')}
                             </div>
                           );
                         })}
                         {selectedListing.amenities.length > 5 && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400">+{selectedListing.amenities.length - 5} more</p>
+                          <p className="text-xs text-gray-500">+{selectedListing.amenities.length - 5} more</p>
                         )}
                       </div>
                     </div>

@@ -58,7 +58,7 @@ export default function RecommendationsBrowsePage() {
                       value={searchCity}
                       onChange={(e) => setSearchCity(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      className="pl-10 pr-4 h-12 bg-[var(--color-surface)]/50 dark:bg-gray-800/50 border-white/20 dark:border-gray-700/20 focus:ring-2 focus:ring-turquoise-500 dark:focus:ring-turquoise-400"
+                      className="pl-10 pr-4 h-12 bg-white/50 dark:bg-gray-800/50 border-white/20 dark:border-gray-700/20 focus:ring-2 focus:ring-turquoise-500 dark:focus:ring-turquoise-400"
                       data-testid="input-city-search"
                     />
                   </div>
@@ -88,7 +88,7 @@ export default function RecommendationsBrowsePage() {
                         setActiveCity('');
                         setSearchCity('');
                       }}
-                      className="text-xs text-gray-500 hover:text-[var(--color-text-secondary)] dark:text-gray-400 dark:hover:text-gray-200"
+                      className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                       data-testid="button-clear-city"
                     >
                       {t('recommendations.browse.clear', 'Clear')}
@@ -111,8 +111,8 @@ export default function RecommendationsBrowsePage() {
         ) : (
           <div className="text-center py-16">
             <div className="glass-card glass-depth-1 inline-block px-12 py-8 rounded-2xl">
-              <MapPin className="h-16 w-16 text-turquoise-400 dark:text-[var(--color-primary)] mx-auto mb-4 opacity-50" />
-              <h3 className="text-xl font-semibold text-[var(--color-text-secondary)] dark:text-gray-300 mb-2">
+              <MapPin className="h-16 w-16 text-turquoise-400 dark:text-turquoise-500 mx-auto mb-4 opacity-50" />
+              <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 {t('recommendations.browse.emptyTitle', 'Choose a City to Explore')}
               </h3>
               <p className="text-gray-500 dark:text-gray-400 max-w-md">

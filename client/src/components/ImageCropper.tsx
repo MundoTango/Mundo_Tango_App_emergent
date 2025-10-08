@@ -39,17 +39,17 @@ export default function ImageCropper({
 
   const getCroppedImg = async () => {
     if (!imgRef.current) return;
-
+    
     // Use completedCrop if available, otherwise convert current crop to pixels
     let cropToUse = completedCrop;
     if (!cropToUse) {
       const { width, height } = imgRef.current;
       cropToUse = {
         unit: 'px',
-        x: crop.unit === '%' ? crop.x * width / 100 : crop.x,
-        y: crop.unit === '%' ? crop.y * height / 100 : crop.y,
-        width: crop.unit === '%' ? crop.width * width / 100 : crop.width,
-        height: crop.unit === '%' ? crop.height * height / 100 : crop.height
+        x: crop.unit === '%' ? (crop.x * width) / 100 : crop.x,
+        y: crop.unit === '%' ? (crop.y * height) / 100 : crop.y,
+        width: crop.unit === '%' ? (crop.width * width) / 100 : crop.width,
+        height: crop.unit === '%' ? (crop.height * height) / 100 : crop.height
       };
     }
 
@@ -64,7 +64,7 @@ export default function ImageCropper({
     canvas.height = cropToUse.height;
 
     ctx.save();
-
+    
     if (cropShape === 'round') {
       ctx.beginPath();
       ctx.arc(
@@ -108,16 +108,16 @@ export default function ImageCropper({
         const { width, height } = imgRef.current;
         const cropInPixels: PixelCrop = {
           unit: 'px',
-          x: crop.unit === '%' ? crop.x * width / 100 : crop.x,
-          y: crop.unit === '%' ? crop.y * height / 100 : crop.y,
-          width: crop.unit === '%' ? crop.width * width / 100 : crop.width,
-          height: crop.unit === '%' ? crop.height * height / 100 : crop.height
+          x: crop.unit === '%' ? (crop.x * width) / 100 : crop.x,
+          y: crop.unit === '%' ? (crop.y * height) / 100 : crop.y,
+          width: crop.unit === '%' ? (crop.width * width) / 100 : crop.width,
+          height: crop.unit === '%' ? (crop.height * height) / 100 : crop.height
         };
         setCompletedCrop(cropInPixels);
         // Wait for state update
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
-
+      
       const croppedFile = await getCroppedImg();
       if (croppedFile) {
         onCropComplete(croppedFile);
@@ -145,14 +145,14 @@ export default function ImageCropper({
         
         <div className="space-y-4">
           {/* Image with crop */}
-          <div className="relative bg-[var(--color-neutral-100)] rounded-lg overflow-hidden" style={{ maxHeight: '60vh' }}>
+          <div className="relative bg-gray-100 rounded-lg overflow-hidden" style={{ maxHeight: '60vh' }}>
             <ReactCrop
               crop={crop}
               onChange={(c) => setCrop(c)}
               onComplete={(c) => setCompletedCrop(c)}
               aspect={aspectRatio}
-              className="max-w-full">
-
+              className="max-w-full"
+            >
               <img
                 ref={imgRef}
                 src={imageUrl}
@@ -176,8 +176,8 @@ export default function ImageCropper({
                       y: (height - cropHeight) / 2
                     });
                   }
-                }} />
-
+                }}
+              />
             </ReactCrop>
           </div>
 
@@ -185,16 +185,16 @@ export default function ImageCropper({
           <div className="space-y-4">
             {/* Zoom control */}
             <div className="flex items-center gap-4">
-              <ZoomIn className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+              <ZoomIn className="w-5 h-5 text-gray-600" />
               <Slider
                 value={zoom}
                 onValueChange={setZoom}
                 min={0.5}
                 max={3}
                 step={0.1}
-                className="flex-1" />
-
-              <span className="text-sm text-gray-600 dark:text-gray-300 w-12">{zoom[0].toFixed(1)}x</span>
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-600 w-12">{zoom[0].toFixed(1)}x</span>
             </div>
 
             {/* Rotation control */}
@@ -204,21 +204,21 @@ export default function ImageCropper({
                 variant="outline"
                 size="sm"
                 onClick={handleRotate}
-                className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-button">
-
+                className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
+              >
                 <RotateCw className="w-4 h-4 mr-2" />
                 Rotate 90°
               </Button>
-              <span className="text-sm text-gray-600 dark:text-gray-300">{rotation}°</span>
+              <span className="text-sm text-gray-600">{rotation}°</span>
             </div>
           </div>
 
           {/* Tips */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <p className="text-sm text-blue-700">
-              {cropShape === 'round' ?
-              'Drag to position your image within the circle. Use zoom to fill the area.' :
-              'Drag the corners to resize, or drag inside to reposition the crop area.'}
+              {cropShape === 'round' 
+                ? 'Drag to position your image within the circle. Use zoom to fill the area.'
+                : 'Drag the corners to resize, or drag inside to reposition the crop area.'}
             </p>
           </div>
         </div>
@@ -228,20 +228,20 @@ export default function ImageCropper({
             type="button"
             variant="outline"
             onClick={onClose}
-            className="border-gray-300 dark:border-gray-600" data-testid="button-button">
-
+            className="border-gray-300"
+          >
             <X className="w-4 h-4 mr-2" />
             Cancel
           </Button>
           <Button
             onClick={handleCrop}
-            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white" data-testid="button-bg-gradient-to-r">
-
+            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
+          >
             <Download className="w-4 h-4 mr-2" />
             Apply & Save
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialog>);
-
+    </Dialog>
+  );
 }

@@ -85,7 +85,7 @@ export const renderWithMentions = (text: string) => {
         break;
       default:
         href = '#';
-        className = 'text-gray-600 dark:text-gray-300 hover:text-[var(--color-text-secondary)] font-medium bg-[var(--color-surface-elevated)] px-1 py-0.5 rounded hover:bg-[var(--color-neutral-100)] transition-colors inline-block';
+        className = 'text-gray-600 hover:text-gray-700 font-medium bg-gray-50 px-1 py-0.5 rounded hover:bg-gray-100 transition-colors inline-block';
     }
 
     // Add the mention as a clickable link with MapPin icon for cities

@@ -22,7 +22,7 @@ interface CampaignData {
   conversions: number;
 }
 
-export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
+export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
   const [metrics] = useState<MarketingMetrics>({
     socialReach: 25400,
     engagementRate: 4.2,
@@ -33,27 +33,27 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
   });
 
   const [campaigns] = useState<CampaignData[]>([
-  { name: 'Summer Tango Festival', impressions: 12000, clicks: 480, conversions: 24 },
-  { name: 'Profile Launch Campaign', impressions: 8500, clicks: 340, conversions: 17 },
-  { name: 'Social Media Boost', impressions: 4900, clicks: 245, conversions: 12 }]
-  );
+    { name: 'Summer Tango Festival', impressions: 12000, clicks: 480, conversions: 24 },
+    { name: 'Profile Launch Campaign', impressions: 8500, clicks: 340, conversions: 17 },
+    { name: 'Social Media Boost', impressions: 4900, clicks: 245, conversions: 12 }
+  ]);
 
   const [socialChannels] = useState([
-  { name: 'Instagram', value: 45, color: '#E4405F' },
-  { name: 'Facebook', value: 30, color: '#1877F2' },
-  { name: 'Twitter', value: 15, color: '#1DA1F2' },
-  { name: 'LinkedIn', value: 10, color: '#0A66C2' }]
-  );
+    { name: 'Instagram', value: 45, color: '#E4405F' },
+    { name: 'Facebook', value: 30, color: '#1877F2' },
+    { name: 'Twitter', value: 15, color: '#1DA1F2' },
+    { name: 'LinkedIn', value: 10, color: '#0A66C2' }
+  ]);
 
   const [engagementTrend] = useState([
-  { day: 'Mon', rate: 3.8 },
-  { day: 'Tue', rate: 4.1 },
-  { day: 'Wed', rate: 4.5 },
-  { day: 'Thu', rate: 4.2 },
-  { day: 'Fri', rate: 4.8 },
-  { day: 'Sat', rate: 5.1 },
-  { day: 'Sun', rate: 4.7 }]
-  );
+    { day: 'Mon', rate: 3.8 },
+    { day: 'Tue', rate: 4.1 },
+    { day: 'Wed', rate: 4.5 },
+    { day: 'Thu', rate: 4.2 },
+    { day: 'Fri', rate: 4.8 },
+    { day: 'Sat', rate: 5.1 },
+    { day: 'Sun', rate: 4.7 }
+  ]);
 
   return (
     <div className="space-y-6">
@@ -67,20 +67,20 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <Users className="w-8 h-8 text-pink-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.socialReach.toLocaleString()}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Social Reach</div>
+              <div className="text-sm text-gray-600">Social Reach</div>
             </div>
-            <div className="text-center p-4 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <Target className="w-8 h-8 text-purple-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.engagementRate}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Engagement Rate</div>
+              <div className="text-sm text-gray-600">Engagement Rate</div>
             </div>
-            <div className="text-center p-4 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <TrendingUp className="w-8 h-8 text-blue-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.conversionRate}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Conversion Rate</div>
+              <div className="text-sm text-gray-600">Conversion Rate</div>
             </div>
           </div>
         </CardContent>
@@ -100,19 +100,19 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
           <Progress value={metrics.influencerScore} className="h-4 mb-4" />
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <div className="text-gray-600 dark:text-gray-300">Profile Completeness</div>
+              <div className="text-gray-600">Profile Completeness</div>
               <div className="font-medium">95%</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-gray-300">Content Quality</div>
+              <div className="text-gray-600">Content Quality</div>
               <div className="font-medium">88%</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-gray-300">Audience Growth</div>
+              <div className="text-gray-600">Audience Growth</div>
               <div className="font-medium">+12% monthly</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-gray-300">Share Count</div>
+              <div className="text-gray-600">Share Count</div>
               <div className="font-medium">{metrics.shareCount}</div>
             </div>
           </div>
@@ -134,11 +134,11 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
-                label={({ name, value }) => `${name}: ${value}%`}>
-
-                {socialChannels.map((entry, index) =>
-                <Cell key={`cell-${index}`} fill={entry.color} />
-                )}
+                label={({ name, value }) => `${name}: ${value}%`}
+              >
+                {socialChannels.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
               </Pie>
               <Tooltip />
             </PieChart>
@@ -158,13 +158,13 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
               <XAxis dataKey="day" />
               <YAxis />
               <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="rate"
-                stroke="#ec4899"
+              <Line 
+                type="monotone" 
+                dataKey="rate" 
+                stroke="#ec4899" 
                 strokeWidth={2}
-                dot={{ fill: '#ec4899' }} />
-
+                dot={{ fill: '#ec4899' }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -180,31 +180,31 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {campaigns.map((campaign, index) =>
-            <div key={index} className="p-4 bg-[var(--color-surface-elevated)] rounded-lg">
+            {campaigns.map((campaign, index) => (
+              <div key={index} className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">{campaign.name}</h4>
-                  <Button size="sm" variant="outline" data-testid="button-element">
+                  <Button size="sm" variant="outline">
                     <Share2 className="w-3 h-3 mr-1" />
                     Share
                   </Button>
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-sm">
                   <div>
-                    <div className="text-gray-600 dark:text-gray-300">Impressions</div>
+                    <div className="text-gray-600">Impressions</div>
                     <div className="font-medium">{campaign.impressions.toLocaleString()}</div>
                   </div>
                   <div>
-                    <div className="text-gray-600 dark:text-gray-300">Clicks</div>
+                    <div className="text-gray-600">Clicks</div>
                     <div className="font-medium">{campaign.clicks}</div>
                   </div>
                   <div>
-                    <div className="text-gray-600 dark:text-gray-300">CTR</div>
-                    <div className="font-medium">{(campaign.clicks / campaign.impressions * 100).toFixed(2)}%</div>
+                    <div className="text-gray-600">CTR</div>
+                    <div className="font-medium">{((campaign.clicks / campaign.impressions) * 100).toFixed(2)}%</div>
                   </div>
                 </div>
               </div>
-            )}
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -235,6 +235,6 @@ export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
           </div>
         </CardContent>
       </Card>
-    </div>);
-
+    </div>
+  );
 };

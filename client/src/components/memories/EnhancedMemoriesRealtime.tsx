@@ -320,21 +320,21 @@ export default function EnhancedMemoriesRealtime() {
       <ModernMemoriesHeader onCreatePost={() => setShowComposer(true)} />
       
       {/* Real-time Status Bar */}
-      <GlassCard depth={1} className="border-b border-white/30">
+      <GlassCard depth={1} className="border-b border-white/30"
         <div className="max-w-4xl mx-auto px-6 py-2 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* Connection Status */}
             <div className="flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full ${memorySocket.isConnected ? 'bg-green-400' : 'bg-red-400'}`} />
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+              <span className="text-sm text-gray-600">
                 {memorySocket.isConnected ? 'Live' : 'Offline'}
               </span>
             </div>
             
             {/* Online Users Count */}
             <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+              <Eye className="w-4 h-4 text-gray-500" />
+              <span className="text-sm text-gray-600">
                 {onlineUsers.size} online
               </span>
             </div>
@@ -344,25 +344,25 @@ export default function EnhancedMemoriesRealtime() {
           <div className="flex items-center gap-2">
             <Sparkles className={`w-4 h-4 ${aiEnhancementEnabled ? 'text-purple-500' : 'text-gray-400'}`} />
             <button
-              onClick={() => setAiEnhancementEnabled(!aiEnhancementEnabled)} aria-label="Button"
+              onClick={() => setAiEnhancementEnabled(!aiEnhancementEnabled)}
               className={`text-sm px-3 py-1 rounded-full transition-colors ${
                 aiEnhancementEnabled 
                   ? 'bg-purple-100 text-purple-700' 
-                  : 'bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300'
+                  : 'bg-gray-100 text-gray-600'
               }`}
             >
               AI Enhancement
             </button>
           </div>
         </div>
-      </GlassCard>
+      </div>
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Enhanced Post Composer Modal */}
         {showComposer && (
-          <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-6">
-            <GlassCard depth={2} className="max-w-2xl w-full max-h-[90vh] overflow-auto rounded-2xl border border-white/30">
+          <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-6"
+            <GlassCard depth={2} className="max-w-2xl w-full max-h-[90vh] overflow-auto rounded-2xl border border-white/30"
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
@@ -376,8 +376,8 @@ export default function EnhancedMemoriesRealtime() {
                       </div>
                     )}
                     <button
-                      onClick={() => setShowComposer(false)} aria-label="Button"
-                      className="text-gray-400 hover:text-gray-600 dark:text-gray-300 transition-colors"
+                      onClick={() => setShowComposer(false)}
+                      className="text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       ✕
                     </button>
@@ -388,8 +388,8 @@ export default function EnhancedMemoriesRealtime() {
                   onClose={() => setShowComposer(false)}
                 />
               </div>
-            </GlassCard>
-          </GlassCard>
+            </div>
+          </div>
         )}
 
         {/* Tag Filter */}
@@ -401,18 +401,18 @@ export default function EnhancedMemoriesRealtime() {
 
         {/* Live Activity Feed */}
         {liveUpdates.likes.length > 0 && (
-          <GlassCard depth={1} className="mb-6 p-4 rounded-xl border border-white/40">
-            <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Live Activity</h3>
+          <GlassCard depth={1} className="mb-6 p-4 rounded-xl border border-white/40"
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Live Activity</h3>
             <div className="space-y-1">
               {liveUpdates.likes.slice(-3).map((like, index) => (
-                <div key={index} className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2">
+                <div key={index} className="text-sm text-gray-600 flex items-center gap-2">
                   <Heart className="w-3 h-3 text-red-500" />
                   Someone liked a memory
                   <span className="text-xs text-gray-400">just now</span>
                 </div>
               ))}
             </div>
-          </GlassCard>
+          </div>
         )}
 
         {/* Posts Feed */}
@@ -458,11 +458,11 @@ export default function EnhancedMemoriesRealtime() {
             })
           ) : (
             <div className="text-center py-16">
-              <GlassCard depth={1} className="rounded-3xl shadow-lg border border-white/30 p-12">
+              <GlassCard depth={1} className="rounded-3xl shadow-lg border border-white/30 p-12"
                 <div className="mb-6">
                   <div className="w-24 h-24 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-3xl 
                                 flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-12 h-12 text-[var(--color-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-12 h-12 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
                             d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
@@ -470,15 +470,15 @@ export default function EnhancedMemoriesRealtime() {
                   <h3 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-2">
                     No memories found
                   </h3>
-                  <p className="text-[var(--color-primary-hover)] mb-6">
+                  <p className="text-teal-600 mb-6">
                     {activeTags.length > 0 
                       ? 'No memories match your current filters. Try adjusting your search.'
                       : 'Start sharing your tango journey with the community!'
                     }
                   </p>
                   <button
-                    onClick={() => setShowComposer(true)} aria-label="Button"
-                    className="bg-gradient-to-r from-[var(--color-ocean-400)] to-cyan-500 hover:from-[var(--color-primary)] hover:to-cyan-600 
+                    onClick={() => setShowComposer(true)}
+                    className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
                              transform hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 mx-auto"
                   >
@@ -486,7 +486,7 @@ export default function EnhancedMemoriesRealtime() {
                     Share Your First Memory
                   </button>
                 </div>
-              </GlassCard>
+              </div>
             </div>
           )}
         </div>

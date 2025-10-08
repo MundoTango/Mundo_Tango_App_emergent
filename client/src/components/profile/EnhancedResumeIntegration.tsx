@@ -4,13 +4,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import {
-  Calendar,
-  MapPin,
-  Clock,
-  Download,
-  Share,
-  Star,
+import { 
+  Calendar, 
+  MapPin, 
+  Clock, 
+  Download, 
+  Share, 
+  Star, 
   Award,
   Music,
   Users,
@@ -19,8 +19,8 @@ import {
   Globe,
   CheckCircle,
   XCircle,
-  AlertCircle } from
-'lucide-react';
+  AlertCircle
+} from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 interface AcceptedRole {
@@ -63,7 +63,7 @@ const ROLE_ICONS = {
   host: <Globe className="w-4 h-4" />,
   photographer: <Camera className="w-4 h-4" />,
   organizer: <Calendar className="w-4 h-4" />,
-  volunteer: <Award className="w-4 h-4" />
+  volunteer: <Award className="w-4 h-4" />,
 };
 
 const ROLE_COLORS = {
@@ -74,7 +74,7 @@ const ROLE_COLORS = {
   host: 'bg-orange-100 text-orange-800 border-orange-200',
   photographer: 'bg-indigo-100 text-indigo-800 border-indigo-200',
   organizer: 'bg-red-100 text-red-800 border-red-200',
-  volunteer: 'bg-[var(--color-ocean-100)] text-teal-800 border-teal-200'
+  volunteer: 'bg-teal-100 text-teal-800 border-teal-200',
 };
 
 export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: EnhancedResumeIntegrationProps) {
@@ -89,7 +89,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       if (!response.ok) throw new Error('Failed to fetch accepted roles');
       const result = await response.json();
       return result.data || [];
-    }
+    },
   });
 
   // Fetch pending invitations (only for own profile)
@@ -102,16 +102,16 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       const result = await response.json();
       return result.data || [];
     },
-    enabled: isOwnProfile
+    enabled: isOwnProfile,
   });
 
   // Accept/decline invitation mutation
   const updateInvitationMutation = useMutation({
-    mutationFn: async ({ participantId, status }: {participantId: number;status: 'accepted' | 'declined';}) => {
+    mutationFn: async ({ participantId, status }: { participantId: number; status: 'accepted' | 'declined' }) => {
       const response = await fetch(`/api/event-participants/${participantId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
+        body: JSON.stringify({ status }),
       });
       if (!response.ok) throw new Error('Failed to update invitation');
       return response.json();
@@ -119,11 +119,11 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
     onSuccess: (_, { status }) => {
       queryClient.invalidateQueries({ queryKey: ['/api/users/me/event-invitations'] });
       queryClient.invalidateQueries({ queryKey: ['/api/users', userId, 'accepted-roles'] });
-      toast({
+      toast({ 
         title: `Invitation ${status}`,
         description: status === 'accepted' ? 'Role added to your resume!' : 'Invitation declined'
       });
-    }
+    },
   });
 
   // Group accepted roles by year
@@ -145,8 +145,8 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
     }, {})
   };
 
-  const topRole = stats.mostCommonRole ?
-  Object.entries(stats.mostCommonRole).sort(([, a], [, b]) => (b as number) - (a as number))[0] : null;
+  const topRole = stats.mostCommonRole ? 
+    Object.entries(stats.mostCommonRole).sort(([,a], [,b]) => (b as number) - (a as number))[0] : null;
 
   const handleInvitationResponse = (participantId: number, status: 'accepted' | 'declined') => {
     updateInvitationMutation.mutate({ participantId, status });
@@ -165,39 +165,39 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-muted p-1 rounded-lg">
         <button
-          onClick={() => setActiveTab('resume')} aria-label="Button"
+          onClick={() => setActiveTab('resume')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-          activeTab === 'resume' ?
-          'bg-background text-foreground shadow-sm' :
-          'text-muted-foreground hover:text-foreground'}`
-          } data-testid="button-element">
-
+            activeTab === 'resume'
+              ? 'bg-background text-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
           <Award className="w-4 h-4 inline mr-2" />
           Tango Resume
         </button>
-        {isOwnProfile &&
-        <button
-          onClick={() => setActiveTab('invitations')} aria-label="Button"
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-          activeTab === 'invitations' ?
-          'bg-background text-foreground shadow-sm' :
-          'text-muted-foreground hover:text-foreground'}`
-          } data-testid="button-element">
-
+        {isOwnProfile && (
+          <button
+            onClick={() => setActiveTab('invitations')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'invitations'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
             <AlertCircle className="w-4 h-4 inline mr-2" />
             Role Invitations
-            {pendingInvitations?.length > 0 &&
-          <Badge variant="destructive" className="ml-2 text-xs">
+            {pendingInvitations?.length > 0 && (
+              <Badge variant="destructive" className="ml-2 text-xs">
                 {pendingInvitations.length}
               </Badge>
-          }
+            )}
           </button>
-        }
+        )}
       </div>
 
       {/* Resume Tab */}
-      {activeTab === 'resume' &&
-      <div className="space-y-6">
+      {activeTab === 'resume' && (
+        <div className="space-y-6">
           {/* Statistics Overview */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card>
@@ -229,10 +229,10 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
           </div>
 
           {/* Resume by Year */}
-          {resumeLoading ?
-        <div className="space-y-4">
-              {Array.from({ length: 3 }).map((_, i) =>
-          <Card key={i} className="animate-pulse">
+          {resumeLoading ? (
+            <div className="space-y-4">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Card key={i} className="animate-pulse">
                   <CardContent className="p-6">
                     <div className="h-4 bg-muted rounded mb-4" />
                     <div className="space-y-2">
@@ -241,14 +241,14 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                     </div>
                   </CardContent>
                 </Card>
-          )}
-            </div> :
-        Object.keys(rolesByYear).length > 0 ?
-        <div className="space-y-6">
-              {Object.entries(rolesByYear).
-          sort(([a], [b]) => parseInt(b) - parseInt(a)).
-          map(([year, roles]) =>
-          <Card key={year}>
+              ))}
+            </div>
+          ) : Object.keys(rolesByYear).length > 0 ? (
+            <div className="space-y-6">
+              {Object.entries(rolesByYear)
+                .sort(([a], [b]) => parseInt(b) - parseInt(a))
+                .map(([year, roles]) => (
+                  <Card key={year}>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Calendar className="w-5 h-5" />
@@ -257,17 +257,17 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {(roles as any[]).
-              sort((a: any, b: any) => new Date(b.eventStartDate).getTime() - new Date(a.eventStartDate).getTime()).
-              map((role: any, index: any) =>
-              <div key={role.id}>
+                      {(roles as any[])
+                        .sort((a: any, b: any) => new Date(b.eventStartDate).getTime() - new Date(a.eventStartDate).getTime())
+                        .map((role: any, index: any) => (
+                          <div key={role.id}>
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <Badge
-                        variant="outline"
-                        className={`flex items-center gap-1 ${ROLE_COLORS[role.role as keyof typeof ROLE_COLORS] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`}>
-
+                                  <Badge 
+                                    variant="outline" 
+                                    className={`flex items-center gap-1 ${ROLE_COLORS[role.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-gray-800'}`}
+                                  >
                                     {ROLE_ICONS[role.role as keyof typeof ROLE_ICONS]}
                                     {role.role.charAt(0).toUpperCase() + role.role.slice(1)}
                                   </Badge>
@@ -296,52 +296,52 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                             </div>
                             {index < roles.length - 1 && <Separator className="mt-4" />}
                           </div>
-              )}
+                        ))}
                     </CardContent>
                   </Card>
-          )}
-            </div> :
-
-        <Card>
+                ))}
+            </div>
+          ) : (
+            <Card>
               <CardContent className="p-8 text-center text-muted-foreground">
                 <Award className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <h3 className="text-lg font-semibold mb-2">No accepted roles yet</h3>
                 <p>
-                  {isOwnProfile ?
-              "Accept role invitations to build your tango resume!" :
-              "This user hasn't accepted any event roles yet."}
+                  {isOwnProfile 
+                    ? "Accept role invitations to build your tango resume!" 
+                    : "This user hasn't accepted any event roles yet."}
                 </p>
               </CardContent>
             </Card>
-        }
+          )}
         </div>
-      }
+      )}
 
       {/* Invitations Tab */}
-      {activeTab === 'invitations' && isOwnProfile &&
-      <div className="space-y-4">
-          {invitationsLoading ?
+      {activeTab === 'invitations' && isOwnProfile && (
         <div className="space-y-4">
-              {Array.from({ length: 2 }).map((_, i) =>
-          <Card key={i} className="animate-pulse">
+          {invitationsLoading ? (
+            <div className="space-y-4">
+              {Array.from({ length: 2 }).map((_, i) => (
+                <Card key={i} className="animate-pulse">
                   <CardContent className="p-6">
                     <div className="h-4 bg-muted rounded mb-2" />
                     <div className="h-3 bg-muted rounded w-2/3" />
                   </CardContent>
                 </Card>
-          )}
-            </div> :
-        pendingInvitations?.length > 0 ?
-        pendingInvitations.map((invitation: PendingInvitation) =>
-        <Card key={invitation.id} className="border-orange-200 bg-orange-50/50">
+              ))}
+            </div>
+          ) : pendingInvitations?.length > 0 ? (
+            pendingInvitations.map((invitation: PendingInvitation) => (
+              <Card key={invitation.id} className="border-orange-200 bg-orange-50/50">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <Badge
-                    variant="outline"
-                    className={`flex items-center gap-1 ${ROLE_COLORS[invitation.role as keyof typeof ROLE_COLORS] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`}>
-
+                        <Badge 
+                          variant="outline" 
+                          className={`flex items-center gap-1 ${ROLE_COLORS[invitation.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-gray-800'}`}
+                        >
                           {ROLE_ICONS[invitation.role as keyof typeof ROLE_ICONS]}
                           {invitation.role.charAt(0).toUpperCase() + invitation.role.slice(1)}
                         </Badge>
@@ -371,21 +371,21 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                     
                     <div className="flex gap-2">
                       <Button
-                  size="sm"
-                  onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
-                  disabled={updateInvitationMutation.isPending}
-                  className="bg-green-600 hover:bg-green-700" data-testid="button-bg-green-600">
-
+                        size="sm"
+                        onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
+                        disabled={updateInvitationMutation.isPending}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
                         <CheckCircle className="w-4 h-4 mr-1" />
                         Accept
                       </Button>
                       <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleInvitationResponse(invitation.id, 'declined')}
-                  disabled={updateInvitationMutation.isPending}
-                  className="border-red-200 text-red-600 hover:bg-red-50" data-testid="button-border-red-200">
-
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleInvitationResponse(invitation.id, 'declined')}
+                        disabled={updateInvitationMutation.isPending}
+                        className="border-red-200 text-red-600 hover:bg-red-50"
+                      >
                         <XCircle className="w-4 h-4 mr-1" />
                         Decline
                       </Button>
@@ -393,18 +393,18 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                   </div>
                 </CardContent>
               </Card>
-        ) :
-
-        <Card>
+            ))
+          ) : (
+            <Card>
               <CardContent className="p-8 text-center text-muted-foreground">
                 <AlertCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <h3 className="text-lg font-semibold mb-2">No pending invitations</h3>
                 <p>You'll see event role invitations here when organizers invite you to participate.</p>
               </CardContent>
             </Card>
-        }
+          )}
         </div>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 }

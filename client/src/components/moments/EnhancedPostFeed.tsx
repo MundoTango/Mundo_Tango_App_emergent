@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState, useCallback, useMemo } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Heart, Search, X, Tag, Filter, Sparkles, Users, Globe, MapPin } from 'lucide-react';
@@ -62,17 +61,16 @@ interface EnhancedPostFeedProps {
     filterType: 'all' | 'following' | 'nearby';
     tags: string[];
     visibility: 'all' | 'public' | 'friends' | 'private';
-    location?: {lat: number;lng: number;radius: number;};
+    location?: { lat: number; lng: number; radius: number };
   };
   onEdit?: (post: any) => void; // ESA Layer 9: Edit handler with rich text editor
 }
 
-const EnhancedPostFeed = React.memo(({
-  const { t } = useTranslation(); posts: propsPosts, currentUserId, filters, onEdit }: EnhancedPostFeedProps) => {
+const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters, onEdit }: EnhancedPostFeedProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-
+  
   // Filter state
   const [filterBy, setFilterBy] = useState<'all' | 'following' | 'nearby'>('all');
   const [filterTags, setFilterTags] = useState<string[]>([]);
@@ -84,60 +82,60 @@ const EnhancedPostFeed = React.memo(({
     enabled: !propsPosts, // ESA Framework: Only fetch if posts not provided from parent
     queryFn: async () => {
       const params = new URLSearchParams();
-
+      
       // Apply filter type
       if (filters?.filterType && filters.filterType !== 'all') {
         params.append('filter', filters.filterType);
       }
-
+      
       // Apply tags
       if (filters?.tags && filters.tags.length > 0) {
         params.append('tags', filters.tags.join(','));
       }
-
+      
       // Apply visibility
       if (filters?.visibility && filters.visibility !== 'all') {
         params.append('visibility', filters.visibility);
       }
-
+      
       // Apply location for nearby filter
       if (filters?.location) {
         params.append('lat', filters.location.lat.toString());
         params.append('lng', filters.location.lng.toString());
         params.append('radius', filters.location.radius.toString());
       }
-
+      
       const response = await fetch(`/api/posts/feed?${params}`, {
         headers: {
           'Content-Type': 'application/json'
         },
         credentials: 'include'
       });
-
+      
       if (!response.ok) {
         throw new Error('Failed to fetch memories');
       }
-
+      
       const result = await response.json();
       const memories = result.data || [];
-
+      
       // ESA LIFE CEO 61x21 - Process ALL media fields from memories
       return memories.map((memory: any) => {
         // Processing memory media fields
-
+        
         // CRITICAL FIX: Check mediaEmbeds FIRST (primary source)
         if (memory.mediaEmbeds && memory.mediaEmbeds.length > 0) {
           const firstMedia = memory.mediaEmbeds[0];
           // ESA Framework Layer 13: Type-safe media URL processing
           const isVideo = firstMedia && typeof firstMedia === 'string' && (
-          firstMedia.toLowerCase().includes('.mp4') ||
-          firstMedia.toLowerCase().includes('.mov') ||
-          firstMedia.toLowerCase().includes('.webm') ||
-          firstMedia.toLowerCase().includes('.avi') ||
-          firstMedia.toLowerCase().includes('.m4v') ||
-          firstMedia.toLowerCase().includes('.mkv'));
-
-
+            firstMedia.toLowerCase().includes('.mp4') || 
+            firstMedia.toLowerCase().includes('.mov') || 
+            firstMedia.toLowerCase().includes('.webm') ||
+            firstMedia.toLowerCase().includes('.avi') ||
+            firstMedia.toLowerCase().includes('.m4v') ||
+            firstMedia.toLowerCase().includes('.mkv')
+          );
+          
           // Set imageUrl or videoUrl based on file type
           if (isVideo) {
             memory.videoUrl = firstMedia;
@@ -150,14 +148,14 @@ const EnhancedPostFeed = React.memo(({
           const firstMedia = memory.mediaUrls[0];
           // ESA Framework Layer 13: Type-safe media URL processing
           const isVideo = firstMedia && typeof firstMedia === 'string' && (
-          firstMedia.toLowerCase().includes('.mp4') ||
-          firstMedia.toLowerCase().includes('.mov') ||
-          firstMedia.toLowerCase().includes('.webm') ||
-          firstMedia.toLowerCase().includes('.avi') ||
-          firstMedia.toLowerCase().includes('.m4v') ||
-          firstMedia.toLowerCase().includes('.mkv'));
-
-
+            firstMedia.toLowerCase().includes('.mp4') || 
+            firstMedia.toLowerCase().includes('.mov') || 
+            firstMedia.toLowerCase().includes('.webm') ||
+            firstMedia.toLowerCase().includes('.avi') ||
+            firstMedia.toLowerCase().includes('.m4v') ||
+            firstMedia.toLowerCase().includes('.mkv')
+          );
+          
           // Set imageUrl or videoUrl based on file type
           if (isVideo) {
             memory.videoUrl = firstMedia;
@@ -165,14 +163,14 @@ const EnhancedPostFeed = React.memo(({
             memory.imageUrl = firstMedia;
           }
         }
-
+        
         // Media processing complete
-
+        
         return memory;
       });
     }
   });
-
+  
   // ESA Framework: Use passed posts from parent or fetched posts
   const posts = propsPosts || fetchedPosts || [];
 
@@ -184,7 +182,7 @@ const EnhancedPostFeed = React.memo(({
     },
     onError: () => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to like post",
         variant: "destructive"
       });
@@ -219,48 +217,48 @@ const EnhancedPostFeed = React.memo(({
   }, [tagInput, filterTags]);
 
   const removeTag = useCallback((tag: string) => {
-    setFilterTags((prev) => prev.filter((t) => t !== tag));
+    setFilterTags(prev => prev.filter(t => t !== tag));
   }, []);
 
   const getFilterIcon = (filter: string) => {
     switch (filter) {
-      case 'all':return <Globe className="h-4 w-4" />;
-      case 'following':return <Users className="h-4 w-4" />;
-      case 'nearby':return <MapPin className="h-4 w-4" />;
-      default:return <Filter className="h-4 w-4" />;
+      case 'all': return <Globe className="h-4 w-4" />;
+      case 'following': return <Users className="h-4 w-4" />;
+      case 'nearby': return <MapPin className="h-4 w-4" />;
+      default: return <Filter className="h-4 w-4" />;
     }
   };
 
   const getFilterLabel = (filter: string) => {
     switch (filter) {
-      case 'all':return 'All Posts';
-      case 'following':return 'Following';
-      case 'nearby':return 'Nearby';
-      default:return filter;
+      case 'all': return 'All Posts';
+      case 'following': return 'Following';
+      case 'nearby': return 'Nearby';
+      default: return filter;
     }
   };
 
   if (isLoading) {
     return (
       <div className="space-y-6">
-        {[1, 2, 3].map((i) =>
-        <div key={i} className="bg-[var(--color-surface)] dark:bg-gray-900/60 rounded-3xl p-8 animate-pulse">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="bg-white/60 rounded-3xl p-8 animate-pulse">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-gray-200 dark:bg-gray-700 rounded-2xl"></div>
+              <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-32 mb-2"></div>
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-lg w-24"></div>
+                <div className="h-4 bg-gray-200 rounded-lg w-32 mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded-lg w-24"></div>
               </div>
             </div>
             <div className="space-y-3">
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-full"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-4/5"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-3/5"></div>
+              <div className="h-4 bg-gray-200 rounded-lg w-full"></div>
+              <div className="h-4 bg-gray-200 rounded-lg w-4/5"></div>
+              <div className="h-4 bg-gray-200 rounded-lg w-3/5"></div>
             </div>
           </div>
-        )}
-      </div>);
-
+        ))}
+      </div>
+    );
   }
 
   return (
@@ -277,22 +275,22 @@ const EnhancedPostFeed = React.memo(({
         </div>
 
         <div className="flex flex-wrap gap-3 mb-6">
-          {['all', 'following', 'nearby'].map((filter) =>
-          <button
-            key={filter}
-            onClick={() => setFilterBy(filter as any)} aria-label="Button"
-            className={`
+          {['all', 'following', 'nearby'].map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setFilterBy(filter as any)}
+              className={`
                 flex items-center gap-2 px-5 py-3 rounded-2xl font-medium transition-all duration-300
-                ${filterBy === filter ?
-            'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-200/50 scale-105' :
-            'bg-[var(--color-surface)] dark:bg-gray-900/70 text-indigo-700 hover:bg-[var(--color-surface)] dark:bg-gray-900/90 hover:scale-105 border border-indigo-200/50'}
-              `
-            } data-testid="button-element">
-
+                ${filterBy === filter
+                  ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-200/50 scale-105'
+                  : 'bg-white/70 text-indigo-700 hover:bg-white/90 hover:scale-105 border border-indigo-200/50'
+                }
+              `}
+            >
               {getFilterIcon(filter)}
               <span className="capitalize">{getFilterLabel(filter)}</span>
             </button>
-          )}
+          ))}
         </div>
 
         {/* Enhanced Tag Filter */}
@@ -311,49 +309,49 @@ const EnhancedPostFeed = React.memo(({
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)} aria-label="Input field"
+                onChange={(e) => setTagInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && addTag()}
                 placeholder="Add tag to filter memories..."
-                className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface)] dark:bg-gray-900/80 border border-indigo-200/50 rounded-2xl text-[var(--color-text)] dark:text-white placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition-all" data-testid="input-text" />
-
+                className="w-full pl-12 pr-4 py-3 bg-white/80 border border-indigo-200/50 rounded-2xl text-gray-900 placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition-all"
+              />
             </div>
             <button
               onClick={addTag}
               disabled={!tagInput.trim()}
-              className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 transition-all duration-300" data-testid="button-px-6" aria-label="Button">
-
+              className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 transition-all duration-300"
+            >
               Add
             </button>
           </div>
 
           {/* Active Tags */}
-          {filterTags.length > 0 &&
-          <div className="flex items-center gap-2 flex-wrap">
+          {filterTags.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-sm font-medium text-indigo-700">Active filters:</span>
-              {filterTags.map((tag) =>
-            <span
-              key={tag}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/90 border border-indigo-200 rounded-full text-sm font-medium text-indigo-700 hover:bg-indigo-50 transition-colors">
-
+              {filterTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 border border-indigo-200 rounded-full text-sm font-medium text-indigo-700 hover:bg-indigo-50 transition-colors"
+                >
                   #{tag}
                   <button
-                onClick={() => removeTag(tag)} aria-label="Button"
-                className="p-0.5 hover:bg-indigo-200 rounded-full transition-colors" data-testid="button-p-0-5">
-
+                    onClick={() => removeTag(tag)}
+                    className="p-0.5 hover:bg-indigo-200 rounded-full transition-colors"
+                  >
                     <X className="h-3 w-3" />
                   </button>
                 </span>
-            )}
+              ))}
             </div>
-          }
+          )}
         </div>
       </section>
 
       {/* Enhanced Posts Feed */}
       <section className="space-y-8">
 
-        {posts && posts.length > 0 ?
-        <>
+        {posts && posts.length > 0 ? (
+          <>
             {/* Feed Header with View Toggle */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -361,12 +359,12 @@ const EnhancedPostFeed = React.memo(({
                   <Sparkles className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
-                    {filterBy === 'all' ? 'All Posts' :
-                  filterBy === 'following' ? 'Following' :
-                  'Nearby Memories'}
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    {filterBy === 'all' ? 'All Posts' : 
+                     filterBy === 'following' ? 'Following' : 
+                     'Nearby Memories'}
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600">
                     {posts.length} {posts.length === 1 ? 'memory' : 'memories'} found
                   </p>
                 </div>
@@ -376,46 +374,46 @@ const EnhancedPostFeed = React.memo(({
 
             {/* Posts List */}
             <div className="space-y-6">
-              {posts.map((post: Post) =>
-            <EnhancedPostItem
-              key={post.id}
-              post={post}
-              onLike={handleLike}
-              onShare={handleShare}
-              onEdit={onEdit} // ESA Layer 9: Pass edit handler
-            />
-            )}
+              {posts.map((post: Post) => (
+                <EnhancedPostItem
+                  key={post.id}
+                  post={post}
+                  onLike={handleLike}
+                  onShare={handleShare}
+                  onEdit={onEdit} // ESA Layer 9: Pass edit handler
+                />
+              ))}
             </div>
-          </> : (
-
-        /* Enhanced Empty State */
-        <div className="text-center py-16 px-8">
+          </>
+        ) : (
+          /* Enhanced Empty State */
+          <div className="text-center py-16 px-8">
             <div className="max-w-md mx-auto">
               <div className="w-24 h-24 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Sparkles className="h-12 w-12 text-indigo-400" />
               </div>
-              <h3 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-4">No memories found</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-8">
-                {filterTags.length > 0 ?
-              'Try removing some filters or create a new memory with these tags.' :
-              'Be the first to share a tango memory! Your moments help build our community.'
-              }
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">No memories found</h3>
+              <p className="text-gray-600 mb-8">
+                {filterTags.length > 0 
+                  ? 'Try removing some filters or create a new memory with these tags.'
+                  : 'Be the first to share a tango memory! Your moments help build our community.'
+                }
               </p>
-              {filterTags.length > 0 &&
-            <button
-              onClick={() => setFilterTags([])} aria-label="Button"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300" data-testid="button-inline-flex">
-
+              {filterTags.length > 0 && (
+                <button
+                  onClick={() => setFilterTags([])}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+                >
                   <X className="h-4 w-4" />
                   Clear filters
                 </button>
-            }
+              )}
             </div>
-          </div>)
-        }
+          </div>
+        )}
       </section>
-    </div>);
-
+    </div>
+  );
 });
 
 // Add display name for React DevTools

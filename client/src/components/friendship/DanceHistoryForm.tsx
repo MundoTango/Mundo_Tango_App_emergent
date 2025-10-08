@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -16,7 +15,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
 
 const danceHistorySchema = z.object({
-  const { t } = useTranslation();
   partnerId: z.number().min(1, 'Please select a dance partner'),
   danceDate: z.string(),
   location: z.string().min(1, 'Please enter where you danced'),
@@ -62,7 +60,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
       const response = await fetch('/api/friendship/dance-history', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         credentials: 'include',
         body: JSON.stringify(data)
@@ -73,7 +71,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
     onSuccess: () => {
       toast({
         title: 'Dance memory saved!',
-        description: 'Your dance history has been recorded'
+        description: 'Your dance history has been recorded',
       });
       queryClient.invalidateQueries({ queryKey: ['/api/friendship/dance-history'] });
       form.reset();
@@ -81,7 +79,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
     },
     onError: () => {
       toast({
-        title: t('states.error', 'Error'),
+        title: 'Error',
         description: 'Failed to save dance history',
         variant: 'destructive'
       });
@@ -100,7 +98,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
     if (!files) return;
 
     const formData = new FormData();
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach(file => {
       formData.append('photos', file);
     });
 
@@ -110,12 +108,12 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
         credentials: 'include',
         body: formData
       });
-
+      
       if (!response.ok) throw new Error('Upload failed');
-
+      
       const data = await response.json();
       if (data.urls) {
-        setUploadedPhotos((prev) => [...prev, ...data.urls]);
+        setUploadedPhotos(prev => [...prev, ...data.urls]);
         toast({
           title: 'Photos uploaded!',
           description: `${data.urls.length} photo(s) added to your dance memory`
@@ -144,90 +142,90 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {!partnerId &&
-            <FormField
-              control={form.control}
-              name="partnerId"
-              render={({ field }) =>
-              <FormItem>
+            {!partnerId && (
+              <FormField
+                control={form.control}
+                name="partnerId"
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel className="flex items-center gap-2">
                       <Users className="w-4 h-4" />
                       Dance Partner
                     </FormLabel>
                     <FormControl>
-                      <Input
-                    type="number"
-                    placeholder="Enter partner ID"
-                    {...field}
-                    onChange={(e) => field.onChange(parseInt(e.target.value))} data-testid="input-number" />
-
+                      <Input 
+                        type="number" 
+                        placeholder="Enter partner ID" 
+                        {...field}
+                        onChange={e => field.onChange(parseInt(e.target.value))}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-              } />
-
-            }
+                )}
+              />
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="danceDate"
-                render={({ field }) =>
-                <FormItem>
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
                       When did you dance?
                     </FormLabel>
                     <FormControl>
-                      <Input
-                      type="date"
-                      {...field}
-                      className="glassmorphic-input" data-testid="input-date" />
-
+                      <Input 
+                        type="date" 
+                        {...field}
+                        className="glassmorphic-input"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                } />
-
+                )}
+              />
 
               <FormField
                 control={form.control}
                 name="location"
-                render={({ field }) =>
-                <FormItem>
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel className="flex items-center gap-2">
                       <MapPin className="w-4 h-4" />
                       Where did you dance?
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Milonga name or location" {...field} data-testid="input-element" />
+                      <Input placeholder="Milonga name or location" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                } />
-
+                )}
+              />
             </div>
 
             <FormField
               control={form.control}
               name="eventName"
-              render={({ field }) =>
-              <FormItem>
+              render={({ field }) => (
+                <FormItem>
                   <FormLabel>Event Name (optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="Festival, milonga, or práctica name" {...field} data-testid="input-element" />
+                    <Input placeholder="Festival, milonga, or práctica name" {...field} />
                   </FormControl>
                 </FormItem>
-              } />
-
+              )}
+            />
 
             <FormField
               control={form.control}
               name="danceStyle"
-              render={({ field }) =>
-              <FormItem>
+              render={({ field }) => (
+                <FormItem>
                   <FormLabel>Dance Style</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select dance style" />
@@ -243,8 +241,8 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   </Select>
                   <FormMessage />
                 </FormItem>
-              } />
-
+              )}
+            />
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium flex items-center gap-2">
@@ -255,115 +253,115 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 <FormField
                   control={form.control}
                   name="songName"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormControl>
-                        <Input placeholder="Song name" {...field} data-testid="input-element" />
+                        <Input placeholder="Song name" {...field} />
                       </FormControl>
                     </FormItem>
-                  } />
-
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="artistName"
-                  render={({ field }) =>
-                  <FormItem>
+                  render={({ field }) => (
+                    <FormItem>
                       <FormControl>
-                        <Input placeholder="Artist/Orchestra" {...field} data-testid="input-element" />
+                        <Input placeholder="Artist/Orchestra" {...field} />
                       </FormControl>
                     </FormItem>
-                  } />
-
+                  )}
+                />
               </div>
             </div>
 
             <FormField
               control={form.control}
               name="rating"
-              render={({ field }) =>
-              <FormItem>
+              render={({ field }) => (
+                <FormItem>
                   <FormLabel className="flex items-center gap-2">
                     <Heart className="w-4 h-4" />
                     How was the dance? (1-5 stars)
                   </FormLabel>
                   <FormControl>
                     <div className="flex gap-2">
-                      {[1, 2, 3, 4, 5].map((star) =>
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => field.onChange(star)} aria-label="Button"
-                      className={`text-2xl ${
-                      star <= field.value ?
-                      'text-yellow-500' :
-                      'text-gray-300 dark:text-gray-600 dark:text-gray-300'} hover:text-yellow-400 transition-colors`
-                      } data-testid="button-button">
-
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => field.onChange(star)}
+                          className={`text-2xl ${
+                            star <= field.value 
+                              ? 'text-yellow-500' 
+                              : 'text-gray-300 dark:text-gray-600'
+                          } hover:text-yellow-400 transition-colors`}
+                        >
                           ★
                         </button>
-                    )}
+                      ))}
                     </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              } />
-
+              )}
+            />
 
             <FormField
               control={form.control}
               name="wasSpecial"
-              render={({ field }) =>
-              <FormItem>
+              render={({ field }) => (
+                <FormItem>
                   <div className="flex items-center gap-2">
                     <input
-                    type="checkbox"
-                    checked={field.value}
-                    onChange={field.onChange}
-                    className="rounded border-gray-300 dark:border-gray-600" data-testid="input-checkbox" />
-
+                      type="checkbox"
+                      checked={field.value}
+                      onChange={field.onChange}
+                      className="rounded border-gray-300"
+                    />
                     <FormLabel className="cursor-pointer">
                       This was a special moment
                     </FormLabel>
                   </div>
                 </FormItem>
-              } />
+              )}
+            />
 
-
-            {form.watch('wasSpecial') &&
-            <FormField
-              control={form.control}
-              name="specialMoment"
-              render={({ field }) =>
-              <FormItem>
+            {form.watch('wasSpecial') && (
+              <FormField
+                control={form.control}
+                name="specialMoment"
+                render={({ field }) => (
+                  <FormItem>
                     <FormLabel>What made it special?</FormLabel>
                     <FormControl>
-                      <Textarea
-                    placeholder="Describe what made this dance memorable..."
-                    className="min-h-[100px]"
-                    {...field} data-testid="textarea-min-h-100px" />
-
+                      <Textarea 
+                        placeholder="Describe what made this dance memorable..."
+                        className="min-h-[100px]"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
-              } />
-
-            }
+                )}
+              />
+            )}
 
             <FormField
               control={form.control}
               name="notes"
-              render={({ field }) =>
-              <FormItem>
+              render={({ field }) => (
+                <FormItem>
                   <FormLabel>Additional Notes</FormLabel>
                   <FormControl>
-                    <Textarea
-                    placeholder="Any other memories or details..."
-                    className="min-h-[80px]"
-                    {...field} data-testid="textarea-min-h-80px" />
-
+                    <Textarea 
+                      placeholder="Any other memories or details..."
+                      className="min-h-[80px]"
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
-              } />
-
+              )}
+            />
 
             <div className="space-y-2">
               <label className="text-sm font-medium flex items-center gap-2">
@@ -375,32 +373,32 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 multiple
                 accept="image/*"
                 onChange={handlePhotoUpload}
-                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[var(--color-ocean-50)] file:text-turquoise-700 hover:file:bg-turquoise-100" data-testid="input-file" />
-
-              {uploadedPhotos.length > 0 &&
-              <div className="flex gap-2 flex-wrap mt-2">
-                  {uploadedPhotos.map((url, idx) =>
-                <img
-                  key={idx}
-                  src={url}
-                  alt={`Dance photo ${idx + 1}`}
-                  className="w-20 h-20 object-cover rounded" />
-
-                )}
+                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-turquoise-50 file:text-turquoise-700 hover:file:bg-turquoise-100"
+              />
+              {uploadedPhotos.length > 0 && (
+                <div className="flex gap-2 flex-wrap mt-2">
+                  {uploadedPhotos.map((url, idx) => (
+                    <img 
+                      key={idx} 
+                      src={url} 
+                      alt={`Dance photo ${idx + 1}`}
+                      className="w-20 h-20 object-cover rounded"
+                    />
+                  ))}
                 </div>
-              }
+              )}
             </div>
 
-            <Button
-              type="submit"
+            <Button 
+              type="submit" 
               className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-              disabled={createDanceHistoryMutation.isPending} data-testid="button-submit">
-
+              disabled={createDanceHistoryMutation.isPending}
+            >
               {createDanceHistoryMutation.isPending ? 'Saving...' : 'Save Dance Memory'}
             </Button>
           </form>
         </Form>
       </div>
-    </Card>);
-
+    </Card>
+  );
 }

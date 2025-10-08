@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import {
+import { 
   Brain,
   Send,
   Sparkles,
@@ -23,8 +23,8 @@ import {
   RefreshCw,
   Activity,
   Shield,
-  User } from
-'lucide-react';
+  User
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useQuery, useMutation } from '@tanstack/react-query';
@@ -55,98 +55,98 @@ interface FrameworkMapping {
 
 // Comprehensive framework mapping for natural language understanding
 const FRAMEWORK_MAPPINGS: FrameworkMapping[] = [
-// Security & Authentication
-{
-  keywords: ['security', 'authentication', 'login', 'password', 'auth', 'jwt', 'session', 'oauth'],
-  layers: [9, 21, 24],
-  phases: [11],
-  description: 'Security, authentication, and access control'
-},
-// Performance & Optimization
-{
-  keywords: ['performance', 'speed', 'slow', 'optimize', 'cache', 'loading', 'fast'],
-  layers: [10, 11, 26],
-  phases: [5, 6, 12],
-  description: 'Performance optimization and monitoring'
-},
-// Testing & Quality
-{
-  keywords: ['test', 'testing', 'quality', 'bug', 'error', 'fix', 'debug', 'qa'],
-  layers: [12, 21],
-  phases: [4, 12],
-  description: 'Testing, quality assurance, and debugging'
-},
-// Documentation
-{
-  keywords: ['documentation', 'docs', 'api', 'guide', 'help', 'readme'],
-  layers: [1, 22],
-  phases: [13],
-  description: 'Documentation and developer resources'
-},
-// Compliance & Legal
-{
-  keywords: ['compliance', 'gdpr', 'legal', 'privacy', 'terms', 'policy', 'regulation'],
-  layers: [3, 22, 37],
-  phases: [16],
-  description: 'Legal compliance and regulatory requirements'
-},
-// Analytics & Monitoring
-{
-  keywords: ['analytics', 'metrics', 'dashboard', 'monitor', 'track', 'report'],
-  layers: [11, 26, 34],
-  phases: [7, 15],
-  description: 'Analytics, monitoring, and reporting'
-},
-// AI & Intelligence
-{
-  keywords: ['ai', 'artificial intelligence', 'ml', 'machine learning', 'agent', 'automation'],
-  layers: [13, 14, 15, 16, 39],
-  phases: [8],
-  description: 'AI, machine learning, and intelligent automation'
-},
-// User Experience
-{
-  keywords: ['ui', 'ux', 'design', 'interface', 'user experience', 'accessibility', 'a11y'],
-  layers: [4, 17, 18, 22],
-  phases: [2, 6],
-  description: 'User interface and experience design'
-},
-// Deployment & Infrastructure
-{
-  keywords: ['deploy', 'deployment', 'production', 'infrastructure', 'server', 'hosting', 'ci/cd'],
-  layers: [10, 27, 28, 38],
-  phases: [14, 18, 19],
-  description: 'Deployment, infrastructure, and DevOps'
-},
-// Data & Database
-{
-  keywords: ['database', 'data', 'sql', 'postgres', 'migration', 'schema', 'query'],
-  layers: [5, 6, 33],
-  phases: [3],
-  description: 'Database design and data management'
-},
-// Messaging & Communication
-{
-  keywords: ['messaging', 'chat', 'direct message', 'dm', 'notification', 'alert', 'email'],
-  layers: [8, 11],
-  phases: [9],
-  description: 'Messaging, notifications, and communication features'
-},
-// Settings & Configuration
-{
-  keywords: ['settings', 'config', 'configuration', 'preferences', 'profile', 'user settings'],
-  layers: [4, 17],
-  phases: [2],
-  description: 'User settings and configuration management'
-},
-// Profile Completion
-{
-  keywords: ['profile completion', 'complete profile', 'profile complete', 'missing fields', 'profile analysis', 'profile check', 'profile status'],
-  layers: [5, 7, 11, 22],
-  phases: [1, 2, 7],
-  description: 'Profile completion analysis and field validation'
-}];
-
+  // Security & Authentication
+  {
+    keywords: ['security', 'authentication', 'login', 'password', 'auth', 'jwt', 'session', 'oauth'],
+    layers: [9, 21, 24],
+    phases: [11],
+    description: 'Security, authentication, and access control'
+  },
+  // Performance & Optimization
+  {
+    keywords: ['performance', 'speed', 'slow', 'optimize', 'cache', 'loading', 'fast'],
+    layers: [10, 11, 26],
+    phases: [5, 6, 12],
+    description: 'Performance optimization and monitoring'
+  },
+  // Testing & Quality
+  {
+    keywords: ['test', 'testing', 'quality', 'bug', 'error', 'fix', 'debug', 'qa'],
+    layers: [12, 21],
+    phases: [4, 12],
+    description: 'Testing, quality assurance, and debugging'
+  },
+  // Documentation
+  {
+    keywords: ['documentation', 'docs', 'api', 'guide', 'help', 'readme'],
+    layers: [1, 22],
+    phases: [13],
+    description: 'Documentation and developer resources'
+  },
+  // Compliance & Legal
+  {
+    keywords: ['compliance', 'gdpr', 'legal', 'privacy', 'terms', 'policy', 'regulation'],
+    layers: [3, 22, 37],
+    phases: [16],
+    description: 'Legal compliance and regulatory requirements'
+  },
+  // Analytics & Monitoring
+  {
+    keywords: ['analytics', 'metrics', 'dashboard', 'monitor', 'track', 'report'],
+    layers: [11, 26, 34],
+    phases: [7, 15],
+    description: 'Analytics, monitoring, and reporting'
+  },
+  // AI & Intelligence
+  {
+    keywords: ['ai', 'artificial intelligence', 'ml', 'machine learning', 'agent', 'automation'],
+    layers: [13, 14, 15, 16, 39],
+    phases: [8],
+    description: 'AI, machine learning, and intelligent automation'
+  },
+  // User Experience
+  {
+    keywords: ['ui', 'ux', 'design', 'interface', 'user experience', 'accessibility', 'a11y'],
+    layers: [4, 17, 18, 22],
+    phases: [2, 6],
+    description: 'User interface and experience design'
+  },
+  // Deployment & Infrastructure
+  {
+    keywords: ['deploy', 'deployment', 'production', 'infrastructure', 'server', 'hosting', 'ci/cd'],
+    layers: [10, 27, 28, 38],
+    phases: [14, 18, 19],
+    description: 'Deployment, infrastructure, and DevOps'
+  },
+  // Data & Database
+  {
+    keywords: ['database', 'data', 'sql', 'postgres', 'migration', 'schema', 'query'],
+    layers: [5, 6, 33],
+    phases: [3],
+    description: 'Database design and data management'
+  },
+  // Messaging & Communication
+  {
+    keywords: ['messaging', 'chat', 'direct message', 'dm', 'notification', 'alert', 'email'],
+    layers: [8, 11],
+    phases: [9],
+    description: 'Messaging, notifications, and communication features'
+  },
+  // Settings & Configuration
+  {
+    keywords: ['settings', 'config', 'configuration', 'preferences', 'profile', 'user settings'],
+    layers: [4, 17],
+    phases: [2],
+    description: 'User settings and configuration management'
+  },
+  // Profile Completion
+  {
+    keywords: ['profile completion', 'complete profile', 'profile complete', 'missing fields', 'profile analysis', 'profile check', 'profile status'],
+    layers: [5, 7, 11, 22],
+    phases: [1, 2, 7],
+    description: 'Profile completion analysis and field validation'
+  }
+];
 
 const LifeCEOFrameworkAgent: React.FC = () => {
   const { toast } = useToast();
@@ -156,13 +156,13 @@ const LifeCEOFrameworkAgent: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCapabilities, setShowCapabilities] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-
+  
   // Fetch profile data for completion analysis
   const { data: travelDetails } = useQuery({
     queryKey: ['/api/user/travel-details'],
     enabled: !!user?.id
   });
-
+  
   const { data: guestProfile } = useQuery({
     queryKey: ['/api/user/guest-profile'],
     enabled: !!user?.id
@@ -212,14 +212,14 @@ I'll analyze your request and activate the appropriate framework layers and phas
     let matchCount = 0;
 
     // Analyze against all framework mappings
-    FRAMEWORK_MAPPINGS.forEach((mapping) => {
-      const keywordMatches = mapping.keywords.filter((keyword) =>
-      lowerInput.includes(keyword)
+    FRAMEWORK_MAPPINGS.forEach(mapping => {
+      const keywordMatches = mapping.keywords.filter(keyword => 
+        lowerInput.includes(keyword)
       ).length;
 
       if (keywordMatches > 0) {
-        mapping.layers.forEach((layer) => matchedLayers.add(layer));
-        mapping.phases.forEach((phase) => matchedPhases.add(phase));
+        mapping.layers.forEach(layer => matchedLayers.add(layer));
+        mapping.phases.forEach(phase => matchedPhases.add(phase));
         actions.push(mapping.description);
         totalConfidence += keywordMatches * 20;
         matchCount++;
@@ -233,7 +233,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
     if (matchedLayers.size === 0) {
       return {
         layers: [1, 2], // Default to expertise and research
-        phases: [1], // Default to foundation
+        phases: [1],    // Default to foundation
         actions: ['General framework analysis and recommendations'],
         confidence: 30
       };
@@ -249,14 +249,14 @@ I'll analyze your request and activate the appropriate framework layers and phas
 
   const generateAgentResponse = async (userInput: string, analysis: AgentMessage['analysis']) => {
     // Simulate processing delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     if (!analysis) return 'Unable to analyze your request. Please try rephrasing.';
 
     const { layers, phases, actions, confidence } = analysis;
-
+    
     let response = `I've analyzed your request and identified the relevant framework capabilities:\n\n`;
-
+    
     response += `**Framework Analysis** (${confidence}% confidence)\n`;
     response += `• Layers: ${layers.map((l: number) => `Layer ${l}`).join(', ')}\n`;
     response += `• Phases: ${phases.map((p: number) => `Phase ${p}`).join(', ')}\n`;
@@ -313,13 +313,13 @@ I'll analyze your request and activate the appropriate framework layers and phas
         response += `Please ensure you're logged in to check your profile completion.\n`;
       } else {
         const analysis = ProfileCompletionAnalyzer.analyzeProfile(user, null, travelDetails, guestProfile);
-
+        
         response += `**Profile Completion Analysis for ${user.name || user.username}**\n\n`;
-
+        
         // Overall score with visual indicator
         response += `📊 **Overall Completion: ${analysis.overallScore}%**\n`;
         response += `${generateProgressBar(analysis.overallScore)}\n\n`;
-
+        
         // Category breakdown
         response += `**Category Scores:**\n`;
         Object.entries(analysis.categoryScores).forEach(([category, score]) => {
@@ -327,38 +327,38 @@ I'll analyze your request and activate the appropriate framework layers and phas
           response += `${icon} ${category}: ${score}%\n`;
         });
         response += '\n';
-
+        
         // Missing required fields
         if (analysis.missingFields.length > 0) {
           response += `**❗ Missing Required Fields (${analysis.missingFields.length}):**\n`;
-          analysis.missingFields.forEach((field) => {
+          analysis.missingFields.forEach(field => {
             response += `• ${field.description || ProfileCompletionAnalyzer.getFieldDisplayName(field.name)}\n`;
           });
           response += '\n';
         }
-
+        
         // Framework mapping for improvements
         response += `**Framework Activation for Profile Improvement:**\n`;
-        const categoryMappings = new Map<string, {layers: number[];phases: number[];}>();
-
-        analysis.missingFields.forEach((field) => {
+        const categoryMappings = new Map<string, { layers: number[], phases: number[] }>();
+        
+        analysis.missingFields.forEach(field => {
           const mapping = ProfileCompletionAnalyzer.getFrameworkMapping(field.category);
           if (!categoryMappings.has(field.category)) {
             categoryMappings.set(field.category, mapping);
           }
         });
-
+        
         categoryMappings.forEach((mapping, category) => {
           response += `• ${category}: Layers ${mapping.layers.join(', ')}, Phases ${mapping.phases.join(', ')}\n`;
         });
         response += '\n';
-
+        
         // Recommendations
         response += `**Recommendations:**\n`;
         analysis.recommendations.forEach((rec, index) => {
           response += `${index + 1}. ${rec}\n`;
         });
-
+        
         // Quick actions
         response += `\n**Quick Actions:**\n`;
         response += `• Navigate to your profile to update missing fields\n`;
@@ -395,17 +395,17 @@ I'll analyze your request and activate the appropriate framework layers and phas
       timestamp: new Date()
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsProcessing(true);
 
     try {
       // Analyze user intent
       const analysis = analyzeUserIntent(input);
-
+      
       // Generate agent response
       const responseContent = await generateAgentResponse(input, analysis);
-
+      
       const agentMessage: AgentMessage = {
         id: (Date.now() + 1).toString(),
         role: 'agent',
@@ -415,7 +415,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
         capabilities: analysis?.actions || []
       };
 
-      setMessages((prev) => [...prev, agentMessage]);
+      setMessages(prev => [...prev, agentMessage]);
 
       // Store conversation for learning
       try {
@@ -449,54 +449,54 @@ I'll analyze your request and activate the appropriate framework layers and phas
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-600)] rounded-lg">
+          <div className="p-3 bg-gradient-to-br from-turquoise-500 to-blue-600 rounded-lg">
             <Brain className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-[var(--color-text)] dark:text-white">Life CEO Framework Agent</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Natural language interface to the 40L x 20P framework</p>
+            <h2 className="text-xl font-bold text-gray-900">Life CEO Framework Agent</h2>
+            <p className="text-sm text-gray-600">Natural language interface to the 40L x 20P framework</p>
           </div>
         </div>
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setShowCapabilities(!showCapabilities)} data-testid="button-element">
-
+          onClick={() => setShowCapabilities(!showCapabilities)}
+        >
           <Layers className="w-4 h-4 mr-2" />
           {showCapabilities ? 'Hide' : 'Show'} Capabilities
         </Button>
       </div>
 
       {/* Capabilities Overview */}
-      {showCapabilities &&
-      <Card className="border-turquoise-200 bg-[var(--color-ocean-50)]/50">
+      {showCapabilities && (
+        <Card className="border-turquoise-200 bg-turquoise-50/50">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[var(--color-primary-hover)]" />
+              <Sparkles className="w-5 h-5 text-turquoise-600" />
               Agent Capabilities
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {FRAMEWORK_MAPPINGS.map((mapping, idx) =>
-            <div key={idx} className="p-3 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg border border-turquoise-200">
-                  <h4 className="font-semibold text-sm text-[var(--color-text)] dark:text-white mb-1">
+              {FRAMEWORK_MAPPINGS.map((mapping, idx) => (
+                <div key={idx} className="p-3 bg-white rounded-lg border border-turquoise-200">
+                  <h4 className="font-semibold text-sm text-gray-900 mb-1">
                     {mapping.description}
                   </h4>
                   <div className="space-y-1">
-                    <p className="text-xs text-gray-600 dark:text-gray-300">
-                      Layers: {mapping.layers.map((l) => `L${l}`).join(', ')}
+                    <p className="text-xs text-gray-600">
+                      Layers: {mapping.layers.map(l => `L${l}`).join(', ')}
                     </p>
-                    <p className="text-xs text-gray-600 dark:text-gray-300">
-                      Phases: {mapping.phases.map((p) => `P${p}`).join(', ')}
+                    <p className="text-xs text-gray-600">
+                      Phases: {mapping.phases.map(p => `P${p}`).join(', ')}
                     </p>
                   </div>
                 </div>
-            )}
+              ))}
             </div>
           </CardContent>
         </Card>
-      }
+      )}
 
       {/* Chat Interface */}
       <Card className="h-[600px] flex flex-col">
@@ -518,69 +518,69 @@ I'll analyze your request and activate the appropriate framework layers and phas
           {/* Messages */}
           <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
             <div className="space-y-4">
-              {messages.map((message) =>
-              <div
-                key={message.id}
-                className={`flex gap-3 ${
-                message.role === 'user' ? 'justify-end' : 'justify-start'}`
-                }>
-
-                  {message.role === 'agent' &&
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex gap-3 ${
+                    message.role === 'user' ? 'justify-end' : 'justify-start'
+                  }`}
+                >
+                  {message.role === 'agent' && (
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-blue-600 flex items-center justify-center text-white">
                       <Brain className="w-4 h-4" />
                     </div>
-                }
+                  )}
                   <div
-                  className={`max-w-[70%] rounded-lg p-4 ${
-                  message.role === 'user' ?
-                  'bg-turquoise-100 text-[var(--color-text)] dark:text-white' :
-                  'bg-[var(--color-neutral-100)] text-[var(--color-text)] dark:text-white'}`
-                  }>
-
+                    className={`max-w-[70%] rounded-lg p-4 ${
+                      message.role === 'user'
+                        ? 'bg-turquoise-100 text-gray-900'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
                     <div className="prose prose-sm max-w-none">
                       <div className="whitespace-pre-wrap">{message.content}</div>
                     </div>
-                    {message.analysis &&
-                  <div className="mt-3 pt-3 border-t border-[var(--color-border)]">
-                        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+                    {message.analysis && (
+                      <div className="mt-3 pt-3 border-t border-gray-200">
+                        <div className="flex items-center gap-2 text-xs text-gray-600">
                           <Target className="w-3 h-3" />
                           Confidence: {message.analysis?.confidence || 0}%
                         </div>
                       </div>
-                  }
-                    {message.capabilities && message.capabilities.length > 0 &&
-                  <div className="mt-2 flex flex-wrap gap-1">
-                        {message.capabilities.map((cap, idx) =>
-                    <Badge key={idx} variant="secondary" className="text-xs">
+                    )}
+                    {message.capabilities && message.capabilities.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {message.capabilities.map((cap, idx) => (
+                          <Badge key={idx} variant="secondary" className="text-xs">
                             {cap}
                           </Badge>
-                    )}
+                        ))}
                       </div>
-                  }
-                    <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    )}
+                    <div className="mt-2 text-xs text-gray-500">
                       {format(message.timestamp, 'HH:mm')}
                     </div>
                   </div>
-                  {message.role === 'user' &&
-                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-[var(--color-text-secondary)]">
+                  {message.role === 'user' && (
+                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-700">
                       <MessageSquare className="w-4 h-4" />
                     </div>
-                }
+                  )}
                 </div>
-              )}
-              {isProcessing &&
-              <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white">
+              ))}
+              {isProcessing && (
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-blue-600 flex items-center justify-center text-white">
                     <Brain className="w-4 h-4" />
                   </div>
-                  <div className="bg-[var(--color-neutral-100)] rounded-lg p-4">
+                  <div className="bg-gray-100 rounded-lg p-4">
                     <div className="flex items-center gap-2">
-                      <RefreshCw className="w-4 h-4 animate-spin text-[var(--color-primary-hover)]" />
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Analyzing your request...</span>
+                      <RefreshCw className="w-4 h-4 animate-spin text-turquoise-600" />
+                      <span className="text-sm text-gray-600">Analyzing your request...</span>
                     </div>
                   </div>
                 </div>
-              }
+              )}
             </div>
           </ScrollArea>
 
@@ -598,17 +598,17 @@ I'll analyze your request and activate the appropriate framework layers and phas
                 }}
                 placeholder="Ask me anything about the framework..."
                 className="flex-1 min-h-[60px] max-h-[120px]"
-                disabled={isProcessing} data-testid="textarea-flex-1" />
-
+                disabled={isProcessing}
+              />
               <Button
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isProcessing}
-                className="bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-600)] text-white" data-testid="button-bg-gradient-to-r">
-
+                className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
+              >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-xs text-gray-500 mt-2">
               Press Enter to send, Shift+Enter for new line
             </p>
           </div>
@@ -628,40 +628,40 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setInput('Check security compliance for the entire platform')} data-testid="button-element">
-
+              onClick={() => setInput('Check security compliance for the entire platform')}
+            >
               <Shield className="w-4 h-4 mr-2" />
               Security Check
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setInput('Run performance analysis and optimization recommendations')} data-testid="button-element">
-
+              onClick={() => setInput('Run performance analysis and optimization recommendations')}
+            >
               <Activity className="w-4 h-4 mr-2" />
               Performance
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setInput('Generate API documentation for all endpoints')} data-testid="button-element">
-
+              onClick={() => setInput('Generate API documentation for all endpoints')}
+            >
               <BookOpen className="w-4 h-4 mr-2" />
               Documentation
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setInput('Prepare for production deployment')} data-testid="button-element">
-
+              onClick={() => setInput('Prepare for production deployment')}
+            >
               <Gauge className="w-4 h-4 mr-2" />
               Deploy Check
             </Button>
           </div>
         </CardContent>
       </Card>
-    </div>);
-
+    </div>
+  );
 };
 
 export default LifeCEOFrameworkAgent;

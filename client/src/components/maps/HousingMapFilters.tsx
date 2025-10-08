@@ -85,7 +85,7 @@ export default function HousingMapFilters({
   }
 
   return (
-    <div className="bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg border border-[var(--color-border)] dark:border-gray-700 p-4 space-y-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold flex items-center gap-2">
           <Filter className="h-4 w-4" />

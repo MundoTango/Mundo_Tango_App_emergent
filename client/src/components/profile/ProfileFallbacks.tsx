@@ -28,20 +28,20 @@ export const PostsFallback = () => (
       <h3 className="text-lg font-semibold">Posts</h3>
       <Skeleton className="h-10 w-32" />
     </div>
-    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center">
+    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
       <div className="flex flex-col items-center space-y-3">
-        <div className="w-16 h-16 bg-[var(--color-neutral-100)] dark:bg-gray-700 rounded-full flex items-center justify-center">
+        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
           <AlertCircle className="w-8 h-8 text-gray-400" />
         </div>
         <p className="text-gray-600 dark:text-gray-300">Unable to load posts</p>
         <button 
-          onClick={() => window.location.reload()} aria-label="Button"
-          className="text-[var(--color-primary-hover)] hover:text-turquoise-700 text-sm font-medium"
+          onClick={() => window.location.reload()}
+          className="text-turquoise-600 hover:text-turquoise-700 text-sm font-medium"
         >
           Try refreshing the page
         </button>
       </div>
-    </GlassCard>
+    </div>
   </div>
 );
 
@@ -51,15 +51,15 @@ export const TravelDetailsFallback = () => (
       <h3 className="text-lg font-semibold">Travel History</h3>
       <Skeleton className="h-10 w-40" />
     </div>
-    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center">
+    <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
       <div className="flex flex-col items-center space-y-3">
-        <div className="w-16 h-16 bg-[var(--color-neutral-100)] dark:bg-gray-700 rounded-full flex items-center justify-center">
+        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
           <MapPin className="w-8 h-8 text-gray-400" />
         </div>
         <p className="text-gray-600 dark:text-gray-300">Travel details temporarily unavailable</p>
         <p className="text-sm text-gray-500 dark:text-gray-400">We're having trouble loading your travel history</p>
       </div>
-    </GlassCard>
+    </div>
   </div>
 );
 
@@ -68,17 +68,17 @@ export const TabContentFallback = ({ icon: Icon, title, message }: {
   title: string, 
   message?: string 
 }) => (
-  <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-8 text-center">
+  <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-8 text-center"
     <div className="flex flex-col items-center space-y-4">
       <div className="w-20 h-20 bg-gradient-to-br from-turquoise-100 to-cyan-100 dark:from-turquoise-900/20 dark:to-cyan-900/20 rounded-full flex items-center justify-center">
-        <Icon className="w-10 h-10 text-[var(--color-primary-hover)] dark:text-turquoise-400" />
+        <Icon className="w-10 h-10 text-turquoise-600 dark:text-turquoise-400" />
       </div>
-      <h3 className="text-xl font-semibold text-[var(--color-text)] dark:text-white">{title}</h3>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300 max-w-sm">
         {message || `${title} content is temporarily unavailable. Please try again later.`}
       </p>
     </div>
-  </GlassCard>
+  </div>
 );
 
 // Specific fallbacks for each tab
@@ -144,21 +144,21 @@ export const OfflineIndicator = () => (
 
 // Network error retry component
 export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
-  <GlassCard depth={1} className="dark:bg-gray-800/90 rounded-lg p-6 text-center border border-red-200 dark:border-red-800">
+  <GlassCard depth={1} className="dark:bg-gray-800/90 rounded-lg p-6 text-center border border-red-200 dark:border-red-800"
     <div className="flex flex-col items-center space-y-4">
       <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
         <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
       </div>
-      <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Connection Error</h3>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Connection Error</h3>
       <p className="text-gray-600 dark:text-gray-300 max-w-sm">
         We're having trouble connecting to our servers. Please check your internet connection.
       </p>
       <button
         onClick={onRetry}
         className="px-4 py-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-       aria-label="Button">
+      >
         Try Again
       </button>
     </div>
-  </GlassCard>
+  </div>
 );

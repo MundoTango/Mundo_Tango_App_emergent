@@ -98,49 +98,49 @@ export function RichTextCommentEditor({
   };
 
   return (
-    <div className={`bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] ${className}`}>
+    <div className={`bg-white rounded-xl border border-gray-200 ${className}`}>
       {/* Toolbar */}
       {isExpanded && (
         <div className="border-b border-gray-100">
           <div className="flex items-center justify-between p-3">
             <div className="flex items-center gap-2">
               <button
-                onClick={() => formatText('bold')} aria-label="Button"
-                className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
+                onClick={() => formatText('bold')}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Bold"
                 data-testid={`button-editor-bold-${postId}`}
               >
                 <Bold className="h-4 w-4" />
               </button>
               <button
-                onClick={() => formatText('italic')} aria-label="Button"
-                className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
+                onClick={() => formatText('italic')}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Italic"
                 data-testid={`button-editor-italic-${postId}`}
               >
                 <Italic className="h-4 w-4" />
               </button>
-              <div className="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-2"></div>
+              <div className="w-px h-6 bg-gray-200 mx-2"></div>
               <button
-                onClick={() => formatText('createLink', prompt('Enter URL:') || '')} aria-label="Button"
-                className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
+                onClick={() => formatText('createLink', prompt('Enter URL:') || '')}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Add Link"
                 data-testid={`button-editor-link-${postId}`}
               >
                 <Link className="h-4 w-4" />
               </button>
               <button
-                className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Mention User"
                 data-testid={`button-editor-mention-${postId}`}
-               aria-label="Button">
+              >
                 <AtSign className="h-4 w-4" />
               </button>
-              <div className="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-2"></div>
+              <div className="w-px h-6 bg-gray-200 mx-2"></div>
               <button
-                onClick={() => setShowEmojiPicker(!showEmojiPicker)} aria-label="Button"
+                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                 className={`p-2 rounded-lg transition-colors ${
-                  showEmojiPicker ? 'bg-pink-100 text-pink-600' : 'hover:bg-[var(--color-neutral-100)]'
+                  showEmojiPicker ? 'bg-pink-100 text-pink-600' : 'hover:bg-gray-100'
                 }`}
                 title="Add Emoji"
                 data-testid={`button-editor-emoji-toggle-${postId}`}
@@ -152,13 +152,13 @@ export function RichTextCommentEditor({
           
           {/* ESA Simple Emoji Picker - Fixed Layout */}
           {showEmojiPicker && (
-            <div className="p-4 bg-[var(--color-surface-elevated)] border-t border-gray-100 dark:bg-neutral-800">
+            <div className="p-4 bg-gray-50 border-t border-gray-100 dark:bg-neutral-800">
               <div className="flex flex-wrap gap-2">
                 {emojis.map((emoji, index) => (
                   <button
                     key={index}
-                    onClick={() => insertEmoji(emoji)} aria-label="Button"
-                    className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-[var(--color-surface)] hover:shadow-md rounded-lg transition-all duration-200 border border-[var(--color-border)] dark:bg-neutral-900"
+                    onClick={() => insertEmoji(emoji)}
+                    className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 border border-gray-200 dark:bg-neutral-900"
                     title={`Add ${emoji}`}
                     type="button"
                     data-testid={`button-editor-emoji-${postId}-${index}`}
@@ -178,7 +178,7 @@ export function RichTextCommentEditor({
           ref={editorRef}
           contentEditable
           className={`
-            w-full min-h-[40px] outline-none resize-none text-[var(--color-text)] dark:text-white 
+            w-full min-h-[40px] outline-none resize-none text-gray-900 
             ${isExpanded ? 'min-h-[100px]' : ''}
           `}
           style={{ wordWrap: 'break-word' }}
@@ -199,7 +199,7 @@ export function RichTextCommentEditor({
         {/* Actions */}
         {isExpanded && (
           <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-            <div className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="text-sm text-gray-500">
               {mentions.length > 0 && (
                 <span data-testid={`text-mentions-${postId}`}>
                   Mentioning: {mentions.map(m => `@${m}`).join(', ')}
@@ -212,7 +212,7 @@ export function RichTextCommentEditor({
                   onClick={onCancel}
                   className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 transition-colors dark:text-neutral-200"
                   data-testid={`button-editor-cancel-${postId}`}
-                 aria-label="Button">
+                >
                   Cancel
                 </button>
               )}
@@ -223,11 +223,11 @@ export function RichTextCommentEditor({
                   flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
                   ${content.trim() 
                     ? 'bg-pink-500 text-white hover:bg-pink-600' 
-                    : 'bg-[var(--color-neutral-100)] text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }
                 `}
                 data-testid={`button-submit-comment-editor-${postId}`}
-               aria-label="Button">
+              >
                 <Send className="h-4 w-4" />
                 Comment
               </button>

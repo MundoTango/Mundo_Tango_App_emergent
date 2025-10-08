@@ -1,5 +1,4 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next';;
+import React from 'react';
 import { Loader2, Sparkles } from 'lucide-react';
 
 interface ModernLoadingStateProps {
@@ -15,7 +14,7 @@ export default function ModernLoadingState({
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-3xl shadow-lg border border-blue-100 p-6 animate-pulse">
+          <div key={i} className="bg-white rounded-3xl shadow-lg border border-blue-100 p-6 animate-pulse">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-200 to-teal-200 rounded-2xl"></div>
               <div className="space-y-2">

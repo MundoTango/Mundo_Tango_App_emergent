@@ -160,11 +160,11 @@ const MTTooltip: React.FC<MTTooltipProps> = ({
     },
     light: {
       className: cn(
-        'bg-[var(--color-surface)] dark:bg-gray-900/95 text-[var(--color-text)] dark:text-white',
-        'border border-[var(--color-border)]/50',
+        'bg-white/95 text-gray-900',
+        'border border-gray-200/50',
         'shadow-xl'
       ),
-      arrowClassName: 'bg-[var(--color-surface)] dark:bg-gray-900/95 border-[var(--color-border)]/50',
+      arrowClassName: 'bg-white/95 border-gray-200/50',
       style: {}
     },
     ocean: {

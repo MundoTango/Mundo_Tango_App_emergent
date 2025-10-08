@@ -67,13 +67,13 @@ const MTModal: React.FC<MTModalProps> = ({
 
   const variants = {
     glass: cn(
-      'bg-[var(--color-surface)]/95 dark:bg-gray-900/95',
+      'bg-white/95 dark:bg-gray-900/95',
       'backdrop-blur-xl',
       'border border-white/30 dark:border-white/10'
     ),
     solid: cn(
-      'bg-[var(--color-surface)] dark:bg-gray-900',
-      'border border-[var(--color-border)] dark:border-gray-800'
+      'bg-white dark:bg-gray-900',
+      'border border-gray-200 dark:border-gray-800'
     )
   };
 
@@ -82,7 +82,7 @@ const MTModal: React.FC<MTModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay */}
-      <GlassCard depth={1} className="absolute inset-0 animate-fadeIn" />
+      <GlassCard depth={1} className="absolute inset-0 animate-fadeIn"
 
       {/* Modal */}
       <div
@@ -100,10 +100,10 @@ const MTModal: React.FC<MTModalProps> = ({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-start justify-between p-6 border-b border-[var(--color-border)] dark:border-gray-700">
+          <div className="flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700">
             <div>
               {title && (
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-[var(--color-ocean-400)] to-blue-900 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
                   {title}
                 </h2>
               )}
@@ -116,8 +116,8 @@ const MTModal: React.FC<MTModalProps> = ({
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="ml-4 p-2 rounded-lg hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 transition-colors"
-               aria-label="Button">
+                className="ml-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
                 <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
               </button>
             )}
@@ -131,7 +131,7 @@ const MTModal: React.FC<MTModalProps> = ({
 
         {/* Footer */}
         {footer && (
-          <div className="flex items-center justify-end gap-3 p-6 border-t border-[var(--color-border)] dark:border-gray-700">
+          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
             {footer}
           </div>
         )}

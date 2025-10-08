@@ -60,13 +60,13 @@ export default function MTTableHeader({
   return (
     <th
       className={cn(
-        'relative px-4 py-3 font-semibold text-[var(--color-text-secondary)] dark:text-gray-200',
+        'relative px-4 py-3 font-semibold text-gray-700 dark:text-gray-200',
         'bg-gradient-to-r from-teal-50/50 to-blue-50/50 dark:from-teal-900/30 dark:to-blue-900/30',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',
         align === 'left' && 'text-left',
         sortable && 'cursor-pointer select-none',
-        sortable && 'hover:bg-[var(--color-ocean-100)]/50 dark:hover:bg-teal-800/30 transition-colors',
+        sortable && 'hover:bg-teal-100/50 dark:hover:bg-teal-800/30 transition-colors',
         className
       )}
       style={{ width }}
@@ -82,9 +82,9 @@ export default function MTTableHeader({
             {sortable && (
               <span className="inline-flex shrink-0">
                 {sorted === 'asc' ? (
-                  <ChevronUp className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-teal-400" />
+                  <ChevronUp className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 ) : sorted === 'desc' ? (
-                  <ChevronDown className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-teal-400" />
+                  <ChevronDown className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 ) : (
                   <ChevronsUpDown className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                 )}
@@ -96,7 +96,8 @@ export default function MTTableHeader({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onFilter?.();}} aria-label="Button"
+                  onFilter?.();
+                }}
                 className="inline-flex shrink-0 p-1 rounded hover:bg-teal-200/50 dark:hover:bg-teal-700/50 transition-colors"
                 data-testid={`${testId}-filter`}
               >

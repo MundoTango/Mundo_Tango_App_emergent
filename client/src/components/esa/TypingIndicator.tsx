@@ -75,7 +75,7 @@ export default function TypingIndicator({ postId, className }: TypingIndicatorPr
     <div className={cn(
       "flex items-center gap-2 px-3 py-2 rounded-lg animate-pulse",
       theme === 'light' 
-        ? "bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300"
+        ? "bg-gray-100 text-gray-600"
         : "bg-slate-800/50 text-slate-400",
       className
     )}>

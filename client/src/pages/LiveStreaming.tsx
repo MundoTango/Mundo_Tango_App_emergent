@@ -264,7 +264,7 @@ export default function LiveStreaming() {
     <div className="container mx-auto p-4 max-w-7xl" data-testid="live-streaming-page">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">Live Streaming</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Live Streaming</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
             Watch live Tango performances, lessons, and social events
           </p>
@@ -440,7 +440,7 @@ export default function LiveStreaming() {
                         <p className="text-sm text-gray-600 dark:text-gray-400">{stream.host.name}</p>
                         <div className="flex items-center space-x-2 mt-1">
                           {getCategoryIcon(stream.category)}
-                          <span className="text-xs text-gray-500 dark:text-gray-400">{stream.category}</span>
+                          <span className="text-xs text-gray-500">{stream.category}</span>
                         </div>
                       </div>
                     </div>
@@ -547,7 +547,7 @@ export default function LiveStreaming() {
             </div>
             
             {/* Chat Sidebar */}
-            <div className="w-80 bg-[var(--color-surface)] dark:bg-gray-900 border-l">
+            <div className="w-80 bg-white dark:bg-gray-900 border-l">
               <div className="p-4 border-b">
                 <h3 className="font-semibold">Live Chat</h3>
               </div>

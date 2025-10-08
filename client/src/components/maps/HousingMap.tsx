@@ -59,7 +59,7 @@ export default function HousingMap({ homes, cityLat, cityLng, onHomeClick }: Hou
         const popupContent = `
           <div class="p-3 min-w-[250px]">
             <h3 class="font-semibold text-lg mb-2">${home.title}</h3>
-            <div class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+            <div class="space-y-1 text-sm text-gray-600">
               <div class="flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   ${MARKER_ICONS.mapPin}
@@ -79,15 +79,15 @@ export default function HousingMap({ homes, cityLat, cityLng, onHomeClick }: Hou
                 $${home.pricePerNight}/night
               </div>
               ${home.host ? `
-                <div class="flex items-center gap-2 mt-2 pt-2 border-t border-[var(--color-border)]">
-                  <div class="text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex items-center gap-2 mt-2 pt-2 border-t border-gray-200">
+                  <div class="text-xs text-gray-500">
                     Host: ${home.host.firstName || ''} ${home.host.lastName || ''}
                   </div>
                 </div>
               ` : ''}
             </div>
             ${onHomeClick ? `
-              <button class="mt-3 w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" aria-label="Button">
+              <button class="mt-3 w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
                 View Details
               </button>
             ` : ''}

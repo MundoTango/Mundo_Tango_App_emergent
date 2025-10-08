@@ -251,7 +251,7 @@ export default function AgentMetrics() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold">ESA 61x21 Agent Monitoring</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-gray-500 mt-2">
               Real-time monitoring and analytics for the multi-agent system
             </p>
           </div>

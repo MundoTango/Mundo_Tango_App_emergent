@@ -197,7 +197,7 @@ export default function MediaUploader({
         </Button>
         
         {mediaItems.length > 0 && (
-          <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center">
+          <div className="text-sm text-gray-600 flex items-center">
             {mediaItems.length} / {maxFiles} files
           </div>
         )}
@@ -217,7 +217,7 @@ export default function MediaUploader({
       {isUploading && (
         <div className="space-y-2">
           <Progress value={uploadProgress} />
-          <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
+          <p className="text-sm text-gray-600 text-center">
             Processing media... {uploadProgress.toFixed(0)}%
           </p>
         </div>
@@ -248,10 +248,10 @@ export default function MediaUploader({
                         <Card className={`overflow-hidden border-2 ${
                           index === thumbnailIndex
                             ? 'border-yellow-500 shadow-lg'
-                            : 'border-[var(--color-border)]'
+                            : 'border-gray-200'
                         } ${snapshot.isDragging ? 'shadow-2xl scale-105' : ''} transition-all`}>
                           {/* Media Preview */}
-                          <div className="aspect-square relative bg-[var(--color-neutral-100)]">
+                          <div className="aspect-square relative bg-gray-100">
                             <img
                               src={item.preview}
                               alt={`Media ${index + 1}`}
@@ -277,10 +277,10 @@ export default function MediaUploader({
                             {/* Drag Handle */}
                             <div
                               {...provided.dragHandleProps}
-                              className="absolute bottom-2 left-2 bg-[var(--color-surface)] dark:bg-gray-900/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
                               data-testid={`drag-handle-${index}`}
                             >
-                              <GripVertical className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                              <GripVertical className="w-4 h-4 text-gray-600" />
                             </div>
 
                             {/* Action Overlay */}
@@ -324,7 +324,7 @@ export default function MediaUploader({
 
       {/* Helper Text */}
       {mediaItems.length === 0 && !isUploading && (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-gray-500">
           <ImageIcon className="w-12 h-12 mx-auto mb-3 opacity-50" />
           <p className="text-sm">
             Upload images or videos (up to {maxFiles} files)

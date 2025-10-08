@@ -38,7 +38,7 @@ export default function GoogleMapsAutocomplete({
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
-
+  
   const inputRef = useRef<HTMLInputElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
@@ -53,7 +53,7 @@ export default function GoogleMapsAutocomplete({
         setIsLoaded(true);
         return;
       }
-
+      
       try {
         await loadGoogleMaps();
         setIsLoaded(true);
@@ -80,7 +80,7 @@ export default function GoogleMapsAutocomplete({
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
-
+        
         if (!place.geometry || !place.geometry.location) {
           setError('No location data available for this place.');
           return;
@@ -192,7 +192,7 @@ export default function GoogleMapsAutocomplete({
     if (!mapInstanceRef.current) return;
 
     const position = new google.maps.LatLng(location.latitude, location.longitude);
-
+    
     // Update map center
     mapInstanceRef.current.setCenter(position);
     mapInstanceRef.current.setZoom(15);
@@ -248,12 +248,12 @@ export default function GoogleMapsAutocomplete({
   if (!isLoaded) {
     return (
       <div className={`relative ${className}`}>
-        <div className="flex items-center space-x-2 p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+        <div className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
           <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-sm text-gray-600 dark:text-gray-300">Loading location search...</span>
+          <span className="text-sm text-gray-600">Loading location search...</span>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 
   return (
@@ -270,31 +270,31 @@ export default function GoogleMapsAutocomplete({
           onChange={handleInputChange}
           placeholder={placeholder}
           required={required}
-          className="pl-10 pr-10 py-3 w-full border-[var(--color-border)] focus:border-pink-300 focus:ring-pink-100 rounded-lg" data-testid="input-text" />
-
-        {inputValue &&
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={handleClear}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-300" data-testid="button-button">
-
+          className="pl-10 pr-10 py-3 w-full border-gray-200 focus:border-pink-300 focus:ring-pink-100 rounded-lg"
+        />
+        {inputValue && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={handleClear}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          >
             <X className="w-4 h-4" />
           </Button>
-        }
+        )}
       </div>
 
       {/* Error Message */}
-      {error &&
-      <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+      {error && (
+        <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-sm text-red-600">{error}</p>
         </div>
-      }
+      )}
 
       {/* Selected Location Info */}
-      {selectedLocation &&
-      <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+      {selectedLocation && (
+        <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-start space-x-2">
             <MapPin className="w-4 h-4 text-green-600 mt-0.5" />
             <div className="flex-1">
@@ -309,21 +309,21 @@ export default function GoogleMapsAutocomplete({
             </div>
           </div>
         </div>
-      }
+      )}
 
       {/* Map Display */}
-      {showMap &&
-      <div className="space-y-2">
+      {showMap && (
+        <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-[var(--color-text-secondary)]">Map Preview</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Click on map or drag marker to adjust location</p>
+            <p className="text-sm font-medium text-gray-700">Map Preview</p>
+            <p className="text-xs text-gray-500">Click on map or drag marker to adjust location</p>
           </div>
-          <div
-          ref={mapRef}
-          className="w-full h-64 rounded-lg border border-[var(--color-border)]" />
-
+          <div 
+            ref={mapRef}
+            className="w-full h-64 rounded-lg border border-gray-200"
+          />
         </div>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 }

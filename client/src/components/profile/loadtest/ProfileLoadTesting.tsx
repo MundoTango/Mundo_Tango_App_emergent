@@ -76,15 +76,15 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600">{metrics.responseTime.toFixed(0)}ms</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Avg Response Time</div>
+              <div className="text-sm text-gray-600">Avg Response Time</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600">{metrics.throughput}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Requests/sec</div>
+              <div className="text-sm text-gray-600">Requests/sec</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600">{metrics.errorRate.toFixed(2)}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Error Rate</div>
+              <div className="text-sm text-gray-600">Error Rate</div>
             </div>
           </div>
         </CardContent>
@@ -147,13 +147,13 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-[var(--color-surface-elevated)] rounded-lg">
-              <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{metrics.p95Latency}ms</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">95th Percentile</div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl font-bold text-gray-800">{metrics.p95Latency}ms</div>
+              <div className="text-sm text-gray-600">95th Percentile</div>
             </div>
-            <div className="p-4 bg-[var(--color-surface-elevated)] rounded-lg">
-              <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{metrics.p99Latency}ms</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">99th Percentile</div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl font-bold text-gray-800">{metrics.p99Latency}ms</div>
+              <div className="text-sm text-gray-600">99th Percentile</div>
             </div>
           </div>
         </CardContent>

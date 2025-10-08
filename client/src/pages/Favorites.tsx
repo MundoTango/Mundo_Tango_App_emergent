@@ -119,7 +119,7 @@ export default function Favorites() {
         key={`${item.itemType}-${item.itemId}`}
         className={cn(
           "relative group transition-all hover:shadow-lg cursor-pointer",
-          theme === 'dark' ? "bg-slate-900/50 border-slate-700" : "bg-[var(--color-surface)] dark:bg-gray-900 border-[var(--color-border)]",
+          theme === 'dark' ? "bg-slate-900/50 border-slate-700" : "bg-white border-gray-200",
           isSelected && "ring-2 ring-purple-500"
         )}
         onClick={() => toggleItemSelection(item.id.toString())}
@@ -132,8 +132,9 @@ export default function Favorites() {
             checked={isSelected}
             onChange={(e) => {
               e.stopPropagation();
-              toggleItemSelection(item.id.toString());}} aria-label="Input field"
-            className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 dark:border-gray-600 rounded"
+              toggleItemSelection(item.id.toString());
+            }}
+            className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
           />
         </div>
 
@@ -189,7 +190,7 @@ export default function Favorites() {
           {item.description && (
             <p className={cn(
               "text-sm line-clamp-2 mb-3",
-              theme === 'dark' ? "text-slate-300" : "text-gray-600 dark:text-gray-300"
+              theme === 'dark' ? "text-slate-300" : "text-gray-600"
             )}>
               {item.description}
             </p>
@@ -241,7 +242,7 @@ export default function Favorites() {
           </h1>
           <p className={cn(
             "text-lg",
-            theme === 'dark' ? "text-slate-400" : "text-gray-600 dark:text-gray-300"
+            theme === 'dark' ? "text-slate-400" : "text-gray-600"
           )}>
             All your liked content in one place
           </p>
@@ -251,7 +252,7 @@ export default function Favorites() {
         {selectedItems.length > 0 && (
           <div className={cn(
             "mb-6 p-4 rounded-lg flex items-center justify-between",
-            theme === 'dark' ? "bg-slate-800" : "bg-[var(--color-neutral-100)]"
+            theme === 'dark' ? "bg-slate-800" : "bg-gray-100"
           )}>
             <span className="text-sm font-medium">
               {selectedItems.length} items selected
@@ -283,7 +284,7 @@ export default function Favorites() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className={cn(
             "grid w-full max-w-md grid-cols-6",
-            theme === 'dark' ? "bg-slate-800" : "bg-[var(--color-neutral-100)]"
+            theme === 'dark' ? "bg-slate-800" : "bg-gray-100"
           )}>
             <TabsTrigger value="all" data-testid="tab-all">All</TabsTrigger>
             <TabsTrigger value="posts" data-testid="tab-posts">Posts</TabsTrigger>
@@ -310,13 +311,13 @@ export default function Favorites() {
         ) : (
           <Card className={cn(
             "p-12 text-center",
-            theme === 'dark' ? "bg-slate-900/50" : "bg-[var(--color-surface)] dark:bg-gray-900"
+            theme === 'dark' ? "bg-slate-900/50" : "bg-white"
           )}>
             <Heart className="h-16 w-16 mx-auto mb-4 text-gray-400" />
             <h3 className="text-xl font-semibold mb-2">No favorites yet</h3>
             <p className={cn(
               "text-sm mb-6",
-              theme === 'dark' ? "text-slate-400" : "text-gray-600 dark:text-gray-300"
+              theme === 'dark' ? "text-slate-400" : "text-gray-600"
             )}>
               Start exploring and heart content you love!
             </p>

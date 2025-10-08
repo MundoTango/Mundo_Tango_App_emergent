@@ -63,23 +63,23 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
   };
 
   return (
-    <div
-      className="tt-card tt-community-card tt-fade-in"
+    <div 
+      className="tt-card tt-community-card tt-fade-in" 
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'default' }}>
-
+      style={{ cursor: onClick ? 'pointer' : 'default' }}
+    >
       {/* Cover Image or Gradient */}
-      {coverImage ?
-      <div className="h-32 overflow-hidden">
-          <img
-          src={coverImage}
-          alt={name}
-          className="w-full h-full object-cover" />
-
-        </div> :
-
-      <div className="h-32 bg-gradient-to-br from-indigo-500 to-purple-600" />
-      }
+      {coverImage ? (
+        <div className="h-32 overflow-hidden">
+          <img 
+            src={coverImage} 
+            alt={name} 
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ) : (
+        <div className="h-32 bg-gradient-to-br from-indigo-500 to-purple-600" />
+      )}
 
       {/* Card Body */}
       <div className="tt-card-body text-center">
@@ -89,7 +89,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         </div>
 
         {/* Community Name */}
-        <h3 className="tt-community-name text-[var(--color-text)] dark:text-white">{name}</h3>
+        <h3 className="tt-community-name text-gray-900">{name}</h3>
 
         {/* Category Badge */}
         <div className="mb-3">
@@ -99,46 +99,46 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
           {description}
         </p>
 
         {/* Community Stats */}
         <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-gray-300">
+            <div className="flex items-center justify-center gap-1 text-gray-600">
               <Users className="w-4 h-4" />
               <span className="font-semibold">{formatMemberCount(memberCount)}</span>
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">Members</div>
+            <div className="text-xs text-gray-500">Members</div>
           </div>
           
-          {activeEvents !== undefined &&
-          <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-gray-300">
+          {activeEvents !== undefined && (
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1 text-gray-600">
                 <Calendar className="w-4 h-4" />
                 <span className="font-semibold">{activeEvents}</span>
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">Active Events</div>
+              <div className="text-xs text-gray-500">Active Events</div>
             </div>
-          }
+          )}
         </div>
 
         {/* Additional Info */}
         <div className="space-y-2 mb-4">
-          {location &&
-          <div className="flex items-center justify-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+          {location && (
+            <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
               <MapPin className="w-3 h-3" />
               <span>{location}</span>
             </div>
-          }
+          )}
           
-          {rating &&
-          <div className="flex items-center justify-center gap-1 text-xs">
+          {rating && (
+            <div className="flex items-center justify-center gap-1 text-xs">
               <Star className="w-3 h-3 text-yellow-500 fill-current" />
-              <span className="text-gray-600 dark:text-gray-300">{rating.toFixed(1)} rating</span>
+              <span className="text-gray-600">{rating.toFixed(1)} rating</span>
             </div>
-          }
+          )}
         </div>
 
         {/* Member Count */}
@@ -149,15 +149,15 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
 
       {/* Card Footer */}
       <div className="tt-card-footer">
-        <button
+        <button 
           className={`w-full ${isJoined ? 'tt-btn tt-btn-outline' : 'tt-btn tt-btn-primary'}`}
-          onClick={handleJoin} data-testid="button-element" aria-label="Button">
-
+          onClick={handleJoin}
+        >
           {isJoined ? 'Leave Community' : 'Join Community'}
         </button>
       </div>
-    </div>);
-
+    </div>
+  );
 };
 
 export default TTCommunityCard;

@@ -22,8 +22,8 @@ import {
   Bot,
   Lightbulb,
   GitBranch,
-  CalendarDays } from
-'lucide-react';
+  CalendarDays
+} from 'lucide-react';
 
 // Import existing Life CEO components
 import LifeCEOPortal from './LifeCEOPortal';
@@ -49,7 +49,7 @@ const LifeCEOCommandCenter: React.FC = () => {
         }, 0);
       };
       const activeCount = countActiveProjects(comprehensiveProjectData);
-      setRealStats((prev) => ({ ...prev, activeProjects: activeCount }));
+      setRealStats(prev => ({ ...prev, activeProjects: activeCount }));
     });
   };
 
@@ -70,9 +70,9 @@ const LifeCEOCommandCenter: React.FC = () => {
   }, []);
 
   // Get today's activities
-  const { data: todayActivities, refetch } = useQuery<{data: any[];}>({
+  const { data: todayActivities, refetch } = useQuery<{ data: any[] }>({
     queryKey: ['/api/daily-activities'],
-    refetchInterval: 60000 // Refresh every minute
+    refetchInterval: 60000, // Refresh every minute
   });
 
   // Count today's activities
@@ -84,7 +84,7 @@ const LifeCEOCommandCenter: React.FC = () => {
 
   // Update stats with real data
   useEffect(() => {
-    setRealStats((prev) => ({
+    setRealStats(prev => ({
       ...prev,
       learningsToday: todayCount
     }));
@@ -92,14 +92,14 @@ const LifeCEOCommandCenter: React.FC = () => {
 
   const stats = realStats;
 
-  const renderDashboard = () =>
-  <div className="space-y-6">
+  const renderDashboard = () => (
+    <div className="space-y-6">
       {/* 44x21 Framework Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">
+        <h2 className="text-3xl font-bold text-gray-900">
           Life CEO 44x21 Framework
         </h2>
-        <p className="text-gray-600 dark:text-gray-300 mt-2">44 Technical Layers × 21 Development Phases</p>
+        <p className="text-gray-600 mt-2">44 Technical Layers × 21 Development Phases</p>
       </div>
 
       {/* Quick Stats Grid */}
@@ -107,15 +107,15 @@ const LifeCEOCommandCenter: React.FC = () => {
         <Card className="glassmorphic-card hover:shadow-lg transition-shadow">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <Bot className="w-5 h-5 text-[var(--color-primary)]" />
+              <Bot className="w-5 h-5 text-turquoise-500" />
               <Badge className="bg-green-100 text-green-700">Active</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {stats.agentStatus}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Agent Status</p>
+            <p className="text-sm text-gray-600 mt-1">Agent Status</p>
           </CardContent>
         </Card>
 
@@ -123,14 +123,14 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <Lightbulb className="w-5 h-5 text-yellow-500" />
-              <span className="text-xs text-gray-500 dark:text-gray-400">Today</span>
+              <span className="text-xs text-gray-500">Today</span>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {stats.learningsToday}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">New Learnings</p>
+            <p className="text-sm text-gray-600 mt-1">New Learnings</p>
           </CardContent>
         </Card>
 
@@ -142,10 +142,10 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {stats.frameworkLayers}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Technical Layers</p>
+            <p className="text-sm text-gray-600 mt-1">Technical Layers</p>
           </CardContent>
         </Card>
 
@@ -157,10 +157,10 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {stats.developmentPhases}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Dev Phases</p>
+            <p className="text-sm text-gray-600 mt-1">Dev Phases</p>
           </CardContent>
         </Card>
 
@@ -172,10 +172,10 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {stats.activeProjects}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Active Projects</p>
+            <p className="text-sm text-gray-600 mt-1">Active Projects</p>
           </CardContent>
         </Card>
 
@@ -187,10 +187,10 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {stats.performanceScore}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Performance</p>
+            <p className="text-sm text-gray-600 mt-1">Performance</p>
           </CardContent>
         </Card>
       </div>
@@ -198,39 +198,39 @@ const LifeCEOCommandCenter: React.FC = () => {
       {/* Quick Actions */}
       <Card className="glassmorphic-card">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-[var(--color-text)] dark:text-white">
+          <CardTitle className="text-lg font-semibold text-gray-900">
             Quick Actions
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button
-            className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
-            onClick={() => setActiveTab('agent')} data-testid="button-bg-gradient-to-r">
-
+            <Button 
+              className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
+              onClick={() => setActiveTab('agent')}
+            >
               <Bot className="w-4 h-4 mr-2" />
               Chat with Agent
             </Button>
-            <Button
-            variant="outline"
-            className="border-turquoise-200 hover:bg-[var(--color-ocean-50)]"
-            onClick={() => setActiveTab('insights')} data-testid="button-border-turquoise-200">
-
+            <Button 
+              variant="outline" 
+              className="border-turquoise-200 hover:bg-turquoise-50"
+              onClick={() => setActiveTab('insights')}
+            >
               <Lightbulb className="w-4 h-4 mr-2" />
               View Insights
             </Button>
-            <Button
-            variant="outline"
-            className="border-purple-200 hover:bg-purple-50"
-            onClick={() => setActiveTab('framework')} data-testid="button-border-purple-200">
-
+            <Button 
+              variant="outline"
+              className="border-purple-200 hover:bg-purple-50"
+              onClick={() => setActiveTab('framework')}
+            >
               <Layers className="w-4 h-4 mr-2" />
               Framework Status
             </Button>
-            <Button
-            variant="outline"
-            className="border-blue-200 hover:bg-blue-50" data-testid="button-border-blue-200">
-
+            <Button 
+              variant="outline"
+              className="border-blue-200 hover:bg-blue-50"
+            >
               <Activity className="w-4 h-4 mr-2" />
               View Reports
             </Button>
@@ -243,25 +243,25 @@ const LifeCEOCommandCenter: React.FC = () => {
         <Card className="glassmorphic-card">
           <CardHeader>
             <div className="flex justify-between items-center">
-              <CardTitle className="text-lg font-semibold text-[var(--color-text)] dark:text-white">
+              <CardTitle className="text-lg font-semibold text-gray-900">
                 Recent Agent Activity
               </CardTitle>
               <Button
-              size="sm"
-              variant="outline"
-              onClick={async () => {
-                await activityLogger.logSystemOptimization(
-                  'Manual Activity Test',
-                  'Testing activity logging from Command Center',
-                  { impact: 'High', layers: [44] }
-                );
-                // Force flush immediately
-                await activityLogger.flushPendingActivities();
-                // Refetch activities
-                refetch();
-              }}
-              className="text-xs" data-testid="button-text-xs">
-
+                size="sm"
+                variant="outline"
+                onClick={async () => {
+                  await activityLogger.logSystemOptimization(
+                    'Manual Activity Test',
+                    'Testing activity logging from Command Center',
+                    { impact: 'High', layers: [44] }
+                  );
+                  // Force flush immediately
+                  await activityLogger.flushPendingActivities();
+                  // Refetch activities
+                  refetch();
+                }}
+                className="text-xs"
+              >
                 Test Log
               </Button>
             </div>
@@ -269,47 +269,47 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {todayActivities?.data?.slice(0, 3).map((activity: any, index: number) => {
-              const activityTime = new Date(activity.timestamp || activity.date);
-              const timeAgo = Math.floor((Date.now() - activityTime.getTime()) / 1000 / 60);
-              const timeString = timeAgo < 60 ? `${timeAgo} minutes ago` : `${Math.floor(timeAgo / 60)} hours ago`;
-
-              const iconMap: Record<string, any> = {
-                bug_fix: CheckCircle,
-                system_optimization: Activity,
-                feature_update: Brain,
-                ui_enhancement: Sparkles,
-                framework_progress: Layers,
-                performance: Zap
-              };
-
-              const Icon = iconMap[activity.type] || Activity;
-              const bgColors = ['bg-[var(--color-ocean-50)]/50', 'bg-[var(--color-ocean-50)]/50', 'bg-purple-50/50'];
-
-              return (
-                <div key={activity.id || index} className={`flex items-start gap-3 p-3 rounded-lg ${bgColors[index % 3]}`}>
+                const activityTime = new Date(activity.timestamp || activity.date);
+                const timeAgo = Math.floor((Date.now() - activityTime.getTime()) / 1000 / 60);
+                const timeString = timeAgo < 60 ? `${timeAgo} minutes ago` : `${Math.floor(timeAgo / 60)} hours ago`;
+                
+                const iconMap: Record<string, any> = {
+                  bug_fix: CheckCircle,
+                  system_optimization: Activity,
+                  feature_update: Brain,
+                  ui_enhancement: Sparkles,
+                  framework_progress: Layers,
+                  performance: Zap
+                };
+                
+                const Icon = iconMap[activity.type] || Activity;
+                const bgColors = ['bg-turquoise-50/50', 'bg-cyan-50/50', 'bg-purple-50/50'];
+                
+                return (
+                  <div key={activity.id || index} className={`flex items-start gap-3 p-3 rounded-lg ${bgColors[index % 3]}`}>
                     <Icon className="w-5 h-5 text-blue-500 mt-0.5" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">{activity.project_title || activity.activity}</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">{activity.description}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{timeString}</p>
+                      <p className="text-xs text-gray-600">{activity.description}</p>
+                      <p className="text-xs text-gray-500 mt-1">{timeString}</p>
                     </div>
-                  </div>);
-
-            })}
-              {(!todayActivities?.data || todayActivities.data.length === 0) &&
-            <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                  </div>
+                );
+              })}
+              {(!todayActivities?.data || todayActivities.data.length === 0) && (
+                <div className="text-center py-4 text-gray-500">
                   <CalendarDays className="w-8 h-8 mx-auto mb-2 text-gray-400" />
                   <p className="text-sm">No activities logged today</p>
                   <p className="text-xs mt-1">Activities will appear here automatically</p>
                 </div>
-            }
+              )}
             </div>
           </CardContent>
         </Card>
 
         <Card className="glassmorphic-card">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-[var(--color-text)] dark:text-white">
+            <CardTitle className="text-lg font-semibold text-gray-900">
               Framework Overview
             </CardTitle>
           </CardHeader>
@@ -318,22 +318,22 @@ const LifeCEOCommandCenter: React.FC = () => {
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium">44x21 Framework Progress</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Phase 18/21</span>
+                  <span className="text-sm text-gray-600">Phase 18/21</span>
                 </div>
-                <Progress value={85.7} className="h-2 bg-gray-200 dark:bg-gray-700" />
+                <Progress value={85.7} className="h-2 bg-gray-200" />
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium">Layer Completion</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">38/44 Layers</span>
+                  <span className="text-sm text-gray-600">38/44 Layers</span>
                 </div>
-                <Progress value={86.4} className="h-2 bg-gray-200 dark:bg-gray-700" />
+                <Progress value={86.4} className="h-2 bg-gray-200" />
               </div>
               <div className="pt-2 border-t">
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   <span className="font-medium">Next Milestone:</span> Complete security compliance implementation
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Estimated: 2 days</p>
+                <p className="text-xs text-gray-500 mt-1">Estimated: 2 days</p>
               </div>
             </div>
           </CardContent>
@@ -343,7 +343,7 @@ const LifeCEOCommandCenter: React.FC = () => {
       {/* System Overview */}
       <Card className="glassmorphic-card">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-[var(--color-text)] dark:text-white">
+          <CardTitle className="text-lg font-semibold text-gray-900">
             Life CEO System Overview
           </CardTitle>
           <CardDescription>
@@ -354,78 +354,78 @@ const LifeCEOCommandCenter: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-lg bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50">
               <h4 className="font-medium text-turquoise-700 mb-2">44x21 Framework Status</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">44 technical layers active</p>
-              <p className="text-sm text-gray-600 dark:text-gray-300">21 development phases deployed</p>
+              <p className="text-sm text-gray-600">44 technical layers active</p>
+              <p className="text-sm text-gray-600">21 development phases deployed</p>
             </div>
             <div className="p-4 rounded-lg bg-gradient-to-br from-purple-50/50 to-pink-50/50">
               <h4 className="font-medium text-purple-700 mb-2">Learning System</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">342 patterns identified</p>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Self-improvement rate: 15%/week</p>
+              <p className="text-sm text-gray-600">342 patterns identified</p>
+              <p className="text-sm text-gray-600">Self-improvement rate: 15%/week</p>
             </div>
             <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50/50 to-indigo-50/50">
               <h4 className="font-medium text-blue-700 mb-2">Framework Progress</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">44x21: {stats.frameworkProgress}% Complete</p>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Phase 18 of 21 Active</p>
+              <p className="text-sm text-gray-600">44x21: {stats.frameworkProgress}% Complete</p>
+              <p className="text-sm text-gray-600">Phase 18 of 21 Active</p>
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>;
-
+    </div>
+  );
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
           Life CEO Command Center
         </h2>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-gray-600">
           Unified control center for AI agents, learning insights, and framework management
         </p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="flex flex-wrap gap-2 bg-[var(--color-surface)] dark:bg-gray-900/50 p-2 justify-start">
-          <TabsTrigger
-            value="dashboard"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center">
-
+        <TabsList className="flex flex-wrap gap-2 bg-white/50 p-2 justify-start">
+          <TabsTrigger 
+            value="dashboard" 
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
+          >
             <Activity className="w-4 h-4 mr-2" />
             Dashboard
           </TabsTrigger>
-          <TabsTrigger
+          <TabsTrigger 
             value="learnings"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white relative flex items-center">
-
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white relative flex items-center"
+          >
             <Brain className="w-4 h-4 mr-2" />
             Learnings
             <Badge className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-1">LIVE</Badge>
           </TabsTrigger>
-          <TabsTrigger
+          <TabsTrigger 
             value="agent"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center">
-
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
+          >
             <Bot className="w-4 h-4 mr-2" />
             AI Agent
           </TabsTrigger>
-          <TabsTrigger
+          <TabsTrigger 
             value="insights"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center">
-
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
+          >
             <Lightbulb className="w-4 h-4 mr-2" />
             Insights
           </TabsTrigger>
-          <TabsTrigger
+          <TabsTrigger 
             value="framework"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center">
-
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
+          >
             <Layers className="w-4 h-4 mr-2" />
             44x21 Framework
           </TabsTrigger>
-          <TabsTrigger
+          <TabsTrigger 
             value="jira"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white relative flex items-center">
-
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white relative flex items-center"
+          >
             <GitBranch className="w-4 h-4 mr-2" />
             JIRA Export
             <Badge className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs px-1">44x21</Badge>
@@ -456,8 +456,8 @@ const LifeCEOCommandCenter: React.FC = () => {
           <JiraExportDashboard />
         </TabsContent>
       </Tabs>
-    </div>);
-
+    </div>
+  );
 };
 
 export default LifeCEOCommandCenter;

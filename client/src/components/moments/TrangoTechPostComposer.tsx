@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Camera, Video, MapPin, Globe, Users, Lock, X, ImageIcon } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
@@ -8,7 +7,6 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 
 // Temporary auth mock for layout testing
 const useAuthContext = () => ({
-  const { t } = useTranslation();
   user: {
     name: 'Scott Boddye',
     profileImage: '/images/user-placeholder.jpeg'
@@ -55,13 +53,13 @@ export default function TrangoTechPostComposer() {
       });
       setShowExpandedComposer(false);
       toast({
-        title: t('states.success', 'Success'),
+        title: "Success",
         description: "Your post has been shared!",
       });
     },
     onError: (error) => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to create post. Please try again.",
         variant: "destructive",
       });
@@ -125,17 +123,17 @@ export default function TrangoTechPostComposer() {
                 className="w-12 h-12 object-cover rounded-full border-2 border-white shadow-md"
               />
             ) : (
-              <div className="w-12 h-12 bg-gradient-to-br from-turquoise-400 to-[var(--color-ocean-600)] rounded-full border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-turquoise-400 to-blue-600 rounded-full border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-lg">
                 {user?.name?.charAt(0) || 'U'}
               </div>
             )}
           </div>
           
           <button
-            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
-            className="flex-1 text-left px-6 py-4 bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm rounded-xl 
-                       border border-white/50 shadow-sm hover:shadow-md hover:bg-[var(--color-surface)] dark:bg-gray-900/90
-                       transition-all duration-300 text-gray-600 hover:text-gray-800 dark:text-gray-100
+            onClick={() => setShowExpandedComposer(true)}
+            className="flex-1 text-left px-6 py-4 bg-white/80 backdrop-blur-sm rounded-xl 
+                       border border-white/50 shadow-sm hover:shadow-md hover:bg-white/90
+                       transition-all duration-300 text-gray-600 hover:text-gray-800
                        focus:outline-none focus:ring-2 focus:ring-coral-300"
           >
             Share your tango moment...
@@ -144,30 +142,30 @@ export default function TrangoTechPostComposer() {
         
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-coral-200/40">
           <div className="flex gap-4">
-            <button className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-pink-50 
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-pink-50 
                              border border-pink-200 rounded-lg cursor-pointer transition-colors
-                             hover:scale-105 hover:shadow-md transform duration-300" aria-label="Button">
+                             hover:scale-105 hover:shadow-md transform duration-300">
               <Camera className="h-4 w-4 text-pink-600" />
               <span className="text-sm text-pink-700 font-medium">Photo</span>
             </button>
             
-            <button className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-blue-50 
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-blue-50 
                              border border-blue-200 rounded-lg cursor-pointer transition-colors
-                             hover:scale-105 hover:shadow-md transform duration-300" aria-label="Button">
+                             hover:scale-105 hover:shadow-md transform duration-300">
               <Video className="h-4 w-4 text-blue-600" />
               <span className="text-sm text-blue-700 font-medium">Video</span>
             </button>
             
-            <button className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-green-50 
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-green-50 
                              border border-green-200 rounded-lg cursor-pointer transition-colors
-                             hover:scale-105 hover:shadow-md transform duration-300" aria-label="Button">
+                             hover:scale-105 hover:shadow-md transform duration-300">
               <MapPin className="h-4 w-4 text-green-600" />
               <span className="text-sm text-green-700 font-medium">Location</span>
             </button>
           </div>
           
           <button
-            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
+            onClick={() => setShowExpandedComposer(true)}
             className="px-6 py-2 bg-gradient-to-r from-coral-500 to-coral-600 text-white 
                        rounded-lg hover:from-coral-600 hover:to-coral-700 shadow-md hover:shadow-lg
                        transform hover:-translate-y-1 transition-all duration-300 cursor-pointer"
@@ -181,9 +179,9 @@ export default function TrangoTechPostComposer() {
       {showExpandedComposer && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
           <GlassCard depth={1} className="absolute inset-0" setShowExpandedComposer(false)}
-          >
+          />
           <div 
-            className="relative bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10"
+            className="relative bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6">
@@ -196,15 +194,15 @@ export default function TrangoTechPostComposer() {
                   />
                   <div>
                     <div className="font-semibold">{user?.name}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                    <div className="text-sm text-gray-500 flex items-center gap-1">
                       {getVisibilityIcon()}
                       <span className="capitalize">{newPost.visibility}</span>
                     </div>
                   </div>
                 </div>
                 <button
-                  onClick={() => setShowExpandedComposer(false)} aria-label="Button"
-                  className="p-2 hover:bg-[var(--color-neutral-100)] rounded-full"
+                  onClick={() => setShowExpandedComposer(false)}
+                  className="p-2 hover:bg-gray-100 rounded-full"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -220,12 +218,12 @@ export default function TrangoTechPostComposer() {
                 
                 {/* Location Input */}
                 <div className="flex items-center gap-2 p-3 border rounded-lg">
-                  <MapPin className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                  <MapPin className="h-4 w-4 text-gray-500" />
                   <input
                     type="text"
                     placeholder="Add location..."
                     value={newPost.location}
-                    onChange={(e) => setNewPost(prev => ({ ...prev, location: e.target.value)} aria-label="Input field")}
+                    onChange={(e) => setNewPost(prev => ({ ...prev, location: e.target.value }))}
                     className="flex-1 outline-none"
                   />
                 </div>
@@ -233,7 +231,7 @@ export default function TrangoTechPostComposer() {
                 {/* Media Upload */}
                 <div className="space-y-3">
                   <div className="flex gap-3">
-                    <label className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-pink-50 border border-pink-200 rounded-lg cursor-pointer transition-colors">
+                    <label className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-pink-50 border border-pink-200 rounded-lg cursor-pointer transition-colors">
                       <ImageIcon className="h-4 w-4 text-pink-600" />
                       <span className="text-sm text-pink-700">Photo</span>
                       <input
@@ -241,11 +239,10 @@ export default function TrangoTechPostComposer() {
                         accept="image/*"
                         onChange={handleImageUpload}
                         className="hidden"
-              aria-label="Input field"
-            />
+                      />
                     </label>
                     
-                    <label className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-blue-50 border border-blue-200 rounded-lg cursor-pointer transition-colors">
+                    <label className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-blue-50 border border-blue-200 rounded-lg cursor-pointer transition-colors">
                       <Video className="h-4 w-4 text-blue-600" />
                       <span className="text-sm text-blue-700">Video</span>
                       <input
@@ -253,8 +250,7 @@ export default function TrangoTechPostComposer() {
                         accept="video/*"
                         onChange={handleVideoUpload}
                         className="hidden"
-              aria-label="Input field"
-            />
+                      />
                     </label>
                   </div>
                     
@@ -267,7 +263,7 @@ export default function TrangoTechPostComposer() {
                           className="w-full max-h-64 object-cover rounded-lg"
                         />
                         <button
-                          onClick={() => setNewPost(prev => ({ ...prev, imageUrl: null } aria-label="Button"))}
+                          onClick={() => setNewPost(prev => ({ ...prev, imageUrl: null }))}
                           className="absolute top-2 right-2 p-1 bg-black/50 text-white rounded-full hover:bg-black/70"
                         >
                           <X className="h-4 w-4" />
@@ -283,7 +279,7 @@ export default function TrangoTechPostComposer() {
                           className="w-full max-h-64 rounded-lg"
                         />
                         <button
-                          onClick={() => setNewPost(prev => ({ ...prev, videoUrl: null } aria-label="Button"))}
+                          onClick={() => setNewPost(prev => ({ ...prev, videoUrl: null }))}
                           className="absolute top-2 right-2 p-1 bg-black/50 text-white rounded-full hover:bg-black/70"
                         >
                           <X className="h-4 w-4" />
@@ -295,16 +291,16 @@ export default function TrangoTechPostComposer() {
                   {/* Visibility and Actions */}
                   <div className="flex items-center justify-between pt-4 border-t">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Visibility:</span>
+                      <span className="text-sm text-gray-600">Visibility:</span>
                       <div className="flex gap-1">
                         {['Public', 'Friends', 'Private'].map((vis) => (
                           <button
                             key={vis}
-                            onClick={() => setNewPost(prev => ({ ...prev, visibility: vis.toLowerCase() } aria-label="Button"))}
+                            onClick={() => setNewPost(prev => ({ ...prev, visibility: vis.toLowerCase() }))}
                             className={`px-3 py-1 text-xs rounded-full transition-colors flex items-center gap-1 ${
                               newPost.visibility === vis.toLowerCase()
                                 ? 'bg-blue-100 text-blue-700 border border-blue-300'
-                                : 'bg-[var(--color-neutral-100)] text-gray-600 hover:bg-gray-200 dark:bg-gray-700'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}
                           >
                             {vis === 'Public' && <Globe className="h-3 w-3" />}
@@ -318,8 +314,8 @@ export default function TrangoTechPostComposer() {
                     
                     <div className="flex gap-2">
                       <button
-                        onClick={() => setShowExpandedComposer(false)} aria-label="Button"
-                        className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors"
+                        onClick={() => setShowExpandedComposer(false)}
+                        className="px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
                       >
                         Cancel
                       </button>
@@ -327,7 +323,7 @@ export default function TrangoTechPostComposer() {
                         onClick={handleSubmit}
                         disabled={createPostMutation.isPending}
                         className="px-6 py-2 bg-btn-color text-white rounded-lg hover:bg-[#7A1128] transition-colors disabled:opacity-50"
-                       aria-label="Button">
+                      >
                         {createPostMutation.isPending ? 'Posting...' : 'Post'}
                       </button>
                     </div>

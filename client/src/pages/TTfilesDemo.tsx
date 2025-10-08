@@ -36,79 +36,79 @@ const TTfilesDemo = () => {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-[var(--color-surface-elevated)] p-8">
+      <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-[var(--color-text)] dark:text-white mb-4">TrangoTech Original Components</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">Authentic vintage-styled components from the original TTfiles</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">TrangoTech Original Components</h1>
+          <p className="text-lg text-gray-600">Authentic vintage-styled components from the original TTfiles</p>
         </div>
 
         {/* Profile Head Section */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">TTProfileHead Component</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">TTProfileHead Component</h2>
           <div className="rounded-lg overflow-hidden shadow-lg">
-            <TTProfileHead
-                user={sampleUser}
-                isOwnProfile={true}
-                onEditProfile={() => alert('Edit profile clicked')} />
-
+            <TTProfileHead 
+              user={sampleUser}
+              isOwnProfile={true}
+              onEditProfile={() => alert('Edit profile clicked')}
+            />
           </div>
         </div>
 
         {/* Community Cards Section */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">TTCommunityCard Components</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">TTCommunityCard Components</h2>
           <div className="tt-grid tt-grid-cols-4">
-            <TTCommunityCard
-                {...sampleCommunity}
-                onJoin={(id) => alert(`Join community ${id}`)}
-                onClick={() => alert('Community card clicked')} />
-
-            <TTCommunityCard
-                id="2"
-                name="Milonga Organizers Network"
-                description="Connect with milonga organizers across Buenos Aires to coordinate events and share resources."
-                memberCount={245}
-                category="Professional"
-                activeEvents={8}
-                rating={4.9}
-                isJoined={true} />
-
-            <TTCommunityCard
-                id="3"
-                name="Tango Musicians Guild"
-                description="A community for tango musicians, DJs, and orchestra members to collaborate and perform."
-                memberCount={512}
-                category="Music"
-                activeEvents={15}
-                location="Argentina" />
-
-            <TTCommunityCard
-                id="4"
-                name="Tango Practice Group"
-                description="Find practice partners and join informal practice sessions throughout the city."
-                memberCount={1823}
-                category="Practice"
-                activeEvents={31}
-                rating={4.6} />
-
+            <TTCommunityCard 
+              {...sampleCommunity}
+              onJoin={(id) => alert(`Join community ${id}`)}
+              onClick={() => alert('Community card clicked')}
+            />
+            <TTCommunityCard 
+              id="2"
+              name="Milonga Organizers Network"
+              description="Connect with milonga organizers across Buenos Aires to coordinate events and share resources."
+              memberCount={245}
+              category="Professional"
+              activeEvents={8}
+              rating={4.9}
+              isJoined={true}
+            />
+            <TTCommunityCard 
+              id="3"
+              name="Tango Musicians Guild"
+              description="A community for tango musicians, DJs, and orchestra members to collaborate and perform."
+              memberCount={512}
+              category="Music"
+              activeEvents={15}
+              location="Argentina"
+            />
+            <TTCommunityCard 
+              id="4"
+              name="Tango Practice Group"
+              description="Find practice partners and join informal practice sessions throughout the city."
+              memberCount={1823}
+              category="Practice"
+              activeEvents={31}
+              rating={4.6}
+            />
           </div>
         </div>
 
         {/* Back Button */}
         <div className="text-center mt-8">
-          <button
-              className="tt-btn tt-btn-secondary"
-              onClick={() => setLocation('/admin')} aria-label="Button" data-testid="button-tt-btn">
-
+          <button 
+            className="tt-btn tt-btn-secondary"
+            onClick={() => setLocation('/admin')}
+          >
             Back to Admin Center
           </button>
         </div>
         </div>
       </div>
-    </DashboardLayout>);
-
+    </DashboardLayout>
+  );
 };
 
 export default TTfilesDemo;

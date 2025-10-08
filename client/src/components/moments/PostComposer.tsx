@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  Camera,
-  Video,
-  MapPin,
-  Hash,
+import { 
+  Camera, 
+  Video, 
+  MapPin, 
+  Hash, 
   Globe,
   Lock,
   Users,
   X,
-  FolderOpen } from
-'lucide-react';
+  FolderOpen
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import MediaLibrary from '@/components/MediaLibrary';
@@ -24,10 +23,9 @@ export default function PostComposer() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [showExpandedComposer, setShowExpandedComposer] = useState(false);
-  const [newPost, setNewPost] = useState({
-  const { t } = useTranslation();
-    content: '',
-    tags: '',
+  const [newPost, setNewPost] = useState({ 
+    content: '', 
+    tags: '', 
     location: '',
     visibility: 'Public' as 'Public' | 'Friend' | 'Private'
   });
@@ -51,15 +49,15 @@ export default function PostComposer() {
 
         // Insert into memory_media table
         if (supabase) {
-          const { error } = await supabase.
-          from('memory_media').
-          insert({
-            memory_id: memoryId,
-            media_id: media.id,
-            caption: media.customCaption || '',
-            sort_order: media.sortOrder || 0,
-            tagged_by: user.id
-          });
+          const { error } = await supabase
+            .from('memory_media')
+            .insert({
+              memory_id: memoryId,
+              media_id: media.id,
+              caption: media.customCaption || '',
+              sort_order: media.sortOrder || 0,
+              tagged_by: user.id
+            });
 
           if (error) {
             console.error(`Error saving memory_media for ${media.id}:`, error);
@@ -80,16 +78,16 @@ export default function PostComposer() {
       const response = await apiRequest('/api/posts', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: postData
+        body: postData,
       });
       return response.json();
     },
     onSuccess: async (response: any) => {
       // Extract memoryId from response
       const memoryId = response?.data?.id || response?.id;
-
+      
       if (memoryId && reusedMedia.length > 0) {
         // Save reused media with metadata to memory_media table
         await saveReusedMediaToMemory(memoryId);
@@ -97,7 +95,7 @@ export default function PostComposer() {
 
       toast({
         title: "Moment shared",
-        description: "Your tango moment has been posted successfully."
+        description: "Your tango moment has been posted successfully.",
       });
       setShowExpandedComposer(false);
       setNewPost({ content: '', tags: '', location: '', visibility: 'Public' });
@@ -107,9 +105,9 @@ export default function PostComposer() {
     },
     onError: () => {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Failed to share your moment. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   });
@@ -120,7 +118,7 @@ export default function PostComposer() {
   };
 
   const removeReusedMedia = (mediaId: string) => {
-    setReusedMedia((prev) => prev.filter((m) => m.id !== mediaId));
+    setReusedMedia(prev => prev.filter(m => m.id !== mediaId));
   };
 
   const allMedia = [...uploadedMedia, ...reusedMedia];
@@ -130,21 +128,21 @@ export default function PostComposer() {
       toast({
         title: "Content required",
         description: "Please add some content to your moment.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
-    const imageMedia = allMedia.find((m) => m.type?.startsWith('image/') || m.contentType?.startsWith('image/'));
-    const videoMedia = allMedia.find((m) => m.type?.startsWith('video/') || m.contentType?.startsWith('video/'));
+    const imageMedia = allMedia.find(m => m.type?.startsWith('image/') || m.contentType?.startsWith('image/'));
+    const videoMedia = allMedia.find(m => m.type?.startsWith('video/') || m.contentType?.startsWith('video/'));
 
     const postData = {
       content: newPost.content,
-      hashtags: newPost.tags.split(',').map((tag) => tag.trim()).filter(Boolean),
+      hashtags: newPost.tags.split(',').map(tag => tag.trim()).filter(Boolean),
       location: newPost.location || undefined,
       imageUrl: imageMedia?.url,
       videoUrl: videoMedia?.url,
-      isPublic: newPost.visibility === 'Public'
+      isPublic: newPost.visibility === 'Public',
     };
 
     createPostMutation.mutate(postData);
@@ -152,63 +150,63 @@ export default function PostComposer() {
 
   const getVisibilityIcon = () => {
     switch (newPost.visibility) {
-      case 'Public':return <Globe className="h-4 w-4" />;
-      case 'Friend':return <Users className="h-4 w-4" />;
-      case 'Private':return <Lock className="h-4 w-4" />;
+      case 'Public': return <Globe className="h-4 w-4" />;
+      case 'Friend': return <Users className="h-4 w-4" />;
+      case 'Private': return <Lock className="h-4 w-4" />;
     }
   };
 
   return (
-    <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm border border-[var(--color-border)] p-6 mb-6">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
       {/* Modern Momento Composer */}
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] flex items-center justify-center text-white font-semibold">
-          {user?.profileImage ?
-          <img
-            src={user.profileImage}
-            alt=""
-            className="w-12 h-12 object-cover rounded-full" /> :
-
-
-          user?.name?.[0] || user?.username?.[0] || 'U'
-          }
+        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-turquoise-500 to-blue-500 flex items-center justify-center text-white font-semibold">
+          {user?.profileImage ? (
+            <img
+              src={user.profileImage}
+              alt=""
+              className="w-12 h-12 object-cover rounded-full"
+            />
+          ) : (
+            user?.name?.[0] || user?.username?.[0] || 'U'
+          )}
         </div>
         
         <div className="flex-1">
           <button
-            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
-            className="w-full text-left p-4 bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] rounded-xl border border-[var(--color-border)] transition-all duration-200 hover:border-[var(--color-ocean-300)] focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200" data-testid="button-w-full">
-
-            <span className="text-gray-500 dark:text-gray-400 font-medium">Share your tango moment...</span>
+            onClick={() => setShowExpandedComposer(true)}
+            className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200"
+          >
+            <span className="text-gray-500 font-medium">Share your tango moment...</span>
           </button>
           
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setShowExpandedComposer(true)} aria-label="Button"
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] px-3 py-2 rounded-lg hover:bg-[var(--color-ocean-50)] transition-all duration-200" data-testid="button-flex">
-
+                onClick={() => setShowExpandedComposer(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200"
+              >
                 <Camera className="h-4 w-4" />
                 <span className="text-sm font-medium">Photo</span>
               </button>
               <button
-                onClick={() => setShowExpandedComposer(true)} aria-label="Button"
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200" data-testid="button-flex">
-
+                onClick={() => setShowExpandedComposer(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
+              >
                 <Video className="h-4 w-4" />
                 <span className="text-sm font-medium">Video</span>
               </button>
               <button
-                onClick={() => setShowExpandedComposer(true)} aria-label="Button"
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200" data-testid="button-flex">
-
+                onClick={() => setShowExpandedComposer(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200"
+              >
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">Location</span>
               </button>
               <button
-                onClick={() => setShowMediaLibrary(true)} aria-label="Button"
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200" data-testid="button-flex">
-
+                onClick={() => setShowMediaLibrary(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200"
+              >
                 <FolderOpen className="h-4 w-4" />
                 <span className="text-sm font-medium">Reuse Media</span>
               </button>
@@ -218,155 +216,156 @@ export default function PostComposer() {
       </div>
 
       {/* Modern Expanded Composer Modal */}
-      {showExpandedComposer &&
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
+      {showExpandedComposer && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
             <div className="p-6">
               {/* Header */}
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] flex items-center justify-center text-white font-semibold">
-                    {user?.profileImage ?
-                  <img
-                    src={user.profileImage}
-                    alt=""
-                    className="w-10 h-10 object-cover rounded-full" /> :
-
-
-                  user?.name?.[0] || user?.username?.[0] || 'U'
-                  }
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-turquoise-500 to-blue-500 flex items-center justify-center text-white font-semibold">
+                    {user?.profileImage ? (
+                      <img
+                        src={user.profileImage}
+                        alt=""
+                        className="w-10 h-10 object-cover rounded-full"
+                      />
+                    ) : (
+                      user?.name?.[0] || user?.username?.[0] || 'U'
+                    )}
                   </div>
                   <div>
-                    <div className="font-semibold text-[var(--color-text)] dark:text-white">{user?.name}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                    <div className="font-semibold text-gray-900">{user?.name}</div>
+                    <div className="text-sm text-gray-500 flex items-center gap-1">
                       {getVisibilityIcon()}
                       <span className="capitalize">{newPost.visibility}</span>
                     </div>
                   </div>
                 </div>
                 <button
-                onClick={() => setShowExpandedComposer(false)} aria-label="Button"
-                className="p-2 hover:bg-[var(--color-neutral-100)] rounded-full transition-colors" data-testid="button-p-2">
-
-                  <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                  onClick={() => setShowExpandedComposer(false)}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <X className="h-5 w-5 text-gray-500" />
                 </button>
               </div>
               
               {/* Content */}
               <div className="space-y-5">
                 <textarea
-                placeholder="Share your tango moment with the community..."
-                value={newPost.content}
-                onChange={(e) => setNewPost((prev) => ({ ...prev, content: e.target.value }))}
-                className="w-full min-h-[140px] text-lg border-none resize-none focus:outline-none p-0 placeholder-gray-400" data-testid="textarea-w-full" />
-
+                  placeholder="Share your tango moment with the community..."
+                  value={newPost.content}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, content: e.target.value }))}
+                  className="w-full min-h-[140px] text-lg border-none resize-none focus:outline-none p-0 placeholder-gray-400"
+                />
                 
                 {/* Tags and Location */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative">
                     <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
-                    type="text"
-                    placeholder="Add tags (comma separated)"
-                    value={newPost.tags}
-                    onChange={(e) => setNewPost((prev) => ({ ...prev, tags: e.target.value)} aria-label="Input field")}
-                    className="w-full pl-10 pr-3 py-3 border border-[var(--color-border)] rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all" data-testid="input-text" />
-
+                      type="text"
+                      placeholder="Add tags (comma separated)"
+                      value={newPost.tags}
+                      onChange={(e) => setNewPost(prev => ({ ...prev, tags: e.target.value }))}
+                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
+                    />
                   </div>
                   <div className="relative">
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
-                    type="text"
-                    placeholder="Add location"
-                    value={newPost.location}
-                    onChange={(e) => setNewPost((prev) => ({ ...prev, location: e.target.value)} aria-label="Input field")}
-                    className="w-full pl-10 pr-3 py-3 border border-[var(--color-border)] rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all" data-testid="input-text" />
-
+                      type="text"
+                      placeholder="Add location"
+                      value={newPost.location}
+                      onChange={(e) => setNewPost(prev => ({ ...prev, location: e.target.value }))}
+                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
+                    />
                   </div>
                 </div>
 
                 {/* Media Display */}
-                {allMedia.length > 0 &&
-              <div className="space-y-3">
+                {allMedia.length > 0 && (
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-medium text-[var(--color-text-secondary)]">
+                      <h4 className="text-sm font-medium text-gray-700">
                         Attached Media ({allMedia.length})
                       </h4>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {allMedia.map((media, index) =>
-                  <div key={media.id || index} className="relative group">
-                          <div className="aspect-square rounded-lg overflow-hidden bg-[var(--color-neutral-100)]">
-                            {media.type?.startsWith('image/') || media.contentType?.startsWith('image/') ?
-                      <img
-                        src={media.url}
-                        alt={media.originalFilename || `Media ${index + 1}`}
-                        className="w-full h-full object-cover" /> :
-
-
-                      <div className="w-full h-full flex items-center justify-center">
+                      {allMedia.map((media, index) => (
+                        <div key={media.id || index} className="relative group">
+                          <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                            {(media.type?.startsWith('image/') || media.contentType?.startsWith('image/')) ? (
+                              <img
+                                src={media.url}
+                                alt={media.originalFilename || `Media ${index + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
                                 <Video className="w-8 h-8 text-gray-400" />
                               </div>
-                      }
+                            )}
                           </div>
                           <button
-                      onClick={() => {
-                        if (media.id) {
-                          removeReusedMedia(media.id);} else {
-                          setUploadedMedia((prev) => prev.filter((_, i) => i !== index));
-                        }
-                      }}
-                      className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" data-testid="button-absolute">
-
+                            onClick={() => {
+                              if (media.id) {
+                                removeReusedMedia(media.id);
+                              } else {
+                                setUploadedMedia(prev => prev.filter((_, i) => i !== index));
+                              }
+                            }}
+                            className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
                             <X className="w-3 h-3" />
                           </button>
-                          {media.originalFilename &&
-                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
+                          {media.originalFilename && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
                               {media.originalFilename}
                             </div>
-                    }
+                          )}
                         </div>
-                  )}
+                      ))}
                     </div>
                   </div>
-              }
+                )}
                 
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-5 border-t border-gray-100">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Visibility:</span>
+                    <span className="text-sm font-medium text-gray-600">Visibility:</span>
                     <div className="flex gap-2">
-                      {(['Public', 'Friend', 'Private'] as const).map((vis) =>
-                    <button
-                      key={vis}
-                      onClick={() => setNewPost((prev) => ({ ...prev, visibility: vis } aria-label="Button"))}
-                      className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 font-medium ${
-                      newPost.visibility === vis ?
-                      'bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] text-white' :
-                      'border border-[var(--color-border)] text-gray-600 dark:text-gray-300 hover:border-[var(--color-ocean-300)] hover:bg-[var(--color-ocean-50)]'}`
-                      } data-testid="button-element">
-
+                      {(['Public', 'Friend', 'Private'] as const).map((vis) => (
+                        <button
+                          key={vis}
+                          onClick={() => setNewPost(prev => ({ ...prev, visibility: vis }))}
+                          className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 font-medium ${
+                            newPost.visibility === vis
+                              ? 'bg-gradient-to-r from-turquoise-500 to-blue-500 text-white'
+                              : 'border border-gray-200 text-gray-600 hover:border-turquoise-300 hover:bg-turquoise-50'
+                          }`}
+                        >
                           {vis === 'Public' && <Globe className="h-3 w-3" />}
                           {vis === 'Friend' && <Users className="h-3 w-3" />}
                           {vis === 'Private' && <Lock className="h-3 w-3" />}
                           {vis}
                         </button>
-                    )}
+                      ))}
                     </div>
                   </div>
                   
                   <div className="flex gap-3">
                     <button
-                    onClick={() => setShowExpandedComposer(false)} aria-label="Button"
-                    className="px-5 py-2.5 border border-[var(--color-border)] text-gray-600 dark:text-gray-300 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors font-medium" data-testid="button-px-5">
-
+                      onClick={() => setShowExpandedComposer(false)}
+                      className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                    >
                       Cancel
                     </button>
-                    <button
-                    onClick={handleCreatePost}
-                    disabled={createPostMutation.isPending || !newPost.content.trim()}
-                    className="px-5 py-2.5 bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] text-white rounded-xl hover:from-turquoise-600 hover:to-[var(--color-ocean-600)] transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium" data-testid="button-px-5" aria-label="Button">
-
+                    <button 
+                      onClick={handleCreatePost}
+                      disabled={createPostMutation.isPending || !newPost.content.trim()}
+                      className="px-5 py-2.5 bg-gradient-to-r from-turquoise-500 to-blue-500 text-white rounded-xl hover:from-turquoise-600 hover:to-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                    >
                       {createPostMutation.isPending ? 'Sharing...' : 'Share Moment'}
                     </button>
                   </div>
@@ -375,16 +374,16 @@ export default function PostComposer() {
             </div>
           </div>
         </div>
-      }
+      )}
 
       {/* MediaLibrary Modal for Reusing Existing Media */}
-      {showMediaLibrary &&
-      <MediaLibrary
-        onClose={() => setShowMediaLibrary(false)}
-        onMediaSelected={handleMediaSelected}
-        selectOnly={true} />
-
-      }
-    </div>);
-
+      {showMediaLibrary && (
+        <MediaLibrary
+          onClose={() => setShowMediaLibrary(false)}
+          onMediaSelected={handleMediaSelected}
+          selectOnly={true}
+        />
+      )}
+    </div>
+  );
 }

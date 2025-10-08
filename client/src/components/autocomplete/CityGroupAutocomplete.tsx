@@ -42,7 +42,7 @@ export default function CityGroupAutocomplete({
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [inputValue, setInputValue] = useState(value?.name || '');
-
+  
   const debouncedSearch = useDebounce(searchTerm, 300);
 
   // Update input when value changes externally
@@ -57,19 +57,19 @@ export default function CityGroupAutocomplete({
       const response = await fetch('/api/groups', {
         credentials: 'include'
       });
-
+      
       if (!response.ok) throw new Error('Failed to fetch groups');
       const result = await response.json();
-
+      
       // Filter for city groups and apply search
-      const cities = (result.data || []).filter((group: CityGroup) =>
-      group.type === 'city' && (
-      !debouncedSearch || group.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+      const cities = (result.data || []).filter((group: CityGroup) => 
+        group.type === 'city' && 
+        (!debouncedSearch || group.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
       );
-
+      
       // Sort by member count
-      return cities.sort((a: CityGroup, b: CityGroup) =>
-      (b.memberCount || 0) - (a.memberCount || 0)
+      return cities.sort((a: CityGroup, b: CityGroup) => 
+        (b.memberCount || 0) - (a.memberCount || 0)
       );
     },
     enabled: isOpen
@@ -80,7 +80,7 @@ export default function CityGroupAutocomplete({
     setInputValue(value);
     setSearchTerm(value);
     setIsOpen(true);
-
+    
     // Clear selection if input is cleared
     if (!value) {
       onSelect(null);
@@ -103,7 +103,7 @@ export default function CityGroupAutocomplete({
 
   // Extract city and country from group name (e.g., "Buenos Aires, Argentina")
   const parseCityName = (name: string) => {
-    const parts = name.split(',').map((p) => p.trim());
+    const parts = name.split(',').map(p => p.trim());
     return {
       city: parts[0] || name,
       country: parts[1] || ''
@@ -112,11 +112,11 @@ export default function CityGroupAutocomplete({
 
   return (
     <div className="relative">
-      {label &&
-      <Label htmlFor="city-search" className="mb-2">
+      {label && (
+        <Label htmlFor="city-search" className="mb-2">
           {label} {required && <span className="text-red-500">*</span>}
         </Label>
-      }
+      )}
       
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -129,109 +129,109 @@ export default function CityGroupAutocomplete({
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           placeholder={placeholder}
           className="pl-10"
-          required={required} data-testid="input-city-search" />
-
+          required={required}
+        />
       </div>
 
       {/* Selected city display */}
-      {value &&
-      <div className="mt-2 p-3 bg-[var(--color-ocean-50)] dark:bg-turquoise-900/20 rounded-lg border border-turquoise-200">
+      {value && (
+        <div className="mt-2 p-3 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg border border-turquoise-200">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[var(--color-primary-hover)]" />
-                <span className="font-medium text-[var(--color-text)] dark:text-gray-100">{value.name}</span>
+                <MapPin className="w-4 h-4 text-turquoise-600" />
+                <span className="font-medium text-gray-900 dark:text-gray-100">{value.name}</span>
               </div>
-              {value.memberCount !== undefined &&
-            <div className="flex items-center gap-1 mt-1 text-sm text-gray-600 dark:text-gray-400">
+              {value.memberCount !== undefined && (
+                <div className="flex items-center gap-1 mt-1 text-sm text-gray-600 dark:text-gray-400">
                   <Users className="w-3 h-3" />
                   <span>{value.memberCount} members</span>
                 </div>
-            }
+              )}
             </div>
             <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => onSelect(null)}
-            className="text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]" data-testid="button-text-gray-500 dark:text-gray-400">
-
+              size="sm"
+              variant="ghost"
+              onClick={() => onSelect(null)}
+              className="text-gray-500 hover:text-gray-700"
+            >
               Clear
             </Button>
           </div>
         </div>
-      }
+      )}
 
       {/* Dropdown */}
-      {isOpen &&
-      <Card className="absolute z-50 w-full mt-1 max-h-80 overflow-auto shadow-lg">
-          {isLoading &&
-        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+      {isOpen && (
+        <Card className="absolute z-50 w-full mt-1 max-h-80 overflow-auto shadow-lg">
+          {isLoading && (
+            <div className="p-4 text-center text-gray-500">
               Loading cities...
             </div>
-        }
+          )}
 
-          {!isLoading && cityGroups && cityGroups.length > 0 &&
-        <div className="py-1">
+          {!isLoading && cityGroups && cityGroups.length > 0 && (
+            <div className="py-1">
               {cityGroups.map((cityGroup: CityGroup) => {
-            const { city, country } = parseCityName(cityGroup.name);
-            return (
-              <button
-                key={cityGroup.id}
-                onClick={() => handleSelectCity(cityGroup)} aria-label="Button"
-                className="w-full px-4 py-3 text-left hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
-
+                const { city, country } = parseCityName(cityGroup.name);
+                return (
+                  <button
+                    key={cityGroup.id}
+                    onClick={() => handleSelectCity(cityGroup)}
+                    className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 text-[var(--color-primary)] mt-0.5" />
+                        <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5" />
                         <div>
-                          <div className="font-medium text-[var(--color-text)] dark:text-gray-100">
+                          <div className="font-medium text-gray-900 dark:text-gray-100">
                             {city}
                           </div>
-                          {country &&
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                          {country && (
+                            <div className="text-sm text-gray-600 dark:text-gray-400">
                               {country}
                             </div>
-                      }
+                          )}
                         </div>
                       </div>
-                      {cityGroup.memberCount !== undefined &&
-                  <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
+                      {cityGroup.memberCount !== undefined && (
+                        <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
                           <Users className="w-3 h-3" />
                           <span>{cityGroup.memberCount}</span>
                         </div>
-                  }
+                      )}
                     </div>
-                  </button>);
-
-          })}
+                  </button>
+                );
+              })}
             </div>
-        }
+          )}
 
-          {!isLoading && debouncedSearch && (!cityGroups || cityGroups.length === 0) &&
-        <div className="p-4">
-              <p className="text-center text-gray-500 dark:text-gray-400 mb-3">
+          {!isLoading && debouncedSearch && (!cityGroups || cityGroups.length === 0) && (
+            <div className="p-4">
+              <p className="text-center text-gray-500 mb-3">
                 No cities found matching "{debouncedSearch}"
               </p>
-              {allowCreate &&
-          <Button
-            onClick={handleCreateNew}
-            variant="outline"
-            className="w-full" data-testid="button-w-full">
-
+              {allowCreate && (
+                <Button
+                  onClick={handleCreateNew}
+                  variant="outline"
+                  className="w-full"
+                >
                   <Plus className="w-4 h-4 mr-2" />
                   Add New City
                 </Button>
-          }
+              )}
             </div>
-        }
+          )}
 
-          {!isLoading && !debouncedSearch && cityGroups && cityGroups.length > 0 &&
-        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+          {!isLoading && !debouncedSearch && cityGroups && cityGroups.length > 0 && (
+            <div className="p-4 text-center text-gray-500">
               Showing all cities
             </div>
-        }
+          )}
         </Card>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 }

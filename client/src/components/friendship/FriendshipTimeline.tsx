@@ -117,11 +117,11 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
           {stats && (
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{stats.totalDances || 0}</div>
+                <div className="text-2xl font-bold text-turquoise-600">{stats.totalDances || 0}</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Dances</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{stats.sharedEvents || 0}</div>
+                <div className="text-2xl font-bold text-cyan-600">{stats.sharedEvents || 0}</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Events</div>
               </div>
               <div>
@@ -231,7 +231,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                     </div>
 
                     {event.description && (
-                      <p className="text-[var(--color-text-secondary)] dark:text-gray-300 mb-2">{event.description}</p>
+                      <p className="text-gray-700 dark:text-gray-300 mb-2">{event.description}</p>
                     )}
 
                     {/* Event-specific content */}

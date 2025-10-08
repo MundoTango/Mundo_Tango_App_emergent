@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 
 // Define subscription tiers
 const SUBSCRIPTION_TIERS = {
-  'free': { name: 'Free Tier', price: 0, color: 'bg-[var(--color-neutral-100)]' },
+  'free': { name: 'Free Tier', price: 0, color: 'bg-gray-100' },
   'basic': { name: 'Basic ($5/mo)', price: 5, color: 'bg-turquoise-100' },
   'enthusiast': { name: 'Enthusiast ($9.99/mo)', price: 9.99, color: 'bg-cyan-100' },
   'professional': { name: 'Professional ($24.99/mo)', price: 24.99, color: 'bg-blue-100' },
@@ -32,18 +32,18 @@ const SubscriptionManagement: React.FC = () => {
   // Fetch feature flags and their tier mappings
   const { data: flagsData, isLoading } = useQuery({
     queryKey: ['/api/admin/subscription/feature-flags'],
-    enabled: true
+    enabled: true,
   });
 
   // Fetch subscription analytics
   const { data: analyticsData } = useQuery({
     queryKey: ['/api/admin/subscription/analytics'],
-    enabled: true
+    enabled: true,
   });
 
   // Update feature flag tier mapping
   const updateMappingMutation = useMutation({
-    mutationFn: async (data: {flag: string;tiers: string[];}) => {
+    mutationFn: async (data: { flag: string, tiers: string[] }) => {
       return apiRequest('PUT', '/api/admin/subscription/feature-mapping', {
         body: data
       });
@@ -56,22 +56,22 @@ const SubscriptionManagement: React.FC = () => {
   });
 
   const handleTierToggle = (flagKey: string, tier: string, isEnabled: boolean) => {
-    setFeatureMappings((prev) => {
-      const mapping = prev.find((m) => m.flag === flagKey);
+    setFeatureMappings(prev => {
+      const mapping = prev.find(m => m.flag === flagKey);
       if (!mapping) return prev;
-
-      const newTiers = isEnabled ?
-      [...mapping.tiers, tier] :
-      mapping.tiers.filter((t) => t !== tier);
-
-      return prev.map((m) =>
-      m.flag === flagKey ? { ...m, tiers: newTiers } : m
+      
+      const newTiers = isEnabled 
+        ? [...mapping.tiers, tier]
+        : mapping.tiers.filter(t => t !== tier);
+      
+      return prev.map(m => 
+        m.flag === flagKey ? { ...m, tiers: newTiers } : m
       );
     });
   };
 
   const saveChanges = () => {
-    featureMappings.forEach((mapping) => {
+    featureMappings.forEach(mapping => {
       updateMappingMutation.mutate({ flag: mapping.flag, tiers: mapping.tiers });
     });
   };
@@ -86,8 +86,8 @@ const SubscriptionManagement: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin w-8 h-8 border-4 border-turquoise-500 border-t-transparent rounded-full" />
-      </div>);
-
+      </div>
+    );
   }
 
   return (
@@ -102,22 +102,22 @@ const SubscriptionManagement: React.FC = () => {
         <TabsContent value="features" className="space-y-4">
           {/* Header with Edit/Save button */}
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Feature Flag → Subscription Tier Mapping</h3>
+            <h3 className="text-xl font-semibold text-gray-800">Feature Flag → Subscription Tier Mapping</h3>
             <Button
               onClick={() => editMode ? saveChanges() : setEditMode(true)}
-              className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="button-bg-gradient-to-r">
-
-              {editMode ?
-              <>
+              className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
+            >
+              {editMode ? (
+                <>
                   <Save className="w-4 h-4 mr-2" />
                   Save Changes
-                </> :
-
-              <>
+                </>
+              ) : (
+                <>
                   <Edit2 className="w-4 h-4 mr-2" />
                   Edit Mappings
                 </>
-              }
+              )}
             </Button>
           </div>
 
@@ -125,11 +125,11 @@ const SubscriptionManagement: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-3">
-                {Object.entries(SUBSCRIPTION_TIERS).map(([key, tier]) =>
-                <div key={key} className={`px-3 py-1 rounded-full ${tier.color} text-sm font-medium`}>
+                {Object.entries(SUBSCRIPTION_TIERS).map(([key, tier]) => (
+                  <div key={key} className={`px-3 py-1 rounded-full ${tier.color} text-sm font-medium`}>
                     {tier.name}
                   </div>
-                )}
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -150,37 +150,37 @@ const SubscriptionManagement: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {featureMappings.map((mapping, index) =>
-                    <tr key={mapping.flag} className={index % 2 === 0 ? 'bg-[var(--color-surface)] dark:bg-gray-900' : 'bg-[var(--color-surface-elevated)]'}>
+                    {featureMappings.map((mapping, index) => (
+                      <tr key={mapping.flag} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                         <td className="p-4">
                           <div>
-                            <div className="font-medium text-[var(--color-text)] dark:text-white">
-                              {mapping.flag.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                            <div className="font-medium text-gray-900">
+                              {mapping.flag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                             </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{mapping.description}</div>
+                            <div className="text-sm text-gray-500">{mapping.description}</div>
                           </div>
                         </td>
-                        {Object.keys(SUBSCRIPTION_TIERS).map((tier) =>
-                      <td key={tier} className="text-center p-4">
-                            {editMode ?
-                        <Switch
-                          checked={mapping.tiers.includes(tier)}
-                          onCheckedChange={(checked) => handleTierToggle(mapping.flag, tier, checked)}
-                          className="mx-auto" /> :
-
-
-                        <div className="flex justify-center">
-                                {mapping.tiers.includes(tier) ?
-                          <Check className="w-5 h-5 text-green-600" /> :
-
-                          <X className="w-5 h-5 text-gray-300" />
-                          }
+                        {Object.keys(SUBSCRIPTION_TIERS).map(tier => (
+                          <td key={tier} className="text-center p-4">
+                            {editMode ? (
+                              <Switch
+                                checked={mapping.tiers.includes(tier)}
+                                onCheckedChange={(checked) => handleTierToggle(mapping.flag, tier, checked)}
+                                className="mx-auto"
+                              />
+                            ) : (
+                              <div className="flex justify-center">
+                                {mapping.tiers.includes(tier) ? (
+                                  <Check className="w-5 h-5 text-green-600" />
+                                ) : (
+                                  <X className="w-5 h-5 text-gray-300" />
+                                )}
                               </div>
-                        }
+                            )}
                           </td>
-                      )}
+                        ))}
                       </tr>
-                    )}
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -193,13 +193,13 @@ const SubscriptionManagement: React.FC = () => {
             {/* Subscription Metrics Cards */}
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Subscribers</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Total Subscribers</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+                <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.totalSubscribers || 0}
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-sm text-gray-500 mt-1">
                   <TrendingUp className="w-4 h-4 inline text-green-500" /> +12% this month
                 </div>
               </CardContent>
@@ -207,13 +207,13 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Monthly Revenue</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Monthly Revenue</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+                <div className="text-2xl font-bold text-gray-900">
                   ${analyticsData?.monthlyRevenue || 0}
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-sm text-gray-500 mt-1">
                   <DollarSign className="w-4 h-4 inline text-green-500" /> $5 ARPU
                 </div>
               </CardContent>
@@ -221,13 +221,13 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Conversion Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Conversion Rate</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+                <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.conversionRate || 0}%
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-sm text-gray-500 mt-1">
                   Free → Paid conversion
                 </div>
               </CardContent>
@@ -235,13 +235,13 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Churn Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Churn Rate</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
+                <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.churnRate || 0}%
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-sm text-gray-500 mt-1">
                   Monthly churn
                 </div>
               </CardContent>
@@ -257,10 +257,10 @@ const SubscriptionManagement: React.FC = () => {
               <div className="space-y-4">
                 {Object.entries(SUBSCRIPTION_TIERS).map(([key, tier]) => {
                   const count = analyticsData?.tierDistribution?.[key] || 0;
-                  const percentage = analyticsData?.totalSubscribers ?
-                  (count / analyticsData.totalSubscribers * 100).toFixed(1) :
-                  0;
-
+                  const percentage = analyticsData?.totalSubscribers 
+                    ? (count / analyticsData.totalSubscribers * 100).toFixed(1)
+                    : 0;
+                  
                   return (
                     <div key={key} className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -268,11 +268,11 @@ const SubscriptionManagement: React.FC = () => {
                         <span className="font-medium">{tier.name}</span>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="text-gray-600 dark:text-gray-300">{count} users</span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">({percentage}%)</span>
+                        <span className="text-gray-600">{count} users</span>
+                        <span className="text-sm text-gray-500">({percentage}%)</span>
                       </div>
-                    </div>);
-
+                    </div>
+                  );
                 })}
               </div>
             </CardContent>
@@ -286,17 +286,17 @@ const SubscriptionManagement: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {analyticsData?.recentActivity?.map((activity: any, index: number) =>
-                <div key={index} className="flex items-start gap-3 pb-3 border-b last:border-0">
+                {analyticsData?.recentActivity?.map((activity: any, index: number) => (
+                  <div key={index} className="flex items-start gap-3 pb-3 border-b last:border-0">
                     <div className={`w-2 h-2 rounded-full mt-2 ${
-                  activity.type === 'upgrade' ? 'bg-green-500' :
-                  activity.type === 'downgrade' ? 'bg-orange-500' :
-                  activity.type === 'cancel' ? 'bg-red-500' :
-                  'bg-blue-500'}`
-                  } />
+                      activity.type === 'upgrade' ? 'bg-green-500' :
+                      activity.type === 'downgrade' ? 'bg-orange-500' :
+                      activity.type === 'cancel' ? 'bg-red-500' :
+                      'bg-blue-500'
+                    }`} />
                     <div className="flex-1">
-                      <div className="font-medium text-[var(--color-text)] dark:text-white">{activity.userName}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">
+                      <div className="font-medium text-gray-900">{activity.userName}</div>
+                      <div className="text-sm text-gray-600">
                         {activity.type === 'upgrade' && `Upgraded to ${activity.toTier}`}
                         {activity.type === 'downgrade' && `Downgraded to ${activity.toTier}`}
                         {activity.type === 'cancel' && 'Cancelled subscription'}
@@ -305,19 +305,19 @@ const SubscriptionManagement: React.FC = () => {
                       <div className="text-xs text-gray-400 mt-1">{activity.timestamp}</div>
                     </div>
                   </div>
-                ) ||
-                <div className="text-center text-gray-500 dark:text-gray-400 py-8">
+                )) || (
+                  <div className="text-center text-gray-500 py-8">
                     <Activity className="w-12 h-12 mx-auto mb-2 text-gray-300" />
                     No recent activity
                   </div>
-                }
+                )}
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
-    </div>);
-
+    </div>
+  );
 };
 
 export default SubscriptionManagement;

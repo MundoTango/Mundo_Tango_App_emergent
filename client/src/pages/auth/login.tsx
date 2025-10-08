@@ -51,12 +51,12 @@ export default function Login() {
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-300/20 to-blue-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-[var(--color-surface)] dark:bg-gray-900/90 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8 relative">
           <MTFormButton
             variant="outline"
             onClick={() => navigate("/")}
-            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white border-0 shadow-none px-2 py-1"
+            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 border-0 shadow-none px-2 py-1"
             data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -64,7 +64,7 @@ export default function Login() {
           </MTFormButton>
           
           <div className="mx-auto relative">
-            <div className="w-20 h-20 bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
+            <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
               <Heart className="text-white w-10 h-10 animate-pulse" />
             </div>
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-cyan-400 rounded-full animate-bounce" />
@@ -74,7 +74,7 @@ export default function Login() {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
               Welcome Back
             </CardTitle>
-            <CardDescription className="text-gray-600 dark:text-gray-300 mt-2 flex items-center justify-center gap-2">
+            <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2">
               <Globe className="h-4 w-4" />
               Sign in to your Mundo Tango account
             </CardDescription>
@@ -111,19 +111,18 @@ export default function Login() {
             />
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
                 <input
                   type="checkbox"
                   {...form.register("rememberMe")}
-                  className="rounded border-gray-300 dark:border-gray-600 text-[var(--color-primary-hover)] focus:ring-teal-500"
-              aria-label="Input field"
-            />
+                  className="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                />
                 Remember me
               </label>
               
               <Link 
                 href="/forgot-password" 
-                className="text-sm text-[var(--color-primary-hover)] hover:text-[var(--color-primary-hover)] font-medium hover:underline transition-colors"
+                className="text-sm text-teal-600 hover:text-teal-700 font-medium hover:underline transition-colors"
               >
                 Forgot password?
               </Link>
@@ -143,10 +142,10 @@ export default function Login() {
 
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[var(--color-border)]"></div>
+              <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-[var(--color-surface)] text-gray-500 dark:text-gray-400">Or continue with</span>
+              <span className="px-4 bg-white text-gray-500">Or continue with</span>
             </div>
           </div>
 
@@ -201,12 +200,12 @@ export default function Login() {
             </MTFormButton>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-[var(--color-border)] text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p className="text-sm text-gray-600">
               Don't have an account?{" "}
               <Link 
                 href="/register" 
-                className="text-[var(--color-primary-hover)] hover:text-[var(--color-primary-hover)] font-semibold underline underline-offset-2 transition-colors"
+                className="text-teal-600 hover:text-teal-700 font-semibold underline underline-offset-2 transition-colors"
                 data-testid="link-register"
               >
                 Sign up here

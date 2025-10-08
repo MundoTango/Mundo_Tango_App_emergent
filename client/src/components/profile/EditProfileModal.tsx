@@ -18,21 +18,21 @@ interface EditProfileModalProps {
 }
 
 const tangoRoles = [
-{ value: 'leader', label: 'Leader' },
-{ value: 'follower', label: 'Follower' },
-{ value: 'both', label: 'Both' },
-{ value: 'teacher', label: 'Teacher' },
-{ value: 'dj', label: 'DJ' },
-{ value: 'organizer', label: 'Organizer' },
-{ value: 'musician', label: 'Musician' }];
-
+  { value: 'leader', label: 'Leader' },
+  { value: 'follower', label: 'Follower' },
+  { value: 'both', label: 'Both' },
+  { value: 'teacher', label: 'Teacher' },
+  { value: 'dj', label: 'DJ' },
+  { value: 'organizer', label: 'Organizer' },
+  { value: 'musician', label: 'Musician' }
+];
 
 const experienceLevels = [
-{ value: '0', label: 'Beginner (< 1 year)' },
-{ value: '1', label: 'Intermediate (1-3 years)' },
-{ value: '2', label: 'Advanced (3-5 years)' },
-{ value: '3', label: 'Expert (5+ years)' }];
-
+  { value: '0', label: 'Beginner (< 1 year)' },
+  { value: '1', label: 'Intermediate (1-3 years)' },
+  { value: '2', label: 'Advanced (3-5 years)' },
+  { value: '3', label: 'Expert (5+ years)' }
+];
 
 export default function EditProfileModal({ open, onClose, user }: EditProfileModalProps) {
   const { toast } = useToast();
@@ -112,8 +112,8 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
     }
   });
 
-  const handleLocationSelect = (location: {city: string;country: string;}) => {
-    setFormData((prev) => ({
+  const handleLocationSelect = (location: { city: string; country: string }) => {
+    setFormData(prev => ({
       ...prev,
       city: location.city,
       country: location.country
@@ -122,7 +122,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     const dataToSubmit = {
       ...formData,
       yearsOfDancing: formData.yearsOfDancing ? parseInt(formData.yearsOfDancing) : null,
@@ -151,7 +151,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Basic Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
             
             <div className="space-y-2">
               <Label htmlFor="name">
@@ -161,9 +161,9 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <Input
                 id="name"
                 value={formData.name}
-                onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                placeholder="Your display name" data-testid="input-name" />
-
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                placeholder="Your display name"
+              />
             </div>
 
             <div className="space-y-2">
@@ -171,12 +171,12 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <Textarea
                 id="bio"
                 value={formData.bio}
-                onChange={(e) => setFormData((prev) => ({ ...prev, bio: e.target.value }))}
+                onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
                 placeholder="Tell us about yourself and your tango journey..."
                 rows={4}
-                maxLength={500} data-testid="textarea-bio" />
-
-              <p className="text-xs text-gray-500 dark:text-gray-400">{formData.bio.length}/500 characters</p>
+                maxLength={500}
+              />
+              <p className="text-xs text-gray-500">{formData.bio.length}/500 characters</p>
             </div>
 
             <div className="space-y-2">
@@ -188,14 +188,14 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 value={formData.city}
                 onChange={handleLocationSelect}
                 placeholder="Select your city"
-                showBusinesses={false} />
-
+                showBusinesses={false}
+              />
             </div>
           </div>
 
           {/* Tango Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Tango Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Tango Information</h3>
             
             <div className="space-y-2">
               <Label>
@@ -203,28 +203,29 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 Tango Roles
               </Label>
               <div className="grid grid-cols-2 gap-2">
-                {tangoRoles.map((role) =>
-                <label key={role.value} className="flex items-center space-x-2">
+                {tangoRoles.map(role => (
+                  <label key={role.value} className="flex items-center space-x-2">
                     <input
-                    type="checkbox"
-                    checked={formData.tangoRoles.includes(role.value)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setFormData((prev) => ({
-                          ...prev,
-                          tangoRoles: [...prev.tangoRoles, role.value]} aria-label="Input field"));
-                      } else {
-                        setFormData((prev) => ({
-                          ...prev,
-                          tangoRoles: prev.tangoRoles.filter((r) => r !== role.value)
-                        }));
-                      }
-                    }}
-                    className="rounded border-gray-300 dark:border-gray-600" data-testid="input-checkbox" />
-
+                      type="checkbox"
+                      checked={formData.tangoRoles.includes(role.value)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setFormData(prev => ({
+                            ...prev,
+                            tangoRoles: [...prev.tangoRoles, role.value]
+                          }));
+                        } else {
+                          setFormData(prev => ({
+                            ...prev,
+                            tangoRoles: prev.tangoRoles.filter(r => r !== role.value)
+                          }));
+                        }
+                      }}
+                      className="rounded border-gray-300"
+                    />
                     <span className="text-sm">{role.label}</span>
                   </label>
-                )}
+                ))}
               </div>
             </div>
 
@@ -236,9 +237,9 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   type="number"
                   min="0"
                   value={formData.yearsOfDancing}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, yearsOfDancing: e.target.value }))}
-                  placeholder="Years" data-testid="input-yearsofdancing" />
-
+                  onChange={(e) => setFormData(prev => ({ ...prev, yearsOfDancing: e.target.value }))}
+                  placeholder="Years"
+                />
               </div>
 
               <div className="space-y-2">
@@ -249,11 +250,11 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   placeholder="e.g., English, Spanish, Italian"
                   value={formData.languages.join(', ')}
-                  onChange={(e) => setFormData((prev) => ({
+                  onChange={(e) => setFormData(prev => ({
                     ...prev,
-                    languages: e.target.value.split(',').map((l) => l.trim()).filter(Boolean)
-                  }))} data-testid="input-element" />
-
+                    languages: e.target.value.split(',').map(l => l.trim()).filter(Boolean)
+                  }))}
+                />
               </div>
             </div>
 
@@ -262,17 +263,17 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Label>Leader Level</Label>
                 <Select
                   value={formData.leaderLevel}
-                  onValueChange={(value) => setFormData((prev) => ({ ...prev, leaderLevel: value }))} data-testid="select-element">
-
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, leaderLevel: value }))}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select level" />
                   </SelectTrigger>
                   <SelectContent>
-                    {experienceLevels.map((level) =>
-                    <SelectItem key={level.value} value={level.value}>
+                    {experienceLevels.map(level => (
+                      <SelectItem key={level.value} value={level.value}>
                         {level.label}
                       </SelectItem>
-                    )}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -281,17 +282,17 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Label>Follower Level</Label>
                 <Select
                   value={formData.followerLevel}
-                  onValueChange={(value) => setFormData((prev) => ({ ...prev, followerLevel: value }))} data-testid="select-element">
-
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, followerLevel: value }))}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select level" />
                   </SelectTrigger>
                   <SelectContent>
-                    {experienceLevels.map((level) =>
-                    <SelectItem key={level.value} value={level.value}>
+                    {experienceLevels.map(level => (
+                      <SelectItem key={level.value} value={level.value}>
                         {level.label}
                       </SelectItem>
-                    )}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -300,7 +301,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Social Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Social Links</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Social Links</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -308,9 +309,9 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="instagram"
                   value={formData.instagram}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, instagram: e.target.value }))}
-                  placeholder="@username" data-testid="input-instagram" />
-
+                  onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
+                  placeholder="@username"
+                />
               </div>
 
               <div className="space-y-2">
@@ -318,9 +319,9 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="facebook"
                   value={formData.facebook}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, facebook: e.target.value }))}
-                  placeholder="facebook.com/username" data-testid="input-facebook" />
-
+                  onChange={(e) => setFormData(prev => ({ ...prev, facebook: e.target.value }))}
+                  placeholder="facebook.com/username"
+                />
               </div>
 
               <div className="space-y-2">
@@ -328,9 +329,9 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="twitter"
                   value={formData.twitter}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, twitter: e.target.value }))}
-                  placeholder="@username" data-testid="input-twitter" />
-
+                  onChange={(e) => setFormData(prev => ({ ...prev, twitter: e.target.value }))}
+                  placeholder="@username"
+                />
               </div>
 
               <div className="space-y-2">
@@ -341,9 +342,9 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="website"
                   value={formData.website}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
-                  placeholder="https://..." data-testid="input-website" />
-
+                  onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                  placeholder="https://..."
+                />
               </div>
             </div>
           </div>
@@ -353,23 +354,23 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               type="button"
               variant="outline"
               onClick={onClose}
-              disabled={updateProfileMutation.isPending} data-testid="button-button">
-
+              disabled={updateProfileMutation.isPending}
+            >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={updateProfileMutation.isPending}
-              className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white" data-testid="button-submit">
-
-              {updateProfileMutation.isPending &&
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              }
+              className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
+            >
+              {updateProfileMutation.isPending && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Save Changes
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
-    </Dialog>);
-
+    </Dialog>
+  );
 }

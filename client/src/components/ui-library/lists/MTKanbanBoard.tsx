@@ -155,7 +155,7 @@ export default function MTKanbanBoard({
     if (diffDays === 0) return { text: 'Today', color: 'text-orange-600' };
     if (diffDays === 1) return { text: 'Tomorrow', color: 'text-yellow-600' };
     if (diffDays <= 7) return { text: `${diffDays} days`, color: 'text-blue-600' };
-    return { text: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }), color: 'text-gray-600 dark:text-gray-300' };
+    return { text: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }), color: 'text-gray-600' };
   };
 
   const containerStyles = glassmorphic ? applyGlassmorphism() : {};
@@ -173,8 +173,8 @@ export default function MTKanbanBoard({
         onDragStart={(e) => handleDragStart(e, card, columnId)}
         className={cn(
           'p-3 rounded-lg cursor-move',
-          'bg-[var(--color-surface)] dark:bg-gray-800',
-          'border border-[var(--color-border)]/50 dark:border-gray-700/50',
+          'bg-white dark:bg-gray-800',
+          'border border-gray-200/50 dark:border-gray-700/50',
           'hover:shadow-lg hover:scale-[1.02] transition-all duration-200',
           draggedCard?.card.id === card.id && 'opacity-50',
           cardClassName
@@ -188,7 +188,7 @@ export default function MTKanbanBoard({
         )}
 
         {/* Title */}
-        <h4 className="font-medium text-[var(--color-text)] dark:text-gray-100 text-sm mb-1">
+        <h4 className="font-medium text-gray-900 dark:text-gray-100 text-sm mb-1">
           {card.title}
         </h4>
 
@@ -217,13 +217,13 @@ export default function MTKanbanBoard({
         {/* Progress */}
         {showProgress && card.progress !== undefined && (
           <div className="mb-2">
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+            <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
               <span>Progress</span>
               <span>{card.progress}%</span>
             </div>
             <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[var(--color-ocean-400)] to-teal-600 rounded-full transition-all duration-300"
+                className="h-full bg-gradient-to-r from-teal-400 to-teal-600 rounded-full transition-all duration-300"
                 style={{ width: `${card.progress}%` }}
               />
             </div>
@@ -243,7 +243,7 @@ export default function MTKanbanBoard({
                     className="w-5 h-5 rounded-full"
                   />
                 ) : (
-                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[var(--color-ocean-400)] to-[var(--color-ocean-600)] flex items-center justify-center text-white text-xs">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-teal-400 to-blue-600 flex items-center justify-center text-white text-xs">
                     {card.assignee.name.charAt(0)}
                   </div>
                 )}
@@ -258,7 +258,7 @@ export default function MTKanbanBoard({
             )}
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-2 text-xs text-gray-500">
             {/* Attachments */}
             {card.attachments && card.attachments > 0 && (
               <span className="flex items-center gap-0.5">
@@ -283,8 +283,9 @@ export default function MTKanbanBoard({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onCardEdit(card, columnId);}} aria-label="Button"
-                  className="p-1 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 rounded"
+                    onCardEdit(card, columnId);
+                  }}
+                  className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                 >
                   <Edit className="w-3 h-3" />
                 </button>
@@ -293,7 +294,8 @@ export default function MTKanbanBoard({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onCardDelete(card.id, columnId);}} aria-label="Button"
+                    onCardDelete(card.id, columnId);
+                  }}
                   className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded"
                 >
                   <Trash className="w-3 h-3 text-red-600" />
@@ -328,7 +330,7 @@ export default function MTKanbanBoard({
               key={column.id}
               className={cn(
                 'flex-shrink-0 w-80',
-                'bg-[var(--color-surface-elevated)]/50 dark:bg-gray-800/50 rounded-xl',
+                'bg-gray-50/50 dark:bg-gray-800/50 rounded-xl',
                 dragOverColumn === column.id && 'ring-2 ring-teal-400',
                 columnClassName
               )}
@@ -338,7 +340,7 @@ export default function MTKanbanBoard({
               data-testid={`${testId}-column-${column.id}`}
             >
               {/* Column Header */}
-              <div className="p-3 border-b border-[var(--color-border)]/50 dark:border-gray-700/50">
+              <div className="p-3 border-b border-gray-200/50 dark:border-gray-700/50">
                 {renderColumnHeader ? (
                   renderColumnHeader(column)
                 ) : (
@@ -350,10 +352,10 @@ export default function MTKanbanBoard({
                           style={{ backgroundColor: column.color }}
                         />
                       )}
-                      <h3 className="font-semibold text-[var(--color-text)] dark:text-gray-100">
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                         {column.title}
                       </h3>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                      <span className="text-sm text-gray-500">
                         {column.cards.length}
                       </span>
                       {showWipLimit && column.wipLimit && (
@@ -361,7 +363,7 @@ export default function MTKanbanBoard({
                           'text-xs px-2 py-0.5 rounded-full',
                           isOverLimit
                             ? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
-                            : 'bg-[var(--color-neutral-100)] text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                            : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
                         )}>
                           WIP: {column.cards.length}/{column.wipLimit}
                         </span>
@@ -371,7 +373,7 @@ export default function MTKanbanBoard({
                       {column.actions}
                       {onColumnEdit && (
                         <button
-                          onClick={() => onColumnEdit(column)} aria-label="Button"
+                          onClick={() => onColumnEdit(column)}
                           className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                         >
                           <MoreHorizontal className="w-4 h-4" />
@@ -395,7 +397,7 @@ export default function MTKanbanBoard({
                 ))}
                 
                 {/* Add Card Button */}
-                <button className="w-full p-2 text-sm text-gray-500 hover:text-[var(--color-text-secondary)] dark:hover:text-gray-300 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 rounded-lg transition-colors" aria-label="Button">
+                <button className="w-full p-2 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                   <Plus className="w-4 h-4 inline mr-1" />
                   Add card
                 </button>
@@ -409,8 +411,8 @@ export default function MTKanbanBoard({
           <div className="flex-shrink-0">
             <button
               onClick={onColumnAdd}
-              className="w-80 h-full min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl flex items-center justify-center text-gray-500 hover:text-[var(--color-text-secondary)] dark:hover:text-gray-300 hover:border-teal-400 dark:hover:border-[var(--color-primary)] transition-colors"
-             aria-label="Button">
+              className="w-80 h-full min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl flex items-center justify-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:border-teal-400 dark:hover:border-teal-500 transition-colors"
+            >
               <Plus className="w-6 h-6 mr-2" />
               Add Column
             </button>

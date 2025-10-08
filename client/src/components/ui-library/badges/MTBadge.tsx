@@ -33,9 +33,9 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
 
   const variants = {
     default: cn(
-      'bg-[var(--color-neutral-100)] dark:bg-gray-800',
-      'text-[var(--color-text-secondary)] dark:text-gray-300',
-      'border border-[var(--color-border)] dark:border-gray-700'
+      'bg-gray-100 dark:bg-gray-800',
+      'text-gray-700 dark:text-gray-300',
+      'border border-gray-200 dark:border-gray-700'
     ),
     success: cn(
       'bg-green-100 dark:bg-green-900/30',
@@ -92,31 +92,32 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
         glowEffect,
         className
       )}
-      {...props}>
-
-      {icon &&
-      <span className="flex-shrink-0">
+      {...props}
+    >
+      {icon && (
+        <span className="flex-shrink-0">
           {icon}
         </span>
-      }
+      )}
       {children}
-      {removable &&
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onRemove?.();}} aria-label="Button"
-        className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-[var(--color-surface)]/10 rounded-full p-0.5 transition-colors" data-testid="button-ml-1">
-
+      {removable && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove?.();
+          }}
+          className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition-colors"
+        >
           <X className={cn(
-          'flex-shrink-0',
-          size === 'sm' && 'w-3 h-3',
-          size === 'md' && 'w-3.5 h-3.5',
-          size === 'lg' && 'w-4 h-4'
-        )} />
+            'flex-shrink-0',
+            size === 'sm' && 'w-3 h-3',
+            size === 'md' && 'w-3.5 h-3.5',
+            size === 'lg' && 'w-4 h-4'
+          )} />
         </button>
-      }
-    </span>);
-
+      )}
+    </span>
+  );
 });
 
 MTBadge.displayName = 'MTBadge';

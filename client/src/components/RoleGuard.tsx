@@ -45,7 +45,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
       if (response.ok) {
         const result = await response.json();
         const { roles, primaryRole: primary, route, availableRoutes: routes } = result.data;
-
+        
         setUserRoles(roles || ['guest']);
         setPrimaryRole(primary || 'guest');
         setRecommendedRoute(route || '/moments');
@@ -74,23 +74,23 @@ export default function RoleGuard({ children }: RoleGuardProps) {
 
   const handleRoleBasedRedirect = (primary: string, route: string, routes: RoleRoute[]) => {
     const currentPath = location;
-
+    
     // Don't redirect if already on correct route or basic pages
-    if (currentPath === route ||
-    currentPath === '/login' ||
-    currentPath === '/register' ||
-    currentPath === '/onboarding' ||
-    currentPath === '/code-of-conduct') {
+    if (currentPath === route || 
+        currentPath === '/login' || 
+        currentPath === '/register' ||
+        currentPath === '/onboarding' ||
+        currentPath === '/code-of-conduct') {
       return;
     }
 
     // Check if user is accessing a role-specific route they don't have access to
     const roleSpecificRoutes = ['/platform', '/admin', '/organizer', '/teacher'];
-    const isAccessingRoleRoute = roleSpecificRoutes.some((r) => currentPath.startsWith(r));
-
+    const isAccessingRoleRoute = roleSpecificRoutes.some(r => currentPath.startsWith(r));
+    
     if (isAccessingRoleRoute) {
-      const hasAccessToCurrentRoute = routes.some((r) => currentPath.startsWith(r.route));
-
+      const hasAccessToCurrentRoute = routes.some(r => currentPath.startsWith(r.route));
+      
       if (!hasAccessToCurrentRoute) {
         console.log(`Redirecting from ${currentPath} to ${route} based on role: ${primary}`);
         setLocation(route);
@@ -100,7 +100,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
 
     // Auto-redirect based on primary role (only on first load)
     const shouldAutoRedirect = localStorage.getItem('roleRedirectComplete') !== 'true';
-
+    
     if (shouldAutoRedirect && currentPath === '/moments') {
       // Determine redirect based on primary role
       switch (primary) {
@@ -124,7 +124,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
           // Community roles stay on /moments
           break;
       }
-
+      
       localStorage.setItem('roleRedirectComplete', 'true');
     }
   };
@@ -139,9 +139,9 @@ export default function RoleGuard({ children }: RoleGuardProps) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        <span className="ml-2 text-gray-600 dark:text-gray-300">Loading user roles...</span>
-      </div>);
-
+        <span className="ml-2 text-gray-600">Loading user roles...</span>
+      </div>
+    );
   }
 
   // Show role switcher if user has multiple role routes
@@ -149,37 +149,37 @@ export default function RoleGuard({ children }: RoleGuardProps) {
 
   return (
     <>
-      {showRoleSwitcher &&
-      <div className="bg-blue-50 border-b border-blue-200 px-4 py-2">
+      {showRoleSwitcher && (
+        <div className="bg-blue-50 border-b border-blue-200 px-4 py-2">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             <div className="flex items-center space-x-4">
               <span className="text-sm font-medium text-blue-800">
                 Active Role: {primaryRole.replace(/_/g, ' ').toUpperCase()}
               </span>
-              {availableRoutes.length > 1 &&
-            <div className="flex space-x-2">
+              {availableRoutes.length > 1 && (
+                <div className="flex space-x-2">
                   <span className="text-sm text-blue-600">Switch to:</span>
-                  {availableRoutes.
-              filter((route) => route.route !== location).
-              map((route) =>
-              <button
-                key={route.route}
-                onClick={() => switchRole(route.route)} aria-label="Button"
-                className="text-sm bg-[var(--color-surface)] dark:bg-gray-900 border border-blue-300 rounded px-2 py-1 hover:bg-blue-50 transition-colors" data-testid="button-text-sm">
-
+                  {availableRoutes
+                    .filter(route => route.route !== location)
+                    .map(route => (
+                    <button
+                      key={route.route}
+                      onClick={() => switchRole(route.route)}
+                      className="text-sm bg-white border border-blue-300 rounded px-2 py-1 hover:bg-blue-50 transition-colors"
+                    >
                       {route.role.replace(/_/g, ' ')}
                     </button>
-              )}
+                  ))}
                 </div>
-            }
+              )}
             </div>
             <div className="text-xs text-blue-600">
               {userRoles.length} role{userRoles.length !== 1 ? 's' : ''} active
             </div>
           </div>
         </div>
-      }
+      )}
       {children}
-    </>);
-
+    </>
+  );
 }

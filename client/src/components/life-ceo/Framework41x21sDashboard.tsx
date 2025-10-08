@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
@@ -44,8 +43,7 @@ interface Phase {
 
 const layers: Layer[] = [
   // Original 40 layers
-  {
-  id: 1, name: 'Foundation', description: 'Database, core infrastructure', icon: Database, progress: 95 },
+  { id: 1, name: 'Foundation', description: 'Database, core infrastructure', icon: Database, progress: 95 },
   { id: 2, name: 'Database & ORM', description: 'Drizzle ORM, PostgreSQL', icon: Database, progress: 90 },
   { id: 3, name: 'Authentication', description: 'Session-based auth, OAuth', icon: Shield, progress: 85 },
   { id: 4, name: 'User Management', description: 'Profiles, roles, permissions', icon: Shield, progress: 88 },
@@ -61,7 +59,7 @@ const layers: Layer[] = [
     enhancements: ['Real data integration protocol', 'Loading state requirements'] },
   { id: 11, name: 'Analytics', description: 'Metrics, tracking, insights', icon: TrendingUp, progress: 75 },
   { id: 12, name: 'Content Management', description: 'Posts, media, moderation', icon: Activity, progress: 85 },
-  { id: 13, name: t('actions.search', 'Search'), description: 'Full-text search, filtering', icon: Activity, progress: 70 },
+  { id: 13, name: 'Search', description: 'Full-text search, filtering', icon: Activity, progress: 70 },
   { id: 14, name: 'Communication', description: 'Real-time chat, notifications', icon: Activity, progress: 80 },
   { id: 15, name: 'Environmental Infrastructure', description: 'Redis, caching, CDN', icon: Globe, progress: 85,
     enhancements: ['Mandatory cache fallbacks', 'DISABLE_REDIS support'] },
@@ -136,7 +134,7 @@ export default function Framework41x21sDashboard() {
     switch (status) {
       case 'complete': return 'bg-green-100 text-green-800 border-green-200';
       case 'in-progress': return 'bg-blue-100 text-blue-800 border-blue-200';
-      default: return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
@@ -147,7 +145,7 @@ export default function Framework41x21sDashboard() {
           <CardTitle className="text-3xl bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
             41x21s Framework Dashboard
           </CardTitle>
-          <p className="text-gray-600 dark:text-gray-300 mt-2">
+          <p className="text-gray-600 mt-2">
             Enhanced framework with 44 layers × 22 phases = 968 quality checkpoints
           </p>
         </CardHeader>
@@ -155,13 +153,13 @@ export default function Framework41x21sDashboard() {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium">Overall Progress</span>
-              <span className="text-2xl font-bold text-[var(--color-primary-hover)]">{calculateOverallProgress()}%</span>
+              <span className="text-2xl font-bold text-turquoise-600">{calculateOverallProgress()}%</span>
             </div>
             <Progress value={calculateOverallProgress()} className="h-4" />
           </div>
 
-          <Alert className="mb-6 border-turquoise-200 bg-[var(--color-ocean-50)]">
-            <Sparkles className="h-4 w-4 text-[var(--color-primary-hover)]" />
+          <Alert className="mb-6 border-turquoise-200 bg-turquoise-50">
+            <Sparkles className="h-4 w-4 text-turquoise-600" />
             <AlertDescription>
               <strong className="text-turquoise-800">Framework Evolution:</strong> Added Layers 42-44 and Phases 0 & 21 based on 4 days of intensive development learnings.
             </AlertDescription>
@@ -189,7 +187,7 @@ export default function Framework41x21sDashboard() {
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-2">
                             <div className="p-2 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg">
-                              <Icon className="w-5 h-5 text-[var(--color-primary-hover)]" />
+                              <Icon className="w-5 h-5 text-turquoise-600" />
                             </div>
                             <div>
                               <h3 className="font-semibold text-sm">Layer {layer.id}</h3>
@@ -198,10 +196,10 @@ export default function Framework41x21sDashboard() {
                               )}
                             </div>
                           </div>
-                          <span className="text-sm font-bold text-[var(--color-primary-hover)]">{layer.progress}%</span>
+                          <span className="text-sm font-bold text-turquoise-600">{layer.progress}%</span>
                         </div>
                         <h4 className="font-medium mb-1">{layer.name}</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{layer.description}</p>
+                        <p className="text-xs text-gray-600 mb-2">{layer.description}</p>
                         <Progress value={layer.progress} className="h-2" />
                         {layer.enhancements && (
                           <div className="mt-2">
@@ -233,7 +231,7 @@ export default function Framework41x21sDashboard() {
                           </div>
                           <div>
                             <h4 className="font-semibold">{phase.name}</h4>
-                            <p className="text-sm text-gray-600 dark:text-gray-300">{phase.description}</p>
+                            <p className="text-sm text-gray-600">{phase.description}</p>
                           </div>
                           {phase.newInV21 && (
                             <Badge variant="secondary">NEW</Badge>
@@ -260,17 +258,17 @@ export default function Framework41x21sDashboard() {
             <CardTitle>Layer {selectedLayer.id}: {selectedLayer.name}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-[var(--color-text-secondary)] mb-4">{selectedLayer.description}</p>
+            <p className="text-gray-700 mb-4">{selectedLayer.description}</p>
             <div className="flex items-center gap-2 mb-4">
               <Progress value={selectedLayer.progress} className="flex-1" />
-              <span className="font-bold text-[var(--color-primary-hover)]">{selectedLayer.progress}%</span>
+              <span className="font-bold text-turquoise-600">{selectedLayer.progress}%</span>
             </div>
             {selectedLayer.enhancements && (
               <div>
                 <h4 className="font-semibold mb-2">Recent Enhancements:</h4>
                 <ul className="space-y-1">
                   {selectedLayer.enhancements.map((enhancement, idx) => (
-                    <li key={idx} className="text-sm text-[var(--color-text-secondary)]">• {enhancement}</li>
+                    <li key={idx} className="text-sm text-gray-700">• {enhancement}</li>
                   ))}
                 </ul>
               </div>

@@ -42,18 +42,18 @@ class ErrorBoundary extends Component<Props, State> {
           <Card className="max-w-md w-full p-6 text-center space-y-4">
             <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
             <h2 className="text-xl font-semibold">Something went wrong</h2>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+            <p className="text-gray-600 text-sm">
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
             <div className="flex gap-2 justify-center">
-              <Button onClick={this.handleReset} data-testid="button-element">Try Again</Button>
-              <Button variant="outline" onClick={() => window.location.href = '/'} data-testid="button-element">
+              <Button onClick={this.handleReset}>Try Again</Button>
+              <Button variant="outline" onClick={() => window.location.href = '/'}>
                 Go Home
               </Button>
             </div>
           </Card>
-        </div>);
-
+        </div>
+      );
     }
 
     return this.props.children;
@@ -64,9 +64,9 @@ export default ErrorBoundary;
 export { ErrorBoundary };
 
 export function withErrorBoundary<T extends {}>(Component: React.ComponentType<T>) {
-  return (props: T) =>
-  <ErrorBoundary>
+  return (props: T) => (
+    <ErrorBoundary>
       <Component {...props} />
-    </ErrorBoundary>;
-
+    </ErrorBoundary>
+  );
 }

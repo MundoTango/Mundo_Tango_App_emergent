@@ -9,8 +9,8 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow } from
-'@/components/ui/table';
+  TableRow,
+} from '@/components/ui/table';
 import {
   Loader2,
   Download,
@@ -19,8 +19,8 @@ import {
   CreditCard,
   CheckCircle,
   XCircle,
-  RefreshCw } from
-'lucide-react';
+  RefreshCw
+} from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
@@ -48,7 +48,7 @@ interface Invoice {
   };
 }
 
-const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice, userInfo }) => {
+const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, userInfo }) => {
   const invoiceRef = useRef<HTMLDivElement>(null);
 
   const downloadPDF = async () => {
@@ -58,31 +58,31 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
       scale: 2,
       backgroundColor: '#ffffff'
     });
-
+    
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = canvas.height * pdfWidth / canvas.width;
-
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    
     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     pdf.save(`invoice-${invoice.number}.pdf`);
   };
 
   return (
     <>
-      <div ref={invoiceRef} className="bg-[var(--color-surface)] dark:bg-gray-900 p-8 rounded-lg shadow-sm">
+      <div ref={invoiceRef} className="bg-white p-8 rounded-lg shadow-sm">
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
           <div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Mundo Tango
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">Life CEO Platform</p>
+            <p className="text-gray-500 mt-1">Life CEO Platform</p>
           </div>
           <div className="text-right">
             <h2 className="text-xl font-semibold">INVOICE</h2>
-            <p className="text-gray-600 dark:text-gray-300">#{invoice.number}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-gray-600">#{invoice.number}</p>
+            <p className="text-sm text-gray-500 mt-2">
               Date: {format(new Date(invoice.date), 'MMMM dd, yyyy')}
             </p>
           </div>
@@ -93,22 +93,22 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
         {/* Billing Information */}
         <div className="grid grid-cols-2 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold text-[var(--color-text-secondary)] mb-2">Bill To:</h3>
-            <p className="text-gray-600 dark:text-gray-300">{userInfo?.firstName} {userInfo?.lastName}</p>
-            <p className="text-gray-600 dark:text-gray-300">{userInfo?.email}</p>
+            <h3 className="font-semibold text-gray-700 mb-2">Bill To:</h3>
+            <p className="text-gray-600">{userInfo?.firstName} {userInfo?.lastName}</p>
+            <p className="text-gray-600">{userInfo?.email}</p>
           </div>
           <div className="text-right">
-            <h3 className="font-semibold text-[var(--color-text-secondary)] mb-2">Payment Details:</h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <h3 className="font-semibold text-gray-700 mb-2">Payment Details:</h3>
+            <p className="text-gray-600">
               Status: <span className={invoice.status === 'paid' ? 'text-green-600' : 'text-red-600'}>
                 {invoice.status.toUpperCase()}
               </span>
             </p>
-            {invoice.paymentMethod &&
-            <p className="text-gray-600 dark:text-gray-300">
+            {invoice.paymentMethod && (
+              <p className="text-gray-600">
                 {invoice.paymentMethod.brand} •••• {invoice.paymentMethod.last4}
               </p>
-            }
+            )}
           </div>
         </div>
 
@@ -123,14 +123,14 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
             </TableRow>
           </TableHeader>
           <TableBody>
-            {invoice.items.map((item, index) =>
-            <TableRow key={index}>
+            {invoice.items.map((item, index) => (
+              <TableRow key={index}>
                 <TableCell>{item.description}</TableCell>
                 <TableCell className="text-center">{item.quantity}</TableCell>
                 <TableCell className="text-right">${(item.unitPrice / 100).toFixed(2)}</TableCell>
                 <TableCell className="text-right">${(item.amount / 100).toFixed(2)}</TableCell>
               </TableRow>
-            )}
+            ))}
           </TableBody>
         </Table>
 
@@ -156,7 +156,7 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-[var(--color-border)] text-center text-sm text-gray-500 dark:text-gray-400">
+        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
           <p>Thank you for your subscription!</p>
           <p className="mt-2">Questions? Contact support@mundotango.life</p>
         </div>
@@ -165,14 +165,14 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
       <div className="mt-4 flex justify-center">
         <Button
           onClick={downloadPDF}
-          className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
-
+          className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
+        >
           <Download className="mr-2 h-4 w-4" />
           Download PDF
         </Button>
       </div>
-    </>);
-
+    </>
+  );
 };
 
 const Invoices: React.FC = () => {
@@ -182,7 +182,7 @@ const Invoices: React.FC = () => {
   // Fetch invoices
   const { data: invoices, isLoading, refetch } = useQuery({
     queryKey: ['/api/payments/invoices'],
-    enabled: isAuthenticated
+    enabled: isAuthenticated,
   });
 
   if (!isAuthenticated) {
@@ -216,8 +216,8 @@ const Invoices: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Invoices & Receipts</h1>
-          <p className="text-gray-600 dark:text-gray-300">View and download your subscription invoices</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Invoices & Receipts</h1>
+          <p className="text-gray-600">View and download your subscription invoices</p>
         </div>
 
         <Card className="glassmorphic-card">
@@ -230,34 +230,34 @@ const Invoices: React.FC = () => {
               <Button
                 variant="outline"
                 onClick={() => refetch()}
-                disabled={isLoading} data-testid="button-element">
-
-                {isLoading ?
-                <Loader2 className="h-4 w-4 animate-spin" /> :
-
-                <RefreshCw className="h-4 w-4" />
-                }
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </CardHeader>
           <CardContent>
-            {isLoading ?
-            <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-[var(--color-primary)]" />
-              </div> :
-            !invoices || (invoices as Invoice[]).length === 0 ?
-            <div className="text-center py-8">
+            {isLoading ? (
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-turquoise-500" />
+              </div>
+            ) : (!invoices || (invoices as Invoice[]).length === 0) ? (
+              <div className="text-center py-8">
                 <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">No invoices yet</p>
+                <p className="text-gray-500">No invoices yet</p>
                 <p className="text-sm text-gray-400 mt-2">Your invoices will appear here after your first payment</p>
-              </div> :
-
-            <div className="space-y-4">
-                {(invoices as Invoice[])?.map((invoice: Invoice) =>
-              <div
-                key={invoice.id}
-                className="flex items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors">
-
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {(invoices as Invoice[])?.map((invoice: Invoice) => (
+                  <div
+                    key={invoice.id}
+                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
                     <div className="flex items-center gap-4">
                       <FileText className="h-8 w-8 text-gray-400" />
                       <div>
@@ -265,7 +265,7 @@ const Invoices: React.FC = () => {
                           <p className="font-medium">Invoice #{invoice.number}</p>
                           {getStatusBadge(invoice.status)}
                         </div>
-                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
                             {format(new Date(invoice.date), 'MMM dd, yyyy')}
@@ -280,18 +280,18 @@ const Invoices: React.FC = () => {
                     
                     <InvoiceModal invoice={invoice} userInfo={user} />
                   </div>
-              )}
+                ))}
               </div>
-            }
+            )}
           </CardContent>
         </Card>
       </div>
-    </div>);
-
+    </div>
+  );
 };
 
 // Invoice Modal Component
-const InvoiceModal: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice, userInfo }) => {
+const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, userInfo }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
@@ -299,23 +299,23 @@ const InvoiceModal: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice, us
       <Button
         variant="outline"
         size="sm"
-        onClick={() => setIsOpen(true)} data-testid="button-element">
-
+        onClick={() => setIsOpen(true)}
+      >
         <FileText className="h-4 w-4 mr-1" />
         View
       </Button>
 
-      {isOpen &&
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Invoice Details</h2>
                 <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(false)} data-testid="button-element">
-
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpen(false)}
+                >
                   ✕
                 </Button>
               </div>
@@ -323,9 +323,9 @@ const InvoiceModal: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice, us
             </div>
           </div>
         </div>
-      }
-    </>);
-
+      )}
+    </>
+  );
 };
 
 export default Invoices;

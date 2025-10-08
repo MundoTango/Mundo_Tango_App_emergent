@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -30,19 +29,18 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 
 // ESA 61x21 Framework Definitions - All 61 Layers
 const LAYER_DEFINITIONS = [
-  {
-  id: 1, name: 'Database Architecture', color: 'bg-blue-500', icon: '🗄️' },
+  { id: 1, name: 'Database Architecture', color: 'bg-blue-500', icon: '🗄️' },
   { id: 2, name: 'API Structure', color: 'bg-green-500', icon: '⚙️' },
   { id: 3, name: 'Server Framework', color: 'bg-purple-500', icon: '🖥️' },
   { id: 4, name: 'Authentication', color: 'bg-red-500', icon: '🔐' },
   { id: 5, name: 'Authorization', color: 'bg-orange-500', icon: '🛡️' },
-  { id: 6, name: 'Data Validation', color: 'bg-[var(--color-primary)]', icon: '✅' },
+  { id: 6, name: 'Data Validation', color: 'bg-cyan-500', icon: '✅' },
   { id: 7, name: 'State Management', color: 'bg-indigo-500', icon: '📊' },
   { id: 8, name: 'Client Framework', color: 'bg-pink-500', icon: '⚛️' },
   { id: 9, name: 'UI Framework', color: 'bg-amber-500', icon: '🎨' },
-  { id: 10, name: 'Component Library', color: 'bg-[var(--color-surface-elevated)] dark:bg-gray-8000', icon: '📦' },
+  { id: 10, name: 'Component Library', color: 'bg-gray-500', icon: '📦' },
   { id: 11, name: 'Real-time Features', color: 'bg-emerald-500', icon: '⚡' },
-  { id: 12, name: 'Data Management', color: 'bg-[var(--color-primary)]', icon: '💾' },
+  { id: 12, name: 'Data Management', color: 'bg-teal-500', icon: '💾' },
   { id: 13, name: 'Business Logic', color: 'bg-violet-500', icon: '🧮' },
   { id: 14, name: 'Integration', color: 'bg-rose-500', icon: '🔗' },
   { id: 15, name: 'Testing', color: 'bg-lime-500', icon: '🧪' },
@@ -52,7 +50,7 @@ const LAYER_DEFINITIONS = [
   { id: 19, name: 'Security', color: 'bg-slate-500', icon: '🔒' },
   { id: 20, name: 'Performance', color: 'bg-zinc-500', icon: '⚡' },
   { id: 21, name: 'Caching', color: 'bg-stone-500', icon: '💨' },
-  { id: 22, name: t('actions.search', 'Search'), color: 'bg-neutral-500', icon: '🔍' },
+  { id: 22, name: 'Search', color: 'bg-neutral-500', icon: '🔍' },
   { id: 23, name: 'Analytics', color: 'bg-red-600', icon: '📊' },
   { id: 24, name: 'Notifications', color: 'bg-blue-600', icon: '🔔' },
   { id: 25, name: 'Payments', color: 'bg-green-600', icon: '💳' },
@@ -64,7 +62,7 @@ const LAYER_DEFINITIONS = [
   { id: 31, name: 'Backup/Recovery', color: 'bg-amber-600', icon: '💾' },
   { id: 32, name: 'Compliance', color: 'bg-gray-600', icon: '📋' },
   { id: 33, name: 'Internationalization', color: 'bg-emerald-600', icon: '🌍' },
-  { id: 34, name: 'Accessibility', color: 'bg-[var(--color-primary-hover)]', icon: '♿' },
+  { id: 34, name: 'Accessibility', color: 'bg-teal-600', icon: '♿' },
   { id: 35, name: 'Mobile Support', color: 'bg-violet-600', icon: '📱' },
   { id: 36, name: 'PWA Features', color: 'bg-rose-600', icon: '📲' },
   { id: 37, name: 'SEO Optimization', color: 'bg-lime-600', icon: '🔎' },
@@ -160,7 +158,7 @@ const ProjectTrackerDashboard: React.FC = () => {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <Layers className="h-8 w-8 mx-auto mb-4 animate-pulse" />
-          <p className="text-gray-500 dark:text-gray-400">Loading Project Tracker...</p>
+          <p className="text-gray-500">Loading Project Tracker...</p>
         </div>
       </div>
     );
@@ -175,12 +173,12 @@ const ProjectTrackerDashboard: React.FC = () => {
     <div className="space-y-6">
       {/* Main Framework Header Card - Matching screenshot style */}
       <div className="rounded-lg overflow-hidden shadow-lg">
-        <div className="bg-gradient-to-r from-cyan-600 to-[var(--color-ocean-600)] text-white p-6">
+        <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <GlassCard depth={1} className="p-2 rounded-lg">
+              <GlassCard depth={1} className="p-2 rounded-lg"
                 <GitCommit className="h-6 w-6 text-white" />
-              </GlassCard>
+              </div>
               <div>
                 <h1 className="text-2xl font-bold">61x21 Project Tracker System</h1>
                 <p className="text-cyan-100 text-sm mt-1">
@@ -196,39 +194,39 @@ const ProjectTrackerDashboard: React.FC = () => {
         </div>
         
         {/* Statistics Bar */}
-        <div className="bg-[var(--color-surface)] dark:bg-gray-900 border-t border-cyan-200/20 p-4">
+        <div className="bg-white border-t border-cyan-200/20 p-4">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{totalCount}</div>
-              <div className="text-xs text-gray-600 dark:text-gray-300">Total Projects</div>
+              <div className="text-2xl font-bold text-gray-800">{totalCount}</div>
+              <div className="text-xs text-gray-600">Total Projects</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-green-600">{completedCount}</div>
-              <div className="text-xs text-gray-600 dark:text-gray-300">Completed</div>
+              <div className="text-xs text-gray-600">Completed</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-yellow-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'In Progress')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-gray-300">In Progress</div>
+              <div className="text-xs text-gray-600">In Progress</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-blue-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Planned')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-gray-300">Planned</div>
+              <div className="text-xs text-gray-600">Planned</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-red-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Blocked')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-gray-300">Blocked</div>
+              <div className="text-xs text-gray-600">Blocked</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-purple-600">
                 {metrics?.layerDistribution?.length || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-gray-300">Active Layers</div>
+              <div className="text-xs text-gray-600">Active Layers</div>
             </div>
           </div>
         </div>
@@ -239,12 +237,12 @@ const ProjectTrackerDashboard: React.FC = () => {
         <Button 
           onClick={() => refetchProjects()}
           variant="outline"
-          className="flex items-center gap-2 border-[var(--color-ocean-300)] text-cyan-700"
+          className="flex items-center gap-2 border-cyan-300 text-cyan-700"
         >
           <RefreshCw className="h-4 w-4" />
           Refresh
         </Button>
-        <Button className="flex items-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0">
+        <Button className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0">
           <Plus className="h-4 w-4" />
           Add Project
         </Button>
@@ -254,7 +252,7 @@ const ProjectTrackerDashboard: React.FC = () => {
       <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-cyan-700">
-            <Filter className="h-5 w-5 text-[var(--color-primary-hover)]" />
+            <Filter className="h-5 w-5 text-cyan-600" />
             Filters & Search
           </CardTitle>
         </CardHeader>
@@ -311,7 +309,7 @@ const ProjectTrackerDashboard: React.FC = () => {
               </SelectContent>
             </Select>
 
-            <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center text-sm text-gray-600">
               {filteredItems.length} of {trackerItems.length} items
             </div>
           </div>
@@ -324,7 +322,7 @@ const ProjectTrackerDashboard: React.FC = () => {
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-cyan-700">Total Projects</CardTitle>
-              <Activity className="h-4 w-4 text-[var(--color-primary)]" />
+              <Activity className="h-4 w-4 text-cyan-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
@@ -335,15 +333,15 @@ const ProjectTrackerDashboard: React.FC = () => {
 
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-[var(--color-primary-hover)]">Completed</CardTitle>
-              <CheckCircle className="h-4 w-4 text-[var(--color-primary)]" />
+              <CardTitle className="text-sm font-medium text-teal-700">Completed</CardTitle>
+              <CheckCircle className="h-4 w-4 text-teal-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[var(--color-primary-hover)]">
+              <div className="text-2xl font-bold text-teal-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Completed')?.count || 
                projects.filter(p => p.status === 'Completed').length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-gray-300">projects done</p>
+              <p className="text-xs text-gray-600">projects done</p>
             </CardContent>
           </Card>
 
@@ -357,21 +355,21 @@ const ProjectTrackerDashboard: React.FC = () => {
                 {metrics?.statusCounts?.find((s: any) => s.status === 'In Progress')?.count || 
                projects.filter(p => p.status === 'In Progress').length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-gray-300">active items</p>
+              <p className="text-xs text-gray-600">active items</p>
             </CardContent>
           </Card>
 
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-[var(--color-primary-hover)]">Active Layers</CardTitle>
-              <Layers className="h-4 w-4 text-[var(--color-primary)]" />
+              <CardTitle className="text-sm font-medium text-teal-700">Active Layers</CardTitle>
+              <Layers className="h-4 w-4 text-teal-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
                 {metrics?.layerDistribution?.length || 
                [...new Set(projects.map(p => p.layer).filter(Boolean))].length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-gray-300">of 61 layers</p>
+              <p className="text-xs text-gray-600">of 61 layers</p>
             </CardContent>
           </Card>
         </div>
@@ -395,11 +393,11 @@ const ProjectTrackerDashboard: React.FC = () => {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         {layerInfo && (
-                          <Badge className="bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white border-0">
+                          <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white border-0">
                             {layerInfo.icon} Layer {item.layer}
                           </Badge>
                         )}
-                        <Badge variant="outline" className="border-[var(--color-ocean-300)] text-cyan-700">{item.type}</Badge>
+                        <Badge variant="outline" className="border-cyan-300 text-cyan-700">{item.type}</Badge>
                         <Badge 
                           className={`${getStatusColor(item.status)} text-white border-0`}
                         >
@@ -413,10 +411,10 @@ const ProjectTrackerDashboard: React.FC = () => {
                           </Badge>
                         )}
                       </div>
-                      <CardTitle className="text-lg text-gray-800 dark:text-gray-100">{item.title}</CardTitle>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description || 'No description'}</p>
+                      <CardTitle className="text-lg text-gray-800">{item.title}</CardTitle>
+                      <p className="text-gray-600 text-sm">{item.description || 'No description'}</p>
                     </div>
-                    <div className="text-right text-sm text-gray-500 dark:text-gray-400">
+                    <div className="text-right text-sm text-gray-500">
                       {item.phase && <div>Phase {item.phase}</div>}
                       <div>{new Date(item.updatedAt).toLocaleDateString()}</div>
                     </div>
@@ -426,25 +424,25 @@ const ProjectTrackerDashboard: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div>
                       <div className="font-medium mb-1">Progress</div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
                         <div 
                           className="bg-blue-600 h-2 rounded-full" 
                           style={{ width: `${item.completion || 0}%` }}
                         ></div>
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      <div className="text-xs text-gray-500 mt-1">
                         {item.completion || 0}% complete
                       </div>
                     </div>
                     <div>
                       <div className="font-medium mb-1">Hours</div>
-                      <div className="text-gray-600 dark:text-gray-300">
+                      <div className="text-gray-600">
                         {item.actualHours || 0} / {item.estimatedHours || 0} hours
                       </div>
                     </div>
                     <div>
                       <div className="font-medium mb-1">Team Size</div>
-                      <div className="text-gray-600 dark:text-gray-300">
+                      <div className="text-gray-600">
                         {item.team?.length || 0} members
                       </div>
                     </div>
@@ -492,11 +490,11 @@ const ProjectTrackerDashboard: React.FC = () => {
                         <div key={item.id} className="p-3 bg-gradient-to-br from-white/80 to-cyan-50/30 rounded-lg border border-cyan-200/20">
                           <div className="font-medium text-sm">{item.title}</div>
                           {layerInfo && (
-                            <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                            <div className="text-xs text-gray-600 mt-1">
                               {layerInfo.icon} Layer {item.layer}
                             </div>
                           )}
-                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          <div className="text-xs text-gray-500 mt-1">
                             {item.completion || 0}% complete
                           </div>
                         </div>
@@ -513,7 +511,7 @@ const ProjectTrackerDashboard: React.FC = () => {
             <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-cyan-700">
-                  <BarChart3 className="h-5 w-5 text-[var(--color-primary-hover)]" />
+                  <BarChart3 className="h-5 w-5 text-cyan-600" />
                   Projects by Layer
                 </CardTitle>
               </CardHeader>
@@ -526,7 +524,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                       <span className="text-sm flex items-center gap-2">
                         {layer.icon} Layer {layer.id}: {layer.name}
                       </span>
-                      <Badge className="bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white border-0">
+                      <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white border-0">
                         {count}
                       </Badge>
                     </div>
@@ -537,8 +535,8 @@ const ProjectTrackerDashboard: React.FC = () => {
 
             <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[var(--color-primary-hover)]">
-                  <TrendingUp className="h-5 w-5 text-[var(--color-primary-hover)]" />
+                <CardTitle className="flex items-center gap-2 text-teal-700">
+                  <TrendingUp className="h-5 w-5 text-teal-600" />
                   Projects by Type
                 </CardTitle>
               </CardHeader>
@@ -549,7 +547,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                   return (
                     <div key={type} className="flex items-center justify-between py-2">
                       <span className="text-sm">{type}</span>
-                      <Badge className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 text-white border-0">
+                      <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-0">
                         {count}
                       </Badge>
                     </div>

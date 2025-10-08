@@ -129,7 +129,7 @@ export default function MTAccordionList({
           base,
           'rounded-xl overflow-hidden',
           glassmorphic ? 'backdrop-blur-xl border border-teal-200/30 dark:border-teal-700/30' : 
-            'bg-[var(--color-surface)] dark:bg-gray-800 border border-[var(--color-border)] dark:border-gray-700',
+            'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
           isOpen && 'ring-2 ring-teal-400 shadow-lg'
         );
       case 'minimal':
@@ -146,7 +146,7 @@ export default function MTAccordionList({
         variant !== 'separated' && glassmorphic && 
           'backdrop-blur-xl rounded-xl border border-teal-200/30 dark:border-teal-700/30',
         variant !== 'separated' && !glassmorphic && 
-          'bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] dark:border-gray-700',
+          'bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700',
         containerClassName
       )}
       style={variant !== 'separated' ? containerStyles : {}}
@@ -168,13 +168,13 @@ export default function MTAccordionList({
             >
               {/* Header */}
               <button
-                onClick={() => !item.disabled && handleToggle(item.id)} aria-label="Button"
+                onClick={() => !item.disabled && handleToggle(item.id)}
                 disabled={item.disabled}
                 className={cn(
                   'w-full flex items-center gap-3 text-left',
                   variant === 'separated' || variant === 'minimal' ? 'p-4' : 'py-4 px-4',
-                  'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20 transition-colors',
-                  isOpen && 'bg-[var(--color-ocean-50)]/20 dark:bg-teal-900/10',
+                  'hover:bg-teal-50/30 dark:hover:bg-teal-900/20 transition-colors',
+                  isOpen && 'bg-teal-50/20 dark:bg-teal-900/10',
                   item.disabled && 'cursor-not-allowed',
                   headerClassName
                 )}
@@ -198,8 +198,8 @@ export default function MTAccordionList({
                 {/* Title and Subtitle */}
                 <div className="flex-1 min-w-0">
                   <h3 className={cn(
-                    'font-medium text-[var(--color-text)] dark:text-gray-100',
-                    isOpen && 'text-[var(--color-primary-hover)] dark:text-teal-300'
+                    'font-medium text-gray-900 dark:text-gray-100',
+                    isOpen && 'text-teal-700 dark:text-teal-300'
                   )}>
                     {item.title}
                   </h3>
@@ -214,11 +214,11 @@ export default function MTAccordionList({
                 {item.badge !== undefined && (
                   <span className={cn(
                     'flex-shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-                    item.badgeVariant === 'primary' && 'bg-[var(--color-ocean-100)] text-teal-800 dark:bg-teal-900/30 dark:text-teal-300',
+                    item.badgeVariant === 'primary' && 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300',
                     item.badgeVariant === 'success' && 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
                     item.badgeVariant === 'warning' && 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
                     item.badgeVariant === 'error' && 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-                    (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                    (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
                   )}>
                     {item.badge}
                   </span>
@@ -270,8 +270,8 @@ export function MTAccordionGroup({
   return (
     <div className={cn('mt-accordion-group', className)}>
       <button
-        onClick={() => setIsOpen(!isOpen)} aria-label="Button"
-        className="w-full flex items-center gap-2 py-2 text-left hover:text-[var(--color-primary-hover)] dark:hover:text-teal-400 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center gap-2 py-2 text-left hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
       >
         <ChevronRight className={cn(
           'w-4 h-4 transition-transform',

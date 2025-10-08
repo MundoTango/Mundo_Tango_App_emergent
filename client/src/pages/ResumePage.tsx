@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next';;
+import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
@@ -32,8 +31,7 @@ export default function ResumePage() {
   const [isExporting, setIsExporting] = useState(false);
   const [exportFormat, setExportFormat] = useState<'PDF' | 'CSV'>('PDF');
 
-  const {
-  data: resumeData, isLoading, error } = useQuery({
+  const { data: resumeData, isLoading, error } = useQuery({
     queryKey: ['/api/resume', user?.id],
     queryFn: async () => {
       console.log('🎯 Fetching resume data for user:', user?.id);
@@ -41,49 +39,49 @@ export default function ResumePage() {
         method: 'GET',
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
-
+      
       console.log('📡 Resume API response status:', response.status);
-
+      
       if (!response.ok) {
         const errorText = await response.text();
         console.error('❌ Resume API error:', errorText);
         throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
-
+      
       const data = await response.json();
       console.log('📋 Resume data received:', data);
       return data;
     },
-    enabled: !!user?.id
+    enabled: !!user?.id,
   });
 
   const handleCopyPublicLink = async () => {
     if (!user?.username) {
       toast({
-        title: t('states.error', 'Error'),
+        title: "Error",
         description: "Username not available",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
     const publicUrl = `https://mundotango.life/u/${user.username}/resume`;
-
+    
     try {
       await navigator.clipboard.writeText(publicUrl);
       toast({
         title: "Link copied!",
-        description: "Public resume link copied to clipboard"
+        description: "Public resume link copied to clipboard",
       });
     } catch (error) {
       console.error('Failed to copy link:', error);
       toast({
         title: "Failed to copy",
         description: "Please copy the link manually",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   };
@@ -93,7 +91,7 @@ export default function ResumePage() {
       toast({
         title: "Export Failed",
         description: "No data to export",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -111,7 +109,7 @@ export default function ResumePage() {
         exportContainer.style.background = 'white';
         exportContainer.style.padding = '40px';
         exportContainer.style.fontFamily = 'Arial, sans-serif';
-
+        
         // Create PDF content
         const resumeEntries = resumeData.data;
         const groupedResume: GroupedResume = resumeEntries.reduce((acc: GroupedResume, entry: ResumeEntry) => {
@@ -152,16 +150,16 @@ export default function ResumePage() {
         `;
 
         // Add each year's entries
-        sortedYears.forEach((year) => {
+        sortedYears.forEach(year => {
           htmlContent += `
             <div style="margin-bottom: 30px;">
               <h2 style="color: #333; font-size: 20px; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">${year}</h2>
           `;
-
-          groupedResume[year].
-          sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime()).
-          forEach((entry) => {
-            htmlContent += `
+          
+          groupedResume[year]
+            .sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime())
+            .forEach(entry => {
+              htmlContent += `
                 <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 10px;">
                   <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div style="flex: 1;">
@@ -182,13 +180,13 @@ export default function ResumePage() {
                   </div>
                 </div>
               `;
-          });
-
+            });
+          
           htmlContent += `</div>`;
         });
 
         htmlContent += `</div>`;
-
+        
         exportContainer.innerHTML = htmlContent;
         document.body.appendChild(exportContainer);
 
@@ -205,10 +203,10 @@ export default function ResumePage() {
 
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
-
+        
         const imgWidth = 210; // A4 width in mm
         const pageHeight = 295; // A4 height in mm
-        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
         let heightLeft = imgHeight;
         let position = 0;
 
@@ -229,8 +227,8 @@ export default function ResumePage() {
         pdf.save(fileName);
 
         toast({
-          title: t('states.success', 'Success'),
-          description: "Resume exported to PDF!"
+          title: "Success",
+          description: "Resume exported to PDF!",
         });
       }
     } catch (error) {
@@ -238,7 +236,7 @@ export default function ResumePage() {
       toast({
         title: "Export Failed",
         description: "Failed to export resume. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setIsExporting(false);
@@ -249,8 +247,8 @@ export default function ResumePage() {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
-      </div>);
-
+      </div>
+    );
   }
 
   if (error) {
@@ -258,20 +256,20 @@ export default function ResumePage() {
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
           <AlertCircle className="h-16 w-16 mx-auto mb-4 text-red-300" />
-          <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">Unable to load resume</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Unable to load resume</h3>
           <p className="text-red-600 mb-4">
-            {error.message.includes('401') || error.message.includes('Authentication') ?
-            'You must be logged in to view your resume.' :
-            'Error loading resume data. Please try again later.'}
+            {error.message.includes('401') || error.message.includes('Authentication')
+              ? 'You must be logged in to view your resume.'
+              : 'Error loading resume data. Please try again later.'}
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {error.message.includes('401') || error.message.includes('Authentication') ?
-            'Please log in and try again.' :
-            `Details: ${error.message}`}
+          <p className="text-sm text-gray-500">
+            {error.message.includes('401') || error.message.includes('Authentication')
+              ? 'Please log in and try again.'
+              : `Details: ${error.message}`}
           </p>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 
   const resumeEntries = resumeData?.data || [];
@@ -280,16 +278,16 @@ export default function ResumePage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">My Tango Resume</h1>
-          <p className="text-gray-600 dark:text-gray-300">Professional experience in the tango community</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Tango Resume</h1>
+          <p className="text-gray-600">Professional experience in the tango community</p>
         </div>
         <div className="text-center py-12">
           <Star className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-          <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No resume entries yet</h3>
-          <p className="text-gray-600 dark:text-gray-300">Tag yourself or get tagged at events to build your tango resume.</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No resume entries yet</h3>
+          <p className="text-gray-600">Tag yourself or get tagged at events to build your tango resume.</p>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 
   // Group resume entries by year
@@ -309,8 +307,8 @@ export default function ResumePage() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">My Tango Resume</h1>
-          <p className="text-gray-600 dark:text-gray-300">Professional experience in the tango community</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Tango Resume</h1>
+          <p className="text-gray-600">Professional experience in the tango community</p>
         </div>
         
         {/* Export Controls */}
@@ -318,8 +316,8 @@ export default function ResumePage() {
           {/* Copy Public Link Button */}
           <Button
             onClick={handleCopyPublicLink}
-            className="bg-[var(--color-neutral-100)] hover:bg-gray-200 dark:bg-gray-700 text-[var(--color-text-secondary)] text-sm px-3 py-1 rounded flex items-center space-x-1" data-testid="button-bg-[var(--color-neutral-100)]">
-
+            className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded flex items-center space-x-1"
+          >
             <Link2 className="h-3 w-3" />
             <span>Copy Public Resume Link</span>
           </Button>
@@ -329,8 +327,8 @@ export default function ResumePage() {
             <Button
               variant="outline"
               onClick={() => setExportFormat(exportFormat === 'PDF' ? 'CSV' : 'PDF')}
-              className="flex items-center space-x-1" data-testid="button-flex">
-
+              className="flex items-center space-x-1"
+            >
               <span>{exportFormat}</span>
               <ChevronDown className="h-4 w-4" />
             </Button>
@@ -341,8 +339,8 @@ export default function ResumePage() {
             onClick={handleExport}
             disabled={!resumeData?.data?.length || isExporting}
             className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-            title={!resumeData?.data?.length ? "No data to export" : "Download resume"} data-testid="button-bg-blue-500">
-
+            title={!resumeData?.data?.length ? "No data to export" : "Download resume"}
+          >
             <Download className="h-4 w-4" />
             <span>{isExporting ? 'Exporting...' : 'Download PDF'}</span>
           </Button>
@@ -351,47 +349,47 @@ export default function ResumePage() {
 
       {/* Resume Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <Card className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-md">
+        <Card className="bg-white rounded-xl shadow-md">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">{resumeEntries.length}</div>
-            <div className="text-xs text-gray-600 dark:text-gray-300">Total Roles</div>
+            <div className="text-xs text-gray-600">Total Roles</div>
           </CardContent>
         </Card>
-        <Card className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-md">
+        <Card className="bg-white rounded-xl shadow-md">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resumeEntries.map((entry: ResumeEntry) => entry.event_id)).size}
             </div>
-            <div className="text-xs text-gray-600 dark:text-gray-300">Events Participated</div>
+            <div className="text-xs text-gray-600">Events Participated</div>
           </CardContent>
         </Card>
-        <Card className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-md">
+        <Card className="bg-white rounded-xl shadow-md">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resumeEntries.map((entry: ResumeEntry) => entry.role)).size}
             </div>
-            <div className="text-xs text-gray-600 dark:text-gray-300">Unique Roles</div>
+            <div className="text-xs text-gray-600">Unique Roles</div>
           </CardContent>
         </Card>
       </div>
 
       {/* Resume by Year */}
       <div ref={resumeRef} className="space-y-8">
-        {sortedYears.map((year) =>
-        <div key={year}>
-            <h2 className="text-2xl font-semibold text-[var(--color-text)] dark:text-white mb-4">{year}</h2>
+        {sortedYears.map((year) => (
+          <div key={year}>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{year}</h2>
             <div className="space-y-4">
-              {groupedResume[year].
-            sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime()).
-            map((entry, index) =>
-            <Card key={`${entry.event_id}-${entry.role}-${index}`} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-md">
+              {groupedResume[year]
+                .sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime())
+                .map((entry, index) => (
+                  <Card key={`${entry.event_id}-${entry.role}-${index}`} className="bg-white rounded-xl shadow-md">
                     <CardHeader className="pb-3">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <CardTitle className="text-lg font-bold text-[var(--color-text)] dark:text-white mb-2">
+                          <CardTitle className="text-lg font-bold text-gray-900 mb-2">
                             {entry.event_name}
                           </CardTitle>
-                          <div className="flex items-center space-x-4 text-xs text-gray-600 dark:text-gray-300">
+                          <div className="flex items-center space-x-4 text-xs text-gray-600">
                             <div className="flex items-center space-x-1">
                               <Calendar className="h-3 w-3" />
                               <span>{format(parseISO(entry.event_date), 'PPP')}</span>
@@ -402,25 +400,25 @@ export default function ResumePage() {
                             </div>
                           </div>
                         </div>
-                        <Badge
-                    variant="outline"
-                    className="ml-4 border-[#8E142E] text-[#8E142E] badge">
-
+                        <Badge 
+                          variant="outline" 
+                          className="ml-4 border-[#8E142E] text-[#8E142E] badge"
+                        >
                           {entry.role}
                         </Badge>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <div className="text-xs text-gray-600 dark:text-gray-300">
+                      <div className="text-xs text-gray-600">
                         Confirmed on {format(parseISO(entry.accepted_at), 'PPP')}
                       </div>
                     </CardContent>
                   </Card>
-            )}
+                ))}
             </div>
           </div>
-        )}
+        ))}
       </div>
-    </div>);
-
+    </div>
+  );
 }
