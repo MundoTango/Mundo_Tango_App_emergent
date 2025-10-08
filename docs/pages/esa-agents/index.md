@@ -6,7 +6,7 @@ The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distrib
 
 ## System Architecture
 
-### Agent Domains (9 Total)
+### Core Agent Domains (9 Total)
 
 1. **Infrastructure Orchestrator** - Database optimization, caching, performance
 2. **Frontend Coordinator** - React components, UI/UX, state management  
@@ -17,6 +17,11 @@ The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distrib
 7. **Life CEO Core** - 16 specialized AI agents for life management
 8. **Platform Enhancement** - Feature optimization, A/B testing
 9. **Master Control** - System orchestration, health monitoring
+
+### Specialized Expert Agents
+
+10. **AI Research Expert** - Monitors AI ecosystem using free RSS feeds and GitHub API, discovers open-source tools, critiques framework decisions
+11. **UI/UX Design Expert** - Manages Aurora Tide Design System, ensures accessibility compliance (WCAG 2.1), optimizes component usage and dark mode coverage
 
 ### Life CEO Sub-Agents (16 Total)
 

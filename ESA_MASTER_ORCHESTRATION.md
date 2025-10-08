@@ -111,7 +111,7 @@ This master guide orchestrates four critical documentation systems. Use the deci
 
 ### Agent Architecture
 
-#### 9 Agent Domains
+#### 9 Core Agent Domains
 1. **Infrastructure Orchestrator** - DB optimization, caching, performance
 2. **Frontend Coordinator** - React components, UI/UX, state
 3. **Background Processor** - Async tasks, job scheduling, queues
@@ -121,6 +121,10 @@ This master guide orchestrates four critical documentation systems. Use the deci
 7. **Life CEO Core** - 16 specialized AI agents for life management
 8. **Platform Enhancement** - Feature optimization, A/B testing
 9. **Master Control** - System orchestration, health monitoring
+
+#### Specialized Expert Agents
+10. **AI Research Expert** - AI ecosystem monitoring, tool discovery, framework critique
+11. **UI/UX Design Expert** - Aurora Tide design system, accessibility, component optimization
 
 #### 16 Life CEO Sub-Agents
 All connected to **OpenAI GPT-4o**:
