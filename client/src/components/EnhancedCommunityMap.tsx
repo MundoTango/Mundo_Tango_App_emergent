@@ -31,7 +31,7 @@ const createEnhancedIcon = (color: string, icon: string, isCluster?: boolean) =>
   // ESA LIFE CEO 61x21 - Enhanced gradient background for MT Ocean theme
   const gradientBg = color.includes('gradient') 
     ? color 
-    : `linear-gradient(135deg, ${color} 0%, #06B6D4 100%)`;
+    : `linear-gradient(135deg, ${color} 0%, hsl(210, 100%, 56%) 100%)`; // ocean-cyan-400
   
   return L.divIcon({
     html: `
@@ -79,22 +79,22 @@ const createEnhancedIcon = (color: string, icon: string, isCluster?: boolean) =>
 // ESA LIFE CEO 56x21 - MT Ocean Theme Layer Configuration
 const LAYER_CONFIG = {
   cityGroup: { 
-    color: 'linear-gradient(135deg, #38b2ac 0%, #06b6d4 100%)', // Turquoise to cyan gradient
+    color: 'linear-gradient(135deg, hsl(177, 72%, 56%) 0%, hsl(210, 100%, 56%) 100%)', // ocean-seafoam-400 to ocean-cyan-400
     icon: '🌍', 
     name: 'Cities' 
   },
   event: { 
-    color: 'linear-gradient(135deg, #10B981 0%, #14b8a6 100%)', // Green gradient
+    color: 'linear-gradient(135deg, hsl(160, 84%, 39%) 0%, hsl(178, 77%, 42%) 100%)', // emerald-600 to teal-500
     icon: '📅', 
     name: 'Events' 
   },
   home: { 
-    color: 'linear-gradient(135deg, #F59E0B 0%, #fbbf24 100%)', // Orange gradient
+    color: 'linear-gradient(135deg, hsl(38, 92%, 50%) 0%, hsl(45, 93%, 56%) 100%)', // amber-500 to amber-400
     icon: '🏠', 
     name: 'Housing' 
   },
   recommendation: { 
-    color: 'linear-gradient(135deg, #EF4444 0%, #f87171 100%)', // Red gradient
+    color: 'linear-gradient(135deg, hsl(0, 84%, 60%) 0%, hsl(0, 91%, 71%) 100%)', // red-500 to red-400
     icon: '⭐', 
     name: 'Recommendations' 
   },
