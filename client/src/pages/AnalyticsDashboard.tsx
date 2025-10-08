@@ -7,26 +7,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useQuery } from "@tanstack/react-query";
-import { 
-  AreaChart, 
-  Area, 
-  BarChart, 
+import {
+  AreaChart,
+  Area,
+  BarChart,
   Bar,
   LineChart,
   Line,
   PieChart,
   Pie,
   Cell,
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer 
-} from 'recharts';
-import { 
-  TrendingUp, 
-  Users, 
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer } from
+'recharts';
+import {
+  TrendingUp,
+  Users,
   Activity,
   Globe,
   Calendar,
@@ -43,8 +43,8 @@ import {
   LineChartIcon,
   Download,
   RefreshCw,
-  Info
-} from "lucide-react";
+  Info } from
+"lucide-react";
 
 // Color palette for charts
 const COLORS = ['#38b2ac', '#06b6d4', '#3182ce', '#6366f1', '#8b5cf6', '#a855f8', '#ec4899', '#f43f5e'];
@@ -72,41 +72,41 @@ const AnalyticsDashboard: React.FC = () => {
           returningUsers: 3187
         },
         userGrowth: [
-          { date: 'Mon', users: 1200, newUsers: 150 },
-          { date: 'Tue', users: 1350, newUsers: 180 },
-          { date: 'Wed', users: 1420, newUsers: 120 },
-          { date: 'Thu', users: 1580, newUsers: 200 },
-          { date: 'Fri', users: 1650, newUsers: 170 },
-          { date: 'Sat', users: 1820, newUsers: 220 },
-          { date: 'Sun', users: 1900, newUsers: 190 }
-        ],
+        { date: 'Mon', users: 1200, newUsers: 150 },
+        { date: 'Tue', users: 1350, newUsers: 180 },
+        { date: 'Wed', users: 1420, newUsers: 120 },
+        { date: 'Thu', users: 1580, newUsers: 200 },
+        { date: 'Fri', users: 1650, newUsers: 170 },
+        { date: 'Sat', users: 1820, newUsers: 220 },
+        { date: 'Sun', users: 1900, newUsers: 190 }],
+
         contentEngagement: [
-          { type: 'Posts', views: 23456, likes: 12345, comments: 3456, shares: 890 },
-          { type: 'Events', views: 18234, likes: 8456, comments: 2134, shares: 567 },
-          { type: 'Stories', views: 15678, likes: 7234, comments: 1890, shares: 456 },
-          { type: 'Groups', views: 12345, likes: 5678, comments: 1234, shares: 345 }
-        ],
+        { type: 'Posts', views: 23456, likes: 12345, comments: 3456, shares: 890 },
+        { type: 'Events', views: 18234, likes: 8456, comments: 2134, shares: 567 },
+        { type: 'Stories', views: 15678, likes: 7234, comments: 1890, shares: 456 },
+        { type: 'Groups', views: 12345, likes: 5678, comments: 1234, shares: 345 }],
+
         cityDistribution: [
-          { city: 'Buenos Aires', users: 4532, percentage: 29.8 },
-          { city: 'Paris', users: 2134, percentage: 14.0 },
-          { city: 'Berlin', users: 1876, percentage: 12.3 },
-          { city: 'New York', users: 1567, percentage: 10.3 },
-          { city: 'Tokyo', users: 1234, percentage: 8.1 },
-          { city: 'Others', users: 3891, percentage: 25.5 }
-        ],
+        { city: 'Buenos Aires', users: 4532, percentage: 29.8 },
+        { city: 'Paris', users: 2134, percentage: 14.0 },
+        { city: 'Berlin', users: 1876, percentage: 12.3 },
+        { city: 'New York', users: 1567, percentage: 10.3 },
+        { city: 'Tokyo', users: 1234, percentage: 8.1 },
+        { city: 'Others', users: 3891, percentage: 25.5 }],
+
         deviceStats: [
-          { device: 'Mobile', users: 9140, percentage: 60 },
-          { device: 'Desktop', users: 4571, percentage: 30 },
-          { device: 'Tablet', users: 1523, percentage: 10 }
-        ],
+        { device: 'Mobile', users: 9140, percentage: 60 },
+        { device: 'Desktop', users: 4571, percentage: 30 },
+        { device: 'Tablet', users: 1523, percentage: 10 }],
+
         roleDistribution: [
-          { role: 'Dancer', count: 8234 },
-          { role: 'Teacher', count: 2345 },
-          { role: 'Organizer', count: 1567 },
-          { role: 'DJ', count: 890 },
-          { role: 'Musician', count: 567 },
-          { role: 'Other', count: 1631 }
-        ]
+        { role: 'Dancer', count: 8234 },
+        { role: 'Teacher', count: 2345 },
+        { role: 'Organizer', count: 1567 },
+        { role: 'DJ', count: 890 },
+        { role: 'Musician', count: 567 },
+        { role: 'Other', count: 1631 }]
+
       };
     }
   });
@@ -134,7 +134,7 @@ const AnalyticsDashboard: React.FC = () => {
             <p className="text-gray-600">Platform insights and performance metrics</p>
           </div>
           <div className="flex items-center gap-2">
-            <Select value={timeRange} onValueChange={setTimeRange}>
+            <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
               <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
@@ -149,11 +149,11 @@ const AnalyticsDashboard: React.FC = () => {
               variant="outline"
               size="icon"
               onClick={handleRefresh}
-              disabled={isRefreshing}
-            >
+              disabled={isRefreshing} data-testid="button-element">
+
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             </Button>
-            <Button variant="outline" onClick={handleExport}>
+            <Button variant="outline" onClick={handleExport} data-testid="button-element">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -253,30 +253,30 @@ const AnalyticsDashboard: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                   <XAxis dataKey="date" stroke="#666" />
                   <YAxis stroke="#666" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)', 
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
                       border: '1px solid #e0e0e0',
                       borderRadius: '8px'
-                    }} 
-                  />
+                    }} />
+
                   <Legend />
-                  <Area 
-                    type="monotone" 
-                    dataKey="users" 
-                    stroke="#38b2ac" 
-                    fill="#38b2ac" 
+                  <Area
+                    type="monotone"
+                    dataKey="users"
+                    stroke="#38b2ac"
+                    fill="#38b2ac"
                     fillOpacity={0.3}
-                    name="Active Users"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="newUsers" 
-                    stroke="#06b6d4" 
-                    fill="#06b6d4" 
+                    name="Active Users" />
+
+                  <Area
+                    type="monotone"
+                    dataKey="newUsers"
+                    stroke="#06b6d4"
+                    fill="#06b6d4"
                     fillOpacity={0.3}
-                    name="New Users"
-                  />
+                    name="New Users" />
+
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -302,11 +302,11 @@ const AnalyticsDashboard: React.FC = () => {
                       label={({ city, percentage }) => `${city} ${percentage}%`}
                       outerRadius={80}
                       fill="#8884d8"
-                      dataKey="users"
-                    >
-                      {analyticsData?.cityDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
+                      dataKey="users">
+
+                      {analyticsData?.cityDistribution.map((entry, index) =>
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      )}
                     </Pie>
                     <Tooltip />
                   </PieChart>
@@ -324,22 +324,22 @@ const AnalyticsDashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {analyticsData?.deviceStats.map((device, index) => (
-                    <div key={device.device} className="space-y-2">
+                  {analyticsData?.deviceStats.map((device, index) =>
+                  <div key={device.device} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="font-medium">{device.device}</span>
                         <span className="text-gray-600">{device.percentage}%</span>
                       </div>
-                      <Progress 
-                        value={device.percentage} 
-                        className="h-2"
-                        style={{ 
-                          '--progress-color': COLORS[index % COLORS.length] 
-                        } as React.CSSProperties}
-                      />
+                      <Progress
+                      value={device.percentage}
+                      className="h-2"
+                      style={{
+                        '--progress-color': COLORS[index % COLORS.length]
+                      } as React.CSSProperties} />
+
                       <p className="text-xs text-gray-500">{device.users.toLocaleString()} users</p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -402,17 +402,17 @@ const AnalyticsDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                     <XAxis dataKey="role" stroke="#666" />
                     <YAxis stroke="#666" />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)', 
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
                         border: '1px solid #e0e0e0',
                         borderRadius: '8px'
-                      }} 
-                    />
+                      }} />
+
                     <Bar dataKey="count" fill="#38b2ac">
-                      {analyticsData?.roleDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
+                      {analyticsData?.roleDistribution.map((entry, index) =>
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      )}
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
@@ -439,13 +439,13 @@ const AnalyticsDashboard: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                   <XAxis dataKey="type" stroke="#666" />
                   <YAxis stroke="#666" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)', 
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
                       border: '1px solid #e0e0e0',
                       borderRadius: '8px'
-                    }} 
-                  />
+                    }} />
+
                   <Legend />
                   <Bar dataKey="views" fill="#38b2ac" name="Views" />
                   <Bar dataKey="likes" fill="#06b6d4" name="Likes" />
@@ -596,8 +596,8 @@ const AnalyticsDashboard: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 };
 
 export default AnalyticsDashboard;

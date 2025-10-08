@@ -8,20 +8,20 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog';
-import { 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger } from
+'@/components/ui/dialog';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  SelectValue } from
+'@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { useHotkeys } from 'react-hotkeys-hook';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -43,11 +43,11 @@ import { mkConfig, generateCsv, download } from 'export-to-csv';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import LazyLoad from 'react-lazyload';
-import { 
-  Search, 
-  Calendar, 
-  MapPin, 
-  Users, 
+import {
+  Search,
+  Calendar,
+  MapPin,
+  Users,
   Plus,
   Grid,
   List,
@@ -74,16 +74,16 @@ import {
   RefreshCw,
   CheckCircle,
   Info,
-  X
-} from 'lucide-react';
+  X } from
+'lucide-react';
 import {
   FacebookShareButton,
   TwitterShareButton,
   WhatsappShareButton,
   FacebookIcon,
   TwitterIcon,
-  WhatsappIcon
-} from 'react-share';
+  WhatsappIcon } from
+'react-share';
 import UnifiedEventCard from '@/components/events/UnifiedEventCard';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
 
@@ -97,7 +97,7 @@ interface Event {
   imageUrl?: string;
   photos?: string[];
   location?: string;
-  coordinates?: { lat: number; lng: number };
+  coordinates?: {lat: number;lng: number;};
   startDate: string;
   endDate?: string;
   userId: number;
@@ -150,11 +150,11 @@ const categoryColors: Record<string, string> = {
 };
 
 const viewOptions = [
-  { value: 'list', label: 'List View', icon: List },
-  { value: 'grid', label: 'Grid View', icon: Grid },
-  { value: 'calendar', label: 'Calendar View', icon: CalendarDays },
-  { value: 'map', label: 'Map View', icon: Map }
-];
+{ value: 'list', label: 'List View', icon: List },
+{ value: 'grid', label: 'Grid View', icon: Grid },
+{ value: 'calendar', label: 'Calendar View', icon: CalendarDays },
+{ value: 'map', label: 'Map View', icon: Map }];
+
 
 export default function EnhancedEventsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -164,18 +164,18 @@ export default function EnhancedEventsPage() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [showGallery, setShowGallery] = useState(false);
   const [calendarView, setCalendarView] = useState<'month' | 'week' | 'day'>('month');
-  
+
   // Filters
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [levelFilter, setLevelFilter] = useState('all');
   const [priceFilter, setPriceFilter] = useState('all');
-  const [dateRange, setDateRange] = useState<{ start: Date | null; end: Date | null }>({
+  const [dateRange, setDateRange] = useState<{start: Date | null;end: Date | null;}>({
     start: null,
     end: null
   });
   const [showVirtualOnly, setShowVirtualOnly] = useState(false);
   const [distanceFilter, setDistanceFilter] = useState(50); // km
-  
+
   const { toast } = useToast();
   const eventRsvpMutation = useEventRSVP();
 
@@ -223,26 +223,26 @@ export default function EnhancedEventsPage() {
 
   // RSVP mutation
   const rsvpMutation = useMutation({
-    mutationFn: async ({ eventId, status }: { eventId: number; status: string }) => {
+    mutationFn: async ({ eventId, status }: {eventId: number;status: string;}) => {
       const response = await fetch(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         credentials: 'include',
         body: JSON.stringify({ status })
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to RSVP');
       }
-      
+
       return response.json();
     },
     onSuccess: () => {
       toast({
         title: "Success",
-        description: "RSVP updated successfully!",
+        description: "RSVP updated successfully!"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/events'] });
     },
@@ -250,7 +250,7 @@ export default function EnhancedEventsPage() {
       toast({
         title: "Error",
         description: "Failed to update RSVP",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -268,16 +268,16 @@ export default function EnhancedEventsPage() {
       useBom: true,
       useKeysAsHeaders: true,
       columnHeaders: [
-        { key: 'title', displayLabel: 'Title' },
-        { key: 'date', displayLabel: 'Date' },
-        { key: 'location', displayLabel: 'Location' },
-        { key: 'category', displayLabel: 'Category' },
-        { key: 'price', displayLabel: 'Price' },
-        { key: 'attendees', displayLabel: 'Attendees' }
-      ]
+      { key: 'title', displayLabel: 'Title' },
+      { key: 'date', displayLabel: 'Date' },
+      { key: 'location', displayLabel: 'Location' },
+      { key: 'category', displayLabel: 'Category' },
+      { key: 'price', displayLabel: 'Price' },
+      { key: 'attendees', displayLabel: 'Attendees' }]
+
     });
 
-    const csvData = events.map(event => ({
+    const csvData = events.map((event) => ({
       title: event.title,
       date: moment(event.startDate).format('YYYY-MM-DD HH:mm'),
       location: event.location || 'TBD',
@@ -288,16 +288,16 @@ export default function EnhancedEventsPage() {
 
     const csv = generateCsv(csvConfig)(csvData);
     download(csvConfig)(csv);
-    
+
     toast({
       title: "Exported!",
-      description: `Successfully exported ${events.length} events`,
+      description: `Successfully exported ${events.length} events`
     });
   };
 
   // Calendar events formatting
   const calendarEvents = useMemo(() => {
-    return events.map(event => ({
+    return events.map((event) => ({
       id: event.id.toString(), // Convert to string for FullCalendar
       title: event.title,
       start: new Date(event.startDate),
@@ -318,8 +318,8 @@ export default function EnhancedEventsPage() {
       return (
         <span className="text-turquoise-600 font-medium">
           {days}d {hours}h {minutes}m
-        </span>
-      );
+        </span>);
+
     }
   };
 
@@ -329,13 +329,13 @@ export default function EnhancedEventsPage() {
         <div className="max-w-7xl mx-auto p-6">
           <Skeleton height={60} className="mb-6" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[...Array(6)].map((_, i) => (
-              <Skeleton key={i} height={300} />
-            ))}
+            {[...Array(6)].map((_, i) =>
+            <Skeleton key={i} height={300} />
+            )}
           </div>
         </div>
-      </DashboardLayout>
-    );
+      </DashboardLayout>);
+
   }
 
   return (
@@ -353,15 +353,15 @@ export default function EnhancedEventsPage() {
             <Button
               onClick={exportEventsToCSV}
               variant="outline"
-              className="border-turquoise-200 hover:bg-turquoise-50"
-            >
+              className="border-turquoise-200 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
             <Button
               onClick={() => setShowCreateDialog(true)}
-              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
-            >
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
               <Plus className="w-4 h-4 mr-2" />
               Create Event
             </Button>
@@ -384,7 +384,7 @@ export default function EnhancedEventsPage() {
               <Clock className="w-8 h-8 text-cyan-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {events.filter(e => moment(e.startDate).isAfter()).length}
+                  {events.filter((e) => moment(e.startDate).isAfter()).length}
                 </p>
                 <p className="text-sm text-gray-600">Upcoming</p>
               </div>
@@ -395,7 +395,7 @@ export default function EnhancedEventsPage() {
               <Users className="w-8 h-8 text-blue-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {events.filter(e => e.userStatus === 'going').length}
+                  {events.filter((e) => e.userStatus === 'going').length}
                 </p>
                 <p className="text-sm text-gray-600">Attending</p>
               </div>
@@ -406,7 +406,7 @@ export default function EnhancedEventsPage() {
               <TrendingUp className="w-8 h-8 text-purple-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {events.filter(e => moment(e.startDate).isSame(moment(), 'week')).length}
+                  {events.filter((e) => moment(e.startDate).isSame(moment(), 'week')).length}
                 </p>
                 <p className="text-sm text-gray-600">This Week</p>
               </div>
@@ -426,31 +426,31 @@ export default function EnhancedEventsPage() {
                   placeholder="Search events... (Cmd+/)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 glassmorphic-input border-turquoise-200 focus:border-turquoise-400 focus:ring-turquoise-400/20"
-                />
+                  className="pl-10 glassmorphic-input border-turquoise-200 focus:border-turquoise-400 focus:ring-turquoise-400/20" data-testid="input-event-search" />
+
               </div>
               <div className="flex gap-2">
-                {viewOptions.map(option => (
-                  <Button
-                    key={option.value}
-                    variant={viewMode === option.value ? 'default' : 'outline'}
-                    size="icon"
-                    onClick={() => setViewMode(option.value as any)}
-                    data-tooltip-id="view-tooltip"
-                    data-tooltip-content={option.label}
-                    className={viewMode === option.value 
-                      ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' 
-                      : 'border-turquoise-200 hover:bg-turquoise-50'
-                    }
-                  >
+                {viewOptions.map((option) =>
+                <Button
+                  key={option.value}
+                  variant={viewMode === option.value ? 'default' : 'outline'}
+                  size="icon"
+                  onClick={() => setViewMode(option.value as any)}
+                  data-tooltip-id="view-tooltip"
+                  data-tooltip-content={option.label}
+                  className={viewMode === option.value ?
+                  'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' :
+                  'border-turquoise-200 hover:bg-turquoise-50'
+                  } data-testid="button-element">
+
                     <option.icon className="w-4 h-4" />
                   </Button>
-                ))}
+                )}
               </div>
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter} data-testid="select-element">
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
@@ -466,7 +466,7 @@ export default function EnhancedEventsPage() {
                 </SelectContent>
               </Select>
 
-              <Select value={levelFilter} onValueChange={setLevelFilter}>
+              <Select value={levelFilter} onValueChange={setLevelFilter} data-testid="select-element">
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Level" />
                 </SelectTrigger>
@@ -479,7 +479,7 @@ export default function EnhancedEventsPage() {
                 </SelectContent>
               </Select>
 
-              <Select value={priceFilter} onValueChange={setPriceFilter}>
+              <Select value={priceFilter} onValueChange={setPriceFilter} data-testid="select-element">
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
@@ -494,11 +494,11 @@ export default function EnhancedEventsPage() {
                 variant={showVirtualOnly ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setShowVirtualOnly(!showVirtualOnly)}
-                className={showVirtualOnly 
-                  ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' 
-                  : 'border-turquoise-200 hover:bg-turquoise-50'
-                }
-              >
+                className={showVirtualOnly ?
+                'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' :
+                'border-turquoise-200 hover:bg-turquoise-50'
+                } data-testid="button-element">
+
                 <Video className="w-4 h-4 mr-1" />
                 Virtual Only
               </Button>
@@ -507,8 +507,8 @@ export default function EnhancedEventsPage() {
                 variant="outline"
                 size="sm"
                 onClick={() => refetch()}
-                className="border-turquoise-200 hover:bg-turquoise-50"
-              >
+                className="border-turquoise-200 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+
                 <RefreshCw className="w-4 h-4 mr-1" />
                 Refresh
               </Button>
@@ -535,137 +535,137 @@ export default function EnhancedEventsPage() {
         </Tabs>
 
         {/* Events Display */}
-        {viewMode === 'list' && (
-          <div className="space-y-4">
+        {viewMode === 'list' &&
+        <div className="space-y-4">
             <InfiniteScroll
-              dataLength={events.length}
-              next={() => {}}
-              hasMore={false}
-              loader={<Skeleton height={100} count={3} />}
-              endMessage={
-                <p className="text-center text-gray-500 mt-8">
+            dataLength={events.length}
+            next={() => {}}
+            hasMore={false}
+            loader={<Skeleton height={100} count={3} />}
+            endMessage={
+            <p className="text-center text-gray-500 mt-8">
                   You've seen all events! 🎉
                 </p>
-              }
-            >
-              {events.map(event => (
-                <UnifiedEventCard
-                  key={event.id}
-                  event={{
-                    id: event.id.toString(),
-                    title: event.title,
-                    type: event.eventType || event.category || 'milonga',
-                    date: event.startDate,
-                    time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
-                    location: event.location || 'Location TBA',
-                    city: event.user?.city,
-                    attendees: event.currentAttendees || 0,
-                    userRsvpStatus: event.userStatus || null,
-                    isFeatured: false
-                  }}
-                  rsvpMutation={eventRsvpMutation}
-                />
-              ))}
+            }>
+
+              {events.map((event) =>
+            <UnifiedEventCard
+              key={event.id}
+              event={{
+                id: event.id.toString(),
+                title: event.title,
+                type: event.eventType || event.category || 'milonga',
+                date: event.startDate,
+                time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                location: event.location || 'Location TBA',
+                city: event.user?.city,
+                attendees: event.currentAttendees || 0,
+                userRsvpStatus: event.userStatus || null,
+                isFeatured: false
+              }}
+              rsvpMutation={eventRsvpMutation} />
+
+            )}
             </InfiniteScroll>
           </div>
-        )}
+        }
 
-        {viewMode === 'grid' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map(event => (
-              <UnifiedEventCard
-                key={event.id}
-                event={{
-                  id: event.id.toString(),
-                  title: event.title,
-                  type: event.eventType || event.category || 'milonga',
-                  date: event.startDate,
-                  time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
-                  location: event.location || 'Location TBA',
-                  city: event.user?.city,
-                  attendees: event.currentAttendees || 0,
-                  userRsvpStatus: event.userStatus || null,
-                  isFeatured: false
-                }}
-                rsvpMutation={eventRsvpMutation}
-              />
-            ))}
+        {viewMode === 'grid' &&
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {events.map((event) =>
+          <UnifiedEventCard
+            key={event.id}
+            event={{
+              id: event.id.toString(),
+              title: event.title,
+              type: event.eventType || event.category || 'milonga',
+              date: event.startDate,
+              time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+              location: event.location || 'Location TBA',
+              city: event.user?.city,
+              attendees: event.currentAttendees || 0,
+              userRsvpStatus: event.userStatus || null,
+              isFeatured: false
+            }}
+            rsvpMutation={eventRsvpMutation} />
+
+          )}
           </div>
-        )}
+        }
 
-        {viewMode === 'calendar' && (
-          <Card className="p-6">
+        {viewMode === 'calendar' &&
+        <Card className="p-6">
             <div className="mb-4 flex justify-between items-center">
               <h2 className="text-xl font-semibold">Calendar View</h2>
               <div className="flex gap-2">
                 <Button
-                  size="sm"
-                  variant={calendarView === 'month' ? 'default' : 'outline'}
-                  onClick={() => setCalendarView('month')}
-                >
+                size="sm"
+                variant={calendarView === 'month' ? 'default' : 'outline'}
+                onClick={() => setCalendarView('month')} data-testid="button-element">
+
                   Month
                 </Button>
                 <Button
-                  size="sm"
-                  variant={calendarView === 'week' ? 'default' : 'outline'}
-                  onClick={() => setCalendarView('week')}
-                >
+                size="sm"
+                variant={calendarView === 'week' ? 'default' : 'outline'}
+                onClick={() => setCalendarView('week')} data-testid="button-element">
+
                   Week
                 </Button>
                 <Button
-                  size="sm"
-                  variant={calendarView === 'day' ? 'default' : 'outline'}
-                  onClick={() => setCalendarView('day')}
-                >
+                size="sm"
+                variant={calendarView === 'day' ? 'default' : 'outline'}
+                onClick={() => setCalendarView('day')} data-testid="button-element">
+
                   Day
                 </Button>
               </div>
             </div>
             <div className="h-[600px]">
               <BigCalendar
-                localizer={localizer}
-                events={calendarEvents.map(event => ({
-                  ...event,
-                  resource: event
-                }))}
-                view={calendarView}
-                onView={setCalendarView}
-                onSelectEvent={(event: any) => {
-                  setSelectedEvent(event.resource);
-                }}
-                views={['month', 'week', 'day']}
-                step={30}
-                showMultiDayTimes
-                style={{ height: '100%' }}
-                components={{
-                  event: ({ event }: any) => (
-                    <div className="p-1 text-xs">
+              localizer={localizer}
+              events={calendarEvents.map((event) => ({
+                ...event,
+                resource: event
+              }))}
+              view={calendarView}
+              onView={setCalendarView}
+              onSelectEvent={(event: any) => {
+                setSelectedEvent(event.resource);
+              }}
+              views={['month', 'week', 'day']}
+              step={30}
+              showMultiDayTimes
+              style={{ height: '100%' }}
+              components={{
+                event: ({ event }: any) =>
+                <div className="p-1 text-xs">
                       <div className="font-semibold truncate">{event.title}</div>
                       <div className="text-gray-600">{moment(event.start).format('h:mm A')}</div>
                     </div>
-                  )
-                }}
-              />
+
+              }} />
+
             </div>
           </Card>
-        )}
+        }
 
-        {viewMode === 'map' && (
-          <Card className="p-6 glassmorphic-card bg-gradient-to-br from-white/90 via-turquoise-50/20 to-cyan-50/20">
+        {viewMode === 'map' &&
+        <Card className="p-6 glassmorphic-card bg-gradient-to-br from-white/90 via-turquoise-50/20 to-cyan-50/20">
             <div className="h-[600px] rounded-lg overflow-hidden border border-turquoise-200/50">
               <Suspense fallback={
-                <div className="h-full bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 flex items-center justify-center">
+            <div className="h-full bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 flex items-center justify-center">
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
                     <p className="text-gray-600">Loading map...</p>
                   </div>
                 </div>
-              }>
+            }>
                 <LeafletMap
-                  markers={events.filter(event => event.coordinates).map(event => ({
-                    id: event.id,
-                    position: [event.coordinates!.lat, event.coordinates!.lng],
-                    popupContent: `
+                markers={events.filter((event) => event.coordinates).map((event) => ({
+                  id: event.id,
+                  position: [event.coordinates!.lat, event.coordinates!.lng],
+                  popupContent: `
                       <div class="p-2">
                         <h3 class="font-bold text-sm">${event.title}</h3>
                         <p class="text-xs text-gray-600 mt-1">${moment(event.startDate).format('MMM D, h:mm A')}</p>
@@ -677,17 +677,17 @@ export default function EnhancedEventsPage() {
                         </div>
                       </div>
                     `,
-                    icon: 'calendar'
-                  }))}
-                  centerLat={-34.6037}
-                  centerLng={-58.3816}
-                  zoom={3}
-                  height="600px"
-                />
+                  icon: 'calendar'
+                }))}
+                centerLat={-34.6037}
+                centerLng={-58.3816}
+                zoom={3}
+                height="600px" />
+
               </Suspense>
             </div>
           </Card>
-        )}
+        }
 
         {/* Keyboard Shortcuts */}
         <div className="mt-6 text-center text-sm text-gray-500">
@@ -701,6 +701,6 @@ export default function EnhancedEventsPage() {
         {/* Tooltips */}
         <Tooltip id="view-tooltip" />
       </animated.div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

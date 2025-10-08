@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   Elements,
   PaymentElement,
   useStripe,
-  useElements
-} from '@stripe/react-stripe-js';
+  useElements } from
+'@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,15 +13,15 @@ import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { 
-  Loader2, 
-  CreditCard, 
-  Lock, 
-  CheckCircle, 
+import {
+  Loader2,
+  CreditCard,
+  Lock,
+  CheckCircle,
   AlertCircle,
   Tag,
-  ArrowLeft
-} from 'lucide-react';
+  ArrowLeft } from
+'lucide-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
@@ -58,9 +58,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/payment-success?tier=${tier}`,
+        return_url: `${window.location.origin}/payment-success?tier=${tier}`
       },
-      redirect: 'if_required',
+      redirect: 'if_required'
     });
 
     if (error) {
@@ -70,7 +70,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
       // Payment succeeded
       toast({
         title: "Payment Successful!",
-        description: "Your subscription has been activated.",
+        description: "Your subscription has been activated."
       });
       setLocation('/settings/billing');
     }
@@ -79,48 +79,48 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="glassmorphic-card p-6 rounded-lg">
-        <PaymentElement 
+        <PaymentElement
           options={{
             layout: 'tabs',
             wallets: {
               applePay: 'auto',
               googlePay: 'auto'
             }
-          }}
-        />
+          }} />
+
       </div>
 
-      {errorMessage && (
-        <Alert variant="destructive">
+      {errorMessage &&
+      <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>
-      )}
+      }
 
       <div className="flex gap-4">
-        <Link href="/subscribe">
-          <Button type="button" variant="outline" className="flex items-center gap-2">
+        <Link href="/subscribe" data-testid="link-element">
+          <Button type="button" variant="outline" className="flex items-center gap-2" data-testid="button-button">
             <ArrowLeft className="w-4 h-4" />
             Back to Plans
           </Button>
         </Link>
         
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={!stripe || isProcessing}
-          className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-        >
-          {isProcessing ? (
-            <>
+          className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600" data-testid="button-submit">
+
+          {isProcessing ?
+          <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Processing...
-            </>
-          ) : (
-            <>
+            </> :
+
+          <>
               <Lock className="mr-2 h-4 w-4" />
               Complete Payment
             </>
-          )}
+          }
         </Button>
       </div>
 
@@ -128,8 +128,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
         <Lock className="w-4 h-4" />
         <span>Secured by Stripe</span>
       </div>
-    </form>
-  );
+    </form>);
+
 };
 
 const Checkout: React.FC = () => {
@@ -138,14 +138,14 @@ const Checkout: React.FC = () => {
   const [, setLocation] = useLocation();
   const [match, params] = useRoute("/checkout/:tier");
   const tier = params?.tier || '';
-  
+
   const [promoCode, setPromoCode] = useState('');
   const [isApplyingPromo, setIsApplyingPromo] = useState(false);
   const [appliedPromo, setAppliedPromo] = useState<any>(null);
-  
+
   // Fetch subscription tiers for pricing display
   const { data: tiersData } = useQuery({
-    queryKey: ['/api/payments/subscription-tiers'],
+    queryKey: ['/api/payments/subscription-tiers']
   });
 
   // Create payment intent
@@ -154,13 +154,13 @@ const Checkout: React.FC = () => {
     queryFn: async () => {
       return apiRequest('/api/payments/create-checkout-session', {
         method: 'POST',
-        body: { 
+        body: {
           tier,
-          promoCode: appliedPromo?.code 
+          promoCode: appliedPromo?.code
         }
       });
     },
-    enabled: isAuthenticated && !!tier,
+    enabled: isAuthenticated && !!tier
   });
 
   // Apply promo code mutation
@@ -175,7 +175,7 @@ const Checkout: React.FC = () => {
       setAppliedPromo(data);
       toast({
         title: "Promo Code Applied!",
-        description: `${data.discount}% discount applied to your subscription.`,
+        description: `${data.discount}% discount applied to your subscription.`
       });
     },
     onError: (error: any) => {
@@ -207,8 +207,8 @@ const Checkout: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-turquoise-500 border-t-transparent rounded-full" />
-      </div>
-    );
+      </div>);
+
   }
 
   if (error || !paymentData?.clientSecret) {
@@ -221,17 +221,17 @@ const Checkout: React.FC = () => {
               {error?.message || 'Failed to initialize payment. Please try again.'}
             </AlertDescription>
           </Alert>
-          <Link href="/subscribe" className="mt-4 inline-block">
-            <Button variant="outline">Back to Plans</Button>
+          <Link href="/subscribe" className="mt-4 inline-block" data-testid="link-mt-4">
+            <Button variant="outline" data-testid="button-element">Back to Plans</Button>
           </Link>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   const selectedTier = tiersData?.data?.[tier];
   const originalPrice = selectedTier?.price || 0;
-  const discountAmount = appliedPromo ? (originalPrice * appliedPromo.discount / 100) : 0;
+  const discountAmount = appliedPromo ? originalPrice * appliedPromo.discount / 100 : 0;
   const finalPrice = originalPrice - discountAmount;
 
   return (
@@ -258,8 +258,8 @@ const Checkout: React.FC = () => {
                   <p className="text-lg font-semibold">${(originalPrice / 100).toFixed(2)}</p>
                 </div>
 
-                {appliedPromo && (
-                  <>
+                {appliedPromo &&
+                <>
                     <Separator />
                     <div className="flex justify-between items-center text-green-600">
                       <div className="flex items-center gap-2">
@@ -269,7 +269,7 @@ const Checkout: React.FC = () => {
                       <span>-${(discountAmount / 100).toFixed(2)}</span>
                     </div>
                   </>
-                )}
+                }
 
                 <Separator />
 
@@ -281,41 +281,41 @@ const Checkout: React.FC = () => {
                 </div>
 
                 {/* Promo Code Input */}
-                {!appliedPromo && (
-                  <div className="space-y-2 pt-4">
+                {!appliedPromo &&
+                <div className="space-y-2 pt-4">
                     <Label htmlFor="promo">Have a promo code?</Label>
                     <div className="flex gap-2">
                       <Input
-                        id="promo"
-                        placeholder="Enter code"
-                        value={promoCode}
-                        onChange={(e) => setPromoCode(e.target.value)}
-                        className="flex-1"
-                      />
+                      id="promo"
+                      placeholder="Enter code"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      className="flex-1" data-testid="input-promo" />
+
                       <Button
-                        onClick={handleApplyPromo}
-                        disabled={applyPromoMutation.isPending || !promoCode.trim()}
-                        variant="outline"
-                      >
-                        {applyPromoMutation.isPending ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          'Apply'
-                        )}
+                      onClick={handleApplyPromo}
+                      disabled={applyPromoMutation.isPending || !promoCode.trim()}
+                      variant="outline" data-testid="button-element">
+
+                        {applyPromoMutation.isPending ?
+                      <Loader2 className="w-4 h-4 animate-spin" /> :
+
+                      'Apply'
+                      }
                       </Button>
                     </div>
                   </div>
-                )}
+                }
 
                 {/* Features */}
                 <div className="pt-4 space-y-2">
                   <p className="text-sm font-medium text-gray-700">Included features:</p>
-                  {selectedTier?.features?.slice(0, 5).map((feature: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                  {selectedTier?.features?.slice(0, 5).map((feature: string, index: number) =>
+                  <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>{feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                      <span>{feature.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}</span>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -334,8 +334,8 @@ const Checkout: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Elements 
-                  stripe={stripePromise} 
+                <Elements
+                  stripe={stripePromise}
                   options={{
                     clientSecret: paymentData.clientSecret,
                     appearance: {
@@ -346,16 +346,16 @@ const Checkout: React.FC = () => {
                         colorText: '#1f2937',
                         colorDanger: '#ef4444',
                         fontFamily: 'system-ui, sans-serif',
-                        borderRadius: '8px',
-                      },
-                    },
-                  }}
-                >
-                  <CheckoutForm 
-                    tier={tier} 
+                        borderRadius: '8px'
+                      }
+                    }
+                  }}>
+
+                  <CheckoutForm
+                    tier={tier}
                     clientSecret={paymentData.clientSecret}
-                    promoCode={appliedPromo?.code}
-                  />
+                    promoCode={appliedPromo?.code} />
+
                 </Elements>
               </CardContent>
             </Card>
@@ -370,8 +370,8 @@ const Checkout: React.FC = () => {
           </Badge>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Checkout;

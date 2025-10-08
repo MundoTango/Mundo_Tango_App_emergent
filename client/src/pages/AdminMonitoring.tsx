@@ -17,25 +17,25 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   LineChart, Line, AreaChart, Area, BarChart, Bar,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  PieChart, Pie, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis
-} from 'recharts';
+  PieChart, Pie, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis } from
+'recharts';
 import {
   Activity, AlertCircle, CheckCircle, Clock, Cpu, Database,
   HardDrive, Info, Layers, MemoryStick, Server, TrendingUp,
-  Users, Zap, AlertTriangle, Shield, Globe, Gauge
-} from 'lucide-react';
+  Users, Zap, AlertTriangle, Shield, Globe, Gauge } from
+'lucide-react';
 import { format } from 'date-fns';
 
 // Types
 interface SystemMetrics {
-  cpu: { usage: number; cores: number };
-  memory: { used: number; total: number; percentage: number };
-  disk: { used: number; total: number; percentage: number };
+  cpu: {usage: number;cores: number;};
+  memory: {used: number;total: number;percentage: number;};
+  disk: {used: number;total: number;percentage: number;};
   uptime: number;
   activeConnections: number;
   requestRate: number;
   errorRate: number;
-  responseTime: { p50: number; p95: number; p99: number };
+  responseTime: {p50: number;p95: number;p99: number;};
 }
 
 interface AgentMetrics {
@@ -60,44 +60,44 @@ interface AlertData {
 }
 
 interface WebVitalsData {
-  lcp: { value: number; rating: string };
-  fid: { value: number; rating: string };
-  cls: { value: number; rating: string };
-  ttfb: { value: number; rating: string };
+  lcp: {value: number;rating: string;};
+  fid: {value: number;rating: string;};
+  cls: {value: number;rating: string;};
+  ttfb: {value: number;rating: string;};
 }
 
 export default function AdminMonitoring() {
   const [selectedTimeRange, setSelectedTimeRange] = useState('1h');
   const [autoRefresh, setAutoRefresh] = useState(true);
-  
+
   // Fetch system metrics
   const { data: systemMetrics, refetch: refetchSystem } = useQuery({
     queryKey: ['/api/monitoring/system'],
-    refetchInterval: autoRefresh ? 10000 : false,
+    refetchInterval: autoRefresh ? 10000 : false
   });
-  
+
   // Fetch agent metrics
   const { data: agentMetrics } = useQuery({
     queryKey: ['/api/monitoring/agents'],
-    refetchInterval: autoRefresh ? 15000 : false,
+    refetchInterval: autoRefresh ? 15000 : false
   });
-  
+
   // Fetch alerts
   const { data: alerts } = useQuery({
     queryKey: ['/api/monitoring/alerts'],
-    refetchInterval: autoRefresh ? 5000 : false,
+    refetchInterval: autoRefresh ? 5000 : false
   });
-  
+
   // Fetch Web Vitals
   const { data: webVitals } = useQuery({
     queryKey: ['/api/monitoring/web-vitals'],
-    refetchInterval: autoRefresh ? 30000 : false,
+    refetchInterval: autoRefresh ? 30000 : false
   });
-  
+
   // Fetch time series data
   const { data: timeSeries } = useQuery({
     queryKey: ['/api/monitoring/timeseries', selectedTimeRange],
-    refetchInterval: autoRefresh ? 30000 : false,
+    refetchInterval: autoRefresh ? 30000 : false
   });
 
   return (
@@ -112,16 +112,16 @@ export default function AdminMonitoring() {
           <Button
             variant={autoRefresh ? 'default' : 'outline'}
             onClick={() => setAutoRefresh(!autoRefresh)}
-            className="gap-2"
-          >
+            className="gap-2" data-testid="button-gap-2">
+
             {autoRefresh ? <Activity className="w-4 h-4 animate-pulse" /> : <Clock className="w-4 h-4" />}
             {autoRefresh ? 'Auto-refresh ON' : 'Auto-refresh OFF'}
           </Button>
           <select
             value={selectedTimeRange}
             onChange={(e) => setSelectedTimeRange(e.target.value)}
-            className="px-4 py-2 border rounded-md"
-          >
+            className="px-4 py-2 border rounded-md" data-testid="select-px-4">
+
             <option value="1h">Last 1 hour</option>
             <option value="6h">Last 6 hours</option>
             <option value="24h">Last 24 hours</option>
@@ -245,10 +245,10 @@ export default function AdminMonitoring() {
               <CardContent>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={[
-                    { name: 'P50', value: systemMetrics?.responseTime?.p50 || 0 },
-                    { name: 'P95', value: systemMetrics?.responseTime?.p95 || 0 },
-                    { name: 'P99', value: systemMetrics?.responseTime?.p99 || 0 },
-                  ]}>
+                  { name: 'P50', value: systemMetrics?.responseTime?.p50 || 0 },
+                  { name: 'P95', value: systemMetrics?.responseTime?.p95 || 0 },
+                  { name: 'P99', value: systemMetrics?.responseTime?.p99 || 0 }]
+                  }>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
@@ -290,13 +290,13 @@ export default function AdminMonitoring() {
             <CardContent>
               <ScrollArea className="h-[400px] w-full">
                 <div className="space-y-2">
-                  {agentMetrics?.map((agent: AgentMetrics) => (
-                    <div key={agent.agentId} className="flex items-center justify-between p-3 border rounded-lg">
+                  {agentMetrics?.map((agent: AgentMetrics) =>
+                  <div key={agent.agentId} className="flex items-center justify-between p-3 border rounded-lg">
                       <div className="flex items-center gap-3">
                         <Badge variant={
-                          agent.status === 'healthy' ? 'default' :
-                          agent.status === 'degraded' ? 'secondary' : 'destructive'
-                        }>
+                      agent.status === 'healthy' ? 'default' :
+                      agent.status === 'degraded' ? 'secondary' : 'destructive'
+                      }>
                           Layer {agent.layer}
                         </Badge>
                         <div>
@@ -321,7 +321,7 @@ export default function AdminMonitoring() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
               </ScrollArea>
             </CardContent>
@@ -343,11 +343,11 @@ export default function AdminMonitoring() {
                       cx="50%"
                       cy="50%"
                       outerRadius={80}
-                      label
-                    >
-                      {agentMetrics?.slice(0, 8).map((entry: any, index: number) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
+                      label>
+
+                      {agentMetrics?.slice(0, 8).map((entry: any, index: number) =>
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      )}
                     </Pie>
                     <Tooltip />
                   </PieChart>
@@ -369,8 +369,8 @@ export default function AdminMonitoring() {
                       dataKey="avgResponseTime"
                       stroke="#8884d8"
                       fill="#8884d8"
-                      fillOpacity={0.6}
-                    />
+                      fillOpacity={0.6} />
+
                     <Tooltip />
                   </RadarChart>
                 </ResponsiveContainer>
@@ -436,17 +436,17 @@ export default function AdminMonitoring() {
             <CardContent>
               <ScrollArea className="h-[500px] w-full">
                 <div className="space-y-2">
-                  {alerts?.filter((a: AlertData) => !a.resolved).map((alert: AlertData) => (
-                    <Alert key={alert.id} variant={
-                      alert.severity === 'critical' ? 'destructive' : 'default'
-                    }>
+                  {alerts?.filter((a: AlertData) => !a.resolved).map((alert: AlertData) =>
+                  <Alert key={alert.id} variant={
+                  alert.severity === 'critical' ? 'destructive' : 'default'
+                  }>
                       <AlertTriangle className="h-4 w-4" />
                       <AlertTitle className="flex items-center justify-between">
                         <span>{alert.title}</span>
                         <Badge variant={
-                          alert.severity === 'critical' ? 'destructive' :
-                          alert.severity === 'warning' ? 'secondary' : 'default'
-                        }>
+                      alert.severity === 'critical' ? 'destructive' :
+                      alert.severity === 'warning' ? 'secondary' : 'default'
+                      }>
                           {alert.severity}
                         </Badge>
                       </AlertTitle>
@@ -457,7 +457,7 @@ export default function AdminMonitoring() {
                         </p>
                       </AlertDescription>
                     </Alert>
-                  ))}
+                  )}
                 </div>
               </ScrollArea>
             </CardContent>
@@ -477,8 +477,8 @@ export default function AdminMonitoring() {
                   {webVitals?.lcp?.value || 0}ms
                 </div>
                 <Badge variant={
-                  webVitals?.lcp?.rating === 'good' ? 'default' :
-                  webVitals?.lcp?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
+                webVitals?.lcp?.rating === 'good' ? 'default' :
+                webVitals?.lcp?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
                 }>
                   {webVitals?.lcp?.rating || 'Unknown'}
                 </Badge>
@@ -495,8 +495,8 @@ export default function AdminMonitoring() {
                   {webVitals?.fid?.value || 0}ms
                 </div>
                 <Badge variant={
-                  webVitals?.fid?.rating === 'good' ? 'default' :
-                  webVitals?.fid?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
+                webVitals?.fid?.rating === 'good' ? 'default' :
+                webVitals?.fid?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
                 }>
                   {webVitals?.fid?.rating || 'Unknown'}
                 </Badge>
@@ -513,8 +513,8 @@ export default function AdminMonitoring() {
                   {webVitals?.cls?.value || 0}
                 </div>
                 <Badge variant={
-                  webVitals?.cls?.rating === 'good' ? 'default' :
-                  webVitals?.cls?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
+                webVitals?.cls?.rating === 'good' ? 'default' :
+                webVitals?.cls?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
                 }>
                   {webVitals?.cls?.rating || 'Unknown'}
                 </Badge>
@@ -531,8 +531,8 @@ export default function AdminMonitoring() {
                   {webVitals?.ttfb?.value || 0}ms
                 </div>
                 <Badge variant={
-                  webVitals?.ttfb?.rating === 'good' ? 'default' :
-                  webVitals?.ttfb?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
+                webVitals?.ttfb?.rating === 'good' ? 'default' :
+                webVitals?.ttfb?.rating === 'needs-improvement' ? 'secondary' : 'destructive'
                 }>
                   {webVitals?.ttfb?.rating || 'Unknown'}
                 </Badge>
@@ -585,8 +585,8 @@ export default function AdminMonitoring() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 }
 
 // Color palette for charts

@@ -26,62 +26,62 @@ interface ProjectItem {
 
 // Minimal working project data structure
 const projectData: ProjectItem[] = [
+{
+  id: 'mundo-tango-platform',
+  title: 'Mundo Tango Platform',
+  description: 'Complete social media platform for the global tango community',
+  type: 'Platform',
+  status: 'In Progress',
+  completion: 85,
+  priority: 'High',
+  estimatedHours: 2000,
+  actualHours: 1700,
+  assignee: 'Development Team',
+  tags: ['Social Media', 'Tango Community', 'Full Stack'],
+  children: [
   {
-    id: 'mundo-tango-platform',
-    title: 'Mundo Tango Platform',
-    description: 'Complete social media platform for the global tango community',
-    type: 'Platform',
-    status: 'In Progress',
-    completion: 85,
+    id: 'authentication-system',
+    title: 'Authentication System',
+    description: 'Complete user authentication and authorization system',
+    type: 'Section',
+    status: 'Completed',
+    completion: 100,
     priority: 'High',
-    estimatedHours: 2000,
-    actualHours: 1700,
-    assignee: 'Development Team',
-    tags: ['Social Media', 'Tango Community', 'Full Stack'],
-    children: [
-      {
-        id: 'authentication-system',
-        title: 'Authentication System',
-        description: 'Complete user authentication and authorization system',
-        type: 'Section',
-        status: 'Completed',
-        completion: 100,
-        priority: 'High',
-        estimatedHours: 200,
-        actualHours: 180,
-        assignee: 'Backend Team',
-        tags: ['Security', 'OAuth', 'JWT'],
-        children: []
-      },
-      {
-        id: 'project-tracker',
-        title: '11L Project Tracker',
-        description: 'Comprehensive hierarchical project management system',
-        type: 'Feature',
-        status: 'In Progress',
-        completion: 90,
-        priority: 'High',
-        estimatedHours: 120,
-        actualHours: 108,
-        assignee: 'Frontend Team',
-        tags: ['Project Management', '11L Framework', 'React'],
-        webDevPrerequisites: [
-          'Complete responsive design implementation',
-          'Finish all React component state management',
-          'Implement comprehensive error handling',
-          'Add real-time synchronization capabilities'
-        ],
-        mobileNextSteps: [
-          'Design mobile-first navigation patterns',
-          'Implement native gesture controls',
-          'Create offline-capable data synchronization',
-          'Build native mobile performance optimizations'
-        ],
-        children: []
-      }
-    ]
-  }
-];
+    estimatedHours: 200,
+    actualHours: 180,
+    assignee: 'Backend Team',
+    tags: ['Security', 'OAuth', 'JWT'],
+    children: []
+  },
+  {
+    id: 'project-tracker',
+    title: '11L Project Tracker',
+    description: 'Comprehensive hierarchical project management system',
+    type: 'Feature',
+    status: 'In Progress',
+    completion: 90,
+    priority: 'High',
+    estimatedHours: 120,
+    actualHours: 108,
+    assignee: 'Frontend Team',
+    tags: ['Project Management', '11L Framework', 'React'],
+    webDevPrerequisites: [
+    'Complete responsive design implementation',
+    'Finish all React component state management',
+    'Implement comprehensive error handling',
+    'Add real-time synchronization capabilities'],
+
+    mobileNextSteps: [
+    'Design mobile-first navigation patterns',
+    'Implement native gesture controls',
+    'Create offline-capable data synchronization',
+    'Build native mobile performance optimizations'],
+
+    children: []
+  }]
+
+}];
+
 
 const EnhancedHierarchicalTreeView: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<ProjectItem | null>(null);
@@ -99,21 +99,21 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      case 'In Progress': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'Planned': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
-      case 'Blocked': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
-      case 'Under Review': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      case 'Completed':return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'In Progress':return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+      case 'Planned':return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      case 'Blocked':return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+      case 'Under Review':return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+      default:return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'High': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
-      case 'Medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      case 'Low': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      case 'High':return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+      case 'Medium':return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+      case 'Low':return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      default:return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -128,16 +128,16 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3 flex-1">
-                {hasChildren && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleExpanded(item.id)}
-                    className="p-1"
-                  >
+                {hasChildren &&
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => toggleExpanded(item.id)}
+                  className="p-1" data-testid="button-p-1">
+
                     {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                   </Button>
-                )}
+                }
                 
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
@@ -159,18 +159,18 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                       <CheckCircle2 className="h-4 w-4 mr-1" />
                       {item.completion}% Complete
                     </span>
-                    {item.assignee && (
-                      <span className="flex items-center">
+                    {item.assignee &&
+                    <span className="flex items-center">
                         <Users className="h-4 w-4 mr-1" />
                         {item.assignee}
                       </span>
-                    )}
-                    {item.estimatedHours && (
-                      <span className="flex items-center">
+                    }
+                    {item.estimatedHours &&
+                    <span className="flex items-center">
                         <Clock className="h-4 w-4 mr-1" />
                         {item.actualHours || 0}/{item.estimatedHours}h
                       </span>
-                    )}
+                    }
                   </div>
                 </div>
 
@@ -178,8 +178,8 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setSelectedItem(item)}
-                  className="ml-auto"
-                >
+                  className="ml-auto" data-testid="button-ml-auto">
+
                   <Eye className="h-4 w-4 mr-1" />
                   Details
                 </Button>
@@ -188,22 +188,22 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
           </CardContent>
         </Card>
 
-        {isExpanded && hasChildren && (
-          <div className="space-y-2">
-            {item.children?.map(child => renderTreeItem(child, depth + 1))}
+        {isExpanded && hasChildren &&
+        <div className="space-y-2">
+            {item.children?.map((child) => renderTreeItem(child, depth + 1))}
           </div>
-        )}
-      </div>
-    );
+        }
+      </div>);
+
   };
 
-  const DetailedCard: React.FC<{ item: ProjectItem; onClose: () => void }> = ({ item, onClose }) => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  const DetailedCard: React.FC<{item: ProjectItem;onClose: () => void;}> = ({ item, onClose }) =>
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <CardHeader>
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">{item.title}</h2>
-            <Button variant="outline" onClick={onClose}>Close</Button>
+            <Button variant="outline" onClick={onClose} data-testid="button-element">Close</Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -233,61 +233,61 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
             <p className="text-sm text-gray-600 dark:text-gray-300">{item.description}</p>
           </div>
 
-          {item.webDevPrerequisites && item.webDevPrerequisites.length > 0 && (
-            <div>
+          {item.webDevPrerequisites && item.webDevPrerequisites.length > 0 &&
+        <div>
               <h3 className="font-semibold mb-2 flex items-center">
                 <Monitor className="h-4 w-4 mr-2" />
                 Web Development Prerequisites
               </h3>
               <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
-                {item.webDevPrerequisites.map((prereq, index) => (
-                  <li key={index}>{prereq}</li>
-                ))}
+                {item.webDevPrerequisites.map((prereq, index) =>
+            <li key={index}>{prereq}</li>
+            )}
               </ul>
             </div>
-          )}
+        }
 
-          {item.mobileNextSteps && item.mobileNextSteps.length > 0 && (
-            <div>
+          {item.mobileNextSteps && item.mobileNextSteps.length > 0 &&
+        <div>
               <h3 className="font-semibold mb-2 flex items-center">
                 <Smartphone className="h-4 w-4 mr-2" />
                 Mobile Development Next Steps
               </h3>
               <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
-                {item.mobileNextSteps.map((step, index) => (
-                  <li key={index}>{step}</li>
-                ))}
+                {item.mobileNextSteps.map((step, index) =>
+            <li key={index}>{step}</li>
+            )}
               </ul>
             </div>
-          )}
+        }
 
-          {item.tags && item.tags.length > 0 && (
-            <div>
+          {item.tags && item.tags.length > 0 &&
+        <div>
               <h3 className="font-semibold mb-2">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {item.tags.map((tag, index) => (
-                  <Badge key={index} variant="secondary">{tag}</Badge>
-                ))}
+                {item.tags.map((tag, index) =>
+            <Badge key={index} variant="secondary">{tag}</Badge>
+            )}
               </div>
             </div>
-          )}
+        }
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
+
 
   return (
     <div className="w-full space-y-2">
-      {projectData.map(item => renderTreeItem(item))}
+      {projectData.map((item) => renderTreeItem(item))}
       
-      {selectedItem && (
-        <DetailedCard 
-          item={selectedItem} 
-          onClose={() => setSelectedItem(null)} 
-        />
-      )}
-    </div>
-  );
+      {selectedItem &&
+      <DetailedCard
+        item={selectedItem}
+        onClose={() => setSelectedItem(null)} />
+
+      }
+    </div>);
+
 };
 
 export default EnhancedHierarchicalTreeView;
