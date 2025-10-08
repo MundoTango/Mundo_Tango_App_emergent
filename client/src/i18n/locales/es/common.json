@@ -11,7 +11,7 @@
   },
   "navigation": {
     "home": "Inicio",
-    "feed": "Feed",
+    "feed": "Noticias",
     "profile": "Perfil",
     "events": "Eventos",
     "community": "Comunidad",
@@ -158,7 +158,7 @@
     "pleaseWait": "Por favor espera..."
   },
   "errors": {
-    "generic": "Algo salió mal. Por favor intenta de nuevo.",
+    "generic": "Algo salió mal. Por favor, intenta de nuevo.",
     "network": "Error de red. Verifica tu conexión.",
     "notFound": "No encontrado",
     "unauthorized": "No autorizado",
@@ -176,12 +176,12 @@
     "tooManyRequests": "Demasiadas solicitudes. Intenta de nuevo más tarde."
   },
   "labels": {
-    "email": "Correo Electrónico",
+    "email": "Correo electrónico",
     "password": "Contraseña",
-    "username": "Nombre de Usuario",
+    "username": "Nombre de usuario",
     "firstName": "Nombre",
     "lastName": "Apellido",
-    "fullName": "Nombre Completo",
+    "fullName": "Nombre completo",
     "phone": "Teléfono",
     "address": "Dirección",
     "city": "Ciudad",
@@ -189,16 +189,16 @@
     "country": "País",
     "postalCode": "Código Postal",
     "bio": "Biografía",
-    "website": "Sitio Web",
+    "website": "Sitio web",
     "birthday": "Cumpleaños",
     "gender": "Género",
     "language": "Idioma",
-    "timezone": "Zona Horaria",
+    "timezone": "Zona horaria",
     "currency": "Moneda"
   },
   "placeholder": {
     "search": "Buscar...",
-    "email": "tu@email.com",
+    "email": "tú@email.com",
     "password": "Introduce tu contraseña",
     "username": "Introduce tu nombre de usuario",
     "firstName": "Juan",
@@ -241,7 +241,7 @@
     "memoryShared": "Recuerdo Compartido",
     "memorySharedDesc": "Tu recuerdo ha sido compartido exitosamente",
     "error": "Error",
-    "uploadFailed": "La subida falló",
+    "uploadFailed": "La carga falló",
     "creator": {
       "sharePlaceholder": "Comparte un recuerdo de tango...",
       "editPlaceholder": "Edita tu recuerdo...",
@@ -258,7 +258,7 @@
       "filterByTags": "Filtrar por Etiquetas",
       "comingSoon": "PRÓXIMAMENTE",
       "clearDates": "Limpiar fechas",
-      "updatingFeed": "Actualizando feed...",
+      "updatingFeed": "Actualizando noticias...",
       "post": "publicación",
       "posts": "publicaciones",
       "filteredBy": "Filtrado por",
@@ -277,12 +277,12 @@
     },
     "share": {
       "sharePost": "Compartir Publicación",
-      "shareToTimeline": "Compartir en el Muro",
-      "shareToTimelineDesc": "Comparte esta publicación en tu muro",
+      "shareToTimeline": "Compartir en la Línea de Tiempo",
+      "shareToTimelineDesc": "Comparte esta publicación en tu línea de tiempo",
       "shareWithComment": "Compartir con Comentario",
       "shareWithCommentDesc": "Agrega tus pensamientos al compartir",
       "copyLink": "Copiar Enlace",
-      "copyLinkDesc": "Copia el enlace de la publicación al portapapeles",
+      "copyLinkDesc": "Copiar enlace de la publicación al portapapeles",
       "cancel": "Cancelar",
       "addThoughtsOptional": "Agrega tus pensamientos (opcional):",
       "whatDoYouThink": "¿Qué piensas de esto?",
@@ -308,7 +308,7 @@
       "delete": "Eliminar",
       "reportReasons": {
         "spam": "Spam o contenido engañoso",
-        "harassment": "Acoso o intimidación",
+        "harassment": "Acoso o bullying",
         "inappropriate": "Contenido inapropiado",
         "copyright": "Infracción de derechos de autor",
         "violence": "Violencia o contenido peligroso",
@@ -363,7 +363,7 @@
       "guest_review_success_desc": "Tu reseña de huésped ha sido publicada exitosamente.",
       "submit_failed_title": "Error al enviar reseña",
       "submit_failed_desc": "Por favor intenta de nuevo.",
-      "missing_ratings_title": "Calificaciones faltantes",
+      "missing_ratings_title": "Faltan calificaciones",
       "missing_ratings_desc": "Por favor califica todas las categorías antes de enviar.",
       "review_too_short_title": "Reseña demasiado corta",
       "review_too_short_desc": "Por favor escribe al menos 10 caracteres.",
@@ -391,7 +391,7 @@
       "review_dialog_desc": "Comparte tu experiencia con esta propiedad y ayuda a otros huéspedes a tomar decisiones informadas."
     },
     "host_bookings": {
-      "review_guest": "Reseña al Huésped",
+      "review_guest": "Reseñar Huésped",
       "review_dialog_title": "Reseña a Tu Huésped",
       "review_dialog_desc": "Comparte tu experiencia hospedando a este huésped y ayuda a otros anfitriones a tomar decisiones informadas."
     }
