@@ -1,0 +1,24 @@
+{
+  "color": {
+    "primary": { "value": "{color.ocean.500}" },
+    "primary-hover": { "value": "{color.ocean.600}" },
+    "primary-alpha-10": { "value": "hsla(190, 80%, 50%, 0.1)" },
+    "secondary": { "value": "{color.ocean.300}" },
+    "surface": { "value": "{color.neutral.0}" },
+    "surface-elevated": { "value": "{color.neutral.50}" },
+    "text": { "value": "{color.neutral.900}" },
+    "text-secondary": { "value": "{color.neutral.700}" },
+    "border": { "value": "{color.neutral.300}" },
+    "input-bg": { "value": "{color.neutral.0}" },
+    "error": { "value": "hsl(0, 80%, 50%)" },
+    "success": { "value": "hsl(120, 60%, 50%)" },
+    "warning": { "value": "hsl(45, 100%, 50%)" }
+  },
+  "glass": {
+    "bg": { "value": "hsla(190, 80%, 50%, 0.1)" },
+    "border": { "value": "hsla(190, 80%, 70%, 0.2)" },
+    "blur-low": { "value": "8px" },
+    "blur-medium": { "value": "24px" },
+    "blur-high": { "value": "40px" }
+  }
+}
