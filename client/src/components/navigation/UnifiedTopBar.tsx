@@ -258,7 +258,7 @@ export default function UnifiedTopBar({
                   <p className={cn(
                     "mt-2 text-sm",
                     theme === 'light' ? "text-gray-500" : "text-slate-400"
-                  )}>Searching...</p>
+                  )}>{t('search.searching')}</p>
                 </div>
               ) : searchResults ? (
                 <div className="grid grid-cols-4 gap-4 p-4">
@@ -268,7 +268,7 @@ export default function UnifiedTopBar({
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
                         theme === 'light' ? "text-gray-700" : "text-slate-300"
-                      )}>Posts</h3>
+                      )}>{t('search.posts')}</h3>
                       <div className="space-y-1">
                         {searchResults.posts.slice(0, 3).map((post: any) => (
                           <div
@@ -294,7 +294,7 @@ export default function UnifiedTopBar({
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
                         theme === 'light' ? "text-gray-700" : "text-slate-300"
-                      )}>Events</h3>
+                      )}>{t('search.events')}</h3>
                       <div className="space-y-1">
                         {searchResults.events.slice(0, 3).map((event: any) => (
                           <Link key={event.id} href={`/events/${event.id}`}>
@@ -348,7 +348,7 @@ export default function UnifiedTopBar({
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
                         theme === 'light' ? "text-gray-700" : "text-slate-300"
-                      )}>Groups</h3>
+                      )}>{t('search.groups')}</h3>
                       <div className="space-y-1">
                         {searchResults.groups.slice(0, 3).map((group: any) => (
                           <Link key={group.id} href={`/groups/${group.slug || group.id}`}>
