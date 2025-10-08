@@ -84,7 +84,7 @@ export default function MTTimelineList({
         return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'upcoming':
       default:
-        return <Circle className="w-5 h-5 text-gray-400" />;
+        return <Circle className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
     }
   };
 
@@ -139,7 +139,7 @@ export default function MTTimelineList({
               </p>
             )}
             {showTime && item.time && (
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-600 dark:text-gray-400">
                 {formatTime(item.time)}
               </p>
             )}
@@ -196,7 +196,9 @@ export default function MTTimelineList({
               if (item.onClick) item.onClick();
               else if (onItemClick) onItemClick(item, index);
             }}
-          >
+           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
+              if (item.onClick) item.onClick();
+              else if (onItemClick) onItemClick(item, index);(e); } }}>
             {/* Date/Time for default layout */}
             {!isAlternating && showDate && (
               <div className="flex items-center gap-2 mb-2 text-xs text-gray-500">
@@ -221,7 +223,7 @@ export default function MTTimelineList({
 
             {/* Description */}
             {item.description && !isCondensed && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
                 {item.description}
               </p>
             )}
@@ -241,7 +243,7 @@ export default function MTTimelineList({
 
             {/* Actions */}
             {item.actions && (
-              <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+              <div className="mt-3" onClick={(e) => e.stopPropagation()} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
                 {item.actions}
               </div>
             )}
@@ -286,7 +288,7 @@ export default function MTTimelineList({
           {Object.entries(groupedItems).map(([date, dateItems]) => (
             <div key={date}>
               {date && (
-                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-4">
                   {date}
                 </h3>
               )}

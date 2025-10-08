@@ -476,7 +476,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                     : 'hover:bg-gray-100'
                 }`}
                 data-testid={`suggestion-${suggestion.type}-${suggestion.id}`}
-              >
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => insertMention(suggestion)(e); } }}>
                 <Avatar className="h-10 w-10 flex-shrink-0">
                   <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
                   <AvatarFallback className={getTypeColor(suggestion.type)}>

@@ -5,13 +5,21 @@ import { useAuth } from "@/hooks/useAuth";
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import { useState } from "react";
+import { Helmet } from 'react-helmet';
 
 export default function Landing() {
   const { isAuthenticated, isLoading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return (savedTheme as 'light' | 'dark') || 'light';
+    return (
+    <>
+      <Helmet>
+        <title>Landing | Life CEO</title>
+      </Helmet>
+      savedTheme as 'light' | 'dark'
+    </>
+  ) || 'light';
   });
 
   const toggleTheme = () => {
@@ -52,7 +60,7 @@ export default function Landing() {
             <div 
               className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
               onClick={handleCloseSidebar}
-            />
+            / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCloseSidebar(e); } }}>
           )}
           
           <main className={`flex-1 transition-all duration-300 ${
@@ -182,7 +190,7 @@ export default function Landing() {
               Global Tango Community
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
             Connect with passionate tango dancers worldwide. Share your journey, discover events, 
             and immerse yourself in the beautiful world of Argentine Tango.
           </p>
@@ -212,7 +220,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Connect & Share</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
                 Share your tango moments, follow dancers you admire, and build meaningful connections in our vibrant community.
               </CardDescription>
             </CardContent>
@@ -226,7 +234,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Discover Events</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
                 Find milongas, workshops, and festivals near you. Never miss an opportunity to dance and learn.
               </CardDescription>
             </CardContent>
@@ -240,7 +248,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Global Network</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
                 Connect with tango communities worldwide. From Buenos Aires to Tokyo, find your tribe anywhere.
               </CardDescription>
             </CardContent>
@@ -254,7 +262,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Share Stories</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
                 Document your tango journey with photos and videos. Inspire others and celebrate the passion we all share.
               </CardDescription>
             </CardContent>
@@ -268,7 +276,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Learn & Grow</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
                 Access tutorials, tips from experienced dancers, and resources to improve your technique and musicality.
               </CardDescription>
             </CardContent>
@@ -282,7 +290,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Authentic Community</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
                 Join a respectful, passionate community that celebrates the art, culture, and emotion of tango.
               </CardDescription>
             </CardContent>
@@ -294,7 +302,7 @@ export default function Landing() {
           <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Ready to Join the Movement?
           </h3>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             Whether you're a beginner taking your first steps or a seasoned dancer, 
             Mundo Tango welcomes you with open arms.
           </p>
@@ -307,7 +315,7 @@ export default function Landing() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 text-center text-gray-600 dark:text-gray-400">
+        <footer className="mt-16 text-center text-gray-600 dark:text-gray-600 dark:text-gray-400">
           <p>&copy; 2025 Mundo Tango. Connecting hearts through dance.</p>
         </footer>
       </div>

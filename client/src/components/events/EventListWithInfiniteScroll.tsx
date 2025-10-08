@@ -255,7 +255,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
                   {event.title}
                 </h3>
                 {event.user && (
-                  <p className="text-sm text-gray-600 flex items-center gap-2 mt-1 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600 flex items-center gap-2 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                     <LazyLoadImage
                       src={event.user.profileImage || '/api/placeholder/32/32'}
                       alt={event.user.name}
@@ -268,7 +268,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
               </div>
 
               {/* Event Details */}
-              <div className="space-y-2 text-sm text-gray-600 dark:text-neutral-400">
+              <div className="space-y-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
                   <span>{format(new Date(event.startDate), 'EEE, MMM d, h:mm a')}</span>
@@ -366,9 +366,9 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
       {!loading && events.length === 0 && (
         <Card className="glassmorphic-card">
           <CardContent className="py-12 text-center">
-            <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Calendar className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2">No events found</h3>
-            <p className="text-gray-600 dark:text-neutral-400">Try adjusting your filters or check back later for new events.</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Try adjusting your filters or check back later for new events.</p>
           </CardContent>
         </Card>
       )}

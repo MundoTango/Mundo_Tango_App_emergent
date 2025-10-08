@@ -73,7 +73,7 @@ export function PostReportsViewer() {
   if (reports.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-gray-500">
-        <Flag className="h-12 w-12 mb-4 text-gray-300" />
+        <Flag className="h-12 w-12 mb-4 text-gray-600 dark:text-gray-300" />
         <p>No reports to review</p>
       </div>
     );
@@ -93,7 +93,7 @@ export function PostReportsViewer() {
               </div>
               <div>
                 <h3 className="font-semibold">{report.reason}</h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Reported by @{report.user.username} • {formatDistanceToNow(new Date(report.createdAt), { addSuffix: true })}
                 </p>
               </div>
@@ -112,13 +112,13 @@ export function PostReportsViewer() {
           {/* Report Description */}
           {report.description && (
             <div className="bg-gray-50 rounded-lg p-3 dark:bg-neutral-800">
-              <p className="text-sm text-gray-700 dark:text-neutral-300">{report.description}</p>
+              <p className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{report.description}</p>
             </div>
           )}
 
           {/* Reported Post */}
           <div className="border-l-4 border-red-200 pl-4 space-y-2">
-            <p className="text-sm font-medium text-gray-600 dark:text-neutral-400">Reported post by @{report.post.user.username}:</p>
+            <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Reported post by @{report.post.user.username}:</p>
             <p className="text-gray-800 dark:text-neutral-200">{report.post.content}</p>
           </div>
 

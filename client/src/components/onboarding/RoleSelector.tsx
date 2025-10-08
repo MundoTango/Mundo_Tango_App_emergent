@@ -115,7 +115,10 @@ export default function RoleSelector({
             e.stopPropagation();
             handleRoleToggle(role.name);
           }}
-        >
+         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleRoleToggle(role.name);(e); } }}>
           <div className="flex items-start gap-3">
             <Checkbox
               checked={isSelected}
@@ -129,7 +132,7 @@ export default function RoleSelector({
                   {role.name.replace(/_/g, ' ')}
                 </h3>
               </div>
-              <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-400">
+              <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                 {role.description}
               </p>
             </div>
@@ -176,7 +179,7 @@ export default function RoleSelector({
           <Users className="h-5 w-5 text-blue-600" />
           What do you do in tango?
         </CardTitle>
-        <p className="text-sm text-gray-600 flex items-start gap-2 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 flex items-start gap-2 dark:text-neutral-600 dark:text-neutral-400">
           <Info className="h-4 w-4 mt-0.5 text-blue-500" />
           Choose all that apply. You can always update these later in your profile.
         </p>
@@ -194,7 +197,7 @@ export default function RoleSelector({
           {selectedRoles.length > 0 && (
             <div className="pt-4 border-t border-gray-100">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Selected roles:</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Selected roles:</span>
                 <Badge variant="outline" className="text-xs">
                   {selectedRoles.length}
                 </Badge>

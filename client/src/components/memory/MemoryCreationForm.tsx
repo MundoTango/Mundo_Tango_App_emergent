@@ -364,7 +364,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               allowManualEntry={true}
             />
             {location && (
-              <div className="flex items-center text-sm text-gray-600 dark:text-neutral-400">
+              <div className="flex items-center text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 <MapPin className="w-4 h-4 mr-2" />
                 {location.formattedAddress}
               </div>
@@ -400,7 +400,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                 placeholder="Search by username or email..."
                 className="pr-10"
               />
-              <Users className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Users className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
               
               {/* Search Results */}
               {showUserSearch && searchedUsers.length > 0 && (
@@ -410,7 +410,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                       key={user.id}
                       className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0 dark:bg-neutral-800"
                       onClick={() => addCoTaggedUser(user)}
-                    >
+                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => addCoTaggedUser(user)(e); } }}>
                       <div className="font-medium">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
                     </div>

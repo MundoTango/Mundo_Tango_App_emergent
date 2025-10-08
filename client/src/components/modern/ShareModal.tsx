@@ -100,10 +100,10 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
         {/* Content */}
         <div className="space-y-4">
           <GlassCard depth={1} className="bg-gradient-to-br from-teal-50/50 to-blue-50/50 dark:from-teal-900/20 dark:to-blue-900/20 p-4 rounded-lg border border-teal-200/30 dark:border-teal-700/30"
-            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            <p className="text-sm text-gray-700 dark:text-gray-600 dark:text-gray-300 line-clamp-3">
               {post.content}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-2">
               by {post.user.name}
             </p>
           </div>

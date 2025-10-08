@@ -123,7 +123,7 @@ export default function SocialShareButtons({
               <h4 className="font-semibold text-gray-900 dark:text-neutral-100">Share this post</h4>
               <button
                 onClick={() = data-testid="button-element"> setShowShareMenu(false)}
-                className="text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
               >
                 ×
               </button>
@@ -166,7 +166,7 @@ export default function SocialShareButtons({
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       {showLabels && (
-        <span className="text-sm font-medium text-gray-700 mr-2 dark:text-neutral-300">Share:</span>
+        <span className="text-sm font-medium text-gray-700 mr-2 dark:text-neutral-600 dark:text-neutral-300">Share:</span>
       )}
       
       {shareButtons.map(({ component: ShareButton, icon: Icon, label, props }) => (
@@ -174,7 +174,7 @@ export default function SocialShareButtons({
           <div className="group relative">
             <Icon size={size} round className="hover:scale-110 transition-transform" />
             {showLabels && (
-              <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap dark:text-neutral-400">
+              <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap dark:text-neutral-600 dark:text-neutral-400">
                 {label}
               </span>
             )}
@@ -191,7 +191,7 @@ export default function SocialShareButtons({
           {copied ? <Check className="h-4 w-4 text-green-600" /> : <Link className="h-4 w-4" / data-testid="link-h-4">}
         </div>
         {showLabels && (
-          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap dark:text-neutral-400">
+          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap dark:text-neutral-600 dark:text-neutral-400">
             {copied ? 'Copied!' : 'Copy link'}
           </span>
         )}

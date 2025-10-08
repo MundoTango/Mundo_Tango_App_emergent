@@ -515,7 +515,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                     {item.mvpStatus}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-600 mb-2 dark:text-neutral-400">{item.description}</p>
+                <p className="text-xs text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">{item.description}</p>
                 
                 {/* Progress Bar */}
                 <div className="space-y-1">

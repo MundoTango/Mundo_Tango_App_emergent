@@ -4,6 +4,7 @@ import TTCommunityCard from '@/components/ttfiles/TTCommunityCard';
 import { useLocation } from 'wouter';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import '../styles/ttfiles.css';
+import { Helmet } from 'react-helmet';
 
 const TTfilesDemo = () => {
   const [, setLocation] = useLocation();
@@ -35,13 +36,18 @@ const TTfilesDemo = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>T Tfiles Demo | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="min-h-screen bg-gray-50 p-8 dark:bg-neutral-800">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-neutral-100">TrangoTech Original Components</h1>
-          <p className="text-lg text-gray-600 dark:text-neutral-400">Authentic vintage-styled components from the original TTfiles</p>
+          <p className="text-lg text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Authentic vintage-styled components from the original TTfiles</p>
         </div>
 
         {/* Profile Head Section */}
@@ -108,6 +114,8 @@ const TTfilesDemo = () => {
         </div>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 };
 

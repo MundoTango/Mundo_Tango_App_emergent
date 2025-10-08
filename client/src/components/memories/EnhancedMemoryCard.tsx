@@ -209,7 +209,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
         {/* Reactions summary */}
         {totalReactions > 0 && (
           <div className="px-4 pb-2">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-400">
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <div className="flex -space-x-1">
                 {Object.entries(memory.reactions || {})
                   .filter(([_, count]) => count > 0)
@@ -337,7 +337,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                     <div className="flex-1">
                       <div className="bg-gray-100 rounded-2xl px-3 py-2 dark:bg-neutral-800">
                         <p className="font-semibold text-sm">{comment.userName}</p>
-                        <p className="text-gray-700 text-sm dark:text-neutral-300">{comment.content}</p>
+                        <p className="text-gray-700 text-sm dark:text-neutral-600 dark:text-neutral-300">{comment.content}</p>
                       </div>
                       <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
                         <span>{formatDistanceToNow(new Date(comment.createdAt))} ago</span>
@@ -370,13 +370,13 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             
             {/* Preview of the shared memory */}
             <div className="border border-gray-200 rounded-lg p-3 bg-gray-50 dark:bg-neutral-800">
-              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2 dark:text-neutral-400">
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold">
                   {getAvatarInitials(memory.userName || 'U')}
                 </div>
                 <span className="font-medium">{memory.userName}</span>
               </div>
-              <p className="text-sm text-gray-700 line-clamp-3 dark:text-neutral-300">{memory.content}</p>
+              <p className="text-sm text-gray-700 line-clamp-3 dark:text-neutral-600 dark:text-neutral-300">{memory.content}</p>
             </div>
 
             <div className="flex justify-end gap-2">

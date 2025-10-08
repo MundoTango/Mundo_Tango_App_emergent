@@ -37,6 +37,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
+import { Helmet } from 'react-helmet';
 
 interface PaymentMethod {
   id: string;
@@ -101,6 +102,11 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Payment Methods | Life CEO</title>
+      </Helmet>
+      
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="glassmorphic-card p-6 rounded-lg">
         <CardElement
@@ -148,6 +154,8 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
         </Button>
       </div>
     </form>
+  
+    </>
   );
 };
 
@@ -238,7 +246,7 @@ const PaymentMethods: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Payment Methods</h1>
-          <p className="text-gray-600 dark:text-neutral-400">Manage your payment methods for subscriptions and purchases</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Manage your payment methods for subscriptions and purchases</p>
         </div>
 
         <Card className="glassmorphic-card mb-6">
@@ -262,9 +270,9 @@ const PaymentMethods: React.FC = () => {
               </div>
             ) : (!paymentMethods || (paymentMethods as PaymentMethod[]).length === 0) ? (
               <div className="text-center py-8">
-                <CreditCard className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <CreditCard className="mx-auto h-12 w-12 text-gray-600 dark:text-gray-400 mb-4" />
                 <p className="text-gray-500">No payment methods added yet</p>
-                <p className="text-sm text-gray-400 mt-2">Add a payment method to subscribe to premium features</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Add a payment method to subscribe to premium features</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -336,7 +344,7 @@ const PaymentMethods: React.FC = () => {
           <Shield className="h-6 w-6 text-turquoise-500 flex-shrink-0 mt-1" />
           <div>
             <h3 className="font-semibold text-gray-900 mb-1 dark:text-neutral-100">Your payment information is secure</h3>
-            <p className="text-sm text-gray-600 dark:text-neutral-400">
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               We use industry-standard encryption to protect your payment details. Your full card number is never stored on our servers.
               All payment processing is handled securely by Stripe.
             </p>

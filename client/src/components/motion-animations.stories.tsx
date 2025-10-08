@@ -19,7 +19,7 @@ export const FadeInAnimation: Story = () => (
     <FadeIn className="max-w-md">
       <GlassCard depth={2} className="p-6">
         <h3 className="text-xl font-semibold mb-3">Smooth Fade In</h3>
-        <p className="text-neutral-700 dark:text-neutral-300">
+        <p className="text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
           This card fades in smoothly using the FadeIn wrapper component.
         </p>
       </GlassCard>
@@ -35,7 +35,7 @@ export const FadeInUpAnimation: Story = () => (
         <FadeInUp key={i} delay={delay}>
           <GlassCard depth={2} className="p-6">
             <h3 className="text-lg font-semibold mb-2">Card {i + 1}</h3>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
               Delay: {delay}s
             </p>
           </GlassCard>
@@ -51,7 +51,7 @@ export const ScaleInAnimation: Story = () => (
     <ScaleIn className="max-w-md">
       <GlassCard depth={3} className="p-8 text-center">
         <h3 className="text-2xl font-bold mb-3">Welcome!</h3>
-        <p className="text-neutral-700 dark:text-neutral-300">
+        <p className="text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
           This card scales in from 95% to 100% with a fade effect.
         </p>
       </GlassCard>
@@ -66,7 +66,7 @@ export const SlideInAnimations: Story = () => (
       <SlideInLeft>
         <GlassCard depth={2} className="p-6">
           <h3 className="text-lg font-semibold mb-2">Slide From Left</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
             Enters from the left with a spring easing.
           </p>
         </GlassCard>
@@ -75,7 +75,7 @@ export const SlideInAnimations: Story = () => (
       <SlideInRight>
         <GlassCard depth={2} className="p-6">
           <h3 className="text-lg font-semibold mb-2">Slide From Right</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
             Enters from the right with a spring easing.
           </p>
         </GlassCard>
@@ -92,7 +92,7 @@ export const StaggerAnimation: Story = () => (
         <StaggerItem key={num}>
           <GlassCard depth={2} className="p-6">
             <h3 className="text-lg font-semibold mb-2">Item {num}</h3>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
               Staggered entrance with 0.1s delay between items.
             </p>
           </GlassCard>
@@ -112,7 +112,7 @@ export const InteractiveAnimations: Story = () => (
         <AnimatedCard className="max-w-md" data-testid="link-max-w-md">
           <GlassCard depth={2} className="p-6">
             <h4 className="text-lg font-semibold mb-2">Interactive Card</h4>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
               Hover to scale up (102%), click to scale down (98%).
             </p>
           </GlassCard>
@@ -146,7 +146,7 @@ export const SpringAnimations: Story = () => (
       >
         <GlassCard depth={2} className="p-6">
           <h3 className="text-lg font-semibold mb-2">Stiff Spring</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
             Stiffness: 300, Damping: 30
           </p>
         </GlassCard>
@@ -159,7 +159,7 @@ export const SpringAnimations: Story = () => (
       >
         <GlassCard depth={2} className="p-6">
           <h3 className="text-lg font-semibold mb-2">Gentle Spring</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
             Stiffness: 100, Damping: 20
           </p>
         </GlassCard>
@@ -172,7 +172,7 @@ export const SpringAnimations: Story = () => (
       >
         <GlassCard depth={2} className="p-6">
           <h3 className="text-lg font-semibold mb-2">Bouncy Spring</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
             Stiffness: 400, Damping: 10
           </p>
         </GlassCard>

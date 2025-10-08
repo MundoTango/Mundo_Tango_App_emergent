@@ -18,6 +18,7 @@ import {
   FileText,
   Sparkles
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface NotionEntry {
   id: string;
@@ -144,6 +145,11 @@ export function NotionHomePage() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Notion Home Page | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-10 dark:bg-neutral-900">
@@ -153,7 +159,7 @@ export function NotionHomePage() {
               <h1 className="text-4xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
                 Mundo Tango Stories
               </h1>
-              <p className="text-gray-600 dark:text-neutral-400">
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 Discover memories, events, and reflections from our global tango community
               </p>
             </div>
@@ -167,7 +173,7 @@ export function NotionHomePage() {
           <div className="space-y-4">
             <div className="flex gap-4 items-center">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
                 <Input
                   placeholder="Search stories, memories, and events..."
                   value={searchTerm}
@@ -305,7 +311,7 @@ export function NotionHomePage() {
                         
                         <CardContent className="pt-0">
                           {entry.summary && (
-                            <p className="text-gray-600 text-sm mb-4 line-clamp-3 dark:text-neutral-400">
+                            <p className="text-gray-600 text-sm mb-4 line-clamp-3 dark:text-neutral-600 dark:text-neutral-400">
                               {entry.summary}
                             </p>
                           )}
@@ -352,12 +358,12 @@ export function NotionHomePage() {
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center dark:bg-neutral-800">
-                <Search className="w-8 h-8 text-gray-400" />
+                <Search className="w-8 h-8 text-gray-600 dark:text-gray-400" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">
                 No stories found
               </h3>
-              <p className="text-gray-600 mb-4 dark:text-neutral-400">
+              <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                 Try adjusting your search terms or filters to find more stories.
               </p>
               <Button onClick={clearFilters} variant="outline" data-testid="button-element">
@@ -368,5 +374,7 @@ export function NotionHomePage() {
         )}
       </div>
     </div>
+  
+    </>
   );
 }

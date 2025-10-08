@@ -13,6 +13,7 @@ import {
   MTFormField,
   MTFormCheckbox 
 } from "@/components/ui-library";
+import { Helmet } from 'react-helmet';
 
 export default function Register() {
   const { register } = useAuth();
@@ -54,6 +55,11 @@ export default function Register() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Register | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-teal-50 flex items-center justify-center p-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -86,7 +92,7 @@ export default function Register() {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-teal-600 bg-clip-text text-transparent">
               Join Mundo Tango
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-2 dark:text-neutral-400">
+            <CardDescription className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">
               Connect with the global tango community
             </CardDescription>
           </div>
@@ -249,7 +255,7 @@ export default function Register() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-gray-200 text-center dark:border-neutral-700">
-            <p className="text-sm text-gray-600 dark:text-neutral-400">
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               Already have an account?{" "}
               <Link 
                 href="/login" 
@@ -263,5 +269,7 @@ export default function Register() {
         </CardContent>
       </Card>
     </div>
+  
+    </>
   );
 }

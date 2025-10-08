@@ -250,7 +250,7 @@ export default function GoogleMapsAutocomplete({
       <div className={`relative ${className}`}>
         <div className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
           <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-sm text-gray-600 dark:text-neutral-400">Loading location search...</span>
+          <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Loading location search...</span>
         </div>
       </div>
     );
@@ -260,7 +260,7 @@ export default function GoogleMapsAutocomplete({
     <div className={`space-y-4 ${className}`}>
       {/* Search Input */}
       <div className="relative">
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400">
           <Search className="w-4 h-4" />
         </div>
         <Input
@@ -278,7 +278,7 @@ export default function GoogleMapsAutocomplete({
             variant="ghost"
             size="sm"
             onClick={handleClear}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
            data-testid="button-absolute">
             <X className="w-4 h-4" />
           </Button>
@@ -315,7 +315,7 @@ export default function GoogleMapsAutocomplete({
       {showMap && (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-gray-700 dark:text-neutral-300">Map Preview</p>
+            <p className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Map Preview</p>
             <p className="text-xs text-gray-500">Click on map or drag marker to adjust location</p>
           </div>
           <div 

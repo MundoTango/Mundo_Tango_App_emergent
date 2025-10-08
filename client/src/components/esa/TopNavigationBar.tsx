@@ -53,7 +53,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           )}>
             <Search className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5",
-              theme === 'light' ? "text-gray-400" : "text-slate-400"
+              theme === 'light' ? "text-gray-600 dark:text-gray-400" : "text-slate-400"
             )} />
             <input
               type="text"
@@ -182,7 +182,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                 <div 
                   className="fixed inset-0 z-40" 
                   onClick={() => setIsProfileOpen(false)}
-                />
+                / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsProfileOpen(false)(e); } }}>
                 <div className={cn(
                   "absolute right-0 mt-2 w-64 rounded-xl shadow-xl border z-50",
                   theme === 'light'

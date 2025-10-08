@@ -69,6 +69,7 @@ import { Progress } from '@/components/ui/progress';
 import { Layers, CreditCard } from 'lucide-react';
 import SubscriptionManagement from '@/components/admin/SubscriptionManagement';
 import { TestSpriteIntegration } from '@/components/admin/TestSpriteIntegration';
+import { Helmet } from 'react-helmet';
 
 // ESA LIFE CEO 61x21 - Phase 19: Admin Dashboard Types
 interface AdminStats {
@@ -507,6 +508,11 @@ const AdminCenter = memo(() => {
     };
 
     return (
+    <>
+      <Helmet>
+        <title>Admin Center | Life CEO</title>
+      </Helmet>
+      
       <div className="glassmorphic-card backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-turquoise-100/50 shadow-lg hover:shadow-xl transition-all">
         <div className="flex items-center justify-between mb-3 sm:mb-4">
           <h3 className="font-semibold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent text-sm sm:text-base">{title}</h3>
@@ -527,7 +533,9 @@ const AdminCenter = memo(() => {
           />
         </div>
       </div>
-    );
+    
+    </>
+  );
   };
 
   const renderOverview = () => (
@@ -973,7 +981,7 @@ const AdminCenter = memo(() => {
               onKeyDown={(e) => e.key === 'Enter' && fetchUsers()}
               className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
-            <Users className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <Users className="w-4 h-4 text-gray-600 dark:text-gray-400 absolute left-3 top-3" />
           </div>
           <select
             value={userFilter}
@@ -1135,7 +1143,7 @@ const AdminCenter = memo(() => {
               <h3 className="text-xl font-bold text-gray-900">User Details</h3>
               <button
                 onClick={() => setShowUserModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-600"
               >
                 <Ban className="w-5 h-5" />
               </button>
@@ -1205,7 +1213,7 @@ const AdminCenter = memo(() => {
               onKeyDown={(e) => e.key === 'Enter' && fetchFlaggedContent()}
               className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
-            <FileText className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <FileText className="w-4 h-4 text-gray-600 dark:text-gray-400 absolute left-3 top-3" />
           </div>
           <select
             value={contentFilter}
@@ -1370,7 +1378,7 @@ const AdminCenter = memo(() => {
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-40"
             onClick={() => setShowContentModal(false)}
-          />
+          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setShowContentModal(false)(e); } }}>
           
           {/* Right Panel - Gmail Style */}
           <div className={`fixed top-0 right-0 h-full w-[480px] bg-white shadow-2xl z-50 transform transition-all duration-300 ease-out ${
@@ -1387,7 +1395,7 @@ const AdminCenter = memo(() => {
                 </div>
                 <button
                   onClick={() => setShowContentModal(false)}
-                  className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="text-gray-600 dark:text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>

@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'react-hot-toast';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { Helmet } from 'react-helmet';
 
 export default function LifeCEO() {
   const [, setLocation] = useLocation();
@@ -114,6 +115,11 @@ export default function LifeCEO() {
   }
 
   return (
+    <>
+      <Helmet>
+        <title>Life C E O | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
       {/* Header */}
@@ -199,7 +205,7 @@ export default function LifeCEO() {
               )}
             </button>
             
-            <p className="mt-4 text-sm text-gray-600 dark:text-neutral-400">
+            <p className="mt-4 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               {isRecording 
                 ? language === 'en' ? 'Listening...' : 'Escuchando...'
                 : language === 'en' ? 'Tap to speak' : 'Toca para hablar'
@@ -209,7 +215,7 @@ export default function LifeCEO() {
             {/* Transcript */}
             {transcript && (
               <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left dark:bg-neutral-800">
-                <p className="text-sm text-gray-700 dark:text-neutral-300">
+                <p className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                   <strong>{language === 'en' ? 'You said:' : 'Dijiste:'}</strong> {transcript}
                 </p>
               </div>
@@ -274,5 +280,7 @@ export default function LifeCEO() {
         </div>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

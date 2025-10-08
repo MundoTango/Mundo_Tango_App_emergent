@@ -89,6 +89,7 @@ import { useEventRSVP } from '@/hooks/useEventRSVP';
 
 // Lazy load the map component for better performance
 const LeafletMap = lazy(() => import('@/components/LeafletMap'));
+import { Helmet } from 'react-helmet';
 
 interface Event {
   id: number;
@@ -316,10 +317,17 @@ export default function EnhancedEventsPage() {
       return <span className="text-green-600 font-medium">Happening now!</span>;
     } else {
       return (
+    <>
+      <Helmet>
+        <title>Enhanced Events | Life CEO</title>
+      </Helmet>
+      
         <span className="text-turquoise-600 font-medium">
           {days}d {hours}h {minutes}m
         </span>
-      );
+      
+    </>
+  );
     }
   };
 
@@ -347,7 +355,7 @@ export default function EnhancedEventsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Events
             </h1>
-            <p className="text-gray-600 mt-1 dark:text-neutral-400">Discover and join tango events worldwide</p>
+            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Discover and join tango events worldwide</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -375,7 +383,7 @@ export default function EnhancedEventsPage() {
               <Calendar className="w-8 h-8 text-turquoise-600" />
               <div>
                 <p className="text-2xl font-bold">{events.length}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Events</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Events</p>
               </div>
             </div>
           </Card>
@@ -386,7 +394,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => moment(e.startDate).isAfter()).length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Upcoming</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Upcoming</p>
               </div>
             </div>
           </Card>
@@ -397,7 +405,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => e.userStatus === 'going').length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Attending</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Attending</p>
               </div>
             </div>
           </Card>
@@ -408,7 +416,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => moment(e.startDate).isSame(moment(), 'week')).length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">This Week</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">This Week</p>
               </div>
             </div>
           </Card>
@@ -641,7 +649,7 @@ export default function EnhancedEventsPage() {
                   event: ({ event }: any) => (
                     <div className="p-1 text-xs">
                       <div className="font-semibold truncate">{event.title}</div>
-                      <div className="text-gray-600 dark:text-neutral-400">{moment(event.start).format('h:mm A')}</div>
+                      <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{moment(event.start).format('h:mm A')}</div>
                     </div>
                   )
                 }}
@@ -657,7 +665,7 @@ export default function EnhancedEventsPage() {
                 <div className="h-full bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 flex items-center justify-center">
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600 dark:text-neutral-400">Loading map...</p>
+                    <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Loading map...</p>
                   </div>
                 </div>
               }>

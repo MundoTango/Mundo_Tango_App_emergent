@@ -35,6 +35,7 @@ import { MagneticButton, PulseButton } from '../components/interactions/MicroInt
 import { HostReviewForm } from '../components/reviews/HostReviewForm';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import { Star } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface BookingWithDetails {
   id: number;
@@ -106,11 +107,18 @@ export default function MyBookings() {
     switch (status) {
       case 'pending':
         return (
+    <>
+      <Helmet>
+        <title>My Bookings | Life CEO</title>
+      </Helmet>
+      
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/40 dark:to-amber-900/40 border border-yellow-200/50 dark:border-yellow-500/30" data-testid={`badge-status-pending`}>
             <Clock className="w-3 h-3 text-yellow-700 dark:text-yellow-400" />
             <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">{t('housing.my_bookings.status_pending', 'Pending')}</span>
           </div>
-        );
+        
+    </>
+  );
       case 'approved':
         return (
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40 border border-cyan-200/50 dark:border-ocean-500/30" data-testid={`badge-status-approved`}>

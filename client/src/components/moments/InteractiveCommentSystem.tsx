@@ -217,24 +217,24 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 <p className="font-semibold text-gray-900 text-sm dark:text-neutral-100">{comment.user.name}</p>
                 <p className="text-xs text-gray-500">@{comment.user.username}</p>
               </div>
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-600 dark:text-gray-400">
                 {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
               </span>
               {comment.isEdited && (
-                <span className="text-xs text-gray-400">(edited)</span>
+                <span className="text-xs text-gray-600 dark:text-gray-400">(edited)</span>
               )}
             </div>
             
             <div className="flex items-center space-x-1">
               <button
                 onClick={() = data-testid="button-element"> setShowReactionPicker(showReactionPicker === comment.id ? null : comment.id)}
-                className="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-600 dark:bg-neutral-800"
+                className="p-1 hover:bg-gray-100 rounded text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:bg-neutral-800"
               >
                 <Smile className="w-4 h-4" />
               </button>
               <button
                 onClick={() = data-testid="button-element"> handleReport('inappropriate')}
-                className="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-red-600 dark:bg-neutral-800"
+                className="p-1 hover:bg-gray-100 rounded text-gray-600 dark:text-gray-400 hover:text-red-600 dark:bg-neutral-800"
               >
                 <Flag className="w-4 h-4" />
               </button>
@@ -398,7 +398,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
               return (
                 <div key={type} className="flex items-center space-x-1">
                   <span>{emoji}</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-400">{count}</span>
+                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{count}</span>
                 </div>
               );
             })}
@@ -497,7 +497,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
 
       {comments.length === 0 && (
         <div className="text-center py-8 text-gray-500">
-          <MessageCircle className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+          <MessageCircle className="w-12 h-12 mx-auto mb-3 text-gray-600 dark:text-gray-300" />
           <p>No comments yet. Be the first to comment!</p>
         </div>
       )}

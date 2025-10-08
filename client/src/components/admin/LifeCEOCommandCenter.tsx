@@ -99,7 +99,7 @@ const LifeCEOCommandCenter: React.FC = () => {
         <h2 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">
           Life CEO 44x21 Framework
         </h2>
-        <p className="text-gray-600 mt-2 dark:text-neutral-400">44 Technical Layers × 21 Development Phases</p>
+        <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">44 Technical Layers × 21 Development Phases</p>
       </div>
 
       {/* Quick Stats Grid */}
@@ -115,7 +115,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
               {stats.agentStatus}
             </p>
-            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Agent Status</p>
+            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Agent Status</p>
           </CardContent>
         </Card>
 
@@ -130,7 +130,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
               {stats.learningsToday}
             </p>
-            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">New Learnings</p>
+            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">New Learnings</p>
           </CardContent>
         </Card>
 
@@ -145,7 +145,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
               {stats.frameworkLayers}
             </p>
-            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Technical Layers</p>
+            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Technical Layers</p>
           </CardContent>
         </Card>
 
@@ -160,7 +160,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
               {stats.developmentPhases}
             </p>
-            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Dev Phases</p>
+            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Dev Phases</p>
           </CardContent>
         </Card>
 
@@ -175,7 +175,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
               {stats.activeProjects}
             </p>
-            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Active Projects</p>
+            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Active Projects</p>
           </CardContent>
         </Card>
 
@@ -190,7 +190,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
               {stats.performanceScore}
             </p>
-            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Performance</p>
+            <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Performance</p>
           </CardContent>
         </Card>
       </div>
@@ -290,7 +290,7 @@ const LifeCEOCommandCenter: React.FC = () => {
                     <Icon className="w-5 h-5 text-blue-500 mt-0.5" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">{activity.project_title || activity.activity}</p>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">{activity.description}</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{activity.description}</p>
                       <p className="text-xs text-gray-500 mt-1">{timeString}</p>
                     </div>
                   </div>
@@ -298,7 +298,7 @@ const LifeCEOCommandCenter: React.FC = () => {
               })}
               {(!todayActivities?.data || todayActivities.data.length === 0) && (
                 <div className="text-center py-4 text-gray-500">
-                  <CalendarDays className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                  <CalendarDays className="w-8 h-8 mx-auto mb-2 text-gray-600 dark:text-gray-400" />
                   <p className="text-sm">No activities logged today</p>
                   <p className="text-xs mt-1">Activities will appear here automatically</p>
                 </div>
@@ -318,19 +318,19 @@ const LifeCEOCommandCenter: React.FC = () => {
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium">44x21 Framework Progress</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-400">Phase 18/21</span>
+                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Phase 18/21</span>
                 </div>
                 <Progress value={85.7} className="h-2 bg-gray-200" />
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium">Layer Completion</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-400">38/44 Layers</span>
+                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">38/44 Layers</span>
                 </div>
                 <Progress value={86.4} className="h-2 bg-gray-200" />
               </div>
               <div className="pt-2 border-t">
-                <p className="text-sm text-gray-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   <span className="font-medium">Next Milestone:</span> Complete security compliance implementation
                 </p>
                 <p className="text-xs text-gray-500 mt-1">Estimated: 2 days</p>
@@ -354,18 +354,18 @@ const LifeCEOCommandCenter: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-lg bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50">
               <h4 className="font-medium text-turquoise-700 mb-2">44x21 Framework Status</h4>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">44 technical layers active</p>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">21 development phases deployed</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">44 technical layers active</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">21 development phases deployed</p>
             </div>
             <div className="p-4 rounded-lg bg-gradient-to-br from-purple-50/50 to-pink-50/50">
               <h4 className="font-medium text-purple-700 mb-2">Learning System</h4>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">342 patterns identified</p>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">Self-improvement rate: 15%/week</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">342 patterns identified</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Self-improvement rate: 15%/week</p>
             </div>
             <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50/50 to-indigo-50/50">
               <h4 className="font-medium text-blue-700 mb-2">Framework Progress</h4>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">44x21: {stats.frameworkProgress}% Complete</p>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">Phase 18 of 21 Active</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">44x21: {stats.frameworkProgress}% Complete</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Phase 18 of 21 Active</p>
             </div>
           </div>
         </CardContent>
@@ -379,7 +379,7 @@ const LifeCEOCommandCenter: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
           Life CEO Command Center
         </h2>
-        <p className="text-gray-600 dark:text-neutral-400">
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
           Unified control center for AI agents, learning insights, and framework management
         </p>
       </div>

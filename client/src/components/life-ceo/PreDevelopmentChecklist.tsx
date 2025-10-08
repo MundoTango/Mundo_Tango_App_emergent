@@ -108,7 +108,7 @@ export default function PreDevelopmentChecklist() {
               <CardTitle className="text-2xl bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                 Pre-Development Checklist (Phase 0)
               </CardTitle>
-              <p className="text-gray-600 mt-1 dark:text-neutral-400">
+              <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                 Comprehensive system validation before starting development
               </p>
             </div>
@@ -136,7 +136,7 @@ export default function PreDevelopmentChecklist() {
             <>
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">System Readiness</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">System Readiness</span>
                   <span className="text-sm font-bold">{calculateReadiness()}%</span>
                 </div>
                 <Progress value={calculateReadiness()} className="h-3" />
@@ -191,7 +191,7 @@ export default function PreDevelopmentChecklist() {
                                   <p className="text-sm font-medium text-red-700 mb-1">Issues:</p>
                                   <ul className="space-y-1">
                                     {result.issues.map((issue, idx) => (
-                                      <li key={idx} className="text-sm text-gray-700 dark:text-neutral-300">• {issue}</li>
+                                      <li key={idx} className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">• {issue}</li>
                                     ))}
                                   </ul>
                                 </div>
@@ -202,7 +202,7 @@ export default function PreDevelopmentChecklist() {
                                   <p className="text-sm font-medium text-blue-700 mb-1">Suggestions:</p>
                                   <ul className="space-y-1">
                                     {result.suggestions.map((suggestion, idx) => (
-                                      <li key={idx} className="text-sm text-gray-700 dark:text-neutral-300">
+                                      <li key={idx} className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                                         <ArrowRight className="w-3 h-3 inline mr-1 text-blue-500" / data-testid="link-w-3">
                                         {suggestion}
                                       </li>
@@ -242,7 +242,7 @@ export default function PreDevelopmentChecklist() {
 
               <div className="mt-6 p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg border border-turquoise-200">
                 <h4 className="font-semibold text-gray-800 mb-2 dark:text-neutral-200">Ready to Develop?</h4>
-                <p className="text-sm text-gray-700 dark:text-neutral-300">
+                <p className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                   {checklistData.ready ? (
                     <>
                       <CheckCircle className="w-4 h-4 inline mr-1 text-green-600" />

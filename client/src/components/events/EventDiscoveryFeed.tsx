@@ -170,7 +170,7 @@ export const EventDiscoveryFeed: React.FC = () => {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
             Discover Events
           </h1>
-          <p className="text-gray-600 mt-1 dark:text-neutral-400">Find amazing tango events near you</p>
+          <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Find amazing tango events near you</p>
         </div>
         
         <Button
@@ -188,7 +188,7 @@ export const EventDiscoveryFeed: React.FC = () => {
         <CardContent className="pt-6">
           {/* Search Bar */}
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
             <Input
               placeholder="Search events..."
               value={filters.search}
@@ -202,7 +202,7 @@ export const EventDiscoveryFeed: React.FC = () => {
             <div className="space-y-4 border-t border-gray-200/50 pt-4 dark:border-neutral-700">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-600 dark:text-neutral-300">
                     Location
                   </label>
                   <Input
@@ -214,7 +214,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-600 dark:text-neutral-300">
                     Start Date
                   </label>
                   <Input
@@ -226,7 +226,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-600 dark:text-neutral-300">
                     End Date
                   </label>
                   <Input
@@ -239,7 +239,7 @@ export const EventDiscoveryFeed: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
+                <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-600 dark:text-neutral-300">
                   Event Type
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -263,7 +263,7 @@ export const EventDiscoveryFeed: React.FC = () => {
               {/* Active Filters */}
               {(filters.tags.length > 0 || filters.location || filters.startDate || filters.endDate) && (
                 <div className="flex items-center gap-2 pt-2 border-t border-gray-200/50 dark:border-neutral-700">
-                  <span className="text-sm font-medium text-gray-600 dark:text-neutral-400">Active filters:</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active filters:</span>
                   {filters.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="cursor-pointer" onClick={() => removeTag(tag)}>
                       {tag} ×
@@ -296,8 +296,8 @@ export const EventDiscoveryFeed: React.FC = () => {
       ) : events.length === 0 ? (
         <Card className="bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20">
           <CardContent className="flex flex-col items-center justify-center py-12">
-            <Calendar className="h-16 w-16 text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-400">No Events Found</h3>
+            <Calendar className="h-16 w-16 text-gray-600 dark:text-gray-400 mb-4" />
+            <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">No Events Found</h3>
             <p className="text-gray-500 text-center mb-4">
               Try adjusting your filters or search terms
             </p>

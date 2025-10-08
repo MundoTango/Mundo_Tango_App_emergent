@@ -97,25 +97,25 @@ const NewFeedEvents = () => {
                       key={event.id} 
                       className="flex items-start gap-3 hover:bg-turquoise-50/50 p-2 -m-2 rounded-lg transition-colors cursor-pointer"
                       onClick={() => window.location.href = `/events/${event.id}`}
-                    >
+                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => window.location.href = `/events/${event.id(e); } }}>
                       <div className="w-2 h-2 rounded-full bg-gradient-to-r from-turquoise-400 to-cyan-500 mt-2 flex-shrink-0"></div>
                       <div className="flex-1 min-w-0">
                         <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-1 dark:text-neutral-100">
                           {event.title}
                         </h4>
                         <div className="space-y-1">
-                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-400">
+                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             <CalendarIcon className="h-3 w-3" />
                             <span>
                               {format(new Date(event.startDate), "EEEE do MMMM")}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-400">
+                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             <MapPinIcon className="h-3 w-3" />
                             <span className="truncate">{event.location}</span>
                           </div>
                           {event.attendeesCount > 0 && (
-                            <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-400">
+                            <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                               <UsersIcon className="h-3 w-3" />
                               <span>{event.attendeesCount} attending</span>
                             </div>
@@ -130,7 +130,7 @@ const NewFeedEvents = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-400 text-sm text-center py-8 italic">{emptyMessage}</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm text-center py-8 italic">{emptyMessage}</p>
                 )}
               </div>
             </div>

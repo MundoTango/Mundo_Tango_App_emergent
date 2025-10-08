@@ -153,7 +153,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                     <span className={cn(
                       "text-2xl font-bold",
                       city.rank === 1 ? "text-yellow-500" :
-                      city.rank === 2 ? "text-gray-400" :
+                      city.rank === 2 ? "text-gray-600 dark:text-gray-400" :
                       city.rank === 3 ? "text-orange-500" :
                       "text-slate-400 dark:text-slate-500"
                     )}>
@@ -205,7 +205,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                     <span className={cn(
                       "text-2xl font-bold",
                       region.rank === 1 ? "text-yellow-500" :
-                      region.rank === 2 ? "text-gray-400" :
+                      region.rank === 2 ? "text-gray-600 dark:text-gray-400" :
                       region.rank === 3 ? "text-orange-500" :
                       "text-slate-400 dark:text-slate-500"
                     )}>

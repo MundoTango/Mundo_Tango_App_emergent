@@ -1,9 +1,15 @@
 import React from 'react';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Calendar, Users, BarChart3, Settings } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 export default function OrganizerDashboard() {
   return (
+    <>
+      <Helmet>
+        <title>Organizer | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-4xl mx-auto p-6">
         <div className="card">
@@ -44,5 +50,7 @@ export default function OrganizerDashboard() {
         </div>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

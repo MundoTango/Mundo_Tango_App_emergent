@@ -150,11 +150,11 @@ export default function MemoryGrid({
                       <p className="font-medium text-sm text-gray-900 dark:text-white">
                         {memory.author.name}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                         @{memory.author.username}
                       </p>
                     </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                    <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                       {formatDistanceToNow(new Date(memory.createdAt), { addSuffix: true })}
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function MemoryGrid({
                   {(memory.location || memory.tags) && (
                     <div className="flex flex-wrap gap-2 mb-3">
                       {memory.location && (
-                        <span className="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
+                        <span className="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400">
                           <MapPin className="h-3 w-3" />
                           {memory.location}
                         </span>
@@ -243,7 +243,7 @@ export default function MemoryGrid({
 
       {/* No more memories message */}
       {!hasMore && memories.length > 0 && (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-600 dark:text-gray-400">
           <p>You've reached the end of memories</p>
           <p className="text-sm mt-1">Create new memories to share!</p>
         </div>

@@ -48,9 +48,9 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
         <CardContent>
           <div className="text-center py-6">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-neutral-800">
-              <Users className="w-8 h-8 text-gray-400" />
+              <Users className="w-8 h-8 text-gray-600 dark:text-gray-400" />
             </div>
-            <p className="text-gray-600 mb-2 dark:text-neutral-400">You're not connected yet</p>
+            <p className="text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">You're not connected yet</p>
             <p className="text-sm text-muted-foreground">
               Send a friend request to {hostName} to build your connection!
             </p>

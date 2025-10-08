@@ -157,12 +157,12 @@ const LifeCEOAgentDocuments: React.FC = () => {
               }`}
             >
               <input {...getInputProps()} / data-testid="input-element">
-              <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+              <Upload className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-400" />
               {isDragActive ? (
                 <p className="text-blue-600">Drop the files here...</p>
               ) : (
                 <>
-                  <p className="text-gray-600 mb-2 dark:text-neutral-400">Drag & drop documents here, or click to select</p>
+                  <p className="text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Drag & drop documents here, or click to select</p>
                   <p className="text-sm text-gray-500">Supports PDF, TXT, MD, DOCX (max 10MB)</p>
                 </>
               )}
@@ -202,8 +202,8 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <CardContent>
                 {doc.review_notes && (
                   <div className="mb-4 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
-                    <p className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">Review Notes:</p>
-                    <p className="text-sm text-gray-600 dark:text-neutral-400">{doc.review_notes}</p>
+                    <p className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Review Notes:</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{doc.review_notes}</p>
                   </div>
                 )}
                 <div className="flex space-x-2">
@@ -232,7 +232,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
         ) : (
           <Card>
             <CardContent className="py-8 text-center text-gray-500">
-              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
               <p>No documents uploaded yet</p>
               <p className="text-sm mt-2">Upload documents to build the agent's knowledge base</p>
             </CardContent>

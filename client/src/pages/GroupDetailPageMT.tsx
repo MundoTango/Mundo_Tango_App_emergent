@@ -1291,7 +1291,7 @@ export default function GroupDetailPageMT() {
           <TabsContent value="list" className="mt-6" data-testid="housing-list-content">
             {loadingHousing ? (
               <div className="flex justify-center py-12">
-                <div className="text-gray-500 dark:text-gray-400">
+                <div className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
                   {t('housing.city_housing_tab.loading_listings', 'Loading housing listings...')}
                 </div>
               </div>
@@ -1843,7 +1843,7 @@ export default function GroupDetailPageMT() {
               className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               data-testid="button-close-edit-modal"
             >
-              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-600 dark:text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

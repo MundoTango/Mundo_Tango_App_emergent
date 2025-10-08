@@ -227,7 +227,7 @@ export function MemoryRoleManager() {
                 <div key={circle.id} className="flex items-center justify-between p-3 border rounded-lg">
                   <div>
                     <div className="font-medium">{circle.trusted_user_name}</div>
-                    <div className="text-sm text-gray-600 dark:text-neutral-400">
+                    <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                       Trust Level: {circle.trust_level} • Access: {circle.emotional_access_level}
                     </div>
                   </div>
@@ -379,7 +379,7 @@ export function MemoryRoleManager() {
                           <label htmlFor={level.value} className="text-sm font-medium">
                             {level.label}
                           </label>
-                          <p className="text-xs text-gray-600 dark:text-neutral-400">{level.description}</p>
+                          <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{level.description}</p>
                         </div>
                       </div>
                     ))}
@@ -423,25 +423,25 @@ export function MemoryRoleManager() {
               <div className="text-2xl font-bold text-green-600">
                 {memoryPermissions?.publicCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Public Memories</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Public Memories</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-blue-600">
                 {memoryPermissions?.friendsCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Friends Only</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Friends Only</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-purple-600">
                 {memoryPermissions?.trustedCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Trusted Circle</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Trusted Circle</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-red-600">
                 {memoryPermissions?.privateCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Private</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Private</div>
             </div>
           </div>
         </CardContent>

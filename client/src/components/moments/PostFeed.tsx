@@ -533,7 +533,7 @@ const PostFeed = memo(({
           {showSearch && (
           <div className="mb-4">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600 dark:text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
@@ -546,7 +546,7 @@ const PostFeed = memo(({
                   onClick={() = data-testid="button-element"> setSearchQuery('')}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2"
                 >
-                  <X className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:text-neutral-400" />
+                  <X className="h-5 w-5 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                 </button>
               )}
             </div>
@@ -628,7 +628,7 @@ const PostFeed = memo(({
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Tag className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Filter by Tags</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Filter by Tags</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {filterTags.map(tag => (
@@ -659,11 +659,11 @@ const PostFeed = memo(({
               {/* Date Range Filter */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Date Range</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Date Range</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block dark:text-neutral-400">From</label>
+                    <label className="text-xs text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">From</label>
                     <input
                       type="date"
                       value={startDate}
@@ -672,7 +672,7 @@ const PostFeed = memo(({
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block dark:text-neutral-400">To</label>
+                    <label className="text-xs text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">To</label>
                     <input
                       type="date"
                       value={endDate}
@@ -718,7 +718,7 @@ const PostFeed = memo(({
                  activeFilters.filterType === 'visitors' ? 'Visitor' :
                  activeFilters.filterType === 'friends' ? 'Friends' : 'All'} Posts
               </h2>
-              <p className="text-gray-600 dark:text-neutral-400">
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
                 {activeFilters.tags.length > 0 && (
                   <span className="ml-2 text-teal-600">
@@ -738,7 +738,7 @@ const PostFeed = memo(({
           <GlassCard depth={1} className="absolute inset-0 z-10 flex items-center justify-center rounded-xl"
             <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg dark:bg-neutral-900">
               <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
-              <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Updating feed...</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Updating feed...</span>
             </div>
           </div>
         )}
@@ -775,7 +775,7 @@ const PostFeed = memo(({
               <Heart className="h-12 w-12 text-teal-400" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4 dark:text-neutral-100">No Memories Yet</h3>
-            <p className="text-gray-600 leading-relaxed dark:text-neutral-400">
+            <p className="text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
               {activeFilters.filterType === 'residents' 
                 ? "No posts from residents in your city yet. Check back later!"
                 : activeFilters.filterType === 'visitors'

@@ -10,6 +10,7 @@ import { format, parseISO } from 'date-fns';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { useToast } from '@/hooks/use-toast';
+import { Helmet } from 'react-helmet';
 
 interface ResumeEntry {
   event_id: number;
@@ -245,10 +246,17 @@ export default function ResumePage() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Resume Page | Life CEO</title>
+      </Helmet>
+      
       <div className="flex items-center justify-center py-12">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
       </div>
-    );
+    
+    </>
+  );
   }
 
   if (error) {
@@ -279,12 +287,12 @@ export default function ResumePage() {
       <div className="max-w-4xl mx-auto p-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">My Tango Resume</h1>
-          <p className="text-gray-600 dark:text-neutral-400">Professional experience in the tango community</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Professional experience in the tango community</p>
         </div>
         <div className="text-center py-12">
-          <Star className="h-16 w-16 mx-auto mb-4 text-gray-300" />
+          <Star className="h-16 w-16 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
           <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">No resume entries yet</h3>
-          <p className="text-gray-600 dark:text-neutral-400">Tag yourself or get tagged at events to build your tango resume.</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Tag yourself or get tagged at events to build your tango resume.</p>
         </div>
       </div>
     );
@@ -308,7 +316,7 @@ export default function ResumePage() {
       <div className="mb-8 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">My Tango Resume</h1>
-          <p className="text-gray-600 dark:text-neutral-400">Professional experience in the tango community</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Professional experience in the tango community</p>
         </div>
         
         {/* Export Controls */}
@@ -352,7 +360,7 @@ export default function ResumePage() {
         <Card className="bg-white rounded-xl shadow-md dark:bg-neutral-900">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">{resumeEntries.length}</div>
-            <div className="text-xs text-gray-600 dark:text-neutral-400">Total Roles</div>
+            <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Roles</div>
           </CardContent>
         </Card>
         <Card className="bg-white rounded-xl shadow-md dark:bg-neutral-900">
@@ -360,7 +368,7 @@ export default function ResumePage() {
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resumeEntries.map((entry: ResumeEntry) => entry.event_id)).size}
             </div>
-            <div className="text-xs text-gray-600 dark:text-neutral-400">Events Participated</div>
+            <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Events Participated</div>
           </CardContent>
         </Card>
         <Card className="bg-white rounded-xl shadow-md dark:bg-neutral-900">
@@ -368,7 +376,7 @@ export default function ResumePage() {
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resumeEntries.map((entry: ResumeEntry) => entry.role)).size}
             </div>
-            <div className="text-xs text-gray-600 dark:text-neutral-400">Unique Roles</div>
+            <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Unique Roles</div>
           </CardContent>
         </Card>
       </div>
@@ -389,7 +397,7 @@ export default function ResumePage() {
                           <CardTitle className="text-lg font-bold text-gray-900 mb-2 dark:text-neutral-100">
                             {entry.event_name}
                           </CardTitle>
-                          <div className="flex items-center space-x-4 text-xs text-gray-600 dark:text-neutral-400">
+                          <div className="flex items-center space-x-4 text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             <div className="flex items-center space-x-1">
                               <Calendar className="h-3 w-3" />
                               <span>{format(parseISO(entry.event_date), 'PPP')}</span>
@@ -409,7 +417,7 @@ export default function ResumePage() {
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <div className="text-xs text-gray-600 dark:text-neutral-400">
+                      <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                         Confirmed on {format(parseISO(entry.accepted_at), 'PPP')}
                       </div>
                     </CardContent>

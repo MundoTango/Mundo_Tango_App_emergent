@@ -169,7 +169,7 @@ export default function MTTableCell({
               />
             </div>
             {showLabel && (
-              <span className="text-sm text-gray-600 dark:text-gray-400 min-w-[var(--spacing-12)]">
+              <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 min-w-[var(--spacing-12)]">
                 {percentage.toFixed(0)}%
               </span>
             )}
@@ -191,7 +191,7 @@ export default function MTTableCell({
                     ? 'text-yellow-400 fill-current' 
                     : i === fullStars && hasHalfStar
                     ? 'text-yellow-400'
-                    : 'text-gray-300 dark:text-gray-600'
+                    : 'text-gray-600 dark:text-gray-300 dark:text-gray-600'
                 )}
                 fill={i < fullStars ? 'currentColor' : 'none'}
                 stroke="currentColor"
@@ -214,7 +214,7 @@ export default function MTTableCell({
                 )}
               </svg>
             ))}
-            <span className="ml-1 text-sm text-gray-600 dark:text-gray-400">
+            <span className="ml-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
               {value.toFixed(1)}
             </span>
           </div>
@@ -226,7 +226,7 @@ export default function MTTableCell({
             'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium',
             value 
               ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-600 dark:text-gray-400'
           )}>
             {value ? '✓ Yes' : '✗ No'}
           </span>
@@ -259,7 +259,7 @@ export default function MTTableCell({
             onEdit?.(value);
           }}
         >
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
           </svg>
         </button>

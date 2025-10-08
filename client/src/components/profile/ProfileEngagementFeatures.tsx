@@ -87,14 +87,14 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
               key={challenge.name}
               className="p-4 bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-lg border border-turquoise-200 cursor-pointer hover:shadow-md transition-all"
               onClick={() => setSelectedChallenge(challenge.name)}
-            >
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedChallenge(challenge.name)(e); } }}>
               <div className="flex items-center justify-between mb-2">
                 <h5 className="font-medium text-gray-900 dark:text-neutral-100">{challenge.name}</h5>
                 <Badge className="bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700">
                   +{challenge.points} pts
                 </Badge>
               </div>
-              <p className="text-sm text-gray-600 mb-3 dark:text-neutral-400">{challenge.description}</p>
+              <p className="text-sm text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">{challenge.description}</p>
               <div className="flex items-center gap-3">
                 <div className="flex-1 bg-gray-200 rounded-full h-2">
                   <div 
@@ -149,7 +149,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
             <div key={metric.label} className="text-center p-4 bg-white/50 rounded-lg border border-gray-200 dark:bg-neutral-900">
               <metric.icon className={`w-6 h-6 mx-auto mb-2 ${metric.color}`} />
               <div className="text-xl font-bold text-gray-900 dark:text-neutral-100">{metric.value}</div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">{metric.label}</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{metric.label}</div>
             </div>
           ))}
         </div>
@@ -213,7 +213,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{feature.description}</p>
               </div>
               <Button 
                 variant="outline" 

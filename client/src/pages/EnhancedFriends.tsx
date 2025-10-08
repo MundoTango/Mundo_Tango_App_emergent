@@ -59,6 +59,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import { Helmet } from 'react-helmet';
 
 interface Friend {
   id: string;
@@ -318,6 +319,11 @@ export default function EnhancedFriendsPage() {
 
   if (friendsLoading || requestsLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Enhanced Friends | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="max-w-7xl mx-auto p-6">
           <Skeleton height={60} className="mb-6" />
@@ -329,7 +335,9 @@ export default function EnhancedFriendsPage() {
           <Skeleton height={400} />
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   return (
@@ -341,7 +349,7 @@ export default function EnhancedFriendsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Friends
             </h1>
-            <p className="text-gray-600 mt-1 dark:text-neutral-400">Connect with dancers in your community</p>
+            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Connect with dancers in your community</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -369,7 +377,7 @@ export default function EnhancedFriendsPage() {
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{friends.length}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Friends</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Friends</p>
               </div>
             </div>
           </Card>
@@ -380,7 +388,7 @@ export default function EnhancedFriendsPage() {
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Pending</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pending</p>
               </div>
             </div>
           </Card>
@@ -391,7 +399,7 @@ export default function EnhancedFriendsPage() {
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {friendGroups.favorites.length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Favorites</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Favorites</p>
               </div>
             </div>
           </Card>
@@ -402,7 +410,7 @@ export default function EnhancedFriendsPage() {
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {recentActivities.length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Active Today</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Today</p>
               </div>
             </div>
           </Card>
@@ -412,7 +420,7 @@ export default function EnhancedFriendsPage() {
         <Card className="mb-6 p-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-5 h-5" />
               <Input
                 id="friend-search"
                 type="text"
@@ -479,10 +487,10 @@ export default function EnhancedFriendsPage() {
                         <p className="text-sm font-medium text-gray-900 truncate dark:text-neutral-100">
                           {friend.name}
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-neutral-400">
+                        <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                           {friend.lastActivity?.message}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                           {friend.lastActivity?.timestamp}
                         </p>
                       </div>
@@ -610,7 +618,7 @@ export default function EnhancedFriendsPage() {
                                         </div>
                                         <div className="flex-1">
                                           <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{friend.name}</h4>
-                                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{friend.username}</p>
+                                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{friend.username}</p>
                                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                                             <MapPin className="w-3 h-3" />
                                             {friend.location}
@@ -693,7 +701,7 @@ export default function EnhancedFriendsPage() {
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">
                   Username or Email
                 </label>
                 <Input
@@ -704,7 +712,7 @@ export default function EnhancedFriendsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">
                   Add a personal note (optional)
                 </label>
                 <Textarea

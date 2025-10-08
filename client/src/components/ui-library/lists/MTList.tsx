@@ -139,7 +139,7 @@ export default function MTList({
       {searchable && (
         <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
             <input
               type="text"
               value={searchQuery}
@@ -171,7 +171,7 @@ export default function MTList({
               className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
               data-testid={`${testId}-select-all`}
             />
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
               Select all ({filteredItems.length})
             </span>
           </label>
@@ -312,7 +312,7 @@ function ListItemComponent({
               {item.avatar}
             </div>
           ) : (
-            <div className="text-gray-400">{item.icon}</div>
+            <div className="text-gray-600 dark:text-gray-400">{item.icon}</div>
           )}
         </div>
       )}
@@ -333,7 +333,7 @@ function ListItemComponent({
               item.badgeVariant === 'success' && 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
               item.badgeVariant === 'warning' && 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
               item.badgeVariant === 'error' && 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-              (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+              (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-600 dark:text-gray-300'
             )}>
               {item.badge}
             </span>
@@ -341,7 +341,7 @@ function ListItemComponent({
         </div>
         {item.secondary && (
           <p className={cn(
-            'text-gray-600 dark:text-gray-400 truncate',
+            'text-gray-600 dark:text-gray-600 dark:text-gray-400 truncate',
             compact ? 'text-xs' : 'text-sm'
           )}>
             {item.secondary}
@@ -359,14 +359,14 @@ function ListItemComponent({
 
       {/* Actions */}
       {item.actions && (
-        <div className="flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+        <div className="flex-shrink-0" onClick={(e) => e.stopPropagation()} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
           {item.actions}
         </div>
       )}
 
       {/* Chevron for clickable items */}
       {isClickable && !item.disabled && (
-        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400 flex-shrink-0" />
       )}
     </li>
   );

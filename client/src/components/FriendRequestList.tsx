@@ -174,7 +174,7 @@ export function FriendRequestList() {
                         </p>
                       )}
                       {request.danceStory && (
-                        <p className="text-sm text-gray-600 mt-2 ml-6 italic dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 mt-2 ml-6 italic dark:text-neutral-600 dark:text-neutral-400">
                           "{request.danceStory}"
                         </p>
                       )}

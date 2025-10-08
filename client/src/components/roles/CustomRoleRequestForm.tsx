@@ -92,7 +92,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             </div>
             <div>
               <h3 className="text-lg font-semibold text-green-800">Request Submitted Successfully!</h3>
-              <p className="text-sm text-gray-600 mt-2 dark:text-neutral-400">
+              <p className="text-sm text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">
                 Your custom role request for "{roleName}" has been submitted and is now pending admin review.
                 You'll be notified once it's been processed.
               </p>

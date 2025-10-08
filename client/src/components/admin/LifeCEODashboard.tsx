@@ -200,7 +200,7 @@ export const LifeCEODashboard: React.FC = () => {
               <Brain className="h-6 w-6 text-cyan-600" />
               Life CEO Intelligence System
             </h2>
-            <p className="text-gray-600 dark:text-neutral-400">16 AI Agents • Personalized Life Management • 56 Layer Framework</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">16 AI Agents • Personalized Life Management • 56 Layer Framework</p>
           </div>
           <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white border-0">
             ESA LIFE CEO 56x21
@@ -220,7 +220,7 @@ export const LifeCEODashboard: React.FC = () => {
               <div className="text-2xl font-bold text-cyan-600">
                 {metrics.chat_interaction?.count || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">Total conversations</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total conversations</p>
             </CardContent>
           </Card>
 
@@ -233,7 +233,7 @@ export const LifeCEODashboard: React.FC = () => {
               <div className="text-2xl font-bold text-teal-600">
                 {agents?.length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">Available for assistance</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Available for assistance</p>
             </CardContent>
           </Card>
 
@@ -246,7 +246,7 @@ export const LifeCEODashboard: React.FC = () => {
               <div className="text-2xl font-bold text-cyan-600">
                 {recommendations?.length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">Pending actions</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pending actions</p>
             </CardContent>
           </Card>
 
@@ -261,7 +261,7 @@ export const LifeCEODashboard: React.FC = () => {
                   `${(metrics.chat_interaction.average * 100).toFixed(0)}%` : 
                   'N/A'}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">Response accuracy</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Response accuracy</p>
             </CardContent>
           </Card>
         </div>
@@ -299,7 +299,7 @@ export const LifeCEODashboard: React.FC = () => {
                             </div>
                             <div className="flex-1">
                               <h4 className="font-semibold text-sm">{agent.name}</h4>
-                              <p className="text-xs text-gray-600 mt-1 dark:text-neutral-400">{agent.description}</p>
+                              <p className="text-xs text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">{agent.description}</p>
                               <div className="flex flex-wrap gap-1 mt-2">
                                 {agent.capabilities.slice(0, 2).map(cap => (
                                   <Badge 
@@ -338,7 +338,7 @@ export const LifeCEODashboard: React.FC = () => {
               <ScrollArea className="flex-1 mb-4 p-4 rounded-lg bg-white/50 dark:bg-neutral-900">
                 {chatHistory.length === 0 ? (
                   <div className="text-center text-gray-500 py-8">
-                    <MessageCircle className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                    <MessageCircle className="h-12 w-12 mx-auto mb-3 text-gray-600 dark:text-gray-300" />
                     <p>Start a conversation with any Life CEO agent</p>
                     <p className="text-sm mt-2">They're here to help you optimize every aspect of your life</p>
                   </div>
@@ -409,7 +409,7 @@ export const LifeCEODashboard: React.FC = () => {
                   <CardContent className="p-4">
                     <Badge className="mb-2" variant="outline">{rec.type}</Badge>
                     <p className="text-sm font-medium mb-1">{rec.item.title || 'Recommendation'}</p>
-                    <p className="text-xs text-gray-600 dark:text-neutral-400">{rec.reasoning}</p>
+                    <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{rec.reasoning}</p>
                     <div className="flex gap-2 mt-3">
                       <Button size="sm" variant="outline" className="text-xs" data-testid="button-text-xs">Accept</Button>
                       <Button size="sm" variant="ghost" className="text-xs" data-testid="button-text-xs">Dismiss</Button>

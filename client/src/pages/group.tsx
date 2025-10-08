@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import EnhancedPostItem from "@/components/moments/EnhancedPostItem";
+import { Helmet } from 'react-helmet';
 
 interface GroupMember {
   id: number;
@@ -92,15 +93,22 @@ export default function GroupPage() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Group | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 flex items-center justify-center">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg dark:text-neutral-400">Loading group...</p>
+            <p className="text-gray-600 text-lg dark:text-neutral-600 dark:text-neutral-400">Loading group...</p>
           </div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   if (error || !groupData) {
@@ -109,7 +117,7 @@ export default function GroupPage() {
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-800 mb-4 dark:text-neutral-200">Group Not Found</h1>
-            <p className="text-gray-600 dark:text-neutral-400">The group you're looking for doesn't exist or has been removed.</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">The group you're looking for doesn't exist or has been removed.</p>
           </div>
         </div>
       </DashboardLayout>
@@ -172,21 +180,21 @@ export default function GroupPage() {
             <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 dark:bg-neutral-900">
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-coral-600 mb-2">{stats.totalMembers}</div>
-                <div className="text-gray-600 font-medium dark:text-neutral-400">Total Members</div>
+                <div className="text-gray-600 font-medium dark:text-neutral-600 dark:text-neutral-400">Total Members</div>
               </CardContent>
             </Card>
             
             <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 dark:bg-neutral-900">
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">{upcomingEvents.length}</div>
-                <div className="text-gray-600 font-medium dark:text-neutral-400">Upcoming Events</div>
+                <div className="text-gray-600 font-medium dark:text-neutral-600 dark:text-neutral-400">Upcoming Events</div>
               </CardContent>
             </Card>
             
             <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 dark:bg-neutral-900">
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-teal-600 mb-2">{stats.recentlyJoined}</div>
-                <div className="text-gray-600 font-medium dark:text-neutral-400">Joined This Week</div>
+                <div className="text-gray-600 font-medium dark:text-neutral-600 dark:text-neutral-400">Joined This Week</div>
               </CardContent>
             </Card>
           </div>
@@ -250,7 +258,7 @@ export default function GroupPage() {
                           <div className="flex items-start justify-between">
                             <div>
                               <h3 className="font-semibold text-gray-900 mb-1 dark:text-neutral-100">{event.title}</h3>
-                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{event.description}</p>
+                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">{event.description}</p>
                               <div className="flex items-center text-sm text-gray-500">
                                 <Calendar className="h-4 w-4 mr-1" />
                                 {new Date(event.date).toLocaleDateString()}
@@ -265,7 +273,7 @@ export default function GroupPage() {
                     </div>
                   ) : (
                     <div className="text-center py-8 text-gray-500">
-                      <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                      <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-600 dark:text-gray-300" />
                       <p>No upcoming events in this area</p>
                     </div>
                   )}
@@ -336,7 +344,7 @@ export default function GroupPage() {
                         <Heart className="h-10 w-10 text-white" />
                       </div>
                       <h3 className="text-xl font-bold text-gray-800 mb-2 dark:text-neutral-200">No memories shared yet</h3>
-                      <p className="text-gray-600 mb-6 dark:text-neutral-400">Be the first to share a tango memory with this group!</p>
+                      <p className="text-gray-600 mb-6 dark:text-neutral-600 dark:text-neutral-400">Be the first to share a tango memory with this group!</p>
                       <Button className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white" data-testid="button-bg-gradient-to-r">
                         Share a Memory
                       </Button>

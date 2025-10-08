@@ -147,7 +147,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
           }}
           onClick={(e) => e.stopPropagation()}
           data-testid={`modal-report-${postId}`}
-        >
+         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
           <div className="flex items-center gap-3">
@@ -156,7 +156,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-neutral-100">Report Post</h2>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">Help us understand what's wrong</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Help us understand what's wrong</p>
             </div>
           </div>
           <button
@@ -164,7 +164,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             className="p-2 hover:bg-gray-100 rounded-xl transition-colors dark:bg-neutral-800"
             data-testid={`button-close-report-${postId}`}
           >
-            <X className="h-5 w-5 text-gray-400" />
+            <X className="h-5 w-5 text-gray-600 dark:text-gray-400" />
           </button>
         </div>
 
@@ -191,7 +191,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 </div>
                 <div className="flex-1">
                   <div className="font-medium text-gray-900 dark:text-neutral-100">{category.label}</div>
-                  <div className="text-sm text-gray-600 dark:text-neutral-400">{category.description}</div>
+                  <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{category.description}</div>
                 </div>
                 <div className={`
                   w-5 h-5 rounded-full border-2 transition-all
@@ -230,7 +230,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
 
         {/* Footer */}
         <div className="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50 dark:bg-neutral-800">
-          <p className="text-sm text-gray-600 dark:text-neutral-400">
+          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             Reports are reviewed by our moderation team
           </p>
           <div className="flex items-center gap-3">

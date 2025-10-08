@@ -27,6 +27,7 @@ import {
   History,
   UserCheck
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface SecurityMetrics {
   rlsEnabled: number;
@@ -200,6 +201,11 @@ export default function DatabaseSecurity() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Database Security | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
@@ -210,7 +216,7 @@ export default function DatabaseSecurity() {
                 <Shield className="w-8 h-8 text-indigo-600" />
                 Database Security Center
               </h1>
-              <p className="text-gray-600 mt-2 dark:text-neutral-400">Monitor and manage database security policies, audit logs, and compliance</p>
+              <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Monitor and manage database security policies, audit logs, and compliance</p>
             </div>
             <Button
               onClick={() = data-testid="button-element"> runHealthCheckMutation.mutate()}
@@ -227,7 +233,7 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">RLS Coverage</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">RLS Coverage</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {mockMetrics.rlsEnabled}/{mockMetrics.totalTables}
                   </p>
@@ -242,9 +248,9 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Audit Logging</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Audit Logging</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{mockMetrics.auditLogsEnabled}</p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Critical tables</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Critical tables</p>
                 </div>
                 <FileCheck className="w-8 h-8 text-green-600" />
               </div>
@@ -253,14 +259,14 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Health Status</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Health Status</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {mockMetrics.healthChecksPassed ? 
                       <span className="text-green-600">Healthy</span> : 
                       <span className="text-red-600">Issues</span>
                     }
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                     {formatTimestamp(mockMetrics.lastHealthCheck)}
                   </p>
                 </div>
@@ -271,14 +277,14 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">GDPR Status</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">GDPR Status</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {mockMetrics.gdprCompliant ? 
                       <span className="text-green-600">Compliant</span> : 
                       <span className="text-red-600">Review</span>
                     }
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">All functions ready</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">All functions ready</p>
                 </div>
                 <ShieldCheck className="w-8 h-8 text-green-600" />
               </div>
@@ -291,7 +297,7 @@ export default function DatabaseSecurity() {
               <div className="flex items-center gap-3">
                 <Server className="w-6 h-6 text-indigo-600" />
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Connections</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Connections</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-neutral-100">
                     {mockMetrics.activeConnections}/{mockMetrics.maxConnections}
                   </p>
@@ -303,7 +309,7 @@ export default function DatabaseSecurity() {
               <div className="flex items-center gap-3">
                 <Zap className="w-6 h-6 text-emerald-600" />
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Cache Hit Ratio</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Cache Hit Ratio</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-neutral-100">{mockMetrics.cacheHitRatio}%</p>
                 </div>
               </div>
@@ -313,7 +319,7 @@ export default function DatabaseSecurity() {
               <div className="flex items-center gap-3">
                 <Database className="w-6 h-6 text-violet-600" />
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Database Size</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Database Size</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-neutral-100">{mockMetrics.databaseSize}</p>
                 </div>
               </div>
@@ -347,11 +353,11 @@ export default function DatabaseSecurity() {
                           </Badge>
                           <Badge variant="outline">{policy.table_name}</Badge>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                           <span className="font-medium">Using:</span> {policy.using_expression}
                         </p>
                         {policy.with_check_expression && (
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             <span className="font-medium">Check:</span> {policy.with_check_expression}
                           </p>
                         )}
@@ -390,7 +396,7 @@ export default function DatabaseSecurity() {
                         <p className="font-medium text-gray-900 dark:text-neutral-100">
                           {log.action} on {log.table_name}
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                           User #{log.user_id} • {formatTimestamp(log.timestamp)}
                           {log.changed_fields && ` • Fields: ${log.changed_fields.join(', ')}`}
                         </p>
@@ -418,11 +424,11 @@ export default function DatabaseSecurity() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-2 px-4 font-medium text-gray-700 dark:text-neutral-300">Table Name</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-300">RLS</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-300">Audit</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-300">Sensitive</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-300">Actions</th>
+                      <th className="text-left py-2 px-4 font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Table Name</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">RLS</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Audit</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Sensitive</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -445,7 +451,7 @@ export default function DatabaseSecurity() {
                           {table.audit ? (
                             <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
                           ) : (
-                            <AlertCircle className="w-5 h-5 text-gray-400 mx-auto" / data-testid="link-w-5">
+                            <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400 mx-auto" / data-testid="link-w-5">
                           )}
                         </td>
                         <td className="text-center py-3 px-4">
@@ -480,13 +486,13 @@ export default function DatabaseSecurity() {
                   <UserCheck className="w-5 h-5 text-indigo-600" />
                   Data Export
                 </h3>
-                <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
+                <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                   Export all user data for GDPR compliance. The export includes all personal data,
                   posts, events, and associated content.
                 </p>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">
                       User ID or Email
                     </label>
                     <input
@@ -510,13 +516,13 @@ export default function DatabaseSecurity() {
                   <Key className="w-5 h-5 text-red-600" />
                   Data Deletion
                 </h3>
-                <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
+                <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                   Anonymize user data for GDPR right to be forgotten. This action cannot be undone
                   and will anonymize all personal information.
                 </p>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">
                       User ID or Email
                     </label>
                     <input
@@ -544,23 +550,23 @@ export default function DatabaseSecurity() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700 dark:text-neutral-300">Data export function implemented</span>
+                  <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Data export function implemented</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700 dark:text-neutral-300">Data anonymization function ready</span>
+                  <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Data anonymization function ready</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700 dark:text-neutral-300">Audit logging enabled for compliance tracking</span>
+                  <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Audit logging enabled for compliance tracking</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700 dark:text-neutral-300">User consent tracking implemented</span>
+                  <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">User consent tracking implemented</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700 dark:text-neutral-300">Privacy policy and terms updated</span>
+                  <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Privacy policy and terms updated</span>
                 </div>
               </div>
             </Card>
@@ -568,5 +574,7 @@ export default function DatabaseSecurity() {
         </Tabs>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

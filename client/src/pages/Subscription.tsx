@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
+import { Helmet } from 'react-helmet';
 
 interface SubscriptionTier {
   name: string;
@@ -101,6 +102,11 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Subscription | Life CEO</title>
+      </Helmet>
+      
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="p-4 border rounded-lg">
         <CardElement
@@ -141,6 +147,8 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
         Test with card: 4242 4242 4242 4242 (any future expiry, any CVC)
       </p>
     </form>
+  
+    </>
   );
 };
 

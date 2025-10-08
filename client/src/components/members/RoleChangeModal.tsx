@@ -122,7 +122,7 @@ export const RoleChangeModal = ({
 
               <DialogDescription className="text-center space-y-4">
                 {/* Member Info */}
-                <div className="text-base text-gray-700 dark:text-gray-300">
+                <div className="text-base text-gray-700 dark:text-gray-600 dark:text-gray-300">
                   {t('members.roleChange.description', 'You are about to change the role of')}
                   <span className="font-semibold text-gray-900 dark:text-gray-100 mx-1">
                     @{memberUsername}
@@ -148,7 +148,7 @@ export const RoleChangeModal = ({
                     transition={{ delay: 0.1, duration: 0.3 }}
                   >
                     <svg 
-                      className="h-8 w-8 text-gray-400 dark:text-gray-500" 
+                      className="h-8 w-8 text-gray-600 dark:text-gray-400 dark:text-gray-500" 
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
@@ -169,7 +169,7 @@ export const RoleChangeModal = ({
                 </div>
 
                 {/* Consequences Message */}
-                <div className="text-sm text-gray-600 dark:text-gray-400 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg p-3">
+                <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg p-3">
                   {isPromotion && (
                     <p>{t('members.roleChange.promotionNote', 'This will grant additional permissions to this member.')}</p>
                   )}

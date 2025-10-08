@@ -331,7 +331,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                 {...register('recurringPattern.interval', { valueAsNumber: true })}
                 className="w-20 bg-white/50 border-white/30 dark:bg-neutral-900"
               / data-testid="input-w-20">
-              <span className="text-sm text-gray-600 dark:text-neutral-400">
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 {watchedFields.recurringPattern?.frequency === 'daily' ? 'days' :
                  watchedFields.recurringPattern?.frequency === 'weekly' ? 'weeks' :
                  watchedFields.recurringPattern?.frequency === 'monthly' ? 'months' : ''}

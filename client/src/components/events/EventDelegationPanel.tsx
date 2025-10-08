@@ -143,7 +143,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-6">
-          <p className="text-gray-600 dark:text-neutral-400">Only event owners can manage administrators.</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Only event owners can manage administrators.</p>
         </CardContent>
       </Card>
     );
@@ -203,7 +203,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                           </Avatar>
                           <div>
                             <p className="font-medium">{user.name}</p>
-                            <p className="text-sm text-gray-600 dark:text-neutral-400">@{user.username}</p>
+                            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{user.username}</p>
                           </div>
                         </div>
                         <Button
@@ -240,7 +240,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                         <p className="font-semibold">{admin.user.name}</p>
                         {admin.role === 'owner' && <Crown className="w-4 h-4 text-amber-500" />}
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">@{admin.user.username}</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{admin.user.username}</p>
                       <Badge className={`mt-1 ${getRoleBadgeColor(admin.role)}`}>
                         {admin.role.charAt(0).toUpperCase() + admin.role.slice(1)}
                       </Badge>
@@ -261,7 +261,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
 
                 {admin.role !== 'owner' && (
                   <div className="mt-4 space-y-3">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-neutral-300">Permissions</h4>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Permissions</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {Object.entries(admin.permissions).map(([key, value]) => (
                         <div key={key} className="flex items-center justify-between">
@@ -288,7 +288,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
             ))}
 
             {(!admins || !Array.isArray(admins) || admins.length === 0) && (
-              <p className="text-center text-gray-600 py-8 dark:text-neutral-400">
+              <p className="text-center text-gray-600 py-8 dark:text-neutral-600 dark:text-neutral-400">
                 No administrators yet. Add someone to help manage this event.
               </p>
             )}

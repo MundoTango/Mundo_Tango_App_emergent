@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
+import { Helmet } from 'react-helmet';
 
 interface Message {
   id: number;
@@ -90,7 +91,14 @@ export default function Messages() {
 
     setSocket(newSocket);
 
-    return () => {
+    return (
+    <>
+      <Helmet>
+        <title>Messages | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => {
       newSocket.disconnect();
     };
   }, [user, selectedConversation, queryClient, toast]);
@@ -186,7 +194,7 @@ export default function Messages() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Messages
         </h1>
-        <p className="text-gray-600 mt-2 dark:text-neutral-400">Connect with your tango community</p>
+        <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Connect with your tango community</p>
       </div>
 
       <Card className="glassmorphic-card h-[600px] overflow-hidden">
@@ -195,7 +203,7 @@ export default function Messages() {
           <div className={`w-full md:w-1/3 border-r border-gray-200 ${selectedConversation ? 'hidden md:block' : ''}`}>
             <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
                 <Input
                   placeholder="Search conversations..."
                   className="pl-10 glassmorphic-input"
@@ -206,7 +214,7 @@ export default function Messages() {
             <ScrollArea className="h-[calc(100%-73px)]">
               {conversations.length === 0 ? (
                 <div className="p-8 text-center text-gray-500">
-                  <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
                   <p>No conversations yet</p>
                   <p className="text-sm mt-2">Start a conversation from a user's profile</p>
                 </div>
@@ -218,7 +226,7 @@ export default function Messages() {
                     className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
                       selectedConversation === conversation.id ? 'bg-turquoise-50' : ''
                     }`}
-                  >
+                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedConversation(conversation.id)(e); } }}>
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <Avatar data-testid="link-element">
@@ -239,7 +247,7 @@ export default function Messages() {
                           )}
                         </div>
                         {conversation.lastMessage && (
-                          <p className="text-sm text-gray-600 truncate dark:text-neutral-400">
+                          <p className="text-sm text-gray-600 truncate dark:text-neutral-600 dark:text-neutral-400">
                             {conversation.lastMessage.content}
                           </p>
                         )}
@@ -279,7 +287,7 @@ export default function Messages() {
                       {conversations.find((c: Conversation) => c.id === selectedConversation)?.user.name}
                     </h2>
                     {isTyping && (
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">typing...</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">typing...</p>
                     )}
                   </div>
                 </div>
@@ -343,7 +351,7 @@ export default function Messages() {
           ) : (
             <div className="flex-1 hidden md:flex items-center justify-center">
               <div className="text-center text-gray-500">
-                <MessageCircle className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                <MessageCircle className="w-16 h-16 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
                 <p className="text-lg">Select a conversation to start messaging</p>
               </div>
             </div>

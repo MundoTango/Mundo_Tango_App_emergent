@@ -322,22 +322,22 @@ export default function EnhancedProfileHeader({
                   )}
                 </div>
                 <div className="space-y-1">
-                  <p className="text-gray-600 dark:text-neutral-400">@{user.username || 'username'}</p>
+                  <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{user.username || 'username'}</p>
                   {(user.city || user.country) && (
-                    <p className="text-gray-600 flex items-center dark:text-neutral-400">
+                    <p className="text-gray-600 flex items-center dark:text-neutral-600 dark:text-neutral-400">
                       <MapPin className="w-4 h-4 mr-1" />
                       {user.city}{user.city && user.country ? ', ' : ''}{user.country}
                     </p>
                   )}
                   {user.bio && (
-                    <p className="text-gray-700 max-w-md line-clamp-2 dark:text-neutral-300">
+                    <p className="text-gray-700 max-w-md line-clamp-2 dark:text-neutral-600 dark:text-neutral-300">
                       {user.bio}
                     </p>
                   )}
                   {user.city && (
                     <div className="flex items-center gap-1 mt-2">
                       <MapPin className="w-3 h-3 text-turquoise-500" />
-                      <span className="text-sm text-gray-600 dark:text-neutral-400">
+                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                         {user.city}{user.country ? `, ${user.country}` : ''}
                       </span>
                     </div>
@@ -399,7 +399,7 @@ export default function EnhancedProfileHeader({
 
           {/* Bio Section */}
           {user.bio && (
-            <p className="mt-4 text-gray-700 max-w-3xl dark:text-neutral-300">
+            <p className="mt-4 text-gray-700 max-w-3xl dark:text-neutral-600 dark:text-neutral-300">
               {user.bio}
             </p>
           )}
@@ -409,17 +409,17 @@ export default function EnhancedProfileHeader({
             {/* Location & Join Date */}
             <div className="space-y-2">
               {user.city && (
-                <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-400">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   <MapPin className="h-4 w-4 text-turquoise-500" />
                   <span>{user.city}{user.country && `, ${user.country}`}</span>
                 </div>
               )}
-              <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-400">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 <Calendar className="h-4 w-4 text-turquoise-500" />
                 <span>Joined {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently'}</span>
               </div>
               {user.languages && user.languages.length > 0 && (
-                <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-400">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   <Globe className="h-4 w-4 text-turquoise-500" />
                   <span>{user.languages.join(', ')}</span>
                 </div>
@@ -430,7 +430,7 @@ export default function EnhancedProfileHeader({
             <div className="space-y-2">
               {user.yearsOfDancing && (
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-600 dark:text-neutral-400">Dancing since</span>
+                  <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Dancing since</span>
                   <Badge variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                     {new Date().getFullYear() - user.yearsOfDancing}
                   </Badge>
@@ -456,7 +456,7 @@ export default function EnhancedProfileHeader({
                     href={`https://instagram.com/${user.socialLinks.instagram}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-pink-600 transition-colors dark:text-neutral-400"
+                    className="text-gray-600 hover:text-pink-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                    data-testid="link-text-gray-600">
                     <Instagram className="h-5 w-5" />
                   </a>
@@ -466,7 +466,7 @@ export default function EnhancedProfileHeader({
                     href={user.socialLinks.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-400"
+                    className="text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                    data-testid="link-text-gray-600">
                     <Facebook className="h-5 w-5" />
                   </a>
@@ -476,7 +476,7 @@ export default function EnhancedProfileHeader({
                     href={`https://twitter.com/${user.socialLinks.twitter}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-blue-400 transition-colors dark:text-neutral-400"
+                    className="text-gray-600 hover:text-blue-400 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                    data-testid="link-text-gray-600">
                     <Twitter className="h-5 w-5" />
                   </a>
@@ -486,7 +486,7 @@ export default function EnhancedProfileHeader({
                     href={user.socialLinks.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-turquoise-600 transition-colors dark:text-neutral-400"
+                    className="text-gray-600 hover:text-turquoise-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                    data-testid="link-text-gray-600">
                     <Link className="h-5 w-5" / data-testid="link-h-5">
                   </a>
@@ -500,28 +500,28 @@ export default function EnhancedProfileHeader({
             <div className="flex flex-wrap gap-8 justify-center md:justify-start">
               <div className="text-center">
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.posts || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Recuerdos</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Recuerdos</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.followers || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Mi Círculo</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Mi Círculo</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.following || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Siguiendo</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Siguiendo</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.events || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Milongas</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Milongas</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.photos || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Photos</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Photos</p>
               </div>
               {user.profileViews !== undefined && (
                 <div className="text-center">
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{user.profileViews}</p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Profile Views</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Profile Views</p>
                 </div>
               )}
             </div>

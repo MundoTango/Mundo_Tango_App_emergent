@@ -19,7 +19,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Tell us about your place</h2>
-        <p className="text-gray-600 dark:text-neutral-400">Share some basic info about your property</p>
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Share some basic info about your property</p>
       </div>
 
       {/* Title and Description */}

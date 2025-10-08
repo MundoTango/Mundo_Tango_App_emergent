@@ -133,7 +133,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
       case 'accepted': return <Check className="w-4 h-4 text-green-600" />;
       case 'declined': return <X className="w-4 h-4 text-red-600" />;
       case 'pending': return <Clock className="w-4 h-4 text-orange-600" />;
-      default: return <AlertCircle className="w-4 h-4 text-gray-400" / data-testid="link-w-4">;
+      default: return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" / data-testid="link-w-4">;
     }
   };
 

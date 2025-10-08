@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, Plus, MessageCircle } from "lucide-react";
+import { Helmet } from 'react-helmet';
 
 interface ChatRoomType {
   id: string;
@@ -28,7 +29,14 @@ export default function Messages() {
   const [searchQuery, setSearchQuery] = useState("");
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return (savedTheme as 'light' | 'dark') || 'light';
+    return (
+    <>
+      <Helmet>
+        <title>Messages | Life CEO</title>
+      </Helmet>
+      savedTheme as 'light' | 'dark'
+    </>
+  ) || 'light';
   });
   const { sendMessage } = useSocket();
 
@@ -104,7 +112,7 @@ export default function Messages() {
                     
                     {/* Search */}
                     <div className="relative">
-                      <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                      <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-600 dark:text-gray-400" />
                       <Input
                         placeholder="Search conversations..."
                         value={searchQuery}
@@ -138,7 +146,7 @@ export default function Messages() {
                           className={`p-4 border-b border-gray-100 hover:bg-tango-gray cursor-pointer transition-colors ${
                             selectedRoom?.id === room.id ? 'bg-tango-gray' : ''
                           }`}
-                        >
+                         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedRoom(room)(e); } }}>
                           <div className="flex items-center space-x-3">
                             {room.type === 'group' ? (
                               <div className="w-12 h-12 bg-tango-red rounded-full flex items-center justify-center text-white font-semibold">
@@ -158,7 +166,7 @@ export default function Messages() {
                                 </h4>
                                 <div className="flex items-center space-x-1">
                                   {room.lastMessageTimestamp && (
-                                    <span className="text-xs text-gray-400">
+                                    <span className="text-xs text-gray-600 dark:text-gray-400">
                                       {new Date(room.lastMessageTimestamp).toLocaleTimeString('en', {
                                         hour: 'numeric',
                                         minute: '2-digit',
@@ -184,10 +192,10 @@ export default function Messages() {
                       ))
                     ) : (
                       <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-                        <div className="text-gray-400 mb-4">
+                        <div className="text-gray-600 dark:text-gray-400 mb-4">
                           <MessageCircle className="h-16 w-16 mx-auto" />
                         </div>
-                        <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-400">
+                        <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                           {searchQuery ? 'No conversations found' : 'No messages yet'}
                         </h3>
                         <p className="text-gray-500 text-sm">
@@ -214,10 +222,10 @@ export default function Messages() {
                 <Card className="card-shadow h-full">
                   <CardContent className="flex items-center justify-center h-full">
                     <div className="text-center">
-                      <div className="text-gray-400 mb-4">
+                      <div className="text-gray-600 dark:text-gray-400 mb-4">
                         <MessageCircle className="h-24 w-24 mx-auto" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-600 mb-2 dark:text-neutral-400">
+                      <h3 className="text-xl font-semibold text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                         Select a conversation
                       </h3>
                       <p className="text-gray-500">

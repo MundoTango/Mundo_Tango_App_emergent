@@ -273,7 +273,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
   }, [location]);
 
   return (
-    <div onClick={onClose}>
+    <div onClick={onClose} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(e); } }}>
       <div
         className={cn(
           "fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-white w-64 text-gray-800 z-20 border-r-2 border-gray-200 overflow-y-auto",
@@ -298,7 +298,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           {/* User Profile Section */}
           <div className="px-4 mb-6">
             <Link href="/profile?tab=memories" data-testid="link-element">
-              <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors dark:bg-neutral-800" onClick={handleLinkClick}>
+              <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors dark:bg-neutral-800" onClick={handleLinkClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleLinkClick(e); } }}>
                 <Avatar className="h-10 w-10" data-testid="link-h-10">
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
@@ -340,9 +340,9 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             return (
               <div key={sectionIndex} className="mb-4">
                 <div 
-                  className="px-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600 dark:text-neutral-400"
+                  className="px-6 mb-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                   onClick={() => toggleSection(section.title)}
-                >
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => toggleSection(section.title)(e); } }}>
                   <span className={cn(hasActiveRoute && "text-red-600")}>{section.title}</span>
                   <span className="text-xs">{isExpanded ? '−' : '+'}</span>
                 </div>
@@ -357,7 +357,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                             ? "text-red-600 bg-blue-50 font-semibold border-r-4 border-red-600"
                             : "text-gray-600"
                         )}
-                      >
+                       role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleLinkClick(e); } }}>
                         <div className="group-hover:text-red-600 w-6">{icon}</div>
                         <div className="group-hover:text-red-600 text-sm">{title}</div>
                       </div>
@@ -370,7 +370,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
 
           {/* Mundo Tango Statistics */}
           <div className="px-6 my-6 text-black space-y-4 dark:text-white">
-            <div className="uppercase text-gray-400 font-bold text-xs">
+            <div className="uppercase text-gray-600 dark:text-gray-400 font-bold text-xs">
               Mundo Tango Details
             </div>
             {GROUPS.map((item, index) => (

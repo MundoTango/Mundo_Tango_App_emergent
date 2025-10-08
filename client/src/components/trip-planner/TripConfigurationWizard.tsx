@@ -86,7 +86,7 @@ export default function TripConfigurationWizard({
         <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
           Plan Your Trip to {city}
         </h2>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
           Tell us your dates and preferences to see personalized recommendations
         </p>
       </div>

@@ -326,7 +326,7 @@ export default function EnhancedMemoriesRealtime() {
             {/* Connection Status */}
             <div className="flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full ${memorySocket.isConnected ? 'bg-green-400' : 'bg-red-400'}`} />
-              <span className="text-sm text-gray-600 dark:text-neutral-400">
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 {memorySocket.isConnected ? 'Live' : 'Offline'}
               </span>
             </div>
@@ -334,7 +334,7 @@ export default function EnhancedMemoriesRealtime() {
             {/* Online Users Count */}
             <div className="flex items-center gap-2">
               <Eye className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-600 dark:text-neutral-400">
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 {onlineUsers.size} online
               </span>
             </div>
@@ -342,7 +342,7 @@ export default function EnhancedMemoriesRealtime() {
           
           {/* AI Enhancement Toggle */}
           <div className="flex items-center gap-2">
-            <Sparkles className={`w-4 h-4 ${aiEnhancementEnabled ? 'text-purple-500' : 'text-gray-400'}`} />
+            <Sparkles className={`w-4 h-4 ${aiEnhancementEnabled ? 'text-purple-500' : 'text-gray-600 dark:text-gray-400'}`} />
             <button
               onClick={() = data-testid="button-element"> setAiEnhancementEnabled(!aiEnhancementEnabled)}
               className={`text-sm px-3 py-1 rounded-full transition-colors ${
@@ -377,7 +377,7 @@ export default function EnhancedMemoriesRealtime() {
                     )}
                     <button
                       onClick={() = data-testid="button-element"> setShowComposer(false)}
-                      className="text-gray-400 hover:text-gray-600 transition-colors dark:text-neutral-400"
+                      className="text-gray-600 dark:text-gray-400 hover:text-gray-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                     >
                       ✕
                     </button>
@@ -402,13 +402,13 @@ export default function EnhancedMemoriesRealtime() {
         {/* Live Activity Feed */}
         {liveUpdates.likes.length > 0 && (
           <GlassCard depth={1} className="mb-6 p-4 rounded-xl border border-white/40"
-            <h3 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Live Activity</h3>
+            <h3 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Live Activity</h3>
             <div className="space-y-1">
               {liveUpdates.likes.slice(-3).map((like, index) => (
-                <div key={index} className="text-sm text-gray-600 flex items-center gap-2 dark:text-neutral-400">
+                <div key={index} className="text-sm text-gray-600 flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-400">
                   <Heart className="w-3 h-3 text-red-500" />
                   Someone liked a memory
-                  <span className="text-xs text-gray-400">just now</span>
+                  <span className="text-xs text-gray-600 dark:text-gray-400">just now</span>
                 </div>
               ))}
             </div>

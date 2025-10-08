@@ -9,6 +9,7 @@ import ItineraryBuilder from '@/components/trip-planner/ItineraryBuilder';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface TripConfig {
   startDate: string;
@@ -166,6 +167,11 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
 
   if (!tripConfig) {
     return (
+    <>
+      <Helmet>
+        <title>Trip Planner View | Life CEO</title>
+      </Helmet>
+      
       <div className="max-w-4xl mx-auto">
         <TripConfigurationWizard
           city={city}
@@ -173,7 +179,9 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
           onConfigComplete={setTripConfig}
         />
       </div>
-    );
+    
+    </>
+  );
   }
 
   if (isLoading) {
@@ -192,7 +200,7 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
         <h2 className="text-2xl font-bold mb-2">
           Your Trip to {city}
         </h2>
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
           <span>
             📅 {new Date(tripConfig.startDate).toLocaleDateString()} - {new Date(tripConfig.endDate).toLocaleDateString()}
           </span>

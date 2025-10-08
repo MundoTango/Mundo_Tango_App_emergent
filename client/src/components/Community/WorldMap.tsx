@@ -197,7 +197,7 @@ const WorldMap = forwardRef((props, ref) => {
                     <MapPin className="h-5 w-5 text-cyan-600" />
                     {group.city}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">{group.country}</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{group.country}</p>
                 </div>
                 
                 {/* Statistics Grid */}
@@ -205,7 +205,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-cyan-50 to-transparent">
                     <Users className="h-4 w-4 text-cyan-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">People</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">People</p>
                       <p className="font-semibold">{group.memberCount || 0}</p>
                     </div>
                   </div>
@@ -213,7 +213,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-purple-50 to-transparent">
                     <Calendar className="h-4 w-4 text-purple-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">Events</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Events</p>
                       <p className="font-semibold">{group.eventCount || 0}</p>
                     </div>
                   </div>
@@ -221,7 +221,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-blue-50 to-transparent">
                     <Home className="h-4 w-4 text-blue-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">Housing Hosts</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Housing Hosts</p>
                       <p className="font-semibold">{group.hostCount || 0}</p>
                     </div>
                   </div>
@@ -229,7 +229,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-amber-50 to-transparent">
                     <Star className="h-4 w-4 text-amber-600" />
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">Recommendations</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Recommendations</p>
                       <p className="font-semibold">{group.recommendationCount || 0}</p>
                     </div>
                   </div>
@@ -254,7 +254,7 @@ const WorldMap = forwardRef((props, ref) => {
         <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-[1000] dark:bg-neutral-900">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-ocean-500 mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-neutral-400">Loading world map...</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Loading world map...</p>
           </div>
         </div>
       )}

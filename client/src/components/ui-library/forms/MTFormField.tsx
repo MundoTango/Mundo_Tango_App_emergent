@@ -59,7 +59,7 @@ export default function MTFormField<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-2', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-300">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -88,7 +88,7 @@ export default function MTFormField<
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors dark:text-neutral-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors dark:text-neutral-600 dark:text-neutral-300"
                   data-testid={`toggle-password-${name}`}
                 >
                   {showPassword ? (

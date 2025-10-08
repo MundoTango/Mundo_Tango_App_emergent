@@ -103,7 +103,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
               variant="ghost" 
               size="sm"
               onClick={() = data-testid="button-element"> onCreatePost()}
-              className="flex items-center gap-2 text-gray-700 dark:text-neutral-300"
+              className="flex items-center gap-2 text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
             >
               <VisibilityIcon className="h-4 w-4" />
               <span className="font-semibold">Public</span>
@@ -125,7 +125,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
               onClick={() = data-testid="button-absolute"> onCreatePost()}
             >
-              <Smile className="h-5 w-5 text-gray-400" />
+              <Smile className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             </Button>
           </div>
 

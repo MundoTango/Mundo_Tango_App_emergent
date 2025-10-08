@@ -99,7 +99,7 @@ export function LifeCeoPerformanceDashboard() {
             <div className="text-2xl font-bold">
               {realTimeMetrics.firstContentfulPaint?.toFixed(0) || '—'} ms
             </div>
-            <p className="text-sm text-gray-600 dark:text-neutral-400">Time to first visible content</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Time to first visible content</p>
           </CardContent>
         </Card>
 
@@ -114,7 +114,7 @@ export function LifeCeoPerformanceDashboard() {
             <div className="text-2xl font-bold">
               {realTimeMetrics.domContentLoaded?.toFixed(0) || '—'} ms
             </div>
-            <p className="text-sm text-gray-600 dark:text-neutral-400">DOM interactive time</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">DOM interactive time</p>
           </CardContent>
         </Card>
 
@@ -129,7 +129,7 @@ export function LifeCeoPerformanceDashboard() {
             <div className="text-2xl font-bold">
               {realTimeMetrics.totalBlockingTime?.toFixed(0) || '—'} ms
             </div>
-            <p className="text-sm text-gray-600 dark:text-neutral-400">Total main thread blocking</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total main thread blocking</p>
           </CardContent>
         </Card>
       </div>
@@ -185,7 +185,7 @@ export function LifeCeoPerformanceDashboard() {
                 <div className="text-2xl font-bold text-green-600">
                   {report.metrics.activeUsers}
                 </div>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Currently online</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Currently online</p>
               </CardContent>
             </Card>
 
@@ -258,7 +258,7 @@ export function LifeCeoPerformanceDashboard() {
               <CardContent>
                 <ul className="space-y-1">
                   {report.metrics.slowQueries.slice(0, 5).map((query, index) => (
-                    <li key={index} className="text-xs font-mono text-gray-600 truncate dark:text-neutral-400">
+                    <li key={index} className="text-xs font-mono text-gray-600 truncate dark:text-neutral-600 dark:text-neutral-400">
                       {query}
                     </li>
                   ))}

@@ -18,6 +18,7 @@ import {
   Music,
   Heart
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface TangoCommunity {
   id: string;
@@ -180,6 +181,11 @@ export default function TangoCommunities() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Tango Communities | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
@@ -187,7 +193,7 @@ export default function TangoCommunities() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">Tango Communities</h1>
-              <p className="text-gray-600 mt-2 dark:text-neutral-400">Connect with tango dancers around the world</p>
+              <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Connect with tango dancers around the world</p>
             </div>
             <Button
               onClick={() = data-testid="button-element"> setShowCreateModal(true)}
@@ -205,7 +211,7 @@ export default function TangoCommunities() {
                 <Users className="w-8 h-8 text-indigo-600" />
                 <div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{mockCommunities.length}</p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Communities</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Communities</p>
                 </div>
               </div>
             </Card>
@@ -216,7 +222,7 @@ export default function TangoCommunities() {
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {mockCommunities.filter(c => c.isJoined).length}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Joined Communities</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Joined Communities</p>
                 </div>
               </div>
             </Card>
@@ -227,7 +233,7 @@ export default function TangoCommunities() {
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {mockCommunities.reduce((sum, c) => sum + c.eventCount, 0)}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Events</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Events</p>
                 </div>
               </div>
             </Card>
@@ -238,7 +244,7 @@ export default function TangoCommunities() {
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {new Set(mockCommunities.map(c => c.location.split(',')[0])).size}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Cities</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Cities</p>
                 </div>
               </div>
             </Card>
@@ -247,7 +253,7 @@ export default function TangoCommunities() {
           {/* Search and Filters */}
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-5 h-5" />
               <Input
                 type="text"
                 placeholder="Search communities by name, location, or description..."
@@ -296,22 +302,22 @@ export default function TangoCommunities() {
 
               {/* Content */}
               <div className="p-6">
-                <p className="text-gray-600 mb-4 line-clamp-2 dark:text-neutral-400">{community.description}</p>
+                <p className="text-gray-600 mb-4 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">{community.description}</p>
                 
                 {/* Stats */}
                 <div className="flex items-center gap-4 mb-4 text-sm">
                   <div className="flex items-center gap-1">
-                    <Users className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-600 dark:text-neutral-400">{community.memberCount} members</span>
+                    <Users className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{community.memberCount} members</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-600 dark:text-neutral-400">{community.eventCount} events</span>
+                    <Calendar className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{community.eventCount} events</span>
                   </div>
                   {community.rating && (
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                      <span className="text-gray-600 dark:text-neutral-400">{community.rating}</span>
+                      <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{community.rating}</span>
                     </div>
                   )}
                 </div>
@@ -344,12 +350,14 @@ export default function TangoCommunities() {
         {/* Empty State */}
         {filteredCommunities.length === 0 && (
           <Card className="p-12 text-center">
-            <Users className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+            <Users className="w-12 h-12 mx-auto text-gray-600 dark:text-gray-400 mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No communities found</h3>
-            <p className="text-gray-600 dark:text-neutral-400">Try adjusting your search or filters</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Try adjusting your search or filters</p>
           </Card>
         )}
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

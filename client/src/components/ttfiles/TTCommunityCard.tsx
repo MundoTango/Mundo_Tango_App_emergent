@@ -67,7 +67,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
       className="tt-card tt-community-card tt-fade-in" 
       onClick={onClick}
       style={{ cursor: onClick ? 'pointer' : 'default' }}
-    >
+     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } }}>
       {/* Cover Image or Gradient */}
       {coverImage ? (
         <div className="h-32 overflow-hidden">
@@ -99,14 +99,14 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">
           {description}
         </p>
 
         {/* Community Stats */}
         <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-neutral-400">
+            <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <Users className="w-4 h-4" />
               <span className="font-semibold">{formatMemberCount(memberCount)}</span>
             </div>
@@ -115,7 +115,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
           
           {activeEvents !== undefined && (
             <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-neutral-400">
+              <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 <Calendar className="w-4 h-4" />
                 <span className="font-semibold">{activeEvents}</span>
               </div>
@@ -136,7 +136,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
           {rating && (
             <div className="flex items-center justify-center gap-1 text-xs">
               <Star className="w-3 h-3 text-yellow-500 fill-current" />
-              <span className="text-gray-600 dark:text-neutral-400">{rating.toFixed(1)} rating</span>
+              <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{rating.toFixed(1)} rating</span>
             </div>
           )}
         </div>

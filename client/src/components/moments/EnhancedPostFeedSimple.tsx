@@ -214,7 +214,7 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
                      filters?.filterType === 'following' ? 'Following' : 
                      'Nearby Memories'}
                   </h2>
-                  <p className="text-gray-600 dark:text-neutral-400">
+                  <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                     {posts.length} {posts.length === 1 ? 'memory' : 'memories'} found
                     {filters?.tags && filters.tags.length > 0 && (
                       <span className="ml-2 text-turquoise-600">
@@ -247,7 +247,7 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
                 <Heart className="h-12 w-12 text-turquoise-400" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4 dark:text-neutral-100">No memories found</h3>
-              <p className="text-gray-600 leading-relaxed dark:text-neutral-400">
+              <p className="text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                 {filters?.filterType === 'following' 
                   ? "No memories from people you're following yet. Start following dancers to see their memories here!"
                   : filters?.filterType === 'nearby'

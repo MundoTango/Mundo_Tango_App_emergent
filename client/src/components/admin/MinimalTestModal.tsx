@@ -16,7 +16,7 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
       <div 
         className="fixed inset-0 bg-black/50 z-[100]" 
         onClick={onClose}
-      />
+      / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(e); } }}>
       
       {/* Modal */}
       <div className="fixed inset-0 flex items-center justify-center z-[101] pointer-events-none">

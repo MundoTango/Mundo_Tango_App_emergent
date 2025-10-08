@@ -31,7 +31,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Set your price</h2>
-        <p className="text-gray-600 dark:text-neutral-400">
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
           You can change your price anytime. We'll help you price competitively.
         </p>
       </div>
@@ -119,7 +119,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
       {/* Discounts */}
       <div>
         <h3 className="text-lg font-medium mb-4">Offer discounts for longer stays</h3>
-        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
           Attract more bookings with weekly and monthly discounts
         </p>
         
@@ -142,9 +142,9 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
                   value={data.weeklyDiscount || ''}
                   onChange={(e) = data-testid="input-element"> updateData({ weeklyDiscount: parseInt(e.target.value) || 0 })}
                 />
-                <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
               </div>
-              <span className="text-sm text-gray-600 dark:text-neutral-400">
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 = {selectedCurrency?.symbol}
                 {basePrice ? Math.round(basePrice * (1 - (data.weeklyDiscount || 0) / 100)) : 0}/night
               </span>
@@ -169,9 +169,9 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
                   value={data.monthlyDiscount || ''}
                   onChange={(e) = data-testid="input-element"> updateData({ monthlyDiscount: parseInt(e.target.value) || 0 })}
                 />
-                <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
               </div>
-              <span className="text-sm text-gray-600 dark:text-neutral-400">
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 = {selectedCurrency?.symbol}
                 {basePrice ? Math.round(basePrice * (1 - (data.monthlyDiscount || 0) / 100)) : 0}/night
               </span>

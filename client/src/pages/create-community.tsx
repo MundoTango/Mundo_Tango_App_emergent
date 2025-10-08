@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 // import GoogleMapsLocationPicker from '@/components/GoogleMapsLocationPicker';
+import { Helmet } from 'react-helmet';
 
 // Form schema with 23L validation patterns
 const createCommunitySchema = z.object({
@@ -115,6 +116,11 @@ export default function CreateCommunityPage() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Create Community | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-3xl mx-auto px-4 py-8">
         {/* Header */}
@@ -135,7 +141,7 @@ export default function CreateCommunityPage() {
               Create New Community
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-neutral-400">
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             Build a space where tango dancers can connect, share, and grow together
           </p>
         </div>
@@ -155,7 +161,7 @@ export default function CreateCommunityPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                    <div className="flex flex-col items-center justify-center h-full text-gray-600 dark:text-gray-400">
                       <Upload className="h-12 w-12 mb-2" />
                       <p className="text-sm">Upload a cover image</p>
                     </div>
@@ -326,5 +332,7 @@ export default function CreateCommunityPage() {
         </Form>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

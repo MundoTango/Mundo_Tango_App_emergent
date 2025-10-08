@@ -182,7 +182,7 @@ export default function RecommendationsList({
       {/* View Mode Toggle */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
             {recommendations?.length || 0} recommendation{recommendations?.length !== 1 ? 's' : ''} found
           </span>
         </div>
@@ -192,7 +192,7 @@ export default function RecommendationsList({
             className={`p-2 rounded-md transition-all ${
               viewMode === 'list'
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                : 'text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
             }`}
             data-testid="button-view-list"
             title="List View"
@@ -204,7 +204,7 @@ export default function RecommendationsList({
             className={`p-2 rounded-md transition-all ${
               viewMode === 'map'
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                : 'text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
             }`}
             data-testid="button-view-map"
             title="Map View"
@@ -270,7 +270,7 @@ export default function RecommendationsList({
                       <CategoryIcon className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
                       <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{rec.title}</h3>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{rec.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 line-clamp-2">{rec.description}</p>
                   </div>
                   <div className="text-right space-y-1">
                     {/* Dual Rating System */}
@@ -278,7 +278,7 @@ export default function RecommendationsList({
                       <div className="space-y-1">
                         {rec.mtRating && rec.mtRating > 0 && (
                           <div className="flex items-center gap-1 justify-end">
-                            <span className="text-xs text-gray-500 dark:text-gray-400">MT</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">MT</span>
                             <Star className="h-3.5 w-3.5 text-turquoise-600 dark:text-turquoise-400 fill-current" />
                             <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.mtRating.toFixed(1)}</span>
                             {rec.mtReviewCount && <span className="text-xs text-gray-500">({rec.mtReviewCount})</span>}
@@ -286,7 +286,7 @@ export default function RecommendationsList({
                         )}
                         {rec.googleRating && rec.googleRating > 0 && (
                           <div className="flex items-center gap-1 justify-end">
-                            <span className="text-xs text-gray-500 dark:text-gray-400">Google</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">Google</span>
                             <Star className="h-3.5 w-3.5 text-yellow-500 fill-current" />
                             <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.googleRating.toFixed(1)}</span>
                             {rec.googleReviewCount && <span className="text-xs text-gray-500">({rec.googleReviewCount})</span>}
@@ -295,13 +295,13 @@ export default function RecommendationsList({
                       </div>
                     )}
                     {rec.priceLevel && (
-                      <span className="text-sm text-gray-600 dark:text-gray-400">{getPriceLevelDisplay(rec.priceLevel)}</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{getPriceLevelDisplay(rec.priceLevel)}</span>
                     )}
                   </div>
                 </div>
                 
                 {/* Location */}
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-3">
                   <MapPin className="h-4 w-4" />
                   <span>{rec.address}</span>
                 </div>
@@ -332,7 +332,7 @@ export default function RecommendationsList({
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900 dark:text-white">{userInfo?.name || 'Community Member'}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                         {isLocal ? `Local ${rec.city} resident` : `Visitor${userCountry ? ` from ${userCountry}` : ''}`}
                       </p>
                     </div>
@@ -390,7 +390,7 @@ export default function RecommendationsList({
       {/* Empty State */}
       {(!recommendations || recommendations.length === 0) && (
         <div className="text-center py-12">
-          <Star className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+          <Star className="h-16 w-16 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">No recommendations yet</h3>
           <p className="text-gray-500">
             {city ? `Be the first to recommend a place in ${city}!` : 'Select a city to see recommendations.'}
@@ -424,7 +424,7 @@ export default function RecommendationsList({
               <div className="flex items-center gap-4">
                 {selectedRecommendation.mtRating && (
                   <div className="flex items-center gap-2 px-4 py-2 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">MT Community</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">MT Community</span>
                     <Star className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400 fill-current" />
                     <span className="text-lg font-bold text-gray-900 dark:text-white">{selectedRecommendation.mtRating.toFixed(1)}</span>
                     {selectedRecommendation.mtReviewCount && (
@@ -434,7 +434,7 @@ export default function RecommendationsList({
                 )}
                 {selectedRecommendation.googleRating && (
                   <div className="flex items-center gap-2 px-4 py-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Google</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">Google</span>
                     <Star className="h-5 w-5 text-yellow-500 fill-current" />
                     <span className="text-lg font-bold text-gray-900 dark:text-white">{selectedRecommendation.googleRating.toFixed(1)}</span>
                     {selectedRecommendation.googleReviewCount && (
@@ -447,14 +447,14 @@ export default function RecommendationsList({
               {/* Description */}
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h4>
-                <p className="text-gray-700 dark:text-gray-300">{selectedRecommendation.description}</p>
+                <p className="text-gray-700 dark:text-gray-600 dark:text-gray-300">{selectedRecommendation.description}</p>
               </div>
 
               {/* Location & Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Location</h4>
-                  <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2 text-gray-700 dark:text-gray-600 dark:text-gray-300">
                     <MapPin className="h-5 w-5 text-turquoise-600 mt-0.5" />
                     <span>{selectedRecommendation.address}</span>
                   </div>
@@ -463,7 +463,7 @@ export default function RecommendationsList({
                 {selectedRecommendation.priceLevel && (
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Price Level</h4>
-                    <p className="text-2xl text-gray-700 dark:text-gray-300">{getPriceLevelDisplay(selectedRecommendation.priceLevel)}</p>
+                    <p className="text-2xl text-gray-700 dark:text-gray-600 dark:text-gray-300">{getPriceLevelDisplay(selectedRecommendation.priceLevel)}</p>
                   </div>
                 )}
               </div>
@@ -503,7 +503,7 @@ export default function RecommendationsList({
                     </div>
                     <div>
                       <p className="font-medium text-gray-900 dark:text-white">{selectedRecommendation.user.name}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
                         {selectedRecommendation.user.city && selectedRecommendation.user.country 
                           ? `${selectedRecommendation.user.city}, ${selectedRecommendation.user.country}`
                           : selectedRecommendation.user.country || 'Community Member'}
@@ -534,7 +534,7 @@ export default function RecommendationsList({
                         </div>
                         <div>
                           <p className="font-medium text-sm text-gray-900 dark:text-white">{linkedPost.author.name}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                             {new Date(linkedPost.createdAt).toLocaleDateString()}
                           </p>
                         </div>
@@ -542,7 +542,7 @@ export default function RecommendationsList({
                     )}
 
                     {/* Post Content */}
-                    <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                    <p className="text-gray-700 dark:text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                       {linkedPost.content || linkedPost.plainText}
                     </p>
 
@@ -558,7 +558,7 @@ export default function RecommendationsList({
                     )}
 
                     {/* Post Metadata */}
-                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-gray-700">
                       {linkedPost.likes > 0 && (
                         <span className="flex items-center gap-1">
                           <Heart className="h-3 w-3" />

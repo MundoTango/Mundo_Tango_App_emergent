@@ -21,6 +21,7 @@ import { Heart, Sparkles, Globe, Users, Music, Calendar, ArrowLeft, CheckCircle,
 import { useState, useEffect } from "react";
 import { apiRequest } from "@/lib/queryClient";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Helmet } from 'react-helmet';
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -192,6 +193,11 @@ export default function Onboarding() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Onboarding | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 p-6" data-testid="onboarding-container">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
@@ -238,7 +244,7 @@ export default function Onboarding() {
                 name="nickname"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-cyan-700 transition-colors dark:text-neutral-300">How should the community know you?</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-cyan-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">How should the community know you?</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter your tango nickname"
@@ -268,7 +274,7 @@ export default function Onboarding() {
                 name="languages"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors dark:text-neutral-300">What languages do you speak?</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">What languages do you speak?</FormLabel>
                     <FormControl>
                       <TileSelect
                         options={languages}
@@ -343,7 +349,7 @@ export default function Onboarding() {
                   name="leaderLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <span className="text-lg">🤵</span>
                         Leader Level: {field.value}/10
                       </FormLabel>
@@ -373,7 +379,7 @@ export default function Onboarding() {
                   name="followerLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <span className="text-lg">💃</span>
                         Follower Level: {field.value}/10
                       </FormLabel>
@@ -417,7 +423,7 @@ export default function Onboarding() {
                   name="yearsOfDancing"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors dark:text-neutral-300">Experience Level</FormLabel>
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">Experience Level</FormLabel>
                       <FormControl>
                         <TileSelect
                           options={danceExperienceOptions}
@@ -438,7 +444,7 @@ export default function Onboarding() {
                   name="startedDancingYear"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <Calendar className="w-4 h-4" />
                         Year You Started Dancing
                       </FormLabel>
@@ -479,7 +485,7 @@ export default function Onboarding() {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors dark:text-neutral-300">Where are you exploring Tango the most?</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">Where are you exploring Tango the most?</FormLabel>
                     <FormControl>
                       <UnifiedLocationPicker
                         value={field.value?.city || ''}
@@ -522,7 +528,7 @@ export default function Onboarding() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="text-sm text-gray-700 dark:text-neutral-300">
+                      <FormLabel className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                         I accept the <a href="/terms" target="_blank" className="text-cyan-600 hover:text-cyan-700 underline">Terms of Service</a>
                       </FormLabel>
                       <FormMessage />
@@ -545,7 +551,7 @@ export default function Onboarding() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="text-sm text-gray-700 dark:text-neutral-300">
+                      <FormLabel className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                         I accept the <a href="/privacy" target="_blank" className="text-cyan-600 hover:text-cyan-700 underline">Privacy Policy</a>
                       </FormLabel>
                       <FormMessage />
@@ -594,5 +600,7 @@ export default function Onboarding() {
         </Form>
       </div>
     </div>
+  
+    </>
   );
 }

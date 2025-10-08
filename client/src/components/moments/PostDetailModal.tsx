@@ -302,7 +302,7 @@ export default function PostDetailModal({
       <div 
         className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200 dark:bg-neutral-900"
         onClick={(e) => e.stopPropagation()}
-      >
+       role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
@@ -403,7 +403,7 @@ export default function PostDetailModal({
               {/* Reused Media Section */}
               {reusedMedia.length > 0 && (
                 <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-blue-500 dark:bg-neutral-800">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Shared Media</h4>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Shared Media</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {reusedMedia.map((media, index) => (
                       <div key={media.id} className="relative group">
@@ -517,7 +517,7 @@ export default function PostDetailModal({
                               {formatDistanceToNow(new Date(comment.createdAt))} ago
                             </span>
                           </div>
-                          <p className="text-sm text-gray-700 leading-relaxed dark:text-neutral-300">
+                          <p className="text-sm text-gray-700 leading-relaxed dark:text-neutral-600 dark:text-neutral-300">
                             {renderWithMentions(comment.content)}
                           </p>
                         </div>

@@ -42,7 +42,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
     <div 
       className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group dark:bg-neutral-900"
       onClick={onClick}
-    >
+     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } }}>
       {/* Community Image */}
       <div className="relative h-48 overflow-hidden">
         {displayImage ? (
@@ -81,13 +81,13 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
         </h3>
 
         {/* Location with enhanced styling */}
-        <div className="flex items-center gap-2 text-sm text-gray-700 mb-3 dark:text-neutral-300">
+        <div className="flex items-center gap-2 text-sm text-gray-700 mb-3 dark:text-neutral-600 dark:text-neutral-300">
           <MapPin className="h-4 w-4 text-pink-500 flex-shrink-0" />
           <span className="font-medium">{community.location}</span>
         </div>
 
         {/* Community Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed dark:text-neutral-400">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
           {community.description}
         </p>
 
@@ -97,14 +97,14 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
             {/* Members stat */}
             <div className="flex items-center gap-1.5">
               <Users className="h-4 w-4 text-blue-500" />
-              <span className="text-sm font-semibold text-gray-700 dark:text-neutral-300">{community.memberCount}</span>
+              <span className="text-sm font-semibold text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{community.memberCount}</span>
               <span className="text-xs text-gray-500">members</span>
             </div>
 
             {/* Events stat */}
             <div className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4 text-green-500" />
-              <span className="text-sm font-semibold text-gray-700 dark:text-neutral-300">{community.eventCount}</span>
+              <span className="text-sm font-semibold text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{community.eventCount}</span>
               <span className="text-xs text-gray-500">events</span>
             </div>
           </div>

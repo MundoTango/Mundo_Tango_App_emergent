@@ -203,8 +203,8 @@ export default function AuditTrailViewer() {
     if (action.includes('update') || action.includes('edit')) return <Edit3 className="h-4 w-4 text-blue-600" />;
     if (action.includes('delete') || action.includes('remove')) return <Trash2 className="h-4 w-4 text-red-600" />;
     if (action.includes('login') || action.includes('auth')) return <Shield className="h-4 w-4 text-purple-600" />;
-    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600 dark:text-neutral-400" />;
-    return <FileText className="h-4 w-4 text-gray-600 dark:text-neutral-400" />;
+    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />;
+    return <FileText className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />;
   };
 
   const filteredEvents = mockAuditEvents.filter(event => {
@@ -242,7 +242,7 @@ export default function AuditTrailViewer() {
       {/* Filters and controls */}
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
           <Input
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
@@ -368,7 +368,7 @@ export default function AuditTrailViewer() {
                       </div>
                     </Badge>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-neutral-400">
+                  <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                     Resource: <span className="font-medium">{event.resource}</span>
                     {event.resourceId > 0 && <span className="ml-1">#{event.resourceId}</span>}
                   </div>
@@ -383,25 +383,25 @@ export default function AuditTrailViewer() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
               <div className="flex items-center gap-2 text-sm">
-                <User className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600 dark:text-neutral-400">Actor:</span>
+                <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Actor:</span>
                 <span className="font-medium">{event.actor.name}</span>
                 <span className="text-gray-500">(@{event.actor.username})</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <Shield className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600 dark:text-neutral-400">IP:</span>
+                <Shield className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">IP:</span>
                 <span className="font-mono text-xs">{event.ipAddress}</span>
               </div>
             </div>
 
             {event.details && Object.keys(event.details).length > 0 && (
               <div className="bg-gray-50 rounded-xl p-4 dark:bg-neutral-800">
-                <div className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Event Details:</div>
+                <div className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Event Details:</div>
                 <div className="space-y-1">
                   {Object.entries(event.details).map(([key, value]) => (
                     <div key={key} className="text-sm">
-                      <span className="text-gray-600 capitalize dark:text-neutral-400">{key.replace(/_/g, ' ')}:</span>
+                      <span className="text-gray-600 capitalize dark:text-neutral-600 dark:text-neutral-400">{key.replace(/_/g, ' ')}:</span>
                       <span className="font-medium ml-2">
                         {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                       </span>
@@ -416,9 +416,9 @@ export default function AuditTrailViewer() {
 
       {filteredEvents.length === 0 && (
         <div className="text-center py-12">
-          <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <FileText className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">No audit events found</h3>
-          <p className="text-gray-600 dark:text-neutral-400">Try adjusting your filters or search terms</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Try adjusting your filters or search terms</p>
         </div>
       )}
     </div>

@@ -364,7 +364,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
                      filterBy === 'following' ? 'Following' : 
                      'Nearby Memories'}
                   </h2>
-                  <p className="text-gray-600 dark:text-neutral-400">
+                  <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                     {posts.length} {posts.length === 1 ? 'memory' : 'memories'} found
                   </p>
                 </div>
@@ -393,7 +393,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
                 <Sparkles className="h-12 w-12 text-indigo-400" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4 dark:text-neutral-100">No memories found</h3>
-              <p className="text-gray-600 mb-8 dark:text-neutral-400">
+              <p className="text-gray-600 mb-8 dark:text-neutral-600 dark:text-neutral-400">
                 {filterTags.length > 0 
                   ? 'Try removing some filters or create a new memory with these tags.'
                   : 'Be the first to share a tango memory! Your moments help build our community.'

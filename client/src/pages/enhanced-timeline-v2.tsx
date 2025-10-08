@@ -45,6 +45,7 @@ import VideoMemoryCard from '../components/moments/VideoMemoryCard';
 import { FacebookReactionSelector } from '../components/ui/FacebookReactionSelector';
 import { RichTextCommentEditor } from '../components/ui/RichTextCommentEditor';
 import { ReportModal } from '../components/ui/ReportModal';
+import { Helmet } from 'react-helmet';
 
 // Force UI refresh timestamp: 2025-08-05T18:54:00.000Z
 
@@ -229,6 +230,11 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
   const isOwner = memory.userId === user?.id;
 
   return (
+    <>
+      <Helmet>
+        <title>Enhanced Timeline V2 | Life CEO</title>
+      </Helmet>
+      
     <div className="relative group">
       {/* Ocean wave pattern background on hover */}
       <div className="absolute inset-0 rounded-3xl overflow-hidden">
@@ -365,7 +371,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
           <button
             onClick={() = data-testid="button-element"> setShowShareDialog(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover dark:text-neutral-300"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover dark:text-neutral-600 dark:text-neutral-300"
           >
             <Share2 className="h-5 w-5 icon-glow" />
             <span className="font-medium">Share</span>
@@ -464,8 +470,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
       {/* Share Dialog */}
       {showShareDialog && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
-          <div className="bg-white rounded-xl p-6 w-96 max-w-[90vw] dark:bg-neutral-900" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setShowShareDialog(false)(e); } }}>
+          <div className="bg-white rounded-xl p-6 w-96 max-w-[90vw] dark:bg-neutral-900" onClick={e => e.stopPropagation()} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e => e.stopPropagation()(e); } }}>
             <h3 className="text-xl font-bold mb-4">Share Memory</h3>
             <div className="space-y-3">
               <button
@@ -473,7 +479,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Share to Timeline</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Share this memory on your timeline</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Share this memory on your timeline</p>
               </button>
 
               <button
@@ -484,7 +490,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Share with Comment</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Add your thoughts when sharing</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Add your thoughts when sharing</p>
               </button>
 
               <button
@@ -496,7 +502,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Copy Link</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Copy memory link to clipboard</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Copy memory link to clipboard</p>
               </button>
             </div>
           </div>
@@ -512,6 +518,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
       />
       </Card>
     </div>
+  
+    </>
   );
 }, (prevProps, nextProps) => {
   // Custom comparison for performance - only re-render if key properties change
@@ -679,7 +687,7 @@ export default function EnhancedTimelineV2() {
                       Memories
                     </h1>
                   </div>
-                  <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium dark:text-neutral-300">Share your precious moments with the Tango community</p>
+                  <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium dark:text-neutral-600 dark:text-neutral-300">Share your precious moments with the Tango community</p>
                 </div>
               </div>
 
@@ -707,7 +715,7 @@ export default function EnhancedTimelineV2() {
             <div className="block lg:hidden mb-6">
               <div className="glassmorphic-card p-4 rounded-xl">
                 <h3 className="font-semibold text-gray-800 mb-2 dark:text-neutral-200">Upcoming Events</h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Event integration coming soon!</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Event integration coming soon!</p>
               </div>
             </div>
 
@@ -775,7 +783,7 @@ export default function EnhancedTimelineV2() {
                       <Sparkles className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-neutral-200">No memories yet</h3>
-                    <p className="text-gray-600 dark:text-neutral-400">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
+                    <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
                   </div>
                 </div>
               )}
@@ -787,7 +795,7 @@ export default function EnhancedTimelineV2() {
             <div className="sticky top-6">
               <div className="glassmorphic-card p-6 rounded-xl">
                 <h3 className="font-semibold text-gray-800 mb-4 dark:text-neutral-200">Upcoming Events</h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Event integration coming soon!</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Event integration coming soon!</p>
               </div>
             </div>
           </div>

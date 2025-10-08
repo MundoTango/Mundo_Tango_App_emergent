@@ -315,7 +315,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           <div 
             className="flex items-center space-x-4 cursor-pointer"
             onClick={() => setIsExpanded(true)}
-          >
+           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsExpanded(true)(e); } }}>
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
               {user?.name?.charAt(0) || 'U'}
             </div>
@@ -346,7 +346,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             variant="ghost"
             size="sm"
             onClick={() = data-testid="button-element"> setIsExpanded(false)}
-            className="text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+            className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
           >
             <X className="h-5 w-5" />
           </Button>

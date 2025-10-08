@@ -213,14 +213,14 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
               
               <button 
                 onClick={() => setShowComments(!showComments)}
-                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-400"
+                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                 data-testid={`button-comment-toggle-${post.id}`}
               >
                 <MessageCircle className="w-5 h-5" />
                 <span className="text-sm">{post.commentCount || 0}</span>
               </button>
               
-              <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors dark:text-neutral-400">
+              <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors dark:text-neutral-600 dark:text-neutral-400">
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
@@ -260,7 +260,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                   {post.comments.map((comment: any) => (
                     <div key={comment.id} className="flex gap-2 text-sm">
                       <span className="font-semibold">{comment.user?.name || 'Unknown'}:</span>
-                      <span className="text-gray-700 dark:text-neutral-300">{comment.content}</span>
+                      <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{comment.content}</span>
                     </div>
                   ))}
                 </div>

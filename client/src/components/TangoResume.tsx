@@ -52,7 +52,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
     return (
       <Card>
         <CardContent className="p-8 text-center">
-          <Star className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+          <Star className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
           <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">
             {isOwnProfile ? 'No accepted roles yet' : 'No public resume available'}
           </h3>
@@ -73,7 +73,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">My Tango Resume</h2>
-            <p className="text-gray-600 dark:text-neutral-400">Professional experience in the tango community</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Professional experience in the tango community</p>
           </div>
           <div className="flex space-x-2">
             <Button
@@ -100,7 +100,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">{resume.length}</div>
-            <div className="text-sm text-gray-600 dark:text-neutral-400">Events Participated</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Events Participated</div>
           </CardContent>
         </Card>
         <Card>
@@ -108,7 +108,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
             <div className="text-2xl font-bold text-[#8E142E]">
               {resume.reduce((acc: number, event: any) => acc + event.roles.length, 0)}
             </div>
-            <div className="text-sm text-gray-600 dark:text-neutral-400">Total Roles</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Roles</div>
           </CardContent>
         </Card>
         <Card>
@@ -116,7 +116,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resume.flatMap((event: any) => event.roles.map((role: any) => role.role))).size}
             </div>
-            <div className="text-sm text-gray-600 dark:text-neutral-400">Unique Role Types</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Unique Role Types</div>
           </CardContent>
         </Card>
       </div>
@@ -163,12 +163,12 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                         </div>
                         <div>
                           <div className="font-semibold text-[#8E142E]">{role.role}</div>
-                          <div className="text-sm text-gray-600 dark:text-neutral-400">
+                          <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             Confirmed on {format(new Date(role.acceptedAt), 'PPP')}
                           </div>
                         </div>
                       </div>
-                      <div className="text-right text-sm text-gray-600 dark:text-neutral-400">
+                      <div className="text-right text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                         <div>Invited by</div>
                         <div className="font-medium">{role.inviterName}</div>
                       </div>

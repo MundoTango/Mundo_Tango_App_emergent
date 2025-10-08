@@ -1,9 +1,15 @@
 import React from 'react';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { GraduationCap, BookOpen, Video, Users2 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 export default function TeacherDashboard() {
   return (
+    <>
+      <Helmet>
+        <title>Teacher | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-4xl mx-auto p-6">
         <div className="card">
@@ -44,5 +50,7 @@ export default function TeacherDashboard() {
         </div>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

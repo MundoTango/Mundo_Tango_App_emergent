@@ -21,6 +21,7 @@ import {
   Code,
   Star
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface CommunityFormData {
   name: string;
@@ -120,6 +121,11 @@ export default function CreateCommunity() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Create Community | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Card className="glassmorphic-card">
@@ -215,7 +221,7 @@ export default function CreateCommunity() {
               {/* Categories */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Event Categories</h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Select the types of events your community will host</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Select the types of events your community will host</p>
                 
                 <div className="grid grid-cols-3 gap-3">
                   {CATEGORIES.map(category => (
@@ -244,7 +250,7 @@ export default function CreateCommunity() {
                     {formData.visibility === 'public' ? (
                       <Globe className="w-5 h-5 text-turquoise-600" />
                     ) : (
-                      <Lock className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
+                      <Lock className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                     )}
                     <Label htmlFor="visibility" className="cursor-pointer">
                       {formData.visibility === 'public' ? 'Public Community' : 'Private Community'}
@@ -307,5 +313,7 @@ export default function CreateCommunity() {
         </Card>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

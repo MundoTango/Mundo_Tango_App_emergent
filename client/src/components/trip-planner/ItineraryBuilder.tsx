@@ -89,7 +89,7 @@ export default function ItineraryBuilder({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-2xl font-bold">Your Itinerary</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
             {totalItems} {totalItems === 1 ? 'item' : 'items'} planned
           </p>
         </div>
@@ -120,16 +120,16 @@ export default function ItineraryBuilder({
                   <Calendar className="h-5 w-5 text-cyan-600" />
                   <div className="text-left">
                     <h4 className="font-semibold">Day {index + 1}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{getDayDate(index)}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{getDayDate(index)}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <Badge variant="secondary">{dayItems.length} items</Badge>
                   {isExpanded ? (
-                    <ChevronUp className="h-5 w-5 text-gray-400" />
+                    <ChevronUp className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   ) : (
-                    <ChevronDown className="h-5 w-5 text-gray-400" />
+                    <ChevronDown className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   )}
                 </div>
               </button>
@@ -138,7 +138,7 @@ export default function ItineraryBuilder({
               {isExpanded && (
                 <div className="border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
                   {dayItems.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                    <div className="text-center py-8 text-gray-500 dark:text-gray-600 dark:text-gray-400">
                       <p className="text-sm">No activities planned for this day</p>
                       <p className="text-xs mt-1">Browse the map and results to add activities</p>
                     </div>
@@ -159,7 +159,7 @@ export default function ItineraryBuilder({
                               </div>
                               <h5 className="font-semibold">{item.itemDetails.title}</h5>
                               {item.itemDetails.subtitle && (
-                                <p className="text-sm text-gray-600 dark:text-gray-400">{item.itemDetails.subtitle}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{item.itemDetails.subtitle}</p>
                               )}
                             </div>
                             <Button
@@ -175,7 +175,7 @@ export default function ItineraryBuilder({
 
                           {/* Notes */}
                           {item.notes && (
-                            <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 italic">
                               {item.notes}
                             </p>
                           )}
@@ -198,7 +198,7 @@ export default function ItineraryBuilder({
               <Plus className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold">Start Building Your Itinerary</h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
               Browse events, housing, and recommendations on the map or in the results grid. 
               Click "Add to Trip" to build your perfect itinerary.
             </p>

@@ -108,7 +108,7 @@ export default function MTTablePagination({
           variant === 'icon' && 'p-2',
           isActive
             ? 'bg-gradient-to-r from-teal-400 to-blue-600 text-white shadow-md'
-            : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30',
+            : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30',
           'border border-gray-300 dark:border-gray-700',
           disabled && 'opacity-50 cursor-not-allowed hover:bg-white dark:hover:bg-gray-800',
           'rounded-lg'
@@ -129,7 +129,7 @@ export default function MTTablePagination({
       {/* Left side - Items info and page size */}
       <div className="flex items-center gap-4">
         {showTotalItems && (
-          <span className="text-gray-600 dark:text-gray-400">
+          <span className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
             {totalItems === 0 ? (
               'No items'
             ) : (
@@ -149,7 +149,7 @@ export default function MTTablePagination({
         
         {showPageSize && onPageSizeChange && (
           <div className="flex items-center gap-2">
-            <label className="text-gray-600 dark:text-gray-400">
+            <label className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
               Rows:
             </label>
             <select
@@ -158,7 +158,7 @@ export default function MTTablePagination({
               className={cn(
                 'rounded-lg border border-gray-300 dark:border-gray-700',
                 'bg-white dark:bg-gray-800',
-                'text-gray-700 dark:text-gray-300',
+                'text-gray-700 dark:text-gray-600 dark:text-gray-300',
                 'focus:border-teal-400 dark:focus:border-teal-500',
                 'focus:ring-2 focus:ring-teal-400/20',
                 compact ? 'px-2 py-1 text-sm' : 'px-3 py-2'
@@ -200,7 +200,7 @@ export default function MTTablePagination({
           <div className="hidden sm:flex items-center gap-1">
             {getPageNumbers().map((page, index) => (
               page === '...' ? (
-                <span key={`ellipsis-${index}`} className="px-2 text-gray-400">
+                <span key={`ellipsis-${index}`} className="px-2 text-gray-600 dark:text-gray-400">
                   ...
                 </span>
               ) : (
@@ -218,7 +218,7 @@ export default function MTTablePagination({
 
         {/* Mobile page indicator */}
         <div className="flex sm:hidden items-center px-3 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
-          <span className="text-gray-700 dark:text-gray-300">
+          <span className="text-gray-700 dark:text-gray-600 dark:text-gray-300">
             {currentPage} / {calculatedTotalPages}
           </span>
         </div>

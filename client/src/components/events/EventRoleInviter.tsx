@@ -131,7 +131,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
         <CardContent className="space-y-4">
           {/* User Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-600 dark:text-gray-400" />
             <Input
               placeholder="Search users by name or username..."
               value={searchQuery}
@@ -150,7 +150,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
                     selectedUserId === user.id.toString() ? 'bg-blue-50 border-l-4 border-blue-500' : ''
                   }`}
                   onClick={() => setSelectedUserId(user.id.toString())}
-                >
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedUserId(user.id.toString())(e); } }}>
                   <div className="flex items-center space-x-3">
                     <img
                       src={user.profileImage || '/api/placeholder/40/40'}
@@ -235,7 +235,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
             </div>
           ) : (
             <div className="text-center py-8 text-gray-500">
-              <UserPlus className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+              <UserPlus className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
               <p>No participants invited yet</p>
               <p className="text-sm">Start by inviting users to specific roles</p>
             </div>

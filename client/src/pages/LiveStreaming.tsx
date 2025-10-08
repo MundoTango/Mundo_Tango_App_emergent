@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { useSocket } from "@/contexts/socket-context";
 import { format } from "date-fns";
+import { Helmet } from 'react-helmet';
 
 interface Stream {
   id: string;
@@ -232,7 +233,14 @@ export default function LiveStreaming() {
       }
     });
 
-    return () => {
+    return (
+    <>
+      <Helmet>
+        <title>Live Streaming | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => {
       socket.off("stream:chat-message");
       socket.off("webrtc:answer");
       socket.off("webrtc:ice-candidate");
@@ -265,7 +273,7 @@ export default function LiveStreaming() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Live Streaming</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-2">
             Watch live Tango performances, lessons, and social events
           </p>
         </div>
@@ -415,7 +423,7 @@ export default function LiveStreaming() {
                       <img src={stream.thumbnailUrl} alt={stream.title} className="w-full h-full object-cover" />
                     ) : (
                       <div className="flex items-center justify-center h-full">
-                        <Video className="h-12 w-12 text-gray-400" />
+                        <Video className="h-12 w-12 text-gray-600 dark:text-gray-400" />
                       </div>
                     )}
                     <Badge className="absolute top-2 left-2 bg-red-600">
@@ -437,7 +445,7 @@ export default function LiveStreaming() {
                       />
                       <div className="flex-1">
                         <h3 className="font-semibold line-clamp-1">{stream.title}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{stream.host.name}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{stream.host.name}</p>
                         <div className="flex items-center space-x-2 mt-1">
                           {getCategoryIcon(stream.category)}
                           <span className="text-xs text-gray-500">{stream.category}</span>
@@ -453,9 +461,9 @@ export default function LiveStreaming() {
             </div>
           ) : (
             <Card className="p-8 text-center">
-              <Video className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <Video className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No Live Streams</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
                 Be the first to go live and share your Tango passion!
               </p>
             </Card>
@@ -473,7 +481,7 @@ export default function LiveStreaming() {
                     <div className="flex justify-between items-start">
                       <div>
                         <CardTitle className="text-lg line-clamp-1">{stream.title}</CardTitle>
-                        <div className="flex items-center mt-2 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center mt-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                           <Clock className="mr-1 h-3 w-3" />
                           {stream.scheduledAt && format(new Date(stream.scheduledAt), "MMM dd, h:mm a")}
                         </div>
@@ -482,7 +490,7 @@ export default function LiveStreaming() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
                       {stream.description}
                     </p>
                     <div className="flex items-center space-x-3">
@@ -502,9 +510,9 @@ export default function LiveStreaming() {
             </div>
           ) : (
             <Card className="p-8 text-center">
-              <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <Calendar className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No Scheduled Streams</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
                 Schedule your stream to let the community know when you'll be live
               </p>
             </Card>

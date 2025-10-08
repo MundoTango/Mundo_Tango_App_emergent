@@ -471,7 +471,7 @@ export default function EnhancedPostComposer({
               setShowExpandedComposer(false);
             }
           }}
-          className="text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+          className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
         >
           <X className="h-5 w-5" />
         </button>
@@ -543,7 +543,7 @@ export default function EnhancedPostComposer({
       {/* Media Embeds Preview */}
       {mediaEmbeds.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Embedded Media:</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Embedded Media:</h4>
           {mediaEmbeds.map((embed, index) => renderMediaEmbed(embed, index))}
         </div>
       )}
@@ -551,7 +551,7 @@ export default function EnhancedPostComposer({
       {/* Location Input */}
       <div className="mb-4">
         <div className="flex items-center space-x-2">
-          <MapPin className="h-4 w-4 text-gray-400" />
+          <MapPin className="h-4 w-4 text-gray-600 dark:text-gray-400" />
           <input
             type="text"
             value={location}

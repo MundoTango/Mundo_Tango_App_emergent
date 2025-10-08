@@ -96,7 +96,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Review your listing</h2>
-        <p className="text-gray-600 dark:text-neutral-400">
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
           Make sure everything looks good before submitting for review
         </p>
       </div>
@@ -126,7 +126,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    section.complete ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'
+                    section.complete ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600 dark:text-gray-400'
                   }`}>
                     {section.complete ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                   </div>
@@ -155,7 +155,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
                   <div key={item.label}>
                     <Label className="text-xs text-gray-500">{item.label}</Label>
                     <p className="text-sm font-medium mt-1">
-                      {item.value || <span className="text-gray-400">Not set</span>}
+                      {item.value || <span className="text-gray-600 dark:text-gray-400">Not set</span>}
                     </p>
                   </div>
                 ))}

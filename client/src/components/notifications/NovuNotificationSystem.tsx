@@ -92,7 +92,7 @@ export default function NovuNotificationSystem({
               {new Date(notification.createdAt).toLocaleDateString()}
             </span>
           </div>
-          <p className="text-sm text-gray-700 mt-1 dark:text-neutral-300">{notification.content}</p>
+          <p className="text-sm text-gray-700 mt-1 dark:text-neutral-600 dark:text-neutral-300">{notification.content}</p>
           {notification.data?.actionUrl && (
             <button 
               className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
@@ -172,9 +172,9 @@ export default function NovuNotificationSystem({
           showUserPreferences={true}
           emptyState={
             <div className="text-center py-8">
-              <Bell className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+              <Bell className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
               <p className="text-gray-500">No notifications yet</p>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 You'll see updates about your tango community here
               </p>
             </div>

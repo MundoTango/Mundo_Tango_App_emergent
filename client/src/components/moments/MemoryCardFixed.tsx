@@ -134,15 +134,15 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
         {/* Actions */}
         <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors dark:text-neutral-400" data-testid="button-flex">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors dark:text-neutral-600 dark:text-neutral-400" data-testid="button-flex">
               <Heart className="w-5 h-5" />
               <span className="text-sm">{post.reactionCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-400" data-testid="button-flex">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-600 dark:text-neutral-400" data-testid="button-flex">
               <MessageCircle className="w-5 h-5" />
               <span className="text-sm">{post.commentCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors dark:text-neutral-400" data-testid="button-flex">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors dark:text-neutral-600 dark:text-neutral-400" data-testid="button-flex">
               <Share2 className="w-5 h-5" />
             </button>
           </div>

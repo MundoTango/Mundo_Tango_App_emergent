@@ -100,7 +100,7 @@ export function SentryErrorTester() {
             </h2>
           </div>
           
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
             Test Sentry error tracking integration by triggering different types of errors.
             All errors are intentional and for testing purposes only.
           </p>
@@ -181,7 +181,7 @@ export function SentryErrorTester() {
           </div>
 
           {/* Instructions */}
-          <div className="mt-6 text-sm text-gray-600 dark:text-gray-400 space-y-2">
+          <div className="mt-6 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 space-y-2">
             <p className="font-medium">🔍 Testing Instructions:</p>
             <ol className="list-decimal list-inside space-y-1">
               <li>Click "Check Sentry Status" to verify configuration</li>

@@ -245,7 +245,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Where's your place located?</h2>
-        <p className="text-gray-600 dark:text-neutral-400">Your address is only shared with guests after they've made a reservation</p>
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Your address is only shared with guests after they've made a reservation</p>
       </div>
 
       {/* OpenStreetMap/Leaflet integration */}

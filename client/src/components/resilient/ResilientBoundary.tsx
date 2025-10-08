@@ -104,7 +104,7 @@ export class ResilientBoundary extends Component<Props, State> {
                     </p>
                   )}
                   
-                  <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                     {canRetry 
                       ? `We encountered an issue loading this component. You can try again${maxRetries - this.state.retryCount > 1 ? ` (${maxRetries - this.state.retryCount} attempts remaining)` : ''}.`
                       : 'We were unable to load this component after multiple attempts.'}
@@ -131,7 +131,7 @@ export class ResilientBoundary extends Component<Props, State> {
                   
                   {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
                     <details className="mt-4">
-                      <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700 dark:text-neutral-300">
+                      <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                         Error Details (Development Only)
                       </summary>
                       <pre className="mt-2 text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto max-h-40 dark:bg-neutral-800">

@@ -198,14 +198,14 @@ export default function ThreadedCommentsSection({
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                     {comment.user.name}
                   </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                  <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                     @{comment.user.username}
                   </span>
-                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                  <span className="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-500">
                     • {formatDistanceToNow(new Date(comment.createdAt))} ago
                   </span>
                   {comment.isEdited && (
-                    <span className="text-xs text-gray-400 italic">(edited)</span>
+                    <span className="text-xs text-gray-600 dark:text-gray-400 italic">(edited)</span>
                   )}
                 </div>
 
@@ -299,7 +299,7 @@ export default function ThreadedCommentsSection({
                 {hasReplies && (
                   <button
                     onClick={() => toggleThread(commentId)}
-                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
                   >
                     {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                     {comment.replies!.length} {comment.replies!.length === 1 ? 'reply' : 'replies'}
@@ -364,7 +364,7 @@ export default function ThreadedCommentsSection({
 
       {/* Typing Indicators */}
       {typingUsers.size > 0 && (
-        <div className="mb-4 text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+        <div className="mb-4 text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400 flex items-center gap-2">
           <div className="flex space-x-1">
             <span className="animate-bounce inline-block w-2 h-2 bg-ocean-500 rounded-full"></span>
             <span className="animate-bounce inline-block w-2 h-2 bg-ocean-500 rounded-full" style={{ animationDelay: '0.1s' }}></span>

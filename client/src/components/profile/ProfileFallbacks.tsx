@@ -31,9 +31,9 @@ export const PostsFallback = () => (
     <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-          <AlertCircle className="w-8 h-8 text-gray-400" / data-testid="link-w-8">
+          <AlertCircle className="w-8 h-8 text-gray-600 dark:text-gray-400" / data-testid="link-w-8">
         </div>
-        <p className="text-gray-600 dark:text-gray-300">Unable to load posts</p>
+        <p className="text-gray-600 dark:text-gray-600 dark:text-gray-300">Unable to load posts</p>
         <button 
           onClick={() = data-testid="button-element"> window.location.reload()}
           className="text-turquoise-600 hover:text-turquoise-700 text-sm font-medium"
@@ -54,10 +54,10 @@ export const TravelDetailsFallback = () => (
     <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-          <MapPin className="w-8 h-8 text-gray-400" />
+          <MapPin className="w-8 h-8 text-gray-600 dark:text-gray-400" />
         </div>
-        <p className="text-gray-600 dark:text-gray-300">Travel details temporarily unavailable</p>
-        <p className="text-sm text-gray-500 dark:text-gray-400">We're having trouble loading your travel history</p>
+        <p className="text-gray-600 dark:text-gray-600 dark:text-gray-300">Travel details temporarily unavailable</p>
+        <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">We're having trouble loading your travel history</p>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@ export const TabContentFallback = ({ icon: Icon, title, message }: {
         <Icon className="w-10 h-10 text-turquoise-600 dark:text-turquoise-400" />
       </div>
       <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
-      <p className="text-gray-600 dark:text-gray-300 max-w-sm">
+      <p className="text-gray-600 dark:text-gray-600 dark:text-gray-300 max-w-sm">
         {message || `${title} content is temporarily unavailable. Please try again later.`}
       </p>
     </div>
@@ -150,7 +150,7 @@ export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
         <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" / data-testid="link-w-8">
       </div>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Connection Error</h3>
-      <p className="text-gray-600 dark:text-gray-300 max-w-sm">
+      <p className="text-gray-600 dark:text-gray-600 dark:text-gray-300 max-w-sm">
         We're having trouble connecting to our servers. Please check your internet connection.
       </p>
       <button

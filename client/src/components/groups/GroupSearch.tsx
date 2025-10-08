@@ -123,7 +123,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
       <div className="space-y-4">
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600 dark:text-gray-400" />
             <Input
               type="text"
               placeholder="Search groups by name or description..."
@@ -149,7 +149,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
                     }}
                     data-testid={`suggestion-${group.id}`}
                   >
-                    <MapPin className="h-4 w-4 text-gray-400" />
+                    <MapPin className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <div>
                       <div className="font-medium">{group.name}</div>
                       <div className="text-sm text-gray-500">{group.city}, {group.country}</div>

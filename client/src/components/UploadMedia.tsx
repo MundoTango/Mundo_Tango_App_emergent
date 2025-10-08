@@ -257,11 +257,11 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
         `}
       >
         <input {...getInputProps()} / data-testid="input-element">
-        <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-        <p className="text-sm text-gray-600 mb-1 dark:text-neutral-400">
+        <Upload className="w-8 h-8 mx-auto mb-2 text-gray-600 dark:text-gray-400" />
+        <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">
           {isDragActive ? 'Drop files here...' : placeholder}
         </p>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-600 dark:text-gray-400">
           Max {maxSize}MB • {maxDimensions.width}x{maxDimensions.height}px • {acceptedTypes.join(', ')}
         </p>
       </div>

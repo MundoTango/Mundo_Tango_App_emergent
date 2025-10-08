@@ -49,6 +49,7 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
+import { Helmet } from 'react-helmet';
 
 interface PromoCode {
   id: string;
@@ -217,12 +218,17 @@ const PromoCodesAdmin: React.FC = () => {
   const tiers = ['basic', 'enthusiast', 'professional', 'enterprise'];
 
   return (
+    <>
+      <Helmet>
+        <title>Promo Codes Admin | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Promo Code Management</h1>
-            <p className="text-gray-600 dark:text-neutral-400">Create and manage discount codes for subscriptions</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create and manage discount codes for subscriptions</p>
           </div>
           <Button
             onClick={() = data-testid="button-element"> {
@@ -243,7 +249,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Active Codes</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Codes</p>
                   <p className="text-2xl font-bold">
                     {promoCodes?.filter((p: PromoCode) => p.isActive).length || 0}
                   </p>
@@ -257,7 +263,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Uses</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Uses</p>
                   <p className="text-2xl font-bold">
                     {promoCodes?.reduce((sum: number, p: PromoCode) => sum + p.usageCount, 0) || 0}
                   </p>
@@ -271,7 +277,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Avg Discount</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg Discount</p>
                   <p className="text-2xl font-bold">15%</p>
                 </div>
                 <Percent className="h-8 w-8 text-orange-500" />
@@ -283,7 +289,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Revenue Impact</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Revenue Impact</p>
                   <p className="text-2xl font-bold">$2,450</p>
                 </div>
                 <DollarSign className="h-8 w-8 text-green-500" />
@@ -305,9 +311,9 @@ const PromoCodesAdmin: React.FC = () => {
               </div>
             ) : (!promoCodes || promoCodes.length === 0) ? (
               <div className="text-center py-8">
-                <Gift className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <Gift className="mx-auto h-12 w-12 text-gray-600 dark:text-gray-400 mb-4" />
                 <p className="text-gray-500">No promo codes yet</p>
-                <p className="text-sm text-gray-400 mt-2">Create your first promo code to get started</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Create your first promo code to get started</p>
               </div>
             ) : (
               <Table>
@@ -553,6 +559,8 @@ const PromoCodesAdmin: React.FC = () => {
         </DialogContent>
       </Dialog>
     </div>
+  
+    </>
   );
 };
 

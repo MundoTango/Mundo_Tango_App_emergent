@@ -49,7 +49,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
           <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">Unable to load friends</h3>
-          <p className="text-gray-600 dark:text-neutral-400">Please try again later.</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Please try again later.</p>
         </CardContent>
       </Card>
     );
@@ -59,7 +59,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
     <div className="space-y-4">
       {friends.length > 0 && (
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
           <Input
             type="text"
             placeholder="Search friends..."
@@ -85,7 +85,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
                     </Avatar>
                     <div>
                       <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{friend.name || friend.username}</h4>
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">@{friend.username}</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{friend.username}</p>
                       {friend.city && (
                         <p className="text-xs text-gray-500">{friend.city}, {friend.country}</p>
                       )}
@@ -95,7 +95,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-600 hover:text-red-600 dark:text-neutral-400"
+                      className="text-gray-600 hover:text-red-600 dark:text-neutral-600 dark:text-neutral-400"
                      data-testid="button-text-gray-600">
                       <UserMinus className="h-4 w-4" />
                     </Button>
@@ -109,15 +109,15 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No friends found</h3>
-            <p className="text-gray-600 dark:text-neutral-400">Try a different search term.</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Try a different search term.</p>
           </CardContent>
         </Card>
       ) : (
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
-            <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+            <Users className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No friends yet</h3>
-            <p className="text-gray-600 dark:text-neutral-400">
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               {isOwnProfile
                 ? 'Start connecting with other tango dancers to build your network.'
                 : 'No friends to display.'}

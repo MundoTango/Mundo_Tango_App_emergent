@@ -210,13 +210,13 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
           </div>
           
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
               <Phone className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
               <Video className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
               <MoreVertical className="h-5 w-5" />
             </Button>
           </div>
@@ -288,7 +288,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       {/* Message Input */}
       <div className="p-4 border-t border-gray-200 dark:border-neutral-700">
         <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" type="button" className="text-gray-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+          <Button variant="ghost" size="sm" type="button" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
             <Paperclip className="h-5 w-5" />
           </Button>
           
@@ -303,7 +303,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               variant="ghost" 
               size="sm" 
               type="button"
-              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-neutral-400"
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
              data-testid="button-absolute">
               <Smile className="h-4 w-4" />
             </Button>

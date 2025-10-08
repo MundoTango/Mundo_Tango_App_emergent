@@ -12,7 +12,7 @@ export function MediaUploadTest() {
   return (
     <Card className="p-6 max-w-2xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Media Upload Test</h2>
-      <p className="text-gray-600 mb-6 dark:text-neutral-400">
+      <p className="text-gray-600 mb-6 dark:text-neutral-600 dark:text-neutral-400">
         Test the new 30-file batch upload system with 500MB support and auto-compression.
       </p>
       

@@ -184,28 +184,28 @@ export default function PostComposer() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() = data-testid="button-element"> setShowExpandedComposer(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200 dark:text-neutral-400"
+                className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <Camera className="h-4 w-4" />
                 <span className="text-sm font-medium">Photo</span>
               </button>
               <button
                 onClick={() = data-testid="button-element"> setShowExpandedComposer(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200 dark:text-neutral-400"
+                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <Video className="h-4 w-4" />
                 <span className="text-sm font-medium">Video</span>
               </button>
               <button
                 onClick={() = data-testid="button-element"> setShowExpandedComposer(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200 dark:text-neutral-400"
+                className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">Location</span>
               </button>
               <button
                 onClick={() = data-testid="button-element"> setShowMediaLibrary(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200 dark:text-neutral-400"
+                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
               >
                 <FolderOpen className="h-4 w-4" />
                 <span className="text-sm font-medium">Reuse Media</span>
@@ -262,7 +262,7 @@ export default function PostComposer() {
                 {/* Tags and Location */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative">
-                    <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <input
                       type="text"
                       placeholder="Add tags (comma separated)"
@@ -272,7 +272,7 @@ export default function PostComposer() {
                     />
                   </div>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <input
                       type="text"
                       placeholder="Add location"
@@ -287,7 +287,7 @@ export default function PostComposer() {
                 {allMedia.length > 0 && (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-medium text-gray-700 dark:text-neutral-300">
+                      <h4 className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
                         Attached Media ({allMedia.length})
                       </h4>
                     </div>
@@ -303,7 +303,7 @@ export default function PostComposer() {
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
-                                <Video className="w-8 h-8 text-gray-400" />
+                                <Video className="w-8 h-8 text-gray-600 dark:text-gray-400" />
                               </div>
                             )}
                           </div>
@@ -333,7 +333,7 @@ export default function PostComposer() {
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-5 border-t border-gray-100">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-gray-600 dark:text-neutral-400">Visibility:</span>
+                    <span className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Visibility:</span>
                     <div className="flex gap-2">
                       {(['Public', 'Friend', 'Private'] as const).map((vis) => (
                         <button

@@ -433,7 +433,7 @@ export default function EnhancedGoogleMapsAutocomplete({
       <div className="relative">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
             <Input
               ref={inputRef}
               type="text"
@@ -483,12 +483,12 @@ export default function EnhancedGoogleMapsAutocomplete({
           <div className="mt-2 p-3 bg-purple-50 rounded-lg text-sm">
             <p className="font-semibold">{selectedLocation.name}</p>
             {selectedLocation.rating && (
-              <p className="text-gray-600 dark:text-neutral-400">
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 Rating: {'⭐'.repeat(Math.round(selectedLocation.rating))} ({selectedLocation.rating})
               </p>
             )}
             {selectedLocation.phoneNumber && (
-              <p className="text-gray-600 dark:text-neutral-400">📞 {selectedLocation.phoneNumber}</p>
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">📞 {selectedLocation.phoneNumber}</p>
             )}
             {selectedLocation.website && (
               <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline" data-testid="link-text-blue-600">
@@ -501,7 +501,7 @@ export default function EnhancedGoogleMapsAutocomplete({
         {/* Nearby places suggestions */}
         {showSuggestions && nearbyPlaces.length > 0 && (
           <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-neutral-900">
-            <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b dark:text-neutral-300">Nearby places:</p>
+            <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b dark:text-neutral-600 dark:text-neutral-300">Nearby places:</p>
             {nearbyPlaces.map((place, index) => (
               <button
                 key={index}

@@ -47,6 +47,7 @@ import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { apiRequest } from '@/lib/queryClient';
 import { cn } from '@/lib/utils';
+import { Helmet } from 'react-helmet';
 
 // Help request categories
 const HELP_CATEGORIES = [
@@ -276,10 +277,17 @@ export default function TTfilesHelpCenter() {
     };
     
     return (
+    <>
+      <Helmet>
+        <title>Ttfiles Help Center | Life CEO</title>
+      </Helmet>
+      
       <Badge className={cn('border', styles[urgency as keyof typeof styles])}>
         {urgency.charAt(0).toUpperCase() + urgency.slice(1)}
       </Badge>
-    );
+    
+    </>
+  );
   };
 
   const getStatusBadge = (status: string) => {
@@ -312,7 +320,7 @@ export default function TTfilesHelpCenter() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">TTfiles Help Center</h1>
-              <p className="text-gray-600 mt-1 dark:text-neutral-400">
+              <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                 Community support for dancers - ask for help or report issues
               </p>
             </div>
@@ -514,7 +522,7 @@ export default function TTfilesHelpCenter() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 h-4 w-4" />
                         <Input
                           placeholder="Search help requests..."
                           value={searchQuery}
@@ -563,9 +571,9 @@ export default function TTfilesHelpCenter() {
               ) : helpRequests?.length === 0 ? (
                 <Card>
                   <CardContent className="text-center py-12">
-                    <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                    <HelpCircle className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">No help requests found</p>
-                    <p className="text-gray-400 text-sm mt-1">Be the first to ask for help!</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Be the first to ask for help!</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -594,7 +602,7 @@ export default function TTfilesHelpCenter() {
                             </h3>
                             
                             {request.description && (
-                              <p className="text-gray-600 mb-3 line-clamp-2 dark:text-neutral-400">
+                              <p className="text-gray-600 mb-3 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">
                                 {request.description}
                               </p>
                             )}
@@ -637,7 +645,7 @@ export default function TTfilesHelpCenter() {
               {myHelpRequests?.length === 0 ? (
                 <Card>
                   <CardContent className="text-center py-12">
-                    <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                    <HelpCircle className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">You haven't created any help requests yet</p>
                     <Button 
                       className="mt-4" 
@@ -715,9 +723,9 @@ export default function TTfilesHelpCenter() {
                     </div>
                   ) : reportedMemories?.length === 0 ? (
                     <div className="text-center py-8">
-                      <Shield className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                      <Shield className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
                       <p className="text-gray-500">No reported content</p>
-                      <p className="text-gray-400 text-sm mt-1">Our community is keeping it clean!</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Our community is keeping it clean!</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -743,7 +751,7 @@ export default function TTfilesHelpCenter() {
                               
                               {report.memory && (
                                 <div className="bg-gray-50 rounded p-3 mb-3 dark:bg-neutral-800">
-                                  <p className="text-sm text-gray-600 line-clamp-2 dark:text-neutral-400">
+                                  <p className="text-sm text-gray-600 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">
                                     "{report.memory.content}"
                                   </p>
                                   <p className="text-xs text-gray-500 mt-1">
@@ -753,7 +761,7 @@ export default function TTfilesHelpCenter() {
                               )}
                               
                               {report.description && (
-                                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">
+                                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                                   Report reason: {report.description}
                                 </p>
                               )}

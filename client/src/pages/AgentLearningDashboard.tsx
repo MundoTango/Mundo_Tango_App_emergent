@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Brain, Zap, Database, TrendingUp, Activity, CheckCircle2, Clock, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Helmet } from 'react-helmet';
 
 interface LearningStats {
   totalPatterns: number;
@@ -44,7 +45,14 @@ export default function AgentLearningDashboard() {
       refetchPatterns();
     }, 3000);
 
-    return () => clearInterval(interval);
+    return (
+    <>
+      <Helmet>
+        <title>Agent Learning Dashboard | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => clearInterval(interval);
   }, [autoRefresh, refetchStats, refetchPatterns]);
 
   const queuedJobs = stats?.jobQueue?.find(q => q.status === 'queued')?.count || 0;

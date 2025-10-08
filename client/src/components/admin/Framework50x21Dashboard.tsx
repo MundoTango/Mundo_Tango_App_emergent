@@ -802,7 +802,7 @@ const Framework50x21Dashboard: React.FC = () => {
             <Layers className="w-7 h-7 text-turquoise-600" />
             44x21 Framework Dashboard
           </h2>
-          <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">
+          <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
             Comprehensive 44 layers × 21 phases production validation system with enhanced testing, developer experience, and operational capabilities
           </p>
         </div>
@@ -843,19 +843,19 @@ const Framework50x21Dashboard: React.FC = () => {
                 <div className="text-2xl font-bold text-green-600">
                   {frameworkData.filter(l => l.status === 'complete').length}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-neutral-400">Complete</div>
+                <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Complete</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-yellow-600">
                   {frameworkData.filter(l => l.status === 'in-progress').length}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-neutral-400">In Progress</div>
+                <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">In Progress</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-red-600">
                   {frameworkData.filter(l => l.status === 'pending').length}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-neutral-400">Pending</div>
+                <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pending</div>
               </div>
             </div>
           </div>
@@ -896,7 +896,7 @@ const Framework50x21Dashboard: React.FC = () => {
                     <h4 className="font-semibold text-gray-900 text-sm mb-1 dark:text-neutral-100">{layer.name}</h4>
                     <div className="mt-2">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-600 dark:text-neutral-400">Progress</span>
+                        <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Progress</span>
                         <span className="font-medium">{layer.progress}%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-1.5">
@@ -926,7 +926,7 @@ const Framework50x21Dashboard: React.FC = () => {
                     <h4 className="font-semibold text-gray-900 mb-2 dark:text-neutral-100">
                       Layer {selectedLayer}: {frameworkData.find(l => l.id === selectedLayer)!.name}
                     </h4>
-                    <p className="text-sm text-gray-600 dark:text-neutral-400">
+                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                       {frameworkData.find(l => l.id === selectedLayer)!.description}
                     </p>
                   </div>
@@ -941,7 +941,7 @@ const Framework50x21Dashboard: React.FC = () => {
                     <TabsContent value="overview" className="space-y-4">
                       <div>
                         <h5 className="font-semibold text-sm text-gray-900 mb-2 dark:text-neutral-100">What is this layer?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                           {frameworkData.find(l => l.id === selectedLayer)!.detailedDescription}
                         </p>
                       </div>
@@ -960,13 +960,13 @@ const Framework50x21Dashboard: React.FC = () => {
                     <TabsContent value="progress" className="space-y-4">
                       <div>
                         <h5 className="font-semibold text-sm text-gray-900 mb-2 dark:text-neutral-100">What does {frameworkData.find(l => l.id === selectedLayer)!.progress}% mean?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                           {frameworkData.find(l => l.id === selectedLayer)!.progressExplanation}
                         </p>
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-600 dark:text-neutral-400">Current Progress</span>
+                          <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Current Progress</span>
                           <span className="font-semibold">{frameworkData.find(l => l.id === selectedLayer)!.progress}%</span>
                         </div>
                         <Progress value={frameworkData.find(l => l.id === selectedLayer)!.progress} className="h-3" />

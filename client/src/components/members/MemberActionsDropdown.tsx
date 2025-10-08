@@ -100,9 +100,9 @@ export const MemberActionsDropdown = ({
         className="w-56 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-ocean-500/20 dark:border-cyan-400/20"
         data-testid={`dropdown-member-actions-content-${memberId}`}
       >
-        <DropdownMenuLabel className="text-gray-700 dark:text-gray-300">
+        <DropdownMenuLabel className="text-gray-700 dark:text-gray-600 dark:text-gray-300">
           {t('members.actions.title', 'Member Actions')}
-          <div className="text-xs font-normal text-gray-500 dark:text-gray-400 mt-1">
+          <div className="text-xs font-normal text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-1">
             @{memberUsername}
           </div>
         </DropdownMenuLabel>
@@ -112,7 +112,7 @@ export const MemberActionsDropdown = ({
         {/* Role Management Section */}
         {canManageRoles && (
           <>
-            <DropdownMenuLabel className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <DropdownMenuLabel className="text-xs font-semibold text-gray-500 dark:text-gray-600 dark:text-gray-400 uppercase tracking-wide">
               {t('members.actions.changeRole', 'Change Role')}
             </DropdownMenuLabel>
 
@@ -123,7 +123,7 @@ export const MemberActionsDropdown = ({
                 className="flex items-center gap-2 cursor-pointer hover:bg-ocean-500/10 dark:hover:bg-cyan-400/10"
                 data-testid={`action-make-member-${memberId}`}
               >
-                <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                <User className="h-4 w-4 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
                 <span>{t('members.actions.makeMember', 'Make Member')}</span>
               </DropdownMenuItem>
             )}
@@ -159,7 +159,7 @@ export const MemberActionsDropdown = ({
         {/* Moderation Actions Section */}
         {(canRemoveMembers || canBanMembers) && (
           <>
-            <DropdownMenuLabel className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <DropdownMenuLabel className="text-xs font-semibold text-gray-500 dark:text-gray-600 dark:text-gray-400 uppercase tracking-wide">
               {t('members.actions.moderation', 'Moderation')}
             </DropdownMenuLabel>
 

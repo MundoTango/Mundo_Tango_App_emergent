@@ -228,7 +228,7 @@ export default function UnifiedTopBar({
           )}>
             <Search className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5",
-              theme === 'light' ? "text-gray-400" : "text-slate-400"
+              theme === 'light' ? "text-gray-600 dark:text-gray-400" : "text-slate-400"
             )} />
             <input
               type="text"
@@ -280,7 +280,7 @@ export default function UnifiedTopBar({
                                 ? "hover:bg-gray-50" 
                                 : "hover:bg-slate-800"
                             )}
-                          >
+                           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSearchResultClick(e); } }}>
                             <p className="text-sm truncate">{post.content}</p>
                           </div>
                         ))}

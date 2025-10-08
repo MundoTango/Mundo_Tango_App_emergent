@@ -120,7 +120,7 @@ const MTConfirmModal: React.FC<MTConfirmModalProps> = ({
           <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-teal-600 to-blue-900 bg-clip-text text-transparent">
             {title}
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
             {message}
           </p>
         </div>

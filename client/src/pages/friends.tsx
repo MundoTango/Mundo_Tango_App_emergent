@@ -23,6 +23,7 @@ import {
   Globe,
   Music
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface Friend {
   id: string;
@@ -211,17 +212,24 @@ export default function FriendsPage() {
   // Show loading state
   if (friendsLoading || requestsLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Friends | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="max-w-6xl mx-auto p-6">
           <div className="flex justify-center items-center h-64">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 dark:text-neutral-400">Loading friends...</p>
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Loading friends...</p>
             </div>
           </div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   return (
@@ -231,7 +239,7 @@ export default function FriendsPage() {
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">Friends</h1>
-            <p className="text-gray-600 mt-1 dark:text-neutral-400">Connect with dancers in your community</p>
+            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Connect with dancers in your community</p>
           </div>
           <Button
             onClick={() = data-testid="button-element"> setShowSendRequestModal(true)}
@@ -249,7 +257,7 @@ export default function FriendsPage() {
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{friends.length}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Friends</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Friends</p>
               </div>
             </div>
           </Card>
@@ -260,7 +268,7 @@ export default function FriendsPage() {
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Pending Requests</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pending Requests</p>
               </div>
             </div>
           </Card>
@@ -271,7 +279,7 @@ export default function FriendsPage() {
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {friends.reduce((sum: number, f: Friend) => sum + (f.mutualFriends || 0), 0)}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Mutual Friends</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Mutual Friends</p>
               </div>
             </div>
           </Card>
@@ -280,7 +288,7 @@ export default function FriendsPage() {
         {/* Search Bar */}
         <Card className="mb-6 p-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-5 h-5" />
             <Input
               type="text"
               placeholder="Search friends by name or username..."
@@ -339,14 +347,14 @@ export default function FriendsPage() {
                           <h4 className="font-semibold text-gray-900 dark:text-neutral-100">
                             {request.friend_user?.name}
                           </h4>
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{request.friend_user?.username}</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{request.friend_user?.username}</p>
                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                             <MapPin className="w-3 h-3" />
                             {request.friend_user?.location}
                           </p>
                           {request.sender_notes && (
                             <div className="mt-3 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
-                              <p className="text-sm text-gray-700 italic dark:text-neutral-300">"{request.sender_notes}"</p>
+                              <p className="text-sm text-gray-700 italic dark:text-neutral-600 dark:text-neutral-300">"{request.sender_notes}"</p>
                             </div>
                           )}
                           <div className="flex gap-2 mt-3">
@@ -381,8 +389,8 @@ export default function FriendsPage() {
                 ))}
                 {requests.filter((r: FriendRequest) => r.status === 'pending').length === 0 && (
                   <div className="text-center py-12">
-                    <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 dark:text-neutral-400">No pending friend requests</p>
+                    <Clock className="w-12 h-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">No pending friend requests</p>
                   </div>
                 )}
               </div>
@@ -406,7 +414,7 @@ export default function FriendsPage() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{friend.name}</h4>
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{friend.username}</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{friend.username}</p>
                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                             <MapPin className="w-3 h-3" />
                             {friend.location}
@@ -440,8 +448,8 @@ export default function FriendsPage() {
                 ))}
                 {getTabContent().length === 0 && (
                   <div className="col-span-2 text-center py-12">
-                    <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 dark:text-neutral-400">
+                    <Users className="w-12 h-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                       {activeTab === 'online' 
                         ? 'No friends are online right now' 
                         : 'You haven\'t added any friends yet'}
@@ -461,7 +469,7 @@ export default function FriendsPage() {
               
               {/* Search Users */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">
                   Search for users
                 </label>
                 <Input
@@ -483,11 +491,11 @@ export default function FriendsPage() {
                           ? 'border-indigo-500 bg-indigo-50' 
                           : 'hover:bg-gray-50'
                       }`}
-                    >
+                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedUser(user)(e); } }}>
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium">{user.name}</p>
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{user.username}</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{user.username}</p>
                           <p className="text-xs text-gray-500">{user.location}</p>
                         </div>
                         {user.mutualFriends && (
@@ -504,7 +512,7 @@ export default function FriendsPage() {
               {/* Selected User & Note */}
               {selectedUser && (
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
+                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">
                     Add a note (optional)
                   </label>
                   <Textarea

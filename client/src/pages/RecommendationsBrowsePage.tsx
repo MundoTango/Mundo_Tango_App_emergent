@@ -13,6 +13,7 @@ import RecommendationsList from '@/components/Recommendations/RecommendationsLis
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 export default function RecommendationsBrowsePage() {
   const { t } = useTranslation();
@@ -33,6 +34,11 @@ export default function RecommendationsBrowsePage() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Recommendations Browse Page | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-white to-ocean-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Hero Section - Aurora Tide Design */}
       <div className="relative overflow-hidden">
@@ -42,7 +48,7 @@ export default function RecommendationsBrowsePage() {
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-turquoise-600 to-ocean-600 dark:from-turquoise-400 dark:to-ocean-400 bg-clip-text text-transparent">
               {t('recommendations.browse.title', 'Discover Amazing Places')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               {t('recommendations.browse.subtitle', 'Explore curated recommendations from friends and locals around the world')}
             </p>
 
@@ -51,7 +57,7 @@ export default function RecommendationsBrowsePage() {
               <div className="glass-card glass-depth-2 p-4 rounded-xl">
                 <div className="flex gap-3">
                   <div className="relative flex-1">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-600 dark:text-gray-400" />
                     <Input
                       type="text"
                       placeholder={t('recommendations.browse.searchPlaceholder', 'Search by city (e.g., Buenos Aires, Paris, Tokyo)...')}
@@ -74,7 +80,7 @@ export default function RecommendationsBrowsePage() {
 
                 {activeCity && (
                   <div className="mt-3 flex items-center gap-2">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                       {t('recommendations.browse.showing', 'Showing recommendations in')}:
                     </span>
                     <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-turquoise-500 to-ocean-600 text-white rounded-full text-sm font-medium">
@@ -88,7 +94,7 @@ export default function RecommendationsBrowsePage() {
                         setActiveCity('');
                         setSearchCity('');
                       }}
-                      className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                      className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
                       data-testid="button-clear-city"
                     >
                       {t('recommendations.browse.clear', 'Clear')}
@@ -112,10 +118,10 @@ export default function RecommendationsBrowsePage() {
           <div className="text-center py-16">
             <div className="glass-card glass-depth-1 inline-block px-12 py-8 rounded-2xl">
               <MapPin className="h-16 w-16 text-turquoise-400 dark:text-turquoise-500 mx-auto mb-4 opacity-50" />
-              <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-2">
                 {t('recommendations.browse.emptyTitle', 'Choose a City to Explore')}
               </h3>
-              <p className="text-gray-500 dark:text-gray-400 max-w-md">
+              <p className="text-gray-500 dark:text-gray-600 dark:text-gray-400 max-w-md">
                 {t('recommendations.browse.emptyDescription', 'Search for a city above to discover recommendations from our global community')}
               </p>
             </div>
@@ -123,5 +129,7 @@ export default function RecommendationsBrowsePage() {
         )}
       </div>
     </div>
+  
+    </>
   );
 }

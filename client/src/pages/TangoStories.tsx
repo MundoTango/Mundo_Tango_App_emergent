@@ -19,6 +19,7 @@ import {
   Search,
   TrendingUp
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface TangoStory {
   id: number;
@@ -127,6 +128,11 @@ export default function TangoStories() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Tango Stories | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
@@ -134,13 +140,13 @@ export default function TangoStories() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             Tango Stories
           </h1>
-          <p className="text-gray-600 dark:text-neutral-400">Share and discover personal tango journeys from around the world</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Share and discover personal tango journeys from around the world</p>
         </div>
 
         {/* Search and Create */}
         <div className="flex gap-4 mb-8">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-5 h-5" />
             <Input
               type="text"
               placeholder="Search stories..."
@@ -183,9 +189,9 @@ export default function TangoStories() {
           </div>
         ) : stories.length === 0 ? (
           <Card className="glassmorphic-card p-12 text-center">
-            <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <BookOpen className="w-16 h-16 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">No Stories Yet</h3>
-            <p className="text-gray-600 mb-4 dark:text-neutral-400">Be the first to share your tango journey!</p>
+            <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">Be the first to share your tango journey!</p>
             <Button
               onClick={() = data-testid="button-element"> setShowCreateModal(true)}
               className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
@@ -205,7 +211,7 @@ export default function TangoStories() {
                       </div>
                       <div>
                         <h3 className="font-semibold">{story.author.name}</h3>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                           @{story.author.username} • {new Date(story.createdAt).toLocaleDateString()}
                         </p>
                       </div>
@@ -217,7 +223,7 @@ export default function TangoStories() {
                 </CardHeader>
                 <CardContent>
                   <h2 className="text-xl font-bold mb-3">{story.title}</h2>
-                  <p className="text-gray-700 whitespace-pre-wrap mb-4 line-clamp-5 dark:text-neutral-300">
+                  <p className="text-gray-700 whitespace-pre-wrap mb-4 line-clamp-5 dark:text-neutral-600 dark:text-neutral-300">
                     {story.content}
                   </p>
                   
@@ -225,7 +231,7 @@ export default function TangoStories() {
                   {(story.location || story.tags.length > 0) && (
                     <div className="flex flex-wrap items-center gap-2 mb-4">
                       {story.location && (
-                        <span className="flex items-center gap-1 text-sm text-gray-600 dark:text-neutral-400">
+                        <span className="flex items-center gap-1 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                           <MapPin className="w-3 h-3" />
                           {story.location}
                         </span>
@@ -351,5 +357,7 @@ export default function TangoStories() {
         )}
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

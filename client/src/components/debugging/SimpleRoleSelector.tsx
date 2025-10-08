@@ -59,7 +59,7 @@ export default function SimpleRoleSelector({
           <Users className="h-5 w-5 text-blue-600" />
           What do you do in tango? (Simple Version)
         </CardTitle>
-        <p className="text-sm text-gray-600 flex items-start gap-2 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 flex items-start gap-2 dark:text-neutral-600 dark:text-neutral-400">
           <Info className="h-4 w-4 mt-0.5 text-blue-500" />
           Choose all that apply. You can always update these later in your profile.
         </p>
@@ -79,7 +79,7 @@ export default function SimpleRoleSelector({
                   }
                 `}
                 onClick={() => handleRoleToggle(role.name)}
-              >
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleRoleToggle(role.name)(e); } }}>
                 <div className="flex items-start gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
@@ -88,7 +88,7 @@ export default function SimpleRoleSelector({
                         {role.name.replace(/_/g, ' ')}
                       </h3>
                     </div>
-                    <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-400">
+                    <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                       {role.description}
                     </p>
                   </div>

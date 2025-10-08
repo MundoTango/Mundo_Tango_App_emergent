@@ -16,6 +16,7 @@ import { apiRequest } from '@/lib/queryClient'; // Import apiRequest
 
 // ESA Layer 9: Add DashboardLayout for consistent navigation with memories page
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { Helmet } from 'react-helmet';
 
 export default function FriendshipPage() {
   const { friendId } = useParams<{ friendId: string }>();
@@ -56,6 +57,11 @@ export default function FriendshipPage() {
 
   if (isLoading || isLoadingMutualFriends || isLoadingSharedMemories) {
     return (
+    <>
+      <Helmet>
+        <title>Friendship Page | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-4">
@@ -64,7 +70,9 @@ export default function FriendshipPage() {
           </div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   if (error || !friendship || !friendship.user || !friendship.stats) {
@@ -105,13 +113,13 @@ export default function FriendshipPage() {
                   {friendship.user.name || 'Friend'}
                 </h1>
                 {(friendship.user.city || friendship.user.country) && (
-                  <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
+                  <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
                     <MapPin className="w-4 h-4" />
                     {friendship.user.city}{friendship.user.city && friendship.user.country && ', '}{friendship.user.country}
                   </p>
                 )}
                 {friendship.friendsSince && (
-                  <p className="text-gray-600 dark:text-gray-400 mt-1">
+                  <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
                     Friends since {new Date(friendship.friendsSince).toLocaleDateString()}
                   </p>
                 )}
@@ -137,23 +145,23 @@ export default function FriendshipPage() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
             <div className="text-center">
               <div className="text-2xl font-bold text-turquoise-600">{friendship.stats?.totalDances || 0}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Dances Together</div>
+              <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Dances Together</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-cyan-600">{friendship.stats?.sharedEvents || 0}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Shared Events</div>
+              <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Shared Events</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">{friendship.stats?.sharedGroups || 0}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Groups in Common</div>
+              <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Groups in Common</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600">{mutualFriends?.length || 0}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Mutual Friends</div>
+              <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Mutual Friends</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-pink-600">{friendship.stats?.closenessScore || 0}%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Closeness Score</div>
+              <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Closeness Score</div>
             </div>
           </div>
         </div>
@@ -174,7 +182,7 @@ export default function FriendshipPage() {
                   <AvatarFallback data-testid="link-element">{friend.name?.[0] || 'F'}</AvatarFallback>
                 </Avatar>
                 <p className="text-sm font-medium truncate">{friend.name || 'Unknown'}</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{friend.city || ''}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400">{friend.city || ''}</p>
               </div>
             ))}
           </div>
@@ -241,7 +249,7 @@ export default function FriendshipPage() {
           <Card className="p-6 glassmorphic-card">
             <h3 className="text-xl font-semibold mb-4">Dance History</h3>
             {/* Dance history list would go here */}
-            <p className="text-gray-600 dark:text-gray-400 text-center py-8">
+            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 text-center py-8">
               Dance history visualization coming soon...
             </p>
           </Card>

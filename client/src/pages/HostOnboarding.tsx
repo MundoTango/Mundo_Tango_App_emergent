@@ -21,6 +21,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { Helmet } from 'react-helmet';
 
 interface OnboardingData {
   // Property basics
@@ -244,6 +245,11 @@ export default function HostOnboarding() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Host Onboarding | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-slate-900 dark:to-slate-800">
         {/* Aurora Tide Header */}
@@ -411,5 +417,7 @@ export default function HostOnboarding() {
       </div>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

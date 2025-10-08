@@ -79,7 +79,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
             key={visitor.id}
             className="p-4 bg-white rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer dark:bg-neutral-900"
             onClick={() => setLocation(`/profile/${visitor.username}`)}
-          >
+           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setLocation(`/profile/${visitor.username(e); } }}>
             <div className="flex items-start justify-between">
               <div className="flex gap-3">
                 {visitor.profileImage ? (
@@ -95,11 +95,11 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
                 )}
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{visitor.name}</h4>
-                  <p className="text-sm text-gray-600 flex items-center gap-1 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-400">
                     <MapPin className="h-3 w-3" />
                     From {visitor.city}, {visitor.country}
                   </p>
-                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                     <Calendar className="h-3 w-3" />
                     {formatDateRange(visitor.arrivalDate, visitor.departureDate)}
                   </p>
@@ -116,10 +116,10 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
                   </div>
                 </div>
               </div>
-              <ChevronRight className="h-5 w-5 text-gray-400" />
+              <ChevronRight className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             </div>
             {visitor.lookingFor.length > 0 && (
-              <p className="text-sm text-gray-700 mt-2 pl-15 dark:text-neutral-300">
+              <p className="text-sm text-gray-700 mt-2 pl-15 dark:text-neutral-600 dark:text-neutral-300">
                 Looking for: {visitor.lookingFor.join(', ')}
               </p>
             )}

@@ -90,22 +90,22 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
             <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
               <Users className="w-6 h-6 text-blue-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.activeUsers.toLocaleString()}</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Active Users</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Users</div>
             </div>
             <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
               <Activity className="w-6 h-6 text-green-500 mx-auto mb-1" / data-testid="link-w-6">
               <div className="text-2xl font-bold">{metrics.requestsPerSecond}</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Requests/sec</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Requests/sec</div>
             </div>
             <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
               <AlertCircle className="w-6 h-6 text-red-500 mx-auto mb-1" / data-testid="link-w-6">
               <div className="text-2xl font-bold">{metrics.errorRate.toFixed(2)}%</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Error Rate</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Error Rate</div>
             </div>
             <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
               <Globe className="w-6 h-6 text-purple-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.regions.filter(r => r.status === 'active').length}</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Active Regions</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Regions</div>
             </div>
           </div>
         </CardContent>
@@ -119,7 +119,7 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
           </CardHeader>
           <CardContent>
             <Progress value={metrics.deploymentProgress} className="h-4 mb-2" />
-            <div className="text-sm text-gray-600 text-center dark:text-neutral-400">
+            <div className="text-sm text-gray-600 text-center dark:text-neutral-600 dark:text-neutral-400">
               {metrics.deploymentProgress}% Complete
             </div>
           </CardContent>
@@ -136,11 +136,11 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
             {metrics.regions.map((region, index) => (
               <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
                 <div className="flex items-center gap-3">
-                  <Globe className={`w-4 h-4 ${region.status === 'active' ? 'text-green-600' : 'text-gray-400'}`} />
+                  <Globe className={`w-4 h-4 ${region.status === 'active' ? 'text-green-600' : 'text-gray-600 dark:text-gray-400'}`} />
                   <span className="font-medium">{region.name}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-gray-600 dark:text-neutral-400">{region.latency}ms</span>
+                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{region.latency}ms</span>
                   <Badge className={region.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}>
                     {region.status}
                   </Badge>
@@ -160,7 +160,7 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
           <div className="space-y-3">
             {timeline.map((item, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="w-16 text-sm text-gray-600 dark:text-neutral-400">{item.time}</div>
+                <div className="w-16 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{item.time}</div>
                 <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
                 <div className="flex-1">
                   <div className="font-medium">{item.event}</div>

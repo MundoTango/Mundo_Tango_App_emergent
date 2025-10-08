@@ -44,7 +44,7 @@ export const ProgressIndicator = ({ steps, currentStep }: ProgressIndicatorProps
                   </div>
                 ) : (
                   <Circle 
-                    className="w-8 h-8 text-neutral-300 dark:text-neutral-600"
+                    className="w-8 h-8 text-neutral-600 dark:text-neutral-300 dark:text-neutral-600"
                     data-testid={`step-pending-${step.id}`}
                   />
                 )}

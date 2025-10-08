@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { FadeIn, ScaleIn } from '@/components/animations/FramerMotionWrappers';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
+import { Helmet } from 'react-helmet';
 
 interface CityRanking {
   rank: number;
@@ -87,6 +88,11 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Community World Map | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-full mx-auto p-6">
         {/* Header - Aurora Tide */}
@@ -146,6 +152,8 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
         </ScaleIn>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 });
 

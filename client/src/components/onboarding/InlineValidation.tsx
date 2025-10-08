@@ -41,7 +41,7 @@ export const InlineValidation = ({
       <motion.div
         initial={{ opacity: 0, y: -5 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-start gap-2 mt-2 text-sm text-neutral-600 dark:text-neutral-400"
+        className="flex items-start gap-2 mt-2 text-sm text-neutral-600 dark:text-neutral-600 dark:text-neutral-400"
         data-testid="help-text"
       >
         <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />

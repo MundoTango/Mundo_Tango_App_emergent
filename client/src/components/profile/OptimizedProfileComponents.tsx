@@ -65,7 +65,7 @@ export const StatCard = memo(({ icon: Icon, label, value }: {
   <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
     <Icon className="h-5 w-5 text-turquoise-500" />
     <div>
-      <p className="text-sm text-gray-600 dark:text-neutral-400">{label}</p>
+      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{label}</p>
       <p className="font-semibold">{value}</p>
     </div>
   </div>
@@ -105,7 +105,7 @@ export const LazyImage = memo(({ src, alt, className }: {
         <Skeleton className="absolute inset-0" />
       )}
       {error ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400 dark:bg-neutral-800">
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-600 dark:text-gray-400 dark:bg-neutral-800">
           <span>Failed to load</span>
         </div>
       ) : (

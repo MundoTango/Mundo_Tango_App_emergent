@@ -400,12 +400,12 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                       </p>
                     )}
                     {interimTranscript && (
-                      <p className="text-sm text-gray-400 italic">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 italic">
                         {interimTranscript}
                       </p>
                     )}
                     {!transcript && !interimTranscript && (
-                      <p className="text-sm text-gray-400 italic">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 italic">
                         {isListening ? 'Listening...' : 'Click the microphone to start'}
                       </p>
                     )}

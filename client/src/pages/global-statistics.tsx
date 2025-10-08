@@ -23,6 +23,7 @@ import {
   ArrowUp,
   ArrowDown
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface GlobalStats {
   totalUsers: number;
@@ -112,6 +113,11 @@ export default function GlobalStatistics() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Global Statistics | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
@@ -119,7 +125,7 @@ export default function GlobalStatistics() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">Global Tango Statistics</h1>
-              <p className="text-gray-600 mt-2 dark:text-neutral-400">Comprehensive overview of the worldwide tango community</p>
+              <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Comprehensive overview of the worldwide tango community</p>
             </div>
             <div className="flex gap-2">
               {['week', 'month', 'year', 'all'].map(period => (
@@ -143,7 +149,7 @@ export default function GlobalStatistics() {
             <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Users</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Users</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalUsers)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
@@ -157,7 +163,7 @@ export default function GlobalStatistics() {
             <Card className="p-4 bg-gradient-to-r from-green-50 to-emerald-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Active Users</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Users</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.activeUsers)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
@@ -171,7 +177,7 @@ export default function GlobalStatistics() {
             <Card className="p-4 bg-gradient-to-r from-purple-50 to-violet-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Events</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Events</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalEvents)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
@@ -185,7 +191,7 @@ export default function GlobalStatistics() {
             <Card className="p-4 bg-gradient-to-r from-pink-50 to-rose-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Communities</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Communities</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalCommunities)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
@@ -199,7 +205,7 @@ export default function GlobalStatistics() {
             <Card className="p-4 bg-gradient-to-r from-yellow-50 to-amber-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Posts</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Posts</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalPosts)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
@@ -213,7 +219,7 @@ export default function GlobalStatistics() {
             <Card className="p-4 bg-gradient-to-r from-cyan-50 to-teal-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Friendships</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Friendships</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalFriendships)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
@@ -248,7 +254,7 @@ export default function GlobalStatistics() {
                 <div className="space-y-3">
                   {mockStats.userGrowth.map((month, index) => (
                     <div key={month.month} className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-400">{month.month}</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{month.month}</span>
                       <div className="flex items-center gap-3">
                         <div className="w-32 bg-gray-200 rounded-full h-2">
                           <div 
@@ -274,7 +280,7 @@ export default function GlobalStatistics() {
                 <div className="space-y-3">
                   {mockStats.popularRoles.map((role) => (
                     <div key={role.role} className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-400">{role.role}</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{role.role}</span>
                       <div className="flex items-center gap-3">
                         <div className="w-32 bg-gray-200 rounded-full h-2">
                           <div 
@@ -298,19 +304,19 @@ export default function GlobalStatistics() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
                   <p className="text-2xl font-bold text-indigo-600">{mockStats.engagementMetrics.avgPostsPerUser}</p>
-                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Avg Posts/User</p>
+                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Avg Posts/User</p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
                   <p className="text-2xl font-bold text-purple-600">{mockStats.engagementMetrics.avgEventsAttended}</p>
-                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Avg Events/User</p>
+                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Avg Events/User</p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
                   <p className="text-2xl font-bold text-pink-600">{mockStats.engagementMetrics.avgFriendsPerUser}</p>
-                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Avg Friends/User</p>
+                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Avg Friends/User</p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
                   <p className="text-2xl font-bold text-green-600">{mockStats.engagementMetrics.activePercentage}%</p>
-                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">Active Users</p>
+                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Active Users</p>
                 </div>
               </div>
             </Card>
@@ -336,14 +342,14 @@ export default function GlobalStatistics() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900 dark:text-neutral-100">{city.city}</p>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                           {formatNumber(city.users)} dancers • {city.events} events
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-bold text-indigo-600">{((city.users / mockStats.totalUsers) * 100).toFixed(1)}%</p>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">of total users</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">of total users</p>
                     </div>
                   </div>
                 ))}
@@ -371,7 +377,7 @@ export default function GlobalStatistics() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900 dark:text-neutral-100">{dancer.name}</p>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">@{dancer.username}</p>
+                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{dancer.username}</p>
                         <div className="flex gap-2 mt-1">
                           {dancer.roles.map(role => (
                             <span key={role} className="text-xs px-2 py-1 bg-indigo-100 text-indigo-700 rounded-full">
@@ -383,7 +389,7 @@ export default function GlobalStatistics() {
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-bold text-indigo-600">{formatNumber(dancer.followers)}</p>
-                      <p className="text-xs text-gray-600 dark:text-neutral-400">followers</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">followers</p>
                     </div>
                   </div>
                 ))}
@@ -401,7 +407,7 @@ export default function GlobalStatistics() {
               <div className="space-y-4">
                 {mockStats.eventTrends.map((month) => (
                   <div key={month.month} className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700 w-12 dark:text-neutral-300">{month.month}</span>
+                    <span className="text-sm font-medium text-gray-700 w-12 dark:text-neutral-600 dark:text-neutral-300">{month.month}</span>
                     <div className="flex-1 mx-4">
                       <div className="w-full bg-gray-200 rounded-full h-6">
                         <div 
@@ -427,21 +433,21 @@ export default function GlobalStatistics() {
                   <div className="flex items-center justify-between p-3 bg-indigo-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Clock className="w-5 h-5 text-indigo-600" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Peak Activity</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Peak Activity</span>
                     </div>
                     <span className="text-sm font-bold text-indigo-600">9 PM - 12 AM</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Calendar className="w-5 h-5 text-purple-600" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Most Active Day</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Most Active Day</span>
                     </div>
                     <span className="text-sm font-bold text-purple-600">Saturday</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-pink-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Target className="w-5 h-5 text-pink-600" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Avg Session</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Avg Session</span>
                     </div>
                     <span className="text-sm font-bold text-pink-600">23 minutes</span>
                   </div>
@@ -454,21 +460,21 @@ export default function GlobalStatistics() {
                   <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Heart className="w-5 h-5 text-green-600" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Avg Likes/Post</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Avg Likes/Post</span>
                     </div>
                     <span className="text-sm font-bold text-green-600">24.5</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Users className="w-5 h-5 text-blue-600" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Avg Event Attendance</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Avg Event Attendance</span>
                     </div>
                     <span className="text-sm font-bold text-blue-600">67.3%</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Star className="w-5 h-5 text-amber-600" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">User Satisfaction</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">User Satisfaction</span>
                     </div>
                     <span className="text-sm font-bold text-amber-600">4.8/5.0</span>
                   </div>
@@ -479,5 +485,7 @@ export default function GlobalStatistics() {
         </Tabs>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

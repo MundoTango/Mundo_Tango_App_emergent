@@ -65,7 +65,7 @@ export const MTFormSection = ({
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">{title}</h3>
         {description && (
-          <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">{description}</p>
+          <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">{description}</p>
         )}
       </div>
     )}
