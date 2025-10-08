@@ -248,7 +248,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                     )}
                   >
                     <CardContent className="flex flex-col justify-between h-full p-4">
-                      <div onClick={() => flipCard(agent.id)} className="cursor-pointer" role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => flipCard(agent.id)(e); } }}>
+                      <div onClick={() => flipCard(agent.id)} className="cursor-pointer" role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => flipCard(agent.id); } }}>
                         <h5 className="font-semibold text-sm flex items-center gap-2">
                           {agent.emoji} {agent.label}
                         </h5>

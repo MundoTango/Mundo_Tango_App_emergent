@@ -410,7 +410,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                       key={user.id}
                       className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0 dark:bg-neutral-800"
                       onClick={() => addCoTaggedUser(user)}
-                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => addCoTaggedUser(user)(e); } }}>
+                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => addCoTaggedUser(user); } }}>
                       <div className="font-medium">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
                     </div>

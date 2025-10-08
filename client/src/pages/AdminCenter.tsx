@@ -1378,7 +1378,7 @@ const AdminCenter = memo(() => {
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-40"
             onClick={() => setShowContentModal(false)}
-          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setShowContentModal(false)(e); } }}>
+          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setShowContentModal(false); } }}>
           
           {/* Right Panel - Gmail Style */}
           <div className={`fixed top-0 right-0 h-full w-[480px] bg-white shadow-2xl z-50 transform transition-all duration-300 ease-out ${

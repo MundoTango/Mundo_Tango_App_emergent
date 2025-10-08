@@ -99,7 +99,7 @@ const ProjectSwitcher: React.FC = () => {
           <div 
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)}
-          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsOpen(false)(e); } }}>
+          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsOpen(false); } }}>
           
           {/* Dropdown */}
           <div className="absolute top-full mt-2 right-0 w-72 sm:w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden dark:bg-neutral-900">

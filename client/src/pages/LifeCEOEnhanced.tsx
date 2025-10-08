@@ -520,7 +520,7 @@ export default function LifeCEOEnhanced() {
                 className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 ${
                   activeProjectId === project.id ? 'bg-purple-50' : ''
                 }`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setActiveProjectId(project.id === activeProjectId ? '' : project.id)(e); } }}>
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setActiveProjectId(project.id === activeProjectId ? '' : project.id); } }}>
                 <span>{project.icon}</span>
                 <span className="text-sm truncate">{project.name}</span>
               </div>
@@ -536,7 +536,7 @@ export default function LifeCEOEnhanced() {
                 className={`p-2 rounded cursor-pointer hover:bg-gray-100 ${
                   activeConversationId === convo.id ? 'bg-purple-50' : ''
                 }`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setActiveConversationId(convo.id)(e); } }}>
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setActiveConversationId(convo.id); } }}>
                 <div className="flex items-center justify-between">
                   <MessageSquare className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   <span className="text-sm truncate flex-1 mx-2">{convo.title}</span>

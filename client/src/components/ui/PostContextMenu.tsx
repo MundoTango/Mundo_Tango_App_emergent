@@ -82,7 +82,7 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
           <div 
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)}
-          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsOpen(false)(e); } }}>
+          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsOpen(false); } }}>
           
           {/* Menu */}
           <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50 dark:bg-neutral-900">

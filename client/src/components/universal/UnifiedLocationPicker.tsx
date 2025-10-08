@@ -535,7 +535,7 @@ export default function UnifiedLocationPicker({
                     : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                   }
                   ${index !== suggestions.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleSuggestionClick(suggestion)(e); } }}>
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleSuggestionClick(suggestion); } }}>
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">

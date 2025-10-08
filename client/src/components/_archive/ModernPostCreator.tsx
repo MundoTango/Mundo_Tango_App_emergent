@@ -315,7 +315,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           <div 
             className="flex items-center space-x-4 cursor-pointer"
             onClick={() => setIsExpanded(true)}
-           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsExpanded(true)(e); } }}>
+           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsExpanded(true); } }}>
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
               {user?.name?.charAt(0) || 'U'}
             </div>

@@ -79,7 +79,7 @@ export default function SimpleRoleSelector({
                   }
                 `}
                 onClick={() => handleRoleToggle(role.name)}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleRoleToggle(role.name)(e); } }}>
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleRoleToggle(role.name); } }}>
                 <div className="flex items-start gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">

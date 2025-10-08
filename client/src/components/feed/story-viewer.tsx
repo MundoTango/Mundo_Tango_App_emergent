@@ -189,7 +189,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 key={group.user.id}
                 className="flex flex-col items-center flex-shrink-0 cursor-pointer"
                 onClick={() => handleStoryClick(index)}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleStoryClick(index)(e); } }}>
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleStoryClick(index); } }}>
                 <div className="story-ring">
                   <Avatar className="w-14 h-14">
                     <AvatarImage src={group.user.profileImage} alt={group.user.name} />

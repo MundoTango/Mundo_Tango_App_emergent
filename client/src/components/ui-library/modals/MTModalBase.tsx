@@ -175,7 +175,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
         )}
         onClick={closeOnOverlayClick ? onClose : undefined}
         data-testid={`${testId}-overlay`}
-      / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeOnOverlayClick ? onClose : undefined(e); } }}>
+      / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeOnOverlayClick && onClose(e); } }}>
 
       {/* Container */}
       <div className={cn('relative w-full flex', positions[position])}>

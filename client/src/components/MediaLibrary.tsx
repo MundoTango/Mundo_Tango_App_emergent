@@ -282,7 +282,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                     <div 
                       onClick={() => toggleMediaSelection(media.id)}
                       className="cursor-pointer aspect-video rounded-t-xl overflow-hidden bg-gray-100 dark:bg-gray-700 relative group"
-                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => toggleMediaSelection(media.id)(e); } }}>
+                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => toggleMediaSelection(media.id); } }}>
                       {media.contentType.startsWith('image/') ? (
                         <img
                           src={media.url}

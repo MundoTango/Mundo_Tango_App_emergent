@@ -342,7 +342,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                 <div 
                   className="px-6 mb-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                   onClick={() => toggleSection(section.title)}
-                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => toggleSection(section.title)(e); } }}>
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => toggleSection(section.title); } }}>
                   <span className={cn(hasActiveRoute && "text-red-600")}>{section.title}</span>
                   <span className="text-xs">{isExpanded ? '−' : '+'}</span>
                 </div>
