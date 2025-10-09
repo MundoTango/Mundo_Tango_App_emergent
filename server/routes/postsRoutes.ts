@@ -73,7 +73,7 @@ router.get('/api/posts', async (req: any, res) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
     
-    const posts = await storage.getFeedPosts(userId, limit, offset);
+    const posts = await storage.getFeedPosts(Number(userId), limit, offset);
     
     // ESA LIFE CEO 61x21 - Debug media fields
     if (posts && posts.length > 0) {
@@ -122,7 +122,7 @@ router.get('/api/posts/feed', async (req: any, res) => {
     
     // ESA LIFE CEO 56x21 - Get posts from database using correct method with relationship filter
     console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}, filter: ${filter}, startDate: ${startDate}, endDate: ${endDate}`);
-    let posts = await storage.getFeedPosts(userId, limit, offset, [], filter);
+    let posts = await storage.getFeedPosts(Number(userId), limit, offset, [], filter);
     
     // Filter by date range if provided
     if (startDate || endDate) {
@@ -167,35 +167,36 @@ router.get('/api/posts/feed', async (req: any, res) => {
     // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map(post => {
       // ESA LIFE CEO 61×21 - Debug friendship data flow
-      if (post.user && (post.user.id === 1 || post.user.id === 5)) {
+      const postUser = (post as any).user;
+      if (postUser && (postUser.id === 1 || postUser.id === 5)) {
         console.log('🔍 [ESA API Layer 2] Friend post data:', {
           postId: post.id,
-          userId: post.user.id,
-          userName: post.user.name,
-          friendshipStatus: post.user.friendshipStatus,
-          connectionType: post.user.connectionType
+          userId: postUser.id,
+          userName: postUser.name,
+          friendshipStatus: postUser.friendshipStatus,
+          connectionType: postUser.connectionType
         });
       }
       
       const formattedPost: any = {
         ...post,
-        id: post.id || post.memoryId,
+        id: post.id,
         content: post.content || '',
         likesCount: post.likesCount || 0,
         commentsCount: post.commentsCount || 0,
         sharesCount: post.sharesCount || 0,
         createdAt: post.createdAt,
-        user: post.user || {
+        user: postUser || {
           id: post.userId,
-          name: post.userName || 'Unknown',
-          username: post.userUsername || 'unknown',
-          profileImage: post.userProfileImage,
+          name: 'Unknown',
+          username: 'unknown',
+          profileImage: null,
           // ESA LIFE CEO 61×21 - Layer 2: Include friendship data for "See Friendship" button
-          friendshipStatus: post.user?.friendshipStatus || 'none',
-          connectionType: post.user?.connectionType,
-          tangoRoles: post.user?.tangoRoles,
-          leaderLevel: post.user?.leaderLevel,
-          followerLevel: post.user?.followerLevel
+          friendshipStatus: postUser?.friendshipStatus || 'none',
+          connectionType: postUser?.connectionType,
+          tangoRoles: postUser?.tangoRoles,
+          leaderLevel: postUser?.leaderLevel,
+          followerLevel: postUser?.followerLevel
         }
       };
 
@@ -243,9 +244,9 @@ router.get('/api/posts/feed', async (req: any, res) => {
           formattedPost.mediaUrls.push(videoUrl);
           formattedPost.videoUrl = videoUrl;
         }
-      } else if (post.media && Array.isArray(post.media)) {
+      } else if ((post as any).media && Array.isArray((post as any).media)) {
         // Handle posts with media array
-        formattedPost.mediaUrls = post.media.map((url: string) => 
+        formattedPost.mediaUrls = (post as any).media.map((url: string) => 
           url.startsWith('/') ? url : `/${url}`
         );
         formattedPost.imageUrl = formattedPost.mediaUrls[0]; // Use first as primary
@@ -268,7 +269,7 @@ router.get('/api/posts/feed', async (req: any, res) => {
     // ESA LIFE CEO 61×21 - Layer 2: Complete API data contracts
     // Calculate pagination metadata
     const totalPosts = await storage.getTotalPostsCount ? 
-      await storage.getTotalPostsCount(userId) : 
+      await storage.getTotalPostsCount(Number(userId)) : 
       100; // Default to 100 if method doesn't exist
     const currentPage = Math.floor(offset / limit) + 1;
     // ESA Fix: Correct hasMore calculation - check if there are more posts beyond current offset
@@ -813,11 +814,11 @@ router.post('/api/posts/:id/like', async (req: any, res) => {
     }
     
     // Check if user already liked the post
-    const existingLike = await storage.checkPostLike(postId, userId);
+    const existingLike = await storage.checkPostLike(postId, Number(userId));
     
     if (existingLike) {
       // Unlike the post
-      await storage.unlikePost(postId, userId);
+      await storage.unlikePost(postId, Number(userId));
       res.json({
         success: true,
         liked: false,
@@ -825,7 +826,7 @@ router.post('/api/posts/:id/like', async (req: any, res) => {
       });
     } else {
       // Like the post
-      await storage.likePost(postId, userId);
+      await storage.likePost(postId, Number(userId));
       res.json({
         success: true,
         liked: true,
@@ -879,7 +880,7 @@ router.post('/api/posts/:id/enhance', async (req: any, res) => {
         enhanced: false,
         message: 'AI enhancement not available - no API key configured',
         original: post.content,
-        enhanced: post.content
+        enhancedContent: post.content
       });
     }
     
@@ -904,7 +905,7 @@ router.post('/api/posts/:id/enhance', async (req: any, res) => {
         enhanced: true,
         message: 'Content enhanced successfully',
         original: post.content,
-        enhanced: enhancedContent.trim()
+        enhancedContent: enhancedContent.trim()
       });
       
     } catch (aiError: any) {
@@ -914,7 +915,7 @@ router.post('/api/posts/:id/enhance', async (req: any, res) => {
         enhanced: false,
         message: 'AI enhancement temporarily unavailable',
         original: post.content,
-        enhanced: post.content,
+        enhancedContent: post.content,
         error: aiError.message
       });
     }
@@ -957,7 +958,7 @@ router.post('/api/posts/enhance-content', async (req: any, res) => {
         enhanced: false,
         message: 'AI enhancement not available - no API key configured',
         original: content,
-        enhanced: content
+        enhancedContent: content
       });
     }
     
@@ -982,7 +983,7 @@ router.post('/api/posts/enhance-content', async (req: any, res) => {
         enhanced: true,
         message: 'Content enhanced successfully',
         original: content,
-        enhanced: enhancedContent.trim()
+        enhancedContent: enhancedContent.trim()
       });
       
     } catch (aiError: any) {
@@ -992,7 +993,7 @@ router.post('/api/posts/enhance-content', async (req: any, res) => {
         enhanced: false,
         message: 'AI enhancement temporarily unavailable',
         original: content,
-        enhanced: content,
+        enhancedContent: content,
         error: aiError.message
       });
     }
@@ -1167,7 +1168,7 @@ router.get('/api/tags/trending', async (req: any, res) => {
     
     // Count tags from recent posts
     posts.forEach(post => {
-      if (new Date(post.createdAt) > sevenDaysAgo && post.hashtags) {
+      if (post.createdAt && new Date(post.createdAt) > sevenDaysAgo && post.hashtags) {
         post.hashtags.forEach(tag => {
           tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
         });
@@ -1177,11 +1178,13 @@ router.get('/api/tags/trending', async (req: any, res) => {
     // Get previous period for trend calculation
     const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
     posts.forEach(post => {
-      const postDate = new Date(post.createdAt);
-      if (postDate > fourteenDaysAgo && postDate <= sevenDaysAgo && post.hashtags) {
-        post.hashtags.forEach(tag => {
-          previousCounts.set(tag, (previousCounts.get(tag) || 0) + 1);
-        });
+      if (post.createdAt) {
+        const postDate = new Date(post.createdAt);
+        if (postDate > fourteenDaysAgo && postDate <= sevenDaysAgo && post.hashtags) {
+          post.hashtags.forEach(tag => {
+            previousCounts.set(tag, (previousCounts.get(tag) || 0) + 1);
+          });
+        }
       }
     });
     
@@ -1237,7 +1240,8 @@ router.get('/api/tags/recent', async (req: any, res) => {
     
     // Sort posts by creation date and get recent unique tags
     posts
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .filter(post => post.createdAt)
+      .sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime())
       .slice(0, 50) // Last 50 posts
       .forEach(post => {
         if (post.hashtags) {
@@ -1326,19 +1330,20 @@ router.post('/api/posts/share', async (req: any, res) => {
     }
 
     // Create a shared post with optional comment
+    const originalUser = (originalPost as any).user;
+    const originalUsername = originalUser?.username || 'user';
     const sharedContent = comment 
-      ? `${comment}\n\n---\nShared from @${originalPost.user.username}: ${originalPost.content}`
-      : `Shared from @${originalPost.user.username}: ${originalPost.content}`;
+      ? `${comment}\n\n---\nShared from @${originalUsername}: ${originalPost.content}`
+      : `Shared from @${originalUsername}: ${originalPost.content}`;
 
     const sharedPost = await storage.createPost({
-      userId,
+      userId: Number(userId),
       content: sharedContent,
       imageUrl: originalPost.imageUrl,
       videoUrl: originalPost.videoUrl,
       mediaEmbeds: originalPost.mediaEmbeds || [],
       isPublic: true,
       hashtags: originalPost.hashtags || [],
-      sharedFromId: postId,
       createdAt: new Date(),
       likesCount: 0,
       commentsCount: 0,
@@ -1346,7 +1351,7 @@ router.post('/api/posts/share', async (req: any, res) => {
     });
 
     // Increment share count on original post
-    await storage.updatePost(postId, {
+    await storage.updatePost(Number(postId), {
       sharesCount: (originalPost.sharesCount || 0) + 1
     });
 
@@ -1381,7 +1386,7 @@ router.get('/api/mentions', async (req: any, res) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
 
-    const posts = await storage.getPostsWhereMentioned(userId, limit, offset);
+    const posts = await storage.getPostsWhereMentioned(Number(userId), limit, offset);
 
     res.json({
       success: true,
@@ -1410,7 +1415,7 @@ router.get('/api/mentions/notifications', async (req: any, res) => {
       });
     }
 
-    const notifications = await storage.getMentionNotifications(userId);
+    const notifications = await storage.getMentionNotifications(Number(userId));
 
     res.json({
       success: true,
@@ -1439,7 +1444,7 @@ router.get('/api/mentions/notifications/count', async (req: any, res) => {
       });
     }
 
-    const count = await storage.getUnreadMentionNotificationsCount(userId);
+    const count = await storage.getUnreadMentionNotificationsCount(Number(userId));
 
     res.json({
       success: true,

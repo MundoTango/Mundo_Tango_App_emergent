@@ -231,7 +231,9 @@ export function usePostFeed({
     staleTime: 0, // Always fetch fresh data
     gcTime: 30 * 60 * 1000, // Keep in cache for 30 min
     queryFn: async () => {
-      const response = await fetch(fetchUrl);
+      const response = await fetch(fetchUrl, {
+        credentials: 'include', // CRITICAL: Include session cookies for auth
+      });
       if (!response.ok) {
         throw new Error(`Failed to fetch posts: ${response.statusText}`);
       }
