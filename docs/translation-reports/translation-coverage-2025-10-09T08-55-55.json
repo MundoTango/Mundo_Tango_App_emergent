@@ -1,0 +1,86 @@
+{
+  "baseLanguage": "en",
+  "totalLanguages": 7,
+  "languages": [
+    {
+      "language": "English",
+      "code": "en",
+      "totalKeys": 425,
+      "translatedKeys": 425,
+      "missingKeys": [],
+      "coverage": 100,
+      "status": "complete"
+    },
+    {
+      "language": "Argentine Spanish",
+      "code": "es-AR",
+      "totalKeys": 425,
+      "translatedKeys": 425,
+      "missingKeys": [],
+      "coverage": 100,
+      "status": "complete"
+    },
+    {
+      "language": "German",
+      "code": "de",
+      "totalKeys": 425,
+      "translatedKeys": 424,
+      "missingKeys": [
+        "memories.post.recently"
+      ],
+      "coverage": 99.76470588235294,
+      "status": "partial"
+    },
+    {
+      "language": "Spanish",
+      "code": "es",
+      "totalKeys": 425,
+      "translatedKeys": 424,
+      "missingKeys": [
+        "memories.post.recently"
+      ],
+      "coverage": 99.76470588235294,
+      "status": "partial"
+    },
+    {
+      "language": "French",
+      "code": "fr",
+      "totalKeys": 425,
+      "translatedKeys": 424,
+      "missingKeys": [
+        "memories.post.recently"
+      ],
+      "coverage": 99.76470588235294,
+      "status": "partial"
+    },
+    {
+      "language": "Italian",
+      "code": "it",
+      "totalKeys": 425,
+      "translatedKeys": 424,
+      "missingKeys": [
+        "memories.post.recently"
+      ],
+      "coverage": 99.76470588235294,
+      "status": "partial"
+    },
+    {
+      "language": "Portuguese",
+      "code": "pt",
+      "totalKeys": 425,
+      "translatedKeys": 424,
+      "missingKeys": [
+        "memories.post.recently"
+      ],
+      "coverage": 99.76470588235294,
+      "status": "partial"
+    }
+  ],
+  "summary": {
+    "complete": 2,
+    "partial": 5,
+    "missing": 0,
+    "avgCoverage": 99.83193277310923
+  },
+  "timestamp": "2025-10-09T08:55:55.394Z"
+}

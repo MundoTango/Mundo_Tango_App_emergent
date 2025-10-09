@@ -381,7 +381,8 @@
       "commentButton": "Commenta",
       "commentDefault": "Scrivi un commento...",
       "toggleComments": "Mostra/nascondi commenti",
-      "sharePost": "Condividi questo post"
+      "sharePost": "Condividi questo post",
+      "recently": "recentemente"
     },
     "share": {
       "sharePost": "Condividi Post",

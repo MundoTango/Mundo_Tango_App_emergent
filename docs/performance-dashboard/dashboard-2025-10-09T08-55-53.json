@@ -1,0 +1,28 @@
+{
+  "lighthouse": {
+    "avgPerformance": 93,
+    "avgAccessibility": 95,
+    "criticalIssues": 3,
+    "lastRun": "2025-10-09T08:55:53.922Z"
+  },
+  "bundleSize": {
+    "totalSize": 545000,
+    "totalGzipSize": 195000,
+    "changePercent": 0,
+    "alerts": 0
+  },
+  "pageAudits": {
+    "avgScore": 95,
+    "totalPages": 100,
+    "criticalIssues": 2
+  },
+  "overall": {
+    "healthScore": 89,
+    "status": "good",
+    "recommendations": [
+      "Fix 3 critical Lighthouse issues",
+      "Fix 2 critical page audit issues"
+    ]
+  },
+  "timestamp": "2025-10-09T08:55:53.924Z"
+}
