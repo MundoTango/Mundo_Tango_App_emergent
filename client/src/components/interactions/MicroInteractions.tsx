@@ -505,10 +505,13 @@ const ShakeOnError = ({ children, trigger, className = '' }: ShakeOnErrorProps) 
 };
 
 /**
- * RippleCard Component
- * Card wrapper with ripple effect on hover
+ * RippleCard Component - STATELESS v2 (Phase 1 Refactor)
+ * Pure CSS-based ripple effect - No internal state, fully composable
  * 
- * @timing 400ms ripple animation
+ * ⚠️ BREAKING CHANGE: Replaced stateful version to eliminate re-render bugs
+ * Rollback: git checkout 196b6763553009f62d0121b66d8c12129295f179
+ * 
+ * @timing 600ms CSS transition (no JS state management)
  */
 interface RippleCardProps {
   children: ReactNode;
@@ -517,6 +520,42 @@ interface RippleCardProps {
 }
 
 const RippleCard = ({ 
+  children, 
+  className = '',
+  rippleColor = 'rgba(6, 182, 212, 0.15)'
+}: RippleCardProps) => {
+  // STATELESS: Pure CSS approach using before pseudo-element
+  return (
+    <div
+      className={cn(
+        'relative group',
+        // Ripple effect via CSS ::before pseudo-element
+        'before:absolute before:inset-0 before:rounded-lg',
+        'before:bg-gradient-radial before:from-cyan-400/20 before:to-transparent',
+        'before:opacity-0 before:scale-0',
+        'before:transition-all before:duration-600 before:ease-out',
+        'hover:before:opacity-100 hover:before:scale-150',
+        'before:pointer-events-none',
+        className
+      )}
+      style={{
+        // Allow custom ripple color via CSS variable
+        ['--ripple-color' as string]: rippleColor,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+/**
+ * RippleCardStateful Component - LEGACY (Kept for rollback safety)
+ * Original stateful implementation - DO NOT USE in new code
+ * This version causes re-render bugs and breaks composability
+ * 
+ * @deprecated Use RippleCard (stateless) instead
+ */
+const RippleCardStateful = ({ 
   children, 
   className = '',
   rippleColor = 'rgba(6, 182, 212, 0.15)'
