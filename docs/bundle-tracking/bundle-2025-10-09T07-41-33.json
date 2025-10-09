@@ -1,0 +1,44 @@
+{
+  "totalSize": 545000,
+  "totalGzipSize": 195000,
+  "entries": [
+    {
+      "name": "main.js",
+      "size": 245000,
+      "gzipSize": 82000,
+      "percent": 45
+    },
+    {
+      "name": "vendor.js",
+      "size": 180000,
+      "gzipSize": 65000,
+      "percent": 33
+    },
+    {
+      "name": "runtime.js",
+      "size": 15000,
+      "gzipSize": 5500,
+      "percent": 3
+    },
+    {
+      "name": "polyfills.js",
+      "size": 35000,
+      "gzipSize": 12000,
+      "percent": 6
+    },
+    {
+      "name": "styles.css",
+      "size": 48000,
+      "gzipSize": 12500,
+      "percent": 9
+    },
+    {
+      "name": "assets/*",
+      "size": 22000,
+      "gzipSize": 18000,
+      "percent": 4
+    }
+  ],
+  "timestamp": "2025-10-09T07:41:33.047Z",
+  "commit": "test-snapshot"
+}
