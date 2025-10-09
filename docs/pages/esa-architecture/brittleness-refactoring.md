@@ -139,9 +139,10 @@ git checkout <PHASE_4_COMMIT_HASH>
 
 ---
 
-### ✂️ Phase 3: Component Split (PLANNED)
-**Pre-Phase Snapshot**: `<PHASE_2_COMMIT_HASH>`  
-**Duration**: 1 week
+### ✂️ Phase 3: Component Split (IN PROGRESS)
+**Pre-Phase Snapshot**: `21917df387a4b3234bd03739c5fa6c81e454fcce`  
+**Rollback**: `git checkout 21917df387a4b3234bd03739c5fa6c81e454fcce`  
+**Duration**: 1-2 hours (estimated 1 week)
 
 #### Track A: Create Dedicated Components
 - [ ] `ControlledPostFeed.tsx` (props-based, no fetching)
