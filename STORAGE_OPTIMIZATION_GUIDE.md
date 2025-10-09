@@ -2,7 +2,7 @@
 
 ## 🎯 Problem Solved: "Agent operation terminated due to excessive ephemeral storage usages"
 
-This guide implements the ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE framework for comprehensive storage optimization.
+This guide implements the ESA 61x21 framework for comprehensive storage optimization.
 
 ## 📊 What is Ephemeral Storage?
 
@@ -59,7 +59,7 @@ mv /app/*_AUDIT*.md /app/docs/archived/$(date +%Y%m)/
 
 **Kept Essential Documentation:**
 - README.md
-- ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md
+- ESA.md
 - BUILD_GUIDE.md
 - Deployment guides
 
