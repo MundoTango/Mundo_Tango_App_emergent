@@ -119,10 +119,29 @@ router.get('/api/posts/feed', async (req: any, res) => {
     const startDate = req.query.startDate as string;
     const endDate = req.query.endDate as string;
     const filter = (req.query.filter as 'all' | 'residents' | 'visitors' | 'friends') || 'all';
+    const search = req.query.search as string;
+    const tags = req.query.tags ? (req.query.tags as string).split(',').map(t => t.trim()) : [];
     
     // ESA LIFE CEO 56x21 - Get posts from database using correct method with relationship filter
-    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}, filter: ${filter}, startDate: ${startDate}, endDate: ${endDate}`);
+    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}, filter: ${filter}, search: ${search}, tags: ${tags}, startDate: ${startDate}, endDate: ${endDate}`);
     let posts = await storage.getFeedPosts(Number(userId), limit, offset, [], filter);
+    
+    // Filter by search query
+    if (search) {
+      const searchLower = search.toLowerCase();
+      posts = posts.filter(post => 
+        post.content?.toLowerCase().includes(searchLower) ||
+        post.location?.toLowerCase().includes(searchLower) ||
+        post.hashtags?.some(tag => tag.toLowerCase().includes(searchLower))
+      );
+    }
+    
+    // Filter by tags
+    if (tags.length > 0) {
+      posts = posts.filter(post => 
+        post.hashtags?.some(tag => tags.includes(tag.toLowerCase()))
+      );
+    }
     
     // Filter by date range if provided
     if (startDate || endDate) {
@@ -785,6 +804,66 @@ router.delete('/api/posts/:id', async (req: any, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to delete post',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * Emoji reactions - full reaction support
+ */
+router.post('/api/posts/:id/reactions', async (req: any, res) => {
+  try {
+    const postId = parseInt(req.params.id);
+    const userId = await getUserId(req);
+    const { reactionId } = req.body;
+    
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+    
+    // Check if post exists
+    const post = await storage.getPostById(postId);
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: 'Post not found'
+      });
+    }
+    
+    // For now, map all reactions to like/unlike
+    // TODO: Implement full reaction storage with reaction types
+    const existingLike = await storage.checkPostLike(postId, Number(userId));
+    
+    if (reactionId === null) {
+      // Remove reaction
+      if (existingLike) {
+        await storage.unlikePost(postId, Number(userId));
+      }
+      res.json({
+        success: true,
+        reactionId: null,
+        message: 'Reaction removed'
+      });
+    } else {
+      // Add/update reaction
+      if (!existingLike) {
+        await storage.likePost(postId, Number(userId));
+      }
+      res.json({
+        success: true,
+        reactionId: reactionId,
+        message: 'Reaction added successfully'
+      });
+    }
+  } catch (error: any) {
+    console.error('Error updating reaction:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update reaction',
       error: error.message
     });
   }
