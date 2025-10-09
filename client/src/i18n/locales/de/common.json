@@ -360,7 +360,20 @@
     "noEventsInCity": "Keine Veranstaltungen in Ihrer Stadt",
     "noFollowedEvents": "Keine Veranstaltungen von Gruppen, denen Sie folgen",
     "noFollowedCitiesEvents": "Keine Veranstaltungen in Städten, denen Sie folgen",
-    "viewAllEvents": "Alle Veranstaltungen anzeigen"
+    "viewAllEvents": "Alle Veranstaltungen anzeigen",
+    "attendeeCount": "{{count}} teilnehmend",
+    "attendeeCount_plural": "{{count}} teilnehmend",
+    "dateTBA": "Datum wird bekannt gegeben",
+    "locationTBA": "Standort wird bekannt gegeben",
+    "rsvp": {
+      "markAsAttending": "Als teilnehmend markieren",
+      "markAsInterested": "Als interessiert markieren",
+      "markAsMaybe": "Als vielleicht markieren",
+      "markAsNotGoing": "Als nicht teilnehmend markieren",
+      "youreGoing": "Sie Nehmen Teil",
+      "interested": "Interessiert",
+      "maybe": "Vielleicht"
+    }
   },
   "search": {
     "searching": "Suchen...",

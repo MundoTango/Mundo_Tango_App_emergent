@@ -360,7 +360,20 @@
     "noEventsInCity": "No hay eventos en tu ciudad",
     "noFollowedEvents": "No hay eventos de grupos que sigues",
     "noFollowedCitiesEvents": "No hay eventos en ciudades que sigues",
-    "viewAllEvents": "Ver Todos los Eventos"
+    "viewAllEvents": "Ver Todos los Eventos",
+    "attendeeCount": "{{count}} asistiendo",
+    "attendeeCount_plural": "{{count}} asistiendo",
+    "dateTBA": "Fecha por confirmar",
+    "locationTBA": "Ubicación por confirmar",
+    "rsvp": {
+      "markAsAttending": "Marcar como asistiendo",
+      "markAsInterested": "Marcar como interesado",
+      "markAsMaybe": "Marcar como quizás",
+      "markAsNotGoing": "Marcar como no asistiendo",
+      "youreGoing": "Vas a Asistir",
+      "interested": "Interesado",
+      "maybe": "Quizás"
+    }
   },
   "search": {
     "searching": "Buscando...",
