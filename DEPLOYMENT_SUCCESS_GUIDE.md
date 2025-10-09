@@ -2,7 +2,7 @@
 
 ## 🎯 **CRITICAL DEPLOYMENT ISSUE RESOLVED**
 
-Successfully resolved the persistent "Agent operation terminated due to excessive ephemeral storage usages" error during deployment using the ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE framework.
+Successfully resolved the persistent "Agent operation terminated due to excessive ephemeral storage usages" error during deployment using the ESA 61x21 framework.
 
 ## 🔍 **TRUE ROOT CAUSE IDENTIFIED**
 

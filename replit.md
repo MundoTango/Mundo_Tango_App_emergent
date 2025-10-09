@@ -6,12 +6,12 @@ This project is an AI-powered life management system (Life CEO) integrated with 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 Do not reference monetary values or investment amounts when describing the platform.
-When user says "Use ESA", reference the **ESA_MASTER_ORCHESTRATION.md** as the primary entry point, which orchestrates:
-- ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md (61 layers framework)
+When user says "Use ESA", reference the **ESA_ORCHESTRATION.md** as the primary entry point, which orchestrates:
+- ESA.md (61 layers framework)
 - docs/pages/esa-agents/index.md (AI agent system)
 - docs/pages/design-systems/aurora-tide.md (design standards)
-- ESA_61x21_COMPREHENSIVE_VALIDATION.md (deployment audit)
-For platform audits, use ESA_61x21_COMPREHENSIVE_VALIDATION.md as the deployment readiness checklist.
+- ESA_DEPLOYMENT_AUDIT.md (deployment audit)
+For platform audits, use ESA_DEPLOYMENT_AUDIT.md as the deployment readiness checklist.
 
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.

@@ -54,7 +54,7 @@ This master guide orchestrates four critical documentation systems. Use the deci
 ---
 
 ## 📖 ESA Framework
-### ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md
+### ESA.md
 
 **Purpose:** Complete technical architecture framework with 61 layers and 21 implementation phases
 
@@ -100,7 +100,7 @@ This master guide orchestrates four critical documentation systems. Use the deci
 13. Security → 14. Testing → 15. Documentation → 16. i18n → 17. Accessibility
 18. SEO → 19. Compliance → 20. Deployment → 21. Continuous Improvement
 
-**🔗 Full Guide:** `ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+**🔗 Full Guide:** `ESA.md`
 
 ---
 
@@ -380,7 +380,7 @@ const MyComponent = () => {
 ---
 
 ## ✅ Platform Validation
-### ESA_61x21_COMPREHENSIVE_VALIDATION.md
+### ESA_DEPLOYMENT_AUDIT.md
 
 **Purpose:** Complete deployment readiness audit across all 61 layers with functional testing
 
@@ -427,7 +427,7 @@ Automation, third-party integrations, open source, version control, backend serv
 7. Test disaster recovery
 8. Validate documentation
 
-**🔗 Full Guide:** `ESA_61x21_COMPREHENSIVE_VALIDATION.md`
+**🔗 Full Guide:** `ESA_DEPLOYMENT_AUDIT.md`
 
 ---
 
@@ -590,10 +590,10 @@ Automation, third-party integrations, open source, version control, backend serv
 ## 🔗 External Resources
 
 ### Documentation Links
-- **ESA Framework:** `ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+- **ESA Framework:** `ESA.md`
 - **ESA Agents:** `docs/pages/esa-agents/index.md`
 - **Aurora Tide:** `docs/pages/design-systems/aurora-tide.md`
-- **Validation:** `ESA_61x21_COMPREHENSIVE_VALIDATION.md`
+- **Validation:** `ESA_DEPLOYMENT_AUDIT.md`
 
 ### Related Documentation
 
