@@ -309,14 +309,21 @@
       "pleaseTryAgain": "Please try again"
     },
     "categories": {
-      "milonga": "Milonga",
-      "practica": "Práctica",
-      "performance": "Performance",
-      "workshop": "Workshop",
-      "festival": "Festival",
       "travel": "Travel",
+      "food": "Food",
+      "culture": "Culture",
+      "adventure": "Adventure",
+      "nightlife": "Nightlife",
+      "nature": "Nature",
+      "art": "Art",
       "music": "Music",
-      "fashion": "Fashion"
+      "sports": "Sports",
+      "photography": "Photography",
+      "family": "Family",
+      "friends": "Friends",
+      "work": "Work",
+      "milestone": "Milestone",
+      "celebration": "Celebration"
     },
     "price": {
       "budget": "Budget",
