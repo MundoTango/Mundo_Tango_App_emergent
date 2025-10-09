@@ -85,7 +85,9 @@
     "visual:test": "tsx scripts/visual-test.ts",
     "visual:update": "tsx scripts/visual-test.ts update",
     "journey:test": "tsx scripts/journey-test.ts",
-    "journey:critical": "tsx scripts/journey-test.ts --critical"
+    "journey:critical": "tsx scripts/journey-test.ts --critical",
+    "a11y:scan": "tsx scripts/a11y-scan.ts",
+    "translation:scan": "tsx scripts/translation-scan.ts"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
