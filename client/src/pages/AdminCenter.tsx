@@ -3012,7 +3012,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* ESA Platform Audit - Enhanced Categorized Navigation */}
-          <div className="glassmorphic-card backdrop-blur-md bg-white/95 shadow-xl">
+          <div className="glassmorphic-card backdrop-blur-md bg-white/95 shadow-xl" data-testid="admin-nav">
             <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
               <div className="py-4 space-y-3">
                 {tabCategories.map((category, idx) => (

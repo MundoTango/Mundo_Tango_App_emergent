@@ -31,8 +31,8 @@ import { animated, useSpring } from 'react-spring';
 // import dayGridPlugin from '@fullcalendar/daygrid';
 // import timeGridPlugin from '@fullcalendar/timegrid';
 // import interactionPlugin from '@fullcalendar/interaction';
-import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
+import { Calendar as BigCalendar, dateFnsLocalizer } from 'react-big-calendar';
+import { format, parse, startOfWeek, getDay, isAfter, isSameWeek } from 'date-fns';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Countdown from 'react-countdown';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -137,7 +137,17 @@ interface EventApiResponse {
   };
 }
 
-const localizer = momentLocalizer(moment);
+const locales = {
+  'en-US': require('date-fns/locale/en-US')
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
 const categoryColors: Record<string, string> = {
   milonga: 'hsl(177, 72%, 56%)',    // ocean-seafoam-400
@@ -279,7 +289,7 @@ export default function EnhancedEventsPage() {
 
     const csvData = events.map(event => ({
       title: event.title,
-      date: moment(event.startDate).format('YYYY-MM-DD HH:mm'),
+      date: format(new Date(event.startDate), 'yyyy-MM-dd HH:mm'),
       location: event.location || 'TBD',
       category: event.category || event.eventType || 'Event',
       price: event.price ? `${event.currency || '$'}${event.price}` : 'Free',
@@ -384,7 +394,7 @@ export default function EnhancedEventsPage() {
               <Clock className="w-8 h-8 text-cyan-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {events.filter(e => moment(e.startDate).isAfter()).length}
+                  {events.filter(e => isAfter(new Date(e.startDate), new Date())).length}
                 </p>
                 <p className="text-sm text-gray-600">Upcoming</p>
               </div>
@@ -406,7 +416,7 @@ export default function EnhancedEventsPage() {
               <TrendingUp className="w-8 h-8 text-purple-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {events.filter(e => moment(e.startDate).isSame(moment(), 'week')).length}
+                  {events.filter(e => isSameWeek(new Date(e.startDate), new Date())).length}
                 </p>
                 <p className="text-sm text-gray-600">This Week</p>
               </div>
@@ -549,8 +559,33 @@ export default function EnhancedEventsPage() {
               }
             >
               {events.map(event => (
+                <div key={event.id} data-testid="event-card">
+                  <UnifiedEventCard
+                    event={{
+                      id: event.id.toString(),
+                      title: event.title,
+                      type: event.eventType || event.category || 'milonga',
+                      date: event.startDate,
+                      time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                      location: event.location || 'Location TBA',
+                      city: event.user?.city,
+                      attendees: event.currentAttendees || 0,
+                      userRsvpStatus: event.userStatus || null,
+                      isFeatured: false
+                    }}
+                    rsvpMutation={eventRsvpMutation}
+                  />
+                </div>
+              ))}
+            </InfiniteScroll>
+          </div>
+        )}
+
+        {viewMode === 'grid' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {events.map(event => (
+              <div key={event.id} data-testid="event-card">
                 <UnifiedEventCard
-                  key={event.id}
                   event={{
                     id: event.id.toString(),
                     title: event.title,
@@ -565,30 +600,7 @@ export default function EnhancedEventsPage() {
                   }}
                   rsvpMutation={eventRsvpMutation}
                 />
-              ))}
-            </InfiniteScroll>
-          </div>
-        )}
-
-        {viewMode === 'grid' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map(event => (
-              <UnifiedEventCard
-                key={event.id}
-                event={{
-                  id: event.id.toString(),
-                  title: event.title,
-                  type: event.eventType || event.category || 'milonga',
-                  date: event.startDate,
-                  time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
-                  location: event.location || 'Location TBA',
-                  city: event.user?.city,
-                  attendees: event.currentAttendees || 0,
-                  userRsvpStatus: event.userStatus || null,
-                  isFeatured: false
-                }}
-                rsvpMutation={eventRsvpMutation}
-              />
+              </div>
             ))}
           </div>
         )}
@@ -641,7 +653,7 @@ export default function EnhancedEventsPage() {
                   event: ({ event }: any) => (
                     <div className="p-1 text-xs">
                       <div className="font-semibold truncate">{event.title}</div>
-                      <div className="text-gray-600">{moment(event.start).format('h:mm A')}</div>
+                      <div className="text-gray-600">{format(new Date(event.start), 'h:mm a')}</div>
                     </div>
                   )
                 }}
@@ -668,7 +680,7 @@ export default function EnhancedEventsPage() {
                     popupContent: `
                       <div class="p-2">
                         <h3 class="font-bold text-sm">${event.title}</h3>
-                        <p class="text-xs text-gray-600 mt-1">${moment(event.startDate).format('MMM D, h:mm A')}</p>
+                        <p class="text-xs text-gray-600 mt-1">${format(new Date(event.startDate), 'MMM d, h:mm a')}</p>
                         ${event.location ? `<p class="text-xs text-gray-500">${event.location}</p>` : ''}
                         <div class="mt-2">
                           <span class="inline-block px-2 py-1 text-xs rounded-full" style="background-color: ${categoryColors[event.category || 'social']}20; color: ${categoryColors[event.category || 'social']}">

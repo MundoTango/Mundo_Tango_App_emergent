@@ -7,7 +7,8 @@
     "error": "Errore",
     "success": "Successo",
     "warning": "Avviso",
-    "info": "Informazione"
+    "info": "Informazione",
+    "tryAgainLater": "Riprova più tardi."
   },
   "navigation": {
     "home": "Home",
@@ -27,7 +28,8 @@
     "notifications": "Notifiche",
     "help": "Aiuto",
     "roleInvitations": "Inviti di Ruolo",
-    "recommendations": "Raccomandazioni"
+    "recommendations": "Raccomandazioni",
+    "menu": "Menu"
   },
   "actions": {
     "save": "Salva",
@@ -62,7 +64,8 @@
     "expand": "Espandi",
     "collapse": "Comprimi",
     "refresh": "Aggiorna",
-    "retry": "Riprova"
+    "retry": "Riprova",
+    "filters": "Filtri"
   },
   "status": {
     "online": "Online",
@@ -111,7 +114,8 @@
     "hoursAgo": "{{count}} ora fa",
     "hoursAgo_plural": "{{count}} ore fa",
     "daysAgo": "{{count}} giorno fa",
-    "daysAgo_plural": "{{count}} giorni fa"
+    "daysAgo_plural": "{{count}} giorni fa",
+    "recently": "recentemente"
   },
   "validation": {
     "required": "Questo campo è obbligatorio",
@@ -237,7 +241,10 @@
     "globalDancers": "Ballerini Globali",
     "activeEvents": "Eventi Attivi",
     "totalGroups": "Gruppi di Tango",
-    "globalCommunity": "Comunità Globale di Tango"
+    "globalCommunity": "Comunità Globale di Tango",
+    "globalStatistics": "Statistiche Globali",
+    "communities": "Comunità",
+    "yourCity": "La Tua Città"
   },
   "events": {
     "upcomingEvents": "Eventi Imminenti",
@@ -267,7 +274,13 @@
       "youreGoing": "Partecipi",
       "interested": "Interessato",
       "maybe": "Forse"
-    }
+    },
+    "attending": "partecipando",
+    "errorLoading": "Impossibile caricare gli eventi",
+    "pastEvents": "Eventi Passati",
+    "noEvents": "Nessun evento ancora",
+    "noEventsOwn": "Inizia a organizzare o partecipare a eventi di tango per vederli qui.",
+    "noEventsOther": "Nessun evento da visualizzare."
   },
   "memories": {
     "title": "Ricordi",
@@ -287,14 +300,21 @@
       "searchPlace": "Cerca un luogo..."
     },
     "categories": {
-      "milonga": "Milonga",
-      "practica": "Práctica",
-      "performance": "Performance",
-      "workshop": "Workshop",
-      "festival": "Festival",
       "travel": "Viaggio",
+      "food": "Cibo",
+      "culture": "Cultura",
+      "adventure": "Avventura",
+      "nightlife": "Vita notturna",
+      "nature": "Natura",
+      "art": "Arte",
       "music": "Musica",
-      "fashion": "Moda"
+      "sports": "Sport",
+      "photography": "Fotografia",
+      "family": "Famiglia",
+      "friends": "Amici",
+      "work": "Lavoro",
+      "milestone": "Pietra miliare",
+      "celebration": "Celebrazione"
     },
     "price": {
       "budget": "Economico",
@@ -304,21 +324,59 @@
     "actions": {
       "error": "Errore",
       "errorDesc": "Qualcosa è andato storto",
-      "failedToUpdateLike": "Impossibile aggiornare il mi piace"
+      "failedToUpdateLike": "Impossibile aggiornare Mi piace",
+      "postDeleted": "Post eliminato",
+      "postDeletedDesc": "Il post è stato rimosso",
+      "reportSubmitted": "Segnalazione inviata",
+      "reportSubmittedDesc": "Grazie per aiutare a mantenere la nostra comunità sicura",
+      "userBlocked": "Utente bloccato",
+      "userBlockedDesc": "Non vedrai più post da questo utente",
+      "linkCopied": "Link copiato",
+      "linkCopiedDesc": "Il link è stato copiato negli appunti",
+      "postSaved": "Post salvato",
+      "postSavedDesc": "Il post è stato salvato nella tua raccolta",
+      "deleting": "Eliminazione...",
+      "delete": "Elimina",
+      "reportReasons": {
+        "spam": "Spam o contenuto fuorviante",
+        "harassment": "Molestie o bullismo",
+        "inappropriate": "Contenuto inappropriato",
+        "copyright": "Violazione del copyright",
+        "violence": "Violenza o contenuto pericoloso",
+        "hate": "Discorso d'odio",
+        "other": "Altro"
+      }
     },
     "feed": {
-      "noMemories": "Ancora Nessun Ricordo",
-      "noResidents": "Ancora nessun post dai residenti nella tua città. Torna più tardi!",
-      "noVisitors": "Nessun post dai visitatori trovato. Torna quando i viaggiatori visitano la tua città!",
-      "noFriends": "Ancora nessun post dai tuoi amici. Connettiti con più ballerini per vedere i loro post qui!",
+      "noMemories": "Nessun Ricordo Ancora",
+      "noResidents": "Nessun post di residenti nella tua città ancora. Torna più tardi!",
+      "noVisitors": "Nessun post di visitatori trovato. Torna quando i viaggiatori visitano la tua città!",
+      "noFriends": "Nessun post dai tuoi amici ancora. Connettiti con più ballerini per vedere i loro post qui!",
       "noTaggedPosts": "Nessun post trovato con i tag: {{tags}}",
-      "noSearchResults": "Nessun ricordo trovato corrispondente a \"{{query}}\". Prova parole chiave diverse."
+      "noSearchResults": "Nessun ricordo trovato corrispondente a \"{{query}}\". Prova parole chiave diverse.",
+      "ariaLabel": "Feed di ricordi con post dalla tua comunità",
+      "searchPlaceholder": "Cerca post...",
+      "addTag": "Aggiungi tag...",
+      "allPosts": "Tutti i Post",
+      "residence": "Residenza",
+      "visitor": "Visitatore",
+      "friends": "Amici",
+      "filters": "Filtri",
+      "filterByTags": "Filtra per Tag",
+      "comingSoon": "PROSSIMAMENTE",
+      "clearDates": "Cancella date",
+      "updatingFeed": "Aggiornamento feed...",
+      "post": "post",
+      "posts": "post",
+      "filteredBy": "Filtrato per",
+      "tag": "tag",
+      "tags": "tag",
+      "all": "Tutti"
     },
     "post": {
       "seeFriendship": "Vedi Amicizia",
       "viewFriendshipWith": "Vedi dettagli dell'amicizia con {{name}}",
       "anonymous": "Anonimo",
-      "recently": "recentemente",
       "commentPlaceholder": "Scrivi un commento...",
       "commentButton": "Commenta",
       "commentDefault": "Scrivi un commento...",
@@ -340,6 +398,127 @@
       "linkCopied": "Link copiato negli appunti!",
       "linkCopyFailed": "Impossibile copiare il link",
       "pleaseTryAgain": "Riprova"
+    }
+  },
+  "filters": {
+    "filterByTags": "Filtra per tag",
+    "dateRange": "Intervallo di date",
+    "from": "Da",
+    "to": "A",
+    "clearDates": "Cancella date",
+    "filteredBy": "Filtrato per",
+    "tag": "tag",
+    "tags": "tag"
+  },
+  "reactions": {
+    "like": "Mi piace",
+    "love": "Amo",
+    "haha": "Haha",
+    "wow": "Wow",
+    "sad": "Triste",
+    "angry": "Arrabbiato",
+    "fire": "Fuoco",
+    "heartEyes": "Occhi a cuore",
+    "thinking": "Pensieroso",
+    "party": "Festa",
+    "clap": "Applauso",
+    "mindBlown": "Mente esplosa",
+    "reactions": "reazioni",
+    "reaction": "reazione"
+  },
+  "postCreator": {
+    "hiddenGems": "Scopri gemme nascoste",
+    "hiddenGemsDesc": "Condividi la tua mappa del tesoro con la comunità",
+    "addTags": "#aggiungi tag al tuo ricordo",
+    "uploadMediaTitle": "Carica file multimediali",
+    "uploadMediaDesc": "supporta immagini e video - max 30 file - fino a 500 MB ciascuno",
+    "aiEnhance": "Miglioramento IA",
+    "aiEnhancing": "Miglioramento...",
+    "aiEnhanceDesc": "Rendi il tuo post più coinvolgente",
+    "visibilityTitle": "Chi può vedere questo?",
+    "visibilityDesc": "Scegli il livello di visibilità",
+    "sharing": "Condivisione...",
+    "saveChanges": "Salva modifiche",
+    "shareMemory": "Condividi ricordo",
+    "writeFirst": "Scrivi qualcosa prima",
+    "shareWithCommunity": "Condividi con la comunità",
+    "public": "Pubblico",
+    "everyone": "Tutti",
+    "friends": "Amici",
+    "friendsOnly": "Solo amici",
+    "private": "Privato",
+    "onlyMe": "Solo io",
+    "aiUnavailable": "Miglioramento IA non disponibile",
+    "aiEnhanceFailed": "Miglioramento contenuto fallito",
+    "aiEnhanced": "Contenuto migliorato applicato!",
+    "emptyPost": "Aggiungi contenuto",
+    "emptyPostDesc": "Il tuo post non può essere vuoto.",
+    "uploadInProgress": "Caricamento in corso",
+    "uploadInProgressDesc": "Attendere il completamento del caricamento",
+    "memoryCreated": "Ricordo creato! 🎉",
+    "memoryCreatedDesc": "Il tuo momento è stato condiviso",
+    "formatWarning": "Alcuni formati non possono essere convertiti, usando gli originali"
+  },
+  "housing": {
+    "reviews": {
+      "response_posted_title": "Risposta pubblicata",
+      "response_posted_desc": "La tua risposta è stata aggiunta con successo.",
+      "response_failed_title": "Pubblicazione risposta fallita",
+      "response_failed_desc": "Riprova.",
+      "response_required_title": "Risposta richiesta",
+      "response_required_desc": "Inserisci una risposta.",
+      "guest_review": "Recensione Ospite",
+      "host_review": "Recensione Host",
+      "cleanliness": "Pulizia",
+      "communication": "Comunicazione",
+      "location": "Posizione",
+      "value": "Valore",
+      "accuracy": "Precisione",
+      "respect": "Rispetto",
+      "respect_property": "Rispetto per la Proprietà",
+      "host_response_label": "Risposta dell'Host",
+      "guest_response_label": "Risposta dell'Ospite",
+      "respond_button": "Rispondi",
+      "response_placeholder": "Scrivi la tua risposta...",
+      "posting": "Pubblicazione...",
+      "post_response": "Pubblica Risposta",
+      "cancel": "Annulla",
+      "submit_success_title": "Recensione inviata",
+      "submit_success_desc": "La tua recensione è stata pubblicata con successo.",
+      "guest_review_success_desc": "La tua recensione dell'ospite è stata pubblicata con successo.",
+      "submit_failed_title": "Invio recensione fallito",
+      "submit_failed_desc": "Riprova.",
+      "missing_ratings_title": "Valutazioni mancanti",
+      "missing_ratings_desc": "Valuta tutte le categorie prima di inviare.",
+      "review_too_short_title": "Recensione troppo corta",
+      "review_too_short_desc": "Scrivi almeno 10 caratteri.",
+      "rate_your_stay": "Valuta il Tuo Soggiorno",
+      "rate_your_guest": "Valuta il Tuo Ospite",
+      "overall_experience": "Esperienza Complessiva",
+      "your_review": "La Tua Recensione",
+      "review_placeholder": "Condividi la tua esperienza con i futuri ospiti...",
+      "guest_review_placeholder": "Condividi la tua esperienza ospitando questo ospite...",
+      "min_characters": "Minimo 10 caratteri",
+      "submitting": "Invio...",
+      "submit_review": "Invia Recensione",
+      "would_host_again": "Ospiterei nuovamente questo ospite",
+      "no_reviews": "Nessuna recensione ancora. Sii il primo a recensire questa proprietà!",
+      "review": "Recensione",
+      "reviews": "Recensioni",
+      "from_verified_guests": "Da ospiti verificati"
+    },
+    "listing_detail": {
+      "guest_reviews": "Recensioni degli Ospiti"
+    },
+    "my_bookings": {
+      "write_review": "Scrivi una Recensione",
+      "review_dialog_title": "Scrivi una Recensione",
+      "review_dialog_desc": "Condividi la tua esperienza con questa proprietà e aiuta altri ospiti a prendere decisioni informate."
+    },
+    "host_bookings": {
+      "review_guest": "Recensisci Ospite",
+      "review_dialog_title": "Valuta il Tuo Ospite",
+      "review_dialog_desc": "Condividi la tua esperienza ospitando questo ospite e aiuta altri host a prendere decisioni informate."
     }
   }
 }

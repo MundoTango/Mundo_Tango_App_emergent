@@ -188,7 +188,7 @@ export default function Profile() {
         {/* Offline Indicator */}
         {!isOnline && <OfflineIndicator />}
         
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto" data-testid="profile-container">
           {/* Enhanced Profile Header - Always Display */}
           <EnhancedProfileHeader
             user={user}

@@ -7,9 +7,11 @@
     "error": "Error",
     "success": "Éxito",
     "warning": "Advertencia",
-    "info": "Información"
+    "info": "Información",
+    "tryAgainLater": "Por favor intenta de nuevo más tarde."
   },
   "navigation": {
+    "menu": "Menú",
     "home": "Inicio",
     "feed": "Noticias",
     "profile": "Perfil",
@@ -122,7 +124,8 @@
     "hoursAgo": "hace {{count}} hora",
     "hoursAgo_plural": "hace {{count}} horas",
     "daysAgo": "hace {{count}} día",
-    "daysAgo_plural": "hace {{count}} días"
+    "daysAgo_plural": "hace {{count}} días",
+    "recently": "recientemente"
   },
   "validation": {
     "required": "Este campo es obligatorio",
@@ -271,6 +274,7 @@
       "tag": "etiqueta",
       "tags": "etiquetas",
       "all": "Todo",
+      "ariaLabel": "Feed de recuerdos con publicaciones de tu comunidad",
       "noMemories": "Aún No Hay Recuerdos",
       "noResidents": "Aún no hay publicaciones de residentes en tu ciudad. ¡Vuelve más tarde!",
       "noVisitors": "No se encontraron publicaciones de visitantes. ¡Vuelve cuando los viajeros visiten tu ciudad!",
@@ -282,7 +286,6 @@
       "seeFriendship": "Ver Amistad",
       "viewFriendshipWith": "Ver detalles de la amistad con {{name}}",
       "anonymous": "Anónimo",
-      "recently": "recientemente",
       "commentPlaceholder": "Escribe un comentario reflexivo...",
       "commentButton": "Comentar",
       "commentDefault": "Escribe un comentario...",
@@ -306,14 +309,21 @@
       "pleaseTryAgain": "Por favor intenta de nuevo"
     },
     "categories": {
-      "milonga": "Milonga",
-      "practica": "Práctica",
-      "performance": "Performance",
-      "workshop": "Taller",
-      "festival": "Festival",
       "travel": "Viaje",
+      "food": "Comida",
+      "culture": "Cultura",
+      "adventure": "Aventura",
+      "nightlife": "Vida nocturna",
+      "nature": "Naturaleza",
+      "art": "Arte",
       "music": "Música",
-      "fashion": "Moda"
+      "sports": "Deportes",
+      "photography": "Fotografía",
+      "family": "Familia",
+      "friends": "Amigos",
+      "work": "Trabajo",
+      "milestone": "Hito",
+      "celebration": "Celebración"
     },
     "price": {
       "budget": "Económico",
@@ -363,6 +373,7 @@
     "noFollowedEvents": "No hay eventos de grupos que sigues",
     "noFollowedCitiesEvents": "No hay eventos en ciudades que sigues",
     "viewAllEvents": "Ver Todos los Eventos",
+    "attending": "asistiendo",
     "attendeeCount": "{{count}} asistiendo",
     "attendeeCount_plural": "{{count}} asistiendo",
     "dateTBA": "Fecha por confirmar",
@@ -375,7 +386,61 @@
       "youreGoing": "Vas a Asistir",
       "interested": "Interesado",
       "maybe": "Quizás"
-    }
+    },
+    "errorLoading": "No se pudieron cargar los eventos",
+    "pastEvents": "Eventos Pasados",
+    "noEvents": "No hay eventos aún",
+    "noEventsOwn": "Comienza a organizar o asistir a eventos de tango para verlos aquí.",
+    "noEventsOther": "No hay eventos para mostrar."
+  },
+  "reactions": {
+    "like": "Me gusta",
+    "love": "Me encanta",
+    "haha": "Jaja",
+    "wow": "Guau",
+    "sad": "Triste",
+    "angry": "Enojado",
+    "fire": "Fuego",
+    "heartEyes": "Ojos de corazón",
+    "thinking": "Pensando",
+    "party": "Fiesta",
+    "clap": "Aplaudir",
+    "mindBlown": "Mente explotada",
+    "reactions": "reacciones",
+    "reaction": "reacción"
+  },
+  "postCreator": {
+    "hiddenGems": "Descubre Joyas Ocultas",
+    "hiddenGemsDesc": "Comparte tu mapa del tesoro con la comunidad",
+    "addTags": "#agregar etiquetas a tu recuerdo",
+    "uploadMediaTitle": "Subir Archivos Multimedia",
+    "uploadMediaDesc": "soporta imágenes y videos - máx 30 archivos - hasta 500 MB cada uno",
+    "aiEnhance": "Mejora con IA",
+    "aiEnhancing": "Mejorando...",
+    "aiEnhanceDesc": "Haz tu publicación más atractiva",
+    "visibilityTitle": "¿Quién puede ver esto?",
+    "visibilityDesc": "Elige el nivel de visibilidad",
+    "sharing": "Compartiendo...",
+    "saveChanges": "Guardar cambios",
+    "shareMemory": "Compartir recuerdo",
+    "writeFirst": "Escribe algo primero",
+    "shareWithCommunity": "Compartir con la comunidad",
+    "public": "Público",
+    "everyone": "Todos",
+    "friends": "Amigos",
+    "friendsOnly": "Solo amigos",
+    "private": "Privado",
+    "onlyMe": "Solo yo",
+    "aiUnavailable": "Mejora con IA no disponible",
+    "aiEnhanceFailed": "Fallo al mejorar el contenido",
+    "aiEnhanced": "¡Contenido mejorado aplicado!",
+    "emptyPost": "Por favor agrega contenido",
+    "emptyPostDesc": "Tu publicación no puede estar vacía.",
+    "uploadInProgress": "Subida en progreso",
+    "uploadInProgressDesc": "Por favor espera a que termine la subida",
+    "memoryCreated": "¡Recuerdo creado! 🎉",
+    "memoryCreatedDesc": "Tu momento ha sido compartido",
+    "formatWarning": "Algunos formatos no pudieron ser convertidos, usando originales"
   },
   "search": {
     "searching": "Buscando...",
@@ -386,9 +451,12 @@
     "noResults": "No se encontraron resultados"
   },
   "community": {
+    "globalStatistics": "Estadísticas Globales",
     "globalDancers": "Bailarines Globales",
     "activeEvents": "Eventos Activos",
     "totalGroups": "Grupos de Tango",
+    "communities": "Comunidades",
+    "yourCity": "Tu Ciudad",
     "globalCommunity": "Comunidad Global de Tango"
   },
   "housing": {
