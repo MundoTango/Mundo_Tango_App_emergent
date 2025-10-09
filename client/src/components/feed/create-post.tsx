@@ -4,7 +4,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useFastUpload } from "@/hooks/useFastUpload";
@@ -137,9 +136,8 @@ export default function CreatePost() {
   };
 
   return (
-    <Card className="glassmorphic-card rounded-xl shadow-lg mb-6">
-      <CardContent className="p-4">
-        <div className="flex items-center space-x-3 mb-4">
+    <div className="p-4">
+      <div className="flex items-center space-x-3 mb-4">
           <Avatar className="w-10 h-10 ring-2 ring-turquoise-200">
             <AvatarImage src={user?.profileImage || ""} alt={user?.name} />
             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{user?.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -268,7 +266,7 @@ export default function CreatePost() {
             </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
