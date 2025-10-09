@@ -113,3 +113,49 @@ The platform supports 68 languages with systematic translation coverage across a
 5. **Document**: Update i18n-coverage.md with completion status
 
 For detailed workflow, see Translation Audit Methodology documentation.
+
+## Aurora Tide Design System Workflow
+The platform uses the Aurora Tide design system for consistent, accessible, and performant UI/UX across all features.
+
+### Design System Documentation
+- **Design Audit Methodology**: `docs/pages/esa-tools/design-audit-methodology.md` - Complete workflow for Aurora Tide compliance
+- **Design Coverage Tracker**: `docs/pages/esa-tools/design-coverage.md` - Platform-wide design token, accessibility, dark mode tracking
+- **Aurora Tide Design System**: `docs/pages/design-systems/aurora-tide.md` - Complete design system reference
+- **Enhancement Process**: `docs/pages/design-systems/aurora-tide-enhancement-process.md` - 10-Designer Critique + 4-Track parallel execution
+
+### Core Aurora Tide Components
+1. **GlassCard** - Glassmorphic depth system (depth 1-4)
+2. **Framer Motion** - FadeIn, ScaleIn, SlideIn animations
+3. **Micro-interactions** - MagneticButton, RippleCard, PulseIcon, ParticleButton
+4. **GSAP Scroll** - useScrollReveal for scroll-triggered animations
+5. **Design Tokens** - Ocean palette (seafoam, cyan, teal) + 3-layer token system
+
+### Design Enhancement - Quick Reference
+**⚠️ CRITICAL: Visual-Only Changes (NO Backend, NO Logic Changes)**
+
+1. **Pre-Enhancement Snapshot** (REQUIRED for rollback):
+   - Create snapshot: Document current state, git commit hash, files to modify
+   - Rollback command: `git checkout [commit-hash]`
+   
+2. **10-Designer Critique**: Analyze page through UX, Visual, Interaction, Accessibility, Content, Mobile, Performance, Brand, Growth, System perspectives
+
+3. **4-Track Parallel Enhancement**:
+   - Track A: GlassCard wrappers, ocean tokens (visual layer only)
+   - Track B: Micro-interactions (additive only)
+   - Track C: Accessibility + responsive (ARIA, keyboard nav)
+   - Track D: Content polish (microcopy, empty states)
+
+4. **Implementation Rules**:
+   - ✅ Wrap components (don't replace)
+   - ✅ Add visual layers (additive approach)
+   - ❌ NEVER change backend logic, APIs, or data flow
+   - ❌ NEVER modify component props/interfaces
+   - ❌ NEVER refactor working state management
+
+5. **Validation**: Zero functionality regressions, 100% features preserved, visual-only verified
+
+For detailed workflow, see Design Audit Methodology documentation.
+
+### Agent Ownership
+- **Agent #11 (Aurora)**: UI/UX Design Expert - Manages Aurora Tide compliance
+- **Agent #16 (Translation)**: i18n Expert - Reports to Aurora for UI consistency
