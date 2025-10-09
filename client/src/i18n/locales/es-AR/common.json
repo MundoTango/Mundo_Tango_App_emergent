@@ -45,6 +45,36 @@
     "previous": "Anterior",
     "share": "Compartir"
   },
+  "events": {
+    "upcomingEvents": "Eventos Próximos",
+    "loadingEvents": "Cargando eventos...",
+    "noUpcomingEvents": "No hay eventos próximos",
+    "checkCityPage": "Chequeá la página de tu ciudad o unite a grupos para ver eventos",
+    "eventComingUp": "{{count}} evento por venir",
+    "eventComingUp_plural": "{{count}} eventos por venir",
+    "eventsAttending": "Eventos a los que Vas",
+    "inYourCity": "En Tu Ciudad",
+    "eventsYouFollow": "Eventos que Seguís",
+    "citiesYouFollow": "Ciudades que Seguís",
+    "noRsvpdEvents": "No hay eventos con RSVP",
+    "noEventsInCity": "No hay eventos en tu ciudad",
+    "noFollowedEvents": "No hay eventos de grupos que seguís",
+    "noFollowedCitiesEvents": "No hay eventos en ciudades que seguís",
+    "viewAllEvents": "Ver Todos los Eventos",
+    "attendeeCount": "{{count}} asistiendo",
+    "attendeeCount_plural": "{{count}} asistiendo",
+    "dateTBA": "Fecha a confirmar",
+    "locationTBA": "Lugar a confirmar",
+    "rsvp": {
+      "markAsAttending": "Marcar como asistiendo",
+      "markAsInterested": "Marcar como interesado",
+      "markAsMaybe": "Marcar como quizás",
+      "markAsNotGoing": "Marcar como que no vas",
+      "youreGoing": "Vas a Ir",
+      "interested": "Interesado",
+      "maybe": "Quizás"
+    }
+  },
   "memories": {
     "title": "Recuerdos",
     "newPost": "Nuevo posteo",
@@ -81,6 +111,14 @@
       "error": "Error",
       "errorDesc": "Algo salió mal",
       "failedToUpdateLike": "No se pudo actualizar el me gusta"
+    },
+    "feed": {
+      "noMemories": "Todavía Sin Recuerdos",
+      "noResidents": "Todavía no hay posteos de residentes en tu ciudad. ¡Volvé más tarde!",
+      "noVisitors": "No se encontraron posteos de visitantes. ¡Volvé cuando viajeros visiten tu ciudad!",
+      "noFriends": "Todavía no hay posteos de tus amigos. ¡Conectate con más bailarines para ver sus posteos acá!",
+      "noTaggedPosts": "No se encontraron posteos con las etiquetas: {{tags}}",
+      "noSearchResults": "No se encontraron recuerdos que coincidan con \"{{query}}\". Probá con otras palabras."
     }
   }
 }

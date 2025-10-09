@@ -239,6 +239,36 @@
     "totalGroups": "Gruppi di Tango",
     "globalCommunity": "Comunità Globale di Tango"
   },
+  "events": {
+    "upcomingEvents": "Eventi Imminenti",
+    "loadingEvents": "Caricamento eventi...",
+    "noUpcomingEvents": "Nessun evento imminente",
+    "checkCityPage": "Controlla la pagina della tua città o unisciti ai gruppi per vedere gli eventi",
+    "eventComingUp": "{{count}} evento in arrivo",
+    "eventComingUp_plural": "{{count}} eventi in arrivo",
+    "eventsAttending": "Eventi a cui Partecipi",
+    "inYourCity": "Nella Tua Città",
+    "eventsYouFollow": "Eventi che Segui",
+    "citiesYouFollow": "Città che Segui",
+    "noRsvpdEvents": "Nessun evento RSVP",
+    "noEventsInCity": "Nessun evento nella tua città",
+    "noFollowedEvents": "Nessun evento dai gruppi che segui",
+    "noFollowedCitiesEvents": "Nessun evento nelle città che segui",
+    "viewAllEvents": "Vedi Tutti gli Eventi",
+    "attendeeCount": "{{count}} partecipante",
+    "attendeeCount_plural": "{{count}} partecipanti",
+    "dateTBA": "Data da confermare",
+    "locationTBA": "Posizione da confermare",
+    "rsvp": {
+      "markAsAttending": "Segna come partecipante",
+      "markAsInterested": "Segna come interessato",
+      "markAsMaybe": "Segna come forse",
+      "markAsNotGoing": "Segna come non partecipante",
+      "youreGoing": "Partecipi",
+      "interested": "Interessato",
+      "maybe": "Forse"
+    }
+  },
   "memories": {
     "title": "Ricordi",
     "newPost": "Nuovo post",
@@ -275,6 +305,14 @@
       "error": "Errore",
       "errorDesc": "Qualcosa è andato storto",
       "failedToUpdateLike": "Impossibile aggiornare il mi piace"
+    },
+    "feed": {
+      "noMemories": "Ancora Nessun Ricordo",
+      "noResidents": "Ancora nessun post dai residenti nella tua città. Torna più tardi!",
+      "noVisitors": "Nessun post dai visitatori trovato. Torna quando i viaggiatori visitano la tua città!",
+      "noFriends": "Ancora nessun post dai tuoi amici. Connettiti con più ballerini per vedere i loro post qui!",
+      "noTaggedPosts": "Nessun post trovato con i tag: {{tags}}",
+      "noSearchResults": "Nessun ricordo trovato corrispondente a \"{{query}}\". Prova parole chiave diverse."
     }
   }
 }
