@@ -78,7 +78,9 @@
     "deps:category": "tsx scripts/analyze-dependencies.ts category",
     "deps:unused": "tsx scripts/analyze-dependencies.ts unused",
     "security:scan": "tsx scripts/security-scan.ts",
-    "security:latest": "tsx scripts/security-scan.ts latest"
+    "security:latest": "tsx scripts/security-scan.ts latest",
+    "bundle:analyze": "tsx scripts/analyze-bundle.ts",
+    "bundle:stats": "tsx scripts/analyze-bundle.ts quick"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
