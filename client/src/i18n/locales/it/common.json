@@ -238,5 +238,40 @@
     "activeEvents": "Eventi Attivi",
     "totalGroups": "Gruppi di Tango",
     "globalCommunity": "Comunità Globale di Tango"
+  },
+  "memories": {
+    "title": "Ricordi",
+    "newPost": "Nuovo post",
+    "shareMemory": "Condividi il tuo momento di tango e @menziona le persone...",
+    "keyboardShortcuts": "Scorciatoie da tastiera: ",
+    "memoryShared": "Ricordo Condiviso",
+    "memorySharedDesc": "Il tuo ricordo è stato condiviso con successo",
+    "error": "Errore",
+    "uploadFailed": "Caricamento fallito",
+    "creator": {
+      "sharePlaceholder": "Condividi un ricordo di tango...",
+      "editPlaceholder": "Modifica il tuo ricordo...",
+      "searchPlace": "Cerca un luogo..."
+    },
+    "categories": {
+      "milonga": "Milonga",
+      "practica": "Práctica",
+      "performance": "Performance",
+      "workshop": "Workshop",
+      "festival": "Festival",
+      "travel": "Viaggio",
+      "music": "Musica",
+      "fashion": "Moda"
+    },
+    "price": {
+      "budget": "Economico",
+      "moderate": "Moderato",
+      "luxury": "Lusso"
+    },
+    "actions": {
+      "error": "Errore",
+      "errorDesc": "Qualcosa è andato storto",
+      "failedToUpdateLike": "Impossibile aggiornare il mi piace"
+    }
   }
 }
