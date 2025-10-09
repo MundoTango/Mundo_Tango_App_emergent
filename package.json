@@ -71,7 +71,12 @@
     "audit-page": "tsx scripts/audit-page.ts",
     "audit:list": "tsx scripts/audit-page.ts list",
     "audit:category": "tsx scripts/audit-page.ts category",
-    "audit:all": "tsx scripts/audit-page.ts all"
+    "audit:all": "tsx scripts/audit-page.ts all",
+    "analyze-deps": "tsx scripts/analyze-dependencies.ts",
+    "deps:map": "tsx scripts/analyze-dependencies.ts map",
+    "deps:layer": "tsx scripts/analyze-dependencies.ts layer",
+    "deps:category": "tsx scripts/analyze-dependencies.ts category",
+    "deps:unused": "tsx scripts/analyze-dependencies.ts unused"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
