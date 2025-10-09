@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Page Audit Registry",
+  "description": "Comprehensive registry mapping all 100 pages to ESA agents, critical paths, and audit metadata",
+  "version": "1.0.0",
+  "lastUpdated": "2025-10-09",
+  
+  "agentDefinitions": {
+    "1": "Performance - Lighthouse, Web Vitals, Bundle Size",
+    "2": "Frontend - React Patterns, State Management",
+    "3": "Background - Job Queues, Async Tasks",
+    "4": "Real-time - WebSocket, Live Updates",
+    "5": "Business Logic - Validation, Workflows",
+    "6": "Search & Analytics - Elasticsearch, Insights",
+    "7-9": "Platform/Master Control - Orchestration, Health",
+    "10": "AI Research - Tool Discovery, Critique",
+    "11": "UI/UX (Aurora) - Design System, Accessibility",
+    "13": "Media - Image/Video Optimization",
+    "14": "Code Quality - TypeScript, ESLint, Security",
+    "15": "Developer Experience - Tests, Docs, Tooling",
+    "16": "Translation - i18n Coverage"
+  },
+
+  "pageCategories": {
+    "core": {
+      "description": "Essential user-facing features",
+      "defaultAgents": [1, 2, 11, 14, 16]
+    },
+    "admin": {
+      "description": "Administrative and monitoring pages",
+      "defaultAgents": [1, 2, 5, 6, 14, 15]
+    },
+    "social": {
+      "description": "Social features - posts, events, friends",
+      "defaultAgents": [1, 2, 4, 11, 13, 14, 16]
+    },
+    "auth": {
+      "description": "Authentication and security",
+      "defaultAgents": [1, 2, 5, 14]
+    },
+    "housing": {
+      "description": "Housing marketplace and bookings",
+      "defaultAgents": [1, 2, 5, 11, 14, 16]
+    },
+    "lifecycle": {
+      "description": "Life CEO AI features",
+      "defaultAgents": [1, 2, 10, 11, 14, 16]
+    }
+  },
+
+  "pages": {
+    "memories-feed": {
+      "file": "client/src/pages/ESAMemoryFeed.tsx",
+      "category": "social",
+      "displayName": "Memories Feed",
+      "description": "Main social feed with posts, images, real-time updates",
+      "agents": [1, 2, 4, 11, 13, 14, 16],
+      "criticalPaths": [
+        "post-creation",
+        "image-upload",
+        "real-time-updates",
+        "tag-filtering",
+        "comment-interaction"
+      ],
+      "knownIssues": [],
+      "lastAudit": "2025-10-09",
+      "auditHistory": [
+        {
+          "date": "2025-10-09",
+          "agents": [11, 16],
+          "score": 95,
+          "notes": "100% Aurora Tide compliance, 2 translation keys pending"
+        }
+      ]
+    },
+
+    "housing-marketplace": {
+      "file": "client/src/pages/housing-marketplace.tsx",
+      "category": "housing",
+      "displayName": "Housing Marketplace",
+      "description": "Browse and search housing listings",
+      "agents": [1, 2, 5, 6, 11, 14, 16],
+      "criticalPaths": [
+        "listing-search",
+        "filter-application",
+        "listing-detail-view",
+        "friendship-based-access"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "host-dashboard": {
+      "file": "client/src/pages/HostDashboard.tsx",
+      "category": "housing",
+      "displayName": "Host Dashboard",
+      "description": "Property management for hosts",
+      "agents": [1, 2, 5, 6, 11, 14],
+      "criticalPaths": [
+        "property-listing-management",
+        "booking-requests",
+        "calendar-availability",
+        "guest-communication"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "events": {
+      "file": "client/src/pages/EnhancedEvents.tsx",
+      "category": "social",
+      "displayName": "Events",
+      "description": "Event browsing, creation, and RSVP",
+      "agents": [1, 2, 4, 5, 11, 14, 16],
+      "criticalPaths": [
+        "event-creation",
+        "rsvp-management",
+        "event-search",
+        "calendar-integration"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "group-detail": {
+      "file": "client/src/pages/GroupDetailPage.tsx",
+      "category": "social",
+      "displayName": "Group Detail",
+      "description": "City group page with events, housing, trip planner",
+      "agents": [1, 2, 4, 11, 13, 14, 16],
+      "criticalPaths": [
+        "group-content-loading",
+        "event-display",
+        "housing-integration",
+        "trip-planner-access"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "admin-center": {
+      "file": "client/src/pages/AdminCenter.tsx",
+      "category": "admin",
+      "displayName": "Admin Center",
+      "description": "Platform administration dashboard",
+      "agents": [1, 2, 5, 6, 14, 15],
+      "criticalPaths": [
+        "user-management",
+        "content-moderation",
+        "analytics-dashboard",
+        "system-health"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "life-ceo": {
+      "file": "client/src/pages/LifeCEO.tsx",
+      "category": "lifecycle",
+      "displayName": "Life CEO",
+      "description": "AI-powered life management interface",
+      "agents": [1, 2, 4, 10, 11, 14, 16],
+      "criticalPaths": [
+        "agent-conversation",
+        "streaming-responses",
+        "tool-calling",
+        "memory-persistence"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "friends": {
+      "file": "client/src/pages/EnhancedFriends.tsx",
+      "category": "social",
+      "displayName": "Friends",
+      "description": "Friend management and connections",
+      "agents": [1, 2, 4, 11, 14, 16],
+      "criticalPaths": [
+        "friend-requests",
+        "friend-search",
+        "connection-status",
+        "mutual-friends"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "messages": {
+      "file": "client/src/pages/Messages.tsx",
+      "category": "social",
+      "displayName": "Messages",
+      "description": "Direct messaging interface",
+      "agents": [1, 2, 4, 5, 14, 16],
+      "criticalPaths": [
+        "message-sending",
+        "real-time-delivery",
+        "conversation-threads",
+        "unread-indicators"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    },
+
+    "profile": {
+      "file": "client/src/pages/profile.tsx",
+      "category": "core",
+      "displayName": "User Profile",
+      "description": "User profile page with posts and info",
+      "agents": [1, 2, 11, 13, 14, 16],
+      "criticalPaths": [
+        "profile-editing",
+        "image-upload",
+        "post-display",
+        "privacy-controls"
+      ],
+      "knownIssues": [],
+      "lastAudit": null,
+      "auditHistory": []
+    }
+  },
+
+  "auditCommands": {
+    "single": "npm run audit-page <page-key>",
+    "category": "npm run audit-category <category>",
+    "all": "npm run audit-all-pages",
+    "compare": "npm run audit-compare <page-key> <date>"
+  },
+
+  "metadata": {
+    "totalPages": 100,
+    "categorized": 10,
+    "pending": 90,
+    "lastFullAudit": null,
+    "nextScheduledAudit": null
+  }
+}
