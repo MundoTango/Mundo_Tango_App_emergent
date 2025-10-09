@@ -176,16 +176,23 @@ export default function PostCreator({
     enabled: showMentions && mentionSearch.length > 0
   });
 
-  // Predefined tags with emojis
+  // Track B: Approved tags matching backend validation (15 tags from tagValidation.ts)
   const predefinedTags = [
-    { value: 'milonga', label: t('memories.categories.milonga'), emoji: '💃' },
-    { value: 'practica', label: t('memories.categories.practica'), emoji: '🎯' },
-    { value: 'performance', label: t('memories.categories.performance'), emoji: '🎭' },
-    { value: 'workshop', label: t('memories.categories.workshop'), emoji: '📚' },
-    { value: 'festival', label: t('memories.categories.festival'), emoji: '🎪' },
     { value: 'travel', label: t('memories.categories.travel'), emoji: '✈️' },
+    { value: 'food', label: t('memories.categories.food'), emoji: '🍕' },
+    { value: 'culture', label: t('memories.categories.culture'), emoji: '🎭' },
+    { value: 'adventure', label: t('memories.categories.adventure'), emoji: '🏔️' },
+    { value: 'nightlife', label: t('memories.categories.nightlife'), emoji: '🌃' },
+    { value: 'nature', label: t('memories.categories.nature'), emoji: '🌿' },
+    { value: 'art', label: t('memories.categories.art'), emoji: '🎨' },
     { value: 'music', label: t('memories.categories.music'), emoji: '🎵' },
-    { value: 'fashion', label: t('memories.categories.fashion'), emoji: '👗' }
+    { value: 'sports', label: t('memories.categories.sports'), emoji: '⚽' },
+    { value: 'photography', label: t('memories.categories.photography'), emoji: '📸' },
+    { value: 'family', label: t('memories.categories.family'), emoji: '👨‍👩‍👧' },
+    { value: 'friends', label: t('memories.categories.friends'), emoji: '👥' },
+    { value: 'work', label: t('memories.categories.work'), emoji: '💼' },
+    { value: 'milestone', label: t('memories.categories.milestone'), emoji: '🎯' },
+    { value: 'celebration', label: t('memories.categories.celebration'), emoji: '🎉' }
   ];
 
   // Handle location selection from Google Maps

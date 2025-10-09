@@ -8,10 +8,11 @@ import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { postsAPI } from '@/lib/api/posts';
 import { useToast } from '@/hooks/use-toast';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Wifi, WifiOff } from 'lucide-react';
 import { useTheme } from '@/lib/theme/theme-provider';
 import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use existing auth
 import { useTranslation } from 'react-i18next';
+import { useMemoriesFeed } from '@/hooks/useMemoriesFeed'; // Track A: Real-time Socket.IO
 
 // RESILIENCE IMPORTS - Platform-wide protection
 import { withResilience } from '@/components/resilient/ResilientBoundary';
@@ -41,6 +42,9 @@ function ESAMemoryFeedCore() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [shareModalPost, setShareModalPost] = useState<any>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  
+  // Track A: Real-time Socket.IO connection
+  const { connectionStatus } = useMemoriesFeed();
   
   // ESA LIFE CEO 61×21 - Layer 9: Edit functionality with rich text editor
   const [editingPost, setEditingPost] = useState<any>(null);
@@ -169,6 +173,12 @@ function ESAMemoryFeedCore() {
                 <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
                   {t('memories.title')}
                 </span>
+                {/* Track A: Real-time connection indicator */}
+                {connectionStatus === 'connected' ? (
+                  <Wifi className="h-4 w-4 text-green-500" title="Real-time updates active" />
+                ) : (
+                  <WifiOff className="h-4 w-4 text-gray-400" title="Reconnecting..." />
+                )}
               </h1>
               {/* Track C: Accessibility - Keyboard shortcuts hint for screen readers */}
               <div className="hidden sm:block text-xs text-gray-500 dark:text-gray-400" aria-label="Keyboard shortcuts">

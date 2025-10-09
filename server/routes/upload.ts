@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
+import { imageOptimizationMiddleware } from '../middleware/imageOptimization'; // Track C: WebP/AVIF optimization
 
 const router = Router();
 
@@ -52,8 +53,8 @@ const upload = multer({
   }
 });
 
-// ESA Layer 13: Internal upload endpoint
-router.post('/api/upload', upload.array('files', 30), async (req, res) => {
+// ESA Layer 13: Internal upload endpoint with Track C image optimization
+router.post('/api/upload', upload.array('files', 30), imageOptimizationMiddleware, async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No files uploaded' });
