@@ -2,6 +2,21 @@
  * ESA 61x21 Translation & Internationalization Expert Agent
  * Agent 16: Manages i18n coverage, detects missing translations, automates batch translation
  * Layers: 53 (Internationalization), 54 (Accessibility), 55 (SEO)
+ * 
+ * Documentation:
+ * - Translation Audit Methodology: docs/pages/esa-tools/translation-audit-methodology.md
+ * - i18n Coverage Tracker: docs/pages/esa-tools/i18n-coverage.md
+ * - Language Registry: client/src/lib/i18n-languages.ts
+ * 
+ * Workflow: 6-Phase Translation Audit Process
+ * 1. Language Setup - Create locale files, register language
+ * 2. Page Architecture Audit - Map components, extract keys
+ * 3. Translation Key Inventory - Build complete key list, identify gaps
+ * 4. Translation Implementation - Add translations with pluralization
+ * 5. Validation & Testing - Visual + runtime verification
+ * 6. Documentation Update - Track coverage in i18n-coverage.md
+ * 
+ * Reports to: Agent #11 (Aurora - UI/UX Design Expert)
  */
 
 import { type PgJob } from './pg-queue-adapter';
