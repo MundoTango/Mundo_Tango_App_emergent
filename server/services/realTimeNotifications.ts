@@ -207,4 +207,63 @@ export class RealTimeNotificationService {
     console.log(`📢 Broadcast notification sent to all users:`, notification.type);
     return this.getConnectedUsersCount();
   }
+
+  /**
+   * [A2A] Agent #4 → Agent #2: Broadcast new memory to all connected users
+   * Coordinates with useMemoriesFeed hook which listens for 'memory:new' event
+   */
+  static async broadcastNewMemory(memory: any): Promise<boolean> {
+    if (!this.io) {
+      console.log('⚠️ WebSocket server not initialized');
+      return false;
+    }
+
+    try {
+      this.io.emit('memory:new', memory);
+      console.log(`[A2A] memory:new event broadcasted - Agent #4 → Agent #2 frontend hook`);
+      return true;
+    } catch (error) {
+      console.error('❌ Error broadcasting memory:', error);
+      return false;
+    }
+  }
+
+  /**
+   * [A2A] Agent #4: Broadcast memory update to specific group/community
+   */
+  static async broadcastMemoryUpdate(memoryId: number, update: any, groupSlug?: string): Promise<boolean> {
+    if (!this.io) {
+      return false;
+    }
+
+    try {
+      if (groupSlug) {
+        this.io.to(`group_${groupSlug}`).emit('memory:updated', { memoryId, ...update });
+        console.log(`[A2A] memory:updated event sent to group_${groupSlug}`);
+      } else {
+        this.io.emit('memory:updated', { memoryId, ...update });
+        console.log(`[A2A] memory:updated event broadcasted globally`);
+      }
+      return true;
+    } catch (error) {
+      console.error('❌ Error broadcasting memory update:', error);
+      return false;
+    }
+  }
+
+  /**
+   * [A2A] Agent #4: Join user to group room for targeted broadcasts
+   */
+  static joinGroupRoom(userId: number, groupSlug: string): void {
+    if (!this.io) return;
+
+    const userSockets = this.userSockets.get(userId);
+    if (userSockets) {
+      userSockets.forEach(socketId => {
+        const socket = this.io?.sockets.sockets.get(socketId);
+        socket?.join(`group_${groupSlug}`);
+      });
+      console.log(`[A2A] User ${userId} joined group_${groupSlug} room for real-time updates`);
+    }
+  }
 }

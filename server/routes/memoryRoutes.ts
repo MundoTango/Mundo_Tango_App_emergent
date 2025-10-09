@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
+import { validateTags, handleValidationErrors } from '../middleware/tagValidation';
+import { RealTimeNotificationService } from '../services/realTimeNotifications';
 
 const router = Router();
 
@@ -33,7 +35,8 @@ router.get('/memories/feed', isAuthenticated, async (req: any, res) => {
 });
 
 // Create memory
-router.post('/memories', isAuthenticated, async (req: any, res) => {
+// [A2A] Agent #5: Tag validation → Agent #4: Socket.IO broadcast
+router.post('/memories', isAuthenticated, validateTags, handleValidationErrors, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
@@ -44,6 +47,7 @@ router.post('/memories', isAuthenticated, async (req: any, res) => {
     
     const { content, type, tags, privacy, mediaUrls } = req.body;
     
+    // [A2A] Agent #5: Validated tags are safe to use
     const memory = await storage.createMemory({
       userId: user.id,
       content,
@@ -52,6 +56,10 @@ router.post('/memories', isAuthenticated, async (req: any, res) => {
       privacy,
       mediaUrls
     });
+    
+    // [A2A] Agent #4 → Agent #2: Broadcast to all connected clients
+    await RealTimeNotificationService.broadcastNewMemory(memory);
+    console.log(`[A2A] Agent #4: memory:new broadcasted for memory #${memory.id}`);
     
     res.json(memory);
   } catch (error) {
