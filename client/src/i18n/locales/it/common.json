@@ -248,6 +248,9 @@
     "memorySharedDesc": "Il tuo ricordo è stato condiviso con successo",
     "error": "Errore",
     "uploadFailed": "Caricamento fallito",
+    "edit": {
+      "title": "Modifica Il Tuo Ricordo"
+    },
     "creator": {
       "sharePlaceholder": "Condividi un ricordo di tango...",
       "editPlaceholder": "Modifica il tuo ricordo...",

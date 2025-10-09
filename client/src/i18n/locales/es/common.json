@@ -245,6 +245,9 @@
     "memorySharedDesc": "Tu recuerdo ha sido compartido exitosamente",
     "error": "Error",
     "uploadFailed": "La carga falló",
+    "edit": {
+      "title": "Edita Tu Recuerdo"
+    },
     "creator": {
       "sharePlaceholder": "Comparte un recuerdo de tango...",
       "editPlaceholder": "Edita tu recuerdo...",
@@ -267,7 +270,13 @@
       "filteredBy": "Filtrado por",
       "tag": "etiqueta",
       "tags": "etiquetas",
-      "all": "Todo"
+      "all": "Todo",
+      "noMemories": "Aún No Hay Recuerdos",
+      "noResidents": "Aún no hay publicaciones de residentes en tu ciudad. ¡Vuelve más tarde!",
+      "noVisitors": "No se encontraron publicaciones de visitantes. ¡Vuelve cuando los viajeros visiten tu ciudad!",
+      "noFriends": "Aún no hay publicaciones de tus amigos. ¡Conéctate con más bailarines para ver sus publicaciones aquí!",
+      "noTaggedPosts": "No se encontraron publicaciones con las etiquetas: {{tags}}",
+      "noSearchResults": "No se encontraron recuerdos que coincidan con \"{{query}}\". Prueba con diferentes palabras clave."
     },
     "post": {
       "seeFriendship": "Ver Amistad",

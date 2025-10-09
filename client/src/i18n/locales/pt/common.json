@@ -245,6 +245,9 @@
     "memorySharedDesc": "Sua memória foi compartilhada com sucesso",
     "error": "Erro",
     "uploadFailed": "Falha no upload",
+    "edit": {
+      "title": "Edite Sua Memória"
+    },
     "creator": {
       "sharePlaceholder": "Compartilhe uma memória de tango...",
       "editPlaceholder": "Edite sua memória...",
@@ -267,7 +270,13 @@
       "filteredBy": "Filtrado por",
       "tag": "tag",
       "tags": "tags",
-      "all": "Todos"
+      "all": "Todos",
+      "noMemories": "Ainda Sem Memórias",
+      "noResidents": "Ainda não há postagens de residentes em sua cidade. Volte mais tarde!",
+      "noVisitors": "Nenhuma postagem de visitantes encontrada. Volte quando viajantes visitarem sua cidade!",
+      "noFriends": "Ainda não há postagens de seus amigos. Conecte-se com mais dançarinos para ver suas postagens aqui!",
+      "noTaggedPosts": "Nenhuma postagem encontrada com as tags: {{tags}}",
+      "noSearchResults": "Nenhuma memória encontrada correspondente a \"{{query}}\". Tente palavras-chave diferentes."
     },
     "post": {
       "seeFriendship": "Ver Amizade",

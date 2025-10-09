@@ -54,6 +54,9 @@
     "memorySharedDesc": "Tu recuerdo se compartió exitosamente",
     "error": "Error",
     "uploadFailed": "Falló la carga",
+    "edit": {
+      "title": "Editá Tu Recuerdo"
+    },
     "creator": {
       "sharePlaceholder": "Compartí un recuerdo tanguero...",
       "editPlaceholder": "Editá tu recuerdo...",
