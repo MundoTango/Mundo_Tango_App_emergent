@@ -660,6 +660,7 @@ export {
   RotateOnHoverIcon,
   BounceOnClick,
   ShakeOnError,
-  RippleCard,
+  RippleCard,          // v2: Stateless CSS-only (Phase 1 Refactor)
+  RippleCardStateful,  // Legacy: Kept for rollback safety  
   PulseIcon,
 };
