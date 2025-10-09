@@ -162,9 +162,9 @@ function EnhancedPostItem({
   const getEmotionColor = (emotion: string) => {
     const colors: Record<string, string> = {
       'joy': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'love': 'bg-pink-100 text-pink-800 border-pink-200',
+      'love': 'bg-ocean-seafoam-100 text-ocean-teal-800 border-ocean-seafoam-200 dark:bg-ocean-seafoam-900/20 dark:text-ocean-seafoam-300',
       'excitement': 'bg-orange-100 text-orange-800 border-orange-200',
-      'nostalgia': 'bg-purple-100 text-purple-800 border-purple-200',
+      'nostalgia': 'bg-ocean-cyan-100 text-ocean-cyan-800 border-ocean-cyan-200 dark:bg-ocean-cyan-900/20 dark:text-ocean-cyan-300',
       'gratitude': 'bg-green-100 text-green-800 border-green-200',
       'inspiration': 'bg-blue-100 text-blue-800 border-blue-200'
     };
@@ -468,7 +468,7 @@ function EnhancedPostItem({
                   className="w-14 h-14 object-cover rounded-2xl ring-2 ring-indigo-100 shadow-lg"
                 />
               ) : (
-                <div className="w-14 h-14 bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                <div className="w-14 h-14 bg-gradient-to-br from-ocean-cyan-400 via-ocean-seafoam-400 to-ocean-teal-400 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg" style={{ backgroundImage: 'linear-gradient(to bottom right, var(--ocean-cyan-400), var(--ocean-seafoam-400), var(--ocean-teal-400))' }}>
                   {getAvatarFallback(post.user?.name || 'Anonymous')}
                 </div>
               )}
@@ -486,7 +486,8 @@ function EnhancedPostItem({
               <div className="flex flex-col gap-1 mb-1">
                 <Link href={`/profile/${post.user?.id || post.userId}`}>
                   <h3 
-                    className="font-bold text-xl text-gray-900 hover:text-indigo-600 cursor-pointer transition-colors"
+                    className="font-bold text-xl text-gray-900 hover:text-ocean-cyan-600 dark:text-white dark:hover:text-ocean-cyan-400 cursor-pointer transition-colors"
+                    style={{ '--tw-hover-text-opacity': '1' } as React.CSSProperties}
                     title={post.user?.fullName || post.user?.name || 'Anonymous'}
                   >
                     {post.user?.name || 'Anonymous'}
@@ -557,7 +558,7 @@ function EnhancedPostItem({
 
             {/* Location */}
             {post.location && (
-              <div className="flex items-center gap-2 text-indigo-600">
+              <div className="flex items-center gap-2 text-ocean-cyan-600 dark:text-ocean-cyan-400">
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">{post.location}</span>
               </div>
@@ -731,7 +732,7 @@ function EnhancedPostItem({
               {post.hashtags.map((tag, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-100 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1 px-3 py-1 bg-ocean-cyan-50 text-ocean-cyan-700 dark:bg-ocean-cyan-900/30 dark:text-ocean-cyan-300 rounded-full text-sm font-medium hover:bg-ocean-cyan-100 dark:hover:bg-ocean-cyan-900/50 transition-colors cursor-pointer"
                 >
                   #
                   <span>{tag}</span>
@@ -928,8 +929,8 @@ function EnhancedPostItem({
                   }}
                   className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
                 >
-                  <div className="p-2 bg-purple-100 rounded-full">
-                    <Share2 className="h-5 w-5 text-purple-600" />
+                  <div className="p-2 bg-ocean-teal-100 dark:bg-ocean-teal-900/30 rounded-full">
+                    <Share2 className="h-5 w-5 text-ocean-teal-600 dark:text-ocean-teal-400" />
                   </div>
                   <div className="text-left">
                     <p className="font-medium">{t('memories.share.copyLink')}</p>
@@ -960,7 +961,7 @@ function EnhancedPostItem({
               {/* Original Post Preview */}
               <div className="bg-gray-50 p-4 rounded-lg mb-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-pink-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                  <div className="w-8 h-8 bg-gradient-to-br from-ocean-cyan-400 to-ocean-seafoam-400 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundImage: 'linear-gradient(to bottom right, var(--ocean-cyan-400), var(--ocean-seafoam-400))' }}>
                     {getAvatarFallback(post.user?.name || t('memories.post.anonymous'))}
                   </div>
                   <span className="font-medium text-sm">{post.user?.name}</span>
