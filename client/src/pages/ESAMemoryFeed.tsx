@@ -169,15 +169,15 @@ function ESAMemoryFeedCore() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Sparkles className="h-6 w-6 text-teal-500" aria-hidden="true" />
-                <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                <Sparkles className="h-6 w-6 text-teal-500 dark:text-teal-400" aria-hidden="true" />
+                <span className="bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
                   {t('memories.title')}
                 </span>
                 {/* Track A: Real-time connection indicator */}
                 {connectionStatus === 'connected' ? (
-                  <Wifi className="h-4 w-4 text-green-500" aria-label="Real-time updates active" />
+                  <Wifi className="h-4 w-4 text-green-500 dark:text-green-400" aria-label="Real-time updates active" />
                 ) : (
-                  <WifiOff className="h-4 w-4 text-gray-400" aria-label="Reconnecting..." />
+                  <WifiOff className="h-4 w-4 text-gray-400 dark:text-gray-500" aria-label="Reconnecting..." />
                 )}
               </h1>
               {/* Track C: Accessibility - Keyboard shortcuts hint for screen readers */}
@@ -379,21 +379,23 @@ function ESAMemoryFeedCore() {
 
       {/* ESA LIFE CEO 61×21 - Layer 9: Edit Modal with Rich Text Editor (react-quill) */}
       {showEditModal && editingPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/70 backdrop-blur-sm">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8">
             <button
               onClick={() => {
                 setShowEditModal(false);
                 setEditingPost(null);
               }}
-              className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              aria-label="Close edit modal"
+              data-testid="button-close-edit-modal"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               ✏️ {t('memories.edit.title')}
             </h2>
             
@@ -439,11 +441,11 @@ export default withResilience(
       <DashboardLayout>
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <Sparkles className="w-12 h-12 text-blue-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            <Sparkles className="w-12 h-12 text-blue-500 dark:text-blue-400 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
               Memory Feed Loading...
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Please wait while we load your tango memories
             </p>
           </div>
