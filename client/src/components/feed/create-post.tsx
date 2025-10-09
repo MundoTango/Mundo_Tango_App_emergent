@@ -15,6 +15,7 @@ import {
   Clock,
   Upload
 } from "lucide-react";
+import Confetti from "react-confetti";
 
 export default function CreatePost() {
   const [content, setContent] = useState("");
@@ -23,6 +24,7 @@ export default function CreatePost() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [processingTime, setProcessingTime] = useState<number>(0);
   const [uploadStartTime, setUploadStartTime] = useState<number>(0);
+  const [showConfetti, setShowConfetti] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -94,6 +96,10 @@ export default function CreatePost() {
           const totalTime = Date.now() - uploadStartTime;
           // Post created successfully
           
+          // 🎊 Aurora Tide: Celebration moment!
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 3000);
+          
           // Show success immediately
           toast({
             title: "Posted! 🎉",
@@ -137,6 +143,16 @@ export default function CreatePost() {
 
   return (
     <div className="p-4">
+      {/* 🎊 Aurora Tide: Confetti celebration on successful post */}
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={200}
+          colors={['#14b8a6', '#06b6d4', '#0891b2', '#22d3ee', '#67e8f9']}
+        />
+      )}
       <div className="flex items-center space-x-3 mb-4">
           <Avatar className="w-10 h-10 ring-2 ring-turquoise-200">
             <AvatarImage src={user?.profileImage || ""} alt={user?.name} />

@@ -24,6 +24,7 @@ import { formatTimeAgo } from '@/utils/dateLocale';
 import { SimpleLikeButton } from '@/components/ui/SimpleLikeButton';
 import { SimpleCommentEditor } from '@/components/ui/SimpleCommentEditor';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
 // ESA Layer 7: Edit functionality delegated to parent's unified composer (EnhancedPostComposer)
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
@@ -750,22 +751,26 @@ function EnhancedPostItem({
               onReact={handleReaction}
             />
 
-            {/* Comment button */}
-            <button
+            {/* Comment button - Aurora Tide: MagneticButton */}
+            <MagneticButton
               onClick={() => setShowComments(!showComments)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-ocean-cyan-50 dark:hover:bg-ocean-cyan-900/20 hover:text-ocean-cyan-600 dark:hover:text-ocean-cyan-400 transition-all duration-200"
+              strength={0.3}
+              aria-label={t('memories.post.toggleComments')}
             >
               <MessageCircle className="h-5 w-5" />
               <span>{comments.length || 0}</span>
-            </button>
+            </MagneticButton>
 
-            {/* Share button */}
-            <button
+            {/* Share button - Aurora Tide: MagneticButton */}
+            <MagneticButton
               onClick={handleShare}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-green-50 hover:text-green-600 transition-all duration-200"
+              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-ocean-seafoam-50 dark:hover:bg-ocean-seafoam-900/20 hover:text-ocean-seafoam-600 dark:hover:text-ocean-seafoam-400 transition-all duration-200"
+              strength={0.3}
+              aria-label={t('memories.post.sharePost')}
             >
               <Share2 className="h-5 w-5" />
-            </button>
+            </MagneticButton>
 
             {/* ESA LIFE CEO 61×21 - See Friendship button (Layer 24: Social Features Agent) */}
             {(() => {
