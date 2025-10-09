@@ -255,11 +255,15 @@ const PostFeed = memo(({
     }
   }, [context, page, activeFilters, debouncedSearch]);
 
+  // DEBUG: Check propsPosts value
+  console.log('🔍 [PostFeed] BEFORE useQuery - propsPosts:', propsPosts, 'type:', typeof propsPosts, 'isArray:', Array.isArray(propsPosts));
+
   // ESA Framework: Fetch posts with resilient query
   const { data: fetchedResponse, isLoading, error, isFetching } = useQuery({
     queryKey: getQueryKey(),
-    enabled: !propsPosts, // Fetch when no posts prop provided (smart mode)
+    enabled: !propsPosts || (Array.isArray(propsPosts) && propsPosts.length === 0), // Fetch when no posts prop provided (smart mode)
     queryFn: async () => {
+      console.log('🚀 [PostFeed] Query starting! propsPosts:', propsPosts, 'enabled check passed');
       try {
         const url = buildFetchUrl();
         console.log('🌐 [PostFeed] Fetching posts from:', url);
@@ -311,6 +315,14 @@ const PostFeed = memo(({
   
   // ESA Framework: Handle pagination for context mode
   useEffect(() => {
+    console.log('🔍 [PostFeed] useEffect triggered:', { 
+      hasContext: !!context, 
+      hasFetchedResponse: !!fetchedResponse,
+      hasPosts: !!fetchedResponse?.posts,
+      fetchedResponseKeys: fetchedResponse ? Object.keys(fetchedResponse) : [],
+      rawFetchedResponse: fetchedResponse
+    });
+    
     if (!context || !fetchedResponse?.posts) {
       console.log('⚠️ [PostFeed] Skipping allPosts update:', { hasContext: !!context, hasPosts: !!fetchedResponse?.posts });
       return;
@@ -330,7 +342,7 @@ const PostFeed = memo(({
     }
     
     setInternalHasMore(fetchedResponse.hasMore);
-  }, [fetchedResponse, page]);
+  }, [fetchedResponse, page, context]);
 
   // Reset pagination when context changes
   const contextKey = useMemo(() => {
@@ -382,23 +394,22 @@ const PostFeed = memo(({
     if (propsPosts) {
       // Controlled mode: Use provided posts
       result = propsPosts;
-    } else if (context) {
-      // Smart mode: Use accumulated posts with pagination
-      result = allPosts;
     } else {
-      // Legacy mode: Direct fetch result
+      // SIMPLIFIED: Always use fetchedResponse directly (like legacy mode)
       result = fetchedResponse?.posts || [];
     }
     
     console.log('📋 [PostFeed] Posts memo updated:', { 
-      mode: propsPosts ? 'controlled' : context ? 'smart' : 'legacy',
+      mode: propsPosts ? 'controlled' : 'direct',
       count: result.length,
       firstPostId: result[0]?.id,
-      filterType: activeFilters.filterType
+      filterType: activeFilters.filterType,
+      fetchedResponseAvailable: !!fetchedResponse,
+      fetchedResponseLength: fetchedResponse?.posts?.length || 0
     });
     
     return result;
-  }, [propsPosts, context, allPosts, fetchedResponse, activeFilters.filterType]);
+  }, [propsPosts, fetchedResponse, activeFilters.filterType]);
 
   // Determine hasMore based on mode
   const hasMore = context ? internalHasMore : externalHasMore;

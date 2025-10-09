@@ -542,13 +542,13 @@ const RippleCard = ({
 
   return (
     <div
-      className={cn('relative overflow-hidden', className)}
+      className={cn('relative', className)}
       onMouseEnter={handleMouseEnter}
     >
       {ripples.map(ripple => (
         <span
           key={ripple.id}
-          className="absolute rounded-full pointer-events-none animate-ping opacity-20"
+          className="absolute rounded-full pointer-events-none animate-ping opacity-20 overflow-hidden"
           style={{
             left: ripple.x,
             top: ripple.y,
