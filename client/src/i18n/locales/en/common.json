@@ -273,6 +273,7 @@
       "tag": "tag",
       "tags": "tags",
       "all": "All",
+      "ariaLabel": "Memories feed with posts from your community",
       "noMemories": "No Memories Yet",
       "noResidents": "No posts from residents in your city yet. Check back later!",
       "noVisitors": "No posts from visitors found. Check back when travelers visit your city!",
@@ -287,7 +288,9 @@
       "recently": "recently",
       "commentPlaceholder": "Write a thoughtful comment...",
       "commentButton": "Comment",
-      "commentDefault": "Write a comment..."
+      "commentDefault": "Write a comment...",
+      "toggleComments": "Toggle comments section",
+      "sharePost": "Share this post"
     },
     "share": {
       "sharePost": "Share Post",
