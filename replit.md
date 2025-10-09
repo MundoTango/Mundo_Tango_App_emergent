@@ -87,3 +87,29 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Analytics**: Plausible Analytics
 - **Project Management**: Atlassian Jira
 - **Internationalization**: i18next, react-i18next
+
+## Internationalization (i18n) Workflow
+The platform supports 68 languages with systematic translation coverage across all UI components.
+
+### Translation Documentation
+- **Translation Audit Methodology**: `docs/pages/esa-tools/translation-audit-methodology.md` - Complete workflow for adding new languages
+- **i18n Coverage Tracker**: `docs/pages/esa-tools/i18n-coverage.md` - Current status of all 68 languages
+- **Language Registry**: `client/src/lib/i18n-languages.ts` - Supported languages configuration
+
+### Top 7 Tango Languages (100% Coverage)
+1. 🇺🇸 English (EN) - Base language
+2. 🇪🇸 Spanish (ES) - Standard
+3. 🇦🇷 Argentine Spanish (es-AR) - Lunfardo/Rioplatense dialect
+4. 🇫🇷 French (FR)
+5. 🇮🇹 Italian (IT)
+6. 🇵🇹 Portuguese (PT)
+7. 🇩🇪 German (DE)
+
+### Adding a New Language - Quick Reference
+1. **Setup**: Create `client/src/i18n/locales/[lang-code]/common.json`
+2. **Audit**: Map all page components and extract translation keys
+3. **Translate**: Add all keys with proper pluralization
+4. **Test**: Validate across all pages with visual testing
+5. **Document**: Update i18n-coverage.md with completion status
+
+For detailed workflow, see Translation Audit Methodology documentation.
