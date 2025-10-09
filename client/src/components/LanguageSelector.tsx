@@ -134,16 +134,12 @@ const LanguageSelector = ({
         <div className="flex items-center gap-2 mb-4">
           <Languages className="h-5 w-5" />
           <h3 className="text-lg font-semibold">Choose Language</h3>
-          <Badge variant="secondary">{allSupportedLanguages.length} languages</Badge>
         </div>
         
         {Object.entries(groups).map(([groupName, languages]) => (
           <div key={groupName} className="space-y-2">
-            <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2">
+            <h4 className="text-sm font-semibold text-muted-foreground">
               {groupName}
-              <Badge variant="outline" className="text-xs">
-                {languages.length}
-              </Badge>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {languages.map(lang => {
