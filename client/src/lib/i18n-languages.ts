@@ -8,7 +8,7 @@ export interface LanguageMetadata {
   nativeName: string;
   flag: string;
   direction: 'ltr' | 'rtl';
-  region: 'primary' | 'europe' | 'americas' | 'asia' | 'mea';
+  region: 'tango' | 'primary' | 'europe' | 'americas' | 'asia' | 'mea';
   isActive: boolean;
 }
 
@@ -17,15 +17,17 @@ export const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
 
 // All 68 supported languages with metadata
 export const allSupportedLanguages: LanguageMetadata[] = [
-  // Primary Languages (Platform defaults)
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', direction: 'ltr', region: 'primary', isActive: true },
-  { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', direction: 'ltr', region: 'primary', isActive: true },
+  // Tango Languages (Top 7 for tango community)
+  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', direction: 'ltr', region: 'tango', isActive: true },
+  { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', direction: 'ltr', region: 'tango', isActive: true },
+  { code: 'es-AR', name: 'Spanish (Argentina)', nativeName: 'Español (Argentina)', flag: '🇦🇷', direction: 'ltr', region: 'tango', isActive: true },
+  { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷', direction: 'ltr', region: 'tango', isActive: true },
+  { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: '🇮🇹', direction: 'ltr', region: 'tango', isActive: true },
+  { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', direction: 'ltr', region: 'tango', isActive: true },
+  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', direction: 'ltr', region: 'tango', isActive: true },
   
-  // Europe (36 languages)
-  { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷', direction: 'ltr', region: 'europe', isActive: true },
-  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', direction: 'ltr', region: 'europe', isActive: true },
-  { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: '🇮🇹', direction: 'ltr', region: 'europe', isActive: true },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', direction: 'ltr', region: 'europe', isActive: true },
+  // Europe (30 languages)
+
   { code: 'nl', name: 'Dutch', nativeName: 'Nederlands', flag: '🇳🇱', direction: 'ltr', region: 'europe', isActive: true },
   { code: 'pl', name: 'Polish', nativeName: 'Polski', flag: '🇵🇱', direction: 'ltr', region: 'europe', isActive: true },
   { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', region: 'europe', isActive: true },
@@ -56,9 +58,8 @@ export const allSupportedLanguages: LanguageMetadata[] = [
   { code: 'eu', name: 'Basque', nativeName: 'Euskara', flag: '🇪🇸', direction: 'ltr', region: 'europe', isActive: true },
   { code: 'sq', name: 'Albanian', nativeName: 'Shqip', flag: '🇦🇱', direction: 'ltr', region: 'europe', isActive: true },
   
-  // Americas (3 languages)
+  // Americas (1 language)
   { code: 'pt-BR', name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)', flag: '🇧🇷', direction: 'ltr', region: 'americas', isActive: true },
-  { code: 'es-AR', name: 'Spanish (Argentina)', nativeName: 'Español (Argentina)', flag: '🇦🇷', direction: 'ltr', region: 'americas', isActive: true },
   
   // Asia (21 languages)
   { code: 'zh', name: 'Chinese (Simplified)', nativeName: '简体中文', flag: '🇨🇳', direction: 'ltr', region: 'asia', isActive: true },
@@ -108,6 +109,11 @@ export const isRTL = (lang: string): boolean => {
 // Get languages by region
 export const getLanguagesByRegion = (region: LanguageMetadata['region']): LanguageMetadata[] => {
   return allSupportedLanguages.filter(lang => lang.region === region);
+};
+
+// Get tango languages (top languages for tango community)
+export const getTangoLanguages = (): LanguageMetadata[] => {
+  return allSupportedLanguages.filter(lang => lang.region === 'tango');
 };
 
 // Get primary languages
