@@ -83,7 +83,9 @@
     "bundle:stats": "tsx scripts/analyze-bundle.ts quick",
     "optimize": "tsx scripts/optimize.ts",
     "visual:test": "tsx scripts/visual-test.ts",
-    "visual:update": "tsx scripts/visual-test.ts update"
+    "visual:update": "tsx scripts/visual-test.ts update",
+    "journey:test": "tsx scripts/journey-test.ts",
+    "journey:critical": "tsx scripts/journey-test.ts --critical"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
