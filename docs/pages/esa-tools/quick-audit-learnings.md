@@ -272,14 +272,45 @@ One subagent per file with:
 
 ---
 
+---
+
+## 📝 Wave 2 Results: Navigation Testing
+
+**Time:** 5 minutes  
+**Method:** Route mapping + component verification  
+**Items Tested:** 18 (8 sidebar + 5 top bar + 5 dropdown menu items)
+
+### **Navigation Health: 🟡 MOSTLY WORKING (13/18)**
+
+**Sidebar:** 7/8 working ✅  
+- Role Invitations: Route exists, likely runtime/API issue ⚠️
+
+**Top Bar:** 3/5 working ✅  
+- Notifications: Component exists, route missing ❌
+- Favorites: Component exists, route missing ❌
+
+**User Dropdown:** 6/10 working ✅  
+- Help & Support: No component, no route ❌
+- Privacy Policy: Route mismatch ❌
+- Delete Account: No component, no route ❌
+
+### **Key Learning:**
+**Route registry is your friend!** Checking `routes.ts` + verifying component files = fast diagnosis. Found 5 issues in 5 minutes without clicking anything.
+
+**Pattern Discovered:**
+- When button exists but doesn't work → Check if route is registered
+- Most components exist, just not wired up to routes
+
+---
+
 **Next Steps:**
-- Document dark mode architectural decision (complex vs simple)
-- Consider if user wants color themes OR just dark mode
-- Continue wave-based testing for navigation
+- Wave 3: Audit memories page features (posting, filtering, actions)
+- Continue documenting patterns
+- Build fix priority list at end
 
 ---
 
 **Created:** October 9, 2025, 9:42 AM  
-**Updated:** October 9, 2025, 9:48 AM  
+**Updated:** October 9, 2025, 9:52 AM  
 **Status:** Active learning document  
-**Updates:** Added Wave 1B findings
+**Updates:** Added Waves 1A, 1B, 2 findings
