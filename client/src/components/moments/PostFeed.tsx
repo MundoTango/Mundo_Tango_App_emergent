@@ -3,6 +3,34 @@
  * Unified Post Feed Component - Consolidates all feed implementations
  * Layer 9: UI Framework Agent - Single responsibility, resilient architecture
  * Layer 2: API Structure Agent - Consistent data contracts
+ * 
+ * ⚠️ TECHNICAL DEBT NOTICE (Phase 1 Refactor Documentation)
+ * ==============================================================
+ * This component suffers from DUAL-MODE ARCHITECTURE anti-pattern:
+ * 
+ * MODE 1 (Controlled): Posts passed via props (posts={data})
+ * MODE 2 (Smart): Posts fetched via context (context={{ type: 'feed' }})
+ * 
+ * **Problem**: 2 modes = 2× complexity, 2× failure surfaces, 2× maintenance burden
+ * 
+ * **Architectural Issues**:
+ * 1. State Management: 20 hooks managing overlapping concerns
+ * 2. Data Flow: 5-layer transformation causes stale closures
+ * 3. HMR Bugs: Vite cache invalidation breaks React Query
+ * 4. Re-render Storms: Stateful wrappers trigger cascading updates
+ * 
+ * **Refactoring Plan** (see docs/pages/esa-architecture/brittleness-refactoring.md):
+ * - Phase 1 ✅: Stateless wrappers, simplified memos, this documentation
+ * - Phase 2: Create centralized data hooks (client/src/data/posts.ts)
+ * - Phase 3: Split into ControlledPostFeed + SmartPostFeed (single responsibility)
+ * - Phase 4: Re-enable StrictMode, HMR-safe query config
+ * 
+ * **For Future Developers**:
+ * ⚠️ DO NOT add more modes or conditional logic to this component
+ * ⚠️ DO NOT create stateful wrapper components around this
+ * ⚠️ READ the refactoring doc before making changes
+ * 
+ * Rollback: git checkout 196b6763553009f62d0121b66d8c12129295f179
  */
 
 import { useState, useCallback, useMemo, useRef, useEffect, memo } from 'react';
@@ -19,6 +47,13 @@ import EnhancedPostItem from './EnhancedPostItem';
 import ShareModal from '@/components/modern/ShareModal';
 import { useDebounce } from '@/lib/performance';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+/**
+ * DEBUG FLAG (Phase 1 Refactor - Track B)
+ * Set VITE_DEBUG_POSTFEED=true in .env to enable verbose logging
+ * Default: false (production-safe)
+ */
+const DEBUG_POSTFEED = import.meta.env.VITE_DEBUG_POSTFEED === 'true';
 
 // ESA Framework: Unified Post interface with proper friendship data
 interface Post {
@@ -86,6 +121,20 @@ type FeedContext =
   | { type: 'profile'; userId: number } // User profile feed
   | { type: 'event'; eventId: number; filter?: 'all' | 'participants' | 'guests' }; // Event feed
 
+/**
+ * PostFeedProps Interface
+ * 
+ * ⚠️ DUAL-MODE WARNING (Phase 1 Documentation):
+ * This component operates in TWO mutually exclusive modes:
+ * 
+ * MODE 1 (Controlled): Pass `posts` prop - Component renders provided data
+ * MODE 2 (Smart): Pass `context` prop - Component fetches its own data
+ * 
+ * **DO NOT** mix modes (posts + context) - behavior is undefined
+ * **DO NOT** add a third mode - split into separate components instead (Phase 3)
+ * 
+ * @see docs/pages/esa-architecture/brittleness-refactoring.md for refactoring plan
+ */
 interface PostFeedProps {
   // Legacy: Direct posts prop (for backward compatibility during migration)
   posts?: Post[];
