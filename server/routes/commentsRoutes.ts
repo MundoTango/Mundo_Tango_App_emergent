@@ -51,18 +51,17 @@ router.get('/api/comments', async (req: Request, res: Response) => {
   try {
     const { postId, limit = 50 } = req.query;
     
-    let query = db
+    const baseQuery = db
       .select()
       .from(postComments)
       .leftJoin(users, eq(postComments.userId, users.id))
       .orderBy(desc(postComments.createdAt))
       .limit(Number(limit));
     
-    if (postId) {
-      query = query.where(eq(postComments.postId, Number(postId)));
-    }
+    const comments = postId 
+      ? await baseQuery.where(eq(postComments.postId, Number(postId)))
+      : await baseQuery;
     
-    const comments = await query;
     res.json(comments || []);
   } catch (error) {
     console.error('Error fetching comments:', error);
@@ -77,20 +76,20 @@ router.post('/api/posts/:postId/comments', async (req: Request, res: Response) =
     const postId = parseInt(req.params.postId);
     const { content, parentId, mentions, gifUrl, imageUrl } = req.body;
     
-    const newComment = await db
+    const [newComment] = await db
       .insert(postComments)
       .values({
         postId,
         userId,
         content,
-        parentId,
+        ...(parentId && { parentId }),
         mentions: mentions || [],
-        gifUrl,
-        imageUrl
+        ...(gifUrl && { gifUrl }),
+        ...(imageUrl && { imageUrl })
       })
       .returning();
     
-    res.json(newComment[0]);
+    res.json(newComment);
   } catch (error) {
     console.error('Error creating comment:', error);
     res.status(500).json({ error: 'Failed to create comment' });
@@ -114,7 +113,7 @@ router.put('/api/comments/:id', async (req: Request, res: Response) => {
       .where(
         and(
           eq(postComments.id, commentId),
-          eq(postComments.userId, userId)
+          eq(postComments.userId, Number(userId))
         )
       )
       .returning();
@@ -137,7 +136,7 @@ router.delete('/api/comments/:id', async (req: Request, res: Response) => {
       .where(
         and(
           eq(postComments.id, commentId),
-          eq(postComments.userId, userId)
+          eq(postComments.userId, Number(userId))
         )
       );
     
