@@ -707,6 +707,26 @@
         "communities": "Comunità",
         "yourCity": "La Tua Città",
         "globalStatistics": "Statistiche Globali"
+      },
+      "memories": {
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Workshop",
+          "festival": "Festival",
+          "travel": "Viaggio",
+          "music": "Musica",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Economico",
+          "moderate": "Moderato",
+          "luxury": "Lusso"
+        },
+        "actions": {
+          "failedToUpdateLike": "Impossibile aggiornare il mi piace"
+        }
       }
     }
   },
@@ -1470,7 +1490,25 @@
       },
       "memories": {
         "createMemory": "Crear Recuerdo",
-        "shareMemory": "Comparte tu momento de tango..."
+        "shareMemory": "Comparte tu momento de tango...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Taller",
+          "festival": "Festival",
+          "travel": "Viaje",
+          "music": "Música",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Económico",
+          "moderate": "Moderado",
+          "luxury": "Lujoso"
+        },
+        "actions": {
+          "failedToUpdateLike": "Error al actualizar me gusta"
+        }
       },
       "events": {
         "upcomingEvents": "Próximos Eventos"
@@ -1497,6 +1535,65 @@
       "errors": {}
     }
   },
+  "es-AR": {
+    "translation": {
+      "navigation": {
+        "memories": "Recuerdos",
+        "tangoCommunity": "Comunidad Tanguera",
+        "friends": "Amigos",
+        "messages": "Mensajes",
+        "groups": "Grupos",
+        "events": "Eventos",
+        "roleInvitations": "Invitaciones de Rol"
+      },
+      "common": {
+        "welcome": "Bienvenido",
+        "loading": "Cargando...",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "search": "Buscar",
+        "profile": "Perfil",
+        "settings": "Configuración",
+        "logout": "Salir",
+        "onlineNow": "En línea ahora"
+      },
+      "memories": {
+        "createMemory": "Crear Recuerdo",
+        "shareMemory": "Compartí tu momento tanguero...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Taller",
+          "festival": "Festival",
+          "travel": "Viaje",
+          "music": "Música",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Económico",
+          "moderate": "Moderado",
+          "luxury": "Premium"
+        },
+        "actions": {
+          "failedToUpdateLike": "No se pudo actualizar el me gusta"
+        }
+      },
+      "events": {
+        "upcomingEvents": "Próximos Eventos"
+      },
+      "community": {
+        "globalDancers": "Bailarines Globales",
+        "activeEvents": "Eventos Activos",
+        "communities": "Comunidades",
+        "yourCity": "Tu Ciudad",
+        "globalStatistics": "Estadísticas Globales"
+      },
+      "settings": {
+        "chooseLanguage": "Elegí el Idioma"
+      }
+    }
+  },
   "pt": {
     "translation": {
       "navigation": {
@@ -1521,7 +1618,25 @@
       },
       "memories": {
         "createMemory": "Criar Memória",
-        "shareMemory": "Compartilhe seu momento de tango..."
+        "shareMemory": "Compartilhe seu momento de tango...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Workshop",
+          "festival": "Festival",
+          "travel": "Viagem",
+          "music": "Música",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Econômico",
+          "moderate": "Moderado",
+          "luxury": "Luxo"
+        },
+        "actions": {
+          "failedToUpdateLike": "Falha ao atualizar curtida"
+        }
       },
       "events": {
         "upcomingEvents": "Próximos Eventos"
@@ -1572,7 +1687,25 @@
       },
       "memories": {
         "createMemory": "Erinnerung erstellen",
-        "shareMemory": "Teile deinen Tango-Moment..."
+        "shareMemory": "Teile deinen Tango-Moment...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Workshop",
+          "festival": "Festival",
+          "travel": "Reise",
+          "music": "Musik",
+          "fashion": "Mode"
+        },
+        "price": {
+          "budget": "Günstig",
+          "moderate": "Mittel",
+          "luxury": "Luxus"
+        },
+        "actions": {
+          "failedToUpdateLike": "Gefällt mir konnte nicht aktualisiert werden"
+        }
       },
       "events": {
         "upcomingEvents": "Bevorstehende Veranstaltungen"
