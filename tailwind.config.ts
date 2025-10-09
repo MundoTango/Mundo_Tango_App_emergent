@@ -8,6 +8,23 @@ export default {
     "./client/src/**/*.{js,jsx,ts,tsx}",
     "./client/index.html"
   ],
+  safelist: [
+    // Aurora Tide Glass Depth System - prevent JIT purge of dynamic classes
+    'glass-card',
+    'glass-depth-1',
+    'glass-depth-2', 
+    'glass-depth-3',
+    'glass-depth-4',
+    // Ocean palette hover states
+    'hover:bg-ocean-cyan-50',
+    'hover:bg-ocean-seafoam-50',
+    'hover:text-ocean-cyan-600',
+    'hover:text-ocean-seafoam-600',
+    'dark:hover:bg-ocean-cyan-900/20',
+    'dark:hover:bg-ocean-seafoam-900/20',
+    'dark:hover:text-ocean-cyan-400',
+    'dark:hover:text-ocean-seafoam-400',
+  ],
   theme: {
     extend: {
       fontFamily: {
