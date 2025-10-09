@@ -14,7 +14,8 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow, differenceInDays } from 'date-fns';
 import { Link } from 'wouter';
-import { MTCard, MTButton, MTBadge } from '@/components/ui-library';
+import { MTButton, MTBadge } from '@/components/ui-library';
+import { GlassCard } from '@/components/glass/GlassComponents';
 
 import { renderWithMentions } from '@/utils/renderWithMentions';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
@@ -434,13 +435,10 @@ function EnhancedPostItem({
     : '';
 
   return (
-    <MTCard 
-      variant="glass"
-      hover={true}
-      glow={true}
-      rounded="3xl"
-      padding="none"
-      className={`glassmorphic glassmorphic-hover overflow-hidden mb-4 group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50 ${consentGlowClass}`}
+    <GlassCard 
+      depth={2}
+      animated={true}
+      className={`overflow-hidden mb-4 group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-ocean-cyan-500/20 ${consentGlowClass}`}
       style={{ opacity: postAge }}
     >
       {/* ESA Framework: Floating engagement indicator from MT Ocean theme */}
@@ -1008,7 +1006,7 @@ function EnhancedPostItem({
       </div>
 
       {/* ESA Layer 7 & 23: Edit handled by parent component's unified composer */}
-    </MTCard>
+    </GlassCard>
   );
 }
 
