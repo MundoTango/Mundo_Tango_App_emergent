@@ -165,12 +165,45 @@ export default function ControlledPostFeed({
       {/* Posts List */}
       <div className="space-y-4">
         {isLoading ? (
-          <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="glass-card glass-depth-2 rounded-xl p-6 animate-pulse">
+                {/* Header skeleton */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-cyan-200 to-ocean-seafoam-200 dark:from-ocean-cyan-800 dark:to-ocean-seafoam-800" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-5 w-32 bg-gradient-to-r from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900 dark:to-ocean-seafoam-900 rounded" />
+                    <div className="h-4 w-24 bg-gradient-to-r from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900 dark:to-ocean-seafoam-900 rounded" />
+                  </div>
+                </div>
+                {/* Content skeleton */}
+                <div className="space-y-3 mb-4">
+                  <div className="h-4 w-full bg-gradient-to-r from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900 dark:to-ocean-seafoam-900 rounded" />
+                  <div className="h-4 w-5/6 bg-gradient-to-r from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900 dark:to-ocean-seafoam-900 rounded" />
+                </div>
+                {/* Actions skeleton */}
+                <div className="flex gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                  <div className="h-8 w-20 bg-gradient-to-r from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900 dark:to-ocean-seafoam-900 rounded-lg" />
+                  <div className="h-8 w-20 bg-gradient-to-r from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900 dark:to-ocean-seafoam-900 rounded-lg" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : posts.length === 0 ? (
-          <div className="text-center py-12" data-testid="empty-state">
-            <p className="text-gray-500">
+          <div className="text-center py-16" data-testid="empty-state">
+            <div className="mb-6">
+              <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-ocean-cyan-100 to-ocean-seafoam-100 dark:from-ocean-cyan-900/30 dark:to-ocean-seafoam-900/30 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-ocean-cyan-200 to-ocean-seafoam-200 dark:from-ocean-cyan-800/50 dark:to-ocean-seafoam-800/50 flex items-center justify-center">
+                  <svg className="w-10 h-10 text-ocean-cyan-600 dark:text-ocean-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              {t('memories.feed.emptyTitle')}
+            </h3>
+            <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
               {emptyMessage || t('memories.feed.noPosts')}
             </p>
           </div>
