@@ -92,7 +92,10 @@
     "lighthouse:page": "tsx scripts/lighthouse-audit.ts single",
     "bundle:capture": "tsx scripts/bundle-track.ts capture",
     "bundle:compare": "tsx scripts/bundle-track.ts compare",
-    "perf:dashboard": "tsx scripts/performance-dashboard.ts"
+    "perf:dashboard": "tsx scripts/performance-dashboard.ts",
+    "audit:scheduled": "tsx scripts/scheduled-audit.ts",
+    "audit:daily": "tsx scripts/scheduled-audit.ts daily",
+    "audit:weekly": "tsx scripts/scheduled-audit.ts weekly"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",

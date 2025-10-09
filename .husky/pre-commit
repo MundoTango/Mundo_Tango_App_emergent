@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "🔍 Running token validation..."
+echo "🔍 Running pre-commit quality checks..."
+
+# Token validation
+echo "→ Validating design tokens..."
 node design-system/scripts/validate-tokens.js
 
 if [ $? -ne 0 ]; then
@@ -9,4 +12,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "✅ Token validation passed!"
+# Bundle size check (quick)
+echo "→ Checking bundle size..."
+npm run bundle:stats --silent 2>/dev/null || true
+
+# Security scan (quick - latest only)
+echo "→ Running security scan..."
+npm run security:latest --silent 2>/dev/null || true
+
+echo "✅ Pre-commit checks complete!"
