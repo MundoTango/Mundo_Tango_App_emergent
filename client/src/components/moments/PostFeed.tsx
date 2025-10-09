@@ -18,6 +18,7 @@ import { apiRequest } from '@/lib/queryClient';
 import EnhancedPostItem from './EnhancedPostItem';
 import ShareModal from '@/components/modern/ShareModal';
 import { useDebounce } from '@/lib/performance';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 // ESA Framework: Unified Post interface with proper friendship data
 interface Post {
@@ -128,6 +129,16 @@ const PostFeed = memo(({
   
   // ESA Layer 9: Track initial mount to prevent premature filter resets
   const isInitialMount = useRef(true);
+  
+  // Aurora Tide: Scroll reveal animation for feed items
+  const scrollContainerRef = useScrollReveal('.post-item', {
+    opacity: 0,
+    y: 30
+  }, {
+    stagger: 0.15,
+    start: 'top 85%',
+    once: true
+  });
   
   
   // Internal pagination state (used in smart mode)
@@ -732,7 +743,7 @@ const PostFeed = memo(({
       )}
 
       {/* Posts List */}
-      <div className="relative space-y-6">
+      <div ref={scrollContainerRef} className="relative space-y-6" role="feed" aria-label={t('memories.feed.ariaLabel') || 'Memories feed'}>
         {/* Loading Overlay during filter transitions */}
         {isFetching && filteredPosts.length > 0 && (
           <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl">
@@ -744,14 +755,15 @@ const PostFeed = memo(({
         )}
 
         {filteredPosts.map((post: Post) => (
-          <EnhancedPostItem
-            key={post.id}
-            post={post}
-            currentUserId={user?.id?.toString()} // ESA Framework Layer 4: Pass authenticated user ID
-            onLike={handleLike}
-            onShare={handleShare}
-            onEdit={onEdit}
-          />
+          <div key={post.id} className="post-item">
+            <EnhancedPostItem
+              post={post}
+              currentUserId={user?.id?.toString()} // ESA Framework Layer 4: Pass authenticated user ID
+              onLike={handleLike}
+              onShare={handleShare}
+              onEdit={onEdit}
+            />
+          </div>
         ))}
       </div>
 
