@@ -7,9 +7,11 @@
     "error": "Fehler",
     "success": "Erfolg",
     "warning": "Warnung",
-    "info": "Information"
+    "info": "Information",
+    "tryAgainLater": "Bitte später erneut versuchen."
   },
   "navigation": {
+    "menu": "Menü",
     "home": "Startseite",
     "feed": "Feed",
     "profile": "Profil",
@@ -122,7 +124,8 @@
     "hoursAgo": "vor {{count}} Stunde",
     "hoursAgo_plural": "vor {{count}} Stunden",
     "daysAgo": "vor {{count}} Tag",
-    "daysAgo_plural": "vor {{count}} Tagen"
+    "daysAgo_plural": "vor {{count}} Tagen",
+    "recently": "vor Kurzem"
   },
   "validation": {
     "required": "Dieses Feld ist erforderlich",
@@ -271,6 +274,7 @@
       "tag": "Tag",
       "tags": "Tags",
       "all": "Alle",
+      "ariaLabel": "Erinnerungsfeed mit Beiträgen aus Ihrer Community",
       "noMemories": "Noch Keine Erinnerungen",
       "noResidents": "Noch keine Beiträge von Bewohnern in Ihrer Stadt. Schauen Sie später vorbei!",
       "noVisitors": "Keine Beiträge von Besuchern gefunden. Schauen Sie vorbei, wenn Reisende Ihre Stadt besuchen!",
@@ -282,7 +286,6 @@
       "seeFriendship": "Freundschaft ansehen",
       "viewFriendshipWith": "Freundschaftsdetails mit {{name}} ansehen",
       "anonymous": "Anonym",
-      "recently": "vor Kurzem",
       "commentPlaceholder": "Schreiben Sie einen durchdachten Kommentar...",
       "commentButton": "Kommentar",
       "commentDefault": "Schreiben Sie einen Kommentar...",
@@ -306,14 +309,21 @@
       "pleaseTryAgain": "Bitte versuchen Sie es erneut"
     },
     "categories": {
-      "milonga": "Milonga",
-      "practica": "Práctica",
-      "performance": "Performance",
-      "workshop": "Workshop",
-      "festival": "Festival",
       "travel": "Reise",
+      "food": "Essen",
+      "culture": "Kultur",
+      "adventure": "Abenteuer",
+      "nightlife": "Nachtleben",
+      "nature": "Natur",
+      "art": "Kunst",
       "music": "Musik",
-      "fashion": "Mode"
+      "sports": "Sport",
+      "photography": "Fotografie",
+      "family": "Familie",
+      "friends": "Freunde",
+      "work": "Arbeit",
+      "milestone": "Meilenstein",
+      "celebration": "Feier"
     },
     "price": {
       "budget": "Günstig",
@@ -363,6 +373,7 @@
     "noFollowedEvents": "Keine Veranstaltungen von Gruppen, denen Sie folgen",
     "noFollowedCitiesEvents": "Keine Veranstaltungen in Städten, denen Sie folgen",
     "viewAllEvents": "Alle Veranstaltungen anzeigen",
+    "attending": "teilnehmend",
     "attendeeCount": "{{count}} teilnehmend",
     "attendeeCount_plural": "{{count}} teilnehmend",
     "dateTBA": "Datum wird bekannt gegeben",
@@ -375,7 +386,61 @@
       "youreGoing": "Sie Nehmen Teil",
       "interested": "Interessiert",
       "maybe": "Vielleicht"
-    }
+    },
+    "errorLoading": "Veranstaltungen konnten nicht geladen werden",
+    "pastEvents": "Vergangene Veranstaltungen",
+    "noEvents": "Noch keine Veranstaltungen",
+    "noEventsOwn": "Beginnen Sie, Tango-Veranstaltungen zu organisieren oder daran teilzunehmen, um sie hier zu sehen.",
+    "noEventsOther": "Keine Veranstaltungen anzuzeigen."
+  },
+  "reactions": {
+    "like": "Gefällt mir",
+    "love": "Liebe",
+    "haha": "Haha",
+    "wow": "Wow",
+    "sad": "Traurig",
+    "angry": "Wütend",
+    "fire": "Feuer",
+    "heartEyes": "Herzaugen",
+    "thinking": "Nachdenklich",
+    "party": "Party",
+    "clap": "Klatschen",
+    "mindBlown": "Verblüfft",
+    "reactions": "Reaktionen",
+    "reaction": "Reaktion"
+  },
+  "postCreator": {
+    "hiddenGems": "Versteckte Schätze entdecken",
+    "hiddenGemsDesc": "Teilen Sie Ihre Schatzkarte mit der Community",
+    "addTags": "#Tags zu Ihrer Erinnerung hinzufügen",
+    "uploadMediaTitle": "Mediendateien hochladen",
+    "uploadMediaDesc": "unterstützt Bilder und Videos - max 30 Dateien - bis zu 500 MB jeweils",
+    "aiEnhance": "KI-Verbesserung",
+    "aiEnhancing": "Wird verbessert...",
+    "aiEnhanceDesc": "Machen Sie Ihren Beitrag ansprechender",
+    "visibilityTitle": "Wer kann dies sehen?",
+    "visibilityDesc": "Sichtbarkeitsstufe wählen",
+    "sharing": "Teilen...",
+    "saveChanges": "Änderungen speichern",
+    "shareMemory": "Erinnerung teilen",
+    "writeFirst": "Schreiben Sie zuerst etwas",
+    "shareWithCommunity": "Mit der Community teilen",
+    "public": "Öffentlich",
+    "everyone": "Jeder",
+    "friends": "Freunde",
+    "friendsOnly": "Nur Freunde",
+    "private": "Privat",
+    "onlyMe": "Nur ich",
+    "aiUnavailable": "KI-Verbesserung nicht verfügbar",
+    "aiEnhanceFailed": "Inhaltsverbesserung fehlgeschlagen",
+    "aiEnhanced": "Verbesserter Inhalt angewendet!",
+    "emptyPost": "Bitte Inhalt hinzufügen",
+    "emptyPostDesc": "Ihr Beitrag kann nicht leer sein.",
+    "uploadInProgress": "Upload läuft",
+    "uploadInProgressDesc": "Bitte warten Sie, bis der Upload abgeschlossen ist",
+    "memoryCreated": "Erinnerung erstellt! 🎉",
+    "memoryCreatedDesc": "Ihr Moment wurde geteilt",
+    "formatWarning": "Einige Formate konnten nicht konvertiert werden, Originale werden verwendet"
   },
   "search": {
     "searching": "Suchen...",
@@ -386,9 +451,12 @@
     "noResults": "Keine Ergebnisse gefunden"
   },
   "community": {
+    "globalStatistics": "Weltweite Statistiken",
     "globalDancers": "Weltweite Tänzer",
     "activeEvents": "Aktive Veranstaltungen",
     "totalGroups": "Tango-Gruppen",
+    "communities": "Gemeinschaften",
+    "yourCity": "Ihre Stadt",
     "globalCommunity": "Weltweite Tango-Gemeinschaft"
   },
   "housing": {

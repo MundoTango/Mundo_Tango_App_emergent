@@ -7,8 +7,7 @@
     "error": "Erro",
     "success": "Sucesso",
     "warning": "Aviso",
-    "info": "Informação",
-    "tryAgainLater": "Por favor, tente novamente mais tarde."
+    "info": "Informação"
   },
   "navigation": {
     "home": "Início",
@@ -28,8 +27,7 @@
     "notifications": "Notificações",
     "help": "Ajuda",
     "roleInvitations": "Convites de Função",
-    "recommendations": "Recomendações",
-    "menu": "Menu"
+    "recommendations": "Recomendações"
   },
   "actions": {
     "save": "Salvar",
@@ -124,8 +122,7 @@
     "hoursAgo": "há {{count}} hora",
     "hoursAgo_plural": "há {{count}} horas",
     "daysAgo": "há {{count}} dia",
-    "daysAgo_plural": "há {{count}} dias",
-    "recently": "recentemente"
+    "daysAgo_plural": "há {{count}} dias"
   },
   "validation": {
     "required": "Este campo é obrigatório",
@@ -279,13 +276,13 @@
       "noVisitors": "Nenhuma postagem de visitantes encontrada. Volte quando viajantes visitarem sua cidade!",
       "noFriends": "Ainda não há postagens de seus amigos. Conecte-se com mais dançarinos para ver suas postagens aqui!",
       "noTaggedPosts": "Nenhuma postagem encontrada com as tags: {{tags}}",
-      "noSearchResults": "Nenhuma memória encontrada correspondente a \"{{query}}\". Tente palavras-chave diferentes.",
-      "ariaLabel": "Feed de memórias com publicações da sua comunidade"
+      "noSearchResults": "Nenhuma memória encontrada correspondente a \"{{query}}\". Tente palavras-chave diferentes."
     },
     "post": {
       "seeFriendship": "Ver Amizade",
       "viewFriendshipWith": "Ver detalhes da amizade com {{name}}",
       "anonymous": "Anônimo",
+      "recently": "recentemente",
       "commentPlaceholder": "Escreva um comentário reflexivo...",
       "commentButton": "Comentar",
       "commentDefault": "Escreva um comentário...",
@@ -309,21 +306,14 @@
       "pleaseTryAgain": "Por favor, tente novamente"
     },
     "categories": {
+      "milonga": "Milonga",
+      "practica": "Práctica",
+      "performance": "Performance",
+      "workshop": "Workshop",
+      "festival": "Festival",
       "travel": "Viagem",
-      "food": "Comida",
-      "culture": "Cultura",
-      "adventure": "Aventura",
-      "nightlife": "Vida noturna",
-      "nature": "Natureza",
-      "art": "Arte",
       "music": "Música",
-      "sports": "Esportes",
-      "photography": "Fotografia",
-      "family": "Família",
-      "friends": "Amigos",
-      "work": "Trabalho",
-      "milestone": "Marco",
-      "celebration": "Celebração"
+      "fashion": "Moda"
     },
     "price": {
       "budget": "Econômico",
@@ -385,13 +375,7 @@
       "youreGoing": "Você Vai",
       "interested": "Interessado",
       "maybe": "Talvez"
-    },
-    "attending": "participando",
-    "errorLoading": "Não foi possível carregar os eventos",
-    "pastEvents": "Eventos Passados",
-    "noEvents": "Nenhum evento ainda",
-    "noEventsOwn": "Comece a organizar ou participar de eventos de tango para vê-los aqui.",
-    "noEventsOther": "Nenhum evento para exibir."
+    }
   },
   "search": {
     "searching": "Procurando...",
@@ -405,10 +389,7 @@
     "globalDancers": "Dançarinos Globais",
     "activeEvents": "Eventos Ativos",
     "totalGroups": "Grupos de Tango",
-    "globalCommunity": "Comunidade Global de Tango",
-    "globalStatistics": "Estatísticas Globais",
-    "communities": "Comunidades",
-    "yourCity": "Sua Cidade"
+    "globalCommunity": "Comunidade Global de Tango"
   },
   "housing": {
     "reviews": {
@@ -471,54 +452,5 @@
       "review_dialog_title": "Avaliar Seu Hóspede",
       "review_dialog_desc": "Compartilhe sua experiência hospedando este hóspede e ajude outros anfitriões a tomarem decisões informadas."
     }
-  },
-  "reactions": {
-    "like": "Curtir",
-    "love": "Amar",
-    "haha": "Haha",
-    "wow": "Uau",
-    "sad": "Triste",
-    "angry": "Irritado",
-    "fire": "Fogo",
-    "heartEyes": "Olhos de coração",
-    "thinking": "Pensando",
-    "party": "Festa",
-    "clap": "Aplaudir",
-    "mindBlown": "Mente explodida",
-    "reactions": "reações",
-    "reaction": "reação"
-  },
-  "postCreator": {
-    "hiddenGems": "Descobrir Joias Escondidas",
-    "hiddenGemsDesc": "Compartilhe seu mapa do tesouro com a comunidade",
-    "addTags": "#adicionar tags à sua memória",
-    "uploadMediaTitle": "Carregar Arquivos de Mídia",
-    "uploadMediaDesc": "suporta imagens e vídeos - máx 30 arquivos - até 500 MB cada",
-    "aiEnhance": "Aprimoramento com IA",
-    "aiEnhancing": "Aprimorando...",
-    "aiEnhanceDesc": "Torne sua publicação mais envolvente",
-    "visibilityTitle": "Quem pode ver isso?",
-    "visibilityDesc": "Escolher nível de visibilidade",
-    "sharing": "Compartilhando...",
-    "saveChanges": "Salvar alterações",
-    "shareMemory": "Compartilhar memória",
-    "writeFirst": "Escreva algo primeiro",
-    "shareWithCommunity": "Compartilhar com a comunidade",
-    "public": "Público",
-    "everyone": "Todos",
-    "friends": "Amigos",
-    "friendsOnly": "Apenas amigos",
-    "private": "Privado",
-    "onlyMe": "Apenas eu",
-    "aiUnavailable": "Aprimoramento com IA indisponível",
-    "aiEnhanceFailed": "Falha ao aprimorar o conteúdo",
-    "aiEnhanced": "Conteúdo aprimorado aplicado!",
-    "emptyPost": "Por favor, adicione conteúdo",
-    "emptyPostDesc": "Sua publicação não pode estar vazia.",
-    "uploadInProgress": "Upload em andamento",
-    "uploadInProgressDesc": "Por favor, aguarde a conclusão do upload",
-    "memoryCreated": "Memória criada! 🎉",
-    "memoryCreatedDesc": "Seu momento foi compartilhado",
-    "formatWarning": "Alguns formatos não puderam ser convertidos, usando originais"
   }
 }

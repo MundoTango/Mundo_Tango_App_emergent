@@ -164,7 +164,7 @@ function ESAMemoryFeedCore() {
   return (
     <>
       <DashboardLayout>
-        <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="memories-container">
           {/* Page Header - Feed Only */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between mb-4">
@@ -197,7 +197,7 @@ function ESAMemoryFeedCore() {
                   {/* Post Creator - Always visible per ESA Framework */}
                   {!showCreateModal && (
                     <FadeIn delay={0.1}>
-                      <GlassCard depth={2} className="overflow-hidden" role="region" aria-label="Create new memory">
+                      <GlassCard depth={2} className="overflow-hidden" role="region" aria-label="Create new memory" data-testid="input-memory-content">
                         <PostCreator 
                       user={{
                         id: parseInt(currentUserId) || 1,
@@ -318,6 +318,7 @@ function ESAMemoryFeedCore() {
                     role="feed"
                     aria-label="Memory posts feed"
                     aria-live="polite"
+                    data-testid="feed-posts"
                   >
                     <SmartPostFeed 
                       context={feedContext}
@@ -358,6 +359,7 @@ function ESAMemoryFeedCore() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
           theme={currentTheme.id}
+          data-testid="button-create-post"
         />
       </Suspense>
 

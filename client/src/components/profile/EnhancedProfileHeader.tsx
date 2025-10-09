@@ -353,6 +353,7 @@ export default function EnhancedProfileHeader({
                   <Button 
                     onClick={onEditProfile}
                     className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
+                    data-testid="button-edit-profile"
                   >
                     <Edit className="mr-2 h-4 w-4" />
                     Edit Profile

@@ -252,7 +252,7 @@ export default function HousingMarketplace() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-6" data-testid="housing-listings">
         {/* Header */}
         <FadeIn>
           <div className="mb-8">
@@ -520,8 +520,11 @@ export default function HousingMarketplace() {
             )}
           </div>
 
-          {/* Results Count */}
-          <div className="mb-4">
+          {/* Results Section */}
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              {t('housing.marketplace.available_listings', 'Available Listings')}
+            </h2>
             <p className="text-gray-600" data-testid="text-results-count">
               {isLoading ? t('housing.marketplace.loading', 'Loading...') : t('housing.marketplace.showing_results', 'Showing {{count}} of {{total}} listings', { count: filteredListings.length, total: listings.length })}
               {!isLoading && activeFilterCount > 0 && ` ${t('housing.marketplace.with_filters', 'with {{count}} filter applied', { count: activeFilterCount })}`}
@@ -573,12 +576,13 @@ export default function HousingMarketplace() {
                           <video 
                             src={thumbnailUrl} 
                             className="w-full h-full object-cover"
+                            aria-label={`Video preview of ${listing.title} - ${listing.roomType.replace('_', ' ')} in ${listing.city}`}
                             data-testid={`video-thumbnail-${listing.id}`}
                           />
                         ) : (
                           <img 
                             src={thumbnailUrl} 
-                            alt={listing.title}
+                            alt={`${listing.title} - ${listing.roomType.replace('_', ' ')} in ${listing.city}`}
                             className="w-full h-full object-cover"
                             data-testid={`img-thumbnail-${listing.id}`}
                           />
@@ -658,8 +662,9 @@ export default function HousingMarketplace() {
                         {listing.host.profileImage ? (
                           <img 
                             src={listing.host.profileImage} 
-                            alt={listing.host.name}
+                            alt={`${listing.host.name}'s profile photo`}
                             className="w-8 h-8 rounded-full object-cover ring-2 ring-cyan-500/20"
+                            data-testid={`img-host-profile-${listing.id}`}
                           />
                         ) : (
                           <div className="w-8 h-8 aurora-gradient rounded-full flex items-center justify-center text-white text-sm font-bold">
@@ -698,15 +703,21 @@ export default function HousingMarketplace() {
 
         {/* View Details Modal */}
         {selectedListing && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div 
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+          >
             <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900">{selectedListing.title}</h2>
+                  <h2 id="modal-title" className="text-2xl font-bold text-gray-900">{selectedListing.title}</h2>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setSelectedListing(null)}
+                    aria-label="Close details modal"
                   >
                     ✕
                   </Button>

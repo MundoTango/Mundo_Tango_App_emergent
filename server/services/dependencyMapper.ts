@@ -51,11 +51,17 @@ class DependencyMapperService {
     ],
     'UI Components': [
       '@radix-ui/react-', '@mui/', 'lucide-react', 'react-icons',
-      'framer-motion', 'gsap', '@gsap/react', 'motion'
+      'framer-motion', 'gsap', '@gsap/react', 'motion', 'cmdk',
+      'react-confetti', 'react-sticky', 'react-tooltip', 'react-spring',
+      'embla-carousel-react', 'emoji-picker-react', 'mui-chips-input',
+      'react-countdown', 'react-avatar-group', 'input-otp', 'vaul',
+      'next-themes', 'react-resizable-panels', 'react-loading-skeleton',
+      'react-day-picker'
     ],
     'Styling': [
-      'tailwindcss', '@tailwindcss/', 'tailwind-', 'class-variance-authority',
-      'clsx', 'tailwind-merge'
+      'tailwindcss', '@tailwindcss/typography', '@tailwindcss/vite',
+      'tailwind-merge', 'tw-animate-css', 'tailwindcss-animate', 'css',
+      '@emotion/react', '@emotion/styled', 'class-variance-authority', 'clsx'
     ],
     
     // State & Data Management
@@ -74,7 +80,8 @@ class DependencyMapperService {
     ],
     'Authentication': [
       'passport', 'passport-local', 'passport-google-oauth20', 'passport-github2',
-      'jsonwebtoken', 'bcrypt', 'bcryptjs', 'speakeasy', '@casl/ability', '@casl/react'
+      'jsonwebtoken', 'bcrypt', 'bcryptjs', 'speakeasy', '@casl/ability', '@casl/react',
+      'openid-client'
     ],
     
     // Database & ORM
@@ -95,13 +102,15 @@ class DependencyMapperService {
     
     // AI & Machine Learning
     'AI/ML': [
-      'openai', '@langchain/', 'langfuse', 'langfuse-node', 'llamaindex',
-      '@opentelemetry/', '@arizeai/'
+      'openai', '@langchain/core', '@langchain/langgraph', '@langchain/openai',
+      'langfuse', 'langfuse-node', 'llamaindex',
+      '@opentelemetry/api', '@opentelemetry/auto-instrumentations-node', '@opentelemetry/sdk-node',
+      '@arizeai/openinference-instrumentation-openai', '@arizeai/openinference-semantic-conventions'
     ],
     
     // Search & Analytics
     'Search': [
-      '@elastic/elasticsearch', 'fuse.js'
+      '@elastic/elasticsearch', '@elastic/elasticsearch-mock', 'fuse.js'
     ],
     
     // File Upload & Media
@@ -112,13 +121,13 @@ class DependencyMapperService {
     
     // Payment Processing
     'Payments': [
-      'stripe', '@stripe/'
+      'stripe', '@stripe/react-stripe-js', '@stripe/stripe-js'
     ],
     
     // Email & Notifications
     'Communications': [
-      'nodemailer', 'resend', '@sendgrid/mail', '@react-email/',
-      '@novu/node', '@novu/react', 'mjml'
+      'nodemailer', 'resend', '@sendgrid/mail', '@react-email/components',
+      '@novu/node', '@novu/react', 'mjml', 'react-email'
     ],
     
     // Internationalization
@@ -129,24 +138,27 @@ class DependencyMapperService {
     
     // Testing & Quality
     'Testing': [
-      'jest', '@testing-library/', 'vitest', 'supertest', '@playwright/test',
-      'playwright', '@axe-core/playwright', 'axe-playwright', 'cypress',
-      'backstopjs', '@percy/', 'pa11y', 'lighthouse', '@lhci/cli'
+      'jest', '@testing-library/jest-dom', '@testing-library/react', '@testing-library/user-event',
+      'vitest', 'supertest', '@playwright/test', 'playwright', '@axe-core/playwright',
+      'axe-playwright', 'cypress', 'backstopjs', '@percy/playwright', '@percy/sdk-utils',
+      'pa11y', 'lighthouse', '@lhci/cli', 'ts-jest'
     ],
     'Code Quality': [
-      'typescript', 'eslint', '@typescript-eslint/', 'snyk'
+      'typescript', 'eslint', 'eslint-plugin-react', 'eslint-plugin-react-hooks',
+      '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser', 'snyk'
     ],
     
     // Monitoring & Observability
     'Monitoring': [
-      '@sentry/', 'pino', 'pino-pretty', 'prom-client', '@openreplay/tracker',
+      '@sentry/node', '@sentry/profiling-node', '@sentry/react', '@sentry/tracing',
+      'pino', 'pino-pretty', 'prom-client', '@openreplay/tracker',
       'posthog-js', 'web-vitals'
     ],
     
     // Maps & Location
     'Maps/Location': [
-      'leaflet', 'react-leaflet', '@googlemaps/', '@react-google-maps/',
-      'google-auth-library'
+      'leaflet', 'react-leaflet', '@googlemaps/google-maps-services-js',
+      '@googlemaps/js-api-loader', '@react-google-maps/api', 'google-auth-library'
     ],
     
     // Data Visualization
@@ -156,9 +168,11 @@ class DependencyMapperService {
     
     // Utilities
     'Utilities': [
-      'lodash', 'moment', 'date-fns', 'uuid', 'validator', 'nanoid',
+      'lodash', 'date-fns', 'uuid', 'validator', 'nanoid',
       'axios', 'node-fetch', 'dompurify', 'isomorphic-dompurify',
-      'xss', 'archiver', 'bytes', 'lru-cache', 'memoizee'
+      'xss', 'archiver', 'bytes', 'lru-cache', 'memoizee', 'util',
+      'chokidar', 'busboy', 'node-cache', 'memorystore', 'country-state-city',
+      'rrule', 'rss-parser', 'prop-types'
     ],
     
     // PDF & Documents
@@ -168,7 +182,11 @@ class DependencyMapperService {
     
     // Mobile & PWA
     'Mobile/PWA': [
-      '@capacitor/', 'workbox-'
+      '@capacitor/android', '@capacitor/app', '@capacitor/browser', '@capacitor/camera',
+      '@capacitor/cli', '@capacitor/core', '@capacitor/device', '@capacitor/filesystem',
+      '@capacitor/geolocation', '@capacitor/ios', '@capacitor/network', '@capacitor/preferences',
+      '@capacitor/push-notifications', '@capacitor/share', '@capacitor/splash-screen',
+      '@capacitor/status-bar', 'workbox-'
     ],
     
     // Build Tools
@@ -178,7 +196,73 @@ class DependencyMapperService {
     
     // Development
     'Development': [
-      '@types/', '@ladle/react', 'style-dictionary', 'db-migrate'
+      '@types/bcrypt', '@types/busboy', '@types/bytes', '@types/chokidar', '@types/compression',
+      '@types/connect-pg-simple', '@types/cors', '@types/css', '@types/dompurify', '@types/express',
+      '@types/express-session', '@types/google.maps', '@types/hpp', '@types/jest',
+      '@types/jsonwebtoken', '@types/leaflet', '@types/lodash', '@types/memoizee',
+      '@types/multer', '@types/node', '@types/node-cron', '@types/node-fetch',
+      '@types/passport', '@types/passport-github', '@types/passport-google-oauth20',
+      '@types/passport-local', '@types/pino', '@types/qrcode', '@types/react',
+      '@types/react-beautiful-dnd', '@types/react-csv', '@types/react-dom',
+      '@types/react-helmet', '@types/react-image-crop', '@types/react-lazyload',
+      '@types/react-mentions', '@types/react-window', '@types/speakeasy', '@types/supertest',
+      '@types/swagger-jsdoc', '@types/swagger-ui-express', '@types/uuid', '@types/validator',
+      '@types/ws', '@ladle/react', 'style-dictionary', 'db-migrate',
+      '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser'
+    ],
+    
+    // Additional React Libraries
+    'React Extensions': [
+      'react-beautiful-dnd', 'react-copy-to-clipboard', 'react-select',
+      'react-markdown', 'react-helmet', 'react-share', 'react-mentions',
+      'react-social-media-embed', 'react-hotkeys-hook', 'react-window',
+      'react-intersection-observer', 'react-infinite-scroll-component'
+    ],
+    
+    // Database & Graph
+    'Database Extensions': [
+      'neo4j-driver', 'vectordb', '@lancedb/lancedb', '@google-cloud/storage',
+      '@supabase/supabase-js'
+    ],
+    
+    // Workflow & Orchestration
+    'Workflows': [
+      '@temporalio/activity', '@temporalio/client', '@temporalio/worker',
+      '@temporalio/workflow'
+    ],
+    
+    // API & Integration
+    'API Tools': [
+      '@octokit/rest', '@notionhq/client', '@actions/github', 'graphql',
+      'openid-client', 'http-proxy-middleware', 'newman', 'puppeteer'
+    ],
+    
+    // Performance & Load Testing
+    'Performance Testing': [
+      'artillery', 'jest-performance-testing', 'codecov'
+    ],
+    
+    // Build Utilities  
+    'Build Utilities': [
+      '@replit/vite-plugin-cartographer', '@replit/vite-plugin-runtime-error-modal',
+      '@jridgewell/trace-mapping', 'next'
+    ],
+    
+    // Rate Limiting & Throttling
+    'Rate Limiting': [
+      'rate-limit-redis', 'rate-limiter-flexible', 'express-rate-limit', 
+      'express-slow-down'
+    ],
+    
+    // Media Extensions
+    'Media Extensions': [
+      'react-dropzone', 'react-image-crop', 'react-lazy-load-image-component',
+      'react-lazyload', 'react-quill', 'quill', 'react-image-gallery'
+    ],
+    
+    // Test Utilities
+    'Test Utilities': [
+      'test-data-bot', 'axe-core', '@faker-js/faker', 'pm2'
     ]
   };
 
