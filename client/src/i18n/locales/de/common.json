@@ -290,7 +290,8 @@
       "commentButton": "Kommentar",
       "commentDefault": "Schreiben Sie einen Kommentar...",
       "toggleComments": "Kommentare anzeigen/ausblenden",
-      "sharePost": "Diesen Beitrag teilen"
+      "sharePost": "Diesen Beitrag teilen",
+      "recently": "vor Kurzem"
     },
     "share": {
       "sharePost": "Beitrag teilen",

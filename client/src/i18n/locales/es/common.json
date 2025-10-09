@@ -290,7 +290,8 @@
       "commentButton": "Comentar",
       "commentDefault": "Escribe un comentario...",
       "toggleComments": "Alternar sección de comentarios",
-      "sharePost": "Compartir esta publicación"
+      "sharePost": "Compartir esta publicación",
+      "recently": "recientemente"
     },
     "share": {
       "sharePost": "Compartir Publicación",
