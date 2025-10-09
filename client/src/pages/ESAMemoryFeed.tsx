@@ -175,9 +175,9 @@ function ESAMemoryFeedCore() {
                 </span>
                 {/* Track A: Real-time connection indicator */}
                 {connectionStatus === 'connected' ? (
-                  <Wifi className="h-4 w-4 text-green-500" title="Real-time updates active" />
+                  <Wifi className="h-4 w-4 text-green-500" aria-label="Real-time updates active" />
                 ) : (
-                  <WifiOff className="h-4 w-4 text-gray-400" title="Reconnecting..." />
+                  <WifiOff className="h-4 w-4 text-gray-400" aria-label="Reconnecting..." />
                 )}
               </h1>
               {/* Track C: Accessibility - Keyboard shortcuts hint for screen readers */}
