@@ -76,7 +76,9 @@
     "deps:map": "tsx scripts/analyze-dependencies.ts map",
     "deps:layer": "tsx scripts/analyze-dependencies.ts layer",
     "deps:category": "tsx scripts/analyze-dependencies.ts category",
-    "deps:unused": "tsx scripts/analyze-dependencies.ts unused"
+    "deps:unused": "tsx scripts/analyze-dependencies.ts unused",
+    "security:scan": "tsx scripts/security-scan.ts",
+    "security:latest": "tsx scripts/security-scan.ts latest"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
