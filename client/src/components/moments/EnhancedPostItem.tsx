@@ -24,7 +24,7 @@ import { formatTimeAgo } from '@/utils/dateLocale';
 import { SimpleLikeButton } from '@/components/ui/SimpleLikeButton';
 import { SimpleCommentEditor } from '@/components/ui/SimpleCommentEditor';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
-import { MagneticButton } from '@/components/interactions/MicroInteractions';
+import { MagneticButton, RippleCard } from '@/components/interactions/MicroInteractions';
 // ESA Layer 7: Edit functionality delegated to parent's unified composer (EnhancedPostComposer)
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
@@ -436,12 +436,13 @@ function EnhancedPostItem({
     : '';
 
   return (
-    <GlassCard 
-      depth={2}
-      animated={true}
-      className={`overflow-hidden mb-4 group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-ocean-cyan-500/20 ${consentGlowClass}`}
-      style={{ opacity: postAge }}
-    >
+    <RippleCard rippleColor="rgba(14, 165, 233, 0.15)">
+      <GlassCard 
+        depth={2}
+        animated={true}
+        className={`overflow-hidden mb-4 group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-ocean-cyan-500/20 ${consentGlowClass}`}
+        style={{ opacity: postAge }}
+      >
       {/* ESA Framework: Floating engagement indicator from MT Ocean theme */}
       <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
         <MTBadge variant="gradient" size="sm" icon={<Sparkles className="w-3 h-3" />} glow={true}>
@@ -1012,6 +1013,7 @@ function EnhancedPostItem({
 
       {/* ESA Layer 7 & 23: Edit handled by parent component's unified composer */}
     </GlassCard>
+    </RippleCard>
   );
 }
 

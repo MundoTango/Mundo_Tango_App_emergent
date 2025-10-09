@@ -505,6 +505,108 @@ const ShakeOnError = ({ children, trigger, className = '' }: ShakeOnErrorProps) 
 };
 
 /**
+ * RippleCard Component
+ * Card wrapper with ripple effect on hover
+ * 
+ * @timing 400ms ripple animation
+ */
+interface RippleCardProps {
+  children: ReactNode;
+  className?: string;
+  rippleColor?: string;
+}
+
+const RippleCard = ({ 
+  children, 
+  className = '',
+  rippleColor = 'rgba(6, 182, 212, 0.15)'
+}: RippleCardProps) => {
+  const [ripples, setRipples] = useState<{ x: number; y: number; size: number; id: number }[]>([]);
+
+  const handleMouseEnter = (e: MouseEvent<HTMLDivElement>) => {
+    if (!prefersReducedMotion()) {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 1.5;
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      const id = Date.now();
+
+      setRipples(prev => [...prev, { x, y, size, id }]);
+
+      setTimeout(() => {
+        setRipples(prev => prev.filter(r => r.id !== id));
+      }, 400);
+    }
+  };
+
+  return (
+    <div
+      className={cn('relative overflow-hidden', className)}
+      onMouseEnter={handleMouseEnter}
+    >
+      {ripples.map(ripple => (
+        <span
+          key={ripple.id}
+          className="absolute rounded-full pointer-events-none animate-ping opacity-20"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: ripple.size,
+            height: ripple.size,
+            background: `radial-gradient(circle, ${rippleColor} 0%, transparent 70%)`,
+          }}
+        />
+      ))}
+      {children}
+    </div>
+  );
+};
+
+/**
+ * PulseIcon Component
+ * Icon wrapper with subtle pulsing animation
+ * 
+ * @timing 2000ms pulse cycle
+ */
+interface PulseIconProps {
+  children: ReactNode;
+  className?: string;
+  pulseColor?: string;
+}
+
+const PulseIcon = ({ 
+  children, 
+  className = '',
+  pulseColor = 'rgba(6, 182, 212, 0.4)'
+}: PulseIconProps) => {
+  return (
+    <motion.div
+      className={cn('relative inline-flex', className)}
+    >
+      {!prefersReducedMotion() && (
+        <motion.span
+          className="absolute inset-0 rounded-full"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.6, 0, 0.6],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            background: pulseColor,
+          }}
+        />
+      )}
+      <span className="relative z-10">{children}</span>
+    </motion.div>
+  );
+};
+
+/**
  * Export all micro-interaction components
  */
 export {
@@ -519,4 +621,6 @@ export {
   RotateOnHoverIcon,
   BounceOnClick,
   ShakeOnError,
+  RippleCard,
+  PulseIcon,
 };
