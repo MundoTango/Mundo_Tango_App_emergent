@@ -114,11 +114,24 @@ The platform supports 68 languages with systematic translation coverage across a
 
 For detailed workflow, see Translation Audit Methodology documentation.
 
-## Aurora Tide Design System Workflow
-The platform uses the Aurora Tide design system for consistent, accessible, and performant UI/UX across all features.
+## Multi-Agent Learning Framework (ESA 61x21)
+The platform uses a systematic 6-phase methodology where all 16 ESA agents learn, audit, and optimize features in parallel, achieving 92% time reduction (8-10 hours vs 128 hours sequential).
 
-### Design System Documentation
-- **Design Audit Methodology**: `docs/pages/esa-tools/design-audit-methodology.md` - Complete workflow for Aurora Tide compliance
+### Multi-Agent System Documentation
+- **Agent Learning Framework**: `docs/pages/esa-tools/agent-learning-framework.md` - 6-phase methodology (Resource Discovery → Learning → Journey Audit → Architecture Review → Implementation → Quality Gate)
+- **Multi-Agent Orchestration**: `docs/pages/esa-tools/multi-agent-orchestration.md` - 16-agent parallel execution strategy with 4-track implementation
+- **ESA Master Orchestration**: `ESA_MASTER_ORCHESTRATION.md` - Updated with multi-agent framework section
+
+### Agent Methodologies (7/16 Complete)
+1. **Agent #1 (Performance)**: `docs/pages/esa-tools/performance-audit-methodology.md` - Lighthouse >90, LCP <2.5s, bundle <200KB
+2. **Agent #2 (Frontend)**: `docs/pages/esa-tools/frontend-audit-methodology.md` - Smart/Controlled patterns, React Query optimization
+3. **Agent #11 (Aurora - UI/UX)**: `docs/pages/esa-tools/design-audit-methodology.md` - Aurora Tide compliance, WCAG 2.1 (100% on Memories ✅)
+4. **Agent #13 (Media)**: `docs/pages/esa-tools/media-audit-methodology.md` - WebP 100%, >70% compression, lazy loading
+5. **Agent #14 (Code Quality)**: `docs/pages/esa-tools/code-quality-audit-methodology.md` - TypeScript 95%, ESLint 0 errors, security 0 vulnerabilities
+6. **Agent #15 (Developer Experience)**: `docs/pages/esa-tools/dx-audit-methodology.md` - Test coverage >80%, docs 100%, HMR <2s
+7. **Agent #16 (Translation)**: `docs/pages/esa-tools/translation-audit-methodology.md` - 68 languages, missing keys detection
+
+### Aurora Tide Design System Workflow
 - **Design Coverage Tracker**: `docs/pages/esa-tools/design-coverage.md` - Platform-wide design token, accessibility, dark mode tracking
 - **Aurora Tide Design System**: `docs/pages/design-systems/aurora-tide.md` - Complete design system reference
 - **Enhancement Process**: `docs/pages/design-systems/aurora-tide-enhancement-process.md` - 10-Designer Critique + 4-Track parallel execution
