@@ -526,7 +526,7 @@ export default function EnhancedCommentsSystem({
       
       {/* Comments list */}
       <div className="space-y-6">
-        {comments.map(comment => renderComment(comment))}
+        {comments.map((comment: Comment) => renderComment(comment))}
       </div>
       
       {comments.length === 0 && (
