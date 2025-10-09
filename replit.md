@@ -120,7 +120,7 @@ The platform uses a systematic 6-phase methodology where all 16 ESA agents learn
 ### Multi-Agent System Documentation
 - **Agent Learning Framework**: `docs/pages/esa-tools/agent-learning-framework.md` - 6-phase methodology (Resource Discovery → Learning → Journey Audit → Architecture Review → Implementation → Quality Gate)
 - **Multi-Agent Orchestration**: `docs/pages/esa-tools/multi-agent-orchestration.md` - 16-agent parallel execution strategy with 4-track implementation
-- **ESA Master Orchestration**: `ESA_MASTER_ORCHESTRATION.md` - Updated with multi-agent framework section
+- **ESA Master Orchestration**: `ESA_ORCHESTRATION.md` - Updated with multi-agent framework section
 
 ### Agent Methodologies (7/16 Complete)
 1. **Agent #1 (Performance)**: `docs/pages/esa-tools/performance-audit-methodology.md` - Lighthouse >90, LCP <2.5s, bundle <200KB
