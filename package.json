@@ -80,7 +80,8 @@
     "security:scan": "tsx scripts/security-scan.ts",
     "security:latest": "tsx scripts/security-scan.ts latest",
     "bundle:analyze": "tsx scripts/analyze-bundle.ts",
-    "bundle:stats": "tsx scripts/analyze-bundle.ts quick"
+    "bundle:stats": "tsx scripts/analyze-bundle.ts quick",
+    "optimize": "tsx scripts/optimize.ts"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
