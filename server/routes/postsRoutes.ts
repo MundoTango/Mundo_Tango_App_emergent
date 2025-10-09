@@ -1343,11 +1343,7 @@ router.post('/api/posts/share', async (req: any, res) => {
       videoUrl: originalPost.videoUrl,
       mediaEmbeds: originalPost.mediaEmbeds || [],
       isPublic: true,
-      hashtags: originalPost.hashtags || [],
-      createdAt: new Date(),
-      likesCount: 0,
-      commentsCount: 0,
-      sharesCount: 0
+      hashtags: originalPost.hashtags || []
     });
 
     // Increment share count on original post
