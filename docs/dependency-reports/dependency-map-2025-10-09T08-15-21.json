@@ -1,0 +1,7548 @@
+{
+  "totalPackages": 359,
+  "dependencies": 340,
+  "devDependencies": 19,
+  "categories": {
+    "Uncategorized": [
+      {
+        "name": "@arizeai/openinference-instrumentation-openai",
+        "version": "^3.2.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@arizeai/openinference-semantic-conventions",
+        "version": "^2.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/android",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/app",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/browser",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/camera",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/cli",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/core",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/device",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/filesystem",
+        "version": "^7.1.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/geolocation",
+        "version": "^7.1.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/ios",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/network",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/preferences",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/push-notifications",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/share",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/splash-screen",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/status-bar",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@elastic/elasticsearch-mock",
+        "version": "^2.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@emotion/react",
+        "version": "^11.14.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@emotion/styled",
+        "version": "^11.14.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@ffmpeg/core",
+        "version": "^0.12.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@ffmpeg/ffmpeg",
+        "version": "^0.12.15",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@ffmpeg/util",
+        "version": "^0.12.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@google-cloud/storage",
+        "version": "^7.16.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@googlemaps/js-api-loader",
+        "version": "^1.16.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@jridgewell/trace-mapping",
+        "version": "^0.3.25",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@lancedb/lancedb",
+        "version": "^0.22.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/core",
+        "version": "^0.3.78",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/langgraph",
+        "version": "^0.4.9",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/openai",
+        "version": "^0.6.14",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@mui/icons-material",
+        "version": "^7.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@mui/material",
+        "version": "^7.2.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@mui/x-date-pickers",
+        "version": "^8.6.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@notionhq/client",
+        "version": "^3.1.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@opentelemetry/api",
+        "version": "^1.9.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@opentelemetry/auto-instrumentations-node",
+        "version": "^0.65.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@opentelemetry/sdk-node",
+        "version": "^0.206.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@percy/playwright",
+        "version": "^1.0.9",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@percy/sdk-utils",
+        "version": "^1.31.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@react-email/components",
+        "version": "^0.3.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@react-google-maps/api",
+        "version": "^2.20.7",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/node",
+        "version": "^9.40.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/profiling-node",
+        "version": "^9.40.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/react",
+        "version": "^9.40.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/tracing",
+        "version": "^7.120.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@stripe/react-stripe-js",
+        "version": "^3.10.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          22
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@stripe/stripe-js",
+        "version": "^7.9.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          22
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@supabase/supabase-js",
+        "version": "^2.50.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/activity",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/client",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/worker",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/workflow",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@testing-library/jest-dom",
+        "version": "^6.6.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@testing-library/react",
+        "version": "^16.3.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@testing-library/user-event",
+        "version": "^14.6.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/bcrypt",
+        "version": "^5.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/busboy",
+        "version": "^1.5.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/bytes",
+        "version": "^3.1.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/chokidar",
+        "version": "^1.7.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/compression",
+        "version": "^1.8.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/cors",
+        "version": "^2.8.19",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/css",
+        "version": "^0.0.38",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/dompurify",
+        "version": "^3.0.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/google.maps",
+        "version": "^3.58.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/hpp",
+        "version": "^0.2.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/jest",
+        "version": "^30.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/jsonwebtoken",
+        "version": "^9.0.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/leaflet",
+        "version": "^1.9.20",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/lodash",
+        "version": "^4.17.20",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/memoizee",
+        "version": "^0.4.12",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/multer",
+        "version": "^1.4.13",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/node-cron",
+        "version": "^3.0.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/node-fetch",
+        "version": "^2.6.12",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport-github",
+        "version": "^1.1.12",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport-google-oauth20",
+        "version": "^2.0.16",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/pino",
+        "version": "^7.0.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/qrcode",
+        "version": "^1.5.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-beautiful-dnd",
+        "version": "^13.1.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-csv",
+        "version": "^1.1.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-helmet",
+        "version": "^6.1.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-image-crop",
+        "version": "^8.1.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-lazyload",
+        "version": "^3.2.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-mentions",
+        "version": "^4.4.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-window",
+        "version": "^1.8.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/speakeasy",
+        "version": "^2.0.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/supertest",
+        "version": "^6.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/swagger-jsdoc",
+        "version": "^6.0.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/swagger-ui-express",
+        "version": "^4.1.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/uuid",
+        "version": "^10.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/validator",
+        "version": "^13.15.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@typescript-eslint/eslint-plugin",
+        "version": "^8.45.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@typescript-eslint/parser",
+        "version": "^8.45.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/aws-s3",
+        "version": "^4.3.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/core",
+        "version": "^4.5.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/dashboard",
+        "version": "^4.4.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/drag-drop",
+        "version": "^4.2.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/file-input",
+        "version": "^4.2.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/progress-bar",
+        "version": "^4.3.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/react",
+        "version": "^4.5.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "artillery",
+        "version": "^2.0.21",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "axe-core",
+        "version": "^4.10.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "busboy",
+        "version": "^1.6.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "chokidar",
+        "version": "^4.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cmdk",
+        "version": "^1.1.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "codecov",
+        "version": "^3.8.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "country-state-city",
+        "version": "^3.2.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "css",
+        "version": "^3.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "dotenv",
+        "version": "^17.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "embla-carousel-react",
+        "version": "^8.6.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "emoji-picker-react",
+        "version": "^4.12.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "eslint-plugin-react",
+        "version": "^7.37.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "eslint-plugin-react-hooks",
+        "version": "^5.2.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "graphql",
+        "version": "^16.11.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "http-proxy-middleware",
+        "version": "^3.0.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "input-otp",
+        "version": "^1.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jest-environment-jsdom",
+        "version": "^30.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jest-performance-testing",
+        "version": "^1.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "memorystore",
+        "version": "^1.6.7",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "mui-chips-input",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "neo4j-driver",
+        "version": "^6.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "newman",
+        "version": "^6.2.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "next",
+        "version": "^15.3.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "next-themes",
+        "version": "^0.4.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "node-cache",
+        "version": "^5.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "npm-check-updates",
+        "version": "^18.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "openid-client",
+        "version": "^6.6.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pm2",
+        "version": "^6.0.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "prop-types",
+        "version": "^15.8.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "puppeteer",
+        "version": "^24.16.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "quill",
+        "version": "^2.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rate-limit-redis",
+        "version": "^4.2.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rate-limiter-flexible",
+        "version": "^7.1.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-avatar-group",
+        "version": "^1.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-beautiful-dnd",
+        "version": "^13.1.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-confetti",
+        "version": "^6.4.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-copy-to-clipboard",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-countdown",
+        "version": "^2.3.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-day-picker",
+        "version": "^8.10.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-dropzone",
+        "version": "^14.3.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-email",
+        "version": "^4.2.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-helmet",
+        "version": "^6.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-hot-toast",
+        "version": "^2.5.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-hotkeys-hook",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-image-crop",
+        "version": "^11.0.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-infinite-scroll-component",
+        "version": "^6.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-intersection-observer",
+        "version": "^9.16.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-lazy-load-image-component",
+        "version": "^1.6.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-lazyload",
+        "version": "^3.2.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-loading-skeleton",
+        "version": "^3.5.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-markdown",
+        "version": "^10.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-mentions",
+        "version": "^3.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-quill",
+        "version": "^0.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-resizable-panels",
+        "version": "^2.1.7",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-select",
+        "version": "^5.10.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-share",
+        "version": "^5.2.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-social-media-embed",
+        "version": "^2.5.18",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-spring",
+        "version": "^10.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-sticky",
+        "version": "^6.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-tooltip",
+        "version": "^5.29.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-window",
+        "version": "^1.8.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rrule",
+        "version": "^2.8.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rss-parser",
+        "version": "^3.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "swagger-jsdoc",
+        "version": "^6.2.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          52
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "swagger-ui-express",
+        "version": "^5.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          52
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "test-data-bot",
+        "version": "^0.8.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "ts-jest",
+        "version": "^29.4.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tw-animate-css",
+        "version": "^1.2.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "util",
+        "version": "^0.12.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vaul",
+        "version": "^1.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vectordb",
+        "version": "^0.21.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@actions/github",
+        "version": "^6.0.1",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@faker-js/faker",
+        "version": "^10.0.0",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@octokit/rest",
+        "version": "^22.0.0",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@replit/vite-plugin-cartographer",
+        "version": "^0.2.7",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@replit/vite-plugin-runtime-error-modal",
+        "version": "^0.0.3",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@tailwindcss/typography",
+        "version": "^0.5.15",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@tailwindcss/vite",
+        "version": "^4.1.3",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/connect-pg-simple",
+        "version": "^7.0.3",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/express",
+        "version": "4.17.21",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/express-session",
+        "version": "^1.18.0",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/node",
+        "version": "20.16.11",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport",
+        "version": "^1.0.16",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport-local",
+        "version": "^1.0.38",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react",
+        "version": "^18.3.11",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-dom",
+        "version": "^18.3.1",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/ws",
+        "version": "^8.5.13",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Testing": [
+      {
+        "name": "@axe-core/playwright",
+        "version": "^4.10.2",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@lhci/cli",
+        "version": "^0.15.1",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@playwright/test",
+        "version": "^1.55.0",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "axe-playwright",
+        "version": "^2.2.2",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "backstopjs",
+        "version": "^6.3.25",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cypress",
+        "version": "^14.5.0",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jest",
+        "version": "^30.0.3",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lighthouse",
+        "version": "^12.8.2",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pa11y",
+        "version": "^9.0.1",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "playwright",
+        "version": "^1.55.0",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "supertest",
+        "version": "^7.1.4",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vitest",
+        "version": "^3.2.4",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Authentication": [
+      {
+        "name": "@casl/ability",
+        "version": "^6.7.3",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@casl/react",
+        "version": "^5.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bcrypt",
+        "version": "^6.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bcryptjs",
+        "version": "^3.0.2",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jsonwebtoken",
+        "version": "^9.0.2",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport",
+        "version": "^0.7.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport-github2",
+        "version": "^0.1.12",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport-google-oauth20",
+        "version": "^2.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport-local",
+        "version": "^1.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "speakeasy",
+        "version": "^2.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Search": [
+      {
+        "name": "@elastic/elasticsearch",
+        "version": "^9.0.3",
+        "type": "dependency",
+        "category": "Search",
+        "esaLayers": [
+          6
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "fuse.js",
+        "version": "^7.1.0",
+        "type": "dependency",
+        "category": "Search",
+        "esaLayers": [
+          6
+        ],
+        "usedBy": []
+      }
+    ],
+    "UI Components": [
+      {
+        "name": "@gsap/react",
+        "version": "^2.1.2",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-accordion",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-alert-dialog",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-aspect-ratio",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-avatar",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-checkbox",
+        "version": "^1.1.5",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-collapsible",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-context-menu",
+        "version": "^2.2.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-dialog",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-dropdown-menu",
+        "version": "^2.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-hover-card",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-label",
+        "version": "^2.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-menubar",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-navigation-menu",
+        "version": "^1.2.6",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-popover",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-progress",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-radio-group",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-scroll-area",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-select",
+        "version": "^2.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-separator",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-slider",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-slot",
+        "version": "^1.2.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-switch",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-tabs",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-toast",
+        "version": "^1.2.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-toggle",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-toggle-group",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-tooltip",
+        "version": "^1.2.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "framer-motion",
+        "version": "^11.13.1",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "gsap",
+        "version": "^3.13.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lucide-react",
+        "version": "^0.453.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "motion",
+        "version": "^12.23.22",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-icons",
+        "version": "^5.5.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Forms": [
+      {
+        "name": "@hookform/resolvers",
+        "version": "^3.10.0",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-hook-form",
+        "version": "^7.62.0",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "zod",
+        "version": "^3.24.2",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          5
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "zod-validation-error",
+        "version": "^3.4.0",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          5
+        ],
+        "usedBy": []
+      }
+    ],
+    "Development": [
+      {
+        "name": "@ladle/react",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Development",
+        "esaLayers": [
+          52
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "style-dictionary",
+        "version": "^4.4.0",
+        "type": "dependency",
+        "category": "Development",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "db-migrate",
+        "version": "^0.11.14",
+        "type": "devDependency",
+        "category": "Development",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Database": [
+      {
+        "name": "@neondatabase/serverless",
+        "version": "^0.10.4",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "connect-pg-simple",
+        "version": "^10.0.0",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "drizzle-orm",
+        "version": "^0.39.1",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "drizzle-zod",
+        "version": "^0.7.0",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pg",
+        "version": "^8.16.3",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pg-mem",
+        "version": "^3.0.5",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "drizzle-kit",
+        "version": "^0.31.4",
+        "type": "devDependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Communications": [
+      {
+        "name": "@novu/node",
+        "version": "^2.6.6",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@novu/react",
+        "version": "^3.5.0",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sendgrid/mail",
+        "version": "^8.1.5",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "mjml",
+        "version": "^4.7.1",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "nodemailer",
+        "version": "^7.0.5",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "resend",
+        "version": "^4.6.0",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      }
+    ],
+    "Monitoring": [
+      {
+        "name": "@openreplay/tracker",
+        "version": "^16.4.9",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pino",
+        "version": "^9.7.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pino-pretty",
+        "version": "^13.0.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "posthog-js",
+        "version": "^1.266.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "prom-client",
+        "version": "^15.1.3",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "web-vitals",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      }
+    ],
+    "State Management": [
+      {
+        "name": "@reduxjs/toolkit",
+        "version": "^2.8.2",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@tanstack/react-query",
+        "version": "^5.60.5",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-redux",
+        "version": "^9.2.0",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "zustand",
+        "version": "^5.0.8",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Frontend Core": [
+      {
+        "name": "@vitejs/plugin-react",
+        "version": "^4.7.0",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react",
+        "version": "^18.3.1",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-dom",
+        "version": "^18.3.1",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-router-dom",
+        "version": "^7.8.2",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vite",
+        "version": "^7.0.6",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "wouter",
+        "version": "^3.3.5",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      }
+    ],
+    "Utilities": [
+      {
+        "name": "archiver",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "axios",
+        "version": "^1.12.2",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bytes",
+        "version": "^3.1.2",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "date-fns",
+        "version": "^3.6.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "dompurify",
+        "version": "^3.2.6",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "isomorphic-dompurify",
+        "version": "^2.26.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lodash",
+        "version": "^4.17.21",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lru-cache",
+        "version": "^11.1.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "memoizee",
+        "version": "^0.4.17",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "moment",
+        "version": "^2.30.1",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "nanoid",
+        "version": "^5.1.5",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "node-fetch",
+        "version": "^3.3.2",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "uuid",
+        "version": "^11.1.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "validator",
+        "version": "^13.15.15",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "xss",
+        "version": "^1.0.15",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      }
+    ],
+    "Build Tools": [
+      {
+        "name": "autoprefixer",
+        "version": "^10.4.20",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "esbuild",
+        "version": "^0.25.0",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "postcss",
+        "version": "^8.4.47",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "terser",
+        "version": "^5.44.0",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tsx",
+        "version": "^4.20.5",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Media Processing": [
+      {
+        "name": "browser-image-compression",
+        "version": "^2.0.2",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cloudinary",
+        "version": "^2.7.0",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "exif-js",
+        "version": "^2.3.0",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "fluent-ffmpeg",
+        "version": "^2.1.3",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "heic2any",
+        "version": "^0.0.4",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "multer",
+        "version": "^2.0.1",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "sharp",
+        "version": "^0.34.3",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          1,
+          13
+        ],
+        "usedBy": []
+      }
+    ],
+    "Background Jobs": [
+      {
+        "name": "bull",
+        "version": "^4.16.5",
+        "type": "dependency",
+        "category": "Background Jobs",
+        "esaLayers": [
+          57
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bullmq",
+        "version": "^5.56.5",
+        "type": "dependency",
+        "category": "Background Jobs",
+        "esaLayers": [
+          57
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "node-cron",
+        "version": "^4.2.0",
+        "type": "dependency",
+        "category": "Background Jobs",
+        "esaLayers": [
+          57
+        ],
+        "usedBy": []
+      }
+    ],
+    "Styling": [
+      {
+        "name": "class-variance-authority",
+        "version": "^0.7.1",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "clsx",
+        "version": "^2.1.1",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tailwind-merge",
+        "version": "^2.6.0",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tailwindcss",
+        "version": "^3.4.17",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tailwindcss-animate",
+        "version": "^1.0.7",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Backend Core": [
+      {
+        "name": "compression",
+        "version": "^1.8.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cors",
+        "version": "^2.8.5",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express",
+        "version": "^4.21.2",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-mongo-sanitize",
+        "version": "^2.2.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-rate-limit",
+        "version": "^7.5.1",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-session",
+        "version": "^1.18.1",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-slow-down",
+        "version": "^3.0.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-validator",
+        "version": "^7.2.1",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          5
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "helmet",
+        "version": "^8.1.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "hpp",
+        "version": "^0.2.3",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      }
+    ],
+    "Code Quality": [
+      {
+        "name": "eslint",
+        "version": "^9.36.0",
+        "type": "dependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "typescript",
+        "version": "^5.6.3",
+        "type": "dependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "snyk",
+        "version": "^1.1299.0",
+        "type": "devDependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          49,
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Documents": [
+      {
+        "name": "export-to-csv",
+        "version": "^1.4.0",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "html2canvas",
+        "version": "^1.4.1",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jspdf",
+        "version": "^3.0.1",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "qrcode",
+        "version": "^1.5.4",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-csv",
+        "version": "^2.2.2",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Maps/Location": [
+      {
+        "name": "google-auth-library",
+        "version": "^10.2.1",
+        "type": "dependency",
+        "category": "Maps/Location",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "leaflet",
+        "version": "^1.9.4",
+        "type": "dependency",
+        "category": "Maps/Location",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-leaflet",
+        "version": "^4.2.1",
+        "type": "dependency",
+        "category": "Maps/Location",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "i18n": [
+      {
+        "name": "i18next",
+        "version": "^25.3.2",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          53
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "i18next-browser-languagedetector",
+        "version": "^8.2.0",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          53
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "i18next-http-backend",
+        "version": "^3.0.2",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-i18next",
+        "version": "^15.6.1",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          53
+        ],
+        "usedBy": []
+      }
+    ],
+    "Real-time": [
+      {
+        "name": "ioredis",
+        "version": "^5.7.0",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "redis",
+        "version": "^5.8.2",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "socket.io",
+        "version": "^4.8.1",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          4
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "socket.io-client",
+        "version": "^4.8.1",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          4
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "ws",
+        "version": "^8.18.0",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          4
+        ],
+        "usedBy": []
+      }
+    ],
+    "AI/ML": [
+      {
+        "name": "langfuse",
+        "version": "^3.38.5",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "langfuse-node",
+        "version": "^3.38.5",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "llamaindex",
+        "version": "^0.12.0",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "openai",
+        "version": "^5.8.2",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      }
+    ],
+    "Data Viz": [
+      {
+        "name": "react-big-calendar",
+        "version": "^1.19.4",
+        "type": "dependency",
+        "category": "Data Viz",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-image-gallery",
+        "version": "^1.4.0",
+        "type": "dependency",
+        "category": "Data Viz",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "recharts",
+        "version": "^2.15.2",
+        "type": "dependency",
+        "category": "Data Viz",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "Payments": [
+      {
+        "name": "stripe",
+        "version": "^18.5.0",
+        "type": "dependency",
+        "category": "Payments",
+        "esaLayers": [
+          22
+        ],
+        "usedBy": []
+      }
+    ],
+    "Mobile/PWA": [
+      {
+        "name": "workbox-expiration",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-precaching",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-routing",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-strategies",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-sw",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      }
+    ]
+  },
+  "byESALayer": {
+    "1": [
+      {
+        "name": "browser-image-compression",
+        "version": "^2.0.2",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "esbuild",
+        "version": "^0.25.0",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "sharp",
+        "version": "^0.34.3",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          1,
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "terser",
+        "version": "^5.44.0",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vite",
+        "version": "^7.0.6",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          1
+        ],
+        "usedBy": []
+      }
+    ],
+    "4": [
+      {
+        "name": "socket.io",
+        "version": "^4.8.1",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          4
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "socket.io-client",
+        "version": "^4.8.1",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          4
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "ws",
+        "version": "^8.18.0",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          4
+        ],
+        "usedBy": []
+      }
+    ],
+    "5": [
+      {
+        "name": "express-validator",
+        "version": "^7.2.1",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          5
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "zod",
+        "version": "^3.24.2",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          5
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "zod-validation-error",
+        "version": "^3.4.0",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          5
+        ],
+        "usedBy": []
+      }
+    ],
+    "6": [
+      {
+        "name": "@elastic/elasticsearch",
+        "version": "^9.0.3",
+        "type": "dependency",
+        "category": "Search",
+        "esaLayers": [
+          6
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "fuse.js",
+        "version": "^7.1.0",
+        "type": "dependency",
+        "category": "Search",
+        "esaLayers": [
+          6
+        ],
+        "usedBy": []
+      }
+    ],
+    "10": [
+      {
+        "name": "@langchain/core",
+        "version": "^0.3.78",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/langgraph",
+        "version": "^0.4.9",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/openai",
+        "version": "^0.6.14",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "langfuse",
+        "version": "^3.38.5",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "llamaindex",
+        "version": "^0.12.0",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "openai",
+        "version": "^5.8.2",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      }
+    ],
+    "11": [
+      {
+        "name": "@mui/icons-material",
+        "version": "^7.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@mui/material",
+        "version": "^7.2.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@mui/x-date-pickers",
+        "version": "^8.6.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-accordion",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-alert-dialog",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-aspect-ratio",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-avatar",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-checkbox",
+        "version": "^1.1.5",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-collapsible",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-context-menu",
+        "version": "^2.2.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-dialog",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-dropdown-menu",
+        "version": "^2.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-hover-card",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-label",
+        "version": "^2.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-menubar",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-navigation-menu",
+        "version": "^1.2.6",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-popover",
+        "version": "^1.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-progress",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-radio-group",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-scroll-area",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-select",
+        "version": "^2.1.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-separator",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-slider",
+        "version": "^1.2.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-slot",
+        "version": "^1.2.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-switch",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-tabs",
+        "version": "^1.1.4",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-toast",
+        "version": "^1.2.7",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-toggle",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-toggle-group",
+        "version": "^1.1.3",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@radix-ui/react-tooltip",
+        "version": "^1.2.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "framer-motion",
+        "version": "^11.13.1",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "gsap",
+        "version": "^3.13.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lucide-react",
+        "version": "^0.453.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          11
+        ],
+        "usedBy": []
+      }
+    ],
+    "13": [
+      {
+        "name": "@ffmpeg/core",
+        "version": "^0.12.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@ffmpeg/ffmpeg",
+        "version": "^0.12.15",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@ffmpeg/util",
+        "version": "^0.12.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cloudinary",
+        "version": "^2.7.0",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "fluent-ffmpeg",
+        "version": "^2.1.3",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          13
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "sharp",
+        "version": "^0.34.3",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          1,
+          13
+        ],
+        "usedBy": []
+      }
+    ],
+    "16": [
+      {
+        "name": "@novu/node",
+        "version": "^2.6.6",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@novu/react",
+        "version": "^3.5.0",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sendgrid/mail",
+        "version": "^8.1.5",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "nodemailer",
+        "version": "^7.0.5",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "resend",
+        "version": "^4.6.0",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          16
+        ],
+        "usedBy": []
+      }
+    ],
+    "18": [
+      {
+        "name": "@tanstack/react-query",
+        "version": "^5.60.5",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react",
+        "version": "^18.3.1",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-dom",
+        "version": "^18.3.1",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "wouter",
+        "version": "^3.3.5",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          18
+        ],
+        "usedBy": []
+      }
+    ],
+    "22": [
+      {
+        "name": "@stripe/react-stripe-js",
+        "version": "^3.10.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          22
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@stripe/stripe-js",
+        "version": "^7.9.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          22
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "stripe",
+        "version": "^18.5.0",
+        "type": "dependency",
+        "category": "Payments",
+        "esaLayers": [
+          22
+        ],
+        "usedBy": []
+      }
+    ],
+    "35": [
+      {
+        "name": "@langchain/core",
+        "version": "^0.3.78",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/langgraph",
+        "version": "^0.4.9",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@langchain/openai",
+        "version": "^0.6.14",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@opentelemetry/api",
+        "version": "^1.9.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@opentelemetry/auto-instrumentations-node",
+        "version": "^0.65.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@opentelemetry/sdk-node",
+        "version": "^0.206.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          35
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "openai",
+        "version": "^5.8.2",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          10,
+          35
+        ],
+        "usedBy": []
+      }
+    ],
+    "48": [
+      {
+        "name": "@lhci/cli",
+        "version": "^0.15.1",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lighthouse",
+        "version": "^12.8.2",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "prom-client",
+        "version": "^15.1.3",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "web-vitals",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          48
+        ],
+        "usedBy": []
+      }
+    ],
+    "49": [
+      {
+        "name": "express-rate-limit",
+        "version": "^7.5.1",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "helmet",
+        "version": "^8.1.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "hpp",
+        "version": "^0.2.3",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "xss",
+        "version": "^1.0.15",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          49
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "snyk",
+        "version": "^1.1299.0",
+        "type": "devDependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          49,
+          59
+        ],
+        "usedBy": []
+      }
+    ],
+    "51": [
+      {
+        "name": "@playwright/test",
+        "version": "^1.55.0",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@testing-library/jest-dom",
+        "version": "^6.6.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@testing-library/react",
+        "version": "^16.3.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@testing-library/user-event",
+        "version": "^14.6.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cypress",
+        "version": "^14.5.0",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jest",
+        "version": "^30.0.3",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          51
+        ],
+        "usedBy": []
+      }
+    ],
+    "52": [
+      {
+        "name": "@ladle/react",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Development",
+        "esaLayers": [
+          52
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "swagger-jsdoc",
+        "version": "^6.2.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          52
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "swagger-ui-express",
+        "version": "^5.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          52
+        ],
+        "usedBy": []
+      }
+    ],
+    "53": [
+      {
+        "name": "i18next",
+        "version": "^25.3.2",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          53
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "i18next-browser-languagedetector",
+        "version": "^8.2.0",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          53
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-i18next",
+        "version": "^15.6.1",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          53
+        ],
+        "usedBy": []
+      }
+    ],
+    "57": [
+      {
+        "name": "bull",
+        "version": "^4.16.5",
+        "type": "dependency",
+        "category": "Background Jobs",
+        "esaLayers": [
+          57
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bullmq",
+        "version": "^5.56.5",
+        "type": "dependency",
+        "category": "Background Jobs",
+        "esaLayers": [
+          57
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "node-cron",
+        "version": "^4.2.0",
+        "type": "dependency",
+        "category": "Background Jobs",
+        "esaLayers": [
+          57
+        ],
+        "usedBy": []
+      }
+    ],
+    "59": [
+      {
+        "name": "@arizeai/openinference-instrumentation-openai",
+        "version": "^3.2.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@arizeai/openinference-semantic-conventions",
+        "version": "^2.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@axe-core/playwright",
+        "version": "^4.10.2",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/android",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/app",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/browser",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/camera",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/cli",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/core",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/device",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/filesystem",
+        "version": "^7.1.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/geolocation",
+        "version": "^7.1.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/ios",
+        "version": "^7.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/network",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/preferences",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/push-notifications",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/share",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/splash-screen",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@capacitor/status-bar",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@casl/ability",
+        "version": "^6.7.3",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@casl/react",
+        "version": "^5.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@elastic/elasticsearch-mock",
+        "version": "^2.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@emotion/react",
+        "version": "^11.14.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@emotion/styled",
+        "version": "^11.14.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@google-cloud/storage",
+        "version": "^7.16.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@googlemaps/google-maps-services-js",
+        "version": "^3.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@googlemaps/js-api-loader",
+        "version": "^1.16.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@gsap/react",
+        "version": "^2.1.2",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@hookform/resolvers",
+        "version": "^3.10.0",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@jridgewell/trace-mapping",
+        "version": "^0.3.25",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@lancedb/lancedb",
+        "version": "^0.22.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@neondatabase/serverless",
+        "version": "^0.10.4",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@notionhq/client",
+        "version": "^3.1.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@openreplay/tracker",
+        "version": "^16.4.9",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@percy/playwright",
+        "version": "^1.0.9",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@percy/sdk-utils",
+        "version": "^1.31.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@react-email/components",
+        "version": "^0.3.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@react-google-maps/api",
+        "version": "^2.20.7",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@reduxjs/toolkit",
+        "version": "^2.8.2",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/node",
+        "version": "^9.40.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/profiling-node",
+        "version": "^9.40.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/react",
+        "version": "^9.40.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@sentry/tracing",
+        "version": "^7.120.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@supabase/supabase-js",
+        "version": "^2.50.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/activity",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/client",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/worker",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@temporalio/workflow",
+        "version": "^1.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/bcrypt",
+        "version": "^5.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/busboy",
+        "version": "^1.5.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/bytes",
+        "version": "^3.1.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/chokidar",
+        "version": "^1.7.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/compression",
+        "version": "^1.8.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/cors",
+        "version": "^2.8.19",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/css",
+        "version": "^0.0.38",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/dompurify",
+        "version": "^3.0.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/google.maps",
+        "version": "^3.58.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/hpp",
+        "version": "^0.2.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/jest",
+        "version": "^30.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/jsonwebtoken",
+        "version": "^9.0.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/leaflet",
+        "version": "^1.9.20",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/lodash",
+        "version": "^4.17.20",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/memoizee",
+        "version": "^0.4.12",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/multer",
+        "version": "^1.4.13",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/node-cron",
+        "version": "^3.0.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/node-fetch",
+        "version": "^2.6.12",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport-github",
+        "version": "^1.1.12",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport-google-oauth20",
+        "version": "^2.0.16",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/pino",
+        "version": "^7.0.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/qrcode",
+        "version": "^1.5.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-beautiful-dnd",
+        "version": "^13.1.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-csv",
+        "version": "^1.1.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-helmet",
+        "version": "^6.1.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-image-crop",
+        "version": "^8.1.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-lazyload",
+        "version": "^3.2.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-mentions",
+        "version": "^4.4.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-window",
+        "version": "^1.8.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/speakeasy",
+        "version": "^2.0.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/supertest",
+        "version": "^6.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/swagger-jsdoc",
+        "version": "^6.0.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/swagger-ui-express",
+        "version": "^4.1.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/uuid",
+        "version": "^10.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/validator",
+        "version": "^13.15.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@typescript-eslint/eslint-plugin",
+        "version": "^8.45.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@typescript-eslint/parser",
+        "version": "^8.45.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/aws-s3",
+        "version": "^4.3.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/core",
+        "version": "^4.5.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/dashboard",
+        "version": "^4.4.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/drag-drop",
+        "version": "^4.2.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/file-input",
+        "version": "^4.2.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/progress-bar",
+        "version": "^4.3.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@uppy/react",
+        "version": "^4.5.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@vitejs/plugin-react",
+        "version": "^4.7.0",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "archiver",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "artillery",
+        "version": "^2.0.21",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "autoprefixer",
+        "version": "^10.4.20",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "axe-core",
+        "version": "^4.10.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "axe-playwright",
+        "version": "^2.2.2",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "axios",
+        "version": "^1.12.2",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "backstopjs",
+        "version": "^6.3.25",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bcrypt",
+        "version": "^6.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bcryptjs",
+        "version": "^3.0.2",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "busboy",
+        "version": "^1.6.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "bytes",
+        "version": "^3.1.2",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "chokidar",
+        "version": "^4.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "class-variance-authority",
+        "version": "^0.7.1",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "clsx",
+        "version": "^2.1.1",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cmdk",
+        "version": "^1.1.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "codecov",
+        "version": "^3.8.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "compression",
+        "version": "^1.8.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "connect-pg-simple",
+        "version": "^10.0.0",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "cors",
+        "version": "^2.8.5",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "country-state-city",
+        "version": "^3.2.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "css",
+        "version": "^3.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "date-fns",
+        "version": "^3.6.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "dompurify",
+        "version": "^3.2.6",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "dotenv",
+        "version": "^17.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "drizzle-orm",
+        "version": "^0.39.1",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "drizzle-zod",
+        "version": "^0.7.0",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "embla-carousel-react",
+        "version": "^8.6.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "emoji-picker-react",
+        "version": "^4.12.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "eslint",
+        "version": "^9.36.0",
+        "type": "dependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "eslint-plugin-react",
+        "version": "^7.37.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "eslint-plugin-react-hooks",
+        "version": "^5.2.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "exif-js",
+        "version": "^2.3.0",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "export-to-csv",
+        "version": "^1.4.0",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express",
+        "version": "^4.21.2",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-mongo-sanitize",
+        "version": "^2.2.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-session",
+        "version": "^1.18.1",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "express-slow-down",
+        "version": "^3.0.0",
+        "type": "dependency",
+        "category": "Backend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "google-auth-library",
+        "version": "^10.2.1",
+        "type": "dependency",
+        "category": "Maps/Location",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "graphql",
+        "version": "^16.11.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "heic2any",
+        "version": "^0.0.4",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "html2canvas",
+        "version": "^1.4.1",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "http-proxy-middleware",
+        "version": "^3.0.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "i18next-http-backend",
+        "version": "^3.0.2",
+        "type": "dependency",
+        "category": "i18n",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "input-otp",
+        "version": "^1.4.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "ioredis",
+        "version": "^5.7.0",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "isomorphic-dompurify",
+        "version": "^2.26.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jest-environment-jsdom",
+        "version": "^30.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jest-performance-testing",
+        "version": "^1.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jsonwebtoken",
+        "version": "^9.0.2",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "jspdf",
+        "version": "^3.0.1",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "langfuse-node",
+        "version": "^3.38.5",
+        "type": "dependency",
+        "category": "AI/ML",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "leaflet",
+        "version": "^1.9.4",
+        "type": "dependency",
+        "category": "Maps/Location",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lodash",
+        "version": "^4.17.21",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "lru-cache",
+        "version": "^11.1.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "memoizee",
+        "version": "^0.4.17",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "memorystore",
+        "version": "^1.6.7",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "mjml",
+        "version": "^4.7.1",
+        "type": "dependency",
+        "category": "Communications",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "moment",
+        "version": "^2.30.1",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "motion",
+        "version": "^12.23.22",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "mui-chips-input",
+        "version": "^7.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "multer",
+        "version": "^2.0.1",
+        "type": "dependency",
+        "category": "Media Processing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "nanoid",
+        "version": "^5.1.5",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "neo4j-driver",
+        "version": "^6.0.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "newman",
+        "version": "^6.2.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "next",
+        "version": "^15.3.4",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "next-themes",
+        "version": "^0.4.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "node-cache",
+        "version": "^5.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "node-fetch",
+        "version": "^3.3.2",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "npm-check-updates",
+        "version": "^18.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "openid-client",
+        "version": "^6.6.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pa11y",
+        "version": "^9.0.1",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport",
+        "version": "^0.7.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport-github2",
+        "version": "^0.1.12",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport-google-oauth20",
+        "version": "^2.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "passport-local",
+        "version": "^1.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pg",
+        "version": "^8.16.3",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pg-mem",
+        "version": "^3.0.5",
+        "type": "dependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pino",
+        "version": "^9.7.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pino-pretty",
+        "version": "^13.0.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "playwright",
+        "version": "^1.55.0",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "pm2",
+        "version": "^6.0.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "postcss",
+        "version": "^8.4.47",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "posthog-js",
+        "version": "^1.266.0",
+        "type": "dependency",
+        "category": "Monitoring",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "prop-types",
+        "version": "^15.8.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "puppeteer",
+        "version": "^24.16.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "qrcode",
+        "version": "^1.5.4",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "quill",
+        "version": "^2.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rate-limit-redis",
+        "version": "^4.2.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rate-limiter-flexible",
+        "version": "^7.1.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-avatar-group",
+        "version": "^1.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-beautiful-dnd",
+        "version": "^13.1.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-big-calendar",
+        "version": "^1.19.4",
+        "type": "dependency",
+        "category": "Data Viz",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-confetti",
+        "version": "^6.4.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-copy-to-clipboard",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-countdown",
+        "version": "^2.3.6",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-csv",
+        "version": "^2.2.2",
+        "type": "dependency",
+        "category": "Documents",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-day-picker",
+        "version": "^8.10.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-dropzone",
+        "version": "^14.3.8",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-email",
+        "version": "^4.2.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-helmet",
+        "version": "^6.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-hook-form",
+        "version": "^7.62.0",
+        "type": "dependency",
+        "category": "Forms",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-hot-toast",
+        "version": "^2.5.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-hotkeys-hook",
+        "version": "^5.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-icons",
+        "version": "^5.5.0",
+        "type": "dependency",
+        "category": "UI Components",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-image-crop",
+        "version": "^11.0.10",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-image-gallery",
+        "version": "^1.4.0",
+        "type": "dependency",
+        "category": "Data Viz",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-infinite-scroll-component",
+        "version": "^6.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-intersection-observer",
+        "version": "^9.16.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-lazy-load-image-component",
+        "version": "^1.6.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-lazyload",
+        "version": "^3.2.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-leaflet",
+        "version": "^4.2.1",
+        "type": "dependency",
+        "category": "Maps/Location",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-loading-skeleton",
+        "version": "^3.5.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-markdown",
+        "version": "^10.1.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-mentions",
+        "version": "^3.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-quill",
+        "version": "^0.0.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-redux",
+        "version": "^9.2.0",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-resizable-panels",
+        "version": "^2.1.7",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-router-dom",
+        "version": "^7.8.2",
+        "type": "dependency",
+        "category": "Frontend Core",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-select",
+        "version": "^5.10.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-share",
+        "version": "^5.2.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-social-media-embed",
+        "version": "^2.5.18",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-spring",
+        "version": "^10.0.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-sticky",
+        "version": "^6.0.3",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-tooltip",
+        "version": "^5.29.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "react-window",
+        "version": "^1.8.11",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "recharts",
+        "version": "^2.15.2",
+        "type": "dependency",
+        "category": "Data Viz",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "redis",
+        "version": "^5.8.2",
+        "type": "dependency",
+        "category": "Real-time",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rrule",
+        "version": "^2.8.1",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "rss-parser",
+        "version": "^3.13.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "speakeasy",
+        "version": "^2.0.0",
+        "type": "dependency",
+        "category": "Authentication",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "style-dictionary",
+        "version": "^4.4.0",
+        "type": "dependency",
+        "category": "Development",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "supertest",
+        "version": "^7.1.4",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tailwind-merge",
+        "version": "^2.6.0",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tailwindcss",
+        "version": "^3.4.17",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tailwindcss-animate",
+        "version": "^1.0.7",
+        "type": "dependency",
+        "category": "Styling",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "test-data-bot",
+        "version": "^0.8.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "ts-jest",
+        "version": "^29.4.0",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tsx",
+        "version": "^4.20.5",
+        "type": "dependency",
+        "category": "Build Tools",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "tw-animate-css",
+        "version": "^1.2.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "typescript",
+        "version": "^5.6.3",
+        "type": "dependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "util",
+        "version": "^0.12.5",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "uuid",
+        "version": "^11.1.0",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "validator",
+        "version": "^13.15.15",
+        "type": "dependency",
+        "category": "Utilities",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vaul",
+        "version": "^1.1.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vectordb",
+        "version": "^0.21.2",
+        "type": "dependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "vitest",
+        "version": "^3.2.4",
+        "type": "dependency",
+        "category": "Testing",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-expiration",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-precaching",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-routing",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-strategies",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "workbox-sw",
+        "version": "^7.3.0",
+        "type": "dependency",
+        "category": "Mobile/PWA",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "zustand",
+        "version": "^5.0.8",
+        "type": "dependency",
+        "category": "State Management",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@actions/github",
+        "version": "^6.0.1",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@faker-js/faker",
+        "version": "^10.0.0",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@octokit/rest",
+        "version": "^22.0.0",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@replit/vite-plugin-cartographer",
+        "version": "^0.2.7",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@replit/vite-plugin-runtime-error-modal",
+        "version": "^0.0.3",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@tailwindcss/typography",
+        "version": "^0.5.15",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@tailwindcss/vite",
+        "version": "^4.1.3",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/connect-pg-simple",
+        "version": "^7.0.3",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/express",
+        "version": "4.17.21",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/express-session",
+        "version": "^1.18.0",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/node",
+        "version": "20.16.11",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport",
+        "version": "^1.0.16",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/passport-local",
+        "version": "^1.0.38",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react",
+        "version": "^18.3.11",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/react-dom",
+        "version": "^18.3.1",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "@types/ws",
+        "version": "^8.5.13",
+        "type": "devDependency",
+        "category": "Uncategorized",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "db-migrate",
+        "version": "^0.11.14",
+        "type": "devDependency",
+        "category": "Development",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "drizzle-kit",
+        "version": "^0.31.4",
+        "type": "devDependency",
+        "category": "Database",
+        "esaLayers": [
+          59
+        ],
+        "usedBy": []
+      },
+      {
+        "name": "snyk",
+        "version": "^1.1299.0",
+        "type": "devDependency",
+        "category": "Code Quality",
+        "esaLayers": [
+          49,
+          59
+        ],
+        "usedBy": []
+      }
+    ]
+  },
+  "unusedCandidates": [
+    "@arizeai/openinference-instrumentation-openai",
+    "@arizeai/openinference-semantic-conventions",
+    "@capacitor/android",
+    "@capacitor/app",
+    "@capacitor/browser",
+    "@capacitor/camera",
+    "@capacitor/cli",
+    "@capacitor/core",
+    "@capacitor/device",
+    "@capacitor/filesystem",
+    "@capacitor/geolocation",
+    "@capacitor/ios",
+    "@capacitor/network",
+    "@capacitor/preferences",
+    "@capacitor/push-notifications",
+    "@capacitor/share",
+    "@capacitor/splash-screen",
+    "@capacitor/status-bar",
+    "@elastic/elasticsearch-mock",
+    "@emotion/react",
+    "@emotion/styled",
+    "@ffmpeg/core",
+    "@ffmpeg/ffmpeg",
+    "@ffmpeg/util",
+    "@google-cloud/storage",
+    "@googlemaps/google-maps-services-js",
+    "@googlemaps/js-api-loader",
+    "@jridgewell/trace-mapping",
+    "@lancedb/lancedb",
+    "@langchain/core",
+    "@langchain/langgraph",
+    "@langchain/openai",
+    "@mui/icons-material",
+    "@mui/material",
+    "@mui/x-date-pickers",
+    "@notionhq/client",
+    "@opentelemetry/api",
+    "@opentelemetry/auto-instrumentations-node",
+    "@opentelemetry/sdk-node",
+    "@percy/playwright",
+    "@percy/sdk-utils",
+    "@react-email/components",
+    "@react-google-maps/api",
+    "@sentry/node",
+    "@sentry/profiling-node",
+    "@sentry/react",
+    "@sentry/tracing",
+    "@stripe/react-stripe-js",
+    "@stripe/stripe-js",
+    "@supabase/supabase-js",
+    "@temporalio/activity",
+    "@temporalio/client",
+    "@temporalio/worker",
+    "@temporalio/workflow",
+    "@testing-library/jest-dom",
+    "@testing-library/react",
+    "@testing-library/user-event",
+    "@types/bcrypt",
+    "@types/busboy",
+    "@types/bytes",
+    "@types/chokidar",
+    "@types/compression",
+    "@types/cors",
+    "@types/css",
+    "@types/dompurify",
+    "@types/google.maps",
+    "@types/hpp",
+    "@types/jest",
+    "@types/jsonwebtoken",
+    "@types/leaflet",
+    "@types/lodash",
+    "@types/memoizee",
+    "@types/multer",
+    "@types/node-cron",
+    "@types/node-fetch",
+    "@types/passport-github",
+    "@types/passport-google-oauth20",
+    "@types/pino",
+    "@types/qrcode",
+    "@types/react-beautiful-dnd",
+    "@types/react-csv",
+    "@types/react-helmet",
+    "@types/react-image-crop",
+    "@types/react-lazyload",
+    "@types/react-mentions",
+    "@types/react-window",
+    "@types/speakeasy",
+    "@types/supertest",
+    "@types/swagger-jsdoc",
+    "@types/swagger-ui-express",
+    "@types/uuid",
+    "@types/validator",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@uppy/aws-s3",
+    "@uppy/core",
+    "@uppy/dashboard",
+    "@uppy/drag-drop",
+    "@uppy/file-input",
+    "@uppy/progress-bar",
+    "@uppy/react",
+    "artillery",
+    "axe-core",
+    "busboy",
+    "chokidar",
+    "cmdk",
+    "codecov",
+    "country-state-city",
+    "css",
+    "dotenv",
+    "embla-carousel-react",
+    "emoji-picker-react",
+    "eslint-plugin-react",
+    "eslint-plugin-react-hooks",
+    "graphql",
+    "http-proxy-middleware",
+    "input-otp",
+    "jest-environment-jsdom",
+    "jest-performance-testing",
+    "memorystore",
+    "mui-chips-input",
+    "neo4j-driver",
+    "newman",
+    "next",
+    "next-themes",
+    "node-cache",
+    "npm-check-updates",
+    "openid-client",
+    "pm2",
+    "prop-types",
+    "puppeteer",
+    "quill",
+    "rate-limit-redis",
+    "rate-limiter-flexible",
+    "react-avatar-group",
+    "react-beautiful-dnd",
+    "react-confetti",
+    "react-copy-to-clipboard",
+    "react-countdown",
+    "react-day-picker",
+    "react-dropzone",
+    "react-email",
+    "react-helmet",
+    "react-hot-toast",
+    "react-hotkeys-hook",
+    "react-image-crop",
+    "react-infinite-scroll-component",
+    "react-intersection-observer",
+    "react-lazy-load-image-component",
+    "react-lazyload",
+    "react-loading-skeleton",
+    "react-markdown",
+    "react-mentions",
+    "react-quill",
+    "react-resizable-panels",
+    "react-select",
+    "react-share",
+    "react-social-media-embed",
+    "react-spring",
+    "react-sticky",
+    "react-tooltip",
+    "react-window",
+    "rrule",
+    "rss-parser",
+    "swagger-jsdoc",
+    "swagger-ui-express",
+    "test-data-bot",
+    "ts-jest",
+    "tw-animate-css",
+    "util",
+    "vaul",
+    "vectordb",
+    "@actions/github",
+    "@faker-js/faker",
+    "@octokit/rest",
+    "@replit/vite-plugin-cartographer",
+    "@replit/vite-plugin-runtime-error-modal",
+    "@tailwindcss/typography",
+    "@tailwindcss/vite",
+    "@types/connect-pg-simple",
+    "@types/express",
+    "@types/express-session",
+    "@types/node",
+    "@types/passport",
+    "@types/passport-local",
+    "@types/react",
+    "@types/react-dom",
+    "@types/ws"
+  ],
+  "securityRisks": []
+}
