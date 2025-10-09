@@ -313,6 +313,33 @@
       "noFriends": "Ancora nessun post dai tuoi amici. Connettiti con più ballerini per vedere i loro post qui!",
       "noTaggedPosts": "Nessun post trovato con i tag: {{tags}}",
       "noSearchResults": "Nessun ricordo trovato corrispondente a \"{{query}}\". Prova parole chiave diverse."
+    },
+    "post": {
+      "seeFriendship": "Vedi Amicizia",
+      "viewFriendshipWith": "Vedi dettagli dell'amicizia con {{name}}",
+      "anonymous": "Anonimo",
+      "recently": "recentemente",
+      "commentPlaceholder": "Scrivi un commento...",
+      "commentButton": "Commenta",
+      "commentDefault": "Scrivi un commento...",
+      "toggleComments": "Mostra/nascondi commenti",
+      "sharePost": "Condividi questo post"
+    },
+    "share": {
+      "sharePost": "Condividi Post",
+      "shareToTimeline": "Condividi sulla Timeline",
+      "shareToTimelineDesc": "Condividi questo post sulla tua timeline",
+      "shareWithComment": "Condividi con Commento",
+      "shareWithCommentDesc": "Aggiungi i tuoi pensieri quando condividi",
+      "copyLink": "Copia Link",
+      "copyLinkDesc": "Copia il link del post negli appunti",
+      "cancel": "Annulla",
+      "addThoughtsOptional": "Aggiungi i tuoi pensieri (opzionale):",
+      "whatDoYouThink": "Cosa ne pensi?",
+      "share": "Condividi",
+      "linkCopied": "Link copiato negli appunti!",
+      "linkCopyFailed": "Impossibile copiare il link",
+      "pleaseTryAgain": "Riprova"
     }
   }
 }

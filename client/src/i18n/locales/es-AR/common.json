@@ -119,6 +119,33 @@
       "noFriends": "Todavía no hay posteos de tus amigos. ¡Conectate con más bailarines para ver sus posteos acá!",
       "noTaggedPosts": "No se encontraron posteos con las etiquetas: {{tags}}",
       "noSearchResults": "No se encontraron recuerdos que coincidan con \"{{query}}\". Probá con otras palabras."
+    },
+    "post": {
+      "seeFriendship": "Ver Amistad",
+      "viewFriendshipWith": "Ver detalles de la amistad con {{name}}",
+      "anonymous": "Anónimo",
+      "recently": "reciente",
+      "commentPlaceholder": "Escribí un comentario...",
+      "commentButton": "Comentar",
+      "commentDefault": "Escribí un comentario...",
+      "toggleComments": "Mostrar/ocultar comentarios",
+      "sharePost": "Compartir este posteo"
+    },
+    "share": {
+      "sharePost": "Compartir Posteo",
+      "shareToTimeline": "Compartir en el Muro",
+      "shareToTimelineDesc": "Compartí este posteo en tu muro",
+      "shareWithComment": "Compartir con Comentario",
+      "shareWithCommentDesc": "Agregá tus pensamientos al compartir",
+      "copyLink": "Copiar Enlace",
+      "copyLinkDesc": "Copiar enlace del posteo al portapapeles",
+      "cancel": "Cancelar",
+      "addThoughtsOptional": "Agregá tus pensamientos (opcional):",
+      "whatDoYouThink": "¿Qué te parece esto?",
+      "share": "Compartir",
+      "linkCopied": "¡Enlace copiado al portapapeles!",
+      "linkCopyFailed": "Error al copiar el enlace",
+      "pleaseTryAgain": "Por favor intentá de nuevo"
     }
   }
 }

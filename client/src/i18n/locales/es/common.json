@@ -285,7 +285,9 @@
       "recently": "recientemente",
       "commentPlaceholder": "Escribe un comentario reflexivo...",
       "commentButton": "Comentar",
-      "commentDefault": "Escribe un comentario..."
+      "commentDefault": "Escribe un comentario...",
+      "toggleComments": "Alternar sección de comentarios",
+      "sharePost": "Compartir esta publicación"
     },
     "share": {
       "sharePost": "Compartir Publicación",
