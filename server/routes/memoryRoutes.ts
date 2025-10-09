@@ -38,7 +38,7 @@ router.get('/memories/feed', isAuthenticated, async (req: any, res: any) => {
 
 // Create memory
 // [A2A] Agent #5: Tag validation → Agent #4: Socket.IO broadcast
-router.post('/memories', isAuthenticated, validateTags, handleValidationErrors, async (req: any, res) => {
+router.post('/memories', isAuthenticated, validateTags, handleValidationErrors, async (req: any, res: any) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
