@@ -5,6 +5,8 @@ import CreatePost from "@/components/feed/create-post";
 import StoryViewer from "@/components/feed/story-viewer";
 import { useQuery } from "@tanstack/react-query";
 import PostFeed from "@/components/moments/PostFeed";
+import { GlassCard } from "@/components/glass/GlassComponents";
+import { FadeIn } from "@/components/animations/FramerMotionWrappers";
 
 export default function Home() {
   // MT Ocean Theme Restored - July 22, 2025 9:20PM - v4 with service worker update
@@ -75,18 +77,24 @@ export default function Home() {
           <div className="max-w-2xl mx-auto p-4 space-y-6">
             {/* Stories Section */}
             {stories && stories.length > 0 && (
-              <div className="glassmorphic-card rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <StoryViewer stories={stories} />
-              </div>
+              <FadeIn delay={0.1}>
+                <GlassCard depth={1} className="p-4">
+                  <StoryViewer stories={stories} />
+                </GlassCard>
+              </FadeIn>
             )}
 
             {/* Create Post */}
-            <div className="glassmorphic-card rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CreatePost />
-            </div>
+            <FadeIn delay={0.2}>
+              <GlassCard depth={2}>
+                <CreatePost />
+              </GlassCard>
+            </FadeIn>
 
             {/* Unified PostFeed */}
-            <PostFeed context={{ type: 'feed' }} />
+            <FadeIn delay={0.3}>
+              <PostFeed context={{ type: 'feed' }} />
+            </FadeIn>
           </div>
         </main>
       </div>
