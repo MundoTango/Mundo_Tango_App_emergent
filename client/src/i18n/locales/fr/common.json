@@ -246,6 +246,9 @@
     "memorySharedDesc": "Votre souvenir a été partagé avec succès",
     "error": "Erreur",
     "uploadFailed": "Échec du téléchargement",
+    "edit": {
+      "title": "Modifier Votre Souvenir"
+    },
     "creator": {
       "sharePlaceholder": "Partagez un souvenir de tango...",
       "editPlaceholder": "Modifiez votre souvenir...",
@@ -268,7 +271,13 @@
       "filteredBy": "Filtré par",
       "tag": "étiquette",
       "tags": "étiquettes",
-      "all": "Tout"
+      "all": "Tout",
+      "noMemories": "Pas Encore de Souvenirs",
+      "noResidents": "Pas encore de publications de résidents dans votre ville. Revenez plus tard !",
+      "noVisitors": "Aucune publication de visiteurs trouvée. Revenez quand des voyageurs visitent votre ville !",
+      "noFriends": "Pas encore de publications de vos amis. Connectez-vous avec plus de danseurs pour voir leurs publications ici !",
+      "noTaggedPosts": "Aucune publication trouvée avec les étiquettes : {{tags}}",
+      "noSearchResults": "Aucun souvenir trouvé correspondant à \"{{query}}\". Essayez différents mots-clés."
     },
     "post": {
       "seeFriendship": "Voir l'amitié",

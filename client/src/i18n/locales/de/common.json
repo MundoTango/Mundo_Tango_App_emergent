@@ -245,6 +245,9 @@
     "memorySharedDesc": "Ihre Erinnerung wurde erfolgreich geteilt",
     "error": "Fehler",
     "uploadFailed": "Hochladen fehlgeschlagen",
+    "edit": {
+      "title": "Bearbeiten Sie Ihre Erinnerung"
+    },
     "creator": {
       "sharePlaceholder": "Teilen Sie eine Tango-Erinnerung...",
       "editPlaceholder": "Bearbeiten Sie Ihre Erinnerung...",
@@ -267,7 +270,13 @@
       "filteredBy": "Gefiltert nach",
       "tag": "Tag",
       "tags": "Tags",
-      "all": "Alle"
+      "all": "Alle",
+      "noMemories": "Noch Keine Erinnerungen",
+      "noResidents": "Noch keine Beiträge von Bewohnern in Ihrer Stadt. Schauen Sie später vorbei!",
+      "noVisitors": "Keine Beiträge von Besuchern gefunden. Schauen Sie vorbei, wenn Reisende Ihre Stadt besuchen!",
+      "noFriends": "Noch keine Beiträge von Ihren Freunden. Vernetzen Sie sich mit mehr Tänzern, um ihre Beiträge hier zu sehen!",
+      "noTaggedPosts": "Keine Beiträge mit den Tags gefunden: {{tags}}",
+      "noSearchResults": "Keine Erinnerungen gefunden, die zu \"{{query}}\" passen. Versuchen Sie andere Suchbegriffe."
     },
     "post": {
       "seeFriendship": "Freundschaft ansehen",
