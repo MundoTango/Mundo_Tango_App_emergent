@@ -67,7 +67,11 @@
     "design:validate": "npm run tokens:validate && npm run component:audit",
     "ladle": "ladle serve",
     "ladle:build": "ladle build",
-    "ladle:preview": "ladle preview"
+    "ladle:preview": "ladle preview",
+    "audit-page": "tsx scripts/audit-page.ts",
+    "audit:list": "tsx scripts/audit-page.ts list",
+    "audit:category": "tsx scripts/audit-page.ts category",
+    "audit:all": "tsx scripts/audit-page.ts all"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
