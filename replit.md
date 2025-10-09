@@ -73,11 +73,12 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Internationalization**: i18next, react-i18next
 
 ## Comprehensive Audit System
-The platform features an automated, multi-layer audit system for continuous quality improvement and optimization (Tracks A, B, E complete).
+The platform features an automated, multi-layer audit system for continuous quality improvement and optimization (Tracks A, B, C, E complete - 80%).
 
 ### System Components
 - **Track A - Page Audit Infrastructure** ✅: Maps 100+ pages to ESA agents, orchestrates parallel audits, generates consolidated reports
 - **Track B - Testing Suite** ✅: Visual regression (6 pages), user journey (5 critical paths), accessibility (WCAG 2.1), translation coverage (68 languages)
+- **Track C - Performance Monitoring** ✅: Lighthouse CI (Core Web Vitals), Bundle Size Tracker (10% alert threshold), Performance Dashboard (unified health score)
 - **Track E - Open Source Management** ✅: Dependency analysis (359 packages), security scanning (Snyk), bundle impact analysis, optimization recommendations
 
 ### Available Audit Commands
@@ -93,6 +94,13 @@ npm run visual:test            # Visual regression tests
 npm run journey:test           # User journey tests
 npm run a11y:scan             # Accessibility scan (WCAG 2.1)
 npm run translation:scan      # Translation coverage (68 languages)
+
+# Performance Monitoring (Track C)
+npm run lighthouse:audit       # Lighthouse CI full suite
+npm run lighthouse:page <name> # Single page audit
+npm run bundle:capture [commit] # Capture bundle snapshot
+npm run bundle:compare         # Compare with previous
+npm run perf:dashboard        # Unified performance dashboard
 
 # Dependencies & Security (Track E)
 npm run deps:map              # Analyze 359 packages
@@ -118,6 +126,9 @@ npm run optimize              # Complete optimization plan
 - `server/services/userJourneyTester.ts` - Critical path testing
 - `server/services/accessibilityScanner.ts` - WCAG 2.1 compliance
 - `server/services/translationCoverageScanner.ts` - i18n coverage
+- `server/services/lighthouseAuditor.ts` - Lighthouse CI automation
+- `server/services/bundleSizeTracker.ts` - Bundle size monitoring
+- `server/services/performanceMetricsDashboard.ts` - Performance aggregation
 
 **Reports saved to:**
 - `docs/audit-reports/` - Page quality reports
@@ -129,6 +140,9 @@ npm run optimize              # Complete optimization plan
 - `docs/journey-reports/` - User journey tests
 - `docs/a11y-reports/` - Accessibility scans
 - `docs/translation-reports/` - Translation coverage
+- `docs/lighthouse-reports/` - Lighthouse CI audits
+- `docs/bundle-tracking/` - Bundle size snapshots
+- `docs/performance-dashboard/` - Performance metrics
 
 ### Key Metrics
 - **Page Quality:** Score (0-100), critical issues, agent pass/fail - **Latest: 99/100 on memories-feed**
@@ -140,7 +154,7 @@ npm run optimize              # Complete optimization plan
 
 ### Multi-Track Build Strategy
 - **Track A:** Page Infrastructure ✅ COMPLETE
-- **Track B:** Testing Suite ✅ COMPLETE  
+- **Track B:** Testing Suite ✅ COMPLETE
+- **Track C:** Performance Monitoring ✅ COMPLETE
 - **Track E:** Open Source Management ✅ COMPLETE
-- **Track C:** Performance Monitoring - PENDING (Lighthouse CI, Bundle Tracker, Metrics Dashboard)
 - **Track D:** CI/CD Automation - PENDING (GitHub Actions, Pre-commit hooks, Scheduled jobs, Notifications)
