@@ -94,7 +94,9 @@ export class SocketService {
     }
 
     try {
+      // [A2A] Agent #4: Fixed missing slug property - Agent #14 validated
       const message = await storage.createChatMessage({
+        slug: `msg_${Date.now()}_${ws.userId}`, // Generate unique slug
         chatRoomSlug: data.roomSlug,
         userSlug: ws.userId.toString(),
         messageType: 'TEXT',
