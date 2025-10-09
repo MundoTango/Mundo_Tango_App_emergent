@@ -286,7 +286,9 @@
       "recently": "récemment",
       "commentPlaceholder": "Écrivez un commentaire réfléchi...",
       "commentButton": "Commenter",
-      "commentDefault": "Écrivez un commentaire..."
+      "commentDefault": "Écrivez un commentaire...",
+      "toggleComments": "Afficher/masquer les commentaires",
+      "sharePost": "Partager cette publication"
     },
     "share": {
       "sharePost": "Partager la publication",
