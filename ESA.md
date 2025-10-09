@@ -413,4 +413,67 @@ Platform is deployment-ready when:
 
 ---
 
-This expanded 59x21 framework provides complete governance over the entire platform ecosystem, including internal systems, external services, and open source dependencies.
+## 🤝 AGENT COORDINATION BEST PRACTICES
+
+### Ultra-Micro Parallel Subagent Methodology
+**Status**: ✅ VALIDATED (October 2025 - Memories Page Audit)  
+**Performance**: 10x faster than sequential execution  
+**Full Documentation**: `docs/pages/esa-tools/ultra-micro-parallel-subagent-methodology.md`
+
+#### Core Principle
+Treat subagents as **micro-task executors**, not intelligent agents. Break complex tasks into atomic operations (1 file + 1 operation + 1 output).
+
+#### 3-Phase Execution Strategy
+1. **Discovery Phase (Parallel)** - ~30 seconds
+   - Launch 4-6 ultra-micro subagents simultaneously
+   - Each reads/searches ONE thing only
+   - Report findings, no analysis
+
+2. **Fix Phase (Direct Parallel)** - ~45 seconds
+   - Main agent executes fixes using parallel tool calls
+   - Faster than subagents for editing
+   - Full context awareness
+
+3. **Validation Phase (Multi-State)** - ~20 seconds
+   - LSP check (TypeScript errors)
+   - Visual verification (all UI states)
+   - Functional testing
+
+**Total Time**: ~2 minutes vs 10+ minutes sequential
+
+#### Critical Pre-Flight Rules
+1. ✅ **Fix ALL LSP errors** before launching subagents (they crash on TypeScript errors)
+2. ✅ **Validate in ALL UI states** (sidebar open/closed, responsive breakpoints, dark mode)
+3. ✅ **Never assume CSS patterns are bugs** (understand purpose before removing)
+4. ✅ **Hard refresh for visual validation** (screenshots may be cached)
+5. ✅ **Keep tasks atomic** (1 file, 1 operation, specific line ranges)
+
+#### Agent Task Formula
+```
+Good Task = 1 file + 1 operation + 1 output
+
+✅ "Read ESAMemoryFeed.tsx line 167, report className value"
+✅ "Search for 'bookmark' in EnhancedPostItem.tsx, list line numbers"
+✅ "Count occurrences of 'dark:' in file X"
+
+❌ "Audit component for duplicate functionality" (too complex)
+❌ "Compare bookmark in A with Save in B" (cross-file analysis)
+❌ "Check for problems" (too vague)
+```
+
+#### Proven Success Case
+**Memories Page Audit (October 2025)**:
+- 6 parallel micro-subagents discovered 6 issues in ~30 seconds
+- Fixed layout whitespace, removed duplicate bookmark button
+- Critical learning: Negative margins (`-mx-4`, `sm:-mx-6`, `lg:-mx-8`) are valid CSS technique for compensating DashboardLayout padding when sidebar is open
+- Failure point: Didn't validate in all UI states (sidebar open/closed)
+
+#### Key Learnings
+1. **CSS Architecture**: Negative margins breaking out of parent padding are intentional workarounds, not bugs
+2. **Responsive Design**: Always test sidebar open/closed states for dashboard layouts
+3. **Build Caching**: Hard refresh required for accurate visual validation
+4. **Subagent Limitations**: Crash on LSP errors, work best with single-file micro-tasks
+
+---
+
+This expanded 61x21 framework provides complete governance over the entire platform ecosystem, including internal systems, external services, open source dependencies, and agent coordination methodologies.
