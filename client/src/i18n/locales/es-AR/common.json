@@ -1,0 +1,83 @@
+{
+  "app": {
+    "name": "Mundo Tango",
+    "tagline": "La Comunidad Global de Tango",
+    "welcome": "Bienvenido a Mundo Tango",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "feed": "Novedades",
+    "profile": "Perfil",
+    "events": "Eventos",
+    "community": "Comunidad",
+    "tangoCommunity": "Comunidad Tanguera",
+    "messages": "Mensajes",
+    "friends": "Amigos",
+    "groups": "Grupos",
+    "memories": "Recuerdos",
+    "settings": "Configuración",
+    "admin": "Admin",
+    "logout": "Salir",
+    "search": "Buscar",
+    "notifications": "Notificaciones",
+    "help": "Ayuda",
+    "roleInvitations": "Invitaciones de Rol",
+    "recommendations": "Recomendaciones"
+  },
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "submit": "Enviar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "share": "Compartir"
+  },
+  "memories": {
+    "title": "Recuerdos",
+    "newPost": "Nuevo posteo",
+    "shareMemory": "Compartí tu momento tanguero y mencioná a tu gente...",
+    "keyboardShortcuts": "Atajos de teclado: ",
+    "memoryShared": "Recuerdo Compartido",
+    "memorySharedDesc": "Tu recuerdo se compartió exitosamente",
+    "error": "Error",
+    "uploadFailed": "Falló la carga",
+    "creator": {
+      "sharePlaceholder": "Compartí un recuerdo tanguero...",
+      "editPlaceholder": "Editá tu recuerdo...",
+      "searchPlace": "Buscar un lugar..."
+    },
+    "categories": {
+      "milonga": "Milonga",
+      "practica": "Práctica",
+      "performance": "Performance",
+      "workshop": "Taller",
+      "festival": "Festival",
+      "travel": "Viaje",
+      "music": "Música",
+      "fashion": "Moda"
+    },
+    "price": {
+      "budget": "Económico",
+      "moderate": "Moderado",
+      "luxury": "Premium"
+    },
+    "actions": {
+      "error": "Error",
+      "errorDesc": "Algo salió mal",
+      "failedToUpdateLike": "No se pudo actualizar el me gusta"
+    }
+  }
+}
