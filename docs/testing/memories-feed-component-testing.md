@@ -343,7 +343,7 @@ npx playwright test tests/e2e/memories-feed-comprehensive.spec.ts --debug
 
 ## Related Documentation
 
-- **ESA Framework Guide**: `docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+- **ESA Framework Guide**: `docs/ESA.md`
 - **Platform Audit**: `docs/ESA_COMPREHENSIVE_PLATFORM_AUDIT.md`
 - **World Map Feature**: `docs/pages/MUNDO_TANGO_WORLD_MAP.md`
 - **Documentation Index**: `docs/pages/DOCUMENTATION-INDEX.md`

@@ -570,8 +570,8 @@ Before deploying RSVP changes:
 
 ## References
 
-- **ESA Master Orchestration:** `ESA_MASTER_ORCHESTRATION.md`
-- **ESA Layer 14 (Caching):** `ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+- **ESA Master Orchestration:** `ESA_ORCHESTRATION.md`
+- **ESA Layer 14 (Caching):** `ESA.md`
 - **Aurora Tide Design:** `docs/pages/design-systems/aurora-tide.md`
 - **TanStack Query Docs:** https://tanstack.com/query/latest/docs/react/overview
 

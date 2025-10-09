@@ -38,7 +38,7 @@ mv /app/*_DEBUG*.md /app/docs/archived/$(date +%Y%m)/ 2>/dev/null || true
 # Keep only essential documentation
 ESSENTIAL_DOCS=(
   "README.md"
-  "ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md"
+  "ESA.md"
   "DEPLOYMENT_GUIDE.md"
   "BUILD_GUIDE.md"
   "API_DOCUMENTATION.md"

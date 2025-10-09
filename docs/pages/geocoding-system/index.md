@@ -233,7 +233,7 @@ export default function MyEntityMap({ entities }) {
 - [API Reference](./api-reference.md) - Geocoding API endpoints
 - [Map Components](./map-components.md) - Component usage guide
 - [CDN-Free Migration](./cdn-free-migration.md) - **NEW:** Local-first architecture guide
-- [ESA Framework](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md) - System architecture
+- [ESA Framework](/docs/ESA.md) - System architecture
 
 ## Questions & Support
 

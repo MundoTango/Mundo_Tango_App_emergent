@@ -622,4 +622,4 @@ initializeLeaflet();  // Sets local paths
 
 - [Architecture Overview](./index.md)
 - [API Reference](./api-reference.md)
-- [ESA Framework](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework](/docs/ESA.md)

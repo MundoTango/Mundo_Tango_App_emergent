@@ -122,6 +122,6 @@ Disabled features violate ESA framework principles:
 
 ## Related Documentation
 
-- [ESA Framework Guide](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework Guide](../../ESA.md)
 - [Platform Audit](../../ESA_COMPREHENSIVE_PLATFORM_AUDIT.md)
 - [Bug Fixes Log](../bug-fixes/)

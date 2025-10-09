@@ -385,7 +385,7 @@ tests/e2e/housing/
 - [Geocoding System](../geocoding-system/index.md)
 - [Map Components](../geocoding-system/map-components.md)
 - [Unified Map Components](../components/UnifiedMapComponents.md)
-- [ESA Framework](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework](/docs/ESA.md)
 
 ---
 

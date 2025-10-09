@@ -613,7 +613,7 @@ Current production data:
 
 ## Related Documentation
 
-- **ESA Framework**: `docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+- **ESA Framework**: `docs/ESA.md`
 - **Platform Audit**: `docs/ESA_COMPREHENSIVE_PLATFORM_AUDIT.md`
 - **Community Features**: See `replit.md` for full feature list
 - **Internationalization Status**: `docs/pages/esa-layers/layer-53-internationalization.md`

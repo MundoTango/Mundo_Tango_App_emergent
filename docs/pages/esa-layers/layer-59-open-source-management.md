@@ -428,4 +428,4 @@ npx find-duplicate-dependencies
 - [Snyk Advisor](https://snyk.io/advisor/)
 - [Bundlephobia](https://bundlephobia.com/)
 - [Open Source License Guide](https://choosealicense.com/)
-- [ESA Framework Guide](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework Guide](../../ESA.md)

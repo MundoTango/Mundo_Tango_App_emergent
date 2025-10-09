@@ -724,8 +724,8 @@ const commonLocations = [
 
 - [Geocoding System](../geocoding-system/index.md) - Backend geocoding with `CityAutoCreationService`
 - [PostCreator Component](./PostCreator.md) - Universal post creation UI
-- [ESA Layer 13](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md#layer-13) - Maps & location services
-- [ESA Layer 58](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md#layer-58) - Third-party integrations
+- [ESA Layer 13](../../ESA.md#layer-13) - Maps & location services
+- [ESA Layer 58](../../ESA.md#layer-58) - Third-party integrations
 
 ---
 
