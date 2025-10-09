@@ -1,0 +1,1 @@
+import { describe,it,expect } from 'vitest'; describe('signup→trip→click',()=>{ it('stub',()=>{ expect(2).toBe(2); }); });

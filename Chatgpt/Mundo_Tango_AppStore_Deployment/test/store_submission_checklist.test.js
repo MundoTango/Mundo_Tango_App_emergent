@@ -1,0 +1,1 @@
+console.log('Store submission checklist placeholder');

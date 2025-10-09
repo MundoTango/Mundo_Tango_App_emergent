@@ -1,0 +1,1 @@
+export default function ImportReviewCard(){return null}

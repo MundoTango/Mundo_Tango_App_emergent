@@ -1,0 +1,29 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Mundo Tango Travel API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/trips": {
+      "post": {
+        "summary": "Create trip"
+      }
+    },
+    "/api/trips/{id}": {
+      "get": {
+        "summary": "Get trip detail"
+      }
+    },
+    "/api/events/{id}/travel": {
+      "get": {
+        "summary": "Get event travel bundle"
+      }
+    },
+    "/api/go/{slug}": {
+      "get": {
+        "summary": "Affiliate redirect"
+      }
+    }
+  }
+}

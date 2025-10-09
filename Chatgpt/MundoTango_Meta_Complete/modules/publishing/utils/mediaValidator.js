@@ -1,0 +1,1 @@
+export function validateMedia(){return true}

@@ -1,0 +1,1 @@
+export default function Page(){return(<main className='p-6'><h1 className='text-2xl font-bold'>My Trips</h1><p className='opacity-80'>Trips will appear here. Use event signup to auto-create a trip.</p></main>);}

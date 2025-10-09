@@ -1,0 +1,1 @@
+// Ensures privacy labels, data safety, ToS/PP links are correct (stub)

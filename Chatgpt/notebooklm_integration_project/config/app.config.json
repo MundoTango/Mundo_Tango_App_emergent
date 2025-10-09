@@ -1,0 +1,9 @@
+{
+  "vector": {
+    "backend": "memory",
+    "dim": 768
+  },
+  "retrieval": {
+    "top_k": 6
+  }
+}

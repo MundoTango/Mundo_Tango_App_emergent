@@ -1,0 +1,1 @@
+export async function GET(_req:Request,{params}:{params:{slug:string}}){const target='https://www.booking.com';return new Response(null,{status:302,headers:{Location:target}});}

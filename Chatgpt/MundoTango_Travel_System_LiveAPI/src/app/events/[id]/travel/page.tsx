@@ -1,0 +1,1 @@
+export default function Page(){return(<main className='p-6'><h1 className='text-2xl font-bold'>Event Travel</h1><p>Travel tab content will render here based on event id.</p></main>);}

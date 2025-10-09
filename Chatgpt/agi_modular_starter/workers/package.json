@@ -1,0 +1,16 @@
+{
+  "name": "mt-workers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start:memory": "WORKER_PREFIX=memory. node index.js",
+    "start:events": "WORKER_PREFIX=events. node index.js",
+    "start:social": "WORKER_PREFIX=social. node index.js",
+    "start:travel": "WORKER_PREFIX=travel. node index.js"
+  },
+  "dependencies": {
+    "pg": "^8.11.5"
+  }
+}

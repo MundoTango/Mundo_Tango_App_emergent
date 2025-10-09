@@ -1,0 +1,1 @@
+export function mapFbIgExportToMT(json){return []}

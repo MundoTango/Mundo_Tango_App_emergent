@@ -1,0 +1,1 @@
+export function trackAffiliateClick(p: string, d: string, e?: string){ if(typeof window!=='undefined'&&(window as any).plausible){ (window as any).plausible('affiliate_click',{props:{provider:p,destination:d,eventId:e}}) } }

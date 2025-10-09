@@ -1,0 +1,28 @@
+{
+  "project": "Mundo Tango",
+  "framework": "ESA_LIFE_CEO_61x21_AGENTS_FRAMEWORK",
+  "version": "AGI-Modular-Replit",
+  "notes": "AGI-modularity with Supabase + Replit + GitHub Actions; no N8N/Make",
+  "modules": [
+    "memory.*",
+    "events.*",
+    "social.*",
+    "travel.*",
+    "governance.*",
+    "payments.*"
+  ],
+  "router": "/router/dispatch",
+  "workers": "WORKER_PREFIX",
+  "sops": [
+    "SOP-A",
+    "SOP-B",
+    "SOP-C",
+    "SOP-D",
+    "SOP-E",
+    "SOP-F",
+    "SOP-G",
+    "SOP-H",
+    "SOP-I",
+    "SOP-J"
+  ]
+}

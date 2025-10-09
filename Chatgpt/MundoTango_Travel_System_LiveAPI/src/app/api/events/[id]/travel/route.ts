@@ -1,0 +1,1 @@
+export async function GET(){const bundle=[{id:'1',provider:'booking.com',label:'Find Hotels',url:'#'}];return new Response(JSON.stringify({ok:true,links:bundle}),{status:200});}

@@ -1,0 +1,46 @@
+{
+  "Eventbrite": {
+    "agent_id": "Layer_23_Event_Management_Agent",
+    "layer": 23
+  },
+  "Meetup": {
+    "agent_id": "Layer_23_Event_Management_Agent",
+    "layer": 23
+  },
+  "FacebookEvents": {
+    "agent_id": "Layer_23_Event_Management_Agent",
+    "layer": 23
+  },
+  "GooglePlaces": {
+    "agent_id": "Layer_15_Search_Discovery_Agent",
+    "layer": 15
+  },
+  "Foursquare": {
+    "agent_id": "Layer_15_Search_Discovery_Agent",
+    "layer": 15
+  },
+  "Yelp": {
+    "agent_id": "Layer_15_Search_Discovery_Agent",
+    "layer": 15
+  },
+  "OpenStreetMap": {
+    "agent_id": "Layer_11_RealTime_Geodata",
+    "layer": 11
+  },
+  "Nominatim": {
+    "agent_id": "Layer_11_RealTime_Geodata",
+    "layer": 11
+  },
+  "Scrapy_Playwright": {
+    "agent_id": "Layer_20_Workflow_Engine",
+    "layer": 20
+  },
+  "ScraperAPI": {
+    "agent_id": "Layer_57_CI_CD_Pipeline",
+    "layer": 57
+  },
+  "BrightData": {
+    "agent_id": "Layer_57_CI_CD_Pipeline",
+    "layer": 57
+  }
+}

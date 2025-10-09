@@ -1,0 +1,39 @@
+{
+  "meta_integration_full_plan": {
+    "metadata": {
+      "generated_at": "2025-10-06T22:14:04.089507Z",
+      "author": "ESA LIFE CEO 61x22 Framework",
+      "project": "Mundo Tango Meta Integrations"
+    },
+    "executive_summary": {
+      "purpose": "Full modernization plan for Facebook and Instagram integrations in Mundo Tango.",
+      "modules": [
+        "Publishing",
+        "Messaging",
+        "Profile Import",
+        "Events"
+      ],
+      "key_objectives": [
+        "Unify architecture under 61x22",
+        "Enhance security (RLS, encryption, audit logs)",
+        "Ensure compliance with Meta policies",
+        "Maintain design consistency with Tailwind/DaisyUI"
+      ],
+      "success_metrics": {
+        "90d": [
+          "\u2265 10 organizers import events",
+          "\u2265 25 successful cross-posts",
+          "Graph MTTR < 2h"
+        ],
+        "180d": [
+          "IG Messaging app review in progress or alternative live",
+          "Official Events API application submitted",
+          "NPS \u2265 45"
+        ]
+      },
+      "timeline": {
+        "target_release_window": "2025-Q4"
+      }
+    }
+  }
+}

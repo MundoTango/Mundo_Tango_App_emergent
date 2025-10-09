@@ -1,0 +1,1 @@
+const config = { timeout: 60000, use: { headless: true } }; export default config;

@@ -1,0 +1,1 @@
+// Runs preflight checks and prepares metadata payloads (stub)

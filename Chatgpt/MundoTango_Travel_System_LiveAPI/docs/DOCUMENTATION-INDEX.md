@@ -1,0 +1,3 @@
+- API: docs/api/travel.openapi.json
+- DB: supabase/migrations
+- UI: src/components/travel

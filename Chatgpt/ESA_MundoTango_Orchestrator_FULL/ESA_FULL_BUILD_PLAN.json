@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "project": "ESA LIFE CEO \u00d7 Mundo Tango",
+    "version": "61\u00d721 Agents Framework",
+    "last_updated": "2025-10-06"
+  },
+  "modules": [
+    "server",
+    "agents",
+    "db",
+    "edge",
+    "n8n",
+    "docs"
+  ]
+}

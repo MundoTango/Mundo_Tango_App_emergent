@@ -1,0 +1,19 @@
+{
+  "name": "mundo-tango-meta-complete",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start:events": "node modules/events/server/index.js",
+    "start:publishing": "node modules/publishing/server/index.js",
+    "start:messaging": "node modules/messaging/server/index.js",
+    "start:profile-import": "node modules/profile-import/server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "@supabase/supabase-js": "^2.39.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

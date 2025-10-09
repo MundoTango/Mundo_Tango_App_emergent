@@ -1,0 +1,14 @@
+name: nightly-maintenance
+on:
+  schedule:
+    - cron: "15 2 * * *"
+jobs:
+  enqueue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enqueue memory reindex
+        run: |
+          curl -X POST "$SUPABASE_FUNC_URL"             -H "Content-Type: application/json"             -H "Authorization: Bearer $SUPABASE_SERVICE_JWT"             -d '{"job_type":"memory.reindex_all","payload":{}}'
+        env:
+          SUPABASE_FUNC_URL: ${{ secrets.SUPABASE_FUNC_URL }}
+          SUPABASE_SERVICE_JWT: ${{ secrets.SUPABASE_SERVICE_JWT }}

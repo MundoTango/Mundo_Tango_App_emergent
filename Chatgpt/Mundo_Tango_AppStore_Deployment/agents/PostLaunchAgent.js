@@ -1,0 +1,1 @@
+// Monitors crashes, ratings, ASO metrics and proposes fixes (stub)

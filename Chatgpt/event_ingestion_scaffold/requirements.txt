@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+lxml
+pydantic
+pandas
+scrapy
+playwright
+httpx
+psycopg2-binary
+SQLAlchemy
+python-dotenv

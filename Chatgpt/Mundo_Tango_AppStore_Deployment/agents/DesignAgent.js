@@ -1,0 +1,1 @@
+// Verifies icons, screenshots, and marketing copy (stub)
