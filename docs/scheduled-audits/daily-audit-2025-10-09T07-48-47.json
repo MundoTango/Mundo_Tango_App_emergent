@@ -1,0 +1,285 @@
+{
+  "jobId": "daily-1759996127285",
+  "jobType": "daily",
+  "startTime": "2025-10-09T07:48:47.284Z",
+  "endTime": "2025-10-09T07:48:47.300Z",
+  "duration": 16,
+  "results": {
+    "lighthouse": {
+      "pages": [
+        {
+          "url": "/",
+          "pageName": "home",
+          "scores": {
+            "performance": 89,
+            "accessibility": 95,
+            "bestPractices": 94,
+            "seo": 95,
+            "pwa": 75
+          },
+          "metrics": {
+            "firstContentfulPaint": 622,
+            "largestContentfulPaint": 1860,
+            "totalBlockingTime": 332,
+            "cumulativeLayoutShift": 0.073,
+            "speedIndex": 2026,
+            "timeToInteractive": 1742
+          },
+          "opportunities": [
+            {
+              "id": "unused-javascript",
+              "title": "Remove unused JavaScript",
+              "description": "Reduce unused JavaScript and defer loading scripts until they are required",
+              "savings": "~250 KB",
+              "priority": "high"
+            }
+          ],
+          "passedAudits": 47,
+          "totalAudits": 50,
+          "timestamp": "2025-10-09T07:48:47.286Z"
+        },
+        {
+          "url": "/memories",
+          "pageName": "memories-feed",
+          "scores": {
+            "performance": 94,
+            "accessibility": 87,
+            "bestPractices": 92,
+            "seo": 93,
+            "pwa": 77
+          },
+          "metrics": {
+            "firstContentfulPaint": 1310,
+            "largestContentfulPaint": 1553,
+            "totalBlockingTime": 68,
+            "cumulativeLayoutShift": 0.008,
+            "speedIndex": 2335,
+            "timeToInteractive": 1593
+          },
+          "opportunities": [],
+          "passedAudits": 40,
+          "totalAudits": 50,
+          "timestamp": "2025-10-09T07:48:47.286Z"
+        },
+        {
+          "url": "/housing",
+          "pageName": "housing-listings",
+          "scores": {
+            "performance": 86,
+            "accessibility": 96,
+            "bestPractices": 95,
+            "seo": 95,
+            "pwa": 73
+          },
+          "metrics": {
+            "firstContentfulPaint": 734,
+            "largestContentfulPaint": 1994,
+            "totalBlockingTime": 262,
+            "cumulativeLayoutShift": 0.061,
+            "speedIndex": 2841,
+            "timeToInteractive": 1588
+          },
+          "opportunities": [
+            {
+              "id": "unused-javascript",
+              "title": "Remove unused JavaScript",
+              "description": "Reduce unused JavaScript and defer loading scripts until they are required",
+              "savings": "~250 KB",
+              "priority": "high"
+            }
+          ],
+          "passedAudits": 47,
+          "totalAudits": 50,
+          "timestamp": "2025-10-09T07:48:47.286Z"
+        },
+        {
+          "url": "/events",
+          "pageName": "events",
+          "scores": {
+            "performance": 82,
+            "accessibility": 89,
+            "bestPractices": 93,
+            "seo": 91,
+            "pwa": 99
+          },
+          "metrics": {
+            "firstContentfulPaint": 1187,
+            "largestContentfulPaint": 2370,
+            "totalBlockingTime": 254,
+            "cumulativeLayoutShift": 0.076,
+            "speedIndex": 1479,
+            "timeToInteractive": 1720
+          },
+          "opportunities": [
+            {
+              "id": "unused-javascript",
+              "title": "Remove unused JavaScript",
+              "description": "Reduce unused JavaScript and defer loading scripts until they are required",
+              "savings": "~250 KB",
+              "priority": "high"
+            },
+            {
+              "id": "lcp-optimization",
+              "title": "Optimize Largest Contentful Paint",
+              "description": "Improve LCP by optimizing image loading and reducing render-blocking resources",
+              "savings": "~0.8s",
+              "priority": "high"
+            }
+          ],
+          "passedAudits": 46,
+          "totalAudits": 50,
+          "timestamp": "2025-10-09T07:48:47.286Z"
+        },
+        {
+          "url": "/life-ceo",
+          "pageName": "life-ceo",
+          "scores": {
+            "performance": 85,
+            "accessibility": 89,
+            "bestPractices": 87,
+            "seo": 86,
+            "pwa": 80
+          },
+          "metrics": {
+            "firstContentfulPaint": 528,
+            "largestContentfulPaint": 1316,
+            "totalBlockingTime": 315,
+            "cumulativeLayoutShift": 0.075,
+            "speedIndex": 2452,
+            "timeToInteractive": 2389
+          },
+          "opportunities": [
+            {
+              "id": "unused-javascript",
+              "title": "Remove unused JavaScript",
+              "description": "Reduce unused JavaScript and defer loading scripts until they are required",
+              "savings": "~250 KB",
+              "priority": "high"
+            }
+          ],
+          "passedAudits": 41,
+          "totalAudits": 50,
+          "timestamp": "2025-10-09T07:48:47.286Z"
+        },
+        {
+          "url": "/profile",
+          "pageName": "profile",
+          "scores": {
+            "performance": 95,
+            "accessibility": 92,
+            "bestPractices": 94,
+            "seo": 87,
+            "pwa": 79
+          },
+          "metrics": {
+            "firstContentfulPaint": 1286,
+            "largestContentfulPaint": 1262,
+            "totalBlockingTime": 282,
+            "cumulativeLayoutShift": 0.146,
+            "speedIndex": 1560,
+            "timeToInteractive": 3328
+          },
+          "opportunities": [
+            {
+              "id": "cls-optimization",
+              "title": "Reduce Cumulative Layout Shift",
+              "description": "Set explicit dimensions on images and ensure proper font loading",
+              "savings": "CLS reduction",
+              "priority": "medium"
+            }
+          ],
+          "passedAudits": 48,
+          "totalAudits": 50,
+          "timestamp": "2025-10-09T07:48:47.286Z"
+        }
+      ],
+      "summary": {
+        "avgPerformance": 89,
+        "avgAccessibility": 91,
+        "avgBestPractices": 93,
+        "avgSEO": 91,
+        "avgPWA": 81,
+        "totalOpportunities": 6,
+        "criticalIssues": 5
+      },
+      "timestamp": "2025-10-09T07:48:47.286Z"
+    },
+    "bundle": {
+      "totalSize": 545000,
+      "totalGzipSize": 195000,
+      "entries": [
+        {
+          "name": "main.js",
+          "size": 245000,
+          "gzipSize": 82000,
+          "percent": 45
+        },
+        {
+          "name": "vendor.js",
+          "size": 180000,
+          "gzipSize": 65000,
+          "percent": 33
+        },
+        {
+          "name": "runtime.js",
+          "size": 15000,
+          "gzipSize": 5500,
+          "percent": 3
+        },
+        {
+          "name": "polyfills.js",
+          "size": 35000,
+          "gzipSize": 12000,
+          "percent": 6
+        },
+        {
+          "name": "styles.css",
+          "size": 48000,
+          "gzipSize": 12500,
+          "percent": 9
+        },
+        {
+          "name": "assets/*",
+          "size": 22000,
+          "gzipSize": 18000,
+          "percent": 4
+        }
+      ],
+      "timestamp": "2025-10-09T07:48:47.289Z",
+      "commit": "daily-2025-10-09"
+    },
+    "dashboard": {
+      "lighthouse": {
+        "avgPerformance": 89,
+        "avgAccessibility": 94,
+        "criticalIssues": 6,
+        "lastRun": "2025-10-09T07:48:47.291Z"
+      },
+      "bundleSize": {
+        "totalSize": 545000,
+        "totalGzipSize": 195000,
+        "changePercent": 0,
+        "alerts": 0
+      },
+      "pageAudits": {
+        "avgScore": 95,
+        "totalPages": 100,
+        "criticalIssues": 2
+      },
+      "overall": {
+        "healthScore": 88,
+        "status": "good",
+        "recommendations": [
+          "Optimize performance: Review Lighthouse report for specific improvements",
+          "Fix 6 critical Lighthouse issues",
+          "Fix 2 critical page audit issues",
+          "Improve accessibility scores across all pages"
+        ]
+      },
+      "timestamp": "2025-10-09T07:48:47.292Z"
+    },
+    "notifications": []
+  },
+  "success": true,
+  "errors": []
+}
