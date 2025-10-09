@@ -17,6 +17,7 @@ import { Globe2, Check, Languages } from 'lucide-react';
 import { changeLanguage } from '@/lib/i18n';
 import { 
   allSupportedLanguages, 
+  getTangoLanguages,
   getPrimaryLanguages, 
   getLanguagesByRegion,
   getLanguageByCode 
@@ -68,6 +69,12 @@ const LanguageSelector = ({
   const getLanguageGroups = () => {
     const groups: Record<string, typeof allSupportedLanguages> = {};
     
+    // Tango languages first (top languages for tango community)
+    const tango = getTangoLanguages();
+    if (tango.length > 0) {
+      groups['Tango Languages'] = tango;
+    }
+    
     // Primary languages (en, es)
     const primary = getPrimaryLanguages();
     if (primary.length > 0) {
@@ -101,7 +108,7 @@ const LanguageSelector = ({
     return groups;
   };
 
-  const renderLanguageItem = (lang: typeof allSupportedLanguages[0], isSelected: boolean) => (
+  const renderLanguageItem = (lang: typeof allSupportedLanguages[0], isSelected: boolean, isTango: boolean = false) => (
     <DropdownMenuItem
       key={lang.code}
       onClick={() => handleLanguageChange(lang.code)}
@@ -109,7 +116,7 @@ const LanguageSelector = ({
       disabled={isChanging}
     >
       <div className="flex items-center gap-2">
-        {showFlags && <span className="text-lg">{lang.flag}</span>}
+        {showFlags && <span className={isTango ? "text-2xl" : "text-lg"}>{lang.flag}</span>}
         <div className="flex flex-col">
           <span className="font-medium">{lang.name}</span>
           <span className="text-xs text-muted-foreground">{lang.nativeName}</span>
@@ -150,7 +157,7 @@ const LanguageSelector = ({
                     className="justify-between"
                   >
                     <div className="flex items-center gap-2">
-                      {showFlags && <span>{lang.flag}</span>}
+                      {showFlags && <span className={groupName === 'Tango Languages' ? 'text-2xl' : ''}>{lang.flag}</span>}
                       <span>{lang.nativeName}</span>
                     </div>
                     {isSelected && <Check className="h-4 w-4" />}
@@ -206,7 +213,7 @@ const LanguageSelector = ({
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="max-h-[400px] overflow-y-auto">
                     {languages.map(lang => 
-                      renderLanguageItem(lang, i18n.language === lang.code)
+                      renderLanguageItem(lang, i18n.language === lang.code, groupName === 'Tango Languages')
                     )}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
@@ -217,7 +224,7 @@ const LanguageSelector = ({
                   {groupName} ({languages.length})
                 </DropdownMenuLabel>
                 {languages.map(lang => 
-                  renderLanguageItem(lang, i18n.language === lang.code)
+                  renderLanguageItem(lang, i18n.language === lang.code, groupName === 'Tango Languages')
                 )}
               </>
             )}
