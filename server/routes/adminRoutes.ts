@@ -75,66 +75,26 @@ router.get('/admin/users', requireAdmin, async (req, res) => {
   }
 });
 
-// Ban/unban user
+// Ban/unban user - TODO: Implement storage methods
 router.post('/admin/users/:userId/ban', requireAdmin, async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId);
-    const { reason, duration } = req.body;
-
-    await storage.banUser(userId, reason, duration);
-
-    res.json({ success: true, message: 'User banned successfully' });
-  } catch (error) {
-    console.error('Error banning user:', error);
-    res.status(500).json({ error: 'Failed to ban user' });
-  }
+  res.status(501).json({ error: 'Ban user feature not yet implemented' });
 });
 
 router.post('/admin/users/:userId/unban', requireAdmin, async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId);
-
-    await storage.unbanUser(userId);
-
-    res.json({ success: true, message: 'User unbanned successfully' });
-  } catch (error) {
-    console.error('Error unbanning user:', error);
-    res.status(500).json({ error: 'Failed to unban user' });
-  }
+  res.status(501).json({ error: 'Unban user feature not yet implemented' });
 });
 
-// Content moderation
+// Content moderation - TODO: Implement storage methods
 router.get('/admin/moderation/pending', requireAdmin, async (req, res) => {
-  try {
-    const pendingContent = await storage.getPendingModeration();
-    res.json(pendingContent);
-  } catch (error) {
-    console.error('Error fetching pending moderation:', error);
-    res.status(500).json({ error: 'Failed to fetch pending content' });
-  }
+  res.json([]);
 });
 
 router.post('/admin/moderation/:contentId/approve', requireAdmin, async (req, res) => {
-  try {
-    const contentId = parseInt(req.params.contentId);
-    await storage.approveContent(contentId);
-    res.json({ success: true, message: 'Content approved' });
-  } catch (error) {
-    console.error('Error approving content:', error);
-    res.status(500).json({ error: 'Failed to approve content' });
-  }
+  res.status(501).json({ error: 'Approve content feature not yet implemented' });
 });
 
 router.post('/admin/moderation/:contentId/reject', requireAdmin, async (req, res) => {
-  try {
-    const contentId = parseInt(req.params.contentId);
-    const { reason } = req.body;
-    await storage.rejectContent(contentId, reason);
-    res.json({ success: true, message: 'Content rejected' });
-  } catch (error) {
-    console.error('Error rejecting content:', error);
-    res.status(500).json({ error: 'Failed to reject content' });
-  }
+  res.status(501).json({ error: 'Reject content feature not yet implemented' });
 });
 
 export default router;
