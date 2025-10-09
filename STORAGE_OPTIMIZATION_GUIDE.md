@@ -190,4 +190,4 @@ temp/
 3. Archive documentation to external storage
 4. Clear all caches and temporary files
 
-This optimization prevents future "excessive ephemeral storage usage" terminations and establishes sustainable storage management practices following the ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE framework.
+This optimization prevents future "excessive ephemeral storage usage" terminations and establishes sustainable storage management practices following the ESA 61x21 framework.
