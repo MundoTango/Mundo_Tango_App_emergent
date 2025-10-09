@@ -1,0 +1,48 @@
+{
+  "suiteName": "Visual Regression Tests",
+  "results": [
+    {
+      "name": "home-page",
+      "status": "new",
+      "screenshotPath": "/home/runner/workspace/tests/visual/screenshots/home-page-2025-10-09T08-11-21.png",
+      "timestamp": "2025-10-09T08:11:24.664Z"
+    },
+    {
+      "name": "memories-feed",
+      "status": "failed",
+      "screenshotPath": "",
+      "timestamp": "2025-10-09T08:11:40.882Z"
+    },
+    {
+      "name": "housing-marketplace",
+      "status": "failed",
+      "screenshotPath": "",
+      "timestamp": "2025-10-09T08:11:55.274Z"
+    },
+    {
+      "name": "events-page",
+      "status": "failed",
+      "screenshotPath": "",
+      "timestamp": "2025-10-09T08:12:10.481Z"
+    },
+    {
+      "name": "profile-page",
+      "status": "failed",
+      "screenshotPath": "",
+      "timestamp": "2025-10-09T08:12:25.221Z"
+    },
+    {
+      "name": "admin-dashboard",
+      "status": "failed",
+      "screenshotPath": "",
+      "timestamp": "2025-10-09T08:12:39.798Z"
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 0,
+    "failed": 5,
+    "new": 1
+  },
+  "timestamp": "2025-10-09T08:12:39.993Z"
+}
