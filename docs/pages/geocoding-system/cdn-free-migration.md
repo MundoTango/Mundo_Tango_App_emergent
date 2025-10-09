@@ -350,7 +350,7 @@ When reviewing map-related PRs:
 - [Unified Map Components Reference](../components/UnifiedMapComponents.md)
 - [Geocoding System API](./api-reference.md)
 - [Geocoding System Overview](./index.md)
-- [ESA Framework Guide](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework Guide](/docs/ESA.md)
 
 ---
 

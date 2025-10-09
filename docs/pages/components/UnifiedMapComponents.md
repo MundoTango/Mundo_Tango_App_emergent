@@ -545,7 +545,7 @@ test('map displays events correctly', async ({ page }) => {
 - [Geocoding System Overview](/docs/pages/geocoding-system/index.md)
 - [Geocoding API Reference](/docs/pages/geocoding-system/api-reference.md)
 - [Map Components Usage Guide](/docs/pages/geocoding-system/map-components.md)
-- [ESA Framework](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework](/docs/ESA.md)
 
 ---
 

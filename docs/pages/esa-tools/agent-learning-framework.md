@@ -284,8 +284,8 @@ Each agent creates domain-specific methodology document in `docs/pages/esa-tools
 
 ## 🔗 Related Documentation
 
-- **ESA Master Orchestration:** `ESA_MASTER_ORCHESTRATION.md`
-- **ESA 61x21 Framework:** `ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+- **ESA Master Orchestration:** `ESA_ORCHESTRATION.md`
+- **ESA 61x21 Framework:** `ESA.md`
 - **ESA Agents Index:** `docs/pages/esa-agents/index.md`
 - **Aurora Tide Design System:** `docs/pages/design-systems/aurora-tide.md`
 - **Existing Agent Methodologies:**

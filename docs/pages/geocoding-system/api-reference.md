@@ -379,4 +379,4 @@ for (const event of events) {
 For API questions or issues, refer to:
 - [Main Documentation](./index.md)
 - [Component Guide](./map-components.md)
-- [ESA Framework](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework](/docs/ESA.md)

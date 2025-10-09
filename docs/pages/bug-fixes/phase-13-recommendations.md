@@ -348,7 +348,7 @@ If issues arise, revert these commits:
 ## Related Documentation
 
 - [Recommendations System Overview](../social/recommendations.md)
-- [ESA Layer 28: Marketplace](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md#layer-28)
+- [ESA Layer 28: Marketplace](../../ESA.md#layer-28)
 - [Aurora Tide Design System](../design-systems/aurora-tide.md)
 - [Geocoding System](../geocoding-system/index.md)
 

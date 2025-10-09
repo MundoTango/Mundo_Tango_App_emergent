@@ -158,4 +158,4 @@
 
 ### Framework
 - [ESA Layer 27: Marketplace](../esa-layers/layer-27-marketplace.md)
-- [ESA Framework Guide](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework Guide](/docs/ESA.md)

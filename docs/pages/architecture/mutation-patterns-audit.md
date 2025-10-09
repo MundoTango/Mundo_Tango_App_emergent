@@ -289,9 +289,9 @@ const acceptMutation = useMutation({
 
 - ✅ **RSVP Implementation:** `client/src/hooks/useEventRSVP.ts`
 - ✅ **RSVP Documentation:** `docs/pages/events/rsvp-cache-architecture.md`
-- 📚 **ESA Framework:** `ESA_MASTER_ORCHESTRATION.md`
+- 📚 **ESA Framework:** `ESA_ORCHESTRATION.md`
 - 📚 **TanStack Query Docs:** https://tanstack.com/query/latest
-- 🏗️ **Architecture Guide:** `ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md`
+- 🏗️ **Architecture Guide:** `ESA.md`
 
 ---
 

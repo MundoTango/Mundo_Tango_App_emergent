@@ -207,8 +207,8 @@ MembersList.tsx (Main Container)
 ## 🔗 Related Documentation
 
 ### ESA Framework
-- [Master Orchestration](../../ESA_MASTER_ORCHESTRATION.md)
-- [61x21 Framework Guide](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [Master Orchestration](../../ESA_ORCHESTRATION.md)
+- [61x21 Framework Guide](../../ESA.md)
 - [Layer 22: Group Management](../esa-layers/layer-22-group-management.md)
 
 ### Design System

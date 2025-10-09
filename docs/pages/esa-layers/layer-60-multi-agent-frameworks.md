@@ -682,7 +682,7 @@ const result = await app.invoke(initialState);
 - [Layer 59: Open Source Management](./layer-59-open-source-management.md)
 - [Layer 15: Background Jobs](./layer-15-background-jobs.md)
 - [Layer 31: Life CEO Foundation](./layer-31-life-ceo-foundation.md)
-- [ESA Framework Guide](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
+- [ESA Framework Guide](../../ESA.md)
 
 ## External Resources
 

@@ -570,7 +570,7 @@ When reporting location system issues:
 
 - [Location System Architecture](./location-system.md)
 - [Geocoding System](../geocoding-system/index.md)
-- [ESA Layer 13](../../ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md#layer-13)
+- [ESA Layer 13](../../ESA.md#layer-13)
 - [Google Maps Platform Documentation](https://developers.google.com/maps/documentation)
 - [OpenStreetMap Nominatim](https://nominatim.org/release-docs/latest/)
 
