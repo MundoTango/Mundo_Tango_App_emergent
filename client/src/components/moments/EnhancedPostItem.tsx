@@ -10,7 +10,8 @@ import {
   Sparkles,
   Clock,
   CheckCircle,
-  ThumbsUp
+  ThumbsUp,
+  Bookmark
 } from 'lucide-react';
 import { formatDistanceToNow, differenceInDays } from 'date-fns';
 import { Link } from 'wouter';
@@ -102,6 +103,7 @@ function EnhancedPostItem({
   onShare, 
   onEdit,
   onDelete,
+  onBookmark,
   apiBasePath = '/api/posts',
   cacheKeys = ['/api/posts/feed', '/api/posts']
 }: PostItemProps) {
@@ -767,6 +769,17 @@ function EnhancedPostItem({
               data-testid="button-share-post"
             >
               <Share2 className="h-5 w-5" />
+            </MagneticButton>
+
+            {/* Bookmark button - Aurora Tide: MagneticButton with WCAG touch targets */}
+            <MagneticButton
+              onClick={() => onBookmark?.(post.id)}
+              className="flex items-center gap-2 px-4 py-3 sm:px-3 sm:py-2 rounded-xl font-medium text-gray-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400 transition-all duration-200"
+              strength={0.3}
+              aria-label={t('memories.post.bookmarkPost', 'Bookmark post')}
+              data-testid="button-bookmark-post"
+            >
+              <Bookmark className="h-5 w-5" />
             </MagneticButton>
 
             {/* ESA LIFE CEO 61×21 - See Friendship button (Layer 24: Social Features Agent) */}
