@@ -87,7 +87,12 @@
     "journey:test": "tsx scripts/journey-test.ts",
     "journey:critical": "tsx scripts/journey-test.ts --critical",
     "a11y:scan": "tsx scripts/a11y-scan.ts",
-    "translation:scan": "tsx scripts/translation-scan.ts"
+    "translation:scan": "tsx scripts/translation-scan.ts",
+    "lighthouse:audit": "tsx scripts/lighthouse-audit.ts",
+    "lighthouse:page": "tsx scripts/lighthouse-audit.ts single",
+    "bundle:capture": "tsx scripts/bundle-track.ts capture",
+    "bundle:compare": "tsx scripts/bundle-track.ts compare",
+    "perf:dashboard": "tsx scripts/performance-dashboard.ts"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
