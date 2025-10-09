@@ -20,8 +20,8 @@ import { withResilience } from '@/components/resilient/ResilientBoundary';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import PostCreator from '@/components/universal/PostCreator';
 // ESA LIFE CEO 61×21 - Using unified feed component following Layer 9 UI Framework
-// Direct import instead of lazy to fix rendering issue
-import PostFeed from '@/components/moments/PostFeed';
+// Phase 3: Migrated to SmartPostFeed (context-based, centralized data hooks)
+import SmartPostFeed from '@/components/moments/SmartPostFeed';
 const UpcomingEventsSidebar = lazy(() => import('@/components/esa/UpcomingEventsSidebar'));
 const FloatingCreateButton = lazy(() => import('@/components/esa/FloatingCreateButton'));
 const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
@@ -309,11 +309,10 @@ function ESAMemoryFeedCore() {
                     aria-label="Memory posts feed"
                     aria-live="polite"
                   >
-                    <PostFeed 
+                    <SmartPostFeed 
                       context={feedContext}
                       showFilters={true}
                       showSearch={true}
-                      currentUserId={currentUserId}
                       onEdit={handleEditPost}
                     />
                   </section>
