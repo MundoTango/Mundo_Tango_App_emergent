@@ -753,23 +753,25 @@ function EnhancedPostItem({
               onReact={handleReaction}
             />
 
-            {/* Comment button - Aurora Tide: MagneticButton */}
+            {/* Comment button - Aurora Tide: MagneticButton with WCAG touch targets */}
             <MagneticButton
               onClick={() => setShowComments(!showComments)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-ocean-cyan-50 dark:hover:bg-ocean-cyan-900/20 hover:text-ocean-cyan-600 dark:hover:text-ocean-cyan-400 transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-3 sm:px-3 sm:py-2 rounded-xl font-medium text-gray-600 hover:bg-ocean-cyan-50 dark:hover:bg-ocean-cyan-900/20 hover:text-ocean-cyan-600 dark:hover:text-ocean-cyan-400 transition-all duration-200"
               strength={0.3}
               aria-label={t('memories.post.toggleComments')}
+              data-testid="button-toggle-comments"
             >
               <MessageCircle className="h-5 w-5" />
               <span>{comments.length || 0}</span>
             </MagneticButton>
 
-            {/* Share button - Aurora Tide: MagneticButton */}
+            {/* Share button - Aurora Tide: MagneticButton with WCAG touch targets */}
             <MagneticButton
               onClick={handleShare}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 hover:bg-ocean-seafoam-50 dark:hover:bg-ocean-seafoam-900/20 hover:text-ocean-seafoam-600 dark:hover:text-ocean-seafoam-400 transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-3 sm:px-3 sm:py-2 rounded-xl font-medium text-gray-600 hover:bg-ocean-seafoam-50 dark:hover:bg-ocean-seafoam-900/20 hover:text-ocean-seafoam-600 dark:hover:text-ocean-seafoam-400 transition-all duration-200"
               strength={0.3}
               aria-label={t('memories.post.sharePost')}
+              data-testid="button-share-post"
             >
               <Share2 className="h-5 w-5" />
             </MagneticButton>
