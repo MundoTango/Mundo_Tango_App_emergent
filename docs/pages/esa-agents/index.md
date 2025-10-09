@@ -21,11 +21,17 @@ The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distrib
 ### Specialized Expert Agents
 
 10. **AI Research Expert** - Monitors AI ecosystem using free RSS feeds and GitHub API, discovers open-source tools, critiques framework decisions
-11. **UI/UX Design Expert** - Manages Aurora Tide Design System, ensures accessibility compliance (WCAG 2.1), optimizes component usage and dark mode coverage
+11. **UI/UX Design Expert (Aurora)** - Manages Aurora Tide Design System, ensures accessibility compliance (WCAG 2.1), optimizes component usage and dark mode coverage
+   - **Audit Methodology:** [Design System Audit](../esa-tools/design-audit-methodology.md) - 6-phase systematic Aurora Tide compliance verification
+   - **Coverage Tracker:** [Design Coverage](../esa-tools/design-coverage.md) - Platform-wide design token compliance, accessibility, dark mode tracking
 12. **Data Visualization Expert** - Chart analysis and optimization, dashboard performance auditing, visualization accessibility checks using ECharts (Apache 2.0) and Victory (MIT)
 13. **Content & Media Expert** - Image optimization (WebP conversion), video processing (transcoding, thumbnails), media usage analysis using Sharp (Apache 2.0) and FFmpeg.wasm (LGPL 2.1)
 14. **Code Quality Expert** - ESLint and TypeScript linting, security vulnerability scanning, code complexity analysis using ESLint (MIT) and SonarQube Community (LGPL)
 15. **Developer Experience Expert** - Test coverage analysis, documentation completeness checks, developer tooling audit using Vitest (MIT) and Storybook (MIT)
+16. **Translation & i18n Expert** - Manages internationalization coverage for 68 languages, detects missing translations, automates batch translation
+   - **Audit Methodology:** [Translation Audit](../esa-tools/translation-audit-methodology.md) - 6-phase systematic i18n completeness verification
+   - **Coverage Tracker:** [i18n Coverage](../esa-tools/i18n-coverage.md) - 68-language support status with top 7 tango languages at 100%
+   - **Reports to:** Agent #11 (Aurora - UI/UX Design Expert)
 
 ### Life CEO Sub-Agents (16 Total)
 
@@ -86,12 +92,19 @@ Agents can perform real operations:
 
 ## Documentation Structure
 
+### Core Agent Infrastructure
 - [PostgreSQL Queue System](./postgresql-queue-system.md) - Queue implementation details
 - [OpenAI Integration](./openai-integration.md) - GPT-4o connection and usage
 - [AgentTools Platform Integration](./agent-tools.md) - Real operations wiring
 - [Monitoring Dashboard](./monitoring-dashboard.md) - Metrics and analytics
 - [Production Deployment](./production-deployment.md) - Deploy configuration
 - [Token Usage Tracking](./token-usage-tracking.md) - OpenAI cost monitoring
+
+### Expert Agent Audit Methodologies
+- [Design System Audit](../esa-tools/design-audit-methodology.md) - Agent #11 (Aurora) systematic Aurora Tide compliance workflow
+- [Design Coverage Tracker](../esa-tools/design-coverage.md) - Platform-wide design token, accessibility, dark mode tracking
+- [Translation Audit](../esa-tools/translation-audit-methodology.md) - Agent #16 systematic i18n completeness verification
+- [i18n Coverage Tracker](../esa-tools/i18n-coverage.md) - 68-language support status and progress
 
 ## Quick Start
 

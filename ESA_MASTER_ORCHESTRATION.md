@@ -218,6 +218,22 @@ The ESA Agents system includes 6 comprehensive sub-guides covering implementatio
 - Budget alerts and limits
 - Usage optimization strategies
 
+#### 7. Expert Agent Audit Methodologies
+**File:** `docs/pages/esa-tools/`  
+**Purpose:** Systematic audit workflows for specialized expert agents
+
+**Agent #11 (Aurora - UI/UX Design Expert):**
+- [Design System Audit Methodology](docs/pages/esa-tools/design-audit-methodology.md) - 6-phase Aurora Tide compliance verification
+- [Design Coverage Tracker](docs/pages/esa-tools/design-coverage.md) - Platform-wide design token, accessibility, dark mode tracking
+- **Workflow:** Visual-only enhancements (NO backend changes, NO logic changes, only design wrappers)
+- **Safety:** Pre-enhancement snapshots required for rollback capability
+
+**Agent #16 (Translation & i18n Expert):**
+- [Translation Audit Methodology](docs/pages/esa-tools/translation-audit-methodology.md) - 6-phase i18n completeness verification
+- [i18n Coverage Tracker](docs/pages/esa-tools/i18n-coverage.md) - 68-language support status (top 7 tango languages at 100%)
+- **Workflow:** Page architecture audit → key inventory → translation → validation
+- **Reports to:** Agent #11 (Aurora)
+
 **🔗 Full Guide:** `docs/pages/esa-agents/index.md`
 
 ---
