@@ -3,7 +3,18 @@
   "title": "Page Audit Registry",
   "description": "Comprehensive registry mapping all 100+ pages to ESA agents, critical paths, and audit metadata",
   "version": "2.0.0",
-  "lastUpdated": "2025-10-09",
+  "lastUpdated": "2025-10-10",
+  "auditFramework": {
+    "name": "ESA LIFE CEO 61x21 Systematic Audit",
+    "totalAgents": 35,
+    "methodologyAgents": 14,
+    "gapCheckAgents": 21,
+    "documentation": "docs/pages/esa-tools/standardized-page-audit.md",
+    "certificationThreshold": 90,
+    "conditionalPassThreshold": 85,
+    "exampleAudit": "docs/audit-reports/FULL-ESA-61x21-AUDIT-MEMORIES-2025-10-09.md",
+    "description": "Complete 35-agent audit framework proven on Memories page (91/100 score, 94% consensus)"
+  },
   "agentDefinitions": {
     "1": "Performance Optimization - Lighthouse, Web Vitals, Bundle Size",
     "2": "Frontend Architecture - React Patterns, State Management",
