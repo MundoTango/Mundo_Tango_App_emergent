@@ -1,53 +1,4 @@
-import { Version3Client } from 'jira.js';
-
-let connectionSettings: any;
-
-async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
-  }
-  
-  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME
-  const xReplitToken = process.env.REPL_IDENTITY 
-    ? 'repl ' + process.env.REPL_IDENTITY 
-    : process.env.WEB_REPL_RENEWAL 
-    ? 'depl ' + process.env.WEB_REPL_RENEWAL 
-    : null;
-
-  if (!xReplitToken) {
-    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
-  }
-
-  connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=jira',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'X_REPLIT_TOKEN': xReplitToken
-      }
-    }
-  ).then(res => res.json()).then(data => data.items?.[0]);
-
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings.settings?.oauth?.credentials?.access_token;
-  const hostName = connectionSettings?.settings?.site_url;
-
-  if (!connectionSettings || !accessToken || !hostName) {
-    throw new Error('Jira not connected');
-  }
-
-  return {accessToken, hostName};
-}
-
-export async function getUncachableJiraClient() {
-  const { accessToken, hostName } = await getAccessToken();
-
-  return new Version3Client({
-    host: hostName,
-    authentication: {
-      oauth2: { accessToken },
-    },
-  });
-}
+import { JiraDirectAPI } from './JiraDirectAPI';
 
 export interface JiraEpic {
   id?: string;
@@ -82,20 +33,30 @@ export interface JiraTask {
 
 export class JiraProjectSync {
   private projectKey: string = 'MUN';
+  private api: JiraDirectAPI;
+  
+  constructor() {
+    this.api = new JiraDirectAPI();
+  }
   
   async syncProjectPlan() {
-    const client = await getUncachableJiraClient();
-    
     console.log('🔄 Starting Jira project sync...');
     
     try {
-      const project = await this.ensureProjectExists(client);
+      // Test connection first
+      const connectionTest = await this.api.testConnection();
+      if (!connectionTest.success) {
+        throw new Error(`Jira connection failed: ${connectionTest.error}`);
+      }
+      console.log(`✅ Connected as: ${connectionTest.user?.displayName}`);
+      
+      const project = await this.ensureProjectExists();
       console.log(`✅ Project confirmed: ${project.key}`);
       
-      const epics = await this.createEpics(client);
+      const epics = await this.createEpics();
       console.log(`✅ Created ${epics.length} epics`);
       
-      const stories = await this.createStories(client, epics);
+      const stories = await this.createStories(epics);
       console.log(`✅ Created ${stories.length} stories`);
       
       console.log('✨ Jira sync complete!');
@@ -116,9 +77,9 @@ export class JiraProjectSync {
     }
   }
 
-  private async ensureProjectExists(client: Version3Client) {
+  private async ensureProjectExists() {
     try {
-      const project = await client.projects.getProject({ projectIdOrKey: this.projectKey });
+      const project = await this.api.getProject(this.projectKey);
       return project;
     } catch (error) {
       console.log('Project not found, you may need to create it manually in Jira');
@@ -126,7 +87,7 @@ export class JiraProjectSync {
     }
   }
 
-  private async createEpics(client: Version3Client): Promise<any[]> {
+  private async createEpics(): Promise<any[]> {
     const epics = [
       {
         summary: 'EPIC 1: Documentation Infrastructure',
@@ -212,26 +173,21 @@ export class JiraProjectSync {
     const createdEpics = [];
     for (const epic of epics) {
       try {
-        const issue = await client.issues.createIssue({
-          fields: {
-            project: { key: this.projectKey },
-            summary: epic.summary,
-            description: epic.description,
-            issuetype: { name: 'Epic' },
-            labels: epic.labels
-          }
+        const issue = await this.api.createEpic(this.projectKey, {
+          summary: epic.summary,
+          description: epic.description
         });
         createdEpics.push({ ...epic, id: issue.id, key: issue.key });
         console.log(`  ✓ Created epic: ${issue.key} - ${epic.summary}`);
-      } catch (error) {
-        console.error(`  ✗ Failed to create epic: ${epic.summary}`, error);
+      } catch (error: any) {
+        console.error(`  ✗ Failed to create epic: ${epic.summary}`, error.message);
       }
     }
 
     return createdEpics;
   }
 
-  private async createStories(client: Version3Client, epics: any[]): Promise<any[]> {
+  private async createStories(epics: any[]): Promise<any[]> {
     const stories = [
       {
         epicIndex: 0,
@@ -478,7 +434,7 @@ export class JiraProjectSync {
       },
       {
         epicIndex: 4,
-        summary: 'Story 5.4: Human Review & Approval',
+        summary: 'Story 5.3: Human Review & Approval',
         description: `Enable human review workflow with Resume AI package generation.
 
 **Status:** PENDING
@@ -508,21 +464,17 @@ export class JiraProjectSync {
         const epic = epics[story.epicIndex];
         if (!epic) continue;
 
-        const issue = await client.issues.createIssue({
-          fields: {
-            project: { key: this.projectKey },
-            summary: story.summary,
-            description: story.description,
-            issuetype: { name: 'Story' },
-            labels: story.labels,
-            parent: { key: epic.key }
-          }
+        const issue = await this.api.createStory(this.projectKey, {
+          summary: story.summary,
+          description: story.description,
+          epicKey: epic.key,
+          labels: story.labels
         });
         
         createdStories.push({ ...story, id: issue.id, key: issue.key });
         console.log(`  ✓ Created story: ${issue.key} - ${story.summary}`);
-      } catch (error) {
-        console.error(`  ✗ Failed to create story: ${story.summary}`, error);
+      } catch (error: any) {
+        console.error(`  ✗ Failed to create story: ${story.summary}`, error.message);
       }
     }
 
@@ -530,17 +482,15 @@ export class JiraProjectSync {
   }
 
   async getProjectStatus(): Promise<any> {
-    const client = await getUncachableJiraClient();
-    
     try {
-      const searchResults = await client.issueSearch.searchForIssuesUsingJql({
-        jql: `project = ${this.projectKey} ORDER BY created DESC`,
-        maxResults: 100
-      });
+      const issues = await this.api.searchIssues(
+        `project = ${this.projectKey} ORDER BY created DESC`,
+        ['summary', 'status', 'issuetype', 'labels']
+      );
 
       return {
-        total: searchResults.total,
-        issues: searchResults.issues?.map((issue: any) => ({
+        total: issues.length,
+        issues: issues.map((issue: any) => ({
           key: issue.key,
           type: issue.fields.issuetype.name,
           summary: issue.fields.summary,
