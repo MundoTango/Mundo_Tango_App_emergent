@@ -215,6 +215,8 @@ export function usePostFeed({
   searchQuery,
   enabled = true,
 }: UsePostFeedOptions) {
+  console.log('🚀 usePostFeed CALLED', { context, page, enabled });
+  
   // ESA FIX: Build query key compatible with default queryFn
   const queryKey = useMemo(
     () => {
@@ -241,12 +243,42 @@ export function usePostFeed({
 
   const query = useQuery<any>({
     queryKey,
+    queryFn: async () => {
+      const [baseUrl, params] = queryKey as [string, any];
+      const url = `${baseUrl}?${new URLSearchParams(params)}`;
+      
+      console.log('🌐 [usePostFeed] Making request:', { url, params });
+      
+      const res = await fetch(url, {
+        credentials: 'include', // ESA FIX: Include session cookie
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!res.ok) {
+        console.error('❌ [usePostFeed] Request failed:', {
+          status: res.status,
+          statusText: res.statusText,
+          url
+        });
+        throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
+      }
+      
+      const data = await res.json();
+      console.log('✅ [usePostFeed] Response:', {
+        postsCount: data.posts?.length,
+        hasMore: data.hasMore,
+        total: data.total
+      });
+      
+      return data;
+    },
     enabled,
     staleTime: 0, // Always fetch fresh data
     gcTime: 30 * 60 * 1000, // Keep in cache for 30 min
     refetchOnMount: true, // ESA DEBUG: Force refetch on mount
     refetchOnWindowFocus: false,
-    // Use default queryFn from queryClient - it handles the [url, params] format
   });
 
   // ESA DEBUG: Log query state changes
