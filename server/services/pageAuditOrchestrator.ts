@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import pLimit from 'p-limit';
 
 interface PageConfig {
   file: string;
@@ -123,11 +124,12 @@ export class PageAuditOrchestrator {
     }
 
     console.log(`🔍 Starting audit for: ${pageConfig.displayName}`);
-    console.log(`📋 Executing ${pageConfig.agents.length} ESA agents in parallel...`);
+    console.log(`📋 Executing ${pageConfig.agents.length} ESA agents with controlled concurrency (max 5)...`);
 
-    // Execute all agents in parallel
+    // Execute agents with controlled concurrency (max 5 at a time)
+    const limit = pLimit(5);
     const agentResults = await Promise.all(
-      pageConfig.agents.map(agentId => this.executeAgent(agentId, pageConfig, registry))
+      pageConfig.agents.map(agentId => limit(() => this.executeAgent(agentId, pageConfig, registry)))
     );
 
     // Calculate overall score and summary

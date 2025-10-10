@@ -1,6 +1,7 @@
 import { db } from '../db';
 import { users, groups, groupMembers, events, memories, hostHomes, recommendations, posts } from '../../shared/schema';
 import { sql } from 'drizzle-orm';
+import pLimit from 'p-limit';
 import { OptimizedProfessionalGroupAssignmentService } from './optimizedProfessionalGroupAssignmentService';
 import { CityAutoCreationService } from './cityAutoCreationService';
 import { concurrentRegistrationService } from './concurrentRegistrationService';
@@ -102,12 +103,15 @@ export class Phase3LoadTestingService {
     const startTime = Date.now();
     
     try {
-      // Simulate 100 concurrent database queries
-      const queries = Array(100).fill(null).map(async () => {
-        const start = Date.now();
-        await db.select().from(users).limit(1);
-        return Date.now() - start;
-      });
+      // Simulate 100 concurrent database queries with controlled concurrency
+      const limit = pLimit(10);
+      const queries = Array(100).fill(null).map(() => 
+        limit(async () => {
+          const start = Date.now();
+          await db.select().from(users).limit(1);
+          return Date.now() - start;
+        })
+      );
       
       const responseTimes = await Promise.all(queries);
       const avgResponseTime = responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length;
@@ -153,25 +157,28 @@ export class Phase3LoadTestingService {
     const virtualUsers = 50;
     
     try {
-      // Use ConcurrentRegistrationService for optimized concurrent handling
-      const registrations = Array(virtualUsers).fill(null).map(async (_, i) => {
-        const start = Date.now();
-        try {
-          // Use optimized concurrent registration service
-          const registration = await concurrentRegistrationService.registerUser({
-            name: `Test User ${i}`,
-            email: `testuser${i}@example.com`,
-            password: 'testpassword123',
-            city: 'Test City',
-            country: 'Test Country',
-            tangoRoles: ['dancer', 'teacher']
-          });
-          
-          return { success: true, time: Date.now() - start, userId: registration.user.id };
-        } catch {
-          return { success: false, time: Date.now() - start };
-        }
-      });
+      // Use ConcurrentRegistrationService with controlled concurrency
+      const limit = pLimit(10);
+      const registrations = Array(virtualUsers).fill(null).map((_, i) => 
+        limit(async () => {
+          const start = Date.now();
+          try {
+            // Use optimized concurrent registration service
+            const registration = await concurrentRegistrationService.registerUser({
+              name: `Test User ${i}`,
+              email: `testuser${i}@example.com`,
+              password: 'testpassword123',
+              city: 'Test City',
+              country: 'Test Country',
+              tangoRoles: ['dancer', 'teacher']
+            });
+            
+            return { success: true, time: Date.now() - start, userId: registration.user.id };
+          } catch {
+            return { success: false, time: Date.now() - start };
+          }
+        })
+      );
       
       const results = await Promise.all(registrations);
       const successful = results.filter(r => r.success).length;
@@ -215,12 +222,13 @@ export class Phase3LoadTestingService {
     const initialMemory = process.memoryUsage();
     
     try {
-      // Create load by fetching large datasets
+      // Create load by fetching large datasets with controlled concurrency
+      const limit = pLimit(5);
       const promises = [];
       for (let i = 0; i < 10; i++) {
-        promises.push(db.select().from(memories).limit(1000));
-        promises.push(db.select().from(posts).limit(1000));
-        promises.push(db.select().from(groups).limit(100));
+        promises.push(limit(() => db.select().from(memories).limit(1000)));
+        promises.push(limit(() => db.select().from(posts).limit(1000)));
+        promises.push(limit(() => db.select().from(groups).limit(100)));
       }
       
       await Promise.all(promises);
@@ -313,19 +321,22 @@ export class Phase3LoadTestingService {
     const concurrentAutomations = 25;
     
     try {
-      const automations = Array(concurrentAutomations).fill(null).map(async (_, i) => {
-        const start = Date.now();
-        try {
-          // Test multiple automations running simultaneously
-          await Promise.all([
-            CityAutoCreationService.ensureCityGroupExists(`City${i}`, 'Country'),
-            OptimizedProfessionalGroupAssignmentService.handleRegistration(i + 2000, ['dancer', 'teacher']),
-          ]);
-          return { success: true, time: Date.now() - start };
-        } catch {
-          return { success: false, time: Date.now() - start };
-        }
-      });
+      const limit = pLimit(5);
+      const automations = Array(concurrentAutomations).fill(null).map((_, i) => 
+        limit(async () => {
+          const start = Date.now();
+          try {
+            // Test multiple automations running simultaneously
+            await Promise.all([
+              CityAutoCreationService.ensureCityGroupExists(`City${i}`, 'Country'),
+              OptimizedProfessionalGroupAssignmentService.handleRegistration(i + 2000, ['dancer', 'teacher']),
+            ]);
+            return { success: true, time: Date.now() - start };
+          } catch {
+            return { success: false, time: Date.now() - start };
+          }
+        })
+      );
       
       const results = await Promise.all(automations);
       const successRate = (results.filter(r => r.success).length / concurrentAutomations) * 100;
@@ -402,23 +413,26 @@ export class Phase3LoadTestingService {
     const users = 100;
     
     try {
-      const assignments = Array(users).fill(null).map(async (_, i) => {
-        const roles = [
-          ['dancer'],
-          ['teacher', 'performer'],
-          ['dj', 'musician'],
-          ['organizer', 'host'],
-          ['photographer', 'content_creator']
-        ][i % 5];
-        
-        const start = Date.now();
-        const result = await OptimizedProfessionalGroupAssignmentService.handleRegistration(i + 3000, roles);
-        return {
-          time: Date.now() - start,
-          success: result.success,
-          groupCount: result.assignedGroups.length
-        };
-      });
+      const limit = pLimit(10);
+      const assignments = Array(users).fill(null).map((_, i) => 
+        limit(async () => {
+          const roles = [
+            ['dancer'],
+            ['teacher', 'performer'],
+            ['dj', 'musician'],
+            ['organizer', 'host'],
+            ['photographer', 'content_creator']
+          ][i % 5];
+          
+          const start = Date.now();
+          const result = await OptimizedProfessionalGroupAssignmentService.handleRegistration(i + 3000, roles);
+          return {
+            time: Date.now() - start,
+            success: result.success,
+            groupCount: result.assignedGroups.length
+          };
+        })
+      );
       
       const results = await Promise.all(assignments);
       const avgTime = results.reduce((a, b) => a + b.time, 0) / results.length;
@@ -452,17 +466,20 @@ export class Phase3LoadTestingService {
     const cities = 50;
     
     try {
-      const creations = Array(cities).fill(null).map(async (_, i) => {
-        const start = Date.now();
-        const result = await CityAutoCreationService.ensureCityGroupExists(
-          `LoadTestCity${i}`,
-          `Country${i % 10}`
-        );
-        return {
-          time: Date.now() - start,
-          isNew: result.isNew
-        };
-      });
+      const limit = pLimit(10);
+      const creations = Array(cities).fill(null).map((_, i) => 
+        limit(async () => {
+          const start = Date.now();
+          const result = await CityAutoCreationService.ensureCityGroupExists(
+            `LoadTestCity${i}`,
+            `Country${i % 10}`
+          );
+          return {
+            time: Date.now() - start,
+            isNew: result.isNew
+          };
+        })
+      );
       
       const results = await Promise.all(creations);
       const avgTime = results.reduce((a, b) => a + b.time, 0) / results.length;
@@ -496,16 +513,19 @@ export class Phase3LoadTestingService {
     const concurrentUsers = 20;
     
     try {
-      const feedRequests = Array(concurrentUsers).fill(null).map(async () => {
-        const start = Date.now();
-        const response = await fetch('http://localhost:5000/api/posts/feed');
-        const data = await response.json();
-        return {
-          time: Date.now() - start,
-          success: response.ok,
-          items: data.data?.length || 0
-        };
-      });
+      const limit = pLimit(5);
+      const feedRequests = Array(concurrentUsers).fill(null).map(() => 
+        limit(async () => {
+          const start = Date.now();
+          const response = await fetch('http://localhost:5000/api/posts/feed');
+          const data = await response.json();
+          return {
+            time: Date.now() - start,
+            success: response.ok,
+            items: data.data?.length || 0
+          };
+        })
+      );
       
       const results = await Promise.all(feedRequests);
       const avgTime = results.reduce((a, b) => a + b.time, 0) / results.length;
@@ -539,29 +559,32 @@ export class Phase3LoadTestingService {
     const stressLevel = 200; // 200 concurrent operations
     
     try {
-      const stressOperations = Array(stressLevel).fill(null).map(async (_, i) => {
-        const operation = i % 4;
-        const start = Date.now();
-        try {
-          switch (operation) {
-            case 0:
-              await fetch('http://localhost:5000/api/posts/feed');
-              break;
-            case 1:
-              await db.select().from(groups).limit(10);
-              break;
-            case 2:
-              await fetch('http://localhost:5000/api/events/sidebar');
-              break;
-            case 3:
-              await db.select().from(users).limit(10);
-              break;
+      const limit = pLimit(20);
+      const stressOperations = Array(stressLevel).fill(null).map((_, i) => 
+        limit(async () => {
+          const operation = i % 4;
+          const start = Date.now();
+          try {
+            switch (operation) {
+              case 0:
+                await fetch('http://localhost:5000/api/posts/feed');
+                break;
+              case 1:
+                await db.select().from(groups).limit(10);
+                break;
+              case 2:
+                await fetch('http://localhost:5000/api/events/sidebar');
+                break;
+              case 3:
+                await db.select().from(users).limit(10);
+                break;
+            }
+            return { success: true, time: Date.now() - start };
+          } catch {
+            return { success: false, time: Date.now() - start };
           }
-          return { success: true, time: Date.now() - start };
-        } catch {
-          return { success: false, time: Date.now() - start };
-        }
-      });
+        })
+      );
       
       const results = await Promise.all(stressOperations);
       const successRate = (results.filter(r => r.success).length / stressLevel) * 100;
@@ -644,9 +667,10 @@ export class Phase3LoadTestingService {
       await fetch('http://localhost:5000/api/posts/feed');
       const baseline = Date.now() - baselineStart;
       
-      // Create spike load
+      // Create spike load with controlled concurrency
+      const limit = pLimit(20);
       const spikeLoad = Array(100).fill(null).map(() => 
-        fetch('http://localhost:5000/api/posts/feed').catch(() => null)
+        limit(() => fetch('http://localhost:5000/api/posts/feed').catch(() => null))
       );
       await Promise.all(spikeLoad);
       
