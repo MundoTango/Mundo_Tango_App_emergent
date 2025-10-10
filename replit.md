@@ -22,6 +22,7 @@ When user says "Use ESA", reference **docs/platform-handoff/ESA_ORCHESTRATION.md
 **ESA_ORCHESTRATION.md orchestrates all documentation:**
 - ESA.md (61 layers × 21 phases framework)
 - docs/pages/esa-agents/index.md (16 AI agents system)
+- ESA_NEW_AGENT_GUIDE.md (complete agent creation framework)
 - docs/pages/design-systems/aurora-tide.md (design standards)
 - ESA_DEPLOYMENT_AUDIT.md (deployment readiness checklist)
 - ESA_FRAMEWORK_COMPLETE_HISTORY.md (complete archaeological history)
