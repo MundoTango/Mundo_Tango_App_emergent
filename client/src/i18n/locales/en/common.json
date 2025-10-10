@@ -463,6 +463,16 @@
     "yourCity": "Your City",
     "globalCommunity": "Global Tango Community"
   },
+  "home": {
+    "aria": {
+      "page": "Home page",
+      "close_sidebar": "Close sidebar",
+      "main_feed": "Main content feed",
+      "stories": "User stories",
+      "create_post": "Create new post",
+      "posts_feed": "Posts from your network"
+    }
+  },
   "housing": {
     "reviews": {
       "response_posted_title": "Response posted",
