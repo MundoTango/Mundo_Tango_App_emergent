@@ -1,0 +1,6 @@
+import { FastifyRequest, FastifyReply } from "fastify";import { createClient } from "@supabase/supabase-js";
+export type Role = "admin"|"organizer"|"user";
+declare module "fastify"{ interface FastifyRequest{ user?:any; role?:Role; } }
+function getRole(u:any):Role{ const meta=u?.app_metadata||u?.user_metadata||{}; const r=(meta.role||meta.claims_role||"user").toLowerCase(); return r==="admin"||r==="organizer"?"admin"===r?"admin":"organizer":"user"; }
+export async function authGuard(req:FastifyRequest, reply:FastifyReply){ const h=req.headers["authorization"]; if(!h||!h.toLowerCase().startsWith("bearer ")){ reply.code(401).send({error:"missing_bearer_token"}); return; } const token=h.split(" ")[1]; const sb=createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!); const { data, error }=await sb.auth.getUser(token); if(error||!data?.user){ reply.code(401).send({error:"invalid_token"}); return; } req.user=data.user; req.role=getRole(data.user); }
+export function requireRole(roles:Role[]){ return async (req:FastifyRequest, reply:FastifyReply)=>{ if(!req.role || !roles.includes(req.role)){ reply.code(403).send({error:"forbidden", need:roles}); return; } }; }

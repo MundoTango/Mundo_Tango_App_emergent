@@ -1,0 +1,3 @@
+import { createClient } from "@supabase/supabase-js";import fs from "node:fs";import path from "node:path";
+async function main(){ const sb=createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!); const dir=path.resolve("./phases"); const folders=fs.readdirSync(dir); let inserted=0; for(const fol of folders){ const file=path.join(dir, fol, "tasks.json"); if(!fs.existsSync(file)) continue; const data=JSON.parse(fs.readFileSync(file,"utf8")); for(const t of data.tasks){ await sb.from("phase_tasks").insert({ phase:data.phase, task:t }); inserted++; } } console.log("Seeded tasks:", inserted); }
+main().catch(e=>{ console.error(e); process.exit(1); });

@@ -1,0 +1,4 @@
+create extension if not exists pgcrypto;create extension if not exists "uuid-ossp";
+create table if not exists jobs(id uuid primary key default gen_random_uuid(), agent text not null, payload jsonb, status text not null default 'queued', attempts int not null default 0, created_at timestamptz default now(), updated_at timestamptz);
+create table if not exists agent_runs(id uuid primary key default gen_random_uuid(), agent text, input jsonb, output jsonb, status text, created_at timestamptz default now());
+create table if not exists events_bus(id uuid primary key default gen_random_uuid(), channel text not null, payload jsonb, created_at timestamptz default now());
