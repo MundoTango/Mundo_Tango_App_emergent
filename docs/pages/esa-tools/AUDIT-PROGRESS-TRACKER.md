@@ -35,6 +35,28 @@
 
 ---
 
+## 🚨 AUDIT MODE REMINDER
+
+**⚠️ AUDITS ARE REPORT-ONLY - NO AUTO-FIXING**
+
+### Process:
+1. ✅ Run audit → Generate findings report
+2. ✅ Report issues to user with:
+   - Specific file and line numbers
+   - Evidence (code snippets)
+   - Recommended fixes using existing patterns
+3. ⏸️ Wait for user approval
+4. ✅ After approval → Implement fixes
+5. ✅ Re-run audit to verify
+
+### Never During Audit:
+- ❌ Auto-fix issues
+- ❌ Create new files
+- ❌ Modify code without approval
+- ❌ Suggest new solutions (use existing patterns only)
+
+---
+
 ## 🎯 PRIORITY QUEUE
 
 **Next to Audit (in order):**
