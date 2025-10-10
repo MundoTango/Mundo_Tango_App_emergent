@@ -1,0 +1,117 @@
+{
+  "pageKey": "group-detail",
+  "pageName": "Group Detail",
+  "auditDate": "2025-10-10T06:32:31.289Z",
+  "overallScore": 99,
+  "status": "excellent",
+  "agentResults": [
+    {
+      "agentId": 1,
+      "agentName": "Performance Optimization - Lighthouse, Web Vitals, Bundle Size",
+      "status": "pass",
+      "score": 95,
+      "findings": [
+        {
+          "severity": "medium",
+          "category": "Performance",
+          "message": "Large component without lazy loading",
+          "file": "client/src/pages/GroupDetailPageMT.tsx",
+          "recommendation": "Use React.lazy() for code splitting"
+        },
+        {
+          "severity": "info",
+          "category": "Performance",
+          "message": "Performance check complete",
+          "recommendation": "Run Lighthouse audit for detailed metrics"
+        }
+      ],
+      "executionTime": 9
+    },
+    {
+      "agentId": 2,
+      "agentName": "Frontend Architecture - React Patterns, State Management",
+      "status": "pass",
+      "score": 95,
+      "findings": [
+        {
+          "severity": "medium",
+          "category": "TypeScript",
+          "message": "17 instances of 'any' type found",
+          "file": "client/src/pages/GroupDetailPageMT.tsx",
+          "recommendation": "Replace with proper types from @shared/schema.ts"
+        }
+      ],
+      "executionTime": 8
+    },
+    {
+      "agentId": 4,
+      "agentName": "Real-time Features - WebSocket, Live Updates",
+      "status": "pass",
+      "score": 100,
+      "findings": [],
+      "executionTime": 9
+    },
+    {
+      "agentId": 11,
+      "agentName": "UI/UX & Accessibility - Aurora Design System",
+      "status": "pass",
+      "score": 100,
+      "findings": [],
+      "executionTime": 10
+    },
+    {
+      "agentId": 13,
+      "agentName": "Media Optimization - Image/Video Processing",
+      "status": "pass",
+      "score": 100,
+      "findings": [
+        {
+          "severity": "low",
+          "category": "Media",
+          "message": "Images without lazy loading",
+          "recommendation": "Add loading=\"lazy\" to images"
+        }
+      ],
+      "executionTime": 10
+    },
+    {
+      "agentId": 14,
+      "agentName": "Code Quality - TypeScript, ESLint, Best Practices",
+      "status": "pass",
+      "score": 100,
+      "findings": [
+        {
+          "severity": "low",
+          "category": "Technical Debt",
+          "message": "1 TODO/FIXME comments found",
+          "file": "client/src/pages/GroupDetailPageMT.tsx",
+          "recommendation": "Address or document technical debt"
+        },
+        {
+          "severity": "low",
+          "category": "Code Quality",
+          "message": "15 console.log statements found",
+          "recommendation": "Remove debug logs before production"
+        }
+      ],
+      "executionTime": 5
+    },
+    {
+      "agentId": 7,
+      "agentName": "Platform Orchestration - Error Boundaries, Resilience",
+      "status": "pass",
+      "score": 100,
+      "findings": [],
+      "executionTime": 6
+    }
+  ],
+  "summary": {
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 3,
+    "info": 1
+  },
+  "recommendations": [],
+  "executionTime": 22
+}
