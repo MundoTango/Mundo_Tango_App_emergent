@@ -124,6 +124,184 @@ cat package.json | grep -A 5 "dependencies"
 
 This framework standardizes the comprehensive audit process demonstrated on the Memories Page, enabling consistent quality assessment across the entire platform.
 
+---
+
+## 📋 STANDARD AUDIT REPORT FORMAT
+
+**Version:** 2.0 (Updated October 10, 2025)  
+**Based on:** Buenos Aires City Group Template Audit (97/100)
+
+### Required Report Sections
+
+Every audit report MUST include these sections in this exact order:
+
+#### **1. Executive Summary**
+```markdown
+## 📊 [Page Name] - Audit Results
+
+**Score: XX/100 ([STATUS])** ✅/⚠️/❌
+**Status: [CERTIFIED/CONDITIONAL/NEEDS WORK] - [Description]**
+**Page:** [Filename] (Route: [route pattern])
+
+---
+
+### ✅ Quick Answer to User's Question
+[Direct answer to any specific user question about the page]
+
+---
+
+### 🎯 Audit Summary
+**Issues Found:**
+- 🔴 Critical: **X**
+- 🟠 High Priority: **X**
+- 🟡 Medium Priority: **X**
+- 🟢 Low Priority: **X**
+- ℹ️ Info: **X**
+
+**Agent Scores:**
+- ✅ [Agent Name]: **XX/100**
+- ✅ [Agent Name]: **XX/100**
+...
+```
+
+#### **2. Page Architecture Layers**
+```markdown
+### 🏗️ PAGE ARCHITECTURE LAYERS
+
+**File:** [filepath]
+**Route Pattern:** [route with params]
+
+#### Component Structure (Layer 2 - Frontend)
+[Tree diagram showing component hierarchy]
+
+PageComponent
+├── Layout (wrapper)
+├── Header Section
+│   ├── Sub-component A
+│   └── Sub-component B
+├── Main Content
+│   ├── Tabs/Sections
+│   └── Dynamic Components
+└── Real-time Features
+
+#### Data Flow (Layer 5 - Business Logic)
+- **Primary Query:** [main API endpoint]
+- **Secondary Queries:**
+  - [Feature A]: [endpoint]
+  - [Feature B]: [endpoint]
+- **Mutations:** [list of mutations]
+- **Real-time:** [WebSocket/polling description]
+
+#### Design System (Layer 11 - UI/UX)
+- ✅/❌ Aurora Tide Design System
+- ✅/❌ Glassmorphic cards
+- ✅/❌ GSAP scroll reveals
+- ✅/❌ Framer Motion animations
+- ✅/❌ Micro-interactions
+- ✅/❌ Dark mode support
+
+#### Internationalization (Layer 18)
+- ✅/❌ Translation hooks integrated
+- ✅/❌68-language support
+- ✅/❌ Dynamic content translation
+```
+
+#### **3. Critical Customer Journeys**
+```markdown
+### 🚶 CRITICAL CUSTOMER JOURNEYS
+
+The audit framework tests these **X critical user paths**:
+
+#### Journey 1: [Journey Name] [Icon]
+**User Story:** "As a [user type], I want to [goal]"
+
+**Flow:**
+1. [Step 1]
+2. [Step 2]
+3. **[Key Action]:** [Technical detail]
+4. [Step 4]
+5. **Success Metric:** [Measurable goal]
+
+**Audit Checks:**
+- ✅/⚠️/❌ [Check 1]
+- ✅/⚠️/❌ [Check 2]
+- ✅/⚠️/❌ [Check 3]
+
+[Repeat for each journey]
+```
+
+#### **4. ESA Agents Evaluation Matrix**
+```markdown
+### 🎯 ESA AGENTS EVALUATION MATRIX
+
+The audit assigns **X specialized agents** to test this page:
+
+| Agent # | Name | Focus Area | Score |
+|---------|------|------------|-------|
+| **#1** | [Agent Name] | [Focus areas] | XX/100 |
+| **#2** | [Agent Name] | [Focus areas] | XX/100 |
+...
+```
+
+#### **5. Detailed Findings**
+```markdown
+### 🔍 Detailed Findings (AUDIT-ONLY - No Auto-Fixing)
+
+#### 🔴 Critical Issues (X total)
+[List all critical issues, or "None found ✅"]
+
+**1. [Issue Title]**
+- **Issue:** [Description]
+- **File:** [filepath:line]
+- **Impact:** [Business/technical impact]
+- **Evidence:**
+  ```[language]
+  [Code snippet showing the issue]
+  ```
+- **Recommendation:** [Specific fix using existing patterns]
+- **Reference:** [Link to approved pattern or similar solution]
+
+#### 🟡 Medium Priority Issues (X total)
+[Same format as critical]
+
+#### 🟢 Low Priority Issues (X total)
+[Same format as critical]
+```
+
+#### **6. Customer Journey Test Results**
+```markdown
+### ✅ CUSTOMER JOURNEY TEST RESULTS
+
+| Journey | Status | Notes |
+|---------|--------|-------|
+| [Journey 1] | ✅ PASS | [Brief note] |
+| [Journey 2] | ⚠️ PARTIAL | [Brief note] |
+| [Journey 3] | ❌ FAIL | [Brief note] |
+```
+
+#### **7. Next Steps & User Prompt**
+```markdown
+### ⏸️ AWAITING USER APPROVAL
+
+**Do you want me to fix any of these issues?** [Context about certification status]
+
+**Options:**
+1. ✅ **Fix all [priority] issues** ([rationale])
+2. ✅ **Fix specific issues** (tell me which ones)
+3. ✅ **Leave as is** ([score] is [status], move to next page)
+```
+
+### Example: Buenos Aires City Group Template
+
+See `docs/audit-reports/group-detail-2025-10-10T06-20-57.json` for the full implementation of this format, which achieved:
+- **97/100 EXCELLENT** score
+- 4 medium priority issues identified
+- 0 critical/high priority issues
+- All customer journeys validated
+- Production-ready certification
+
+---
+
 ### Audit Structure
 - **43 Total Agents**: 14 methodology audits + 21 gap analysis checks + 8 new dimensions
 - **Execution Time**: ~60 minutes per page (includes documentation review)

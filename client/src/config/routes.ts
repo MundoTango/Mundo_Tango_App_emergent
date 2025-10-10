@@ -10,7 +10,7 @@
  */
 
 import { lazy, ComponentType } from 'react';
-import GroupDetailPageMT from '@/pages/GroupDetailPageMT';
+// GroupDetailPageMT now lazy-loaded below for code splitting (ESA Layer 1 - Performance)
 
 /**
  * Route mode classification
@@ -275,7 +275,7 @@ export const productionRoutes: RouteConfig[] = [
   },
   {
     path: '/groups/:slug',
-    component: GroupDetailPageMT,
+    component: lazy(() => import('@/pages/GroupDetailPageMT')),
     mode: 'production',
     loadingMessage: 'Loading group...',
     description: 'Group detail page'

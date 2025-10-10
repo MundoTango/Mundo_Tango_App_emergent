@@ -44,6 +44,7 @@ import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MembersList } from '@/components/members';
 import Confetti from 'react-confetti';
+import { withResilience } from '@/components/resilient/ResilientBoundary';
 import '../styles/mt-group.css';
 
 interface GroupMember {
@@ -78,7 +79,7 @@ interface GroupPost {
   commentsCount: number;
 }
 
-export default function GroupDetailPageMT() {
+function GroupDetailPageMT() {
   const { slug: rawSlug } = useParams();
   // Clean slug by decoding URL encoding and extract tab parameter
   const decodedSlug = rawSlug ? decodeURIComponent(rawSlug) : rawSlug;
@@ -326,17 +327,45 @@ export default function GroupDetailPageMT() {
     lastActivityRef.current = Date.now();
   }, []);
 
-  // Socket.io real-time integration (Layer 11 + Layer 22)
+  // Socket.io real-time integration (Layer 11 + Layer 22) with reconnection logic
   useEffect(() => {
     if (!group?.id) return;
 
-    // Initialize socket connection and store in ref
+    // Initialize socket connection with reconnection logic (ESA Layer 4 - Real-time)
     socketRef.current = io({
       path: '/socket.io',
-      transports: ['websocket', 'polling']
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000
     });
 
     const socket = socketRef.current;
+
+    // Reconnection event handlers (ESA Layer 4 - Reliability)
+    socket.on('connect', () => {
+      console.log('🔌 Socket connected');
+      socket.emit('join:group', group.id.toString());
+    });
+
+    socket.on('disconnect', () => {
+      console.log('🔌 Socket disconnected');
+    });
+
+    socket.on('reconnect', (attemptNumber: number) => {
+      console.log(`🔌 Socket reconnected after ${attemptNumber} attempts`);
+      socket.emit('join:group', group.id.toString());
+      toast({
+        title: 'Reconnected',
+        description: 'Real-time updates restored',
+      });
+    });
+
+    socket.on('reconnect_error', () => {
+      console.log('🔌 Socket reconnection error');
+    });
 
     // Join group room for real-time updates
     socket.emit('join:group', group.id.toString());
@@ -1886,3 +1915,9 @@ export default function GroupDetailPageMT() {
     </>
   );
 }
+
+// Wrap with error boundary for resilience (ESA Layer 7 - Platform Orchestration)
+export default withResilience(
+  GroupDetailPageMT,
+  'GroupDetailPageMT'
+);
