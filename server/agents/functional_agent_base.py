@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 try:
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    from emergentintegrations.llm.chat import LlmChat, UserMessage  # type: ignore
     print("✅ Emergent integrations loaded successfully")
 except ImportError as e:
     print(f"❌ Failed to import emergent integrations: {e}")
@@ -364,7 +364,7 @@ class AgentRegistry:
     """Registry for all functional agents"""
     def __init__(self):
         self.agents: Dict[int, FunctionalAgent] = {}
-        self.orchestrator: Optional['MasterOrchestratorAgent'] = None
+        self.orchestrator: Optional[FunctionalAgent] = None  # Layer 35 Master Orchestrator
     
     def register_agent(self, agent: FunctionalAgent):
         """Register an agent in the system"""
@@ -389,7 +389,8 @@ class AgentRegistry:
         if not self.orchestrator:
             return {"success": False, "error": "Master Orchestrator (Layer 35) not available"}
         
-        return await self.orchestrator.orchestrate_multi_agent_workflow(workflow, self.agents)
+        # Note: orchestrate_multi_agent_workflow should be implemented in MasterOrchestratorAgent subclass
+        return await self.orchestrator.orchestrate_multi_agent_workflow(workflow, self.agents)  # type: ignore
 
 # Global agent registry
 agent_registry = AgentRegistry()

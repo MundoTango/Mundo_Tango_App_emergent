@@ -95,10 +95,10 @@ export class LangGraphAgentOrchestrator {
       };
     });
 
-    this.workflow.addEdge("__start__", "master-control");
+    this.workflow.addEdge("__start__", "master-control" as any);
 
     this.workflow.addConditionalEdges(
-      "master-control",
+      "master-control" as any,
       (state: AgentState) => {
         if (state.task === 'discover-cache-patterns') return 'infrastructure';
         if (state.task === 'apply-pattern' && state.agentDomain === 'frontend') return 'frontend';
@@ -107,9 +107,9 @@ export class LangGraphAgentOrchestrator {
       }
     );
 
-    this.workflow.addEdge("infrastructure", "__end__");
-    this.workflow.addEdge("frontend", "__end__");
-    this.workflow.addEdge("business-logic", "__end__");
+    this.workflow.addEdge("infrastructure" as any, "__end__");
+    this.workflow.addEdge("frontend" as any, "__end__");
+    this.workflow.addEdge("business-logic" as any, "__end__");
   }
 
   async invoke(input: {
