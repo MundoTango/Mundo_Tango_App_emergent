@@ -61,7 +61,7 @@ When working with the ESA framework, use these entry points:
 
 #### Agent Training & Methodologies
 - **ESA_NEW_AGENT_GUIDE.md** - Complete framework for building world-class ESA agents with 6-phase methodology and "10 Experts" research (docs/platform-handoff/)
-- **Layer Methodologies** - 61 dedicated methodology files, one per ESA layer (docs/pages/esa-tools/layer-[X]-*.md)
+- **Layer Methodologies** - 61 dedicated methodology files, one per ESA layer (docs/platform-handoff/layer-[X]-*.md)
 
 #### Quick Start Guides
 - **QUICK_START.md** - 15-minute platform overview (docs/platform-handoff/)

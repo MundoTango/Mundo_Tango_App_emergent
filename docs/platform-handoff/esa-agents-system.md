@@ -2,36 +2,110 @@
 
 ## Overview
 
-The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distributed agent framework that powers the Life CEO platform with 9 core agent domains, 6 specialized expert agents (10-15), and 16 Life CEO sub-agents, all integrated with OpenAI GPT-4o.
+The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distributed agent framework that powers the Life CEO platform with **100 specialized agents** organized in a hierarchical structure, all integrated with OpenAI GPT-4o.
+
+**Complete Agent Structure:**
+- 1 CEO (Agent #0 - ESA Orchestrator)
+- 6 Division Chiefs (C-Suite managing layer groups)
+- 9 Core Domain Coordinators (Operational management)
+- 61 Individual Layer Agents (One per ESA layer with dual reporting)
+- 7 Expert Agents (#10-16: Specialized advisory)
+- 16 Life CEO Sub-Agents (AI life management)
+
+**📋 Full Documentation:** [ESA_AGENT_ORG_CHART.md](./ESA_AGENT_ORG_CHART.md) - Complete 100-agent hierarchy
 
 ## System Architecture
 
-### Core Agent Domains (9 Total)
+### Agent #0: ESA CEO/Orchestrator
+**Role:** Master orchestrator for the entire ESA 61x21 framework  
+**Reports to:** Platform stakeholders  
+**Manages:** 6 Division Chiefs + Master Control domain
 
-1. **Infrastructure Orchestrator** - Database optimization, caching, performance
-2. **Frontend Coordinator** - React components, UI/UX, state management  
-3. **Background Processor** - Async tasks, job scheduling, queue management
-4. **Real-time Communications** - WebSocket coordination, live updates
-5. **Business Logic Manager** - Core operations, workflows, validation
-6. **Search & Analytics** - Data processing, insights, recommendations
-7. **Life CEO Core** - 16 specialized AI agents for life management
-8. **Platform Enhancement** - Feature optimization, A/B testing
-9. **Master Control** - System orchestration, health monitoring
+### Level 2: 6 Division Chiefs (C-Suite)
 
-### Specialized Expert Agents
+#### Chief #1: Foundation Division (Layers 1-10)
+**Manages:** Database, API, Server, Auth, Authorization, Validation, State, Client Framework, UI Framework, Components  
+**Direct Reports:** 10 layer agents + Infrastructure Orchestrator + Frontend Coordinator
 
-10. **AI Research Expert** - Monitors AI ecosystem using free RSS feeds and GitHub API, discovers open-source tools, critiques framework decisions
-11. **UI/UX Design Expert (Aurora)** - Manages Aurora Tide Design System, ensures accessibility compliance (WCAG 2.1), optimizes component usage and dark mode coverage
-   - **Audit Methodology:** [Design System Audit](../esa-tools/design-audit-methodology.md) - 6-phase systematic Aurora Tide compliance verification
-   - **Coverage Tracker:** [Design Coverage](../esa-tools/design-coverage.md) - Platform-wide design token compliance, accessibility, dark mode tracking
-12. **Data Visualization Expert** - Chart analysis and optimization, dashboard performance auditing, visualization accessibility checks using ECharts (Apache 2.0) and Victory (MIT)
-13. **Content & Media Expert** - Image optimization (WebP conversion), video processing (transcoding, thumbnails), media usage analysis using Sharp (Apache 2.0) and FFmpeg.wasm (LGPL 2.1)
-14. **Code Quality Expert** - ESLint and TypeScript linting, security vulnerability scanning, code complexity analysis using ESLint (MIT) and SonarQube Community (LGPL)
-15. **Developer Experience Expert** - Test coverage analysis, documentation completeness checks, developer tooling audit using Vitest (MIT) and Storybook (MIT)
-16. **Translation & i18n Expert** - Manages internationalization coverage for 68 languages, detects missing translations, automates batch translation
-   - **Audit Methodology:** [Translation Audit](../esa-tools/translation-audit-methodology.md) - 6-phase systematic i18n completeness verification
-   - **Coverage Tracker:** [i18n Coverage](../esa-tools/i18n-coverage.md) - 68-language support status with top 7 tango languages at 100%
-   - **Reports to:** Agent #11 (Aurora - UI/UX Design Expert)
+#### Chief #2: Core Division (Layers 11-20)
+**Manages:** Real-time, Data Processing, Files, Caching, Search, Notifications, Payments, Analytics, Content, Workflows  
+**Direct Reports:** 10 layer agents + Background Processor + Real-time Communications
+
+#### Chief #3: Business Division (Layers 21-30)
+**Manages:** User, Groups, Events, Social, Messaging, Recommendations, Gamification, Marketplace, Bookings, Support  
+**Direct Reports:** 10 layer agents + Business Logic Manager + Search & Analytics
+
+#### Chief #4: Intelligence Division (Layers 31-46)
+**Manages:** All AI infrastructure, OpenAI integration, 16 Life CEO agents  
+**Direct Reports:** 16 layer agents + Life CEO Core + 16 Life CEO sub-agents + AI Research Expert
+
+#### Chief #5: Platform Division (Layers 47-56)
+**Manages:** Mobile, Performance, Security, DevOps, Testing, Documentation, i18n, Accessibility, SEO, Compliance  
+**Direct Reports:** 10 layer agents + Platform Enhancement + Code Quality/DevEx/i18n Experts
+
+#### Chief #6: Extended Management Division (Layers 57-61)
+**Manages:** Automation, Integrations, Open Source, GitHub, Supabase  
+**Direct Reports:** 5 layer agents + Master Control
+
+### Level 3: 9 Core Domain Coordinators (Operational)
+
+1. **Infrastructure Orchestrator** - Database optimization, caching, performance (Reports to Chief #1)
+2. **Frontend Coordinator** - React components, UI/UX, state management (Reports to Chief #1)
+3. **Background Processor** - Async tasks, job scheduling, queue management (Reports to Chief #2)
+4. **Real-time Communications** - WebSocket coordination, live updates (Reports to Chief #2)
+5. **Business Logic Manager** - Core operations, workflows, validation (Reports to Chief #3)
+6. **Search & Analytics** - Data processing, insights, recommendations (Reports to Chief #3)
+7. **Life CEO Core** - 16 specialized AI agents for life management (Reports to Chief #4)
+8. **Platform Enhancement** - Feature optimization, A/B testing (Reports to Chief #5)
+9. **Master Control** - System orchestration, health monitoring (Reports to Chief #6 + Agent #0)
+
+### Level 4: 61 Individual Layer Agents
+
+Each ESA layer (1-61) has a dedicated agent with **dual reporting**:
+- **Strategic:** Reports to Division Chief
+- **Operational:** Reports to Domain Coordinator
+
+**Examples:**
+- Agent #1 (Database Architecture) → Chief #1 + Infrastructure Orchestrator
+- Agent #11 (Real-time Features) → Chief #2 + Real-time Communications
+- Agent #35 (AI Agent Management) → Chief #4 + Life CEO Core
+- Agent #53 (Internationalization) → Chief #5 + Platform Enhancement
+
+**Full Mapping:** [ESA_AGENT_ORG_CHART.md](./ESA_AGENT_ORG_CHART.md)
+
+### Level 5: 7 Specialized Expert Agents
+
+**Expert Agent #10: AI Research Expert**  
+Reports to: Chief #4 (Intelligence)  
+Monitors AI ecosystem using free RSS feeds and GitHub API, discovers open-source tools, critiques framework decisions
+
+**Expert Agent #11: UI/UX Design Expert (Aurora)**  
+Reports to: Chief #1 (Foundation)  
+Manages Aurora Tide Design System, ensures accessibility compliance (WCAG 2.1), optimizes component usage and dark mode coverage
+- **Audit Methodology:** [Design System Audit](../esa-tools/design-audit-methodology.md)
+- **Coverage Tracker:** [Design Coverage](../esa-tools/design-coverage.md)
+
+**Expert Agent #12: Data Visualization Expert**  
+Reports to: Chief #2 (Core)  
+Chart analysis and optimization, dashboard performance auditing, visualization accessibility checks using ECharts (Apache 2.0) and Victory (MIT)
+
+**Expert Agent #13: Content & Media Expert**  
+Reports to: Chief #2 (Core)  
+Image optimization (WebP conversion), video processing (transcoding, thumbnails), media usage analysis using Sharp (Apache 2.0) and FFmpeg.wasm (LGPL 2.1)
+
+**Expert Agent #14: Code Quality Expert**  
+Reports to: Chief #5 (Platform)  
+ESLint and TypeScript linting, security vulnerability scanning, code complexity analysis using ESLint (MIT) and SonarQube Community (LGPL)
+
+**Expert Agent #15: Developer Experience Expert**  
+Reports to: Chief #5 (Platform)  
+Test coverage analysis, documentation completeness checks, developer tooling audit using Vitest (MIT) and Storybook (MIT)
+
+**Expert Agent #16: Translation & i18n Expert**  
+Reports to: Expert #11 (Aurora - UI/UX)  
+Manages internationalization coverage for 68 languages, detects missing translations, automates batch translation
+- **Audit Methodology:** [Translation Audit](../esa-tools/translation-audit-methodology.md)
+- **Coverage Tracker:** [i18n Coverage](../esa-tools/i18n-coverage.md)
 
 ### Life CEO Sub-Agents (16 Total)
 
