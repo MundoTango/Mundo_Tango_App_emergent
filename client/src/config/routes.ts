@@ -100,6 +100,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'User settings and preferences'
   },
   {
+    path: '/account/delete',
+    component: lazy(() => import('@/pages/AccountDelete')),
+    mode: 'production',
+    loadingMessage: 'Loading...',
+    description: 'Account deletion'
+  },
+  {
     path: '/onboarding',
     component: lazy(() => import('@/pages/onboarding')),
     mode: 'production',
