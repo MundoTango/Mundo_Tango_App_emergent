@@ -108,5 +108,44 @@
     "noMessages": "No messages",
     "trash": "Trash"
   },
-  "globalDancers": "Global People"
+  "globalDancers": "Global People",
+  "housing": {
+    "aria": {
+      "main": "Housing marketplace main content",
+      "stat_listings": "{{count}} active listings",
+      "stat_cities": "{{count}} cities available",
+      "stat_rating": "Average rating {{rating}}",
+      "stat_matches": "{{count}} listings matching filters",
+      "search": "Search housing listings",
+      "search_help": "Search by location, title, or description",
+      "filters": "Listing filters",
+      "type_all": "Filter by all types",
+      "type_apartment": "Filter by apartment",
+      "type_room": "Filter by private room",
+      "type_shared": "Filter by shared room",
+      "type_house": "Filter by house",
+      "toggle_filters": "Toggle filter panel",
+      "clear_filters": "Clear all filters",
+      "roomtype_entire": "Select entire place",
+      "roomtype_private": "Select private room",
+      "roomtype_shared": "Select shared room",
+      "price_range": "Price range selector",
+      "price_value": "${{min}} to ${{max}} per night",
+      "decrease_guests": "Decrease guest count",
+      "increase_guests": "Increase guest count",
+      "guest_count": "Guest count: {{count}}",
+      "decrease_bedrooms": "Decrease bedroom count",
+      "increase_bedrooms": "Increase bedroom count",
+      "bedroom_count": "Bedroom count: {{count}}",
+      "amenity": "Select {{amenity}} amenity",
+      "results": "Search results",
+      "loading": "Loading listings",
+      "listing_card": "{{title}} in {{location}}",
+      "favorite": "Add {{title}} to favorites",
+      "unfavorite": "Remove {{title}} from favorites",
+      "view_details": "View details for {{title}}",
+      "host_profile": "View {{name}}'s profile",
+      "listing_thumbnail": "{{title}} property image"
+    }
+  }
 }

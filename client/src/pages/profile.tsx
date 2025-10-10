@@ -177,7 +177,13 @@ export default function Profile() {
   if (!user) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center h-64" data-testid="loading-profile">
+        <div 
+          className="flex items-center justify-center h-64" 
+          data-testid="loading-profile"
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+        >
           <p className="text-gray-500">{t('profile.loading', 'Loading profile...')}</p>
         </div>
       </DashboardLayout>
@@ -190,7 +196,12 @@ export default function Profile() {
         {/* Offline Indicator */}
         {!isOnline && <OfflineIndicator />}
         
-        <div className="max-w-6xl mx-auto" data-testid="profile-container">
+        <main 
+          role="main" 
+          aria-label={t('profile.aria.main', 'User profile page')}
+          className="max-w-6xl mx-auto" 
+          data-testid="profile-container"
+        >
           {/* Enhanced Profile Header - Always Display */}
           <EnhancedProfileHeader
             user={user}
@@ -204,19 +215,31 @@ export default function Profile() {
         {/* Profile Content Tabs */}
         <div className="bg-white rounded-lg shadow-sm">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
+            <TabsList 
+              className="w-full justify-start border-b rounded-none h-auto p-0"
+              role="tablist"
+              aria-label={t('profile.aria.sections', 'Profile sections')}
+            >
               <TabsTrigger 
                 value="about" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-about"
+                role="tab"
+                aria-selected={activeTab === 'about'}
+                aria-controls="about-panel"
+                id="about-tab"
               >
-                <UserCircle className="mr-2 h-4 w-4" />
+                <UserCircle className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.about', 'About')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="posts" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-posts"
+                role="tab"
+                aria-selected={activeTab === 'posts'}
+                aria-controls="posts-panel"
+                id="posts-tab"
               >
                 <span className="font-medium">{t('profile.tab.memories', 'Memories')}</span>
               </TabsTrigger>
@@ -224,24 +247,36 @@ export default function Profile() {
                 value="events" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-events"
+                role="tab"
+                aria-selected={activeTab === 'events'}
+                aria-controls="events-panel"
+                id="events-tab"
               >
-                <Calendar className="mr-2 h-4 w-4" />
+                <Calendar className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.events', 'Events')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="travel" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-travel"
+                role="tab"
+                aria-selected={activeTab === 'travel'}
+                aria-controls="travel-panel"
+                id="travel-tab"
               >
-                <Globe className="mr-2 h-4 w-4" />
+                <Globe className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.travel', 'Travel')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="photos" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-photos"
+                role="tab"
+                aria-selected={activeTab === 'photos'}
+                aria-controls="photos-panel"
+                id="photos-tab"
               >
-                <Camera className="mr-2 h-4 w-4" />
+                <Camera className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.photos', 'Photos')}</span>
               </TabsTrigger>
 
@@ -249,37 +284,60 @@ export default function Profile() {
                 value="friends" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-friends"
+                role="tab"
+                aria-selected={activeTab === 'friends'}
+                aria-controls="friends-panel"
+                id="friends-tab"
               >
-                <Users className="mr-2 h-4 w-4" />
+                <Users className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.friends', 'Friends')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="experience" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-experience"
+                role="tab"
+                aria-selected={activeTab === 'experience'}
+                aria-controls="experience-panel"
+                id="experience-tab"
               >
-                <Star className="mr-2 h-4 w-4" />
+                <Star className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.experience', 'Experience')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="guest-profile" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-guest-profile"
+                role="tab"
+                aria-selected={activeTab === 'guest-profile'}
+                aria-controls="guest-profile-panel"
+                id="guest-profile-tab"
               >
-                <UserCheck className="mr-2 h-4 w-4" />
+                <UserCheck className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.guest_profile', 'Guest Profile')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="engagement" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-engagement"
+                role="tab"
+                aria-selected={activeTab === 'engagement'}
+                aria-controls="engagement-panel"
+                id="engagement-tab"
               >
-                <Sparkles className="mr-2 h-4 w-4" />
+                <Sparkles className="mr-2 h-4 w-4" aria-hidden="true" />
                 <span className="font-medium">{t('profile.tab.engagement', 'Engagement')}</span>
               </TabsTrigger>
             </TabsList>
             <div className="p-6">
-              <TabsContent value="about" className="space-y-4">
+              <TabsContent 
+                value="about" 
+                className="space-y-4"
+                role="tabpanel"
+                id="about-panel"
+                aria-labelledby="about-tab"
+                hidden={activeTab !== 'about'}
+              >
                 {/* About Section with Guest Profile Tab */}
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                   <div className="lg:col-span-3">
@@ -303,7 +361,13 @@ export default function Profile() {
                             <p className="text-sm text-red-600">{t('profile.error.guest_profile_loading', 'Error loading guest profile')}</p>
                           </div>
                         ) : guestProfileLoading ? (
-                          <div className="animate-pulse space-y-2" data-testid="loading-guest-profile">
+                          <div 
+                            className="animate-pulse space-y-2" 
+                            data-testid="loading-guest-profile"
+                            role="status"
+                            aria-live="polite"
+                            aria-busy="true"
+                          >
                             <div className="h-3 bg-gray-200 rounded w-3/4"></div>
                             <div className="h-3 bg-gray-200 rounded w-1/2"></div>
                           </div>
@@ -319,6 +383,7 @@ export default function Profile() {
                               variant="outline"
                               className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
                               data-testid="button-view-guest-profile"
+                              aria-label={t('profile.aria.view_guest_profile', 'View full guest profile details')}
                             >
                               {t('profile.button.view_full_profile', 'View Full Profile')}
                             </Button>
@@ -332,6 +397,7 @@ export default function Profile() {
                               onClick={() => setLocation('/guest-onboarding')}
                               className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                               data-testid="button-create-guest-profile"
+                              aria-label={t('profile.aria.create_guest_profile', 'Create guest profile to stay with hosts')}
                             >
                               {t('profile.button.create_profile', 'Create Profile')}
                             </Button>
@@ -343,7 +409,14 @@ export default function Profile() {
                 </div>
               </TabsContent>
               
-              <TabsContent value="posts" className="space-y-4">
+              <TabsContent 
+                value="posts" 
+                className="space-y-4"
+                role="tabpanel"
+                id="posts-panel"
+                aria-labelledby="posts-tab"
+                hidden={activeTab !== 'posts'}
+              >
                 {/* New Layout: Side Panel + Main Feed */}
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                   {/* Side Panel - About/Travel/Friends */}
@@ -359,6 +432,8 @@ export default function Profile() {
                             onClick={() => setActiveTab('about')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                             data-testid="button-edit-about"
+                            aria-label={t('profile.aria.edit_about', 'Edit about section')}
+                            aria-controls="about-panel"
                           >
                             {t('profile.button.edit', 'Edit')}
                           </Button>
@@ -472,7 +547,14 @@ export default function Profile() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="events" className="space-y-4">
+              <TabsContent 
+                value="events" 
+                className="space-y-4"
+                role="tabpanel"
+                id="events-panel"
+                aria-labelledby="events-tab"
+                hidden={activeTab !== 'events'}
+              >
                 {/* Enhanced Events Section */}
                 <Card className="glassmorphic-card">
                   <CardContent className="p-6">
@@ -485,8 +567,9 @@ export default function Profile() {
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
                         data-testid="button-create-event"
+                        aria-label={t('profile.aria.create_event', 'Create a new tango event')}
                       >
-                        <Calendar className="w-4 h-4 mr-2" />
+                        <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
                         {t('profile.button.create_event', 'Create Event')}
                       </Button>
                     </div>
@@ -519,8 +602,13 @@ export default function Profile() {
                     {/* Event List Placeholder */}
                     <div className="space-y-4">
                       <h4 className="font-semibold text-gray-800">{t('profile.events.recent', 'Recent Events')}</h4>
-                      <div className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200" data-testid="empty-state-no-events">
-                        <Calendar className="w-12 h-12 mx-auto text-turquoise-400 mb-4" />
+                      <div 
+                        className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200" 
+                        data-testid="empty-state-no-events"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        <Calendar className="w-12 h-12 mx-auto text-turquoise-400 mb-4" aria-hidden="true" />
                         <h5 className="text-lg font-medium text-turquoise-700 mb-2">{t('profile.empty.no_events', 'No events yet')}</h5>
                         <p className="text-turquoise-600 text-sm mb-4">
                           {t('profile.empty.events_desc', 'Start attending milongas, workshops, and festivals to see them here.')}
@@ -529,6 +617,7 @@ export default function Profile() {
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                           onClick={() => setActiveTab('about')}
                           data-testid="button-explore-events"
+                          aria-label={t('profile.aria.explore_events', 'Explore events to add to your profile')}
                         >
                           {t('profile.button.explore_events', 'Explore Events')}
                         </Button>
@@ -538,7 +627,14 @@ export default function Profile() {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="travel" className="space-y-4">
+              <TabsContent 
+                value="travel" 
+                className="space-y-4"
+                role="tabpanel"
+                id="travel-panel"
+                aria-labelledby="travel-tab"
+                hidden={activeTab !== 'travel'}
+              >
                 <Suspense fallback={<TravelDetailsFallback />}>
                   <LazyTravelDetailsComponent 
                     userId={user?.id || 0} 
@@ -547,7 +643,14 @@ export default function Profile() {
                 </Suspense>
               </TabsContent>
 
-              <TabsContent value="photos" className="space-y-4">
+              <TabsContent 
+                value="photos" 
+                className="space-y-4"
+                role="tabpanel"
+                id="photos-panel"
+                aria-labelledby="photos-tab"
+                hidden={activeTab !== 'photos'}
+              >
                 {/* Combined Media Tab with Filters */}
                 <Card className="glassmorphic-card">
                   <CardContent className="p-6">
@@ -556,12 +659,24 @@ export default function Profile() {
                         {t('profile.media.gallery_title', 'Media Gallery')}
                       </h3>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-upload-photo">
-                          <Camera className="w-4 h-4 mr-2" />
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" 
+                          data-testid="button-upload-photo"
+                          aria-label={t('profile.aria.upload_photo', 'Upload profile photo')}
+                        >
+                          <Camera className="w-4 h-4 mr-2" aria-hidden="true" />
                           {t('profile.button.upload_photo', 'Upload Photo')}
                         </Button>
-                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-upload-video">
-                          <Video className="w-4 h-4 mr-2" />
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" 
+                          data-testid="button-upload-video"
+                          aria-label={t('profile.aria.upload_video', 'Upload profile video')}
+                        >
+                          <Video className="w-4 h-4 mr-2" aria-hidden="true" />
                           {t('profile.button.upload_video', 'Upload Video')}
                         </Button>
                       </div>
@@ -662,7 +777,14 @@ export default function Profile() {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="videos" className="space-y-4">
+              <TabsContent 
+                value="videos" 
+                className="space-y-4"
+                role="tabpanel"
+                id="videos-panel"
+                aria-labelledby="videos-tab"
+                hidden={activeTab !== 'videos'}
+              >
                 {/* Redirect to Photos tab with video filter */}
                 <Card className="glassmorphic-card">
                   <CardContent className="p-12 text-center">
@@ -681,13 +803,27 @@ export default function Profile() {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="friends" className="space-y-4">
+              <TabsContent 
+                value="friends" 
+                className="space-y-4"
+                role="tabpanel"
+                id="friends-panel"
+                aria-labelledby="friends-tab"
+                hidden={activeTab !== 'friends'}
+              >
                 <Suspense fallback={<FriendsFallback />}>
                   <LazyUserFriendsList userId={user?.id || 0} isOwnProfile={true} />
                 </Suspense>
               </TabsContent>
 
-              <TabsContent value="experience" className="space-y-4">
+              <TabsContent 
+                value="experience" 
+                className="space-y-4"
+                role="tabpanel"
+                id="experience-panel"
+                aria-labelledby="experience-tab"
+                hidden={activeTab !== 'experience'}
+              >
                 {/* Tango Resume - Event-Tied Experience */}
                 <Card className="glassmorphic-card">
                   <CardContent className="p-6">
@@ -840,7 +976,14 @@ export default function Profile() {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="guest-profile" className="space-y-4">
+              <TabsContent 
+                value="guest-profile" 
+                className="space-y-4"
+                role="tabpanel"
+                id="guest-profile-panel"
+                aria-labelledby="guest-profile-tab"
+                hidden={activeTab !== 'guest-profile'}
+              >
                 {guestProfileError ? (
                   <NetworkErrorRetry onRetry={() => queryClient.invalidateQueries({ queryKey: ['/api/guest-profiles'] })} />
                 ) : guestProfileLoading ? (
@@ -875,7 +1018,14 @@ export default function Profile() {
               </TabsContent>
 
               {/* NEW: Engagement Features Tab */}
-              <TabsContent value="engagement" className="space-y-4">
+              <TabsContent 
+                value="engagement" 
+                className="space-y-4"
+                role="tabpanel"
+                id="engagement-panel"
+                aria-labelledby="engagement-tab"
+                hidden={activeTab !== 'engagement'}
+              >
                 <ProfileEngagementFeatures user={user} statsData={statsData} />
               </TabsContent>
             </div>
