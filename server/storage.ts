@@ -31,6 +31,7 @@ import {
   lifeCeoAgentConfigurations,
   lifeCeoChatMessages,
   lifeCeoConversations,
+  lifeCeoProjects,
   codeOfConductAgreements,
   dailyActivities,
   hostHomes,
@@ -121,6 +122,8 @@ import {
   type InsertLifeCeoChatMessage,
   type LifeCeoConversation,
   type InsertLifeCeoConversation,
+  type LifeCeoProject,
+  type InsertLifeCeoProject,
   type DailyActivity,
   type InsertDailyActivity,
   type HostHome,
@@ -447,6 +450,11 @@ export interface IStorage {
   createLifeCEOConversation(conversation: any): Promise<void>;
   getLifeCEOConversations(userId: number): Promise<any[]>;
   updateLifeCEOConversation(conversationId: string, updates: any): Promise<void>;
+  saveLifeCeoConversation(userId: number, conversation: any): Promise<any>;
+  deleteLifeCeoConversation(conversationId: string): Promise<void>;
+  getLifeCeoProjects(userId: number): Promise<any[]>;
+  saveLifeCeoProject(userId: number, project: any): Promise<any>;
+  deleteLifeCeoProject(projectId: string): Promise<void>;
   
   // Live Agent Actions
   createLiveAgentAction(action: InsertLiveAgentAction): Promise<LiveAgentAction>;
@@ -4383,6 +4391,111 @@ export class DatabaseStorage implements IStorage {
         .where(eq(lifeCeoConversations.id, conversationId));
     } catch (error) {
       console.error('Error updating Life CEO conversation:', error);
+      throw error;
+    }
+  }
+
+  async saveLifeCeoConversation(userId: number, conversation: any): Promise<any> {
+    try {
+      const existingConversation = await db.query.lifeCeoConversations.findFirst({
+        where: eq(lifeCeoConversations.id, conversation.id)
+      });
+
+      if (existingConversation) {
+        await db.update(lifeCeoConversations)
+          .set({
+            title: conversation.title,
+            messages: conversation.messages,
+            projectId: conversation.projectId,
+            updatedAt: new Date(),
+            lastMessage: new Date()
+          })
+          .where(eq(lifeCeoConversations.id, conversation.id));
+        return { ...existingConversation, ...conversation };
+      } else {
+        const [newConversation] = await db.insert(lifeCeoConversations)
+          .values({
+            id: conversation.id,
+            userId,
+            agentId: conversation.agentId || 'life-ceo',
+            title: conversation.title,
+            messages: conversation.messages || [],
+            projectId: conversation.projectId,
+            metadata: conversation.metadata || {}
+          })
+          .returning();
+        return newConversation;
+      }
+    } catch (error) {
+      console.error('Error saving Life CEO conversation:', error);
+      throw error;
+    }
+  }
+
+  async deleteLifeCeoConversation(conversationId: string): Promise<void> {
+    try {
+      await db.delete(lifeCeoConversations)
+        .where(eq(lifeCeoConversations.id, conversationId));
+    } catch (error) {
+      console.error('Error deleting Life CEO conversation:', error);
+      throw error;
+    }
+  }
+
+  async getLifeCeoProjects(userId: number): Promise<any[]> {
+    try {
+      const projects = await db.query.lifeCeoProjects.findMany({
+        where: eq(lifeCeoProjects.userId, userId),
+        orderBy: desc(lifeCeoProjects.createdAt)
+      });
+      return projects;
+    } catch (error) {
+      console.error('Error getting Life CEO projects:', error);
+      return [];
+    }
+  }
+
+  async saveLifeCeoProject(userId: number, project: any): Promise<any> {
+    try {
+      const existingProject = await db.query.lifeCeoProjects.findFirst({
+        where: eq(lifeCeoProjects.id, project.id)
+      });
+
+      if (existingProject) {
+        await db.update(lifeCeoProjects)
+          .set({
+            name: project.name,
+            color: project.color,
+            icon: project.icon,
+            conversations: project.conversations || []
+          })
+          .where(eq(lifeCeoProjects.id, project.id));
+        return { ...existingProject, ...project };
+      } else {
+        const [newProject] = await db.insert(lifeCeoProjects)
+          .values({
+            id: project.id,
+            userId,
+            name: project.name,
+            color: project.color,
+            icon: project.icon,
+            conversations: project.conversations || []
+          })
+          .returning();
+        return newProject;
+      }
+    } catch (error) {
+      console.error('Error saving Life CEO project:', error);
+      throw error;
+    }
+  }
+
+  async deleteLifeCeoProject(projectId: string): Promise<void> {
+    try {
+      await db.delete(lifeCeoProjects)
+        .where(eq(lifeCeoProjects.id, projectId));
+    } catch (error) {
+      console.error('Error deleting Life CEO project:', error);
       throw error;
     }
   }

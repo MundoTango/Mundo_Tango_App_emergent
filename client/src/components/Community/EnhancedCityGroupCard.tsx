@@ -21,12 +21,14 @@ interface EnhancedCityGroupCardProps {
   };
   onJoin?: () => void;
   onLeave?: () => void;
+  testIdSuffix?: string;
 }
 
 const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({ 
   group, 
   onJoin, 
-  onLeave 
+  onLeave,
+  testIdSuffix 
 }) => {
   const { t } = useTranslation();
   const imageUrl = group.imageUrl || group.image_url;
@@ -129,7 +131,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
               e.stopPropagation();
               group.isJoined ? onLeave?.() : onJoin?.();
             }}
-            data-testid={group.isJoined ? "button-leave-city-group" : "button-join-city-community"}
+            data-testid={testIdSuffix ? (group.isJoined ? `button-leave-${testIdSuffix}` : `button-join-${testIdSuffix}`) : (group.isJoined ? "button-leave-city-group" : "button-join-city-community")}
           >
             {group.isJoined ? t('groups.leaveGroup', 'Leave Group') : t('groups.joinCommunity', 'Join Community')}
           </MagneticButton>

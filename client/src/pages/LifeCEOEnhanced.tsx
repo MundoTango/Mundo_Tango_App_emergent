@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'wouter';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { ArrowLeft, Mic, MicOff, Volume2, Globe, Brain, Calendar, Heart, DollarSign, Shield, Send, Plus, Search, FolderOpen, MessageSquare, Settings, MoreVertical, Trash2, Edit2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -7,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'react-hot-toast';
 import { cn } from '@/lib/utils';
+import { queryClient, apiRequest } from '@/lib/queryClient';
 
 interface Conversation {
   id: string;
@@ -63,13 +65,26 @@ export default function LifeCEOEnhanced() {
   const [response, setResponse] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string>('');
   const [showSidebar, setShowSidebar] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProjectId, setActiveProjectId] = useState<string>('');
   const [isInstallPromptVisible, setIsInstallPromptVisible] = useState(false);
+
+  // Fetch conversations from database
+  const { data: conversationsData, isLoading: isLoadingConversations } = useQuery<{ success: boolean; data: Conversation[] }>({
+    queryKey: ['/api/life-ceo/conversations'],
+    enabled: !!user && isSuperAdmin
+  });
+
+  // Fetch projects from database
+  const { data: projectsData, isLoading: isLoadingProjects } = useQuery<{ success: boolean; data: Project[] }>({
+    queryKey: ['/api/life-ceo/projects'],
+    enabled: !!user && isSuperAdmin
+  });
+
+  const conversations = conversationsData?.data || [];
+  const projects = projectsData?.data || [];
   const audioContextRef = useRef<AudioContext | null>(null);
   const deferredPromptRef = useRef<any>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
@@ -112,88 +127,73 @@ export default function LifeCEOEnhanced() {
     });
   }, []);
 
-  // Load conversations and projects from localStorage AND database
-  useEffect(() => {
-    const loadConversations = async () => {
-      // First load from localStorage for immediate display
-      const savedConversations = localStorage.getItem('life-ceo-conversations');
-      const savedProjects = localStorage.getItem('life-ceo-projects');
-      
-      if (savedConversations) {
-        setConversations(JSON.parse(savedConversations));
-      } else {
-        // Create default conversation
-        const defaultConvo: Conversation = {
-          id: 'default',
-          title: 'New Conversation',
-          messages: [],
-          createdAt: new Date(),
-          updatedAt: new Date()
-        };
-        setConversations([defaultConvo]);
-        setActiveConversationId('default');
-      }
-      
-      if (savedProjects) {
-        setProjects(JSON.parse(savedProjects));
-      }
-
-      // Then load from database to get persisted messages
-      try {
-        const response = await fetch(`/api/life-ceo/chat/${selectedAgentId}/history`, {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          credentials: 'include'
-        });
-
-        if (response.ok) {
-          const { data } = await response.json();
-          
-          // Update the default conversation with persisted messages
-          if (data && data.length > 0) {
-            setConversations(prevConversations => {
-              const updatedConversations = [...prevConversations];
-              const defaultConvoIndex = updatedConversations.findIndex(c => c.id === 'default');
-              
-              if (defaultConvoIndex !== -1) {
-                // Convert database messages to conversation format
-                const dbMessages = data.map((msg: any) => ({
-                  role: msg.role as 'user' | 'assistant',
-                  content: msg.content,
-                  timestamp: new Date(msg.timestamp)
-                }));
-                
-                updatedConversations[defaultConvoIndex] = {
-                  ...updatedConversations[defaultConvoIndex],
-                  messages: dbMessages,
-                  updatedAt: new Date()
-                };
-              }
-              
-              return updatedConversations;
-            });
-          }
-        }
-      } catch (error) {
-      }
-    };
-
-    loadConversations();
-  }, []);
-
-  // Save conversations and projects to localStorage
-  useEffect(() => {
-    if (conversations.length > 0) {
-      localStorage.setItem('life-ceo-conversations', JSON.stringify(conversations));
+  // Save conversation mutation
+  const saveConversationMutation = useMutation({
+    mutationFn: async (conversation: Conversation) => {
+      return await apiRequest('/api/life-ceo/conversations', {
+        method: 'POST',
+        body: JSON.stringify(conversation)
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/conversations'] });
+    },
+    onError: (error: any) => {
+      toast.error('Failed to save conversation');
+      console.error('Save conversation error:', error);
     }
-  }, [conversations]);
+  });
 
-  useEffect(() => {
-    if (projects.length > 0) {
-      localStorage.setItem('life-ceo-projects', JSON.stringify(projects));
+  // Delete conversation mutation
+  const deleteConversationMutation = useMutation({
+    mutationFn: async (conversationId: string) => {
+      return await apiRequest(`/api/life-ceo/conversations/${conversationId}`, {
+        method: 'DELETE'
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/conversations'] });
+      toast.success('Conversation deleted');
+    },
+    onError: (error: any) => {
+      toast.error('Failed to delete conversation');
+      console.error('Delete conversation error:', error);
     }
-  }, [projects]);
+  });
+
+  // Save project mutation
+  const saveProjectMutation = useMutation({
+    mutationFn: async (project: Project) => {
+      return await apiRequest('/api/life-ceo/projects', {
+        method: 'POST',
+        body: JSON.stringify(project)
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/projects'] });
+    },
+    onError: (error: any) => {
+      toast.error('Failed to save project');
+      console.error('Save project error:', error);
+    }
+  });
+
+  // Delete project mutation
+  const deleteProjectMutation = useMutation({
+    mutationFn: async (projectId: string) => {
+      return await apiRequest(`/api/life-ceo/projects/${projectId}`, {
+        method: 'DELETE'
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/projects'] });
+      toast.success('Project deleted');
+    },
+    onError: (error: any) => {
+      toast.error('Failed to delete project');
+      console.error('Delete project error:', error);
+    }
+  });
 
   useEffect(() => {
     // Disabled for testing
@@ -267,7 +267,7 @@ export default function LifeCEOEnhanced() {
       updatedAt: new Date(),
       projectId: activeProjectId
     };
-    setConversations([...conversations, newConvo]);
+    saveConversationMutation.mutate(newConvo);
     setActiveConversationId(newConvo.id);
   };
 
@@ -283,7 +283,7 @@ export default function LifeCEOEnhanced() {
         conversations: [],
         createdAt: new Date()
       };
-      setProjects([...projects, newProject]);
+      saveProjectMutation.mutate(newProject);
     }
   };
 
@@ -393,7 +393,8 @@ export default function LifeCEOEnhanced() {
       updatedAt: new Date()
     };
 
-    setConversations(conversations.map(c => c.id === activeConversationId ? updatedConvo : c));
+    // Save conversation with user message
+    saveConversationMutation.mutate(updatedConvo);
     setTranscript('');
     setIsProcessing(true);
 
@@ -429,7 +430,8 @@ export default function LifeCEOEnhanced() {
           updatedAt: new Date()
         };
 
-        setConversations(conversations.map(c => c.id === activeConversationId ? finalConvo : c));
+        // Save conversation with assistant message
+        saveConversationMutation.mutate(finalConvo);
         setResponse(assistantMessage.content);
 
         // Speak the response
@@ -459,7 +461,7 @@ export default function LifeCEOEnhanced() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50" data-testid="page-lifeceo">
       {/* Sidebar */}
       <div className={`${showSidebar ? 'w-64' : 'w-0'} transition-all duration-300 bg-white border-r border-gray-200 overflow-hidden`}>
         <div className="p-4 border-b border-gray-100">
@@ -469,6 +471,7 @@ export default function LifeCEOEnhanced() {
               onClick={createNewConversation}
               size="sm"
               className="bg-purple-600 hover:bg-purple-700"
+              data-testid="button-create-conversation"
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -481,6 +484,7 @@ export default function LifeCEOEnhanced() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
+              data-testid="input-search-conversations"
             />
           </div>
 
@@ -493,26 +497,30 @@ export default function LifeCEOEnhanced() {
                 size="sm"
                 variant="ghost"
                 className="h-6 w-6 p-0"
+                data-testid="button-create-project"
               >
                 <Plus className="h-3 w-3" />
               </Button>
             </div>
-            {projects.map(project => (
-              <div
-                key={project.id}
-                onClick={() => setActiveProjectId(project.id === activeProjectId ? '' : project.id)}
-                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 ${
-                  activeProjectId === project.id ? 'bg-purple-50' : ''
-                }`}
-              >
-                <span>{project.icon}</span>
-                <span className="text-sm truncate">{project.name}</span>
-              </div>
-            ))}
+            <div data-testid="list-projects">
+              {projects.map(project => (
+                <div
+                  key={project.id}
+                  onClick={() => setActiveProjectId(project.id === activeProjectId ? '' : project.id)}
+                  className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 ${
+                    activeProjectId === project.id ? 'bg-purple-50' : ''
+                  }`}
+                  data-testid={`project-${project.id}`}
+                >
+                  <span>{project.icon}</span>
+                  <span className="text-sm truncate" data-testid={`text-project-name-${project.id}`}>{project.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Conversations */}
-          <div className="space-y-1">
+          <div className="space-y-1" data-testid="list-conversations">
             {filteredConversations.map(convo => (
               <div
                 key={convo.id}
@@ -520,11 +528,12 @@ export default function LifeCEOEnhanced() {
                 className={`p-2 rounded cursor-pointer hover:bg-gray-100 ${
                   activeConversationId === convo.id ? 'bg-purple-50' : ''
                 }`}
+                data-testid={`conversation-${convo.id}`}
               >
                 <div className="flex items-center justify-between">
                   <MessageSquare className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm truncate flex-1 mx-2">{convo.title}</span>
-                  <MoreVertical className="h-4 w-4 text-gray-400" />
+                  <span className="text-sm truncate flex-1 mx-2" data-testid={`text-conversation-title-${convo.id}`}>{convo.title}</span>
+                  <MoreVertical className="h-4 w-4 text-gray-400" data-testid={`button-delete-conversation-${convo.id}`} />
                 </div>
               </div>
             ))}
@@ -542,6 +551,7 @@ export default function LifeCEOEnhanced() {
                 onClick={() => setLocation('/profile-switcher')}
                 variant="ghost"
                 size="sm"
+                data-testid="button-back"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back
@@ -554,19 +564,23 @@ export default function LifeCEOEnhanced() {
 
             <div className="flex items-center gap-2">
               {isInstallPromptVisible && (
-                <Button
-                  onClick={handleInstallPWA}
-                  size="sm"
-                  className="bg-purple-600 hover:bg-purple-700"
-                >
-                  Install App
-                </Button>
+                <div data-testid="prompt-pwa-install">
+                  <Button
+                    onClick={handleInstallPWA}
+                    size="sm"
+                    className="bg-purple-600 hover:bg-purple-700"
+                    data-testid="button-install-pwa"
+                  >
+                    Install App
+                  </Button>
+                </div>
               )}
               
               <Button
                 onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
                 variant="outline"
                 size="sm"
+                data-testid="select-language"
               >
                 <Globe className="h-4 w-4 mr-2" />
                 {language === 'en' ? 'EN' : 'ES'}
@@ -576,6 +590,7 @@ export default function LifeCEOEnhanced() {
                 onClick={() => setShowSidebar(!showSidebar)}
                 variant="ghost"
                 size="sm"
+                data-testid="button-toggle-sidebar"
               >
                 <FolderOpen className="h-4 w-4" />
               </Button>
@@ -584,18 +599,19 @@ export default function LifeCEOEnhanced() {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4" data-testid="list-messages">
           {activeConversation?.messages.map(message => (
             <div
               key={message.id}
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              data-testid={`message-${message.id}`}
             >
               <div className={`max-w-2xl p-4 rounded-lg ${
                 message.role === 'user' 
                   ? 'bg-purple-600 text-white' 
                   : 'bg-gray-100 text-gray-800'
               }`}>
-                <p className="text-sm">{message.content}</p>
+                <p className="text-sm" data-testid={message.role === 'user' ? 'text-transcript' : 'text-response'}>{message.content}</p>
                 <span className="text-xs opacity-70">
                   {new Date(message.timestamp).toLocaleTimeString()}
                 </span>
@@ -607,7 +623,7 @@ export default function LifeCEOEnhanced() {
             <div className="flex justify-start">
               <div className="bg-gray-100 p-4 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <div className="animate-pulse">Processing...</div>
+                  <div className="animate-pulse" data-testid="status-processing">Processing...</div>
                 </div>
               </div>
             </div>
@@ -620,7 +636,7 @@ export default function LifeCEOEnhanced() {
             <Button
               onClick={toggleRecording}
               size="lg"
-              data-testid="button-voice-toggle"
+              data-testid={isRecording ? "button-voice-stop" : "button-voice-record"}
               className={`rounded-full w-16 h-16 ${
                 isRecording 
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
@@ -652,7 +668,7 @@ export default function LifeCEOEnhanced() {
           </div>
           
           {isRecording && (
-            <div className="mt-2 text-sm text-red-500 animate-pulse">
+            <div className="mt-2 text-sm text-red-500 animate-pulse" data-testid="status-recording">
               Recording... Speak clearly
             </div>
           )}
@@ -685,7 +701,7 @@ export default function LifeCEOEnhanced() {
 
         {/* Enhanced Agent Switcher Modal with MT Ocean Theme */}
         {showAgentSwitcher && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn" data-testid="agent-switcher">
             <div className="glassmorphic-card max-w-4xl w-full max-h-[90vh] overflow-hidden rounded-2xl animate-scaleIn">
               <div className="bg-gradient-to-r from-turquoise-400 to-cyan-500 p-6 text-white">
                 <div className="flex items-center justify-between">
@@ -714,7 +730,7 @@ export default function LifeCEOEnhanced() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Currently Active</p>
-                    <h3 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
+                    <h3 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent" data-testid="text-active-agent">
                       {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || 'Life CEO'}
                     </h3>
                   </div>
