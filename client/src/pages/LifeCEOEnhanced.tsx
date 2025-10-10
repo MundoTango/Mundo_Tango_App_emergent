@@ -464,9 +464,13 @@ export default function LifeCEOEnhanced() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50" data-testid="page-lifeceo">
+    <main role="main" aria-label={t('lifeceo.aria.main', 'Life CEO AI Assistant')} className="flex h-screen bg-gray-50" data-testid="page-lifeceo">
       {/* Sidebar */}
-      <div className={`${showSidebar ? 'w-64' : 'w-0'} transition-all duration-300 bg-white border-r border-gray-200 overflow-hidden`}>
+      <aside 
+        role="complementary"
+        aria-label={t('lifeceo.aria.sidebar', 'Navigation sidebar')}
+        className={`${showSidebar ? 'w-64' : 'w-0'} transition-all duration-300 bg-white border-r border-gray-200 overflow-hidden`}
+      >
         <div className="p-4 border-b border-gray-100">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold">Life CEO</h2>
@@ -475,6 +479,7 @@ export default function LifeCEOEnhanced() {
               size="sm"
               className="bg-purple-600 hover:bg-purple-700"
               data-testid="button-create-conversation"
+              aria-label={t('lifeceo.aria.create_conversation', 'Create new conversation')}
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -488,11 +493,16 @@ export default function LifeCEOEnhanced() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
               data-testid="input-search-conversations"
+              aria-label={t('lifeceo.aria.search_conversations', 'Search conversations')}
             />
           </div>
 
           {/* Projects */}
-          <div className="mb-4">
+          <nav 
+            role="navigation"
+            aria-label={t('lifeceo.aria.projects', 'Project list')}
+            className="mb-4"
+          >
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-600">{t('lifeceo.projects', 'Projects')}</span>
               <Button
@@ -501,46 +511,56 @@ export default function LifeCEOEnhanced() {
                 variant="ghost"
                 className="h-6 w-6 p-0"
                 data-testid="button-create-project"
+                aria-label={t('lifeceo.aria.create_project', 'Create new project')}
               >
                 <Plus className="h-3 w-3" />
               </Button>
             </div>
             <div data-testid="list-projects">
               {projects.map(project => (
-                <div
+                <button
                   key={project.id}
                   onClick={() => setActiveProjectId(project.id === activeProjectId ? '' : project.id)}
-                  className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 ${
+                  className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 w-full text-left ${
                     activeProjectId === project.id ? 'bg-purple-50' : ''
                   }`}
                   data-testid={`project-${project.id}`}
+                  aria-label={t('lifeceo.aria.select_project', `Select project: ${project.name}`)}
+                  aria-pressed={activeProjectId === project.id}
                 >
                   <span>{project.icon}</span>
                   <span className="text-sm truncate" data-testid={`text-project-name-${project.id}`}>{project.name}</span>
-                </div>
+                </button>
               ))}
             </div>
-          </div>
+          </nav>
 
           {/* Conversations */}
-          <div className="space-y-1" data-testid="list-conversations">
+          <nav 
+            role="navigation"
+            aria-label={t('lifeceo.aria.conversations', 'Conversations list')}
+            className="space-y-1" 
+            data-testid="list-conversations"
+          >
             {filteredConversations.map(convo => (
-              <div
+              <button
                 key={convo.id}
                 onClick={() => setActiveConversationId(convo.id)}
-                className={`p-2 rounded cursor-pointer hover:bg-gray-100 ${
+                className={`p-2 rounded cursor-pointer hover:bg-gray-100 w-full text-left ${
                   activeConversationId === convo.id ? 'bg-purple-50' : ''
                 }`}
                 data-testid={`conversation-${convo.id}`}
+                aria-label={t('lifeceo.aria.select_conversation', `Select conversation: ${convo.title}`)}
+                aria-current={activeConversationId === convo.id ? 'true' : 'false'}
               >
                 <div className="flex items-center justify-between">
                   <MessageSquare className="h-4 w-4 text-gray-400" />
                   <span className="text-sm truncate flex-1 mx-2" data-testid={`text-conversation-title-${convo.id}`}>{convo.title}</span>
                   <MoreVertical className="h-4 w-4 text-gray-400" data-testid={`button-delete-conversation-${convo.id}`} />
                 </div>
-              </div>
+              </button>
             ))}
-          </div>
+          </nav>
         </div>
       </div>
 
@@ -555,6 +575,7 @@ export default function LifeCEOEnhanced() {
                 variant="ghost"
                 size="sm"
                 data-testid="button-back"
+                aria-label={t('lifeceo.aria.back', 'Go back to previous page')}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 {t('lifeceo.button.back', 'Back')}
@@ -573,6 +594,7 @@ export default function LifeCEOEnhanced() {
                     size="sm"
                     className="bg-purple-600 hover:bg-purple-700"
                     data-testid="button-install-pwa"
+                    aria-label={t('lifeceo.aria.install', 'Install Life CEO app on device')}
                   >
                     {t('lifeceo.button.install_app', 'Install App')}
                   </Button>
@@ -584,6 +606,7 @@ export default function LifeCEOEnhanced() {
                 variant="outline"
                 size="sm"
                 data-testid="select-language"
+                aria-label={t('lifeceo.aria.language', `Change language to ${language === 'en' ? 'Spanish' : 'English'}`)}
               >
                 <Globe className="h-4 w-4 mr-2" />
                 {language === 'en' ? 'EN' : 'ES'}
@@ -594,6 +617,8 @@ export default function LifeCEOEnhanced() {
                 variant="ghost"
                 size="sm"
                 data-testid="button-toggle-sidebar"
+                aria-label={t('lifeceo.aria.toggle_sidebar', showSidebar ? 'Hide sidebar' : 'Show sidebar')}
+                aria-expanded={showSidebar}
               >
                 <FolderOpen className="h-4 w-4" />
               </Button>
@@ -602,10 +627,19 @@ export default function LifeCEOEnhanced() {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4" data-testid="list-messages">
+        <div 
+          role="log"
+          aria-live="polite"
+          aria-atomic="false"
+          aria-label={t('lifeceo.aria.messages', 'Conversation messages')}
+          className="flex-1 overflow-y-auto p-4 space-y-4" 
+          data-testid="list-messages"
+        >
           {activeConversation?.messages.map(message => (
             <div
               key={message.id}
+              role="article"
+              aria-label={`${message.role} ${t('lifeceo.aria.message', 'message')}`}
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               data-testid={`message-${message.id}`}
             >
@@ -623,7 +657,12 @@ export default function LifeCEOEnhanced() {
           ))}
           
           {isProcessing && (
-            <div className="flex justify-start">
+            <div 
+              role="alert"
+              aria-live="assertive"
+              aria-busy={isProcessing}
+              className="flex justify-start"
+            >
               <div className="bg-gray-100 p-4 rounded-lg">
                 <div className="flex items-center gap-2">
                   <div className="animate-pulse" data-testid="status-processing">{t('lifeceo.status.processing', 'Processing...')}</div>
@@ -640,6 +679,8 @@ export default function LifeCEOEnhanced() {
               onClick={toggleRecording}
               size="lg"
               data-testid={isRecording ? "button-voice-stop" : "button-voice-record"}
+              aria-label={isRecording ? t('lifeceo.aria.stop_recording', 'Stop voice recording') : t('lifeceo.aria.start_recording', 'Start voice recording')}
+              aria-pressed={isRecording}
               className={`rounded-full w-16 h-16 ${
                 isRecording 
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
@@ -657,6 +698,8 @@ export default function LifeCEOEnhanced() {
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 disabled={isProcessing}
                 data-testid="input-message"
+                aria-label={t('lifeceo.aria.input', 'Type your command')}
+                aria-describedby="recording-status"
               />
             </div>
             
@@ -665,13 +708,21 @@ export default function LifeCEOEnhanced() {
               disabled={!transcript.trim() || isProcessing}
               className="bg-purple-600 hover:bg-purple-700"
               data-testid="button-send-message"
+              aria-label={t('lifeceo.aria.send_message', 'Send message')}
             >
               <Send className="h-4 w-4" />
             </Button>
           </div>
           
           {isRecording && (
-            <div className="mt-2 text-sm text-red-500 animate-pulse" data-testid="status-recording">
+            <div 
+              id="recording-status"
+              role="status"
+              aria-live="assertive"
+              aria-atomic="true"
+              className="mt-2 text-sm text-red-500 animate-pulse" 
+              data-testid="status-recording"
+            >
               {t('lifeceo.status.recording', 'Recording... Speak clearly')}
             </div>
           )}
@@ -695,6 +746,7 @@ export default function LifeCEOEnhanced() {
               size="sm"
               className="text-xs"
               data-testid="button-switch-agent"
+              aria-label={t('lifeceo.aria.switch_agent', 'Switch AI agent')}
             >
               <Brain className="h-4 w-4 mr-1" />
               {t('lifeceo.button.switch_agent', 'Switch Agent')} ({LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || t('lifeceo.title', 'Life CEO')})
@@ -704,13 +756,20 @@ export default function LifeCEOEnhanced() {
 
         {/* Enhanced Agent Switcher Modal with MT Ocean Theme */}
         {showAgentSwitcher && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn" data-testid="agent-switcher">
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn" 
+            data-testid="agent-switcher"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="agent-switcher-title"
+            aria-describedby="agent-switcher-description"
+          >
             <div className="glassmorphic-card max-w-4xl w-full max-h-[90vh] overflow-hidden rounded-2xl animate-scaleIn">
               <div className="bg-gradient-to-r from-turquoise-400 to-cyan-500 p-6 text-white">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold mb-2">{t('lifeceo.modal.agent_selection_title', 'Life CEO Agent Selection')}</h2>
-                    <p className="text-turquoise-100 text-sm">
+                    <h2 id="agent-switcher-title" className="text-2xl font-bold mb-2">{t('lifeceo.modal.agent_selection_title', 'Life CEO Agent Selection')}</h2>
+                    <p id="agent-switcher-description" className="text-turquoise-100 text-sm">
                       {t('lifeceo.modal.agent_selection_subtitle', 'Choose your AI assistant to help manage different aspects of your life')}
                     </p>
                   </div>
@@ -719,6 +778,7 @@ export default function LifeCEOEnhanced() {
                     variant="ghost"
                     size="icon"
                     className="text-white hover:bg-white/20 rounded-full"
+                    aria-label={t('lifeceo.aria.close_agent_switcher', 'Close agent selection')}
                   >
                     <X className="h-5 w-5" />
                   </Button>
@@ -742,12 +802,19 @@ export default function LifeCEOEnhanced() {
               
               {/* Agent Grid */}
               <div className="p-6 overflow-y-auto max-h-[calc(90vh-300px)]">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div 
+                  role="radiogroup"
+                  aria-label={t('lifeceo.aria.agent_selection', 'Select AI agent')}
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                >
                   {LIFE_CEO_AGENTS.map(agent => {
                     const isSelected = selectedAgentId === agent.id;
                     return (
                       <button
                         key={agent.id}
+                        role="radio"
+                        aria-checked={isSelected}
+                        aria-label={t(`lifeceo.aria.agent_${agent.id}`, `${agent.name}: ${agent.description}`)}
                         onClick={() => {
                           setSelectedAgentId(agent.id);
                           setShowAgentSwitcher(false);

@@ -252,7 +252,7 @@ export default function HousingMarketplace() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto px-4 py-6" data-testid="housing-listings">
+      <main role="main" aria-label={t('housing.aria.main', 'Housing marketplace main content')} className="max-w-7xl mx-auto px-4 py-6" data-testid="housing-listings">
         {/* Header */}
         <FadeIn>
           <div className="mb-8">
@@ -281,9 +281,14 @@ export default function HousingMarketplace() {
             animate="visible"
           >
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard 
+                role="region"
+                aria-label={t('housing.aria.stat_listings', '{{count}} active listings', { count: listings.length })}
+                depth={1} 
+                className="p-4 border border-cyan-200/30 dark:border-cyan-500/30"
+              >
                 <div className="flex items-center gap-3">
-                  <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : listings.length}</p>
                     <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.active_listings', 'Active Listings')}</p>
@@ -292,9 +297,14 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard 
+                role="region"
+                aria-label={t('housing.aria.stat_cities', '{{count}} cities available', { count: new Set(listings.map(l => l.city)).size })}
+                depth={1} 
+                className="p-4 border border-cyan-200/30 dark:border-cyan-500/30"
+              >
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <MapPin className="w-8 h-8 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">
                       {isLoading ? '...' : new Set(listings.map(l => l.city)).size}
@@ -305,9 +315,18 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard 
+                role="region"
+                aria-label={t('housing.aria.stat_rating', 'Average rating {{rating}}', { 
+                  rating: listings.filter(l => l.rating).length > 0 
+                    ? (listings.filter(l => l.rating).reduce((sum, l) => sum + (l.rating || 0), 0) / listings.filter(l => l.rating).length).toFixed(1)
+                    : 'N/A'
+                })}
+                depth={1} 
+                className="p-4 border border-cyan-200/30 dark:border-cyan-500/30"
+              >
                 <div className="flex items-center gap-3">
-                  <Star className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <Star className="w-8 h-8 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">
                       {isLoading ? '...' : listings.filter(l => l.rating).length > 0 
@@ -320,9 +339,14 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard 
+                role="region"
+                aria-label={t('housing.aria.stat_matches', '{{count}} listings matching filters', { count: filteredListings.length })}
+                depth={1} 
+                className="p-4 border border-cyan-200/30 dark:border-cyan-500/30"
+              >
                 <div className="flex items-center gap-3">
-                  <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : filteredListings.length}</p>
                     <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.matching_filters', 'Matching Filters')}</p>
@@ -338,20 +362,26 @@ export default function HousingMarketplace() {
             <ScaleIn delay={0.2}>
               <div className="flex flex-col lg:flex-row gap-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" aria-hidden="true" />
                   <Input
                     type="text"
                     placeholder={t('housing.marketplace.search_placeholder', 'Search by location, title, or description...')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    aria-label={t('housing.aria.search', 'Search housing listings')}
+                    aria-describedby="search-help-text"
                     className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
                     data-testid="input-search"
                   />
+                  <span id="search-help-text" className="sr-only">{t('housing.aria.search_help', 'Search by location, title, or description')}</span>
                 </div>
-                <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 flex-wrap" role="radiogroup" aria-label={t('housing.aria.filters', 'Listing filters')}>
                   {['all', 'apartment', 'room', 'shared', 'house'].map(type => (
                     <RippleButton 
                       key={type}
+                      role="radio"
+                      aria-checked={selectedType === type}
+                      aria-label={t(`housing.aria.type_${type}`, `Filter by ${type}`)}
                       onClick={() => setSelectedType(type)}
                       className={selectedType === type 
                         ? 'aurora-gradient text-white border-0 px-3 py-1.5 rounded-md text-sm font-medium' 
@@ -365,10 +395,13 @@ export default function HousingMarketplace() {
                     variant="outline" 
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
+                    aria-label={t('housing.aria.toggle_filters', 'Toggle filter panel')}
+                    aria-expanded={showFilters}
+                    aria-controls="filter-panel"
                     className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-cyan-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
                     data-testid="button-toggle-filters"
                   >
-                    <Filter className="w-4 h-4 mr-1" />
+                    <Filter className="w-4 h-4 mr-1" aria-hidden="true" />
                     {t('housing.marketplace.filters', 'Filters')} {activeFilterCount > 0 && `(${activeFilterCount})`}
                   </Button>
                   {activeFilterCount > 0 && (
@@ -376,6 +409,7 @@ export default function HousingMarketplace() {
                       variant="ghost" 
                       size="sm"
                       onClick={clearFilters}
+                      aria-label={t('housing.aria.clear_filters', 'Clear all filters')}
                       className="hover:glass-card hover:glass-depth-1"
                       data-testid="button-clear-filters"
                     >
@@ -388,7 +422,13 @@ export default function HousingMarketplace() {
 
             {/* Expanded Filter Panel */}
             {showFilters && (
-              <Card className="p-6 bg-gray-50" data-testid="filter-panel">
+              <Card 
+                id="filter-panel"
+                role="region"
+                aria-label={t('housing.aria.filters', 'Listing filters')}
+                className="p-6 bg-gray-50" 
+                data-testid="filter-panel"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Room Types */}
                   <div data-testid="filter-room-types">
@@ -400,9 +440,12 @@ export default function HousingMarketplace() {
                           <div key={roomType} className="flex items-center space-x-2">
                             <input
                               type="checkbox"
+                              role="checkbox"
                               id={roomTypeId}
                               checked={selectedRoomTypes.includes(roomType)}
                               onChange={() => toggleRoomType(roomType)}
+                              aria-checked={selectedRoomTypes.includes(roomType)}
+                              aria-label={t(`housing.aria.roomtype_${roomType.toLowerCase().replace(/\s+/g, '')}`, `Select ${roomType}`)}
                               className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                               data-testid={`checkbox-roomtype-${roomType.toLowerCase().replace(/\s+/g, '-')}`}
                             />
@@ -427,6 +470,11 @@ export default function HousingMarketplace() {
                         step={5}
                         value={[priceRange.min, priceRange.max]}
                         onValueChange={(values) => setPriceRange({ min: values[0], max: values[1] })}
+                        aria-label={t('housing.aria.price_range', 'Price range selector')}
+                        aria-valuemin={0}
+                        aria-valuemax={300}
+                        aria-valuenow={priceRange.min}
+                        aria-valuetext={t('housing.aria.price_value', '${{min}} to ${{max}} per night', { min: priceRange.min, max: priceRange.max })}
                         className="mt-2"
                         data-testid="slider-price-range"
                       />
@@ -449,17 +497,26 @@ export default function HousingMarketplace() {
                             size="sm"
                             onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
                             disabled={guestCount <= 1}
+                            aria-label={t('housing.aria.decrease_guests', 'Decrease guest count')}
+                            aria-controls="guest-count"
                             data-testid="button-guests-decrease"
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-guest-count">
+                          <span 
+                            id="guest-count"
+                            className="px-4 py-1 bg-white border rounded text-sm font-medium" 
+                            aria-label={t('housing.aria.guest_count', 'Guest count: {{count}}', { count: guestCount })}
+                            data-testid="text-guest-count"
+                          >
                             {guestCount}
                           </span>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setGuestCount(guestCount + 1)}
+                            aria-label={t('housing.aria.increase_guests', 'Increase guest count')}
+                            aria-controls="guest-count"
                             data-testid="button-guests-increase"
                           >
                             +
@@ -474,17 +531,26 @@ export default function HousingMarketplace() {
                             size="sm"
                             onClick={() => setBedroomCount(Math.max(0, bedroomCount - 1))}
                             disabled={bedroomCount <= 0}
+                            aria-label={t('housing.aria.decrease_bedrooms', 'Decrease bedroom count')}
+                            aria-controls="bedroom-count"
                             data-testid="button-bedrooms-decrease"
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-bedroom-count">
+                          <span 
+                            id="bedroom-count"
+                            className="px-4 py-1 bg-white border rounded text-sm font-medium" 
+                            aria-label={t('housing.aria.bedroom_count', 'Bedroom count: {{count}}', { count: bedroomCount })}
+                            data-testid="text-bedroom-count"
+                          >
                             {bedroomCount === 0 ? t('housing.marketplace.any', 'Any') : bedroomCount}
                           </span>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setBedroomCount(bedroomCount + 1)}
+                            aria-label={t('housing.aria.increase_bedrooms', 'Increase bedroom count')}
+                            aria-controls="bedroom-count"
                             data-testid="button-bedrooms-increase"
                           >
                             +
@@ -502,9 +568,12 @@ export default function HousingMarketplace() {
                         <div key={amenity} className="flex items-center space-x-2">
                           <input
                             type="checkbox"
+                            role="checkbox"
                             id={`amenity-${amenity}`}
                             checked={selectedAmenities.includes(amenity)}
                             onChange={() => toggleAmenity(amenity)}
+                            aria-checked={selectedAmenities.includes(amenity)}
+                            aria-label={t('housing.aria.amenity', 'Select {{amenity}} amenity', { amenity: amenity.replace(/_/g, ' ') })}
                             className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                             data-testid={`checkbox-amenity-${amenity}`}
                           />
@@ -521,7 +590,13 @@ export default function HousingMarketplace() {
           </div>
 
           {/* Results Section */}
-          <div className="mb-6">
+          <div 
+            role="region" 
+            aria-label={t('housing.aria.results', 'Search results')}
+            aria-live="polite"
+            aria-busy={isLoading}
+            className="mb-6"
+          >
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
               {t('housing.marketplace.available_listings', 'Available Listings')}
             </h2>
@@ -532,10 +607,21 @@ export default function HousingMarketplace() {
           </div>
 
         {/* Listings Grid */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div 
+          ref={containerRef} 
+          role="list"
+          aria-label={t('housing.aria.results', 'Search results')}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
-              <Card key={i} className="overflow-hidden animate-pulse">
+              <Card 
+                key={i} 
+                role="status"
+                aria-label={t('housing.aria.loading', 'Loading listings')}
+                aria-busy="true"
+                className="overflow-hidden animate-pulse"
+              >
                 <div className="h-48 bg-gray-200" />
                 <div className="p-4 space-y-3">
                   <div className="h-6 bg-gray-200 rounded w-3/4" />
@@ -562,8 +648,10 @@ export default function HousingMarketplace() {
               const isThumbnailVideo = thumbnailUrl ? isVideoUrl(thumbnailUrl) : false;
               
               return (
-                <div key={listing.id} ref={el => cardsRef.current[index] = el}>
+                <div key={listing.id} ref={el => cardsRef.current[index] = el} role="listitem">
                   <GlassCard 
+                    role="article"
+                    aria-label={t('housing.aria.listing_card', '{{title}} in {{location}}', { title: listing.title, location })}
                     depth={2}
                     className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-cyan-500/50 transition-all duration-300 group" 
                     data-testid={`card-listing-${listing.id}`}
@@ -598,10 +686,15 @@ export default function HousingMarketplace() {
                       <MagneticButton 
                         strength={0.2}
                         onClick={() => handleToggleFavorite(listing)}
+                        aria-label={listing.isFavorite 
+                          ? t('housing.aria.unfavorite', 'Remove {{title}} from favorites', { title: listing.title })
+                          : t('housing.aria.favorite', 'Add {{title}} to favorites', { title: listing.title })
+                        }
+                        aria-pressed={listing.isFavorite}
                         className="glass-card glass-depth-2 hover:glass-depth-3 p-2 rounded-md"
                         data-testid={`button-favorite-${listing.id}`}
                       >
-                        <Heart className={`w-4 h-4 transition-colors ${listing.isFavorite ? 'fill-rose-500 text-rose-500' : 'text-white'}`} />
+                        <Heart className={`w-4 h-4 transition-colors ${listing.isFavorite ? 'fill-rose-500 text-rose-500' : 'text-white'}`} aria-hidden="true" />
                       </MagneticButton>
                     </div>
                     <div className="absolute bottom-4 left-4">
@@ -658,7 +751,11 @@ export default function HousingMarketplace() {
 
                     {/* Host Info */}
                     <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 dark:border-slate-700/50" data-testid={`host-info-${listing.id}`}>
-                      <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => navigate(`/profile/${listing.host.username}`)}
+                        aria-label={t('housing.aria.host_profile', "View {{name}}'s profile", { name: listing.host.name })}
+                        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                      >
                         {listing.host.profileImage ? (
                           <img 
                             src={listing.host.profileImage} 
@@ -667,7 +764,7 @@ export default function HousingMarketplace() {
                             data-testid={`img-host-profile-${listing.id}`}
                           />
                         ) : (
-                          <div className="w-8 h-8 aurora-gradient rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          <div className="w-8 h-8 aurora-gradient rounded-full flex items-center justify-center text-white text-sm font-bold" aria-hidden="true">
                             {listing.host.name.charAt(0)}
                           </div>
                         )}
@@ -675,9 +772,10 @@ export default function HousingMarketplace() {
                           <p className="text-sm font-medium text-slate-900 dark:text-white">{listing.host.name}</p>
                           <p className="text-xs text-slate-500 dark:text-slate-400">@{listing.host.username}</p>
                         </div>
-                      </div>
+                      </button>
                       <RippleButton
                         onClick={() => navigate(`/listing/${listing.id}`)}
+                        aria-label={t('housing.aria.view_details', 'View details for {{title}}', { title: listing.title })}
                         className="aurora-gradient text-white hover:shadow-aurora transition-all px-3 py-1.5 rounded-md text-sm font-medium"
                         data-testid={`button-view-details-${listing.id}`}
                       >
@@ -773,7 +871,7 @@ export default function HousingMarketplace() {
             </Card>
           </div>
         )}
-      </div>
+      </main>
     </DashboardLayout>
   );
 }
