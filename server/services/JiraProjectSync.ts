@@ -81,7 +81,7 @@ export interface JiraTask {
 }
 
 export class JiraProjectSync {
-  private projectKey: string = 'MUNDOTANGO';
+  private projectKey: string = 'MUN';
   
   async syncProjectPlan() {
     const client = await getUncachableJiraClient();
@@ -122,7 +122,7 @@ export class JiraProjectSync {
       return project;
     } catch (error) {
       console.log('Project not found, you may need to create it manually in Jira');
-      throw new Error('Project does not exist. Please create MUNDOTANGO project in Jira first.');
+      throw new Error('Project does not exist. Please create MUN project in Jira first.');
     }
   }
 
