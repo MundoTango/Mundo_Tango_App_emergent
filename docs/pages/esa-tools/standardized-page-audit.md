@@ -1,9 +1,122 @@
 # Standardized Page Audit Framework
 ## ESA 61x21 - Automated 35-Agent Certification System
 
-**Version:** 2.0  
+**Version:** 3.0  
 **Last Updated:** October 10, 2025  
 **Purpose:** Systematically audit all 100+ pages using proven Memories Page methodology
+
+---
+
+## 🚨 CRITICAL: AUDIT-ONLY MODE
+
+**⚠️ THIS IS AN AUDIT TOOL - NOT A BUILD TOOL**
+
+### Audit Rules:
+1. ✅ **ONLY IDENTIFY ISSUES** - Never create new files during audit
+2. ✅ **REPORT FINDINGS** - Document problems with specific line numbers and evidence
+3. ✅ **SUGGEST SOLUTIONS** - Recommend fixes from existing patterns only
+4. ✅ **USER APPROVAL REQUIRED** - All fixes require explicit user review and approval
+5. ❌ **NEVER AUTO-FIX** - Do not modify code during audit phase
+
+### If Issues Found:
+```
+📋 Issue: [Description]
+📍 Location: [File:Line]
+🔍 Evidence: [Code snippet]
+✅ Recommended Fix: [Use existing pattern from X]
+⏸️ Awaiting user approval before implementing
+```
+
+**User must review and approve ALL changes before implementation.**
+
+---
+
+## 📚 Phase 0: Pre-Audit Documentation Review
+
+**MANDATORY FIRST STEP - Check Existing Solutions Before Recommending New Ones**
+
+### Step 0.1: Check Platform Documentation
+**Purpose:** Prevent reinventing the wheel
+
+**Required Reading (in order):**
+1. `docs/platform-handoff/approved-patterns-2025-10-10.md` - Approved patterns library
+2. `docs/platform-handoff/api-routes-reference.md` - 150+ existing API endpoints
+3. `docs/platform-handoff/component-library.md` - Reusable components
+4. `ESA_ORCHESTRATION.md` - Framework guidelines
+5. `docs/pages/design-systems/aurora-tide.md` - Design system standards
+6. Page-specific docs in `docs/audit-reports/` - Previous audit findings
+
+### Step 0.2: Search Codebase for Existing Solutions
+**Before flagging missing functionality:**
+
+```bash
+# Search for similar implementations
+grep -r "similar-pattern" client/src/
+grep -r "api-endpoint" server/routes.ts
+
+# Check if component already exists
+ls client/src/components/ | grep -i "feature"
+
+# Verify design pattern usage
+grep -r "GlassCard" client/src/pages/
+```
+
+### Step 0.3: Reference Check Questions
+**Ask these BEFORE recommending new solutions:**
+
+- [ ] Does this pattern already exist in approved-patterns.md?
+- [ ] Is there an existing API endpoint that does this?
+- [ ] Is there a reusable component in the component library?
+- [ ] Has this been solved on another page? (check audit reports)
+- [ ] Does Aurora Tide design system already cover this?
+- [ ] Is this in the ESA framework documentation?
+
+### Step 0.4: Documentation Cross-Reference
+**If recommending a fix, CITE existing solutions:**
+
+✅ **GOOD:**
+```
+Issue: Missing dark mode variants
+Fix: Apply pattern from approved-patterns.md section 4.2
+Reference: events page (audit report 2025-10-10) - 100% dark mode coverage
+```
+
+❌ **BAD:**
+```
+Issue: Missing dark mode variants
+Fix: Add dark mode classes (creates new solution without checking existing)
+```
+
+### Step 0.5: Platform Knowledge Base
+**Key Documentation Locations:**
+
+| What to Check | Where to Look | Purpose |
+|--------------|---------------|---------|
+| Approved Patterns | `docs/platform-handoff/approved-patterns-2025-10-10.md` | Standard solutions |
+| API Endpoints | `docs/platform-handoff/api-routes-reference.md` | Existing backend |
+| Components | `docs/platform-handoff/component-library.md` | Reusable UI |
+| Design Standards | `docs/pages/design-systems/aurora-tide.md` | Visual consistency |
+| Previous Audits | `docs/audit-reports/*.md` | Past findings |
+| Page Registry | `docs/pages/page-audit-registry.json` | Page metadata |
+
+### Step 0.6: Dependency Audit
+**Check before adding new packages:**
+
+```bash
+# List all installed packages
+npm list --depth=0
+
+# Search for existing similar package
+npm list | grep -i "feature-name"
+
+# Check package.json
+cat package.json | grep -A 5 "dependencies"
+```
+
+**Questions:**
+- [ ] Is this package already installed?
+- [ ] Is there an existing package that does this?
+- [ ] Can we use a built-in browser API instead?
 
 ---
 
@@ -12,14 +125,14 @@
 This framework standardizes the comprehensive audit process demonstrated on the Memories Page, enabling consistent quality assessment across the entire platform.
 
 ### Audit Structure
-- **35 Total Agents**: 14 methodology audits + 21 gap analysis checks
-- **Execution Time**: ~45 minutes per page (96% faster than sequential)
+- **43 Total Agents**: 14 methodology audits + 21 gap analysis checks + 8 new dimensions
+- **Execution Time**: ~60 minutes per page (includes documentation review)
 - **Pass Threshold**: 90/100 for certification
 - **Consensus Requirement**: >90% agent approval
 
 ---
 
-## 🎯 The 35-Agent System
+## 🎯 The 43-Agent System
 
 ### Phase 1: Methodology Audits (14 Agents)
 
