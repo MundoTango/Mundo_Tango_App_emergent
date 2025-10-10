@@ -45,7 +45,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
         props: {
           component: 'Profile',
           error: error.message,
-          stack: errorInfo.componentStack
+          stack: errorInfo.componentStack || 'unknown'
         }
       });
     }
