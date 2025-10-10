@@ -89,6 +89,18 @@ export default function SmartPostFeed({
     deletePost,
   } = usePostMutations(context);
 
+  // ESA DEBUG: Log SmartPostFeed state
+  console.log('🔍 [SmartPostFeed] Feed state:', {
+    context,
+    postsCount: posts.length,
+    isLoading,
+    isFetching,
+    hasMore,
+    page,
+    searchQuery: debouncedSearch,
+    filters
+  });
+
   // Data handlers (bridge between data hooks and controlled component)
   const handleLoadMore = useCallback(() => {
     if (!isFetching && hasMore) {
