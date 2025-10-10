@@ -83,26 +83,24 @@ export default function LifeCEOEnhanced() {
   const [selectedAgentId, setSelectedAgentId] = useState<string>('life-ceo');
   const [showAgentSwitcher, setShowAgentSwitcher] = useState(false);
 
-  // Check if user is super admin (disabled for testing)
-  const isSuperAdmin = true; // TODO: Re-enable for production: (user as any)?.isSuperAdmin === true;
+  // Check if user is super admin
+  const isSuperAdmin = (user as any)?.isSuperAdmin === true;
 
-  // Redirect non-super admins (disabled for testing)
-  // useEffect(() => {
-  //   if (user && !isSuperAdmin) {
-  //     toast.error('Access denied. Life CEO Portal is restricted to Super Admins only.');
-  //     setLocation('/');
-  //   }
-  // }, [user, isSuperAdmin, setLocation]);
+  // Redirect non-super admins
+  useEffect(() => {
+    if (user && !isSuperAdmin) {
+      toast.error('Access denied. Life CEO Portal is restricted to Super Admins only.');
+      setLocation('/');
+    }
+  }, [user, isSuperAdmin, setLocation]);
 
   // Register service worker and handle PWA installation
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
-          console.log('Service Worker registered:', registration);
         })
         .catch(error => {
-          console.error('Service Worker registration failed:', error);
         });
     }
 
@@ -151,7 +149,6 @@ export default function LifeCEOEnhanced() {
 
         if (response.ok) {
           const { data } = await response.json();
-          console.log('Loaded persisted messages from database:', data);
           
           // Update the default conversation with persisted messages
           if (data && data.length > 0) {
@@ -179,7 +176,6 @@ export default function LifeCEOEnhanced() {
           }
         }
       } catch (error) {
-        console.error('Error loading persisted messages:', error);
       }
     };
 
@@ -223,11 +219,9 @@ export default function LifeCEOEnhanced() {
       
       // Add enhanced audio processing for unclear speech
       recognitionInstance.audiostart = () => {
-        console.log('Audio capture started with noise suppression');
       };
       
       recognitionInstance.audioend = () => {
-        console.log('Audio capture ended');
       };
 
       recognitionInstance.onresult = (event: any) => {
@@ -242,7 +236,7 @@ export default function LifeCEOEnhanced() {
       };
 
       recognitionInstance.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
+        toast.error(`Speech recognition failed: ${event.error}`);
         setIsRecording(false);
       };
 
@@ -368,8 +362,6 @@ export default function LifeCEOEnhanced() {
           
           // Store references for cleanup
           audioProcessorRef.current = scriptProcessor;
-          
-          console.log('Enhanced audio processing enabled for unclear/long audio');
         }
         
         recognition?.start();
@@ -377,7 +369,6 @@ export default function LifeCEOEnhanced() {
         setTranscript('');
       } catch (error) {
         toast.error('Failed to access microphone');
-        console.error('Microphone error:', error);
       }
     }
   };
@@ -452,7 +443,6 @@ export default function LifeCEOEnhanced() {
       }
     } catch (error) {
       toast.error('Failed to process command');
-      console.error('Command error:', error);
     } finally {
       setIsProcessing(false);
     }
