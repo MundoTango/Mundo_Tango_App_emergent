@@ -2,6 +2,11 @@
 // Memory Feed (Unified) - Main "/" Route Implementation
 // Following ESA_LIFE_CEO_61x21_AGENTS_FRAMEWORK.md specifications
 // WITH RESILIENCE ARCHITECTURE - Prevents component failures and blank screens
+//
+// 📚 APPROVED PATTERNS: Using patterns from docs/platform-handoff/approved-patterns-2025-10-10.md
+// - React Query cache invalidation (Section 3.2)
+// - i18next for all text (Section 4.1)
+// - Aurora Tide design components (Section 5.1)
 
 import { useState, useEffect, useRef, useMemo, lazy, Suspense } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -40,14 +45,24 @@ function ESAMemoryFeedCore() {
   const { user } = useAuth(); // ESA Framework Layer 4: Get authenticated user
   const [currentUserId, setCurrentUserId] = useState<string>('');
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [shareModalPost, setShareModalPost] = useState<any>(null);
+  const [shareModalPost, setShareModalPost] = useState<{ id: number; content: string; userId: number; user: { name: string } } | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   
   // Track A: Real-time Socket.IO connection
   const { connectionStatus } = useMemoriesFeed();
   
   // ESA LIFE CEO 61×21 - Layer 9: Edit functionality with rich text editor
-  const [editingPost, setEditingPost] = useState<any>(null);
+  const [editingPost, setEditingPost] = useState<{ 
+    id: number; 
+    content: string; 
+    userId: number; 
+    user?: { name: string }; 
+    location?: string;
+    mediaUrl?: string;
+    mediaEmbeds?: string[];
+    imageUrl?: string;
+    hashtags?: string[];
+  } | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   
   // Use ref for toast to prevent closure issues (ESA Framework pattern)
@@ -254,15 +269,15 @@ function ESAMemoryFeedCore() {
                               
                               setShowCreateModal(false);
                               toast({
-                                title: "✨ Memory Created!",
-                                description: "Your memory with media has been shared"
+                                title: t('memories.memoryCreated'),
+                                description: t('memories.memoryWithMediaShared')
                               });
                             })
                             .catch(err => {
                               console.error('Error creating post:', err);
                               toast({
-                                title: "Failed to Create Memory",
-                                description: err.message || "Please try again",
+                                title: t('memories.createFailed'),
+                                description: err.message || t('memories.pleaseTryAgain'),
                                 variant: "destructive"
                               });
                             });
@@ -414,8 +429,8 @@ function ESAMemoryFeedCore() {
                 // ESA Layer 9: Edit completed successfully
                 console.log('[ESA Layer 9] Post edited successfully');
                 toast({
-                  title: "Memory Updated",
-                  description: "Your changes have been saved"
+                  title: t('memories.memoryUpdated'),
+                  description: t('memories.changesSaved')
                 });
                 queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
                 queryClient.invalidateQueries({ queryKey: ['/api/memories'] });
