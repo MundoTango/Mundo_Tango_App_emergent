@@ -42,7 +42,7 @@ function ESAMemoryFeedCore() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const { currentTheme } = useTheme();
-  const { user } = useAuth(); // ESA Framework Layer 4: Get authenticated user
+  const { user, isLoading: isAuthLoading } = useAuth(); // ESA Framework Layer 4: Get authenticated user
   const [currentUserId, setCurrentUserId] = useState<string>('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [shareModalPost, setShareModalPost] = useState<{ id: number; content: string; userId: number; user: { name: string } } | null>(null);
@@ -335,12 +335,19 @@ function ESAMemoryFeedCore() {
                     aria-live="polite"
                     data-testid="feed-posts"
                   >
-                    <SmartPostFeed 
-                      context={feedContext}
-                      showFilters={true}
-                      showSearch={true}
-                      onEdit={handleEditPost}
-                    />
+                    {/* ESA FIX: Only render feed after auth is loaded to prevent 401 race condition */}
+                    {!isAuthLoading ? (
+                      <SmartPostFeed 
+                        context={feedContext}
+                        showFilters={true}
+                        showSearch={true}
+                        onEdit={handleEditPost}
+                      />
+                    ) : (
+                      <div className="flex justify-center py-12">
+                        <div className="animate-spin h-8 w-8 border-4 border-teal-500 border-t-transparent rounded-full" />
+                      </div>
+                    )}
                   </section>
                 </div>
               </main>
