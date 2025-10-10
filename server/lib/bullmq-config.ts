@@ -39,7 +39,7 @@ if (connection && process.env.DISABLE_REDIS !== 'true') {
     queueEvents.dataSync = new QueueEvents('data-sync', { connection });
     queueEvents.performanceMetrics = new QueueEvents('performance-metrics', { connection });
   } catch (err) {
-    console.log('⚠️ Failed to initialize BullMQ queues:', err.message);
+    console.log('⚠️ Failed to initialize BullMQ queues:', (err as Error).message);
   }
 }
 
@@ -206,11 +206,13 @@ export const initializeBullMQ = async () => {
 export const gracefulShutdown = async () => {
   console.log('🛑 Life CEO: Shutting down job queues...');
   
-  await Promise.all([
-    ...Object.values(queues).map(q => q.close()),
-    ...Object.values(queueEvents).map(e => e.close()),
-  ]);
-  
-  await connection.quit();
+  if (process.env.DISABLE_REDIS !== 'true' && connection) {
+    await Promise.all([
+      ...Object.values(queues).map((q: any) => q.close()),
+      ...Object.values(queueEvents).map((e: any) => e.close()),
+    ]);
+    
+    await (connection as Redis).quit();
+  }
   console.log('✅ Life CEO: Job queues shut down gracefully');
 };
