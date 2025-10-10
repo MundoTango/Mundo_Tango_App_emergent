@@ -333,7 +333,7 @@ import { FadeIn } from '@/components/animations/FramerMotionWrappers';
 **After 15 minutes, dive deeper:**
 
 1. **Read Core Docs (30 min)**
-   - ESA_ORCHESTRATION.md - Framework overview
+   - esa.md - Framework overview
    - approved-patterns-2025-10-10.md - Code patterns
    - aurora-tide-design.md - Design system
 

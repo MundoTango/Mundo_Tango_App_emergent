@@ -279,6 +279,6 @@ The **ultra-micro parallel subagent methodology** represents a breakthrough in a
 ---
 
 ## Related Documentation
-- ESA_ORCHESTRATION.md - Overall framework coordination
-- ESA.md - 61x21 layer methodology
+- esa.md - Overall framework coordination
+- ESA_FRAMEWORK.md - 61x21 layer methodology
 - PLATFORM_AUDIT_REPORT_2025-10-09.md - Full platform health assessment

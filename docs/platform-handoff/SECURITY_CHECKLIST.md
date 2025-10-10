@@ -807,4 +807,4 @@ npm run test:pentest
 
 **🔒 Security is an ongoing process, not a one-time task!**
 
-**Next Read:** `ESA_ORCHESTRATION.md` for complete framework overview
+**Next Read:** `esa.md` for complete framework overview

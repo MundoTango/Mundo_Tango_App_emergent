@@ -649,7 +649,7 @@ npm run dev
    - Database logs (Neon dashboard)
 
 2. **Search Documentation:**
-   - `ESA_ORCHESTRATION.md` for framework
+   - `esa.md` for framework
    - `approved-patterns-2025-10-10.md` for patterns
    - `api-routes-reference.md` for API issues
 

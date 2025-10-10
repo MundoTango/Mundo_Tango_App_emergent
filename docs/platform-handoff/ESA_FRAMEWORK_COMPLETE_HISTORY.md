@@ -175,7 +175,7 @@ This archaeological audit uncovers the complete evolution of the ESA (Enterprise
 **Date**: September 2025  
 **Layers**: 56 technical layers (+3 layers)  
 **Phases**: 21 implementation phases  
-**Evidence**: Referenced as "Original" in `ESA.md`
+**Evidence**: Referenced as "Original" in `ESA_FRAMEWORK.md`
 
 #### What Changed
 **Added 3 Critical Layers (54-56)**:
@@ -203,7 +203,7 @@ This archaeological audit uncovers the complete evolution of the ESA (Enterprise
 **Date**: Late September 2025  
 **Layers**: 59 technical layers (+3 layers)  
 **Phases**: 21 implementation phases  
-**Evidence**: Referenced as "Enhanced" in `ESA.md`
+**Evidence**: Referenced as "Enhanced" in `ESA_FRAMEWORK.md`
 
 #### What Changed
 **Added 3 Management Layers (57-59)**:
@@ -261,7 +261,7 @@ This archaeological audit uncovers the complete evolution of the ESA (Enterprise
 **Date**: Early October 2025  
 **Layers**: 60 technical layers (+1 layer)  
 **Phases**: 21 implementation phases  
-**Evidence**: Referenced as "Extended" in `ESA.md`
+**Evidence**: Referenced as "Extended" in `ESA_FRAMEWORK.md`
 
 #### What Changed
 **Added Layer 60: GitHub Expertise & Organization**

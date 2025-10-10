@@ -12,8 +12,8 @@
 This folder contains **85+ essential documents** that define how this platform works:
 
 ### 🏗️ Core Architecture (Start Here!)
-1. **ESA_ORCHESTRATION.md** - Master guide orchestrating all documentation (with 100-agent structure)
-2. **ESA.md** - Complete 61-layer technical framework  
+1. **esa.md** - Master orchestration guide with 100-agent structure ⭐ **PRIMARY ENTRY POINT**
+2. **ESA_FRAMEWORK.md** - Complete 61-layer technical framework  
 3. **ESA_FRAMEWORK_COMPLETE_HISTORY.md** - Complete archaeological framework history (30x21 → 61x21)
 4. **ESA_NEW_AGENT_GUIDE.md** - Complete agent creation documentation (30-min quick start, 6-phase methodology, 5-day bootcamp)
 
@@ -54,7 +54,7 @@ This folder contains **85+ essential documents** that define how this platform w
 ### For AI Agents Building New Features
 **Quick Start (15 min):**
 1. ✅ **QUICK_START.md** - Get running in 15 minutes
-2. ✅ **ESA_ORCHESTRATION.md** - Understand the framework
+2. ✅ **esa.md** - Understand the framework
 3. ✅ **approved-patterns-2025-10-10.md** - Use these code patterns
 
 **Build & Debug:**
@@ -76,7 +76,7 @@ This folder contains **85+ essential documents** that define how this platform w
 **Quick Start (15 min):**
 1. ✅ **QUICK_START.md** - Setup to first feature
 2. ✅ **replit.md** - Project overview
-3. ✅ **ESA.md** - Technical architecture (61 layers)
+3. ✅ **ESA_FRAMEWORK.md** - Technical architecture (61 layers)
 
 **Development:**
 4. ✅ **api-routes-reference.md** - Backend APIs
@@ -104,7 +104,7 @@ This folder contains **85+ essential documents** that define how this platform w
 
 ## 📖 File Descriptions
 
-### 1. ESA_ORCHESTRATION.md
+### 1. esa.md
 **What it is:** Master orchestration guide  
 **When to use:** Decision tree for which doc to read  
 **Key sections:**
@@ -114,7 +114,7 @@ This folder contains **85+ essential documents** that define how this platform w
 - Design system reference
 - Deployment validation
 
-### 2. ESA.md
+### 2. ESA_FRAMEWORK.md
 **What it is:** Complete 61x21 technical framework  
 **When to use:** Understanding architecture layers  
 **Key sections:**
@@ -334,7 +334,7 @@ When building a new module, ensure it:
 ### Code Quality
 - [ ] Follows approved patterns from `approved-patterns-2025-10-10.md`
 - [ ] Uses TypeScript types from `schema-reference.ts`
-- [ ] Follows ESA framework layer architecture from `ESA.md`
+- [ ] Follows ESA framework layer architecture from `ESA_FRAMEWORK.md`
 - [ ] Uses design tokens from `aurora-tide-design.md`
 
 ### Functionality
@@ -395,8 +395,8 @@ When building a new module, ensure it:
 4. **TROUBLESHOOTING.md** - Common issues & fixes
 
 ### Day 1: Foundation
-1. **ESA_ORCHESTRATION.md** - Framework structure
-2. **ESA.md** - 61 layers overview
+1. **esa.md** - Framework structure
+2. **ESA_FRAMEWORK.md** - 61 layers overview
 3. **replit.md** - Project context & preferences
 4. **ESA_FRAMEWORK_COMPLETE_HISTORY.md** - How we got here
 
@@ -450,7 +450,7 @@ When building a new module, ensure it:
 1. Check `current-implementation-status.md` for known issues
 2. Review `approved-patterns-2025-10-10.md` for solutions
 3. Search `api-routes-reference.md` for available endpoints
-4. Consult `ESA.md` for architectural guidance
+4. Consult `ESA_FRAMEWORK.md` for architectural guidance
 
 ### For Developers:
 1. Read relevant sections of this package
@@ -511,11 +511,11 @@ Checklist: **SECURITY_CHECKLIST.md** + **DEPLOYMENT_GUIDE.md** - Secure and depl
 ### Day 1: Foundation (2-3 hours)
 1. **QUICK_START.md** - Get running
 2. **README.md** - Understand the package
-3. **ESA_ORCHESTRATION.md** - Framework overview
+3. **esa.md** - Framework overview
 4. **current-implementation-status.md** - Current state
 
 ### Day 2: Architecture (2-3 hours)
-1. **ESA.md** - 61 layers
+1. **ESA_FRAMEWORK.md** - 61 layers
 2. **api-routes-reference.md** - All APIs
 3. **schema-reference.ts** - Data model
 4. **approved-patterns-2025-10-10.md** - Code patterns
