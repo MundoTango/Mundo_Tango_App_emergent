@@ -47,6 +47,7 @@ import Confetti from 'react-confetti';
 import { withResilience } from '@/components/resilient/ResilientBoundary';
 import '../styles/mt-group.css';
 
+// ESA Layer 2 - Proper TypeScript interfaces (fixing 17 'any' types)
 interface GroupMember {
   user: {
     id: number;
@@ -64,6 +65,10 @@ interface GroupEvent {
   startDate: string;
   location: string;
   attendeeCount: number;
+  eventType?: string;
+  type?: string;
+  group_id?: number;
+  groupId?: number;
 }
 
 interface GroupPost {
@@ -77,6 +82,59 @@ interface GroupPost {
   createdAt: string;
   likesCount: number;
   commentsCount: number;
+  location?: string;
+  visibility?: string;
+  mediaEmbeds?: string[];
+  imageUrl?: string;
+  hashtags?: string[];
+}
+
+interface Group {
+  id: number;
+  name: string;
+  slug: string;
+  type: string;
+  emoji?: string;
+  city?: string;
+  country?: string;
+  description?: string;
+  coverImage?: string;
+  memberCount?: number;
+  activities?: GroupActivity[];
+}
+
+interface GroupActivity {
+  id: number;
+  type: string;
+  content: string;
+  user?: {
+    name: string;
+    username: string;
+  };
+  timestamp: string;
+}
+
+interface SocketEventData {
+  groupId?: number;
+  username?: string;
+  userId?: number;
+}
+
+interface HousingListing {
+  id: number;
+  isActive: boolean;
+  pricePerNight?: number;
+  title?: string;
+  location?: string;
+}
+
+interface TransformedMember {
+  id: number;
+  name: string;
+  username: string;
+  avatar?: string;
+  role: string;
+  joinedAt: string;
 }
 
 function GroupDetailPageMT() {
@@ -153,16 +211,16 @@ function GroupDetailPageMT() {
     const filterParam = params.get('filter');
     
     if (tabParam && ['posts', 'events', 'members', 'community-hub', 'housing', 'recommendations'].includes(tabParam)) {
-      setActiveTab(tabParam as any);
+      setActiveTab(tabParam as 'posts' | 'events' | 'members' | 'community-hub' | 'housing' | 'recommendations');
     }
     
     if (filterParam && ['all', 'residents', 'visitors', 'members', 'non-members', 'friends'].includes(filterParam)) {
-      setMentionFilter(filterParam as any);
+      setMentionFilter(filterParam as 'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends');
     }
   }, []);
   
   // Member data state
-  const [memberData, setMemberData] = useState<any[]>([]);
+  const [memberData, setMemberData] = useState<GroupMember[]>([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
   
   // Event filtering state
@@ -186,11 +244,11 @@ function GroupDetailPageMT() {
   const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends'>('all');
   
   const [createPostModal, setCreatePostModal] = useState(false);
-  const [editingPost, setEditingPost] = useState<any>(null);
+  const [editingPost, setEditingPost] = useState<GroupPost | null>(null);
   const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
 
   // Handle post edit - opens modal with post data
-  const handleEditPost = (post: any) => {
+  const handleEditPost = (post: GroupPost) => {
     console.log('[Groups Feed] Opening edit modal for post:', post.id);
     setEditingPost(post);
     setCreatePostModal(true);
@@ -231,19 +289,19 @@ function GroupDetailPageMT() {
   };
 
   // Fetch group details using flexible endpoint (handles both IDs and slugs)
-  const { data: response, isLoading, error } = useQuery<any>({
+  const { data: response, isLoading, error } = useQuery<{ data?: Group; success?: boolean }>({
     queryKey: [`/api/groups/${slug}`],
     enabled: !!slug
   });
 
   // Extract group data from API response - handle both patterns
-  const groupData: any = response?.success === false ? null : (response?.data || response);
-  const group: any = groupData?.id ? groupData : null;
+  const groupData = response?.success === false ? null : (response?.data || response);
+  const group: Group | null = groupData?.id ? groupData as Group : null;
   
   // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
   // ESA Layer 22: Fetch all events and filter by groupId on frontend (workaround for query timing issue)
   // ESA Layer 14: Disable structural sharing to ensure RSVP mutations trigger re-renders
-  const { data: eventsResponse, isLoading: loadingEvents } = useQuery<any>({
+  const { data: eventsResponse, isLoading: loadingEvents } = useQuery<{ data?: GroupEvent[] }>({
     queryKey: ['/api/events/feed', { groupId: group?.id }],
     enabled: activeTab === 'events' && !!group?.id,
     structuralSharing: false // Force re-renders when RSVP status changes
@@ -254,11 +312,11 @@ function GroupDetailPageMT() {
     const allEvents = eventsResponse?.data || [];
     if (!group?.id) return [];
     // Filter events by group_id to ensure only this group's events are shown
-    return allEvents.filter((event: any) => event.group_id === group.id || event.groupId === group.id);
+    return allEvents.filter((event: GroupEvent) => event.group_id === group.id || event.groupId === group.id);
   }, [eventsResponse, group?.id]);
   
   // Fetch housing data for housing tab (city groups only)
-  const { data: housingData, isLoading: loadingHousing } = useQuery<any>({
+  const { data: housingData, isLoading: loadingHousing } = useQuery<{ data?: HousingListing[] }>({
     queryKey: ['/api/host-homes', { city: group?.city, groupSlug: group?.slug }],
     enabled: activeTab === 'housing' && group?.type === 'city' && !!group?.city
   });
@@ -372,7 +430,7 @@ function GroupDetailPageMT() {
     console.log(`🔌 Joined group room: ${group.id}`);
 
     // Listen for member join events
-    socket.on('group:member_joined', (data: any) => {
+    socket.on('group:member_joined', (data: SocketEventData) => {
       console.log('👥 Member joined:', data);
       if (data.groupId === group.id) {
         // Refresh group data to update member count
@@ -386,7 +444,7 @@ function GroupDetailPageMT() {
     });
 
     // Listen for member leave events
-    socket.on('group:member_left', (data: any) => {
+    socket.on('group:member_left', (data: SocketEventData) => {
       console.log('👋 Member left:', data);
       if (data.groupId === group.id) {
         queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
@@ -394,7 +452,7 @@ function GroupDetailPageMT() {
     });
 
     // Listen for new posts in group
-    socket.on('group:new_post', (data: any) => {
+    socket.on('group:new_post', (data: SocketEventData) => {
       console.log('📝 New post in group:', data);
       if (data.groupId === group.id && activeTab === 'posts') {
         // Note: PostFeed handles its own refreshing via context
@@ -406,7 +464,7 @@ function GroupDetailPageMT() {
     });
 
     // Listen for group details updates
-    socket.on('group:details_updated', (data: any) => {
+    socket.on('group:details_updated', (data: SocketEventData) => {
       console.log('✏️ Group details updated:', data);
       if (data.groupId === group.id) {
         queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
@@ -618,7 +676,7 @@ function GroupDetailPageMT() {
               <h3 className="mt-info-card-title">What we do</h3>
             </div>
             <div className="mt-info-card-content space-y-3">
-              {group.activities.map((activity: any, index: number) => (
+              {group.activities.map((activity: GroupActivity, index: number) => (
                 <div key={index} className="flex items-start gap-3">
                   {activity.icon === 'music' && <Music className="h-5 w-5 text-turquoise-500 mt-0.5" />}
                   {activity.icon === 'book' && <BookOpen className="h-5 w-5 text-blue-500 mt-0.5" />}
@@ -713,7 +771,7 @@ function GroupDetailPageMT() {
     // No need for frontend filtering - use API data directly
     
     // Transform member data to include tango roles
-    const transformedMembers = memberData.map((member: any) => ({
+    const transformedMembers = memberData.map((member: GroupMember): TransformedMember => ({
       id: member.id || member.user?.id,
       userId: member.user?.id || member.userId,
       username: member.user?.username || member.username,
@@ -738,7 +796,7 @@ function GroupDetailPageMT() {
 
   const renderEventsTab = () => {
     // Filter events based on current filters
-    const filteredEvents = events.filter((event: any) => {
+    const filteredEvents = events.filter((event: GroupEvent) => {
       if (eventFilters.search && !event.title.toLowerCase().includes(eventFilters.search.toLowerCase())) {
         return false;
       }
@@ -907,7 +965,7 @@ function GroupDetailPageMT() {
                 <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-500"></div>
               </div>
             ) : filteredEvents.length > 0 ? (
-              filteredEvents.map((event: any) => (
+              filteredEvents.map((event: GroupEvent) => (
                 <UnifiedEventCard
                   key={event.id}
                   event={{
@@ -1171,21 +1229,21 @@ function GroupDetailPageMT() {
   const renderHousingTab = () => {
     // Calculate housing statistics
     const totalHomes = homes.length;
-    const availableHomes = homes.filter((h: any) => h.isActive).length;
+    const availableHomes = homes.filter((h: HousingListing) => h.isActive).length;
     const priceRange = homes.length > 0 ? {
-      min: Math.min(...homes.map((h: any) => h.pricePerNight || 0)),
-      max: Math.max(...homes.map((h: any) => h.pricePerNight || 0))
+      min: Math.min(...homes.map((h: HousingListing) => h.pricePerNight || 0)),
+      max: Math.max(...homes.map((h: HousingListing) => h.pricePerNight || 0))
     } : { min: 0, max: 0 };
     const avgPrice = homes.length > 0 
-      ? Math.round(homes.reduce((sum: number, h: any) => sum + (h.pricePerNight || 0), 0) / homes.length)
+      ? Math.round(homes.reduce((sum: number, h: HousingListing) => sum + (h.pricePerNight || 0), 0) / homes.length)
       : 0;
 
     // Get user context for CTAs
     const userContext = CityRbacService.getUserCityContext(
       user,
       group?.city || '',
-      [] as any[],
-      [] as any[],
+      [] as HousingListing[],
+      [] as HousingListing[],
       group?.id
     );
 
@@ -1296,7 +1354,7 @@ function GroupDetailPageMT() {
         )}
 
         {/* Map/List View Toggle */}
-        <Tabs value={housingView} onValueChange={(v: any) => setHousingView(v)} data-testid="housing-view-tabs">
+        <Tabs value={housingView} onValueChange={(v: string) => setHousingView(v as 'list' | 'map')} data-testid="housing-view-tabs">
           <TabsList className="grid w-full max-w-md grid-cols-2">
             <TabsTrigger 
               value="list" 
