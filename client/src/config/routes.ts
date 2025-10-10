@@ -479,6 +479,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'ESA Agent #65 Self-Hosted Project Tracker (Epics/Stories/Tasks)'
   },
   {
+    path: '/admin/sprints',
+    component: lazy(() => import('@/pages/admin/sprints')),
+    mode: 'production',
+    loadingMessage: 'Loading sprint management...',
+    description: 'ESA Agent #63 Sprint Planning & Velocity Tracking'
+  },
+  {
     path: '/analytics',
     component: lazy(() => import('@/pages/AnalyticsDashboard')),
     mode: 'production',

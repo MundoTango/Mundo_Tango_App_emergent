@@ -138,7 +138,7 @@ router.post('/projects', async (req: Request, res: Response) => {
       projectId: newProject.id,
       action: 'created',
       description: 'Project created',
-      userId: req.user?.id ? parseInt(req.user.id) : null,
+      userId: req.user?.id?.toString() || null,
       timestamp: new Date()
     });
     
@@ -176,7 +176,7 @@ router.put('/projects/:id', async (req: Request, res: Response) => {
       projectId: id,
       action: 'updated',
       description: `Updated: ${Object.keys(updates).join(', ')}`,
-      userId: req.user?.id ? parseInt(req.user.id) : null,
+      userId: req.user?.id?.toString() || null,
       timestamp: new Date()
     });
     
