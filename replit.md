@@ -134,3 +134,61 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 **Next Phase:** Phase 5 - Hybrid Blitz execution using LangGraph coordination, BullMQ parallel queues, real-time metrics, Resume AI documentation for human review
 
 **Target:** 314 issues → <50 (84% reduction across 97 pages)
+
+### 5 New ESA Agents Created: Self-Hosted Project Management ✅
+
+**Strategic Shift:** Moving from Jira dependency to self-hosted admin center for complete control and zero vendor lock-in.
+
+**New Agents (Following ESA_NEW_AGENT_GUIDE.md):**
+
+**Agent #63: Sprint & Resource Manager**
+- **ESA Layer:** 58 (Team Collaboration)
+- **Division:** Chief #6 (Extended Management)
+- **Purpose:** Sprint planning, resource allocation, team capacity management
+- **Responsibilities:** Velocity tracking, workload balancing, burndown charts, retrospectives
+- **Documentation:** ESA_AGENT_63_SPRINT_RESOURCE.md
+
+**Agent #64: Documentation Architect**
+- **ESA Layer:** 54 (Technical Documentation)
+- **Division:** Chief #5 (Platform Enhancement)
+- **Purpose:** Auto-generate docs, maintain knowledge base, API documentation
+- **Responsibilities:** TypeDoc/JSDoc parsing, OpenAPI specs, documentation portal, CI/CD integration
+- **Documentation:** ESA_AGENT_64_DOCUMENTATION.md
+
+**Agent #65: Project Tracker Manager**
+- **ESA Layer:** 59 (Open Source Management)
+- **Division:** Chief #6 (Extended Management)
+- **Purpose:** Self-hosted Epic/Story/Task management replacing Jira
+- **Responsibilities:** Admin UI at /admin/projects, Jira migration, GitHub integration, roadmap planning
+- **Documentation:** ESA_AGENT_65_PROJECT_TRACKER.md
+
+**Agent #66: Code Review Expert**
+- **ESA Layer:** 53 (CI/CD Pipeline)
+- **Division:** Chief #5 (Platform Enhancement)
+- **Purpose:** Automated PR analysis, quality gates, security scanning
+- **Responsibilities:** Static analysis, test coverage enforcement (≥80%), vulnerability scanning, bundle size limits
+- **Documentation:** ESA_AGENT_66_CODE_REVIEW.md
+
+**Agent #67: Community Relations Manager**
+- **ESA Layer:** 60 (Version Control/GitHub)
+- **Division:** Chief #6 (Extended Management)
+- **Purpose:** Open source community management, GitHub automation
+- **Responsibilities:** Issue triage, contributor onboarding, release automation, GitHub ↔ Story sync
+- **Documentation:** ESA_AGENT_67_COMMUNITY_RELATIONS.md
+
+**Self-Hosted Infrastructure Built:**
+- ✅ Database schema: project_epics, project_stories, project_tasks, project_sprints, project_milestones, project_comments
+- ✅ All tables created with proper indexes and relations
+- ✅ Ready for admin UI development at /admin/projects
+- ✅ Jira MUN project data (5 Epics, 15 Stories) ready for migration
+
+**Agent Count Update:**
+- Previous: 62 agents (1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts - overlaps + 16 Life CEO)
+- **New Total: 67 agents** (added 5 project management specialists)
+
+**Next Steps:**
+1. Build admin UI at /admin/projects (Agent #65 leads)
+2. Migrate MUN data from Jira to self-hosted (Agents #63 + #65)
+3. Implement GitHub integration (Agent #67)
+4. Configure code review automation (Agent #66)
+5. Generate platform documentation (Agent #64)
