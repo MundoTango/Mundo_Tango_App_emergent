@@ -215,52 +215,53 @@ export function usePostFeed({
   searchQuery,
   enabled = true,
 }: UsePostFeedOptions) {
+  // ESA FIX: Build query key compatible with default queryFn
   const queryKey = useMemo(
-    () => buildQueryKey(context, page, filters, searchQuery),
-    [context, page, filters, searchQuery]
-  );
-
-  const fetchUrl = useMemo(
-    () => buildFetchUrl(context, page, limit, filters, searchQuery),
+    () => {
+      const baseUrl = context.type === 'feed' ? '/api/posts/feed' : 
+                      context.type === 'group' ? `/api/groups/${context.groupId}/posts` :
+                      context.type === 'profile' ? `/api/users/${context.userId}/posts` :
+                      `/api/events/${context.eventId}/posts`;
+      
+      const params: any = {
+        page,
+        limit,
+        filter: filters?.filterType || 'all',
+      };
+      
+      if (filters?.tags?.length) params.tags = filters.tags.join(',');
+      if (filters?.startDate) params.startDate = filters.startDate;
+      if (filters?.endDate) params.endDate = filters.endDate;
+      if (searchQuery) params.search = searchQuery;
+      
+      return [baseUrl, params];
+    },
     [context, page, limit, filters, searchQuery]
   );
 
-  const query = useQuery<PostFeedResponse>({
+  const query = useQuery<any>({
     queryKey,
     enabled,
     staleTime: 0, // Always fetch fresh data
     gcTime: 30 * 60 * 1000, // Keep in cache for 30 min
-    queryFn: async () => {
-      console.log('🔍 [usePostFeed] Executing fetch:', fetchUrl);
-      const response = await fetch(fetchUrl, {
-        credentials: 'include', // CRITICAL: Include session cookies for auth
-      });
-      if (!response.ok) {
-        console.error('❌ [usePostFeed] Fetch failed:', response.status, response.statusText);
-        throw new Error(`Failed to fetch posts: ${response.statusText}`);
-      }
-      const data = await response.json();
-      console.log('✅ [usePostFeed] Fetch success, posts:', data.posts?.length || 0);
-      
-      // SINGLE TRANSFORMATION: Directly return normalized structure
-      return {
-        posts: data.posts || data || [],
-        hasMore: data.hasMore ?? false,
-        total: data.total,
-      };
-    },
+    refetchOnMount: true, // ESA DEBUG: Force refetch on mount
+    refetchOnWindowFocus: false,
+    // Use default queryFn from queryClient - it handles the [url, params] format
   });
 
-  // ESA DEBUG: Log query state
+  // ESA DEBUG: Log query state changes
   console.log('🔍 [usePostFeed] Query state:', {
     context,
     queryKey,
-    fetchUrl,
     enabled,
+    status: query.status,
+    fetchStatus: query.fetchStatus,
     isLoading: query.isLoading,
     isFetching: query.isFetching,
     isError: query.isError,
+    isSuccess: query.isSuccess,
     postsCount: query.data?.posts?.length ?? 0,
+    rawData: query.data,
     error: query.error
   });
 
