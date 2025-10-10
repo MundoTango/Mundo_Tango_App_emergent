@@ -6,14 +6,22 @@
   "lastUpdated": "2025-10-10",
   "auditFramework": {
     "name": "ESA LIFE CEO 61x21 Systematic Audit",
-    "totalAgents": 35,
-    "methodologyAgents": 14,
-    "gapCheckAgents": 21,
+    "totalAgents": 100,
+    "agentHierarchy": {
+      "esaCEO": 1,
+      "divisionChiefs": 6,
+      "domainCoordinators": 9,
+      "layerAgents": 61,
+      "expertAgents": 7,
+      "lifeCEOAgents": 16
+    },
     "documentation": "docs/pages/esa-tools/standardized-page-audit.md",
+    "masterReference": "docs/platform-handoff/esa.md",
+    "organizationChart": "docs/platform-handoff/ESA_AGENT_ORG_CHART.md",
     "certificationThreshold": 90,
     "conditionalPassThreshold": 85,
     "exampleAudit": "docs/audit-reports/FULL-ESA-61x21-AUDIT-MEMORIES-2025-10-09.md",
-    "description": "Complete 35-agent audit framework proven on Memories page (91/100 score, 94% consensus)"
+    "description": "Complete 100-agent ESA hierarchy audit framework proven on Memories page (91/100 score, 94% consensus)"
   },
   "agentDefinitions": {
     "0": "Phase 0: Documentation Review - Check Existing Patterns First",
