@@ -1,0 +1,10 @@
+{
+  "phase": 13,
+  "name": "AI Reasoning & Knowledge Graph",
+  "tasks": [
+    "AI Reasoning & Knowledge Graph: Plan",
+    "AI Reasoning & Knowledge Graph: Implement",
+    "AI Reasoning & Knowledge Graph: Test",
+    "AI Reasoning & Knowledge Graph: Docs"
+  ]
+}

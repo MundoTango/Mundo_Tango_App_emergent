@@ -1,0 +1,2 @@
+import { createClient } from "@supabase/supabase-js";import { initObservability, logEvent } from "./observability.js";
+export async function makeCtx(agentName:string){ initObservability(); const supabase=createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!); const emit=async (channel:string,payload:any)=>{ await supabase.from("events_bus").insert({channel,payload});}; const log=(msg:string, meta?:any)=>{ console.log(`[${agentName}]`,msg,meta??{}); logEvent(`agent.${agentName}.${msg}`.slice(0,200), meta||{}); }; return { supabase, emit, log }; }

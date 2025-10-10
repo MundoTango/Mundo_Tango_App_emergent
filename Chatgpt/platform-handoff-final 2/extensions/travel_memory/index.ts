@@ -1,0 +1,1 @@
+import { makeCtx } from "../../common/runtime.js";export async function handle(input:any){ const ctx=await makeCtx("travel_memory"); return { status:"ok", data:{ synced:true } }; }

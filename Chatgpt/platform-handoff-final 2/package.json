@@ -1,0 +1,22 @@
+{
+  "name": "mundo-tango-esa",
+  "version": "0.9.0",
+  "type": "module",
+  "scripts": {
+    "dev:web": "tsx src/server.ts",
+    "dev:worker": "tsx src/worker.ts",
+    "seed:phases": "tsx scripts.seed-phases.ts",
+    "test": "echo \"(placeholder) run smoke tests\" && exit 0"
+  },
+  "dependencies": {
+    "fastify": "^4.27.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "@sentry/node": "^7.120.0",
+    "posthog-node": "^4.0.0",
+    "resend": "^3.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.0",
+    "typescript": "^5.6.2"
+  }
+}
