@@ -363,6 +363,162 @@ Agent #14 (Caching): "Increase cache hit rate to 99%"
 
 ---
 
+### 3. Performance Tracking Communication
+
+**Purpose:** Real-time agent performance monitoring using prom-client and BullMQ
+
+#### Performance Metrics Protocol
+
+**All agents expose:**
+```typescript
+// Agent performance metrics (Prometheus format)
+{
+  agentId: 'AGENT_54',
+  metrics: {
+    tasksCompleted: 47,
+    avgTaskDuration: 280, // seconds
+    errorRate: 0.02,      // 2%
+    cacheHitRate: 0.98,   // 98%
+    lastActive: '2025-10-10T14:30:00Z'
+  }
+}
+```
+
+#### Communication Pattern for Performance
+
+**1. Agent Reports Performance (Every 10 seconds)**
+```
+Agent #54 → Prometheus:
+- accessibility_checks_completed: 47
+- accessibility_aria_labels_added: 196
+- accessibility_wcag_violations: 0
+- accessibility_lsp_errors: 0
+```
+
+**2. Domain Coordinator Aggregates**
+```
+Domain #8 (Platform) → Dashboard:
+- Total pages improved: 6
+- Aggregate WCAG compliance: AA
+- Team velocity: 12 pages/week
+- Zero-error baseline: maintained
+```
+
+**3. Division Chief Reviews Trends**
+```
+Chief #5 (Platform) → Strategic Planning:
+- Accessibility: 196 labels added, 0 violations
+- i18n: 220 translations added, 68 languages
+- Testing: 140 data-testids added, 100% coverage
+- Performance: 85+ scores across 6 pages
+```
+
+#### BullMQ Integration for Task Tracking
+
+**Queue-based Communication:**
+```typescript
+// Agent receives task from queue
+{
+  queueName: 'accessibility-improvements',
+  jobId: 'job_friends_page_001',
+  agentId: 'AGENT_54',
+  task: 'Add ARIA labels to Friends page',
+  priority: 'high',
+  expectedDuration: 240, // seconds
+  relatedAgents: ['AGENT_11', 'AGENT_14'] // Aurora, Code Quality
+}
+
+// Agent reports progress
+{
+  jobId: 'job_friends_page_001',
+  status: 'in_progress',
+  progress: 65, // %
+  ariaLabelsAdded: 26,
+  lspErrors: 0,
+  estimatedCompletion: '2025-10-10T15:00:00Z'
+}
+
+// Agent completes task
+{
+  jobId: 'job_friends_page_001',
+  status: 'completed',
+  duration: 220, // seconds
+  results: {
+    ariaLabelsAdded: 40,
+    dataTestidsAdded: 28,
+    wcagViolations: 0,
+    lspErrors: 0
+  },
+  validatedBy: ['AGENT_14'] // Code Quality validated
+}
+```
+
+#### LangGraph State Communication
+
+**Graph-based Agent Coordination:**
+```typescript
+// Agent state in LangGraph
+{
+  nodeId: 'AGENT_54_accessibility',
+  state: {
+    currentTask: 'Friends page ARIA labels',
+    dependencies: ['AGENT_11_aurora'],
+    blockedBy: null,
+    blocking: [],
+    checkpoint: 'phase_3_validation',
+    nextAction: 'run_lsp_diagnostics'
+  },
+  edges: [
+    { from: 'AGENT_54', to: 'AGENT_14', type: 'validation' },
+    { from: 'AGENT_11', to: 'AGENT_54', type: 'design_approval' }
+  ]
+}
+
+// Graph propagates state changes
+Agent #54 → LangGraph: "Completed Friends page"
+LangGraph → Agent #14: "Ready for code quality review"
+Agent #14 → LangGraph: "Validation passed, 0 errors"
+LangGraph → Domain #8: "Friends page certified ✅"
+```
+
+#### Real-time Dashboards
+
+**Performance Visualization:**
+```
+/admin/agent-metrics
+├── Agent #54 (Accessibility)
+│   ├── Current: Adding ARIA labels to Friends page
+│   ├── Progress: 65% (26/40 labels)
+│   ├── Performance: 220s avg task time
+│   ├── Quality: 0 LSP errors, 100% WCAG AA
+│   └── Mentorship: Training 3 new agents
+│
+├── Agent #53 (i18n)
+│   ├── Current: Translating Messages page
+│   ├── Progress: 80% (24/30 translations)
+│   ├── Performance: 180s avg task time
+│   ├── Quality: 68 languages, 100% coverage
+│   └── Mentorship: Training 2 new agents
+```
+
+**A2A Performance Messages:**
+```typescript
+{
+  messageId: 'perf_2025_10_10_001',
+  type: 'PERFORMANCE_UPDATE',
+  from: 'AGENT_54',
+  to: ['DOMAIN_8', 'CHIEF_5'],
+  body: 'Friends page accessibility complete. 40 ARIA labels added in 220s. Zero LSP errors. Ready for deployment.',
+  metrics: {
+    duration: 220,
+    quality: 1.0,
+    velocity: 0.18 // labels per second
+  }
+}
+```
+
+---
+
 ### 2. Horizontal Communication (Cross-functional)
 
 #### Peer-to-Peer (Same level)
