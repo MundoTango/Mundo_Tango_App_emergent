@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { Link, useLocation } from "wouter";
 import { ArrowLeft, Heart, Globe } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import { 
   MTForm, 
   MTFormButton,
@@ -17,6 +18,7 @@ export default function Login() {
   const { login } = useAuth();
   const { toast } = useToast();
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -31,13 +33,13 @@ export default function Login() {
     try {
       await login(data.email, data.password);
       toast({
-        title: "Welcome back! 💃",
-        description: "You have successfully logged in to Mundo Tango.",
+        title: t('auth.login.success_title', 'Welcome back! 💃'),
+        description: t('auth.login.success_message', 'You have successfully logged in to Mundo Tango.'),
       });
     } catch (error: any) {
       toast({
-        title: "Login failed",
-        description: error.message || "Please check your credentials and try again.",
+        title: t('auth.login.error_title', 'Login failed'),
+        description: error.message || t('auth.login.error_message', 'Please check your credentials and try again.'),
         variant: "destructive",
       });
     }
@@ -60,7 +62,7 @@ export default function Login() {
             data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back
+            {t('auth.login.back_button', 'Back')}
           </MTFormButton>
           
           <div className="mx-auto relative">
@@ -72,11 +74,11 @@ export default function Login() {
           
           <div>
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-              Welcome Back
+              {t('auth.login.title', 'Welcome Back')}
             </CardTitle>
             <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2">
               <Globe className="h-4 w-4" />
-              Sign in to your Mundo Tango account
+              {t('auth.login.subtitle', 'Sign in to your Mundo Tango account')}
             </CardDescription>
           </div>
         </CardHeader>
@@ -91,8 +93,8 @@ export default function Login() {
             <MTFormField
               control={form.control}
               name="email"
-              label="Email Address"
-              placeholder="dancer@mundotango.life"
+              label={t('auth.login.email_label', 'Email Address')}
+              placeholder={t('auth.login.email_placeholder', 'dancer@mundotango.life')}
               type="email"
               required
               autoComplete="email"
@@ -102,8 +104,8 @@ export default function Login() {
             <MTFormField
               control={form.control}
               name="password"
-              label="Password"
-              placeholder="Enter your password"
+              label={t('auth.login.password_label', 'Password')}
+              placeholder={t('auth.login.password_placeholder', 'Enter your password')}
               type="password"
               required
               autoComplete="current-password"
@@ -117,14 +119,14 @@ export default function Login() {
                   {...form.register("rememberMe")}
                   className="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                 />
-                Remember me
+                {t('auth.login.remember_me', 'Remember me')}
               </label>
               
               <Link 
                 href="/forgot-password" 
                 className="text-sm text-teal-600 hover:text-teal-700 font-medium hover:underline transition-colors"
               >
-                Forgot password?
+                {t('auth.login.forgot_password', 'Forgot password?')}
               </Link>
             </div>
 
@@ -136,7 +138,7 @@ export default function Login() {
               className="w-full"
               data-testid="button-submit"
             >
-              {form.formState.isSubmitting ? "Signing in..." : "Sign In"}
+              {form.formState.isSubmitting ? t('auth.login.signing_in', 'Signing in...') : t('auth.login.sign_in_button', 'Sign In')}
             </MTFormButton>
           </MTForm>
 
@@ -145,7 +147,7 @@ export default function Login() {
               <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">Or continue with</span>
+              <span className="px-4 bg-white text-gray-500">{t('auth.login.or_continue_with', 'Or continue with')}</span>
             </div>
           </div>
 
@@ -154,8 +156,8 @@ export default function Login() {
               variant="outline"
               onClick={() => {
                 toast({
-                  title: "Coming Soon",
-                  description: "Google sign-in will be available soon!",
+                  title: t('auth.login.coming_soon_title', 'Coming Soon'),
+                  description: t('auth.login.google_coming_soon', 'Google sign-in will be available soon!'),
                 });
               }}
               className="flex items-center justify-center gap-2"
@@ -179,15 +181,15 @@ export default function Login() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Google
+              {t('auth.login.google', 'Google')}
             </MTFormButton>
 
             <MTFormButton
               variant="outline"
               onClick={() => {
                 toast({
-                  title: "Coming Soon",
-                  description: "Facebook sign-in will be available soon!",
+                  title: t('auth.login.coming_soon_title', 'Coming Soon'),
+                  description: t('auth.login.facebook_coming_soon', 'Facebook sign-in will be available soon!'),
                 });
               }}
               className="flex items-center justify-center gap-2"
@@ -196,19 +198,19 @@ export default function Login() {
               <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
-              Facebook
+              {t('auth.login.facebook', 'Facebook')}
             </MTFormButton>
           </div>
 
           <div className="mt-8 pt-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              {t('auth.login.no_account', "Don't have an account?")}{" "}
               <Link 
                 href="/register" 
                 className="text-teal-600 hover:text-teal-700 font-semibold underline underline-offset-2 transition-colors"
                 data-testid="link-register"
               >
-                Sign up here
+                {t('auth.login.sign_up_link', 'Sign up here')}
               </Link>
             </p>
           </div>

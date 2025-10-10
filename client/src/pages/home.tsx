@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import CreatePost from "@/components/feed/create-post";
@@ -9,6 +10,8 @@ import { GlassCard } from "@/components/glass/GlassComponents";
 import { FadeIn } from "@/components/animations/FramerMotionWrappers";
 
 export default function Home() {
+  const { t } = useTranslation();
+  
   // MT Ocean Theme Restored - July 22, 2025 9:20PM - v4 with service worker update
   // Force cache refresh with service worker update
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -77,7 +80,7 @@ export default function Home() {
             className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
             onClick={handleCloseSidebar}
             data-testid="overlay-sidebar"
-            aria-label="Close sidebar"
+            aria-label={t('home.aria.close_sidebar', 'Close sidebar')}
           />
         )}
         

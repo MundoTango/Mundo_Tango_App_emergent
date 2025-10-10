@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
+import { useTranslation } from 'react-i18next';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import EnhancedProfileHeader from '@/components/profile/EnhancedProfileHeader';
 import StoryHighlights from '@/components/profile/StoryHighlights';
@@ -53,6 +54,7 @@ import {
 
 export default function Profile() {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation(); // ESA LIFE CEO 56x21 - Navigation fix
@@ -167,8 +169,8 @@ export default function Profile() {
 
   const handleAddTravelDetails = () => {
     toast({
-      title: "Travel Details",
-      description: "Travel details functionality coming soon.",
+      title: t('profile.toast.travel_details_title', 'Travel Details'),
+      description: t('profile.toast.travel_details_desc', 'Travel details functionality coming soon.'),
     });
   };
 
@@ -176,7 +178,7 @@ export default function Profile() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64" data-testid="loading-profile">
-          <p className="text-gray-500">Loading profile...</p>
+          <p className="text-gray-500">{t('profile.loading', 'Loading profile...')}</p>
         </div>
       </DashboardLayout>
     );
@@ -209,14 +211,14 @@ export default function Profile() {
                 data-testid="tab-about"
               >
                 <UserCircle className="mr-2 h-4 w-4" />
-                <span className="font-medium">About</span>
+                <span className="font-medium">{t('profile.tab.about', 'About')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="posts" 
                 className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
                 data-testid="tab-posts"
               >
-                <span className="font-medium">Memories</span>
+                <span className="font-medium">{t('profile.tab.memories', 'Memories')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="events" 
@@ -224,7 +226,7 @@ export default function Profile() {
                 data-testid="tab-events"
               >
                 <Calendar className="mr-2 h-4 w-4" />
-                <span className="font-medium">Events</span>
+                <span className="font-medium">{t('profile.tab.events', 'Events')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="travel" 
@@ -232,7 +234,7 @@ export default function Profile() {
                 data-testid="tab-travel"
               >
                 <Globe className="mr-2 h-4 w-4" />
-                <span className="font-medium">Travel</span>
+                <span className="font-medium">{t('profile.tab.travel', 'Travel')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="photos" 
@@ -240,7 +242,7 @@ export default function Profile() {
                 data-testid="tab-photos"
               >
                 <Camera className="mr-2 h-4 w-4" />
-                <span className="font-medium">Photos</span>
+                <span className="font-medium">{t('profile.tab.photos', 'Photos')}</span>
               </TabsTrigger>
 
               <TabsTrigger 
@@ -249,7 +251,7 @@ export default function Profile() {
                 data-testid="tab-friends"
               >
                 <Users className="mr-2 h-4 w-4" />
-                <span className="font-medium">Friends</span>
+                <span className="font-medium">{t('profile.tab.friends', 'Friends')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="experience" 
@@ -257,7 +259,7 @@ export default function Profile() {
                 data-testid="tab-experience"
               >
                 <Star className="mr-2 h-4 w-4" />
-                <span className="font-medium">Experience</span>
+                <span className="font-medium">{t('profile.tab.experience', 'Experience')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="guest-profile" 
@@ -265,7 +267,7 @@ export default function Profile() {
                 data-testid="tab-guest-profile"
               >
                 <UserCheck className="mr-2 h-4 w-4" />
-                <span className="font-medium">Guest Profile</span>
+                <span className="font-medium">{t('profile.tab.guest_profile', 'Guest Profile')}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="engagement" 
@@ -273,7 +275,7 @@ export default function Profile() {
                 data-testid="tab-engagement"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
-                <span className="font-medium">Engagement</span>
+                <span className="font-medium">{t('profile.tab.engagement', 'Engagement')}</span>
               </TabsTrigger>
             </TabsList>
             <div className="p-6">
@@ -294,11 +296,11 @@ export default function Profile() {
                     <Card className="glassmorphic-card" data-testid="card-guest-profile-preview">
                       <CardContent className="p-4">
                         <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-4">
-                          Guest Profile
+                          {t('profile.section.guest_profile', 'Guest Profile')}
                         </h3>
                         {guestProfileError ? (
                           <div className="text-center p-4" data-testid="error-guest-profile">
-                            <p className="text-sm text-red-600">Error loading guest profile</p>
+                            <p className="text-sm text-red-600">{t('profile.error.guest_profile_loading', 'Error loading guest profile')}</p>
                           </div>
                         ) : guestProfileLoading ? (
                           <div className="animate-pulse space-y-2" data-testid="loading-guest-profile">
@@ -309,29 +311,29 @@ export default function Profile() {
                           <div className="space-y-3" data-testid="guest-profile-verified">
                             <div className="flex items-center gap-2">
                               <UserCheck className="w-4 h-4 text-green-500" />
-                              <span className="text-sm text-green-600">Verified Guest</span>
+                              <span className="text-sm text-green-600">{t('profile.status.verified_guest', 'Verified Guest')}</span>
                             </div>
-                            <p className="text-xs text-gray-600">Ready to request stays with hosts</p>
+                            <p className="text-xs text-gray-600">{t('profile.guest.ready_to_request', 'Ready to request stays with hosts')}</p>
                             <Button 
                               size="sm" 
                               variant="outline"
                               className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
                               data-testid="button-view-guest-profile"
                             >
-                              View Full Profile
+                              {t('profile.button.view_full_profile', 'View Full Profile')}
                             </Button>
                           </div>
                         ) : (
                           <div className="text-center space-y-3" data-testid="empty-state-guest-profile">
                             <UserCheck className="w-8 h-8 text-gray-300 mx-auto" />
-                            <p className="text-xs text-gray-600">Create your guest profile to be housed by Hosts in the global tango community</p>
+                            <p className="text-xs text-gray-600">{t('profile.guest.create_description', 'Create your guest profile to be housed by Hosts in the global tango community')}</p>
                             <Button 
                               size="sm"
                               onClick={() => setLocation('/guest-onboarding')}
                               className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                               data-testid="button-create-guest-profile"
                             >
-                              Create Profile
+                              {t('profile.button.create_profile', 'Create Profile')}
                             </Button>
                           </div>
                         )}
@@ -350,7 +352,7 @@ export default function Profile() {
                     <Card className="glassmorphic-card" data-testid="card-about-preview">
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">About</h3>
+                          <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">{t('profile.section.about', 'About')}</h3>
                           <Button 
                             variant="ghost" 
                             size="sm" 
@@ -358,11 +360,11 @@ export default function Profile() {
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                             data-testid="button-edit-about"
                           >
-                            Edit
+                            {t('profile.button.edit', 'Edit')}
                           </Button>
                         </div>
                         <p className="text-sm text-gray-600 line-clamp-3 mb-3">
-                          {(user as any)?.bio || "Share your tango story..."}
+                          {(user as any)?.bio || t('profile.empty.share_story', 'Share your tango story...')}
                         </p>
                         {(user as any)?.tangoRoles && (user as any).tangoRoles.length > 0 && (
                           <div className="flex flex-wrap gap-1">
@@ -380,7 +382,7 @@ export default function Profile() {
                     <Card className="glassmorphic-card" data-testid="card-travel-preview">
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Travel</h3>
+                          <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">{t('profile.section.travel', 'Travel')}</h3>
                           <Button 
                             variant="ghost" 
                             size="sm" 
@@ -388,20 +390,20 @@ export default function Profile() {
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                             data-testid="button-view-travel"
                           >
-                            View
+                            {t('profile.button.view', 'View')}
                           </Button>
                         </div>
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <MapPin className="w-3 h-3 text-turquoise-500" />
                             <span className="text-sm text-gray-600">
-                              {(user as any)?.city ? `${(user as any).city}${(user as any).country ? `, ${(user as any).country}` : ''}` : "Add location"}
+                              {(user as any)?.city ? `${(user as any).city}${(user as any).country ? `, ${(user as any).country}` : ''}` : t('profile.empty.add_location', 'Add location')}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Globe className="w-3 h-3 text-cyan-500" />
                             <span className="text-sm text-gray-600">
-                              {(user as any)?.languages ? `${(user as any).languages.length} languages` : "Add languages"}
+                              {(user as any)?.languages ? t('profile.stat.languages_count', '{{count}} languages', { count: (user as any).languages.length }) : t('profile.empty.add_languages', 'Add languages')}
                             </span>
                           </div>
                         </div>
@@ -412,7 +414,7 @@ export default function Profile() {
                     <Card className="glassmorphic-card" data-testid="card-friends-preview">
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Friends</h3>
+                          <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">{t('profile.section.friends', 'Friends')}</h3>
                           <Button 
                             variant="ghost" 
                             size="sm" 
@@ -420,12 +422,12 @@ export default function Profile() {
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                             data-testid="button-view-friends"
                           >
-                            View All
+                            {t('profile.button.view_all', 'View All')}
                           </Button>
                         </div>
                         <div className="space-y-2">
                           <p className="text-sm text-gray-600">
-                            {statsData?.friendsCount ? `${statsData.friendsCount} friends` : "No friends yet"}
+                            {statsData?.friendsCount ? t('profile.stat.friends_count', '{{count}} friends', { count: statsData.friendsCount }) : t('profile.empty.no_friends', 'No friends yet')}
                           </p>
                           {/* Friend Avatars Preview */}
                           <div className="flex -space-x-2">
@@ -476,7 +478,7 @@ export default function Profile() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
-                        Tango Events
+                        {t('profile.events.title', 'Tango Events')}
                       </h3>
                       <Button 
                         variant="outline" 
@@ -485,7 +487,7 @@ export default function Profile() {
                         data-testid="button-create-event"
                       >
                         <Calendar className="w-4 h-4 mr-2" />
-                        Create Event
+                        {t('profile.button.create_event', 'Create Event')}
                       </Button>
                     </div>
                     
@@ -494,41 +496,41 @@ export default function Profile() {
                       <Card className="bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200" data-testid="stat-upcoming-events">
                         <CardContent className="p-4 text-center">
                           <Calendar className="w-8 h-8 mx-auto text-turquoise-600 mb-2" />
-                          <h4 className="font-semibold text-turquoise-800">Upcoming Events</h4>
-                          <p className="text-turquoise-600 text-sm">{statsData?.eventsCount || 0} events</p>
+                          <h4 className="font-semibold text-turquoise-800">{t('profile.events.upcoming', 'Upcoming Events')}</h4>
+                          <p className="text-turquoise-600 text-sm">{t('profile.stat.events_count', '{{count}} events', { count: statsData?.eventsCount || 0 })}</p>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200" data-testid="stat-hosting-events">
                         <CardContent className="p-4 text-center">
                           <Users className="w-8 h-8 mx-auto text-cyan-600 mb-2" />
-                          <h4 className="font-semibold text-cyan-800">Hosting</h4>
-                          <p className="text-cyan-600 text-sm">{statsData?.hostingCount || 0} events</p>
+                          <h4 className="font-semibold text-cyan-800">{t('profile.events.hosting', 'Hosting')}</h4>
+                          <p className="text-cyan-600 text-sm">{t('profile.stat.events_count', '{{count}} events', { count: statsData?.hostingCount || 0 })}</p>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-blue-50 to-turquoise-50 border-blue-200" data-testid="stat-attended-events">
                         <CardContent className="p-4 text-center">
                           <Star className="w-8 h-8 mx-auto text-blue-600 mb-2" />
-                          <h4 className="font-semibold text-blue-800">Attended</h4>
-                          <p className="text-blue-600 text-sm">{statsData?.attendedCount || 0} events</p>
+                          <h4 className="font-semibold text-blue-800">{t('profile.events.attended', 'Attended')}</h4>
+                          <p className="text-blue-600 text-sm">{t('profile.stat.events_count', '{{count}} events', { count: statsData?.attendedCount || 0 })}</p>
                         </CardContent>
                       </Card>
                     </div>
 
                     {/* Event List Placeholder */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold text-gray-800">Recent Events</h4>
+                      <h4 className="font-semibold text-gray-800">{t('profile.events.recent', 'Recent Events')}</h4>
                       <div className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200" data-testid="empty-state-no-events">
                         <Calendar className="w-12 h-12 mx-auto text-turquoise-400 mb-4" />
-                        <h5 className="text-lg font-medium text-turquoise-700 mb-2">No events yet</h5>
+                        <h5 className="text-lg font-medium text-turquoise-700 mb-2">{t('profile.empty.no_events', 'No events yet')}</h5>
                         <p className="text-turquoise-600 text-sm mb-4">
-                          Start attending milongas, workshops, and festivals to see them here.
+                          {t('profile.empty.events_desc', 'Start attending milongas, workshops, and festivals to see them here.')}
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                           onClick={() => setActiveTab('about')}
                           data-testid="button-explore-events"
                         >
-                          Explore Events
+                          {t('profile.button.explore_events', 'Explore Events')}
                         </Button>
                       </div>
                     </div>
@@ -551,16 +553,16 @@ export default function Profile() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
-                        Media Gallery
+                        {t('profile.media.gallery_title', 'Media Gallery')}
                       </h3>
                       <div className="flex items-center gap-2">
                         <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-upload-photo">
                           <Camera className="w-4 h-4 mr-2" />
-                          Upload Photo
+                          {t('profile.button.upload_photo', 'Upload Photo')}
                         </Button>
                         <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-upload-video">
                           <Video className="w-4 h-4 mr-2" />
-                          Upload Video
+                          {t('profile.button.upload_video', 'Upload Video')}
                         </Button>
                       </div>
                     </div>
@@ -572,28 +574,28 @@ export default function Profile() {
                         size="sm"
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
                       >
-                        All Media
+                        {t('profile.media.all_media', 'All Media')}
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
                       >
-                        📸 Photos Only
+                        {t('profile.media.photos_only', '📸 Photos Only')}
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-cyan-200 text-cyan-700 hover:bg-cyan-50"
                       >
-                        🎥 Videos Only
+                        {t('profile.media.videos_only', '🎥 Videos Only')}
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-purple-200 text-purple-700 hover:bg-purple-50"
                       >
-                        🎵 Dance Videos
+                        {t('profile.media.dance_videos', '🎵 Dance Videos')}
                       </Button>
                     </div>
 
@@ -614,7 +616,7 @@ export default function Profile() {
                               variant="secondary" 
                               className="text-xs bg-white/80 text-gray-700"
                             >
-                              {item % 3 === 0 ? "Video" : "Photo"}
+                              {item % 3 === 0 ? t('profile.media.video', 'Video') : t('profile.media.photo', 'Photo')}
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -632,9 +634,9 @@ export default function Profile() {
                         <Camera className="w-8 h-8 text-turquoise-400" />
                         <Video className="w-8 h-8 text-cyan-400" />
                       </div>
-                      <h5 className="text-lg font-medium text-turquoise-700 mb-2">Share Your Tango Journey</h5>
+                      <h5 className="text-lg font-medium text-turquoise-700 mb-2">{t('profile.media.share_journey', 'Share Your Tango Journey')}</h5>
                       <p className="text-turquoise-600 text-sm mb-4">
-                        Upload photos and videos of your tango experiences, performances, and memories.
+                        {t('profile.media.upload_desc', 'Upload photos and videos of your tango experiences, performances, and memories.')}
                       </p>
                       <div className="flex items-center justify-center gap-2">
                         <Button 
@@ -643,7 +645,7 @@ export default function Profile() {
                           data-testid="button-upload-photos-empty"
                         >
                           <Camera className="w-4 h-4 mr-2" />
-                          Upload Photos
+                          {t('profile.button.upload_photos', 'Upload Photos')}
                         </Button>
                         <Button 
                           size="sm"
@@ -652,7 +654,7 @@ export default function Profile() {
                           data-testid="button-upload-videos-empty"
                         >
                           <Video className="w-4 h-4 mr-2" />
-                          Upload Videos
+                          {t('profile.button.upload_videos', 'Upload Videos')}
                         </Button>
                       </div>
                     </div>
@@ -665,15 +667,15 @@ export default function Profile() {
                 <Card className="glassmorphic-card">
                   <CardContent className="p-12 text-center">
                     <Video className="w-16 h-16 mx-auto text-cyan-400 mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Videos are now in Media Gallery</h3>
+                    <h3 className="text-xl font-semibold mb-2">{t('profile.videos.redirect_title', 'Videos are now in Media Gallery')}</h3>
                     <p className="text-gray-600 mb-4">
-                      We've combined photos and videos into one place with smart filtering.
+                      {t('profile.videos.redirect_desc', 'We\'ve combined photos and videos into one place with smart filtering.')}
                     </p>
                     <Button 
                       className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                       onClick={() => setActiveTab('photos')}
                     >
-                      View Media Gallery
+                      {t('profile.button.view_media_gallery', 'View Media Gallery')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -691,10 +693,10 @@ export default function Profile() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
-                        🌟 Tango Resume
+                        {t('profile.experience.title', '🌟 Tango Resume')}
                       </h3>
                       <Badge variant="outline" className="border-turquoise-200 text-turquoise-700">
-                        Event-Based Experience
+                        {t('profile.experience.event_based', 'Event-Based Experience')}
                       </Badge>
                     </div>
                     
@@ -703,38 +705,38 @@ export default function Profile() {
                       <Card className="bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200" data-testid="stat-events-attended">
                         <CardContent className="p-4 text-center">
                           <div className="text-2xl font-bold text-turquoise-600">{statsData?.eventsAttended || 0}</div>
-                          <div className="text-sm text-turquoise-700">Events Attended</div>
+                          <div className="text-sm text-turquoise-700">{t('profile.experience.events_attended', 'Events Attended')}</div>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200" data-testid="stat-roles-accepted">
                         <CardContent className="p-4 text-center">
                           <div className="text-2xl font-bold text-cyan-600">{statsData?.rolesAccepted || 0}</div>
-                          <div className="text-sm text-cyan-700">Roles Accepted</div>
+                          <div className="text-sm text-cyan-700">{t('profile.experience.roles_accepted', 'Roles Accepted')}</div>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-blue-50 to-turquoise-50 border-blue-200" data-testid="stat-years-dancing">
                         <CardContent className="p-4 text-center">
                           <div className="text-2xl font-bold text-blue-600">{(user as any)?.yearsOfDancing || 0}</div>
-                          <div className="text-sm text-blue-700">Years Dancing</div>
+                          <div className="text-sm text-blue-700">{t('profile.experience.years_dancing', 'Years Dancing')}</div>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200" data-testid="stat-avg-rating">
                         <CardContent className="p-4 text-center">
                           <div className="text-2xl font-bold text-purple-600">★ 4.8</div>
-                          <div className="text-sm text-purple-700">Avg Rating</div>
+                          <div className="text-sm text-purple-700">{t('profile.experience.avg_rating', 'Avg Rating')}</div>
                         </CardContent>
                       </Card>
                     </div>
 
                     {/* Professional Experience by Category */}
                     <div className="space-y-6">
-                      <h4 className="font-semibold text-gray-800 text-lg">Professional Experience</h4>
+                      <h4 className="font-semibold text-gray-800 text-lg">{t('profile.experience.professional_title', 'Professional Experience')}</h4>
                       
                       {/* Teacher Experience */}
                       <div className="space-y-4">
                         <div className="flex items-center gap-2">
                           <GraduationCap className="w-5 h-5 text-turquoise-600" />
-                          <h5 className="font-semibold text-turquoise-700">Teaching Experience</h5>
+                          <h5 className="font-semibold text-turquoise-700">{t('profile.experience.teaching', 'Teaching Experience')}</h5>
                         </div>
                         <div className="border-l-4 border-turquoise-400 pl-6 py-4 bg-gradient-to-r from-turquoise-50/30 to-transparent">
                           <div className="flex items-start justify-between">
@@ -758,7 +760,7 @@ export default function Profile() {
                       <div className="space-y-4">
                         <div className="flex items-center gap-2">
                           <Calendar className="w-5 h-5 text-cyan-600" />
-                          <h5 className="font-semibold text-cyan-700">Event Organization</h5>
+                          <h5 className="font-semibold text-cyan-700">{t('profile.experience.event_organization', 'Event Organization')}</h5>
                         </div>
                         <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                           <div className="flex items-start justify-between">
@@ -782,7 +784,7 @@ export default function Profile() {
                       <div className="space-y-4">
                         <div className="flex items-center gap-2">
                           <Music className="w-5 h-5 text-purple-600" />
-                          <h5 className="font-semibold text-purple-700">DJ Experience</h5>
+                          <h5 className="font-semibold text-purple-700">{t('profile.experience.dj_experience', 'DJ Experience')}</h5>
                         </div>
                         <div className="border-l-4 border-purple-400 pl-6 py-4 bg-gradient-to-r from-purple-50/30 to-transparent">
                           <div className="flex items-start justify-between">
@@ -814,23 +816,23 @@ export default function Profile() {
                               <span>⭐ 4.7/5 dancer feedback</span>
                             </div>
                           </div>
-                          <Badge className="bg-green-100 text-green-700">Ongoing</Badge>
+                          <Badge className="bg-green-100 text-green-700">{t('profile.experience.ongoing', 'Ongoing')}</Badge>
                         </div>
                       </div>
 
                       {/* Empty State */}
                       <div className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200" data-testid="empty-state-no-experience">
                         <Star className="w-12 h-12 mx-auto text-turquoise-400 mb-4" />
-                        <h5 className="text-lg font-medium text-turquoise-700 mb-2">Build Your Tango Resume</h5>
+                        <h5 className="text-lg font-medium text-turquoise-700 mb-2">{t('profile.empty.build_resume', 'Build Your Tango Resume')}</h5>
                         <p className="text-turquoise-600 text-sm mb-4">
-                          When event organizers select you for roles and you accept, they'll automatically appear here as professional experience.
+                          {t('profile.empty.resume_desc', 'When event organizers select you for roles and you accept, they\'ll automatically appear here as professional experience.')}
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                           onClick={() => setActiveTab('events')}
                           data-testid="button-browse-events"
                         >
-                          Browse Events
+                          {t('profile.button.browse_events', 'Browse Events')}
                         </Button>
                       </div>
                     </div>
@@ -860,12 +862,12 @@ export default function Profile() {
                   <Card className="glassmorphic-card" data-testid="empty-state-no-guest-profile">
                     <CardContent className="p-12 text-center">
                       <UserCheck className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No Guest Profile</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('profile.guest.no_profile_title', 'No Guest Profile')}</h3>
                       <p className="text-gray-600 mb-4">
-                        Create your guest profile to start browsing and requesting stays with hosts.
+                        {t('profile.guest.no_profile_desc', 'Create your guest profile to start browsing and requesting stays with hosts.')}
                       </p>
                       <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="button-create-guest-profile-full">
-                        Create Guest Profile
+                        {t('profile.button.create_guest_profile', 'Create Guest Profile')}
                       </a>
                     </CardContent>
                   </Card>
@@ -889,8 +891,8 @@ export default function Profile() {
           setShowMemoryPostModal(false);
           queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
           toast({
-            title: "Memory Posted!",
-            description: "Your memory has been shared successfully.",
+            title: t('profile.toast.memory_posted_title', 'Memory Posted!'),
+            description: t('profile.toast.memory_posted_desc', 'Your memory has been shared successfully.'),
           });
         }}
       />
