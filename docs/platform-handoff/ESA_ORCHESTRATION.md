@@ -73,6 +73,53 @@ Agent #0 (ESA CEO/Orchestrator)
 
 ---
 
+## 🤖 Agent #0 (ESA CEO) Quick Reference
+
+**Primary Document:** This file (ESA_ORCHESTRATION.md) is your master orchestration guide
+
+### Critical Documents for Agent Orchestration:
+
+1. **[ESA_AGENT_ORG_CHART.md](./ESA_AGENT_ORG_CHART.md)** - Your team structure
+   - Complete 100-agent hierarchy
+   - Reporting lines for all agents
+   - Dual reporting matrix (strategic + operational)
+   - Agent responsibilities and technologies
+
+2. **[ESA_AGENT_A2A_PROTOCOL.md](./ESA_AGENT_A2A_PROTOCOL.md)** - Communication rules
+   - Hierarchical escalation paths (4 levels)
+   - Knowledge sharing protocols
+   - Conflict resolution process
+   - Message format standards
+
+3. **[ESA.md](./ESA.md)** - Technical framework
+   - All 61 layers of the ESA framework
+   - Layer dependencies and integration
+   - Technology stack per layer
+
+4. **[ESA_AGENT_TRAINING_STATUS.md](./ESA_AGENT_TRAINING_STATUS.md)** - Agent readiness
+   - Training progress (currently 0/100 agents)
+   - 9-week training execution plan
+   - Agent competency tracking
+
+5. **Layer Methodologies (61 files)** - Execution playbooks
+   - `layer-[1-61]-*.md` in this directory
+   - 6-phase process for each layer
+   - Success metrics and quality gates
+
+### Your Direct Reports (As Agent #0):
+- 6 Division Chiefs (Chief #1-6)
+- Domain #9 (Master Control) - direct operational line
+
+### Orchestration Responsibilities:
+1. ✅ **Strategic Direction** - Set vision for all 6 divisions
+2. ✅ **Conflict Resolution** - Final decision authority (Level 4 escalation)
+3. ✅ **Cross-Division Coordination** - Ensure chiefs collaborate
+4. ✅ **Framework Governance** - Maintain ESA 61x21 integrity
+5. ✅ **Quality Assurance** - Validate 40x20s checkpoints (800 gates)
+6. ✅ **Agent Training** - Oversee 100-agent training program
+
+---
+
 ## 🎯 Quick Start Decision Tree
 
 ### I need to...
