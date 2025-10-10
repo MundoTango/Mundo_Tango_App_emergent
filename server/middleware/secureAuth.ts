@@ -320,7 +320,7 @@ const requestCounts = new Map<string, { count: number; resetTime: number }>();
 
 export const rateLimit = (maxRequests: number = 100, windowMs: number = 60000) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const identifier = req.user?.id || req.ip;
+    const identifier = String(req.user?.id || req.ip || 'anonymous');
     const now = Date.now();
     
     const userLimit = requestCounts.get(identifier);
