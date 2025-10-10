@@ -1,9 +1,10 @@
 # Standardized Page Audit Framework
-## ESA 61x21 - Automated 35-Agent Certification System
+## ESA 61x21 - Automated 100-Agent Certification System
 
-**Version:** 3.0  
+**Version:** 4.0  
 **Last Updated:** October 10, 2025  
-**Purpose:** Systematically audit all 100+ pages using proven Memories Page methodology
+**Purpose:** Systematically audit all 100+ pages using complete ESA agent hierarchy  
+**Master Reference:** [esa.md](../../platform-handoff/esa.md) - Complete 100-agent orchestration guide
 
 ---
 
@@ -39,12 +40,14 @@
 **Purpose:** Prevent reinventing the wheel
 
 **Required Reading (in order):**
-1. `docs/platform-handoff/approved-patterns-2025-10-10.md` - Approved patterns library
-2. `docs/platform-handoff/api-routes-reference.md` - 150+ existing API endpoints
-3. `docs/platform-handoff/component-library.md` - Reusable components
-4. `ESA_ORCHESTRATION.md` - Framework guidelines
-5. `docs/pages/design-systems/aurora-tide.md` - Design system standards
-6. Page-specific docs in `docs/audit-reports/` - Previous audit findings
+1. `docs/platform-handoff/esa.md` - Master orchestration guide (PRIMARY)
+2. `docs/platform-handoff/ESA_AGENT_ORG_CHART.md` - 100-agent hierarchy
+3. `docs/platform-handoff/approved-patterns-2025-10-10.md` - Approved patterns library
+4. `docs/platform-handoff/api-routes-reference.md` - 150+ existing API endpoints
+5. `docs/platform-handoff/ESA_FRAMEWORK.md` - 61-layer technical framework
+6. `docs/platform-handoff/aurora-tide-design.md` - Design system standards
+7. Layer methodologies: `docs/platform-handoff/layer-[1-61]-*.md` - Agent playbooks
+8. Page-specific docs in `docs/audit-reports/` - Previous audit findings
 
 ### Step 0.2: Search Codebase for Existing Solutions
 **Before flagging missing functionality:**
@@ -122,7 +125,49 @@ cat package.json | grep -A 5 "dependencies"
 
 ## 📊 Overview
 
-This framework standardizes the comprehensive audit process demonstrated on the Memories Page, enabling consistent quality assessment across the entire platform.
+This framework standardizes the comprehensive audit process using the complete ESA 100-agent hierarchy, enabling consistent quality assessment across the entire platform.
+
+### 🤖 ESA Agent Mapping
+
+**Complete Agent Structure** (See [ESA_AGENT_ORG_CHART.md](../../platform-handoff/ESA_AGENT_ORG_CHART.md)):
+
+#### Level 1: Agent #0 (ESA CEO/Orchestrator)
+- **Role:** Final audit approval and quality governance
+- **Audit Focus:** Strategic alignment, cross-division consistency
+
+#### Level 2: 6 Division Chiefs (Strategic Oversight)
+- **Chief #1 (Foundation):** Layers 1-10 - Database, API, Auth, UI Framework
+- **Chief #2 (Core):** Layers 11-20 - Real-time, Files, Caching, Payments
+- **Chief #3 (Business):** Layers 21-30 - Users, Groups, Events, Social
+- **Chief #4 (Intelligence):** Layers 31-46 - AI, OpenAI, Life CEO agents
+- **Chief #5 (Platform):** Layers 47-56 - Mobile, Performance, Security, Testing
+- **Chief #6 (Extended):** Layers 57-61 - Automation, Integrations, GitHub
+
+#### Level 3: 9 Core Domain Coordinators (Operational)
+1. **Infrastructure Orchestrator** - Database optimization, caching, performance
+2. **Frontend Coordinator** - React components, UI/UX, state management
+3. **Background Processor** - Async tasks, job queues
+4. **Real-time Communications** - WebSocket, live updates
+5. **Business Logic Manager** - Core operations, validation
+6. **Search & Analytics** - Data insights, recommendations
+7. **Life CEO Core** - AI agent orchestration
+8. **Platform Enhancement** - Feature optimization
+9. **Master Control** - System health monitoring
+
+#### Level 4: 61 Individual Layer Agents
+Each ESA layer (1-61) has a dedicated agent - see [layer methodology files](../../platform-handoff/)
+
+#### Level 5: 7 Expert Agents
+- **Expert #10:** AI Research & OpenAI optimization
+- **Expert #11:** UI/UX Design (Aurora Tide)
+- **Expert #12:** Data Visualization
+- **Expert #13:** Content & Media optimization
+- **Expert #14:** Code Quality
+- **Expert #15:** Developer Experience
+- **Expert #16:** Translation & i18n (68 languages)
+
+#### Level 6: 16 Life CEO Sub-Agents
+AI life management agents (business, finance, health, etc.)
 
 ---
 
