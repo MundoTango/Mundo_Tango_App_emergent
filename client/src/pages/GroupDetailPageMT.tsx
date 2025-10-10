@@ -175,15 +175,17 @@ function GroupDetailPageMT() {
   }, []);
   
   // Aurora Tide: GSAP Scroll Reveal for housing statistics cards
-  const housingCardsRef = useScrollReveal('.housing-stat-card', {
-    opacity: 0,
-    y: 30,
-  }, {
-    stagger: 0.1,
-    start: 'top 85%',
-    once: true,
-    respectReducedMotion: true,
-  });
+  // TEMPORARILY DISABLED to debug Posts tab issue
+  // const housingCardsRef = useScrollReveal('.housing-stat-card', {
+  //   opacity: 0,
+  //   y: 30,
+  // }, {
+  //   stagger: 0.1,
+  //   start: 'top 85%',
+  //   once: true,
+  //   respectReducedMotion: true,
+  // });
+  const housingCardsRef = useRef<HTMLDivElement>(null);
   
   // Socket.io connection reference (persisted across renders)
   const socketRef = React.useRef<Socket | null>(null);
