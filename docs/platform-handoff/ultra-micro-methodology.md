@@ -1,9 +1,10 @@
 # Ultra-Micro Parallel Subagent Methodology
 ## ESA 61x21 Framework - Agent Coordination Best Practices
 
-**Last Updated:** October 9, 2025  
-**Status:** ✅ VALIDATED - Successfully tested on Memories page audit  
-**Performance:** 6 tasks in ~30 seconds (vs 3+ minutes sequential)
+**Last Updated:** October 10, 2025  
+**Status:** ✅ VALIDATED - Successfully tested with Pre-Flight Check  
+**Performance:** 6 tasks in ~30 seconds (vs 3+ minutes sequential)  
+**Critical Update:** Phase 0 Pre-Flight Check now MANDATORY
 
 ---
 
@@ -91,7 +92,42 @@ Good Task = 1 file + 1 operation + 1 output
 
 ---
 
-## The 3-Phase Execution Strategy
+## 🚨 CRITICAL: The 4-Phase Execution Strategy
+
+### Phase 0: Pre-Flight Check (MANDATORY) - ~10 seconds
+**ALWAYS run this BEFORE launching subagents:**
+
+```typescript
+// Step 1: Check LSP diagnostics
+get_latest_lsp_diagnostics()
+
+// Step 2: Verify clean codebase
+if (diagnostics found) {
+  // Fix ALL errors before proceeding
+  // Use subagents for 50+ errors
+  // Direct edits for <10 errors
+  // Re-check after fixes
+} else {
+  // Proceed to Phase 1
+}
+```
+
+**Why This is Critical:**
+- ❌ Subagents CANNOT execute with LSP errors
+- ❌ TypeScript errors block code parsing
+- ❌ Silent failures waste 15+ minutes
+- ✅ 30-second check prevents crashes
+- ✅ Clean code = 100% subagent success rate
+
+**Common LSP Fixes:**
+```typescript
+// Type conflicts: Align interface declarations
+// Null vs undefined: Use value ?? undefined
+// Missing properties: Check shared/schema.ts
+// Type conversions: Use String(), Number()
+```
+
+**Lesson Learned:** October 10, 2025 - 96 LSP errors blocked 6 subagents. All fixed in 20 minutes after discovery. Pre-Flight Check now prevents this entirely.
 
 ### Phase 1: Discovery (Parallel Micro-Tasks) - ~30 seconds
 Launch 4-6 ultra-micro subagents simultaneously:
