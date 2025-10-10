@@ -3369,3 +3369,230 @@ export type KnowledgeGraphNode = typeof knowledgeGraphNodes.$inferSelect;
 export type InsertKnowledgeGraphNode = z.infer<typeof insertKnowledgeGraphNodeSchema>;
 export type KnowledgeGraphEdge = typeof knowledgeGraphEdges.$inferSelect;
 export type InsertKnowledgeGraphEdge = z.infer<typeof insertKnowledgeGraphEdgeSchema>;
+
+// ========== Self-Hosted Project Tracker (ESA Layer 65) ==========
+// Replaces Jira with internal admin center tracking
+
+// Epics (Large initiatives spanning multiple sprints)
+export const projectEpics = pgTable("project_epics", {
+  id: serial("id").primaryKey(),
+  key: varchar("key", { length: 50 }).unique().notNull(), // e.g., MUN-1
+  summary: varchar("summary", { length: 500 }).notNull(),
+  description: text("description"),
+  status: varchar("status", { length: 50 }).default('to_do').notNull(), // to_do, in_progress, done, cancelled
+  priority: varchar("priority", { length: 20 }).default('medium'), // low, medium, high, critical
+  labels: text("labels").array().default([]),
+  startDate: timestamp("start_date"),
+  dueDate: timestamp("due_date"),
+  completedDate: timestamp("completed_date"),
+  assignedToId: integer("assigned_to_id").references(() => users.id),
+  createdById: integer("created_by_id").notNull().references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_epics_status").on(table.status),
+  index("idx_epics_assigned").on(table.assignedToId),
+  index("idx_epics_key").on(table.key),
+]);
+
+// Stories (User stories within epics)
+export const projectStories = pgTable("project_stories", {
+  id: serial("id").primaryKey(),
+  key: varchar("key", { length: 50 }).unique().notNull(), // e.g., MUN-6
+  epicId: integer("epic_id").references(() => projectEpics.id, { onDelete: 'cascade' }),
+  summary: varchar("summary", { length: 500 }).notNull(),
+  description: text("description"),
+  status: varchar("status", { length: 50 }).default('to_do').notNull(),
+  priority: varchar("priority", { length: 20 }).default('medium'),
+  storyPoints: integer("story_points"),
+  labels: text("labels").array().default([]),
+  sprintId: integer("sprint_id").references(() => projectSprints.id),
+  assignedToId: integer("assigned_to_id").references(() => users.id),
+  createdById: integer("created_by_id").notNull().references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_stories_epic").on(table.epicId),
+  index("idx_stories_sprint").on(table.sprintId),
+  index("idx_stories_status").on(table.status),
+  index("idx_stories_assigned").on(table.assignedToId),
+]);
+
+// Tasks (Granular work items within stories)
+export const projectTasks = pgTable("project_tasks", {
+  id: serial("id").primaryKey(),
+  storyId: integer("story_id").references(() => projectStories.id, { onDelete: 'cascade' }),
+  title: varchar("title", { length: 500 }).notNull(),
+  description: text("description"),
+  status: varchar("status", { length: 50 }).default('to_do').notNull(),
+  estimatedHours: real("estimated_hours"),
+  actualHours: real("actual_hours"),
+  assignedToId: integer("assigned_to_id").references(() => users.id),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_tasks_story").on(table.storyId),
+  index("idx_tasks_status").on(table.status),
+  index("idx_tasks_assigned").on(table.assignedToId),
+]);
+
+// Sprints (Time-boxed iterations)
+export const projectSprints = pgTable("project_sprints", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  goal: text("goal"),
+  status: varchar("status", { length: 50 }).default('planning').notNull(), // planning, active, completed, cancelled
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  velocityTarget: integer("velocity_target"), // Story points target
+  actualVelocity: integer("actual_velocity"), // Story points completed
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_sprints_status").on(table.status),
+  index("idx_sprints_dates").on(table.startDate, table.endDate),
+]);
+
+// Milestones (Major project checkpoints)
+export const projectMilestones = pgTable("project_milestones", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  dueDate: timestamp("due_date"),
+  status: varchar("status", { length: 50 }).default('upcoming').notNull(), // upcoming, at_risk, achieved, missed
+  completionPercentage: integer("completion_percentage").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_milestones_status").on(table.status),
+  index("idx_milestones_due").on(table.dueDate),
+]);
+
+// Comments/Activity on stories
+export const projectComments = pgTable("project_comments", {
+  id: serial("id").primaryKey(),
+  storyId: integer("story_id").references(() => projectStories.id, { onDelete: 'cascade' }),
+  userId: integer("user_id").notNull().references(() => users.id),
+  comment: text("comment").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_comments_story").on(table.storyId),
+  index("idx_comments_user").on(table.userId),
+]);
+
+// Insert schemas for project tracker
+export const insertProjectEpicSchema = createInsertSchema(projectEpics).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectStorySchema = createInsertSchema(projectStories).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectTaskSchema = createInsertSchema(projectTasks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectSprintSchema = createInsertSchema(projectSprints).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectMilestoneSchema = createInsertSchema(projectMilestones).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectCommentSchema = createInsertSchema(projectComments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Relations for project tracker
+export const projectEpicsRelations = relations(projectEpics, ({ one, many }) => ({
+  assignedTo: one(users, {
+    fields: [projectEpics.assignedToId],
+    references: [users.id],
+    relationName: 'epicAssignee'
+  }),
+  createdBy: one(users, {
+    fields: [projectEpics.createdById],
+    references: [users.id],
+    relationName: 'epicCreator'
+  }),
+  stories: many(projectStories)
+}));
+
+export const projectStoriesRelations = relations(projectStories, ({ one, many }) => ({
+  epic: one(projectEpics, {
+    fields: [projectStories.epicId],
+    references: [projectEpics.id]
+  }),
+  sprint: one(projectSprints, {
+    fields: [projectStories.sprintId],
+    references: [projectSprints.id]
+  }),
+  assignedTo: one(users, {
+    fields: [projectStories.assignedToId],
+    references: [users.id],
+    relationName: 'storyAssignee'
+  }),
+  createdBy: one(users, {
+    fields: [projectStories.createdById],
+    references: [users.id],
+    relationName: 'storyCreator'
+  }),
+  tasks: many(projectTasks),
+  comments: many(projectComments)
+}));
+
+export const projectTasksRelations = relations(projectTasks, ({ one }) => ({
+  story: one(projectStories, {
+    fields: [projectTasks.storyId],
+    references: [projectStories.id]
+  }),
+  assignedTo: one(users, {
+    fields: [projectTasks.assignedToId],
+    references: [users.id]
+  })
+}));
+
+export const projectSprintsRelations = relations(projectSprints, ({ many }) => ({
+  stories: many(projectStories)
+}));
+
+export const projectCommentsRelations = relations(projectComments, ({ one }) => ({
+  story: one(projectStories, {
+    fields: [projectComments.storyId],
+    references: [projectStories.id]
+  }),
+  user: one(users, {
+    fields: [projectComments.userId],
+    references: [users.id]
+  })
+}));
+
+// Types for project tracker
+export type ProjectEpic = typeof projectEpics.$inferSelect;
+export type InsertProjectEpic = z.infer<typeof insertProjectEpicSchema>;
+export type ProjectStory = typeof projectStories.$inferSelect;
+export type InsertProjectStory = z.infer<typeof insertProjectStorySchema>;
+export type ProjectTask = typeof projectTasks.$inferSelect;
+export type InsertProjectTask = z.infer<typeof insertProjectTaskSchema>;
+export type ProjectSprint = typeof projectSprints.$inferSelect;
+export type InsertProjectSprint = z.infer<typeof insertProjectSprintSchema>;
+export type ProjectMilestone = typeof projectMilestones.$inferSelect;
+export type InsertProjectMilestone = z.infer<typeof insertProjectMilestoneSchema>;
+export type ProjectComment = typeof projectComments.$inferSelect;
+export type InsertProjectComment = z.infer<typeof insertProjectCommentSchema>;
