@@ -129,12 +129,37 @@ if (diagnostics found) {
 
 **Lesson Learned:** October 10, 2025 - 96 LSP errors blocked 6 subagents. All fixed in 20 minutes after discovery. Pre-Flight Check now prevents this entirely.
 
+### Phase 0B: Continuous Monitoring (DURING execution) - NEW!
+**Run after workflow restarts or subagent crashes:**
+
+```typescript
+// Monitor for errors during execution
+if (subagent crashes with "Agent encountered an error") {
+  // Immediately check LSP
+  get_latest_lsp_diagnostics()
+  
+  // Fix any new errors found
+  // Workflow restarts can introduce new errors
+  
+  // Relaunch failed subagent only
+}
+```
+
+**Why Continuous Monitoring:**
+- ✅ Workflow restarts introduce new errors mid-execution
+- ✅ "Clean code" doesn't stay clean automatically  
+- ✅ Proactive detection prevents cascading failures
+- ✅ Immediate fixes enable quick recovery
+
+**Lesson Learned:** October 10, 2025 PM - 5 NEW errors appeared during execution (workflow restart). 2 subagents crashed. Fixed in 2 minutes with continuous monitoring.
+
 ### Phase 1: Discovery (Parallel Micro-Tasks) - ~30 seconds
 Launch 4-6 ultra-micro subagents simultaneously:
 - Each reads/searches ONE thing
 - Each reports findings only
 - No analysis or decision-making
 - Maximum parallelization
+- **Monitor for crashes** - Check LSP if any fail
 
 ### Phase 2: Fix (Direct Parallel Execution) - ~30-60 seconds  
 Main agent executes fixes directly:
