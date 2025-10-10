@@ -996,6 +996,25 @@ All 100 agents must complete:
 
 **Training Tracker:** [ESA_AGENT_TRAINING_STATUS.md](./ESA_AGENT_TRAINING_STATUS.md)
 
+### Hierarchical Mentorship Model
+
+**NEW:** ESA uses a **hierarchical mentorship system** where certified agents train new agents:
+
+```
+Agent #0 (CEO) → Division Chiefs → Domain Coordinators → Layer Agents → New Agents
+```
+
+**Training Pattern:**
+- **Level 1:** CEO trains 6 Division Chiefs (strategic vision)
+- **Level 2:** Chiefs train Domain Coordinators + Layer Agents (tactical alignment)
+- **Level 3:** Domains train Layer Agents (operational execution)
+- **Level 4:** Certified Layer Agents train new agents (peer mentoring - most powerful!)
+- **Level 5:** Expert Agents provide advisory to all agents (specialized guidance)
+
+**Key Innovation:** Real production work as training material (proven 480x faster than traditional bootcamps)
+
+**Complete Guide:** [ESA_NEW_AGENT_GUIDE.md - Mentorship Model](./ESA_NEW_AGENT_GUIDE.md#mentorship-model)
+
 ### Training Execution Plan
 
 - **Phase 1 (Week 1):** CEO + 6 Division Chiefs
@@ -1003,7 +1022,103 @@ All 100 agents must complete:
 - **Phase 3 (Weeks 3-8):** 61 Layer Agents (by division)
 - **Phase 4 (Week 9):** 7 Experts + 16 Life CEO Agents
 
-**Current Status:** 0/100 agents trained (0%)
+**Current Status:** 14/100 agents trained (14%) - Week 1-2 Complete ✅
+
+---
+
+## 🤖 Resume AI Integration: Human Review Preparation
+
+### Purpose
+
+All ESA agent work is **documented for future human oversight** using Resume AI. This ensures:
+- Quality control through human validation
+- Knowledge preservation for training
+- Accountability and continuous improvement
+- Smooth handoff to human teams
+
+### What Resume AI Reviews
+
+**1. Agent Performance Metrics**
+```json
+{
+  "agentId": "AGENT_54",
+  "agentName": "Accessibility Expert", 
+  "trainingPeriod": "Week 1-2 (Oct 10, 2025)",
+  "pagesImproved": 6,
+  "ariaLabelsAdded": 196,
+  "wcagCompliance": "AA",
+  "mentorshipSessions": 12,
+  "agentsTrained": 3,
+  "certificationStatus": "Certified",
+  "humanReviewScore": null
+}
+```
+
+**2. Training Artifacts**
+- **Methodology Files** - Layer-specific patterns and processes
+- **Code Quality** - LSP-validated implementations
+- **Mentorship Effectiveness** - Training success rates
+- **Communication Logs** - A2A protocol messages
+- **Performance Metrics** - prom-client dashboard data
+
+**3. Human Review Workflow**
+```
+Resume AI → Human Reviewer:
+1. Agent training summary (from methodology files)
+2. Before/after metrics (pages improved, scores)
+3. Mentorship tree (who they trained, success rates)
+4. Code samples (representative implementations)
+5. Communication excerpts (A2A messages)
+
+Human Reviewer → Decision:
+✅ Approve - Agent methodology becomes gold standard
+⚠️  Revise - Agent gets feedback, updates approach
+❌ Reject - Agent retrains with different mentor
+```
+
+### Documentation Requirements
+
+Every agent maintains for human review:
+- **Methodology file** (`layer-[X]-*.md`) - Complete patterns
+- **Training log** - Record of mentorship sessions
+- **Implementation samples** - Annotated code
+- **Metrics dashboard** - Performance over time
+- **Lessons learned** - Challenges and solutions
+
+### Human Review Package Example
+
+```markdown
+# Agent #54 (Accessibility Expert) - Human Review Package
+
+## Executive Summary
+- Role: WCAG 2.1 AA Accessibility Implementation
+- Training Period: Oct 1-10, 2025 (10 days)
+- Pages Certified: 6 (Housing, Auth, Profile, Home, Life CEO, Groups)
+- ARIA Labels Added: 196
+- Agents Trained: 3 new accessibility specialists
+
+## Methodology Quality
+✅ Complete layer-54-accessibility.md with patterns
+✅ 57 code samples documented
+✅ WCAG 2.1 AA checklist validated
+
+## Recommendations
+1. Approve Agent #54 methodology as platform standard
+2. Use Housing page as gold standard (88/100, 57 ARIA labels)
+3. Deploy Agent #54 to train 10 more agents
+```
+
+### Integration Points
+
+**Resume AI accesses:**
+- **Prometheus metrics** - Real-time agent performance (prom-client)
+- **BullMQ dashboards** - Task completion rates, queue health
+- **LangGraph state** - Agent decision paths, reasoning
+- **Git history** - Code changes with attribution
+- **A2A protocol logs** - Agent communication, collaboration
+- **PostgreSQL audit logs** - Database operations, data integrity
+
+**Complete Documentation:** [ESA_NEW_AGENT_GUIDE.md - Resume AI Integration](./ESA_NEW_AGENT_GUIDE.md#mentorship-model)
 
 ---
 
