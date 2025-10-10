@@ -114,22 +114,22 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const globalStats = [
     {
       title: t('community.globalDancers'),
-      count: formatStatNumber(stats?.totalUsers, "3.2K"),
+      count: formatStatNumber(stats?.stats?.totalUsers, "3.2K"),
       icon: <Sparkles className="w-4 h-4" />,
     },
     {
       title: t('community.activeEvents'), 
-      count: formatStatNumber(stats?.activeEvents, "945"),
+      count: formatStatNumber(stats?.stats?.totalEvents, "945"),
       icon: <Calendar className="w-4 h-4" />,
     },
     {
       title: t('community.communities'),
-      count: formatStatNumber(stats?.totalGroups, "6.8K"),
+      count: formatStatNumber(stats?.stats?.totalGroups, "6.8K"),
       icon: <UsersRound className="w-4 h-4" />,
     },
     {
       title: t('community.yourCity'),
-      count: formatStatNumber(stats?.userCityMembers, "184"),
+      count: formatStatNumber(stats?.stats?.userCityMembers, "184"),
       icon: <MapPin className="w-4 h-4" />,
     },
   ];
