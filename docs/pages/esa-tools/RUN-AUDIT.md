@@ -75,33 +75,49 @@ npm run audit-page events
 
 ---
 
-### STEP 4: Fix Issues (If Needed)
+### STEP 4: Review Issues and Propose Fixes
+
+**🚨 CRITICAL: AUDIT-ONLY MODE - NO AUTO-FIXING**
 
 **Priority Order:**
-1. 🔴 **Critical Issues** - Fix immediately
-2. 🟠 **High Priority** - Fix before marking complete
-3. 🟡 **Medium Priority** - Fix if score < 90
-4. 🔵 **Low Priority** - Optional, track for future
+1. 🔴 **Critical Issues** - Report to user immediately
+2. 🟠 **High Priority** - Report before marking complete
+3. 🟡 **Medium Priority** - Report if score < 90
+4. 🔵 **Low Priority** - Document for future
 
-**For Each Issue:**
+**For Each Issue - REPORT ONLY:**
 
-```typescript
-// Example: Frontend Architecture issue
-// Finding: "No cache invalidation found"
+```markdown
+📋 Issue: No cache invalidation found in mutations
+📍 Location: client/src/pages/events.tsx:line 45
+🔍 Evidence:
+const mutation = useMutation({
+  mutationFn: api.create,
+  // ❌ Missing onSuccess cache invalidation
+});
 
-// 1. Locate the file
-const file = pageConfig.file; // From registry
+✅ Recommended Fix: Use existing pattern from approved-patterns.md section 3.2
+Reference: Events page (line 67) already has this pattern:
+onSuccess: () => {
+  queryClient.invalidateQueries({ queryKey: ['/api/events'] });
+}
 
-// 2. Fix the issue
-// Add proper cache invalidation to mutations
-
-// 3. Re-run audit
-npm run audit-page <page-key>
-
-// 4. Verify score improved
+⏸️ AWAITING USER APPROVAL before implementing
 ```
 
-**Re-run audit after each fix until score >= 90**
+**NEVER Auto-Fix During Audit:**
+- ❌ Do NOT modify any files during audit
+- ❌ Do NOT create new components/utilities
+- ✅ ONLY report findings with specific locations
+- ✅ ONLY suggest fixes using existing patterns
+- ✅ ALWAYS reference approved solutions from docs
+
+**After User Reviews Issues:**
+1. User reviews all findings
+2. User approves specific fixes
+3. THEN make approved changes
+4. Re-run audit to verify
+5. Repeat until score >= 90
 
 ---
 
