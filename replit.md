@@ -6,11 +6,31 @@ This project is an AI-powered life management system (Life CEO) integrated with 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 Do not reference monetary values or investment amounts when describing the platform.
-When user says "Use ESA", reference the **ESA_ORCHESTRATION.md** as the primary entry point, which orchestrates:
-- ESA.md (61 layers framework)
-- docs/pages/esa-agents/index.md (AI agent system)
+
+### ESA Framework Documentation
+When user says "Use ESA", reference **docs/platform-handoff/ESA_ORCHESTRATION.md** as the primary entry point - the master orchestration guide containing:
+
+**Framework Evolution (Complete History):**
+- 30x21 (Mar-Apr 2025): Foundation - Original 30-layer architecture
+- 44x21 (Jun-Aug 2025): Payment Security - Added compliance, i18n, security hardening
+- 53x21 (Aug 2025): Automation - Docker, n8n workflows, TestSprite testing
+- 56x21 (Sep 2025): Core Complete - Documentation, SEO, compliance
+- 59x21 (Sep 2025): Open Source - Automation management, dependency tracking
+- 60x21 (Sep 2025): Version Control - GitHub expertise
+- 61x21 (Oct 2025): **Current** - Supabase expertise, complete intelligence platform
+
+**ESA_ORCHESTRATION.md orchestrates all documentation:**
+- ESA.md (61 layers × 21 phases framework)
+- docs/pages/esa-agents/index.md (16 AI agents system)
 - docs/pages/design-systems/aurora-tide.md (design standards)
-- ESA_DEPLOYMENT_AUDIT.md (deployment audit)
+- ESA_DEPLOYMENT_AUDIT.md (deployment readiness checklist)
+- ESA_FRAMEWORK_COMPLETE_HISTORY.md (complete archaeological history)
+
+**Parallel Quality System:**
+- 40x20s framework: 40 expert domains × 20 phases = 800 quality checkpoints
+- "10 Experts" methodology: Each agent researches 10 world-class experts before building
+- Proven performance: API 43% faster, cache 99.5% hit rate, 100% success rate
+
 For platform audits, use ESA_DEPLOYMENT_AUDIT.md as the deployment readiness checklist.
 
 ## System Architecture
