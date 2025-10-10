@@ -48,52 +48,71 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50" key="mt-ocean-theme-v2">
-      <UnifiedTopBar 
-        onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-        theme={theme}
-        onThemeToggle={toggleTheme}
-        showMenuButton={true}
-      />
-      
-      <div className="flex">
-        <Sidebar 
-          isOpen={isSidebarOpen} 
-          setIsOpen={setIsSidebarOpen}
-          onClose={handleCloseSidebar}
+    <div 
+      className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50" 
+      key="mt-ocean-theme-v2"
+      data-testid="page-home"
+    >
+      <div data-testid="section-topbar">
+        <UnifiedTopBar 
+          onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          theme={theme}
+          onThemeToggle={toggleTheme}
+          showMenuButton={true}
         />
+      </div>
+      
+      <div className="flex" data-testid="container-layout">
+        <div data-testid="section-sidebar">
+          <Sidebar 
+            isOpen={isSidebarOpen} 
+            setIsOpen={setIsSidebarOpen}
+            onClose={handleCloseSidebar}
+          />
+        </div>
         
         {/* Overlay for mobile */}
         {isSidebarOpen && (
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
             onClick={handleCloseSidebar}
+            data-testid="overlay-sidebar"
+            aria-label="Close sidebar"
           />
         )}
         
-        <main className={`flex-1 transition-all duration-300 ${
-          isSidebarOpen ? 'lg:ml-64' : ''
-        }`}>
-          <div className="max-w-2xl mx-auto p-4 space-y-6">
+        <main 
+          className={`flex-1 transition-all duration-300 ${
+            isSidebarOpen ? 'lg:ml-64' : ''
+          }`}
+          data-testid="main-feed"
+        >
+          <div className="max-w-2xl mx-auto p-4 space-y-6" data-testid="container-feed-content">
             {/* Stories Section */}
             {stories && stories.length > 0 && (
               <FadeIn delay={0.1}>
-                <GlassCard depth={1} className="p-4">
-                  <StoryViewer stories={stories} />
-                </GlassCard>
+                <div data-testid="section-stories">
+                  <GlassCard depth={1} className="p-4" data-testid="card-stories">
+                    <StoryViewer stories={stories} />
+                  </GlassCard>
+                </div>
               </FadeIn>
             )}
 
             {/* Create Post */}
             <FadeIn delay={0.2}>
-              <GlassCard depth={2}>
-                <CreatePost />
-              </GlassCard>
+              <div data-testid="section-create-post">
+                <GlassCard depth={2} data-testid="card-create-post">
+                  <CreatePost />
+                </GlassCard>
+              </div>
             </FadeIn>
 
             {/* Unified PostFeed */}
             <FadeIn delay={0.3}>
-              <PostFeed context={{ type: 'feed' }} />
+              <div data-testid="section-post-feed">
+                <PostFeed context={{ type: 'feed' }} />
+              </div>
             </FadeIn>
           </div>
         </main>

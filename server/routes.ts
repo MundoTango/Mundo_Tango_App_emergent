@@ -618,6 +618,126 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Life CEO Conversations API
+  app.get('/api/life-ceo/conversations', authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+      
+      const conversations = await storage.getLifeCEOConversations(userId);
+      res.json({ success: true, data: conversations });
+    } catch (error) {
+      console.error('Error getting Life CEO conversations:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to get conversations',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  app.post('/api/life-ceo/conversations', authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+      
+      const conversation = req.body;
+      const savedConversation = await storage.saveLifeCeoConversation(userId, conversation);
+      res.json({ success: true, data: savedConversation });
+    } catch (error) {
+      console.error('Error saving Life CEO conversation:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to save conversation',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  app.delete('/api/life-ceo/conversations/:id', authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+      
+      const conversationId = req.params.id;
+      await storage.deleteLifeCeoConversation(conversationId);
+      res.json({ success: true, message: 'Conversation deleted' });
+    } catch (error) {
+      console.error('Error deleting Life CEO conversation:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to delete conversation',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  // Life CEO Projects API
+  app.get('/api/life-ceo/projects', authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+      
+      const projects = await storage.getLifeCeoProjects(userId);
+      res.json({ success: true, data: projects });
+    } catch (error) {
+      console.error('Error getting Life CEO projects:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to get projects',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  app.post('/api/life-ceo/projects', authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+      
+      const project = req.body;
+      const savedProject = await storage.saveLifeCeoProject(userId, project);
+      res.json({ success: true, data: savedProject });
+    } catch (error) {
+      console.error('Error saving Life CEO project:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to save project',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  app.delete('/api/life-ceo/projects/:id', authMiddleware, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+      
+      const projectId = req.params.id;
+      await storage.deleteLifeCeoProject(projectId);
+      res.json({ success: true, message: 'Project deleted' });
+    } catch (error) {
+      console.error('Error deleting Life CEO project:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to delete project',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
   // Supabase integration test endpoints (bypass CSRF for testing)
   const { testSupabaseConnection, testLargeBodyHandling, testSupabaseRealtime } = await import('./routes/supabase-test');
 
