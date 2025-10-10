@@ -1509,6 +1509,8 @@ const UserSettings: React.FC = () => {
                   <Button
                     variant="outline"
                     className="w-full border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400"
+                    onClick={() => window.location.href = '/account/delete'}
+                    data-testid="button-delete-account"
                   >
                     Delete Account
                   </Button>
