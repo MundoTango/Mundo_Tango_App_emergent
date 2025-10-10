@@ -2,9 +2,11 @@
 ## Complete Training Progress for All 100 Agents
 
 **Last Updated:** October 10, 2025  
-**Training Framework:** ESA_NEW_AGENT_GUIDE.md (6-phase + 5-day bootcamp)  
+**Training Framework:** Real Production Work (Platform Remediation 77→85+)  
 **Total Agents:** 100  
-**Training Complete:** 6/100 (6%)
+**Training Complete:** 6/100 (6%)  
+**Training Method:** Learn-by-Doing (NOT theoretical bootcamp)  
+**Training Material:** Life CEO platform remediation work
 
 ---
 
