@@ -1,7 +1,7 @@
 # Mundo Tango Platform - ESA 61x21 Audit & Remediation
 ## Jira Project Plan - Complete Roadmap for Human Review
 
-**Project Key:** MUNDOTANGO  
+**Project Key:** MUN  
 **Project Type:** Software Development  
 **Methodology:** ESA 61x21 Hierarchical Parallel Execution  
 **Agent Owner:** Agent #62 (Resume AI)  
