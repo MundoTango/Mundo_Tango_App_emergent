@@ -111,6 +111,15 @@ export default function ControlledPostFeed({
     }
   }, [onShare]);
 
+  // ESA DEBUG: Log ControlledPostFeed render state
+  console.log('🔍 [ControlledPostFeed] Rendering:', {
+    postsCount: posts.length,
+    isLoading,
+    isFetching,
+    hasMore,
+    showingBranch: isLoading ? 'SKELETON' : posts.length === 0 ? 'EMPTY' : 'POSTS_LIST'
+  });
+
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header with Search */}
