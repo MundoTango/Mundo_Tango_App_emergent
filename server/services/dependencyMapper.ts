@@ -262,13 +262,36 @@ class DependencyMapperService {
     
     // Test Utilities
     'Test Utilities': [
-      'test-data-bot', 'axe-core', '@faker-js/faker', 'pm2'
+      'test-data-bot', 'axe-core', '@faker-js/faker', 'pm2', 'jest-environment-jsdom'
+    ],
+    
+    // UI Notifications
+    'UI Notifications': [
+      'react-hot-toast'
+    ],
+    
+    // API Documentation
+    'API Documentation': [
+      'swagger-jsdoc', 'swagger-ui-express'
+    ],
+    
+    // Dependency Management
+    'Dependency Management': [
+      'npm-check-updates'
+    ],
+    
+    // Performance Utilities
+    'Performance Utilities': [
+      'bufferutil'
     ]
   };
 
   private esaLayerMapping: Record<number, string[]> = {
     // Layer 1: Performance Optimization
-    1: ['vite', 'esbuild', 'terser', 'sharp', 'browser-image-compression'],
+    1: ['vite', 'esbuild', 'terser', 'sharp', 'browser-image-compression', 'bufferutil'],
+    
+    // Layer 2: API Structure
+    2: ['swagger-jsdoc', 'swagger-ui-express'],
     
     // Layer 4: Real-time Communication
     4: ['socket.io', 'socket.io-client', 'ws'],
@@ -279,17 +302,17 @@ class DependencyMapperService {
     // Layer 6: Search & Discovery
     6: ['@elastic/elasticsearch', 'fuse.js'],
     
-    // Layer 10: AI Research Agent
-    10: ['openai', '@langchain/', 'langfuse', 'llamaindex'],
+    // Layer 10: AI Research Agent / Component Library
+    10: ['openai', '@langchain/', 'langfuse', 'llamaindex', '@radix-ui/', '@mui/', 'react-hot-toast'],
     
-    // Layer 11: UI/UX Design (Aurora)
-    11: ['@radix-ui/', '@mui/', 'framer-motion', 'gsap', 'lucide-react'],
+    // Layer 11: UI/UX Design (Aurora) / Real-time Features
+    11: ['@radix-ui/', '@mui/', 'framer-motion', 'gsap', 'lucide-react', 'socket.io', 'socket.io-client', 'ws', 'bufferutil'],
     
     // Layer 13: Media Processing
     13: ['sharp', 'cloudinary', '@ffmpeg/', 'fluent-ffmpeg'],
     
-    // Layer 16: Communication Layer
-    16: ['nodemailer', 'resend', '@sendgrid/mail', '@novu/'],
+    // Layer 16: Communication Layer / Notification System
+    16: ['nodemailer', 'resend', '@sendgrid/mail', '@novu/', 'react-hot-toast'],
     
     // Layer 18: Frontend Architecture
     18: ['react', 'react-dom', '@tanstack/react-query', 'wouter'],
@@ -306,16 +329,16 @@ class DependencyMapperService {
     // Layer 49: Security
     49: ['helmet', 'express-rate-limit', 'hpp', 'xss', 'snyk'],
     
-    // Layer 51: Testing
-    51: ['jest', '@playwright/test', '@testing-library/', 'cypress'],
+    // Layer 51: Testing Framework
+    51: ['jest', '@playwright/test', '@testing-library/', 'cypress', 'jest-environment-jsdom'],
     
-    // Layer 52: Documentation
+    // Layer 52: Documentation System
     52: ['@ladle/react', 'swagger-jsdoc', 'swagger-ui-express'],
     
     // Layer 53: Internationalization
     53: ['i18next', 'i18next-browser-languagedetector', 'react-i18next'],
     
-    // Layer 57: Automation
+    // Layer 57: Automation Management
     57: ['node-cron', 'bull', 'bullmq'],
     
     // Layer 59: Open Source Management
