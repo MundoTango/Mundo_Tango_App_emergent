@@ -11,7 +11,6 @@ import GroupSearch from '@/components/groups/GroupSearch';
 import RecommendedGroups from '@/components/groups/RecommendedGroups';
 
 export default function GroupsPage() {
-  console.log('🎯 GROUPS PAGE COMPONENT RENDERING - v5 ROLE-BASED GROUPS');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchResults, setSearchResults] = useState<any[] | null>(null);
@@ -31,40 +30,24 @@ export default function GroupsPage() {
   );
   
   const handleSearchResults = (results: any[]) => {
-    console.log('📊 Search results received:', results.length);
     setSearchResults(results);
   };
   
   const handleClearFilters = () => {
-    console.log('🧹 Clearing search filters');
     setSearchResults(null);
   };
 
   // Fetch groups data with membership status
   const { data: groupsData, isLoading } = useQuery({
     queryKey: ['/api/groups'],
-    refetchOnMount: true,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: true,
-    staleTime: 0, // Consider data stale immediately
-    gcTime: 0, // Don't cache the data (v5 uses gcTime instead of cacheTime)
     queryFn: async () => {
-      // Add cache-busting query parameter
-      const cacheBuster = Date.now();
-      const response = await fetch(`/api/groups?_t=${cacheBuster}`, {
-        credentials: 'include',
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        }
+      const response = await fetch('/api/groups', {
+        credentials: 'include'
       });
       const data = await response.json();
-      console.log('🔄 GROUPS API RESPONSE:', data);
-      console.log('📊 Member status for each group:', data?.map((g: any) => ({
-        id: g.id,
-        name: g.name,
-        isMember: g.isMember,
-        membershipStatus: g.membershipStatus
-      })));
       return data;
     }
   });
@@ -117,18 +100,9 @@ export default function GroupsPage() {
     cities: new Set(groupsData?.map((g: any) => g.city).filter(Boolean)).size || 4
   };
 
-  // Get event counts per group (mock data for now)
+  // Get event counts per group (will be replaced with real API data)
   const getEventCount = (groupId: number) => {
-    const eventCounts: Record<number, number> = {
-      33: 8,
-      34: 16, 
-      35: 22,
-      36: 14,
-      37: 7,
-      38: 18,
-      39: 12
-    };
-    return eventCounts[groupId] || Math.floor(Math.random() * 20) + 5;
+    return 0;
   };
 
   // Filter groups based on active filter and search
