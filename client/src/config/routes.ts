@@ -472,6 +472,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'ESA 61x21 Multi-Agent System monitoring and analytics'
   },
   {
+    path: '/admin/projects',
+    component: lazy(() => import('@/pages/admin/projects')),
+    mode: 'production',
+    loadingMessage: 'Loading project tracker...',
+    description: 'ESA Agent #65 Self-Hosted Project Tracker (Epics/Stories/Tasks)'
+  },
+  {
     path: '/analytics',
     component: lazy(() => import('@/pages/AnalyticsDashboard')),
     mode: 'production',
