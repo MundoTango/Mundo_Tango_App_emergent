@@ -17,12 +17,14 @@ router.get("/auth/user", async (req: any, res) => {
     // Development bypass - ONLY in development mode
     if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
       console.log('🔧 [DEV ONLY] Auth bypass for /auth/user endpoint');
-      const defaultUser = await storage.getUser(7); // Scott Boddye's admin user
+      const defaultUser = await storage.getUser(7); // Pierre Dubois - admin user for testing
       if (defaultUser) {
         const userWithRole = await authService.getUserWithRole(defaultUser.id);
+        const role = userWithRole?.role || 'admin';
         return res.json({
           ...defaultUser,
-          role: userWithRole?.role || 'admin'
+          role,
+          roles: [role] // Add roles array for frontend AdminLayout compatibility
         });
       }
     }
@@ -45,17 +47,21 @@ router.get("/auth/user", async (req: any, res) => {
         
         // Get role information
         const userWithRole = await authService.getUserWithRole(newUser.id);
+        const role = userWithRole?.role || 'user';
         return res.json({
           ...newUser,
-          role: userWithRole?.role || 'user'
+          role,
+          roles: [role] // Add roles array for frontend compatibility
         });
       }
       
       // Get role information for existing user
       const userWithRole = await authService.getUserWithRole(user.id);
+      const role = userWithRole?.role || 'user';
       return res.json({
         ...user,
-        role: userWithRole?.role || 'user'
+        role,
+        roles: [role] // Add roles array for frontend compatibility
       });
     }
     
