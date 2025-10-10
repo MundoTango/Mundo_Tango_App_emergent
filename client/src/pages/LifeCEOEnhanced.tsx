@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Mic, MicOff, Volume2, Globe, Brain, Calendar, Heart, DollarSign, Shield, Send, Plus, Search, FolderOpen, MessageSquare, Settings, MoreVertical, Trash2, Edit2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -36,29 +37,11 @@ interface Project {
   createdAt: Date;
 }
 
-// Define all 16 Life CEO agents
-const LIFE_CEO_AGENTS = [
-  { id: 'life-ceo', name: 'Life CEO', icon: '👔', description: 'General life management' },
-  { id: 'business', name: 'Business Agent', icon: '💼', description: 'Professional development and meetings' },
-  { id: 'finance', name: 'Finance Agent', icon: '💰', description: 'Financial planning and tracking' },
-  { id: 'health', name: 'Health Agent', icon: '🏥', description: 'Wellness and medical management' },
-  { id: 'relationships', name: 'Relationships Agent', icon: '❤️', description: 'Social connections and family' },
-  { id: 'learning', name: 'Learning Agent', icon: '📚', description: 'Education and skill development' },
-  { id: 'creative', name: 'Creative Agent', icon: '🎨', description: 'Artistic projects and expression' },
-  { id: 'network', name: 'Network Agent', icon: '🌐', description: 'Professional connections' },
-  { id: 'global-mobility', name: 'Global Mobility Agent', icon: '✈️', description: 'Travel and relocation' },
-  { id: 'security', name: 'Security Agent', icon: '🔒', description: 'Privacy and protection' },
-  { id: 'emergency', name: 'Emergency Agent', icon: '🚨', description: 'Crisis management' },
-  { id: 'memory', name: 'Memory Agent', icon: '🧠', description: 'Knowledge and recall' },
-  { id: 'voice', name: 'Voice Agent', icon: '🎙️', description: 'Communication enhancement' },
-  { id: 'data', name: 'Data Agent', icon: '📊', description: 'Analytics and insights' },
-  { id: 'workflow', name: 'Workflow Agent', icon: '⚙️', description: 'Process optimization' },
-  { id: 'legal', name: 'Legal Agent', icon: '⚖️', description: 'Legal matters and compliance' }
-];
-
 export default function LifeCEOEnhanced() {
   const [, setLocation] = useLocation();
   const { user } = useAuth();
+  const { t } = useTranslation();
+  
   const [isRecording, setIsRecording] = useState(false);
   const [language, setLanguage] = useState<'en' | 'es'>('en');
   const [transcript, setTranscript] = useState('');
@@ -71,6 +54,9 @@ export default function LifeCEOEnhanced() {
   const [activeProjectId, setActiveProjectId] = useState<string>('');
   const [isInstallPromptVisible, setIsInstallPromptVisible] = useState(false);
 
+  // Check if user is super admin (must be before queries)
+  const isSuperAdmin = (user as any)?.isSuperAdmin === true;
+
   // Fetch conversations from database
   const { data: conversationsData, isLoading: isLoadingConversations } = useQuery<{ success: boolean; data: Conversation[] }>({
     queryKey: ['/api/life-ceo/conversations'],
@@ -82,6 +68,26 @@ export default function LifeCEOEnhanced() {
     queryKey: ['/api/life-ceo/projects'],
     enabled: !!user && isSuperAdmin
   });
+
+  // Define all 16 Life CEO agents with translations
+  const LIFE_CEO_AGENTS = [
+    { id: 'life-ceo', name: t('lifeceo.agent.life_ceo.name', 'Life CEO'), icon: '👔', description: t('lifeceo.agent.life_ceo.description', 'General life management') },
+    { id: 'business', name: t('lifeceo.agent.business.name', 'Business Agent'), icon: '💼', description: t('lifeceo.agent.business.description', 'Professional development and meetings') },
+    { id: 'finance', name: t('lifeceo.agent.finance.name', 'Finance Agent'), icon: '💰', description: t('lifeceo.agent.finance.description', 'Financial planning and tracking') },
+    { id: 'health', name: t('lifeceo.agent.health.name', 'Health Agent'), icon: '🏥', description: t('lifeceo.agent.health.description', 'Wellness and medical management') },
+    { id: 'relationships', name: t('lifeceo.agent.relationships.name', 'Relationships Agent'), icon: '❤️', description: t('lifeceo.agent.relationships.description', 'Social connections and family') },
+    { id: 'learning', name: t('lifeceo.agent.learning.name', 'Learning Agent'), icon: '📚', description: t('lifeceo.agent.learning.description', 'Education and skill development') },
+    { id: 'creative', name: t('lifeceo.agent.creative.name', 'Creative Agent'), icon: '🎨', description: t('lifeceo.agent.creative.description', 'Artistic projects and expression') },
+    { id: 'network', name: t('lifeceo.agent.network.name', 'Network Agent'), icon: '🌐', description: t('lifeceo.agent.network.description', 'Professional connections') },
+    { id: 'global-mobility', name: t('lifeceo.agent.global_mobility.name', 'Global Mobility Agent'), icon: '✈️', description: t('lifeceo.agent.global_mobility.description', 'Travel and relocation') },
+    { id: 'security', name: t('lifeceo.agent.security.name', 'Security Agent'), icon: '🔒', description: t('lifeceo.agent.security.description', 'Privacy and protection') },
+    { id: 'emergency', name: t('lifeceo.agent.emergency.name', 'Emergency Agent'), icon: '🚨', description: t('lifeceo.agent.emergency.description', 'Crisis management') },
+    { id: 'memory', name: t('lifeceo.agent.memory.name', 'Memory Agent'), icon: '🧠', description: t('lifeceo.agent.memory.description', 'Knowledge and recall') },
+    { id: 'voice', name: t('lifeceo.agent.voice.name', 'Voice Agent'), icon: '🎙️', description: t('lifeceo.agent.voice.description', 'Communication enhancement') },
+    { id: 'data', name: t('lifeceo.agent.data.name', 'Data Agent'), icon: '📊', description: t('lifeceo.agent.data.description', 'Analytics and insights') },
+    { id: 'workflow', name: t('lifeceo.agent.workflow.name', 'Workflow Agent'), icon: '⚙️', description: t('lifeceo.agent.workflow.description', 'Process optimization') },
+    { id: 'legal', name: t('lifeceo.agent.legal.name', 'Legal Agent'), icon: '⚖️', description: t('lifeceo.agent.legal.description', 'Legal matters and compliance') }
+  ];
 
   const conversations = conversationsData?.data || [];
   const projects = projectsData?.data || [];
@@ -98,16 +104,13 @@ export default function LifeCEOEnhanced() {
   const [selectedAgentId, setSelectedAgentId] = useState<string>('life-ceo');
   const [showAgentSwitcher, setShowAgentSwitcher] = useState(false);
 
-  // Check if user is super admin
-  const isSuperAdmin = (user as any)?.isSuperAdmin === true;
-
   // Redirect non-super admins
   useEffect(() => {
     if (user && !isSuperAdmin) {
-      toast.error('Access denied. Life CEO Portal is restricted to Super Admins only.');
+      toast.error(t('lifeceo.error.access_denied', 'Access denied. Life CEO Portal is restricted to Super Admins only.'));
       setLocation('/');
     }
-  }, [user, isSuperAdmin, setLocation]);
+  }, [user, isSuperAdmin, setLocation, t]);
 
   // Register service worker and handle PWA installation
   useEffect(() => {
@@ -139,7 +142,7 @@ export default function LifeCEOEnhanced() {
       queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/conversations'] });
     },
     onError: (error: any) => {
-      toast.error('Failed to save conversation');
+      toast.error(t('lifeceo.error.save_conversation_failed', 'Failed to save conversation'));
       console.error('Save conversation error:', error);
     }
   });
@@ -153,10 +156,10 @@ export default function LifeCEOEnhanced() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/conversations'] });
-      toast.success('Conversation deleted');
+      toast.success(t('lifeceo.success.conversation_deleted', 'Conversation deleted'));
     },
     onError: (error: any) => {
-      toast.error('Failed to delete conversation');
+      toast.error(t('lifeceo.error.delete_conversation_failed', 'Failed to delete conversation'));
       console.error('Delete conversation error:', error);
     }
   });
@@ -173,7 +176,7 @@ export default function LifeCEOEnhanced() {
       queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/projects'] });
     },
     onError: (error: any) => {
-      toast.error('Failed to save project');
+      toast.error(t('lifeceo.error.save_project_failed', 'Failed to save project'));
       console.error('Save project error:', error);
     }
   });
@@ -187,10 +190,10 @@ export default function LifeCEOEnhanced() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/life-ceo/projects'] });
-      toast.success('Project deleted');
+      toast.success(t('lifeceo.success.project_deleted', 'Project deleted'));
     },
     onError: (error: any) => {
-      toast.error('Failed to delete project');
+      toast.error(t('lifeceo.error.delete_project_failed', 'Failed to delete project'));
       console.error('Delete project error:', error);
     }
   });
@@ -236,7 +239,7 @@ export default function LifeCEOEnhanced() {
       };
 
       recognitionInstance.onerror = (event: any) => {
-        toast.error(`Speech recognition failed: ${event.error}`);
+        toast.error(t('lifeceo.error.speech_recognition_failed', `Speech recognition failed: ${event.error}`));
         setIsRecording(false);
       };
 
@@ -250,7 +253,7 @@ export default function LifeCEOEnhanced() {
       deferredPromptRef.current.prompt();
       const { outcome } = await deferredPromptRef.current.userChoice;
       if (outcome === 'accepted') {
-        toast.success('Life CEO app installed successfully!');
+        toast.success(t('lifeceo.success.app_installed', 'Life CEO app installed successfully!'));
       }
       deferredPromptRef.current = null;
       setIsInstallPromptVisible(false);
@@ -261,7 +264,7 @@ export default function LifeCEOEnhanced() {
   const createNewConversation = () => {
     const newConvo: Conversation = {
       id: Date.now().toString(),
-      title: 'New Conversation',
+      title: t('lifeceo.conversation.new_conversation', 'New Conversation'),
       messages: [],
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -273,7 +276,7 @@ export default function LifeCEOEnhanced() {
 
   // Create new project
   const createNewProject = () => {
-    const name = prompt('Enter project name:');
+    const name = prompt(t('lifeceo.project.enter_project_name', 'Enter project name:'));
     if (name) {
       const newProject: Project = {
         id: Date.now().toString(),
@@ -368,7 +371,7 @@ export default function LifeCEOEnhanced() {
         setIsRecording(true);
         setTranscript('');
       } catch (error) {
-        toast.error('Failed to access microphone');
+        toast.error(t('lifeceo.error.microphone_access_denied', 'Failed to access microphone'));
       }
     }
   };
@@ -420,7 +423,7 @@ export default function LifeCEOEnhanced() {
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: data.data.response || 'I understand. How can I help you further?',
+          content: data.data.response || t('lifeceo.response.default', 'I understand. How can I help you further?'),
           timestamp: new Date()
         };
 
@@ -441,10 +444,10 @@ export default function LifeCEOEnhanced() {
           window.speechSynthesis.speak(utterance);
         }
       } else {
-        toast.error(data.error || 'Failed to get response from Life CEO');
+        toast.error(data.error || t('lifeceo.error.failed_response', 'Failed to get response from Life CEO'));
       }
     } catch (error) {
-      toast.error('Failed to process command');
+      toast.error(t('lifeceo.error.failed_process', 'Failed to process command'));
     } finally {
       setIsProcessing(false);
     }
@@ -480,7 +483,7 @@ export default function LifeCEOEnhanced() {
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Search conversations..."
+              placeholder={t('lifeceo.placeholder.search_conversations', 'Search conversations...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -491,7 +494,7 @@ export default function LifeCEOEnhanced() {
           {/* Projects */}
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">Projects</span>
+              <span className="text-sm font-medium text-gray-600">{t('lifeceo.projects', 'Projects')}</span>
               <Button
                 onClick={createNewProject}
                 size="sm"
@@ -554,11 +557,11 @@ export default function LifeCEOEnhanced() {
                 data-testid="button-back"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
+                {t('lifeceo.button.back', 'Back')}
               </Button>
               
               <h1 className="text-xl font-semibold">
-                {activeConversation?.title || 'Life CEO Assistant'}
+                {activeConversation?.title || t('lifeceo.title', 'Life CEO Assistant')}
               </h1>
             </div>
 
@@ -571,7 +574,7 @@ export default function LifeCEOEnhanced() {
                     className="bg-purple-600 hover:bg-purple-700"
                     data-testid="button-install-pwa"
                   >
-                    Install App
+                    {t('lifeceo.button.install_app', 'Install App')}
                   </Button>
                 </div>
               )}
@@ -623,7 +626,7 @@ export default function LifeCEOEnhanced() {
             <div className="flex justify-start">
               <div className="bg-gray-100 p-4 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <div className="animate-pulse" data-testid="status-processing">Processing...</div>
+                  <div className="animate-pulse" data-testid="status-processing">{t('lifeceo.status.processing', 'Processing...')}</div>
                 </div>
               </div>
             </div>
@@ -650,7 +653,7 @@ export default function LifeCEOEnhanced() {
               <Input
                 value={transcript}
                 onChange={(e) => setTranscript(e.target.value)}
-                placeholder={language === 'en' ? "Type or speak your command..." : "Escribe o habla tu comando..."}
+                placeholder={t('lifeceo.placeholder.type_or_speak', 'Type or speak your command...')}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 disabled={isProcessing}
                 data-testid="input-message"
@@ -669,7 +672,7 @@ export default function LifeCEOEnhanced() {
           
           {isRecording && (
             <div className="mt-2 text-sm text-red-500 animate-pulse" data-testid="status-recording">
-              Recording... Speak clearly
+              {t('lifeceo.status.recording', 'Recording... Speak clearly')}
             </div>
           )}
         </div>
@@ -694,7 +697,7 @@ export default function LifeCEOEnhanced() {
               data-testid="button-switch-agent"
             >
               <Brain className="h-4 w-4 mr-1" />
-              Switch Agent ({LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || 'Life CEO'})
+              {t('lifeceo.button.switch_agent', 'Switch Agent')} ({LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || t('lifeceo.title', 'Life CEO')})
             </Button>
           </div>
         </div>
@@ -706,9 +709,9 @@ export default function LifeCEOEnhanced() {
               <div className="bg-gradient-to-r from-turquoise-400 to-cyan-500 p-6 text-white">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold mb-2">Life CEO Agent Selection</h2>
+                    <h2 className="text-2xl font-bold mb-2">{t('lifeceo.modal.agent_selection_title', 'Life CEO Agent Selection')}</h2>
                     <p className="text-turquoise-100 text-sm">
-                      Choose your AI assistant to help manage different aspects of your life
+                      {t('lifeceo.modal.agent_selection_subtitle', 'Choose your AI assistant to help manage different aspects of your life')}
                     </p>
                   </div>
                   <Button
@@ -729,9 +732,9 @@ export default function LifeCEOEnhanced() {
                     {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.icon || '👔'}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Currently Active</p>
+                    <p className="text-sm text-gray-600">{t('lifeceo.modal.currently_active', 'Currently Active')}</p>
                     <h3 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent" data-testid="text-active-agent">
-                      {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || 'Life CEO'}
+                      {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || t('lifeceo.title', 'Life CEO')}
                     </h3>
                   </div>
                 </div>
@@ -748,7 +751,7 @@ export default function LifeCEOEnhanced() {
                         onClick={() => {
                           setSelectedAgentId(agent.id);
                           setShowAgentSwitcher(false);
-                          toast.success(`Switched to ${agent.name}`, {
+                          toast.success(t('lifeceo.success.switched_to_agent', `Switched to ${agent.name}`), {
                             icon: agent.icon,
                             style: {
                               background: 'linear-gradient(to right, #14B8A6, #2DD4BF)',
@@ -768,7 +771,7 @@ export default function LifeCEOEnhanced() {
                         {/* Selected Badge */}
                         {isSelected && (
                           <div className="absolute -top-2 -right-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white text-xs px-3 py-1 rounded-full shadow-lg">
-                            Active
+                            {t('lifeceo.modal.active_badge', 'Active')}
                           </div>
                         )}
                         

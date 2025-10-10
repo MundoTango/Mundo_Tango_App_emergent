@@ -9,8 +9,10 @@ import CommunityCard from '@/components/Community/CommunityCard';
 import EnhancedCityGroupCard from '@/components/Community/EnhancedCityGroupCard';
 import GroupSearch from '@/components/groups/GroupSearch';
 import RecommendedGroups from '@/components/groups/RecommendedGroups';
+import { useTranslation } from 'react-i18next';
 
 export default function GroupsPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchResults, setSearchResults] = useState<any[] | null>(null);
@@ -64,8 +66,8 @@ export default function GroupsPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Joined Community!",
-        description: "You have successfully joined this community.",
+        title: t('groups.toast.joined_title', 'Joined Community!'),
+        description: t('groups.toast.joined_description', 'You have successfully joined this community.'),
         variant: "default",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
@@ -84,8 +86,8 @@ export default function GroupsPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Left Community",
-        description: "You have left this community.",
+        title: t('groups.toast.left_title', 'Left Community'),
+        description: t('groups.toast.left_description', 'You have left this community.'),
         variant: "default",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
@@ -132,12 +134,12 @@ export default function GroupsPage() {
   const displayedGroups = searchResults !== null ? searchResults : filteredGroups;
 
   const filterButtons = [
-    { key: 'all', label: 'All Communities', icon: Globe },
-    { key: 'city', label: 'City Groups', icon: MapPin },
-    { key: 'professional', label: 'Professional', icon: Users },
-    { key: 'music', label: 'Music', icon: Music },
-    { key: 'practice', label: 'Practice', icon: Code },
-    { key: 'festivals', label: 'Festivals', icon: Calendar }
+    { key: 'all', label: t('groups.filter.all', 'All Communities'), icon: Globe },
+    { key: 'city', label: t('groups.filter.city', 'City Groups'), icon: MapPin },
+    { key: 'professional', label: t('groups.filter.professional', 'Professional'), icon: Users },
+    { key: 'music', label: t('groups.filter.music', 'Music'), icon: Music },
+    { key: 'practice', label: t('groups.filter.practice', 'Practice'), icon: Code },
+    { key: 'festivals', label: t('groups.filter.festivals', 'Festivals'), icon: Calendar }
   ];
 
   return (
@@ -145,14 +147,14 @@ export default function GroupsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="page-groups">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2" data-testid="text-page-title">Tango Communities</h1>
-          <p className="text-gray-600 mb-3">Connect with tango dancers around the world</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
+          <p className="text-gray-600 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
           <button
             onClick={() => setLocation('/community-world-map')}
             className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
             data-testid="button-view-world-map"
           >
-            View Community World Map →
+            {t('groups.view_world_map', 'View Community World Map →')}
           </button>
         </div>
 
@@ -163,28 +165,28 @@ export default function GroupsPage() {
               <Users className="h-6 w-6" />
             </div>
             <div className="text-2xl font-bold text-gray-900">{stats.totalCommunities}</div>
-            <div className="text-sm text-gray-600">Total Communities</div>
+            <div className="text-sm text-gray-600">{t('groups.stats.total_communities', 'Total Communities')}</div>
           </div>
           <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-joined-communities">
             <div className="flex items-center justify-center w-12 h-12 bg-pink-100 text-pink-600 rounded-full mx-auto mb-3">
               <Heart className="h-6 w-6" />
             </div>
             <div className="text-2xl font-bold text-gray-900">{stats.joinedCommunities}</div>
-            <div className="text-sm text-gray-600">Joined Communities</div>
+            <div className="text-sm text-gray-600">{t('groups.stats.joined_communities', 'Joined Communities')}</div>
           </div>
           <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-total-events">
             <div className="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-3">
               <Calendar className="h-6 w-6" />
             </div>
             <div className="text-2xl font-bold text-gray-900">{stats.totalEvents}</div>
-            <div className="text-sm text-gray-600">Total Events</div>
+            <div className="text-sm text-gray-600">{t('groups.stats.total_events', 'Total Events')}</div>
           </div>
           <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-cities">
             <div className="flex items-center justify-center w-12 h-12 bg-turquoise-100 text-turquoise-600 rounded-full mx-auto mb-3">
               <MapPin className="h-6 w-6" />
             </div>
             <div className="text-2xl font-bold text-gray-900">{stats.cities}</div>
-            <div className="text-sm text-gray-600">Cities</div>
+            <div className="text-sm text-gray-600">{t('groups.stats.cities', 'Cities')}</div>
           </div>
         </div>
 
@@ -222,7 +224,7 @@ export default function GroupsPage() {
         {isLoading ? (
           <div className="text-center py-12" data-testid="loading-communities">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading communities...</p>
+            <p className="text-gray-600">{t('groups.loading', 'Loading communities...')}</p>
           </div>
         ) : displayedGroups.length > 0 ? (
           <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="list-communities">
@@ -260,9 +262,9 @@ export default function GroupsPage() {
                     community={{
                       id: group.id,
                       name: group.name,
-                      description: group.description || 'Connect with fellow tango enthusiasts and share your passion.',
+                      description: group.description || t('groups.default_description', 'Connect with fellow tango enthusiasts and share your passion.'),
                       imageUrl: group.image_url,
-                      location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || 'Global'),
+                      location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || t('groups.location_global', 'Global')),
                       memberCount: group.member_count || 0,
                       eventCount: getEventCount(group.id),
                       isJoined: group.membershipStatus === 'member'
@@ -279,9 +281,9 @@ export default function GroupsPage() {
         ) : (
           <div className="text-center py-12" data-testid="empty-state-no-communities">
             <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No communities found</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('groups.empty.title', 'No communities found')}</h3>
             <p className="text-gray-600 max-w-md mx-auto">
-              Try adjusting your search or filters to find communities that match your interests.
+              {t('groups.empty.description', 'Try adjusting your search or filters to find communities that match your interests.')}
             </p>
           </div>
         )}

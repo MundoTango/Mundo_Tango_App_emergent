@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { Link, useLocation } from "wouter";
 import { ArrowLeft, Users, Sparkles } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import { 
   MTForm, 
   MTFormButton,
@@ -18,6 +19,7 @@ export default function Register() {
   const { register } = useAuth();
   const { toast } = useToast();
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -41,13 +43,13 @@ export default function Register() {
         password: data.password,
       });
       toast({
-        title: "Welcome to Mundo Tango! 🎉",
-        description: "Your account has been created successfully. Let's set up your profile!",
+        title: t('auth.register.success_title', 'Welcome to Mundo Tango! 🎉'),
+        description: t('auth.register.success_message', "Your account has been created successfully. Let's set up your profile!"),
       });
     } catch (error: any) {
       toast({
-        title: "Registration failed",
-        description: error.message || "Please try again.",
+        title: t('auth.register.error_title', 'Registration failed'),
+        description: error.message || t('auth.register.error_message', 'Please try again.'),
         variant: "destructive",
       });
     }
@@ -70,7 +72,7 @@ export default function Register() {
             data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back
+            {t('auth.register.back_button', 'Back')}
           </MTFormButton>
           
           <div className="mx-auto relative">
@@ -84,10 +86,10 @@ export default function Register() {
           
           <div>
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-teal-600 bg-clip-text text-transparent">
-              Join Mundo Tango
+              {t('auth.register.title', 'Join Mundo Tango')}
             </CardTitle>
             <CardDescription className="text-gray-600 mt-2">
-              Connect with the global tango community
+              {t('auth.register.subtitle', 'Connect with the global tango community')}
             </CardDescription>
           </div>
         </CardHeader>
@@ -102,56 +104,56 @@ export default function Register() {
             <MTFormField
               control={form.control}
               name="name"
-              label="Full Name"
-              placeholder="Maria González"
+              label={t('auth.register.name_label', 'Full Name')}
+              placeholder={t('auth.register.name_placeholder', 'Maria González')}
               type="text"
               required
               autoComplete="name"
-              description="Your display name in the community"
+              description={t('auth.register.name_description', 'Your display name in the community')}
               data-testid="input-name"
             />
 
             <MTFormField
               control={form.control}
               name="username"
-              label="Username"
-              placeholder="maria_tango"
+              label={t('auth.register.username_label', 'Username')}
+              placeholder={t('auth.register.username_placeholder', 'maria_tango')}
               type="text"
               required
               autoComplete="username"
-              description="Choose a unique username (3-20 characters)"
+              description={t('auth.register.username_description', 'Choose a unique username (3-20 characters)')}
               data-testid="input-username"
             />
 
             <MTFormField
               control={form.control}
               name="email"
-              label="Email Address"
-              placeholder="maria@example.com"
+              label={t('auth.register.email_label', 'Email Address')}
+              placeholder={t('auth.register.email_placeholder', 'maria@example.com')}
               type="email"
               required
               autoComplete="email"
-              description="We'll use this for login and notifications"
+              description={t('auth.register.email_description', "We'll use this for login and notifications")}
               data-testid="input-email"
             />
 
             <MTFormField
               control={form.control}
               name="password"
-              label="Password"
-              placeholder="Create a strong password"
+              label={t('auth.register.password_label', 'Password')}
+              placeholder={t('auth.register.password_placeholder', 'Create a strong password')}
               type="password"
               required
               autoComplete="new-password"
-              description="At least 8 characters with uppercase, lowercase, number and special character"
+              description={t('auth.register.password_description', 'At least 8 characters with uppercase, lowercase, number and special character')}
               data-testid="input-password"
             />
 
             <MTFormField
               control={form.control}
               name="confirmPassword"
-              label="Confirm Password"
-              placeholder="Re-enter your password"
+              label={t('auth.register.confirm_password_label', 'Confirm Password')}
+              placeholder={t('auth.register.confirm_password_placeholder', 'Re-enter your password')}
               type="password"
               required
               autoComplete="new-password"
@@ -162,7 +164,7 @@ export default function Register() {
               <MTFormCheckbox
                 control={form.control}
                 name="acceptTerms"
-                label="I accept the Terms and Conditions"
+                label={t('auth.register.accept_terms', 'I accept the Terms and Conditions')}
                 required
                 data-testid="checkbox-terms"
               />
@@ -170,7 +172,7 @@ export default function Register() {
               <MTFormCheckbox
                 control={form.control}
                 name="acceptPrivacy"
-                label="I accept the Privacy Policy"
+                label={t('auth.register.accept_privacy', 'I accept the Privacy Policy')}
                 required
                 data-testid="checkbox-privacy"
               />
@@ -184,7 +186,7 @@ export default function Register() {
               className="w-full mt-6"
               data-testid="button-submit"
             >
-              {form.formState.isSubmitting ? "Creating account..." : "Create Account"}
+              {form.formState.isSubmitting ? t('auth.register.creating_account', 'Creating account...') : t('auth.register.create_account_button', 'Create Account')}
             </MTFormButton>
           </MTForm>
 
@@ -193,7 +195,7 @@ export default function Register() {
               <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">Or sign up with</span>
+              <span className="px-4 bg-white text-gray-500">{t('auth.register.or_sign_up_with', 'Or sign up with')}</span>
             </div>
           </div>
 
@@ -202,8 +204,8 @@ export default function Register() {
               variant="outline"
               onClick={() => {
                 toast({
-                  title: "Coming Soon",
-                  description: "Google sign-up will be available soon!",
+                  title: t('auth.register.coming_soon_title', 'Coming Soon'),
+                  description: t('auth.register.google_coming_soon', 'Google sign-up will be available soon!'),
                 });
               }}
               className="flex items-center justify-center gap-2"
@@ -227,15 +229,15 @@ export default function Register() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Google
+              {t('auth.register.google', 'Google')}
             </MTFormButton>
 
             <MTFormButton
               variant="outline"
               onClick={() => {
                 toast({
-                  title: "Coming Soon",
-                  description: "Facebook sign-up will be available soon!",
+                  title: t('auth.register.coming_soon_title', 'Coming Soon'),
+                  description: t('auth.register.facebook_coming_soon', 'Facebook sign-up will be available soon!'),
                 });
               }}
               className="flex items-center justify-center gap-2"
@@ -244,19 +246,19 @@ export default function Register() {
               <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
-              Facebook
+              {t('auth.register.facebook', 'Facebook')}
             </MTFormButton>
           </div>
 
           <div className="mt-8 pt-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-600">
-              Already have an account?{" "}
+              {t('auth.register.have_account', 'Already have an account?')}{" "}
               <Link 
                 href="/login" 
                 className="text-teal-600 hover:text-teal-700 font-semibold underline underline-offset-2 transition-colors"
                 data-testid="link-login"
               >
-                Sign in here
+                {t('auth.register.sign_in_link', 'Sign in here')}
               </Link>
             </p>
           </div>
