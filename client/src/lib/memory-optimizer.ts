@@ -31,10 +31,11 @@ export class MemoryOptimizer {
 
   private performCleanup() {
     try {
-      // Clear stale query cache entries
-      if ((window as any).queryClient) {
-        (window as any).queryClient.getQueryCache().clear();
-      }
+      // ESA FIX: DO NOT clear React Query cache - it destroys active data!
+      // React Query has its own GC with staleTime/gcTime settings
+      // if ((window as any).queryClient) {
+      //   (window as any).queryClient.getQueryCache().clear();
+      // }
 
       // Clear console logs to reduce memory
       if (console.clear && import.meta.env.PROD) {
