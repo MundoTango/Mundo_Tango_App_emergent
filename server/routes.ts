@@ -73,6 +73,8 @@ import tagRoutes from "./routes/tagRoutes"; // ESA LIFE CEO 61x21 - Tag manageme
 import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
+import { jiraProjectSync } from "./services/JiraProjectSync";
+import { resumeAI } from "./services/ResumeAIOrchestrator";
 import recommendationsRoutes from "./routes/recommendationsRoutes"; // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
 import paymentRoutes from "./routes/paymentRoutes"; // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
 import translationRoutes from "./routes/translationRoutes"; // ESA Layer 53: Internationalization & Translation System
@@ -4089,6 +4091,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
     console.error('⚠️ Agent Learning System initialization failed:', error);
     // Continue without learning system - non-critical
   }
+
+  // ESA Agent #62 (Resume AI) - Jira Integration Endpoints
+  app.get('/api/agent/jira-sync', async (req, res) => {
+    try {
+      const result = await jiraProjectSync.syncProjectPlan();
+      res.json({
+        success: true,
+        message: 'Jira project sync completed',
+        data: result
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Jira sync failed',
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/agent/jira-status', async (req, res) => {
+    try {
+      const status = await jiraProjectSync.getProjectStatus();
+      res.json({
+        success: true,
+        data: status
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Failed to get project status',
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/agent/resume-package', async (req, res) => {
+    try {
+      const resumePackage = await resumeAI.generatePhase1to4Resume();
+      res.json({
+        success: true,
+        data: resumePackage
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Failed to generate resume package',
+        error: (error as Error).message
+      });
+    }
+  });
 
   // Production Health Check Endpoints for Autoscaling
   app.get('/health', async (req, res) => {
