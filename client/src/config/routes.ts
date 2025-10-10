@@ -562,6 +562,13 @@ export const productionRoutes: RouteConfig[] = [
 
   // ========== Legal & Compliance Routes ==========
   {
+    path: '/help',
+    component: lazy(() => import('@/pages/HelpSupport')),
+    mode: 'production',
+    loadingMessage: 'Loading help...',
+    description: 'Help and support center'
+  },
+  {
     path: '/code-of-conduct',
     component: lazy(() => import('@/pages/code-of-conduct')),
     mode: 'production',
@@ -576,18 +583,18 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Terms of service'
   },
   {
+    path: '/privacy',
+    component: lazy(() => import('@/pages/PrivacyAnalytics')),
+    mode: 'production',
+    loadingMessage: 'Loading privacy settings...',
+    description: 'Privacy settings and analytics'
+  },
+  {
     path: '/privacy-policy',
     component: lazy(() => import('@/pages/code-of-conduct')),
     mode: 'production',
     loadingMessage: 'Loading privacy policy...',
     description: 'Privacy policy'
-  },
-  {
-    path: '/privacy-analytics',
-    component: lazy(() => import('@/pages/PrivacyAnalytics')),
-    mode: 'production',
-    loadingMessage: 'Loading privacy settings...',
-    description: 'Privacy analytics'
   },
 
   // ========== Additional Platform Routes ==========
