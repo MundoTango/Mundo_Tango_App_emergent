@@ -144,151 +144,256 @@ export default function GroupsPage() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="page-groups">
+      <main 
+        role="main" 
+        aria-label={t('groups.aria.main_content', 'Groups main content')}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" 
+        data-testid="page-groups"
+      >
         {/* Header */}
-        <div className="text-center mb-8">
+        <header 
+          role="banner"
+          aria-label={t('groups.aria.page_header', 'Groups page header')}
+          className="text-center mb-8"
+        >
           <h1 className="text-3xl font-bold text-gray-900 mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
           <p className="text-gray-600 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
           <button
             onClick={() => setLocation('/community-world-map')}
             className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
+            aria-label={t('groups.aria.view_map', 'Navigate to community world map')}
             data-testid="button-view-world-map"
           >
             {t('groups.view_world_map', 'View Community World Map →')}
           </button>
-        </div>
+        </header>
 
         {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-total-communities">
-            <div className="flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mx-auto mb-3">
+        <section
+          role="region"
+          aria-label={t('groups.aria.statistics_section', 'Community statistics')}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+        >
+          <div 
+            role="region"
+            aria-label={t('groups.aria.stat_total', `${stats.totalCommunities} total communities`)}
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            data-testid="card-stat-total-communities"
+          >
+            <div 
+              className="flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mx-auto mb-3"
+              aria-hidden="true"
+            >
               <Users className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalCommunities}</div>
+            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.total_count', `${stats.totalCommunities} communities`)}>{stats.totalCommunities}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.total_communities', 'Total Communities')}</div>
           </div>
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-joined-communities">
-            <div className="flex items-center justify-center w-12 h-12 bg-pink-100 text-pink-600 rounded-full mx-auto mb-3">
+          <div 
+            role="region"
+            aria-label={t('groups.aria.stat_joined', `${stats.joinedCommunities} joined communities`)}
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            data-testid="card-stat-joined-communities"
+          >
+            <div 
+              className="flex items-center justify-center w-12 h-12 bg-pink-100 text-pink-600 rounded-full mx-auto mb-3"
+              aria-hidden="true"
+            >
               <Heart className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.joinedCommunities}</div>
+            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.joined_count', `${stats.joinedCommunities} joined`)}>{stats.joinedCommunities}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.joined_communities', 'Joined Communities')}</div>
           </div>
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-total-events">
-            <div className="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-3">
+          <div 
+            role="region"
+            aria-label={t('groups.aria.stat_events', `${stats.totalEvents} total events`)}
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            data-testid="card-stat-total-events"
+          >
+            <div 
+              className="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-3"
+              aria-hidden="true"
+            >
               <Calendar className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalEvents}</div>
+            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.events_count', `${stats.totalEvents} events`)}>{stats.totalEvents}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.total_events', 'Total Events')}</div>
           </div>
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" data-testid="card-stat-cities">
-            <div className="flex items-center justify-center w-12 h-12 bg-turquoise-100 text-turquoise-600 rounded-full mx-auto mb-3">
+          <div 
+            role="region"
+            aria-label={t('groups.aria.stat_cities', `${stats.cities} cities`)}
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            data-testid="card-stat-cities"
+          >
+            <div 
+              className="flex items-center justify-center w-12 h-12 bg-turquoise-100 text-turquoise-600 rounded-full mx-auto mb-3"
+              aria-hidden="true"
+            >
               <MapPin className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.cities}</div>
+            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.cities_count', `${stats.cities} cities`)}>{stats.cities}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.cities', 'Cities')}</div>
           </div>
-        </div>
+        </section>
 
         {/* Advanced Search Component */}
-        <div data-testid="component-group-search">
+        <section
+          role="search"
+          aria-label={t('groups.aria.search_section', 'Search communities')}
+          data-testid="component-group-search"
+        >
           <GroupSearch 
             onSearchResults={handleSearchResults}
             onClearFilters={handleClearFilters}
+            aria-label={t('groups.aria.search', 'Search communities')}
           />
-        </div>
+        </section>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          {filterButtons.map((filter) => (
-            <button
-              key={filter.key}
-              onClick={() => setActiveFilter(filter.key)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
-                activeFilter === filter.key
-                  ? 'bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white shadow-lg'
-                  : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-              }`}
-              data-testid={`button-filter-${filter.key}`}
-            >
-              <filter.icon className="h-4 w-4" />
-              {filter.label}
-            </button>
-          ))}
-        </div>
+        <nav
+          role="navigation"
+          aria-label={t('groups.aria.filter_navigation', 'Community filters')}
+          className="flex flex-wrap gap-3 mb-6"
+        >
+          <div 
+            role="radiogroup"
+            aria-label={t('groups.aria.filter_group', 'Filter communities by type')}
+            className="flex flex-wrap gap-3"
+          >
+            {filterButtons.map((filter) => (
+              <button
+                key={filter.key}
+                role="radio"
+                aria-checked={activeFilter === filter.key}
+                aria-label={t(`groups.aria.filter_${filter.key}`, `Filter by ${filter.label.toLowerCase()}`)}
+                onClick={() => setActiveFilter(filter.key)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                  activeFilter === filter.key
+                    ? 'bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                }`}
+                data-testid={`button-filter-${filter.key}`}
+              >
+                <filter.icon className="h-4 w-4" aria-hidden="true" />
+                {filter.label}
+              </button>
+            ))}
+          </div>
+        </nav>
 
         {/* AI Recommendations */}
-        <RecommendedGroups />
+        <section
+          role="region"
+          aria-label={t('groups.aria.recommendations_section', 'Recommended communities')}
+        >
+          <RecommendedGroups />
+        </section>
 
         {/* Communities Grid */}
         {isLoading ? (
-          <div className="text-center py-12" data-testid="loading-communities">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
+          <div 
+            role="status" 
+            aria-live="polite" 
+            aria-busy="true"
+            aria-label={t('groups.aria.loading', 'Loading communities')}
+            className="text-center py-12" 
+            data-testid="loading-communities"
+          >
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4" aria-hidden="true"></div>
             <p className="text-gray-600">{t('groups.loading', 'Loading communities...')}</p>
           </div>
         ) : displayedGroups.length > 0 ? (
-          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="list-communities">
-            {displayedGroups.map((group: any) => {
-              // Use EnhancedCityGroupCard for city groups
-              if (group.type === 'city') {
+          <section
+            role="region"
+            aria-label={t('groups.aria.communities_section', 'Communities list')}
+          >
+            <div ref={gridRef}>
+              <ul 
+                role="list"
+                aria-label={t('groups.aria.community_list', 'Community list')}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
+                data-testid="list-communities"
+              >
+              {displayedGroups.map((group: any) => {
+                // Use EnhancedCityGroupCard for city groups
+                if (group.type === 'city') {
+                  return (
+                    <li 
+                      key={group.id} 
+                      role="listitem"
+                      aria-label={t('groups.aria.community_item', `${group.name} community card`)}
+                      className="community-card-item" 
+                      data-testid={`card-community-${group.slug}`}
+                    >
+                      <EnhancedCityGroupCard
+                        group={{
+                          id: group.id,
+                          name: group.name,
+                          slug: group.slug,
+                          description: group.description,
+                          imageUrl: group.image_url || group.imageUrl,
+                          city: group.city,
+                          country: group.country,
+                          memberCount: group.member_count || group.memberCount || 0,
+                          eventCount: getEventCount(group.id),
+                          isJoined: group.membershipStatus === 'member',
+                          type: group.type
+                        }}
+                        onJoin={() => joinGroupMutation.mutate(group.slug)}
+                        onLeave={() => leaveGroupMutation.mutate(group.slug)}
+                        testIdSuffix={group.slug}
+                      />
+                    </li>
+                  );
+                }
+                
+                // Use regular CommunityCard for other groups
                 return (
-                  <div key={group.id} className="community-card-item" data-testid={`card-community-${group.slug}`}>
-                    <EnhancedCityGroupCard
-                      group={{
+                  <li 
+                    key={group.id} 
+                    role="listitem"
+                    aria-label={t('groups.aria.community_item', `${group.name} community card`)}
+                    className="community-card-item" 
+                    data-testid={`card-community-${group.slug}`}
+                  >
+                    <CommunityCard
+                      community={{
                         id: group.id,
                         name: group.name,
-                        slug: group.slug,
-                        description: group.description,
-                        imageUrl: group.image_url || group.imageUrl,
-                        city: group.city,
-                        country: group.country,
-                        memberCount: group.member_count || group.memberCount || 0,
+                        description: group.description || t('groups.default_description', 'Connect with fellow tango enthusiasts and share your passion.'),
+                        imageUrl: group.image_url,
+                        location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || t('groups.location_global', 'Global')),
+                        memberCount: group.member_count || 0,
                         eventCount: getEventCount(group.id),
-                        isJoined: group.membershipStatus === 'member',
-                        type: group.type
+                        isJoined: group.membershipStatus === 'member'
                       }}
                       onJoin={() => joinGroupMutation.mutate(group.slug)}
                       onLeave={() => leaveGroupMutation.mutate(group.slug)}
+                      onClick={() => setLocation(`/groups/${group.slug}`)}
                       testIdSuffix={group.slug}
                     />
-                  </div>
+                  </li>
                 );
-              }
-              
-              // Use regular CommunityCard for other groups
-              return (
-                <div key={group.id} className="community-card-item" data-testid={`card-community-${group.slug}`}>
-                  <CommunityCard
-                    community={{
-                      id: group.id,
-                      name: group.name,
-                      description: group.description || t('groups.default_description', 'Connect with fellow tango enthusiasts and share your passion.'),
-                      imageUrl: group.image_url,
-                      location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || t('groups.location_global', 'Global')),
-                      memberCount: group.member_count || 0,
-                      eventCount: getEventCount(group.id),
-                      isJoined: group.membershipStatus === 'member'
-                    }}
-                    onJoin={() => joinGroupMutation.mutate(group.slug)}
-                    onLeave={() => leaveGroupMutation.mutate(group.slug)}
-                    onClick={() => setLocation(`/groups/${group.slug}`)}
-                    testIdSuffix={group.slug}
-                  />
-                </div>
-              );
-            })}
-          </div>
+              })}
+              </ul>
+            </div>
+          </section>
         ) : (
-          <div className="text-center py-12" data-testid="empty-state-no-communities">
-            <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+          <div 
+            role="status" 
+            aria-live="polite"
+            aria-label={t('groups.aria.empty_state', 'No communities found')}
+            className="text-center py-12" 
+            data-testid="empty-state-no-communities"
+          >
+            <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" aria-hidden="true" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('groups.empty.title', 'No communities found')}</h3>
             <p className="text-gray-600 max-w-md mx-auto">
               {t('groups.empty.description', 'Try adjusting your search or filters to find communities that match your interests.')}
             </p>
           </div>
         )}
-      </div>
+      </main>
     </DashboardLayout>
   );
 }
-
