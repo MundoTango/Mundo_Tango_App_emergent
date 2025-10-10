@@ -109,14 +109,25 @@ const LanguageSelector = ({
       className="flex items-center justify-between cursor-pointer"
       disabled={isChanging}
     >
-      <div className="flex items-center gap-2">
-        {showFlags && <span className={isTango ? "text-2xl" : "text-lg"}>{lang.flag}</span>}
-        <div className="flex flex-col">
-          <span className="font-medium">{lang.name}</span>
-          <span className="text-xs text-muted-foreground">{lang.nativeName}</span>
-        </div>
-      </div>
-      {isSelected && <Check className="h-4 w-4 text-primary" />}
+      {isTango ? (
+        // Tango languages: Just flag and checkmark
+        <>
+          {showFlags && <span className="text-3xl">{lang.flag}</span>}
+          {isSelected && <Check className="h-4 w-4 text-primary ml-auto" />}
+        </>
+      ) : (
+        // Regional languages: Flag with text
+        <>
+          <div className="flex items-center gap-2">
+            {showFlags && <span className="text-lg">{lang.flag}</span>}
+            <div className="flex flex-col">
+              <span className="font-medium">{lang.name}</span>
+              <span className="text-xs text-muted-foreground">{lang.nativeName}</span>
+            </div>
+          </div>
+          {isSelected && <Check className="h-4 w-4 text-primary" />}
+        </>
+      )}
     </DropdownMenuItem>
   );
 
@@ -179,7 +190,7 @@ const LanguageSelector = ({
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 max-h-[500px] overflow-y-auto">
+      <DropdownMenuContent align="end" className="w-64 max-h-[500px] overflow-y-auto">
         <DropdownMenuLabel className="flex items-center justify-between">
           <span>Choose Language</span>
           <Badge variant="secondary" className="text-xs">
