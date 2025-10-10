@@ -231,13 +231,16 @@ export function usePostFeed({
     staleTime: 0, // Always fetch fresh data
     gcTime: 30 * 60 * 1000, // Keep in cache for 30 min
     queryFn: async () => {
+      console.log('🔍 [usePostFeed] Executing fetch:', fetchUrl);
       const response = await fetch(fetchUrl, {
         credentials: 'include', // CRITICAL: Include session cookies for auth
       });
       if (!response.ok) {
+        console.error('❌ [usePostFeed] Fetch failed:', response.status, response.statusText);
         throw new Error(`Failed to fetch posts: ${response.statusText}`);
       }
       const data = await response.json();
+      console.log('✅ [usePostFeed] Fetch success, posts:', data.posts?.length || 0);
       
       // SINGLE TRANSFORMATION: Directly return normalized structure
       return {
@@ -246,6 +249,19 @@ export function usePostFeed({
         total: data.total,
       };
     },
+  });
+
+  // ESA DEBUG: Log query state
+  console.log('🔍 [usePostFeed] Query state:', {
+    context,
+    queryKey,
+    fetchUrl,
+    enabled,
+    isLoading: query.isLoading,
+    isFetching: query.isFetching,
+    isError: query.isError,
+    postsCount: query.data?.posts?.length ?? 0,
+    error: query.error
   });
 
   return {
