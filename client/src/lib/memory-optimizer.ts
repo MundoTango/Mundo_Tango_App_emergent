@@ -37,10 +37,10 @@ export class MemoryOptimizer {
       //   (window as any).queryClient.getQueryCache().clear();
       // }
 
-      // Clear console logs to reduce memory
-      if (console.clear && import.meta.env.PROD) {
-        console.clear();
-      }
+      // ESA DEBUG: Temporarily disabled console.clear for debugging
+      // if (console.clear && import.meta.env.PROD) {
+      //   console.clear();
+      // }
 
       // Force garbage collection if available
       if (window.gc && typeof window.gc === 'function') {

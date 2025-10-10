@@ -218,6 +218,8 @@ export default function ControlledPostFeed({
           </div>
         ) : (
           <>
+            {/* ESA DEBUG: Verify posts are being mapped */}
+            {console.log('📝 [ControlledPostFeed] Rendering posts:', posts.slice(0, 3).map(p => ({ id: p.id, content: p.content?.substring(0, 50) })))}
             {posts.map((post) => (
               <div key={post.id} className="post-item">
                 <EnhancedPostItem

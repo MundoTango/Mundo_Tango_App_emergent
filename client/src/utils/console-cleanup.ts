@@ -49,10 +49,10 @@ export function initializeConsoleCleanup(): void {
     };
   });
 
-  // Clean up any existing console output
-  if (console.clear) {
-    console.clear();
-  }
+  // ESA DEBUG: Temporarily disabled console.clear for debugging
+  // if (console.clear) {
+  //   console.clear();
+  // }
 
   // Prevent framework detection through error stack traces
   const originalError = Error;

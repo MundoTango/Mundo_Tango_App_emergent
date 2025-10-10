@@ -101,6 +101,32 @@ export default function SmartPostFeed({
     filters
   });
 
+  // ESA DEBUG: Visible debug panel on page
+  const debugInfo = (
+    <div style={{
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      background: 'rgba(0,0,0,0.9)',
+      color: '#0ff',
+      padding: '12px',
+      borderRadius: '8px',
+      fontSize: '11px',
+      fontFamily: 'monospace',
+      zIndex: 99999,
+      maxWidth: '300px',
+      border: '2px solid #0ff'
+    }}>
+      <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>🔍 DEBUG PANEL</div>
+      <div>Posts: {posts.length}</div>
+      <div>Loading: {isLoading ? 'YES' : 'NO'}</div>
+      <div>Fetching: {isFetching ? 'YES' : 'NO'}</div>
+      <div>Page: {page}</div>
+      <div>Context: {context.type}</div>
+      <div>Filter: {filterBy}</div>
+    </div>
+  );
+
   // Data handlers (bridge between data hooks and controlled component)
   const handleLoadMore = useCallback(() => {
     if (!isFetching && hasMore) {
@@ -138,7 +164,9 @@ export default function SmartPostFeed({
 
   // Render controlled component with data
   return (
-    <ControlledPostFeed
+    <>
+      {debugInfo}
+      <ControlledPostFeed
       posts={posts}
       isLoading={isLoading}
       isFetching={isFetching}
@@ -156,5 +184,6 @@ export default function SmartPostFeed({
       className={className}
       emptyMessage={emptyMessage}
     />
+    </>
   );
 }
