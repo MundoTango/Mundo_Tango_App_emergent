@@ -115,7 +115,7 @@ Ensures core ai infrastructure is optimized for performance, reliability, and us
 OpenAI GPT-4o integration
 
 ## 📚 Reference Documentation
-- ESA_ORCHESTRATION.md - Master framework
-- ESA.md - ESA 61x21 foundation
+- esa.md - Master framework
+- ESA_FRAMEWORK.md - ESA 61x21 foundation
 - ESA_AGENT_ORG_CHART.md - Agent hierarchy
 - ESA_AGENT_A2A_PROTOCOL.md - Communication protocol

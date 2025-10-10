@@ -6,8 +6,8 @@ This project is an AI-powered life management system (Life CEO) integrated with 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 Do not reference monetary values or investment amounts when describing the platform.
-When user says "Use ESA", reference the **ESA_ORCHESTRATION.md** as the primary entry point, which orchestrates:
-- ESA.md (61 layers framework)
+When user says "Use ESA", reference the **esa.md** as the primary entry point, which orchestrates:
+- ESA_FRAMEWORK.md (61 layers framework)
 - docs/pages/esa-agents/index.md (AI agent system)
 - docs/pages/design-systems/aurora-tide.md (design standards)
 - ESA_DEPLOYMENT_AUDIT.md (deployment audit)

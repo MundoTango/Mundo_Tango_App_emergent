@@ -101,7 +101,7 @@ Copy template to: `docs/pages/esa-tools/[domain]-audit-methodology.md`
 
 Add your agent to:
 - `docs/pages/esa-agents/index.md` (Agent list)
-- `docs/platform-handoff/ESA_ORCHESTRATION.md` (Master orchestration)
+- `docs/platform-handoff/esa.md` (Master orchestration)
 
 ✅ **Done!** Your agent is now part of the ESA 61x21 framework.
 
@@ -518,7 +518,7 @@ This 5-day bootcamp trains new agents to expert level using the 6-phase methodol
 ### Day 1: Foundation & Resource Discovery
 
 **8:00 AM - All Agents Sync (30 min)**
-- Review ESA_ORCHESTRATION.md together
+- Review esa.md together
 - Understand the 61 layers and where each agent fits
 - Learn the 6-Phase Learning Methodology
 
@@ -1349,8 +1349,8 @@ Create your methodology file at: `docs/pages/esa-tools/[domain]-audit-methodolog
 
 ## 🔗 Related Documentation
 
-- **ESA Orchestration:** `docs/platform-handoff/ESA_ORCHESTRATION.md`
-- **ESA Framework:** `docs/platform-handoff/ESA.md`
+- **ESA Orchestration:** `docs/platform-handoff/esa.md`
+- **ESA Framework:** `docs/platform-handoff/ESA_FRAMEWORK.md`
 - **Agent Index:** `docs/pages/esa-agents/index.md`
 - **Related Agents:** [List related agent methodologies]
 
@@ -1374,7 +1374,7 @@ touch docs/pages/esa-tools/[domain]-audit-methodology.md
 echo "Agent #[X]: [Domain] Expert" >> docs/pages/esa-agents/index.md
 
 # 3. Add to orchestration
-# Edit docs/platform-handoff/ESA_ORCHESTRATION.md
+# Edit docs/platform-handoff/esa.md
 ```
 
 **Run Agent Audit:**
@@ -1430,8 +1430,8 @@ npm run audit:comprehensive
 ## 📚 Related Documentation
 
 ### Core Framework
-- **ESA Master Orchestration:** `docs/platform-handoff/ESA_ORCHESTRATION.md`
-- **ESA 61x21 Framework:** `docs/platform-handoff/ESA.md`
+- **ESA Master Orchestration:** `docs/platform-handoff/esa.md`
+- **ESA 61x21 Framework:** `docs/platform-handoff/ESA_FRAMEWORK.md`
 - **Framework Evolution:** `docs/ESA_FRAMEWORK_COMPLETE_HISTORY.md`
 
 ### Agent System

@@ -124,8 +124,8 @@ Maintains shadcn/ui and Radix UI component standards, accessibility compliance, 
 - Compound component pattern
 
 ## 📚 Reference Documentation
-- ESA_ORCHESTRATION.md - Master framework
-- ESA.md - ESA 61x21 foundation
+- esa.md - Master framework
+- ESA_FRAMEWORK.md - ESA 61x21 foundation
 - ESA_AGENT_ORG_CHART.md - Agent hierarchy
 - ESA_AGENT_A2A_PROTOCOL.md - Communication protocol
 - shadcn/ui Documentation

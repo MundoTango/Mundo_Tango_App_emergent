@@ -6,7 +6,7 @@ This project is an AI-powered life management system (Life CEO) integrated with 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 Do not reference monetary values or investment amounts when describing the platform.
-When user says "Use ESA", reference **docs/platform-handoff/ESA_ORCHESTRATION.md** as the primary entry point.
+When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
 
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
@@ -51,8 +51,8 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 When working with the ESA framework, use these entry points:
 
 #### Primary Documentation
-- **ESA_ORCHESTRATION.md** - Master entry point for all ESA documentation (docs/platform-handoff/)
-- **ESA.md** - ESA 61x21 framework foundation with all 61 layers and 21 phases (docs/platform-handoff/)
+- **esa.md** - Master entry point for all ESA documentation (docs/platform-handoff/)
+- **ESA_FRAMEWORK.md** - ESA 61x21 framework foundation with all 61 layers and 21 phases (docs/platform-handoff/)
 
 #### Agent Organization (100 Agents)
 - **ESA_AGENT_ORG_CHART.md** - Complete hierarchical structure: 1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 16 Life CEO (docs/platform-handoff/)

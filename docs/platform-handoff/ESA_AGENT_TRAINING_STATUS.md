@@ -801,8 +801,8 @@ Extended (57-61):        [░░░░░░░░░░] 0% (0/5)
 ## 📚 Training Resources
 
 ### Core Documents
-- [ ] `ESA_ORCHESTRATION.md` - Master entry point
-- [ ] `ESA.md` - ESA 61x21 framework foundation
+- [ ] `esa.md` - Master entry point
+- [ ] `ESA_FRAMEWORK.md` - ESA 61x21 framework foundation
 - [ ] `ESA_AGENT_ORG_CHART.md` - Complete org structure
 - [ ] `ESA_AGENT_A2A_PROTOCOL.md` - Communication protocol
 - [ ] `ESA_NEW_AGENT_GUIDE.md` - Training methodology

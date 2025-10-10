@@ -75,7 +75,7 @@ Agent #0 (ESA CEO/Orchestrator)
 
 ## 🤖 Agent #0 (ESA CEO) Quick Reference
 
-**Primary Document:** This file (ESA_ORCHESTRATION.md) is your master orchestration guide
+**Primary Document:** This file (esa.md) is your master orchestration guide
 
 ### Critical Documents for Agent Orchestration:
 
@@ -91,7 +91,7 @@ Agent #0 (ESA CEO/Orchestrator)
    - Conflict resolution process
    - Message format standards
 
-3. **[ESA.md](./ESA.md)** - Technical framework
+3. **[ESA_FRAMEWORK.md](./ESA_FRAMEWORK.md)** - Technical framework
    - All 61 layers of the ESA framework
    - Layer dependencies and integration
    - Technology stack per layer
@@ -228,7 +228,7 @@ Before building any feature, each ESA agent researches **10 world-class experts*
 ---
 
 ## 📖 ESA Framework
-### ESA.md
+### ESA_FRAMEWORK.md
 
 **Purpose:** Complete technical architecture framework with 61 layers and 21 implementation phases
 
@@ -274,7 +274,7 @@ Before building any feature, each ESA agent researches **10 world-class experts*
 13. Security → 14. Testing → 15. Documentation → 16. i18n → 17. Accessibility
 18. SEO → 19. Compliance → 20. Deployment → 21. Continuous Improvement
 
-**🔗 Full Guide:** `ESA.md`
+**🔗 Full Guide:** `ESA_FRAMEWORK.md`
 
 ---
 
@@ -1034,7 +1034,7 @@ All 100 agents must complete:
 ## 🔗 External Resources
 
 ### Core Documentation Links
-- **ESA Framework:** `ESA.md`
+- **ESA Framework:** `ESA_FRAMEWORK.md`
 - **Agent Org Chart:** `ESA_AGENT_ORG_CHART.md`
 - **A2A Protocol:** `ESA_AGENT_A2A_PROTOCOL.md`
 - **Training Status:** `ESA_AGENT_TRAINING_STATUS.md`

@@ -3,7 +3,7 @@
 
 **Last Updated:** October 10, 2025  
 **Purpose:** Comprehensive API endpoint documentation for integration  
-**Framework Reference:** ESA.md (61 Technical Layers)
+**Framework Reference:** ESA_FRAMEWORK.md (61 Technical Layers)
 
 ---
 
@@ -469,7 +469,7 @@ When integrating a new module, ensure it:
 - **Data Models:** `shared/schema.ts`
 - **Frontend Routes:** `client/src/config/routes.ts`
 - **Page Registry:** `docs/pages/page-audit-registry.json`
-- **ESA Framework:** `ESA.md` (61 Technical Layers)
+- **ESA Framework:** `ESA_FRAMEWORK.md` (61 Technical Layers)
 - **Design System:** `docs/pages/design-systems/aurora-tide.md`
 
 ---
