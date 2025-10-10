@@ -60,6 +60,16 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    
+    // ESA Agent #66: Code Quality Gates
+    'prefer-const': 'error',
+    'no-var': 'error',
+    'eqeqeq': ['error', 'always'],
+    'curly': ['error', 'all'],
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'no-await-in-loop': 'warn',
+    'no-eval': 'error',
+    'no-implied-eval': 'error',
   },
   settings: {
     react: {
