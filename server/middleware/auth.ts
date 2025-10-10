@@ -16,6 +16,7 @@ declare global {
         email: string;
         username: string;
         name: string;
+        role: string;
         bio?: string;
         firstName?: string;
         lastName?: string;
@@ -46,20 +47,21 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
           email: defaultUser.email,
           username: defaultUser.username,
           name: defaultUser.name,
-          bio: defaultUser.bio,
-          firstName: defaultUser.firstName,
-          lastName: defaultUser.lastName,
-          mobileNo: defaultUser.mobileNo,
-          profileImage: defaultUser.profileImage,
-          backgroundImage: defaultUser.backgroundImage,
-          country: defaultUser.country,
-          city: defaultUser.city,
-          facebookUrl: defaultUser.facebookUrl,
-          isVerified: defaultUser.isVerified,
-          isActive: defaultUser.isActive,
-          apiToken: defaultUser.apiToken,
-          createdAt: defaultUser.createdAt,
-          updatedAt: defaultUser.updatedAt,
+          role: 'admin', // Default admin role for dev bypass
+          bio: defaultUser.bio ?? undefined,
+          firstName: defaultUser.firstName ?? undefined,
+          lastName: defaultUser.lastName ?? undefined,
+          mobileNo: defaultUser.mobileNo ?? undefined,
+          profileImage: defaultUser.profileImage ?? undefined,
+          backgroundImage: defaultUser.backgroundImage ?? undefined,
+          country: defaultUser.country ?? undefined,
+          city: defaultUser.city ?? undefined,
+          facebookUrl: defaultUser.facebookUrl ?? undefined,
+          isVerified: defaultUser.isVerified ?? undefined,
+          isActive: defaultUser.isActive ?? undefined,
+          apiToken: defaultUser.apiToken ?? undefined,
+          createdAt: defaultUser.createdAt ?? undefined,
+          updatedAt: defaultUser.updatedAt ?? undefined,
         };
         return next();
       }
@@ -85,20 +87,21 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       email: user.email,
       username: user.username,
       name: user.name,
-      bio: user.bio,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      mobileNo: user.mobileNo,
-      profileImage: user.profileImage,
-      backgroundImage: user.backgroundImage,
-      country: user.country,
-      city: user.city,
-      facebookUrl: user.facebookUrl,
-      isVerified: user.isVerified,
-      isActive: user.isActive,
-      apiToken: user.apiToken,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      role: 'user', // Default user role
+      bio: user.bio ?? undefined,
+      firstName: user.firstName ?? undefined,
+      lastName: user.lastName ?? undefined,
+      mobileNo: user.mobileNo ?? undefined,
+      profileImage: user.profileImage ?? undefined,
+      backgroundImage: user.backgroundImage ?? undefined,
+      country: user.country ?? undefined,
+      city: user.city ?? undefined,
+      facebookUrl: user.facebookUrl ?? undefined,
+      isVerified: user.isVerified ?? undefined,
+      isActive: user.isActive ?? undefined,
+      apiToken: user.apiToken ?? undefined,
+      createdAt: user.createdAt ?? undefined,
+      updatedAt: user.updatedAt ?? undefined,
     };
 
     next();
