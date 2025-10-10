@@ -1,0 +1,3493 @@
+{
+  "totalPages": 97,
+  "scannedPages": 97,
+  "timestamp": "2025-10-10T22:27:32.118Z",
+  "issues": [
+    {
+      "file": "client/src/pages/timeline-minimal.tsx",
+      "route": "/timeline-minimal",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/timeline-minimal.tsx",
+      "route": "/timeline-minimal",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/timeline-minimal.tsx",
+      "route": "/timeline-minimal",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/timeline-debug.tsx",
+      "route": "/timeline-debug",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/4 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/timeline-debug.tsx",
+      "route": "/timeline-debug",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/timeline-debug.tsx",
+      "route": "/timeline-debug",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/timeline-debug.tsx",
+      "route": "/timeline-debug",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/teacher.tsx",
+      "route": "/teacher",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/teacher.tsx",
+      "route": "/teacher",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/tango-communities.tsx",
+      "route": "/tango-communities",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/5 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/tango-communities.tsx",
+      "route": "/tango-communities",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/tango-communities.tsx",
+      "route": "/tango-communities",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/tango-communities.tsx",
+      "route": "/tango-communities",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/search.tsx",
+      "route": "/search",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/4 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/search.tsx",
+      "route": "/search",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/search.tsx",
+      "route": "/search",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/search.tsx",
+      "route": "/search",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/profile.tsx",
+      "route": "/profile",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/pricing.tsx",
+      "route": "/pricing",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/10 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/pricing.tsx",
+      "route": "/pricing",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/pricing.tsx",
+      "route": "/pricing",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/organizer.tsx",
+      "route": "/organizer",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/organizer.tsx",
+      "route": "/organizer",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/onboarding.tsx",
+      "route": "/onboarding",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 1/9 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/onboarding.tsx",
+      "route": "/onboarding",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/9 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/onboarding.tsx",
+      "route": "/onboarding",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/not-found.tsx",
+      "route": "/not-found",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/not-found.tsx",
+      "route": "/not-found",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/not-found.tsx",
+      "route": "/not-found",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/not-found.tsx",
+      "route": "/not-found",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/my-bookings.tsx",
+      "route": "/my-bookings",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/10 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/my-bookings.tsx",
+      "route": "/my-bookings",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/my-bookings.tsx",
+      "route": "/my-bookings",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/my-bookings.tsx",
+      "route": "/my-bookings",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/messages.tsx",
+      "route": "/messages",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/5 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/messages.tsx",
+      "route": "/messages",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/messages.tsx",
+      "route": "/messages",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/listing-detail.tsx",
+      "route": "/listing-detail",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/16 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/listing-detail.tsx",
+      "route": "/listing-detail",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/listing-detail.tsx",
+      "route": "/listing-detail",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/listing-detail.tsx",
+      "route": "/listing-detail",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/landing.tsx",
+      "route": "/landing",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/4 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/landing.tsx",
+      "route": "/landing",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/landing.tsx",
+      "route": "/landing",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/invitations.tsx",
+      "route": "/invitations",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/invitations.tsx",
+      "route": "/invitations",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/housing-marketplace.tsx",
+      "route": "/housing-marketplace",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/housing-marketplace.tsx",
+      "route": "/housing-marketplace",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/host-calendar.tsx",
+      "route": "/host-calendar",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/10 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/host-calendar.tsx",
+      "route": "/host-calendar",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/host-calendar.tsx",
+      "route": "/host-calendar",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/host-calendar.tsx",
+      "route": "/host-calendar",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/host-bookings.tsx",
+      "route": "/host-bookings",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/host-bookings.tsx",
+      "route": "/host-bookings",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/host-bookings.tsx",
+      "route": "/host-bookings",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/home.tsx",
+      "route": "/home",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/groups.tsx",
+      "route": "/groups",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/groups.tsx",
+      "route": "/groups",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/groups-old.tsx",
+      "route": "/groups-old",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/12 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/groups-old.tsx",
+      "route": "/groups-old",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/12 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/groups-old.tsx",
+      "route": "/groups-old",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/groups-old.tsx",
+      "route": "/groups-old",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/groups-old.tsx",
+      "route": "/groups-old",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/group.tsx",
+      "route": "/group",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/group.tsx",
+      "route": "/group",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/group.tsx",
+      "route": "/group",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/group.tsx",
+      "route": "/group",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/global-statistics.tsx",
+      "route": "/global-statistics",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/8 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/global-statistics.tsx",
+      "route": "/global-statistics",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/8 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/global-statistics.tsx",
+      "route": "/global-statistics",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/global-statistics.tsx",
+      "route": "/global-statistics",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/global-statistics.tsx",
+      "route": "/global-statistics",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/friends.tsx",
+      "route": "/friends",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/10 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/friends.tsx",
+      "route": "/friends",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/10 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/friends.tsx",
+      "route": "/friends",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/friends.tsx",
+      "route": "/friends",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/feature-navigation.tsx",
+      "route": "/feature-navigation",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/3 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/feature-navigation.tsx",
+      "route": "/feature-navigation",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/feature-navigation.tsx",
+      "route": "/feature-navigation",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/event-detail.tsx",
+      "route": "/event-detail",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 13/35 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/event-detail.tsx",
+      "route": "/event-detail",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/35 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/event-detail.tsx",
+      "route": "/event-detail",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/event-detail.tsx",
+      "route": "/event-detail",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline.tsx",
+      "route": "/enhanced-timeline",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline.tsx",
+      "route": "/enhanced-timeline",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline-v2.tsx",
+      "route": "/enhanced-timeline-v2",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/11 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline-v2.tsx",
+      "route": "/enhanced-timeline-v2",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/11 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline-v2.tsx",
+      "route": "/enhanced-timeline-v2",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline-v2.tsx",
+      "route": "/enhanced-timeline-v2",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline-v2.tsx",
+      "route": "/enhanced-timeline-v2",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/database-security.tsx",
+      "route": "/database-security",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/12 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/database-security.tsx",
+      "route": "/database-security",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/12 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/database-security.tsx",
+      "route": "/database-security",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/database-security.tsx",
+      "route": "/database-security",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/database-security.tsx",
+      "route": "/database-security",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/create-community.tsx",
+      "route": "/create-community",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/24 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/create-community.tsx",
+      "route": "/create-community",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/24 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/create-community.tsx",
+      "route": "/create-community",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/create-community.tsx",
+      "route": "/create-community",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/community.tsx",
+      "route": "/community",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/4 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/community.tsx",
+      "route": "/community",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/community.tsx",
+      "route": "/community",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/community.tsx",
+      "route": "/community",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/community-world-map.tsx",
+      "route": "/community-world-map",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/community-world-map.tsx",
+      "route": "/community-world-map",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/code-of-conduct.tsx",
+      "route": "/code-of-conduct",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/2 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/code-of-conduct.tsx",
+      "route": "/code-of-conduct",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/code-of-conduct.tsx",
+      "route": "/code-of-conduct",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/billing.tsx",
+      "route": "/billing",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/12 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/billing.tsx",
+      "route": "/billing",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/billing.tsx",
+      "route": "/billing",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/UserSettings.tsx",
+      "route": "/usersettings",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 4/111 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/UserSettings.tsx",
+      "route": "/usersettings",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/111 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/UserSettings.tsx",
+      "route": "/usersettings",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/UserSettings.tsx",
+      "route": "/usersettings",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/TripPlannerView.tsx",
+      "route": "/tripplannerview",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/TripPlannerView.tsx",
+      "route": "/tripplannerview",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/TravelPlanner.tsx",
+      "route": "/travelplanner",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/22 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/TravelPlanner.tsx",
+      "route": "/travelplanner",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/22 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/TravelPlanner.tsx",
+      "route": "/travelplanner",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/TravelPlanner.tsx",
+      "route": "/travelplanner",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/TangoStories.tsx",
+      "route": "/tangostories",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/14 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/TangoStories.tsx",
+      "route": "/tangostories",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/14 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/TangoStories.tsx",
+      "route": "/tangostories",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/TangoStories.tsx",
+      "route": "/tangostories",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/SubscriptionAnalytics.tsx",
+      "route": "/subscriptionanalytics",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/15 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/SubscriptionAnalytics.tsx",
+      "route": "/subscriptionanalytics",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/15 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/SubscriptionAnalytics.tsx",
+      "route": "/subscriptionanalytics",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/SubscriptionAnalytics.tsx",
+      "route": "/subscriptionanalytics",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscription.tsx",
+      "route": "/subscription",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/3 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscription.tsx",
+      "route": "/subscription",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscription.tsx",
+      "route": "/subscription",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscribe.tsx",
+      "route": "/subscribe",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscribe.tsx",
+      "route": "/subscribe",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscribe.tsx",
+      "route": "/subscribe",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Subscribe.tsx",
+      "route": "/subscribe",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/RoleInvitations.tsx",
+      "route": "/roleinvitations",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/18 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/RoleInvitations.tsx",
+      "route": "/roleinvitations",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/18 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/RoleInvitations.tsx",
+      "route": "/roleinvitations",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/RoleInvitations.tsx",
+      "route": "/roleinvitations",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/ResumePage.tsx",
+      "route": "/resumepage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/5 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/ResumePage.tsx",
+      "route": "/resumepage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/ResumePage.tsx",
+      "route": "/resumepage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/RecommendationsBrowsePage.tsx",
+      "route": "/recommendationsbrowsepage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/RecommendationsBrowsePage.tsx",
+      "route": "/recommendationsbrowsepage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/PublicResumePage.tsx",
+      "route": "/publicresumepage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/1 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/PublicResumePage.tsx",
+      "route": "/publicresumepage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PublicResumePage.tsx",
+      "route": "/publicresumepage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/PublicProfilePage.tsx",
+      "route": "/publicprofilepage",
+      "severity": "medium",
+      "category": "i18n",
+      "issue": "Hardcoded text detected without i18n translation hooks",
+      "agentRecommended": [
+        54,
+        22
+      ]
+    },
+    {
+      "file": "client/src/pages/PublicProfilePage.tsx",
+      "route": "/publicprofilepage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PublicProfilePage.tsx",
+      "route": "/publicprofilepage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/PromoCodesAdmin.tsx",
+      "route": "/promocodesadmin",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/18 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/PromoCodesAdmin.tsx",
+      "route": "/promocodesadmin",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/18 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PromoCodesAdmin.tsx",
+      "route": "/promocodesadmin",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PromoCodesAdmin.tsx",
+      "route": "/promocodesadmin",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/ProjectTracker.tsx",
+      "route": "/projecttracker",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/5 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/ProjectTracker.tsx",
+      "route": "/projecttracker",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/ProjectTracker.tsx",
+      "route": "/projecttracker",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/ProfileSwitcher.tsx",
+      "route": "/profileswitcher",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/ProfileSwitcher.tsx",
+      "route": "/profileswitcher",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/ProfileSwitcher.tsx",
+      "route": "/profileswitcher",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/ProfileSwitcher.tsx",
+      "route": "/profileswitcher",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/PrivacyAnalytics.tsx",
+      "route": "/privacyanalytics",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 6/13 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/PrivacyAnalytics.tsx",
+      "route": "/privacyanalytics",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/13 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PrivacyAnalytics.tsx",
+      "route": "/privacyanalytics",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PrivacyAnalytics.tsx",
+      "route": "/privacyanalytics",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/PaymentMethods.tsx",
+      "route": "/paymentmethods",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/8 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/PaymentMethods.tsx",
+      "route": "/paymentmethods",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/8 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PaymentMethods.tsx",
+      "route": "/paymentmethods",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/PaymentMethods.tsx",
+      "route": "/paymentmethods",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionHomePage.tsx",
+      "route": "/notionhomepage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/18 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionHomePage.tsx",
+      "route": "/notionhomepage",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/18 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionHomePage.tsx",
+      "route": "/notionhomepage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionHomePage.tsx",
+      "route": "/notionhomepage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionEntryPage.tsx",
+      "route": "/notionentrypage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/9 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionEntryPage.tsx",
+      "route": "/notionentrypage",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/9 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionEntryPage.tsx",
+      "route": "/notionentrypage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/NotionEntryPage.tsx",
+      "route": "/notionentrypage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Notifications.tsx",
+      "route": "/notifications",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/3 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Notifications.tsx",
+      "route": "/notifications",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Notifications.tsx",
+      "route": "/notifications",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringTest.tsx",
+      "route": "/monitoringtest",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/13 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringTest.tsx",
+      "route": "/monitoringtest",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/13 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringTest.tsx",
+      "route": "/monitoringtest",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringTest.tsx",
+      "route": "/monitoringtest",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringDashboard.tsx",
+      "route": "/monitoringdashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 3/7 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringDashboard.tsx",
+      "route": "/monitoringdashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/7 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringDashboard.tsx",
+      "route": "/monitoringdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MonitoringDashboard.tsx",
+      "route": "/monitoringdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/MobileAppDashboard.tsx",
+      "route": "/mobileappdashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/9 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/MobileAppDashboard.tsx",
+      "route": "/mobileappdashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/9 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MobileAppDashboard.tsx",
+      "route": "/mobileappdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MobileAppDashboard.tsx",
+      "route": "/mobileappdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Messages.tsx",
+      "route": "/messages",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/5 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Messages.tsx",
+      "route": "/messages",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Messages.tsx",
+      "route": "/messages",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/MediaUploadTest.tsx",
+      "route": "/mediauploadtest",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/MediaUploadTest.tsx",
+      "route": "/mediauploadtest",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/LiveStreaming.tsx",
+      "route": "/livestreaming",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/27 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LiveStreaming.tsx",
+      "route": "/livestreaming",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LiveStreaming.tsx",
+      "route": "/livestreaming",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/LiveGlobalStatistics.tsx",
+      "route": "/liveglobalstatistics",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/2 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/LiveGlobalStatistics.tsx",
+      "route": "/liveglobalstatistics",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LiveGlobalStatistics.tsx",
+      "route": "/liveglobalstatistics",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCeoPerformance.tsx",
+      "route": "/lifeceoperformance",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCeoPerformance.tsx",
+      "route": "/lifeceoperformance",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCEOEnhanced.tsx",
+      "route": "/life-ceo",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCEOEnhanced.tsx",
+      "route": "/life-ceo",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCEO.tsx",
+      "route": "/lifeceo",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCEO.tsx",
+      "route": "/lifeceo",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCEO.tsx",
+      "route": "/lifeceo",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/LifeCEO.tsx",
+      "route": "/lifeceo",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Invoices.tsx",
+      "route": "/invoices",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/4 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Invoices.tsx",
+      "route": "/invoices",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Invoices.tsx",
+      "route": "/invoices",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/HostOnboarding.tsx",
+      "route": "/hostonboarding",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/HostOnboarding.tsx",
+      "route": "/hostonboarding",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/HostDashboard.tsx",
+      "route": "/hostdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/HostDashboard.tsx",
+      "route": "/hostdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/HierarchyDashboard.tsx",
+      "route": "/hierarchydashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/23 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/HierarchyDashboard.tsx",
+      "route": "/hierarchydashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/23 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/HierarchyDashboard.tsx",
+      "route": "/hierarchydashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/HierarchyDashboard.tsx",
+      "route": "/hierarchydashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/HelpSupport.tsx",
+      "route": "/helpsupport",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/11 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/HelpSupport.tsx",
+      "route": "/helpsupport",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/HelpSupport.tsx",
+      "route": "/helpsupport",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/GuestOnboarding.tsx",
+      "route": "/guestonboarding",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/GuestOnboarding.tsx",
+      "route": "/guestonboarding",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/GroupDetailPageMT.tsx",
+      "route": "/groupdetailpagemt",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 1/38 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/GroupDetailPageMT.tsx",
+      "route": "/groupdetailpagemt",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/GroupDetailPage.tsx",
+      "route": "/groupdetailpage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/25 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/GroupDetailPage.tsx",
+      "route": "/groupdetailpage",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/25 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/GroupDetailPage.tsx",
+      "route": "/groupdetailpage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/GroupDetailPage.tsx",
+      "route": "/groupdetailpage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Gamification.tsx",
+      "route": "/gamification",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/13 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Gamification.tsx",
+      "route": "/gamification",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Gamification.tsx",
+      "route": "/gamification",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/FriendshipPage.tsx",
+      "route": "/friendshippage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/9 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/FriendshipPage.tsx",
+      "route": "/friendshippage",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/9 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/FriendshipPage.tsx",
+      "route": "/friendshippage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/FriendshipPage.tsx",
+      "route": "/friendshippage",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Friends.tsx",
+      "route": "/friends",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/10 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Friends.tsx",
+      "route": "/friends",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/10 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Friends.tsx",
+      "route": "/friends",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Friends.tsx",
+      "route": "/friends",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Favorites.tsx",
+      "route": "/favorites",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Favorites.tsx",
+      "route": "/favorites",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/ErrorBoundaryPage.tsx",
+      "route": "/errorboundarypage",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/ErrorBoundaryPage.tsx",
+      "route": "/errorboundarypage",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/ErrorBoundaryPage.tsx",
+      "route": "/errorboundarypage",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedFriends.tsx",
+      "route": "/enhancedfriends",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/16 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedFriends.tsx",
+      "route": "/enhancedfriends",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/16 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedFriends.tsx",
+      "route": "/enhancedfriends",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedFriends.tsx",
+      "route": "/enhancedfriends",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedEvents.tsx",
+      "route": "/events",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 2/38 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedEvents.tsx",
+      "route": "/events",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/38 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedEvents.tsx",
+      "route": "/events",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/EnhancedEvents.tsx",
+      "route": "/events",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/ESAMemoryFeed.tsx",
+      "route": "/memories",
+      "severity": "low",
+      "category": "design",
+      "issue": "Not using Aurora Tide design system components",
+      "agentRecommended": [
+        11,
+        2
+      ]
+    },
+    {
+      "file": "client/src/pages/ESAMemoryFeed.tsx",
+      "route": "/memories",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/ESAMemoryFeed.tsx",
+      "route": "/memories",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/CreateCommunity.tsx",
+      "route": "/createcommunity",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/13 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/CreateCommunity.tsx",
+      "route": "/createcommunity",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/13 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/CreateCommunity.tsx",
+      "route": "/createcommunity",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/CreateCommunity.tsx",
+      "route": "/createcommunity",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/Checkout.tsx",
+      "route": "/checkout",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/15 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/Checkout.tsx",
+      "route": "/checkout",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/15 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Checkout.tsx",
+      "route": "/checkout",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/Checkout.tsx",
+      "route": "/checkout",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/BillingDashboard.tsx",
+      "route": "/billingdashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/13 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/BillingDashboard.tsx",
+      "route": "/billingdashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/13 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/BillingDashboard.tsx",
+      "route": "/billingdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/BillingDashboard.tsx",
+      "route": "/billingdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/AnalyticsDashboard.tsx",
+      "route": "/analyticsdashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/23 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/AnalyticsDashboard.tsx",
+      "route": "/analyticsdashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/23 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AnalyticsDashboard.tsx",
+      "route": "/analyticsdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AnalyticsDashboard.tsx",
+      "route": "/analyticsdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/AgentLearningDashboard.tsx",
+      "route": "/agentlearningdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AgentLearningDashboard.tsx",
+      "route": "/agentlearningdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/AgentFrameworkDashboard.tsx",
+      "route": "/agentframeworkdashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/6 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/AgentFrameworkDashboard.tsx",
+      "route": "/agentframeworkdashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/6 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AgentFrameworkDashboard.tsx",
+      "route": "/agentframeworkdashboard",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AgentFrameworkDashboard.tsx",
+      "route": "/agentframeworkdashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminMonitoring.tsx",
+      "route": "/adminmonitoring",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 0/10 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminMonitoring.tsx",
+      "route": "/adminmonitoring",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/10 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminMonitoring.tsx",
+      "route": "/adminmonitoring",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminMonitoring.tsx",
+      "route": "/adminmonitoring",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminCenter.tsx",
+      "route": "/admincenter",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 9/86 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminCenter.tsx",
+      "route": "/admincenter",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/86 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AdminCenter.tsx",
+      "route": "/admincenter",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AccountDelete.tsx",
+      "route": "/accountdelete",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/18 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AccountDelete.tsx",
+      "route": "/accountdelete",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/AccountDelete.tsx",
+      "route": "/accountdelete",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/auth/register.tsx",
+      "route": "/register",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/auth/register.tsx",
+      "route": "/register",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/auth/login.tsx",
+      "route": "/login",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/auth/login.tsx",
+      "route": "/login",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/auth/forgot-password.tsx",
+      "route": "/forgot-password",
+      "severity": "medium",
+      "category": "seo",
+      "issue": "Missing SEO meta tags (title, description)",
+      "agentRecommended": [
+        55,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/auth/forgot-password.tsx",
+      "route": "/forgot-password",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/users.tsx",
+      "route": "/users",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 7/48 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/users.tsx",
+      "route": "/users",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/48 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/users.tsx",
+      "route": "/users",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/moderation.tsx",
+      "route": "/moderation",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 5/36 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/moderation.tsx",
+      "route": "/moderation",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/36 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/moderation.tsx",
+      "route": "/moderation",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/dashboard.tsx",
+      "route": "/dashboard",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 2/13 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/dashboard.tsx",
+      "route": "/dashboard",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/13 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/dashboard.tsx",
+      "route": "/dashboard",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/analytics.tsx",
+      "route": "/analytics",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 1/17 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/analytics.tsx",
+      "route": "/analytics",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/17 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/analytics.tsx",
+      "route": "/analytics",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/AgentMetrics.tsx",
+      "route": "/agentmetrics",
+      "severity": "high",
+      "category": "testing",
+      "issue": "Low data-testid coverage: 1/7 elements tagged",
+      "agentRecommended": [
+        53,
+        14
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/AgentMetrics.tsx",
+      "route": "/agentmetrics",
+      "severity": "high",
+      "category": "accessibility",
+      "issue": "Low ARIA coverage: 0/7 elements labeled",
+      "agentRecommended": [
+        51,
+        11
+      ]
+    },
+    {
+      "file": "client/src/pages/admin/AgentMetrics.tsx",
+      "route": "/agentmetrics",
+      "severity": "low",
+      "category": "resilience",
+      "issue": "Missing error boundary protection",
+      "agentRecommended": [
+        7,
+        15
+      ]
+    }
+  ],
+  "summary": {
+    "critical": 0,
+    "high": 116,
+    "medium": 92,
+    "low": 106,
+    "byCategory": {
+      "testing": 61,
+      "accessibility": 55,
+      "i18n": 1,
+      "design": 14,
+      "seo": 91,
+      "resilience": 92
+    }
+  },
+  "coverage": {
+    "dataTestId": {
+      "pages": 36,
+      "percentage": 37
+    },
+    "ariaLabels": {
+      "pages": 42,
+      "percentage": 43
+    },
+    "translations": {
+      "pages": 96,
+      "percentage": 99
+    },
+    "errorBoundaries": {
+      "pages": 5,
+      "percentage": 5
+    }
+  }
+}
