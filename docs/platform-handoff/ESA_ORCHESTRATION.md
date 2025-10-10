@@ -964,7 +964,7 @@ All 100 agents must complete:
 
 ### All 61 Layer Agents Have Dedicated Methodology Files
 
-**Location:** `docs/pages/esa-tools/layer-[X]-[name]-methodology.md`
+**Location:** `docs/platform-handoff/layer-[X]-[name]-methodology.md`
 
 **Template Structure:**
 - Purpose & ESA layer mapping
@@ -976,11 +976,11 @@ All 100 agents must complete:
 
 **Examples:**
 - `layer-1-database-architecture-methodology.md`
-- `layer-11-realtime-features-methodology.md`
+- `layer-11-real-time-features-methodology.md`
 - `layer-35-ai-agent-management-methodology.md`
 - `layer-53-internationalization-methodology.md`
 
-**View All:** `docs/pages/esa-tools/` directory
+**View All:** `docs/platform-handoff/` directory (61 layer-*.md files)
 
 ---
 
@@ -997,12 +997,12 @@ All 100 agents must complete:
 - **Validation:** `ESA_DEPLOYMENT_AUDIT.md`
 
 ### Layer Methodologies (61 Files)
-- Foundation (1-10): `docs/pages/esa-tools/layer-1-*.md` through `layer-10-*.md`
-- Core (11-20): `docs/pages/esa-tools/layer-11-*.md` through `layer-20-*.md`
-- Business (21-30): `docs/pages/esa-tools/layer-21-*.md` through `layer-30-*.md`
-- Intelligence (31-46): `docs/pages/esa-tools/layer-31-*.md` through `layer-46-*.md`
-- Platform (47-56): `docs/pages/esa-tools/layer-47-*.md` through `layer-56-*.md`
-- Extended (57-61): `docs/pages/esa-tools/layer-57-*.md` through `layer-61-*.md`
+- Foundation (1-10): `docs/platform-handoff/layer-1-*.md` through `layer-10-*.md`
+- Core (11-20): `docs/platform-handoff/layer-11-*.md` through `layer-20-*.md`
+- Business (21-30): `docs/platform-handoff/layer-21-*.md` through `layer-30-*.md`
+- Intelligence (31-46): `docs/platform-handoff/layer-31-*.md` through `layer-46-*.md`
+- Platform (47-56): `docs/platform-handoff/layer-47-*.md` through `layer-56-*.md`
+- Extended (57-61): `docs/platform-handoff/layer-57-*.md` through `layer-61-*.md`
 
 ### Related Documentation
 
