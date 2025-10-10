@@ -192,7 +192,7 @@ export class ResumeAIOrchestrator {
         agentId: this.agentId,
         agentName: this.agentName,
         action: 'jira_sync_complete',
-        input: { projectKey: 'LIFECEO' },
+        input: { projectKey: 'MUNDOTANGO' },
         output: result.summary,
         timestamp: new Date(),
         status: 'success'
@@ -206,7 +206,7 @@ export class ResumeAIOrchestrator {
         agentId: this.agentId,
         agentName: this.agentName,
         action: 'jira_sync_failed',
-        input: { projectKey: 'LIFECEO' },
+        input: { projectKey: 'MUNDOTANGO' },
         output: { error: (error as Error).message },
         timestamp: new Date(),
         status: 'failed'

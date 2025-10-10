@@ -562,7 +562,7 @@ export default function LifeCEOEnhanced() {
             ))}
           </nav>
         </div>
-      </div>
+      </aside>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
@@ -887,6 +887,6 @@ export default function LifeCEOEnhanced() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }
