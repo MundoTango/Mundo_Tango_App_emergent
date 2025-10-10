@@ -10,6 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 import bytes from 'bytes';
+import pLimit from 'p-limit';
 
 const unlink = promisify(fs.unlink);
 const stat = promisify(fs.stat);
@@ -105,35 +106,38 @@ export class MediaProcessor {
       const metadata = await sharp(inputPath).metadata();
       console.log(`📐 Original dimensions: ${metadata.width}x${metadata.height}`);
 
-      // Process each preset in parallel for speed
-      const processingPromises = Object.entries(COMPRESSION_PRESETS).map(async ([preset, settings]) => {
-        const outputFilename = `${filename}-${timestamp}-${preset}.${settings.format}`;
-        const outputPath = path.join(outputDir, outputFilename);
+      // Process each preset in parallel with controlled concurrency (max 5)
+      const limit = pLimit(5);
+      const processingPromises = Object.entries(COMPRESSION_PRESETS).map(([preset, settings]) => 
+        limit(async () => {
+          const outputFilename = `${filename}-${timestamp}-${preset}.${settings.format}`;
+          const outputPath = path.join(outputDir, outputFilename);
 
-        // Don't upscale images
-        const width = Math.min(settings.width, metadata.width || settings.width);
-        const height = Math.min(settings.height, metadata.height || settings.height);
+          // Don't upscale images
+          const width = Math.min(settings.width, metadata.width || settings.width);
+          const height = Math.min(settings.height, metadata.height || settings.height);
 
-        await sharp(inputPath)
-          .resize(width, height, {
-            fit: 'inside',
-            withoutEnlargement: true,
-            fastShrinkOnLoad: true // Facebook-style fast loading
-          })
-          .webp({ 
-            quality: settings.quality,
-            effort: 4, // Balance between speed and compression
-            smartSubsample: true
-          })
-          .toFile(outputPath);
+          await sharp(inputPath)
+            .resize(width, height, {
+              fit: 'inside',
+              withoutEnlargement: true,
+              fastShrinkOnLoad: true // Facebook-style fast loading
+            })
+            .webp({ 
+              quality: settings.quality,
+              effort: 4, // Balance between speed and compression
+              smartSubsample: true
+            })
+            .toFile(outputPath);
 
-        const processedStats = await stat(outputPath);
-        const compressionRatio = ((1 - processedStats.size / originalStats.size) * 100).toFixed(1);
-        
-        console.log(`✅ ${preset}: ${bytes(processedStats.size)} (-${compressionRatio}%)`);
-        
-        results[preset] = `/uploads/processed/${outputFilename}`;
-      });
+          const processedStats = await stat(outputPath);
+          const compressionRatio = ((1 - processedStats.size / originalStats.size) * 100).toFixed(1);
+          
+          console.log(`✅ ${preset}: ${bytes(processedStats.size)} (-${compressionRatio}%)`);
+          
+          results[preset] = `/uploads/processed/${outputFilename}`;
+        })
+      );
 
       await Promise.all(processingPromises);
 
@@ -324,13 +328,14 @@ export class MediaProcessor {
   }
 
   /**
-   * Batch process multiple files
+   * Batch process multiple files with controlled concurrency
    */
   async processBatch(files: Array<{ path: string; mimetype: string }>): Promise<any[]> {
-    // Batch processing files
+    // Batch processing files with controlled concurrency (max 5)
     
+    const limit = pLimit(5);
     const results = await Promise.all(
-      files.map(file => this.processMedia(file.path, file.mimetype))
+      files.map(file => limit(() => this.processMedia(file.path, file.mimetype)))
     );
     
     console.log('✅ Batch processing complete');

@@ -11,7 +11,23 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useHotkeys } from 'react-hotkeys-hook';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvided, DraggableStateSnapshot, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragOverlay,
+  UniqueIdentifier
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import AvatarGroup from 'react-avatar-group';
 import Fuse from 'fuse.js';
 import Select from 'react-select';
@@ -117,6 +133,141 @@ const sortOptions = [
   { value: 'location', label: 'Location' }
 ];
 
+interface SortableFriendCardProps {
+  friend: Friend;
+  index: number;
+  viewMode: 'grid' | 'list';
+}
+
+function SortableFriendCard({ friend, index, viewMode }: SortableFriendCardProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: friend.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
+      <LazyLoad height={150} once>
+        <Card 
+          className={`p-4 transition-all ${
+            isDragging 
+              ? 'shadow-2xl scale-105 rotate-2' 
+              : 'hover:shadow-lg'
+          }`}
+        >
+          <div className="flex items-start justify-between">
+            <div className="flex gap-4">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
+                  {friend.name?.charAt(0) || 'U'}
+                </div>
+                {friend.isOnline && (
+                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+                )}
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-gray-900">{friend.name}</h4>
+                <p className="text-sm text-gray-600">@{friend.username}</p>
+                <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
+                  <MapPin className="w-3 h-3" />
+                  {friend.location}
+                </p>
+                <div className="flex gap-2 mt-2">
+                  {friend.tangoRoles?.map(role => (
+                    <Badge key={role} variant="outline" className="text-xs border-turquoise-200">
+                      {role}
+                    </Badge>
+                  ))}
+                </div>
+                {friend.mutualFriends && friend.mutualFriends > 0 && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    {friend.mutualFriends} mutual friends
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="flex gap-1">
+              <Button size="icon" variant="ghost">
+                <MessageCircle className="w-4 h-4" />
+              </Button>
+              <div className="relative group">
+                <Button size="icon" variant="ghost">
+                  <Share2 className="w-4 h-4" />
+                </Button>
+                <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
+                  <FacebookShareButton
+                    url={`https://mundotango.life/profile/${friend.username}`}
+                  >
+                    <FacebookIcon size={24} round />
+                  </FacebookShareButton>
+                  <TwitterShareButton
+                    url={`https://mundotango.life/profile/${friend.username}`}
+                    title={`Check out ${friend.name} on Mundo Tango!`}
+                  >
+                    <TwitterIcon size={24} round />
+                  </TwitterShareButton>
+                  <WhatsappShareButton
+                    url={`https://mundotango.life/profile/${friend.username}`}
+                    title={`Check out ${friend.name} on Mundo Tango!`}
+                  >
+                    <WhatsappIcon size={24} round />
+                  </WhatsappShareButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </LazyLoad>
+    </div>
+  );
+}
+
+interface SortableGroupItemProps {
+  friend: Friend;
+  index: number;
+}
+
+function SortableGroupItem({ friend, index }: SortableGroupItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = useSortable({ id: friend.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="bg-white p-2 rounded-lg border text-sm"
+    >
+      {friend.name}
+    </div>
+  );
+}
+
 export default function EnhancedFriendsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
@@ -133,6 +284,14 @@ export default function EnhancedFriendsPage() {
     professional: []
   });
   const { toast } = useToast();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   // Animations
   const fadeIn = useSpring({
@@ -242,12 +401,22 @@ export default function EnhancedFriendsPage() {
   // Removed duplicate mutation - using useFriendRequest hook above
 
   // Handle drag and drop
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
 
-    const friendId = result.draggableId;
-    const destinationGroup = result.destination.droppableId;
-    const sourceGroup = result.source.droppableId;
+    if (!over) return;
+
+    const friendId = active.id.toString();
+    const destinationGroup = over.id.toString();
+
+    // Determine source group
+    let sourceGroup = 'all';
+    for (const [groupName, members] of Object.entries(friendGroups)) {
+      if (members.includes(friendId)) {
+        sourceGroup = groupName;
+        break;
+      }
+    }
 
     setFriendGroups(prev => {
       const newGroups = { ...prev };
@@ -495,24 +664,28 @@ export default function EnhancedFriendsPage() {
 
           {/* Friends List with Drag & Drop */}
           <div className="lg:col-span-3">
-            <DragDropContext onDragEnd={handleDragEnd}>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 {/* Friend Groups */}
                 {[
                   { id: 'favorites', title: 'Favorites', icon: Star, color: 'yellow' },
                   { id: 'closeCircle', title: 'Close Circle', icon: Heart, color: 'rose' },
                   { id: 'professional', title: 'Professional', icon: Zap, color: 'purple' }
-                ].map((group) => (
-                  <Droppable key={group.id} droppableId={group.id}>
-                    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                ].map((group) => {
+                  const groupFriends = friendGroups[group.id]?.map(id => friends.find(f => f.id === id)).filter(Boolean) as Friend[];
+                  return (
+                    <SortableContext
+                      key={group.id}
+                      items={groupFriends.map(f => f.id)}
+                      strategy={verticalListSortingStrategy}
+                    >
                       <Card
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        className={`p-4 min-h-[100px] transition-all ${
-                          snapshot.isDraggingOver 
-                            ? `bg-${group.color}-50 border-${group.color}-300 scale-105` 
-                            : ''
-                        }`}
+                        id={group.id}
+                        className="p-4 min-h-[100px] transition-all"
                       >
                         <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
                           <group.icon className={`w-4 h-4 text-${group.color}-600`} />
@@ -522,156 +695,59 @@ export default function EnhancedFriendsPage() {
                           </Badge>
                         </h4>
                         <div className="space-y-2">
-                          {friendGroups[group.id]?.map((friendId, index) => {
-                            const friend = friends.find(f => f.id === friendId);
-                            if (!friend) return null;
-                            return (
-                              <Draggable
-                                key={friendId}
-                                draggableId={friendId}
-                                index={index}
-                              >
-                                {(provided: DraggableProvided) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="bg-white p-2 rounded-lg border text-sm"
-                                  >
-                                    {friend.name}
-                                  </div>
-                                )}
-                              </Draggable>
-                            );
-                          })}
-                          {provided.placeholder}
+                          {groupFriends.map((friend, index) => (
+                            <SortableGroupItem
+                              key={friend.id}
+                              friend={friend}
+                              index={index}
+                            />
+                          ))}
                         </div>
                       </Card>
-                    )}
-                  </Droppable>
-                ))}
+                    </SortableContext>
+                  );
+                })}
               </div>
 
               {/* All Friends List */}
-              <Droppable droppableId="all">
-                {(provided: DroppableProvided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    id="scrollableDiv"
-                    style={{ height: '600px', overflow: 'auto' }}
-                  >
-                    <InfiniteScroll
-                      dataLength={filteredAndSortedFriends.length}
-                      next={loadMoreFriends}
-                      hasMore={hasMore}
-                      loader={
-                        <div className="text-center py-4">
-                          <Skeleton height={100} count={3} />
-                        </div>
-                      }
-                      endMessage={
-                        <p className="text-center py-4 text-gray-500">
-                          <b>🎉 You've seen all your friends!</b>
-                        </p>
-                      }
-                      scrollableTarget="scrollableDiv"
-                    >
-                      <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-4' : 'space-y-4'}>
-                        {filteredAndSortedFriends.map((friend, index) => (
-                          <Draggable
-                            key={friend.id}
-                            draggableId={friend.id}
-                            index={index}
-                          >
-                            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <LazyLoad height={150} once>
-                                  <Card 
-                                    className={`p-4 transition-all ${
-                                      snapshot.isDragging 
-                                        ? 'shadow-2xl scale-105 rotate-2' 
-                                        : 'hover:shadow-lg'
-                                    }`}
-                                  >
-                                    <div className="flex items-start justify-between">
-                                      <div className="flex gap-4">
-                                        <div className="relative">
-                                          <div className="w-12 h-12 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
-                                            {friend.name?.charAt(0) || 'U'}
-                                          </div>
-                                          {friend.isOnline && (
-                                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
-                                          )}
-                                        </div>
-                                        <div className="flex-1">
-                                          <h4 className="font-semibold text-gray-900">{friend.name}</h4>
-                                          <p className="text-sm text-gray-600">@{friend.username}</p>
-                                          <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
-                                            <MapPin className="w-3 h-3" />
-                                            {friend.location}
-                                          </p>
-                                          <div className="flex gap-2 mt-2">
-                                            {friend.tangoRoles?.map(role => (
-                                              <Badge key={role} variant="outline" className="text-xs border-turquoise-200">
-                                                {role}
-                                              </Badge>
-                                            ))}
-                                          </div>
-                                          {friend.mutualFriends && friend.mutualFriends > 0 && (
-                                            <p className="text-xs text-gray-500 mt-2">
-                                              {friend.mutualFriends} mutual friends
-                                            </p>
-                                          )}
-                                        </div>
-                                      </div>
-                                      <div className="flex gap-1">
-                                        <Button size="icon" variant="ghost">
-                                          <MessageCircle className="w-4 h-4" />
-                                        </Button>
-                                        <div className="relative group">
-                                          <Button size="icon" variant="ghost">
-                                            <Share2 className="w-4 h-4" />
-                                          </Button>
-                                          <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
-                                            <FacebookShareButton
-                                              url={`https://mundotango.life/profile/${friend.username}`}
-                                            >
-                                              <FacebookIcon size={24} round />
-                                            </FacebookShareButton>
-                                            <TwitterShareButton
-                                              url={`https://mundotango.life/profile/${friend.username}`}
-                                              title={`Check out ${friend.name} on Mundo Tango!`}
-                                            >
-                                              <TwitterIcon size={24} round />
-                                            </TwitterShareButton>
-                                            <WhatsappShareButton
-                                              url={`https://mundotango.life/profile/${friend.username}`}
-                                              title={`Check out ${friend.name} on Mundo Tango!`}
-                                            >
-                                              <WhatsappIcon size={24} round />
-                                            </WhatsappShareButton>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </Card>
-                                </LazyLoad>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
+              <SortableContext
+                items={filteredAndSortedFriends.map(f => f.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div
+                  id="scrollableDiv"
+                  style={{ height: '600px', overflow: 'auto' }}
+                >
+                  <InfiniteScroll
+                    dataLength={filteredAndSortedFriends.length}
+                    next={loadMoreFriends}
+                    hasMore={hasMore}
+                    loader={
+                      <div className="text-center py-4">
+                        <Skeleton height={100} count={3} />
                       </div>
-                      {provided.placeholder}
-                    </InfiniteScroll>
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
+                    }
+                    endMessage={
+                      <p className="text-center py-4 text-gray-500">
+                        <b>🎉 You've seen all your friends!</b>
+                      </p>
+                    }
+                    scrollableTarget="scrollableDiv"
+                  >
+                    <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-4' : 'space-y-4'}>
+                      {filteredAndSortedFriends.map((friend, index) => (
+                        <SortableFriendCard
+                          key={friend.id}
+                          friend={friend}
+                          index={index}
+                          viewMode={viewMode}
+                        />
+                      ))}
+                    </div>
+                  </InfiniteScroll>
+                </div>
+              </SortableContext>
+            </DndContext>
           </div>
         </div>
 

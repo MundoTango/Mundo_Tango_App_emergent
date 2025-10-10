@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { promises as fs } from 'fs';
 import path from 'path';
+import pLimit from 'p-limit';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -161,7 +162,8 @@ export async function translateObject(
   }
   
   if (Array.isArray(obj)) {
-    return Promise.all(obj.map(item => translateObject(item, targetLanguage, context)));
+    const limit = pLimit(5); // Max 5 concurrent translations
+    return Promise.all(obj.map(item => limit(() => translateObject(item, targetLanguage, context))));
   }
   
   if (typeof obj === 'object' && obj !== null) {

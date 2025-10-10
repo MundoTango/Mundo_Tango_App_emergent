@@ -15,11 +15,20 @@ import {
   Loader
 } from 'lucide-react';
 import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult
-} from 'react-beautiful-dnd';
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface MediaItem {
   id: string;
@@ -37,6 +46,108 @@ interface MediaUploaderProps {
   initialThumbnailIndex?: number;
 }
 
+interface SortableMediaItemProps {
+  item: MediaItem;
+  index: number;
+  thumbnailIndex: number;
+  onRemove: (index: number) => void;
+  onSetThumbnail: (index: number) => void;
+}
+
+function SortableMediaItem({ item, index, thumbnailIndex, onRemove, onSetThumbnail }: SortableMediaItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 50 : 'auto'
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`relative group ${isDragging ? 'z-50' : ''}`}
+      data-testid={`media-item-${index}`}
+    >
+      <Card className={`overflow-hidden border-2 ${
+        index === thumbnailIndex
+          ? 'border-yellow-500 shadow-lg'
+          : 'border-gray-200'
+      } ${isDragging ? 'shadow-2xl scale-105' : ''} transition-all`}>
+        {/* Media Preview */}
+        <div className="aspect-square relative bg-gray-100">
+          <img
+            src={item.preview}
+            alt={`Media ${index + 1}`}
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Video Indicator */}
+          {item.type === 'video' && (
+            <div className="absolute top-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+              <VideoIcon className="w-3 h-3" />
+              Video
+            </div>
+          )}
+
+          {/* Thumbnail Badge */}
+          {index === thumbnailIndex && (
+            <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded text-xs flex items-center gap-1 font-semibold">
+              <Star className="w-3 h-3 fill-current" />
+              Thumbnail
+            </div>
+          )}
+
+          {/* Drag Handle */}
+          <div
+            {...attributes}
+            {...listeners}
+            className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
+            data-testid={`drag-handle-${index}`}
+          >
+            <GripVertical className="w-4 h-4 text-gray-600" />
+          </div>
+
+          {/* Action Overlay */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+            {index !== thumbnailIndex && (
+              <Button
+                type="button"
+                size="sm"
+                variant="secondary"
+                onClick={() => onSetThumbnail(index)}
+                className="text-xs"
+                data-testid={`button-set-thumbnail-${index}`}
+              >
+                <Star className="w-3 h-3 mr-1" />
+                Set as Thumbnail
+              </Button>
+            )}
+            
+            <Button
+              type="button"
+              size="sm"
+              variant="destructive"
+              onClick={() => onRemove(index)}
+              data-testid={`button-remove-media-${index}`}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 export default function MediaUploader({
   maxFiles = 10,
   acceptedFormats = ['image/*', 'video/*'],
@@ -50,6 +161,14 @@ export default function MediaUploader({
   const [uploadProgress, setUploadProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   // Notify parent of changes
   const notifyChange = (items: MediaItem[], thumbIndex: number) => {
@@ -131,25 +250,28 @@ export default function MediaUploader({
     }
   };
 
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
 
-    const items = Array.from(mediaItems);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = mediaItems.findIndex(item => item.id === active.id);
+    const newIndex = mediaItems.findIndex(item => item.id === over.id);
+
+    const items = arrayMove(mediaItems, oldIndex, newIndex);
 
     // Adjust thumbnail index if needed
     let newThumbnailIndex = thumbnailIndex;
-    if (result.source.index === thumbnailIndex) {
-      newThumbnailIndex = result.destination.index;
+    if (oldIndex === thumbnailIndex) {
+      newThumbnailIndex = newIndex;
     } else if (
-      result.source.index < thumbnailIndex &&
-      result.destination.index >= thumbnailIndex
+      oldIndex < thumbnailIndex &&
+      newIndex >= thumbnailIndex
     ) {
       newThumbnailIndex = thumbnailIndex - 1;
     } else if (
-      result.source.index > thumbnailIndex &&
-      result.destination.index <= thumbnailIndex
+      oldIndex > thumbnailIndex &&
+      newIndex <= thumbnailIndex
     ) {
       newThumbnailIndex = thumbnailIndex + 1;
     }
@@ -225,101 +347,32 @@ export default function MediaUploader({
 
       {/* Media Grid with Drag & Drop */}
       {mediaItems.length > 0 && (
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="media-grid" direction="horizontal">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                data-testid="media-grid"
-              >
-                {mediaItems.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        className={`relative group ${
-                          snapshot.isDragging ? 'z-50' : ''
-                        }`}
-                        data-testid={`media-item-${index}`}
-                      >
-                        <Card className={`overflow-hidden border-2 ${
-                          index === thumbnailIndex
-                            ? 'border-yellow-500 shadow-lg'
-                            : 'border-gray-200'
-                        } ${snapshot.isDragging ? 'shadow-2xl scale-105' : ''} transition-all`}>
-                          {/* Media Preview */}
-                          <div className="aspect-square relative bg-gray-100">
-                            <img
-                              src={item.preview}
-                              alt={`Media ${index + 1}`}
-                              className="w-full h-full object-cover"
-                            />
-                            
-                            {/* Video Indicator */}
-                            {item.type === 'video' && (
-                              <div className="absolute top-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs flex items-center gap-1">
-                                <VideoIcon className="w-3 h-3" />
-                                Video
-                              </div>
-                            )}
-
-                            {/* Thumbnail Badge */}
-                            {index === thumbnailIndex && (
-                              <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded text-xs flex items-center gap-1 font-semibold">
-                                <Star className="w-3 h-3 fill-current" />
-                                Thumbnail
-                              </div>
-                            )}
-
-                            {/* Drag Handle */}
-                            <div
-                              {...provided.dragHandleProps}
-                              className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
-                              data-testid={`drag-handle-${index}`}
-                            >
-                              <GripVertical className="w-4 h-4 text-gray-600" />
-                            </div>
-
-                            {/* Action Overlay */}
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
-                              {index !== thumbnailIndex && (
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="secondary"
-                                  onClick={() => setAsThumbnail(index)}
-                                  className="text-xs"
-                                  data-testid={`button-set-thumbnail-${index}`}
-                                >
-                                  <Star className="w-3 h-3 mr-1" />
-                                  Set as Thumbnail
-                                </Button>
-                              )}
-                              
-                              <Button
-                                type="button"
-                                size="sm"
-                                variant="destructive"
-                                onClick={() => removeMedia(index)}
-                                data-testid={`button-remove-media-${index}`}
-                              >
-                                <X className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </Card>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={mediaItems.map(item => item.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <div
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+              data-testid="media-grid"
+            >
+              {mediaItems.map((item, index) => (
+                <SortableMediaItem
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  thumbnailIndex={thumbnailIndex}
+                  onRemove={removeMedia}
+                  onSetThumbnail={setAsThumbnail}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       )}
 
       {/* Helper Text */}
