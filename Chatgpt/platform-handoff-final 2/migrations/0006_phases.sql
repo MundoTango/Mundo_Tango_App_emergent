@@ -1,3 +1,0 @@
-create table if not exists phase_runs(id uuid primary key default gen_random_uuid(), phase int not null, status text not null default 'queued', started_at timestamptz default now(), finished_at timestamptz);
-create table if not exists phase_tasks(id uuid primary key default gen_random_uuid(), phase int not null, task text not null, status text not null default 'queued', attempts int not null default 0, updated_at timestamptz default now());
-create table if not exists phase_events(id uuid primary key default gen_random_uuid(), phase int not null, event text not null, payload jsonb, created_at timestamptz default now());

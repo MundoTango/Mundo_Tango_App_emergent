@@ -1,1 +1,0 @@
-create table if not exists notifications(id uuid primary key default gen_random_uuid(), user_id uuid, subject text, html text, sent_at timestamptz, created_at timestamptz default now());

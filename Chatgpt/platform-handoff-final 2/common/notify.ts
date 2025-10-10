@@ -1,2 +1,0 @@
-import { Resend } from "resend";const resend=process.env.RESEND_API_KEY?new Resend(process.env.RESEND_API_KEY):null;
-export async function sendEmail(to:string, subject:string, html:string){ if(!resend){ console.log("[notify] skipping email", {to,subject}); return {skipped:true}; } try{ return await resend.emails.send({from:process.env.RESEND_FROM||"noreply@mt.local", to, subject, html}); }catch(e:any){ console.error("[notify] error",e?.message); return {error:e?.message}; }}
