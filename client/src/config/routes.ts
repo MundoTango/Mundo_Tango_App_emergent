@@ -280,6 +280,13 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading invitations...',
     description: 'Role invitations'
   },
+  {
+    path: '/favorites',
+    component: lazy(() => import('@/pages/Favorites')),
+    mode: 'production',
+    loadingMessage: 'Loading favorites...',
+    description: 'Saved posts and favorites'
+  },
 
   // ========== Community Routes ==========
   {
