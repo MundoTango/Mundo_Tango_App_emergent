@@ -1031,7 +1031,7 @@ export default function Profile() {
             </div>
           </Tabs>
         </div>
-      </div>
+      </main>
       
       {/* Memory Post Modal */}
       <ProfileMemoryPostModal
