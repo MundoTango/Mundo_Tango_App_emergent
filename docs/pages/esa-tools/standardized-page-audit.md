@@ -665,7 +665,7 @@ Use template to create standardized report
 
 ---
 
-## 2. GAP ANALYSIS (10 Lightweight Checks)
+## 2. GAP ANALYSIS (21 Lightweight Checks)
 
 [For each gap check:]
 ### 2.[N] [LAYER_NAME] (Layer [NUM]) [✅/❌/N/A]
@@ -673,6 +673,181 @@ Use template to create standardized report
 - [x/] [Check 2]
 ...
 - **Status:** [PASS/FAIL/N/A]
+
+---
+
+## 2B. EXTENDED AUDIT DIMENSIONS (8 New Checks)
+
+### 2B.1 Dependency Health Check [✅/❌]
+**Purpose:** Ensure package dependencies are healthy and up-to-date
+
+**Checks:**
+- [ ] No security vulnerabilities (npm audit clean)
+- [ ] All packages used are actually imported
+- [ ] No duplicate dependencies in package.json
+- [ ] Package versions compatible (no peer dependency conflicts)
+- [ ] Bundle impact assessed (>100KB packages justified)
+
+**Evidence:**
+```bash
+npm audit
+npm ls --depth=0
+```
+
+**Status:** [PASS/FAIL]
+
+---
+
+### 2B.2 API Contract Validation [✅/❌]
+**Purpose:** Verify frontend-backend API contracts match
+
+**Checks:**
+- [ ] All API endpoints exist in `server/routes.ts`
+- [ ] Request/response types match between FE & BE
+- [ ] Error handling for all API calls
+- [ ] Proper HTTP status codes used
+- [ ] API versioning considered (if applicable)
+
+**Evidence:**
+```typescript
+// Frontend call
+const { data } = useQuery({ queryKey: ['/api/endpoint'] });
+
+// Backend route exists?
+grep -r "/api/endpoint" server/routes.ts
+```
+
+**Status:** [PASS/FAIL]
+
+---
+
+### 2B.3 Cross-Page Consistency [✅/❌]
+**Purpose:** Ensure patterns consistent across platform
+
+**Checks:**
+- [ ] Same pattern used as other audited pages
+- [ ] Component naming follows platform convention
+- [ ] File structure matches category standard
+- [ ] Routing patterns consistent
+- [ ] State management approach unified
+
+**Evidence:**
+Compare with:
+- Events page (99/100) - pattern reference
+- Memories page (91/100) - pattern reference
+- Registry category defaults
+
+**Status:** [PASS/FAIL]
+
+---
+
+### 2B.4 User Flow Validation [✅/❌]
+**Purpose:** Verify complete user journeys work
+
+**Critical Paths (from registry):**
+- [ ] [Critical Path 1] - Tested & working
+- [ ] [Critical Path 2] - Tested & working
+- [ ] [Critical Path 3] - Tested & working
+
+**Edge Cases:**
+- [ ] Error states handled gracefully
+- [ ] Loading states present
+- [ ] Empty states defined
+- [ ] Success feedback provided
+
+**Status:** [PASS/FAIL]
+
+---
+
+### 2B.5 Security Deep Dive [✅/❌]
+**Purpose:** Advanced security beyond basic auth
+
+**Checks:**
+- [ ] XSS prevention (input sanitization)
+- [ ] CSRF tokens (if POST/PUT/DELETE)
+- [ ] SQL injection prevention (parameterized queries)
+- [ ] Rate limiting on sensitive operations
+- [ ] Audit logging for security events
+- [ ] Data privacy compliance (GDPR/CCPA)
+
+**Evidence:**
+```typescript
+// Input sanitization
+import DOMPurify from 'isomorphic-dompurify';
+const clean = DOMPurify.sanitize(userInput);
+
+// CSRF protection
+headers: { 'X-CSRF-Token': csrfToken }
+```
+
+**Status:** [PASS/FAIL]
+
+---
+
+### 2B.6 Performance Budget [✅/❌]
+**Purpose:** Ensure page meets performance targets
+
+**Budget Metrics:**
+- [ ] Total bundle size < 500KB (actual: [SIZE]KB)
+- [ ] Time to Interactive < 3s (actual: [TIME]s)
+- [ ] First Contentful Paint < 1.5s (actual: [TIME]s)
+- [ ] Lighthouse score > 90 (actual: [SCORE])
+- [ ] Memory usage < 50MB (actual: [SIZE]MB)
+
+**Tools:**
+```bash
+npm run lighthouse:page <page-name>
+npm run bundle:analyze
+```
+
+**Status:** [PASS/FAIL] - Budget [UNDER/OVER]
+
+---
+
+### 2B.7 Technical Debt Score [✅/❌]
+**Purpose:** Quantify code quality and maintainability
+
+**Debt Indicators:**
+- [ ] TODO/FIXME comments count: [COUNT] (target: 0)
+- [ ] Code duplication: [PERCENTAGE]% (target: <5%)
+- [ ] Cyclomatic complexity: [AVG] (target: <10)
+- [ ] Test coverage: [PERCENTAGE]% (target: >80%)
+- [ ] Type coverage: [PERCENTAGE]% (target: 100%)
+
+**Tools:**
+```bash
+grep -r "TODO\|FIXME" client/src/pages/[page].tsx
+npm run test:coverage
+```
+
+**Debt Score:** [0-100] (0 = no debt, 100 = critical)
+**Status:** [PASS/FAIL]
+
+---
+
+### 2B.8 Internationalization Coverage [✅/❌]
+**Purpose:** Verify 68-language translation support
+
+**Checks:**
+- [ ] All text uses i18next (no hardcoded strings)
+- [ ] Translation keys exist in all 68 locales
+- [ ] RTL support (Arabic, Hebrew)
+- [ ] Number/date formatting localized
+- [ ] Pluralization rules correct
+- [ ] Currency symbols localized
+
+**Evidence:**
+```typescript
+// Proper i18n
+const { t } = useTranslation();
+<Text>{t('key.path')}</Text>
+
+// Translation coverage
+npm run translation:scan
+```
+
+**Coverage:** [PERCENTAGE]% of 68 languages
+**Status:** [PASS/FAIL]
 
 ---
 
