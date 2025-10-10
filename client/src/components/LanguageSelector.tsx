@@ -75,12 +75,6 @@ const LanguageSelector = ({
       groups['Tango Languages'] = tango;
     }
     
-    // Primary languages (en, es)
-    const primary = getPrimaryLanguages();
-    if (primary.length > 0) {
-      groups['Primary Languages'] = primary;
-    }
-    
     // European languages
     const europe = getLanguagesByRegion('europe');
     if (europe.length > 0) {
@@ -198,7 +192,18 @@ const LanguageSelector = ({
           <div key={groupName}>
             {groupIndex > 0 && <DropdownMenuSeparator />}
             
-            {groupByRegion ? (
+            {/* Tango Languages - Show flat at top */}
+            {groupName === 'Tango Languages' ? (
+              <>
+                <DropdownMenuLabel className="text-xs text-muted-foreground px-2 py-1.5">
+                  {groupName}
+                </DropdownMenuLabel>
+                {languages.map(lang => 
+                  renderLanguageItem(lang, i18n.language === lang.code, true)
+                )}
+              </>
+            ) : groupByRegion ? (
+              /* Regional languages - Show in submenus */
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <span className="font-semibold">{groupName}</span>
@@ -209,7 +214,7 @@ const LanguageSelector = ({
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="max-h-[400px] overflow-y-auto">
                     {languages.map(lang => 
-                      renderLanguageItem(lang, i18n.language === lang.code, groupName === 'Tango Languages')
+                      renderLanguageItem(lang, i18n.language === lang.code, false)
                     )}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
@@ -220,7 +225,7 @@ const LanguageSelector = ({
                   {groupName} ({languages.length})
                 </DropdownMenuLabel>
                 {languages.map(lang => 
-                  renderLanguageItem(lang, i18n.language === lang.code, groupName === 'Tango Languages')
+                  renderLanguageItem(lang, i18n.language === lang.code, false)
                 )}
               </>
             )}
