@@ -182,6 +182,8 @@ npm run audit:all                      # Full platform audit
 ```
 
 **Documentation:**
+- **Instructions:** `docs/pages/esa-tools/RUN-AUDIT.md` - Step-by-step audit execution protocol
+- **Progress Tracker:** `docs/pages/esa-tools/AUDIT-PROGRESS-TRACKER.md` - Track all 79 pages (2/79 complete)
 - Methodology: `docs/pages/esa-tools/standardized-page-audit.md`
 - Usage Guide: `docs/pages/esa-tools/audit-framework-summary.md`
 - Example: `docs/audit-reports/FULL-ESA-61x21-AUDIT-MEMORIES-2025-10-09.md`
