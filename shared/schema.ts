@@ -2230,13 +2230,29 @@ export const lifeCeoConversations = pgTable("life_ceo_conversations", {
   userId: integer("user_id").notNull().references(() => users.id),
   agentId: varchar("agent_id", { length: 100 }).notNull(),
   title: varchar("title", { length: 255 }).notNull(),
+  messages: jsonb("messages").default([]).notNull(),
   metadata: jsonb("metadata").default({}),
+  projectId: varchar("project_id", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
   lastMessage: timestamp("last_message").defaultNow().notNull(),
 }, (table) => [
   index("idx_conv_user").on(table.userId),
   index("idx_conv_agent").on(table.agentId),
   index("idx_conv_last_message").on(table.lastMessage),
+  index("idx_conv_project").on(table.projectId),
+]);
+
+export const lifeCeoProjects = pgTable("life_ceo_projects", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  name: varchar("name", { length: 255 }).notNull(),
+  color: varchar("color", { length: 50 }).notNull(),
+  icon: varchar("icon", { length: 50 }).notNull(),
+  conversations: text("conversations").array().default([]),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("idx_project_user").on(table.userId),
 ]);
 
 // Life CEO Chat System Schemas
@@ -2252,7 +2268,12 @@ export const insertLifeCeoChatMessageSchema = createInsertSchema(lifeCeoChatMess
 
 export const insertLifeCeoConversationSchema = createInsertSchema(lifeCeoConversations).omit({
   createdAt: true,
+  updatedAt: true,
   lastMessage: true,
+});
+
+export const insertLifeCeoProjectSchema = createInsertSchema(lifeCeoProjects).omit({
+  createdAt: true,
 });
 
 // Project Tracker Types
@@ -2270,6 +2291,8 @@ export type LifeCeoChatMessage = typeof lifeCeoChatMessages.$inferSelect;
 export type InsertLifeCeoChatMessage = z.infer<typeof insertLifeCeoChatMessageSchema>;
 export type LifeCeoConversation = typeof lifeCeoConversations.$inferSelect;
 export type InsertLifeCeoConversation = z.infer<typeof insertLifeCeoConversationSchema>;
+export type LifeCeoProject = typeof lifeCeoProjects.$inferSelect;
+export type InsertLifeCeoProject = z.infer<typeof insertLifeCeoProjectSchema>;
 
 // Multi-Tenant Platform Tables
 export const tenants = pgTable("tenants", {

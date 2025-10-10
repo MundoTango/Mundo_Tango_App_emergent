@@ -17,13 +17,15 @@ interface CommunityCardProps {
   onJoin?: () => void;
   onLeave?: () => void;
   onClick?: () => void;
+  testIdSuffix?: string;
 }
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ 
   community, 
   onJoin, 
   onLeave,
-  onClick 
+  onClick,
+  testIdSuffix 
 }) => {
   const { t } = useTranslation();
   // Fallback image for city groups
@@ -121,7 +123,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
                 ? onLeave?.() 
                 : onJoin?.();
             }}
-            data-testid={community.isJoined ? "button-leave-community" : "button-join-community"}
+            data-testid={testIdSuffix ? (community.isJoined ? `button-leave-${testIdSuffix}` : `button-join-${testIdSuffix}`) : (community.isJoined ? "button-leave-community" : "button-join-community")}
           >
             {community.isJoined ? t('community.leave', 'Leave') : t('community.join', 'Join')}
           </MagneticButton>
