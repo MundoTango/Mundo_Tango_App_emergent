@@ -203,63 +203,561 @@ export class PageAuditOrchestrator {
   }
 
   /**
-   * Simulate agent audit (placeholder for real agent logic)
+   * Execute agent audit with real checks based on enhanced 43-agent framework
    */
   private async simulateAgentAudit(agentId: number, pageConfig: PageConfig): Promise<AgentFinding[]> {
     const findings: AgentFinding[] = [];
 
-    // Agent-specific audit logic would go here
-    // For now, return sample findings based on agent type
-    
-    switch (agentId) {
-      case 1: // Performance
-        findings.push({
-          severity: 'info',
-          category: 'Performance',
-          message: 'Page bundle size: 287KB (target: <200KB)',
-          recommendation: 'Enable code splitting and lazy loading'
-        });
-        break;
+    try {
+      // Read the actual page file for analysis
+      const pageContent = await fs.readFile(pageConfig.file, 'utf-8');
+      
+      switch (agentId) {
+        case 0: // Phase 0: Documentation Review
+          await this.auditDocumentationReview(pageContent, pageConfig, findings);
+          break;
+          
+        case 1: // Performance Optimization
+          await this.auditPerformance(pageContent, pageConfig, findings);
+          break;
 
-      case 2: // Frontend
-        findings.push({
-          severity: 'info',
-          category: 'React Patterns',
-          message: 'All components follow Smart/Controlled pattern',
-          recommendation: 'Continue using established patterns'
-        });
-        break;
+        case 2: // Frontend Architecture
+          await this.auditFrontendArchitecture(pageContent, pageConfig, findings);
+          break;
 
-      case 11: // Aurora (UI/UX)
-        findings.push({
-          severity: 'info',
-          category: 'Design System',
-          message: '100% Aurora Tide compliance',
-          recommendation: 'Maintain design token usage'
-        });
-        break;
+        case 3: // Background Processing
+          await this.auditBackgroundProcessing(pageContent, pageConfig, findings);
+          break;
 
-      case 14: // Code Quality
-        findings.push({
-          severity: 'medium',
-          category: 'TypeScript',
-          message: '3 instances of `any` type found',
-          file: pageConfig.file,
-          recommendation: 'Replace `any` with proper types'
-        });
-        break;
+        case 4: // Real-time Communications
+          await this.auditRealtime(pageContent, pageConfig, findings);
+          break;
 
-      case 16: // Translation
-        findings.push({
-          severity: 'low',
-          category: 'i18n',
-          message: '2 translation keys missing',
-          recommendation: 'Add missing keys to all 68 language files'
-        });
-        break;
+        case 5: // Business Logic
+          await this.auditBusinessLogic(pageContent, pageConfig, findings);
+          break;
+
+        case 6: // Search & Analytics
+          await this.auditSearchAnalytics(pageContent, pageConfig, findings);
+          break;
+
+        case 7: // Platform Orchestration (Agents 7-9)
+        case 8:
+        case 9:
+          await this.auditPlatformOrchestration(pageContent, pageConfig, findings);
+          break;
+
+        case 10: // AI Research
+          await this.auditAIIntegration(pageContent, pageConfig, findings);
+          break;
+
+        case 11: // UI/UX & Accessibility
+          await this.auditUIUXAccessibility(pageContent, pageConfig, findings);
+          break;
+
+        case 12: // Data Visualization
+          await this.auditDataVisualization(pageContent, pageConfig, findings);
+          break;
+
+        case 13: // Media Optimization
+          await this.auditMediaOptimization(pageContent, pageConfig, findings);
+          break;
+
+        case 14: // Code Quality
+          await this.auditCodeQuality(pageContent, pageConfig, findings);
+          break;
+
+        case 15: // Dependency Health (2B.1)
+          await this.auditDependencyHealth(pageContent, pageConfig, findings);
+          break;
+
+        case 16: // API Contract Validation (2B.2)
+          await this.auditAPIContract(pageContent, pageConfig, findings);
+          break;
+
+        case 17: // Cross-Page Consistency (2B.3)
+          await this.auditCrossPageConsistency(pageContent, pageConfig, findings);
+          break;
+
+        case 18: // User Flow Validation (2B.4)
+          await this.auditUserFlow(pageContent, pageConfig, findings);
+          break;
+
+        case 19: // Security Deep Dive (2B.5)
+          await this.auditSecurityDeepDive(pageContent, pageConfig, findings);
+          break;
+
+        case 20: // Performance Budget (2B.6)
+          await this.auditPerformanceBudget(pageContent, pageConfig, findings);
+          break;
+
+        case 21: // Technical Debt Score (2B.7)
+          await this.auditTechnicalDebt(pageContent, pageConfig, findings);
+          break;
+
+        case 22: // Internationalization Coverage (2B.8)
+          await this.auditI18nCoverage(pageContent, pageConfig, findings);
+          break;
+
+        // Gap Analysis Agents (23-43) would go here
+        default:
+          // For gap analysis agents not yet implemented
+          break;
+      }
+    } catch (error) {
+      findings.push({
+        severity: 'critical',
+        category: 'Audit Error',
+        message: `Failed to audit: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        recommendation: 'Check file path and permissions'
+      });
     }
 
     return findings;
+  }
+
+  // Phase 0: Documentation Review
+  private async auditDocumentationReview(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // Check if page references approved patterns
+    const hasApprovedPatternReference = /approved-patterns|platform-handoff|component-library/i.test(content);
+    
+    if (!hasApprovedPatternReference) {
+      findings.push({
+        severity: 'medium',
+        category: 'Documentation',
+        message: 'No reference to approved patterns found',
+        file: config.file,
+        recommendation: 'Check docs/platform-handoff/approved-patterns-2025-10-10.md for existing solutions'
+      });
+    }
+
+    // Check for hardcoded solutions that might exist elsewhere
+    const hasCustomImplementation = /custom|new|create/.test(content.toLowerCase());
+    if (hasCustomImplementation) {
+      findings.push({
+        severity: 'info',
+        category: 'Documentation',
+        message: 'Custom implementations found - verify no existing solution',
+        recommendation: 'Search codebase for similar patterns before creating new'
+      });
+    }
+  }
+
+  // Agent 1: Performance Optimization
+  private async auditPerformance(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // Check lazy loading
+    const hasLazyLoading = /lazy|React\.lazy|dynamic.*import/.test(content);
+    if (!hasLazyLoading && content.length > 10000) {
+      findings.push({
+        severity: 'medium',
+        category: 'Performance',
+        message: 'Large component without lazy loading',
+        file: config.file,
+        recommendation: 'Use React.lazy() for code splitting'
+      });
+    }
+
+    // Check for optimization
+    const hasMemo = /useMemo|useCallback|React\.memo/.test(content);
+    if (!hasMemo && content.includes('map(') && content.includes('filter(')) {
+      findings.push({
+        severity: 'low',
+        category: 'Performance',
+        message: 'Array operations without memoization',
+        recommendation: 'Consider useMemo for expensive computations'
+      });
+    }
+
+    findings.push({
+      severity: 'info',
+      category: 'Performance',
+      message: 'Performance check complete',
+      recommendation: 'Run Lighthouse audit for detailed metrics'
+    });
+  }
+
+  // Agent 2: Frontend Architecture
+  private async auditFrontendArchitecture(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // Check React Query cache invalidation
+    const hasCacheInvalidation = /invalidateQueries|queryClient/.test(content);
+    const hasMutation = /useMutation/.test(content);
+    
+    if (hasMutation && !hasCacheInvalidation) {
+      findings.push({
+        severity: 'high',
+        category: 'React Query',
+        message: 'Mutation without cache invalidation',
+        file: config.file,
+        recommendation: 'Use pattern from approved-patterns.md: queryClient.invalidateQueries()'
+      });
+    }
+
+    // Check TypeScript any usage
+    const anyMatches = content.match(/:\s*any\b/g);
+    if (anyMatches && anyMatches.length > 0) {
+      findings.push({
+        severity: 'medium',
+        category: 'TypeScript',
+        message: `${anyMatches.length} instances of 'any' type found`,
+        file: config.file,
+        recommendation: 'Replace with proper types from @shared/schema.ts'
+      });
+    }
+  }
+
+  // Agent 3: Background Processing
+  private async auditBackgroundProcessing(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasBackgroundTask = /setTimeout|setInterval|worker/i.test(content);
+    
+    if (hasBackgroundTask) {
+      findings.push({
+        severity: 'info',
+        category: 'Background',
+        message: 'Background task detected',
+        recommendation: 'Ensure proper cleanup in useEffect'
+      });
+    }
+  }
+
+  // Agent 4: Real-time Communications
+  private async auditRealtime(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasSocket = /socket\.io|useSocket|WebSocket/.test(content);
+    const hasPolling = /setInterval.*fetch|useQuery.*refetchInterval/.test(content);
+    
+    if (hasSocket) {
+      const hasReconnect = /reconnect|connect.*error/.test(content);
+      if (!hasReconnect) {
+        findings.push({
+          severity: 'medium',
+          category: 'Real-time',
+          message: 'WebSocket without reconnection logic',
+          recommendation: 'Add reconnection handling for reliability'
+        });
+      }
+    } else if (!hasPolling && config.category === 'SOCIAL') {
+      findings.push({
+        severity: 'low',
+        category: 'Real-time',
+        message: 'No real-time updates found for social page',
+        recommendation: 'Consider adding polling or WebSocket for live updates'
+      });
+    }
+  }
+
+  // Agent 5: Business Logic
+  private async auditBusinessLogic(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // Check auth
+    const hasAuth = /useAuth|useUser|isAuthenticated/.test(content);
+    if (!hasAuth && !config.file.includes('auth/')) {
+      findings.push({
+        severity: 'medium',
+        category: 'Authorization',
+        message: 'No authentication check found',
+        file: config.file,
+        recommendation: 'Add useAuth() check if page requires authentication'
+      });
+    }
+
+    // Check validation
+    const hasValidation = /zodResolver|validate|schema/.test(content);
+    const hasForm = /useForm|Form/.test(content);
+    
+    if (hasForm && !hasValidation) {
+      findings.push({
+        severity: 'high',
+        category: 'Validation',
+        message: 'Form without validation',
+        recommendation: 'Use zodResolver with schema from @shared/schema.ts'
+      });
+    }
+  }
+
+  // Agent 6: Search & Analytics
+  private async auditSearchAnalytics(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasSearch = /search|filter|query/i.test(content);
+    const hasDebounce = /debounce|useDebounce/.test(content);
+    
+    if (hasSearch && !hasDebounce) {
+      findings.push({
+        severity: 'low',
+        category: 'Search',
+        message: 'Search without debouncing',
+        recommendation: 'Use debounce (300ms) for search input'
+      });
+    }
+  }
+
+  // Agent 7-9: Platform Orchestration
+  private async auditPlatformOrchestration(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasErrorBoundary = /withResilience|ErrorBoundary/.test(content);
+    
+    if (!hasErrorBoundary && content.length > 5000) {
+      findings.push({
+        severity: 'medium',
+        category: 'Error Handling',
+        message: 'Large component without error boundary',
+        file: config.file,
+        recommendation: 'Wrap with withResilience() HOC'
+      });
+    }
+  }
+
+  // Agent 10: AI Research
+  private async auditAIIntegration(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasAI = /openai|gpt|ai|agent/i.test(content);
+    
+    if (hasAI) {
+      findings.push({
+        severity: 'info',
+        category: 'AI',
+        message: 'AI integration detected',
+        recommendation: 'Ensure proper error handling and fallback'
+      });
+    }
+  }
+
+  // Agent 11: UI/UX & Accessibility
+  private async auditUIUXAccessibility(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // Check Aurora Tide components
+    const hasGlassCard = /GlassCard/.test(content);
+    const hasDarkMode = /dark:|dark:bg|dark:text/.test(content);
+    const hasI18n = /useTranslation|{t\(/.test(content);
+    const hasTestId = /data-testid/.test(content);
+    const hasAria = /aria-label|aria-/.test(content);
+    
+    const score = [hasGlassCard, hasDarkMode, hasI18n, hasTestId, hasAria].filter(Boolean).length;
+    
+    if (!hasDarkMode) {
+      findings.push({
+        severity: 'high',
+        category: 'Dark Mode',
+        message: 'Missing dark mode variants',
+        file: config.file,
+        recommendation: 'Add dark: variants to all visual elements (see events page example)'
+      });
+    }
+
+    if (!hasTestId) {
+      findings.push({
+        severity: 'medium',
+        category: 'Testing',
+        message: 'Missing data-testid attributes',
+        recommendation: 'Add data-testid to all interactive elements'
+      });
+    }
+
+    if (!hasI18n) {
+      findings.push({
+        severity: 'high',
+        category: 'i18n',
+        message: 'No translation implementation found',
+        recommendation: 'Use useTranslation() hook for all text'
+      });
+    }
+  }
+
+  // Agent 12: Data Visualization
+  private async auditDataVisualization(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasChart = /Recharts|Chart|Graph/.test(content);
+    
+    if (hasChart) {
+      findings.push({
+        severity: 'info',
+        category: 'Visualization',
+        message: 'Data visualization found',
+        recommendation: 'Ensure charts are accessible and responsive'
+      });
+    }
+  }
+
+  // Agent 13: Media Optimization
+  private async auditMediaOptimization(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasImage = /<img|Image/.test(content);
+    const hasLazyImage = /loading="lazy"|react-lazy-load-image/.test(content);
+    
+    if (hasImage && !hasLazyImage) {
+      findings.push({
+        severity: 'low',
+        category: 'Media',
+        message: 'Images without lazy loading',
+        recommendation: 'Add loading="lazy" to images'
+      });
+    }
+  }
+
+  // Agent 14: Code Quality
+  private async auditCodeQuality(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // Check for TODOs/FIXMEs
+    const todos = content.match(/TODO|FIXME/g);
+    if (todos && todos.length > 0) {
+      findings.push({
+        severity: 'low',
+        category: 'Technical Debt',
+        message: `${todos.length} TODO/FIXME comments found`,
+        file: config.file,
+        recommendation: 'Address or document technical debt'
+      });
+    }
+
+    // Check for console.logs
+    const consoleLogs = content.match(/console\.log/g);
+    if (consoleLogs && consoleLogs.length > 0) {
+      findings.push({
+        severity: 'low',
+        category: 'Code Quality',
+        message: `${consoleLogs.length} console.log statements found`,
+        recommendation: 'Remove debug logs before production'
+      });
+    }
+  }
+
+  // Agent 15: Dependency Health (2B.1)
+  private async auditDependencyHealth(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const imports = content.match(/import .* from ['"](.+)['"]/g) || [];
+    const uniquePackages = new Set(
+      imports
+        .map(i => i.match(/from ['"](.+)['"]/)?.[1])
+        .filter(p => p && !p.startsWith('.') && !p.startsWith('@/'))
+    );
+
+    findings.push({
+      severity: 'info',
+      category: 'Dependencies',
+      message: `Uses ${uniquePackages.size} external packages`,
+      recommendation: 'Run npm audit to check for vulnerabilities'
+    });
+  }
+
+  // Agent 16: API Contract Validation (2B.2)
+  private async auditAPIContract(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const apiCalls = content.match(/['"`]\/api\/[^'"`]+['"`]/g) || [];
+    
+    if (apiCalls.length > 0) {
+      findings.push({
+        severity: 'info',
+        category: 'API',
+        message: `Found ${apiCalls.length} API endpoint calls`,
+        recommendation: 'Verify all endpoints exist in server/routes.ts'
+      });
+    }
+  }
+
+  // Agent 17: Cross-Page Consistency (2B.3)
+  private async auditCrossPageConsistency(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    // This would compare patterns with other pages
+    findings.push({
+      severity: 'info',
+      category: 'Consistency',
+      message: 'Pattern consistency check',
+      recommendation: 'Compare with events (99/100) and memories (91/100) pages'
+    });
+  }
+
+  // Agent 18: User Flow Validation (2B.4)
+  private async auditUserFlow(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasLoadingState = /isLoading|isPending|loading/.test(content);
+    const hasErrorState = /isError|error/.test(content);
+    const hasEmptyState = /empty|no.*data|no.*results/i.test(content);
+    
+    if (!hasLoadingState) {
+      findings.push({
+        severity: 'medium',
+        category: 'User Flow',
+        message: 'Missing loading state',
+        recommendation: 'Show skeleton/spinner while loading'
+      });
+    }
+
+    if (!hasErrorState) {
+      findings.push({
+        severity: 'medium',
+        category: 'User Flow',
+        message: 'Missing error state handling',
+        recommendation: 'Display error message to users'
+      });
+    }
+  }
+
+  // Agent 19: Security Deep Dive (2B.5)
+  private async auditSecurityDeepDive(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasSanitization = /DOMPurify|sanitize/.test(content);
+    const hasDangerousHTML = /dangerouslySetInnerHTML/.test(content);
+    
+    if (hasDangerousHTML && !hasSanitization) {
+      findings.push({
+        severity: 'critical',
+        category: 'Security',
+        message: 'Unsanitized HTML injection risk',
+        file: config.file,
+        recommendation: 'Use DOMPurify.sanitize() before setting innerHTML'
+      });
+    }
+  }
+
+  // Agent 20: Performance Budget (2B.6)
+  private async auditPerformanceBudget(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const sizeKB = Buffer.from(content).length / 1024;
+    
+    if (sizeKB > 100) {
+      findings.push({
+        severity: 'medium',
+        category: 'Bundle Size',
+        message: `Component size: ${sizeKB.toFixed(0)}KB (target: <100KB)`,
+        file: config.file,
+        recommendation: 'Consider code splitting or extracting components'
+      });
+    }
+  }
+
+  // Agent 21: Technical Debt Score (2B.7)
+  private async auditTechnicalDebt(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const todos = (content.match(/TODO|FIXME/g) || []).length;
+    const anyTypes = (content.match(/:\s*any\b/g) || []).length;
+    const consoleLogs = (content.match(/console\.log/g) || []).length;
+    
+    const debtScore = (todos * 5) + (anyTypes * 3) + (consoleLogs * 1);
+    
+    if (debtScore > 20) {
+      findings.push({
+        severity: 'medium',
+        category: 'Technical Debt',
+        message: `Debt score: ${debtScore} (${todos} TODOs, ${anyTypes} anys, ${consoleLogs} logs)`,
+        file: config.file,
+        recommendation: 'Refactor to reduce technical debt'
+      });
+    } else {
+      findings.push({
+        severity: 'info',
+        category: 'Technical Debt',
+        message: `Low debt score: ${debtScore}`,
+        recommendation: 'Maintain code quality'
+      });
+    }
+  }
+
+  // Agent 22: Internationalization Coverage (2B.8)
+  private async auditI18nCoverage(content: string, config: PageConfig, findings: AgentFinding[]): Promise<void> {
+    const hasI18n = /useTranslation|{t\(/.test(content);
+    const hasHardcodedText = /<[^>]+>([A-Z][a-z]+ [a-z]+|[A-Z][a-z]{4,})/g.test(content);
+    
+    if (!hasI18n) {
+      findings.push({
+        severity: 'critical',
+        category: 'i18n',
+        message: 'No i18next implementation',
+        file: config.file,
+        recommendation: 'Use useTranslation() hook for all text'
+      });
+    }
+
+    if (hasHardcodedText) {
+      findings.push({
+        severity: 'high',
+        category: 'i18n',
+        message: 'Hardcoded text detected',
+        recommendation: 'Replace all text with translation keys'
+      });
+    }
   }
 
   /**
