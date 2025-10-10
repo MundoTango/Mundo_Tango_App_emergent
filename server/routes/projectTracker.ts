@@ -384,4 +384,112 @@ router.post('/tracker/stories/:id/comments', async (req: Request, res: Response)
   }
 });
 
+// ========== SPRINTS (ESA Agent #63) ==========
+
+// Get all sprints
+router.get('/tracker/sprints', async (req: Request, res: Response) => {
+  try {
+    const sprints = await db
+      .select()
+      .from(projectSprints)
+      .orderBy(desc(projectSprints.createdAt));
+
+    res.json({ success: true, data: sprints });
+  } catch (error: any) {
+    console.error('Error fetching sprints:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create sprint
+router.post('/tracker/sprints', async (req: Request, res: Response) => {
+  try {
+    const sprintData = insertProjectSprintSchema.parse(req.body);
+    
+    const [newSprint] = await db
+      .insert(projectSprints)
+      .values(sprintData)
+      .returning();
+
+    res.json({ success: true, data: newSprint });
+  } catch (error: any) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ success: false, error: error.errors });
+    }
+    console.error('Error creating sprint:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Update sprint
+router.put('/tracker/sprints/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+    
+    const [updatedSprint] = await db
+      .update(projectSprints)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(projectSprints.id, parseInt(id)))
+      .returning();
+
+    if (!updatedSprint) {
+      return res.status(404).json({ success: false, error: 'Sprint not found' });
+    }
+
+    res.json({ success: true, data: updatedSprint });
+  } catch (error: any) {
+    console.error('Error updating sprint:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== GITHUB SYNC (ESA Agent #67) ==========
+
+// Sync GitHub issues to stories
+router.post('/tracker/github/sync', async (req: Request, res: Response) => {
+  try {
+    const { owner, repo, epicId } = req.body;
+    
+    if (!owner || !repo) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'GitHub owner and repo are required' 
+      });
+    }
+
+    // Import GitHubStorySync service
+    const { githubStorySync } = await import('../services/GitHubStorySync');
+    
+    githubStorySync.configure(owner, repo);
+    const result = await githubStorySync.syncIssues(epicId);
+
+    res.json({ 
+      success: true, 
+      data: result,
+      message: `Synced ${result.synced} issues. ${result.errors.length} errors.`
+    });
+  } catch (error: any) {
+    console.error('Error syncing GitHub issues:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GitHub webhook handler
+router.post('/tracker/github/webhook', async (req: Request, res: Response) => {
+  try {
+    const payload = req.body;
+    
+    // Import GitHubStorySync service
+    const { githubStorySync } = await import('../services/GitHubStorySync');
+    
+    await githubStorySync.handleWebhook(payload);
+
+    res.json({ success: true, message: 'Webhook processed successfully' });
+  } catch (error: any) {
+    console.error('Error processing GitHub webhook:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 export default router;
