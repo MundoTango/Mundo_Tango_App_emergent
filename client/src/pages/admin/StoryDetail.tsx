@@ -110,6 +110,14 @@ export default function StoryDetail() {
 
   const story = (storyData as any)?.data as Story | undefined;
   const tasks = (story?.tasks as Task[] | undefined) || [];
+  
+  // Debug: Check metadata
+  if (story?.metadata) {
+    console.log('✅ Story metadata found:', story.metadata);
+    console.log('✅ Metadata keys:', Object.keys(story.metadata));
+  } else {
+    console.log('❌ No metadata on story:', story?.key);
+  }
 
   // Calculate progress
   const totalTasks = tasks.length;
