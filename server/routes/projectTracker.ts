@@ -4,6 +4,8 @@
 import { Router } from 'express';
 import { db } from '../db';
 import { 
+  projectSystems,
+  projectAreas,
   projectEpics, 
   projectStories, 
   projectTasks, 
@@ -15,6 +17,8 @@ import {
   projectTrackerActivity,
   projectDependencies,
   users,
+  insertProjectSystemSchema,
+  insertProjectAreaSchema,
   insertProjectEpicSchema,
   insertProjectStorySchema,
   insertProjectTaskSchema,
@@ -32,6 +36,130 @@ import { z } from 'zod';
 const router = Router();
 
 console.log('✅ ESA Agent #65: Project Tracker routes loaded successfully');
+
+// ========== HIERARCHICAL TREE ==========
+
+// Get complete hierarchical tree: System → Area → Epic → Story → Task
+router.get('/tracker/tree', async (req: Request, res: Response) => {
+  try {
+    const { agentId } = req.query;
+    
+    // Get all systems with their areas
+    const systems = await db.select().from(projectSystems).orderBy(projectSystems.key);
+    
+    const tree = await Promise.all(systems.map(async (system) => {
+      // Get areas for this system
+      const areaConditions = [eq(projectAreas.systemId, system.id)];
+      if (agentId) {
+        areaConditions.push(eq(projectAreas.assignedAgentId, agentId as string));
+      }
+      const areas = await db.select().from(projectAreas).where(and(...areaConditions)).orderBy(projectAreas.key);
+      
+      const areasWithEpics = await Promise.all(areas.map(async (area) => {
+        // Get epics for this area
+        const epics = await db.select().from(projectEpics).where(eq(projectEpics.areaId, area.id)).orderBy(projectEpics.key);
+        
+        const epicsWithStories = await Promise.all(epics.map(async (epic) => {
+          // Get stories for this epic
+          let stories;
+          if (agentId) {
+            stories = await db.select().from(projectStories).where(
+              and(
+                eq(projectStories.epicId, epic.id),
+                or(
+                  eq(projectStories.assignedAgentId, agentId as string),
+                  sql`${agentId} = ANY(${projectStories.teamAgentIds})`
+                )
+              )
+            ).orderBy(projectStories.key);
+          } else {
+            stories = await db.select().from(projectStories).where(eq(projectStories.epicId, epic.id)).orderBy(projectStories.key);
+          }
+          
+          const storiesWithTasks = await Promise.all(stories.map(async (story) => {
+            // Get tasks for this story
+            const taskConditions = [eq(projectTasks.storyId, story.id)];
+            if (agentId) {
+              taskConditions.push(eq(projectTasks.assignedAgentId, agentId as string));
+            }
+            const tasks = await db.select().from(projectTasks).where(and(...taskConditions)).orderBy(projectTasks.id);
+            
+            return { ...story, tasks, taskCount: tasks.length };
+          }));
+          
+          return { ...epic, stories: storiesWithTasks, storyCount: stories.length };
+        }));
+        
+        return { ...area, epics: epicsWithStories, epicCount: epics.length };
+      }));
+      
+      return { ...system, areas: areasWithEpics, areaCount: areas.length };
+    }));
+    
+    res.json({ success: true, data: tree });
+  } catch (error: any) {
+    console.error('Error fetching hierarchical tree:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== SYSTEMS ==========
+
+// Get all systems
+router.get('/tracker/systems', async (req: Request, res: Response) => {
+  try {
+    const systems = await db.select().from(projectSystems).orderBy(projectSystems.key);
+    res.json({ success: true, data: systems });
+  } catch (error: any) {
+    console.error('Error fetching systems:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create system
+router.post('/tracker/systems', async (req: Request, res: Response) => {
+  try {
+    const validated = insertProjectSystemSchema.parse(req.body);
+    const [system] = await db.insert(projectSystems).values(validated).returning();
+    res.json({ success: true, data: system });
+  } catch (error: any) {
+    console.error('Error creating system:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== AREAS ==========
+
+// Get all areas (optionally by system)
+router.get('/tracker/areas', async (req: Request, res: Response) => {
+  try {
+    const { systemId } = req.query;
+    
+    let areas;
+    if (systemId) {
+      areas = await db.select().from(projectAreas).where(eq(projectAreas.systemId, parseInt(systemId as string))).orderBy(projectAreas.key);
+    } else {
+      areas = await db.select().from(projectAreas).orderBy(projectAreas.key);
+    }
+    
+    res.json({ success: true, data: areas });
+  } catch (error: any) {
+    console.error('Error fetching areas:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create area
+router.post('/tracker/areas', async (req: Request, res: Response) => {
+  try {
+    const validated = insertProjectAreaSchema.parse(req.body);
+    const [area] = await db.insert(projectAreas).values(validated).returning();
+    res.json({ success: true, data: area });
+  } catch (error: any) {
+    console.error('Error creating area:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 // ========== EPICS ==========
 
