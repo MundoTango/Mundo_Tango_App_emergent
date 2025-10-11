@@ -43,7 +43,7 @@ export default function EpicDetail() {
     queryKey: ['/api/tracker/epics', id],
   });
 
-  const epic = (epicData as any)?.data as Epic | undefined;
+  const epic = (epicData as any)?.data?.data as Epic | undefined;
   const stories = epic?.stories || [];
 
   // Calculate progress

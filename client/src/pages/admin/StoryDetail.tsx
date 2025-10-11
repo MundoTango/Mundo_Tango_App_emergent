@@ -74,7 +74,7 @@ export default function StoryDetail() {
     queryKey: ['/api/tracker/stories', id],
   });
 
-  const story = storyData?.data as Story | undefined;
+  const story = (storyData as any)?.data?.data as Story | undefined;
   const tasks = (story?.tasks as Task[] | undefined) || [];
 
   // Calculate progress
