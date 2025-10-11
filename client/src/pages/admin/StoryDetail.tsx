@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Plus, Check, Clock, FileCode, AlertTriangle, Target, Users, Shield, Link2, CheckSquare, Code, FileText, Layers } from 'lucide-react';
+import { ArrowLeft, Plus, Check, Clock, FileCode, AlertTriangle, Target, Users, Shield, Link2, CheckSquare, Code, FileText, Layers, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,6 +22,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { AgentSelector, MultiAgentSelector } from '@/components/tracker/AgentSelector';
 import { CodeLinkInput, CodeLinkDisplay } from '@/components/tracker/CodeLinkInput';
 import { GitHubIssueLink, SyncToGitHubButton, GitHubPRBadge, LinkPRButton } from '@/components/admin/GitHubIntegration';
+import AdminLayout from '@/components/admin/AdminLayout';
 
 type Task = {
   id: number;
@@ -199,22 +200,24 @@ export default function StoryDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-turquoise-500/10 via-ocean-500/10 to-blue-600/10 dark:from-turquoise-900/20 dark:via-ocean-900/20 dark:to-blue-900/20 py-6" data-testid="page-story-detail">
-      <div className="container mx-auto space-y-6">
+    <AdminLayout>
+      <div className="container mx-auto space-y-6" data-testid="page-story-detail">
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-gray-500 dark:text-gray-400">Admin</span>
+          <ChevronRight className="h-4 w-4" />
           <Link href="/admin/projects" className="hover:text-turquoise-600 dark:hover:text-turquoise-400 transition-colors" data-testid="link-projects">
             Projects
           </Link>
-          <span>/</span>
           {story.epicId && (
             <>
+              <ChevronRight className="h-4 w-4" />
               <Link href={`/admin/projects/epic/${story.epicId}`} className="hover:text-turquoise-600 dark:hover:text-turquoise-400 transition-colors" data-testid="link-epic">
                 Epic
               </Link>
-              <span>/</span>
             </>
           )}
+          <ChevronRight className="h-4 w-4" />
           <span className="text-gray-900 dark:text-white font-medium">{story.key}</span>
         </div>
 
@@ -800,6 +803,6 @@ export default function StoryDetail() {
           </div>
         </div>
       </div>
-    </div>
+    </AdminLayout>
   );
 }

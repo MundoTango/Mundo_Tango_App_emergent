@@ -56,6 +56,12 @@ const navigation = [
     ]
   },
   {
+    title: 'Development',
+    items: [
+      { name: 'Projects', href: '/admin/projects', icon: Layers, badge: null },
+    ]
+  },
+  {
     title: 'User Management',
     items: [
       { name: 'Users', href: '/admin/users', icon: Users, badge: null },
@@ -228,7 +234,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               )}
               <div className="space-y-1">
                 {section.items.map((item) => {
-                  const isActive = location === item.href;
+                  const isActive = location === item.href || location.startsWith(item.href + '/');
                   const Icon = item.icon;
                   
                   return (
