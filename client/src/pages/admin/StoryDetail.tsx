@@ -345,7 +345,12 @@ export default function StoryDetail() {
                           {story.metadata.esa_layers.map(layer => (
                             <Tooltip key={layer}>
                               <TooltipTrigger asChild>
-                                <Badge variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 cursor-help">
+                                <Badge 
+                                  variant="outline" 
+                                  className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 cursor-pointer hover:bg-cyan-100 dark:hover:bg-cyan-800/40 transition-colors"
+                                  onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}?layer=${layer}` : `/admin/projects?layer=${layer}`)}
+                                  data-testid={`badge-layer-${layer}`}
+                                >
                                   Layer {layer}
                                 </Badge>
                               </TooltipTrigger>
@@ -655,7 +660,12 @@ export default function StoryDetail() {
                           {story.metadata.esa_layers.map(layer => (
                             <Tooltip key={layer}>
                               <TooltipTrigger asChild>
-                                <Badge variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 cursor-help">
+                                <Badge 
+                                  variant="outline" 
+                                  className="border-cyan-500 text-cyan-700 dark:text-cyan-300 cursor-pointer hover:bg-cyan-100 dark:hover:bg-cyan-800/40 transition-colors"
+                                  onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}?layer=${layer}` : `/admin/projects?layer=${layer}`)}
+                                  data-testid={`badge-layer-${layer}-mobile`}
+                                >
                                   Layer {layer}
                                 </Badge>
                               </TooltipTrigger>
