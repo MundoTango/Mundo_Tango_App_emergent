@@ -172,6 +172,148 @@ Impact if unresolved: [consequences]
 - 🟢 Timeline concerns → Ask #63 for sprint planning help
 - 🟢 Progress tracking → Ask #65 to create tracking story
 
+---
+
+## 🔧 Operational Excellence Protocol
+
+### Check Before Build Protocol 🆕
+
+**MANDATORY FIRST STEP - Before any agent builds anything:**
+
+1. **Search Existing Codebase (5 min)**
+   ```bash
+   # Search for similar functionality
+   grep -r "similar-pattern" client/src/
+   grep -r "api-endpoint" server/routes.ts
+   
+   # Check component library
+   ls client/src/components/ | grep -i "feature"
+   ```
+
+2. **Check Reusable Components Registry**
+   - Review [ESA_REUSABLE_COMPONENTS.md](../../platform-handoff/ESA_REUSABLE_COMPONENTS.md)
+   - Ask: Does this already exist? Can we reuse it?
+   - Document findings
+
+3. **Ask Clarifying Questions**
+   - What exactly is needed?
+   - Is this new or enhancement to existing?
+   - What similar features exist?
+   - What are must-have vs nice-to-have requirements?
+
+4. **Agent #64 Review**
+   - All agents submit to Agent #64 for duplicate check
+   - Wait for confirmation: reuse/extend/build new
+   - Document decision and proceed
+
+**Full Protocol:** [ESA_CHECK_BEFORE_BUILD.md](../../platform-handoff/ESA_CHECK_BEFORE_BUILD.md)
+
+---
+
+### Parallel Execution Default 🆕
+
+**Core Principle:** All ESA work executes in parallel unless dependencies require sequential execution
+
+**Parallel Work Patterns:**
+- **Type 1 (Horizontal):** Multiple features, same layer → Work independently
+- **Type 2 (Vertical):** Same feature, different layers → Coordinate through APIs
+- **Type 3 (Division):** Different divisions, different goals → Domain coordination
+
+**When Parallel:**
+- ✅ Independent features with no shared dependencies
+- ✅ Different layers with clear interface contracts
+- ✅ Separate API endpoints or database tables
+
+**When Sequential:**
+- ⏸️ Direct data dependencies (Layer A needs Layer B's output)
+- ⏸️ Shared resource conflicts (same file, same table)
+- ⏸️ Ordered workflow steps (design → build → test)
+
+**CEO's Role in Parallel Execution:**
+- Approve parallel work plans from Division Chiefs
+- Resolve conflicts when parallel work creates dependencies
+- Monitor overall system coordination through Domain #9
+
+**Full Methodology:** [ESA_PARALLEL_BY_DEFAULT.md](../../platform-handoff/ESA_PARALLEL_BY_DEFAULT.md)
+
+---
+
+### Workload Balancing 🆕
+
+**CEO-Level Intervention (Level 4):**
+
+**When >50% of agents are overloaded:**
+```
+Agent #63 or Domain #9 alerts Agent #0
+    ↓
+Agent #0 convenes emergency session
+    ↓
+Options evaluated:
+├── Delay non-critical work
+├── Extend sprint timeline
+├── Add external resources
+└── Improve process efficiency
+    ↓
+Implement solution and monitor for 1 week
+```
+
+**CEO Decision Authority:**
+- Approve timeline extensions
+- Authorize scope reductions
+- Reallocate agents across divisions
+- Approve external resources
+
+**Workload Thresholds CEO Monitors:**
+- 🟢 Normal: <70% agents at capacity
+- 🟡 Busy: 70-85% agents at capacity (watch closely)
+- 🟠 Overloaded: 85-95% agents at capacity (prepare intervention)
+- 🔴 Critical: >95% agents at capacity (CEO intervention required)
+
+**Full Protocol:** [ESA_WORKLOAD_BALANCING.md](../../platform-handoff/ESA_WORKLOAD_BALANCING.md)
+
+---
+
+### Performance Metrics 🆕
+
+**CEO-Level Performance Oversight:**
+
+**Division Performance Dashboard:**
+| Division | Velocity | Quality | Collaboration | Status |
+|----------|----------|---------|---------------|--------|
+| Foundation | 95% | 98% | 92% | ✅ Excellent |
+| Core | 88% | 95% | 89% | ✅ Good |
+| Business | 92% | 93% | 94% | ✅ Excellent |
+| Intelligence | 85% | 90% | 88% | 🟡 Monitor |
+| Platform | 90% | 96% | 91% | ✅ Excellent |
+| Extended | 87% | 94% | 90% | ✅ Good |
+
+**CEO Actions Based on Metrics:**
+- **<85% Velocity:** Investigate blockers, provide resources
+- **<90% Quality:** Mandate additional code review, training
+- **<85% Collaboration:** Improve A2A protocols, team building
+- **Consistent low performance:** Chief replacement consideration
+
+**Full Framework:** [ESA_PERFORMANCE_METRICS.md](../../platform-handoff/ESA_PERFORMANCE_METRICS.md)
+
+---
+
+### Agent Certification 🆕
+
+**CEO Certification Oversight:**
+
+**Certification Levels:**
+- ⭐ Basic: All 105 agents must achieve (training bootcamp)
+- ⭐⭐ Intermediate: Division Chiefs + Domain Coordinators required
+- ⭐⭐⭐ Expert: CEO + Meta-agents expected
+
+**CEO Certification Criteria:**
+- ✅ **Strategic Vision:** Articulate ESA 61x21 framework purpose
+- ✅ **Conflict Resolution:** Demonstrate Level 4 decision-making
+- ✅ **Resource Allocation:** Optimize 105-agent deployment
+- ✅ **Quality Assurance:** Validate 40x20s system (800 checkpoints)
+
+**Full System:** [ESA_AGENT_CERTIFICATION.md](../../platform-handoff/ESA_AGENT_CERTIFICATION.md)
+
 **Quick Help Template:**
 ```markdown
 FROM: Agent #[X]
@@ -200,15 +342,24 @@ Help needed: [task breakdown / dependency mapping / timeline / tracking]
 ## 📚 Documentation & Resources
 
 ### Master Documents (Agent #0 Owns):
-1. **[esa.md](../../platform-handoff/esa.md)** - Master orchestration guide
+1. **[esa.md](../../platform-handoff/esa.md)** - Master orchestration guide (PRIMARY)
 2. **[ESA_AGENT_ORG_CHART.md](../../platform-handoff/ESA_AGENT_ORG_CHART.md)** - Complete 105-agent hierarchy
 3. **[ESA_FRAMEWORK.md](../../platform-handoff/ESA_FRAMEWORK.md)** - 61-layer technical framework
 4. **[ESA_AGENT_A2A_PROTOCOL.md](../../platform-handoff/ESA_AGENT_A2A_PROTOCOL.md)** - Communication protocol
 5. **[40x20s-framework.md](../../docs/40x20s-framework.md)** - 800 quality checkpoints
 
+### Operational Excellence Framework (Oct 11, 2025) 🆕:
+- **[ESA_CHECK_BEFORE_BUILD.md](../../platform-handoff/ESA_CHECK_BEFORE_BUILD.md)** - Universal search-first principle (MANDATORY)
+- **[ESA_PARALLEL_BY_DEFAULT.md](../../platform-handoff/ESA_PARALLEL_BY_DEFAULT.md)** - Parallel execution methodology
+- **[ESA_WORKLOAD_BALANCING.md](../../platform-handoff/ESA_WORKLOAD_BALANCING.md)** - 4-level escalation system
+- **[ESA_PERFORMANCE_METRICS.md](../../platform-handoff/ESA_PERFORMANCE_METRICS.md)** - Agent performance tracking
+- **[ESA_AGENT_CERTIFICATION.md](../../platform-handoff/ESA_AGENT_CERTIFICATION.md)** - 3-level certification system
+- **[ESA_REUSABLE_COMPONENTS.md](../../platform-handoff/ESA_REUSABLE_COMPONENTS.md)** - Component registry
+
 ### Agent Training & Development:
+- **[ESA_KNOWLEDGE_SHARING.md](../../platform-handoff/ESA_KNOWLEDGE_SHARING.md)** - Mentorship framework + Component sharing
+- **[ESA_AGENT_BOOTCAMP.md](../../platform-handoff/ESA_AGENT_BOOTCAMP.md)** - 5-day intensive training program
 - **[ESA_AGENT_TRAINING_STATUS.md](../../platform-handoff/ESA_AGENT_TRAINING_STATUS.md)** - Training progress (0/105 agents)
-- **[AGENT-TRAINING-EXECUTION-PLAN.md](../../platform-handoff/AGENT-TRAINING-EXECUTION-PLAN.md)** - 9-week bootcamp
 - **[ESA_NEW_AGENT_GUIDE.md](../../platform-handoff/ESA_NEW_AGENT_GUIDE.md)** - Agent creation guide
 - **[ultra-micro-methodology.md](../../platform-handoff/ultra-micro-methodology.md)** - Rapid training
 
