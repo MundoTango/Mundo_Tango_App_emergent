@@ -3414,6 +3414,11 @@ export const projectStories = pgTable("project_stories", {
   estimatedHours: real("estimated_hours"),
   actualHours: real("actual_hours"),
   referenceLinks: jsonb("reference_links").default([]), // External docs
+  // GitHub Integration (Agent #67)
+  githubIssueNumber: integer("github_issue_number"),
+  githubIssueUrl: varchar("github_issue_url", { length: 500 }),
+  githubRepoName: varchar("github_repo_name", { length: 255 }), // e.g., "owner/repo"
+  githubSyncedAt: timestamp("github_synced_at"),
   createdById: integer("created_by_id").notNull().references(() => users.id),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
@@ -3440,6 +3445,12 @@ export const projectTasks = pgTable("project_tasks", {
   codeLineRange: varchar("code_line_range", { length: 20 }), // "49-54"
   acceptanceCriteria: text("acceptance_criteria").array().default([]),
   referenceImplementation: text("reference_implementation"),
+  // GitHub Integration (Agent #67)
+  githubPrNumber: integer("github_pr_number"),
+  githubPrUrl: varchar("github_pr_url", { length: 500 }),
+  githubBranch: varchar("github_branch", { length: 255 }),
+  githubCommitSha: varchar("github_commit_sha", { length: 40 }),
+  githubSyncedAt: timestamp("github_synced_at"),
   completedAt: timestamp("completed_at"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()

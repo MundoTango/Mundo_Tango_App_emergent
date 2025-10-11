@@ -446,10 +446,11 @@ router.put('/tracker/sprints/:id', async (req: Request, res: Response) => {
 
 // ========== GITHUB SYNC (ESA Agent #67) ==========
 
-// Sync GitHub issues to stories
-router.post('/tracker/github/sync', async (req: Request, res: Response) => {
+// Sync Story to GitHub Issue
+router.post('/tracker/stories/:id/sync-github', async (req: Request, res: Response) => {
   try {
-    const { owner, repo, epicId } = req.body;
+    const { id } = req.params;
+    const { owner, repo } = req.body;
     
     if (!owner || !repo) {
       return res.status(400).json({ 
@@ -458,19 +459,55 @@ router.post('/tracker/github/sync', async (req: Request, res: Response) => {
       });
     }
 
-    // Import GitHubStorySync service
-    const { githubStorySync } = await import('../services/GitHubStorySync');
+    const { githubSyncService } = await import('../services/GitHubSyncService');
+    githubSyncService.configure(owner, repo);
     
-    githubStorySync.configure(owner, repo);
-    const result = await githubStorySync.syncIssues(epicId);
+    const result = await githubSyncService.syncStoryToIssue(parseInt(id));
 
-    res.json({ 
-      success: true, 
-      data: result,
-      message: `Synced ${result.synced} issues. ${result.errors.length} errors.`
-    });
+    if (result.success) {
+      res.json({ 
+        success: true, 
+        data: { issueNumber: result.issueNumber, url: result.url },
+        message: `Story synced to GitHub issue #${result.issueNumber}`
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.error });
+    }
   } catch (error: any) {
-    console.error('Error syncing GitHub issues:', error);
+    console.error('Error syncing story to GitHub:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Link Task to GitHub PR
+router.post('/tracker/tasks/:id/link-pr', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { owner, repo, prNumber } = req.body;
+    
+    if (!owner || !repo || !prNumber) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'GitHub owner, repo, and PR number are required' 
+      });
+    }
+
+    const { githubSyncService } = await import('../services/GitHubSyncService');
+    githubSyncService.configure(owner, repo);
+    
+    const result = await githubSyncService.linkTaskToPR(parseInt(id), prNumber);
+
+    if (result.success) {
+      res.json({ 
+        success: true, 
+        data: { url: result.url },
+        message: `Task linked to GitHub PR #${prNumber}`
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.error });
+    }
+  } catch (error: any) {
+    console.error('Error linking task to PR:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -480,12 +517,14 @@ router.post('/tracker/github/webhook', async (req: Request, res: Response) => {
   try {
     const payload = req.body;
     
-    // Import GitHubStorySync service
-    const { githubStorySync } = await import('../services/GitHubStorySync');
-    
-    await githubStorySync.handleWebhook(payload);
+    const { githubSyncService } = await import('../services/GitHubSyncService');
+    const result = await githubSyncService.handleWebhook(payload);
 
-    res.json({ success: true, message: 'Webhook processed successfully' });
+    if (result.success) {
+      res.json({ success: true, message: result.message });
+    } else {
+      res.status(400).json({ success: false, error: result.error });
+    }
   } catch (error: any) {
     console.error('Error processing GitHub webhook:', error);
     res.status(500).json({ success: false, error: error.message });
