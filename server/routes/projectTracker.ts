@@ -952,4 +952,231 @@ router.post('/tracker/github/webhook', async (req: Request, res: Response) => {
   }
 });
 
+// ========== OPEN SOURCE DEPLOYMENT (Agent #59 Lead) ==========
+
+// Get platform-wide open source deployment status
+router.get('/tracker/open-sources/status', async (req: Request, res: Response) => {
+  try {
+    // Mock data based on ESA_OPEN_SOURCE_100_DEPLOYMENT.md
+    const openSources = [
+      { name: 'LanceDB', status: '100%', layer: 26, fullyDeployed: true, responsibleAgent: 'Agent #26' },
+      { name: 'Langfuse', status: 'partial', layer: 32, fullyDeployed: false, responsibleAgent: 'Agent #32' },
+      { name: 'Arize Phoenix', status: '100%', layer: 48, fullyDeployed: true, responsibleAgent: 'Agent #48' },
+      { name: 'Milvus SDK', status: 'partial', layer: 15, fullyDeployed: false, responsibleAgent: 'Agent #15' },
+      { name: 'Dragonfly', status: 'not_deployed', layer: 14, fullyDeployed: false, responsibleAgent: 'Agent #14' },
+      { name: 'Apache AGE', status: 'not_deployed', layer: 44, fullyDeployed: false, responsibleAgent: 'Agent #44' },
+      { name: 'SigNoz', status: 'partial', layer: 48, fullyDeployed: false, responsibleAgent: 'Agent #48' },
+      { name: 'Mem0', status: 'partial', layer: 36, fullyDeployed: false, responsibleAgent: 'Agent #36' },
+      { name: 'DSPy', status: 'partial', layer: 45, fullyDeployed: false, responsibleAgent: 'Agent #45' },
+      { name: 'Temporal', status: '100%', layer: 57, fullyDeployed: true, responsibleAgent: 'Agent #57' },
+      { name: 'CrewAI', status: 'partial', layer: 35, fullyDeployed: false, responsibleAgent: 'Agent #35' },
+      { name: 'Activepieces', status: '100%', layer: 20, fullyDeployed: true, responsibleAgent: 'Agent #20' },
+      { name: 'Bun Test', status: '100%', layer: 51, fullyDeployed: true, responsibleAgent: 'Agent #51' },
+      { name: 'Supabase Realtime', status: '100%', layer: 11, fullyDeployed: true, responsibleAgent: 'Agent #11' },
+      { name: 'Knowledge Graph', status: '100%', layer: 44, fullyDeployed: true, responsibleAgent: 'Agent #44' },
+      { name: 'LlamaIndex', status: '100%', layer: 36, fullyDeployed: true, responsibleAgent: 'Agent #36' },
+      { name: 'OpenTelemetry', status: '100%', layer: 48, fullyDeployed: true, responsibleAgent: 'Agent #48' },
+      { name: 'Realtime Optimization', status: '100%', layer: 11, fullyDeployed: true, responsibleAgent: 'Agent #11' },
+    ];
+    
+    const totalChecked = openSources.length;
+    const fullyDeployed = openSources.filter(os => os.fullyDeployed).length;
+    const partialDeployed = openSources.filter(os => os.status === 'partial').length;
+    const notDeployed = openSources.filter(os => os.status === 'not_deployed').length;
+    
+    res.json({
+      success: true,
+      data: {
+        totalChecked,
+        fullyDeployed,
+        partialDeployed,
+        notDeployed,
+        percentage: Math.round((fullyDeployed / totalChecked) * 100),
+        targetPercentage: 89, // 16/18 (excluding 2 unavailable)
+        openSources
+      }
+    });
+  } catch (error: any) {
+    console.error('Error fetching open source status:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get detailed open source inventory with 5-criteria breakdown
+router.get('/tracker/open-sources/inventory', async (req: Request, res: Response) => {
+  try {
+    // Mock detailed inventory data
+    const inventory = [
+      {
+        name: 'LanceDB',
+        status: '100%',
+        layer: 26,
+        layerName: 'Agent AI',
+        responsibleAgent: 'Agent #26',
+        criteria: {
+          installation: true,
+          usage: true,
+          monitoring: true,
+          documentation: true,
+          performance: true
+        },
+        usedIn: ['AI Features', 'Vector Search', 'Memory Systems'],
+        trainingStory: null
+      },
+      {
+        name: 'Mem0',
+        status: 'partial',
+        layer: 36,
+        layerName: 'Memory Systems',
+        responsibleAgent: 'Agent #36',
+        criteria: {
+          installation: true,
+          usage: false,
+          monitoring: false,
+          documentation: true,
+          performance: false
+        },
+        usedIn: ['AI Memory (planned)'],
+        trainingStory: 'TRAIN-36-MEM0',
+        issues: ['Not actively used', 'No monitoring', 'Performance unchecked']
+      },
+      {
+        name: 'Dragonfly',
+        status: 'not_deployed',
+        layer: 14,
+        layerName: 'Caching',
+        responsibleAgent: 'Agent #14',
+        criteria: {
+          installation: false,
+          usage: false,
+          monitoring: false,
+          documentation: false,
+          performance: false
+        },
+        usedIn: [],
+        trainingStory: 'TRAIN-14-DRAGONFLY',
+        issues: ['Not installed', 'Requires Docker', 'Blocked by Replit environment']
+      },
+      // Add more as needed...
+    ];
+    
+    res.json({
+      success: true,
+      data: inventory
+    });
+  } catch (error: any) {
+    console.error('Error fetching open source inventory:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get agent training queue
+router.get('/tracker/open-sources/training-queue', async (req: Request, res: Response) => {
+  try {
+    const trainingQueue = [
+      {
+        id: 1,
+        storyKey: 'TRAIN-36-MEM0',
+        agentNumber: 36,
+        openSource: 'Mem0',
+        currentPhase: 3,
+        totalPhases: 6,
+        estimatedHours: 19,
+        completedHours: 8,
+        dueDate: 'Oct 15, 2025',
+        status: 'in_progress'
+      },
+      {
+        id: 2,
+        storyKey: 'TRAIN-45-DSPY',
+        agentNumber: 45,
+        openSource: 'DSPy',
+        currentPhase: 1,
+        totalPhases: 6,
+        estimatedHours: 19,
+        completedHours: 2,
+        dueDate: 'Oct 18, 2025',
+        status: 'in_progress'
+      },
+      {
+        id: 3,
+        storyKey: 'TRAIN-35-CREWAI',
+        agentNumber: 35,
+        openSource: 'CrewAI',
+        currentPhase: 2,
+        totalPhases: 6,
+        estimatedHours: 19,
+        completedHours: 6,
+        dueDate: 'Oct 16, 2025',
+        status: 'in_progress'
+      },
+    ];
+    
+    res.json({
+      success: true,
+      data: trainingQueue
+    });
+  } catch (error: any) {
+    console.error('Error fetching training queue:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get consolidation recommendations pending CEO approval
+router.get('/tracker/open-sources/consolidations', async (req: Request, res: Response) => {
+  try {
+    const consolidations = [
+      {
+        id: 1,
+        duplicates: ['LanceDB', 'Milvus'],
+        recommendation: 'Keep LanceDB, remove Milvus',
+        reason: 'LanceDB is lighter, better documented, and actively used in 12 files. Milvus only used in 3 files.',
+        domainChiefApproval: 'Chief #4 - APPROVED',
+        ceoApproval: 'PENDING',
+        estimatedEffort: '4 hours',
+        createdAt: '2025-10-10',
+        createdBy: 'Agent #59'
+      },
+    ];
+    
+    res.json({
+      success: true,
+      data: consolidations
+    });
+  } catch (error: any) {
+    console.error('Error fetching consolidations:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// CEO approve/reject consolidation
+router.post('/tracker/open-sources/approve-consolidation', async (req: Request, res: Response) => {
+  try {
+    const { consolidationId, approved, notes } = req.body;
+    
+    if (!consolidationId || typeof approved !== 'boolean') {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'consolidationId and approved (boolean) are required' 
+      });
+    }
+    
+    // TODO: Update database with CEO decision
+    // For now, return success with mock data
+    
+    res.json({
+      success: true,
+      data: {
+        consolidationId,
+        ceoApproval: approved ? 'APPROVED' : 'REJECTED',
+        ceoNotes: notes || '',
+        decidedAt: new Date().toISOString()
+      }
+    });
+  } catch (error: any) {
+    console.error('Error approving consolidation:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 export default router;
