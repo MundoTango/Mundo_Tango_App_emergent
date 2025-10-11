@@ -4,7 +4,7 @@
 **Version:** 1.0  
 **Last Updated:** October 11, 2025  
 **Duration:** 5 days (intensive)  
-**Target:** All 105 agents across ESA 61x21 framework  
+**Target:** All 105 agents across ESA 105-Agent System with 61-Layer Framework  
 **Coordinator:** Agent #63 (Sprint Manager)
 
 ---

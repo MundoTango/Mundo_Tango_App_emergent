@@ -1330,7 +1330,7 @@ Date-first workflow that filters ALL content (Events, Housing, Recommendations) 
 Deep connection with existing Travel Module on user profiles, creating a bidirectional planning ecosystem (plan from community → save to profile → edit from profile → return to community).
 
 **ESA Compliance:**
-Full adherence to ESA LIFE CEO 61x21 framework across 10+ layers, with Aurora Tide design system integration and comprehensive i18next internationalization.
+Full adherence to ESA LIFE CEO 105-Agent System with 61-Layer Framework across 10+ layers, with Aurora Tide design system integration and comprehensive i18next internationalization.
 
 **Ready for Build Phase:** ✅  
 All architecture decisions documented. Proceed to implementation when switching to Build mode.

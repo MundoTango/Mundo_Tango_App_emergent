@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ESA 61x21 Multi-Agent System uses a PostgreSQL-based job queue implementation that replaces Redis/BullMQ, providing the same API surface while leveraging Replit's native PostgreSQL infrastructure.
+The ESA 105-Agent System with 61-Layer Framework Multi-Agent System uses a PostgreSQL-based job queue implementation that replaces Redis/BullMQ, providing the same API surface while leveraging Replit's native PostgreSQL infrastructure.
 
 ## Architecture
 

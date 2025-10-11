@@ -104,7 +104,7 @@ useEffect(() => {
 6. Cycle repeats from step 1
 
 ### ESA Framework Pattern Violation
-The ESA 61x21 framework requires:
+The ESA 105-Agent System with 61-Layer Framework framework requires:
 - **Layer 9 (React Integration)**: Memoize all object/array props to child components
 - **Layer 3 (Component Architecture)**: Suspense only for lazy-loaded code-split components
 - **Layer 5 (State Management)**: useEffect dependencies must watch primitive values, not objects
@@ -148,7 +148,7 @@ User screenshot confirmed posts displaying successfully:
 ## Related Documentation
 - [Post Creation Visibility Fix](./post-creation-visibility-fix.md)
 - [Auth Context User ID Mismatch](./auth-context-user-id-mismatch.md)
-- ESA 61x21 Framework Layer 9 (React Integration Patterns)
+- ESA 105-Agent System with 61-Layer Framework Framework Layer 9 (React Integration Patterns)
 
 ## Prevention Pattern
 

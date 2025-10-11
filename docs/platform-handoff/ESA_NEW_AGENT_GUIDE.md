@@ -3,7 +3,7 @@
 
 **Version:** 1.0  
 **Last Updated:** October 10, 2025  
-**Framework:** ESA LIFE CEO 61x21 + 40x20s Quality Assurance  
+**Framework:** ESA 105-Agent System with 61-Layer Framework + 40x20s Quality Assurance  
 **Status:** Production-Ready Methodology
 
 ---
@@ -30,7 +30,7 @@
 **Step 1: Define Your Agent (5 min)**
 ```markdown
 Agent #[X]: [Domain Name] Expert
-ESA Layer: [Layer Number from 61x21 framework]
+ESA Layer: [Layer Number from 105-Agent System with 61-Layer Framework]
 Purpose: [One sentence describing what this agent does]
 ```
 
@@ -41,7 +41,7 @@ ESA Layer: 16 (Notification System)
 Purpose: Manages email delivery, push notifications, and in-app alerts
 ```
 
-**Step 2: Map to ESA 61x21 Framework (5 min)**
+**Step 2: Map to ESA 105-Agent System with 61-Layer Framework (5 min)**
 
 Review the 61 technical layers and identify which layer(s) your agent manages:
 
@@ -113,7 +113,7 @@ Add your agent to **ALL THREE** critical documentation files:
 
 **⚠️ CRITICAL:** If agent is missing from ESA_AGENT_ORG_CHART.md, it cannot actively help with work! Always update the org chart first.
 
-✅ **Done!** Your agent is now part of the ESA 61x21 framework.
+✅ **Done!** Your agent is now part of the ESA 105-Agent System with 61-Layer Framework.
 
 ---
 
@@ -1741,7 +1741,7 @@ Create your methodology file at: `docs/pages/esa-tools/[domain]-audit-methodolog
 ---
 
 **Created By:** Agent #[X] ([Agent Name])  
-**Framework:** ESA LIFE CEO 61x21 + 40x20s Quality Assurance  
+**Framework:** ESA 105-Agent System with 61-Layer Framework + 40x20s Quality Assurance  
 **Status:** [Draft/Review/Production]
 ```
 

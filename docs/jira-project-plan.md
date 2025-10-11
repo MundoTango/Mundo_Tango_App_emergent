@@ -1,9 +1,9 @@
-# Mundo Tango Platform - ESA 61x21 Audit & Remediation
+# Mundo Tango Platform - ESA 105-Agent System with 61-Layer Framework Audit & Remediation
 ## Jira Project Plan - Complete Roadmap for Human Review
 
 **Project Key:** MUN  
 **Project Type:** Software Development  
-**Methodology:** ESA 61x21 Hierarchical Parallel Execution  
+**Methodology:** ESA 105-Agent System with 61-Layer Framework Hierarchical Parallel Execution  
 **Agent Owner:** Agent #62 (Resume AI)  
 **Created:** October 10, 2025  
 **Status:** Phase 1-4 Complete, Phase 5 Ready
@@ -13,7 +13,7 @@
 ## 📊 Project Overview
 
 ### Objective
-Transform Mundo Tango platform to production-ready state using ESA 61x21 framework with 100-agent organizational hierarchy. Execute systematic platform remediation using hierarchical parallel methodology achieving 84% issue reduction across 97 pages.
+Transform Mundo Tango platform to production-ready state using ESA 105-Agent System with 61-Layer Framework framework with 105-agent organizational hierarchy. Execute systematic platform remediation using hierarchical parallel methodology achieving 84% issue reduction across 97 pages.
 
 ### Key Results (Target)
 - **Issue Reduction:** 314 → <50 (84% reduction)
@@ -113,7 +113,7 @@ Transform Mundo Tango platform to production-ready state using ESA 61x21 framewo
 **File:** `server/services/LangGraphAgentOrchestrator.ts`
 
 **Tasks Completed:**
-- [x] Map 100-agent ESA structure as executable graph
+- [x] Map 105-agent ESA structure as executable graph
 - [x] Implement Agent #0 (CEO) → 6 Chiefs → 9 Domains routing
 - [x] Add 61 Layer Agents + 7 Experts + 16 Life CEO sub-agents
 - [x] Create hierarchical routing logic (CEO → Chiefs based on layers 1-10, 11-20, etc.)

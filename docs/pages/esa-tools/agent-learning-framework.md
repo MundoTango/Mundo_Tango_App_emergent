@@ -30,7 +30,7 @@ Agent #11 achieved **100% Aurora Tide compliance** on Memories page using this m
 **Agent Actions:**
 1. **Search Codebase** - Identify existing implementations in domain
 2. **External Research** - Find industry standards, documentation, tools
-3. **Framework Alignment** - Map resources to ESA 61x21 layers
+3. **Framework Alignment** - Map resources to ESA 105-Agent System with 61-Layer Framework layers
 4. **Tool Selection** - Choose appropriate libraries/APIs (prefer open-source)
 
 **Deliverable:** Resource inventory with implementation guides
@@ -144,7 +144,7 @@ Agent #11 achieved **100% Aurora Tide compliance** on Memories page using this m
 
 ## 🔄 Parallel Execution Strategy
 
-### ESA 61x21 Framework Acceleration
+### ESA 105-Agent System with 61-Layer Framework Framework Acceleration
 
 **Sequential Approach (OLD):** 16 agents × 8 hours = **128 hours**  
 **Parallel Approach (NEW):** 16 agents simultaneously = **8-10 hours** (92% faster)
@@ -285,7 +285,7 @@ Each agent creates domain-specific methodology document in `docs/pages/esa-tools
 ## 🔗 Related Documentation
 
 - **ESA Master Orchestration:** `ESA_ORCHESTRATION.md`
-- **ESA 61x21 Framework:** `ESA.md`
+- **ESA 105-Agent System with 61-Layer Framework Framework:** `ESA.md`
 - **ESA Agents Index:** `docs/pages/esa-agents/index.md`
 - **Aurora Tide Design System:** `docs/pages/design-systems/aurora-tide.md`
 - **Existing Agent Methodologies:**

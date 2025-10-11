@@ -1,4 +1,4 @@
-# Layer #5: Authorization (RBAC/ABAC) - ESA 61x21 CERTIFIED
+# Layer #5: Authorization (RBAC/ABAC) - ESA 105-Agent System with 61-Layer Framework CERTIFIED
 
 **Agent ID:** #5  
 **Domain:** Foundation Division (Layers 1-10)  

@@ -110,7 +110,7 @@ Each canceled feature should have:
 | Search/Advanced Filters | MEDIUM | HIGH | HIGH | P1 |
 | Teacher/Organizer Tools | LOW | LOW | HIGH | P3 |
 
-## ESA 61x21 Compliance
+## ESA 105-Agent System with 61-Layer Framework Compliance
 
 Disabled features violate ESA framework principles:
 

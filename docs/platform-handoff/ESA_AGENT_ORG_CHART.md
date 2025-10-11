@@ -1,5 +1,5 @@
 # ESA Agent Organizational Chart
-## Complete Hierarchical Structure: 105 Agents Across ESA 61x21 Framework
+## Complete Hierarchical Structure: 105 Agents Across ESA 105-Agent System with 61-Layer Framework
 
 **Last Updated:** October 11, 2025  
 **Total Agents:** 105 (1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 5 Operational + 16 Life CEO)  
@@ -16,7 +16,7 @@
 │                         (CEO/Master)                          │
 │                                                               │
 │  Role: Strategic orchestration, framework governance          │
-│  Owns: Complete ESA 61x21 framework, all documentation       │
+│  Owns: Complete ESA 105-Agent System with 61-Layer Framework, all documentation       │
 │  Reports: Platform stakeholders                               │
 └──────────────────────────────────────────────────────────────┘
                               │

@@ -1,8 +1,8 @@
-# Buenos Aires City Group Template - Full ESA 61x21 Audit Report
+# Buenos Aires City Group Template - Full ESA 105-Agent System with 61-Layer Framework Audit Report
 ## Page: Group Detail (GroupDetailPageMT.tsx)
 
 **Date:** October 10, 2025  
-**Framework:** ESA 61x21 - 35-Agent Automated Testing System  
+**Framework:** ESA 105-Agent System with 61-Layer Framework - 35-Agent Automated Testing System  
 **Auditor:** AI Agent (Standardized Page Audit Protocol v2.0)  
 **Final Score:** **99/100 (EXCELLENT)** ⭐  
 **Initial Score:** 97/100  
@@ -415,7 +415,7 @@ The audit assigned **7 specialized agents** to test this page:
 
 ## 📈 Audit Methodology Applied
 
-### Full ESA 61x21 Framework (43-agent system)
+### Full ESA 105-Agent System with 61-Layer Framework Framework (43-agent system)
 
 **Phase 0:** ✅ Documentation Review
 - Referenced: `approved-patterns-2025-10-10.md`

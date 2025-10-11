@@ -1,4 +1,4 @@
-# Post Filtering System - ESA 61x21 Implementation
+# Post Filtering System - ESA 105-Agent System with 61-Layer Framework Implementation
 
 **Status**: ⚠️ Temporarily Disabled (Coming Soon Overlay Active)  
 **Last Updated**: October 5, 2025  
@@ -228,7 +228,7 @@ CREATE INDEX idx_friends_status ON friends(status);
 - **Visitors**: ~30ms (city inequality check)
 - **Friends**: ~22ms (leverages existing friendship JOIN)
 
-All queries stay well under the ESA 61x21 target of <200ms API response time.
+All queries stay well under the ESA 105-Agent System with 61-Layer Framework target of <200ms API response time.
 
 ## Testing
 
@@ -314,9 +314,9 @@ curl "http://localhost:5000/api/posts/feed?limit=10&filter=friends"
   - Added "Coming Soon" overlay to filter buttons
   - Full analysis documented in [canceled-features/post-filtering.md](../canceled-features/post-filtering.md)
 
-## ESA 61x21 Compliance
+## ESA 105-Agent System with 61-Layer Framework Compliance
 
-This implementation follows ESA LIFE CEO 61x21 framework principles:
+This implementation follows ESA LIFE CEO 105-Agent System with 61-Layer Framework principles:
 
 - ✅ **Layer 2 (API)**: Clean REST endpoint with typed parameters
 - ✅ **Layer 5 (Storage)**: Efficient database queries with proper indexes

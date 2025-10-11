@@ -217,7 +217,7 @@ Certification validates:
 
 ### 1. ESA Framework Assessment (Written)
 **Topics Covered:**
-- ESA 61x21 framework (61 layers, 21 phases)
+- ESA 105-Agent System with 61-Layer Framework (61 layers, 21 phases)
 - A2A communication protocol (4 escalation levels)
 - Parallel execution methodology (3 types)
 - Check Before Build protocol

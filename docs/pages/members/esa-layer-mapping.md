@@ -1,4 +1,4 @@
-# Members & Community Hub: ESA 61x21 Layer Mapping
+# Members & Community Hub: ESA 105-Agent System with 61-Layer Framework Layer Mapping
 
 **Document Version:** 1.0  
 **Last Updated:** October 2025  
@@ -9,7 +9,7 @@
 
 ## Overview
 
-This document maps all Members and Community Hub features to the ESA LIFE CEO 61x21 framework's 61 technical layers, following the structure defined in `ESA_MASTER_ORCHESTRATION.md`.
+This document maps all Members and Community Hub features to the ESA LIFE CEO 105-Agent System with 61-Layer Framework's 61 technical layers, following the structure defined in `ESA_MASTER_ORCHESTRATION.md`.
 
 ---
 

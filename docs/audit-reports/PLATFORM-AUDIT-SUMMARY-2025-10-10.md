@@ -1,7 +1,7 @@
 # 📊 PLATFORM AUDIT SUMMARY - 100-Agent ESA Framework
 
 **Date:** October 10, 2025  
-**Framework:** ESA 61x21 with 100-Agent Hierarchy  
+**Framework:** ESA 105-Agent System with 61-Layer Framework with 100-Agent Hierarchy  
 **Master Reference:** [esa.md](../platform-handoff/esa.md)  
 **Auditor:** ESA Agent #0 (CEO) with 100-Agent Team  
 **Pages Audited:** 6 high-priority pages

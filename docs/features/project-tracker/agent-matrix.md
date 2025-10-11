@@ -18,7 +18,7 @@
 | **Story Detail** | #65 (Sprint Mgmt) | #17 (Forms), #54 (A11y), #2 (API) | Task cards, comments thread, code links UI, agent assignments | 6h |
 | **Sprint Board** | #63 (Sprints) | #17 (Kanban), #52 (Perf), #2 (API) | Kanban columns, drag-drop, burndown chart, velocity | 8h |
 | **Kanban View** | #63 (Sprints) | #17 (DnD), #65 (Logic), #2 (API) | Multi-sprint board, swimlanes, WIP limits | 6h |
-| **Agent Selector** | #17 (UI/UX) | #65 (Agent Data), #2 (API) | Hierarchical dropdown, 100-agent list, search, icons | 3h |
+| **Agent Selector** | #17 (UI/UX) | #65 (Agent Data), #2 (API) | Hierarchical dropdown, 105-agent list, search, icons | 3h |
 | **CodeLinkInput** | #17 (UI/UX) | #14 (Validation), #67 (GitHub) | File path input, line range, validation, VSCode links | 2h |
 | **AgentWorkloadChart** | #12 (Data Viz) | #65 (Calc Logic), #2 (API) | Bar chart, capacity bars, utilization %, tooltips | 3h |
 | **SprintBurndown** | #12 (Data Viz) | #63 (Sprint Logic), #2 (API) | Line chart, ideal line, velocity indicator, zoom | 3h |

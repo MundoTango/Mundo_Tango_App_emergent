@@ -244,7 +244,7 @@ Based on "things are outdated and incorrect":
 
 ---
 
-## 🎯 Agent Assignment (ESA 61x21)
+## 🎯 Agent Assignment (ESA 105-Agent System with 61-Layer Framework)
 
 **Agent #11 (Aurora Tide Design Expert):**
 - Design approval for all admin pages

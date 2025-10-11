@@ -274,7 +274,7 @@ import UnifiedMapBase from '@/components/maps/UnifiedMapBase';
 
 ## Developer Guidelines
 
-### ESA 61x21 Standard: Local-First Architecture
+### ESA 105-Agent System with 61-Layer Framework Standard: Local-First Architecture
 
 **Principle:** All critical assets must be self-hosted for production reliability.
 
@@ -324,7 +324,7 @@ When reviewing map-related PRs:
 ### Phase 4: Production Deployment (October 2025)
 ✅ 100% CDN-free map infrastructure achieved  
 ✅ Zero external dependencies for map icons  
-✅ ESA 61x21 local-first standard implemented
+✅ ESA 105-Agent System with 61-Layer Framework local-first standard implemented
 
 ---
 
@@ -362,7 +362,7 @@ The CDN-free map migration represents a critical production readiness milestone 
 - **Enhanced security** - Reduced attack surface with local assets
 - **Better performance** - Faster load times with local caching
 - **Offline support** - Full PWA capabilities for maps
-- **ESA 61x21 compliance** - Local-first architecture standard
+- **ESA 105-Agent System with 61-Layer Framework compliance** - Local-first architecture standard
 
 All future map implementations must follow this local-first pattern to maintain production reliability standards.
 

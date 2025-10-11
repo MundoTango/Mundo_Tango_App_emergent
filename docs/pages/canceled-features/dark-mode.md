@@ -342,7 +342,7 @@ const Card = styled.div(({ theme }) => [
 4. **Animations**: Certain animations assume light mode
 5. **Embedded Content**: YouTube embeds, etc. can't be themed
 
-## ESA 61x21 Violations
+## ESA 105-Agent System with 61-Layer Framework Violations
 
 - **Layer 9 (Frontend)**: Theme system should be production-ready
 - **Layer 55 (Accessibility)**: Dark mode is WCAG requirement

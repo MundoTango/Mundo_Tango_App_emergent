@@ -16,7 +16,7 @@ This document outlines the complete process for enhancing any page in the Life C
 
 1. **Functionality First** - Never change working business logic
 2. **UI/UX Separation** - Design changes through component wrapping, not refactoring
-3. **Parallel Execution** - Use ESA 61x21 framework for efficient implementation
+3. **Parallel Execution** - Use ESA 105-Agent System with 61-Layer Framework framework for efficient implementation
 4. **Documentation-Driven** - Create safety snapshots before any changes
 5. **Validation-Based** - Verify zero regressions after enhancement
 
@@ -223,7 +223,7 @@ Map each enhancement to ESA framework layers:
 
 ### 2.2 Identify Parallel Execution Tracks
 
-Following the ESA 61x21 Phase 4 pattern, group enhancements into **4 parallel tracks**:
+Following the ESA 105-Agent System with 61-Layer Framework Phase 4 pattern, group enhancements into **4 parallel tracks**:
 
 **Track A: Core Visual (Aurora Tide Components)**
 - GlassCard wrapping
@@ -368,7 +368,7 @@ List every file that will be touched:
 
 ---
 
-## Phase 4: ESA 61x21 Parallel Execution Plan
+## Phase 4: ESA 105-Agent System with 61-Layer Framework Parallel Execution Plan
 
 Now create the detailed implementation plan using the 4-track pattern.
 
@@ -607,7 +607,7 @@ Update `replit.md` with changes:
 ## Recent Changes
 
 ### [Page Name] Aurora Tide Enhancement ([Date])
-**Framework:** ESA 61x21 4-Track Parallel Execution
+**Framework:** ESA 105-Agent System with 61-Layer Framework 4-Track Parallel Execution
 
 **Completed:**
 - ✅ Track A: GlassCard depth system, ocean gradients
@@ -1083,7 +1083,7 @@ echo "✅ All validations passed!"
 3. **Document Everything** - Future you will thank you
 4. **Preserve Functionality** - Business logic is sacred
 5. **Use Design Tokens** - Ocean palette for consistency
-6. **Parallel When Possible** - ESA 61x21 efficiency
+6. **Parallel When Possible** - ESA 105-Agent System with 61-Layer Framework efficiency
 7. **Accessibility First** - WCAG 2.1 AA non-negotiable
 
 ### ❌ DON'T
@@ -1136,7 +1136,7 @@ This process ensures consistent, high-quality Aurora Tide enhancements across al
 
 1. **Zero Functionality Regressions** - Business logic untouched
 2. **Design System Compliance** - Aurora Tide standards
-3. **Efficient Execution** - ESA 61x21 parallel methodology
+3. **Efficient Execution** - ESA 105-Agent System with 61-Layer Framework parallel methodology
 4. **Safety & Rollback** - Complete documentation
 5. **Accessibility & Performance** - Production-ready quality
 

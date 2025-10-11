@@ -440,7 +440,7 @@ Current translation files are well-organized:
 **Coverage**: ~850 strings across 12 namespaces  
 **Quality**: High (native speaker reviewed for top 10 languages)
 
-## ESA 61x21 Violations
+## ESA 105-Agent System with 61-Layer Framework Violations
 
 - **Layer 53 (Internationalization)**: Core feature non-functional
 - **Layer 9 (Frontend)**: Poor React integration

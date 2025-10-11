@@ -125,7 +125,7 @@ Optimizes Node.js and Express.js server configuration, middleware stack, environ
 
 ## 📚 Reference Documentation
 - esa.md - Master framework
-- ESA_FRAMEWORK.md - ESA 61x21 foundation
+- ESA_FRAMEWORK.md - ESA 105-Agent System with 61-Layer Framework foundation
 - ESA_AGENT_ORG_CHART.md - Agent hierarchy
 - ESA_AGENT_A2A_PROTOCOL.md - Communication protocol
 - Node.js Performance Best Practices

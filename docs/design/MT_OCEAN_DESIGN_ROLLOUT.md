@@ -291,7 +291,7 @@ All MT Ocean gradients and text combinations have been verified for WCAG AA comp
   - `client/src/components/Sidebar.tsx`
   - `client/src/components/navigation/UnifiedTopBar.tsx`
 - **Testing:** Use screenshot tool + Lighthouse accessibility audit
-- **Support:** Reference ESA LIFE CEO 61x21 framework Layer 7 (Visual Design)
+- **Support:** Reference ESA LIFE CEO 105-Agent System with 61-Layer Framework Layer 7 (Visual Design)
 
 ## Next Steps
 

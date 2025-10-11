@@ -571,7 +571,7 @@ await redis.subscribe('agent-channel', (message) => {
 
 ---
 
-## ESA 61x21 Agent Mapping
+## ESA 105-Agent System with 61-Layer Framework Agent Mapping
 
 ### Specialized Agent Groups (8-12 Agents)
 

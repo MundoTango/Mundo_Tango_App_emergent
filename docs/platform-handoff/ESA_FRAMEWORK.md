@@ -1,4 +1,4 @@
-# ESA LIFE CEO 61x21 Framework
+# ESA LIFE CEO 105-Agent System with 61-Layer Framework
 ## The Complete Framework: 61 Technical Layers × 21 Implementation Phases
 
 ### Framework Evolution

@@ -320,7 +320,7 @@ Complete in 1 day instead of 3
 
 **Reference Documents:**
 ✅ `docs/platform-handoff/esa.md` (Master orchestration)
-✅ `docs/platform-handoff/ESA_AGENT_ORG_CHART.md` (100-agent hierarchy)
+✅ `docs/platform-handoff/ESA_AGENT_ORG_CHART.md` (105-agent hierarchy)
 ✅ `docs/learnings/project-tracker-aurora-tide-failure.md` (Case study)
 ✅ `docs/design-specs/project-tracker-aurora-tide-spec.md` (Design reference)
 
