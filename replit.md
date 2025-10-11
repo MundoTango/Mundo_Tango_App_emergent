@@ -38,6 +38,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Self-Hosted Project Tracker (Agent #65)**: Complete replacement for Jira with bidirectional GitHub integration (Epic/Story/Task hierarchy, agent assignment, code linking, and automated sync between stories↔issues and tasks↔PRs).
 - **Comments System (Agent #65)**: Rich collaboration features with @mentions, threading (parent/child), file attachments, edit tracking, and activity feed integration.
 - **ESA Interactive Dashboard (/admin/esa-dashboard)**: Visual navigation system for the ESA Framework featuring 6 interactive views (Agent Orchestration, Communication Flow, Training Execution, Audit Workflow, System Map, Decision Authority). Includes live metrics, breadcrumb navigation, contextual tooltips with doc links, and Aurora Tide glassmorphic design. Replaces manual documentation reading with intuitive visualization.
+- **ESA Floating Quick Navigator**: Globally accessible floating button in admin areas with magnetic interactions. Provides Quick Navigator Overlay featuring live stats (105 agents, 61 layers, training progress), instant agent search, context-aware suggestions, 4 quick actions (Full Dashboard, Org Chart, 17-Phase Audit, Training Status), and agent hierarchy preview. Built with Aurora Tide glassmorphic design and MT Ocean gradients.
 
 ### System Design Choices
 - **Microservices**: Decoupled architecture for Life CEO, Community Platforms, and Integration Layer with isolated databases and API-first communication.
