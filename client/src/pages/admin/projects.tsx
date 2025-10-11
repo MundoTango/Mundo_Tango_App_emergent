@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, LayoutDashboard, ListTodo, Target, Calendar, TrendingUp, ExternalLink } from 'lucide-react';
+import { Plus, LayoutDashboard, ListTodo, Target, Calendar, TrendingUp, ExternalLink, Columns3, Table2, Zap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -382,6 +382,27 @@ export default function ProjectTrackerAdmin() {
               >
                 <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
               </TabsTrigger>
+              <TabsTrigger 
+                value="kanban" 
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
+                data-testid="tab-kanban"
+              >
+                <Columns3 className="mr-2 h-4 w-4" /> Kanban
+              </TabsTrigger>
+              <TabsTrigger 
+                value="list" 
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
+                data-testid="tab-list"
+              >
+                <Table2 className="mr-2 h-4 w-4" /> List
+              </TabsTrigger>
+              <TabsTrigger 
+                value="sprint" 
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
+                data-testid="tab-sprint"
+              >
+                <Zap className="mr-2 h-4 w-4" /> Sprint
+              </TabsTrigger>
             </TabsList>
             
             <Link href="/admin/projects/epics">
@@ -574,6 +595,209 @@ export default function ProjectTrackerAdmin() {
                 </GlassCard>
               )}
             </div>
+          </TabsContent>
+
+          {/* KANBAN VIEW - Agent #8 (ESA Layer 8 - UI/UX) */}
+          <TabsContent value="kanban" className="space-y-4 mt-6">
+            <div className="flex gap-4 overflow-x-auto pb-4">
+              {['to_do', 'in_progress', 'done'].map(status => {
+                const statusStories = stories.filter(s => s.status === status);
+                return (
+                  <div key={status} className="flex-1 min-w-[300px]">
+                    <GlassCard className="glassmorphic-card p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white">
+                            {status === 'to_do' ? 'To Do' : status === 'in_progress' ? 'In Progress' : 'Done'}
+                          </h3>
+                          <Badge variant="secondary" className="text-xs" data-testid={`kanban-count-${status}`}>
+                            {statusStories.length}
+                          </Badge>
+                        </div>
+                        <Badge className={statusColors[status as keyof typeof statusColors]} />
+                      </div>
+                      <div className="space-y-3">
+                        {statusStories.map(story => (
+                          <GlassCard 
+                            key={story.id} 
+                            className="glassmorphic-card card-lift p-3 cursor-pointer hover:border-turquoise-500/50 transition-all group" 
+                            onClick={() => window.location.href = `/admin/projects/story/${story.id}`}
+                            data-testid={`kanban-card-${story.id}`}
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <Badge variant="outline" className="border-turquoise-500 text-turquoise-600 dark:border-turquoise-400 dark:text-turquoise-400 text-xs">
+                                  {story.key}
+                                </Badge>
+                                <Badge className={priorityColors[story.priority as keyof typeof priorityColors]} className="text-xs">
+                                  {story.priority}
+                                </Badge>
+                              </div>
+                              <h4 className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-turquoise-600 dark:group-hover:text-turquoise-400 transition-colors">
+                                {story.summary}
+                              </h4>
+                              {story.storyPoints && (
+                                <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                                  <Target className="h-3 w-3" />
+                                  {story.storyPoints} pts
+                                </div>
+                              )}
+                            </div>
+                          </GlassCard>
+                        ))}
+                        {statusStories.length === 0 && (
+                          <div className="text-center py-8 text-sm text-gray-400 dark:text-gray-500">
+                            No stories
+                          </div>
+                        )}
+                      </div>
+                    </GlassCard>
+                  </div>
+                );
+              })}
+            </div>
+          </TabsContent>
+
+          {/* LIST VIEW - Agent #11 (ESA Layer 8 - UI/UX) */}
+          <TabsContent value="list" className="space-y-4 mt-6">
+            <GlassCard className="glassmorphic-card overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gradient-to-r from-turquoise-500/10 to-ocean-500/10 border-b border-white/10">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Key</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Summary</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Priority</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Points</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    {stories.map(story => (
+                      <tr 
+                        key={story.id} 
+                        className="hover:bg-turquoise-500/5 cursor-pointer transition-colors" 
+                        onClick={() => window.location.href = `/admin/projects/story/${story.id}`}
+                        data-testid={`list-row-${story.id}`}
+                      >
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <Badge variant="outline" className="border-turquoise-500 text-turquoise-600 dark:border-turquoise-400 dark:text-turquoise-400">
+                            {story.key}
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="text-sm font-medium text-gray-900 dark:text-white">{story.summary}</div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <Badge className={statusColors[story.status as keyof typeof statusColors]}>
+                            {story.status.replace('_', ' ')}
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <Badge className={priorityColors[story.priority as keyof typeof priorityColors]}>
+                            {story.priority}
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          {story.storyPoints ? (
+                            <Badge variant="secondary" className="bg-gray-100 dark:bg-gray-800">
+                              {story.storyPoints} pts
+                            </Badge>
+                          ) : (
+                            <span className="text-sm text-gray-400">-</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {stories.length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="h-16 w-16 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-500 flex items-center justify-center">
+                        <Table2 className="h-8 w-8 text-white" />
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400" data-testid="text-no-stories-list">
+                        No stories to display
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </GlassCard>
+          </TabsContent>
+
+          {/* SPRINT VIEW - Agent #11 (ESA Layer 8 - UI/UX) */}
+          <TabsContent value="sprint" className="space-y-4 mt-6">
+            <GlassCard className="glassmorphic-card p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Active Sprint</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    {stats?.activeSprint ? `Sprint ${stats.activeSprint.number}` : 'No active sprint'}
+                  </p>
+                </div>
+                <Button className="bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700 text-white">
+                  <Zap className="mr-2 h-4 w-4" /> Start Sprint
+                </Button>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-3 mb-6">
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Points</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-ocean-600 bg-clip-text text-transparent">
+                    {stats?.stories.reduce((acc, s) => acc + (s.totalPoints || 0), 0) || 0}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Completed</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                    {stats?.stories.find(s => s.status === 'done')?.count || 0}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">In Progress</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                    {stats?.stories.find(s => s.status === 'in_progress')?.count || 0}
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-gray-900 dark:text-white">Sprint Backlog</h4>
+                <div className="grid gap-3">
+                  {stories.filter(s => s.status !== 'done').map(story => (
+                    <GlassCard 
+                      key={story.id} 
+                      className="glassmorphic-card card-lift p-4 cursor-pointer hover:border-turquoise-500/50 transition-all" 
+                      onClick={() => window.location.href = `/admin/projects/story/${story.id}`}
+                      data-testid={`sprint-card-${story.id}`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3 flex-1">
+                          <Badge variant="outline" className="border-turquoise-500 text-turquoise-600 dark:border-turquoise-400 dark:text-turquoise-400">
+                            {story.key}
+                          </Badge>
+                          <div className="flex-1">
+                            <h5 className="text-sm font-medium text-gray-900 dark:text-white">{story.summary}</h5>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Badge className={statusColors[story.status as keyof typeof statusColors]}>
+                            {story.status.replace('_', ' ')}
+                          </Badge>
+                          {story.storyPoints && (
+                            <Badge variant="secondary" className="bg-gray-100 dark:bg-gray-800">
+                              {story.storyPoints} pts
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    </GlassCard>
+                  ))}
+                </div>
+              </div>
+            </GlassCard>
           </TabsContent>
         </Tabs>
       </div>
