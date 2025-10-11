@@ -3372,10 +3372,50 @@ export type InsertKnowledgeGraphEdge = z.infer<typeof insertKnowledgeGraphEdgeSc
 
 // ========== Self-Hosted Project Tracker (ESA Layer 65) ==========
 // Replaces Jira with internal admin center tracking
+// Hierarchical Structure: System → Area → Epic → Story → Task
+
+// Systems (Top level - e.g., "Mundo Tango Platform")
+export const projectSystems = pgTable("project_systems", {
+  id: serial("id").primaryKey(),
+  key: varchar("key", { length: 50 }).unique().notNull(), // e.g., "MT"
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  icon: varchar("icon", { length: 50 }).default('Layers'), // Lucide icon name
+  color: varchar("color", { length: 20 }).default('turquoise'), // Theme color
+  status: varchar("status", { length: 50 }).default('active').notNull(), // active, archived
+  createdById: integer("created_by_id").notNull().references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_systems_status").on(table.status),
+  index("idx_systems_key").on(table.key),
+]);
+
+// Areas (Mid level - e.g., "Admin Center", "User Features", "AI System")
+export const projectAreas = pgTable("project_areas", {
+  id: serial("id").primaryKey(),
+  systemId: integer("system_id").references(() => projectSystems.id, { onDelete: 'cascade' }),
+  key: varchar("key", { length: 50 }).unique().notNull(), // e.g., "MT-ADMIN"
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  icon: varchar("icon", { length: 50 }).default('FolderOpen'), // Lucide icon name
+  color: varchar("color", { length: 20 }).default('ocean'), // Theme color
+  status: varchar("status", { length: 50 }).default('active').notNull(), // active, archived
+  assignedAgentId: varchar("assigned_agent_id", { length: 50 }), // Lead agent for area
+  createdById: integer("created_by_id").notNull().references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_areas_system").on(table.systemId),
+  index("idx_areas_status").on(table.status),
+  index("idx_areas_key").on(table.key),
+  index("idx_areas_agent").on(table.assignedAgentId),
+]);
 
 // Epics (Large initiatives spanning multiple sprints)
 export const projectEpics = pgTable("project_epics", {
   id: serial("id").primaryKey(),
+  areaId: integer("area_id").references(() => projectAreas.id, { onDelete: 'cascade' }), // Links to area
   key: varchar("key", { length: 50 }).unique().notNull(), // e.g., MUN-1
   summary: varchar("summary", { length: 500 }).notNull(),
   description: text("description"),
@@ -3390,6 +3430,7 @@ export const projectEpics = pgTable("project_epics", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
 }, (table) => [
+  index("idx_epics_area").on(table.areaId),
   index("idx_epics_status").on(table.status),
   index("idx_epics_assigned").on(table.assignedToId),
   index("idx_epics_key").on(table.key),
@@ -3580,6 +3621,18 @@ export const projectDependencies = pgTable("project_dependencies", {
 ]);
 
 // Insert schemas for project tracker
+export const insertProjectSystemSchema = createInsertSchema(projectSystems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectAreaSchema = createInsertSchema(projectAreas).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export const insertProjectEpicSchema = createInsertSchema(projectEpics).omit({
   id: true,
   createdAt: true,
@@ -3638,7 +3691,33 @@ export const insertProjectDependencySchema = createInsertSchema(projectDependenc
 });
 
 // Relations for project tracker
+export const projectSystemsRelations = relations(projectSystems, ({ one, many }) => ({
+  createdBy: one(users, {
+    fields: [projectSystems.createdById],
+    references: [users.id],
+    relationName: 'systemCreator'
+  }),
+  areas: many(projectAreas)
+}));
+
+export const projectAreasRelations = relations(projectAreas, ({ one, many }) => ({
+  system: one(projectSystems, {
+    fields: [projectAreas.systemId],
+    references: [projectSystems.id]
+  }),
+  createdBy: one(users, {
+    fields: [projectAreas.createdById],
+    references: [users.id],
+    relationName: 'areaCreator'
+  }),
+  epics: many(projectEpics)
+}));
+
 export const projectEpicsRelations = relations(projectEpics, ({ one, many }) => ({
+  area: one(projectAreas, {
+    fields: [projectEpics.areaId],
+    references: [projectAreas.id]
+  }),
   assignedTo: one(users, {
     fields: [projectEpics.assignedToId],
     references: [users.id],
@@ -3744,6 +3823,10 @@ export const projectDependenciesRelations = relations(projectDependencies, ({ on
 }));
 
 // Types for project tracker
+export type ProjectSystem = typeof projectSystems.$inferSelect;
+export type InsertProjectSystem = z.infer<typeof insertProjectSystemSchema>;
+export type ProjectArea = typeof projectAreas.$inferSelect;
+export type InsertProjectArea = z.infer<typeof insertProjectAreaSchema>;
 export type ProjectEpic = typeof projectEpics.$inferSelect;
 export type InsertProjectEpic = z.infer<typeof insertProjectEpicSchema>;
 export type ProjectStory = typeof projectStories.$inferSelect;
