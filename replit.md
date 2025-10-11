@@ -8,6 +8,36 @@ Preferred communication style: Simple, everyday language.
 Do not reference monetary values or investment amounts when describing the platform.
 When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
 
+## Recent Changes (October 11, 2025)
+
+### Aurora Tide Design System Enforcement
+- **Mandatory Pre-Build Design Gate**: All new UI features MUST receive Agent #11 (Aurora Tide Design Expert) approval BEFORE building
+- **ESLint Auto-Enforcement**: Agent #66 blocks plain `Card` imports; only `GlassCard` from `@/components/glass/GlassComponents` allowed
+- **Design Specs Required**: Every new component documented in `docs/design-specs/` with exact Aurora Tide patterns
+- **Learning from Failure**: Project Tracker initially built without Aurora Tide compliance; rebuilt correctly as case study for all 67 agents
+
+### Dual-Mode Audit & Build Framework
+- **Updated Tool**: `docs/pages/esa-tools/standardized-page-audit.md` now supports BUILD+AUDIT dual-mode operation
+- **Mode 1 (Audit)**: Post-build validation for existing pages
+- **Mode 2 (Build)**: Pre-build design gates enforce Aurora Tide from the start
+- **4-Step Enforcement**: Agent #11 Design → Agent #65 Build → Agent #66 ESLint → Agent #14 Validation
+
+### Phase 5 Hybrid Blitz Execution (8 Squads)
+- **Squad 1**: Accessibility (Agent #54) - 25 pages
+- **Squad 2**: i18n (Agent #53) - 30 pages  
+- **Squad 3**: Performance (Agent #52) - 15 pages
+- **Squad 4**: Testing (Agent #51) - 20 pages
+- **Squad 5**: Security (Agent #49) - 15 pages
+- **Squad 6**: Database (Agent #1) - 20 pages
+- **Squad 7**: AI Integration (Agent #31) - 10 pages
+- **Squad 8**: Aurora Tide Design (Agent #11) - ALL 135 pages (VETO power on design violations)
+
+### Meta-Tracking System
+- **Self-Hosted Project Tracker**: `/admin/projects` rebuilt with Aurora Tide compliance
+- **Epic Structure**: MUN-100 (master) → MUN-101 through MUN-108 (squad epics)
+- **Self-Referential**: Using the tracker to track Phase 5 audit work itself
+- **Auto-Sync**: Audit findings → Project Tracker tasks → Real-time dashboard updates
+
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
