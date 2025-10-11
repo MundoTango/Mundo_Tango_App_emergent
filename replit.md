@@ -37,10 +37,11 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Comprehensive Audit System**: Automated, multi-layer audit system for continuous quality improvement, including page audits and open-source management.
 - **Self-Hosted Project Tracker (Agent #65)**: Complete replacement for Jira with bidirectional GitHub integration (Epic/Story/Task hierarchy, agent assignment, code linking, and automated sync between stories↔issues and tasks↔PRs).
 - **Comments System (Agent #65)**: Rich collaboration features with @mentions, threading (parent/child), file attachments, edit tracking, and activity feed integration.
+- **ESA Interactive Dashboard (/admin/esa-dashboard)**: Visual navigation system for the ESA Framework featuring 6 interactive views (Agent Orchestration, Communication Flow, Training Execution, Audit Workflow, System Map, Decision Authority). Includes live metrics, breadcrumb navigation, contextual tooltips with doc links, and Aurora Tide glassmorphic design. Replaces manual documentation reading with intuitive visualization.
 
 ### System Design Choices
 - **Microservices**: Decoupled architecture for Life CEO, Community Platforms, and Integration Layer with isolated databases and API-first communication.
-- **Framework**: Adheres to the ESA LIFE CEO 61x21 systematic development methodology, including a 100-agent organizational structure.
+- **Framework**: Adheres to the ESA Framework (105 Agents, 61 Layers) systematic development methodology with comprehensive orchestration and training infrastructure.
 - **PWA**: Progressive Web App capabilities.
 - **Unified Map Architecture**: 100% CDN-free map infrastructure using local assets.
 - **Route Protection System**: 4-layer production/debug separation using folder conventions, TypeScript RouteRegistry, Playwright smoke tests, and ESLint rules.
