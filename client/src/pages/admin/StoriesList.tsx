@@ -316,7 +316,7 @@ export default function StoriesList() {
                   <tr
                     key={story.id}
                     className="hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
-                    onClick={() => navigate(`/admin/projects/stories/${story.id}`)}
+                    onClick={() => navigate(`/admin/projects/story/${story.id}`)}
                     data-testid={`row-story-${story.id}`}
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
