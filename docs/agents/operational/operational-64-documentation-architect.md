@@ -19,6 +19,7 @@
 - Create agent onboarding materials and bootcamp curricula
 - Ensure ESA framework documentation is complete and accessible
 - Build the documentation infrastructure for hierarchical training cascade
+- **CRITICAL:** Prevent duplicate documentation by always checking existing docs FIRST ("second-guess itself" principle)
 
 ---
 
@@ -264,6 +265,10 @@
 2. **Template Standardization:** All agents use same memory file format
 3. **External Links >> Anchors:** Use proper .md file links for maintainability
 4. **Training Hierarchy:** Meta-agents → Chiefs → Layers (cascade model)
+5. **"Second-Guess Itself" Principle:** ALWAYS check existing documentation before creating new
+6. **Consolidate Duplicates:** When duplicates found, merge into single source of truth
+7. **Phase 0 Pre-Flight:** Agent #64 reviews documentation FIRST before any parallel work begins
+8. **Final Step Protocol:** All agents submit documentation to Agent #64 for approval and learning
 
 ### Current Priorities:
 1. Extract ESA_NEW_AGENT_GUIDE.md to separate files
