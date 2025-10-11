@@ -479,6 +479,20 @@ export const productionRoutes: RouteConfig[] = [
     description: 'ESA Agent #65 Self-Hosted Project Tracker (Epics/Stories/Tasks)'
   },
   {
+    path: '/admin/projects/epics',
+    component: lazy(() => import('@/pages/admin/EpicsList')),
+    mode: 'production',
+    loadingMessage: 'Loading epics list...',
+    description: 'ESA Agent #65 + #17: Epics List - Sortable table with filtering'
+  },
+  {
+    path: '/admin/projects/stories',
+    component: lazy(() => import('@/pages/admin/StoriesList')),
+    mode: 'production',
+    loadingMessage: 'Loading stories list...',
+    description: 'ESA Agent #65 + #17: Stories List - Task management with agent filtering'
+  },
+  {
     path: '/admin/projects/epic/:id',
     component: lazy(() => import('@/pages/admin/EpicDetail')),
     mode: 'production',
