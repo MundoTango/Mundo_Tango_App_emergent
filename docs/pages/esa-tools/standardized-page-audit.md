@@ -788,16 +788,66 @@ See `docs/audit-reports/group-detail-2025-10-10T06-20-57.json` for the full impl
 ---
 
 ### Audit Structure
-- **43 Total Agents**: 14 methodology audits + 21 gap analysis checks + 8 new dimensions
-- **Execution Time**: ~60 minutes per page (includes documentation review)
-- **Pass Threshold**: 90/100 for certification
-- **Consensus Requirement**: >90% agent approval
+- **17-Phase Tiered System**: 5 tiers with dependencies (sequential + parallel execution)
+- **17 Specialized Agents**: Each phase has dedicated agent lead
+- **Execution Time**: ~90-120 minutes per page (optimized with parallel tiers)
+- **Pass Threshold**: All phases must pass for production certification
+- **Consensus Requirement**: >90% agent approval + Agent #0 CEO sign-off
 
 ---
 
-## 🎯 The 43-Agent System
+## 🎯 The 17-Phase Tiered Audit System
 
-### Phase 1: Methodology Audits (14 Agents)
+**📖 Complete Reference:** [standardized-page-audit-17-phases.md](./standardized-page-audit-17-phases.md)
+
+**Quick Overview:**
+
+### **Tier 1: Foundation (Sequential)** ⚡
+*Must complete in order - prevents cascading failures*
+- **Phase 1:** Database/Schema → Agent #1
+- **Phase 2:** API/Backend → Agent #2  
+- **Phase 3:** Real-time → Agent #4
+- **Phase 4:** Caching → Agent #5
+
+### **Tier 2: Application Layer (Parallel)** 🔨
+*After Tier 1 - run simultaneously*
+- **Phase 5:** Frontend/UI → Agent #8
+- **Phase 6:** Security/Auth → Agent #7
+- **Phase 7:** File Management → Agent #6
+
+### **Tier 3: Quality Assurance (Parallel)** ✅
+*After Tier 2 - validates quality*
+- **Phase 8:** Performance → Agent #48
+- **Phase 9:** Testing/QA → Agent #52
+- **Phase 10:** Documentation → Agent #54
+
+### **Tier 4: User Experience (Parallel)** 🎨
+*After Tier 3 - ensures accessibility*
+- **Phase 11:** Design System → Agent #11
+- **Phase 12:** Accessibility → Agent #50
+- **Phase 13:** i18n → Agent #16
+- **Phase 14:** SEO → Agent #55
+
+### **Tier 5: Deployment & Validation (Sequential)** 🚀
+*Final gates - must pass for production*
+- **Phase 15:** Open Source → Agent #59
+- **Phase 16:** Deployment Ready → Agent #49
+- **Phase 17:** CEO Certification → Agent #0
+
+**Execution Flow:**
+```
+Agent #0 initiates → Domain #9 orchestrates
+Tier 1 (sequential) → Tier 2 (parallel) → Tier 3 (parallel) → Tier 4 (parallel) → Tier 5 (sequential)
+→ Production Certified ✅
+```
+
+---
+
+## 📋 LEGACY: Old 43-Agent System (DEPRECATED)
+
+**⚠️ The following section is kept for historical reference only. Use 17-Phase Tiered System above for all new audits.**
+
+### Phase 1: Methodology Audits (14 Agents) - DEPRECATED
 
 Each agent scores the page 0-100 based on their specialty:
 
