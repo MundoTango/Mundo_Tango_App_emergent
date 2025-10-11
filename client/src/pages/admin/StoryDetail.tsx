@@ -8,13 +8,12 @@ import { queryClient, apiRequest } from '@/lib/queryClient';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Plus, Check, Clock, FileCode, AlertTriangle, Target, Users, Shield, Link2, CheckSquare, Code, FileText, Layers, ChevronRight } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ArrowLeft, Plus, Check, Clock, FileCode, AlertTriangle, Target, Users, Shield, Link2, CheckSquare, Code, FileText, Layers, ChevronRight, Eye, GitBranch, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +23,7 @@ import { AgentSelector, MultiAgentSelector } from '@/components/tracker/AgentSel
 import { CodeLinkInput, CodeLinkDisplay } from '@/components/tracker/CodeLinkInput';
 import { GitHubIssueLink, SyncToGitHubButton, GitHubPRBadge, LinkPRButton } from '@/components/admin/GitHubIntegration';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { getLayerName, getLayerTooltip } from '@/lib/esaLayers';
+import { getLayerName } from '@/lib/esaLayers';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type Task = {
@@ -204,32 +203,40 @@ export default function StoryDetail() {
 
   return (
     <AdminLayout>
-      <div className="container mx-auto space-y-6" data-testid="page-story-detail">
-        {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <span className="text-gray-500 dark:text-gray-400">Admin</span>
-          <ChevronRight className="h-4 w-4" />
-          <Link href="/admin/projects" className="hover:text-turquoise-600 dark:hover:text-turquoise-400 transition-colors" data-testid="link-projects">
-            Projects
-          </Link>
-          {story.epicId && (
-            <>
-              <ChevronRight className="h-4 w-4" />
-              <Link href={`/admin/projects/epic/${story.epicId}`} className="hover:text-turquoise-600 dark:hover:text-turquoise-400 transition-colors" data-testid="link-epic">
-                Epic
-              </Link>
-            </>
-          )}
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-gray-900 dark:text-white font-medium">{story.key}</span>
+      <div className="container mx-auto px-4" data-testid="page-story-detail">
+        {/* Breadcrumbs & Back Button */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-gray-500 dark:text-gray-400">Admin</span>
+            <ChevronRight className="h-4 w-4" />
+            <Link href="/admin/projects" className="hover:text-turquoise-600 dark:hover:text-turquoise-400 transition-colors" data-testid="link-projects">
+              Projects
+            </Link>
+            {story.epicId && (
+              <>
+                <ChevronRight className="h-4 w-4" />
+                <Link href={`/admin/projects/epic/${story.epicId}`} className="hover:text-turquoise-600 dark:hover:text-turquoise-400 transition-colors" data-testid="link-epic">
+                  Epic
+                </Link>
+              </>
+            )}
+            <ChevronRight className="h-4 w-4" />
+            <span className="text-gray-900 dark:text-white font-medium">{story.key}</span>
+          </div>
+          <Button onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}` : '/admin/projects')} variant="outline" size="sm" data-testid="button-back">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
         </div>
 
-        {/* Story Header */}
-        <GlassCard className="glassmorphic-card p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex-1">
+        {/* Jira-Style 2-Column Layout */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* LEFT COLUMN: Main Content (70%) */}
+          <div className="flex-1 lg:w-[70%] space-y-6">
+            {/* Story Header */}
+            <div>
               <div className="flex items-center gap-3 mb-3">
-                <Badge variant="outline" className="border-ocean-500 text-ocean-600 dark:border-ocean-400 dark:text-ocean-400 text-lg" data-testid="badge-story-key">
+                <Badge variant="outline" className="border-ocean-500 text-ocean-600 dark:border-ocean-400 dark:text-ocean-400 text-lg px-3 py-1" data-testid="badge-story-key">
                   {story.key}
                 </Badge>
                 <Badge className={statusColors[story.status as keyof typeof statusColors]} data-testid="badge-story-status">
@@ -244,878 +251,446 @@ export default function StoryDetail() {
                   </Badge>
                 )}
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="text-story-summary">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-3" data-testid="text-story-summary">
                 {story.summary}
               </h1>
               {story.description && (
-                <p className="text-gray-600 dark:text-gray-400" data-testid="text-story-description">
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed" data-testid="text-story-description">
                   {story.description}
                 </p>
               )}
             </div>
-            <div className="flex gap-2">
-              <SyncToGitHubButton 
-                storyId={story.id} 
-                storyKey={story.key} 
-                existingIssueNumber={story.githubIssueNumber}
-              />
-              <Button onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}` : '/admin/projects')} variant="outline" data-testid="button-back">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-            </div>
-          </div>
 
-          {/* GitHub Integration */}
-          {(story.githubIssueNumber || story.githubIssueUrl) && (
-            <GitHubIssueLink 
-              issueNumber={story.githubIssueNumber}
-              issueUrl={story.githubIssueUrl}
-              repoName={story.githubRepoName}
-              syncedAt={story.githubSyncedAt}
-            />
-          )}
-
-          {/* ESA Human Review Metadata - 9 Sections with Mobile Accordion */}
-          {story.metadata && Object.keys(story.metadata).length > 0 && (
-            <div className="mt-6 space-y-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                <FileText className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
-                ESA Human Review Metadata
-              </h2>
-              
-              {/* Desktop: Card Layout */}
-              <div className="hidden md:block space-y-4">
-
-              {/* 1. Review Category & Notes */}
-              {(story.metadata.review_category || story.metadata.review_notes) && (
-                <GlassCard className="glassmorphic-card p-5">
-                  {story.metadata.review_category && (
-                    <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm px-3 py-1 mb-3">
-                      {story.metadata.review_category}
-                    </Badge>
-                  )}
-                  {story.metadata.review_notes && (
-                    <div className="flex items-start gap-3">
-                      <FileText className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-                      <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Review Notes</h3>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">{story.metadata.review_notes}</p>
-                      </div>
-                    </div>
-                  )}
-                </GlassCard>
-              )}
-
-              {/* 2. Documentation Links */}
-              {story.metadata.documentation_links && story.metadata.documentation_links.length > 0 && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Link2 className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Documentation Links</h3>
-                      <ul className="space-y-2">
-                        {story.metadata.documentation_links.map((link, idx) => (
-                          <li key={idx}>
-                            <a 
-                              href={link.startsWith('http') ? link : `/${link}`} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-colors"
-                            >
-                              📄 {link}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 3. ESA Layers */}
-              {story.metadata.esa_layers && story.metadata.esa_layers.length > 0 && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Layers className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">ESA Layers Affected</h3>
-                      <div className="flex flex-wrap gap-2">
-                        <TooltipProvider>
-                          {story.metadata.esa_layers.map(layer => (
-                            <Tooltip key={layer}>
-                              <TooltipTrigger asChild>
-                                <Badge 
-                                  variant="outline" 
-                                  className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 cursor-pointer hover:bg-cyan-100 dark:hover:bg-cyan-800/40 transition-colors"
-                                  onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}?layer=${layer}` : `/admin/projects?layer=${layer}`)}
-                                  data-testid={`badge-layer-${layer}`}
-                                >
-                                  Layer {layer}
-                                </Badge>
-                              </TooltipTrigger>
-                              <TooltipContent className="bg-gray-900 text-white">
-                                <p className="font-semibold">{getLayerName(layer)}</p>
-                                <p className="text-xs text-gray-300 mt-1">Click to filter stories by this layer</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          ))}
-                        </TooltipProvider>
-                      </div>
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 4. Quality Metrics */}
-              {(story.metadata.current_metrics || story.metadata.target_metrics) && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Target className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quality Metrics</h3>
-                      {story.metadata.gap_percentage !== undefined && (
-                        <div className="mb-3">
-                          <div className="flex items-center justify-between text-xs mb-1">
-                            <span className="text-gray-600 dark:text-gray-400">Current Progress</span>
-                            <span className="text-gray-900 dark:text-white font-medium">{100 - story.metadata.gap_percentage}%</span>
-                          </div>
-                          <Progress value={100 - story.metadata.gap_percentage} className="h-2 bg-gray-200 dark:bg-gray-700" />
-                        </div>
-                      )}
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {story.metadata.current_metrics && Object.keys(story.metadata.current_metrics).length > 0 && (
-                          <div>
-                            <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Current</h4>
-                            <div className="text-xs space-y-1">
-                              {Object.entries(story.metadata.current_metrics).map(([key, value]) => (
-                                <div key={key} className="flex justify-between">
-                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
-                                  <span className="text-gray-900 dark:text-white font-medium">{value}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        {story.metadata.target_metrics && Object.keys(story.metadata.target_metrics).length > 0 && (
-                          <div>
-                            <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Target</h4>
-                            <div className="text-xs space-y-1">
-                              {Object.entries(story.metadata.target_metrics).map(([key, value]) => (
-                                <div key={key} className="flex justify-between">
-                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
-                                  <span className="text-green-600 dark:text-green-400 font-medium">{value}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 5. Risk Assessment */}
-              {(story.metadata.risk_level || story.metadata.risk_description) && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Shield className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Risk Assessment</h3>
-                        {story.metadata.risk_level && (
-                          <Badge className={
-                            story.metadata.risk_level === 'critical' ? 'bg-red-600 text-white' :
-                            story.metadata.risk_level === 'high' ? 'bg-orange-600 text-white' :
-                            story.metadata.risk_level === 'medium' ? 'bg-yellow-600 text-white' :
-                            'bg-green-600 text-white'
-                          }>
-                            {story.metadata.risk_level.toUpperCase()}
-                          </Badge>
-                        )}
-                      </div>
-                      {story.metadata.risk_description && (
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{story.metadata.risk_description}</p>
-                      )}
-                      {story.metadata.escalation_path && (
-                        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                          <p className="text-xs text-gray-600 dark:text-gray-400">Escalation: {story.metadata.escalation_path}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 6. Complexity & Technical Details */}
-              {(story.metadata.complexity || story.metadata.technologies || story.metadata.tools_required) && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Code className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-3">
-                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Technical Details</h3>
-                        {story.metadata.complexity && (
-                          <Badge variant="outline" className="border-indigo-500 text-indigo-700 dark:text-indigo-300">
-                            {story.metadata.complexity} complexity
-                          </Badge>
-                        )}
-                      </div>
-                      {story.metadata.technologies && story.metadata.technologies.length > 0 && (
-                        <div className="mb-3">
-                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Technologies</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {story.metadata.technologies.map((tech, idx) => (
-                              <Badge key={idx} variant="secondary" className="text-xs">{tech}</Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {story.metadata.tools_required && story.metadata.tools_required.length > 0 && (
-                        <div>
-                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Tools Required</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {story.metadata.tools_required.map((tool, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">{tool}</Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {story.metadata.affected_files && story.metadata.affected_files.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Affected Files</h4>
-                          <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-                            {story.metadata.affected_files.slice(0, 5).map((file, idx) => (
-                              <li key={idx} className="font-mono">{file}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 7. Review Checklist & Acceptance Criteria */}
-              {(story.metadata.review_checklist || story.metadata.acceptance_criteria) && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <CheckSquare className="h-5 w-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Review Checklist</h3>
-                      {story.metadata.review_checklist && story.metadata.review_checklist.length > 0 && (
-                        <div className="mb-3">
-                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Checklist Items</h4>
-                          <ul className="space-y-1">
-                            {story.metadata.review_checklist.map((item, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                                <span className="text-teal-600 dark:text-teal-400 mt-0.5">✓</span>
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      {story.metadata.acceptance_criteria && story.metadata.acceptance_criteria.length > 0 && (
-                        <div>
-                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Acceptance Criteria</h4>
-                          <ul className="space-y-1">
-                            {story.metadata.acceptance_criteria.map((criteria, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                                <span className="text-green-600 dark:text-green-400 mt-0.5">→</span>
-                                {criteria}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 8. Human Review Workflow */}
-              {(story.metadata.manual_testing_required !== undefined || story.metadata.expert_review_needed !== undefined || story.metadata.expert_agents) && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Users className="h-5 w-5 text-violet-600 dark:text-violet-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Human Review Workflow</h3>
-                      <div className="space-y-2 text-sm">
-                        {story.metadata.manual_testing_required !== undefined && (
-                          <div className="flex items-center gap-2">
-                            <Badge variant={story.metadata.manual_testing_required ? "default" : "secondary"}>
-                              {story.metadata.manual_testing_required ? 'Manual Testing Required' : 'Automated Testing Only'}
-                            </Badge>
-                          </div>
-                        )}
-                        {story.metadata.expert_review_needed !== undefined && (
-                          <div className="flex items-center gap-2">
-                            <Badge variant={story.metadata.expert_review_needed ? "default" : "secondary"}>
-                              {story.metadata.expert_review_needed ? 'Expert Review Needed' : 'Standard Review'}
-                            </Badge>
-                          </div>
-                        )}
-                        {story.metadata.expert_agents && story.metadata.expert_agents.length > 0 && (
-                          <div>
-                            <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Expert Agents</h4>
-                            <div className="flex flex-wrap gap-1">
-                              {story.metadata.expert_agents.map(agentNum => (
-                                <Badge key={agentNum} className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs">
-                                  Agent #{agentNum}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-
-              {/* 9. Compliance Requirements */}
-              {story.metadata.compliance_requirements && story.metadata.compliance_requirements.length > 0 && (
-                <GlassCard className="glassmorphic-card p-5">
-                  <div className="flex items-start gap-3">
-                    <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Compliance Requirements</h3>
-                      <ul className="space-y-1">
-                        {story.metadata.compliance_requirements.map((req, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                            <span className="text-blue-600 dark:text-blue-400 mt-0.5">✓</span>
-                            {req}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </GlassCard>
-              )}
-              </div>
-
-              {/* Mobile: Accordion Layout (auto-collapse) */}
-              <Accordion type="single" collapsible className="md:hidden space-y-2">
-                {/* 1. Review Category & Notes */}
-                {(story.metadata.review_category || story.metadata.review_notes) && (
-                  <AccordionItem value="review-notes" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <FileText className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-                        <span className="font-semibold">Review Notes</span>
-                        {story.metadata.review_category && (
-                          <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-xs ml-2">
-                            {story.metadata.review_category}
-                          </Badge>
-                        )}
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      {story.metadata.review_notes && (
-                        <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{story.metadata.review_notes}</p>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 2. Documentation Links */}
-                {story.metadata.documentation_links && story.metadata.documentation_links.length > 0 && (
-                  <AccordionItem value="docs" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Link2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span className="font-semibold">Documentation</span>
-                        <Badge variant="outline" className="ml-2 text-xs">{story.metadata.documentation_links.length}</Badge>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <ul className="space-y-2">
-                        {story.metadata.documentation_links.map((link, idx) => (
-                          <li key={idx}>
-                            <a href={link.startsWith('http') ? link : `/${link}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-                              📄 {link}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 3. ESA Layers */}
-                {story.metadata.esa_layers && story.metadata.esa_layers.length > 0 && (
-                  <AccordionItem value="layers" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Layers className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-                        <span className="font-semibold">ESA Layers</span>
-                        <Badge variant="outline" className="ml-2 text-xs">{story.metadata.esa_layers.length}</Badge>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <div className="flex flex-wrap gap-2">
-                        <TooltipProvider>
-                          {story.metadata.esa_layers.map(layer => (
-                            <Tooltip key={layer}>
-                              <TooltipTrigger asChild>
-                                <Badge 
-                                  variant="outline" 
-                                  className="border-cyan-500 text-cyan-700 dark:text-cyan-300 cursor-pointer hover:bg-cyan-100 dark:hover:bg-cyan-800/40 transition-colors"
-                                  onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}?layer=${layer}` : `/admin/projects?layer=${layer}`)}
-                                  data-testid={`badge-layer-${layer}-mobile`}
-                                >
-                                  Layer {layer}
-                                </Badge>
-                              </TooltipTrigger>
-                              <TooltipContent className="bg-gray-900 text-white">
-                                <p className="font-semibold">{getLayerName(layer)}</p>
-                                <p className="text-xs text-gray-300 mt-1">Click to filter stories by this layer</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          ))}
-                        </TooltipProvider>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 4. Quality Metrics */}
-                {(story.metadata.current_metrics || story.metadata.target_metrics) && (
-                  <AccordionItem value="metrics" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Target className="h-4 w-4 text-green-600 dark:text-green-400" />
-                        <span className="font-semibold">Quality Metrics</span>
-                        {story.metadata.gap_percentage !== undefined && (
-                          <Badge variant="outline" className="ml-2 text-xs">{100 - story.metadata.gap_percentage}%</Badge>
-                        )}
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      {story.metadata.gap_percentage !== undefined && (
-                        <div className="mb-3">
-                          <Progress value={100 - story.metadata.gap_percentage} className="h-2" />
-                        </div>
-                      )}
-                      <div className="space-y-3">
-                        {story.metadata.current_metrics && (
-                          <div>
-                            <h4 className="text-xs font-semibold mb-1">Current</h4>
-                            <div className="text-xs space-y-1">
-                              {Object.entries(story.metadata.current_metrics).map(([key, value]) => (
-                                <div key={key} className="flex justify-between">
-                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
-                                  <span className="font-medium">{value}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        {story.metadata.target_metrics && (
-                          <div>
-                            <h4 className="text-xs font-semibold mb-1">Target</h4>
-                            <div className="text-xs space-y-1">
-                              {Object.entries(story.metadata.target_metrics).map(([key, value]) => (
-                                <div key={key} className="flex justify-between">
-                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
-                                  <span className="text-green-600 dark:text-green-400 font-medium">{value}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 5. Risk Assessment */}
-                {(story.metadata.risk_level || story.metadata.risk_description) && (
-                  <AccordionItem value="risk" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Shield className="h-4 w-4 text-red-600 dark:text-red-400" />
-                        <span className="font-semibold">Risk Assessment</span>
-                        {story.metadata.risk_level && (
-                          <Badge className={
-                            story.metadata.risk_level === 'critical' ? 'bg-red-600' :
-                            story.metadata.risk_level === 'high' ? 'bg-orange-600' :
-                            story.metadata.risk_level === 'medium' ? 'bg-yellow-600' :
-                            'bg-green-600'
-                          }>
-                            {story.metadata.risk_level.toUpperCase()}
-                          </Badge>
-                        )}
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      {story.metadata.risk_description && (
-                        <p className="text-sm mb-2">{story.metadata.risk_description}</p>
-                      )}
-                      {story.metadata.escalation_path && (
-                        <p className="text-xs text-gray-600 dark:text-gray-400 pt-2 border-t">Escalation: {story.metadata.escalation_path}</p>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 6. Technical Details */}
-                {(story.metadata.complexity || story.metadata.technologies || story.metadata.tools_required) && (
-                  <AccordionItem value="technical" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Code className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                        <span className="font-semibold">Technical Details</span>
-                        {story.metadata.complexity && (
-                          <Badge variant="outline" className="ml-2 text-xs">{story.metadata.complexity}</Badge>
-                        )}
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4 space-y-3">
-                      {story.metadata.technologies && (
-                        <div>
-                          <h4 className="text-xs font-semibold mb-1">Technologies</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {story.metadata.technologies.map((tech, idx) => (
-                              <Badge key={idx} variant="secondary" className="text-xs">{tech}</Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {story.metadata.tools_required && (
-                        <div>
-                          <h4 className="text-xs font-semibold mb-1">Tools</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {story.metadata.tools_required.map((tool, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">{tool}</Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 7. Review Checklist */}
-                {(story.metadata.review_checklist || story.metadata.acceptance_criteria) && (
-                  <AccordionItem value="checklist" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <CheckSquare className="h-4 w-4 text-teal-600 dark:text-teal-400" />
-                        <span className="font-semibold">Review Checklist</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4 space-y-3">
-                      {story.metadata.review_checklist && (
-                        <ul className="space-y-1">
-                          {story.metadata.review_checklist.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm">
-                              <span className="text-teal-600 dark:text-teal-400">✓</span>
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      {story.metadata.acceptance_criteria && (
-                        <ul className="space-y-1">
-                          {story.metadata.acceptance_criteria.map((criteria, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm">
-                              <span className="text-green-600 dark:text-green-400">→</span>
-                              {criteria}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 8. Human Review Workflow */}
-                {(story.metadata.manual_testing_required !== undefined || story.metadata.expert_review_needed !== undefined || story.metadata.expert_agents) && (
-                  <AccordionItem value="workflow" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-                        <span className="font-semibold">Human Review</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4 space-y-2">
-                      {story.metadata.manual_testing_required !== undefined && (
-                        <Badge variant={story.metadata.manual_testing_required ? "default" : "secondary"} className="text-xs">
-                          {story.metadata.manual_testing_required ? 'Manual Testing Required' : 'Automated Testing'}
-                        </Badge>
-                      )}
-                      {story.metadata.expert_review_needed !== undefined && (
-                        <Badge variant={story.metadata.expert_review_needed ? "default" : "secondary"} className="text-xs">
-                          {story.metadata.expert_review_needed ? 'Expert Review Needed' : 'Standard Review'}
-                        </Badge>
-                      )}
-                      {story.metadata.expert_agents && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {story.metadata.expert_agents.map(agentNum => (
-                            <Badge key={agentNum} className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs">
-                              Agent #{agentNum}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                {/* 9. Compliance */}
-                {story.metadata.compliance_requirements && story.metadata.compliance_requirements.length > 0 && (
-                  <AccordionItem value="compliance" className="glassmorphic-card border-none">
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <Shield className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span className="font-semibold">Compliance</span>
-                        <Badge variant="outline" className="ml-2 text-xs">{story.metadata.compliance_requirements.length}</Badge>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <ul className="space-y-1">
-                        {story.metadata.compliance_requirements.map((req, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-sm">
-                            <span className="text-blue-600 dark:text-blue-400">✓</span>
-                            {req}
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-              </Accordion>
-            </div>
-          )}
-
-          {/* Agent Assignments */}
-          <div className="mb-4 space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600 dark:text-gray-400 min-w-[120px]">Primary Agent:</span>
-              {story.assignedAgentId ? (
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-sm font-bold text-white">
-                    {story.assignedAgentId.split('-')[1]}
-                  </div>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">Agent #{story.assignedAgentId.split('-')[1]}</span>
-                </div>
-              ) : (
-                <span className="text-sm text-gray-500 dark:text-gray-400">Not assigned</span>
-              )}
-            </div>
-            {story.teamAgentIds && story.teamAgentIds.length > 0 && (
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-600 dark:text-gray-400 min-w-[120px]">Team Agents:</span>
-                <div className="flex items-center gap-2">
-                  {story.teamAgentIds.map(agentId => (
-                    <div key={agentId} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-sm font-bold text-white">
-                      {agentId.split('-')[1]}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Progress */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600 dark:text-gray-400">Task Progress</span>
-              <span className="font-medium text-gray-900 dark:text-white">
-                {completedTasks} / {totalTasks} tasks ({progressPercent}%)
-              </span>
-            </div>
-            <Progress value={progressPercent} className="h-3" data-testid="progress-story" />
-          </div>
-
-          {/* Effort Stats */}
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-gray-500" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                Estimated: <span className="font-medium text-gray-900 dark:text-white">{totalEstimatedHours}h</span>
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FileCode className="h-4 w-4 text-gray-500" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                Tasks: <span className="font-medium text-gray-900 dark:text-white">{totalTasks}</span>
-              </span>
-            </div>
-          </div>
-        </GlassCard>
-
-        {/* Tasks Section */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Tasks ({totalTasks})</h2>
-            <Dialog open={createTaskOpen} onOpenChange={setCreateTaskOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700 text-white" data-testid="button-create-task">
-                  <Plus className="mr-2 h-4 w-4" /> Add Task
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="glassmorphic-card backdrop-blur-xl max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle className="text-gray-900 dark:text-white">Create New Task</DialogTitle>
-                </DialogHeader>
-                <Form {...taskForm}>
-                  <form onSubmit={taskForm.handleSubmit((data) => createTaskMutation.mutate(data))} className="space-y-4">
-                    <FormField
-                      control={taskForm.control}
-                      name="title"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Title</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Add dark mode to header" {...field} data-testid="input-task-title" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={taskForm.control}
-                      name="description"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Description (Optional)</FormLabel>
-                          <FormControl>
-                            <Textarea placeholder="Task details..." {...field} data-testid="textarea-task-description" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <div className="space-y-3">
-                      <label className="text-sm font-medium text-gray-900 dark:text-white">Assign Agent</label>
-                      <AgentSelector
-                        value={selectedAgent}
-                        onChange={setSelectedAgent}
-                        placeholder="Select agent for this task..."
-                        data-testid="select-task-agent"
-                      />
-                    </div>
-
-                    <CodeLinkInput
-                      filePath={taskFilePath}
-                      lineRange={taskLineRange}
-                      onFileChange={setTaskFilePath}
-                      onLineChange={setTaskLineRange}
-                    />
-
-                    <FormField
-                      control={taskForm.control}
-                      name="estimatedHours"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Estimated Hours</FormLabel>
-                          <FormControl>
-                            <Input 
-                              type="number" 
-                              step="0.5"
-                              placeholder="2.5" 
-                              {...field} 
-                              onChange={(e) => field.onChange(parseFloat(e.target.value))} 
-                              data-testid="input-task-hours" 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <Button type="submit" className="w-full bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700" disabled={createTaskMutation.isPending} data-testid="button-submit-task">
-                      {createTaskMutation.isPending ? 'Creating...' : 'Create Task'}
+            {/* Tasks Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                  <CheckSquare className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
+                  Tasks
+                </h2>
+                <Dialog open={createTaskOpen} onOpenChange={setCreateTaskOpen}>
+                  <DialogTrigger asChild>
+                    <Button className="bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700" data-testid="button-create-task">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Task
                     </Button>
-                  </form>
-                </Form>
-              </DialogContent>
-            </Dialog>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Create New Task</DialogTitle>
+                    </DialogHeader>
+                    <Form {...taskForm}>
+                      <form onSubmit={taskForm.handleSubmit((data) => createTaskMutation.mutate(data))} className="space-y-4">
+                        <FormField
+                          control={taskForm.control}
+                          name="title"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Task Title</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Implement feature..." {...field} data-testid="input-task-title" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={taskForm.control}
+                          name="description"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Description (Optional)</FormLabel>
+                              <FormControl>
+                                <Textarea placeholder="Task details..." {...field} data-testid="textarea-task-description" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <div className="space-y-3">
+                          <label className="text-sm font-medium text-gray-900 dark:text-white">Assign Agent</label>
+                          <AgentSelector
+                            value={selectedAgent}
+                            onChange={setSelectedAgent}
+                            placeholder="Select agent for this task..."
+                            data-testid="select-task-agent"
+                          />
+                        </div>
+
+                        <CodeLinkInput
+                          filePath={taskFilePath}
+                          lineRange={taskLineRange}
+                          onFileChange={setTaskFilePath}
+                          onLineChange={setTaskLineRange}
+                        />
+
+                        <FormField
+                          control={taskForm.control}
+                          name="estimatedHours"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Estimated Hours</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  type="number" 
+                                  step="0.5"
+                                  placeholder="2.5" 
+                                  {...field} 
+                                  onChange={(e) => field.onChange(parseFloat(e.target.value))} 
+                                  data-testid="input-task-hours" 
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <Button type="submit" className="w-full bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700" disabled={createTaskMutation.isPending} data-testid="button-submit-task">
+                          {createTaskMutation.isPending ? 'Creating...' : 'Create Task'}
+                        </Button>
+                      </form>
+                    </Form>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              <div className="grid gap-3">
+                {tasks.map(task => (
+                  <GlassCard key={task.id} className="glassmorphic-card p-4" data-testid={`card-task-${task.id}`}>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <Badge className={statusColors[task.status as keyof typeof statusColors]} data-testid={`badge-task-status-${task.id}`}>
+                            {task.status.replace('_', ' ')}
+                          </Badge>
+                          {task.assignedAgentId && (
+                            <div className="flex items-center gap-1">
+                              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-xs font-bold text-white">
+                                {task.assignedAgentId.split('-')[1]}
+                              </div>
+                              <span className="text-xs text-gray-600 dark:text-gray-400">Agent #{task.assignedAgentId.split('-')[1]}</span>
+                            </div>
+                          )}
+                          {task.estimatedHours && (
+                            <Badge variant="outline" className="text-xs" data-testid={`badge-task-hours-${task.id}`}>
+                              {task.estimatedHours}h
+                            </Badge>
+                          )}
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white" data-testid={`text-task-title-${task.id}`}>
+                          {task.title}
+                        </h3>
+                        {task.description && (
+                          <p className="text-sm text-gray-600 dark:text-gray-400" data-testid={`text-task-description-${task.id}`}>
+                            {task.description}
+                          </p>
+                        )}
+                        {task.codeFilePath && (
+                          <CodeLinkDisplay 
+                            filePath={task.codeFilePath} 
+                            lineRange={task.codeLineRange || undefined}
+                            data-testid={`code-link-${task.id}`}
+                          />
+                        )}
+                        {task.githubPrNumber && task.githubPrUrl && (
+                          <GitHubPRBadge
+                            prNumber={task.githubPrNumber}
+                            prUrl={task.githubPrUrl}
+                            branch={task.githubBranch}
+                            syncedAt={task.githubSyncedAt}
+                          />
+                        )}
+                      </div>
+                      <div className="flex gap-2">
+                        <LinkPRButton taskId={task.id} existingPRNumber={task.githubPrNumber} />
+                        {task.status !== 'done' && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => updateTaskStatusMutation.mutate({ taskId: task.id, status: task.status === 'to_do' ? 'in_progress' : 'done' })}
+                            disabled={updateTaskStatusMutation.isPending}
+                            data-testid={`button-update-task-${task.id}`}
+                          >
+                            {task.status === 'to_do' ? 'Start' : 'Complete'}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </GlassCard>
+                ))}
+                {tasks.length === 0 && (
+                  <GlassCard className="glassmorphic-card p-12 text-center">
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="h-16 w-16 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-500 flex items-center justify-center">
+                        <Check className="h-8 w-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No tasks yet</h3>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4">Break down this story into actionable tasks</p>
+                      </div>
+                    </div>
+                  </GlassCard>
+                )}
+              </div>
+            </div>
           </div>
 
-          <div className="grid gap-3">
-            {tasks.map(task => (
-              <GlassCard key={task.id} className="glassmorphic-card p-4" data-testid={`card-task-${task.id}`}>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Badge className={statusColors[task.status as keyof typeof statusColors]} data-testid={`badge-task-status-${task.id}`}>
-                        {task.status.replace('_', ' ')}
-                      </Badge>
-                      {task.assignedAgentId && (
-                        <div className="flex items-center gap-1">
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-xs font-bold text-white">
-                            {task.assignedAgentId.split('-')[1]}
-                          </div>
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Agent #{task.assignedAgentId.split('-')[1]}</span>
-                        </div>
-                      )}
-                      {task.estimatedHours && (
-                        <Badge variant="outline" className="text-xs" data-testid={`badge-task-hours-${task.id}`}>
-                          {task.estimatedHours}h
-                        </Badge>
-                      )}
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white" data-testid={`text-task-title-${task.id}`}>
-                      {task.title}
-                    </h3>
-                    {task.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400" data-testid={`text-task-description-${task.id}`}>
-                        {task.description}
-                      </p>
-                    )}
-                    {task.codeFilePath && (
-                      <CodeLinkDisplay 
-                        filePath={task.codeFilePath} 
-                        lineRange={task.codeLineRange || undefined}
-                        data-testid={`code-link-${task.id}`}
-                      />
-                    )}
-                    {task.githubPrNumber && task.githubPrUrl && (
-                      <GitHubPRBadge
-                        prNumber={task.githubPrNumber}
-                        prUrl={task.githubPrUrl}
-                        branch={task.githubBranch}
-                        syncedAt={task.githubSyncedAt}
-                      />
-                    )}
-                  </div>
-                  <div className="flex gap-2">
-                    <LinkPRButton taskId={task.id} existingPRNumber={task.githubPrNumber} />
-                    {task.status !== 'done' && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => updateTaskStatusMutation.mutate({ taskId: task.id, status: task.status === 'to_do' ? 'in_progress' : 'done' })}
-                        disabled={updateTaskStatusMutation.isPending}
-                        data-testid={`button-update-task-${task.id}`}
-                      >
-                        {task.status === 'to_do' ? 'Start' : 'Complete'}
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </GlassCard>
-            ))}
-            {tasks.length === 0 && (
-              <GlassCard className="glassmorphic-card p-12 text-center">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="h-16 w-16 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-500 flex items-center justify-center">
-                    <Check className="h-8 w-8 text-white" />
+          {/* RIGHT SIDEBAR: Metadata & Details (30% / 380px) */}
+          <aside className="lg:w-[380px] space-y-4">
+            <div className="lg:sticky lg:top-4 space-y-4">
+              {/* Details Section */}
+              <GlassCard className="glassmorphic-card p-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
+                  Details
+                </h3>
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Status</label>
+                    <Select value={story.status} disabled>
+                      <SelectTrigger className="w-full" data-testid="select-status">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="to_do">To Do</SelectItem>
+                        <SelectItem value="in_progress">In Progress</SelectItem>
+                        <SelectItem value="done">Done</SelectItem>
+                        <SelectItem value="cancelled">Cancelled</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No tasks yet</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">Break down this story into actionable tasks</p>
+                    <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Priority</label>
+                    <Select value={story.priority} disabled>
+                      <SelectTrigger className="w-full" data-testid="select-priority">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Low</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                        <SelectItem value="critical">Critical</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Story Points</label>
+                    <Input type="number" value={story.storyPoints || ''} disabled data-testid="input-story-points" className="w-full" />
                   </div>
                 </div>
               </GlassCard>
-            )}
-          </div>
+
+              {/* People Section */}
+              <GlassCard className="glassmorphic-card p-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <Users className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
+                  People
+                </h3>
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs text-gray-600 dark:text-gray-400 mb-2 block">Assigned Agent</label>
+                    {story.assignedAgentId ? (
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-sm font-bold text-white">
+                          {story.assignedAgentId.split('-')[1]}
+                        </div>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">Agent #{story.assignedAgentId.split('-')[1]}</span>
+                      </div>
+                    ) : (
+                      <span className="text-sm text-gray-500 dark:text-gray-400">Not assigned</span>
+                    )}
+                  </div>
+                  {story.teamAgentIds && story.teamAgentIds.length > 0 && (
+                    <div>
+                      <label className="text-xs text-gray-600 dark:text-gray-400 mb-2 block">Team Agents</label>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {story.teamAgentIds.map(agentId => (
+                          <div key={agentId} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-sm font-bold text-white">
+                            {agentId.split('-')[1]}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </GlassCard>
+
+              {/* Progress Section */}
+              <GlassCard className="glassmorphic-card p-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <Target className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
+                  Progress
+                </h3>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="text-gray-600 dark:text-gray-400">Task Progress</span>
+                      <span className="font-medium text-gray-900 dark:text-white">
+                        {completedTasks} / {totalTasks} ({progressPercent}%)
+                      </span>
+                    </div>
+                    <Progress value={progressPercent} className="h-2" data-testid="progress-story" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-3 w-3 text-gray-500" />
+                      <span className="text-gray-600 dark:text-gray-400">
+                        {totalEstimatedHours}h est.
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <FileCode className="h-3 w-3 text-gray-500" />
+                      <span className="text-gray-600 dark:text-gray-400">
+                        {totalTasks} tasks
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </GlassCard>
+
+              {/* GitHub Section */}
+              <GlassCard className="glassmorphic-card p-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <GitBranch className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
+                  GitHub
+                </h3>
+                <div className="space-y-2">
+                  {story.githubIssueNumber && story.githubIssueUrl ? (
+                    <GitHubIssueLink
+                      issueNumber={story.githubIssueNumber}
+                      issueUrl={story.githubIssueUrl}
+                      repoName={story.githubRepoName}
+                      syncedAt={story.githubSyncedAt}
+                    />
+                  ) : (
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Not synced to GitHub</p>
+                  )}
+                  <SyncToGitHubButton 
+                    storyId={story.id} 
+                    storyKey={story.key} 
+                    existingIssueNumber={story.githubIssueNumber}
+                  />
+                </div>
+              </GlassCard>
+
+              {/* ESA Layers Section */}
+              {story.metadata?.esa_layers && story.metadata.esa_layers.length > 0 && (
+                <GlassCard className="glassmorphic-card p-4">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Layers className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
+                    ESA Layers
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    <TooltipProvider>
+                      {story.metadata.esa_layers.map(layer => (
+                        <Tooltip key={layer}>
+                          <TooltipTrigger asChild>
+                            <Badge 
+                              variant="outline" 
+                              className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 cursor-pointer hover:bg-cyan-100 dark:hover:bg-cyan-800/40 transition-colors text-xs"
+                              onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}?layer=${layer}` : `/admin/projects?layer=${layer}`)}
+                              data-testid={`badge-layer-${layer}`}
+                            >
+                              Layer {layer}
+                            </Badge>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-gray-900 text-white">
+                            <p className="font-semibold text-xs">{getLayerName(layer)}</p>
+                            <p className="text-xs text-gray-300 mt-1">Click to filter</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      ))}
+                    </TooltipProvider>
+                  </div>
+                </GlassCard>
+              )}
+
+              {/* Actions Section */}
+              <GlassCard className="glassmorphic-card p-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Actions</h3>
+                <div className="space-y-2">
+                  <Button variant="outline" size="sm" className="w-full justify-start" data-testid="button-watch">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Watch
+                  </Button>
+                  <Button variant="outline" size="sm" className="w-full justify-start" data-testid="button-add-dependency">
+                    <Link2 className="h-4 w-4 mr-2" />
+                    Add Dependency
+                  </Button>
+                </div>
+              </GlassCard>
+
+              {/* Metadata Sections - Compact Format */}
+              {story.metadata && Object.keys(story.metadata).length > 0 && (
+                <>
+                  {/* Review Notes */}
+                  {story.metadata.review_notes && (
+                    <GlassCard className="glassmorphic-card p-4">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                        Review Notes
+                      </h3>
+                      {story.metadata.review_category && (
+                        <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-xs mb-2">
+                          {story.metadata.review_category}
+                        </Badge>
+                      )}
+                      <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">{story.metadata.review_notes}</p>
+                    </GlassCard>
+                  )}
+
+                  {/* Risk Assessment */}
+                  {(story.metadata.risk_level || story.metadata.risk_description) && (
+                    <GlassCard className="glassmorphic-card p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                          <Shield className="h-4 w-4 text-red-600 dark:text-red-400" />
+                          Risk
+                        </h3>
+                        {story.metadata.risk_level && (
+                          <Badge className={
+                            story.metadata.risk_level === 'critical' ? 'bg-red-600 text-white text-xs' :
+                            story.metadata.risk_level === 'high' ? 'bg-orange-600 text-white text-xs' :
+                            story.metadata.risk_level === 'medium' ? 'bg-yellow-600 text-white text-xs' :
+                            'bg-green-600 text-white text-xs'
+                          }>
+                            {story.metadata.risk_level.toUpperCase()}
+                          </Badge>
+                        )}
+                      </div>
+                      {story.metadata.risk_description && (
+                        <p className="text-xs text-gray-700 dark:text-gray-300">{story.metadata.risk_description}</p>
+                      )}
+                    </GlassCard>
+                  )}
+
+                  {/* Technical Details */}
+                  {(story.metadata.complexity || story.metadata.technologies) && (
+                    <GlassCard className="glassmorphic-card p-4">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                        <Code className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                        Technical
+                      </h3>
+                      {story.metadata.complexity && (
+                        <Badge variant="outline" className="text-xs mb-2">{story.metadata.complexity}</Badge>
+                      )}
+                      {story.metadata.technologies && story.metadata.technologies.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {story.metadata.technologies.slice(0, 3).map((tech, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-xs">{tech}</Badge>
+                          ))}
+                          {story.metadata.technologies.length > 3 && (
+                            <Badge variant="secondary" className="text-xs">+{story.metadata.technologies.length - 3}</Badge>
+                          )}
+                        </div>
+                      )}
+                    </GlassCard>
+                  )}
+                </>
+              )}
+            </div>
+          </aside>
         </div>
       </div>
     </AdminLayout>
