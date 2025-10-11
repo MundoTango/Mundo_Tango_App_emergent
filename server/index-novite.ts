@@ -234,9 +234,11 @@ app.use(chunkedUploadRoutes);
 import aiExpertRoutes from './routes/ai-expert';
 import uiUxRoutes from './routes/ui-ux';
 import translationRoutes from './routes/translation';
+import auditRoutes from './routes/audit';
 app.use('/api/ai-expert', aiExpertRoutes);
 app.use('/api/ui-ux', uiUxRoutes);
 app.use('/api/translation', translationRoutes);
+app.use('/api/audit', auditRoutes); // ESA Audit Runner System
 
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
