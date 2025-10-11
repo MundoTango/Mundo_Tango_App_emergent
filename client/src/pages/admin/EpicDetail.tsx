@@ -22,6 +22,10 @@ type Story = {
   storyPoints: number | null;
   assignedAgentId?: string | null;
   teamAgentIds?: string[];
+  metadata?: {
+    story_points?: number;
+    review_category?: string;
+  };
 };
 
 type Epic = {
@@ -50,7 +54,11 @@ export default function EpicDetail() {
   const totalStories = stories.length;
   const completedStories = stories.filter((s: Story) => s.status === 'done').length;
   const progressPercent = totalStories > 0 ? Math.round((completedStories / totalStories) * 100) : 0;
-  const totalPoints = stories.reduce((acc: number, s: Story) => acc + (s.storyPoints || 0), 0);
+  // Check both storyPoints (top-level) and metadata.story_points for audit-generated stories
+  const totalPoints = stories.reduce((acc: number, s: Story) => {
+    const points = s.storyPoints || s.metadata?.story_points || 0;
+    return acc + points;
+  }, 0);
 
   // Status breakdown for chart
   const statusData = [
