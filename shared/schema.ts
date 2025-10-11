@@ -3413,6 +3413,7 @@ export const projectStories = pgTable("project_stories", {
   codeFiles: jsonb("code_files").default([]), // [{ path: "...", lines: "49-54" }]
   estimatedHours: real("estimated_hours"),
   actualHours: real("actual_hours"),
+  dueDate: timestamp("due_date"), // Story due date for calendar/timeline views
   referenceLinks: jsonb("reference_links").default([]), // External docs
   // ESA Audit Metadata (11 sections for Human Review Stories)
   metadata: jsonb("metadata").default({}), // Review notes, ESA layers, metrics, risk, complexity, etc.
@@ -3463,7 +3464,7 @@ export const projectTasks = pgTable("project_tasks", {
   index("idx_tasks_assigned_agent").on(table.assignedAgentId),
 ]);
 
-// Sprints (Time-boxed iterations)
+// Sprints (Time-boxed iterations with auto-close)
 export const projectSprints = pgTable("project_sprints", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
@@ -3471,13 +3472,18 @@ export const projectSprints = pgTable("project_sprints", {
   status: varchar("status", { length: 50 }).default('planning').notNull(), // planning, active, completed, cancelled
   startDate: timestamp("start_date"),
   endDate: timestamp("end_date"),
+  autoClose: boolean("auto_close").default(true), // Automatically close when endDate is reached
+  completedDate: timestamp("completed_date"), // When sprint was actually completed
   velocityTarget: integer("velocity_target"), // Story points target
   actualVelocity: integer("actual_velocity"), // Story points completed
+  completedStoryPoints: integer("completed_story_points").default(0),
+  totalStoryPoints: integer("total_story_points").default(0),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
 }, (table) => [
   index("idx_sprints_status").on(table.status),
   index("idx_sprints_dates").on(table.startDate, table.endDate),
+  index("idx_sprints_auto_close").on(table.autoClose, table.endDate),
 ]);
 
 // Milestones (Major project checkpoints)
@@ -3495,17 +3501,82 @@ export const projectMilestones = pgTable("project_milestones", {
   index("idx_milestones_due").on(table.dueDate),
 ]);
 
-// Comments/Activity on stories
+// Comments/Activity on stories (Enhanced with rich text, attachments, threads)
 export const projectComments = pgTable("project_comments", {
   id: serial("id").primaryKey(),
   storyId: integer("story_id").references(() => projectStories.id, { onDelete: 'cascade' }),
   userId: integer("user_id").notNull().references(() => users.id),
   comment: text("comment").notNull(),
+  parentCommentId: integer("parent_comment_id"), // For threaded replies
+  attachments: jsonb("attachments").default([]), // [{ name, url, type, size }]
+  mentions: text("mentions").array().default([]), // [@user123, @agent-11]
+  isEdited: boolean("is_edited").default(false),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
 }, (table) => [
   index("idx_comments_story").on(table.storyId),
   index("idx_comments_user").on(table.userId),
+  index("idx_comments_parent").on(table.parentCommentId),
+]);
+
+// Saved Views/Filters (Custom views for filtering stories)
+export const projectViews = pgTable("project_views", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  viewType: varchar("view_type", { length: 50 }).notNull(), // kanban, list, calendar, roadmap
+  filters: jsonb("filters").default({}), // { status: ['to_do'], assignedAgentId: 'agent-11', ... }
+  sorting: jsonb("sorting").default({}), // { field: 'priority', direction: 'desc' }
+  columns: text("columns").array(), // For list view column selection
+  isShared: boolean("is_shared").default(false), // Team-wide or personal
+  createdById: integer("created_by_id").notNull().references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_views_created_by").on(table.createdById),
+  index("idx_views_type").on(table.viewType),
+]);
+
+// Story Watchers/Subscribers (Users following stories for updates)
+export const projectWatchers = pgTable("project_watchers", {
+  id: serial("id").primaryKey(),
+  storyId: integer("story_id").references(() => projectStories.id, { onDelete: 'cascade' }).notNull(),
+  userId: integer("user_id").references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_watchers_story").on(table.storyId),
+  index("idx_watchers_user").on(table.userId),
+  unique("unique_watcher").on(table.storyId, table.userId),
+]);
+
+// Activity Feed (Real-time updates and notifications for project tracker)
+export const projectTrackerActivity = pgTable("project_tracker_activity", {
+  id: serial("id").primaryKey(),
+  entityType: varchar("entity_type", { length: 50 }).notNull(), // story, task, sprint, comment
+  entityId: integer("entity_id").notNull(),
+  action: varchar("action", { length: 100 }).notNull(), // created, updated, completed, commented, mentioned
+  userId: integer("user_id").references(() => users.id),
+  agentId: varchar("agent_id", { length: 50 }), // Agent that performed action
+  changes: jsonb("changes").default({}), // { field: 'status', from: 'to_do', to: 'in_progress' }
+  metadata: jsonb("metadata").default({}), // Additional context
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_tracker_activity_entity").on(table.entityType, table.entityId),
+  index("idx_tracker_activity_user").on(table.userId),
+  index("idx_tracker_activity_created").on(table.createdAt),
+]);
+
+// Story Dependencies (Link related stories)
+export const projectDependencies = pgTable("project_dependencies", {
+  id: serial("id").primaryKey(),
+  storyId: integer("story_id").references(() => projectStories.id, { onDelete: 'cascade' }).notNull(),
+  dependsOnStoryId: integer("depends_on_story_id").references(() => projectStories.id, { onDelete: 'cascade' }).notNull(),
+  type: varchar("type", { length: 50 }).default('blocks'), // blocks, is_blocked_by, relates_to
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_dependencies_story").on(table.storyId),
+  index("idx_dependencies_depends_on").on(table.dependsOnStoryId),
+  unique("unique_dependency").on(table.storyId, table.dependsOnStoryId),
 ]);
 
 // Insert schemas for project tracker
@@ -3543,6 +3614,27 @@ export const insertProjectCommentSchema = createInsertSchema(projectComments).om
   id: true,
   createdAt: true,
   updatedAt: true,
+});
+
+export const insertProjectViewSchema = createInsertSchema(projectViews).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProjectWatcherSchema = createInsertSchema(projectWatchers).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertProjectTrackerActivitySchema = createInsertSchema(projectTrackerActivity).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertProjectDependencySchema = createInsertSchema(projectDependencies).omit({
+  id: true,
+  createdAt: true,
 });
 
 // Relations for project tracker
@@ -3606,6 +3698,48 @@ export const projectCommentsRelations = relations(projectComments, ({ one }) => 
   user: one(users, {
     fields: [projectComments.userId],
     references: [users.id]
+  }),
+  parentComment: one(projectComments, {
+    fields: [projectComments.parentCommentId],
+    references: [projectComments.id]
+  })
+}));
+
+export const projectViewsRelations = relations(projectViews, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [projectViews.createdById],
+    references: [users.id]
+  })
+}));
+
+export const projectWatchersRelations = relations(projectWatchers, ({ one }) => ({
+  story: one(projectStories, {
+    fields: [projectWatchers.storyId],
+    references: [projectStories.id]
+  }),
+  user: one(users, {
+    fields: [projectWatchers.userId],
+    references: [users.id]
+  })
+}));
+
+export const projectTrackerActivityRelations = relations(projectTrackerActivity, ({ one }) => ({
+  user: one(users, {
+    fields: [projectTrackerActivity.userId],
+    references: [users.id]
+  })
+}));
+
+export const projectDependenciesRelations = relations(projectDependencies, ({ one }) => ({
+  story: one(projectStories, {
+    fields: [projectDependencies.storyId],
+    references: [projectStories.id],
+    relationName: 'dependentStory'
+  }),
+  dependsOnStory: one(projectStories, {
+    fields: [projectDependencies.dependsOnStoryId],
+    references: [projectStories.id],
+    relationName: 'blockedByStory'
   })
 }));
 
@@ -3622,3 +3756,11 @@ export type ProjectMilestone = typeof projectMilestones.$inferSelect;
 export type InsertProjectMilestone = z.infer<typeof insertProjectMilestoneSchema>;
 export type ProjectComment = typeof projectComments.$inferSelect;
 export type InsertProjectComment = z.infer<typeof insertProjectCommentSchema>;
+export type ProjectView = typeof projectViews.$inferSelect;
+export type InsertProjectView = z.infer<typeof insertProjectViewSchema>;
+export type ProjectWatcher = typeof projectWatchers.$inferSelect;
+export type InsertProjectWatcher = z.infer<typeof insertProjectWatcherSchema>;
+export type ProjectTrackerActivity = typeof projectTrackerActivity.$inferSelect;
+export type InsertProjectTrackerActivity = z.infer<typeof insertProjectTrackerActivitySchema>;
+export type ProjectDependency = typeof projectDependencies.$inferSelect;
+export type InsertProjectDependency = z.infer<typeof insertProjectDependencySchema>;
