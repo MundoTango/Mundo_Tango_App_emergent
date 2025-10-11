@@ -13,12 +13,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, LayoutDashboard, ListTodo, Target, Calendar, TrendingUp } from 'lucide-react';
+import { Plus, LayoutDashboard, ListTodo, Target, Calendar, TrendingUp, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Link } from 'wouter';
 
 // Form schemas
 const epicSchema = z.object({
@@ -372,29 +373,39 @@ export default function ProjectTrackerAdmin() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10">
-            <TabsTrigger 
-              value="dashboard" 
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
-              data-testid="tab-dashboard"
-            >
-              <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
-            </TabsTrigger>
-            <TabsTrigger 
-              value="epics" 
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
-              data-testid="tab-epics"
-            >
-              <Target className="mr-2 h-4 w-4" /> Epics ({epics.length})
-            </TabsTrigger>
-            <TabsTrigger 
-              value="stories" 
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
-              data-testid="tab-stories"
-            >
-              <ListTodo className="mr-2 h-4 w-4" /> Stories ({stories.length})
-            </TabsTrigger>
-          </TabsList>
+          <div className="flex items-center gap-2">
+            <TabsList className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10">
+              <TabsTrigger 
+                value="dashboard" 
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
+                data-testid="tab-dashboard"
+              >
+                <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
+              </TabsTrigger>
+            </TabsList>
+            
+            <Link href="/admin/projects/epics">
+              <Button
+                variant="outline"
+                className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10 hover:bg-gradient-to-r hover:from-turquoise-500 hover:to-ocean-600 hover:text-white transition-all"
+                data-testid="nav-epics"
+              >
+                <Target className="mr-2 h-4 w-4" /> Epics ({epics.length})
+                <ExternalLink className="ml-2 h-3 w-3" />
+              </Button>
+            </Link>
+            
+            <Link href="/admin/projects/stories">
+              <Button
+                variant="outline"
+                className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10 hover:bg-gradient-to-r hover:from-turquoise-500 hover:to-ocean-600 hover:text-white transition-all"
+                data-testid="nav-stories"
+              >
+                <ListTodo className="mr-2 h-4 w-4" /> Stories ({stories.length})
+                <ExternalLink className="ml-2 h-3 w-3" />
+              </Button>
+            </Link>
+          </div>
 
           <TabsContent value="dashboard" className="space-y-4 mt-6">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
