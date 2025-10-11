@@ -39,11 +39,11 @@ export default function EpicDetail() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
-  const { data: epicData, isLoading } = useQuery({
-    queryKey: ['/api/tracker/epics', id],
+  const { data: epicData, isLoading, error } = useQuery({
+    queryKey: [`/api/tracker/epics/${id}`],
   });
 
-  const epic = (epicData as any)?.data?.data as Epic | undefined;
+  const epic = (epicData as any)?.data as Epic | undefined;
   const stories = epic?.stories || [];
 
   // Calculate progress
