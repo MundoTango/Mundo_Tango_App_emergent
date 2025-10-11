@@ -25,6 +25,7 @@ import { GitHubIssueLink, SyncToGitHubButton, GitHubPRBadge, LinkPRButton } from
 import AdminLayout from '@/components/admin/AdminLayout';
 import { getLayerName } from '@/lib/esaLayers';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { StoryComments } from '@/components/tracker/StoryComments';
 
 type Task = {
   id: number;
@@ -433,6 +434,9 @@ export default function StoryDetail() {
                   </GlassCard>
                 )}
               </div>
+
+              {/* Comments Section */}
+              <StoryComments storyId={story.id} />
             </div>
           </div>
 
