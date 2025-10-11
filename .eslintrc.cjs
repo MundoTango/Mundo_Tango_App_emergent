@@ -73,6 +73,23 @@ module.exports = {
     
     // ESA Agent #66: Prevent duplicate auth patterns
     'no-duplicate-imports': 'error',
+    
+    // ESA Agent #11 (Aurora Tide Design System): Prevent design violations
+    'no-restricted-syntax': [
+      'warn',
+      {
+        selector: "Literal[value=/#[0-9A-Fa-f]{3,8}/]",
+        message: '⛔ Hardcoded hex color detected! Use design tokens from design-tokens.css instead. Example: Use className="text-ocean" instead of color="#5EEAD4"',
+      },
+      {
+        selector: "TemplateElement[value.raw=/#[0-9A-Fa-f]{3,8}/]",
+        message: '⛔ Hardcoded hex color in template literal! Use design tokens from design-tokens.css instead.',
+      },
+      {
+        selector: "JSXAttribute[name.name='className'] Literal[value=/from-white.*to-cyan/]",
+        message: '⛔ Use Aurora Tide MT Ocean Theme! Replace with: from-turquoise-50 to-ocean-50 or similar ocean gradients',
+      },
+    ],
   },
   settings: {
     react: {
