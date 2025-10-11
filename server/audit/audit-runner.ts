@@ -114,7 +114,7 @@ async function generateStoriesFromFindings(
   
   // Find or create epic for this page (using project tracker items)
   const epicKey = `MUN-${page.toUpperCase()}-AUDIT`;
-  const existingEpics = await storage.getProjectTrackerItems({ tags: [epicKey] });
+  const existingEpics = await storage.getAllProjectTrackerItems({ tags: [epicKey] });
   
   let epicId = "";
   if (existingEpics.length === 0) {
