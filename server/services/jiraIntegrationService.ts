@@ -137,7 +137,10 @@ export class JiraIntegrationService {
     this.apiToken = process.env.JIRA_API_TOKEN || '';
     this.email = process.env.JIRA_EMAIL || '';
     this.domain = process.env.JIRA_DOMAIN || '';
-    this.baseUrl = `https://${this.domain}/rest/api/3`;
+    
+    // Handle domain format - add .atlassian.net if needed
+    const domain = this.domain.includes('.') ? this.domain : `${this.domain}.atlassian.net`;
+    this.baseUrl = `https://${domain}/rest/api/3`;
     
     // Set up authorization headers
     const auth = Buffer.from(`${this.email}:${this.apiToken}`).toString('base64');
@@ -152,13 +155,12 @@ export class JiraIntegrationService {
   async checkExistingIssue(summary: string): Promise<JiraIssue | null> {
     try {
       const jql = `project = ${this.projectKey} AND summary ~ "${summary.replace(/"/g, '\\"')}"`;
-      const response = await axios.get(`${this.baseUrl}/search`, {
-        headers: this.headers,
-        params: {
-          jql,
-          fields: 'summary,description,issuetype,priority,status',
-          maxResults: 1
-        }
+      const response = await axios.post(`${this.baseUrl}/search/jql`, {
+        jql,
+        fields: ['summary', 'description', 'issuetype', 'priority', 'status'],
+        maxResults: 1
+      }, {
+        headers: this.headers
       });
 
       if (response.data.issues && response.data.issues.length > 0) {
@@ -169,6 +171,65 @@ export class JiraIntegrationService {
       console.error('Error checking existing issue:', error);
       return null;
     }
+  }
+
+  // NEW: Fetch all epics from a project
+  async fetchEpics(projectKey: string = this.projectKey): Promise<JiraIssue[]> {
+    try {
+      const jql = `project = ${projectKey} AND issuetype = Epic ORDER BY created DESC`;
+      const response = await axios.post(`${this.baseUrl}/search/jql`, {
+        jql,
+        fields: ['summary', 'description', 'issuetype', 'priority', 'status', 'created', 'updated', 'assignee', 'reporter', 'labels'],
+        maxResults: 100
+      }, {
+        headers: this.headers
+      });
+
+      return response.data.issues || [];
+    } catch (error: any) {
+      console.error('Error fetching epics:', error.response?.data || error.message);
+      return [];
+    }
+  }
+
+  // NEW: Fetch all stories from a project or epic
+  async fetchStories(projectKey: string = this.projectKey, epicKey?: string): Promise<JiraIssue[]> {
+    try {
+      let jql = `project = ${projectKey} AND issuetype = Story`;
+      if (epicKey) {
+        jql += ` AND "Epic Link" = ${epicKey}`;
+      }
+      jql += ' ORDER BY created DESC';
+
+      const response = await axios.post(`${this.baseUrl}/search/jql`, {
+        jql,
+        fields: ['summary', 'description', 'issuetype', 'priority', 'status', 'created', 'updated', 'assignee', 'reporter', 'labels', 'parent', 'customfield_10014'],
+        maxResults: 200
+      }, {
+        headers: this.headers
+      });
+
+      return response.data.issues || [];
+    } catch (error: any) {
+      console.error('Error fetching stories:', error.response?.data || error.message);
+      return [];
+    }
+  }
+
+  // NEW: Fetch all issues (epics + stories) from a project
+  async fetchProjectData(projectKey: string = 'MUN'): Promise<{
+    epics: JiraIssue[];
+    stories: JiraIssue[];
+  }> {
+    console.log(`\n🔍 Fetching data from Jira project: ${projectKey}`);
+    
+    const epics = await this.fetchEpics(projectKey);
+    console.log(`   ✓ Found ${epics.length} epics`);
+    
+    const stories = await this.fetchStories(projectKey);
+    console.log(`   ✓ Found ${stories.length} stories`);
+    
+    return { epics, stories };
   }
 
   // Create a new Jira issue
