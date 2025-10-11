@@ -47,8 +47,8 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Agent Training**: Utilizes an "Ultra-Micro Parallel Methodology" for rapid agent training and certification, focusing on atomic task decomposition and real production work.
 - **Project Management**: Migrated from Jira to a self-hosted project tracker (Agent #65) with GitHub integration. Includes multiple view modes (Dashboard, Kanban, List, Sprint) and a rich comments system.
 - **105-Agent Organizational Structure**: A complete training infrastructure is built for 105 agents, including Meta-agents, Division Chiefs, Domain Coordinators, Layer Agents, Expert Agents, Operational Agents, and Life CEO Sub-Agents, with detailed documentation and protocols.
-- **ESA Audit Runner**: Automated 43-agent audit system validating pages against the ESA 61x21 framework, auto-generating Human Review Stories with comprehensive metadata.
-- **Open Source Deployment Verification (Agent #59)**: Automated tracking and validation of open-source components against a 5-criteria deployment checklist, integrated into every page audit. Includes an Admin Dashboard, automated workflows for training and consolidation, and ESLint integration for enforcing standards.
+- **17-Phase Tiered Audit System (Oct 2025)**: Comprehensive audit framework replacing fragmented methodology with unified 5-tier structure (Foundation → App Layer → Quality → UX → Deployment). Features 17 specialized phases across sequential and parallel execution tiers, orchestrated by Agent #0 and Domain #9. Optimized 90-120 minute execution with clear dependency gates. Master reference: esa.md Section 5.
+- **Open Source Deployment Verification (Agent #59)**: Automated tracking and validation of open-source components against a 5-criteria deployment checklist, integrated into every page audit (Phase 15). Includes an Admin Dashboard, automated workflows for training and consolidation, and ESLint integration for enforcing standards.
 
 ## External Dependencies
 - **Database**: PostgreSQL (Neon serverless)
