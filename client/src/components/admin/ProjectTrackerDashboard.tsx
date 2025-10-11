@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GlassCard } from '@/components/glass/GlassComponents';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -169,9 +170,9 @@ const ProjectTrackerDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Main Framework Header Card - Matching screenshot style */}
-      <div className="rounded-lg overflow-hidden shadow-lg">
-        <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white p-6">
+      {/* Main Framework Header Card - Aurora Tide MT Ocean Theme */}
+      <GlassCard className="glassmorphic-card overflow-hidden shadow-2xl backdrop-blur-xl border-turquoise-200/30">
+        <div className="bg-gradient-to-r from-turquoise-500 via-ocean-500 to-blue-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -191,8 +192,8 @@ const ProjectTrackerDashboard: React.FC = () => {
           </div>
         </div>
         
-        {/* Statistics Bar */}
-        <div className="bg-white border-t border-cyan-200/20 p-4">
+        {/* Statistics Bar - Glassmorphic */}
+        <div className="bg-white/90 dark:bg-slate-900/70 backdrop-blur-md border-t border-turquoise-200/30 p-4">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
             <div>
               <div className="text-2xl font-bold text-gray-800">{totalCount}</div>
@@ -240,14 +241,14 @@ const ProjectTrackerDashboard: React.FC = () => {
           <RefreshCw className="h-4 w-4" />
           Refresh
         </Button>
-        <Button className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0">
+        <Button className="flex items-center gap-2 bg-gradient-to-r from-turquoise-500 to-ocean-600 hover:from-turquoise-600 hover:to-ocean-700 text-white border-0 shadow-lg hover:shadow-xl transition-all">
           <Plus className="h-4 w-4" />
           Add Project
         </Button>
       </div>
 
-      {/* Filters - MT Ocean Theme */}
-      <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20 backdrop-blur-sm">
+      {/* Filters - Aurora Tide Design System */}
+      <GlassCard className="glassmorphic-card backdrop-blur-xl border-turquoise-200/30 bg-gradient-to-br from-turquoise-50/20 via-ocean-50/20 to-blue-50/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-cyan-700">
             <Filter className="h-5 w-5 text-cyan-600" />
@@ -312,24 +313,24 @@ const ProjectTrackerDashboard: React.FC = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
+      </GlassCard>
 
-      {/* Summary Analytics */}
+      {/* Summary Analytics - Aurora Tide Glassmorphic Cards */}
       {metrics && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
+          <GlassCard className="glassmorphic-card backdrop-blur-xl border-turquoise-200/30 bg-gradient-to-br from-turquoise-50/30 to-ocean-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-cyan-700">Total Projects</CardTitle>
               <Activity className="h-4 w-4 text-cyan-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+              <div className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-ocean-600 bg-clip-text text-transparent">
                 {metrics?.totalProjects || projects.length || 0}
               </div>
             </CardContent>
-          </Card>
+          </GlassCard>
 
-          <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
+          <GlassCard className="glassmorphic-card backdrop-blur-xl border-ocean-200/30 bg-gradient-to-br from-ocean-50/30 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Completed</CardTitle>
               <CheckCircle className="h-4 w-4 text-teal-500" />
@@ -341,9 +342,9 @@ const ProjectTrackerDashboard: React.FC = () => {
               </div>
               <p className="text-xs text-gray-600">projects done</p>
             </CardContent>
-          </Card>
+          </GlassCard>
 
-          <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
+          <GlassCard className="glassmorphic-card backdrop-blur-xl border-turquoise-200/30 bg-gradient-to-br from-turquoise-50/30 to-ocean-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-cyan-700">In Progress</CardTitle>
               <Clock className="h-4 w-4 text-yellow-500" />
@@ -355,21 +356,21 @@ const ProjectTrackerDashboard: React.FC = () => {
               </div>
               <p className="text-xs text-gray-600">active items</p>
             </CardContent>
-          </Card>
+          </GlassCard>
 
-          <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
+          <GlassCard className="glassmorphic-card backdrop-blur-xl border-ocean-200/30 bg-gradient-to-br from-ocean-50/30 to-blue-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Active Layers</CardTitle>
               <Layers className="h-4 w-4 text-teal-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+              <div className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-ocean-600 bg-clip-text text-transparent">
                 {metrics?.layerDistribution?.length || 
                [...new Set(projects.map(p => p.layer).filter(Boolean))].length || 0}
               </div>
               <p className="text-xs text-gray-600">of 61 layers</p>
             </CardContent>
-          </Card>
+          </GlassCard>
         </div>
       )}
 
@@ -385,13 +386,13 @@ const ProjectTrackerDashboard: React.FC = () => {
           {filteredItems.map(item => {
             const layerInfo = getLayerInfo(item.layer);
             return (
-              <Card key={item.id} className="hover:shadow-lg transition-all border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/10 backdrop-blur-sm hover:scale-[1.02]">
+              <GlassCard key={item.id} className="glassmorphic-card hover:shadow-2xl transition-all backdrop-blur-xl border-turquoise-200/30 bg-gradient-to-br from-turquoise-50/20 to-ocean-50/10 hover:scale-[1.02] hover:border-ocean-300/50">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         {layerInfo && (
-                          <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white border-0">
+                          <Badge className="bg-gradient-to-r from-turquoise-500 to-ocean-600 text-white border-0">
                             {layerInfo.icon} Layer {item.layer}
                           </Badge>
                         )}
@@ -462,7 +463,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                     </div>
                   )}
                 </CardContent>
-              </Card>
+              </GlassCard>
             );
           })}
         </TabsContent>
@@ -470,7 +471,7 @@ const ProjectTrackerDashboard: React.FC = () => {
         <TabsContent value="kanban">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {['In Progress', 'Planned', 'Completed'].map(status => (
-              <Card key={status} className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/10">
+              <GlassCard key={status} className="glassmorphic-card backdrop-blur-xl border-turquoise-200/30 bg-gradient-to-br from-turquoise-50/20 to-ocean-50/10">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2 text-cyan-700">
                     {status === 'In Progress' && <Clock className="h-5 w-5 text-yellow-500" />}
