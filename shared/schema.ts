@@ -3408,6 +3408,12 @@ export const projectStories = pgTable("project_stories", {
   labels: text("labels").array().default([]),
   sprintId: integer("sprint_id").references(() => projectSprints.id),
   assignedToId: integer("assigned_to_id").references(() => users.id),
+  assignedAgentId: varchar("assigned_agent_id", { length: 50 }), // e.g., "agent-52"
+  teamAgentIds: text("team_agent_ids").array().default([]), // ["agent-51", "agent-53", ...]
+  codeFiles: jsonb("code_files").default([]), // [{ path: "...", lines: "49-54" }]
+  estimatedHours: real("estimated_hours"),
+  actualHours: real("actual_hours"),
+  referenceLinks: jsonb("reference_links").default([]), // External docs
   createdById: integer("created_by_id").notNull().references(() => users.id),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
@@ -3416,6 +3422,7 @@ export const projectStories = pgTable("project_stories", {
   index("idx_stories_sprint").on(table.sprintId),
   index("idx_stories_status").on(table.status),
   index("idx_stories_assigned").on(table.assignedToId),
+  index("idx_stories_assigned_agent").on(table.assignedAgentId),
 ]);
 
 // Tasks (Granular work items within stories)
@@ -3428,6 +3435,11 @@ export const projectTasks = pgTable("project_tasks", {
   estimatedHours: real("estimated_hours"),
   actualHours: real("actual_hours"),
   assignedToId: integer("assigned_to_id").references(() => users.id),
+  assignedAgentId: varchar("assigned_agent_id", { length: 50 }), // e.g., "agent-11"
+  codeFilePath: varchar("code_file_path", { length: 500 }), // "client/src/pages/home.tsx"
+  codeLineRange: varchar("code_line_range", { length: 20 }), // "49-54"
+  acceptanceCriteria: text("acceptance_criteria").array().default([]),
+  referenceImplementation: text("reference_implementation"),
   completedAt: timestamp("completed_at"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
@@ -3435,6 +3447,7 @@ export const projectTasks = pgTable("project_tasks", {
   index("idx_tasks_story").on(table.storyId),
   index("idx_tasks_status").on(table.status),
   index("idx_tasks_assigned").on(table.assignedToId),
+  index("idx_tasks_assigned_agent").on(table.assignedAgentId),
 ]);
 
 // Sprints (Time-boxed iterations)
