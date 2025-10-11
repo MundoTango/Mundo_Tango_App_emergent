@@ -8,9 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter, Plus } from 'lucide-react';
+import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter, Plus, ChevronRight } from 'lucide-react';
 import { useLocation } from 'wouter';
 import Skeleton from 'react-loading-skeleton';
+import AdminLayout from '@/components/admin/AdminLayout';
 
 type Epic = {
   id: number;
@@ -152,15 +153,23 @@ export default function EpicsList() {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6" data-testid="page-epics-list">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Epics</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage project epics and track progress
-          </p>
+    <AdminLayout>
+      <div className="container mx-auto space-y-6" data-testid="page-epics-list">
+        {/* Breadcrumbs */}
+        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-gray-900 dark:text-white font-medium">Admin</span>
+          <ChevronRight className="h-4 w-4" />
+          <span className="text-gray-900 dark:text-white font-medium">Projects</span>
         </div>
+
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Epics</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
+              Manage project epics and track progress
+            </p>
+          </div>
         <Button
           onClick={() => navigate('/admin/projects?create=epic')}
           className="bg-gradient-to-r from-turquoise-500 to-ocean-600 text-white hover:from-turquoise-600 hover:to-ocean-700"
@@ -332,6 +341,7 @@ export default function EpicsList() {
           </table>
         </div>
       </GlassCard>
-    </div>
+      </div>
+    </AdminLayout>
   );
 }
