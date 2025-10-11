@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Phase 2: Client-side CASL Abilities
+// ESA Framework (105 Agents, 61 Layers) - Phase 2: Client-side CASL Abilities
 import { PureAbility, AbilityBuilder, subject } from '@casl/ability';
 
 // Define actions for all 72 pages
