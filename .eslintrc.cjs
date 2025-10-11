@@ -90,6 +90,30 @@ module.exports = {
         message: '⛔ Use Aurora Tide MT Ocean Theme! Replace with: from-turquoise-50 to-ocean-50 or similar ocean gradients',
       },
     ],
+    
+    // ESA Agent #66: Aurora Tide Component Enforcement
+    'no-restricted-imports': ['error', {
+      patterns: [
+        {
+          group: ['*/_debug/*', '@/pages/_debug/*', '../*/_debug/*', './_debug/*'],
+          message: '🚫 ESA Framework Violation: Cannot import from _debug/ in production code'
+        },
+        {
+          group: ['*/_archive/*', '@/pages/_archive/*', '../*/_archive/*', './_archive/*'],
+          message: '🚫 ESA Framework Violation: Cannot import from _archive/ in production code'
+        }
+      ],
+      paths: [
+        {
+          name: '@/components/ui/card',
+          message: '🚨 AURORA TIDE VIOLATION: Use GlassCard from @/components/glass/GlassComponents instead of plain Card!\n' +
+            '   ❌ Wrong: import { Card } from "@/components/ui/card"\n' +
+            '   ✅ Right: import { GlassCard } from "@/components/glass/GlassComponents"\n' +
+            '   Agent #11 requires GlassCard with glassmorphic-card class for MT Ocean Theme.\n' +
+            '   See: docs/design-specs/project-tracker-aurora-tide-spec.md'
+        }
+      ]
+    }],
   },
   settings: {
     react: {
