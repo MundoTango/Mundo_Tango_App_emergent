@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Plus, Check, Clock, FileCode } from 'lucide-react';
+import { ArrowLeft, Plus, Check, Clock, FileCode, AlertTriangle, Target, Users, Shield, Link2, CheckSquare, Code, FileText, Layers } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -40,6 +40,29 @@ type Task = {
   githubSyncedAt: string | null;
 };
 
+type StoryMetadata = {
+  review_notes?: string;
+  documentation_links?: string[];
+  review_checklist?: string[];
+  review_category?: string;
+  esa_layers?: number[];
+  current_metrics?: Record<string, string>;
+  target_metrics?: Record<string, string>;
+  gap_percentage?: number;
+  risk_level?: "critical" | "high" | "medium" | "low";
+  risk_description?: string;
+  escalation_path?: string;
+  expert_agents?: number[];
+  technologies?: string[];
+  tools_required?: string[];
+  affected_files?: string[];
+  compliance_requirements?: string[];
+  complexity?: string;
+  acceptance_criteria?: string[];
+  manual_testing_required?: boolean;
+  expert_review_needed?: boolean;
+};
+
 type Story = {
   id: number;
   key: string;
@@ -58,6 +81,7 @@ type Story = {
   githubIssueUrl: string | null;
   githubRepoName: string | null;
   githubSyncedAt: string | null;
+  metadata?: StoryMetadata;
 };
 
 const taskSchema = z.object({
@@ -244,6 +268,250 @@ export default function StoryDetail() {
               repoName={story.githubRepoName}
               syncedAt={story.githubSyncedAt}
             />
+          )}
+
+          {/* Review Category Badge */}
+          {story.metadata?.review_category && (
+            <div className="mb-4">
+              <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm px-3 py-1">
+                {story.metadata.review_category}
+              </Badge>
+            </div>
+          )}
+
+          {/* Review Notes */}
+          {story.metadata?.review_notes && (
+            <div className="mb-4 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg">
+              <div className="flex items-start gap-2">
+                <FileText className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">Review Notes</h3>
+                  <p className="text-sm text-amber-800 dark:text-amber-300 whitespace-pre-wrap">{story.metadata.review_notes}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Documentation Links */}
+          {story.metadata?.documentation_links && story.metadata.documentation_links.length > 0 && (
+            <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+              <div className="flex items-start gap-2">
+                <Link2 className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">Documentation Links</h3>
+                  <ul className="space-y-1">
+                    {story.metadata.documentation_links.map((link, idx) => (
+                      <li key={idx}>
+                        <a 
+                          href={link.startsWith('http') ? link : `/${link}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                        >
+                          {link}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ESA Layers & Quality Metrics */}
+          {(story.metadata?.esa_layers || story.metadata?.current_metrics) && (
+            <div className="mb-4 grid md:grid-cols-2 gap-4">
+              {/* ESA Layers */}
+              {story.metadata?.esa_layers && story.metadata.esa_layers.length > 0 && (
+                <div className="p-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-700 rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <Layers className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-cyan-900 dark:text-cyan-200 mb-2">ESA Layers Affected</h3>
+                      <div className="flex flex-wrap gap-1">
+                        {story.metadata.esa_layers.map(layer => (
+                          <Badge key={layer} variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 text-xs">
+                            Layer {layer}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Quality Metrics */}
+              {story.metadata?.current_metrics && (
+                <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <Target className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-green-900 dark:text-green-200 mb-2">Quality Metrics</h3>
+                      {story.metadata.gap_percentage !== undefined && (
+                        <div className="mb-2">
+                          <div className="flex items-center justify-between text-xs mb-1">
+                            <span className="text-green-700 dark:text-green-300">Gap: {story.metadata.gap_percentage}%</span>
+                            <span className="text-green-700 dark:text-green-300">Target: {100 - story.metadata.gap_percentage}%</span>
+                          </div>
+                          <Progress value={100 - story.metadata.gap_percentage} className="h-2" />
+                        </div>
+                      )}
+                      {Object.keys(story.metadata.current_metrics).length > 0 && (
+                        <div className="text-xs space-y-1">
+                          {Object.entries(story.metadata.current_metrics).map(([key, value]) => (
+                            <div key={key} className="flex justify-between">
+                              <span className="text-green-700 dark:text-green-300">{key}:</span>
+                              <span className="text-green-900 dark:text-green-200 font-medium">{value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Risk Assessment */}
+          {story.metadata?.risk_level && (
+            <div className={`mb-4 p-4 border rounded-lg ${
+              story.metadata.risk_level === 'critical' ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700' :
+              story.metadata.risk_level === 'high' ? 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-700' :
+              story.metadata.risk_level === 'medium' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700' :
+              'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700'
+            }`}>
+              <div className="flex items-start gap-2">
+                <AlertTriangle className={`h-5 w-5 mt-0.5 ${
+                  story.metadata.risk_level === 'critical' ? 'text-red-600 dark:text-red-400' :
+                  story.metadata.risk_level === 'high' ? 'text-orange-600 dark:text-orange-400' :
+                  story.metadata.risk_level === 'medium' ? 'text-yellow-600 dark:text-yellow-400' :
+                  'text-green-600 dark:text-green-400'
+                }`} />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-sm font-semibold">Risk Assessment</h3>
+                    <Badge className={`text-xs ${
+                      story.metadata.risk_level === 'critical' ? 'bg-red-600 text-white' :
+                      story.metadata.risk_level === 'high' ? 'bg-orange-600 text-white' :
+                      story.metadata.risk_level === 'medium' ? 'bg-yellow-600 text-white' :
+                      'bg-green-600 text-white'
+                    }`}>
+                      {story.metadata.risk_level.toUpperCase()}
+                    </Badge>
+                  </div>
+                  {story.metadata.risk_description && (
+                    <p className="text-sm opacity-90">{story.metadata.risk_description}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Escalation Path & Expert Agents */}
+          {(story.metadata?.escalation_path || story.metadata?.expert_agents) && (
+            <div className="mb-4 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded-lg">
+              <div className="flex items-start gap-2">
+                <Users className="h-5 w-5 text-purple-600 dark:text-purple-400 mt-0.5" />
+                <div className="flex-1 space-y-2">
+                  {story.metadata.escalation_path && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-purple-900 dark:text-purple-200 mb-1">Escalation Path</h3>
+                      <p className="text-sm text-purple-800 dark:text-purple-300">{story.metadata.escalation_path}</p>
+                    </div>
+                  )}
+                  {story.metadata.expert_agents && story.metadata.expert_agents.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-purple-900 dark:text-purple-200 mb-1">Expert Agents Required</h3>
+                      <div className="flex flex-wrap gap-1">
+                        {story.metadata.expert_agents.map(agentId => (
+                          <div key={agentId} className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-indigo-500 text-xs font-bold text-white">
+                            {agentId}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Review Checklist */}
+          {story.metadata?.review_checklist && story.metadata.review_checklist.length > 0 && (
+            <div className="mb-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-lg">
+              <div className="flex items-start gap-2">
+                <CheckSquare className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-indigo-900 dark:text-indigo-200 mb-2">Review Checklist</h3>
+                  <ul className="space-y-1">
+                    {story.metadata.review_checklist.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <div className="h-4 w-4 rounded border-2 border-indigo-400 dark:border-indigo-500" />
+                        <span className="text-sm text-indigo-800 dark:text-indigo-300">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Technical Details */}
+          {(story.metadata?.technologies || story.metadata?.affected_files) && (
+            <div className="mb-4 p-4 bg-slate-50 dark:bg-slate-900/20 border border-slate-200 dark:border-slate-700 rounded-lg">
+              <div className="flex items-start gap-2">
+                <Code className="h-5 w-5 text-slate-600 dark:text-slate-400 mt-0.5" />
+                <div className="flex-1 space-y-2">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">Technical Details</h3>
+                  {story.metadata.technologies && story.metadata.technologies.length > 0 && (
+                    <div>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Technologies:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {story.metadata.technologies.map((tech, idx) => (
+                          <Badge key={idx} variant="outline" className="border-slate-400 text-slate-700 dark:text-slate-300 text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {story.metadata.affected_files && story.metadata.affected_files.length > 0 && (
+                    <div>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Affected Files:</p>
+                      <ul className="text-xs text-slate-700 dark:text-slate-300 space-y-0.5">
+                        {story.metadata.affected_files.slice(0, 5).map((file, idx) => (
+                          <li key={idx} className="font-mono">{file}</li>
+                        ))}
+                        {story.metadata.affected_files.length > 5 && (
+                          <li className="text-slate-500">...and {story.metadata.affected_files.length - 5} more</li>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Compliance Requirements */}
+          {story.metadata?.compliance_requirements && story.metadata.compliance_requirements.length > 0 && (
+            <div className="mb-4 p-4 bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-700 rounded-lg">
+              <div className="flex items-start gap-2">
+                <Shield className="h-5 w-5 text-teal-600 dark:text-teal-400 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-teal-900 dark:text-teal-200 mb-2">Compliance Requirements</h3>
+                  <ul className="space-y-1">
+                    {story.metadata.compliance_requirements.map((req, idx) => (
+                      <li key={idx} className="text-sm text-teal-800 dark:text-teal-300 flex items-center gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                        {req}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
           )}
 
           {/* Agent Assignments */}
