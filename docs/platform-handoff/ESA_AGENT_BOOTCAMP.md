@@ -38,6 +38,8 @@
 
 **Afternoon (4 hours):**
 - 13:00-15:00: Create training materials (Agent #64 leads)
+  - **NEW:** Include "Check Before Build" training module
+  - **NEW:** Create ESA_REUSABLE_COMPONENTS.md registry walkthrough
 - 15:00-17:00: Finalize Division Chief training curriculum
 - 17:00-18:00: Prepare for Day 2 (6 Chief sessions)
 
@@ -223,6 +225,7 @@ Each Chief trains their layer agents simultaneously:
 1. **Knowledge Check (5 min):**
    - 5 key questions about agent's role
    - Practical scenario: "What would you do if..."
+   - **NEW:** "Check Before Build" demonstration: Search for existing functionality before building
    - Escalation protocol quiz
 
 2. **Practical Exercise (15 min):**
