@@ -10,14 +10,14 @@
 
 ## 📚 Documentation Hub
 
-This master guide orchestrates the complete ESA framework with **100 agents** across all 61 layers. Use the decision tree below to navigate to the right resource.
+This master guide orchestrates the complete ESA framework with **105 agents** across all 61 layers. Use the decision tree below to navigate to the right resource.
 
 ### Core Documentation Matrix
 
 | Documentation | Purpose | When to Use | Key Sections |
 |--------------|---------|-------------|--------------|
 | **[ESA 61x21 Framework Guide](#esa-framework)** | Architecture & compliance | System design decisions, layer validation | 61 Technical Layers, 21 Implementation Phases |
-| **[Agent Organizational Chart](#agent-org-chart)** | Complete agent hierarchy | Understanding agent structure, reporting lines | 100 Agents: 1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 16 Life CEO |
+| **[Agent Organizational Chart](#agent-org-chart)** | Complete agent hierarchy | Understanding agent structure, reporting lines | 105 Agents: 1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 5 Operational + 16 Life CEO |
 | **[Agent-to-Agent Protocol](#a2a-protocol)** | Inter-agent communication | Escalation paths, knowledge sharing | Hierarchical communication, conflict resolution |
 | **[Agent Training Status](#training-status)** | Training progress tracking | Monitor agent readiness | 100 agents across 6 divisions |
 | **[New Agent Creation Guide](#new-agent-creation)** | Build new ESA agents | Creating agents, methodologies, quality gates | 6-Phase Methodology, 40x20s Gates, 10 Experts Research |
@@ -30,7 +30,7 @@ This master guide orchestrates the complete ESA framework with **100 agents** ac
 
 ## 🏢 Complete Agent Organizational Structure
 
-### The 100-Agent Hierarchy
+### The 105-Agent Hierarchy
 
 ```
 Agent #0 (ESA CEO/Orchestrator)
@@ -66,6 +66,13 @@ Agent #0 (ESA CEO/Orchestrator)
     │   ├── #15: Developer Experience Expert
     │   └── #16: Translation & i18n Expert
     │
+    ├── 5 Operational Excellence Agents (#63-67)
+    │   ├── #63: Sprint & Resource Manager
+    │   ├── #64: Documentation Architect
+    │   ├── #65: Project Tracker Manager
+    │   ├── #66: Code Review Expert
+    │   └── #67: Community Relations Manager
+    │
     └── 16 Life CEO Sub-Agents
         └── (life-ceo, business, finance, health, etc.)
 ```
@@ -81,7 +88,7 @@ Agent #0 (ESA CEO/Orchestrator)
 ### Critical Documents for Agent Orchestration:
 
 1. **[ESA_AGENT_ORG_CHART.md](./ESA_AGENT_ORG_CHART.md)** - Your team structure
-   - Complete 100-agent hierarchy
+   - Complete 105-agent hierarchy
    - Reporting lines for all agents
    - Dual reporting matrix (strategic + operational)
    - Agent responsibilities and technologies
@@ -98,7 +105,7 @@ Agent #0 (ESA CEO/Orchestrator)
    - Technology stack per layer
 
 4. **[ESA_AGENT_TRAINING_STATUS.md](./ESA_AGENT_TRAINING_STATUS.md)** - Agent readiness
-   - Training progress (currently 0/100 agents)
+   - Training progress (currently 0/105 agents)
    - 9-week training execution plan
    - Agent competency tracking
 
