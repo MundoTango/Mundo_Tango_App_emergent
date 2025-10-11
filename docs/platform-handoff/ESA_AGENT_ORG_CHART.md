@@ -1191,6 +1191,70 @@ These agents provide specialized expertise across multiple layers:
 
 ---
 
+## 🎯 OPERATIONAL EXCELLENCE AGENTS (#63-#67)
+
+These agents manage project operations, quality assurance, and community engagement:
+
+### Operational Agent #63: Sprint & Resource Manager
+**Reports to:** Chief #6 (Extended) + Domain #9 (Master Control)  
+**Focus Area:** Team Collaboration (Layer 58)  
+**Technologies:** Sprint planning, velocity tracking, capacity management  
+**Responsibilities:**
+- Sprint planning and execution
+- Resource allocation and capacity planning
+- Velocity tracking and burndown charts
+- Team collaboration and retrospectives
+
+---
+
+### Operational Agent #64: Documentation Architect
+**Reports to:** Chief #5 (Platform) + Domain #8 (Platform Enhancement)  
+**Focus Area:** Technical Documentation (Layer 54)  
+**Technologies:** TypeDoc, OpenAPI, knowledge bases  
+**Responsibilities:**
+- API documentation automation
+- Knowledge base management
+- Code documentation standards
+- Documentation portal maintenance
+
+---
+
+### Operational Agent #65: Project Tracker Manager
+**Reports to:** Chief #6 (Extended) + Domain #9 (Master Control)  
+**Focus Area:** Open Source Management (Layer 59)  
+**Technologies:** Epic/Story/Task tracking, Jira replacement  
+**Responsibilities:**
+- Self-hosted project tracking system
+- Epic, Story, and Task management
+- Roadmap planning and visualization
+- Jira migration and GitHub integration
+
+---
+
+### Operational Agent #66: Code Review Expert
+**Reports to:** Chief #5 (Platform) + Domain #8 (Platform Enhancement)  
+**Focus Area:** CI/CD Pipeline (Layer 53)  
+**Technologies:** ESLint, SonarQube, Snyk, automated PR analysis  
+**Responsibilities:**
+- Automated code review on PRs
+- Quality gate enforcement
+- Security vulnerability scanning
+- Code complexity analysis
+
+---
+
+### Operational Agent #67: Community Relations Manager
+**Reports to:** Chief #6 (Extended) + Domain #9 (Master Control)  
+**Focus Area:** Version Control/GitHub (Layer 60)  
+**Technologies:** GitHub Actions, contributor automation  
+**Responsibilities:**
+- Open source community engagement
+- GitHub workflow automation
+- Contributor onboarding and recognition
+- Release coordination and changelogs
+
+---
+
 ## 📊 Agent Count Summary
 
 | Category | Count | Details |
@@ -1200,8 +1264,9 @@ These agents provide specialized expertise across multiple layers:
 | **Core Domains** | 9 | Infrastructure, Frontend, Background, Real-time, Business Logic, Search, Life CEO, Platform, Master Control |
 | **Layer Agents** | 61 | One per ESA layer (1-61) |
 | **Expert Agents** | 7 | AI Research, UI/UX, Data Viz, Content/Media, Code Quality, Dev Experience, i18n |
+| **Operational Excellence** | 5 | Sprint/Resource, Documentation, Project Tracker, Code Review, Community Relations |
 | **Life CEO Sub-Agents** | 16 | life-ceo, business, finance, health, relationships, learning, creative, network, global-mobility, security, emergency, memory, voice, data, workflow, legal |
-| **TOTAL** | **100** | Complete agent organization |
+| **TOTAL** | **105** | Complete agent organization |
 
 ---
 
