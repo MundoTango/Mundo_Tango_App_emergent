@@ -44,6 +44,12 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Route Protection System**: 4-layer production/debug separation using folder conventions, TypeScript RouteRegistry, Playwright smoke tests, and ESLint rules.
 - **Agent Training**: Utilizes an "Ultra-Micro Parallel Methodology" for rapid agent training and certification, focusing on atomic task decomposition and real production work.
 - **Project Management**: ✅ **COMPLETED:** Migrated from Jira to self-hosted project tracker (Agent #65). Successfully migrated 5 Epics + 15 Stories from MUN project. Includes GitHub integration (Agent #67) with bidirectional sync: stories↔issues, tasks↔PRs, webhook support.
+  - **Multiple View Modes (Agent #8, #11)**: 
+    - Dashboard: Overview stats with epic/story counts, story points, and status breakdowns
+    - Kanban: 3-column drag-drop board (To Do → In Progress → Done) with glassmorphic cards
+    - List: Sortable table view with inline data (key, summary, status, priority, points)
+    - Sprint: Active sprint view with burn-down stats and sprint backlog
+  - **Design**: Linear + Plane aesthetics with Aurora Tide/MT Ocean Theme glassmorphic components, turquoise-ocean gradients, hover effects
 - **ESA Audit Runner**: ✅ **ACTIVE:** Automated 43-agent audit system that validates pages against ESA 61x21 framework and auto-generates Human Review Stories with comprehensive metadata. Full metadata system implemented with:
   - **Database Schema**: Added `metadata` jsonb column to `projectStories` table for flexible ESA data storage
   - **11 Metadata Sections**: (1) Review Category & Notes, (2) Documentation Links, (3) ESA Layers Affected, (4) Quality Metrics (current/target/gap), (5) Risk Assessment (level/description/escalation), (6) Complexity & Technical Details, (7) Review Checklist & Acceptance Criteria, (8) Human Review Workflow, (9) Compliance Requirements
