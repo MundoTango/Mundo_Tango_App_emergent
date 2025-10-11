@@ -57,15 +57,18 @@ router.get('/tracker/epics', async (req: Request, res: Response) => {
   }
 });
 
-// Get single epic with stories
+// Get single epic with stories (accepts both ID and key like "MUN-5")
 router.get('/tracker/epics/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     
+    // Check if parameter is a numeric ID or a string key (e.g., "MUN-5")
+    const isNumericId = /^\d+$/.test(id);
+    
     const [epic] = await db
       .select()
       .from(projectEpics)
-      .where(eq(projectEpics.id, parseInt(id)));
+      .where(isNumericId ? eq(projectEpics.id, parseInt(id)) : eq(projectEpics.key, id));
     
     if (!epic) {
       return res.status(404).json({ success: false, error: 'Epic not found' });
@@ -74,7 +77,7 @@ router.get('/tracker/epics/:id', async (req: Request, res: Response) => {
     const stories = await db
       .select()
       .from(projectStories)
-      .where(eq(projectStories.epicId, parseInt(id)))
+      .where(eq(projectStories.epicId, epic.id))
       .orderBy(desc(projectStories.createdAt));
     
     res.json({ success: true, data: { ...epic, stories } });
@@ -104,16 +107,19 @@ router.post('/tracker/epics', async (req: Request, res: Response) => {
   }
 });
 
-// Update epic
+// Update epic (accepts both ID and key)
 router.put('/tracker/epics/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const updates = req.body;
     
+    // Check if parameter is a numeric ID or a string key
+    const isNumericId = /^\d+$/.test(id);
+    
     const [updatedEpic] = await db
       .update(projectEpics)
       .set({ ...updates, updatedAt: new Date() })
-      .where(eq(projectEpics.id, parseInt(id)))
+      .where(isNumericId ? eq(projectEpics.id, parseInt(id)) : eq(projectEpics.key, id))
       .returning();
     
     if (!updatedEpic) {
@@ -152,15 +158,18 @@ router.get('/tracker/stories', async (req: Request, res: Response) => {
   }
 });
 
-// Get single story with tasks
+// Get single story with tasks (accepts both ID and key like "MUN-6")
 router.get('/tracker/stories/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     
+    // Check if parameter is a numeric ID or a string key
+    const isNumericId = /^\d+$/.test(id);
+    
     const [story] = await db
       .select()
       .from(projectStories)
-      .where(eq(projectStories.id, parseInt(id)));
+      .where(isNumericId ? eq(projectStories.id, parseInt(id)) : eq(projectStories.key, id));
     
     if (!story) {
       return res.status(404).json({ success: false, error: 'Story not found' });
@@ -169,7 +178,7 @@ router.get('/tracker/stories/:id', async (req: Request, res: Response) => {
     const tasks = await db
       .select()
       .from(projectTasks)
-      .where(eq(projectTasks.storyId, parseInt(id)));
+      .where(eq(projectTasks.storyId, story.id));
     
     const comments = await db
       .select({
@@ -213,16 +222,19 @@ router.post('/tracker/stories', async (req: Request, res: Response) => {
   }
 });
 
-// Update story
+// Update story (accepts both ID and key)
 router.put('/tracker/stories/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const updates = req.body;
     
+    // Check if parameter is a numeric ID or a string key
+    const isNumericId = /^\d+$/.test(id);
+    
     const [updatedStory] = await db
       .update(projectStories)
       .set({ ...updates, updatedAt: new Date() })
-      .where(eq(projectStories.id, parseInt(id)))
+      .where(isNumericId ? eq(projectStories.id, parseInt(id)) : eq(projectStories.key, id))
       .returning();
     
     if (!updatedStory) {
