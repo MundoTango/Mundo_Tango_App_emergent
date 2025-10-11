@@ -1,25 +1,28 @@
-# Standardized Page Audit Framework
-## ESA 61x21 - Automated 100-Agent Certification System
+# Standardized Page Audit & Build Framework
+## ESA 61x21 - Automated 100-Agent Certification & Build System
 
-**Version:** 4.0  
-**Last Updated:** October 10, 2025  
-**Purpose:** Systematically audit all 100+ pages using complete ESA agent hierarchy  
+**Version:** 5.0 🆕 DUAL-MODE  
+**Last Updated:** October 11, 2025  
+**Purpose:** Systematically audit AND build all pages using complete ESA agent hierarchy  
 **Master Reference:** [esa.md](../../platform-handoff/esa.md) - Complete 100-agent orchestration guide
 
 ---
 
-## 🚨 CRITICAL: AUDIT-ONLY MODE
+## 🎯 DUAL-MODE OPERATION
 
-**⚠️ THIS IS AN AUDIT TOOL - NOT A BUILD TOOL**
+**✨ THIS IS NOW A BUILD+AUDIT TOOL**
 
-### Audit Rules:
-1. ✅ **ONLY IDENTIFY ISSUES** - Never create new files during audit
-2. ✅ **REPORT FINDINGS** - Document problems with specific line numbers and evidence
-3. ✅ **SUGGEST SOLUTIONS** - Recommend fixes from existing patterns only
-4. ✅ **USER APPROVAL REQUIRED** - All fixes require explicit user review and approval
+### **Mode 1: AUDIT (Post-Build Validation)**
+**When to use:** Auditing existing pages for compliance
+
+**Audit Rules:**
+1. ✅ **IDENTIFY ISSUES** - Document problems with specific line numbers and evidence
+2. ✅ **REPORT FINDINGS** - Create detailed audit reports
+3. ✅ **SUGGEST SOLUTIONS** - Recommend fixes from existing patterns
+4. ✅ **USER APPROVAL REQUIRED** - All fixes require explicit user review
 5. ❌ **NEVER AUTO-FIX** - Do not modify code during audit phase
 
-### If Issues Found:
+**Output Format:**
 ```
 📋 Issue: [Description]
 📍 Location: [File:Line]
@@ -28,7 +31,130 @@
 ⏸️ Awaiting user approval before implementing
 ```
 
-**User must review and approve ALL changes before implementation.**
+---
+
+### **Mode 2: BUILD (Pre-Build Design Gate)** 🆕
+**When to use:** Building new features or pages
+
+**Mandatory Pre-Build Checklist:**
+
+#### **Step 1: Agent #11 Design Review (REQUIRED)**
+Before ANY UI development begins:
+- [ ] Submit feature request to Agent #11 (Aurora Tide Design Expert)
+- [ ] Receive approved design specification with:
+  - Exact component names (GlassCard, not Card)
+  - MT Ocean gradients (turquoise → ocean → blue)
+  - Glassmorphic classes (backdrop-blur-xl, glassmorphic-card)
+  - Dark mode variants for all elements
+- [ ] Design spec documented in `docs/design-specs/`
+
+**Example Design Gate:**
+```markdown
+# Feature: User Dashboard
+Agent #11 Approval: ✅ October 11, 2025
+
+Required Components:
+- GlassCard from @/components/glass/GlassComponents
+- MT Ocean gradient: bg-gradient-to-br from-turquoise-500/10 to-ocean-600/10
+- All cards: glassmorphic-card backdrop-blur-xl
+- Dark mode: dark:from-turquoise-900/20 dark:to-ocean-900/20
+```
+
+#### **Step 2: Build with Approved Design**
+- [ ] Import ONLY approved Aurora Tide components
+- [ ] Use specified gradients and classes
+- [ ] Implement complete dark mode variants
+- [ ] Add all required data-testid attributes
+
+#### **Step 3: Agent #66 ESLint Gates (AUTO-ENFORCED)**
+Pre-commit checks automatically block:
+- ❌ Plain `Card` imports (must use `GlassCard`)
+- ❌ Non-MT Ocean gradients
+- ❌ Missing glassmorphic-card classes
+- ❌ Hardcoded hex colors
+
+**ESLint Error Example:**
+```
+🚨 AURORA TIDE VIOLATION: Use GlassCard from @/components/glass/GlassComponents instead of plain Card!
+   ❌ Wrong: import { Card } from "@/components/ui/card"
+   ✅ Right: import { GlassCard } from "@/components/glass/GlassComponents"
+   Agent #11 requires GlassCard with glassmorphic-card class for MT Ocean Theme.
+   See: docs/design-specs/[feature]-aurora-tide-spec.md
+```
+
+#### **Step 4: Agent #14 Code Review (VALIDATION)**
+Post-build validation:
+- [ ] Code follows approved design spec
+- [ ] All Aurora Tide standards met
+- [ ] Dark mode complete
+- [ ] No design system violations
+
+---
+
+### **When to Use Each Mode:**
+
+| Scenario | Mode | Agent Lead | Output |
+|----------|------|------------|--------|
+| Building new feature/page | BUILD | Agent #11 → #65 → #66 → #14 | Approved spec → Code → Auto-gates → Review |
+| Auditing existing page | AUDIT | Agent #54, #53, etc. | Audit report with findings |
+| Fixing audit findings | BUILD | Agent #11 approval + rebuild | Updated code with fixes |
+
+---
+
+### **Learning from Project Tracker Failure:**
+
+**What happened:** Agent #65 built `/admin/projects` without Agent #11 design review
+- ❌ Used plain `Card` instead of `GlassCard`
+- ❌ No MT Ocean gradients
+- ❌ Missing glassmorphic effects
+
+**How we fixed it:**
+1. ✅ Created mandatory pre-build design gate (Agent #11 approval)
+2. ✅ Added ESLint rules to auto-block violations (Agent #66)
+3. ✅ Documented correct patterns in design specs
+4. ✅ All 67 agents trained via ESA mentorship methodology
+
+**Lesson learned:** 
+> "Every new UI component MUST get Agent #11 approval BEFORE building. No exceptions."
+
+**See:** `docs/learnings/project-tracker-aurora-tide-failure.md` for full case study
+
+---
+
+## 🔐 Enforcement Hierarchy
+
+```
+┌─────────────────────────────────────┐
+│  NEW FEATURE REQUEST                │
+└─────────────────────────────────────┘
+             ↓
+┌─────────────────────────────────────┐
+│  Agent #11 Design Review            │
+│  ✅ Approve design spec              │
+│  ✅ Specify Aurora Tide components   │
+└─────────────────────────────────────┘
+             ↓
+┌─────────────────────────────────────┐
+│  Agent #65 Build                    │
+│  ✅ Use approved design              │
+└─────────────────────────────────────┘
+             ↓
+┌─────────────────────────────────────┐
+│  Agent #66 ESLint Gates             │
+│  ✅ Auto-block violations            │
+└─────────────────────────────────────┘
+             ↓
+┌─────────────────────────────────────┐
+│  Agent #14 Code Review              │
+│  ✅ Validate compliance              │
+└─────────────────────────────────────┘
+             ↓
+┌─────────────────────────────────────┐
+│  DEPLOY (Aurora Tide Compliant)     │
+└─────────────────────────────────────┘
+```
+
+**This ensures 100% Aurora Tide compliance on all future builds! 🎨**
 
 ---
 
