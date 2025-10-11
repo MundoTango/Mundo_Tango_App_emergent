@@ -157,12 +157,25 @@ Domain #9 monitors overall health
 
 **Checklist:**
 ```typescript
-✅ 0. Documentation Review (Agent #64 - FIRST STEP)
+✅ 0a. Documentation Review (Agent #64 - FIRST STEP)
    - Check for existing documentation on this topic
    - Search for similar past work/solutions
    - Identify what's already been documented
    - Prevent duplicate documentation
    - Report findings to coordinating agent
+
+✅ 0b. Codebase Duplicate Check (Developer + Agent #64)
+   - Search existing codebase for similar functionality
+   - Check ESA_REUSABLE_COMPONENTS.md registry
+   - Ask: Does this already exist? Can we reuse?
+   - Document decision: reuse/extend/build new
+   - Get Agent #64 confirmation before proceeding
+
+✅ 0c. Clarifying Questions (Before Building)
+   - What exactly is needed?
+   - Is this new or enhancement to existing?
+   - What similar features exist?
+   - What are must-have vs nice-to-have requirements?
 
 ✅ 1. Clear Work Assignment
    - Each agent knows their specific task
