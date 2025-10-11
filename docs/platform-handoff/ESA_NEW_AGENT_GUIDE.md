@@ -99,9 +99,19 @@ Copy template to: `docs/pages/esa-tools/[domain]-audit-methodology.md`
 
 **Step 5: Register Agent (5 min)**
 
-Add your agent to:
-- `docs/pages/esa-agents/index.md` (Agent list)
-- `docs/platform-handoff/esa.md` (Master orchestration)
+Add your agent to **ALL THREE** critical documentation files:
+
+1. **`docs/platform-handoff/ESA_AGENT_ORG_CHART.md`** - Add to appropriate category:
+   - Layer Agents (#1-61): One per ESA layer
+   - Expert Agents (#10-16): Cross-layer specialists
+   - Operational Excellence (#63-67): Project operations
+   - Life CEO Sub-Agents: AI life management
+
+2. **`docs/pages/esa-agents/index.md`** - Agent list with capabilities
+
+3. **`docs/platform-handoff/esa.md`** - Master orchestration guide
+
+**⚠️ CRITICAL:** If agent is missing from ESA_AGENT_ORG_CHART.md, it cannot actively help with work! Always update the org chart first.
 
 ✅ **Done!** Your agent is now part of the ESA 61x21 framework.
 
