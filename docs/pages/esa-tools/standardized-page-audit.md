@@ -162,6 +162,61 @@ Post-build validation:
 
 **MANDATORY FIRST STEP - Check Existing Solutions Before Recommending New Ones**
 
+### Step 0.0: Consolidation Check (Agent #64 Review) 🆕
+**Purpose:** Every audit is an opportunity to REDUCE code, not just fix it
+
+**BEFORE auditing, ask:**
+- [ ] Are there duplicate components on this page that can be consolidated?
+- [ ] Does similar functionality exist elsewhere that we can reuse?
+- [ ] Can multiple implementations be replaced with one reusable pattern?
+- [ ] Has Agent #64 reviewed this page for consolidation opportunities?
+
+**Agent #64 Consolidation Workflow:**
+```
+Audit begins
+    ↓
+Agent #64 reviews page code
+    ↓
+Identifies duplicates:
+├── Similar components across pages
+├── Repeated business logic
+├── Duplicate API patterns
+└── Redundant database queries
+    ↓
+Agent #64 reports consolidation plan:
+├── What to keep (best implementation)
+├── What to remove (inferior duplicates)
+└── How to refactor (reusable pattern)
+    ↓
+Audit team implements consolidation
+    ↓
+Result: Better quality + 10-30% less code
+```
+
+**Success Target:** >10% code reduction per audit through consolidation
+
+**Example Consolidation:**
+```markdown
+📋 Consolidation Opportunity Found
+🔍 Agent #64 Analysis:
+   - Found 3 similar card components:
+     • /housing: CustomCard (120 lines)
+     • /events: EventCard (95 lines) 
+     • /profile: ProfileCard (110 lines)
+   
+✅ Recommended Action:
+   - Keep: GlassCard from @/components/glass (most complete)
+   - Refactor: All 3 pages to use GlassCard
+   - Remove: CustomCard, EventCard, ProfileCard
+   - Result: 325 lines → 120 lines (63% reduction)
+   
+⏸️ Awaiting user approval to consolidate
+```
+
+**Documentation Link:** [ESA_CHECK_BEFORE_BUILD.md](../../platform-handoff/ESA_CHECK_BEFORE_BUILD.md) - Full consolidation protocol
+
+---
+
 ### Step 0.1: Check Platform Documentation
 **Purpose:** Prevent reinventing the wheel
 
