@@ -70,6 +70,9 @@ module.exports = {
     'no-await-in-loop': 'warn',
     'no-eval': 'error',
     'no-implied-eval': 'error',
+    
+    // ESA Agent #66: Prevent duplicate auth patterns
+    'no-duplicate-imports': 'error',
   },
   settings: {
     react: {
