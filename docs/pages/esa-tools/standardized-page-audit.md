@@ -158,6 +158,265 @@ Post-build validation:
 
 ---
 
+## 🏗️ Hierarchical Project Scaffolding (NEW)
+
+**Purpose:** Organize all features hierarchically with agent assignments for human review and filtering
+
+### The Hierarchical Structure
+
+**Every project/feature MUST be scaffolded in this hierarchy:**
+
+```
+Mundo Tango Platform (Root)
+├── Admin Center
+│   ├── Projects Management (Main Page)
+│   │   ├── Dashboard View (Sub Page)
+│   │   │   ├── Epic Stats Widget (Feature - Agent #65)
+│   │   │   ├── Story Stats Widget (Feature - Agent #65)
+│   │   │   └── Sprint Progress Chart (Feature - Agent #12)
+│   │   ├── Kanban View (Sub Page)
+│   │   │   ├── Drag-Drop Columns (Feature - Agent #8)
+│   │   │   ├── Card Component (Feature - Agent #11)
+│   │   │   └── Real-time Sync (Feature - Domain #4)
+│   │   ├── List View (Sub Page)
+│   │   │   ├── Sortable Table (Feature - Agent #8)
+│   │   │   ├── Inline Editing (Feature - Agent #8)
+│   │   │   └── Bulk Actions (Feature - Agent #2)
+│   │   └── Sprint View (Sub Page)
+│   │       ├── Burn-down Chart (Feature - Agent #12)
+│   │       ├── Sprint Backlog (Feature - Agent #65)
+│   │       └── Velocity Tracker (Feature - Agent #48)
+│   ├── GitHub Integration (Main Page)
+│   │   ├── OAuth Setup (Sub Page - Agent #67)
+│   │   ├── Sync Service (Sub Page - Agent #67)
+│   │   │   ├── Story↔Issue Sync (Feature - Agent #67)
+│   │   │   ├── Task↔PR Sync (Feature - Agent #67)
+│   │   │   └── Webhook Handler (Feature - Agent #67)
+│   │   └── Status Dashboard (Sub Page - Agent #67)
+│   └── Comments System (Main Page)
+│       ├── Rich Text Editor (Sub Page - Agent #65)
+│       ├── @Mentions (Sub Page - Agent #65)
+│       ├── Threading (Sub Page - Agent #65)
+│       └── File Attachments (Sub Page - Agent #13)
+├── Database Layer (Infrastructure)
+│   ├── Project Schema (Agent #1)
+│   ├── Comments Schema (Agent #1)
+│   ├── GitHub Schema (Agent #1)
+│   └── Indexes & Performance (Agent #14)
+└── API Layer (Infrastructure)
+    ├── Project Endpoints (Agent #2)
+    ├── Comment Endpoints (Agent #2)
+    └── GitHub Endpoints (Agent #2)
+```
+
+### Hierarchical Levels Explained
+
+**Level 1: Platform (Root)**
+- Highest level organizational unit
+- Example: "Mundo Tango Platform"
+- Agent: Agent #0 (CEO) owns
+
+**Level 2: Main Area**
+- Major functional areas
+- Examples: "Admin Center", "Life CEO Dashboard", "Community Platform"
+- Agent: Division Chief owns
+
+**Level 3: Main Page**
+- Top-level pages within an area
+- Examples: "Projects Management", "User Profile", "Event Listings"
+- Agent: Domain Coordinator owns
+
+**Level 4: Sub Page**
+- Detailed views or sections within main page
+- Examples: "Kanban View", "List View", "Settings Panel"
+- Agent: Layer Agent owns (with Domain oversight)
+
+**Level 5: Feature**
+- Individual features/components within sub pages
+- Examples: "Drag-Drop Columns", "Export Button", "Filter Controls"
+- Agent: Specific Layer Agent implements (assigned by name/number)
+
+### Agent Assignment Tracking
+
+**Each node tracks:**
+
+| Field | Purpose | Example |
+|-------|---------|---------|
+| **Responsible Agent** | Who builds/maintains this | Agent #65, Agent #8, Domain #4 |
+| **Dependencies** | What this needs to work | "Requires: Database Schema (Agent #1)" |
+| **Dependents** | What depends on this | "Used by: Sprint View, List View" |
+| **Status** | Current state | Planned, In Progress, Complete, Blocked |
+| **Impact Scope** | Who is affected | "Affects: Frontend devs, Backend devs" |
+
+### Human Review Workflow
+
+**Filtering by Role:**
+
+**Backend Developer wants to see their work:**
+```
+Filter: Agent #1, #2, #14
+Results:
+├── Database Layer
+│   ├── Project Schema (Agent #1) ✅
+│   ├── Comments Schema (Agent #1) ✅
+│   └── Indexes & Performance (Agent #14) ✅
+└── API Layer
+    ├── Project Endpoints (Agent #2) ✅
+    ├── Comment Endpoints (Agent #2) ✅
+    └── GitHub Endpoints (Agent #2) ✅
+```
+
+**Frontend Developer wants to see their work:**
+```
+Filter: Agent #8, #11, #12
+Results:
+├── Admin Center
+│   ├── Projects Management
+│   │   ├── Kanban View
+│   │   │   ├── Drag-Drop Columns (Agent #8) ✅
+│   │   │   └── Card Component (Agent #11) ✅
+│   │   ├── List View
+│   │   │   ├── Sortable Table (Agent #8) ✅
+│   │   │   └── Inline Editing (Agent #8) ✅
+│   │   └── Sprint View
+│   │       └── Burn-down Chart (Agent #12) ✅
+```
+
+**DevOps Engineer wants to see their work:**
+```
+Filter: Agent #67, Agent #50 (DevOps)
+Results:
+├── Admin Center
+│   └── GitHub Integration
+│       ├── OAuth Setup (Agent #67) ✅
+│       ├── Sync Service (Agent #67) ✅
+│       └── Status Dashboard (Agent #67) ✅
+└── Deployment Pipeline (Agent #50) ✅
+```
+
+### Impact Analysis
+
+**When reviewing a change, humans can see:**
+
+**Example: Agent #1 updates Database Schema**
+```
+📊 Impact Analysis for: Database Schema Update (Agent #1)
+
+Direct Dependencies (3):
+├── API Layer → Agent #2 must update endpoints
+├── Dashboard View → Agent #65 must update queries
+└── Export Feature → Agent #13 must update data format
+
+Affected Agents (5):
+├── Agent #2 (API) - High impact ⚠️
+├── Agent #65 (Project Tracker) - Medium impact
+├── Agent #13 (Content) - Low impact
+├── Agent #8 (Frontend) - Indirect (via API)
+└── Domain #1 (Infrastructure) - Oversight
+
+Human Review Needed:
+✅ Backend Developer - Review API changes
+✅ Frontend Developer - Verify UI still works
+⏸️ Awaiting approval before deployment
+```
+
+### Database Schema for Hierarchical Structure
+
+**Required fields in Project Tracker:**
+
+```typescript
+// In shared/schema.ts
+export const projectHierarchy = pgTable("project_hierarchy", {
+  id: serial("id").primaryKey(),
+  key: varchar("key").notNull().unique(), // e.g., "MT-ADMIN-PM-KAN-001"
+  title: varchar("title").notNull(),
+  level: varchar("level").notNull(), // Platform | Main Area | Main Page | Sub Page | Feature
+  parentId: integer("parent_id").references(() => projectHierarchy.id),
+  responsibleAgent: varchar("responsible_agent"), // e.g., "Agent #65", "Domain #4"
+  dependencies: text("dependencies").array(), // ["Agent #1: Database Schema", "Agent #2: API"]
+  dependents: text("dependents").array(), // ["Dashboard View", "List View"]
+  status: varchar("status").notNull().default("planned"), // planned | in_progress | complete | blocked
+  impactScope: text("impact_scope").array(), // ["Backend", "Frontend", "DevOps"]
+});
+```
+
+### Audit Checklist for Hierarchical Structure
+
+**When auditing a feature/page, verify:**
+
+- [ ] **Proper Level Assignment:** Is this correctly categorized? (Platform/Main/Sub/Feature)
+- [ ] **Agent Responsibility:** Is a specific agent assigned? (not just "TBD")
+- [ ] **Dependencies Mapped:** Are all dependencies identified with agent names?
+- [ ] **Dependents Tracked:** Is it clear what depends on this?
+- [ ] **Impact Scope Defined:** Do we know who is affected?
+- [ ] **Parent-Child Links:** Is the hierarchy properly connected?
+- [ ] **Filtering Works:** Can humans filter by agent and see correct items?
+
+### Human Review Story Format
+
+**When creating a Human Review Story from audit:**
+
+```markdown
+# Project Tracker - ESA Framework Audit & Compliance Review
+
+## Hierarchical Structure Compliance
+
+### Platform Level: ✅ Complete
+- Mundo Tango Platform defined
+- Agent #0 (CEO) assigned as owner
+
+### Main Area Level: ✅ Complete
+- Admin Center properly scaffolded
+- Division Chief #3 (Business) owns
+
+### Main Page Level: ⚠️ Issues Found
+- ❌ "Projects Management" missing agent assignment
+- ✅ "GitHub Integration" correctly assigned to Agent #67
+
+### Sub Page Level: 🚨 Critical Issues
+- ❌ "Kanban View" has no dependency tracking
+- ❌ "List View" missing impact scope
+- ✅ "Sprint View" fully documented
+
+### Feature Level: ✅ Mostly Complete
+- 23/25 features have agent assignments (92%)
+- 2 features missing: "Export PDF", "Share Link"
+- All features properly nested under sub pages
+
+## Agent Assignment Coverage
+
+Total Components: 45
+✅ Assigned: 41 (91%)
+❌ Unassigned: 4 (9%)
+
+Unassigned Items:
+1. Projects Management (Main Page) - Recommend: Agent #65
+2. Export PDF (Feature) - Recommend: Agent #13
+3. Share Link (Feature) - Recommend: Agent #8
+4. Audit Trail (Feature) - Recommend: Agent #54
+
+## Dependency Mapping
+
+✅ Complete: 38/45 (84%)
+⚠️ Partial: 5/45 (11%)
+❌ Missing: 2/45 (4%)
+
+## Human Filtering Test
+
+Backend Filter (Agent #1, #2): ✅ Works (shows 12 items)
+Frontend Filter (Agent #8, #11): ✅ Works (shows 18 items)
+DevOps Filter (Agent #67): ✅ Works (shows 6 items)
+
+## Recommendations
+
+1. **Immediate:** Assign agents to 4 unassigned items
+2. **High Priority:** Complete dependency mapping for 7 items
+3. **Medium Priority:** Add impact scope to 12 items
+4. **Low Priority:** Enhance filtering with multi-agent selection
+```
+
+---
+
 ## 📚 Phase 0: Pre-Audit Documentation Review
 
 **MANDATORY FIRST STEP - Check Existing Solutions Before Recommending New Ones**
