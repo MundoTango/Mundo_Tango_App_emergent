@@ -10,11 +10,20 @@ import {
   projectSprints, 
   projectMilestones,
   projectComments,
+  projectViews,
+  projectWatchers,
+  projectTrackerActivity,
+  projectDependencies,
   users,
   insertProjectEpicSchema,
   insertProjectStorySchema,
   insertProjectTaskSchema,
-  insertProjectSprintSchema
+  insertProjectSprintSchema,
+  insertProjectCommentSchema,
+  insertProjectViewSchema,
+  insertProjectWatcherSchema,
+  insertProjectTrackerActivitySchema,
+  insertProjectDependencySchema
 } from '../../shared/schema';
 import { eq, desc, and, sql, or, count as drizzleCount } from 'drizzle-orm';
 import type { Request, Response } from 'express';
@@ -545,6 +554,253 @@ router.post('/tracker/tasks/:id/link-pr', async (req: Request, res: Response) =>
     }
   } catch (error: any) {
     console.error('Error linking task to PR:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== COMMENTS (with attachments, @mentions, threading) ==========
+
+// Get comments for a story
+router.get('/tracker/stories/:storyId/comments', async (req: Request, res: Response) => {
+  try {
+    const comments = await db
+      .select()
+      .from(projectComments)
+      .where(eq(projectComments.storyId, parseInt(req.params.storyId)))
+      .orderBy(projectComments.createdAt);
+    
+    res.json({ success: true, data: comments });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create comment
+router.post('/tracker/stories/:storyId/comments', async (req: Request, res: Response) => {
+  try {
+    const validated = insertProjectCommentSchema.parse({
+      ...req.body,
+      storyId: parseInt(req.params.storyId),
+      userId: req.user?.id || 1
+    });
+    
+    const [newComment] = await db
+      .insert(projectComments)
+      .values(validated)
+      .returning();
+    
+    // Track activity
+    await db.insert(projectTrackerActivity).values({
+      entityType: 'comment',
+      entityId: newComment.id,
+      action: 'commented',
+      userId: req.user?.id || 1,
+      metadata: { storyId: parseInt(req.params.storyId), mentions: validated.mentions || [] }
+    });
+    
+    res.json({ success: true, data: newComment });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== SAVED VIEWS/FILTERS ==========
+
+// Get user's saved views
+router.get('/tracker/views', async (req: Request, res: Response) => {
+  try {
+    const views = await db
+      .select()
+      .from(projectViews)
+      .where(
+        or(
+          eq(projectViews.createdById, req.user?.id || 1),
+          eq(projectViews.isShared, true)
+        )
+      )
+      .orderBy(desc(projectViews.createdAt));
+    
+    res.json({ success: true, data: views });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create saved view
+router.post('/tracker/views', async (req: Request, res: Response) => {
+  try {
+    const validated = insertProjectViewSchema.parse({
+      ...req.body,
+      createdById: req.user?.id || 1
+    });
+    
+    const [newView] = await db
+      .insert(projectViews)
+      .values(validated)
+      .returning();
+    
+    res.json({ success: true, data: newView });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Delete saved view
+router.delete('/tracker/views/:id', async (req: Request, res: Response) => {
+  try {
+    await db
+      .delete(projectViews)
+      .where(
+        and(
+          eq(projectViews.id, parseInt(req.params.id)),
+          eq(projectViews.createdById, req.user?.id || 1)
+        )
+      );
+    
+    res.json({ success: true });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== WATCHERS/SUBSCRIBERS ==========
+
+// Get watchers for a story
+router.get('/tracker/stories/:storyId/watchers', async (req: Request, res: Response) => {
+  try {
+    const watchers = await db
+      .select()
+      .from(projectWatchers)
+      .where(eq(projectWatchers.storyId, parseInt(req.params.storyId)));
+    
+    res.json({ success: true, data: watchers });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Watch a story
+router.post('/tracker/stories/:storyId/watch', async (req: Request, res: Response) => {
+  try {
+    const [watcher] = await db
+      .insert(projectWatchers)
+      .values({
+        storyId: parseInt(req.params.storyId),
+        userId: req.user?.id || 1
+      })
+      .onConflictDoNothing()
+      .returning();
+    
+    res.json({ success: true, data: watcher });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Unwatch a story
+router.delete('/tracker/stories/:storyId/watch', async (req: Request, res: Response) => {
+  try {
+    await db
+      .delete(projectWatchers)
+      .where(
+        and(
+          eq(projectWatchers.storyId, parseInt(req.params.storyId)),
+          eq(projectWatchers.userId, req.user?.id || 1)
+        )
+      );
+    
+    res.json({ success: true });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== ACTIVITY FEED ==========
+
+// Get activity for an entity
+router.get('/tracker/activity/:entityType/:entityId', async (req: Request, res: Response) => {
+  try {
+    const { entityType, entityId } = req.params;
+    
+    const activities = await db
+      .select()
+      .from(projectTrackerActivity)
+      .where(
+        and(
+          eq(projectTrackerActivity.entityType, entityType),
+          eq(projectTrackerActivity.entityId, parseInt(entityId))
+        )
+      )
+      .orderBy(desc(projectTrackerActivity.createdAt))
+      .limit(50);
+    
+    res.json({ success: true, data: activities });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get recent activity (global feed)
+router.get('/tracker/activity', async (req: Request, res: Response) => {
+  try {
+    const activities = await db
+      .select()
+      .from(projectTrackerActivity)
+      .orderBy(desc(projectTrackerActivity.createdAt))
+      .limit(100);
+    
+    res.json({ success: true, data: activities });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ========== DEPENDENCIES ==========
+
+// Get dependencies for a story
+router.get('/tracker/stories/:storyId/dependencies', async (req: Request, res: Response) => {
+  try {
+    const dependencies = await db
+      .select()
+      .from(projectDependencies)
+      .where(eq(projectDependencies.storyId, parseInt(req.params.storyId)));
+    
+    res.json({ success: true, data: dependencies });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Add dependency
+router.post('/tracker/stories/:storyId/dependencies', async (req: Request, res: Response) => {
+  try {
+    const validated = insertProjectDependencySchema.parse({
+      storyId: parseInt(req.params.storyId),
+      dependsOnStoryId: req.body.dependsOnStoryId,
+      type: req.body.type || 'blocks'
+    });
+    
+    const [dependency] = await db
+      .insert(projectDependencies)
+      .values(validated)
+      .onConflictDoNothing()
+      .returning();
+    
+    res.json({ success: true, data: dependency });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Remove dependency
+router.delete('/tracker/dependencies/:id', async (req: Request, res: Response) => {
+  try {
+    await db
+      .delete(projectDependencies)
+      .where(eq(projectDependencies.id, parseInt(req.params.id)));
+    
+    res.json({ success: true });
+  } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
