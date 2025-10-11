@@ -124,7 +124,354 @@ Agent #0 (ESA CEO/Orchestrator)
 3. ✅ **Cross-Division Coordination** - Ensure chiefs collaborate
 4. ✅ **Framework Governance** - Maintain ESA 61x21 integrity
 5. ✅ **Quality Assurance** - Validate 40x20s checkpoints (800 gates)
-6. ✅ **Agent Training** - Oversee 100-agent training program
+6. ✅ **Agent Training** - Oversee 105-agent training program
+
+---
+
+## 🎯 Agent Orchestration Playbook
+
+### Decision Framework: "Which Agent(s) to Use?"
+
+This playbook helps you select the right agents for any task. Follow the decision tree based on task type.
+
+---
+
+### 1. For New Features
+
+**Decision Process:**
+1. **Identify ESA Layers** - Which of 61 layers are involved?
+2. **Map to Division** - Which chief owns those layers?
+3. **Check Domain** - Which domain coordinates execution?
+4. **Assign Layer Agents** - Specific agents for each layer
+5. **Add Expert Agents** - If specialized expertise needed (#10-16)
+6. **Coordinate via Domain** - Domain agent orchestrates execution
+
+**Example: New Booking System**
+```
+Agent #0 → Chief #3 (Business) → Delegates to:
+├── Agent #29 (Booking System) - Business logic
+├── Agent #1 (Database) - Schema design  
+├── Agent #2 (API) - Backend endpoints
+├── Agent #8 (Client Framework) - Frontend
+├── Agent #11 (UI/UX) - Design system compliance
+└── Domain #5 (Business Logic) - Coordinates execution
+```
+
+**Example: Real-time Collaborative Editing**
+```
+Agent #0 → Domain #4 (Real-time) → Coordinates:
+├── Agent #1 (Database) - Conflict resolution schema
+├── Agent #2 (API) - WebSocket event handlers
+├── Agent #11 (Real-time Features) - Socket.IO room management
+├── Agent #14 (Caching) - Real-time cache invalidation
+├── Agent #27 (Social Features) - Post update business logic
+└── Chief #1 + #2 + #3 - Division oversight
+```
+
+---
+
+### 2. For Performance Optimization
+
+**Decision Process:**
+1. **Identify Bottleneck** - Database? API? Frontend? Real-time?
+2. **Map to Domain #1** - Infrastructure Orchestrator coordinates
+3. **Involve Layer Agents** - Those affecting performance
+4. **Add Expert #10** - AI Research for optimization strategies
+5. **Validate with #48** - Performance Monitoring agent
+
+**Example: Slow API Endpoint**
+```
+Agent #0 → Domain #1 (Infrastructure) → Coordinates:
+├── Agent #1 (Database) - Query optimization
+├── Agent #14 (Caching) - Cache strategy
+├── Agent #48 (Performance) - Metrics & monitoring
+├── Agent #2 (API) - Endpoint efficiency
+└── Expert #10 (AI Research) - ML-based optimization suggestions
+```
+
+---
+
+### 3. For Bug Fixes
+
+**Decision Process:**
+1. **Identify Affected Layer** - Which layer has the bug?
+2. **Escalate to Layer Agent** - That agent investigates
+3. **If Cross-Layer** - Escalate to Division Chief
+4. **If Cross-Division** - Escalate to Domain Coordinator
+5. **If Architectural** - Escalate to Agent #0 (CEO)
+
+**Example: Authentication Bug (Single Layer)**
+```
+User reports auth bug
+    ↓
+Agent #4 (Authentication) - Investigates
+    ↓
+Finds session timeout issue
+    ↓
+Agent #4 - Fixes and validates
+    ↓
+Agent #14 (Code Quality) - Reviews fix
+    ✓ Resolved
+```
+
+**Example: Cross-Division Bug (State + Auth + API)**
+```
+User reports data persistence issue
+    ↓
+Agent #9 (State Management) - Can't isolate
+    ↓
+Escalates to Chief #1 (Foundation)
+    ↓
+Chief #1 - Coordinates Agents #4 (Auth), #9 (State), #2 (API)
+    ↓
+Identifies auth token refresh breaking state
+    ↓
+Domain #1 (Infrastructure) - Orchestrates fix
+    ✓ Resolved
+```
+
+---
+
+### 4. For AI Integration
+
+**Decision Process:**
+1. **Choose AI Type** - Life CEO? OpenAI? Custom model?
+2. **Map to Chief #4** - Intelligence Division
+3. **Select Layer Agents** - Agents #31-46 (AI Infrastructure)
+4. **Add Expert #10** - AI Research for best practices
+5. **Coordinate via Domain #7** - Life CEO Core
+
+**Example: New Life CEO Agent**
+```
+Agent #0 → Chief #4 (Intelligence) → Delegates to:
+├── Agent #35 (AI Agent Management) - Agent orchestration
+├── Agent #31 (AI Infrastructure) - OpenAI setup
+├── Expert #10 (AI Research) - Best practices
+├── Domain #7 (Life CEO Core) - Integration
+└── Agent #11 (UI/UX) - Chat interface design
+```
+
+---
+
+### 5. For Audits & Quality Assurance
+
+**Decision Process:**
+1. **Page-Level Audit** - Use standardized-page-audit.md (43 agents)
+2. **Layer-Level Audit** - Use specific layer methodology
+3. **Division-Level Audit** - Chief coordinates layer audits
+4. **Platform-Level Audit** - Agent #0 coordinates all divisions
+
+**Example: Platform-Wide Quality Audit**
+```
+Agent #0 → All 6 Division Chiefs → Each Chief coordinates:
+├── Chief #1 - Audits Layers 1-10 (Foundation)
+├── Chief #2 - Audits Layers 11-20 (Core)
+├── Chief #3 - Audits Layers 21-30 (Business)
+├── Chief #4 - Audits Layers 31-46 (Intelligence)
+├── Chief #5 - Audits Layers 47-56 (Platform)
+└── Chief #6 - Audits Layers 57-61 (Extended)
+    ↓
+Domain #9 (Master Control) - Aggregates results
+    ↓
+Agent #0 - Final certification decision
+```
+
+---
+
+### 6. For UI/UX Work
+
+**Decision Process:**
+1. **Always start with Agent #11** - Aurora Tide Design Expert (MANDATORY)
+2. **Get design approval FIRST** - Before any implementation
+3. **Use approved components** - GlassCard, MTButton, etc.
+4. **Agent #66 enforces** - ESLint gates block violations
+5. **Agent #14 validates** - Code review post-implementation
+
+**Example: New Dashboard Page**
+```
+User requests new dashboard
+    ↓
+Agent #11 (Aurora/UI/UX) - Design specification
+├── Approves: GlassCard layout
+├── Specifies: MT Ocean gradients (turquoise → ocean → blue)
+├── Defines: Dark mode variants
+└── Documents: Component usage in design spec
+    ↓
+Agent #8 (Client Framework) - Implements using approved design
+    ↓
+Agent #66 (Code Review) - ESLint auto-gates block violations
+├── Checks: Using GlassCard (not plain Card)
+├── Checks: MT Ocean gradients applied
+└── Checks: Dark mode variants present
+    ↓
+Agent #14 (Code Quality) - Final validation
+    ✓ Aurora Tide compliant
+```
+
+**⚠️ CRITICAL LESSON LEARNED:**
+> "Project Tracker Failure" - Agent #65 built UI without Agent #11 approval
+> - Used plain Card instead of GlassCard
+> - No MT Ocean gradients
+> - Missing glassmorphic effects
+> - **Fix:** Mandatory pre-build design gate - Agent #11 approval required BEFORE building
+
+---
+
+### 7. For Project Management Tasks
+
+**Decision Process:**
+1. **Task Planning** - Agent #63 (Sprint Manager)
+2. **Progress Tracking** - Agent #65 (Project Tracker)
+3. **Code Review** - Agent #66 (Code Review Expert)
+4. **GitHub Sync** - Agent #67 (Community Relations)
+
+**Example: Epic → Story → Task Breakdown**
+```
+User requests "Social Feed Redesign" (too large)
+    ↓
+Agent #63 (Sprint Manager) - Breaks down task
+├── Epic: Social Feed Redesign (13 points)
+├── Story 1: Infinite Scroll (5 points) - Sprint 1
+├── Story 2: Real-time Updates (5 points) - Sprint 1
+└── Story 3: AI Recommendations (3 points) - Sprint 2
+    ↓
+Agent #65 (Project Tracker) - Creates tracking structure
+├── Creates Epic in self-hosted tracker
+├── Creates 3 Stories with dependencies
+└── Links to GitHub issues (via Agent #67)
+    ↓
+Agent #66 (Code Review) - Sets quality gates
+├── Defines acceptance criteria
+├── Sets up pre-commit hooks
+└── Configures automated review checks
+    ↓
+Agent #67 (Community Relations) - GitHub integration
+├── Syncs Stories → GitHub Issues
+├── Syncs Tasks → Pull Requests
+└── Maintains bidirectional updates
+```
+
+---
+
+### 8. Agent Help & Escalation Matrix
+
+**When Agents Are Overwhelmed:**
+
+| Situation | Wait Time | Escalation Level | Who Responds | Response Template |
+|-----------|-----------|------------------|--------------|-------------------|
+| Stuck on implementation | 30 min | Level 1 (Peer) | Same-layer agent | "FROM: Agent #X TO: Agent #Y (Peer)" |
+| Blocked by missing resource | 1 hour | Level 2 (Chief) | Division Chief | "SUBJECT: Escalation Request - Resource Needed" |
+| Cross-division coordination | Immediate | Level 3 (Domain) | Domain Coordinator | "SUBJECT: Cross-Division Coordination Request" |
+| Strategic/architectural conflict | Immediate | Level 4 (CEO) | Agent #0 | "SUBJECT: Strategic Decision Required" |
+| Task too large/complex | Immediate | Task Agent | #63 or #65 | "SUBJECT: Task Planning Assistance" |
+| Performance degradation | 15 min | Level 2 → 3 | Chief → Domain | Emergency protocol |
+| Production incident | Immediate | Level 3 → 4 | Domain → CEO | Emergency escalation |
+| Security vulnerability | Immediate | Level 4 | Agent #0 + Chief #5 | Emergency + security protocol |
+
+**Full Escalation Protocol:** [ESA_AGENT_A2A_PROTOCOL.md](./ESA_AGENT_A2A_PROTOCOL.md) (Section: Agent Help & Escalation)
+
+---
+
+### 9. Training Coordination
+
+**Hierarchical Training Cascade:**
+
+```
+Phase 1 (Day 1): Meta-Agents
+├── Agent #0 (ESA CEO)
+├── Agent #63 (Sprint Manager)
+├── Agent #64 (Documentation Architect)
+└── Domain #9 (Master Control)
+    ↓
+Phase 2 (Day 2): Division Chiefs
+├── Chiefs #1-6 trained by Agent #0
+└── Learn to train their layer agents
+    ↓
+Phase 3 (Days 3-4): Layer Agents
+├── 61 layer agents trained by their Chief
+└── Parallel execution across 6 divisions
+    ↓
+Phase 4 (Day 5): Experts + Operational + Life CEO
+├── 7 Expert Agents (#10-16)
+├── 5 Operational (#63-67)
+└── 16 Life CEO Sub-Agents
+    ↓
+Ongoing: Continuous Learning
+├── Peer mentoring
+├── Expert masterclasses
+└── Case study sharing
+```
+
+**Training Documentation:**
+- **[ESA_KNOWLEDGE_SHARING.md](./ESA_KNOWLEDGE_SHARING.md)** - Mentoring framework
+- **[ESA_AGENT_BOOTCAMP.md](./ESA_AGENT_BOOTCAMP.md)** - 5-day intensive program
+- **[ESA_AGENT_TRAINING_STATUS.md](./ESA_AGENT_TRAINING_STATUS.md)** - Progress tracking
+
+---
+
+### 10. Agent Collaboration Patterns
+
+**Pattern A: Full-Stack Feature (Multi-Division)**
+```
+Agent #0 identifies divisions needed
+    ↓
+Each Division Chief assigns their layer agents
+    ↓
+Domain Coordinator orchestrates cross-division work
+    ↓
+Expert Agents provide specialized support
+    ↓
+Domain #9 monitors operational health
+    ↓
+Agent #0 validates final integration
+```
+
+**Pattern B: Single-Division Feature (Contained)**
+```
+Division Chief receives request
+    ↓
+Assigns appropriate layer agents
+    ↓
+Agents collaborate within division
+    ↓
+Chief validates and approves
+    ↓
+No escalation needed
+```
+
+**Pattern C: Emergency Response (Production Issue)**
+```
+Issue detected → Immediate escalation to Domain #9
+    ↓
+Domain #9 assesses severity and scope
+    ↓
+If critical: Escalate to Agent #0 immediately
+    ↓
+Agent #0 coordinates "war room" with needed divisions
+    ↓
+Parallel resolution across all involved agents
+    ↓
+Domain #9 monitors resolution progress
+    ↓
+Agent #0 approves resolution and post-mortem
+```
+
+---
+
+### Quick Reference: Agent Selection by Task Type
+
+| Task Type | Primary Agent(s) | Supporting Agents | Coordinator |
+|-----------|------------------|-------------------|-------------|
+| **Database optimization** | Agent #1 | #14 (Caching), #48 (Performance) | Domain #1 |
+| **New API endpoint** | Agent #2 | #1 (Database), #5 (Authorization) | Domain #1 |
+| **UI component** | Agent #11 (Aurora) | #8 (Client), #54 (Accessibility) | Domain #2 |
+| **Real-time feature** | Agent #11 (Real-time) | #2 (API), #14 (Caching) | Domain #4 |
+| **AI integration** | Agent #31-46 | #10 (AI Research), #11 (UI/UX) | Domain #7 |
+| **Performance issue** | Agent #48 | #1, #14, #2 | Domain #1 |
+| **Security audit** | Agent #49 | #50 (Testing), #14 (Code Quality) | Chief #5 |
+| **Internationalization** | Agent #16 (i18n) | #53 (Content), #11 (Aurora) | Domain #8 |
+| **Mobile/PWA** | Agent #47 | #8 (Client), #11 (Aurora) | Domain #8 |
+| **Project planning** | Agent #63 (Sprint) | #65 (Tracker), #66 (Review) | Domain #9 |
 
 ---
 
