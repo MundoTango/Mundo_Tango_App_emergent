@@ -1,0 +1,69 @@
+{
+  "aria": {
+    "page": "Home page",
+    "close_sidebar": "Close sidebar",
+    "main_feed": "Main content feed",
+    "stories": "User stories",
+    "create_post": "Create new post",
+    "posts_feed": "Posts from your network",
+    "navigation_sidebar": "Navigation sidebar",
+    "theme_toggle": "Toggle light/dark theme",
+    "menu_toggle": "Toggle navigation menu",
+    "stories_viewer": "View user stories",
+    "loading_content": "Loading content",
+    "refresh_feed": "Refresh feed"
+  },
+  "tooltips": {
+    "close_sidebar": "Click or press Escape to close sidebar",
+    "theme_toggle": "Switch between light and dark mode",
+    "menu_toggle": "Open navigation menu",
+    "refresh": "Refresh feed",
+    "new_post": "Create a new post",
+    "view_stories": "View stories from people you follow"
+  },
+  "empty": {
+    "no_stories": "No stories available",
+    "no_posts": "No posts to display",
+    "follow_users": "Follow users to see their posts here",
+    "create_first_post": "Be the first to share something!"
+  },
+  "loading": {
+    "stories": "Loading stories...",
+    "posts": "Loading posts...",
+    "feed": "Loading your feed...",
+    "content": "Loading content..."
+  },
+  "errors": {
+    "load_stories": "Failed to load stories",
+    "load_posts": "Failed to load posts",
+    "connection": "Connection error. Please try again.",
+    "retry": "Retry"
+  },
+  "buttons": {
+    "close": "Close",
+    "open_menu": "Open menu",
+    "toggle_theme": "Toggle theme",
+    "refresh": "Refresh",
+    "load_more": "Load more"
+  },
+  "analytics": {
+    "theme_changed": "Theme changed to {{theme}}",
+    "sidebar_opened": "Sidebar opened",
+    "sidebar_closed": "Sidebar closed",
+    "post_created": "Post created",
+    "story_viewed": "Story viewed"
+  },
+  "sections": {
+    "stories": "Stories",
+    "create_post": "Create Post",
+    "feed": "Feed",
+    "trending": "Trending"
+  },
+  "status": {
+    "online": "Online",
+    "offline": "Offline",
+    "loading": "Loading",
+    "error": "Error",
+    "success": "Success"
+  }
+}
