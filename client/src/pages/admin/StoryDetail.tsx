@@ -24,6 +24,8 @@ import { AgentSelector, MultiAgentSelector } from '@/components/tracker/AgentSel
 import { CodeLinkInput, CodeLinkDisplay } from '@/components/tracker/CodeLinkInput';
 import { GitHubIssueLink, SyncToGitHubButton, GitHubPRBadge, LinkPRButton } from '@/components/admin/GitHubIntegration';
 import AdminLayout from '@/components/admin/AdminLayout';
+import { getLayerName, getLayerTooltip } from '@/lib/esaLayers';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type Task = {
   id: number;
@@ -339,11 +341,21 @@ export default function StoryDetail() {
                     <div className="flex-1">
                       <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">ESA Layers Affected</h3>
                       <div className="flex flex-wrap gap-2">
-                        {story.metadata.esa_layers.map(layer => (
-                          <Badge key={layer} variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20">
-                            Layer {layer}
-                          </Badge>
-                        ))}
+                        <TooltipProvider>
+                          {story.metadata.esa_layers.map(layer => (
+                            <Tooltip key={layer}>
+                              <TooltipTrigger asChild>
+                                <Badge variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 cursor-help">
+                                  Layer {layer}
+                                </Badge>
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-gray-900 text-white">
+                                <p className="font-semibold">{getLayerName(layer)}</p>
+                                <p className="text-xs text-gray-300 mt-1">Click to filter stories by this layer</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          ))}
+                        </TooltipProvider>
                       </div>
                     </div>
                   </div>
@@ -639,11 +651,21 @@ export default function StoryDetail() {
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
                       <div className="flex flex-wrap gap-2">
-                        {story.metadata.esa_layers.map(layer => (
-                          <Badge key={layer} variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300">
-                            Layer {layer}
-                          </Badge>
-                        ))}
+                        <TooltipProvider>
+                          {story.metadata.esa_layers.map(layer => (
+                            <Tooltip key={layer}>
+                              <TooltipTrigger asChild>
+                                <Badge variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 cursor-help">
+                                  Layer {layer}
+                                </Badge>
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-gray-900 text-white">
+                                <p className="font-semibold">{getLayerName(layer)}</p>
+                                <p className="text-xs text-gray-300 mt-1">Click to filter stories by this layer</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          ))}
+                        </TooltipProvider>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
