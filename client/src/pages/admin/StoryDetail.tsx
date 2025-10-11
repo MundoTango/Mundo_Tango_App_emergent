@@ -21,6 +21,7 @@ import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { AgentSelector, MultiAgentSelector } from '@/components/tracker/AgentSelector';
 import { CodeLinkInput, CodeLinkDisplay } from '@/components/tracker/CodeLinkInput';
+import { GitHubIssueLink, SyncToGitHubButton, GitHubPRBadge, LinkPRButton } from '@/components/admin/GitHubIntegration';
 
 type Task = {
   id: number;
@@ -33,6 +34,10 @@ type Task = {
   codeFilePath: string | null;
   codeLineRange: string | null;
   acceptanceCriteria: string[];
+  githubPrNumber: number | null;
+  githubPrUrl: string | null;
+  githubBranch: string | null;
+  githubSyncedAt: string | null;
 };
 
 type Story = {
@@ -49,6 +54,10 @@ type Story = {
   actualHours: number | null;
   tasks?: Task[];
   epicId: number | null;
+  githubIssueNumber: number | null;
+  githubIssueUrl: string | null;
+  githubRepoName: string | null;
+  githubSyncedAt: string | null;
 };
 
 const taskSchema = z.object({
@@ -214,11 +223,28 @@ export default function StoryDetail() {
                 </p>
               )}
             </div>
-            <Button onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}` : '/admin/projects')} variant="outline" data-testid="button-back">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
-            </Button>
+            <div className="flex gap-2">
+              <SyncToGitHubButton 
+                storyId={story.id} 
+                storyKey={story.key} 
+                existingIssueNumber={story.githubIssueNumber}
+              />
+              <Button onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}` : '/admin/projects')} variant="outline" data-testid="button-back">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back
+              </Button>
+            </div>
           </div>
+
+          {/* GitHub Integration */}
+          {(story.githubIssueNumber || story.githubIssueUrl) && (
+            <GitHubIssueLink 
+              issueNumber={story.githubIssueNumber}
+              issueUrl={story.githubIssueUrl}
+              repoName={story.githubRepoName}
+              syncedAt={story.githubSyncedAt}
+            />
+          )}
 
           {/* Agent Assignments */}
           <div className="mb-4 space-y-3">
@@ -405,18 +431,29 @@ export default function StoryDetail() {
                         data-testid={`code-link-${task.id}`}
                       />
                     )}
+                    {task.githubPrNumber && task.githubPrUrl && (
+                      <GitHubPRBadge
+                        prNumber={task.githubPrNumber}
+                        prUrl={task.githubPrUrl}
+                        branch={task.githubBranch}
+                        syncedAt={task.githubSyncedAt}
+                      />
+                    )}
                   </div>
-                  {task.status !== 'done' && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => updateTaskStatusMutation.mutate({ taskId: task.id, status: task.status === 'to_do' ? 'in_progress' : 'done' })}
-                      disabled={updateTaskStatusMutation.isPending}
-                      data-testid={`button-update-task-${task.id}`}
-                    >
-                      {task.status === 'to_do' ? 'Start' : 'Complete'}
-                    </Button>
-                  )}
+                  <div className="flex gap-2">
+                    <LinkPRButton taskId={task.id} existingPRNumber={task.githubPrNumber} />
+                    {task.status !== 'done' && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => updateTaskStatusMutation.mutate({ taskId: task.id, status: task.status === 'to_do' ? 'in_progress' : 'done' })}
+                        disabled={updateTaskStatusMutation.isPending}
+                        data-testid={`button-update-task-${task.id}`}
+                      >
+                        {task.status === 'to_do' ? 'Start' : 'Complete'}
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </GlassCard>
             ))}
