@@ -270,105 +270,305 @@ export default function StoryDetail() {
             />
           )}
 
-          {/* Review Category Badge */}
-          {story.metadata?.review_category && (
-            <div className="mb-4">
-              <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm px-3 py-1">
-                {story.metadata.review_category}
-              </Badge>
-            </div>
-          )}
+          {/* ESA Human Review Metadata - 11 Sections */}
+          {story.metadata && Object.keys(story.metadata).length > 0 && (
+            <div className="mt-6 space-y-4">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                <FileText className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
+                ESA Human Review Metadata
+              </h2>
 
-          {/* Review Notes */}
-          {story.metadata?.review_notes && (
-            <div className="mb-4 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg">
-              <div className="flex items-start gap-2">
-                <FileText className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5" />
-                <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">Review Notes</h3>
-                  <p className="text-sm text-amber-800 dark:text-amber-300 whitespace-pre-wrap">{story.metadata.review_notes}</p>
-                </div>
-              </div>
-            </div>
-          )}
+              {/* 1. Review Category & Notes */}
+              {(story.metadata.review_category || story.metadata.review_notes) && (
+                <GlassCard className="glassmorphic-card p-5">
+                  {story.metadata.review_category && (
+                    <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm px-3 py-1 mb-3">
+                      {story.metadata.review_category}
+                    </Badge>
+                  )}
+                  {story.metadata.review_notes && (
+                    <div className="flex items-start gap-3">
+                      <FileText className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                      <div className="flex-1">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Review Notes</h3>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">{story.metadata.review_notes}</p>
+                      </div>
+                    </div>
+                  )}
+                </GlassCard>
+              )}
 
-          {/* Documentation Links */}
-          {story.metadata?.documentation_links && story.metadata.documentation_links.length > 0 && (
-            <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
-              <div className="flex items-start gap-2">
-                <Link2 className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
-                <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">Documentation Links</h3>
-                  <ul className="space-y-1">
-                    {story.metadata.documentation_links.map((link, idx) => (
-                      <li key={idx}>
-                        <a 
-                          href={link.startsWith('http') ? link : `/${link}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                        >
-                          {link}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ESA Layers & Quality Metrics */}
-          {(story.metadata?.esa_layers || story.metadata?.current_metrics) && (
-            <div className="mb-4 grid md:grid-cols-2 gap-4">
-              {/* ESA Layers */}
-              {story.metadata?.esa_layers && story.metadata.esa_layers.length > 0 && (
-                <div className="p-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-700 rounded-lg">
-                  <div className="flex items-start gap-2">
-                    <Layers className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5" />
+              {/* 2. Documentation Links */}
+              {story.metadata.documentation_links && story.metadata.documentation_links.length > 0 && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Link2 className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                     <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-cyan-900 dark:text-cyan-200 mb-2">ESA Layers Affected</h3>
-                      <div className="flex flex-wrap gap-1">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Documentation Links</h3>
+                      <ul className="space-y-2">
+                        {story.metadata.documentation_links.map((link, idx) => (
+                          <li key={idx}>
+                            <a 
+                              href={link.startsWith('http') ? link : `/${link}`} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-colors"
+                            >
+                              📄 {link}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </GlassCard>
+              )}
+
+              {/* 3. ESA Layers */}
+              {story.metadata.esa_layers && story.metadata.esa_layers.length > 0 && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Layers className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">ESA Layers Affected</h3>
+                      <div className="flex flex-wrap gap-2">
                         {story.metadata.esa_layers.map(layer => (
-                          <Badge key={layer} variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 text-xs">
+                          <Badge key={layer} variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-900/20">
                             Layer {layer}
                           </Badge>
                         ))}
                       </div>
                     </div>
                   </div>
-                </div>
+                </GlassCard>
               )}
 
-              {/* Quality Metrics */}
-              {story.metadata?.current_metrics && (
-                <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg">
-                  <div className="flex items-start gap-2">
-                    <Target className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
+              {/* 4. Quality Metrics */}
+              {(story.metadata.current_metrics || story.metadata.target_metrics) && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Target className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-green-900 dark:text-green-200 mb-2">Quality Metrics</h3>
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quality Metrics</h3>
                       {story.metadata.gap_percentage !== undefined && (
-                        <div className="mb-2">
+                        <div className="mb-3">
                           <div className="flex items-center justify-between text-xs mb-1">
-                            <span className="text-green-700 dark:text-green-300">Gap: {story.metadata.gap_percentage}%</span>
-                            <span className="text-green-700 dark:text-green-300">Target: {100 - story.metadata.gap_percentage}%</span>
+                            <span className="text-gray-600 dark:text-gray-400">Current Progress</span>
+                            <span className="text-gray-900 dark:text-white font-medium">{100 - story.metadata.gap_percentage}%</span>
                           </div>
-                          <Progress value={100 - story.metadata.gap_percentage} className="h-2" />
+                          <Progress value={100 - story.metadata.gap_percentage} className="h-2 bg-gray-200 dark:bg-gray-700" />
                         </div>
                       )}
-                      {Object.keys(story.metadata.current_metrics).length > 0 && (
-                        <div className="text-xs space-y-1">
-                          {Object.entries(story.metadata.current_metrics).map(([key, value]) => (
-                            <div key={key} className="flex justify-between">
-                              <span className="text-green-700 dark:text-green-300">{key}:</span>
-                              <span className="text-green-900 dark:text-green-200 font-medium">{value}</span>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {story.metadata.current_metrics && Object.keys(story.metadata.current_metrics).length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Current</h4>
+                            <div className="text-xs space-y-1">
+                              {Object.entries(story.metadata.current_metrics).map(([key, value]) => (
+                                <div key={key} className="flex justify-between">
+                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
+                                  <span className="text-gray-900 dark:text-white font-medium">{value}</span>
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                          </div>
+                        )}
+                        {story.metadata.target_metrics && Object.keys(story.metadata.target_metrics).length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Target</h4>
+                            <div className="text-xs space-y-1">
+                              {Object.entries(story.metadata.target_metrics).map(([key, value]) => (
+                                <div key={key} className="flex justify-between">
+                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
+                                  <span className="text-green-600 dark:text-green-400 font-medium">{value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              )}
+
+              {/* 5. Risk Assessment */}
+              {(story.metadata.risk_level || story.metadata.risk_description) && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Shield className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Risk Assessment</h3>
+                        {story.metadata.risk_level && (
+                          <Badge className={
+                            story.metadata.risk_level === 'critical' ? 'bg-red-600 text-white' :
+                            story.metadata.risk_level === 'high' ? 'bg-orange-600 text-white' :
+                            story.metadata.risk_level === 'medium' ? 'bg-yellow-600 text-white' :
+                            'bg-green-600 text-white'
+                          }>
+                            {story.metadata.risk_level.toUpperCase()}
+                          </Badge>
+                        )}
+                      </div>
+                      {story.metadata.risk_description && (
+                        <p className="text-sm text-gray-700 dark:text-gray-300">{story.metadata.risk_description}</p>
+                      )}
+                      {story.metadata.escalation_path && (
+                        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                          <p className="text-xs text-gray-600 dark:text-gray-400">Escalation: {story.metadata.escalation_path}</p>
                         </div>
                       )}
                     </div>
                   </div>
-                </div>
+                </GlassCard>
+              )}
+
+              {/* 6. Complexity & Technical Details */}
+              {(story.metadata.complexity || story.metadata.technologies || story.metadata.tools_required) && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Code className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-3">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Technical Details</h3>
+                        {story.metadata.complexity && (
+                          <Badge variant="outline" className="border-indigo-500 text-indigo-700 dark:text-indigo-300">
+                            {story.metadata.complexity} complexity
+                          </Badge>
+                        )}
+                      </div>
+                      {story.metadata.technologies && story.metadata.technologies.length > 0 && (
+                        <div className="mb-3">
+                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Technologies</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {story.metadata.technologies.map((tech, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">{tech}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {story.metadata.tools_required && story.metadata.tools_required.length > 0 && (
+                        <div>
+                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Tools Required</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {story.metadata.tools_required.map((tool, idx) => (
+                              <Badge key={idx} variant="outline" className="text-xs">{tool}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {story.metadata.affected_files && story.metadata.affected_files.length > 0 && (
+                        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Affected Files</h4>
+                          <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                            {story.metadata.affected_files.slice(0, 5).map((file, idx) => (
+                              <li key={idx} className="font-mono">{file}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </GlassCard>
+              )}
+
+              {/* 7. Review Checklist & Acceptance Criteria */}
+              {(story.metadata.review_checklist || story.metadata.acceptance_criteria) && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <CheckSquare className="h-5 w-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Review Checklist</h3>
+                      {story.metadata.review_checklist && story.metadata.review_checklist.length > 0 && (
+                        <div className="mb-3">
+                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Checklist Items</h4>
+                          <ul className="space-y-1">
+                            {story.metadata.review_checklist.map((item, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <span className="text-teal-600 dark:text-teal-400 mt-0.5">✓</span>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {story.metadata.acceptance_criteria && story.metadata.acceptance_criteria.length > 0 && (
+                        <div>
+                          <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Acceptance Criteria</h4>
+                          <ul className="space-y-1">
+                            {story.metadata.acceptance_criteria.map((criteria, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <span className="text-green-600 dark:text-green-400 mt-0.5">→</span>
+                                {criteria}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </GlassCard>
+              )}
+
+              {/* 8. Human Review Workflow */}
+              {(story.metadata.manual_testing_required !== undefined || story.metadata.expert_review_needed !== undefined || story.metadata.expert_agents) && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Users className="h-5 w-5 text-violet-600 dark:text-violet-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Human Review Workflow</h3>
+                      <div className="space-y-2 text-sm">
+                        {story.metadata.manual_testing_required !== undefined && (
+                          <div className="flex items-center gap-2">
+                            <Badge variant={story.metadata.manual_testing_required ? "default" : "secondary"}>
+                              {story.metadata.manual_testing_required ? 'Manual Testing Required' : 'Automated Testing Only'}
+                            </Badge>
+                          </div>
+                        )}
+                        {story.metadata.expert_review_needed !== undefined && (
+                          <div className="flex items-center gap-2">
+                            <Badge variant={story.metadata.expert_review_needed ? "default" : "secondary"}>
+                              {story.metadata.expert_review_needed ? 'Expert Review Needed' : 'Standard Review'}
+                            </Badge>
+                          </div>
+                        )}
+                        {story.metadata.expert_agents && story.metadata.expert_agents.length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Expert Agents</h4>
+                            <div className="flex flex-wrap gap-1">
+                              {story.metadata.expert_agents.map(agentNum => (
+                                <Badge key={agentNum} className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs">
+                                  Agent #{agentNum}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              )}
+
+              {/* 9. Compliance Requirements */}
+              {story.metadata.compliance_requirements && story.metadata.compliance_requirements.length > 0 && (
+                <GlassCard className="glassmorphic-card p-5">
+                  <div className="flex items-start gap-3">
+                    <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Compliance Requirements</h3>
+                      <ul className="space-y-1">
+                        {story.metadata.compliance_requirements.map((req, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                            <span className="text-blue-600 dark:text-blue-400 mt-0.5">✓</span>
+                            {req}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </GlassCard>
               )}
             </div>
           )}
