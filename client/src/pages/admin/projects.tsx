@@ -467,7 +467,12 @@ export default function ProjectTrackerAdmin() {
           <TabsContent value="epics" className="space-y-4 mt-6">
             <div className="grid gap-4">
               {epics.map(epic => (
-                <GlassCard key={epic.id} className="glassmorphic-card card-lift p-4" data-testid={`card-epic-${epic.id}`}>
+                <GlassCard 
+                  key={epic.id} 
+                  className="glassmorphic-card card-lift p-4 cursor-pointer hover:border-turquoise-500/50 transition-all" 
+                  onClick={() => window.location.href = `/admin/projects/epic/${epic.id}`}
+                  data-testid={`card-epic-${epic.id}`}
+                >
                   <div className="flex items-start justify-between">
                     <div className="space-y-2 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -514,7 +519,12 @@ export default function ProjectTrackerAdmin() {
           <TabsContent value="stories" className="space-y-4 mt-6">
             <div className="grid gap-4">
               {stories.map(story => (
-                <GlassCard key={story.id} className="glassmorphic-card card-lift p-4" data-testid={`card-story-${story.id}`}>
+                <GlassCard 
+                  key={story.id} 
+                  className="glassmorphic-card card-lift p-4 cursor-pointer hover:border-turquoise-500/50 transition-all" 
+                  onClick={() => window.location.href = `/admin/projects/story/${story.id}`}
+                  data-testid={`card-story-${story.id}`}
+                >
                   <div className="flex items-start justify-between">
                     <div className="space-y-2 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
