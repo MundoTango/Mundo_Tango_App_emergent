@@ -70,7 +70,7 @@ import { Layers, CreditCard } from 'lucide-react';
 import SubscriptionManagement from '@/components/admin/SubscriptionManagement';
 import { TestSpriteIntegration } from '@/components/admin/TestSpriteIntegration';
 
-// ESA LIFE CEO 61x21 - Phase 19: Admin Dashboard Types
+// ESA Framework (105 Agents, 61 Layers) - Phase 19: Admin Dashboard Types
 interface AdminStats {
   // User Management
   totalUsers: number;
