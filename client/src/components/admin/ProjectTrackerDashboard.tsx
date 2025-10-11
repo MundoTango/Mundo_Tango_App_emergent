@@ -20,11 +20,13 @@ import {
   TrendingUp,
   Users,
   Zap,
-  RefreshCw
+  RefreshCw,
+  Network
 } from 'lucide-react';
 import { useProjects, useProjectMetrics, useCreateProject, useUpdateProject } from '@/hooks/useProjects';
 import { toast } from '@/hooks/use-toast';
 import type { Project } from '@shared/schema';
+import { ProjectHierarchyTree } from '@/components/tracker/ProjectHierarchyTree';
 
 // ESA 61x21 Framework Definitions - All 61 Layers
 const LAYER_DEFINITIONS = [
@@ -229,7 +231,7 @@ const ProjectTrackerDashboard: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </GlassCard>
 
       {/* Action Buttons */}
       <div className="flex justify-end gap-2">
@@ -379,6 +381,10 @@ const ProjectTrackerDashboard: React.FC = () => {
         <TabsList>
           <TabsTrigger value="list">List View</TabsTrigger>
           <TabsTrigger value="kanban">Kanban Board</TabsTrigger>
+          <TabsTrigger value="hierarchy">
+            <Network className="w-4 h-4 mr-2" />
+            Hierarchy Tree
+          </TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
@@ -500,9 +506,13 @@ const ProjectTrackerDashboard: React.FC = () => {
                       );
                     })}
                 </CardContent>
-              </Card>
+              </GlassCard>
             ))}
           </div>
+        </TabsContent>
+
+        <TabsContent value="hierarchy">
+          <ProjectHierarchyTree />
         </TabsContent>
 
         <TabsContent value="analytics">
