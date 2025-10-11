@@ -114,13 +114,17 @@ async function generateStoriesFromFindings(
   
   // Find or create epic for this page (using project tracker items)
   const epicKey = `MUN-${page.toUpperCase()}-AUDIT`;
-  const existingEpics = await storage.getAllProjectTrackerItems({ tags: [epicKey] });
+  const epicTitle = `${page.charAt(0).toUpperCase() + page.slice(1)} Page - ESA Audit`;
+  const existingEpics = await storage.getAllProjectTrackerItems({ type: "Epic" });
   
+  // Find existing epic by title match
   let epicId = "";
-  if (existingEpics.length === 0) {
+  const existingEpic = existingEpics.find(e => e.title === epicTitle);
+  
+  if (!existingEpic) {
     // Create epic for this page audit using project tracker
     const epic = await storage.createProjectTrackerItem({
-      title: `${page.charAt(0).toUpperCase() + page.slice(1)} Page - ESA Audit`,
+      title: epicTitle,
       type: "Epic",
       layer: "ESA 61x21 Audit",
       summary: `Human review stories from ESA 61x21 audit of ${page} page`,
@@ -132,7 +136,7 @@ async function generateStoriesFromFindings(
     });
     epicId = epic.id;
   } else {
-    epicId = existingEpics[0].id;
+    epicId = existingEpic.id;
   }
   
   // Generate stories from findings

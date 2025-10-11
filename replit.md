@@ -44,6 +44,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Route Protection System**: 4-layer production/debug separation using folder conventions, TypeScript RouteRegistry, Playwright smoke tests, and ESLint rules.
 - **Agent Training**: Utilizes an "Ultra-Micro Parallel Methodology" for rapid agent training and certification, focusing on atomic task decomposition and real production work.
 - **Project Management**: ✅ **COMPLETED:** Migrated from Jira to self-hosted project tracker (Agent #65). Successfully migrated 5 Epics + 15 Stories from MUN project. Includes GitHub integration (Agent #67) with bidirectional sync: stories↔issues, tasks↔PRs, webhook support.
+- **ESA Audit Runner**: ✅ **NEW:** Automated 43-agent audit system that validates pages against ESA 61x21 framework and auto-generates Human Review Stories with comprehensive metadata (11 sections: agent assignment, review notes, documentation links, ESA tracking, metrics, risk assessment, complexity estimation, technical details, audit trail, human review workflow, status tracking, collaboration). Stories categorized into 8 review types: Architecture & Data Integrity, UI/UX & Accessibility, Business Logic & Security, API & Performance, AI Intelligence, Content & i18n, Testing & QA, Documentation & Compliance.
 
 ## External Dependencies
 - **Database**: PostgreSQL (Neon serverless)
