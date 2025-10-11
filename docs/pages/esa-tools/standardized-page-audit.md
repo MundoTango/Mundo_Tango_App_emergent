@@ -1,10 +1,10 @@
 # Standardized Page Audit & Build Framework
-## ESA 61x21 - Automated 100-Agent Certification & Build System
+## ESA 105-Agent System with 61-Layer Framework - Automated Certification & Build System
 
-**Version:** 5.0 🆕 DUAL-MODE  
+**Version:** 6.0 🆕 HIERARCHICAL SCAFFOLDING  
 **Last Updated:** October 11, 2025  
-**Purpose:** Systematically audit AND build all pages using complete ESA agent hierarchy  
-**Master Reference:** [esa.md](../../platform-handoff/esa.md) - Complete 100-agent orchestration guide
+**Purpose:** Systematically audit AND build all pages using complete ESA 105-agent hierarchy across 61 technical layers  
+**Master Reference:** [esa.md](../../platform-handoff/esa.md) - Complete 105-agent orchestration guide
 
 ---
 
