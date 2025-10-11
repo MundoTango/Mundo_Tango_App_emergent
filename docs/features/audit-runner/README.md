@@ -3,10 +3,10 @@
 
 ## 📋 Overview
 
-The ESA Audit Runner is an automated system that executes comprehensive 43-agent audits following the ESA 61x21 framework, identifies issues, and automatically generates **Human Review Stories** with comprehensive metadata for the Project Tracker.
+The ESA Audit Runner is an automated system that executes comprehensive 43-agent audits following the ESA 105-Agent System with 61-Layer Framework framework, identifies issues, and automatically generates **Human Review Stories** with comprehensive metadata for the Project Tracker.
 
 ### Purpose
-- **Audit Pages**: Run standardized ESA 61x21 audits on any page
+- **Audit Pages**: Run standardized ESA 105-Agent System with 61-Layer Framework audits on any page
 - **Auto-Generate Stories**: Convert audit findings into actionable human review stories
 - **Track Quality**: Systematically validate all AI-built features through human review
 - **Enable Transparency**: Provide full audit trail with agent assignments, review notes, and documentation
@@ -145,7 +145,7 @@ if (finding.severity === "critical" ||
 - `api_endpoints`: ["/api/events"]
 
 #### 8. Audit Trail & Compliance
-- `audit_type`: "ESA 61x21 Framework Audit"
+- `audit_type`: "ESA 105-Agent System with 61-Layer Framework Framework Audit"
 - `audit_date`: Date
 - `audited_by_agent`: 17
 - `compliance_requirements`: ["WCAG 2.1 AA"]
@@ -376,5 +376,5 @@ Agent #0 (ESA CEO) Decision
 ---
 
 **Built by Agent #65 (Project Tracker Manager)**  
-**ESA 61x21 Framework - Human Review System**  
+**ESA 105-Agent System with 61-Layer Framework Framework - Human Review System**  
 **Last Updated: October 11, 2025**

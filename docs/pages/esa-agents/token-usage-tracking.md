@@ -2,7 +2,7 @@
 
 ## Overview
 
-Track OpenAI GPT-4o token consumption and costs in real-time through the ESA 61x21 monitoring dashboard to optimize spending and prevent budget overruns.
+Track OpenAI GPT-4o token consumption and costs in real-time through the ESA 105-Agent System with 61-Layer Framework monitoring dashboard to optimize spending and prevent budget overruns.
 
 ## Cost Structure
 

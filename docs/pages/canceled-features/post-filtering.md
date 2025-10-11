@@ -312,7 +312,7 @@ Before removing "Coming Soon" overlay:
 5. **useEffect is Hard**: Limit to 1-2 effects per component when possible
 6. **State Belongs Somewhere**: URL, global state, or local - pick one, not all three
 
-## ESA 61x21 Violations
+## ESA 105-Agent System with 61-Layer Framework Violations
 
 This failure violated multiple ESA framework layers:
 

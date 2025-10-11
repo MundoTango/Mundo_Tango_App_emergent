@@ -1,8 +1,8 @@
-# ESA 61x21 Multi-Agent System
+# ESA 105-Agent System with 61-Layer Framework Multi-Agent System
 
 ## Overview
 
-The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distributed agent framework that powers the Life CEO platform with 9 core agent domains, 6 specialized expert agents (10-15), and 16 Life CEO sub-agents, all integrated with OpenAI GPT-4o.
+The ESA 105-Agent System with 61-Layer Framework Multi-Agent System is a production-ready, PostgreSQL-based distributed agent framework that powers the Life CEO platform with 9 core agent domains, 6 specialized expert agents (10-15), and 16 Life CEO sub-agents, all integrated with OpenAI GPT-4o.
 
 ## System Architecture
 

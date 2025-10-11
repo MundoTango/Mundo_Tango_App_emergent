@@ -3,7 +3,7 @@
 **Page:** `client/src/pages/home.tsx`  
 **Route:** `/` (Main Landing Page)  
 **Date:** October 10, 2025  
-**Framework:** ESA 61x21 with 100-Agent Hierarchy  
+**Framework:** ESA 105-Agent System with 61-Layer Framework with 100-Agent Hierarchy  
 **Master Reference:** [esa.md](../platform-handoff/esa.md)
 
 ---
@@ -422,8 +422,8 @@ const toggleSidebar = () => {
 **To achieve 90+ certification score:**
 1. Implement all Phase 1 critical fixes
 2. Complete Phase 2 high-priority items
-3. Re-audit with 100-agent framework
-4. Validate against ESA 61x21 methodology
+3. Re-audit with 105-agent framework
+4. Validate against ESA 105-Agent System with 61-Layer Framework methodology
 
 **Estimated Time to Fix:** 2-3 hours  
 **Dependencies:** None (all patterns exist)  

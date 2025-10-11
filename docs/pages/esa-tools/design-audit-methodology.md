@@ -545,7 +545,7 @@ List every file with rollback strategy:
 
 ---
 
-### Phase 4: ESA 61x21 Parallel Execution Plan
+### Phase 4: ESA 105-Agent System with 61-Layer Framework Parallel Execution Plan
 
 **Track A: Aurora Tide Core (2-3 hours)**
 ```typescript

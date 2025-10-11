@@ -481,7 +481,7 @@ Result: Better quality + 10-30% less code
 
 **Required Reading (in order):**
 1. `docs/platform-handoff/esa.md` - Master orchestration guide (PRIMARY)
-2. `docs/platform-handoff/ESA_AGENT_ORG_CHART.md` - 100-agent hierarchy
+2. `docs/platform-handoff/ESA_AGENT_ORG_CHART.md` - 105-agent hierarchy
 3. `docs/platform-handoff/approved-patterns-2025-10-10.md` - Approved patterns library
 4. `docs/platform-handoff/api-routes-reference.md` - 150+ existing API endpoints
 5. `docs/platform-handoff/ESA_FRAMEWORK.md` - 61-layer technical framework
@@ -565,7 +565,7 @@ cat package.json | grep -A 5 "dependencies"
 
 ## 📊 Overview
 
-This framework standardizes the comprehensive audit process using the complete ESA 100-agent hierarchy, enabling consistent quality assessment across the entire platform.
+This framework standardizes the comprehensive audit process using the complete ESA 105-agent hierarchy, enabling consistent quality assessment across the entire platform.
 
 ### 🤖 ESA Agent Mapping
 
@@ -1281,12 +1281,12 @@ Use template to create standardized report
 ## 📝 Report Template
 
 ```markdown
-# Full ESA 61x21 Systematic Audit - [PAGE_NAME]
+# Full ESA 105-Agent System with 61-Layer Framework Systematic Audit - [PAGE_NAME]
 ## Complete 35-Agent Certification Report
 
 **Date:** [DATE]
 **Page:** [PAGE_FILE] (`[PAGE_ROUTE]` route)
-**Audit Type:** Full ESA 61x21 Framework
+**Audit Type:** Full ESA 105-Agent System with 61-Layer Framework Framework
 **Total Agents:** 35 (14 methodologies + 21 gap checks)
 
 ---

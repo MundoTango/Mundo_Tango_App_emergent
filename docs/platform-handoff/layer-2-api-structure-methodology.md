@@ -8,7 +8,7 @@
 **Last Updated:** October 10, 2025
 
 ## 🎯 Purpose
-Establishes RESTful API design patterns, endpoint structure, versioning strategy, and rate limiting to ensure consistent and scalable API architecture across the ESA 61x21 framework.
+Establishes RESTful API design patterns, endpoint structure, versioning strategy, and rate limiting to ensure consistent and scalable API architecture across the ESA 105-Agent System with 61-Layer Framework.
 
 ## 📋 6-Phase Development Process
 
@@ -125,7 +125,7 @@ Establishes RESTful API design patterns, endpoint structure, versioning strategy
 
 ## 📚 Reference Documentation
 - esa.md - Master framework
-- ESA_FRAMEWORK.md - ESA 61x21 foundation
+- ESA_FRAMEWORK.md - ESA 105-Agent System with 61-Layer Framework foundation
 - ESA_AGENT_ORG_CHART.md - Agent hierarchy
 - ESA_AGENT_A2A_PROTOCOL.md - Communication protocol
 - REST API Design Best Practices

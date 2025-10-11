@@ -26,7 +26,7 @@ You asked to convert the successful Memories page audit into a **standardized, a
 
 3. **📋 Page Registry Updated**
    - File: `docs/pages/page-audit-registry.json`
-   - Added: ESA 61x21 framework reference
+   - Added: ESA 105-Agent System with 61-Layer Framework framework reference
    - Added: 35-agent system metadata
    - Status: **79 pages mapped**
 
