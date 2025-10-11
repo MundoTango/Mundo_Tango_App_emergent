@@ -66,9 +66,16 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
     - ✅ Agent #64 (Documentation Architect): Training materials creator and knowledge extraction
     - ✅ Domain #9 (Master Control): Operational oversight during training cascade
   - **Training Documentation Suite:**
-    - ✅ [ESA_KNOWLEDGE_SHARING.md](./docs/platform-handoff/ESA_KNOWLEDGE_SHARING.md): Hierarchical mentorship framework with 4-level training cascade (Meta-agents → Chiefs → Layer agents → Experts)
-    - ✅ [ESA_AGENT_BOOTCAMP.md](./docs/platform-handoff/ESA_AGENT_BOOTCAMP.md): 5-day intensive program (Day 1: Meta-agents, Day 2: Chiefs, Days 3-4: 61 Layer agents, Day 5: Experts/Operational/Life CEO)
-    - ✅ [ESA_AGENT_A2A_PROTOCOL.md](./docs/platform-handoff/ESA_AGENT_A2A_PROTOCOL.md): 4-level help-seeking system (Peer 30min → Chief 1hr → Domain immediate → CEO immediate) with workload thresholds
+    - ✅ [ESA_KNOWLEDGE_SHARING.md](./docs/platform-handoff/ESA_KNOWLEDGE_SHARING.md): Hierarchical mentorship framework with 4-level training cascade (Meta-agents → Chiefs → Layer agents → Experts) + Reusable Component Sharing Protocol
+    - ✅ [ESA_AGENT_BOOTCAMP.md](./docs/platform-handoff/ESA_AGENT_BOOTCAMP.md): 5-day intensive program (Day 1: Meta-agents, Day 2: Chiefs, Days 3-4: 61 Layer agents, Day 5: Experts/Operational/Life CEO) with Check Before Build training
+    - ✅ [ESA_AGENT_A2A_PROTOCOL.md](./docs/platform-handoff/ESA_AGENT_A2A_PROTOCOL.md): 4-level help-seeking system (Peer 30min → Chief 1hr → Domain immediate → CEO immediate) with workload thresholds and CEO workload escalation
+  - **Operational Excellence Framework (Oct 11, 2025):** 🆕
+    - ✅ [ESA_CHECK_BEFORE_BUILD.md](./docs/platform-handoff/ESA_CHECK_BEFORE_BUILD.md): Universal principle - search codebase, ask questions, check with Agent #64 BEFORE building anything (features, bugs, refactors, audits)
+    - ✅ [ESA_PARALLEL_BY_DEFAULT.md](./docs/platform-handoff/ESA_PARALLEL_BY_DEFAULT.md): Explicit "Use ESA = Parallel Execution" default; sequential work is rare exception
+    - ✅ [ESA_AGENT_CERTIFICATION.md](./docs/platform-handoff/ESA_AGENT_CERTIFICATION.md): 3-level certification system (Basic → Intermediate → Expert) with skill verification and advancement paths
+    - ✅ [ESA_WORKLOAD_BALANCING.md](./docs/platform-handoff/ESA_WORKLOAD_BALANCING.md): 4-level escalation for overloaded agents (Self-manage → Peer help → Chief redistribution → CEO intervention)
+    - ✅ [ESA_PERFORMANCE_METRICS.md](./docs/platform-handoff/ESA_PERFORMANCE_METRICS.md): Agent performance tracking (velocity, quality, collaboration) with improvement actions
+    - ✅ [ESA_REUSABLE_COMPONENTS.md](./docs/platform-handoff/ESA_REUSABLE_COMPONENTS.md): Living registry of all reusable components, patterns, and APIs to prevent rebuilding existing functionality
   - **esa.md Enhanced as Full Agent Command Center:**
     - ✅ 10-Section Agent Orchestration Playbook: New Features, Performance, Bug Fixes, AI Integration, Audits, UI/UX, Project Management, Escalation Matrix, Training, Collaboration Patterns
     - ✅ Quick Reference Table: Agent selection by task type (11 scenarios mapped to specific agents)

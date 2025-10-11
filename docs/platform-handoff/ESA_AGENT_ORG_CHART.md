@@ -3,7 +3,8 @@
 
 **Last Updated:** October 11, 2025  
 **Total Agents:** 105 (1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 5 Operational + 16 Life CEO)  
-**Organization Type:** Matrix (Dual Reporting for Layer Agents)
+**Organization Type:** Matrix (Dual Reporting for Layer Agents)  
+**Operational Framework:** Check Before Build (mandatory) + Parallel By Default (default) + Workload Balancing (4-level escalation)
 
 ---
 
