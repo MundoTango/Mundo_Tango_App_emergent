@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { users } from '../../shared/schema';
+import { users, userProfiles } from '../../shared/schema';
 import { eq, and } from 'drizzle-orm';
 
 export type UserRole = 'admin' | 'organizer' | 'teacher' | 'dancer' | 'guest';
@@ -74,17 +74,21 @@ export class AuthService {
           name: users.name,
           username: users.username,
           profileImage: users.profileImage,
-          isActive: users.isActive
+          isActive: users.isActive,
+          role: userProfiles.role,
+          displayName: userProfiles.displayName,
+          avatarUrl: userProfiles.avatarUrl
         })
         .from(users)
+        .leftJoin(userProfiles, eq(users.id, userProfiles.userId))
         .where(eq(users.id, userId))
         .limit(1);
 
       if (!result[0]) return null;
 
       const user = result[0];
-      // Default to 'guest' role since user_profiles table doesn't exist
-      const role: UserRole = 'guest';
+      // Default to 'guest' if no user_profile exists
+      const role: UserRole = (user.role as UserRole) || 'guest';
       
       return {
         id: user.userId,
@@ -92,8 +96,8 @@ export class AuthService {
         name: user.name,
         username: user.username,
         role,
-        displayName: user.name, // Use name as displayName
-        avatarUrl: user.profileImage, // Use profileImage as avatarUrl
+        displayName: user.displayName || user.name,
+        avatarUrl: user.avatarUrl || user.profileImage,
         permissions: ROLE_PERMISSIONS[role],
         isActive: user.isActive ?? true
       };
