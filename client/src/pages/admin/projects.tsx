@@ -13,7 +13,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, LayoutDashboard, ListTodo, Target, Calendar, TrendingUp, ExternalLink, Columns3, Table2, Zap } from 'lucide-react';
+import { Plus, LayoutDashboard, ListTodo, Target, Calendar, TrendingUp, ExternalLink, Columns3, Table2, Zap, Network } from 'lucide-react';
+import { ProjectHierarchyTree } from '@/components/tracker/ProjectHierarchyTree';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -402,6 +403,13 @@ export default function ProjectTrackerAdmin() {
                 data-testid="tab-sprint"
               >
                 <Zap className="mr-2 h-4 w-4" /> Sprint
+              </TabsTrigger>
+              <TabsTrigger 
+                value="hierarchy" 
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
+                data-testid="tab-hierarchy"
+              >
+                <Network className="mr-2 h-4 w-4" /> Hierarchy
               </TabsTrigger>
             </TabsList>
             
@@ -798,6 +806,10 @@ export default function ProjectTrackerAdmin() {
                 </div>
               </div>
             </GlassCard>
+          </TabsContent>
+
+          <TabsContent value="hierarchy" className="space-y-4 mt-6">
+            <ProjectHierarchyTree />
           </TabsContent>
         </Tabs>
       </div>
