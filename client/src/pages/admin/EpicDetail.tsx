@@ -43,7 +43,7 @@ export default function EpicDetail() {
     queryKey: ['/api/tracker/epics', id],
   });
 
-  const epic = epicData?.data as Epic | undefined;
+  const epic = (epicData as any)?.data as Epic | undefined;
   const stories = epic?.stories || [];
 
   // Calculate progress
@@ -117,11 +117,11 @@ export default function EpicDetail() {
                 <Badge variant="outline" className="border-turquoise-500 text-turquoise-600 dark:border-turquoise-400 dark:text-turquoise-400 text-lg" data-testid="badge-epic-key">
                   {epic.key}
                 </Badge>
-                <Badge className={statusColors[epic.status as keyof typeof statusColors]} data-testid="badge-epic-status">
-                  {epic.status.replace('_', ' ')}
+                <Badge className={statusColors[epic.status as keyof typeof statusColors] || statusColors.to_do} data-testid="badge-epic-status">
+                  {epic.status?.replace('_', ' ') || 'Unknown'}
                 </Badge>
-                <Badge className={priorityColors[epic.priority as keyof typeof priorityColors]} data-testid="badge-epic-priority">
-                  {epic.priority}
+                <Badge className={priorityColors[epic.priority as keyof typeof priorityColors] || priorityColors.medium} data-testid="badge-epic-priority">
+                  {epic.priority || 'Medium'}
                 </Badge>
               </div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="text-epic-summary">
