@@ -70,11 +70,11 @@ export default function StoryDetail() {
   const [taskLineRange, setTaskLineRange] = useState('');
   const [selectedAgent, setSelectedAgent] = useState('');
 
-  const { data: storyData, isLoading } = useQuery({
-    queryKey: ['/api/tracker/stories', id],
+  const { data: storyData, isLoading, error } = useQuery({
+    queryKey: [`/api/tracker/stories/${id}`],
   });
 
-  const story = (storyData as any)?.data?.data as Story | undefined;
+  const story = (storyData as any)?.data as Story | undefined;
   const tasks = (story?.tasks as Task[] | undefined) || [];
 
   // Calculate progress
@@ -96,7 +96,7 @@ export default function StoryDetail() {
         }
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/tracker/stories', id] });
+      queryClient.invalidateQueries({ queryKey: [`/api/tracker/stories/${id}`] });
       setCreateTaskOpen(false);
       taskForm.reset();
       setTaskFilePath('');
@@ -109,11 +109,11 @@ export default function StoryDetail() {
   const updateTaskStatusMutation = useMutation({
     mutationFn: ({ taskId, status }: { taskId: number; status: string }) =>
       apiRequest(`/api/tracker/tasks/${taskId}`, { 
-        method: 'PATCH', 
+        method: 'PUT', 
         body: { status }
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/tracker/stories', id] });
+      queryClient.invalidateQueries({ queryKey: [`/api/tracker/stories/${id}`] });
       toast({ title: 'Task status updated!' });
     },
   });
