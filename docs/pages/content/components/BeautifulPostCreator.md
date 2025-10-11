@@ -1,7 +1,7 @@
 # Beautiful Post Creator Component
 
 ## Overview
-The BeautifulPostCreator is a comprehensive post creation component integrated with the ESA LIFE CEO 61x21 framework, providing rich social features including privacy controls, @mentions, and recommendation automation.
+The BeautifulPostCreator is a comprehensive post creation component integrated with the ESA LIFE CEO 105-Agent System with 61-Layer Framework, providing rich social features including privacy controls, @mentions, and recommendation automation.
 
 ## Features
 

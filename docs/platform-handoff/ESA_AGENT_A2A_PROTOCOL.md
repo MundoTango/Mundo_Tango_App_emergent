@@ -3,8 +3,8 @@
 
 **Version:** 1.0  
 **Last Updated:** October 10, 2025  
-**Total Agents:** 100 (1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 16 Life CEO)  
-**Framework:** ESA LIFE CEO 61x21
+**Total Agents:** 105 (1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 5 Operational + 16 Life CEO)  
+**Framework:** ESA 105-Agent System with 61-Layer Framework
 
 ---
 

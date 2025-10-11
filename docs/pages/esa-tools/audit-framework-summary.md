@@ -1,5 +1,5 @@
 # Standardized Page Audit Framework - Implementation Complete ✅
-## ESA 61x21 Automated Testing System
+## ESA 105-Agent System with 61-Layer Framework Automated Testing System
 
 **Date:** October 10, 2025  
 **Status:** ✅ **FULLY OPERATIONAL**  
@@ -32,7 +32,7 @@ This is your **complete playbook** with:
 **Location:** `docs/pages/page-audit-registry.json`
 
 Updated with:
-- ✅ ESA 61x21 framework reference
+- ✅ ESA 105-Agent System with 61-Layer Framework framework reference
 - ✅ 35-agent system metadata
 - ✅ Links to documentation and example audit
 - ✅ 79 pages mapped and ready to audit

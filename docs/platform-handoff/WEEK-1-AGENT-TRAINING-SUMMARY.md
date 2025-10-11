@@ -1,5 +1,5 @@
 # Week 1 Agent Training Summary
-## ESA 100-Agent Certification Progress
+## ESA 105-Agent Certification Progress
 
 **Training Week:** Week 1 (October 10, 2025)  
 **Status:** ✅ 6/100 Agents Certified  
@@ -398,7 +398,7 @@ Based on AGENT-TRAINING-EXECUTION-PLAN.md:
 - ✅ 6 certified methodology files created
 - ✅ 2 critical ESA lessons documented
 - ✅ Real production patterns captured
-- ✅ 100-agent training roadmap established
+- ✅ 105-agent training roadmap established
 
 ---
 
@@ -413,7 +413,7 @@ Based on AGENT-TRAINING-EXECUTION-PLAN.md:
 ### Training Material Sources
 - Life CEO platform (production code)
 - Platform remediation work (77→85+ score)
-- ESA 61x21 framework documentation
+- ESA 105-Agent System with 61-Layer Framework documentation
 - Audit reports (housing, groups, profile, etc.)
 
 ### Languages & Frameworks
@@ -428,9 +428,9 @@ Based on AGENT-TRAINING-EXECUTION-PLAN.md:
 
 ### Primary Documentation
 - `esa.md` - Master entry point for ESA framework
-- `ESA_FRAMEWORK.md` - 61x21 framework foundation
+- `ESA_FRAMEWORK.md` - 105-Agent System with 61-Layer Framework foundation
 - `QUICK_START.md` - 15-minute platform overview
-- `AGENT-TRAINING-EXECUTION-PLAN.md` - 100-agent roadmap
+- `AGENT-TRAINING-EXECUTION-PLAN.md` - 105-agent roadmap
 
 ### Training Documentation
 - `AGENT-TRAINING-SUMMARY.md` - This file

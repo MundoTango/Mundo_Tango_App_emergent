@@ -3,7 +3,7 @@
 **Pages:** `client/src/pages/auth/login.tsx` (219 lines) & `client/src/pages/auth/register.tsx` (267 lines)  
 **Routes:** `/login`, `/register` (SECURITY CRITICAL)  
 **Date:** October 10, 2025  
-**Framework:** ESA 61x21 with 100-Agent Hierarchy  
+**Framework:** ESA 105-Agent System with 61-Layer Framework with 100-Agent Hierarchy  
 **Master Reference:** [esa.md](../platform-handoff/esa.md)
 
 ---

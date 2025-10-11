@@ -964,7 +964,7 @@ Agent #0 reviews sprint completion
 
 | Documentation | Purpose | When to Use | Key Sections |
 |--------------|---------|-------------|--------------|
-| **[ESA 61x21 Framework Guide](#esa-framework)** | Architecture & compliance | System design decisions, layer validation | 61 Technical Layers, 21 Implementation Phases |
+| **[ESA 105-Agent System with 61-Layer Framework Guide](#esa-framework)** | Architecture & compliance | System design decisions, layer validation | 61 Technical Layers, 21 Implementation Phases |
 | **[Agent Organizational Chart](#agent-org-chart)** | Complete agent hierarchy | Understanding agent structure, reporting lines | 105 Agents: 1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 5 Operational + 16 Life CEO |
 | **[Agent-to-Agent Protocol](#a2a-protocol)** | Inter-agent communication | Escalation paths, knowledge sharing | Hierarchical communication, conflict resolution |
 | **[Parallel Execution Methodology](./ESA_PARALLEL_EXECUTION_METHODOLOGY.md)** | How agents work in parallel | Phase 0 pre-flight, final step docs | 3 parallel types, Agent #64 review gates |
@@ -1077,7 +1077,7 @@ Agent #0 (ESA CEO/Orchestrator)
 1. ✅ **Strategic Direction** - Set vision for all 6 divisions
 2. ✅ **Conflict Resolution** - Final decision authority (Level 4 escalation)
 3. ✅ **Cross-Division Coordination** - Ensure chiefs collaborate
-4. ✅ **Framework Governance** - Maintain ESA 61x21 integrity
+4. ✅ **Framework Governance** - Maintain ESA 105-Agent System with 61-Layer Framework integrity
 5. ✅ **Quality Assurance** - Validate 40x20s checkpoints (800 gates)
 6. ✅ **Agent Training** - Oversee 105-agent training program
 
@@ -1599,7 +1599,7 @@ The ESA (Enterprise Software Architecture) framework evolved through **7 major i
 
 **40 expert domains × 20 development phases = 800 quality checkpoints**
 
-The 40x20s framework runs in parallel with ESA 61x21 to validate implementation quality:
+The 40x20s framework runs in parallel with ESA 105-Agent System with 61-Layer Framework to validate implementation quality:
 
 - **Phase 1 - Database Resilience**: Driver fixes, connection pooling (326ms → <100ms)
 - **Phase 2 - Automation & Integration**: City auto-creation, professional groups (0% → 80% success)
@@ -1991,7 +1991,7 @@ This comprehensive guide consolidates all agent creation knowledge into one defi
 
 #### Quick Start (30 Minutes)
 Create a new ESA agent in 5 simple steps:
-1. **Define Agent** - Map to ESA 61x21 layer
+1. **Define Agent** - Map to ESA 105-Agent System with 61-Layer Framework layer
 2. **Research 10 Experts** - Study world-class experts in domain
 3. **Create Methodology** - Use proven 6-phase template
 4. **Complete Bootcamp** - 5-day intensive training
@@ -2049,12 +2049,12 @@ Intensive training program:
 
 Parallel quality assurance system:
 - **40 expert domains** × **20 development phases** = **800 checkpoints**
-- Validates every ESA 61x21 implementation
+- Validates every ESA 105-Agent System with 61-Layer Framework implementation
 - Three review levels: Quick (5-10 min), Standard (30-60 min), Comprehensive (2-4 hrs)
 
 **Integration:**
 ```
-ESA 61x21 (WHAT to build)
+ESA 105-Agent System with 61-Layer Framework (WHAT to build)
     ↓
 40x20s (HOW WELL it's built)
     ↓
@@ -2394,10 +2394,10 @@ The ESA framework is managed by **100 specialized agents** across all 61 layers:
 
 ### Training Requirements
 
-All 100 agents must complete:
+All 105 agents must complete:
 
 1. **ESA Framework Understanding**
-   - ESA 61x21 methodology
+   - ESA 105-Agent System with 61-Layer Framework methodology
    - 40x20s quality gates (800 checkpoints)
    - Organizational hierarchy
    - A2A communication protocol
@@ -2708,7 +2708,7 @@ Every agent maintains for human review:
 
 This Master Orchestration Guide unifies the four critical ESA documentation systems:
 
-1. **ESA 61x21 Framework** - Your architectural blueprint
+1. **ESA 105-Agent System with 61-Layer Framework** - Your architectural blueprint
 2. **ESA Agents System** - Your AI capabilities
 3. **Aurora Tide Design** - Your visual standards
 4. **Platform Validation** - Your deployment checklist

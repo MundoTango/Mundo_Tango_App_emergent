@@ -3,7 +3,7 @@
 **Page:** `client/src/pages/profile.tsx`  
 **Route:** `/profile` (User Profile - CORE Feature)  
 **Date:** October 10, 2025  
-**Framework:** ESA 61x21 with 100-Agent Hierarchy  
+**Framework:** ESA 105-Agent System with 61-Layer Framework with 100-Agent Hierarchy  
 **Master Reference:** [esa.md](../platform-handoff/esa.md)  
 **File Size:** 887 lines
 
@@ -520,8 +520,8 @@ const FRIEND_PREVIEW_COUNT = 3;
 **To achieve 90+ certification score:**
 1. Implement all Phase 1 critical fixes (testids, types, i18n, ARIA)
 2. Complete Phase 2 high-priority items (SEO, URL state, toasts)
-3. Re-audit with 100-agent framework
-4. Validate against ESA 61x21 methodology
+3. Re-audit with 105-agent framework
+4. Validate against ESA 105-Agent System with 61-Layer Framework methodology
 
 **Estimated Time to Fix:** 4-6 hours  
 **Dependencies:** None (all patterns exist)  

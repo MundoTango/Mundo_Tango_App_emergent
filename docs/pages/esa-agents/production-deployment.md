@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ESA 61x21 Multi-Agent System is configured for production deployment on Replit with autoscaling, health monitoring, and optimized resource management.
+The ESA 105-Agent System with 61-Layer Framework Multi-Agent System is configured for production deployment on Replit with autoscaling, health monitoring, and optimized resource management.
 
 ## Deployment Configuration
 

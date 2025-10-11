@@ -7,7 +7,7 @@
 
 ## Overview
 
-The platform uses **Aurora Tide Design System** with MT Ocean Theme, built on ESA 61x21 framework principles. This documentation covers design standards, component usage, and migration guides.
+The platform uses **Aurora Tide Design System** with MT Ocean Theme, built on ESA 105-Agent System with 61-Layer Framework framework principles. This documentation covers design standards, component usage, and migration guides.
 
 ---
 
@@ -210,7 +210,7 @@ npm run test:visual
 
 ---
 
-## ESA 61x21 Framework
+## ESA 105-Agent System with 61-Layer Framework Framework
 
 Aurora Tide implements multiple ESA layers:
 

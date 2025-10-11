@@ -44,7 +44,7 @@ This 5-day bootcamp trains the 9 remaining agents who haven't completed their do
 Each agent works independently on Phase 1:
 - Search codebase for domain-specific implementations
 - External research (documentation, tools, industry standards)
-- Map resources to ESA 61x21 layers
+- Map resources to ESA 105-Agent System with 61-Layer Framework layers
 - List appropriate open-source libraries/APIs
 
 **12:00 PM - Lunch Break (1 hour)**

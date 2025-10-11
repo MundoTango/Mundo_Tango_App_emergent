@@ -48,7 +48,7 @@ Successfully built the **ESA Audit Runner → Human Review Story Generator** sys
 #### **Escalation Path Resolver** (`server/audit/utils/escalation-path.ts`)
 - Resolves agent hierarchy for A2A communication
 - Example: "Agent #17 → Domain #2 (Frontend) → Chief #1 → Agent #0 (ESA CEO)"
-- Maps 100-agent organizational structure
+- Maps 105-agent organizational structure
 
 ### 2. **Audit Orchestrator** (`server/audit/audit-runner.ts`)
 
@@ -117,7 +117,7 @@ Stories are saved as **Project Tracker Items**:
 Epic structure:
 - **Type**: "Epic"
 - **Title**: "Events Page - ESA Audit"
-- **Summary**: "Human review stories from ESA 61x21 audit"
+- **Summary**: "Human review stories from ESA 105-Agent System with 61-Layer Framework audit"
 
 ### 5. **Documentation** (`docs/features/audit-runner/`)
 
@@ -332,7 +332,7 @@ replit.md                            ✅ Updated with audit system
 - ✅ **Auto-Story Generation**: Creates comprehensive human review stories
 - ✅ **11-Section Metadata**: Full traceability (agent, notes, docs, metrics, etc.)
 - ✅ **8 Review Categories**: Systematic categorization
-- ✅ **Escalation Paths**: Clear agent hierarchy (100-agent org)
+- ✅ **Escalation Paths**: Clear agent hierarchy (105-agent org)
 - ✅ **Project Tracker Integration**: Saved as tracker items with tags
 - ✅ **API Endpoints**: `/api/audit/run` functional
 - ✅ **Documentation**: Complete with examples
@@ -351,5 +351,5 @@ replit.md                            ✅ Updated with audit system
 ---
 
 **Built by Agent #65 (Project Tracker Manager)**  
-**Following ESA 61x21 Framework & Ultra-Micro Parallel Methodology**  
+**Following ESA 105-Agent System with 61-Layer Framework Framework & Ultra-Micro Parallel Methodology**  
 **October 11, 2025**

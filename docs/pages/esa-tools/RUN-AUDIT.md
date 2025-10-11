@@ -3,7 +3,7 @@
 
 **Purpose:** Step-by-step instructions for AI agents to systematically audit all 100+ pages  
 **Based on:** ESA_ORCHESTRATION.md systematic methodology  
-**Framework:** ESA 61x21 - 35-Agent Automated Testing System  
+**Framework:** ESA 105-Agent System with 61-Layer Framework - 35-Agent Automated Testing System  
 **Last Updated:** October 10, 2025
 
 ---

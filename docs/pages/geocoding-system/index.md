@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Life CEO & Mundo Tango platform features a **unified geocoding and map infrastructure** that powers location-based features across events, housing, community discovery, and user travel. Built following the **ESA LIFE CEO 61x21 framework**, the system ensures consistency, performance, and maintainability.
+The Life CEO & Mundo Tango platform features a **unified geocoding and map infrastructure** that powers location-based features across events, housing, community discovery, and user travel. Built following the **ESA LIFE CEO 105-Agent System with 61-Layer Framework**, the system ensures consistency, performance, and maintainability.
 
 ## Architecture
 

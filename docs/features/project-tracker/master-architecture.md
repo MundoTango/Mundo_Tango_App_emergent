@@ -10,7 +10,7 @@
 
 ## 🎯 Executive Summary
 
-Self-hosted project management system replacing Jira. Manages Epics, Stories, Tasks, and Sprints with agent assignment tracking, code linking, and GitHub bidirectional sync. Built on ESA 61x21 framework with Aurora Tide design system.
+Self-hosted project management system replacing Jira. Manages Epics, Stories, Tasks, and Sprints with agent assignment tracking, code linking, and GitHub bidirectional sync. Built on ESA 105-Agent System with 61-Layer Framework framework with Aurora Tide design system.
 
 **Core Value:** Track 81 re-audit tasks from Epic MUN-109 with agent assignments, code file links, and effort tracking - all in one system.
 
@@ -132,7 +132,7 @@ Self-hosted project management system replacing Jira. Manages Epics, Stories, Ta
 
 ### Integrations
 - **GitHub:** Issue sync, PR tracking
-- **Agent System:** 100-agent assignment tracking
+- **Agent System:** 105-agent assignment tracking
 - **Code Editor:** VSCode protocol links
 
 ---

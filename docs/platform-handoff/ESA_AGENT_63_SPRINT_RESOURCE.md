@@ -12,7 +12,7 @@
 
 ## 🎯 Purpose
 
-Agent #63 orchestrates sprint planning, resource allocation, and team capacity management for the ESA 61x21 framework. Ensures optimal workload distribution across the 100-agent hierarchy while maintaining velocity and preventing burnout.
+Agent #63 orchestrates sprint planning, resource allocation, and team capacity management for the ESA 105-Agent System with 61-Layer Framework. Ensures optimal workload distribution across the 105-agent hierarchy while maintaining velocity and preventing burnout.
 
 ## 🏗️ Core Responsibilities
 
@@ -48,7 +48,7 @@ Agent #63 orchestrates sprint planning, resource allocation, and team capacity m
 **Goal:** Identify all team members, skills, and availability
 
 **Tasks:**
-- Map 100-agent organizational hierarchy
+- Map 105-agent organizational hierarchy
 - Identify human team members (Pierre Dubois, etc.)
 - Catalog skills and expertise per agent/person
 - Determine availability and capacity constraints
@@ -59,7 +59,7 @@ Agent #63 orchestrates sprint planning, resource allocation, and team capacity m
 - Availability calendar
 
 **Success Metrics:**
-- 100% agent mapping complete
+- 105 agents mapped (100%)
 - Skills catalogued for all resources
 - Capacity baselines established
 

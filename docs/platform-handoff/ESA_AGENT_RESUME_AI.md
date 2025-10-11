@@ -70,7 +70,7 @@ Expert Agents (7 total)
 
 **Jira Structure:**
 ```
-PROJECT: Life CEO Platform - ESA 61x21 Audit & Remediation
+PROJECT: Life CEO Platform - ESA 105-Agent System with 61-Layer Framework Audit & Remediation
 ├── EPIC 1: Documentation Infrastructure
 │   ├── Story 1.1: Hierarchical Mentorship Model
 │   ├── Story 1.2: Resume AI Integration

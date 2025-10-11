@@ -1,7 +1,7 @@
 # Page Audit Progress Tracker
 ## Systematic 79-Page Quality Certification
 
-**Framework:** ESA 61x21 - 35-Agent Automated Testing System  
+**Framework:** ESA 105-Agent System with 61-Layer Framework - 35-Agent Automated Testing System  
 **Goal:** All pages certified at 90+ quality score  
 **Last Updated:** October 10, 2025
 

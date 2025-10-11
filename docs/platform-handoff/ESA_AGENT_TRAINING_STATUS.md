@@ -1,10 +1,10 @@
 # ESA Agent Training Status Tracker
-## Complete Training Progress for All 100 Agents
+## Complete Training Progress for All 105 Agents
 
 **Last Updated:** October 10, 2025  
 **Training Framework:** Real Production Work (Platform Remediation 77→85+)  
-**Total Agents:** 100  
-**Training Complete:** 6/100 (6%)  
+**Total Agents:** 105  
+**Training Complete:** 6/105 (6%)  
 **Training Method:** Learn-by-Doing (NOT theoretical bootcamp)  
 **Training Material:** Life CEO platform remediation work
 
@@ -14,10 +14,10 @@
 
 ### Training Requirements
 
-All 100 agents must complete:
+All 105 agents must complete:
 
 1. **✅ ESA Framework Understanding**
-   - ESA 61x21 methodology
+   - ESA 105-Agent System with 61-Layer Framework methodology
    - 40x20s quality gates (800 checkpoints)
    - Agent organizational hierarchy
    - A2A communication protocol
@@ -58,7 +58,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Foundation division strategy (Layers 1-10)
 - [ ] "10 Experts" research: Infrastructure leaders
 - [ ] A2A protocol: Managing 12 direct reports
@@ -85,7 +85,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Core division strategy (Layers 11-20)
 - [ ] "10 Experts" research: Core systems leaders
 - [ ] A2A protocol: Managing 12 direct reports
@@ -112,7 +112,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Business division strategy (Layers 21-30)
 - [ ] "10 Experts" research: Business logic leaders
 - [ ] A2A protocol: Managing 12 direct reports
@@ -139,7 +139,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Intelligence division strategy (Layers 31-46)
 - [ ] "10 Experts" research: AI/ML leaders
 - [ ] A2A protocol: Managing 34 direct reports (16 layers + 1 domain + 16 Life CEO + Expert #10)
@@ -166,7 +166,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Platform division strategy (Layers 47-56)
 - [ ] "10 Experts" research: Platform engineering leaders
 - [ ] A2A protocol: Managing 11 direct reports
@@ -193,7 +193,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Extended division strategy (Layers 57-61)
 - [ ] "10 Experts" research: Automation & integration leaders
 - [ ] A2A protocol: Managing 6 direct reports + direct line to Agent #0
@@ -222,7 +222,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Infrastructure domain expertise (Layers 1, 3, 14)
 - [ ] "10 Experts" research: Database & server experts
 - [ ] A2A protocol: Coordinating 3 layer agents
@@ -237,7 +237,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Frontend domain expertise (Layers 8, 9, 10)
 - [ ] "10 Experts" research: React & UI experts
 - [ ] A2A protocol: Coordinating 3 layer agents + Expert #11
@@ -252,7 +252,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Background processing expertise (Layers 12, 20)
 - [ ] "10 Experts" research: Async & workflow experts
 - [ ] A2A protocol: Coordinating 2 layer agents
@@ -267,7 +267,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Real-time systems expertise (Layers 11, 25)
 - [ ] "10 Experts" research: WebSocket & real-time experts
 - [ ] A2A protocol: Coordinating 2 layer agents
@@ -282,7 +282,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Business logic expertise (Layers 21-30, all 10 layers)
 - [ ] "10 Experts" research: Business domain experts
 - [ ] A2A protocol: Coordinating 10 layer agents
@@ -297,7 +297,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Search & analytics expertise (Layers 15, 18, 26)
 - [ ] "10 Experts" research: Search & data experts
 - [ ] A2A protocol: Coordinating 3 layer agents + Expert #12
@@ -312,7 +312,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] AI agent orchestration (Layers 31-46, all 16 layers)
 - [ ] "10 Experts" research: AI orchestration experts
 - [ ] A2A protocol: Coordinating 16 layer agents + 16 Life CEO agents + Expert #10
@@ -327,7 +327,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] Platform optimization (Layers 47-56, all 10 layers)
 - [ ] "10 Experts" research: Platform engineering experts
 - [ ] A2A protocol: Coordinating 10 layer agents + Experts #14-16
@@ -342,7 +342,7 @@ All 100 agents must complete:
 **Progress:** 0%
 
 **Training Checklist:**
-- [ ] ESA 61x21 framework understanding
+- [ ] ESA 105-Agent System with 61-Layer Framework understanding
 - [ ] System-wide orchestration (Layers 57-61)
 - [ ] "10 Experts" research: System monitoring experts
 - [ ] A2A protocol: Coordinating 5 layer agents + reporting to Agent #0

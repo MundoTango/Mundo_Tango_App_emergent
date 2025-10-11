@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ESA 61x21 Multi-Agent System includes a comprehensive monitoring dashboard at `/admin/agent-metrics` with real-time metrics, performance analytics, error tracking, and queue visualization.
+The ESA 105-Agent System with 61-Layer Framework Multi-Agent System includes a comprehensive monitoring dashboard at `/admin/agent-metrics` with real-time metrics, performance analytics, error tracking, and queue visualization.
 
 **Components:**
 - **Frontend:** `client/src/pages/admin/AgentMetrics.tsx`
@@ -108,7 +108,7 @@ Job queue monitoring:
 
 ### Patterns Tab
 
-ESA 61x21 pattern analytics:
+ESA 105-Agent System with 61-Layer Framework pattern analytics:
 
 **Pattern Application:**
 - Which patterns are being used
