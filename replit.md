@@ -10,42 +10,80 @@ When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the prim
 
 ## Recent Changes (October 11, 2025)
 
+### ESA Feature Architecture Framework (NEW - CRITICAL!)
+- **Created Missing Framework Piece**: `docs/platform-handoff/ESA_FEATURE_ARCHITECTURE_TEMPLATE.md`
+- **Mandatory for ALL New Features**: 7 required documents before ANY code is written
+  1. Master Architecture (overall system design)
+  2. Per-Page Architecture (ONE doc per page with full customer journeys)
+  3. Agent Matrix (who builds what)
+  4. API Contracts (every endpoint)
+  5. Database Schema (tables, relations, migrations)
+  6. Component Inventory (all UI elements)
+  7. Testing Plan (E2E + unit + performance)
+- **Added to ESA.md**: Now part of core documentation matrix for all future development
+- **Why This Matters**: Ensures complete systematic thinking BEFORE building (no more gaps!)
+
+### Project Tracker: Complete Page-by-Page Architecture (COMPLETE!)
+- **8 Architecture Documents Created**:
+  1. `master-architecture.md` - Overall system design (Agent #65 lead)
+  2. `agent-matrix.md` - 12 agents, 112 hours total effort
+  3. `pages/dashboard-architecture.md` - 4 widgets, metrics, real-time updates
+  4. `pages/epics-list-architecture.md` - Sortable table, filters, bulk actions
+  5. `pages/epic-detail-architecture.md` - Story breakdown, progress chart
+  6. `pages/story-detail-architecture.md` - **Agent assignment + code links (THE KEY PAGE!)**
+  7. `pages/sprint-board-architecture.md` - Kanban drag-drop, burndown charts
+  8. API contracts, database schema, component inventory (in page docs)
+
+### Schema Enhancements for Agent Tracking (COMPLETE!)
+- **Added to projectStories table**:
+  - `assignedAgentId` (varchar) - Primary agent (e.g., "agent-52")
+  - `teamAgentIds` (text[]) - Team agents array
+  - `codeFiles` (jsonb) - Code file paths with line ranges
+  - `estimatedHours`, `actualHours` (real) - Effort tracking
+  - `referenceLinks` (jsonb) - External documentation
+- **Added to projectTasks table**:
+  - `assignedAgentId` (varchar) - Agent assignment
+  - `codeFilePath` (varchar) - File path (e.g., "client/src/pages/home.tsx")
+  - `codeLineRange` (varchar) - Line range (e.g., "49-54")
+  - `acceptanceCriteria` (text[]) - Success criteria
+  - `referenceImplementation` (text) - Pattern to follow
+
+### New Components Built (Agent #17)
+- **AgentSelector Component** (`client/src/components/tracker/AgentSelector.tsx`)
+  - Hierarchical dropdown with 100 ESA agents
+  - Grouped by division (Leadership, Experts, Chiefs 1-6)
+  - Search by name, capability
+  - Shows workload capacity
+  - Multi-select variant for team agents
+  - Full Aurora Tide compliance
+- **CodeLinkInput Component** (`client/src/components/tracker/CodeLinkInput.tsx`)
+  - File path input with validation
+  - Line range input (e.g., "49-54")
+  - Auto-validates path structure
+  - VSCode protocol integration (opens file at exact line)
+  - Preview display
+  - Readonly variant for display
+
 ### Aurora Tide Design System Enforcement
 - **Mandatory Pre-Build Design Gate**: All new UI features MUST receive Agent #11 (Aurora Tide Design Expert) approval BEFORE building
 - **ESLint Auto-Enforcement**: Agent #66 blocks plain `Card` imports; only `GlassCard` from `@/components/glass/GlassComponents` allowed
 - **Design Specs Required**: Every new component documented in `docs/design-specs/` with exact Aurora Tide patterns
-- **Learning from Failure**: Project Tracker initially built without Aurora Tide compliance; rebuilt correctly as case study for all 67 agents
-
-### Dual-Mode Audit & Build Framework
-- **Updated Tool**: `docs/pages/esa-tools/standardized-page-audit.md` now supports BUILD+AUDIT dual-mode operation
-- **Mode 1 (Audit)**: Post-build validation for existing pages
-- **Mode 2 (Build)**: Pre-build design gates enforce Aurora Tide from the start
-- **4-Step Enforcement**: Agent #11 Design → Agent #65 Build → Agent #66 ESLint → Agent #14 Validation
-
-### Admin Center Design Standards (NEW)
-- **Reference Image Documented**: ESA Admin Center design standards captured from user-provided reference
-- **Sidebar Structure**: OVERVIEW, USER MANAGEMENT, CONTENT MODERATION, ANALYTICS, SYSTEM sections
-- **Component Specs**: AdminLayout, AdminSidebar, AdminTopBar, DashboardCard with Aurora Tide compliance
-- **Modernization Plan**: 10 items to fix (typography, colors, glassmorphic effects, dark mode, accessibility, i18n)
 
 ### ESA Re-Audit & Phase 5 Execution Plan (READY)
-- **Phase 1: Re-Audit**: 7 previously audited pages → Extract 40-60 actionable tasks → Epic MUN-109
-- **Phase 2: Phase 5 Hybrid Blitz**: 8 squads audit 128 remaining pages (Squads 1-8: Accessibility, i18n, Performance, Testing, Security, Database, AI, Aurora Tide)
-- **Phase 3: Admin Modernization**: Update 7 admin pages with design standards, build shared components
-- **Timeline**: Week 1 (re-audit), Weeks 2-3 (Phase 5), Week 4 (admin), Week 5 (validation)
+- **Phase 1: Re-Audit**: 7 previously audited pages → Extracted 81 tasks → Epic MUN-109 with 7 stories
+- **Phase 2: Phase 5 Hybrid Blitz**: 8 squads audit 128 remaining pages
+- **Phase 3: Admin Modernization**: Update 7 admin pages with design standards
+- **Meta-Tracking**: Using Project Tracker to track Phase 5 audit work itself
 
-### Meta-Tracking System
-- **Self-Hosted Project Tracker**: `/admin/projects` rebuilt with Aurora Tide compliance
-- **Epic Structure**: MUN-100 (master) → MUN-101 through MUN-109 (squad epics + re-audit)
-- **Self-Referential**: Using the tracker to track Phase 5 audit work itself
-- **Auto-Sync**: Audit findings → Project Tracker tasks → Real-time dashboard updates
-
-### Current Status: EXECUTION READY 🚀
-- ✅ All planning documentation complete (7 comprehensive docs)
-- ✅ 100-agent ESA hierarchy trained and ready
-- ✅ Aurora Tide enforcement system active
-- ✅ 7/135 pages audited, 128 remaining
-- ⏳ Awaiting user decision on execution path (Sequential/Parallel/Admin-First)
+### Current Status: ARCHITECTURE COMPLETE + COMPONENTS BUILT 🚀
+- ✅ **ESA Feature Architecture Template** created (framework gap filled!)
+- ✅ **Project Tracker**: 8 complete architecture docs with per-page customer journeys
+- ✅ **Agent Matrix**: 12 agents assigned with deliverables
+- ✅ **Database Schema**: Enhanced with agent + code link fields
+- ✅ **Components Built**: AgentSelector + CodeLinkInput (Aurora Tide compliant)
+- ✅ **ESA.md Updated**: Feature Architecture Template now in core docs
+- ⏳ **Database Sync**: Schema changes ready (drizzle-kit sync pending)
+- ⏳ **Next**: Integrate components into Story Detail page, build Kanban board
 
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
