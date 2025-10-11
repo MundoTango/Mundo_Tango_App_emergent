@@ -156,9 +156,10 @@ This page serves as the **documented template** for auditing and customer-readyi
 ---
 
 ## 📚 Related Documentation
-- `docs/pages/esa-tools/ultra-micro-parallel-subagent-methodology.md` - Parallel audit strategy
+- `docs/platform-handoff/ultra-micro-methodology.md` - Subagent micro-task parallel strategy
+- `docs/platform-handoff/ESA_PARALLEL_EXECUTION_METHODOLOGY.md` - 105-agent parallel coordination
 - `docs/pages/design-systems/aurora-tide.md` - Design system guidelines
-- `ESA.md` - Framework and agent coordination (updated with learnings)
+- `docs/platform-handoff/esa.md` - Framework and agent coordination (updated with learnings)
 - `docs/PLATFORM_AUDIT_REPORT_2025-10-09.md` - Platform-wide health assessment
 
 ---

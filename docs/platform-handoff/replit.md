@@ -47,7 +47,9 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Unified Map Architecture**: 100% CDN-free map infrastructure using local assets.
 - **Route Protection System**: 4-layer production/debug separation using folder conventions, TypeScript RouteRegistry, Playwright smoke tests, and ESLint rules.
 - **Multi-Agent Learning Framework (ESA 61x21)**: Uses a systematic 6-phase methodology where all 16 ESA agents learn, audit, and optimize features in parallel.
-- **Ultra-Micro Parallel Subagent Methodology**: Proven 3-phase strategy (Discovery → Fix → Validation) achieving 10x speed improvement through atomic task decomposition. Subagents execute micro-tasks (single file, single operation), main agent handles fixes and validation. Documented in `docs/pages/esa-tools/ultra-micro-parallel-subagent-methodology.md`.
+- **Parallel Execution Methodologies**: 
+  - **ESA 105-Agent Coordination** (`docs/platform-handoff/ESA_PARALLEL_EXECUTION_METHODOLOGY.md`): 3 types of parallel work (Horizontal/Vertical/Division), Phase 0 pre-flight with Agent #64, final step documentation submission
+  - **Ultra-Micro Subagent Tasks** (`docs/platform-handoff/ultra-micro-methodology.md`): 4-phase strategy (Pre-Flight → Discovery → Fix → Validation) achieving 10x speed improvement through atomic task decomposition
 
 ## External Dependencies
 - **Database**: PostgreSQL (Neon serverless)
