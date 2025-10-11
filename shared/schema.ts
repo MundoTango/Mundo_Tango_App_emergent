@@ -3414,6 +3414,8 @@ export const projectStories = pgTable("project_stories", {
   estimatedHours: real("estimated_hours"),
   actualHours: real("actual_hours"),
   referenceLinks: jsonb("reference_links").default([]), // External docs
+  // ESA Audit Metadata (11 sections for Human Review Stories)
+  metadata: jsonb("metadata").default({}), // Review notes, ESA layers, metrics, risk, complexity, etc.
   // GitHub Integration (Agent #67)
   githubIssueNumber: integer("github_issue_number"),
   githubIssueUrl: varchar("github_issue_url", { length: 500 }),
