@@ -7,6 +7,7 @@ This project is an AI-powered life management system (Life CEO) integrated with 
 Preferred communication style: Simple, everyday language.
 Do not reference monetary values or investment amounts when describing the platform.
 When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
+**CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
@@ -35,6 +36,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
 - **Comprehensive Audit System**: Automated, multi-layer audit system for continuous quality improvement, including page audits and open-source management.
 - **Self-Hosted Project Tracker (Agent #65)**: Complete replacement for Jira with bidirectional GitHub integration. Includes Epic/Story/Task hierarchy, agent assignment, code linking, and automated sync between stories↔issues and tasks↔PRs via Replit GitHub OAuth connection.
+- **Comments System (Agent #65)**: Rich collaboration features with @mentions, threading (parent/child), file attachments, edit tracking, and activity feed integration. Reuses postComments infrastructure.
 
 ### System Design Choices
 - **Microservices**: Decoupled architecture for Life CEO, Community Platforms, and Integration Layer with isolated databases and API-first communication.
@@ -49,7 +51,14 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
     - Kanban: 3-column drag-drop board (To Do → In Progress → Done) with glassmorphic cards
     - List: Sortable table view with inline data (key, summary, status, priority, points)
     - Sprint: Active sprint view with burn-down stats and sprint backlog
+  - **Comments System (Agent #65)**: ✅ Rich text comments with @mentions, threading, attachments, edit tracking on Story Detail page
   - **Design**: Linear + Plane aesthetics with Aurora Tide/MT Ocean Theme glassmorphic components, turquoise-ocean gradients, hover effects
+- **105-Agent Organizational Structure**: ✅ Updated ESA framework to include 5 new Operational Excellence Agents (#63-67):
+  - Agent #63: Sprint & Resource Manager (Layer 58 - Team Collaboration)
+  - Agent #64: Documentation Architect (Layer 54 - Technical Documentation)
+  - Agent #65: Project Tracker Manager (Layer 59 - Open Source Management)
+  - Agent #66: Code Review Expert (Layer 53 - CI/CD Pipeline)
+  - Agent #67: Community Relations Manager (Layer 60 - Version Control/GitHub)
 - **ESA Audit Runner**: ✅ **ACTIVE:** Automated 43-agent audit system that validates pages against ESA 61x21 framework and auto-generates Human Review Stories with comprehensive metadata. Full metadata system implemented with:
   - **Database Schema**: Added `metadata` jsonb column to `projectStories` table for flexible ESA data storage
   - **11 Metadata Sections**: (1) Review Category & Notes, (2) Documentation Links, (3) ESA Layers Affected, (4) Quality Metrics (current/target/gap), (5) Risk Assessment (level/description/escalation), (6) Complexity & Technical Details, (7) Review Checklist & Acceptance Criteria, (8) Human Review Workflow, (9) Compliance Requirements
