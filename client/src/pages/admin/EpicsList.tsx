@@ -301,7 +301,7 @@ export default function EpicsList() {
                   <tr
                     key={epic.id}
                     className="hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
-                    onClick={() => navigate(`/admin/projects/epics/${epic.id}`)}
+                    onClick={() => navigate(`/admin/projects/epic/${epic.id}`)}
                     data-testid={`row-epic-${epic.id}`}
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
