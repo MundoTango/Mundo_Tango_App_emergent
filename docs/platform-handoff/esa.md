@@ -21,6 +21,7 @@ This master guide orchestrates the complete ESA framework with **100 agents** ac
 | **[Agent-to-Agent Protocol](#a2a-protocol)** | Inter-agent communication | Escalation paths, knowledge sharing | Hierarchical communication, conflict resolution |
 | **[Agent Training Status](#training-status)** | Training progress tracking | Monitor agent readiness | 100 agents across 6 divisions |
 | **[New Agent Creation Guide](#new-agent-creation)** | Build new ESA agents | Creating agents, methodologies, quality gates | 6-Phase Methodology, 40x20s Gates, 10 Experts Research |
+| **[ESA Feature Architecture Template](./ESA_FEATURE_ARCHITECTURE_TEMPLATE.md)** | Complete feature planning | Starting ANY new feature | Master arch, per-page docs, agent matrix, API contracts |
 | **[ESA Agents System](#esa-agents)** | AI agent integration | Life CEO features, agent capabilities | 9 Agent Domains, 16 Life CEO Sub-agents |
 | **[Aurora Tide Design System](#aurora-tide)** | UI/UX standards | Component development, visual design | GlassCard, Animations, MT Ocean Theme |
 | **[Platform Validation](#platform-validation)** | Deployment readiness | Pre-deployment checks, QA validation | Layer-by-layer audit, functional testing |
