@@ -22,7 +22,14 @@ import { z } from 'zod';
 
 const router = Router();
 
+console.log('✅ ESA Agent #65: Project Tracker routes loaded successfully');
+
 // ========== EPICS ==========
+
+// TEST ROUTE - Verify route loading
+router.get('/tracker/test', async (req: Request, res: Response) => {
+  res.json({ success: true, message: 'Project Tracker routes are working!' });
+});
 
 // Get all epics with story counts
 router.get('/tracker/epics', async (req: Request, res: Response) => {
@@ -62,13 +69,28 @@ router.get('/tracker/epics/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     
-    // Check if parameter is a numeric ID or a string key (e.g., "MUN-5")
-    const isNumericId = /^\d+$/.test(id);
+    let epic;
     
-    const [epic] = await db
-      .select()
-      .from(projectEpics)
-      .where(isNumericId ? eq(projectEpics.id, parseInt(id)) : eq(projectEpics.key, id));
+    // Try to find by key first (safer for string params like "MUN-5")
+    if (id.includes('-')) {
+      // Has dash, must be a key like "MUN-5"
+      [epic] = await db
+        .select()
+        .from(projectEpics)
+        .where(eq(projectEpics.key, id));
+    } else if (/^\d+$/.test(id)) {
+      // Pure numeric, query by ID
+      [epic] = await db
+        .select()
+        .from(projectEpics)
+        .where(eq(projectEpics.id, parseInt(id, 10)));
+    } else {
+      // Neither, might be a malformed key, try as key anyway
+      [epic] = await db
+        .select()
+        .from(projectEpics)
+        .where(eq(projectEpics.key, id));
+    }
     
     if (!epic) {
       return res.status(404).json({ success: false, error: 'Epic not found' });
@@ -82,7 +104,10 @@ router.get('/tracker/epics/:id', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: { ...epic, stories } });
   } catch (error: any) {
-    console.error('Error fetching epic:', error);
+    console.error('❌ Error fetching epic with id:', req.params.id);
+    console.error('❌ Error details:', error);
+    console.error('❌ Error message:', error.message);
+    console.error('❌ Error stack:', error.stack);
     res.status(500).json({ success: false, error: error.message });
   }
 });
