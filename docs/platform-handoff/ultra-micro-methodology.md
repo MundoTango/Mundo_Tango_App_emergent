@@ -339,7 +339,38 @@ The **ultra-micro parallel subagent methodology** represents a breakthrough in a
 
 ---
 
+---
+
+## 📚 Relationship to Main Parallel Methodology
+
+**This document is TACTICAL** - How to launch subagents for micro-tasks
+
+**For STRATEGIC parallel execution** (how 105 agents work together), see:
+- **[ESA_PARALLEL_EXECUTION_METHODOLOGY.md](./ESA_PARALLEL_EXECUTION_METHODOLOGY.md)** - 105-agent parallel coordination
+  - Horizontal/Vertical/Division parallelism
+  - Phase 0 pre-flight with Agent #64
+  - Final step documentation submission
+  - Quality gates and validation
+
+**Key Difference:**
+- **ESA_PARALLEL_EXECUTION_METHODOLOGY.md** = Each agent owns specialized work (division of labor)
+- **This document (ultra-micro)** = One agent launches subagents for atomic tasks (task decomposition)
+
+Use ultra-micro methodology ONLY when:
+- ✅ You have 10+ simple, identical operations (search multiple files)
+- ✅ Tasks are truly atomic (1 file + 1 operation + 1 output)
+- ✅ No cross-file dependencies or complex logic
+
+Use ESA_PARALLEL_EXECUTION_METHODOLOGY.md when:
+- ✅ Building features spanning multiple layers/divisions
+- ✅ Coordinating multiple specialized agents
+- ✅ Need Phase 0 documentation review by Agent #64
+
+---
+
 ## Related Documentation
-- esa.md - Overall framework coordination
-- ESA_FRAMEWORK.md - 61x21 layer methodology
+- **[ESA_PARALLEL_EXECUTION_METHODOLOGY.md](./ESA_PARALLEL_EXECUTION_METHODOLOGY.md)** - Main 105-agent parallel framework
+- **[esa.md](./esa.md)** - Overall framework coordination
+- **[ESA_FRAMEWORK.md](./ESA_FRAMEWORK.md)** - 61x21 layer methodology
+- **[ESA_AGENT_A2A_PROTOCOL.md](./ESA_AGENT_A2A_PROTOCOL.md)** - Agent communication protocol
 - PLATFORM_AUDIT_REPORT_2025-10-09.md - Full platform health assessment

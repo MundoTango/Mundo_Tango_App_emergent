@@ -415,10 +415,16 @@ Platform is deployment-ready when:
 
 ## 🤝 AGENT COORDINATION BEST PRACTICES
 
-### Ultra-Micro Parallel Subagent Methodology
-**Status**: ✅ VALIDATED (October 2025 - Memories Page Audit)  
+### Agent Parallel Execution Methodologies
+**Status**: ✅ VALIDATED (October 2025)  
 **Performance**: 10x faster than sequential execution  
-**Full Documentation**: `docs/pages/esa-tools/ultra-micro-parallel-subagent-methodology.md`
+
+**Strategic (105-Agent Coordination)**: `docs/platform-handoff/ESA_PARALLEL_EXECUTION_METHODOLOGY.md`
+- Horizontal/Vertical/Division parallelism
+- Phase 0 pre-flight with Agent #64
+- Final step documentation submission
+
+**Tactical (Subagent Micro-Tasks)**: `docs/platform-handoff/ultra-micro-methodology.md`
 
 #### Core Principle
 Treat subagents as **micro-task executors**, not intelligent agents. Break complex tasks into atomic operations (1 file + 1 operation + 1 output).
