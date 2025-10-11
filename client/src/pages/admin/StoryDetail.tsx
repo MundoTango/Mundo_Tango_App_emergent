@@ -74,12 +74,8 @@ export default function StoryDetail() {
     queryKey: ['/api/tracker/stories', id],
   });
 
-  const { data: tasksData } = useQuery({
-    queryKey: ['/api/tracker/tasks', id],
-  });
-
   const story = storyData?.data as Story | undefined;
-  const tasks = tasksData?.data || [];
+  const tasks = (story?.tasks as Task[] | undefined) || [];
 
   // Calculate progress
   const totalTasks = tasks.length;
@@ -89,7 +85,7 @@ export default function StoryDetail() {
 
   const createTaskMutation = useMutation({
     mutationFn: (data: z.infer<typeof taskSchema>) =>
-      apiRequest(`/api/tracker/stories/${id}/tasks`, { 
+      apiRequest(`/api/tracker/tasks`, { 
         method: 'POST', 
         body: {
           ...data,
@@ -100,7 +96,7 @@ export default function StoryDetail() {
         }
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/tracker/tasks', id] });
+      queryClient.invalidateQueries({ queryKey: ['/api/tracker/stories', id] });
       setCreateTaskOpen(false);
       taskForm.reset();
       setTaskFilePath('');
@@ -117,7 +113,7 @@ export default function StoryDetail() {
         body: { status }
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/tracker/tasks', id] });
+      queryClient.invalidateQueries({ queryKey: ['/api/tracker/stories', id] });
       toast({ title: 'Task status updated!' });
     },
   });
