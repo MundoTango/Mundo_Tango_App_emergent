@@ -12,6 +12,60 @@
 
 This master guide orchestrates the complete ESA framework with **105 agents** across all 61 layers. Use the decision tree below to navigate to the right resource.
 
+---
+
+## 🎯 ESA Core Principles (MANDATORY)
+
+**Before doing ANYTHING, remember these fundamental rules:**
+
+### ✅ Principle 1: "Use ESA = Work in Parallel"
+**DEFAULT ASSUMPTION:** All ESA work happens in parallel unless explicitly told otherwise
+- Multiple agents → Work simultaneously
+- Full-stack feature → Vertical parallelism (DB + API + UI at once)
+- Multiple features → Horizontal parallelism (separate features concurrently)
+- Platform-wide → Division parallelism (all 6 divisions together)
+- Sequential is the EXCEPTION (requires explicit dependencies)
+
+**📖 Full Guide:** [ESA_PARALLEL_BY_DEFAULT.md](./ESA_PARALLEL_BY_DEFAULT.md)
+
+---
+
+### ✅ Principle 2: "Check Before Build"
+**ALWAYS search existing code/docs BEFORE building anything new**
+1. **Search codebase** (5 min) - Does this already exist?
+2. **Ask questions** (3 min) - What exactly is needed?
+3. **Check with Agent #64** (2 min) - Confirm no duplicates
+4. **Document decision** (1 min) - Why reuse/extend/build new
+5. **Then build** - With full context
+
+Applies to: New features, bug fixes, refactoring, AND audits
+
+**📖 Full Guide:** [ESA_CHECK_BEFORE_BUILD.md](./ESA_CHECK_BEFORE_BUILD.md)
+
+---
+
+### ✅ Principle 3: "Agent #64 Reviews Everything"
+**Documentation + Code Review MANDATORY**
+- **Phase 0:** Agent #64 checks docs BEFORE work starts
+- **Final Step:** Submit all work to Agent #64 for review
+- **Consolidation:** Agent #64 identifies duplicates to remove
+- **Registry:** Agent #64 maintains reusable component list
+
+**📖 Full Guides:** [ESA_PARALLEL_EXECUTION_METHODOLOGY.md](./ESA_PARALLEL_EXECUTION_METHODOLOGY.md) (Phase 0) + [ESA_REUSABLE_COMPONENTS.md](./ESA_REUSABLE_COMPONENTS.md)
+
+---
+
+### ✅ Principle 4: "Consolidate, Don't Duplicate"
+**Every audit = opportunity to reduce code**
+- Audits should CONSOLIDATE duplicates (not just fix issues)
+- Agent #64 reviews audit findings for deduplication
+- Result: Better quality + less code
+- Target: >10% code reduction per audit
+
+**📖 Updated:** [standardized-page-audit.md](../pages/esa-tools/standardized-page-audit.md) now includes consolidation workflow
+
+---
+
 ### Core Documentation Matrix
 
 | Documentation | Purpose | When to Use | Key Sections |
@@ -20,7 +74,13 @@ This master guide orchestrates the complete ESA framework with **105 agents** ac
 | **[Agent Organizational Chart](#agent-org-chart)** | Complete agent hierarchy | Understanding agent structure, reporting lines | 105 Agents: 1 CEO + 6 Chiefs + 9 Domains + 61 Layers + 7 Experts + 5 Operational + 16 Life CEO |
 | **[Agent-to-Agent Protocol](#a2a-protocol)** | Inter-agent communication | Escalation paths, knowledge sharing | Hierarchical communication, conflict resolution |
 | **[Parallel Execution Methodology](./ESA_PARALLEL_EXECUTION_METHODOLOGY.md)** | How agents work in parallel | Phase 0 pre-flight, final step docs | 3 parallel types, Agent #64 review gates |
-| **[Agent Training Status](#training-status)** | Training progress tracking | Monitor agent readiness | 100 agents across 6 divisions |
+| **[Check Before Build](./ESA_CHECK_BEFORE_BUILD.md)** | Search-first methodology | BEFORE building anything | Codebase search patterns, question templates, reuse registry |
+| **[Parallel By Default](./ESA_PARALLEL_BY_DEFAULT.md)** | Default parallel execution | Use ESA = Work in parallel | When to parallelize, coordination patterns |
+| **[Agent Certification](./ESA_AGENT_CERTIFICATION.md)** | Production readiness | Agent training & validation | Junior/Senior/Expert levels, certification process |
+| **[Workload Balancing](./ESA_WORKLOAD_BALANCING.md)** | Agent capacity management | Prevent overload | Task limits, auto-escalation, utilization metrics |
+| **[Performance Metrics](./ESA_PERFORMANCE_METRICS.md)** | Agent effectiveness | Track and improve | Success rate, response time, quality scores |
+| **[Reusable Components](./ESA_REUSABLE_COMPONENTS.md)** | Component registry | Check what exists | UI components, API utilities, DB patterns |
+| **[Agent Training Status](#training-status)** | Training progress tracking | Monitor agent readiness | 105 agents across 6 divisions |
 | **[New Agent Creation Guide](#new-agent-creation)** | Build new ESA agents | Creating agents, methodologies, quality gates | 6-Phase Methodology, 40x20s Gates, 10 Experts Research |
 | **[ESA Feature Architecture Template](./ESA_FEATURE_ARCHITECTURE_TEMPLATE.md)** | Complete feature planning | Starting ANY new feature | Master arch, per-page docs, agent matrix, API contracts |
 | **[ESA Agents System](#esa-agents)** | AI agent integration | Life CEO features, agent capabilities | 9 Agent Domains, 16 Life CEO Sub-agents |
@@ -140,12 +200,29 @@ This playbook helps you select the right agents for any task. Follow the decisio
 ### 1. For New Features
 
 **Decision Process:**
+
+**⚠️ STEP 0: CHECK BEFORE BUILD (MANDATORY)**
+1. **Search Existing Codebase** (5 min)
+   - grep for similar features/components
+   - Check ESA_REUSABLE_COMPONENTS.md registry
+   - Review recent similar work
+2. **Ask Clarifying Questions** (3 min)
+   - Is this new or enhancement to existing?
+   - What's the primary user goal?
+   - What features already exist that are similar?
+3. **Agent #64 Review** (2 min)
+   - Submit to Agent #64 for duplicate check
+   - Wait for confirmation: reuse/extend/build new
+4. **Document Decision** (1 min)
+   - Log what was found, decision made, action taken
+
+**THEN Proceed with ESA Layers:**
 1. **Identify ESA Layers** - Which of 61 layers are involved?
 2. **Map to Division** - Which chief owns those layers?
 3. **Check Domain** - Which domain coordinates execution?
-4. **Assign Layer Agents** - Specific agents for each layer
+4. **Assign Layer Agents** - Specific agents for each layer (parallel execution)
 5. **Add Expert Agents** - If specialized expertise needed (#10-16)
-6. **Coordinate via Domain** - Domain agent orchestrates execution
+6. **Coordinate via Domain** - Domain agent orchestrates parallel work
 
 **Example: New Booking System**
 ```
@@ -412,35 +489,40 @@ Ongoing: Continuous Learning
 
 ### 10. Agent Collaboration Patterns
 
-**Pattern A: Full-Stack Feature (Multi-Division)**
+**DEFAULT: All patterns execute in PARALLEL unless dependencies require sequential**
+
+**Pattern A: Full-Stack Feature (Multi-Division) - PARALLEL**
 ```
 Agent #0 identifies divisions needed
     ↓
-Each Division Chief assigns their layer agents
+PARALLEL EXECUTION (All start simultaneously):
+├── Division Chief #1 assigns layer agents → Work in parallel
+├── Division Chief #2 assigns layer agents → Work in parallel
+├── Division Chief #3 assigns layer agents → Work in parallel
+├── Expert Agents provide specialized support → Work in parallel
+└── Domain #9 monitors operational health → Continuous
     ↓
-Domain Coordinator orchestrates cross-division work
-    ↓
-Expert Agents provide specialized support
-    ↓
-Domain #9 monitors operational health
+Domain Coordinator orchestrates handoffs (through APIs/contracts)
     ↓
 Agent #0 validates final integration
 ```
 
-**Pattern B: Single-Division Feature (Contained)**
+**Pattern B: Single-Division Feature (Contained) - PARALLEL**
 ```
 Division Chief receives request
     ↓
-Assigns appropriate layer agents
-    ↓
-Agents collaborate within division
+PARALLEL EXECUTION (All start simultaneously):
+├── Layer Agent A handles their part
+├── Layer Agent B handles their part
+├── Layer Agent C handles their part
+└── Coordination through defined interfaces
     ↓
 Chief validates and approves
     ↓
 No escalation needed
 ```
 
-**Pattern C: Emergency Response (Production Issue)**
+**Pattern C: Emergency Response (Production Issue) - PARALLEL**
 ```
 Issue detected → Immediate escalation to Domain #9
     ↓
@@ -448,11 +530,15 @@ Domain #9 assesses severity and scope
     ↓
 If critical: Escalate to Agent #0 immediately
     ↓
-Agent #0 coordinates "war room" with needed divisions
+Agent #0 coordinates "war room" - ALL AGENTS PARALLEL:
+├── Division 1 agents investigate their layers
+├── Division 2 agents investigate their layers
+├── Division 3 agents investigate their layers
+└── Expert agents provide immediate guidance
     ↓
 Parallel resolution across all involved agents
     ↓
-Domain #9 monitors resolution progress
+Domain #9 monitors resolution progress (real-time)
     ↓
 Agent #0 approves resolution and post-mortem
 ```
@@ -548,6 +634,8 @@ Future agents benefit from this learning
 
 | Task Type | Primary Agent(s) | Supporting Agents | Coordinator |
 |-----------|------------------|-------------------|-------------|
+| **Check existing code** | Agent #64 | Developer searches codebase | Step 0 (MANDATORY) |
+| **Consolidate duplicates** | Agent #64 | Layer agents + audit team | During all audits |
 | **Database optimization** | Agent #1 | #14 (Caching), #48 (Performance) | Domain #1 |
 | **New API endpoint** | Agent #2 | #1 (Database), #5 (Authorization) | Domain #1 |
 | **UI component** | Agent #11 (Aurora) | #8 (Client), #54 (Accessibility) | Domain #2 |
@@ -560,6 +648,8 @@ Future agents benefit from this learning
 | **Project planning** | Agent #63 (Sprint) | #65 (Tracker), #66 (Review) | Domain #9 |
 | **Documentation review** | Agent #64 | All agents submit final docs | Domain #8 |
 | **Pre-flight check** | Agent #64 + Domain #9 | Check existing docs before work | Phase 0 |
+| **Workload balancing** | Agent #63 + Domain #9 | Check agent capacity | Before assignment |
+| **Agent certification** | Agent #63 + Domain #9 | Training & validation | Ongoing |
 
 ---
 
