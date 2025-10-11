@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
+import { ESAVisualization } from '@/components/esa/ESAVisualizations';
 import {
   Map,
   Users,
@@ -310,21 +311,9 @@ export default function ESADashboard() {
           </div>
         </GlassCard>
 
-        {/* Placeholder for specific view content - will be implemented in next tasks */}
-        <GlassCard className="p-12">
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20">
-              <view.icon className="w-10 h-10 text-cyan-400" />
-            </div>
-            <h3 className="text-xl font-bold text-white">Interactive Visualization</h3>
-            <p className="text-gray-400 max-w-lg mx-auto">
-              The interactive {view.title.toLowerCase()} visualization will be rendered here.
-              This will include flowcharts, decision trees, and clickable elements with drill-down capabilities.
-            </p>
-            <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
-              Coming in Phase {views.findIndex(v => v.id === currentView) + 6}
-            </Badge>
-          </div>
+        {/* Interactive Visualization */}
+        <GlassCard className="p-8">
+          <ESAVisualization viewId={currentView} />
         </GlassCard>
       </div>
     );
