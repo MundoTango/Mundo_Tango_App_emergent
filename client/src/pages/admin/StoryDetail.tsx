@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
@@ -110,14 +111,6 @@ export default function StoryDetail() {
 
   const story = (storyData as any)?.data as Story | undefined;
   const tasks = (story?.tasks as Task[] | undefined) || [];
-  
-  // Debug: Check metadata
-  if (story?.metadata) {
-    console.log('✅ Story metadata found:', story.metadata);
-    console.log('✅ Metadata keys:', Object.keys(story.metadata));
-  } else {
-    console.log('❌ No metadata on story:', story?.key);
-  }
 
   // Calculate progress
   const totalTasks = tasks.length;
@@ -281,13 +274,16 @@ export default function StoryDetail() {
             />
           )}
 
-          {/* ESA Human Review Metadata - 11 Sections */}
+          {/* ESA Human Review Metadata - 9 Sections with Mobile Accordion */}
           {story.metadata && Object.keys(story.metadata).length > 0 && (
             <div className="mt-6 space-y-4">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <FileText className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
                 ESA Human Review Metadata
               </h2>
+              
+              {/* Desktop: Card Layout */}
+              <div className="hidden md:block space-y-4">
 
               {/* 1. Review Category & Notes */}
               {(story.metadata.review_category || story.metadata.review_notes) && (
@@ -581,6 +577,285 @@ export default function StoryDetail() {
                   </div>
                 </GlassCard>
               )}
+              </div>
+
+              {/* Mobile: Accordion Layout (auto-collapse) */}
+              <Accordion type="single" collapsible className="md:hidden space-y-2">
+                {/* 1. Review Category & Notes */}
+                {(story.metadata.review_category || story.metadata.review_notes) && (
+                  <AccordionItem value="review-notes" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                        <span className="font-semibold">Review Notes</span>
+                        {story.metadata.review_category && (
+                          <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-xs ml-2">
+                            {story.metadata.review_category}
+                          </Badge>
+                        )}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                      {story.metadata.review_notes && (
+                        <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{story.metadata.review_notes}</p>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 2. Documentation Links */}
+                {story.metadata.documentation_links && story.metadata.documentation_links.length > 0 && (
+                  <AccordionItem value="docs" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Link2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        <span className="font-semibold">Documentation</span>
+                        <Badge variant="outline" className="ml-2 text-xs">{story.metadata.documentation_links.length}</Badge>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                      <ul className="space-y-2">
+                        {story.metadata.documentation_links.map((link, idx) => (
+                          <li key={idx}>
+                            <a href={link.startsWith('http') ? link : `/${link}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                              📄 {link}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 3. ESA Layers */}
+                {story.metadata.esa_layers && story.metadata.esa_layers.length > 0 && (
+                  <AccordionItem value="layers" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Layers className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+                        <span className="font-semibold">ESA Layers</span>
+                        <Badge variant="outline" className="ml-2 text-xs">{story.metadata.esa_layers.length}</Badge>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                      <div className="flex flex-wrap gap-2">
+                        {story.metadata.esa_layers.map(layer => (
+                          <Badge key={layer} variant="outline" className="border-cyan-500 text-cyan-700 dark:text-cyan-300">
+                            Layer {layer}
+                          </Badge>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 4. Quality Metrics */}
+                {(story.metadata.current_metrics || story.metadata.target_metrics) && (
+                  <AccordionItem value="metrics" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Target className="h-4 w-4 text-green-600 dark:text-green-400" />
+                        <span className="font-semibold">Quality Metrics</span>
+                        {story.metadata.gap_percentage !== undefined && (
+                          <Badge variant="outline" className="ml-2 text-xs">{100 - story.metadata.gap_percentage}%</Badge>
+                        )}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                      {story.metadata.gap_percentage !== undefined && (
+                        <div className="mb-3">
+                          <Progress value={100 - story.metadata.gap_percentage} className="h-2" />
+                        </div>
+                      )}
+                      <div className="space-y-3">
+                        {story.metadata.current_metrics && (
+                          <div>
+                            <h4 className="text-xs font-semibold mb-1">Current</h4>
+                            <div className="text-xs space-y-1">
+                              {Object.entries(story.metadata.current_metrics).map(([key, value]) => (
+                                <div key={key} className="flex justify-between">
+                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
+                                  <span className="font-medium">{value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {story.metadata.target_metrics && (
+                          <div>
+                            <h4 className="text-xs font-semibold mb-1">Target</h4>
+                            <div className="text-xs space-y-1">
+                              {Object.entries(story.metadata.target_metrics).map(([key, value]) => (
+                                <div key={key} className="flex justify-between">
+                                  <span className="text-gray-600 dark:text-gray-400">{key}:</span>
+                                  <span className="text-green-600 dark:text-green-400 font-medium">{value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 5. Risk Assessment */}
+                {(story.metadata.risk_level || story.metadata.risk_description) && (
+                  <AccordionItem value="risk" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Shield className="h-4 w-4 text-red-600 dark:text-red-400" />
+                        <span className="font-semibold">Risk Assessment</span>
+                        {story.metadata.risk_level && (
+                          <Badge className={
+                            story.metadata.risk_level === 'critical' ? 'bg-red-600' :
+                            story.metadata.risk_level === 'high' ? 'bg-orange-600' :
+                            story.metadata.risk_level === 'medium' ? 'bg-yellow-600' :
+                            'bg-green-600'
+                          }>
+                            {story.metadata.risk_level.toUpperCase()}
+                          </Badge>
+                        )}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                      {story.metadata.risk_description && (
+                        <p className="text-sm mb-2">{story.metadata.risk_description}</p>
+                      )}
+                      {story.metadata.escalation_path && (
+                        <p className="text-xs text-gray-600 dark:text-gray-400 pt-2 border-t">Escalation: {story.metadata.escalation_path}</p>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 6. Technical Details */}
+                {(story.metadata.complexity || story.metadata.technologies || story.metadata.tools_required) && (
+                  <AccordionItem value="technical" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Code className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                        <span className="font-semibold">Technical Details</span>
+                        {story.metadata.complexity && (
+                          <Badge variant="outline" className="ml-2 text-xs">{story.metadata.complexity}</Badge>
+                        )}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 space-y-3">
+                      {story.metadata.technologies && (
+                        <div>
+                          <h4 className="text-xs font-semibold mb-1">Technologies</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {story.metadata.technologies.map((tech, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">{tech}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {story.metadata.tools_required && (
+                        <div>
+                          <h4 className="text-xs font-semibold mb-1">Tools</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {story.metadata.tools_required.map((tool, idx) => (
+                              <Badge key={idx} variant="outline" className="text-xs">{tool}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 7. Review Checklist */}
+                {(story.metadata.review_checklist || story.metadata.acceptance_criteria) && (
+                  <AccordionItem value="checklist" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <CheckSquare className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                        <span className="font-semibold">Review Checklist</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 space-y-3">
+                      {story.metadata.review_checklist && (
+                        <ul className="space-y-1">
+                          {story.metadata.review_checklist.map((item, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-sm">
+                              <span className="text-teal-600 dark:text-teal-400">✓</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {story.metadata.acceptance_criteria && (
+                        <ul className="space-y-1">
+                          {story.metadata.acceptance_criteria.map((criteria, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-sm">
+                              <span className="text-green-600 dark:text-green-400">→</span>
+                              {criteria}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 8. Human Review Workflow */}
+                {(story.metadata.manual_testing_required !== undefined || story.metadata.expert_review_needed !== undefined || story.metadata.expert_agents) && (
+                  <AccordionItem value="workflow" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+                        <span className="font-semibold">Human Review</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 space-y-2">
+                      {story.metadata.manual_testing_required !== undefined && (
+                        <Badge variant={story.metadata.manual_testing_required ? "default" : "secondary"} className="text-xs">
+                          {story.metadata.manual_testing_required ? 'Manual Testing Required' : 'Automated Testing'}
+                        </Badge>
+                      )}
+                      {story.metadata.expert_review_needed !== undefined && (
+                        <Badge variant={story.metadata.expert_review_needed ? "default" : "secondary"} className="text-xs">
+                          {story.metadata.expert_review_needed ? 'Expert Review Needed' : 'Standard Review'}
+                        </Badge>
+                      )}
+                      {story.metadata.expert_agents && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {story.metadata.expert_agents.map(agentNum => (
+                            <Badge key={agentNum} className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs">
+                              Agent #{agentNum}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* 9. Compliance */}
+                {story.metadata.compliance_requirements && story.metadata.compliance_requirements.length > 0 && (
+                  <AccordionItem value="compliance" className="glassmorphic-card border-none">
+                    <AccordionTrigger className="px-4 hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        <Shield className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        <span className="font-semibold">Compliance</span>
+                        <Badge variant="outline" className="ml-2 text-xs">{story.metadata.compliance_requirements.length}</Badge>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                      <ul className="space-y-1">
+                        {story.metadata.compliance_requirements.map((req, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm">
+                            <span className="text-blue-600 dark:text-blue-400">✓</span>
+                            {req}
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+              </Accordion>
             </div>
           )}
 
