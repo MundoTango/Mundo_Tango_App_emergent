@@ -2,12 +2,30 @@
 ## ESA 105-Agent System with 61-Layer Framework Automated Testing System
 
 **Date:** October 10, 2025  
-**Status:** ✅ **FULLY OPERATIONAL**  
+**Status:** ✅ **FULLY OPERATIONAL - UPDATED TO 17-PHASE SYSTEM**  
 **Based on:** Memories Page Audit (91/100 score, 94% consensus)
 
 ---
 
-## 🎉 What We Built
+## 🆕 **IMPORTANT UPDATE: 17-Phase Tiered Audit System**
+
+**⚠️ This document references the legacy 35-agent system. For current audits, use:**
+
+📖 **New System:** [standardized-page-audit-17-phases.md](./standardized-page-audit-17-phases.md)  
+📖 **Master Reference:** [esa.md Section 5](../../platform-handoff/esa.md#5-for-audits--quality-assurance)
+
+**Key Changes:**
+- ✅ Replaced 35-agent system with **17-phase tiered system**
+- ✅ Organized into **5 execution tiers** (sequential + parallel)
+- ✅ Optimized execution time: 90-120 minutes (from ~60 min)
+- ✅ Clear dependency management between phases
+- ✅ Production certification requires all 17 phases to pass
+
+**Historical value preserved below for reference.**
+
+---
+
+## 🎉 What We Built (Legacy 35-Agent System)
 
 You now have a **complete, automated audit system** that can test all 100+ pages using the same rigorous 35-agent methodology proven on the Memories page.
 
