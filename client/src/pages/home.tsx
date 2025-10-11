@@ -30,6 +30,8 @@ export default function Home() {
     } else {
       document.documentElement.classList.remove('dark');
     }
+    // Log theme change for analytics
+    console.log(t('home.analytics.theme_changed', `Theme changed to ${newTheme}`));
   };
   
   // Check for service worker updates on mount
@@ -54,7 +56,7 @@ export default function Home() {
   return (
     <HomeErrorBoundary>
       <div 
-        className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50" 
+        className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" 
         key="mt-ocean-theme-v2"
         data-testid="page-home"
         role="main"
@@ -66,6 +68,7 @@ export default function Home() {
             theme={theme}
             onThemeToggle={toggleTheme}
             showMenuButton={true}
+            data-testid="button-toggle-menu"
           />
         </div>
         
@@ -75,6 +78,8 @@ export default function Home() {
               isOpen={isSidebarOpen} 
               setIsOpen={setIsSidebarOpen}
               onClose={handleCloseSidebar}
+              data-testid="component-sidebar"
+              aria-label={t('home.aria.navigation_sidebar', 'Navigation sidebar')}
             />
           </div>
           
@@ -87,6 +92,7 @@ export default function Home() {
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === 'Escape' && handleCloseSidebar()}
+              title={t('home.tooltips.close_sidebar', 'Click or press Escape to close sidebar')}
             />
           )}
           
@@ -98,17 +104,21 @@ export default function Home() {
             aria-label={t('home.aria.main_feed', 'Main content feed')}
           >
             <div className="max-w-2xl mx-auto p-4 space-y-6" data-testid="container-feed-content">
-              {stories && stories.length > 0 && (
+              {stories && stories.length > 0 ? (
                 <FadeIn delay={0.1}>
                   <section 
                     data-testid="section-stories"
                     aria-label={t('home.aria.stories', 'User stories')}
                   >
                     <GlassCard depth={1} className="p-4" data-testid="card-stories">
-                      <StoryViewer stories={stories} />
+                      <StoryViewer stories={stories} data-testid="viewer-stories" />
                     </GlassCard>
                   </section>
                 </FadeIn>
+              ) : (
+                <div data-testid="empty-state-stories" className="text-center py-8 text-gray-500 dark:text-gray-400">
+                  <p>{t('home.empty.no_stories', 'No stories available')}</p>
+                </div>
               )}
 
               <FadeIn delay={0.2}>
