@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Map, X, Search, Users, Layers as LayersIcon, GraduationCap, AlertCircle, ShieldCheck } from 'lucide-react';
+import { Map, X, Search, Users, Layers as LayersIcon, GraduationCap, AlertCircle, ShieldCheck, Code2 } from 'lucide-react';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { Button } from '@/components/ui/button';
@@ -7,11 +7,15 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useLocation } from 'wouter';
 import { esaAgents, auditPhases, decisionLevels } from '@/data/esaFrameworkData';
+import { detectPageContext, getContextSummary } from '@/services/esaContextService';
 
 export function ESAMindMap() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [, setLocation] = useLocation();
+  const [currentRoute, setLocation] = useLocation();
+  
+  // Detect current page context
+  const pageContext = detectPageContext(currentRoute);
 
   const quickStats = {
     totalAgents: 105,
@@ -200,7 +204,7 @@ export function ESAMindMap() {
                       key={agent.id}
                       className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
                       onClick={() => {
-                        setLocation('/admin/esa-dashboard');
+                        setLocation('/admin/esa-mind');
                         setIsOpen(false);
                       }}
                       data-testid={`agent-result-${agent.id}`}
@@ -270,15 +274,36 @@ export function ESAMindMap() {
                     </div>
                   </div>
 
-                  {/* Current Context Suggestion */}
+                  {/* Current Page Context */}
                   <div className="p-4 rounded-lg bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20">
                     <div className="flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-semibold text-white mb-1">Context-Aware Suggestion</p>
-                        <p className="text-xs text-gray-400">
-                          For current page work, consider: Agent #2 (Core Features Chief), Domain #2 (Frontend Coordinator)
-                        </p>
+                      <Code2 className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-white mb-1">Current Page Agents</p>
+                        {pageContext.hasContext ? (
+                          <div className="space-y-2 mt-2">
+                            <p className="text-xs text-gray-400 mb-2">
+                              This page ({currentRoute}) was built by:
+                            </p>
+                            {pageContext.agents.map((agent, idx) => (
+                              <div key={agent.id} className="flex items-center gap-2">
+                                <Badge className={idx === 0 
+                                  ? "bg-cyan-500/30 text-cyan-200 border-cyan-500/40" 
+                                  : "bg-white/10 text-gray-300 border-white/20"
+                                }>
+                                  Agent #{agent.id}
+                                </Badge>
+                                <span className="text-xs text-gray-300">
+                                  {agent.name} {idx === 0 && <span className="text-cyan-400">(Primary)</span>}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xs text-gray-400">
+                            No agent mapping available for this page. Navigate to an admin page to see context.
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
