@@ -37,8 +37,15 @@ export function isSuperAdmin(user: User | null | undefined): boolean {
   if (user.profile?.primary_role === 'super_admin') return true;
 
   // Pattern 5: Development mode override (for testing)
-  if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_SUPER_ADMIN === 'true') {
-    return true;
+  if (import.meta.env.DEV) {
+    // Check for dev toggle in window global
+    if ((window as any).__DEV_SUPER_ADMIN__ === true) {
+      return true;
+    }
+    // Check for env variable override
+    if (import.meta.env.VITE_ENABLE_SUPER_ADMIN === 'true') {
+      return true;
+    }
   }
 
   return false;

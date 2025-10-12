@@ -51,6 +51,9 @@ const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(modu
 // ESA Mr Blue - AI Companion for Super Admins (Agents #73-80)
 const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(module => ({ default: module.MrBlueFloatingButton })));
 
+// ESA Dev Tools - Super Admin toggle for development testing
+const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(module => ({ default: module.SuperAdminToggle })));
+
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 
@@ -169,6 +172,7 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
         <MrBlueFloatingButton />
+        <SuperAdminToggle />
       </Suspense>
       <Toaster />
       <TrialBanner />
