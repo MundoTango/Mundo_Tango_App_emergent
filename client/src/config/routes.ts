@@ -9,8 +9,105 @@
  * Framework Layer: 21-30 (Type System & Route Registry)
  */
 
-import { lazy, ComponentType, LazyExoticComponent } from 'react';
-// GroupDetailPageMT now lazy-loaded below for code splitting (ESA Layer 1 - Performance)
+import { ComponentType } from 'react';
+
+// Direct imports (lazy loading temporarily disabled due to Vite/React bundling issues)
+import Login from '@/pages/auth/login';
+import Register from '@/pages/auth/register';
+import Forgotpassword from '@/pages/auth/forgot-password';
+import Resetpassword from '@/pages/auth/reset-password';
+import Profile from '@/pages/profile';
+import UserSettings from '@/pages/UserSettings';
+import AccountDelete from '@/pages/AccountDelete';
+import Onboarding from '@/pages/onboarding';
+import ResumePage from '@/pages/ResumePage';
+import PublicResumePage from '@/pages/PublicResumePage';
+import PublicProfilePage from '@/pages/PublicProfilePage';
+import ProfileSwitcher from '@/pages/ProfileSwitcher';
+import Home from '@/pages/home';
+import EnhancedEvents from '@/pages/EnhancedEvents';
+import Eventdetail from '@/pages/event-detail';
+import Teacher from '@/pages/teacher';
+import Organizer from '@/pages/organizer';
+import Housingmarketplace from '@/pages/housing-marketplace';
+import HostDashboard from '@/pages/HostDashboard';
+import HostOnboarding from '@/pages/HostOnboarding';
+import GuestOnboarding from '@/pages/GuestOnboarding';
+import Hostbookings from '@/pages/host-bookings';
+import Mybookings from '@/pages/my-bookings';
+import Listingdetail from '@/pages/listing-detail';
+import Hostcalendar from '@/pages/host-calendar';
+import RecommendationsBrowsePage from '@/pages/RecommendationsBrowsePage';
+import EnhancedFriends from '@/pages/EnhancedFriends';
+import FriendshipPage from '@/pages/FriendshipPage';
+import Messages from '@/pages/Messages';
+import Groups from '@/pages/groups';
+import GroupDetailPageMT from '@/pages/GroupDetailPageMT';
+import RoleInvitations from '@/pages/RoleInvitations';
+import Favorites from '@/pages/Favorites';
+import Community from '@/pages/community';
+import Communityworldmap from '@/pages/community-world-map';
+import CreateCommunity from '@/pages/CreateCommunity';
+import Tangocommunities from '@/pages/tango-communities';
+import TangoStories from '@/pages/TangoStories';
+import LiveStreaming from '@/pages/LiveStreaming';
+import Gamification from '@/pages/Gamification';
+import ESAMemoryFeed from '@/pages/ESAMemoryFeed';
+import Search from '@/pages/search';
+import Subscribe from '@/pages/Subscribe';
+import Pricing from '@/pages/pricing';
+import BillingDashboard from '@/pages/BillingDashboard';
+import Checkout from '@/pages/Checkout';
+import PaymentMethods from '@/pages/PaymentMethods';
+import Invoices from '@/pages/Invoices';
+import Subscription from '@/pages/Subscription';
+import Dashboard from '@/pages/admin/dashboard';
+import Users from '@/pages/admin/users';
+import Moderation from '@/pages/admin/moderation';
+import Analytics from '@/pages/admin/analytics';
+import AdminCenter from '@/pages/AdminCenter';
+import PromoCodesAdmin from '@/pages/PromoCodesAdmin';
+import SubscriptionAnalytics from '@/pages/SubscriptionAnalytics';
+import AgentMetrics from '@/pages/admin/AgentMetrics';
+import Projects from '@/pages/admin/projects';
+import EpicsList from '@/pages/admin/EpicsList';
+import StoriesList from '@/pages/admin/StoriesList';
+import EpicDetail from '@/pages/admin/EpicDetail';
+import StoryDetail from '@/pages/admin/StoryDetail';
+import Sprints from '@/pages/admin/sprints';
+import ESAMind from '@/pages/admin/ESAMind';
+import MrBlueDashboard from '@/pages/admin/MrBlueDashboard';
+import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
+import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
+import ProjectTracker from '@/pages/ProjectTracker';
+import LiveGlobalStatistics from '@/pages/LiveGlobalStatistics';
+import HierarchyDashboard from '@/pages/HierarchyDashboard';
+import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
+import LifeCeoPerformance from '@/pages/LifeCeoPerformance';
+import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
+import LifeCeoPerformance from '@/pages/LifeCeoPerformance';
+import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
+import MonitoringDashboard from '@/pages/MonitoringDashboard';
+import MonitoringTest from '@/pages/MonitoringTest';
+import MediaUploadTest from '@/pages/MediaUploadTest';
+import Featurenavigation from '@/pages/feature-navigation';
+import Databasesecurity from '@/pages/database-security';
+import HelpSupport from '@/pages/HelpSupport';
+import Codeofconduct from '@/pages/code-of-conduct';
+import Codeofconduct from '@/pages/code-of-conduct';
+import PrivacyAnalytics from '@/pages/PrivacyAnalytics';
+import Codeofconduct from '@/pages/code-of-conduct';
+import TravelPlanner from '@/pages/TravelPlanner';
+import MobileAppDashboard from '@/pages/MobileAppDashboard';
+import Notifications from '@/pages/Notifications';
+import ErrorBoundaryPage from '@/pages/ErrorBoundaryPage';
+import MemoriesDebug from '@/pages/_debug/MemoriesDebug';
+import MemoriesTest from '@/pages/_debug/MemoriesTest';
+import PostingDemo from '@/pages/_debug/PostingDemo';
+import ModernMemoriesPage from '@/pages/_debug/ModernMemoriesPage';
+import AgentLearningDashboard from '@/pages/AgentLearningDashboard';
+
+// GroupDetailPageMT now directly imported for stability
 
 /**
  * Route mode classification
@@ -29,7 +126,7 @@ export interface RouteConfig {
   path: string;
   
   /** Lazy-loaded component for this route */
-  component: LazyExoticComponent<ComponentType<any>> | ComponentType<any>;
+  component: ComponentType<any>;
   
   /** Route classification (production/debug/archive) */
   mode: RouteMode;
@@ -71,28 +168,28 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Authentication Routes ==========
   {
     path: '/login',
-    component: lazy(() => import('@/pages/auth/login')),
+    component: Login,
     mode: 'production',
     loadingMessage: 'Loading login...',
     description: 'User login page'
   },
   {
     path: '/register',
-    component: lazy(() => import('@/pages/auth/register')),
+    component: Register,
     mode: 'production',
     loadingMessage: 'Loading registration...',
     description: 'New user registration'
   },
   {
     path: '/forgot-password',
-    component: lazy(() => import('@/pages/auth/forgot-password')),
+    component: Forgotpassword,
     mode: 'production',
     loadingMessage: 'Loading password reset...',
     description: 'Password reset request'
   },
   {
     path: '/reset-password',
-    component: lazy(() => import('@/pages/auth/reset-password')),
+    component: Resetpassword,
     mode: 'production',
     loadingMessage: 'Loading password reset confirmation...',
     description: 'Password reset confirmation page'
@@ -101,63 +198,63 @@ export const productionRoutes: RouteConfig[] = [
   // ========== User Management Routes ==========
   {
     path: '/profile/:username?',
-    component: lazy(() => import('@/pages/profile')),
+    component: Profile,
     mode: 'production',
     loadingMessage: 'Loading profile...',
     description: 'User profile page'
   },
   {
     path: '/settings',
-    component: lazy(() => import('@/pages/UserSettings')),
+    component: UserSettings,
     mode: 'production',
     loadingMessage: 'Loading settings...',
     description: 'User settings and preferences'
   },
   {
     path: '/account/delete',
-    component: lazy(() => import('@/pages/AccountDelete')),
+    component: AccountDelete,
     mode: 'production',
     loadingMessage: 'Loading...',
     description: 'Account deletion'
   },
   {
     path: '/onboarding',
-    component: lazy(() => import('@/pages/onboarding')),
+    component: Onboarding,
     mode: 'production',
     loadingMessage: 'Loading onboarding...',
     description: 'User onboarding flow'
   },
   {
     path: '/resume',
-    component: lazy(() => import('@/pages/ResumePage')),
+    component: ResumePage,
     mode: 'production',
     loadingMessage: 'Loading resume...',
     description: 'User resume/CV page'
   },
   {
     path: '/resume/:username',
-    component: lazy(() => import('@/pages/PublicResumePage')),
+    component: PublicResumePage,
     mode: 'production',
     loadingMessage: 'Loading resume...',
     description: 'Public resume view'
   },
   {
     path: '/@:username',
-    component: lazy(() => import('@/pages/PublicProfilePage')),
+    component: PublicProfilePage,
     mode: 'production',
     loadingMessage: 'Loading profile...',
     description: 'Public profile page'
   },
   {
     path: '/profile-switcher',
-    component: lazy(() => import('@/pages/ProfileSwitcher')),
+    component: ProfileSwitcher,
     mode: 'production',
     loadingMessage: 'Loading...',
     description: 'Profile switcher interface'
   },
   {
     path: '/home',
-    component: lazy(() => import('@/pages/home')),
+    component: Home,
     mode: 'production',
     loadingMessage: 'Loading home...',
     description: 'User home dashboard'
@@ -166,28 +263,28 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Events System Routes ==========
   {
     path: '/events',
-    component: lazy(() => import('@/pages/EnhancedEvents')),
+    component: EnhancedEvents,
     mode: 'production',
     loadingMessage: 'Loading events...',
     description: 'Events discovery and listing'
   },
   {
     path: '/events/:id',
-    component: lazy(() => import('@/pages/event-detail')),
+    component: Eventdetail,
     mode: 'production',
     loadingMessage: 'Loading event details...',
     description: 'Event detail page'
   },
   {
     path: '/teacher',
-    component: lazy(() => import('@/pages/teacher')),
+    component: Teacher,
     mode: 'production',
     loadingMessage: 'Loading teacher dashboard...',
     description: 'Teacher dashboard'
   },
   {
     path: '/organizer',
-    component: lazy(() => import('@/pages/organizer')),
+    component: Organizer,
     mode: 'production',
     loadingMessage: 'Loading organizer dashboard...',
     description: 'Event organizer dashboard'
@@ -196,63 +293,63 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Housing & Marketplace Routes ==========
   {
     path: '/housing-marketplace',
-    component: lazy(() => import('@/pages/housing-marketplace')),
+    component: Housingmarketplace,
     mode: 'production',
     loadingMessage: 'Loading housing marketplace...',
     description: 'Housing marketplace'
   },
   {
     path: '/host-dashboard',
-    component: lazy(() => import('@/pages/HostDashboard')),
+    component: HostDashboard,
     mode: 'production',
     loadingMessage: 'Loading host dashboard...',
     description: 'Host properties dashboard'
   },
   {
     path: '/host-onboarding',
-    component: lazy(() => import('@/pages/HostOnboarding')),
+    component: HostOnboarding,
     mode: 'production',
     loadingMessage: 'Loading host setup...',
     description: 'Host onboarding flow'
   },
   {
     path: '/guest-onboarding',
-    component: lazy(() => import('@/pages/GuestOnboarding')),
+    component: GuestOnboarding,
     mode: 'production',
     loadingMessage: 'Loading guest setup...',
     description: 'Guest onboarding flow'
   },
   {
     path: '/host-bookings',
-    component: lazy(() => import('@/pages/host-bookings')),
+    component: Hostbookings,
     mode: 'production',
     loadingMessage: 'Loading host dashboard...',
     description: 'Host bookings management'
   },
   {
     path: '/my-bookings',
-    component: lazy(() => import('@/pages/my-bookings')),
+    component: Mybookings,
     mode: 'production',
     loadingMessage: 'Loading your bookings...',
     description: 'User bookings view'
   },
   {
     path: '/listing/:id',
-    component: lazy(() => import('@/pages/listing-detail')),
+    component: Listingdetail,
     mode: 'production',
     loadingMessage: 'Loading listing...',
     description: 'Housing listing detail'
   },
   {
     path: '/host-calendar',
-    component: lazy(() => import('@/pages/host-calendar')),
+    component: Hostcalendar,
     mode: 'production',
     loadingMessage: 'Loading booking calendar...',
     description: 'Host calendar management'
   },
   {
     path: '/recommendations',
-    component: lazy(() => import('@/pages/RecommendationsBrowsePage')),
+    component: RecommendationsBrowsePage,
     mode: 'production',
     loadingMessage: 'Loading recommendations...',
     description: 'Browse recommendations marketplace - Journey R2'
@@ -261,49 +358,49 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Social Features Routes ==========
   {
     path: '/friends',
-    component: lazy(() => import('@/pages/EnhancedFriends')),
+    component: EnhancedFriends,
     mode: 'production',
     loadingMessage: 'Loading friends...',
     description: 'Friends management'
   },
   {
     path: '/friendship/:friendId',
-    component: lazy(() => import('@/pages/FriendshipPage')),
+    component: FriendshipPage,
     mode: 'production',
     loadingMessage: 'Loading friendship details...',
     description: 'Friendship detail page'
   },
   {
     path: '/messages',
-    component: lazy(() => import('@/pages/Messages')),
+    component: Messages,
     mode: 'production',
     loadingMessage: 'Loading messages...',
     description: 'Messaging interface'
   },
   {
     path: '/groups',
-    component: lazy(() => import('@/pages/groups')),
+    component: Groups,
     mode: 'production',
     loadingMessage: 'Loading groups...',
     description: 'Groups discovery'
   },
   {
     path: '/groups/:slug',
-    component: lazy(() => import('@/pages/GroupDetailPageMT')),
+    component: GroupDetailPageMT,
     mode: 'production',
     loadingMessage: 'Loading group...',
     description: 'Group detail page'
   },
   {
     path: '/invitations',
-    component: lazy(() => import('@/pages/RoleInvitations')),
+    component: RoleInvitations,
     mode: 'production',
     loadingMessage: 'Loading invitations...',
     description: 'Role invitations'
   },
   {
     path: '/favorites',
-    component: lazy(() => import('@/pages/Favorites')),
+    component: Favorites,
     mode: 'production',
     loadingMessage: 'Loading favorites...',
     description: 'Saved posts and favorites'
@@ -312,49 +409,49 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Community Routes ==========
   {
     path: '/community',
-    component: lazy(() => import('@/pages/community')),
+    component: Community,
     mode: 'production',
     loadingMessage: 'Loading community...',
     description: 'Community hub'
   },
   {
     path: '/community-world-map',
-    component: lazy(() => import('@/pages/community-world-map')),
+    component: Communityworldmap,
     mode: 'production',
     loadingMessage: 'Loading world map...',
     description: 'Global community map'
   },
   {
     path: '/create-community',
-    component: lazy(() => import('@/pages/CreateCommunity')),
+    component: CreateCommunity,
     mode: 'production',
     loadingMessage: 'Loading community creator...',
     description: 'Community creation'
   },
   {
     path: '/tango-communities',
-    component: lazy(() => import('@/pages/tango-communities')),
+    component: Tangocommunities,
     mode: 'production',
     loadingMessage: 'Loading communities...',
     description: 'Tango communities'
   },
   {
     path: '/tango-stories',
-    component: lazy(() => import('@/pages/TangoStories')),
+    component: TangoStories,
     mode: 'production',
     loadingMessage: 'Loading stories...',
     description: 'Tango stories'
   },
   {
     path: '/live-streaming',
-    component: lazy(() => import('@/pages/LiveStreaming')),
+    component: LiveStreaming,
     mode: 'production',
     loadingMessage: 'Loading streaming...',
     description: 'Live streaming platform'
   },
   {
     path: '/gamification',
-    component: lazy(() => import('@/pages/Gamification')),
+    component: Gamification,
     mode: 'production',
     loadingMessage: 'Loading gamification...',
     description: 'Gamification features'
@@ -363,7 +460,7 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Content & Timeline Routes ==========
   {
     path: '/memories',
-    component: lazy(() => import('@/pages/ESAMemoryFeed')),
+    component: ESAMemoryFeed,
     mode: 'production',
     loadingMessage: 'Loading memories...',
     description: 'Unified memory feed',
@@ -371,7 +468,7 @@ export const productionRoutes: RouteConfig[] = [
   },
   {
     path: '/search',
-    component: lazy(() => import('@/pages/search')),
+    component: Search,
     mode: 'production',
     loadingMessage: 'Loading search...',
     description: 'Global search'
@@ -380,49 +477,49 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Billing & Subscriptions Routes ==========
   {
     path: '/subscribe',
-    component: lazy(() => import('@/pages/Subscribe')),
+    component: Subscribe,
     mode: 'production',
     loadingMessage: 'Loading subscription plans...',
     description: 'Subscription plans'
   },
   {
     path: '/pricing',
-    component: lazy(() => import('@/pages/pricing')),
+    component: Pricing,
     mode: 'production',
     loadingMessage: 'Loading pricing...',
     description: 'Pricing information (Agent #72)'
   },
   {
     path: '/settings/billing',
-    component: lazy(() => import('@/pages/BillingDashboard')),
+    component: BillingDashboard,
     mode: 'production',
     loadingMessage: 'Loading billing...',
     description: 'Billing dashboard'
   },
   {
     path: '/checkout/:tier',
-    component: lazy(() => import('@/pages/Checkout')),
+    component: Checkout,
     mode: 'production',
     loadingMessage: 'Loading checkout...',
     description: 'Checkout flow'
   },
   {
     path: '/payment-methods',
-    component: lazy(() => import('@/pages/PaymentMethods')),
+    component: PaymentMethods,
     mode: 'production',
     loadingMessage: 'Loading payment methods...',
     description: 'Payment methods management'
   },
   {
     path: '/invoices',
-    component: lazy(() => import('@/pages/Invoices')),
+    component: Invoices,
     mode: 'production',
     loadingMessage: 'Loading invoices...',
     description: 'Invoice history'
   },
   {
     path: '/subscription',
-    component: lazy(() => import('@/pages/Subscription')),
+    component: Subscription,
     mode: 'production',
     loadingMessage: 'Loading subscription...',
     description: 'Subscription management'
@@ -431,147 +528,147 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Admin & Analytics Routes ==========
   {
     path: '/admin',
-    component: lazy(() => import('@/pages/admin/dashboard')),
+    component: Dashboard,
     mode: 'production',
     loadingMessage: 'Loading admin dashboard...',
     description: 'Admin dashboard'
   },
   {
     path: '/admin/users',
-    component: lazy(() => import('@/pages/admin/users')),
+    component: Users,
     mode: 'production',
     loadingMessage: 'Loading user management...',
     description: 'User management'
   },
   {
     path: '/admin/moderation',
-    component: lazy(() => import('@/pages/admin/moderation')),
+    component: Moderation,
     mode: 'production',
     loadingMessage: 'Loading moderation queue...',
     description: 'Content moderation'
   },
   {
     path: '/admin/analytics',
-    component: lazy(() => import('@/pages/admin/analytics')),
+    component: Analytics,
     mode: 'production',
     loadingMessage: 'Loading analytics...',
     description: 'Admin analytics'
   },
   {
     path: '/admin-legacy',
-    component: lazy(() => import('@/pages/AdminCenter')),
+    component: AdminCenter,
     mode: 'production',
     loadingMessage: 'Loading admin center...',
     description: 'Legacy admin center'
   },
   {
     path: '/admin/promo-codes',
-    component: lazy(() => import('@/pages/PromoCodesAdmin')),
+    component: PromoCodesAdmin,
     mode: 'production',
     loadingMessage: 'Loading promo codes...',
     description: 'Promo code management (Agent #75)'
   },
   {
     path: '/admin/subscription-analytics',
-    component: lazy(() => import('@/pages/SubscriptionAnalytics')),
+    component: SubscriptionAnalytics,
     mode: 'production',
     loadingMessage: 'Loading analytics...',
     description: 'Subscription analytics (Agent #72)'
   },
   {
     path: '/admin/agent-metrics',
-    component: lazy(() => import('@/pages/admin/AgentMetrics')),
+    component: AgentMetrics,
     mode: 'production',
     loadingMessage: 'Loading agent monitoring dashboard...',
     description: 'ESA 61x21 Multi-Agent System monitoring and analytics'
   },
   {
     path: '/admin/projects',
-    component: lazy(() => import('@/pages/admin/projects')),
+    component: Projects,
     mode: 'production',
     loadingMessage: 'Loading project tracker...',
     description: 'ESA Agent #65 Self-Hosted Project Tracker (Epics/Stories/Tasks)'
   },
   {
     path: '/admin/projects/epics',
-    component: lazy(() => import('@/pages/admin/EpicsList')),
+    component: EpicsList,
     mode: 'production',
     loadingMessage: 'Loading epics list...',
     description: 'ESA Agent #65 + #17: Epics List - Sortable table with filtering'
   },
   {
     path: '/admin/projects/stories',
-    component: lazy(() => import('@/pages/admin/StoriesList')),
+    component: StoriesList,
     mode: 'production',
     loadingMessage: 'Loading stories list...',
     description: 'ESA Agent #65 + #17: Stories List - Task management with agent filtering'
   },
   {
     path: '/admin/projects/epic/:id',
-    component: lazy(() => import('@/pages/admin/EpicDetail')),
+    component: EpicDetail,
     mode: 'production',
     loadingMessage: 'Loading epic details...',
     description: 'ESA Agent #65 Epic Detail - Story breakdown & progress'
   },
   {
     path: '/admin/projects/story/:id',
-    component: lazy(() => import('@/pages/admin/StoryDetail')),
+    component: StoryDetail,
     mode: 'production',
     loadingMessage: 'Loading story details...',
     description: 'ESA Agent #65 Story Detail - Agent assignment & code links'
   },
   {
     path: '/admin/sprints',
-    component: lazy(() => import('@/pages/admin/sprints')),
+    component: Sprints,
     mode: 'production',
     loadingMessage: 'Loading sprint management...',
     description: 'ESA Agent #63 Sprint Planning & Velocity Tracking'
   },
   {
     path: '/admin/esa-mind',
-    component: lazy(() => import('@/pages/admin/ESAMind')),
+    component: ESAMind,
     mode: 'production',
     loadingMessage: 'Loading ESA Mind...',
     description: 'Context-aware ESA Framework (105 Agents, 61 Layers) intelligence and metrics dashboard'
   },
   {
     path: '/admin/mr-blue',
-    component: lazy(() => import('@/pages/admin/MrBlueDashboard')),
+    component: MrBlueDashboard,
     mode: 'production',
     loadingMessage: 'Loading Mr Blue Dashboard...',
     description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
   },
   {
     path: '/analytics',
-    component: lazy(() => import('@/pages/AnalyticsDashboard')),
+    component: AnalyticsDashboard,
     mode: 'production',
     loadingMessage: 'Loading analytics...',
     description: 'Analytics dashboard'
   },
   {
     path: '/agent-framework',
-    component: lazy(() => import('@/pages/AgentFrameworkDashboard')),
+    component: AgentFrameworkDashboard,
     mode: 'production',
     loadingMessage: 'Loading Agent Framework Dashboard...',
     description: 'Agent framework monitoring'
   },
   {
     path: '/project-tracker',
-    component: lazy(() => import('@/pages/ProjectTracker')),
+    component: ProjectTracker,
     mode: 'production',
     loadingMessage: 'Loading project tracker...',
     description: 'Project tracking'
   },
   {
     path: '/stats',
-    component: lazy(() => import('@/pages/LiveGlobalStatistics')),
+    component: LiveGlobalStatistics,
     mode: 'production',
     loadingMessage: 'Loading statistics...',
     description: 'Live statistics'
   },
   {
     path: '/hierarchy',
-    component: lazy(() => import('@/pages/HierarchyDashboard')),
+    component: HierarchyDashboard,
     mode: 'production',
     loadingMessage: 'Loading hierarchy...',
     description: 'Organizational hierarchy'
@@ -580,14 +677,14 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Mr Blue / LifeCEO Routes (Agent #73) ==========
   {
     path: '/mr-blue',
-    component: lazy(() => import('@/pages/LifeCEOEnhanced')),
+    component: LifeCEOEnhanced,
     mode: 'production',
     loadingMessage: 'Loading Mr Blue...',
     description: 'Mr Blue AI companion dashboard (Agent #73)'
   },
   {
     path: '/mr-blue-performance',
-    component: lazy(() => import('@/pages/LifeCeoPerformance')),
+    component: LifeCeoPerformance,
     mode: 'production',
     loadingMessage: 'Loading Mr Blue Performance...',
     description: 'Mr Blue performance monitoring'
@@ -595,21 +692,21 @@ export const productionRoutes: RouteConfig[] = [
   // Legacy routes for backwards compatibility
   {
     path: '/life-ceo',
-    component: lazy(() => import('@/pages/LifeCEOEnhanced')),
+    component: LifeCEOEnhanced,
     mode: 'production',
     loadingMessage: 'Loading Mr Blue...',
     description: 'Mr Blue dashboard (legacy route)'
   },
   {
     path: '/life-ceo-performance',
-    component: lazy(() => import('@/pages/LifeCeoPerformance')),
+    component: LifeCeoPerformance,
     mode: 'production',
     loadingMessage: 'Loading Mr Blue Performance...',
     description: 'Mr Blue performance (legacy route)'
   },
   {
     path: '/lifeceo',
-    component: lazy(() => import('@/pages/LifeCEOEnhanced')),
+    component: LifeCEOEnhanced,
     mode: 'production',
     loadingMessage: 'Loading Mr Blue...',
     description: 'Mr Blue (legacy alias)'
@@ -619,21 +716,21 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Testing & Development Routes ==========
   {
     path: '/monitoring',
-    component: lazy(() => import('@/pages/MonitoringDashboard')),
+    component: MonitoringDashboard,
     mode: 'production',
     loadingMessage: 'Loading monitoring dashboard...',
     description: 'System monitoring'
   },
   {
     path: '/monitoring-test',
-    component: lazy(() => import('@/pages/MonitoringTest')),
+    component: MonitoringTest,
     mode: 'production',
     loadingMessage: 'Loading monitoring test...',
     description: 'Monitoring test page'
   },
   {
     path: '/media-upload-test',
-    component: lazy(() => import('@/pages/MediaUploadTest')),
+    component: MediaUploadTest,
     mode: 'production',
     loadingMessage: 'Loading media upload test...',
     description: 'Media upload testing'
@@ -647,14 +744,14 @@ export const productionRoutes: RouteConfig[] = [
   },
   {
     path: '/feature-navigation',
-    component: lazy(() => import('@/pages/feature-navigation')),
+    component: Featurenavigation,
     mode: 'production',
     loadingMessage: 'Loading feature navigation...',
     description: 'Feature discovery with interactive tour (Agent #74)'
   },
   {
     path: '/database-security',
-    component: lazy(() => import('@/pages/database-security')),
+    component: Databasesecurity,
     mode: 'production',
     loadingMessage: 'Loading database security...',
     description: 'Database security dashboard'
@@ -663,35 +760,35 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Legal & Compliance Routes ==========
   {
     path: '/help',
-    component: lazy(() => import('@/pages/HelpSupport')),
+    component: HelpSupport,
     mode: 'production',
     loadingMessage: 'Loading help...',
     description: 'Help and support center'
   },
   {
     path: '/code-of-conduct',
-    component: lazy(() => import('@/pages/code-of-conduct')),
+    component: Codeofconduct,
     mode: 'production',
     loadingMessage: 'Loading terms...',
     description: 'Code of conduct'
   },
   {
     path: '/terms',
-    component: lazy(() => import('@/pages/code-of-conduct')),
+    component: Codeofconduct,
     mode: 'production',
     loadingMessage: 'Loading terms...',
     description: 'Terms of service'
   },
   {
     path: '/privacy',
-    component: lazy(() => import('@/pages/PrivacyAnalytics')),
+    component: PrivacyAnalytics,
     mode: 'production',
     loadingMessage: 'Loading privacy settings...',
     description: 'Privacy settings and analytics'
   },
   {
     path: '/privacy-policy',
-    component: lazy(() => import('@/pages/code-of-conduct')),
+    component: Codeofconduct,
     mode: 'production',
     loadingMessage: 'Loading privacy policy...',
     description: 'Privacy policy'
@@ -700,28 +797,28 @@ export const productionRoutes: RouteConfig[] = [
   // ========== Additional Platform Routes ==========
   {
     path: '/travel-planner',
-    component: lazy(() => import('@/pages/TravelPlanner')),
+    component: TravelPlanner,
     mode: 'production',
     loadingMessage: 'Loading travel planner...',
     description: 'Travel planning'
   },
   {
     path: '/mobile-dashboard',
-    component: lazy(() => import('@/pages/MobileAppDashboard')),
+    component: MobileAppDashboard,
     mode: 'production',
     loadingMessage: 'Loading mobile dashboard...',
     description: 'Mobile app dashboard'
   },
   {
     path: '/notifications',
-    component: lazy(() => import('@/pages/Notifications')),
+    component: Notifications,
     mode: 'production',
     loadingMessage: 'Loading notifications...',
     description: 'User notifications center'
   },
   {
     path: '/error',
-    component: lazy(() => import('@/pages/ErrorBoundaryPage')),
+    component: ErrorBoundaryPage,
     mode: 'production',
     loadingMessage: 'Loading...',
     description: 'Error boundary page'
@@ -736,35 +833,35 @@ export const productionRoutes: RouteConfig[] = [
 export const debugRoutes: RouteConfig[] = [
   {
     path: '/memories-debug',
-    component: lazy(() => import('@/pages/_debug/MemoriesDebug')),
+    component: MemoriesDebug,
     mode: 'debug',
     loadingMessage: 'Loading debug...',
     description: 'Memory feed debug interface'
   },
   {
     path: '/memories-test',
-    component: lazy(() => import('@/pages/_debug/MemoriesTest')),
+    component: MemoriesTest,
     mode: 'debug',
     loadingMessage: 'Loading test...',
     description: 'Memory feed test page'
   },
   {
     path: '/posting-demo',
-    component: lazy(() => import('@/pages/_debug/PostingDemo')),
+    component: PostingDemo,
     mode: 'debug',
     loadingMessage: 'Loading posting demo...',
     description: 'Post creation demo'
   },
   {
     path: '/modern-memories-debug',
-    component: lazy(() => import('@/pages/_debug/ModernMemoriesPage')),
+    component: ModernMemoriesPage,
     mode: 'debug',
     loadingMessage: 'Loading modern memories...',
     description: 'Modern memories debug (Pierre Dubois interface)'
   },
   {
     path: '/agent-learning',
-    component: lazy(() => import('@/pages/AgentLearningDashboard')),
+    component: AgentLearningDashboard,
     mode: 'debug',
     loadingMessage: 'Loading AGI dashboard...',
     description: 'Real-time agent learning dashboard - ESA Layers 11, 18, 48'
