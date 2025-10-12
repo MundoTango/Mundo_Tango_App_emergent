@@ -109,6 +109,28 @@ export const users = pgTable("users", {
   index("idx_users_is_active").on(table.isActive),
 ]);
 
+// Password Reset Tokens table - ESA Agent #4 (Authentication)
+export const passwordResetTokens = pgTable("password_reset_tokens", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull(),
+  token: varchar("token", { length: 255 }).unique().notNull(),
+  expires: timestamp("expires", { mode: 'date' }).notNull(),
+  used: boolean("used").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_password_reset_email").on(table.email),
+  index("idx_password_reset_token").on(table.token),
+  index("idx_password_reset_expires").on(table.expires),
+]);
+
+// Password Reset Tokens types - ESA Agent #4
+export const insertPasswordResetTokenSchema = createInsertSchema(passwordResetTokens).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertPasswordResetToken = z.infer<typeof insertPasswordResetTokenSchema>;
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+
 // Roles table for comprehensive role management
 export const roles = pgTable("roles", {
   id: uuid("id").primaryKey().defaultRandom(),
