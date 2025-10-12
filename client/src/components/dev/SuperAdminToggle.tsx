@@ -50,34 +50,6 @@ export function SuperAdminToggle() {
     setTimeout(() => window.location.reload(), 1000);
   };
 
-  return (
-    <div 
-      className="fixed top-20 left-4 z-50"
-      data-testid="dev-super-admin-toggle"
-    >
-      <Button
-        onClick={toggleSuperAdmin}
-        variant={isDevSuperAdmin ? "default" : "outline"}
-        size="sm"
-        className={`gap-2 ${
-          isDevSuperAdmin 
-            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600' 
-            : 'border-dashed'
-        }`}
-        data-testid="button-toggle-super-admin"
-      >
-        {isDevSuperAdmin ? (
-          <>
-            <Shield className="h-4 w-4" />
-            <span className="text-xs">Super Admin ON</span>
-          </>
-        ) : (
-          <>
-            <ShieldOff className="h-4 w-4" />
-            <span className="text-xs">Super Admin OFF</span>
-          </>
-        )}
-      </Button>
-    </div>
-  );
+  // Hidden - toggle only via console: localStorage.setItem('dev_super_admin_mode', 'true')
+  return null;
 }
