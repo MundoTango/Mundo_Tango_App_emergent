@@ -9,7 +9,7 @@
  * Framework Layer: 21-30 (Type System & Route Registry)
  */
 
-import { lazy, ComponentType } from 'react';
+import { lazy, ComponentType, LazyExoticComponent } from 'react';
 // GroupDetailPageMT now lazy-loaded below for code splitting (ESA Layer 1 - Performance)
 
 /**
@@ -29,7 +29,7 @@ export interface RouteConfig {
   path: string;
   
   /** Lazy-loaded component for this route */
-  component: ComponentType<any>;
+  component: LazyExoticComponent<ComponentType<any>> | ComponentType<any>;
   
   /** Route classification (production/debug/archive) */
   mode: RouteMode;

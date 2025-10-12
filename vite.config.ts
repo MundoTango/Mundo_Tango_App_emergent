@@ -47,13 +47,25 @@ export default defineConfig({
       },
       rollupOptions: {
         output: {
-          manualChunks: {
-            // Split vendor libraries for better caching
-            // ESA Layer 15: Removed react-router-dom (app uses wouter)
-            vendor: ['react', 'react-dom', 'wouter'],
-            ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
-            tanstack: ['@tanstack/react-query'],
-            utils: ['lodash', 'date-fns', 'zod']
+          // ESA Layer 15: Function-based chunking ensures React is properly shared across all chunks including lazy-loaded ones
+          manualChunks(id) {
+            // Force React and React-DOM into the same vendor chunk accessible to all modules
+            if (id.includes('node_modules')) {
+              if (id.includes('react') || id.includes('react-dom')) {
+                return 'vendor-react';
+              }
+              if (id.includes('@tanstack/react-query')) {
+                return 'tanstack';
+              }
+              if (id.includes('@radix-ui')) {
+                return 'ui';
+              }
+              if (id.includes('lodash') || id.includes('date-fns') || id.includes('zod')) {
+                return 'utils';
+              }
+              // All other node_modules go to vendor chunk
+              return 'vendor';
+            }
           },
           // Optimize asset names for caching
           assetFileNames: 'assets/[name]-[hash][extname]',
