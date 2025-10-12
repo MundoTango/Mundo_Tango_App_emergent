@@ -514,11 +514,11 @@ export const productionRoutes: RouteConfig[] = [
     description: 'ESA Agent #63 Sprint Planning & Velocity Tracking'
   },
   {
-    path: '/admin/esa-dashboard',
-    component: lazy(() => import('@/pages/admin/ESADashboard')),
+    path: '/admin/esa-mind',
+    component: lazy(() => import('@/pages/admin/ESAMind')),
     mode: 'production',
-    loadingMessage: 'Loading ESA Framework Dashboard...',
-    description: 'Interactive ESA Framework (105 Agents, 61 Layers) visualization and navigation'
+    loadingMessage: 'Loading ESA Mind...',
+    description: 'Context-aware ESA Framework (105 Agents, 61 Layers) intelligence and metrics dashboard'
   },
   {
     path: '/analytics',

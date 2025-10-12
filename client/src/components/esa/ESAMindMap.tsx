@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { useLocation } from 'wouter';
 import { esaAgents, auditPhases, decisionLevels } from '@/data/esaFrameworkData';
 
-export function FloatingESAButton() {
+export function ESAMindMap() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [, setLocation] = useLocation();
@@ -30,7 +30,7 @@ export function FloatingESAButton() {
     { 
       label: 'Full Dashboard', 
       icon: Map, 
-      action: () => { setLocation('/admin/esa-dashboard'); setIsOpen(false); },
+      action: () => { setLocation('/admin/esa-mind'); setIsOpen(false); },
       color: 'from-cyan-500 to-blue-500'
     },
     { 
