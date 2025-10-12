@@ -16,6 +16,7 @@ When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the prim
 - **Enhanced**: .npmrc with `prefer-offline=true`, `scripts-prepend-node-path=true`, `node-linker=hoisted` for deployment stability
 - **Added**: Prebuild cleanup script (`rm -rf dist build .vite client/dist`) to prevent artifact accumulation
 - **Added**: Cleanup script to remove `.npm`, logs, `.DS_Store`, tmp files before deployment
+- **Fixed (Round 2)**: Replit package caching layer conflicts - Set `REPLIT_DISABLE_PACKAGE_LAYER=1`, switched from `npm ci` to `npm install`, updated run command to `npx tsx`
 - **Verified**: Build successful (4747 modules, 8.2MB client bundle), auth routes working (`/api/auth/user`, `/api/auth/csrf`)
 - **Status**: Production-ready, all ESA validation gates passed
 
