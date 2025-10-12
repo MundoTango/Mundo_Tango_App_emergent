@@ -3714,6 +3714,280 @@ ESA Mind shows filtered metrics for those 3 agents
 
 ---
 
+### 10.11 Interactive AI Agents for ESA Tools
+
+**Purpose:** Transform static admin tools into conversational AI agents that understand context and assist Super Admins with platform development using esa.md as knowledge base.
+
+**Key Principle:** ESA tools should not just display information - they should be **interactive co-pilots** that understand the current page, know which agents built it, and help modify the platform using ESA framework patterns.
+
+---
+
+#### Pattern: From Static Navigator → Conversational AI Agent
+
+**Evolution Path:**
+
+```
+Level 1: Static Information Display
+- Shows agent registry
+- Displays metrics
+- Links to documentation
+
+Level 2: Context-Aware Display
+- Detects current page
+- Shows responsible agents
+- Provides relevant metrics
+
+Level 3: Interactive AI Agent (NEW)
+- Understands page context
+- Conversational interface
+- Suggests ESA-compliant changes
+- Uses esa.md as knowledge base
+```
+
+**Use Case Example:**
+```
+Super Admin on /memories page:
+  → Clicks ESA MindMap
+  → Chat overlay appears
+  → Types: "I don't like how this element looks, let's change it"
+  → AI Agent:
+    - Detects current page (/memories)
+    - Loads esa.md context (Aurora Tide design, MT Ocean theme)
+    - Identifies responsible agents (Agent #X built this)
+    - Suggests ESA-compliant changes
+    - Provides code examples using framework patterns
+```
+
+---
+
+#### Implementation Architecture
+
+**Components:**
+
+1. **AI Chat Service** (`/server/services/esa-ai-chat.ts`)
+   - OpenAI integration via Replit AI Integrations
+   - System prompt with esa.md context
+   - Page context injection
+   - Agent registry awareness
+
+2. **Chat UI Component** (`ESAMindMapChat.tsx`)
+   - Overlay interface (slide-in from right)
+   - Message history with role distinction (user/assistant/system)
+   - Input with submit handler
+   - Loading states, error handling
+
+3. **Context Detection**
+   - Uses existing `esaContextService.ts`
+   - Injects current page + responsible agents
+   - Loads relevant esa.md sections
+
+4. **Access Control**
+   - Super Admin role check (primary)
+   - Feature flag (fallback: `VITE_ESA_MIND_ENABLED`)
+   - Visible on ALL pages (not just admin routes)
+
+**Technical Stack:**
+```typescript
+// AI Integration (Replit AI - no API key needed)
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+  apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY
+});
+
+// System Prompt Structure
+const systemPrompt = `
+You are the ESA Mind AI Agent, a co-pilot for the ESA Framework (105 Agents, 61 Layers).
+
+Context: User is on ${currentPage}
+Built by: Agents ${agentIds.join(', ')}
+
+Knowledge Base: esa.md sections loaded below
+[... esa.md content ...]
+
+Your role:
+- Understand user requests about the current page
+- Suggest changes using ESA framework patterns
+- Reference Aurora Tide design system
+- Follow Quality Gates (4 gates before work)
+- Provide code examples from esa.md patterns
+`;
+```
+
+---
+
+#### Visibility & Access Rules (Corrected)
+
+**CRITICAL:** ESA MindMap with AI chat must be visible on **ALL pages** for Super Admins, not just admin routes.
+
+**Access Pattern:**
+```typescript
+// ❌ WRONG: Admin-page-only restriction
+{isAdminPage && isSuperAdmin && <ESAMindMap />}
+
+// ✅ CORRECT: Super Admin on ANY page
+{isSuperAdmin && <ESAMindMap />}
+
+// ✅ CORRECT: With feature flag
+{(isSuperAdmin || ESA_MIND_ENABLED) && <ESAMindMap />}
+```
+
+**Reasoning:**
+- Super Admins need to audit/modify ANY page
+- Context detection works on all routes
+- Agent registry covers entire platform
+- AI assistance needed everywhere, not just admin
+
+---
+
+#### Conversational Flow Patterns
+
+**Pattern 1: Request Change**
+```
+User: "I don't like how this element looks, let's change it"
+
+AI Agent Response:
+1. Detects current page context
+2. Identifies element (if specified) or asks for clarification
+3. References Aurora Tide design tokens
+4. Suggests ESA-compliant changes:
+   - Which agent handles this? (e.g., Agent #11 for UI)
+   - What pattern to use? (glassmorphic, MT Ocean gradient)
+   - Code example from esa.md
+5. Offers to create task in project tracker
+```
+
+**Pattern 2: Ask About Agents**
+```
+User: "Which agents built this page?"
+
+AI Agent Response:
+1. Looks up current route in AGENT_PAGE_REGISTRY
+2. Returns agent list with roles:
+   - Agent #65 (Primary builder)
+   - Agent #64 (Documentation)
+   - Agent #6 (State management)
+3. Links to ESA Mind dashboard for details
+```
+
+**Pattern 3: Request Documentation**
+```
+User: "How do I follow Quality Gates for this change?"
+
+AI Agent Response:
+1. Loads esa.md Section 5 (Quality Gates)
+2. Provides 4-gate checklist:
+   - Gate 1: Context Validation (5 min)
+   - Gate 2: Discovery Checklist (10-35 min)
+   - Gate 3: Agent #64 Review (5 min)
+   - Gate 4: Parallel Coordination
+3. Links to ESA_QUALITY_GATES.md
+```
+
+---
+
+#### Chat UI/UX Guidelines
+
+**Design System Integration:**
+- **Theme**: MT Ocean gradient header (turquoise-to-cyan)
+- **Background**: Aurora Tide glassmorphic overlay
+- **Typography**: System font stack, responsive sizing
+- **Spacing**: Consistent with admin design system
+- **Animations**: Framer Motion slide-in, magnetic interactions
+
+**Mobile Optimization:**
+- Touch-friendly input (min 44px tap targets)
+- Responsive overlay (full-screen on mobile, slide-in on desktop)
+- Keyboard avoidance for iOS/Android
+- Offline message queue (PWA support)
+
+**Accessibility (WCAG 2.1 AA):**
+- Keyboard navigation (Tab, Enter, Esc to close)
+- Screen reader announcements for new messages
+- Focus management (trap in overlay when open)
+- Color contrast ratios (4.5:1 minimum)
+
+---
+
+#### Data Flow: AI Chat Integration
+
+```
+Super Admin on /memories page
+    ↓
+Clicks ESA MindMap floating button
+    ↓
+Chat overlay opens (slide-in animation)
+    ↓
+Context loaded:
+  - Current page: /memories
+  - Responsible agents: [X, Y, Z]
+  - esa.md sections: relevant patterns
+    ↓
+User types: "Change this element"
+    ↓
+POST /api/esa/chat
+  - message: "Change this element"
+  - context: { page: '/memories', agents: [X,Y,Z] }
+    ↓
+AI Agent processes:
+  - Loads system prompt with esa.md
+  - Injects page context
+  - Generates ESA-compliant response
+    ↓
+Response streamed back to UI
+    ↓
+User sees suggestion with code examples
+    ↓
+User can ask follow-up questions or apply changes
+```
+
+---
+
+#### Q&A: Interactive AI Agents
+
+**Q: How does the AI agent know which page the user is on?**
+A: Uses existing `esaContextService.ts` to detect route via `useLocation()`, then looks up agents from `AGENT_PAGE_REGISTRY`. Context is injected into AI system prompt.
+
+**Q: Does this work on non-admin pages?**
+A: YES! Super Admins see ESA MindMap on ALL pages (community feed, memories, events, etc.). AI provides context-aware assistance everywhere.
+
+**Q: What if the user asks about code the AI doesn't know?**
+A: AI has full esa.md loaded in system prompt. For specifics, it can reference agent registry, link to ESA Mind dashboard, or suggest consulting responsible agents.
+
+**Q: How do we prevent AI from suggesting non-ESA-compliant changes?**
+A: System prompt is loaded with esa.md patterns, Quality Gates framework, Aurora Tide design tokens. AI is instructed to ONLY suggest ESA-compliant solutions.
+
+**Q: Can the AI execute changes directly?**
+A: Current implementation: AI suggests changes with code examples. Future: Could integrate with Agent #0 to orchestrate actual changes (requires approval flow).
+
+**Q: How is this different from regular AI chatbots?**
+A: This is **context-aware** - knows current page, responsible agents, ESA patterns. Not generic Q&A - it's a specialized co-pilot for ESA framework development.
+
+---
+
+#### Maintenance & Evolution
+
+**Updating AI Knowledge:**
+1. esa.md changes → automatically reflected in system prompt
+2. New agents added → AGENT_PAGE_REGISTRY updated → AI knows new attributions
+3. New patterns documented → AI can reference in responses
+
+**Future Enhancements:**
+- **Agent Orchestration**: AI triggers Agent #0 to coordinate multi-agent tasks
+- **Code Generation**: AI generates PR with suggested changes
+- **Learning Loop**: AI learns from user feedback to improve suggestions
+- **Voice Interface**: Voice-to-text for hands-free assistance
+- **Multimodal**: Screenshot analysis for "fix this visual bug"
+
+**Quality Metrics:**
+- Chat response time (<2s average)
+- Suggestion accuracy (% ESA-compliant)
+- User satisfaction (follow-up questions ratio)
+- Adoption rate (% Super Admins using AI chat)
+
+---
+
 **End of Section 10: Context-Aware Admin Tools**
 
 ---
