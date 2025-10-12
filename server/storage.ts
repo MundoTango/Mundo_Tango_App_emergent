@@ -7,6 +7,7 @@ import {
   userFollowedCities,
   follows,
   postLikes,
+  postShares,
   postComments,
   chatRooms,
   chatMessages,
@@ -3278,6 +3279,41 @@ export class DatabaseStorage implements IStorage {
       sharedAt: new Date(),
       success: true 
     };
+  }
+
+  // Like/Share operations - ESA Agent #13 (Storage Layer) - MemStorage
+  private postLikes: any[] = [];
+  
+  async createLike(data: { postId: number; userId: number }): Promise<any> {
+    // Toggle like: create if doesn't exist, remove if exists
+    const existingLikeIndex = this.postLikes.findIndex(
+      like => like.postId === data.postId && like.userId === data.userId
+    );
+    
+    if (existingLikeIndex >= 0) {
+      // Unlike: remove existing like
+      this.postLikes.splice(existingLikeIndex, 1);
+      return { success: true, action: 'unliked', postId: data.postId };
+    } else {
+      // Like: add new like
+      const newLike = {
+        id: this.postLikes.length + 1,
+        postId: data.postId,
+        userId: data.userId,
+        createdAt: new Date()
+      };
+      this.postLikes.push(newLike);
+      return { success: true, action: 'liked', ...newLike };
+    }
+  }
+
+  async getPostLikes(postId: number): Promise<any[]> {
+    return this.postLikes.filter(like => like.postId === postId);
+  }
+
+  async getPostShares(postId: number): Promise<any[]> {
+    // Return shares for a specific post (placeholder for now)
+    return [];
   }
 
   async getPostsByLocation(lat: number, lng: number, radiusKm: number = 10): Promise<Post[]> {
