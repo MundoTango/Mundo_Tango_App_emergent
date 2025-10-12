@@ -15,19 +15,24 @@ import { shouldShowESAMindMap } from '@/utils/accessControl';
 type ViewMode = 'navigator' | 'chat';
 
 export function ESAMindMap() {
+  console.log('🗺️ [ESA MINDMAP] Component executing - START');
   const [isOpen, setIsOpen] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('navigator');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentRoute, setLocation] = useLocation();
   const { user } = useAuth();
+  console.log('🗺️ [ESA MINDMAP] User from hook:', user);
   
   // TEST MODE: Always show (bypassing access control for debugging)
   const testMode = true;
+  console.log('🗺️ [ESA MINDMAP] testMode:', testMode, 'shouldShow:', shouldShowESAMindMap(user));
   
   if (!testMode && !shouldShowESAMindMap(user)) {
+    console.log('🗺️ [ESA MINDMAP] RETURNING NULL');
     return null;
   }
   
+  console.log('🗺️ [ESA MINDMAP] RENDERING BUTTON');
   // Detect current page context
   const pageContext = detectPageContext(currentRoute);
 
@@ -88,7 +93,7 @@ export function ESAMindMap() {
   return (
     <>
       {/* Floating Button - Stacked above Mr Blue when both visible */}
-      <div className="fixed bottom-24 right-6 z-50" data-testid="floating-esa-button">
+      <div className="fixed bottom-24 right-6 z-[9998]" data-testid="floating-esa-button">
         <MagneticButton
           onClick={() => setIsOpen(!isOpen)}
           className={`w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
