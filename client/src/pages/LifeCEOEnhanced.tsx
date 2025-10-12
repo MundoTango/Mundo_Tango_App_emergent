@@ -114,13 +114,15 @@ export default function LifeCEOEnhanced() {
 
   // Register service worker and handle PWA installation
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-        })
-        .catch(error => {
-        });
-    }
+    // DISABLED: Broken SW causing preview failures (sw.js:191 handleStaticAsset no error handling)
+    // Using public/sw.js instead (registered in final-optimization-push.ts)
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.register('/service-worker.js')
+    //     .then(registration => {
+    //     })
+    //     .catch(error => {
+    //     });
+    // }
 
     // Handle PWA install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
