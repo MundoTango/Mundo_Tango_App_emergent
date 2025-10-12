@@ -149,10 +149,12 @@ function Router() {
         </Switch>
       </Suspense>
       
-      {/* ESA AI Intelligence Network - Outside Suspense to prevent infinite loading when components return null */}
-      <AIHelpButton position="bottom-right" offset={6} />
-      <SmartPageSuggestions position="top-center" autoHide={true} />
-      <AIContextBar position="top" collapsible={true} />
+      {/* ESA AI Intelligence Network - Wrapped in Suspense for lazy loading */}
+      <Suspense fallback={null}>
+        <AIHelpButton position="bottom-right" offset={6} />
+        <SmartPageSuggestions position="top-center" autoHide={true} />
+        <AIContextBar position="top" collapsible={true} />
+      </Suspense>
     </ErrorBoundary>
   );
 }
@@ -164,8 +166,10 @@ function AppContent() {
   return (
     <>
       <Router />
-      <ESAMindMap />
-      <MrBlueFloatingButton />
+      <Suspense fallback={null}>
+        <ESAMindMap />
+        <MrBlueFloatingButton />
+      </Suspense>
       <Toaster />
       <TrialBanner />
     </>
