@@ -9,7 +9,7 @@
  * Framework Layer: 21-30 (Type System & Route Registry)
  */
 
-import { ComponentType } from 'react';
+import { ComponentType, lazy } from 'react';
 // Direct imports - all routes (lazy loading disabled)
 import Forgotpassword from '@/pages/auth/forgot-password';
 import Resetpassword from '@/pages/auth/reset-password';
@@ -79,9 +79,6 @@ import LiveGlobalStatistics from '@/pages/LiveGlobalStatistics';
 import HierarchyDashboard from '@/pages/HierarchyDashboard';
 import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
 import LifeCeoPerformance from '@/pages/LifeCeoPerformance';
-import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
-import LifeCeoPerformance from '@/pages/LifeCeoPerformance';
-import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
 import MonitoringDashboard from '@/pages/MonitoringDashboard';
 import MonitoringTest from '@/pages/MonitoringTest';
 import MediaUploadTest from '@/pages/MediaUploadTest';
@@ -89,9 +86,7 @@ import Featurenavigation from '@/pages/feature-navigation';
 import Databasesecurity from '@/pages/database-security';
 import HelpSupport from '@/pages/HelpSupport';
 import Codeofconduct from '@/pages/code-of-conduct';
-import Codeofconduct from '@/pages/code-of-conduct';
 import PrivacyAnalytics from '@/pages/PrivacyAnalytics';
-import Codeofconduct from '@/pages/code-of-conduct';
 import TravelPlanner from '@/pages/TravelPlanner';
 import MobileAppDashboard from '@/pages/MobileAppDashboard';
 import Notifications from '@/pages/Notifications';
