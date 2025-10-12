@@ -166,7 +166,7 @@ export default function Onboarding() {
 
   const onboardingMutation = useMutation({
     mutationFn: async (data: OnboardingData) => {
-      return apiRequest("POST", "/api/onboarding", data);
+      return apiRequest("POST", "/api/onboarding", { body: data });
     },
     onSuccess: () => {
       toast({
@@ -301,20 +301,13 @@ export default function Onboarding() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <ErrorBoundary 
-                        name="RoleSelector"
-                        onError={(error, errorInfo) => {
-                          console.error('RoleSelector Error Boundary caught:', error);
-                          console.error('Error Info:', errorInfo);
-                        }}
-                      >
+                      <ErrorBoundary>
                         <GroupedRoleSelector
                           selectedRoles={field.value || []}
                           onRoleChange={(roles) => {
                             console.log('Role change from onboarding:', roles);
                             field.onChange(roles);
                           }}
-                          allowMultiple={true}
                         />
                       </ErrorBoundary>
                     </FormControl>
