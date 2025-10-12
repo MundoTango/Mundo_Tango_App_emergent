@@ -29,9 +29,14 @@ export const useMemoriesFeed = () => {
     queryKey: ['/api/posts'],
     queryFn: async () => {
       const response = await fetch('/api/posts');
-      if (!response.ok) throw new Error('Failed to fetch posts');
-      const data = await response.json();
-      return data.posts || [];
+      if (!response.ok) {
+        // If unauthorized, return empty array instead of error
+        if (response.status === 401) return [];
+        throw new Error('Failed to fetch posts');
+      }
+      const result = await response.json();
+      // Handle both response formats: { posts } and { data } and { success, data }
+      return result.posts || result.data || result || [];
     },
   });
 

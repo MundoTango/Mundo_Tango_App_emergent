@@ -48,6 +48,9 @@ const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton").then(modu
 const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions").then(module => ({ default: module.SmartPageSuggestions })));
 const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(module => ({ default: module.AIContextBar })));
 
+// ESA Mr Blue - AI Companion for Super Admins (Agents #73-80)
+const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(module => ({ default: module.MrBlueFloatingButton })));
+
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 
@@ -162,6 +165,7 @@ function AppContent() {
     <>
       <Router />
       <ESAMindMap />
+      <MrBlueFloatingButton />
       <Toaster />
       <TrialBanner />
     </>
