@@ -194,6 +194,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
   app.use('/api/agent-learning', agentLearningRouter); // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
+  
+  // ESA Section 10.11: Interactive AI Chat for ESA MindMap (Agent #35)
+  const { processChatMessage } = await import('./services/esa-ai-chat');
+  app.post('/api/esa/chat', requireAuth, async (req, res) => {
+    try {
+      const { message, pageContext, history } = req.body;
+      
+      if (!message || !pageContext) {
+        return res.status(400).json({ error: 'Missing required fields: message and pageContext' });
+      }
+      
+      const response = await processChatMessage({
+        message,
+        pageContext,
+        history: history || []
+      });
+      
+      res.json(response);
+    } catch (error: any) {
+      console.error('ESA chat error:', error);
+      res.status(500).json({ error: 'Failed to process chat message', details: error.message });
+    }
+  });
   app.use('/api/ai-expert', aiExpertRoutes); // ESA LIFE CEO 61x21 - AI Research Expert Agent (Layers 31,32,35,36,37,38,44,45,58)
   app.use('/api/ui-ux', uiUXRoutes); // ESA LIFE CEO 61x21 - UI/UX Design Expert Agent (Layers 9,10,47,54,55)
   app.use('/api/data-viz', dataVizRoutes); // ESA LIFE CEO 61x21 - Data Visualization Expert Agent (Layers 40,41,42)
