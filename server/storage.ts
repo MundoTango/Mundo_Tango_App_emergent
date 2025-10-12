@@ -370,6 +370,12 @@ export interface IStorage {
   createNotification(userId: number, type: string, title: string, message: string, data?: any): Promise<any>;
   createPostReport(postId: number, reporterId: number, reason: string, description?: string): Promise<any>;
   createShare(data: { post_id: number; user_id: number }): Promise<any>;
+  
+  // Like/Share operations - ESA Agent #13 (Storage Layer)
+  createLike(data: { postId: number; userId: number }): Promise<any>;
+  getPostLikes(postId: number): Promise<any[]>;
+  getPostShares(postId: number): Promise<any[]>;
+  
   getPostsByLocation(lat: number, lng: number, radiusKm?: number): Promise<Post[]>;
   getPostsByHashtags(hashtags: string[]): Promise<Post[]>;
   getPostsByMentions(username: string): Promise<Post[]>;
