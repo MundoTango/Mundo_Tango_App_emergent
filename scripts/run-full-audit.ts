@@ -25,32 +25,16 @@ const AUDIT_CONFIG = {
   }
 };
 
-// Page categories (from FULL_SITE_AUDIT_PLAN.md)
-const PAGES_TO_AUDIT = {
-  priority1_admin: [
-    '/admin',
-    '/admin/users',
-    '/admin/moderation',
-    '/admin/analytics',
-    '/admin/projects',
-    '/admin/esa-mind',
-    '/admin/agent-metrics'
-  ],
-  priority2_user: [
-    '/',
-    '/profile',
-    '/community',
-    '/events',
-    '/housing',
-    '/messages',
-    '/settings'
-  ],
-  priority3_features: [
-    '/life-ceo',
-    '/subscribe',
-    '/analytics'
-  ]
-};
+// Import journey-based page configuration
+import { 
+  CUSTOMER_JOURNEYS, 
+  JOURNEY_TRANSITIONS,
+  getAllPagesInJourneyOrder,
+  getTotalPageCount 
+} from './journey-map-config';
+
+// Journey-based audit configuration
+const AUDIT_BY_JOURNEYS = true; // Use journey-based execution order
 
 // Audit phases (18-phase framework)
 const AUDIT_PHASES = {
@@ -519,20 +503,58 @@ class FullSiteAuditor {
       this.results.reduce((sum, r) => sum + r.overallScore, 0) / this.results.length
     );
 
-    let summary = `# Full Site Audit Summary\n\n`;
+    let summary = `# MT Platform - Complete Journey-Based Audit Summary\n\n`;
     summary += `**Date:** ${new Date().toISOString()}\n`;
+    summary += `**Framework:** ESA 105-Agent + 18-Phase Tiered Audit\n`;
     summary += `**Pages Audited:** ${this.results.length}\n`;
     summary += `**Average Score:** ${avgScore}/100\n\n`;
 
-    summary += `## Top Issues\n\n`;
-    this.patterns.slice(0, 10).forEach(p => {
-      summary += `- **${p.title}** (${p.occurrences} pages, ${p.severity} severity)\n`;
-      summary += `  - Solution: ${p.suggestedSolution}\n\n`;
+    // Journey-based breakdown
+    summary += `## Journey-Based Results\n\n`;
+    CUSTOMER_JOURNEYS.forEach(journey => {
+      const journeyPages = this.results.filter(r => journey.pages.includes(r.page));
+      const journeyAvg = journeyPages.length > 0
+        ? Math.round(journeyPages.reduce((sum, r) => sum + r.overallScore, 0) / journeyPages.length)
+        : 0;
+      
+      summary += `### ${journey.name} (${journeyPages.length} pages)\n`;
+      summary += `- Average Score: ${journeyAvg}/100\n`;
+      summary += `- User Role: ${journey.userRole}\n\n`;
     });
 
-    summary += `## Page Scores\n\n`;
-    this.results.forEach(r => {
-      summary += `- ${r.page}: ${r.overallScore}/100\n`;
+    summary += `## Top Issues (Platform-Wide)\n\n`;
+    this.patterns.slice(0, 10).forEach(p => {
+      summary += `- **${p.title}** (${p.occurrences} pages, ${p.severity} severity)\n`;
+      summary += `  - Solution: ${p.suggestedSolution}\n`;
+      summary += `  - Confidence: ${(p.confidence * 100).toFixed(0)}%\n\n`;
+    });
+
+    summary += `## Critical Issues by Journey\n\n`;
+    CUSTOMER_JOURNEYS.forEach(journey => {
+      const journeyPages = this.results.filter(r => journey.pages.includes(r.page));
+      const criticalCount = journeyPages.reduce((count, r) => {
+        const critical = Object.values(r.phases).flatMap(p => p.issues).filter(i => i.severity === 'critical');
+        return count + critical.length;
+      }, 0);
+      
+      if (criticalCount > 0) {
+        summary += `- **${journey.name}**: ${criticalCount} critical issues\n`;
+      }
+    });
+
+    summary += `\n## All Page Scores\n\n`;
+    CUSTOMER_JOURNEYS.forEach(journey => {
+      summary += `### ${journey.name}\n`;
+      journey.pages.forEach(page => {
+        const result = this.results.find(r => r.page === page);
+        if (result) {
+          const status = result.overallScore >= 90 ? '✅' : result.overallScore >= 75 ? '⚠️' : '❌';
+          summary += `- ${status} ${page}: ${result.overallScore}/100\n`;
+        } else {
+          summary += `- ⏭️ ${page}: Not audited\n`;
+        }
+      });
+      summary += '\n';
     });
 
     return summary;
@@ -548,18 +570,23 @@ class FullSiteAuditor {
     try {
       await this.initialize();
 
-      // Collect all pages
-      const allPages = [
-        ...PAGES_TO_AUDIT.priority1_admin,
-        ...PAGES_TO_AUDIT.priority2_user,
-        ...PAGES_TO_AUDIT.priority3_features
-      ];
+      console.log('\n🗺️  MT Platform - Journey-Based Audit Execution\n');
+      console.log(`📊 Total Pages: ${getTotalPageCount()}`);
+      console.log(`🛤️  Customer Journeys: ${CUSTOMER_JOURNEYS.length}\n`);
 
-      console.log(`\n🎯 Auditing ${allPages.length} pages...\n`);
+      // Run audits following customer journeys
+      for (const journey of CUSTOMER_JOURNEYS) {
+        console.log(`\n═══════════════════════════════════════════════`);
+        console.log(`🎯 ${journey.name}`);
+        console.log(`   ${journey.description}`);
+        console.log(`   Pages: ${journey.pages.length}`);
+        console.log(`═══════════════════════════════════════════════\n`);
 
-      // Run audits
-      for (const page of allPages) {
-        await this.auditPage(page);
+        for (const page of journey.pages) {
+          await this.auditPage(page);
+        }
+
+        console.log(`\n✅ ${journey.name} - Complete!\n`);
       }
 
       // Learn patterns (Agent #68)
