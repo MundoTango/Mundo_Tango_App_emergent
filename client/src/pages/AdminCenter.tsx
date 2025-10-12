@@ -391,7 +391,7 @@ const AdminCenter = memo(() => {
         { id: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
         { id: 'life-ceo-command', label: 'Life CEO Command', icon: <Brain className="w-5 h-5" />, isNew: true },
         { id: 'life-ceo-agents', label: 'Life CEO Agents', icon: <Brain className="w-5 h-5" />, isNew: true },
-        { id: 'project-tracker', label: '61x21 Tracker', icon: <GitCommit className="w-5 h-5" /> },
+        { id: 'project-tracker', label: 'ESA Project Tracker', icon: <GitCommit className="w-5 h-5" /> },
       ]
     },
     {
