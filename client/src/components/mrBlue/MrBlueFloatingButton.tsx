@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Sparkles, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 // Temporarily disabled due to React version conflict with @react-three packages
 // TODO: Fix by downgrading @react-three/fiber and @react-three/drei to React 18 compatible versions
 // import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
 import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { shouldShowMrBlue } from '@/utils/accessControl';
 
 /**
  * ESA Mr Blue - Floating Button (Global Component for Super Admins)
@@ -19,11 +20,8 @@ export function MrBlueFloatingButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [visualEditMode, setVisualEditMode] = useState(false);
 
-  // Only show for super admins
-  const isSuperAdmin = user?.profile?.role === 'super_admin' || 
-                       user?.profile?.primary_role === 'super_admin';
-
-  if (!isSuperAdmin) {
+  // ESA Unified Access Control - Single source of truth
+  if (!shouldShowMrBlue(user)) {
     return null;
   }
 
