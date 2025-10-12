@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development node --max-old-space-size=4096 --expose-gc -r tsx/cjs server/index.ts",
     "prebuild": "rm -rf dist build .vite client/dist",
-    "build": "vite build",
+    "build": "NODE_OPTIONS='--max-old-space-size=2048' vite build",
     "cleanup": "rm -rf .npm /tmp/npm-cache ~/.npm /tmp/* *.log .DS_Store && find . -name '*.log' -delete && find . -type f -name '.DS_Store' -delete",
     "build:server": "esbuild server/index-novite.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js",
     "build:production": "npm ci && npm run build && npm cache clean --force",
