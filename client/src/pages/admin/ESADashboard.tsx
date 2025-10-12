@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { ESAVisualization } from '@/components/esa/ESAVisualizations';
+import { ESAPatternSelector } from '@/components/esa/ESAPatternSelector';
 import {
   Map,
   Users,
@@ -14,7 +15,8 @@ import {
   ArrowLeft,
   ExternalLink,
   Search,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,7 +30,8 @@ type ViewType =
   | 'training-execution'
   | 'audit-workflow'
   | 'system-map'
-  | 'decision-authority';
+  | 'decision-authority'
+  | 'pattern-orchestration';
 
 interface Breadcrumb {
   label: string;
@@ -89,6 +92,14 @@ export default function ESADashboard() {
       icon: Shield,
       color: 'from-red-500/20 to-rose-500/20',
       docLink: '/docs/platform-handoff/esa.md#decision-authority-matrix'
+    },
+    {
+      id: 'pattern-orchestration' as ViewType,
+      title: 'Pattern Orchestration',
+      description: '8 proven patterns for coordinating agents across scenarios',
+      icon: Sparkles,
+      color: 'from-yellow-500/20 to-amber-500/20',
+      docLink: '/docs/platform-handoff/esa.md#agent-orchestration-patterns'
     }
   ];
 
@@ -313,7 +324,11 @@ export default function ESADashboard() {
 
         {/* Interactive Visualization */}
         <GlassCard className="p-8">
-          <ESAVisualization viewId={currentView} />
+          {currentView === 'pattern-orchestration' ? (
+            <ESAPatternSelector />
+          ) : (
+            <ESAVisualization viewId={currentView} />
+          )}
         </GlassCard>
       </div>
     );
