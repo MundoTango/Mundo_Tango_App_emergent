@@ -39,6 +39,8 @@ import { queryClient } from "@/lib/queryClient";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
+// TEMP DEBUG: Import Login directly to test
+import Login from "@/pages/auth/login";
 
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
 const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(module => ({ default: module.ESAMindMap })));
@@ -130,6 +132,11 @@ function Router() {
           {/* Landing page for non-authenticated users */}
           <Route path="/landing">
             <Landing />
+          </Route>
+
+          {/* TEMP DEBUG: Direct import test */}
+          <Route path="/login">
+            <Login />
           </Route>
 
           {/* ESA LIFE CEO 61x21 - Dynamic Routes from Registry */}
