@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Sparkles, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/auth-context';
-import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
+// Temporarily disabled due to React version conflict with @react-three packages
+// TODO: Fix by downgrading @react-three/fiber and @react-three/drei to React 18 compatible versions
+// import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
 import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -71,11 +73,14 @@ export function MrBlueFloatingButton() {
               </TabsList>
 
               <TabsContent value="avatar" className="p-4">
-                <div className="h-[400px]">
-                  <MrBlueAvatar 
-                    onMessage={(text) => console.log('Mr Blue:', text)}
-                    autoSpeak={true}
-                  />
+                <div className="h-[400px] flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-lg border-2 border-dashed border-blue-300 dark:border-blue-700">
+                  <div className="text-center p-8">
+                    <Sparkles className="h-16 w-16 mx-auto mb-4 text-blue-500" />
+                    <h3 className="text-lg font-semibold mb-2">3D Avatar Coming Soon</h3>
+                    <p className="text-sm text-muted-foreground max-w-xs">
+                      The 3D AI Avatar is temporarily disabled while we update to React 19 compatibility
+                    </p>
+                  </div>
                 </div>
               </TabsContent>
 

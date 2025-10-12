@@ -6,7 +6,9 @@ import { AdminSuperpowers } from '@/lib/mrBlue/admin/AdminSuperpowers';
 import { AISiteBuilder } from '@/lib/mrBlue/siteBuilder/AISiteBuilder';
 import { SubscriptionManager } from '@/lib/mrBlue/subscriptions/SubscriptionManager';
 import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
-import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
+// Temporarily disabled due to React version conflict with @react-three packages
+// TODO: Fix by downgrading @react-three/fiber and @react-three/drei to React 18 compatible versions
+// import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
 import { startTour, TourType } from '@/lib/mrBlue/tours/InteractiveTour';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
@@ -103,11 +105,14 @@ export default function MrBlueDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[500px]">
-                <MrBlueAvatar 
-                  onMessage={(text) => console.log('Mr Blue says:', text)}
-                  autoSpeak={true}
-                />
+              <div className="h-[500px] flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-lg border-2 border-dashed border-blue-300 dark:border-blue-700">
+                <div className="text-center p-8">
+                  <Sparkles className="h-20 w-20 mx-auto mb-4 text-blue-500 animate-pulse" />
+                  <h3 className="text-xl font-semibold mb-2">3D Avatar Coming Soon</h3>
+                  <p className="text-sm text-muted-foreground max-w-md">
+                    Agent #73 (3D AI Avatar) is temporarily disabled while we update the @react-three packages for React 19 compatibility. This will be resolved soon!
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
