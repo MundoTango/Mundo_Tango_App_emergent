@@ -610,9 +610,7 @@ class FullSiteAuditor {
 }
 
 // Run audit if called directly
-if (require.main === module) {
-  const auditor = new FullSiteAuditor();
-  auditor.run();
-}
+const auditor = new FullSiteAuditor();
+auditor.run();
 
 export { FullSiteAuditor };
