@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Map, X, Search, Users, Layers as LayersIcon, GraduationCap, AlertCircle, ShieldCheck, Code2 } from 'lucide-react';
+import { Map, X, Search, Users, Layers as LayersIcon, GraduationCap, AlertCircle, ShieldCheck, Code2, MessageSquare } from 'lucide-react';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { Button } from '@/components/ui/button';
@@ -9,9 +9,13 @@ import { useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
 import { esaAgents, auditPhases, decisionLevels } from '@/data/esaFrameworkData';
 import { detectPageContext, getContextSummary } from '@/services/esaContextService';
+import { ESAMindMapChat } from './ESAMindMapChat';
+
+type ViewMode = 'navigator' | 'chat';
 
 export function ESAMindMap() {
   const [isOpen, setIsOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>('navigator');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentRoute, setLocation] = useLocation();
   const { user } = useAuth();
@@ -55,6 +59,13 @@ export function ESAMindMap() {
   );
 
   const quickActions = [
+    { 
+      label: 'AI Chat', 
+      icon: MessageSquare, 
+      action: () => setViewMode('chat'),
+      color: 'from-pink-500 to-rose-500',
+      isNew: true
+    },
     { 
       label: 'Full Dashboard', 
       icon: Map, 
@@ -337,6 +348,20 @@ export function ESAMindMap() {
           </GlassCard>
         </div>
       )}
+
+      {/* AI Chat Overlay - ESA Section 10.11: Interactive AI Agent */}
+      <ESAMindMapChat
+        isOpen={viewMode === 'chat' && isOpen}
+        onClose={() => {
+          setViewMode('navigator');
+          setIsOpen(false);
+        }}
+        pageContext={{
+          route: currentRoute,
+          agents: pageContext.agents.map(a => a.id),
+          summary: pageContext.summary
+        }}
+      />
     </>
   );
 }
