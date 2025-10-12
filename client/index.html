@@ -73,13 +73,14 @@
     
     <!-- ESA Service Worker Registration -->
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered'))
-            .catch(err => console.log('Service Worker registration failed:', err));
-        });
-      }
+      // DISABLED: SW registration moved to final-optimization-push.ts to avoid duplicates
+      // if ('serviceWorker' in navigator) {
+      //   window.addEventListener('load', () => {
+      //     navigator.serviceWorker.register('/sw.js')
+      //       .then(reg => console.log('Service Worker registered'))
+      //       .catch(err => console.log('Service Worker registration failed:', err));
+      //   });
+      // }
     </script>
     
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
