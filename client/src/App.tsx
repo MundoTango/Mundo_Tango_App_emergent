@@ -42,7 +42,7 @@ import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
-import { ESAMindMap } from "@/components/esa/ESAMindMap";
+const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(module => ({ default: module.ESAMindMap })));
 
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
@@ -189,7 +189,9 @@ export default function App() {
                     <SessionRecordingNotice />
                     <Router />
                     <Toaster />
-                    <ESAMindMap />
+                    <Suspense fallback={null}>
+                      <ESAMindMap />
+                    </Suspense>
                   </MonitoringProvider>
                 </OpenReplayProvider>
               </LocationBiasProvider>
