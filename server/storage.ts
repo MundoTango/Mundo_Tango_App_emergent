@@ -60,6 +60,7 @@ import {
   webhookEvents,
   recommendations,
   mentionNotifications,
+  passwordResetTokens,
   type User,
   type InsertUser,
   type UpsertUser,
@@ -73,6 +74,8 @@ import {
   type InsertSubscriptionFeature,
   type WebhookEvent,
   type InsertWebhookEvent,
+  type PasswordResetToken,
+  type InsertPasswordResetToken,
   type Post,
   type InsertPost,
   type Event,
@@ -257,6 +260,12 @@ export interface IStorage {
   getUserByReplitId(id: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
   updateOnboardingStatus(id: number, formStatus: number, isComplete: boolean): Promise<User>;
+  
+  // Password Reset operations - ESA Agent #4 (Authentication)
+  createPasswordResetToken(email: string, token: string, expires: Date): Promise<PasswordResetToken>;
+  getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined>;
+  deletePasswordResetToken(token: string): Promise<void>;
+  updateUserPassword(email: string, hashedPassword: string): Promise<void>;
   
   // Code of Conduct Agreement operations
   saveCodeOfConductAgreements(userId: number, agreements: {
@@ -2322,6 +2331,44 @@ export class DatabaseStorage implements IStorage {
       .where(eq(users.id, id))
       .returning();
     return user;
+  }
+
+  // Password Reset operations - ESA Agent #4 (Authentication)
+  async createPasswordResetToken(email: string, token: string, expires: Date): Promise<PasswordResetToken> {
+    const [resetToken] = await db
+      .insert(passwordResetTokens)
+      .values({ email, token, expires })
+      .returning();
+    return resetToken;
+  }
+
+  async getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined> {
+    const [resetToken] = await db
+      .select()
+      .from(passwordResetTokens)
+      .where(and(
+        eq(passwordResetTokens.token, token),
+        eq(passwordResetTokens.used, false)
+      ))
+      .limit(1);
+    return resetToken;
+  }
+
+  async deletePasswordResetToken(token: string): Promise<void> {
+    await db
+      .update(passwordResetTokens)
+      .set({ used: true })
+      .where(eq(passwordResetTokens.token, token));
+  }
+
+  async updateUserPassword(email: string, hashedPassword: string): Promise<void> {
+    await db
+      .update(users)
+      .set({ 
+        password: hashedPassword,
+        updatedAt: sql`NOW()`
+      })
+      .where(eq(users.email, email));
   }
 
   async createMediaAsset(mediaAsset: InsertMediaAsset): Promise<MediaAsset> {
@@ -5582,6 +5629,40 @@ export class DatabaseStorage implements IStorage {
       formStatus,
       isOnboardingComplete: isComplete
     });
+  }
+
+  // Password Reset operations - ESA Agent #4 (Authentication)
+  private passwordResetTokens: PasswordResetToken[] = [];
+
+  async createPasswordResetToken(email: string, token: string, expires: Date): Promise<PasswordResetToken> {
+    const resetToken: PasswordResetToken = {
+      id: this.passwordResetTokens.length + 1,
+      email,
+      token,
+      expires,
+      used: false,
+      createdAt: new Date(),
+    };
+    this.passwordResetTokens.push(resetToken);
+    return resetToken;
+  }
+
+  async getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined> {
+    return this.passwordResetTokens.find(t => t.token === token && !t.used);
+  }
+
+  async deletePasswordResetToken(token: string): Promise<void> {
+    const resetToken = this.passwordResetTokens.find(t => t.token === token);
+    if (resetToken) {
+      resetToken.used = true;
+    }
+  }
+
+  async updateUserPassword(email: string, hashedPassword: string): Promise<void> {
+    const user = this.users.find(u => u.email === email);
+    if (user) {
+      user.password = hashedPassword;
+    }
   }
   
   // Friend request operations
