@@ -46,6 +46,8 @@ export default function Register() {
         title: t('auth.register.success_title', 'Welcome to Mundo Tango! 🎉'),
         description: t('auth.register.success_message', "Your account has been created successfully. Let's set up your profile!"),
       });
+      // Redirect to onboarding after successful registration
+      navigate('/onboarding');
     } catch (error: any) {
       toast({
         title: t('auth.register.error_title', 'Registration failed'),
