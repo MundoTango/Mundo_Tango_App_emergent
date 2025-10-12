@@ -44,10 +44,7 @@ export class SentryService {
         
         // Performance monitoring
         integrations: [
-          Sentry.browserTracingIntegration({
-            // Set sampling rate for performance monitoring
-            tracingOrigins: ['localhost', /^\//],
-          }),
+          Sentry.browserTracingIntegration(),
           Sentry.replayIntegration({
             // Only capture replays when errors occur
             maskAllText: config?.privacy?.maskTextContent ?? true,
@@ -55,6 +52,9 @@ export class SentryService {
             blockAllMedia: false,
           }),
         ],
+        
+        // Trace propagation targets
+        tracePropagationTargets: ['localhost', /^\//],
         
         // Replay sampling rates
         replaysSessionSampleRate: 0.1, // 10% of sessions
@@ -78,7 +78,11 @@ export class SentryService {
             
             // Remove sensitive query params
             if (event.request.query_string) {
-              event.request.query_string = event.request.query_string
+              const queryString = typeof event.request.query_string === 'string' 
+                ? event.request.query_string 
+                : new URLSearchParams(event.request.query_string as any).toString();
+              
+              event.request.query_string = queryString
                 .replace(/token=[^&]+/g, 'token=[REDACTED]')
                 .replace(/key=[^&]+/g, 'key=[REDACTED]')
                 .replace(/password=[^&]+/g, 'password=[REDACTED]');
