@@ -24,13 +24,12 @@ import * as Sentry from "@sentry/react";
 import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
 import "@/utils/console-cleanup"; // Security: Clean console output
+
 // ESA Life CEO 61x21 - Monitoring Services
 import { MonitoringProvider } from "@/components/MonitoringProvider";
 import { useMonitoring } from "@/hooks/useMonitoring";
 
 // ESA LIFE CEO 61x21 - Route Registry (Layers 21-30)
-// Type-safe route management system - prevents debug components in production
-// Documentation: docs/build-coordination/route-protection-sprint.md
 import { productionRoutes, debugRoutes, type RouteConfig } from "@/config/routes";
 
 // Import shared queryClient with ESA Layer 14 cache configuration
@@ -44,11 +43,13 @@ import TrialBanner from "@/components/TrialBanner";
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
 const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(module => ({ default: module.ESAMindMap })));
 
+// ESA AI Intelligence Network - User Support Components (Agent #31, #68-71)
+const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton").then(module => ({ default: module.AIHelpButton })));
+const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions").then(module => ({ default: module.SmartPageSuggestions })));
+const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(module => ({ default: module.AIContextBar })));
+
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
-
-// ESA LIFE CEO 61x21 - All other components now loaded from route registry
-// See client/src/config/routes.ts for the complete route configuration
 
 // Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
@@ -105,7 +106,6 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 
 function Router() {
   // ESA LIFE CEO 61x21 - Registry-driven routing (Layers 21-30)
-  // Type-safe route management prevents debug components in production
   const currentPath = window.location.pathname;
   console.log("🔍 Current path:", currentPath);
 
@@ -118,51 +118,30 @@ function Router() {
   return (
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
+        {/* ESA AI Intelligence Network - Global Components */}
+        <AIHelpButton position="bottom-right" offset={6} />
+        <SmartPageSuggestions position="top-center" autoHide={true} />
+        <AIContextBar position="top" collapsible={true} />
+
         <Switch>
           {/* Homepage - Redirect to unified Memories feed */}
           <Route path="/">
             <Redirect to="/memories" />
           </Route>
 
-          {/* ESA Framework: Redirect legacy timeline routes to unified /memories interface */}
-          <Route path="/timeline">
-            <Redirect to="/memories" />
-          </Route>
-          <Route path="/enhanced-timeline">
-            <Redirect to="/memories" />
-          </Route>
-          <Route path="/timeline-minimal">
-            <Redirect to="/memories" />
-          </Route>
-
-          {/* Special route: Event discovery feed */}
-          <Route path="/events/discover">
-            <Suspense fallback={<LoadingFallback message="Loading event discovery..." />}>
-              <EventDiscoveryFeed />
-            </Suspense>
-          </Route>
-
-          {/* Landing page (not in registry - always eager loaded) */}
+          {/* Landing page for non-authenticated users */}
           <Route path="/landing">
             <Landing />
           </Route>
 
-          {/* ESA LIFE CEO 61x21 - Registry-driven routes 
-              All production routes are defined in client/src/config/routes.ts
-              Debug routes (from pages/_debug/) only loaded in development mode
-              See docs/build-coordination/route-protection-sprint.md for details */}
-          {allRoutes.map((routeConfig: RouteConfig) => {
-            const Component = routeConfig.component;
-            return (
-              <Route key={routeConfig.path} path={routeConfig.path}>
-                <Suspense fallback={<LoadingFallback message={routeConfig.loadingMessage} />}>
-                  <Component />
-                </Suspense>
-              </Route>
-            );
-          })}
+          {/* ESA LIFE CEO 61x21 - Dynamic Routes from Registry */}
+          {allRoutes.map((route: RouteConfig) => (
+            <Route key={route.path} path={route.path}>
+              {route.component}
+            </Route>
+          ))}
 
-          {/* 404 Fallback - Must be last */}
+          {/* Fallback: 404 Not Found */}
           <Route>
             <NotFound />
           </Route>
@@ -172,33 +151,63 @@ function Router() {
   );
 }
 
-export default function App() {
-  // Life CEO 44x21s Layer 25 - Add TenantProvider to fix useTenant context error
-  console.log('Life CEO 44x21s - Adding required context providers');
+function AppContent() {
+  usePerformanceOptimization(); // ESA Performance Layer 50
+  useMonitoring(); // ESA Monitoring Layer 51
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ThemeProvider>
-          <CsrfProvider>
-            <TenantProvider>
-              <LocationBiasProvider>
-                <OpenReplayProvider>
-                  <MonitoringProvider>
-                    <TrialBanner />
-                    <SessionRecordingNotice />
-                    <Router />
-                    <Toaster />
-                    <Suspense fallback={null}>
-                      <ESAMindMap />
-                    </Suspense>
-                  </MonitoringProvider>
-                </OpenReplayProvider>
-              </LocationBiasProvider>
-            </TenantProvider>
-          </CsrfProvider>
-        </ThemeProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <>
+      <Router />
+      <ESAMindMap />
+      <Toaster />
+      <TrialBanner />
+    </>
   );
 }
+
+function App() {
+  useEffect(() => {
+    // Setup global error handlers
+    setupGlobalErrorHandlers();
+    setupQueryErrorHandling(queryClient);
+    
+    // Initialize analytics
+    initAnalytics();
+
+    // Life CEO Performance Optimization
+    lifeCeoPerformance.init();
+    performanceOptimizations.init();
+    BuildOptimizer.init();
+    performanceOptimizer.init();
+  }, []);
+
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <CsrfProvider>
+          <AuthProvider>
+            <TenantProvider>
+              <LocationBiasProvider>
+                <SocketProvider>
+                  <TooltipProvider>
+                    <OpenReplayProvider>
+                      <MonitoringProvider>
+                        <MicroInteractionProvider>
+                          <SessionRecordingNotice />
+                          <ThemeManager />
+                          <AppContent />
+                        </MicroInteractionProvider>
+                      </MonitoringProvider>
+                    </OpenReplayProvider>
+                  </TooltipProvider>
+                </SocketProvider>
+              </LocationBiasProvider>
+            </TenantProvider>
+          </AuthProvider>
+        </CsrfProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
+
+export default App;
