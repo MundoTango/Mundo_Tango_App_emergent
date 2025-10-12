@@ -637,7 +637,7 @@ export default function ProjectTrackerAdmin() {
                                 <Badge variant="outline" className="border-turquoise-500 text-turquoise-600 dark:border-turquoise-400 dark:text-turquoise-400 text-xs">
                                   {story.key}
                                 </Badge>
-                                <Badge className={priorityColors[story.priority as keyof typeof priorityColors]} className="text-xs">
+                                <Badge className={`${priorityColors[story.priority as keyof typeof priorityColors]} text-xs`}>
                                   {story.priority}
                                 </Badge>
                               </div>
