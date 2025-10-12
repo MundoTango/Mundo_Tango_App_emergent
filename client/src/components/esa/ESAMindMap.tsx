@@ -7,12 +7,24 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useLocation } from 'wouter';
 import { esaAgents, auditPhases, decisionLevels } from '@/data/esaFrameworkData';
-import { detectPageContext, getContextSummary } from '@/services/esaContextService';
+import { detectPageContext, getContextSummary, isAdminPage } from '@/services/esaContextService';
 
 export function ESAMindMap() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentRoute, setLocation] = useLocation();
+  
+  // ESA Section 10.4: Two-layer access control
+  // Layer 1: Feature flag (defaults to true, can be disabled via env)
+  const isFeatureEnabled = import.meta.env.VITE_ESA_MIND_ENABLED !== 'false';
+  
+  // Layer 2: Admin page check (only show on admin pages)
+  const isOnAdminPage = isAdminPage(currentRoute);
+  
+  // Hide if feature disabled OR not on admin page
+  if (!isFeatureEnabled || !isOnAdminPage) {
+    return null;
+  }
   
   // Detect current page context
   const pageContext = detectPageContext(currentRoute);
