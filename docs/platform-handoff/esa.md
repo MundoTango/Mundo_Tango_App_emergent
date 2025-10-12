@@ -274,6 +274,59 @@ Work doesn't happen in isolation - coordinate in parallel:
 
 ---
 
+#### 🎨 Agent #11 (UI/UX Design) - Enhanced Certification Requirements
+
+**MANDATORY Pre-Work (Before ANY Design Work):**
+
+1. **Complete Journey Architecture (35 min total)**
+   - [ ] **User Persona Matrix** (5 min) - List ALL user types (5-10 personas minimum)
+     - Example: Super Admin, Agent Coordinator, Developer, Mobile User, First-time User, Power User, etc.
+     - Document goals, pain points, and technical proficiency for each
+   
+   - [ ] **Journey Mapping** (10 min) - Map 5-10 different entry scenarios
+     - Primary entry points (landing pages, dashboards, navigation)
+     - Contextual triggers (error states, success flows, onboarding)
+     - Cross-feature integration (how does this connect to existing features?)
+     - Happy paths + edge cases + error states
+   
+   - [ ] **Progressive UI Levels** (10 min) - Design for gradual complexity
+     - Level 1: Hints/nudges (contextual help, tooltips)
+     - Level 2: Quick actions (floating buttons, shortcuts)
+     - Level 3: Deep exploration (full dashboards, comprehensive tools)
+   
+   - [ ] **Mobile & Accessibility** (10 min)
+     - Responsive breakpoints (mobile: 375px, tablet: 768px, desktop: 1024px+)
+     - Touch targets (minimum 44x44px for interactive elements)
+     - Keyboard navigation (tab order, shortcuts, focus states)
+     - Screen reader support (ARIA labels, semantic HTML)
+     - WCAG 2.1 AA compliance checklist
+
+2. **Integration Documentation (10 min)**
+   - [ ] List ALL pages/contexts where feature appears
+   - [ ] Document integration with existing features
+   - [ ] Define data-testid naming convention for testing
+   - [ ] Share journey maps with Agent #51 (Testing) in parallel
+
+3. **Agent #64 Review (5 min)**
+   - [ ] Submit journey architecture to Agent #64
+   - [ ] Confirm no duplicate designs exist
+   - [ ] Get approval before starting design work
+
+**Quality Gates:**
+- ❌ No design work without complete journey mapping
+- ❌ No approval without all personas documented
+- ❌ No handoff without mobile/accessibility specs
+- ❌ No deployment without Agent #51 test coverage confirmation
+
+**Deliverables:**
+- Journey map document (personas, contexts, entry points)
+- Design specs with Aurora Tide components
+- Mobile responsiveness guide
+- Accessibility compliance checklist
+- Integration points documented
+
+---
+
 ### Operational Excellence Agents (#63-67) - System Support
 
 **Standard Responsibilities (All Operational Agents):**
