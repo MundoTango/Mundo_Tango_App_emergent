@@ -69,14 +69,14 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
           pageRoute: currentRoute,
           userQuery: query,
           context: {
-            userRole: user?.role || 'member',
+            userRole: (user as any)?.role || 'member',
             journeyHistory: aiContext?.journeyContext?.pages || [currentRoute]
           }
         })
       });
     },
-    onSuccess: (data) => {
-      if (!sessionId) setSessionId(data.sessionId);
+    onSuccess: (data: any) => {
+      if (!sessionId && data?.sessionId) setSessionId(data.sessionId);
       queryClient.invalidateQueries({ queryKey: ['/api/ai-intelligence/context'] });
       toast({
         title: "✨ AI Response",
