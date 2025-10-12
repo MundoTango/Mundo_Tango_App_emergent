@@ -85,8 +85,8 @@ export function ESAMindMap() {
 
   return (
     <>
-      {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50" data-testid="floating-esa-button">
+      {/* Floating Button - Stacked above Mr Blue when both visible */}
+      <div className="fixed bottom-24 right-6 z-50" data-testid="floating-esa-button">
         <MagneticButton
           onClick={() => setIsOpen(!isOpen)}
           className={`w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
