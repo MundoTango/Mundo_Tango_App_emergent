@@ -66,6 +66,26 @@ Applies to: New features, bug fixes, refactoring, AND audits
 
 ---
 
+### ✅ Principle 5: "Quality Gates Before Work"
+**Pre-work validation prevents post-work failures**
+1. **Context Validation** (5 min) - Understand the FULL requirement, not just one use case
+2. **Discovery Checklist** (10 min) - Map all personas, journeys, contexts, entry points
+3. **Agent #64 Review** (5 min) - Confirm no duplicates, identify reusable components
+4. **Parallel Coordination** (during work) - Design shares journey maps with Testing
+5. **Only THEN → Start building** - With complete context
+
+Applies to: ALL agents, ALL features, ALL work (no exceptions)
+
+**Why it matters:**
+- Prevents incomplete features (missing user personas, contexts, or journeys)
+- Ensures parallel testing (tests planned during design, not after deployment)
+- Eliminates duplicate work (Agent #64 catches it before coding starts)
+- Guarantees 100% coverage (journeys, accessibility, mobile validated upfront)
+
+**📖 Full Guide:** [ESA_QUALITY_GATES.md](./ESA_QUALITY_GATES.md)
+
+---
+
 ## 🎭 Standardized Agent Role Templates
 
 **Purpose:** Define clear responsibilities for each agent tier to ensure consistency across all 105 agents
