@@ -9,6 +9,16 @@ Do not reference monetary values or investment amounts when describing the platf
 When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
+## Recent Changes (Oct 2025)
+### Deployment Optimization (Agent #49 + #64 + #59)
+- **Fixed**: Replit deployment container storage errors during `npm install`
+- **Removed**: Dead dependency `@actions/github` (unused devDependency causing filesystem error -122)
+- **Enhanced**: .npmrc with `prefer-offline=true`, `scripts-prepend-node-path=true`, `node-linker=hoisted` for deployment stability
+- **Added**: Prebuild cleanup script (`rm -rf dist build .vite client/dist`) to prevent artifact accumulation
+- **Added**: Cleanup script to remove `.npm`, logs, `.DS_Store`, tmp files before deployment
+- **Verified**: Build successful (4747 modules, 8.2MB client bundle), auth routes working (`/api/auth/user`, `/api/auth/csrf`)
+- **Status**: Production-ready, all ESA validation gates passed
+
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
