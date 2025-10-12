@@ -39,9 +39,9 @@ export function SmartPageSuggestions({
   const [currentRoute, setLocation] = useLocation();
   const { user } = useAuth();
 
-  // Get journey prediction
+  // Get journey prediction - ESA Agent #71 (Journey Prediction)
   const { data: prediction, isLoading } = useQuery<PagePrediction>({
-    queryKey: ['/api/ai-intelligence/journey/predict', currentRoute, user?.id],
+    queryKey: ['/api/ai-intelligence/journey/predict', { route: currentRoute, userId: user?.id }],
     enabled: !!user && !isDismissed,
     refetchInterval: 30000, // Refresh every 30s
   });

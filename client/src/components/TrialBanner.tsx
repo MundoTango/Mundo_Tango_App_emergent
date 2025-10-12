@@ -38,9 +38,14 @@ const TrialBanner: React.FC = () => {
     localStorage.getItem('trialBannerDismissedUntil')
   );
 
-  // Fetch trial status
+  // Fetch trial status - ESA Agent #17 (Payment Processing)
   const { data: trialStatus, isLoading } = useQuery({
     queryKey: ['/api/payments/trial-status'],
+    queryFn: async () => {
+      const res = await fetch('/api/payments/trial-status', { credentials: 'include' });
+      if (!res.ok) return null;
+      return res.json();
+    },
     enabled: isAuthenticated,
   });
 
