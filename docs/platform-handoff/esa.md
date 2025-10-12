@@ -3988,7 +3988,506 @@ A: This is **context-aware** - knows current page, responsible agents, ESA patte
 
 ---
 
-**End of Section 10: Context-Aware Admin Tools**
+### 10.12 Multi-AI Orchestration Strategy
+
+**Purpose:** Define when to use each AI service for optimal cost, performance, and accuracy across the platform.
+
+#### AI Service Decision Matrix
+
+| AI Service | Best For | Cost Model | Context Limit | Response Speed |
+|------------|----------|------------|---------------|----------------|
+| **Replit AI (OpenAI)** | ESA MindMap chat, Quick assistance, Real-time coding | Replit credits ⭐ | 128k tokens | Fast (streaming) |
+| **Direct OpenAI** | Embeddings, Batch tasks, Background jobs | Pay-per-token | 128k tokens | Fast |
+| **Claude (Anthropic)** | esa.md analysis, Long docs, Architecture review | Pay-per-token | 200k tokens | Medium |
+| **Google Gemini** | Multi-modal, Image analysis, Free tier tasks | Free tier + paid | 1M tokens | Variable |
+| **LangChain/Graph** | Multi-agent workflows, Complex orchestration | Framework only | N/A | Depends on AI used |
+
+#### When to Use Each AI
+
+**Use Replit AI (Primary - Preferred):**
+- ✅ ESA MindMap interactive chat
+- ✅ Real-time code suggestions
+- ✅ Quick Q&A with users
+- 💰 **Cost:** Included with Replit (most cost-effective)
+
+**Use Direct OpenAI:**
+- ✅ Text embeddings for semantic search
+- ✅ Batch translation jobs (68 languages)
+- ✅ Background AI tasks (cron jobs)
+- 💰 **Cost:** Direct billing (use when Replit AI unavailable)
+
+**Use Claude (Anthropic) - Future:**
+- ✅ Analyzing full esa.md (4000+ lines)
+- ✅ Architecture reviews needing long context
+- ✅ Complex reasoning tasks
+- 💰 **Cost:** Pay-per-token (premium for quality)
+
+**Use Google Gemini - Future:**
+- ✅ Screenshot analysis ("fix this bug")
+- ✅ Multi-modal inputs (image + text)
+- ✅ Free tier for development/testing
+- 💰 **Cost:** Free tier generous, then pay-per-token
+
+**Use LangChain/LangGraph:**
+- ✅ Orchestrating 105 agents
+- ✅ Agent-to-agent (A2A) workflows
+- ✅ Complex multi-step tasks
+- 💰 **Cost:** Framework only (uses other AIs as backends)
+
+#### Cost Optimization Rules
+
+1. **Default to Replit AI** - Included with subscription
+2. **Batch OpenAI calls** - Reduce API hits
+3. **Cache AI responses** - Store common queries
+4. **Use Claude sparingly** - Only for tasks requiring long context
+5. **Leverage Gemini free tier** - For non-critical tasks
+
+---
+
+### 10.13 Prompt Engineering & Management
+
+**Purpose:** Standardize AI prompts for consistency, quality, and versioning across all AI services.
+
+#### Standard Prompt Structure
+
+```typescript
+// Location: /server/prompts/
+interface SystemPrompt {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+  context?: {
+    esaMd: string;           // esa.md content
+    pageContext: string;     // Current route + agents
+    userRole: string;        // Super Admin, Developer, etc.
+  };
+}
+```
+
+#### Prompt Template System
+
+**1. Base System Prompt** (`/server/prompts/base-system.ts`)
+```typescript
+export const baseSystemPrompt = `
+You are the ESA AI Agent for the Mundo Tango platform.
+
+Core Knowledge:
+- ESA Framework: 105 Agents across 61 Layers
+- Design System: Aurora Tide (glassmorphic, MT Ocean Theme)
+- Quality Gates: 4-gate methodology (mandatory)
+
+Communication Style:
+- Simple, everyday language (non-technical users)
+- Practical, actionable suggestions
+- Reference specific agents (e.g., "Agent #11 handles UI")
+- Provide code examples when helpful
+
+Guidelines:
+- ALWAYS suggest ESA-compliant solutions
+- Reference Quality Gates before any changes
+- Use Aurora Tide design tokens for UI suggestions
+`;
+```
+
+**2. Context-Specific Prompts**
+```typescript
+// /server/prompts/esa-mindmap.ts
+export const esaMindMapPrompt = (pageContext) => `
+${baseSystemPrompt}
+
+Current Context:
+- Page: ${pageContext.route}
+- Built by: Agents ${pageContext.agents.join(', ')}
+- Summary: ${pageContext.summary}
+
+Your task: Assist Super Admin with platform development
+`;
+```
+
+**3. Prompt Versioning**
+```typescript
+// /server/prompts/versions.ts
+export const promptVersions = {
+  'esa-mindmap-v1': esaMindMapPromptV1,
+  'esa-mindmap-v2': esaMindMapPromptV2, // A/B test variant
+  'esa-mindmap-current': 'esa-mindmap-v2'
+};
+```
+
+#### Prompt Testing Framework
+
+**A/B Testing:**
+1. Create variant prompts in `/server/prompts/`
+2. Track metrics: response quality, user satisfaction, ESA compliance
+3. Graduate winning variant to production
+4. Document learnings in `/docs/learnings/`
+
+**Quality Metrics:**
+- ESA Compliance Rate: % responses following framework
+- Suggestion Accuracy: % code examples that work
+- User Satisfaction: Follow-up question ratio
+- Response Speed: Average time to first token
+
+---
+
+### 10.14 Long-Context AI Integration
+
+**Purpose:** Handle esa.md (4000+ lines) and large codebases using long-context AI models.
+
+#### The Problem: Context Window Limits
+
+- **Standard GPT-4o:** 128k tokens (~96k words)
+- **esa.md:** ~40k tokens (fits, but leaves little room for conversation)
+- **Full codebase:** Exceeds all standard models
+
+#### Solution 1: Claude (Anthropic) - 200k Context
+
+**When to Use:**
+- ✅ Analyzing full esa.md without chunking
+- ✅ Architecture reviews across multiple files
+- ✅ Understanding complex agent relationships
+
+**Implementation:**
+```typescript
+// /server/services/claude-service.ts
+import Anthropic from '@anthropic-ai/sdk';
+
+const claude = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
+
+async function analyzeESA() {
+  const esaMd = await fs.readFile('docs/platform-handoff/esa.md', 'utf-8');
+  
+  const response = await claude.messages.create({
+    model: 'claude-3-sonnet-20240229',
+    max_tokens: 4096,
+    messages: [{
+      role: 'user',
+      content: `Analyze this ESA framework:\n\n${esaMd}`
+    }]
+  });
+  
+  return response.content;
+}
+```
+
+**Cost:** ~$3 per 1M input tokens, $15 per 1M output tokens
+
+#### Solution 2: Google Gemini - 1M Context
+
+**When to Use:**
+- ✅ Massive context needs (entire codebase)
+- ✅ Development/testing (free tier)
+- ✅ Multi-modal analysis (screenshots + code)
+
+**Implementation:**
+```typescript
+// /server/services/gemini-service.ts
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
+
+async function analyzeWithGemini(prompt: string, files: string[]) {
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+  
+  const contents = files.map(f => fs.readFileSync(f, 'utf-8')).join('\n\n');
+  
+  const result = await model.generateContent([
+    prompt,
+    { text: contents }
+  ]);
+  
+  return result.response.text();
+}
+```
+
+**Cost:** Free tier: 60 requests/min, then $0.35/$1.05 per 1M tokens
+
+#### Solution 3: Chunking Strategy (Current)
+
+**When to Use:**
+- ✅ Current implementation (no new AI setup)
+- ✅ Cost optimization
+- ✅ Works with existing OpenAI integration
+
+**Implementation:**
+```typescript
+// /server/services/esa-chunking.ts
+async function chunkESAMd(maxChunkSize = 8000) {
+  const esaMd = await loadESAMd();
+  const sections = esaMd.split(/^## /gm);
+  
+  const chunks = [];
+  let currentChunk = '';
+  
+  for (const section of sections) {
+    if ((currentChunk + section).length > maxChunkSize) {
+      chunks.push(currentChunk);
+      currentChunk = section;
+    } else {
+      currentChunk += section;
+    }
+  }
+  
+  if (currentChunk) chunks.push(currentChunk);
+  return chunks;
+}
+```
+
+#### Recommendation
+
+**Phase 1 (Now):** Use chunking with Replit AI (cost-effective)  
+**Phase 2 (Q1 2026):** Add Claude for complex analysis  
+**Phase 3 (Q2 2026):** Add Gemini for multi-modal features
+
+---
+
+### 10.15 AI Agent Memory Systems
+
+**Purpose:** Enable ESA AI agents to learn from interactions and maintain conversation context across sessions.
+
+#### Current State: Stateless
+
+**Problem:**
+- Each chat session is independent
+- AI doesn't remember previous conversations
+- Users must re-explain context repeatedly
+
+#### Solution: Conversation Memory
+
+**Architecture:**
+```typescript
+// Database Schema: server/db/schema.ts
+export const aiConversationMemory = pgTable('ai_conversation_memory', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id),
+  sessionId: varchar('session_id', { length: 255 }),
+  pageContext: text('page_context'), // Route + agents
+  messages: jsonb('messages'), // Array of {role, content, timestamp}
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+});
+```
+
+**Implementation:**
+```typescript
+// /server/services/ai-memory-service.ts
+export class AIMemoryService {
+  async getConversationHistory(userId: number, sessionId: string) {
+    return await db.select()
+      .from(aiConversationMemory)
+      .where(
+        and(
+          eq(aiConversationMemory.userId, userId),
+          eq(aiConversationMemory.sessionId, sessionId)
+        )
+      )
+      .orderBy(aiConversationMemory.createdAt);
+  }
+  
+  async saveMessage(userId: number, sessionId: string, message: ChatMessage) {
+    // Append to existing conversation or create new
+    const existing = await this.getConversationHistory(userId, sessionId);
+    
+    if (existing.length > 0) {
+      const current = existing[0];
+      const messages = [...current.messages, message];
+      
+      await db.update(aiConversationMemory)
+        .set({ messages, updatedAt: new Date() })
+        .where(eq(aiConversationMemory.id, current.id));
+    } else {
+      await db.insert(aiConversationMemory).values({
+        userId,
+        sessionId,
+        messages: [message],
+        pageContext: message.pageContext
+      });
+    }
+  }
+}
+```
+
+**Memory-Aware System Prompt:**
+```typescript
+function generateMemoryAwarePrompt(userId: number, sessionId: string) {
+  const history = await aiMemory.getConversationHistory(userId, sessionId);
+  
+  return `
+${baseSystemPrompt}
+
+Conversation History:
+${history.map(h => `- ${h.role}: ${h.content}`).join('\n')}
+
+Current Request: [user's new question]
+`;
+}
+```
+
+#### Long-Term Learning
+
+**Phase 1:** Session memory (implemented above)  
+**Phase 2:** User preferences (learn from patterns)  
+**Phase 3:** Cross-user learnings (anonymized insights)
+
+**User Preferences Table:**
+```typescript
+export const aiUserPreferences = pgTable('ai_user_preferences', {
+  userId: integer('user_id').primaryKey(),
+  preferredAIModel: varchar('preferred_ai_model'), // 'gpt-4o', 'claude', etc.
+  codeStyle: text('code_style'), // 'typescript', 'verbose comments', etc.
+  responseFormat: varchar('response_format'), // 'concise', 'detailed'
+  learnedPatterns: jsonb('learned_patterns') // AI-detected user patterns
+});
+```
+
+---
+
+### 10.16 Vector Database & Semantic Search
+
+**Purpose:** Enable AI-powered semantic search across esa.md, codebase, and documentation.
+
+#### The Problem
+
+**Current Search:**
+- Keyword-based (grep, file search)
+- Misses conceptually similar content
+- Can't find "similar patterns" or "related solutions"
+
+**Example:**
+- Search: "authentication" → Only finds exact word
+- Semantic: "authentication" → Finds "login", "auth", "user verification", "session management"
+
+#### Solution: Vector Database
+
+**Architecture:**
+```
+esa.md → Embeddings → Vector DB → Semantic Search
+  ↓
+AI Query → Vector Search → Relevant Sections → AI Response
+```
+
+**Vector DB Options:**
+
+| Option | Pros | Cons | Status |
+|--------|------|------|--------|
+| **LanceDB** | ✅ Local, No server, Fast | Limited scale | ✅ Configured |
+| **Milvus** | ✅ Scalable, Production-ready | Requires server | 🔧 SDK installed |
+| **PostgreSQL pgvector** | ✅ Same DB, Simple | Limited features | 💡 Future option |
+
+#### Implementation: LanceDB (Current)
+
+**Step 1: Index esa.md**
+```typescript
+// /server/services/vector-indexing-service.ts
+import { LanceDB } from '@lancedb/lancedb';
+import { openaiService } from './openaiService';
+
+export class VectorIndexingService {
+  async indexESAMd() {
+    const esaMd = await fs.readFile('docs/platform-handoff/esa.md', 'utf-8');
+    const sections = esaMd.split(/^## /gm);
+    
+    const db = await LanceDB.connect('./data/lancedb');
+    const table = await db.createTable('esa_sections', [
+      { id: 1, text: 'placeholder', vector: new Array(1536).fill(0) }
+    ]);
+    
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
+      const embedding = await openaiService.createEmbedding(section);
+      
+      await table.add([{
+        id: i,
+        text: section,
+        vector: embedding.data[0].embedding
+      }]);
+    }
+    
+    console.log(`✅ Indexed ${sections.length} esa.md sections`);
+  }
+}
+```
+
+**Step 2: Semantic Search**
+```typescript
+export class SemanticSearchService {
+  async searchESA(query: string, limit = 5) {
+    const db = await LanceDB.connect('./data/lancedb');
+    const table = await db.openTable('esa_sections');
+    
+    const queryEmbedding = await openaiService.createEmbedding(query);
+    
+    const results = await table
+      .search(queryEmbedding.data[0].embedding)
+      .limit(limit)
+      .execute();
+    
+    return results.map(r => ({
+      text: r.text,
+      similarity: r.score
+    }));
+  }
+}
+```
+
+**Step 3: AI-Enhanced Responses**
+```typescript
+// /server/services/esa-ai-chat.ts (updated)
+async function chatWithSemanticContext(userQuery: string) {
+  // 1. Semantic search for relevant esa.md sections
+  const relevantSections = await semanticSearch.searchESA(userQuery);
+  
+  // 2. Build enhanced system prompt
+  const systemPrompt = `
+${baseSystemPrompt}
+
+Relevant ESA Context:
+${relevantSections.map(s => s.text).join('\n\n---\n\n')}
+
+User Question: ${userQuery}
+`;
+  
+  // 3. Query AI with enriched context
+  return await openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userQuery }
+    ],
+    stream: true
+  });
+}
+```
+
+#### Activation Roadmap
+
+**Week 1:**
+- [ ] Index esa.md with embeddings
+- [ ] Test semantic search accuracy
+- [ ] Integrate with ESA MindMap chat
+
+**Week 2:**
+- [ ] Index all `/docs/` markdown files
+- [ ] Add codebase indexing (TypeScript files)
+- [ ] Build admin search UI
+
+**Week 3:**
+- [ ] Fine-tune relevance scoring
+- [ ] Add filters (layer, agent, topic)
+- [ ] Performance optimization
+
+#### Cost Estimate
+
+- **Embeddings:** ~$0.10 per 1M tokens (one-time index)
+- **esa.md:** ~40k tokens = $0.004 (negligible)
+- **Full docs:** ~500k tokens = $0.05 (very affordable)
+
+**Recommendation:** Activate immediately - cost is minimal, value is huge.
+
+---
+
+**End of Section 10: Context-Aware Admin Tools & AI Integration**
 
 ---
 
