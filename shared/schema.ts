@@ -4231,3 +4231,105 @@ export type InsertProfessionalSite = z.infer<typeof insertProfessionalSiteSchema
 
 export type SiteAnalytics = typeof siteAnalytics.$inferSelect;
 export type InsertSiteAnalytics = z.infer<typeof insertSiteAnalyticsSchema>;
+
+// ============================================================================
+// ESA AGENT #78: VISUAL PAGE EDITOR SYSTEM
+// ============================================================================
+
+// Visual Edits - Track all page edits made in edit mode
+export const visualEdits = pgTable("visual_edits", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  sessionId: varchar("session_id").notNull(),
+  page: varchar("page").notNull(), // URL or route
+  changes: jsonb("changes").$type<{
+    elementSelector: string;
+    changeType: 'text' | 'style' | 'layout' | 'structure';
+    before: any;
+    after: any;
+    componentPath: string;
+    lineNumber?: number;
+  }[]>().notNull(),
+  status: varchar("status").default('draft'), // 'draft', 'pending', 'approved', 'deployed', 'reverted'
+  branchName: varchar("branch_name"),
+  previewUrl: varchar("preview_url"),
+  deployedAt: timestamp("deployed_at"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_visual_edits_user").on(table.userId),
+  index("idx_visual_edits_status").on(table.status),
+  index("idx_visual_edits_session").on(table.sessionId),
+]);
+
+// Edit Sessions - Track active edit sessions
+export const editSessions = pgTable("edit_sessions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  sessionId: varchar("session_id").unique().notNull(),
+  page: varchar("page").notNull(),
+  startedAt: timestamp("started_at").defaultNow(),
+  endedAt: timestamp("ended_at"),
+  changesCount: integer("changes_count").default(0),
+  isActive: boolean("is_active").default(true)
+}, (table) => [
+  index("idx_edit_sessions_user").on(table.userId),
+  index("idx_edit_sessions_active").on(table.isActive),
+]);
+
+// ============================================================================
+// MR BLUE CONVERSATIONS
+// ============================================================================
+
+// Mr Blue Chat History
+export const mrBlueConversations = pgTable("mr_blue_conversations", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  sessionId: varchar("session_id").notNull(),
+  messages: jsonb("messages").$type<{
+    role: 'user' | 'assistant';
+    content: string;
+    timestamp: Date;
+  }[]>().default([]).notNull(),
+  context: jsonb("context"), // Page context, user intent
+  commandExecuted: varchar("command_executed"),
+  resultStatus: varchar("result_status"), // 'success', 'failed', 'partial'
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_mrblue_conv_user").on(table.userId),
+  index("idx_mrblue_conv_session").on(table.sessionId),
+]);
+
+// ============================================================================
+// INSERT SCHEMAS & TYPES
+// ============================================================================
+
+// Visual Edits Schemas
+export const insertVisualEditSchema = createInsertSchema(visualEdits).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertEditSessionSchema = createInsertSchema(editSessions).omit({
+  id: true,
+  startedAt: true,
+});
+
+export const insertMrBlueConversationSchema = createInsertSchema(mrBlueConversations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types
+export type VisualEdit = typeof visualEdits.$inferSelect;
+export type InsertVisualEdit = z.infer<typeof insertVisualEditSchema>;
+
+export type EditSession = typeof editSessions.$inferSelect;
+export type InsertEditSession = z.infer<typeof insertEditSessionSchema>;
+
+export type MrBlueConversation = typeof mrBlueConversations.$inferSelect;
+export type InsertMrBlueConversation = z.infer<typeof insertMrBlueConversationSchema>;
