@@ -4,6 +4,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { ESAVisualization } from '@/components/esa/ESAVisualizations';
 import { ESAPatternSelector } from '@/components/esa/ESAPatternSelector';
+import { FloatingESAButton } from '@/components/esa/FloatingESAButton';
 import {
   Map,
   Users,
@@ -365,6 +366,9 @@ export default function ESADashboard() {
           ESA Framework v4.0 • Last Updated: October 11, 2025 • 105 Agents × 61 Layers
         </div>
       </div>
+
+      {/* Floating ESA Quick Navigator */}
+      <FloatingESAButton />
     </div>
   );
 }
