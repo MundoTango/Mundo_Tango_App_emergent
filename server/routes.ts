@@ -197,6 +197,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/ai-intelligence', aiIntelligenceRoutes); // ESA AI Intelligence Network - User Support AI with Pattern Learning (Agent #31, #68-71)
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   
+  // ESA Mr Blue Routes (Agents #73-78, #79-80) - Visual Editor, 3D Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning
+  import mrBlueRoutes from './routes/mrBlue';
+  app.use('/api/mr-blue', mrBlueRoutes);
+  
   // ESA Section 10.11: Interactive AI Chat for ESA MindMap (Agent #35)
   const { processChatMessage } = await import('./services/esa-ai-chat');
   app.post('/api/esa/chat', requireAuth, async (req, res) => {
