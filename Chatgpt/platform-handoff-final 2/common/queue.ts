@@ -1,6 +1,0 @@
-import { createClient } from "@supabase/supabase-js";
-export async function getClient(){ return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!); }
-export async function enqueueJob(agent:string, payload:any){ const sb=await getClient(); const { data, error }=await sb.from("jobs").insert({agent,payload}).select().single(); if(error) throw error; return data; }
-export async function claimJob(agent?:string){ const sb=await getClient(); let q=sb.from("jobs").select("*").eq("status","queued").order("created_at",{ascending:true}).limit(1); if(agent) q=q.eq("agent",agent); const {data,error}=await q; if(error) throw error; const job=data?.[0]; if(!job) return null; await sb.from("jobs").update({status:"running"}).eq("id",job.id); return job; }
-export async function completeJob(id:string){ const sb=await getClient(); await sb.from("jobs").update({status:"ok", updated_at:new Date().toISOString()}).eq("id",id); }
-export async function failJob(id:string, willRetry:boolean){ const sb=await getClient(); const { data }=await sb.from("jobs").select("attempts").eq("id",id).single(); const attempts=(data?.attempts??0)+1; const status=willRetry && attempts<3 ? "queued" : "fail"; await sb.from("jobs").update({status,attempts,updated_at:new Date().toISOString()}).eq("id",id);}

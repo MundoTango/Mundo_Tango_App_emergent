@@ -1,1 +1,0 @@
-create table if not exists agent_metrics(id uuid primary key default gen_random_uuid(), agent text, metric text, value numeric, captured_at timestamptz default now());

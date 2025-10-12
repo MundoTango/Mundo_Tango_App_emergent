@@ -1,1 +1,0 @@
-export type AgentHandler = (input:any, ctx:any)=>Promise<{status:'ok'|'fail', data?:any, error?:any}>;
