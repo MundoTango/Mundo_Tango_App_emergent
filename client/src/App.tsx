@@ -41,18 +41,18 @@ import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
-const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(module => ({ default: module.ESAMindMap })));
+const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap"));
 
 // ESA AI Intelligence Network - User Support Components (Agent #31, #68-71)
-const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton").then(module => ({ default: module.AIHelpButton })));
-const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions").then(module => ({ default: module.SmartPageSuggestions })));
-const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(module => ({ default: module.AIContextBar })));
+const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton"));
+const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions"));
+const AIContextBar = lazy(() => import("@/components/ai/AIContextBar"));
 
-// ESA Mr Blue - AI Companion for Super Admins (Agents #73-80)
-const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(module => ({ default: module.MrBlueFloatingButton })));
+// ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)
+const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton"));
 
 // ESA Dev Tools - Super Admin toggle for development testing
-const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(module => ({ default: module.SuperAdminToggle })));
+const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle"));
 
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';

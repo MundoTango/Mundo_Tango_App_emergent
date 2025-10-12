@@ -355,3 +355,5 @@ export function ESAMindMap() {
     </>
   );
 }
+
+export default ESAMindMap;

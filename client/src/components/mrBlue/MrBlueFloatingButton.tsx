@@ -39,9 +39,9 @@ export function MrBlueFloatingButton() {
 
   return (
     <>
-      {/* Floating Button - Base position */}
+      {/* Floating Button - Base position (below ESA MindMap) */}
       <div 
-        className="fixed bottom-6 right-6 z-49"
+        className="fixed bottom-6 right-6 z-40"
         data-testid="mr-blue-floating-button"
       >
         {!isOpen && (
@@ -200,3 +200,5 @@ export function MrBlueFloatingButton() {
     </>
   );
 }
+
+export default MrBlueFloatingButton;
