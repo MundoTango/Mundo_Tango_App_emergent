@@ -69,7 +69,7 @@ import { Progress } from '@/components/ui/progress';
 import { Layers, CreditCard } from 'lucide-react';
 import SubscriptionManagement from '@/components/admin/SubscriptionManagement';
 import { TestSpriteIntegration } from '@/components/admin/TestSpriteIntegration';
-import { FloatingESAButton } from '@/components/esa/FloatingESAButton';
+import { ESAMindMap } from '@/components/esa/ESAMindMap';
 
 // ESA Framework (105 Agents, 61 Layers) - Phase 19: Admin Dashboard Types
 interface AdminStats {
@@ -3074,8 +3074,8 @@ const AdminCenter = memo(() => {
         </div>
       </div>
 
-      {/* ESA Framework Quick Navigator - Floating Button */}
-      <FloatingESAButton />
+      {/* ESA MindMap - Floating Navigator */}
+      <ESAMindMap />
     </div>
   );
 });

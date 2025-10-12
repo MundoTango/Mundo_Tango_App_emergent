@@ -5,7 +5,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { ESAVisualization } from '@/components/esa/ESAVisualizations';
 import { ESAPatternSelector } from '@/components/esa/ESAPatternSelector';
-import { FloatingESAButton } from '@/components/esa/FloatingESAButton';
+import { ESAMindMap } from '@/components/esa/ESAMindMap';
 import {
   Map,
   Users,
@@ -41,7 +41,7 @@ interface Breadcrumb {
   view?: ViewType;
 }
 
-export default function ESADashboard() {
+export default function ESAMind() {
   const { user } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [currentView, setCurrentView] = useState<ViewType | null>(null);
@@ -409,8 +409,8 @@ export default function ESADashboard() {
         </div>
       </div>
 
-      {/* Floating ESA Quick Navigator */}
-      <FloatingESAButton />
+      {/* ESA MindMap - Floating Navigator */}
+      <ESAMindMap />
     </div>
   );
 }

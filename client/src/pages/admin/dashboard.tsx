@@ -48,7 +48,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { FloatingESAButton } from '@/components/esa/FloatingESAButton';
+import { ESAMindMap } from '@/components/esa/ESAMindMap';
 import {
   LineChart,
   Line,
@@ -587,8 +587,8 @@ export default function AdminDashboardPage() {
         </Card>
       </div>
 
-      {/* ESA Framework Quick Navigator - Floating Button */}
-      <FloatingESAButton />
+      {/* ESA MindMap - Floating Navigator */}
+      <ESAMindMap />
     </AdminLayout>
   );
 }
