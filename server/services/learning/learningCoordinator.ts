@@ -1,4 +1,4 @@
-import { db } from "@db";
+import { db } from "../../db";
 import { agentLearnings, learningPatterns, type InsertAgentLearning, type AgentLearning } from "@shared/schema";
 import { eq, desc, and, or, sql } from "drizzle-orm";
 import OpenAI from "openai";

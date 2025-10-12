@@ -91,6 +91,7 @@ import contentMediaRoutes from "./routes/content-media"; // ESA LIFE CEO 61x21 -
 import codeQualityRoutes from "./routes/code-quality"; // ESA LIFE CEO 61x21 - Code Quality Expert Agent (Layers 6,7,57)
 import devExperienceRoutes from "./routes/dev-experience"; // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
 import aiIntelligenceRoutes from "./routes/ai-intelligence"; // ESA AI Intelligence Network - Agent #31 + #68-71 (Learning, Context, Patterns)
+import mrBlueRoutes from "./routes/mrBlue"; // ESA Mr Blue - Agents #73-78, #79-80 (Visual Editor, Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -196,10 +197,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/agent-learning', agentLearningRouter); // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
   app.use('/api/ai-intelligence', aiIntelligenceRoutes); // ESA AI Intelligence Network - User Support AI with Pattern Learning (Agent #31, #68-71)
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
-  
-  // ESA Mr Blue Routes (Agents #73-78, #79-80) - Visual Editor, 3D Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning
-  import mrBlueRoutes from './routes/mrBlue';
-  app.use('/api/mr-blue', mrBlueRoutes);
+  app.use('/api/mr-blue', mrBlueRoutes); // ESA Mr Blue Routes (Agents #73-78, #79-80)
   
   // ESA Section 10.11: Interactive AI Chat for ESA MindMap (Agent #35)
   const { processChatMessage } = await import('./services/esa-ai-chat');
