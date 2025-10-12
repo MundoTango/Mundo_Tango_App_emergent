@@ -33,6 +33,7 @@ import { animated, useSpring } from 'react-spring';
 // import interactionPlugin from '@fullcalendar/interaction';
 import { Calendar as BigCalendar, dateFnsLocalizer } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay, isAfter, isSameWeek } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Countdown from 'react-countdown';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -138,7 +139,7 @@ interface EventApiResponse {
 }
 
 const locales = {
-  'en-US': require('date-fns/locale/en-US')
+  'en-US': enUS
 };
 
 const localizer = dateFnsLocalizer({
