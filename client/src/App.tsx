@@ -44,15 +44,15 @@ import TrialBanner from "@/components/TrialBanner";
 import { ESAMindMap } from "@/components/esa/ESAMindMap";
 
 // ESA AI Intelligence Network - User Support Components (Agent #31, #68-71)
-const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton"));
-const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions"));
-const AIContextBar = lazy(() => import("@/components/ai/AIContextBar"));
+import { AIHelpButton } from "@/components/ai/AIHelpButton";
+import { SmartPageSuggestions } from "@/components/ai/SmartPageSuggestions";
+import { AIContextBar } from "@/components/ai/AIContextBar";
 
 // ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)
 import { MrBlueFloatingButton } from "@/components/mrBlue/MrBlueFloatingButton";
 
 // ESA Dev Tools - Super Admin toggle for development testing
-const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle"));
+import { SuperAdminToggle } from "@/components/dev/SuperAdminToggle";
 
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
@@ -152,12 +152,10 @@ function Router() {
         </Switch>
       </Suspense>
       
-      {/* ESA AI Intelligence Network - Wrapped in Suspense for lazy loading */}
-      <Suspense fallback={null}>
-        <AIHelpButton position="bottom-right" offset={6} />
-        <SmartPageSuggestions position="top-center" autoHide={true} />
-        <AIContextBar position="top" collapsible={true} />
-      </Suspense>
+      {/* ESA AI Intelligence Network - No lazy loading */}
+      <AIHelpButton position="bottom-right" offset={6} />
+      <SmartPageSuggestions position="top-center" autoHide={true} />
+      <AIContextBar position="top" collapsible={true} />
     </ErrorBoundary>
   );
 }
@@ -176,9 +174,7 @@ function AppContent() {
       <ErrorBoundary>
         <ESAMindMap />
         <MrBlueFloatingButton />
-        <Suspense fallback={null}>
-          <SuperAdminToggle />
-        </Suspense>
+        <SuperAdminToggle />
       </ErrorBoundary>
       <Toaster />
       <TrialBanner />
