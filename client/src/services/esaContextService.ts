@@ -20,7 +20,7 @@ export interface PageAgentContext {
     name: string;
     role: string;
     division?: string;
-    layer?: number;
+    layers?: string;
     isPrimary: boolean; // First agent in list = primary
   }>;
   hasContext: boolean; // true if agents found for this page
@@ -53,7 +53,7 @@ export function detectPageContext(route: string): PageAgentContext {
       name: agent?.name || `Agent #${id}`,
       role: agent?.role || 'Unknown Role',
       division: agent?.division,
-      layer: agent?.layer,
+      layers: agent?.layers,
       isPrimary: index === 0 // First agent is primary builder
     };
   });
