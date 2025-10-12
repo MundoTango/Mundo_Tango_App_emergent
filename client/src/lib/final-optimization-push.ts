@@ -4,19 +4,21 @@
 import React from 'react';
 
 // 1. Implement Service Worker for offline caching
+// DISABLED: SW causing preview failures (sw.js:191 handleStaticAsset has no error handling)
 export function registerServiceWorker() {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').then(
-        (registration) => {
-          console.log('⚡ Service Worker registered for offline performance');
-        },
-        (err) => {
-          console.warn('Service Worker registration failed:', err);
-        }
-      );
-    });
-  }
+  console.log('⚠️ Service Worker DISABLED - broken SW blocked all resources');
+  // if ('serviceWorker' in navigator) {
+  //   window.addEventListener('load', () => {
+  //     navigator.serviceWorker.register('/sw.js').then(
+  //       (registration) => {
+  //         console.log('⚡ Service Worker registered for offline performance');
+  //       },
+  //       (err) => {
+  //         console.warn('Service Worker registration failed:', err);
+  //       }
+  //     );
+  //   });
+  // }
 }
 
 // 2. Implement HTTP/2 Server Push hints
@@ -166,7 +168,7 @@ export function initializeFinalOptimizations() {
   console.log('🚀 Life CEO Final Optimization Push - Target: <3s');
   
   // Run all optimizations
-  // TEMP DISABLED: registerServiceWorker(); // Disabled to prevent caching 504 errors
+  // SW DISABLED: registerServiceWorker(); // Broken SW blocks all resources (sw.js:191)
   addServerPushHints();
   prioritizeRequests();
   
