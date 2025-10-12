@@ -163,8 +163,12 @@ function Router() {
 }
 
 function AppContent() {
+  console.log('🎯 [AppContent] Rendering - ESA components should load');
+  
   usePerformanceOptimization(); // ESA Performance Layer 50
   useMonitoring(); // ESA Monitoring Layer 51
+
+  console.log('🎯 [AppContent] After hooks - about to render');
 
   return (
     <>
@@ -183,7 +187,10 @@ function AppContent() {
 }
 
 function App() {
+  console.log('🚀 [App] ROOT COMPONENT RENDERING');
+  
   useEffect(() => {
+    console.log('🚀 [App] useEffect running - setup starting');
     // Setup global error handlers
     setupGlobalErrorHandlers();
     setupQueryErrorHandling(queryClient);
@@ -194,7 +201,10 @@ function App() {
     // Life CEO Performance Optimization
     lifeCeoPerformance.init();
     // Performance optimizations auto-initialized
+    console.log('🚀 [App] useEffect complete - setup done');
   }, []);
+
+  console.log('🚀 [App] About to return JSX tree');
 
   return (
     <ThemeProvider>
