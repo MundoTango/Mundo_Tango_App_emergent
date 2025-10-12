@@ -38,6 +38,11 @@ export function isSuperAdmin(user: User | null | undefined): boolean {
 
   // Pattern 5: Development mode override (for testing)
   if (import.meta.env.DEV) {
+    // Check localStorage first (persists after reload)
+    if (typeof window !== 'undefined' && localStorage.getItem('dev_super_admin_mode') === 'true') {
+      console.log('🔓 [Access Control] Dev mode Super Admin enabled via localStorage');
+      return true;
+    }
     // Check for dev toggle in window global
     if ((window as any).__DEV_SUPER_ADMIN__ === true) {
       return true;
@@ -59,17 +64,21 @@ export function shouldShowESAMindMap(user: User | null | undefined): boolean {
   // Feature flag check
   const isFeatureEnabled = import.meta.env.VITE_ESA_MIND_ENABLED !== 'false';
   
+  const isAdmin = isSuperAdmin(user);
+  
+  // Debug logging
+  if (import.meta.env.DEV) {
+    console.log('🗺️ [ESA MindMap] Access check:', {
+      user: user?.email || user?.username,
+      isAdmin,
+      isFeatureEnabled,
+      shouldShow: isAdmin || isFeatureEnabled
+    });
+  }
+  
   // Show if super admin (regardless of feature flag)
-  if (isSuperAdmin(user)) return true;
+  if (isAdmin) return true;
   
   // Show if feature enabled
   return isFeatureEnabled;
-}
-
-/**
- * Check if Mr Blue components should be shown
- * For Super Admins only
- */
-export function shouldShowMrBlue(user: User | null | undefined): boolean {
-  return isSuperAdmin(user);
 }
