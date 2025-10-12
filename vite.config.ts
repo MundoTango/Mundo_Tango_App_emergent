@@ -77,16 +77,9 @@ export default defineConfig({
       assetsInlineLimit: 4096, // Inline assets < 4kb
       reportCompressedSize: false // Faster builds
     },
-    // ESA Performance: Optimize dependency pre-bundling
+    // ESA Performance: DISABLED - Too many direct imports overwhelm Vite's pre-bundler
     optimizeDeps: {
-      include: [
-        'react',
-        'react-dom',
-        '@tanstack/react-query',
-        'wouter',
-        'lucide-react'
-      ],
-      exclude: ['@replit/vite-plugin-cartographer']
+      disabled: true  // Temporary: disable to avoid 504 errors with 94 direct imports
     },
     server: {
       hmr: {
