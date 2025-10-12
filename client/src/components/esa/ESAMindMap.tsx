@@ -359,7 +359,7 @@ export function ESAMindMap() {
         pageContext={{
           route: currentRoute,
           agents: pageContext.agents.map(a => a.id),
-          summary: pageContext.summary
+          summary: getContextSummary(currentRoute)
         }}
       />
     </>
