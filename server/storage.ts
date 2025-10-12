@@ -3270,50 +3270,64 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createShare(data: { postId: number | string; userId: number; comment?: string | null }): Promise<any> {
-    // Create a share record
-    return { 
-      id: Date.now(), 
-      postId: data.postId, 
-      userId: data.userId, 
-      comment: data.comment || null,
-      sharedAt: new Date(),
-      success: true 
-    };
+    const numericPostId = typeof data.postId === 'string' ? parseInt(data.postId) : data.postId;
+    const [share] = await db
+      .insert(postShares)
+      .values({
+        postId: numericPostId,
+        userId: data.userId,
+        comment: data.comment || null
+      })
+      .returning();
+    return { success: true, ...share };
   }
 
-  // Like/Share operations - ESA Agent #13 (Storage Layer) - MemStorage
-  private postLikes: any[] = [];
-  
+  // Like/Share operations - ESA Agent #13 (Storage Layer) - DatabaseStorage
   async createLike(data: { postId: number; userId: number }): Promise<any> {
-    // Toggle like: create if doesn't exist, remove if exists
-    const existingLikeIndex = this.postLikes.findIndex(
-      like => like.postId === data.postId && like.userId === data.userId
-    );
+    // Toggle like: check if exists
+    const existing = await db
+      .select()
+      .from(postLikes)
+      .where(and(
+        eq(postLikes.postId, data.postId),
+        eq(postLikes.userId, data.userId)
+      ))
+      .limit(1);
     
-    if (existingLikeIndex >= 0) {
+    if (existing.length > 0) {
       // Unlike: remove existing like
-      this.postLikes.splice(existingLikeIndex, 1);
+      await db
+        .delete(postLikes)
+        .where(and(
+          eq(postLikes.postId, data.postId),
+          eq(postLikes.userId, data.userId)
+        ));
       return { success: true, action: 'unliked', postId: data.postId };
     } else {
       // Like: add new like
-      const newLike = {
-        id: this.postLikes.length + 1,
-        postId: data.postId,
-        userId: data.userId,
-        createdAt: new Date()
-      };
-      this.postLikes.push(newLike);
+      const [newLike] = await db
+        .insert(postLikes)
+        .values({
+          postId: data.postId,
+          userId: data.userId
+        })
+        .returning();
       return { success: true, action: 'liked', ...newLike };
     }
   }
 
   async getPostLikes(postId: number): Promise<any[]> {
-    return this.postLikes.filter(like => like.postId === postId);
+    return await db
+      .select()
+      .from(postLikes)
+      .where(eq(postLikes.postId, postId));
   }
 
   async getPostShares(postId: number): Promise<any[]> {
-    // Return shares for a specific post (placeholder for now)
-    return [];
+    return await db
+      .select()
+      .from(postShares)
+      .where(eq(postShares.postId, postId));
   }
 
   async getPostsByLocation(lat: number, lng: number, radiusKm: number = 10): Promise<Post[]> {
