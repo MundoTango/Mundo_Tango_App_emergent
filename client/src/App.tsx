@@ -134,10 +134,11 @@ function Router() {
 
           {/* ESA LIFE CEO 61x21 - Dynamic Routes from Registry */}
           {allRoutes.map((route: RouteConfig) => {
-            const Component = route.component;
+            // React.createElement for dynamic lazy components
+            const RouteComponent = route.component;
             return (
               <Route key={route.path} path={route.path}>
-                <Component />
+                <RouteComponent />
               </Route>
             );
           })}
