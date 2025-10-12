@@ -166,7 +166,7 @@ export function initializeFinalOptimizations() {
   console.log('🚀 Life CEO Final Optimization Push - Target: <3s');
   
   // Run all optimizations
-  registerServiceWorker();
+  // TEMP DISABLED: registerServiceWorker(); // Disabled to prevent caching 504 errors
   addServerPushHints();
   prioritizeRequests();
   
