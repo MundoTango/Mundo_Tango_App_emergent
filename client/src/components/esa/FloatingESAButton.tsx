@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Map, X, Search, Users, Layers as LayersIcon, GraduationCap, AlertCircle } from 'lucide-react';
+import { Map, X, Search, Users, Layers as LayersIcon, GraduationCap, AlertCircle, ShieldCheck } from 'lucide-react';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { Button } from '@/components/ui/button';
@@ -38,6 +38,13 @@ export function FloatingESAButton() {
       icon: Users, 
       action: () => window.open('/docs/platform-handoff/ESA_AGENT_ORG_CHART.md', '_blank'),
       color: 'from-purple-500 to-pink-500'
+    },
+    { 
+      label: 'Quality Gates', 
+      icon: ShieldCheck, 
+      action: () => window.open('/docs/platform-handoff/ESA_QUALITY_GATES.md', '_blank'),
+      color: 'from-emerald-500 to-teal-500',
+      isNew: true
     },
     { 
       label: '17-Phase Audit', 
@@ -161,14 +168,19 @@ export function FloatingESAButton() {
             {/* Quick Actions */}
             <div className="p-4 border-b border-white/10">
               <p className="text-sm font-semibold text-gray-400 mb-3">Quick Access</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
                 {quickActions.map((action, idx) => (
                   <button
                     key={idx}
                     onClick={action.action}
-                    className={`p-3 rounded-lg bg-gradient-to-br ${action.color} bg-opacity-10 hover:bg-opacity-20 transition-all group text-left`}
+                    className={`relative p-3 rounded-lg bg-gradient-to-br ${action.color} bg-opacity-10 hover:bg-opacity-20 transition-all group text-left`}
                     data-testid={`button-quick-${action.label.toLowerCase().replace(/\s+/g, '-')}`}
                   >
+                    {action.isNew && (
+                      <Badge className="absolute -top-1 -right-1 px-1.5 py-0.5 text-[10px] bg-emerald-500 text-white border-emerald-400">
+                        NEW
+                      </Badge>
+                    )}
                     <action.icon className="w-5 h-5 text-white mb-2 group-hover:scale-110 transition-transform" />
                     <p className="text-xs font-medium text-white">{action.label}</p>
                   </button>
