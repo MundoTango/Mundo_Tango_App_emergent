@@ -160,4 +160,48 @@ router.delete('/:memoryId', isAuthenticated, async (req: any, res: any) => {
   }
 });
 
+// Like a memory - ESA Agent #24 (Social Features)
+router.post('/:memoryId/like', isAuthenticated, async (req: any, res: any) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const memoryId = parseInt(req.params.memoryId);
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    const result = await storage.createLike({ postId: memoryId, userId: user.id });
+    res.json({ success: true, data: result });
+  } catch (error) {
+    console.error('Error liking memory:', error);
+    res.status(500).json({ error: 'Failed to like memory' });
+  }
+});
+
+// Share a memory - ESA Agent #24 (Social Features)
+router.post('/:memoryId/share', isAuthenticated, async (req: any, res: any) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const memoryId = parseInt(req.params.memoryId);
+    const { comment } = req.body;
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    const result = await storage.createShare({
+      postId: memoryId,
+      userId: user.id,
+      comment: comment || null
+    });
+    
+    res.json({ success: true, data: result });
+  } catch (error) {
+    console.error('Error sharing memory:', error);
+    res.status(500).json({ error: 'Failed to share memory' });
+  }
+});
+
 export default router;
