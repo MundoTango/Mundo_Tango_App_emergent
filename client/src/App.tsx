@@ -41,7 +41,7 @@ import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
-const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap"));
+import { ESAMindMap } from "@/components/esa/ESAMindMap";
 
 // ESA AI Intelligence Network - User Support Components (Agent #31, #68-71)
 const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton"));
@@ -49,7 +49,7 @@ const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggest
 const AIContextBar = lazy(() => import("@/components/ai/AIContextBar"));
 
 // ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)
-const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton"));
+import { MrBlueFloatingButton } from "@/components/mrBlue/MrBlueFloatingButton";
 
 // ESA Dev Tools - Super Admin toggle for development testing
 const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle"));
@@ -170,9 +170,9 @@ function AppContent() {
     <>
       <Router />
       <ErrorBoundary>
+        <ESAMindMap />
+        <MrBlueFloatingButton />
         <Suspense fallback={null}>
-          <ESAMindMap />
-          <MrBlueFloatingButton />
           <SuperAdminToggle />
         </Suspense>
       </ErrorBoundary>

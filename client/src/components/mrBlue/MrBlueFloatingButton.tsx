@@ -18,9 +18,13 @@ import { isSuperAdmin } from '@/utils/accessControl';
  */
 
 export function MrBlueFloatingButton() {
+  console.log('🔵 [Mr Blue] Component LOADED - before hooks');
+  
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [visualEditMode, setVisualEditMode] = useState(false);
+
+  console.log('🔵 [Mr Blue] After hooks, user:', user);
 
   const isAdmin = isSuperAdmin(user);
   
