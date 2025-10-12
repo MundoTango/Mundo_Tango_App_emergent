@@ -71,16 +71,17 @@
     <!-- Re-enable React app after X-Frame-Options fix -->
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- ESA Service Worker Registration -->
+    <!-- ESA Service Worker Fix: Unregister broken SW -->
     <script>
-      // DISABLED: SW registration moved to final-optimization-push.ts to avoid duplicates
-      // if ('serviceWorker' in navigator) {
-      //   window.addEventListener('load', () => {
-      //     navigator.serviceWorker.register('/sw.js')
-      //       .then(reg => console.log('Service Worker registered'))
-      //       .catch(err => console.log('Service Worker registration failed:', err));
-      //   });
-      // }
+      // EMERGENCY FIX: Unregister all service workers causing preview failures
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+            console.log('🧹 Unregistered broken service worker');
+          }
+        });
+      }
     </script>
     
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
