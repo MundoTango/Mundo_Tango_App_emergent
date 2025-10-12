@@ -6,23 +6,35 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useLocation } from 'wouter';
+import { useAuth } from '@/hooks/useAuth';
 import { esaAgents, auditPhases, decisionLevels } from '@/data/esaFrameworkData';
-import { detectPageContext, getContextSummary, isAdminPage } from '@/services/esaContextService';
+import { detectPageContext, getContextSummary } from '@/services/esaContextService';
 
 export function ESAMindMap() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentRoute, setLocation] = useLocation();
+  const { user } = useAuth();
   
-  // ESA Section 10.4: Two-layer access control
+  // ESA Section 10.11: Access control for Interactive AI Agent
   // Layer 1: Feature flag (defaults to true, can be disabled via env)
   const isFeatureEnabled = import.meta.env.VITE_ESA_MIND_ENABLED !== 'false';
   
-  // Layer 2: Admin page check (only show on admin pages)
-  const isOnAdminPage = isAdminPage(currentRoute);
+  // Layer 2: Super Admin check (show on ALL pages for Super Admins)
+  // Per esa.md Section 10.11: "CRITICAL: ESA MindMap must be visible on ALL pages for Super Admins, not just admin routes"
+  const isSuperAdmin = 
+    user?.username === 'admin' || 
+    user?.email?.includes('admin') || 
+    (user as any)?.isSuperAdmin === true ||
+    user?.email === 'admin@mundotango.life';
   
-  // Hide if feature disabled OR not on admin page
-  if (!isFeatureEnabled || !isOnAdminPage) {
+  // Hide if feature disabled AND not super admin
+  if (!isFeatureEnabled && !isSuperAdmin) {
+    return null;
+  }
+  
+  // Show if super admin OR feature enabled
+  if (!isSuperAdmin && !isFeatureEnabled) {
     return null;
   }
   
