@@ -28,6 +28,12 @@ export function ESAMindMap() {
   
   // Detect current page context
   const pageContext = detectPageContext(currentRoute);
+  
+  console.log('🗺️ [ESA MindMap] Component rendering:', { 
+    user: user?.email || user?.username,
+    shouldShow: shouldShowESAMindMap(user),
+    route: currentRoute
+  });
 
   const quickStats = {
     totalAgents: 105,

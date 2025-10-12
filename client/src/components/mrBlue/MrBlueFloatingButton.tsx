@@ -22,17 +22,19 @@ export function MrBlueFloatingButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [visualEditMode, setVisualEditMode] = useState(false);
 
+  const isAdmin = isSuperAdmin(user);
+  
   // Show for ALL authenticated users
   if (!user) {
     console.log('🔵 [Mr Blue] Hidden: No user authenticated');
     return null;
   }
 
-  const isAdmin = isSuperAdmin(user);
-  console.log('🔵 [Mr Blue] Visible for user:', { 
-    username: user.username, 
-    email: user.email, 
-    isAdmin 
+  console.log('🔵 [Mr Blue] Rendering for user:', { 
+    username: user?.username, 
+    email: user?.email, 
+    isAdmin,
+    userId: user?.id
   });
 
   return (
