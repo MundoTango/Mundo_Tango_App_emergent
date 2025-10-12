@@ -23,6 +23,8 @@ interface Memory {
   userReaction?: string;
   commentCount?: number;
   shareCount?: number;
+  likeCount?: number;
+  isLiked?: boolean;
 }
 
 interface EnhancedMemoryCardProps {
@@ -77,6 +79,24 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
       return response.json();
     },
     enabled: showComments
+  });
+
+  // Like mutation - ESA Agent #11 (Frontend UI)
+  const likeMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest(`/api/memories/${memory.id}/like`, {
+        method: 'POST',
+        body: {}
+      });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      toast({ 
+        title: memory.isLiked ? "Unliked" : "Liked!", 
+        duration: 1500 
+      });
+    }
   });
 
   // Add reaction mutation
@@ -228,6 +248,22 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
         {/* Actions */}
         <div className="border-t border-gray-100">
           <div className="flex items-center">
+            {/* Like button - ESA Agent #11 */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => likeMutation.mutate()}
+              disabled={likeMutation.isPending}
+              className={`flex-1 justify-center gap-2 ${memory.isLiked ? 'text-red-600' : 'text-gray-600'} hover:text-red-600`}
+              data-testid={`button-like-${memory.id}`}
+            >
+              <Heart className={`h-4 w-4 ${memory.isLiked ? 'fill-current' : ''}`} />
+              <span className="text-sm font-medium">
+                {memory.isLiked ? 'Liked' : 'Like'}
+                {memory.likeCount && memory.likeCount > 0 ? ` (${memory.likeCount})` : ''}
+              </span>
+            </Button>
+            
             {/* Reaction button */}
             <div className="relative flex-1">
               <Button
@@ -236,6 +272,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                 onMouseEnter={() => setShowReactionPicker(true)}
                 onMouseLeave={() => setShowReactionPicker(false)}
                 className="w-full justify-center gap-2 text-gray-600 hover:text-gray-900"
+                data-testid={`button-reaction-${memory.id}`}
               >
                 {memory.userReaction ? (
                   reactions.find(r => r.name === memory.userReaction)?.emoji || <ThumbsUp className="h-4 w-4" />
@@ -243,7 +280,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                   <ThumbsUp className="h-4 w-4" />
                 )}
                 <span className="text-sm font-medium">
-                  {memory.userReaction || 'Like'}
+                  {memory.userReaction || 'React'}
                 </span>
               </Button>
 
