@@ -4333,3 +4333,172 @@ export type InsertEditSession = z.infer<typeof insertEditSessionSchema>;
 
 export type MrBlueConversation = typeof mrBlueConversations.$inferSelect;
 export type InsertMrBlueConversation = z.infer<typeof insertMrBlueConversationSchema>;
+
+// ============================================================================
+// ESA AGENT #80: INTER-AGENT LEARNING SYSTEM
+// ============================================================================
+
+// Agent Learnings - Captures all learnings from all agents
+export const agentLearnings = pgTable("agent_learnings", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id").notNull(), // e.g., "Agent #73", "Agent #79"
+  category: varchar("category").notNull(), // 'bug_fix', 'optimization', 'pattern', 'insight'
+  domain: varchar("domain").notNull(), // 'mobile', 'performance', 'ui', 'backend'
+  problem: text("problem").notNull(),
+  rootCause: text("root_cause"),
+  solution: text("solution").notNull(),
+  context: jsonb("context").$type<{
+    feature?: string;
+    files_changed?: string[];
+    related_agents?: string[];
+    [key: string]: any;
+  }>(),
+  outcome: jsonb("outcome").$type<{
+    success: boolean;
+    impact: 'low' | 'medium' | 'high';
+    time_saved?: string;
+    performance_gain?: string;
+    [key: string]: any;
+  }>(),
+  confidence: real("confidence").default(0.5), // 0.0 to 1.0
+  reuseCount: integer("reuse_count").default(0), // How many times reused
+  successRate: real("success_rate").default(0), // Success when others apply it
+  tags: text("tags").array(),
+  embedding: text("embedding"), // OpenAI embedding for semantic search (JSON string)
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_agent_learnings_agent").on(table.agentId),
+  index("idx_agent_learnings_category").on(table.category),
+  index("idx_agent_learnings_domain").on(table.domain),
+]);
+
+// Learning Patterns - Synthesized patterns from multiple learnings
+export const learningPatterns = pgTable("learning_patterns", {
+  id: serial("id").primaryKey(),
+  patternName: varchar("pattern_name").unique().notNull(),
+  problemSignature: text("problem_signature").notNull(),
+  solutionTemplate: text("solution_template").notNull(),
+  discoveredBy: text("discovered_by").array(), // Agent IDs
+  timesApplied: integer("times_applied").default(0),
+  successRate: real("success_rate").default(0),
+  variations: jsonb("variations").$type<Array<{
+    scenario: string;
+    solution: string;
+    success_rate: number;
+  }>>(),
+  whenNotToUse: text("when_not_to_use"),
+  codeExample: text("code_example"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_learning_patterns_name").on(table.patternName),
+]);
+
+// ============================================================================
+// ESA AGENT #79: QUALITY VALIDATION SYSTEM
+// ============================================================================
+
+// Validation Results - Stores all validation outcomes
+export const validationResults = pgTable("validation_results", {
+  id: serial("id").primaryKey(),
+  validatorAgent: varchar("validator_agent").default('Agent #79'),
+  targetAgent: varchar("target_agent").notNull(), // Agent responsible for feature
+  feature: varchar("feature").notNull(),
+  page: varchar("page"),
+  testType: varchar("test_type").notNull(), // 'functional', 'performance', 'mobile', 'journey'
+  status: varchar("status").notNull(), // 'passed', 'failed', 'warning'
+  issues: jsonb("issues").$type<Array<{
+    severity: 'low' | 'medium' | 'high' | 'critical';
+    description: string;
+    root_cause?: string;
+    location?: string;
+  }>>(),
+  suggestions: jsonb("suggestions").$type<Array<{
+    type: 'proven_pattern' | 'ai_generated' | 'best_practice';
+    solution: string;
+    source?: string;
+    confidence: number;
+    code_example?: string;
+  }>>(),
+  fixPlan: jsonb("fix_plan").$type<{
+    priority: string;
+    estimated_time: string;
+    steps: string[];
+    files_to_modify: string[];
+    validation_criteria: string[];
+  }>(),
+  collaborationOffered: boolean("collaboration_offered").default(false),
+  agentResponse: varchar("agent_response"), // 'accepted', 'modified', 'rejected'
+  timeToFix: integer("time_to_fix"), // Minutes
+  validatedAt: timestamp("validated_at").defaultNow(),
+  fixedAt: timestamp("fixed_at"),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_validation_results_target").on(table.targetAgent),
+  index("idx_validation_results_status").on(table.status),
+  index("idx_validation_results_feature").on(table.feature),
+]);
+
+// Customer Journey Tests - Track journey validation
+export const customerJourneyTests = pgTable("customer_journey_tests", {
+  id: serial("id").primaryKey(),
+  journeyName: varchar("journey_name").notNull(),
+  journeySteps: jsonb("journey_steps").$type<Array<{
+    step: number;
+    description: string;
+    route: string;
+    expected_outcome: string;
+  }>>(),
+  status: varchar("status").notNull(), // 'passed', 'failed', 'partial'
+  failedStep: integer("failed_step"),
+  failureReason: text("failure_reason"),
+  responsibleAgents: text("responsible_agents").array(),
+  deviceTested: varchar("device_tested"), // 'desktop', 'mobile', 'tablet'
+  testedAt: timestamp("tested_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_journey_tests_name").on(table.journeyName),
+  index("idx_journey_tests_status").on(table.status),
+]);
+
+// ============================================================================
+// INSERT SCHEMAS & TYPES
+// ============================================================================
+
+// Agent Learnings
+export const insertAgentLearningSchema = createInsertSchema(agentLearnings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLearningPatternSchema = createInsertSchema(learningPatterns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Validation Results
+export const insertValidationResultSchema = createInsertSchema(validationResults).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCustomerJourneyTestSchema = createInsertSchema(customerJourneyTests).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types
+export type AgentLearning = typeof agentLearnings.$inferSelect;
+export type InsertAgentLearning = z.infer<typeof insertAgentLearningSchema>;
+
+export type LearningPattern = typeof learningPatterns.$inferSelect;
+export type InsertLearningPattern = z.infer<typeof insertLearningPatternSchema>;
+
+export type ValidationResult = typeof validationResults.$inferSelect;
+export type InsertValidationResult = z.infer<typeof insertValidationResultSchema>;
+
+export type CustomerJourneyTest = typeof customerJourneyTests.$inferSelect;
+export type InsertCustomerJourneyTest = z.infer<typeof insertCustomerJourneyTestSchema>;
