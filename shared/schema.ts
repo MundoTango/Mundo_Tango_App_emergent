@@ -3847,3 +3847,155 @@ export type ProjectTrackerActivity = typeof projectTrackerActivity.$inferSelect;
 export type InsertProjectTrackerActivity = z.infer<typeof insertProjectTrackerActivitySchema>;
 export type ProjectDependency = typeof projectDependencies.$inferSelect;
 export type InsertProjectDependency = z.infer<typeof insertProjectDependencySchema>;
+
+// ========================================
+// AI INTELLIGENCE NETWORK TABLES
+// Agent #31 (AI Infrastructure) + Agent #36 (Memory Systems)
+// ESA Framework - Tier 1: Foundation Layer
+// ========================================
+
+// AI Conversation Memory - stores user AI conversations for cross-page context
+export const aiConversationMemory = pgTable("ai_conversation_memory", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id, { onDelete: 'cascade' }),
+  sessionId: varchar("session_id", { length: 255 }).notNull(), // Group related conversations
+  pageRoute: varchar("page_route", { length: 500 }).notNull(), // Where conversation happened
+  userQuery: text("user_query").notNull(), // What user asked
+  aiResponse: text("ai_response").notNull(), // What AI responded
+  context: jsonb("context").default({}).notNull(), // Page context (journey history, user role, etc)
+  intent: varchar("intent", { length: 100 }), // Detected user intent (help, navigation, troubleshoot)
+  sentiment: varchar("sentiment", { length: 50 }), // User sentiment (frustrated, confused, satisfied)
+  wasHelpful: boolean("was_helpful"), // User feedback on AI response
+  agentUsed: varchar("agent_used", { length: 100 }), // Which sub-agent handled this (Agent #68-71, Life CEO agents)
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_ai_conv_userid").on(table.userId),
+  index("idx_ai_conv_session").on(table.sessionId),
+  index("idx_ai_conv_page").on(table.pageRoute),
+  index("idx_ai_conv_intent").on(table.intent),
+  index("idx_ai_conv_created").on(table.createdAt),
+]);
+
+// Page Journey Patterns - ML-learned patterns of user journeys
+export const pageJourneyPatterns = pgTable("page_journey_patterns", {
+  id: serial("id").primaryKey(),
+  patternName: varchar("pattern_name", { length: 255 }).notNull(), // e.g., "new_user_housing_search"
+  journeySequence: text("journey_sequence").array().notNull(), // ['/profile', '/community', '/housing', '/apply']
+  userRole: varchar("user_role", { length: 100 }), // Which role follows this pattern
+  frequency: integer("frequency").default(0).notNull(), // How many times observed
+  confidence: real("confidence").default(0.0).notNull(), // ML confidence score (0.0 - 1.0)
+  nextPagePrediction: varchar("next_page_prediction", { length: 500 }), // Predicted next page
+  predictionProbability: real("prediction_probability").default(0.0), // Probability of prediction
+  avgTimePerPage: jsonb("avg_time_per_page").default({}).notNull(), // {'/profile': 45000, '/housing': 120000} ms
+  commonExitPoints: text("common_exit_points").array(), // Where users typically leave
+  conversionRate: real("conversion_rate"), // If pattern leads to conversion
+  metadata: jsonb("metadata").default({}).notNull(), // Additional ML metadata
+  isActive: boolean("is_active").default(true), // Pattern still relevant
+  learnedBy: varchar("learned_by", { length: 100 }).default('Agent #71'), // Which agent learned this
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_journey_role").on(table.userRole),
+  index("idx_journey_confidence").on(table.confidence),
+  index("idx_journey_active").on(table.isActive),
+  index("idx_journey_frequency").on(table.frequency),
+]);
+
+// Learned Patterns - patterns extracted from audits (Agent #68 Pattern Recognition)
+export const learnedPatterns = pgTable("learned_patterns", {
+  id: serial("id").primaryKey(),
+  patternType: varchar("pattern_type", { length: 100 }).notNull(), // issue, success, optimization, accessibility
+  title: varchar("title", { length: 255 }).notNull(), // "Missing dark mode on buttons"
+  description: text("description").notNull(), // Detailed pattern description
+  affectedPages: text("affected_pages").array().notNull(), // ['/admin/users', '/admin/events']
+  occurrences: integer("occurrences").default(1).notNull(), // How many pages have this
+  severity: varchar("severity", { length: 50 }).default('medium'), // low, medium, high, critical
+  confidence: real("confidence").default(0.0).notNull(), // Pattern confidence (0.0 - 1.0)
+  suggestedSolution: text("suggested_solution"), // AI-suggested fix
+  implementationStatus: varchar("implementation_status", { length: 50 }).default('pending'), // pending, in_progress, resolved
+  auditPhase: integer("audit_phase"), // Which audit phase detected this (1-18)
+  discoveredBy: varchar("discovered_by", { length: 100 }).default('Agent #68'), // Which agent found this
+  resolvedBy: varchar("resolved_by", { length: 100 }), // Which agent fixed it
+  metadata: jsonb("metadata").default({}).notNull(), // Additional context
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_pattern_type").on(table.patternType),
+  index("idx_pattern_severity").on(table.severity),
+  index("idx_pattern_status").on(table.implementationStatus),
+  index("idx_pattern_confidence").on(table.confidence),
+]);
+
+// AI User Preferences - personalized AI support preferences
+export const aiUserPreferences = pgTable("ai_user_preferences", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").unique().references(() => users.id, { onDelete: 'cascade' }),
+  preferredLanguage: varchar("preferred_language", { length: 10 }).default('en'), // User's preferred language for AI
+  aiHelpFrequency: varchar("ai_help_frequency", { length: 50 }).default('moderate'), // never, minimal, moderate, proactive
+  showSmartSuggestions: boolean("show_smart_suggestions").default(true), // Show AI page suggestions
+  showProactiveTips: boolean("show_proactive_tips").default(true), // Show proactive help
+  contextPreservation: boolean("context_preservation").default(true), // Remember cross-page context
+  favoriteAgents: text("favorite_agents").array(), // Preferred Life CEO agents
+  interactionHistory: jsonb("interaction_history").default({}).notNull(), // {total: 150, helpful: 120, dismissed: 30}
+  learningPreferences: jsonb("learning_preferences").default({}).notNull(), // User's learning style preferences
+  privacySettings: jsonb("privacy_settings").default({
+    shareJourneyData: true,
+    allowPersonalization: true,
+    storeConversations: true
+  }).notNull(),
+  lastAiInteraction: timestamp("last_ai_interaction"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_ai_pref_userid").on(table.userId),
+  index("idx_ai_pref_lang").on(table.preferredLanguage),
+]);
+
+// Insert schemas for AI tables
+export const insertAiConversationMemorySchema = createInsertSchema(aiConversationMemory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertPageJourneyPatternSchema = createInsertSchema(pageJourneyPatterns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLearnedPatternSchema = createInsertSchema(learnedPatterns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAiUserPreferencesSchema = createInsertSchema(aiUserPreferences).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types for AI Intelligence Network
+export type AiConversationMemory = typeof aiConversationMemory.$inferSelect;
+export type InsertAiConversationMemory = z.infer<typeof insertAiConversationMemorySchema>;
+export type PageJourneyPattern = typeof pageJourneyPatterns.$inferSelect;
+export type InsertPageJourneyPattern = z.infer<typeof insertPageJourneyPatternSchema>;
+export type LearnedPattern = typeof learnedPatterns.$inferSelect;
+export type InsertLearnedPattern = z.infer<typeof insertLearnedPatternSchema>;
+export type AiUserPreferences = typeof aiUserPreferences.$inferSelect;
+export type InsertAiUserPreferences = z.infer<typeof insertAiUserPreferencesSchema>;
+
+// Relations for AI tables
+export const aiConversationMemoryRelations = relations(aiConversationMemory, ({ one }) => ({
+  user: one(users, {
+    fields: [aiConversationMemory.userId],
+    references: [users.id]
+  })
+}));
+
+export const aiUserPreferencesRelations = relations(aiUserPreferences, ({ one }) => ({
+  user: one(users, {
+    fields: [aiUserPreferences.userId],
+    references: [users.id]
+  })
+}));
