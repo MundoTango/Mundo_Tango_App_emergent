@@ -90,6 +90,13 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading password reset...',
     description: 'Password reset request'
   },
+  {
+    path: '/reset-password',
+    component: lazy(() => import('@/pages/auth/reset-password')),
+    mode: 'production',
+    loadingMessage: 'Loading password reset confirmation...',
+    description: 'Password reset confirmation page'
+  },
 
   // ========== User Management Routes ==========
   {
