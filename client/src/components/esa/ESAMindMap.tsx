@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { esaAgents, auditPhases, decisionLevels } from '@/data/esaFrameworkData';
 import { detectPageContext, getContextSummary } from '@/services/esaContextService';
 import { ESAMindMapChat } from './ESAMindMapChat';
+import { shouldShowESAMindMap } from '@/utils/accessControl';
 
 type ViewMode = 'navigator' | 'chat';
 
@@ -20,25 +21,8 @@ export function ESAMindMap() {
   const [currentRoute, setLocation] = useLocation();
   const { user } = useAuth();
   
-  // ESA Section 10.11: Access control for Interactive AI Agent
-  // Layer 1: Feature flag (defaults to true, can be disabled via env)
-  const isFeatureEnabled = import.meta.env.VITE_ESA_MIND_ENABLED !== 'false';
-  
-  // Layer 2: Super Admin check (show on ALL pages for Super Admins)
-  // Per esa.md Section 10.11: "CRITICAL: ESA MindMap must be visible on ALL pages for Super Admins, not just admin routes"
-  const isSuperAdmin = 
-    user?.username === 'admin' || 
-    user?.email?.includes('admin') || 
-    (user as any)?.isSuperAdmin === true ||
-    user?.email === 'admin@mundotango.life';
-  
-  // Hide if feature disabled AND not super admin
-  if (!isFeatureEnabled && !isSuperAdmin) {
-    return null;
-  }
-  
-  // Show if super admin OR feature enabled
-  if (!isSuperAdmin && !isFeatureEnabled) {
+  // ESA Unified Access Control - Single source of truth
+  if (!shouldShowESAMindMap(user)) {
     return null;
   }
   
