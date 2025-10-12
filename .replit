@@ -8,8 +8,8 @@ packages = ["unzip", "imagemagick", "k6", "ffmpeg", "jq", "chromium", "firefox",
 
 [deployment]
 deploymentTarget = "vm"
-build = ["npm", "run", "build"]
-run = ["node", "--max-old-space-size=4096", "-r", "tsx/cjs", "server/index.ts"]
+build = ["sh", "-c", "npm ci --prefer-offline --no-audit && npm run build && npm cache clean --force"]
+run = ["node", "--max-old-space-size=2048", "-r", "tsx/cjs", "server/index.ts"]
 
 [[ports]]
 localPort = 5000
