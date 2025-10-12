@@ -3999,3 +3999,235 @@ export const aiUserPreferencesRelations = relations(aiUserPreferences, ({ one })
     references: [users.id]
   })
 }));
+
+// ============================================================================
+// ESA AGENT #75: SUBSCRIPTION TIER & FEATURE FLAG SYSTEM
+// ============================================================================
+
+// Subscription Tiers (Agent #72 Pricing Strategy)
+export const subscriptionTiers = pgTable("subscription_tiers", {
+  id: varchar("id").primaryKey(), // 'free', 'explorer', 'mrblue', 'professional'
+  name: varchar("name").notNull(),
+  displayName: varchar("display_name").notNull(),
+  description: text("description"),
+  price: numeric("price", { precision: 10, scale: 2 }),
+  currency: varchar("currency").default('USD'),
+  billingInterval: varchar("billing_interval"), // 'month', 'year'
+  stripePriceId: varchar("stripe_price_id"),
+  features: jsonb("features").$type<string[]>(),
+  active: boolean("active").default(true),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+
+// Feature Flags (Agent #75 Subscription Manager)
+export const featureFlags = pgTable("feature_flags", {
+  id: varchar("id").primaryKey(),
+  name: varchar("name").notNull(),
+  description: text("description"),
+  category: varchar("category"), // 'social', 'ai', 'professional', 'global'
+  requiredTier: varchar("required_tier").references(() => subscriptionTiers.id),
+  enabled: boolean("enabled").default(true),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_feature_tier").on(table.requiredTier),
+  index("idx_feature_category").on(table.category),
+]);
+
+// User Subscriptions (Enhanced)
+export const userSubscriptions = pgTable("user_subscriptions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  tierId: varchar("tier_id").notNull().references(() => subscriptionTiers.id),
+  stripeSubscriptionId: varchar("stripe_subscription_id"),
+  stripeCustomerId: varchar("stripe_customer_id"),
+  status: varchar("status"), // 'active', 'canceled', 'past_due', 'trialing'
+  currentPeriodStart: timestamp("current_period_start"),
+  currentPeriodEnd: timestamp("current_period_end"),
+  cancelAtPeriodEnd: boolean("cancel_at_period_end").default(false),
+  trialEnd: timestamp("trial_end"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_user_sub_userid").on(table.userId),
+  index("idx_user_sub_status").on(table.status),
+]);
+
+// Promo Codes
+export const promoCodes = pgTable("promo_codes", {
+  id: serial("id").primaryKey(),
+  code: varchar("code").notNull().unique(),
+  description: text("description"),
+  discountType: varchar("discount_type"), // 'percent', 'fixed'
+  discountValue: numeric("discount_value", { precision: 10, scale: 2 }),
+  tierId: varchar("tier_id").references(() => subscriptionTiers.id),
+  maxUses: integer("max_uses"),
+  usedCount: integer("used_count").default(0),
+  validFrom: timestamp("valid_from").defaultNow(),
+  validUntil: timestamp("valid_until"),
+  active: boolean("active").default(true),
+  createdBy: integer("created_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_promo_code").on(table.code),
+  index("idx_promo_active").on(table.active),
+]);
+
+// Subscription History
+export const subscriptionHistory = pgTable("subscription_history", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  fromTier: varchar("from_tier").references(() => subscriptionTiers.id),
+  toTier: varchar("to_tier").references(() => subscriptionTiers.id),
+  action: varchar("action"), // 'upgrade', 'downgrade', 'cancel', 'reactivate'
+  reason: text("reason"),
+  refundAmount: numeric("refund_amount", { precision: 10, scale: 2 }),
+  promoCode: varchar("promo_code"),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_sub_history_userid").on(table.userId),
+  index("idx_sub_history_action").on(table.action),
+]);
+
+// ============================================================================
+// ESA AGENT #74: INTERACTIVE TOUR SYSTEM
+// ============================================================================
+
+// User Tour Progress
+export const userTourProgress = pgTable("user_tour_progress", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  tourId: varchar("tour_id").notNull(), // 'welcome', 'host', 'teacher', 'organizer', 'professional'
+  currentStep: integer("current_step").default(0),
+  completed: boolean("completed").default(false),
+  completedAt: timestamp("completed_at"),
+  skipped: boolean("skipped").default(false),
+  timeSpent: integer("time_spent_seconds"),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_tour_userid").on(table.userId),
+  index("idx_tour_id").on(table.tourId),
+  unique("unique_user_tour").on(table.userId, table.tourId),
+]);
+
+// ============================================================================
+// ESA AGENT #77: AI SITE BUILDER SYSTEM
+// ============================================================================
+
+// Professional Sites
+export const professionalSites = pgTable("professional_sites", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  name: varchar("name").notNull(),
+  description: text("description"),
+  type: varchar("type"), // 'event', 'school', 'teacher', 'host', 'generic'
+  subdomain: varchar("subdomain").unique(),
+  customDomain: varchar("custom_domain"),
+  domain: varchar("domain"), // Full domain
+  template: varchar("template"),
+  content: jsonb("content"), // Site structure & content
+  html: text("html"),
+  css: text("css"),
+  status: varchar("status").default('draft'), // 'draft', 'live', 'archived'
+  views: integer("views").default(0),
+  seo: jsonb("seo").$type<{
+    title: string;
+    description: string;
+    keywords: string[];
+    ogImage: string;
+  }>(),
+  deployedAt: timestamp("deployed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_pro_site_userid").on(table.userId),
+  index("idx_pro_site_status").on(table.status),
+  index("idx_pro_site_subdomain").on(table.subdomain),
+]);
+
+// Site Analytics
+export const siteAnalytics = pgTable("site_analytics", {
+  id: serial("id").primaryKey(),
+  siteId: integer("site_id").references(() => professionalSites.id, { onDelete: 'cascade' }),
+  event: varchar("event"), // 'page_view', 'click', 'conversion'
+  data: jsonb("data"),
+  timestamp: timestamp("timestamp").defaultNow()
+}, (table) => [
+  index("idx_site_analytics_siteid").on(table.siteId),
+  index("idx_site_analytics_event").on(table.event),
+]);
+
+// ============================================================================
+// INSERT SCHEMAS & TYPES
+// ============================================================================
+
+// Subscription Tier Schemas
+export const insertSubscriptionTierSchema = createInsertSchema(subscriptionTiers).omit({
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertFeatureFlagSchema = createInsertSchema(featureFlags).omit({
+  createdAt: true,
+});
+
+export const insertUserSubscriptionSchema = createInsertSchema(userSubscriptions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPromoCodeSchema = createInsertSchema(promoCodes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSubscriptionHistorySchema = createInsertSchema(subscriptionHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Tour Schemas
+export const insertUserTourProgressSchema = createInsertSchema(userTourProgress).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Site Builder Schemas
+export const insertProfessionalSiteSchema = createInsertSchema(professionalSites).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSiteAnalyticsSchema = createInsertSchema(siteAnalytics).omit({
+  id: true,
+  timestamp: true,
+});
+
+// Types
+export type SubscriptionTier = typeof subscriptionTiers.$inferSelect;
+export type InsertSubscriptionTier = z.infer<typeof insertSubscriptionTierSchema>;
+
+export type FeatureFlag = typeof featureFlags.$inferSelect;
+export type InsertFeatureFlag = z.infer<typeof insertFeatureFlagSchema>;
+
+export type UserSubscription = typeof userSubscriptions.$inferSelect;
+export type InsertUserSubscription = z.infer<typeof insertUserSubscriptionSchema>;
+
+export type PromoCode = typeof promoCodes.$inferSelect;
+export type InsertPromoCode = z.infer<typeof insertPromoCodeSchema>;
+
+export type SubscriptionHistory = typeof subscriptionHistory.$inferSelect;
+export type InsertSubscriptionHistory = z.infer<typeof insertSubscriptionHistorySchema>;
+
+export type UserTourProgress = typeof userTourProgress.$inferSelect;
+export type InsertUserTourProgress = z.infer<typeof insertUserTourProgressSchema>;
+
+export type ProfessionalSite = typeof professionalSites.$inferSelect;
+export type InsertProfessionalSite = z.infer<typeof insertProfessionalSiteSchema>;
+
+export type SiteAnalytics = typeof siteAnalytics.$inferSelect;
+export type InsertSiteAnalytics = z.infer<typeof insertSiteAnalyticsSchema>;
