@@ -444,7 +444,6 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@actions/github": "^6.0.1",
     "@faker-js/faker": "^10.0.0",
     "@octokit/rest": "^22.0.0",
     "@replit/vite-plugin-cartographer": "^0.2.7",
