@@ -3336,6 +3336,388 @@ Every agent maintains for human review:
 
 ---
 
+## 🧠 Section 10: Building Context-Aware Admin Tools
+
+**Purpose:** Guide for building internal ESA tools that understand their environment and provide intelligent agent/layer visibility to Super Admins.
+
+**Key Principle:** Admin tools for ESA should be **context-aware** - they detect what page they're on and show which agents built that page, creating transparency in the 105-agent system.
+
+---
+
+### 10.1 Context Detection Pattern
+
+**How Admin Tools Understand Their Environment:**
+
+```typescript
+// 1. Detect current route
+const [location] = useLocation();
+
+// 2. Look up responsible agents from registry
+const pageAgents = AGENT_PAGE_REGISTRY[location] || [];
+
+// 3. Display relevant agent information
+<CurrentPageContext agents={pageAgents} />
+```
+
+**Pattern Flow:**
+1. Component mounts → detects current route via `useLocation()`
+2. Looks up route in agent-to-page registry
+3. Fetches agent details from ESA framework data
+4. Displays context-relevant information to admin
+
+**Use Cases:**
+- Floating navigation showing "This page built by Agent #65, #64, #6"
+- Dashboard filtering metrics by current page context
+- Debug tools identifying responsible agents for issues
+
+---
+
+### 10.2 Agent-to-Page Registry
+
+**Structure:** TypeScript map linking admin pages to responsible ESA agents
+
+```typescript
+export const AGENT_PAGE_REGISTRY: Record<string, number[]> = {
+  // Project Management
+  '/admin/project-tracker': [65, 64, 6, 11],  // Agent #65 (tracker) + #64 (docs) + #6 (state) + #11 (UI)
+  
+  // ESA Tools
+  '/admin/esa-dashboard': [0, 64, 12, 11],    // Agent #0 (CEO) + #64 (docs) + #12 (viz) + #11 (UI)
+  '/admin/esa-mind': [0, 12, 6, 11],          // ESA Mind dashboard
+  
+  // Platform Admin
+  '/admin': [0, 11, 64],                       // Admin Center - Agent #0 + #11 + #64
+  '/admin/users': [8, 11, 6],                  // User management
+  '/admin/analytics': [12, 6, 11],             // Analytics dashboard
+  
+  // Add more as platform grows...
+};
+```
+
+**Maintenance Rules:**
+1. **Update on new page creation** - Agent who builds page adds registry entry
+2. **Multi-agent attribution** - Most pages involve 3-5 agents (list all)
+3. **Primary agent first** - Order by responsibility level
+4. **Agent #64 reviews** - Ensures registry accuracy during code reviews
+
+**How to Determine Responsible Agents:**
+- **Primary builder** - Which layer agent wrote the core logic? (#1-61)
+- **Design** - Did Agent #11 (UI/UX) or #12 (Data Viz) design it?
+- **State management** - Does Agent #6 handle state?
+- **Documentation** - Did Agent #64 document it?
+- **Orchestration** - Did Agent #0 coordinate multiple agents?
+
+---
+
+### 10.3 Progressive Disclosure for Admin Tools
+
+**Three Levels of ESA Visibility:**
+
+**Level 1: Minimal Indicator (Always Visible)**
+- Floating button (ESAMindMap) in bottom-right corner
+- Visible only to Super Admins
+- Magnetic interaction, subtle presence
+- Shows ESA is available without overwhelming
+
+**Level 2: Quick Actions (On Demand)**
+- Click floating button → Quick Navigator overlay appears
+- Shows: Live stats, current page context, 5 quick actions
+- "Current Page Agents" section listing responsible agents
+- Links to deeper exploration
+
+**Level 3: Deep Exploration (Full Dashboard)**
+- ESA Mind dashboard at `/admin/esa-mind`
+- Comprehensive metrics: 105 agents, 61 layers, training progress
+- Filterable views by context (global, current page, specific agent)
+- Agent hierarchy visualization, quality gates, performance metrics
+
+**Progressive Pattern:**
+```
+Floating Button (Level 1)
+    ↓ click
+Quick Navigator Overlay (Level 2)
+    ↓ click "Full Dashboard" or any action
+ESA Mind Dashboard (Level 3) with context
+```
+
+---
+
+### 10.4 Super Admin Access Control
+
+**Role Hierarchy for ESA Tools:**
+1. **Super Admin** - Full ESA visibility (agent metrics, layer inspection, quality gates)
+2. **Platform Admin** - Limited access (own agent's metrics only)
+3. **Regular Admin** - No ESA visibility (standard admin tools only)
+
+**Access Control Pattern:**
+
+```typescript
+// 1. Feature Flag (database/config)
+const ESA_MIND_ENABLED = import.meta.env.VITE_ESA_MIND_ENABLED === 'true';
+
+// 2. Role Check
+const isSuperAdmin = user?.role === 'super_admin';
+
+// 3. Conditional Rendering
+{ESA_MIND_ENABLED && isSuperAdmin && <ESAMindMap />}
+```
+
+**Security Considerations:**
+- ESA tools expose internal architecture → Super Admin only
+- Feature flag allows toggling without code changes
+- Audit log when Super Admins access ESA tools
+- No sensitive credentials displayed (agent names/roles only)
+
+---
+
+### 10.5 Unified Dashboard Architecture
+
+**Principle:** All ESA visibility tools point to ONE unified dashboard (ESA Mind)
+
+**URL Pattern:**
+```
+/admin/esa-mind                          # Global view (all agents, all layers)
+/admin/esa-mind?context=/admin/users     # Contextual view (agents for user page)
+/admin/esa-mind?view=quality-gates       # Specific view (quality gates only)
+/admin/esa-mind?agent=65                 # Agent-specific view (Agent #65 details)
+```
+
+**Dashboard Modes:**
+
+1. **Global Mode** (no params)
+   - 105 agents overview
+   - 61 layers status
+   - Training progress (14 trained, 13.3%)
+   - Quality gate compliance
+
+2. **Context Mode** (`?context=/admin/page`)
+   - Filters metrics to show only agents for that page
+   - Displays agent hierarchy for current context
+   - Shows layer dependencies
+
+3. **View Mode** (`?view=type`)
+   - `quality-gates` - Quality gate compliance dashboard
+   - `training` - Agent training status and progress
+   - `audit` - 17-phase audit system status
+   - `org-chart` - Full 105-agent hierarchy
+
+4. **Agent Mode** (`?agent=65`)
+   - Deep dive on specific agent
+   - Pages built, quality metrics, training status
+   - Recent activity, performance trends
+
+**Link Pattern (from ESAMindMap Quick Navigator):**
+- "Full Dashboard" → `/admin/esa-mind` (global)
+- "Agent Org Chart" → `/admin/esa-mind?view=org-chart`
+- "Quality Gates" → `/admin/esa-mind?view=quality-gates`
+- "Training Status" → `/admin/esa-mind?view=training`
+- Current page context → `/admin/esa-mind?context={currentRoute}`
+
+---
+
+### 10.6 Admin Tool Quality Gates
+
+**Different Checklist for Internal ESA Tools vs. User Features:**
+
+#### Gate 1: Admin Context Validation
+- [ ] **Who is the admin user?** (Super Admin, Platform Admin, Developer role)
+- [ ] **What context does this tool need?** (current page, agent, layer, system-wide)
+- [ ] **Is this exposing sensitive data?** (agent architecture, internal metrics)
+- [ ] **Should this be feature-flagged?** (role-based access, gradual rollout)
+
+#### Gate 2: Admin Tool Discovery
+- [ ] **Integration with admin layout** (sidebar, MT Ocean header, Aurora Tide design)
+- [ ] **Context detection method** (useLocation, URL params, state management)
+- [ ] **Data source** (agent-to-page registry, ESA framework data, live metrics)
+- [ ] **Access control** (Super Admin check, feature flag validation)
+
+#### Gate 3: Agent #64 Review (ESA Tools)
+- [ ] **Registry updated?** (agent-to-page mapping includes this tool)
+- [ ] **Links point to ESA Mind?** (unified dashboard, not duplicate viewers)
+- [ ] **Documentation complete?** (what this tool does, which agents it reveals)
+- [ ] **No duplicates?** (reuse existing ESA visibility components)
+
+#### Gate 4: Admin Tool Testing
+- [ ] **Super Admin access works** (visible to correct role)
+- [ ] **Non-admins blocked** (hidden/disabled for regular users)
+- [ ] **Context detection accurate** (shows correct agents for page)
+- [ ] **Performance acceptable** (no lag on admin pages)
+
+**Key Differences from User Feature Gates:**
+- Admin tools check **role/permissions** (not user personas)
+- Focus on **internal data exposure** (not user privacy)
+- **Context awareness** is core requirement (not optional)
+- **Integration with admin system** is mandatory (sidebar, header, etc.)
+
+---
+
+### 10.7 Common Admin Tool Patterns
+
+**Pattern 1: Context-Aware Floating Tool**
+```typescript
+// ESAMindMap example
+function ESAMindMap() {
+  const [location] = useLocation();
+  const pageAgents = AGENT_PAGE_REGISTRY[location] || [];
+  const { user } = useAuth();
+  
+  if (!user || user.role !== 'super_admin') return null;
+  
+  return (
+    <FloatingButton>
+      <Overlay>
+        <CurrentPageContext agents={pageAgents} />
+        <QuickActions links={toESAMind(location)} />
+      </Overlay>
+    </FloatingButton>
+  );
+}
+```
+
+**Pattern 2: Unified Dashboard with Context**
+```typescript
+// ESA Mind dashboard
+function ESAMind() {
+  const [searchParams] = useSearchParams();
+  const context = searchParams.get('context');
+  const view = searchParams.get('view');
+  
+  // Global view
+  if (!context && !view) return <GlobalMetrics />;
+  
+  // Context-filtered view
+  if (context) {
+    const agents = AGENT_PAGE_REGISTRY[context];
+    return <ContextualMetrics agents={agents} page={context} />;
+  }
+  
+  // Specific view mode
+  return <SpecificView type={view} />;
+}
+```
+
+**Pattern 3: Agent Attribution Display**
+```typescript
+// Show which agents built current page
+function CurrentPageAgents({ route }: { route: string }) {
+  const agentIds = AGENT_PAGE_REGISTRY[route] || [];
+  const agents = agentIds.map(id => ESA_AGENTS.find(a => a.id === id));
+  
+  return (
+    <div>
+      <h3>This page built by:</h3>
+      {agents.map(agent => (
+        <AgentCard 
+          key={agent.id} 
+          agent={agent}
+          linkTo={`/admin/esa-mind?agent=${agent.id}`}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+---
+
+### 10.8 Q&A: Building Admin ESA Tools
+
+**Q: How do admin tools detect what page they're on?**
+A: Use `useLocation()` hook from routing library (wouter). Returns current route (e.g., `/admin/users`), then look up in `AGENT_PAGE_REGISTRY` to find responsible agents.
+
+**Q: How do we map pages to responsible agents?**
+A: Maintain `AGENT_PAGE_REGISTRY` TypeScript map. Each page lists 3-5 agents who built it. Primary agent first, supporting agents after. Agent #64 reviews accuracy during code reviews.
+
+**Q: Where should all ESA visibility tools point to?**
+A: ONE unified dashboard: `/admin/esa-mind`. Pass context via URL params (`?context=/admin/users`). Don't create duplicate agent viewers - extend ESA Mind instead.
+
+**Q: What's the access control pattern for ESA tools?**
+A: Two-layer: (1) Feature flag (`VITE_ESA_MIND_ENABLED`) for kill switch, (2) Role check (`user.role === 'super_admin'`). Both must pass to show ESA tools.
+
+**Q: How does ESAMindMap know what to show?**
+A: Detects current route → looks up agents from registry → displays "Current Page Agents" section in overlay → links to ESA Mind dashboard with context param.
+
+**Q: Can one page have multiple responsible agents?**
+A: Yes! Most pages involve 3-5 agents. Example: Project tracker = Agent #65 (tracker logic) + #64 (docs) + #6 (state) + #11 (UI). List all contributors.
+
+**Q: How do we maintain the agent-to-page registry over time?**
+A: (1) Agent building new page adds registry entry, (2) Agent #64 reviews during code review, (3) Periodic audits ensure accuracy, (4) Registry is version-controlled with code.
+
+---
+
+### 10.9 ESA Mind Architecture
+
+**Components:**
+
+1. **ESAMindMap** (Floating Navigator)
+   - Location: Bottom-right corner of admin pages
+   - Visibility: Super Admin only (role + feature flag)
+   - Behavior: Click → shows overlay with context + quick actions
+   - Links: All point to ESA Mind dashboard with appropriate params
+
+2. **ESA Mind Dashboard** (`/admin/esa-mind`)
+   - Primary metrics hub for ESA framework
+   - Modes: Global, contextual, view-specific, agent-specific
+   - URL-driven: Context passed via query params
+   - Integrated: Admin sidebar, MT Ocean header, Aurora Tide design
+
+3. **Agent-to-Page Registry** (`esaAgentPageRegistry.ts`)
+   - TypeScript map: route → agent IDs
+   - Source of truth for page attribution
+   - Maintained by agents, reviewed by Agent #64
+
+4. **Context Detection Service** (`esaContextService.ts`)
+   - Detects current route
+   - Looks up agents from registry
+   - Formats agent data for display
+
+**Data Flow:**
+```
+User on /admin/users
+    ↓
+ESAMindMap detects route via useLocation()
+    ↓
+Looks up AGENT_PAGE_REGISTRY['/admin/users'] → [8, 11, 6]
+    ↓
+Fetches agent details from ESA framework data
+    ↓
+Displays in overlay: "Built by Agent #8, #11, #6"
+    ↓
+User clicks "View Details"
+    ↓
+Navigate to /admin/esa-mind?context=/admin/users
+    ↓
+ESA Mind shows filtered metrics for those 3 agents
+```
+
+---
+
+### 10.10 Migration from ESA Quick Navigator
+
+**Renaming Convention:**
+- `FloatingESAButton` → `ESAMindMap` (the floating navigator)
+- `ESADashboard` → `ESA Mind` (the unified metrics dashboard)
+- `ESA Quick Navigator` → `ESA Mind Quick Navigator` (overlay component)
+
+**Why ESA Mind?**
+- **Mind** = Intelligence, understanding, context awareness
+- Reflects that it "knows" what page you're on
+- Understands which agents built what
+- Provides intelligent navigation through ESA framework
+
+**Migration Checklist:**
+- [ ] Rename component files
+- [ ] Update all imports
+- [ ] Update routes (`/admin/esa-dashboard` → `/admin/esa-mind`)
+- [ ] Update documentation references
+- [ ] Update replit.md with new naming
+
+---
+
+**End of Section 10: Context-Aware Admin Tools**
+
+---
+
 ## 🏁 Conclusion
 
 This Master Orchestration Guide unifies the four critical ESA documentation systems:
