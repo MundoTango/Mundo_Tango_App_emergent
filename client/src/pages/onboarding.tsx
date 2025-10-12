@@ -166,7 +166,7 @@ export default function Onboarding() {
 
   const onboardingMutation = useMutation({
     mutationFn: async (data: OnboardingData) => {
-      return apiRequest("POST", "/api/onboarding", { body: data });
+      return apiRequest("/api/onboarding", { method: "POST", body: data });
     },
     onSuccess: () => {
       toast({
