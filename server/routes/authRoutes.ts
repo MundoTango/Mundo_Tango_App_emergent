@@ -12,7 +12,7 @@ const router = Router();
 
 // ESA LIFE CEO 61x21 - Phase 2: Secure user authentication check
 // User authentication status check - returns user if authenticated, null if not
-router.get("/auth/user", async (req: any, res) => {
+router.get("/api/auth/user", async (req: any, res) => {
   try {
     // Development bypass - ONLY in development mode
     if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
@@ -75,7 +75,7 @@ router.get("/auth/user", async (req: any, res) => {
 });
 
 // Logout endpoint
-router.post("/auth/logout", (req, res) => {
+router.post("/api/auth/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
       return res.status(500).json({ error: "Failed to logout" });
@@ -85,7 +85,7 @@ router.post("/auth/logout", (req, res) => {
 });
 
 // Password reset request
-router.post("/auth/reset-password-request", async (req, res) => {
+router.post("/api/auth/reset-password-request", async (req, res) => {
   try {
     const { email } = req.body;
     
@@ -145,7 +145,7 @@ router.post("/auth/reset-password", async (req, res) => {
 });
 
 // ESA LIFE CEO 61x21 - Phase 2: CSRF Token Generation
-router.get("/auth/csrf", (req, res) => {
+router.get("/api/auth/csrf", (req, res) => {
   // Development bypass
   if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
     return res.json({ csrfToken: 'dev-token-only' });
