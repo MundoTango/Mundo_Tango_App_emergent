@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
-import { LocationAutocomplete } from '@/components/ui/LocationAutocomplete';
+import UnifiedLocationPicker from '@/components/universal/UnifiedLocationPicker';
 import EventAutocomplete from '@/components/autocomplete/EventAutocomplete';
 import CityGroupAutocomplete from '@/components/autocomplete/CityGroupAutocomplete';
 
@@ -171,15 +171,15 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 space-y-2">
               <Label htmlFor="location">Location</Label>
-              <LocationAutocomplete
+              <UnifiedLocationPicker
                 value={formData.city && formData.country ? `${formData.city}, ${formData.country}` : ''}
-                onChange={(value, details) => {
+                onChange={(value: string, details?: any) => {
                   if (details) {
                     handleInputChange('city', details.city);
                     handleInputChange('country', details.country);
                   } else {
                     // Handle free text input
-                    const parts = value.split(',').map(p => p.trim());
+                    const parts = value.split(',').map((p: string) => p.trim());
                     if (parts.length >= 2) {
                       handleInputChange('city', parts[0] || '');
                       handleInputChange('country', parts[parts.length - 1] || '');

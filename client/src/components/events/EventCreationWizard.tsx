@@ -12,7 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Users, Clock, ArrowLeft, ArrowRight, Check } from 'lucide-react';
-import { LocationAutocomplete } from '@/components/ui/LocationAutocomplete';
+import UnifiedLocationPicker from '@/components/universal/UnifiedLocationPicker';
 import { createApiRequest } from '@/lib/apiClient';
 import { useCsrfToken } from '@/contexts/CsrfContext';
 import { toast } from '@/hooks/use-toast';
@@ -229,9 +229,9 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 
       <div>
         <Label htmlFor="location">Location *</Label>
-        <LocationAutocomplete
+        <UnifiedLocationPicker
           value={watchedFields.location || ''}
-          onChange={(value) => setValue('location', value)}
+          onChange={(value: string) => setValue('location', value)}
           placeholder="Enter venue or address..."
         />
         {errors.location && (
