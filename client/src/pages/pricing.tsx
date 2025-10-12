@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'wouter';
+import { useLocation } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,7 @@ import { useAuth } from '@/hooks/useAuth';
 // ESA LIFE CEO 61x21 - Phase 18: Pricing Page
 
 export default function PricingPage() {
-  const [, navigate] = useNavigate();
+  const [, navigate] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'wouter';
+import { useLocation } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,7 +27,7 @@ import { format } from 'date-fns';
 // ESA LIFE CEO 61x21 - Phase 18: Billing Dashboard
 
 export default function BillingDashboard() {
-  const [, navigate] = useNavigate();
+  const [, navigate] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
