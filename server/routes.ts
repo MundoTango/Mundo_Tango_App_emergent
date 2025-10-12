@@ -90,6 +90,7 @@ import dataVizRoutes from "./routes/data-viz"; // ESA LIFE CEO 61x21 - Data Visu
 import contentMediaRoutes from "./routes/content-media"; // ESA LIFE CEO 61x21 - Content & Media Expert Agent (Layers 25,26,58)
 import codeQualityRoutes from "./routes/code-quality"; // ESA LIFE CEO 61x21 - Code Quality Expert Agent (Layers 6,7,57)
 import devExperienceRoutes from "./routes/dev-experience"; // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
+import aiIntelligenceRoutes from "./routes/ai-intelligence"; // ESA AI Intelligence Network - Agent #31 + #68-71 (Learning, Context, Patterns)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -193,6 +194,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(communityRoutes); // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)
   app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
   app.use('/api/agent-learning', agentLearningRouter); // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
+  app.use('/api/ai-intelligence', aiIntelligenceRoutes); // ESA AI Intelligence Network - User Support AI with Pattern Learning (Agent #31, #68-71)
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   
   // ESA Section 10.11: Interactive AI Chat for ESA MindMap (Agent #35)
