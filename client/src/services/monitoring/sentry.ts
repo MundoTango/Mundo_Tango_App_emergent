@@ -4,7 +4,6 @@
  */
 
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 import { ConsentManager } from './consent';
 import { MonitoringConfig, PrivacyConfig, UserTraits } from './types';
 
@@ -45,24 +44,21 @@ export class SentryService {
         
         // Performance monitoring
         integrations: [
-          new BrowserTracing({
+          Sentry.browserTracingIntegration({
             // Set sampling rate for performance monitoring
             tracingOrigins: ['localhost', /^\//],
-            // Track interactions
-            routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-              window.history
-            ),
           }),
-          new Sentry.Replay({
+          Sentry.replayIntegration({
             // Only capture replays when errors occur
             maskAllText: config?.privacy?.maskTextContent ?? true,
             maskAllInputs: config?.privacy?.maskInputContent ?? true,
             blockAllMedia: false,
-            // Sampling rates
-            sessionSampleRate: 0.1, // 10% of sessions
-            errorSampleRate: 1.0, // 100% of sessions with errors
           }),
         ],
+        
+        // Replay sampling rates
+        replaysSessionSampleRate: 0.1, // 10% of sessions
+        replaysOnErrorSampleRate: 1.0, // 100% of sessions with errors
         
         // Performance sampling
         tracesSampleRate: import.meta.env.NODE_ENV === 'production' ? 0.1 : 1.0,
@@ -244,10 +240,10 @@ export class SentryService {
   startTransaction(name: string, op: string): any {
     if (!this.initialized) return null;
 
-    return Sentry.startTransaction({
+    return Sentry.startSpan({
       name,
       op,
-    });
+    }, (span) => span);
   }
 
   // Track breadcrumbs
@@ -297,17 +293,19 @@ export class SentryService {
   // Session replay controls
   startReplay(): void {
     if (!this.initialized) return;
-    const replay = Sentry.getCurrentHub().getIntegration(Sentry.Replay);
-    if (replay) {
-      replay.start();
+    const client = Sentry.getClient();
+    const replay = client?.getIntegrationByName?.('Replay');
+    if (replay && 'start' in replay) {
+      (replay as any).start();
     }
   }
 
   stopReplay(): void {
     if (!this.initialized) return;
-    const replay = Sentry.getCurrentHub().getIntegration(Sentry.Replay);
-    if (replay) {
-      replay.stop();
+    const client = Sentry.getClient();
+    const replay = client?.getIntegrationByName?.('Replay');
+    if (replay && 'stop' in replay) {
+      (replay as any).stop();
     }
   }
 
@@ -316,7 +314,8 @@ export class SentryService {
     if (!this.initialized) return;
 
     // Update replay masking settings
-    const replay = Sentry.getCurrentHub().getIntegration(Sentry.Replay);
+    const client = Sentry.getClient();
+    const replay = client?.getIntegrationByName?.('Replay');
     if (replay) {
       // Note: Sentry doesn't support dynamic privacy updates after init
       // This would require reinitializing Sentry
@@ -327,7 +326,7 @@ export class SentryService {
   // Clear user data
   clearUser(): void {
     if (!this.initialized) return;
-    Sentry.configureScope((scope) => scope.clear());
+    Sentry.getCurrentScope().clear();
   }
 
   // Profiling
