@@ -118,11 +118,6 @@ function Router() {
   return (
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
-        {/* ESA AI Intelligence Network - Global Components */}
-        <AIHelpButton position="bottom-right" offset={6} />
-        <SmartPageSuggestions position="top-center" autoHide={true} />
-        <AIContextBar position="top" collapsible={true} />
-
         <Switch>
           {/* Homepage - Redirect to unified Memories feed */}
           <Route path="/">
@@ -150,6 +145,11 @@ function Router() {
           </Route>
         </Switch>
       </Suspense>
+      
+      {/* ESA AI Intelligence Network - Outside Suspense to prevent infinite loading when components return null */}
+      <AIHelpButton position="bottom-right" offset={6} />
+      <SmartPageSuggestions position="top-center" autoHide={true} />
+      <AIContextBar position="top" collapsible={true} />
     </ErrorBoundary>
   );
 }
