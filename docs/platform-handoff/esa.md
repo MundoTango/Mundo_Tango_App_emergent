@@ -86,6 +86,30 @@ Applies to: ALL agents, ALL features, ALL work (no exceptions)
 
 ---
 
+### ✅ Principle 6: "Zero-Knowledge User Validation"
+**Test as if you know NOTHING about the platform**
+- Every user persona must validate 100% of their available features
+- Test with fresh accounts (no developer knowledge)
+- All journeys must be completable without help
+- Global features (dark mode, i18n) must work on EVERY page
+- Cross-agent learning mandatory (share discoveries immediately)
+
+**Agent Assignments:**
+- **Agent #51:** New User (0%→25%) - Registration, setup, navigation
+- **Agent #11:** Active User (25%→50%) - Posting, feed, interactions
+- **Agent #48:** Power User (50%→75%) - Groups, messages, advanced features
+- **Agent #0:** Super Admin (75%→100%) - Admin elevation and platform management
+
+**Why it matters:**
+- Code existing ≠ features working for real users
+- Audits must validate user journeys, not just code
+- Broken journeys caught before deployment, not after
+- First user experience is perfect, not buggy
+
+**📖 Full Guide:** [ESA_ZERO_KNOWLEDGE_USER_PROTOCOL.md](./ESA_ZERO_KNOWLEDGE_USER_PROTOCOL.md)
+
+---
+
 ## 🚦 Pre-Work Quality Gates (MANDATORY)
 
 **Every agent MUST complete these gates before starting work**
@@ -4743,6 +4767,177 @@ Response:
 ---
 
 **End of Section 10: Context-Aware Admin Tools & AI Integration**
+
+---
+
+## 11. Deployment & Production Readiness
+
+### 11.1 Deployment Learnings (Agent #49 + #59)
+
+**From October 2025 Production Deployment Experience**
+
+#### Critical Issues Discovered
+
+**Issue 1: Disk Quota Exceeded**
+- **Problem:** Replit deployments have strict disk quotas (~2-4GB)
+- **Root Cause:** Git repository contained 11GB of tracked files
+- **Lesson:** .gitignore excludes from deployment but git history size still matters
+- **Solution:** Aggressive cleanup + git history pruning required
+
+**Issue 2: Build Artifacts Accumulation**
+- **Problem:** Workspace accumulated node_modules, dist, build, .cache folders
+- **Impact:** npm install fails with "storage full" errors
+- **Lesson:** Build artifacts must be cleaned between deployments
+- **Solution:** Prebuild cleanup script + proper .gitignore
+
+**Issue 3: npm Package Layer Conflicts**
+- **Problem:** Replit's package caching layer conflicted with npm ci flags
+- **Attempts:** Tried disabling package layer, switching npm install/ci
+- **Lesson:** Different Replit deployment strategies have different behaviors
+- **Solution:** Tested multiple configurations, found npm ci most reliable
+
+#### Deployment Best Practices
+
+**Storage Management:**
+```bash
+# Must exclude from git
+node_modules/     # 3.8GB
+dist/            # Variable
+build/           # Variable
+.cache/          # 2.4GB
+uploads/         # 435MB
+attached_assets/ # 915MB
+```
+
+**Build Optimization:**
+```toml
+[deployment]
+deploymentTarget = "vm"  # or "autoscale" for web apps
+build = ["sh", "-c", "npm ci && npm run build"]
+run = ["npx", "tsx", "server/index.ts"]
+```
+
+**Pre-Deployment Checklist:**
+- [ ] Clean workspace: `rm -rf dist build .vite client/dist`
+- [ ] Clear npm cache: `npm cache clean --force`
+- [ ] Verify .gitignore excludes build artifacts
+- [ ] Check workspace size: Should be <1GB
+- [ ] Ensure package-lock.json is committed
+- [ ] Test build locally: `npm ci && npm run build`
+
+#### Alternative Deployment Strategies
+
+**Strategy 1: VM Deployment (Current)**
+- More control over environment
+- Strict disk quotas
+- Good for stateful apps
+
+**Strategy 2: Autoscale Deployment (Recommended for Web Apps)**
+- Simpler configuration
+- Better for stateless web applications
+- Automatic scaling built-in
+- May have different quota limits
+
+**Strategy 3: Minimal Bundle Deployment**
+- Build locally
+- Deploy only dist/ + server/ + package.json
+- Skips npm install in deployment
+- Smallest footprint (<100MB)
+
+### 11.2 User Journey Validation Gap
+
+**Critical Discovery:** Code existing ≠ Features working for users
+
+**Problems Found:**
+- ✅ Pages exist in code
+- ❌ Pages don't render in UI
+- ❌ Global features broken (dark mode, i18n, admin access)
+- ❌ User journeys incomplete (RSVP, posting, filtering)
+- ❌ No zero-knowledge user testing done
+
+**Root Cause:** Audits validated code structure, not user experience
+
+**Solution:** Implemented Principle 6 (Zero-Knowledge User Validation)
+- Agent #51 tests as New User (0%→25%)
+- Agent #11 tests as Active User (25%→50%)
+- Agent #48 tests as Power User (50%→75%)
+- Agent #0 tests as Super Admin (75%→100%)
+
+**📖 Full Protocol:** [ESA_ZERO_KNOWLEDGE_USER_PROTOCOL.md](./ESA_ZERO_KNOWLEDGE_USER_PROTOCOL.md)
+
+### 11.3 Cross-Agent Learning System
+
+**Learning Categories:**
+
+**1. Global Fixes** (Shared to ALL agents)
+- Dark mode implementation patterns
+- i18n state management  
+- Navigation consistency
+- Theme provider setup
+- Auth state handling
+
+**2. Journey Pattern Fixes** (Shared to similar flows)
+- Form validation patterns
+- RSVP/interaction flows
+- Feed filtering logic
+- Real-time update handling
+- Algorithm implementations
+
+**3. Component Fixes** (Shared to component users)
+- Button states and interactions
+- Modal/dialog patterns
+- Dropdown/select behaviors
+- Media upload handling
+- Error state displays
+
+**Sharing Protocol:**
+1. Agent finds issue → Document in `/docs/learnings/[agent]-[date].md`
+2. Tag as `[GLOBAL]`, `[JOURNEY]`, or `[COMPONENT]`
+3. Create reusable fix pattern
+4. Update component library if applicable
+5. Notify other agents via ESA coordination
+6. Other agents apply learnings to their areas daily
+
+### 11.4 Deployment Decision Protocol
+
+**DON'T Deploy If:**
+- ❌ Any user persona cannot reach 100% of features
+- ❌ Global features broken on any page
+- ❌ Admin access not working
+- ❌ Critical journeys incomplete
+- ❌ Disk space issues unresolved
+- ❌ Zero-knowledge users get stuck
+
+**ONLY Deploy When:**
+- ✅ All 4 personas validated (Agent #51, #11, #48, #0)
+- ✅ All journeys completable without help
+- ✅ Global features work everywhere
+- ✅ Mobile fully functional
+- ✅ Build optimized and tested
+- ✅ Workspace disk usage <1GB
+- ✅ Agent #0 final certification
+
+### 11.5 Quality Gate Updates
+
+**New Rejection Criteria:**
+- ❌ Broken user journeys (any persona)
+- ❌ Missing global features (any page)
+- ❌ Inconsistent UI/UX (dark mode, i18n)
+- ❌ Admin access failures
+- ❌ Mobile non-functional
+- ❌ Deployment disk quota exceeded
+- ❌ Build artifacts not cleaned
+
+**New Approval Requirements:**
+- ✅ All personas signed off (100% validation)
+- ✅ Cross-agent learnings documented
+- ✅ Global fixes shared and applied
+- ✅ Deployment optimizations verified
+- ✅ First user can reach 100% without help
+
+---
+
+**End of Section 11: Deployment & Production Readiness**
 
 ---
 
