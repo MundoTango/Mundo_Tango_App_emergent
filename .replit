@@ -8,7 +8,7 @@ packages = ["unzip", "imagemagick", "k6", "ffmpeg", "jq", "chromium", "firefox",
 
 [deployment]
 deploymentTarget = "vm"
-build = ["sh", "-c", "export REPLIT_DISABLE_PACKAGE_LAYER=1 && npm install && npm run build && npm cache clean --force"]
+build = ["sh", "-c", "npm ci && npm run build"]
 run = ["npx", "tsx", "server/index.ts"]
 
 [[ports]]
