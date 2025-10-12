@@ -178,7 +178,7 @@ const AdminCenter = memo(() => {
   const [, setLocation] = useLocation();
   
   // Enhanced RBAC/ABAC check - multiple verification levels
-  const { data: userRoles } = useQuery({
+  const { data: userRoles } = useQuery<string[]>({
     queryKey: ['/api/auth/user-roles'],
     enabled: !!user
   });
@@ -274,7 +274,7 @@ const AdminCenter = memo(() => {
       }
       
       // Show success toast based on action
-      const actionMessages = {
+      const actionMessages: Record<string, string> = {
         approve: '✅ Content approved successfully',
         remove: '🗑️ Content removed successfully',
         warn: '⚠️ User warned successfully'
@@ -287,7 +287,7 @@ const AdminCenter = memo(() => {
       if (showContentModal) setShowContentModal(false);
     } catch (error) {
       console.error(`Error performing ${action}:`, error);
-      toast.error(error.message || `Failed to ${action} content`);
+      toast.error((error as Error).message || `Failed to ${action} content`);
     } finally {
       setProcessingAction(null);
     }
