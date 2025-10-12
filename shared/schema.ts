@@ -4335,45 +4335,11 @@ export type MrBlueConversation = typeof mrBlueConversations.$inferSelect;
 export type InsertMrBlueConversation = z.infer<typeof insertMrBlueConversationSchema>;
 
 // ============================================================================
-// ESA AGENT #80: INTER-AGENT LEARNING SYSTEM
+// ESA AGENT #80: ENHANCED INTER-AGENT LEARNING (extends existing system)
+// Note: agentLearnings table already exists above (line 3154)
 // ============================================================================
 
-// Agent Learnings - Captures all learnings from all agents
-export const agentLearnings = pgTable("agent_learnings", {
-  id: serial("id").primaryKey(),
-  agentId: varchar("agent_id").notNull(), // e.g., "Agent #73", "Agent #79"
-  category: varchar("category").notNull(), // 'bug_fix', 'optimization', 'pattern', 'insight'
-  domain: varchar("domain").notNull(), // 'mobile', 'performance', 'ui', 'backend'
-  problem: text("problem").notNull(),
-  rootCause: text("root_cause"),
-  solution: text("solution").notNull(),
-  context: jsonb("context").$type<{
-    feature?: string;
-    files_changed?: string[];
-    related_agents?: string[];
-    [key: string]: any;
-  }>(),
-  outcome: jsonb("outcome").$type<{
-    success: boolean;
-    impact: 'low' | 'medium' | 'high';
-    time_saved?: string;
-    performance_gain?: string;
-    [key: string]: any;
-  }>(),
-  confidence: real("confidence").default(0.5), // 0.0 to 1.0
-  reuseCount: integer("reuse_count").default(0), // How many times reused
-  successRate: real("success_rate").default(0), // Success when others apply it
-  tags: text("tags").array(),
-  embedding: text("embedding"), // OpenAI embedding for semantic search (JSON string)
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow()
-}, (table) => [
-  index("idx_agent_learnings_agent").on(table.agentId),
-  index("idx_agent_learnings_category").on(table.category),
-  index("idx_agent_learnings_domain").on(table.domain),
-]);
-
-// Learning Patterns - Synthesized patterns from multiple learnings
+// Learning Patterns - Synthesized patterns from multiple learnings (NEW)
 export const learningPatterns = pgTable("learning_patterns", {
   id: serial("id").primaryKey(),
   patternName: varchar("pattern_name").unique().notNull(),
@@ -4463,16 +4429,10 @@ export const customerJourneyTests = pgTable("customer_journey_tests", {
 ]);
 
 // ============================================================================
-// INSERT SCHEMAS & TYPES
+// INSERT SCHEMAS & TYPES (ESA Agent #79 & #80)
 // ============================================================================
 
-// Agent Learnings
-export const insertAgentLearningSchema = createInsertSchema(agentLearnings).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
+// Learning Patterns (NEW)
 export const insertLearningPatternSchema = createInsertSchema(learningPatterns).omit({
   id: true,
   createdAt: true,
@@ -4491,9 +4451,6 @@ export const insertCustomerJourneyTestSchema = createInsertSchema(customerJourne
 });
 
 // Types
-export type AgentLearning = typeof agentLearnings.$inferSelect;
-export type InsertAgentLearning = z.infer<typeof insertAgentLearningSchema>;
-
 export type LearningPattern = typeof learningPatterns.$inferSelect;
 export type InsertLearningPattern = z.infer<typeof insertLearningPatternSchema>;
 
