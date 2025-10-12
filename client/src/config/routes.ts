@@ -379,6 +379,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Subscription plans'
   },
   {
+    path: '/pricing',
+    component: lazy(() => import('@/pages/pricing')),
+    mode: 'production',
+    loadingMessage: 'Loading pricing...',
+    description: 'Pricing information (Agent #72)'
+  },
+  {
     path: '/settings/billing',
     component: lazy(() => import('@/pages/BillingDashboard')),
     mode: 'production',
@@ -455,14 +462,14 @@ export const productionRoutes: RouteConfig[] = [
     component: lazy(() => import('@/pages/PromoCodesAdmin')),
     mode: 'production',
     loadingMessage: 'Loading promo codes...',
-    description: 'Promo code management'
+    description: 'Promo code management (Agent #75)'
   },
   {
     path: '/admin/subscription-analytics',
     component: lazy(() => import('@/pages/SubscriptionAnalytics')),
     mode: 'production',
     loadingMessage: 'Loading analytics...',
-    description: 'Subscription analytics'
+    description: 'Subscription analytics (Agent #72)'
   },
   {
     path: '/admin/agent-metrics',
@@ -556,28 +563,44 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Organizational hierarchy'
   },
 
-  // ========== LifeCEO Routes ==========
+  // ========== Mr Blue / LifeCEO Routes (Agent #73) ==========
+  {
+    path: '/mr-blue',
+    component: lazy(() => import('@/pages/LifeCEOEnhanced')),
+    mode: 'production',
+    loadingMessage: 'Loading Mr Blue...',
+    description: 'Mr Blue AI companion dashboard (Agent #73)'
+  },
+  {
+    path: '/mr-blue-performance',
+    component: lazy(() => import('@/pages/LifeCeoPerformance')),
+    mode: 'production',
+    loadingMessage: 'Loading Mr Blue Performance...',
+    description: 'Mr Blue performance monitoring'
+  },
+  // Legacy routes for backwards compatibility
   {
     path: '/life-ceo',
     component: lazy(() => import('@/pages/LifeCEOEnhanced')),
     mode: 'production',
-    loadingMessage: 'Loading Life CEO...',
-    description: 'Life CEO dashboard'
+    loadingMessage: 'Loading Mr Blue...',
+    description: 'Mr Blue dashboard (legacy route)'
   },
   {
     path: '/life-ceo-performance',
     component: lazy(() => import('@/pages/LifeCeoPerformance')),
     mode: 'production',
-    loadingMessage: 'Loading Life CEO Performance...',
-    description: 'Life CEO performance monitoring'
+    loadingMessage: 'Loading Mr Blue Performance...',
+    description: 'Mr Blue performance (legacy route)'
   },
   {
     path: '/lifeceo',
     component: lazy(() => import('@/pages/LifeCEOEnhanced')),
     mode: 'production',
-    loadingMessage: 'Loading Life CEO...',
-    description: 'Life CEO (alias)'
+    loadingMessage: 'Loading Mr Blue...',
+    description: 'Mr Blue (legacy alias)'
   },
+
 
   // ========== Testing & Development Routes ==========
   {
@@ -613,7 +636,7 @@ export const productionRoutes: RouteConfig[] = [
     component: lazy(() => import('@/pages/feature-navigation')),
     mode: 'production',
     loadingMessage: 'Loading feature navigation...',
-    description: 'Feature navigation'
+    description: 'Feature discovery with interactive tour (Agent #74)'
   },
   {
     path: '/database-security',
@@ -674,6 +697,13 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading mobile dashboard...',
     description: 'Mobile app dashboard'
+  },
+  {
+    path: '/notifications',
+    component: lazy(() => import('@/pages/Notifications')),
+    mode: 'production',
+    loadingMessage: 'Loading notifications...',
+    description: 'User notifications center'
   },
   {
     path: '/error',
