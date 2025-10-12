@@ -24,6 +24,7 @@ import postsRoutes from './routes/postsRoutes';
 import eventsRoutes from './routes/eventsRoutes';
 import integrationHelpers from './routes/integrationHelpers';
 import hostHomesRoutes from './routes/hostHomesRoutes';
+import authRoutes from './routes/authRoutes';
 
 // Memory optimization for large uploads
 if (global.gc) {
@@ -292,6 +293,7 @@ const startServer = async () => {
     console.log('✅ Socket.io real-time features initialized on port 5000');
 
     // Mount API routes
+    app.use(authRoutes); // ESA Agent #3-4: Authentication routes
     app.use(postsRoutes);
     app.use(eventsRoutes);
     app.use(integrationHelpers);
