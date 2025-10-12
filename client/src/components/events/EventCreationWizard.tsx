@@ -57,7 +57,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { csrfToken } = useCsrfToken();
-  const api = createApiRequest(csrfToken);
+  const api = createApiRequest();
 
   const form = useForm<EventFormData>({
     resolver: zodResolver(eventSchema),
