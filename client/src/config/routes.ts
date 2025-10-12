@@ -528,6 +528,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Context-aware ESA Framework (105 Agents, 61 Layers) intelligence and metrics dashboard'
   },
   {
+    path: '/admin/mr-blue',
+    component: lazy(() => import('@/pages/admin/MrBlueDashboard')),
+    mode: 'production',
+    loadingMessage: 'Loading Mr Blue Dashboard...',
+    description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
+  },
+  {
     path: '/analytics',
     component: lazy(() => import('@/pages/AnalyticsDashboard')),
     mode: 'production',
