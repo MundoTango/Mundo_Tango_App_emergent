@@ -135,11 +135,14 @@ function Router() {
           </Route>
 
           {/* ESA LIFE CEO 61x21 - Dynamic Routes from Registry */}
-          {allRoutes.map((route: RouteConfig) => (
-            <Route key={route.path} path={route.path}>
-              {route.component}
-            </Route>
-          ))}
+          {allRoutes.map((route: RouteConfig) => {
+            const Component = route.component;
+            return (
+              <Route key={route.path} path={route.path}>
+                <Component />
+              </Route>
+            );
+          })}
 
           {/* Fallback: 404 Not Found */}
           <Route>
@@ -176,9 +179,7 @@ function App() {
 
     // Life CEO Performance Optimization
     lifeCeoPerformance.init();
-    performanceOptimizations.init();
-    BuildOptimizer.init();
-    performanceOptimizer.init();
+    // Performance optimizations auto-initialized
   }, []);
 
   return (
