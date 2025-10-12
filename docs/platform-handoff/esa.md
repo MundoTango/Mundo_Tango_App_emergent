@@ -86,6 +86,78 @@ Applies to: ALL agents, ALL features, ALL work (no exceptions)
 
 ---
 
+## 🚦 Pre-Work Quality Gates (MANDATORY)
+
+**Every agent MUST complete these gates before starting work**
+
+### Gate 1: Context Validation (5 min)
+Answer these questions BEFORE touching any code:
+- [ ] **Who requested this?** (Agent #0, user, escalation from another agent)
+- [ ] **What's the COMPLETE requirement?** (not just one use case - ALL scenarios)
+- [ ] **Which agents are affected?** (dependencies, integrations, handoffs)
+- [ ] **What's the success criteria?** (measurable outcomes, quality gates)
+- [ ] **What's the timeline?** (realistic estimate with buffer)
+
+### Gate 2: Discovery Checklist (10 min)
+Based on your agent role, complete the appropriate checklist:
+
+#### For Design Agents (#11 UI/UX, #6 State Management, #12 Data Visualization)
+- [ ] **Map ALL user personas** (5-10 types: Super Admin, Developer, Mobile User, First-time User, etc.)
+- [ ] **List ALL entry points** (pages, buttons, flows, contexts where feature appears)
+- [ ] **Document ALL journeys** (happy path + edge cases + error states)
+- [ ] **Plan for mobile** (responsive breakpoints, touch interactions, mobile-specific UX)
+- [ ] **Plan for accessibility** (keyboard navigation, screen readers, WCAG 2.1 AA compliance)
+- [ ] **Define progressive disclosure** (Level 1: hints, Level 2: quick actions, Level 3: deep exploration)
+- [ ] **Document integration points** (which existing features does this connect to?)
+
+#### For Development Agents (#1-61 Layer Agents)
+- [ ] **Search existing code** (grep/glob to find similar implementations - no duplicates!)
+- [ ] **List integration points** (which layers/agents does this touch?)
+- [ ] **Plan error handling** (all failure modes, graceful degradation)
+- [ ] **Define data-testid strategy** (every interactive element gets unique ID)
+- [ ] **Check database impact** (schema changes, migrations, data integrity)
+- [ ] **Plan for performance** (caching, lazy loading, optimization opportunities)
+
+#### For Testing Agents (#51 Testing Framework, #52 Documentation)
+- [ ] **Receive journey map** (from design agent - cannot test without it!)
+- [ ] **Plan test coverage** (100% of journeys, 100% of personas, 100% of contexts)
+- [ ] **Schedule parallel testing** (test DURING build, not after)
+- [ ] **Prepare accessibility audit** (keyboard, screen reader, WCAG tools ready)
+- [ ] **Plan E2E scenarios** (user flows that span multiple components)
+- [ ] **Define performance benchmarks** (load time, interaction speed targets)
+
+### Gate 3: Agent #64 Review (MANDATORY - 5 min)
+Submit discovery findings to Agent #64 Documentation Specialist:
+- [ ] **Discovery checklist completed** (all items checked for your role)
+- [ ] **No duplicate work exists** (Agent #64 confirms via codebase search)
+- [ ] **Reusable components identified** (Agent #64 points to existing solutions)
+- [ ] **Approval to proceed** (Agent #64 gives green light)
+
+**If Agent #64 finds duplicates:**
+- STOP building new code
+- EXTEND or REFACTOR existing solution
+- Document why existing code wasn't found initially (improve search process)
+
+### Gate 4: Parallel Coordination (During Work)
+Work doesn't happen in isolation - coordinate in parallel:
+
+**Design Agents (#11) must:**
+- Share journey maps with Testing (#51) as soon as design is approved
+- Notify Development agents (#1-61) of design spec location
+- Update Agent #64 with new reusable component documentation
+
+**Development Agents (#1-61) must:**
+- Share components with Testing (#51) as they're built (not at the end!)
+- Update Agent #64 with implementation patterns discovered
+- Coordinate with dependent layers (API ↔ Frontend, DB ↔ API, etc.)
+
+**Testing Agents (#51) must:**
+- Plan test suite DURING design phase (parallel to development)
+- Test components AS they're built (incremental validation)
+- Report findings to Agent #0 and Agent #64 (quality metrics)
+
+---
+
 ## 🎭 Standardized Agent Role Templates
 
 **Purpose:** Define clear responsibilities for each agent tier to ensure consistency across all 105 agents
