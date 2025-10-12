@@ -36,7 +36,8 @@ type ViewType =
   | 'audit-workflow'
   | 'system-map'
   | 'decision-authority'
-  | 'pattern-orchestration';
+  | 'pattern-orchestration'
+  | 'journey-flow';
 
 interface Breadcrumb {
   label: string;
@@ -128,6 +129,14 @@ export default function ESAMind() {
       icon: GitBranch,
       color: 'from-teal-500/20 to-cyan-500/20',
       docLink: '/docs/platform-handoff/esa.md#pattern-orchestration'
+    },
+    {
+      id: 'journey-flow' as ViewType,
+      title: 'Customer Journey Flow',
+      description: '5 complete journeys covering ~200 pages across all user roles',
+      icon: Map,
+      color: 'from-indigo-500/20 to-purple-500/20',
+      docLink: '/docs/audit-reports/MT_PLATFORM_COMPLETE_AUDIT_PLAN.md'
     }
   ];
 
@@ -153,6 +162,198 @@ export default function ESAMind() {
         setBreadcrumbs(breadcrumbs.slice(0, index + 1));
       }
     }
+  };
+
+  const renderJourneyFlowView = () => {
+    // Journey data from journey-map-config.ts
+    const journeys = [
+      {
+        id: 1,
+        name: 'Anonymous Visitor → Registration',
+        role: 'anonymous',
+        pages: 7,
+        color: 'from-gray-500 to-slate-600',
+        description: 'Public access to user registration flow',
+        keyPages: ['/', '/login', '/register', '/verify-email', '/welcome-setup']
+      },
+      {
+        id: 2,
+        name: 'Standard User - Core Platform',
+        role: 'standard',
+        pages: 80,
+        color: 'from-turquoise-500 to-cyan-600',
+        description: 'All standard user features and pages',
+        keyPages: ['/memories', '/profile', '/events', '/community', '/housing', '/messages', '/friends']
+      },
+      {
+        id: 3,
+        name: 'Premium/Life CEO User',
+        role: 'premium',
+        pages: 15,
+        color: 'from-purple-500 to-pink-600',
+        description: 'Premium subscription features',
+        keyPages: ['/subscribe', '/life-ceo', '/analytics']
+      },
+      {
+        id: 4,
+        name: 'Admin Access',
+        role: 'admin',
+        pages: 50,
+        color: 'from-orange-500 to-red-600',
+        description: 'Admin panel and management tools',
+        keyPages: ['/admin', '/admin/users', '/admin/moderation', '/admin/projects', '/admin/esa-mind']
+      },
+      {
+        id: 5,
+        name: 'Super Admin (Developer Tools)',
+        role: 'super_admin',
+        pages: 50,
+        color: 'from-indigo-500 to-purple-600',
+        description: 'Super admin access with developer tools',
+        keyPages: ['/admin/developer', 'ESA MindMap (Global)', 'AI Intelligence Network (Global)']
+      }
+    ];
+
+    const totalPages = journeys.reduce((sum, j) => sum + j.pages, 0);
+
+    return (
+      <div className="space-y-8">
+        {/* Header */}
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Customer Journey Flow</h2>
+          <p className="text-gray-600">Visual map of all 5 customer journeys covering ~200 pages across all user roles</p>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <GlassCard className="p-6 border border-indigo-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Total Pages</p>
+                <p className="text-3xl font-bold text-indigo-600">{totalPages}</p>
+              </div>
+              <Map className="w-10 h-10 text-indigo-400" />
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6 border border-purple-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Customer Journeys</p>
+                <p className="text-3xl font-bold text-purple-600">{journeys.length}</p>
+              </div>
+              <Users className="w-10 h-10 text-purple-400" />
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6 border border-turquoise-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Audit Framework</p>
+                <p className="text-3xl font-bold text-turquoise-600">17</p>
+                <p className="text-xs text-gray-500">phases/page</p>
+              </div>
+              <ClipboardCheck className="w-10 h-10 text-turquoise-400" />
+            </div>
+          </GlassCard>
+        </div>
+
+        {/* Journey Flow Visualization */}
+        <div className="space-y-6">
+          {journeys.map((journey, idx) => (
+            <GlassCard key={journey.id} className="p-6 border border-gray-200 hover:shadow-xl transition-all duration-300">
+              <div className="flex items-start gap-6">
+                {/* Journey Number */}
+                <div className={`flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br ${journey.color} flex items-center justify-center`}>
+                  <span className="text-2xl font-bold text-white">{journey.id}</span>
+                </div>
+
+                {/* Journey Details */}
+                <div className="flex-1">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-1">{journey.name}</h3>
+                      <p className="text-gray-600">{journey.description}</p>
+                    </div>
+                    <Badge className={`bg-gradient-to-r ${journey.color} text-white ml-4`}>
+                      {journey.pages} pages
+                    </Badge>
+                  </div>
+
+                  {/* Key Pages Flow */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {journey.keyPages.map((page, pageIdx) => (
+                      <div key={pageIdx} className="flex items-center">
+                        <div className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 font-mono hover:border-turquoise-300 transition-colors">
+                          {page}
+                        </div>
+                        {pageIdx < journey.keyPages.length - 1 && (
+                          <ChevronRight className="w-4 h-4 text-gray-400 mx-1" />
+                        )}
+                      </div>
+                    ))}
+                    {journey.pages > journey.keyPages.length && (
+                      <Badge className="bg-gray-100 text-gray-600">
+                        +{journey.pages - journey.keyPages.length} more
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* Journey Transition Indicator */}
+                  {idx < journeys.length - 1 && (
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-2 text-sm text-gray-500">
+                        <span>Transitions to:</span>
+                        <Badge className={`bg-gradient-to-r ${journeys[idx + 1].color} text-white`}>
+                          {journeys[idx + 1].name.split('-')[0].trim()}
+                        </Badge>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </GlassCard>
+          ))}
+        </div>
+
+        {/* Audit Execution Info */}
+        <GlassCard className="p-6 border-2 border-turquoise-200 bg-gradient-to-r from-turquoise-50 to-cyan-50">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-turquoise-100 rounded-xl">
+              <Sparkles className="w-6 h-6 text-turquoise-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Journey-Based Audit System</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                All {totalPages} pages are audited using the 17-phase tiered system, following complete customer journeys from anonymous visitor to super admin.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-3 bg-white rounded-lg border border-gray-200">
+                  <p className="text-sm font-medium text-gray-700 mb-1">Execution Command</p>
+                  <code className="text-xs text-turquoise-600 font-mono bg-gray-50 px-2 py-1 rounded">npm run audit:full</code>
+                </div>
+                <div className="p-3 bg-white rounded-lg border border-gray-200">
+                  <p className="text-sm font-medium text-gray-700 mb-1">Expected Duration</p>
+                  <p className="text-sm text-gray-600">~4-5 hours (automated)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </GlassCard>
+
+        {/* Documentation Link */}
+        <div className="flex justify-center">
+          <a
+            href="/docs/audit-reports/MT_PLATFORM_COMPLETE_AUDIT_PLAN.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white rounded-xl hover:from-turquoise-600 hover:to-cyan-600 transition-all shadow-lg"
+            data-testid="link-journey-documentation"
+          >
+            <ExternalLink className="w-5 h-5" />
+            View Complete Audit Plan
+          </a>
+        </div>
+      </div>
+    );
   };
 
   const renderHomeView = () => (
@@ -361,6 +562,10 @@ export default function ESAMind() {
 
     if (currentView === 'pattern-orchestration') {
       return <ESAPatternSelector />;
+    }
+
+    if (currentView === 'journey-flow') {
+      return renderJourneyFlowView();
     }
 
     return (
