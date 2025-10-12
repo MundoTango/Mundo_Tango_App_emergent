@@ -7,7 +7,7 @@ import { AISiteBuilder } from '@/lib/mrBlue/siteBuilder/AISiteBuilder';
 import { SubscriptionManager } from '@/lib/mrBlue/subscriptions/SubscriptionManager';
 import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
-import { InteractiveTour } from '@/lib/mrBlue/tours/InteractiveTour';
+import { startTour, TourType } from '@/lib/mrBlue/tours/InteractiveTour';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
 
@@ -174,13 +174,15 @@ export default function MrBlueDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <InteractiveTour tourId="welcome" autoStart={false} />
+                <p className="text-sm text-muted-foreground mb-4">
+                  Launch interactive tours to guide users through platform features
+                </p>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button onClick={() => window.location.reload()}>
+                  <Button onClick={() => startTour('welcome')}>
                     Start Welcome Tour
                   </Button>
-                  <Button variant="outline">
-                    View All Tours
+                  <Button onClick={() => startTour('host')} variant="outline">
+                    Start Host Tour
                   </Button>
                 </div>
               </div>
