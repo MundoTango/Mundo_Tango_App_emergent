@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useLocation } from 'wouter';
 import Sidebar from '@/components/Sidebar';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { ESAVisualization } from '@/components/esa/ESAVisualizations';
 import { ESAPatternSelector } from '@/components/esa/ESAPatternSelector';
 import { ESAMindMap } from '@/components/esa/ESAMindMap';
+import { detectPageContext, getContextSummary } from '@/services/esaContextService';
 import {
   Map,
   Users,
@@ -43,10 +45,32 @@ interface Breadcrumb {
 
 export default function ESAMind() {
   const { user } = useAuth();
+  const [location] = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [currentView, setCurrentView] = useState<ViewType | null>(null);
   const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>([{ label: 'ESA Framework' }]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [contextRoute, setContextRoute] = useState<string | null>(null);
+  
+  // Parse URL params on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const viewParam = urlParams.get('view');
+    const contextParam = urlParams.get('context');
+    
+    // Set view if provided
+    if (viewParam) {
+      const matchingView = views.find(v => v.id === viewParam);
+      if (matchingView) {
+        handleViewSelect(viewParam as ViewType);
+      }
+    }
+    
+    // Set context route if provided
+    if (contextParam) {
+      setContextRoute(contextParam);
+    }
+  }, []);
 
   const views = [
     {
@@ -153,6 +177,42 @@ export default function ESAMind() {
           Interactive visualization system for the complete ESA ecosystem. Choose a view below to explore the framework.
         </p>
       </div>
+
+      {/* Context-Aware Page Agents (when context param provided) */}
+      {contextRoute && (() => {
+        const pageContext = detectPageContext(contextRoute);
+        return pageContext.hasContext ? (
+          <GlassCard className="p-6 border-2 border-turquoise-200 bg-gradient-to-r from-turquoise-50 to-cyan-50">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-turquoise-100 rounded-xl">
+                <Sparkles className="w-6 h-6 text-turquoise-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Page Context</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {getContextSummary(contextRoute)}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {pageContext.agents.map((agent, idx) => (
+                    <div key={agent.id} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
+                      <Badge className={idx === 0 
+                        ? "bg-turquoise-500 text-white" 
+                        : "bg-gray-100 text-gray-700"
+                      }>
+                        #{agent.id}
+                      </Badge>
+                      <span className="text-sm text-gray-700">
+                        {agent.name}
+                        {idx === 0 && <span className="ml-1 text-turquoise-600 font-medium">(Primary)</span>}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </GlassCard>
+        ) : null;
+      })()}
 
       {/* Search Bar */}
       <div className="max-w-2xl mx-auto">
