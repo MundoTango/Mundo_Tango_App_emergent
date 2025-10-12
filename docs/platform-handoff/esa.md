@@ -504,6 +504,61 @@ Work doesn't happen in isolation - coordinate in parallel:
 
 **Clear "Definition of Done" for work moving between agents**
 
+### 🔄 NEW: Parallel Coordination Model
+
+**OLD (Sequential - Led to oversights):**
+```
+Agent #11 (Design) → Agent #8 (Development) → Agent #51 (Testing) → Ship
+❌ Testing happens AFTER development is done
+❌ Journey maps created but not shared
+❌ Coverage gaps discovered too late
+```
+
+**NEW (Parallel - Prevents oversights):**
+```
+┌──────────────────────────────────────────────┐
+│ Agent #11 (Design) Completes Journey Mapping│
+│ ✅ All personas (5-10 types)                 │
+│ ✅ All entry points (contexts documented)    │
+│ ✅ All journeys (happy + edge cases)         │
+│ ✅ Mobile + accessibility specs              │
+└────────────────┬─────────────────────────────┘
+                 │
+                 │ SHARES JOURNEY MAPS WITH ↓
+                 │
+    ┌────────────┴────────────┬─────────────────┐
+    ↓                         ↓                 ↓
+Agent #8              Agent #51           Agent #64
+(Development)         (Testing)           (Documentation)
+│                     │                   │
+│                     │← Journey maps     │← Design specs
+│                     │                   │
+↓                     ↓                   ↓
+Building UI           Planning tests      Updating registry
+in progress           in parallel         of components
+│                     │                   │
+│→ Shares components→│                   │
+│                     ↓                   ↓
+│              Tests AS built       Validates reuse
+│                     │                   │
+└─────────────────────┴───────────────────┘
+                      ↓
+               Agent #0 Reviews
+               ✅ 100% journey coverage
+               ✅ All tests passing
+               ✅ No duplicate code
+                      ↓
+                  DEPLOY
+```
+
+**Key Principles:**
+1. **Design shares journey maps immediately** (not at handoff)
+2. **Testing plans during design** (not after development)
+3. **Development shares components incrementally** (not at the end)
+4. **Documentation validates reuse continuously** (not in final review)
+
+---
+
 ### Database → API Handoff (Agent #1 → Agent #2)
 
 **Agent #1 (Database) Deliverables:**
