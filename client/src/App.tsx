@@ -169,11 +169,13 @@ function AppContent() {
   return (
     <>
       <Router />
-      <Suspense fallback={null}>
-        <ESAMindMap />
-        <MrBlueFloatingButton />
-        <SuperAdminToggle />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <ESAMindMap />
+          <MrBlueFloatingButton />
+          <SuperAdminToggle />
+        </Suspense>
+      </ErrorBoundary>
       <Toaster />
       <TrialBanner />
     </>
