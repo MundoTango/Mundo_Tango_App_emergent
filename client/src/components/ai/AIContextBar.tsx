@@ -37,9 +37,9 @@ export function AIContextBar({ position = 'top', collapsible = true }: AIContext
   const [currentRoute] = useLocation();
   const { user } = useAuth();
 
-  // Get AI context
+  // Get AI context - ESA Agent #33 (Context Management)
   const { data: context, isLoading } = useQuery<AIContextData>({
-    queryKey: ['/api/ai-intelligence/context', user?.id],
+    queryKey: ['/api/ai-intelligence/context', { userId: user?.id }],
     enabled: !!user,
     refetchInterval: 10000, // Refresh every 10s
   });

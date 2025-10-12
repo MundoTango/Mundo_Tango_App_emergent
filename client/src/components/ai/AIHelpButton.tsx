@@ -47,15 +47,15 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
   const { user } = useAuth();
   const { toast } = useToast();
 
-  // Get AI context for current page
+  // Get AI context for current page - ESA Agent #33 (Context Management)
   const { data: aiContext, isLoading: contextLoading } = useQuery<AIContext>({
-    queryKey: ['/api/ai-intelligence/context', user?.id, sessionId],
+    queryKey: ['/api/ai-intelligence/context', { userId: user?.id, sessionId }],
     enabled: !!user && !!sessionId && isOpen,
   });
 
-  // Get smart suggestions based on journey
+  // Get smart suggestions based on journey - ESA Agent #71 (Journey Prediction)
   const { data: suggestions } = useQuery({
-    queryKey: ['/api/ai-intelligence/suggestions', currentRoute],
+    queryKey: ['/api/ai-intelligence/suggestions', { route: currentRoute }],
     enabled: !!user && isOpen,
   });
 
