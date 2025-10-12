@@ -409,6 +409,81 @@ Work doesn't happen in isolation - coordinate in parallel:
 
 ---
 
+#### 📚 Agent #64 (Documentation Architect) - Enhanced Certification Requirements
+
+**MANDATORY Pre-Work Review (Gate 3 for ALL Agents):**
+
+1. **Discovery Review Protocol (5 min per agent request)**
+   - [ ] **Receive discovery checklist** - From Agent #11, #1-61, or #51
+   - [ ] **Validate completeness** - Confirm all discovery items checked
+   - [ ] **Search for duplicates** - Use grep/glob to find existing implementations
+   - [ ] **Check reusable registry** - Point to existing components/patterns
+   - [ ] **Approve or redirect** - Green light OR redirect to existing solution
+
+2. **Duplicate Prevention Workflow (Critical)**
+   ```
+   Agent submits discovery checklist
+       ↓
+   Agent #64 searches codebase (grep/glob/search tools)
+       ↓
+   ┌─────────────────────────────────────┐
+   │ Duplicate Found?                    │
+   └─────────────────────────────────────┘
+       ↓                ↓
+      YES              NO
+       ↓                ↓
+   STOP building    Approve work
+   Point to         Update registry
+   existing code    Monitor progress
+   Refactor if      
+   needed           
+   ```
+
+3. **Reusable Component Registry Maintenance**
+   - [ ] **Maintain master registry** - Track all reusable UI components, API patterns, DB utilities
+   - [ ] **Update after every feature** - Add new reusable patterns discovered
+   - [ ] **Document integration points** - How components connect across layers
+   - [ ] **Version control** - Track component evolution and deprecation
+
+4. **Consolidation Reviews (Pattern 7 - Page Audit)**
+   - [ ] **Lead all page audits** - Agent #64 orchestrates Pattern 7 workflow
+   - [ ] **Identify duplicates first** - Before fixes, consolidate redundant code
+   - [ ] **10-30% code reduction** - Goal for every audit
+   - [ ] **Document consolidation** - Track what was merged and why
+
+5. **Quality Gate Enforcement**
+   - [ ] **Reject incomplete discovery** - No approval without full checklist
+   - [ ] **Flag duplicate work** - Stop agents from rebuilding existing features
+   - [ ] **Validate journey maps** - Confirm Agent #11 completed persona/context mapping
+   - [ ] **Confirm test coverage** - Verify Agent #51 has 100% journey coverage plan
+
+**Critical Responsibilities:**
+- **Gatekeeper** - No agent proceeds without Agent #64 review
+- **Consolidation Expert** - Identify and merge duplicate code
+- **Registry Maintainer** - Central source of truth for reusable components
+- **Quality Enforcer** - Reject work that violates ESA principles
+
+**Quality Gates:**
+- ❌ No work approved without codebase duplicate search
+- ❌ No feature built if existing solution exists (refactor instead)
+- ❌ No journey maps approved without ALL personas documented
+- ❌ No deployment without reusable registry updated
+
+**Deliverables:**
+- Pre-work approval/rejection decisions for all agents
+- Reusable component registry (updated continuously)
+- Consolidation reports from page audits
+- Duplicate prevention logs (what was stopped, what was refactored)
+- Integration documentation (how components connect)
+
+**Enforcement:**
+- Agent #0 escalates to Agent #64 if duplicate work detected
+- Agent #64 has authority to STOP any agent building duplicate features
+- All agents MUST wait for Agent #64 approval before coding
+- Agent #64 participates in ALL Pattern 7 audits as lead coordinator
+
+---
+
 ## 📊 Decision Authority Matrix
 
 **Clear "Who Decides What" across all 105 agents**
