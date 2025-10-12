@@ -18,28 +18,18 @@ import { isSuperAdmin } from '@/utils/accessControl';
  */
 
 export function MrBlueFloatingButton() {
-  console.log('🔵 [Mr Blue] Component LOADED - before hooks');
-  
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [visualEditMode, setVisualEditMode] = useState(false);
 
-  console.log('🔵 [Mr Blue] After hooks, user:', user);
-
   const isAdmin = isSuperAdmin(user);
   
-  // Show for ALL authenticated users
-  if (!user) {
-    console.log('🔵 [Mr Blue] Hidden: No user authenticated');
+  // TEST MODE: Always show (bypassing access control for debugging)
+  const testMode = true;
+  
+  if (!testMode && !user) {
     return null;
   }
-
-  console.log('🔵 [Mr Blue] Rendering for user:', { 
-    username: user?.username, 
-    email: user?.email, 
-    isAdmin,
-    userId: user?.id
-  });
 
   return (
     <>

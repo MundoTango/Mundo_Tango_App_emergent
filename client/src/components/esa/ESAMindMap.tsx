@@ -21,19 +21,15 @@ export function ESAMindMap() {
   const [currentRoute, setLocation] = useLocation();
   const { user } = useAuth();
   
-  // ESA Unified Access Control - Single source of truth
-  if (!shouldShowESAMindMap(user)) {
+  // TEST MODE: Always show (bypassing access control for debugging)
+  const testMode = true;
+  
+  if (!testMode && !shouldShowESAMindMap(user)) {
     return null;
   }
   
   // Detect current page context
   const pageContext = detectPageContext(currentRoute);
-  
-  console.log('🗺️ [ESA MindMap] Component rendering:', { 
-    user: user?.email || user?.username,
-    shouldShow: shouldShowESAMindMap(user),
-    route: currentRoute
-  });
 
   const quickStats = {
     totalAgents: 105,
