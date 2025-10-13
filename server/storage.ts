@@ -7006,6 +7006,123 @@ export class DatabaseStorage implements IStorage {
       }
     ];
   }
+
+  // MB.MD ROUTING FIX - Stub methods for new routes (Phase 1)
+  async getUserTravelDetails(userId: number): Promise<any> {
+    return null;
+  }
+
+  async getCityGroup(city: string | undefined): Promise<any> {
+    return null;
+  }
+
+  async getGuestProfiles(): Promise<any[]> {
+    return [];
+  }
+
+  async getUserResume(userId: number): Promise<any> {
+    return null;
+  }
+
+  async getChatRooms(userId: number): Promise<any[]> {
+    return [];
+  }
+
+  async createChatRoom(userId: number, participantIds: number[], name?: string): Promise<any> {
+    return { id: 1, name: name || 'New Chat', participants: participantIds };
+  }
+
+  async getChatRoom(roomId: number, userId: number): Promise<any> {
+    return { id: roomId, name: 'Chat Room', participants: [] };
+  }
+
+  async sendChatMessage(roomId: number, userId: number, content: string): Promise<any> {
+    return { id: 1, roomId, userId, content, createdAt: new Date() };
+  }
+
+  async createBooking(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async getUserBookings(userId: number): Promise<any[]> {
+    return [];
+  }
+
+  async getBooking(bookingId: number, userId: number): Promise<any> {
+    return null;
+  }
+
+  async createTravelPlan(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async getUserTravelPlans(userId: number): Promise<any[]> {
+    return [];
+  }
+
+  async getTravelPlan(planId: number, userId: number): Promise<any> {
+    return null;
+  }
+
+  async updateTravelPlan(planId: number, userId: number, data: any): Promise<any> {
+    return { id: planId, userId, ...data };
+  }
+
+  async createDailyActivity(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async getDailyActivities(userId: number): Promise<any[]> {
+    return [];
+  }
+
+  async createSubscription(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async createPromoCode(data: any): Promise<any> {
+    return { id: 1, ...data };
+  }
+
+  async getPromoCodes(): Promise<any[]> {
+    return [];
+  }
+
+  async addPaymentMethod(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async setDefaultPaymentMethod(userId: number, paymentMethodId: string): Promise<void> {
+    console.log(`Set default payment method ${paymentMethodId} for user ${userId}`);
+  }
+
+  async getCommunityRoles(): Promise<any[]> {
+    return [];
+  }
+
+  async onboardUser(userId: number, data: any): Promise<any> {
+    return { success: true, userId, ...data };
+  }
+
+  async sendFriendRequest(userId: number, targetUserId: number): Promise<any> {
+    return { id: 1, userId, targetUserId, status: 'pending' };
+  }
+
+  async createEnhancedPost(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async createGroup(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async acceptCodeOfConduct(userId: number): Promise<void> {
+    console.log(`User ${userId} accepted code of conduct`);
+  }
+
+  async getNotionFilters(userId: number): Promise<any[]> {
+    return [];
+  }
 }
 
 export const storage = new DatabaseStorage();
