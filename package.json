@@ -102,7 +102,8 @@
     "audit:platform": "tsx scripts/run-platform-audit.ts",
     "audit:agent-domains": "tsx scripts/agent-domain-audits.ts",
     "audit:agent-completeness": "tsx scripts/agent-completeness-audit.ts",
-    "audit:agent-performance": "tsx scripts/agent-performance-audit.ts"
+    "audit:agent-performance": "tsx scripts/agent-performance-audit.ts",
+    "validate:integrations": "tsx scripts/validate-integrations.ts"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
