@@ -249,6 +249,10 @@ app.use('/api/smart-agents', smartAgentsRoutes);
 import smartAgentsV2Routes from './routes/smartAgentsV2Routes';
 app.use('/api/smart-agents', smartAgentsV2Routes);
 
+// MB.MD PHASE 6 - Autonomous Intelligence & Self-Healing Routes
+import phase6Routes from './routes/phase6Routes';
+app.use('/api/phase6', phase6Routes);
+
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
