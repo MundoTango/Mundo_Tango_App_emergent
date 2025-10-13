@@ -12,6 +12,10 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Send, Sparkles, Bot } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { cn } from '@/lib/utils';
+import { useVoiceInput } from '@/hooks/useVoiceInput';
+import { useVoiceOutput } from '@/hooks/useVoiceOutput';
+import { VoiceButton } from '@/components/voice/VoiceButton';
+import { VoiceVisualizer } from '@/components/voice/VoiceVisualizer';
 
 interface Message {
   id: string;
@@ -39,6 +43,25 @@ export function AgentChatPanel({ featureId, pageAgent, matchedAgents = [] }: Age
   ]);
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Voice integration
+  const { isListening, transcript, toggleListening, resetTranscript } = useVoiceInput({
+    onTranscript: (text) => {
+      setInput(prev => prev + ' ' + text);
+    }
+  });
+
+  const { speak, isSpeaking } = useVoiceOutput({
+    onEnd: () => console.log('Speech ended')
+  });
+
+  // Auto-speak agent responses
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === 'agent' && !isSpeaking) {
+      speak(lastMessage.content);
+    }
+  }, [messages]);
 
   const chatMutation = useMutation({
     mutationFn: async (userMessage: string) => {
@@ -156,14 +179,31 @@ export function AgentChatPanel({ featureId, pageAgent, matchedAgents = [] }: Age
         </div>
       </ScrollArea>
 
+      {/* Voice Visualizer */}
+      {(isListening || isSpeaking) && (
+        <div className="px-3 py-2 border-t bg-muted/20">
+          <VoiceVisualizer isActive={isListening || isSpeaking} />
+        </div>
+      )}
+
       {/* Input */}
       <div className="p-4 border-t">
         <div className="flex gap-2">
+          <VoiceButton
+            isListening={isListening}
+            onToggle={() => {
+              toggleListening();
+              if (!isListening) {
+                resetTranscript();
+              }
+            }}
+            disabled={chatMutation.isPending}
+          />
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask the agents anything..."
+            placeholder={isListening ? "Listening..." : "Ask the agents anything..."}
             data-testid="input-agent-chat"
             disabled={chatMutation.isPending}
           />
