@@ -187,7 +187,20 @@ router.get('/auth/user', setUserContext, async (req: any, res) => {
   if (!userId) return res.json(null);
   
   const user = await storage.getUser(Number(userId));
-  res.json({ success: true, data: user });
+  if (!user) return res.json(null);
+  
+  // Get role information
+  const userWithRole = await authService.getUserWithRole(user.id);
+  const role = userWithRole?.role || 'guest';
+  
+  res.json({ 
+    success: true, 
+    data: {
+      ...user,
+      role,
+      roles: [role] // Add roles array for frontend compatibility
+    }
+  });
 });
 
 export default router;
