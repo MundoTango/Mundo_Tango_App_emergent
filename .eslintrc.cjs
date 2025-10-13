@@ -45,7 +45,7 @@ module.exports = {
     
     // Custom rule: Prevent hardcoded hex colors
     'no-restricted-syntax': [
-      'warn',
+      'error',
       {
         selector: "Literal[value=/#[0-9A-Fa-f]{3,8}/]",
         message: '⛔ Hardcoded hex color detected! Use design tokens from design-tokens.css instead. Example: Use className="text-ocean" instead of color="#5EEAD4"',
@@ -53,6 +53,10 @@ module.exports = {
       {
         selector: "TemplateElement[value.raw=/#[0-9A-Fa-f]{3,8}/]",
         message: '⛔ Hardcoded hex color in template literal! Use design tokens from design-tokens.css instead.',
+      },
+      {
+        selector: 'NewExpression[callee.name="QueryClient"]',
+        message: '❌ ESA6 Pattern Violation: NEVER create new QueryClient instances! Import the singleton from @/lib/queryClient instead. (Pattern captured 183 times, 0.98 confidence)',
       },
     ],
     // Disable rules that conflict with our setup

@@ -72,6 +72,7 @@ import StoryDetail from '@/pages/admin/StoryDetail';
 import Sprints from '@/pages/admin/sprints';
 import ESAMind from '@/pages/admin/ESAMind';
 import MrBlueDashboard from '@/pages/admin/MrBlueDashboard';
+import TenantManagement from '@/pages/admin/TenantManagement';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
 import ProjectTracker from '@/pages/ProjectTracker';
@@ -638,6 +639,13 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading Mr Blue Dashboard...',
     description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
+  },
+  {
+    path: '/admin/tenants',
+    component: TenantManagement,
+    mode: 'production',
+    loadingMessage: 'Loading Tenant Management...',
+    description: 'Multi-Tenant Community Management - White-Label Configuration (Super Admin Only)'
   },
   {
     path: '/analytics',
