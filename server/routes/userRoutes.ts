@@ -406,6 +406,27 @@ router.get('/users/:userId',
   getUserProfileHandler
 );
 
+// MB.MD TRACK 4: Batch user fetching
+router.post('/users/batch', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { userIds } = req.body;
+    if (!Array.isArray(userIds)) {
+      return res.status(400).json({ error: 'userIds must be an array' });
+    }
+
+    const users = await storage.getUsersBatch(userIds);
+    res.json({ success: true, data: users });
+  } catch (error: any) {
+    console.error('Error fetching users batch:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
 // Get user travel details
 router.get('/user/travel-details', setUserContext, async (req: any, res) => {
   try {
