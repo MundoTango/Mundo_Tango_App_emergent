@@ -375,7 +375,7 @@ export const LifeCEODashboard: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                  placeholder={t('common.inputs.ask_anything_i')}m here to help optimize your life"
+                  placeholder="I'm here to help optimize your life"
                   className="flex-1 border-cyan-300 focus:border-cyan-500"
                   disabled={chatMutation.isPending}
                 />
