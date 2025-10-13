@@ -98,7 +98,11 @@
     "perf:dashboard": "tsx scripts/performance-dashboard.ts",
     "audit:scheduled": "tsx scripts/scheduled-audit.ts",
     "audit:daily": "tsx scripts/scheduled-audit.ts daily",
-    "audit:weekly": "tsx scripts/scheduled-audit.ts weekly"
+    "audit:weekly": "tsx scripts/scheduled-audit.ts weekly",
+    "audit:platform": "tsx scripts/run-platform-audit.ts",
+    "audit:agent-domains": "tsx scripts/agent-domain-audits.ts",
+    "audit:agent-completeness": "tsx scripts/agent-completeness-audit.ts",
+    "audit:agent-performance": "tsx scripts/agent-performance-audit.ts"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
