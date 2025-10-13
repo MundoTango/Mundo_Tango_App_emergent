@@ -539,6 +539,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Admin dashboard'
   },
   {
+    path: '/admin/dashboard',
+    component: Dashboard,
+    mode: 'production',
+    loadingMessage: 'Loading admin dashboard...',
+    description: 'Admin dashboard (alias)'
+  },
+  {
     path: '/admin/users',
     component: Users,
     mode: 'production',
