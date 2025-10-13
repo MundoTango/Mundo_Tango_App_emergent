@@ -29,7 +29,6 @@ import PostCreator from '@/components/universal/PostCreator';
 // Phase 3: Migrated to SmartPostFeed (context-based, centralized data hooks)
 import SmartPostFeed from '@/components/moments/SmartPostFeed';
 const UpcomingEventsSidebar = lazy(() => import('@/components/esa/UpcomingEventsSidebar'));
-const FloatingCreateButton = lazy(() => import('@/components/esa/FloatingCreateButton'));
 const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
 
 // Aurora Tide Design System - Track A: Core Components
@@ -372,18 +371,6 @@ function ESAMemoryFeedCore() {
           </div>
         </div>
       </DashboardLayout>
-
-      {/* Floating Create Button - ESA Framework Required Feature */}
-      <Suspense fallback={null}>
-        <FloatingCreateButton 
-        onClick={() => {
-          // Scroll to top where the creator is in feed view
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-          theme={currentTheme.id}
-          data-testid="button-create-post"
-        />
-      </Suspense>
 
       {/* Share Modal - Internal sharing options */}
       {shareModalPost && (
