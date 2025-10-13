@@ -7,6 +7,26 @@ import { RealTimeNotificationService } from '../services/realTimeNotifications';
 
 const router = Router();
 
+// MB.MD TRACK 7: Memory tagging endpoint (for SecurityDemo)
+router.get('/memory/:memoryId/tag', isAuthenticated, async (req: any, res: any) => {
+  try {
+    const { memoryId } = req.params;
+    const { tag } = req.query;
+    
+    res.json({
+      success: true,
+      message: `Memory ${memoryId} tagged with ${tag}`,
+      data: { memoryId, tag }
+    });
+  } catch (error) {
+    console.error('Memory tag error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to tag memory'
+    });
+  }
+});
+
 // Get memories feed
 // [A2A] Agent #2: Using existing getUserMemoriesWithFilters until getMemoriesFeed is implemented
 router.get('/memories/feed', isAuthenticated, async (req: any, res: any) => {

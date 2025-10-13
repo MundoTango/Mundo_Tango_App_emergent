@@ -119,8 +119,9 @@ export class ESA106IntegrationValidator {
 
   private async scanBackendRoutes(): Promise<BackendRoute[]> {
     const routes: BackendRoute[] = [];
-    const files = await glob(`${this.serverPath}/routes/**/*.{ts,js}`, {
-      ignore: ['**/node_modules/**'],
+    // MB.MD FIX: Scan both server/routes/ and server root for route files (e.g., rbacRoutes.ts)
+    const files = await glob(`${this.serverPath}/**/*{R,r}outes*.{ts,js}`, {
+      ignore: ['**/node_modules/**', '**/dist/**', '**/services/**', '**/middleware/**', '**/utils/**'],
     });
 
     for (const file of files) {

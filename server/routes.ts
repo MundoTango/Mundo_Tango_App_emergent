@@ -104,6 +104,10 @@ import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visua
 import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
 import learningCoordinatorRoutes from "./routes/learningCoordinator"; // ESA Agent #80 - Learning Coordinator (Knowledge Flow UP/ACROSS/DOWN)
 import siteBuilderRoutes from "./routes/siteBuilder"; // ESA Agent #77 - AI Site Builder (Page Generation)
+import performanceRoutes from "./routes/performanceRoutes"; // MB.MD TRACK 2: Performance Metrics & Reporting
+import locationRoutes from "./routes/locationRoutes"; // MB.MD TRACK 5: Location Detection & Internationalization
+import friendRequestRoutes from "./routes/friendRequestRoutes"; // MB.MD TRACK 6: Friend Request Management
+import rolesRoutes from "./routes/rolesRoutes"; // MB.MD TRACK 8: Enhanced Role Management
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -274,6 +278,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', lifeCEORoutes); // MB.MD TRACK 15: Life CEO Routes
   app.use('/api/streaming', streamingRoutes); // MB.MD TRACK 17: Live Streaming Routes
   app.use('/api', rbacRoutes); // MB.MD TRACK 22: RBAC/ABAC Permission Management Routes
+  app.use('/api', performanceRoutes); // MB.MD TRACK 2: Performance Metrics & Reporting
+  app.use('/api', tenantRoutes); // MB.MD TRACK 3: Tenant Context & View Preferences Routes
+  app.use('/api', locationRoutes); // MB.MD TRACK 5: Location Detection & Internationalization
+  app.use('/api', friendRequestRoutes); // MB.MD TRACK 6: Friend Request Management
+  app.use('/api', rolesRoutes); // MB.MD TRACK 8: Enhanced Role Management
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System

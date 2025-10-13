@@ -544,6 +544,26 @@ router.get('/user/city-group', setUserContext, async (req: any, res) => {
   }
 });
 
+// MB.MD TRACK 10: Get user profile (for auth-context.tsx)
+router.get('/user/profile', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    const user = await storage.getUserById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    res.json({
+      success: true,
+      data: user
+    });
+  } catch (error) {
+    console.error('Get user profile error:', error);
+    res.status(500).json({ error: 'Failed to fetch user profile' });
+  }
+});
+
 // Update user profile (for EditProfileModal) - Fixed for production
 router.put('/user/profile', setUserContext, async (req: any, res) => {
   try {

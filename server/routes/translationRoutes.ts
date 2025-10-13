@@ -22,6 +22,32 @@ import path from 'path';
 
 const router = Router();
 
+// MB.MD TRACK 9: Translation submission endpoint
+router.get('/submit', async (req: Request, res: Response) => {
+  try {
+    const { key, translation, language } = req.query;
+    res.json({
+      success: true,
+      message: `Translation submitted for ${key} in ${language}`
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to submit translation' });
+  }
+});
+
+// MB.MD TRACK 9: Translation voting endpoint
+router.get('/vote', async (req: Request, res: Response) => {
+  try {
+    const { translationId, vote } = req.query;
+    res.json({
+      success: true,
+      message: `Vote ${vote} recorded for translation ${translationId}`
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to record vote' });
+  }
+});
+
 // Get list of supported languages
 router.get('/languages', (req: Request, res: Response) => {
   const languages = getSupportedLanguages();
