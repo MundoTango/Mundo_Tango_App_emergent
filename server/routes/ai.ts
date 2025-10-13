@@ -335,4 +335,90 @@ router.post('/nlp', async (req, res) => {
   }
 });
 
+// Mr Blue Chat with Scott's Personality
+router.post('/mrblue/chat', async (req, res) => {
+  try {
+    const { message, personality, agent, context, model = 'gpt-4o' } = req.body;
+    const userId = req.user?.id || 1;
+
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    // Build system prompt with Scott's personality + context
+    const systemPrompt = `${personality || ''}
+
+CURRENT CONTEXT:
+- Page: ${context?.page || 'unknown'}
+- URL: ${context?.url || 'unknown'}
+- Active Agent: ${agent || 'Mr Blue'}
+- Page Elements: ${context?.elements || 0}
+
+You are currently ${agent || 'Mr Blue'}. Respond in Scott's voice - decisive, grounded, helpful.`;
+
+    // Route to Life CEO agent if needed
+    let agentResponse;
+    if (agent !== 'Mr Blue' && agent !== 'AI Chat') {
+      // Use existing Life CEO agent system
+      const { agent: lifeceoAgent, intent, context: agentContext } = await AgentManager.routeToAgent(
+        userId,
+        message,
+        `mrblue-session-${Date.now()}`
+      );
+
+      const result = await AgentManager.processWithAgent(
+        lifeceoAgent,
+        userId,
+        message,
+        agentContext
+      );
+
+      agentResponse = result.response;
+    }
+
+    // Return agent response or generic Scott response
+    const finalResponse = agentResponse || 
+      `Let's tackle this together. ${agent !== 'Mr Blue' ? `I'm connecting you with ${agent}.` : 'What specifically needs help?'}`;
+
+    // Generate suggestions
+    const suggestions = generateMrBlueSuggestions(message, agent);
+
+    res.json({
+      response: finalResponse,
+      agent,
+      suggestions,
+      model: model,
+    });
+  } catch (error) {
+    console.error('Mr Blue chat error:', error);
+    res.status(500).json({ 
+      error: 'AI chat failed',
+      response: "No worries—hit a quick snag. Let's try that again."
+    });
+  }
+});
+
+// Generate contextual suggestions for Mr Blue
+function generateMrBlueSuggestions(message: string, agent: string): string[] {
+  const lowerMessage = message.toLowerCase();
+  
+  if (lowerMessage.includes('how')) {
+    return ["Show me an example", "What are the steps?", "Tell me more"];
+  }
+  
+  if (lowerMessage.includes('schedule') || agent === 'Schedule Agent') {
+    return ["Add new event", "View my calendar", "Set reminder"];
+  }
+  
+  if (lowerMessage.includes('finance') || agent === 'Finance Agent') {
+    return ["Check budget", "Add expense", "View reports"];
+  }
+  
+  if (agent === 'AI Chat' || agent === 'Mr Blue') {
+    return ["What can you help with?", "Show available agents", "Tell me more"];
+  }
+  
+  return ["Tell me more", "What else?", "How do I do that?"];
+}
+
 export default router;
