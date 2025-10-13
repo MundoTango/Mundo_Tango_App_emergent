@@ -5,7 +5,7 @@
 
 import { Router } from 'express';
 import { smartAgents } from '../agents';
-import { requireAdmin } from '../middleware/auth';
+import { requireAdmin } from '../middleware/adminAuth';
 
 const router = Router();
 
