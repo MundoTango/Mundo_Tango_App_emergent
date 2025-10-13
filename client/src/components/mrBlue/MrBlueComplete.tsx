@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, X, Maximize2, Minimize2 } from 'lucide-react';
+import { Sparkles, X, Maximize2, Minimize2, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Canvas } from '@react-three/fiber';
@@ -10,6 +10,7 @@ import { ScottAvatar } from '@/lib/mrBlue/avatar/ScottAvatar';
 import { ChatInterface } from '@/lib/mrBlue/chat/ChatInterface';
 import { useScottAI } from '@/lib/mrBlue/ai/ScottAI';
 import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
+import { ESAMindMap } from '@/components/esa/ESAMindMap';
 
 /**
  * ESA Mr Blue Complete System
@@ -111,17 +112,31 @@ export function MrBlueComplete() {
               </div>
               <div className="flex items-center gap-2">
                 {isAdmin && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setVisualEditMode(!visualEditMode);
-                      setIsOpen(false);
-                    }}
-                    data-testid="button-toggle-visual-editor-complete"
-                  >
-                    {visualEditMode ? 'Exit Edit Mode' : 'Visual Editor'}
-                  </Button>
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        window.location.href = '/admin/esa-mind';
+                      }}
+                      className="gap-1"
+                      data-testid="button-esa-mind-map"
+                    >
+                      <Map className="h-4 w-4" />
+                      ESA Mind Map
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setVisualEditMode(!visualEditMode);
+                        setIsOpen(false);
+                      }}
+                      data-testid="button-toggle-visual-editor-complete"
+                    >
+                      {visualEditMode ? 'Exit Edit Mode' : 'Visual Editor'}
+                    </Button>
+                  </>
                 )}
                 <Button
                   variant="ghost"
