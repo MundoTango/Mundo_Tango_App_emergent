@@ -1179,6 +1179,86 @@ When creating a new agent:
 1. **Build with 61x21** - Use ESA framework layers
 2. **Validate with 40x20s** - Check against 800 checkpoints
 3. **Pass Quality Gate** - All metrics must be green
+4. **Integration Verification** - Frontend-backend validation (see below)
+
+---
+
+### 🔒 Integration Verification Protocol (Quality Gate #5)
+
+**Added:** October 13, 2025  
+**Owner:** ESA106 Integration Validator  
+**Mandatory:** All agents before deployment
+
+#### Why This Exists
+ESA106 discovered **166 critical routing bugs** with a platform health score of only **26%**. This protocol prevents integration issues like the Mr Blue routing bug from reaching production.
+
+#### Pre-Build Checklist
+Before building any feature:
+- [ ] Run `npm run validate:integrations`
+- [ ] Review integration report: `docs/integration-reports/integration-validation-*.json`
+- [ ] Health score must be >95%
+- [ ] Zero critical issues in your domain
+- [ ] All auto-fixable issues resolved
+
+#### Post-Build Checklist
+After building a new feature:
+- [ ] Re-run `npm run validate:integrations`
+- [ ] Verify new routes appear in backend scan (507+ routes)
+- [ ] Verify frontend calls match backend routes exactly
+- [ ] Test end-to-end connectivity (automated tests)
+- [ ] Health score maintained or improved
+
+#### Fix Protocol
+
+**Critical Issues (Missing Routes):**
+1. Create backend route immediately in `server/routes/*.ts`
+2. Match HTTP method (GET/POST/PUT/DELETE/PATCH)
+3. Add authentication middleware if needed
+4. Validate request body with Zod schemas
+
+**High Issues (Wrong Mount Path):**
+1. Fix `app.use('/api/path', routes)` in `server/routes.ts`
+2. Verify mount path matches frontend expectations
+3. Test all routes in that router file
+
+**Medium Issues (Method Mismatch):**
+1. Update frontend to use correct HTTP method
+2. OR add missing method handler to backend
+3. Document the change in API docs
+
+#### Health Score Requirements
+- **Development:** >80% acceptable for WIP features
+- **Staging:** >95% required for merge to main
+- **Production:** 100% required for deployment
+
+#### Integration Verification Commands
+```bash
+# Run full validation
+npm run validate:integrations
+
+# Run with auto-fix (when available)
+npm run validate:integrations --fix
+
+# View latest report
+cat docs/integration-reports/integration-validation-*.json | jq .
+```
+
+#### Lessons from Mr Blue Bug
+**Original Issue:**
+```typescript
+// ❌ Frontend called:
+fetch('/api/ai/mrblue/chat')
+
+// ❌ Backend mounted at:
+app.use('/api', mrblueRoutes)
+
+// ✅ Should be:
+app.use('/api/ai', mrblueRoutes)
+```
+
+**Detection:** ESA106 found this and 165 similar issues automatically.
+
+**Prevention:** Always run integration validation before deployment.
 
 **Example: Agent #4 (Real-time Communications)**
 
