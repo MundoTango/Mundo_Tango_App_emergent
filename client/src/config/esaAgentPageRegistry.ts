@@ -73,7 +73,8 @@ export const AGENT_PAGE_REGISTRY: Record<string, number[]> = {
   '/life-ceo-performance': [12, 6, 11],       // Agent #12 (metrics) + #6 (state) + #11 (UI)
   
   // ========== Content & Social ==========
-  '/memories': [6, 11, 13],                   // Agent #6 (state) + #11 (UI) + #13 (content/media)
+  '/': [6, 11, 13],                           // P10: Home Feed/Memories - Agent #6 (state) + #11 (UI) + #13 (content/media)
+  '/memories': [6, 11, 13],                   // Legacy alias for home feed
   '/community': [11, 6, 8],                   // Agent #11 (UI) + #6 (state) + #8 (users)
   '/groups': [11, 6, 8],                      // Agent #11 + #6 + #8
   '/groups/:slug': [11, 6, 8],                // Agent #11 + #6 + #8
