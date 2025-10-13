@@ -146,41 +146,99 @@ function useFallbackAvatar() {
 
 // Apply emotion via blend shapes (when GLB model loaded)
 function applyEmotionBlendShapes(group: THREE.Group, emotion: string) {
-  // This will be implemented when we have a GLB model with blend shapes
-  // For now, adjust position/rotation for basic emotion expression
+  // Enhanced emotion system - works with both GLB blend shapes AND fallback
   
-  switch (emotion) {
-    case 'happy':
-      // Slight upward tilt
-      group.rotation.x = -0.1;
-      break;
-    case 'thinking':
-      // Head tilt
-      group.rotation.z = 0.15;
-      break;
-    case 'concerned':
-      // Slight downward tilt
-      group.rotation.x = 0.1;
-      break;
-    case 'excited':
-      // Bouncy animation handled in useFrame
-      break;
-    default:
-      group.rotation.x = 0;
-      group.rotation.z = 0;
+  // Try to find mesh with morph targets (GLB model)
+  let hasMorphTargets = false;
+  group.traverse((child) => {
+    if (child instanceof THREE.Mesh && child.morphTargetInfluences) {
+      hasMorphTargets = true;
+      const emotionMap: Record<string, number> = {
+        neutral: 0,
+        happy: 1,
+        thinking: 2,
+        concerned: 3,
+        excited: 4,
+        listening: 5,
+        speaking: 6,
+        idle: 7
+      };
+      
+      const targetIndex = emotionMap[emotion] || 0;
+      
+      // Smooth blend to target emotion
+      child.morphTargetInfluences.forEach((_, i) => {
+        const target = i === targetIndex ? 1.0 : 0.0;
+        child.morphTargetInfluences![i] = THREE.MathUtils.lerp(
+          child.morphTargetInfluences![i],
+          target,
+          0.15 // Smooth interpolation
+        );
+      });
+    }
+  });
+  
+  // Fallback: Use rotation for basic emotion if no morph targets
+  if (!hasMorphTargets) {
+    switch (emotion) {
+      case 'happy':
+        group.rotation.x = -0.1;
+        group.rotation.z = 0;
+        break;
+      case 'thinking':
+        group.rotation.z = 0.15;
+        group.rotation.x = 0.05;
+        break;
+      case 'concerned':
+        group.rotation.x = 0.1;
+        group.rotation.z = -0.05;
+        break;
+      case 'excited':
+        group.rotation.x = -0.15;
+        break;
+      case 'listening':
+        group.rotation.z = 0.1;
+        break;
+      default:
+        group.rotation.x = 0;
+        group.rotation.z = 0;
+    }
   }
 }
 
-// Lip sync implementation
+// Enhanced lip sync implementation with viseme support
 function applyLipSync(group: THREE.Group, audioData: Float32Array) {
   // Analyze audio frequency to determine mouth shape
   const volume = audioData.reduce((sum, val) => sum + Math.abs(val), 0) / audioData.length;
   
-  // Map volume to mouth opening (this will use blend shapes when GLB loaded)
+  // Map volume to mouth opening (0-1 range)
   const mouthOpen = Math.min(volume * 2, 1);
   
-  // For now, we'll use a simple visual indicator
-  // When GLB model is loaded, this will control mouth blend shapes
+  // Try to find mesh with morph targets for visemes
+  group.traverse((child) => {
+    if (child instanceof THREE.Mesh && child.morphTargetInfluences) {
+      // Viseme blend shapes (8-15 range in morph targets)
+      // For volume-based fallback, use simple mouth open/close
+      const mouthOpenIndex = 14; // Assuming index 14 is mouth open viseme
+      if (child.morphTargetInfluences[mouthOpenIndex] !== undefined) {
+        child.morphTargetInfluences[mouthOpenIndex] = THREE.MathUtils.lerp(
+          child.morphTargetInfluences[mouthOpenIndex],
+          mouthOpen,
+          0.3 // Fast interpolation for speech
+        );
+      }
+    }
+  });
+  
+  // For future: Map phonemes to visemes
+  // A/ah → wide open
+  // E/ee → smile + slight open
+  // I/ih → slight open
+  // O/oh → rounded lips
+  // U/oo → pursed lips
+  // M/B → lips closed
+  // F/V → lower lip bite
+  // L → tongue visible
 }
 
 /**
