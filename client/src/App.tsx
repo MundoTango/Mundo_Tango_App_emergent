@@ -215,7 +215,6 @@ function App() {
                       <MonitoringProvider>
                         <MicroInteractionProvider>
                           <SessionRecordingNotice />
-                          <ThemeManager />
                           <AppContent />
                         </MicroInteractionProvider>
                       </MonitoringProvider>
