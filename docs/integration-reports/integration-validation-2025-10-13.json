@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-10-13T08:30:01.285Z",
+  "timestamp": "2025-10-13T08:32:24.750Z",
   "summary": {
     "totalFrontendCalls": 223,
-    "verifiedRoutes": 169,
-    "missingRoutes": 51,
+    "verifiedRoutes": 171,
+    "missingRoutes": 49,
     "methodMismatches": 3,
-    "autoFixable": 32
+    "autoFixable": 30
   },
   "issues": [
     {
@@ -54,48 +54,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "contexts/auth-context.tsx",
-        "line": 82,
-        "endpoint": "/api/user/login",
-        "method": "GET",
-        "context": "const response = await fetch('/api/user/login', {"
-      },
-      "expectedRoute": "/api/user/login",
-      "actualRoute": {
-        "file": "rbacRoutes.ts",
-        "path": "/user/:userId/roles",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/user/:userId/roles"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/user/:userId/roles. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/TrialBanner.tsx",
-        "line": 45,
-        "endpoint": "/api/payments/trial-status",
-        "method": "GET",
-        "context": "const res = await fetch('/api/payments/trial-status', { credentials: 'include' });"
-      },
-      "expectedRoute": "/api/payments/trial-status",
-      "actualRoute": {
-        "file": "routes/paymentRoutes.ts",
-        "path": "/api/payments/subscription-tiers",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/payments/subscription-tiers"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/payments/subscription-tiers. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "components/SecurityDemo.tsx",
         "line": 159,
         "endpoint": "/api/event/1/feedback",
@@ -105,13 +63,13 @@
       "expectedRoute": "/api/event/1/feedback",
       "actualRoute": {
         "file": "routes/postsRoutes.ts",
-        "path": "/api/posts/mentions/event/:eventId",
+        "path": "/api/event/:eventId/feedback",
         "method": "GET",
         "mountPath": "",
-        "fullPath": "/api/posts/mentions/event/:eventId"
+        "fullPath": "/api/event/:eventId/feedback"
       },
       "autoFixable": true,
-      "recommendation": "Route exists at /api/posts/mentions/event/:eventId. Update mount path in routes.ts or fix frontend call."
+      "recommendation": "Route exists at /api/event/:eventId/feedback. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -986,5 +944,5 @@
       "recommendation": "Route exists at /api/user/profile. Update mount path in routes.ts or fix frontend call."
     }
   ],
-  "healthScore": 76
+  "healthScore": 77
 }

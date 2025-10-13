@@ -13,6 +13,19 @@ import fs from 'fs';
 
 const router = Router();
 
+// MB.MD TRACK 17: Event feedback endpoint (for SecurityDemo)
+router.get('/api/event/:eventId/feedback', async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    res.json({
+      success: true,
+      data: { eventId, feedback: [] }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to fetch feedback' });
+  }
+});
+
 // Configure multer for handling file uploads
 const uploadStorage = multer.diskStorage({
   destination: async (req, file, cb) => {

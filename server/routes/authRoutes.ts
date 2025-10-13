@@ -12,6 +12,18 @@ import { getUserId } from '../utils/authHelper';
 
 const router = Router();
 
+// MB.MD TRACK 15: User login GET endpoint (for auth-context.tsx)
+router.get('/user/login', async (req, res) => {
+  try {
+    res.json({
+      success: true,
+      message: 'Login endpoint - use POST for actual login'
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Login endpoint error' });
+  }
+});
+
 // ESA LIFE CEO 61x21 - Phase 2: Secure user authentication check
 // User authentication status check - returns user if authenticated, null if not
 router.get("/api/auth/user", async (req: any, res) => {
