@@ -266,7 +266,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                       <div className="flex gap-2">
                         <PulseButton 
                           onClick={() => setLocation(`/guest-onboarding?hostHomeId=${home.id}`)}
-                          className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl text-sm"
+                          className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 rounded-xl text-sm"
                           data-testid={`button-request-stay-${home.id}`}
                         >
                           {t('housing.homes_list.request_stay', 'Request Stay')}

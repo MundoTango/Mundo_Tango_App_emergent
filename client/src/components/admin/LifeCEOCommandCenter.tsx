@@ -39,11 +39,13 @@ const LifeCEOCommandCenter: React.FC = () => {
 
   // Import project data to get real counts
   const getActiveProjectCount = () => {
+  const { t } = useTranslation();
     // Import dynamically to avoid circular dependencies
     import('../../data/comprehensive-project-data').then(({ comprehensiveProjectData }) => {
       const countActiveProjects = (items: any[]): number => {
         return items.reduce((count, item) => {
           const itemCount = item.status === 'In Progress' ? 1 : 0;
+import { useTranslation } from 'react-i18next';
           const childCount = item.children ? countActiveProjects(item.children) : 0;
           return count + itemCount + childCount;
         }, 0);
@@ -99,7 +101,7 @@ const LifeCEOCommandCenter: React.FC = () => {
         <h2 className="text-3xl font-bold text-gray-900">
           Life CEO 44x21 Framework
         </h2>
-        <p className="text-gray-600 mt-2">44 Technical Layers × 21 Development Phases</p>
+        <p className="text-gray-600 dark:text-gray-300 mt-2">{t('common.44_technical_layers_21_development_phases')}</p>
       </div>
 
       {/* Quick Stats Grid */}
@@ -108,14 +110,14 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <Bot className="w-5 h-5 text-turquoise-500" />
-              <Badge className="bg-green-100 text-green-700">Active</Badge>
+              <Badge className="bg-green-100 dark:bg-green-900/30 text-green-700">{t('common.active')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-gray-900">
               {stats.agentStatus}
             </p>
-            <p className="text-sm text-gray-600 mt-1">Agent Status</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 mt-1">{t('common.agent_status')}</p>
           </CardContent>
         </Card>
 
@@ -123,14 +125,14 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <Lightbulb className="w-5 h-5 text-yellow-500" />
-              <span className="text-xs text-gray-500">Today</span>
+              <span className="text-xs text-gray-500">{t('common.today')}</span>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-gray-900">
               {stats.learningsToday}
             </p>
-            <p className="text-sm text-gray-600 mt-1">New Learnings</p>
+            <p className="text-sm text-gray-600 mt-1">{t('common.new_learnings')}</p>
           </CardContent>
         </Card>
 
@@ -138,14 +140,14 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <Layers className="w-5 h-5 text-purple-500" />
-              <Badge className="bg-purple-100 text-purple-700">44x21</Badge>
+              <Badge className="bg-purple-100 dark:bg-purple-900/30 text-purple-700">{t('common.44x21')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-gray-900">
               {stats.frameworkLayers}
             </p>
-            <p className="text-sm text-gray-600 mt-1">Technical Layers</p>
+            <p className="text-sm text-gray-600 mt-1">{t('common.technical_layers')}</p>
           </CardContent>
         </Card>
 
@@ -153,14 +155,14 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CalendarDays className="w-5 h-5 text-indigo-500" />
-              <Badge className="bg-indigo-100 text-indigo-700">Phases</Badge>
+              <Badge className="bg-indigo-100 text-indigo-700">{t('common.phases')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-gray-900">
               {stats.developmentPhases}
             </p>
-            <p className="text-sm text-gray-600 mt-1">Dev Phases</p>
+            <p className="text-sm text-gray-600 mt-1">{t('common.dev_phases')}</p>
           </CardContent>
         </Card>
 
@@ -168,14 +170,14 @@ const LifeCEOCommandCenter: React.FC = () => {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <GitBranch className="w-5 h-5 text-blue-500" />
-              <Badge className="bg-blue-100 text-blue-700">{stats.activeProjects}</Badge>
+              <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700">{stats.activeProjects}</Badge>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-gray-900">
               {stats.activeProjects}
             </p>
-            <p className="text-sm text-gray-600 mt-1">Active Projects</p>
+            <p className="text-sm text-gray-600 mt-1">{t('common.active_projects')}</p>
           </CardContent>
         </Card>
 
@@ -190,7 +192,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <p className="text-2xl font-bold text-gray-900">
               {stats.performanceScore}
             </p>
-            <p className="text-sm text-gray-600 mt-1">Performance</p>
+            <p className="text-sm text-gray-600 mt-1">{t('common.performance')}</p>
           </CardContent>
         </Card>
       </div>
@@ -205,7 +207,7 @@ const LifeCEOCommandCenter: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Button 
-              className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
+              className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white dark:text-gray-900 hover:from-turquoise-600 hover:to-cyan-600"
               onClick={() => setActiveTab('agent')}
             >
               <Bot className="w-4 h-4 mr-2" />
@@ -287,11 +289,11 @@ const LifeCEOCommandCenter: React.FC = () => {
                 
                 return (
                   <div key={activity.id || index} className={`flex items-start gap-3 p-3 rounded-lg ${bgColors[index % 3]}`}>
-                    <Icon className="w-5 h-5 text-blue-500 mt-0.5" />
+                    <Icon className="w-5 h-5 text-blue-500 dark:text-blue-400 mt-0.5" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">{activity.project_title || activity.activity}</p>
                       <p className="text-xs text-gray-600">{activity.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">{timeString}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-1">{timeString}</p>
                     </div>
                   </div>
                 );
@@ -299,8 +301,8 @@ const LifeCEOCommandCenter: React.FC = () => {
               {(!todayActivities?.data || todayActivities.data.length === 0) && (
                 <div className="text-center py-4 text-gray-500">
                   <CalendarDays className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                  <p className="text-sm">No activities logged today</p>
-                  <p className="text-xs mt-1">Activities will appear here automatically</p>
+                  <p className="text-sm">{t('common.no_activities_logged_today')}</p>
+                  <p className="text-xs mt-1">{t('common.activities_will_appear_here_automatically')}</p>
                 </div>
               )}
             </div>
@@ -317,23 +319,23 @@ const LifeCEOCommandCenter: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium">44x21 Framework Progress</span>
-                  <span className="text-sm text-gray-600">Phase 18/21</span>
+                  <span className="text-sm font-medium">{t('common.44x21_framework_progress')}</span>
+                  <span className="text-sm text-gray-600">{t('common.phase_1821')}</span>
                 </div>
                 <Progress value={85.7} className="h-2 bg-gray-200" />
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium">Layer Completion</span>
-                  <span className="text-sm text-gray-600">38/44 Layers</span>
+                  <span className="text-sm font-medium">{t('common.layer_completion')}</span>
+                  <span className="text-sm text-gray-600">{t('common.3844_layers')}</span>
                 </div>
                 <Progress value={86.4} className="h-2 bg-gray-200" />
               </div>
               <div className="pt-2 border-t">
                 <p className="text-sm text-gray-600">
-                  <span className="font-medium">Next Milestone:</span> Complete security compliance implementation
+                  <span className="font-medium">{t('common.next_milestone')}</span> Complete security compliance implementation
                 </p>
-                <p className="text-xs text-gray-500 mt-1">Estimated: 2 days</p>
+                <p className="text-xs text-gray-500 mt-1">{t('common.estimated_2_days')}</p>
               </div>
             </div>
           </CardContent>
@@ -353,19 +355,19 @@ const LifeCEOCommandCenter: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-lg bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50">
-              <h4 className="font-medium text-turquoise-700 mb-2">44x21 Framework Status</h4>
-              <p className="text-sm text-gray-600">44 technical layers active</p>
-              <p className="text-sm text-gray-600">21 development phases deployed</p>
+              <h4 className="font-medium text-turquoise-700 mb-2">{t('common.44x21_framework_status')}</h4>
+              <p className="text-sm text-gray-600">{t('common.44_technical_layers_active')}</p>
+              <p className="text-sm text-gray-600">{t('common.21_development_phases_deployed')}</p>
             </div>
             <div className="p-4 rounded-lg bg-gradient-to-br from-purple-50/50 to-pink-50/50">
-              <h4 className="font-medium text-purple-700 mb-2">Learning System</h4>
-              <p className="text-sm text-gray-600">342 patterns identified</p>
-              <p className="text-sm text-gray-600">Self-improvement rate: 15%/week</p>
+              <h4 className="font-medium text-purple-700 mb-2">{t('common.learning_system')}</h4>
+              <p className="text-sm text-gray-600">{t('common.342_patterns_identified')}</p>
+              <p className="text-sm text-gray-600">{t('common.selfimprovement_rate_15week')}</p>
             </div>
             <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50/50 to-indigo-50/50">
-              <h4 className="font-medium text-blue-700 mb-2">Framework Progress</h4>
+              <h4 className="font-medium text-blue-700 dark:text-blue-200 mb-2">{t('common.framework_progress')}</h4>
               <p className="text-sm text-gray-600">44x21: {stats.frameworkProgress}% Complete</p>
-              <p className="text-sm text-gray-600">Phase 18 of 21 Active</p>
+              <p className="text-sm text-gray-600">{t('common.phase_18_of_21_active')}</p>
             </div>
           </div>
         </CardContent>
@@ -376,7 +378,7 @@ const LifeCEOCommandCenter: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">
           Life CEO Command Center
         </h2>
         <p className="text-gray-600">
@@ -385,7 +387,7 @@ const LifeCEOCommandCenter: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="flex flex-wrap gap-2 bg-white/50 p-2 justify-start">
+        <TabsList className="flex flex-wrap gap-2 bg-white/50 dark:bg-gray-900/50 p-2 justify-start">
           <TabsTrigger 
             value="dashboard" 
             className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
@@ -399,7 +401,7 @@ const LifeCEOCommandCenter: React.FC = () => {
           >
             <Brain className="w-4 h-4 mr-2" />
             Learnings
-            <Badge className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-1">LIVE</Badge>
+            <Badge className="absolute -top-2 -right-2 bg-green-500 dark:bg-green-600 text-white dark:text-gray-900 text-xs px-1">{t('common.live')}</Badge>
           </TabsTrigger>
           <TabsTrigger 
             value="agent"
@@ -428,7 +430,7 @@ const LifeCEOCommandCenter: React.FC = () => {
           >
             <GitBranch className="w-4 h-4 mr-2" />
             JIRA Export
-            <Badge className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs px-1">44x21</Badge>
+            <Badge className="absolute -top-2 -right-2 bg-purple-500 dark:bg-purple-600 text-white dark:text-gray-900 text-xs px-1">{t('common.44x21')}</Badge>
           </TabsTrigger>
         </TabsList>
 

@@ -291,7 +291,7 @@ export class LearningCoordinatorService {
           timesReused: newReuses,
           effectiveness: newEffectiveness.toString(),
           metadata: {
-            ...currentFlow.metadata,
+            ...(currentFlow.metadata as object ?? {}),
             lastFeedback: {
               successful: feedback.successful,
               improvement: feedback.improvement,

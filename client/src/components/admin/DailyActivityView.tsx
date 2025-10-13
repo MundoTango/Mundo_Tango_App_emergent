@@ -8,6 +8,7 @@ import { JiraStyleItemDetailModal } from './JiraStyleItemDetailModal';
 import { ProjectItem } from '@/data/comprehensive-project-data';
 import { comprehensiveProjectData } from '@/data/comprehensive-project-data';
 import { apiRequest } from '@/lib/queryClient';
+import { useTranslation } from 'react-i18next';
 
 interface DailyActivity {
   id: string;
@@ -74,6 +75,7 @@ function DailyActivityView() {
         if (projectItem) return;
         
         const searchInChildren = (items: ProjectItem[]) => {
+  const { t } = useTranslation();
           items.forEach(item => {
             if (item.id === activity.project_id || item.title === activity.project_title) {
               projectItem = item;
@@ -170,7 +172,7 @@ function DailyActivityView() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Calendar className="h-6 w-6 text-blue-600" />
-          <h2 className="text-2xl font-bold">Daily Activity</h2>
+          <h2 className="text-2xl font-bold">{t('common.daily_activity')}</h2>
           <input
             type="date"
             value={selectedDate.toISOString().split('T')[0]}
@@ -180,13 +182,13 @@ function DailyActivityView() {
             }}
             className="px-3 py-1 border rounded-md text-sm"
           />
-          <Badge className="bg-blue-100 text-blue-800">
+          <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-800">
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
           <button
             onClick={() => refetch()}
             disabled={isLoading}
-            className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"
+            className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"
             title="Refresh activities"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -214,23 +216,23 @@ function DailyActivityView() {
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-5 w-5" />
             Activity Timeline
-            {isLoading && <span className="text-sm font-normal text-gray-500">(Loading...)</span>}
+            {isLoading && <span className="text-sm font-normal text-gray-500">{t('common.loading')}</span>}
           </CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <RefreshCw className="h-8 w-8 text-gray-400 animate-spin mx-auto" />
-                <p className="text-gray-500">Loading activities...</p>
+                <RefreshCw className="h-8 w-8 text-gray-400 dark:text-gray-500 animate-spin mx-auto" />
+                <p className="text-gray-500">{t('common.loading_activities')}</p>
               </div>
             </div>
           ) : todayActivities.length === 0 ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <Activity className="h-8 w-8 text-gray-400 mx-auto" />
-                <p className="text-gray-500">No activities recorded for this date</p>
-                <p className="text-sm text-gray-400">Activities will appear here as you work on projects</p>
+                <Activity className="h-8 w-8 text-gray-400 dark:text-gray-500 mx-auto" />
+                <p className="text-gray-500">{t('common.no_activities_recorded_for_this_date')}</p>
+                <p className="text-sm text-gray-400">{t('common.activities_will_appear_here_as_you_work_on_project')}</p>
               </div>
             </div>
           ) : (
@@ -242,7 +244,7 @@ function DailyActivityView() {
                   onClick={() => setSelectedItem(activity.item)}
                 >
                   {/* Time */}
-                  <div className="flex-none text-sm text-gray-500 w-20">
+                  <div className="flex-none text-sm text-gray-500 dark:text-gray-400 w-20">
                     {formatTime(activity.timestamp)}
                   </div>
 
@@ -265,10 +267,10 @@ function DailyActivityView() {
 
                     {/* Changes */}
                     {activity.changes && activity.changes.length > 0 && (
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                         {activity.changes.map((change, idx) => (
                           <li key={idx} className="flex items-center gap-2">
-                            <span className="w-1 h-1 bg-gray-400 rounded-full" />
+                            <span className="w-1 h-1 bg-gray-400 dark:bg-gray-600 rounded-full" />
                             {change}
                           </li>
                         ))}

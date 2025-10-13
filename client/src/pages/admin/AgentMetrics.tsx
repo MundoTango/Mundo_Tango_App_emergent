@@ -69,6 +69,7 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { queryClient } from '@/lib/queryClient';
+import { useTranslation } from 'react-i18next';
 
 // Color scheme for agents
 const AGENT_COLORS = {
@@ -250,8 +251,8 @@ export default function AgentMetrics() {
       <div className="mb-8">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold">ESA 61x21 Agent Monitoring</h1>
-            <p className="text-gray-500 mt-2">
+            <h1 className="text-3xl font-bold">{t('common.esa_61x21_agent_monitoring')}</h1>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">
               Real-time monitoring and analytics for the multi-agent system
             </p>
           </div>
@@ -276,7 +277,7 @@ export default function AgentMetrics() {
       <div className="grid gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Requests</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.total_requests')}</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -291,7 +292,7 @@ export default function AgentMetrics() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Response Time</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.avg_response_time')}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -307,7 +308,7 @@ export default function AgentMetrics() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Success Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.success_rate')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -323,7 +324,7 @@ export default function AgentMetrics() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Health Score</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.health_score')}</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -340,12 +341,12 @@ export default function AgentMetrics() {
       {/* Main Content Tabs */}
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="agents">Agents</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="errors">Errors</TabsTrigger>
-          <TabsTrigger value="queues">Queues</TabsTrigger>
-          <TabsTrigger value="patterns">Patterns</TabsTrigger>
+          <TabsTrigger value="overview">{t('common.overview')}</TabsTrigger>
+          <TabsTrigger value="agents">{t('common.agents')}</TabsTrigger>
+          <TabsTrigger value="performance">{t('common.performance')}</TabsTrigger>
+          <TabsTrigger value="errors">{t('common.errors')}</TabsTrigger>
+          <TabsTrigger value="queues">{t('common.queues')}</TabsTrigger>
+          <TabsTrigger value="patterns">{t('common.patterns')}</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
@@ -354,8 +355,8 @@ export default function AgentMetrics() {
             {/* Agent Performance Chart */}
             <Card>
               <CardHeader>
-                <CardTitle>Agent Performance</CardTitle>
-                <CardDescription>Success rate and response time by agent</CardDescription>
+                <CardTitle>{t('common.agent_performance')}</CardTitle>
+                <CardDescription>{t('common.success_rate_and_response_time_by_agent')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height="300">
@@ -378,8 +379,8 @@ export default function AgentMetrics() {
             {/* Queue Status Chart */}
             <Card>
               <CardHeader>
-                <CardTitle>Queue Status</CardTitle>
-                <CardDescription>Current job distribution</CardDescription>
+                <CardTitle>{t('common.queue_status')}</CardTitle>
+                <CardDescription>{t('common.current_job_distribution')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height="300">
@@ -408,44 +409,44 @@ export default function AgentMetrics() {
           {/* Recent Activity */}
           <Card>
             <CardHeader>
-              <CardTitle>System Information</CardTitle>
-              <CardDescription>Current system status and metrics</CardDescription>
+              <CardTitle>{t('common.system_information')}</CardTitle>
+              <CardDescription>{t('common.current_system_status_and_metrics')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-3">
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Uptime</span>
+                    <span className="text-sm text-muted-foreground">{t('common.uptime')}</span>
                     <span className="text-sm font-medium">
                       {formatDistanceToNow(Date.now() - (health?.uptime || 0) * 1000)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Node Version</span>
+                    <span className="text-sm text-muted-foreground">{t('common.node_version')}</span>
                     <span className="text-sm font-medium">{health?.system?.nodeVersion}</span>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Memory Usage</span>
+                    <span className="text-sm text-muted-foreground">{t('common.memory_usage')}</span>
                     <span className="text-sm font-medium">
                       {((health?.system?.memory?.heapUsed || 0) / 1024 / 1024).toFixed(2)} MB
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Total Jobs</span>
+                    <span className="text-sm text-muted-foreground">{t('common.total_jobs')}</span>
                     <span className="text-sm font-medium">{health?.metrics?.totalJobs || 0}</span>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Active Agents</span>
+                    <span className="text-sm text-muted-foreground">{t('common.active_agents')}</span>
                     <span className="text-sm font-medium">
                       {health?.checks?.agents || 0}/{health?.checks?.totalAgents || 0}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Database</span>
+                    <span className="text-sm text-muted-foreground">{t('common.database')}</span>
                     <Badge variant={health?.checks?.database ? 'default' : 'destructive'}>
                       {health?.checks?.database ? 'Connected' : 'Disconnected'}
                     </Badge>
@@ -480,17 +481,17 @@ export default function AgentMetrics() {
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Layers</span>
+                      <span className="text-sm text-muted-foreground">{t('common.layers')}</span>
                       <span className="text-sm font-medium">
                         {agent.layers?.join(', ') || 'N/A'}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Success Rate</span>
+                      <span className="text-sm text-muted-foreground">{t('common.success_rate')}</span>
                       <span className="text-sm font-medium">{agent.successRate?.toFixed(1)}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Avg Response</span>
+                      <span className="text-sm text-muted-foreground">{t('common.avg_response')}</span>
                       <span className="text-sm font-medium">{agent.avgResponseTime?.toFixed(0)}ms</span>
                     </div>
                     <Progress value={agent.successRate} className="mt-2" />
@@ -505,8 +506,8 @@ export default function AgentMetrics() {
         <TabsContent value="performance" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Response Time Trends</CardTitle>
-              <CardDescription>Agent response times over time</CardDescription>
+              <CardTitle>{t('common.response_time_trends')}</CardTitle>
+              <CardDescription>{t('common.agent_response_times_over_time')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height="400">
@@ -529,8 +530,8 @@ export default function AgentMetrics() {
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>Errors by Agent</CardTitle>
-                <CardDescription>Distribution of errors across agents</CardDescription>
+                <CardTitle>{t('common.errors_by_agent')}</CardTitle>
+                <CardDescription>{t('common.distribution_of_errors_across_agents')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height="300">
@@ -547,8 +548,8 @@ export default function AgentMetrics() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Errors</CardTitle>
-                <CardDescription>Last 10 error events</CardDescription>
+                <CardTitle>{t('common.recent_errors')}</CardTitle>
+                <CardDescription>{t('common.last_10_error_events')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[300px]">
@@ -569,7 +570,7 @@ export default function AgentMetrics() {
                       </Alert>
                     ))}
                     {(!health?.recentErrors || health.recentErrors.length === 0) && (
-                      <p className="text-muted-foreground text-center py-8">No recent errors</p>
+                      <p className="text-muted-foreground text-center py-8">{t('common.no_recent_errors')}</p>
                     )}
                   </div>
                 </ScrollArea>
@@ -582,8 +583,8 @@ export default function AgentMetrics() {
         <TabsContent value="queues" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Queue Metrics</CardTitle>
-              <CardDescription>Job processing statistics</CardDescription>
+              <CardTitle>{t('common.queue_metrics')}</CardTitle>
+              <CardDescription>{t('common.job_processing_statistics')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -591,25 +592,25 @@ export default function AgentMetrics() {
                   <div className="text-3xl font-bold text-blue-500">
                     {analytics?.queueDepth?.activeJobs || 0}
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">Active Jobs</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t('common.active_jobs')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-yellow-500">
                     {analytics?.queueDepth?.waitingJobs || 0}
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">Waiting Jobs</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t('common.waiting_jobs')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-green-500">
                     {analytics?.queueDepth?.completedJobs || 0}
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">Completed Jobs</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t('common.completed_jobs')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-red-500">
                     {analytics?.queueDepth?.failedJobs || 0}
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">Failed Jobs</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t('common.failed_jobs')}</p>
                 </div>
               </div>
             </CardContent>
@@ -620,8 +621,8 @@ export default function AgentMetrics() {
         <TabsContent value="patterns" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Top Applied Patterns</CardTitle>
-              <CardDescription>Most frequently used design patterns</CardDescription>
+              <CardTitle>{t('common.top_applied_patterns')}</CardTitle>
+              <CardDescription>{t('common.most_frequently_used_design_patterns')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height="400">

@@ -3198,6 +3198,14 @@ export const agentLearnings = pgTable("agent_learnings", {
   validatedAt: timestamp("validated_at"),
   documentedAt: timestamp("documented_at"), // When auto-documented to docs/pages
   documentationPath: varchar("documentation_path", { length: 500 }), // Path to generated doc
+  // Agent #80 Learning Coordinator fields
+  agentId: varchar("agent_id", { length: 100 }), // Agent who reported the learning
+  domain: varchar("domain", { length: 100 }), // Domain category (mobile, performance, ui, backend, etc.)
+  outcome: jsonb("outcome"), // Learning outcome metadata {impact: 'high', notes: '...'}
+  tags: text("tags").array(), // Categorization tags
+  reuseCount: integer("reuse_count").default(0), // How many times this learning has been reused
+  successRate: real("success_rate").default(0.5), // Success rate when reused (0.0-1.0)
+  embedding: text("embedding"), // Semantic search embedding vector (stringified JSON)
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -3205,6 +3213,8 @@ export const agentLearnings = pgTable("agent_learnings", {
   index("idx_agent_learnings_confidence").on(table.confidence),
   index("idx_agent_learnings_validated_at").on(table.validatedAt),
   index("idx_agent_learnings_created_at").on(table.createdAt),
+  index("idx_agent_learnings_agent_id").on(table.agentId),
+  index("idx_agent_learnings_domain").on(table.domain),
 ]);
 
 // ESA Layer 46: Agent Collaboration tracking for cross-domain learning
@@ -3589,10 +3599,10 @@ export const projectTasks = pgTable("project_tasks", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
 }, (table) => [
-  index("idx_tasks_story").on(table.storyId),
-  index("idx_tasks_status").on(table.status),
-  index("idx_tasks_assigned").on(table.assignedToId),
-  index("idx_tasks_assigned_agent").on(table.assignedAgentId),
+  index("idx_project_tasks_story").on(table.storyId),
+  index("idx_project_tasks_status").on(table.status),
+  index("idx_project_tasks_assigned").on(table.assignedToId),
+  index("idx_project_tasks_assigned_agent").on(table.assignedAgentId),
 ]);
 
 // Sprints (Time-boxed iterations with auto-close)

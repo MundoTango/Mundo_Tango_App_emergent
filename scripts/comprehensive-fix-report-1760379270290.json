@@ -1,0 +1,293 @@
+{
+  "timestamp": "2025-10-13T18:14:30.274Z",
+  "duration": "7.94",
+  "summary": {
+    "totalFiles": 40,
+    "totalTranslations": 494,
+    "totalDarkMode": 2999,
+    "totalFixes": 3493,
+    "errors": 0
+  },
+  "results": [
+    {
+      "file": "client/src/pages/AdminCenter.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 661,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/AdminMonitoring.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 56,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/AccountDelete.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 14,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/Notifications.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 22,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/community.tsx",
+      "exists": true,
+      "translations": 16,
+      "darkMode": 153,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/community-world-map.tsx",
+      "exists": true,
+      "translations": 1,
+      "darkMode": 0,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/create-community.tsx",
+      "exists": true,
+      "translations": 18,
+      "darkMode": 30,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/code-of-conduct.tsx",
+      "exists": true,
+      "translations": 11,
+      "darkMode": 148,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/database-security.tsx",
+      "exists": true,
+      "translations": 36,
+      "darkMode": 133,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/enhanced-timeline-v2.tsx",
+      "exists": true,
+      "translations": 16,
+      "darkMode": 153,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/admin/analytics.tsx",
+      "exists": true,
+      "translations": 56,
+      "darkMode": 123,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/admin/moderation.tsx",
+      "exists": true,
+      "translations": 24,
+      "darkMode": 84,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/admin/users.tsx",
+      "exists": true,
+      "translations": 35,
+      "darkMode": 87,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/admin/dashboard.tsx",
+      "exists": true,
+      "translations": 21,
+      "darkMode": 106,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/admin/AgentMetrics.tsx",
+      "exists": true,
+      "translations": 41,
+      "darkMode": 67,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/admin/MrBlueDashboard.tsx",
+      "exists": true,
+      "translations": 15,
+      "darkMode": 22,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/auth/login.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 45,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/auth/register.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 39,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/auth/forgot-password.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 46,
+      "error": null
+    },
+    {
+      "file": "client/src/pages/auth/reset-password.tsx",
+      "exists": true,
+      "translations": 2,
+      "darkMode": 36,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/LifeCEODashboard.tsx",
+      "exists": true,
+      "translations": 17,
+      "darkMode": 103,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/LifeCEOCommandCenter.tsx",
+      "exists": true,
+      "translations": 29,
+      "darkMode": 119,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/PerformanceMonitor.tsx",
+      "exists": true,
+      "translations": 11,
+      "darkMode": 122,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/ValidationDashboard.tsx",
+      "exists": true,
+      "translations": 10,
+      "darkMode": 66,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/Framework50x21Dashboard.tsx",
+      "exists": true,
+      "translations": 19,
+      "darkMode": 69,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/SubscriptionManagement.tsx",
+      "exists": true,
+      "translations": 16,
+      "darkMode": 62,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/TestSpriteIntegration.tsx",
+      "exists": true,
+      "translations": 17,
+      "darkMode": 31,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/EventTypesManager.tsx",
+      "exists": true,
+      "translations": 6,
+      "darkMode": 69,
+      "error": null
+    },
+    {
+      "file": "client/src/components/admin/DailyActivityView.tsx",
+      "exists": true,
+      "translations": 5,
+      "darkMode": 38,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Community/CommunityMapFilters.tsx",
+      "exists": true,
+      "translations": 19,
+      "darkMode": 6,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Community/RankingsPanel.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 3,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Community/CommunityMapWithLayers.tsx",
+      "exists": true,
+      "translations": 2,
+      "darkMode": 12,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Community/WorldMap.tsx",
+      "exists": true,
+      "translations": 12,
+      "darkMode": 45,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Community/CommunityCard.tsx",
+      "exists": true,
+      "translations": 2,
+      "darkMode": 38,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Community/EnhancedCityGroupCard.tsx",
+      "exists": true,
+      "translations": 4,
+      "darkMode": 39,
+      "error": null
+    },
+    {
+      "file": "client/src/components/GuestOnboarding/GuestOnboardingEntrance.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 19,
+      "error": null
+    },
+    {
+      "file": "client/src/components/GuestOnboarding/GuestOnboardingFlow.tsx",
+      "exists": true,
+      "translations": 6,
+      "darkMode": 57,
+      "error": null
+    },
+    {
+      "file": "client/src/components/GuestProfile/GuestProfileDisplay.tsx",
+      "exists": true,
+      "translations": 16,
+      "darkMode": 28,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Housing/HostHomesList.tsx",
+      "exists": true,
+      "translations": 0,
+      "darkMode": 8,
+      "error": null
+    },
+    {
+      "file": "client/src/components/Recommendations/RecommendationsList.tsx",
+      "exists": true,
+      "translations": 11,
+      "darkMode": 40,
+      "error": null
+    }
+  ]
+}

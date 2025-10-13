@@ -25,6 +25,7 @@ import {
   Users, Zap, AlertTriangle, Shield, Globe, Gauge
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 // Types
 interface SystemMetrics {
@@ -105,8 +106,8 @@ export default function AdminMonitoring() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">System Monitoring</h1>
-          <p className="text-gray-500">ESA LIFE CEO 61x21 - Real-time monitoring dashboard</p>
+          <h1 className="text-3xl font-bold">{t('common.system_monitoring')}</h1>
+          <p className="text-gray-500">{t('common.esa_life_ceo_61x21_realtime_monitoring_dashboard')}</p>
         </div>
         <div className="flex gap-4">
           <Button
@@ -122,10 +123,10 @@ export default function AdminMonitoring() {
             onChange={(e) => setSelectedTimeRange(e.target.value)}
             className="px-4 py-2 border rounded-md"
           >
-            <option value="1h">Last 1 hour</option>
-            <option value="6h">Last 6 hours</option>
-            <option value="24h">Last 24 hours</option>
-            <option value="7d">Last 7 days</option>
+            <option value="1h">{t('common.last_1_hour')}</option>
+            <option value="6h">{t('common.last_6_hours')}</option>
+            <option value="24h">{t('common.last_24_hours')}</option>
+            <option value="7d">{t('common.last_7_days')}</option>
           </select>
         </div>
       </div>
@@ -134,11 +135,11 @@ export default function AdminMonitoring() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">System Status</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.system_status')}</CardTitle>
             <CheckCircle className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">Operational</div>
+            <div className="text-2xl font-bold">{t('common.operational')}</div>
             <p className="text-xs text-muted-foreground">
               All systems running normally
             </p>
@@ -147,7 +148,7 @@ export default function AdminMonitoring() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.active_alerts')}</CardTitle>
             <AlertCircle className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
@@ -162,7 +163,7 @@ export default function AdminMonitoring() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Request Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.request_rate')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
@@ -177,7 +178,7 @@ export default function AdminMonitoring() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.active_users')}</CardTitle>
             <Users className="h-4 w-4 text-purple-500" />
           </CardHeader>
           <CardContent>
@@ -194,12 +195,12 @@ export default function AdminMonitoring() {
       {/* Main Monitoring Tabs */}
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="agents">Agents</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="alerts">Alerts</TabsTrigger>
-          <TabsTrigger value="webvitals">Web Vitals</TabsTrigger>
-          <TabsTrigger value="logs">Logs</TabsTrigger>
+          <TabsTrigger value="overview">{t('common.overview')}</TabsTrigger>
+          <TabsTrigger value="agents">{t('common.agents')}</TabsTrigger>
+          <TabsTrigger value="performance">{t('common.performance')}</TabsTrigger>
+          <TabsTrigger value="alerts">{t('common.alerts')}</TabsTrigger>
+          <TabsTrigger value="webvitals">{t('common.web_vitals')}</TabsTrigger>
+          <TabsTrigger value="logs">{t('common.logs')}</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
@@ -208,27 +209,27 @@ export default function AdminMonitoring() {
             {/* Resource Usage */}
             <Card>
               <CardHeader>
-                <CardTitle>Resource Usage</CardTitle>
-                <CardDescription>System resource utilization</CardDescription>
+                <CardTitle>{t('common.resource_usage')}</CardTitle>
+                <CardDescription>{t('common.system_resource_utilization')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium">CPU Usage</span>
+                    <span className="text-sm font-medium">{t('common.cpu_usage')}</span>
                     <span className="text-sm">{systemMetrics?.cpu?.usage || 0}%</span>
                   </div>
                   <Progress value={systemMetrics?.cpu?.usage || 0} className="h-2" />
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium">Memory Usage</span>
+                    <span className="text-sm font-medium">{t('common.memory_usage')}</span>
                     <span className="text-sm">{systemMetrics?.memory?.percentage || 0}%</span>
                   </div>
                   <Progress value={systemMetrics?.memory?.percentage || 0} className="h-2" />
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium">Disk Usage</span>
+                    <span className="text-sm font-medium">{t('common.disk_usage')}</span>
                     <span className="text-sm">{systemMetrics?.disk?.percentage || 0}%</span>
                   </div>
                   <Progress value={systemMetrics?.disk?.percentage || 0} className="h-2" />
@@ -239,8 +240,8 @@ export default function AdminMonitoring() {
             {/* Response Time Distribution */}
             <Card>
               <CardHeader>
-                <CardTitle>Response Time</CardTitle>
-                <CardDescription>API response time percentiles</CardDescription>
+                <CardTitle>{t('common.response_time')}</CardTitle>
+                <CardDescription>{t('common.api_response_time_percentiles')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={200}>
@@ -263,8 +264,8 @@ export default function AdminMonitoring() {
           {/* Request Rate Chart */}
           <Card>
             <CardHeader>
-              <CardTitle>Request Rate Over Time</CardTitle>
-              <CardDescription>HTTP requests per second</CardDescription>
+              <CardTitle>{t('common.request_rate_over_time')}</CardTitle>
+              <CardDescription>{t('common.http_requests_per_second')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -284,8 +285,8 @@ export default function AdminMonitoring() {
         <TabsContent value="agents" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>61-Layer Agent Performance</CardTitle>
-              <CardDescription>Real-time agent metrics across all layers</CardDescription>
+              <CardTitle>{t('common.61layer_agent_performance')}</CardTitle>
+              <CardDescription>{t('common.realtime_agent_metrics_across_all_layers')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[400px] w-full">
@@ -309,15 +310,15 @@ export default function AdminMonitoring() {
                       <div className="flex items-center gap-4">
                         <div className="text-right">
                           <p className="text-sm font-medium">{agent.successRate.toFixed(1)}%</p>
-                          <p className="text-xs text-gray-500">Success Rate</p>
+                          <p className="text-xs text-gray-500">{t('common.success_rate')}</p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium">{agent.tokensUsed}</p>
-                          <p className="text-xs text-gray-500">Tokens</p>
+                          <p className="text-xs text-gray-500">{t('common.tokens')}</p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium">${agent.cost.toFixed(2)}</p>
-                          <p className="text-xs text-gray-500">Cost</p>
+                          <p className="text-xs text-gray-500">{t('common.cost')}</p>
                         </div>
                       </div>
                     </div>
@@ -331,7 +332,7 @@ export default function AdminMonitoring() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Token Usage by Agent</CardTitle>
+                <CardTitle>{t('common.token_usage_by_agent')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -357,7 +358,7 @@ export default function AdminMonitoring() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Agent Response Times</CardTitle>
+                <CardTitle>{t('common.agent_response_times')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -384,8 +385,8 @@ export default function AdminMonitoring() {
           {/* Memory Usage Over Time */}
           <Card>
             <CardHeader>
-              <CardTitle>Memory Usage</CardTitle>
-              <CardDescription>Heap and RSS memory consumption</CardDescription>
+              <CardTitle>{t('common.memory_usage')}</CardTitle>
+              <CardDescription>{t('common.heap_and_rss_memory_consumption')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -406,8 +407,8 @@ export default function AdminMonitoring() {
           {/* Database Performance */}
           <Card>
             <CardHeader>
-              <CardTitle>Database Query Performance</CardTitle>
-              <CardDescription>Query execution times by operation</CardDescription>
+              <CardTitle>{t('common.database_query_performance')}</CardTitle>
+              <CardDescription>{t('common.query_execution_times_by_operation')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -430,8 +431,8 @@ export default function AdminMonitoring() {
         <TabsContent value="alerts" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Active Alerts</CardTitle>
-              <CardDescription>Current system alerts and warnings</CardDescription>
+              <CardTitle>{t('common.active_alerts')}</CardTitle>
+              <CardDescription>{t('common.current_system_alerts_and_warnings')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[500px] w-full">
@@ -452,7 +453,7 @@ export default function AdminMonitoring() {
                       </AlertTitle>
                       <AlertDescription>
                         <p>{alert.description}</p>
-                        <p className="text-xs text-gray-500 mt-2">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                           {alert.category} • {format(new Date(alert.timestamp), 'PPpp')}
                         </p>
                       </AlertDescription>
@@ -470,7 +471,7 @@ export default function AdminMonitoring() {
             {/* LCP */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Largest Contentful Paint</CardTitle>
+                <CardTitle className="text-sm">{t('common.largest_contentful_paint')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -488,7 +489,7 @@ export default function AdminMonitoring() {
             {/* FID */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">First Input Delay</CardTitle>
+                <CardTitle className="text-sm">{t('common.first_input_delay')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -506,7 +507,7 @@ export default function AdminMonitoring() {
             {/* CLS */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Cumulative Layout Shift</CardTitle>
+                <CardTitle className="text-sm">{t('common.cumulative_layout_shift')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -524,7 +525,7 @@ export default function AdminMonitoring() {
             {/* TTFB */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Time to First Byte</CardTitle>
+                <CardTitle className="text-sm">{t('common.time_to_first_byte')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -543,8 +544,8 @@ export default function AdminMonitoring() {
           {/* Web Vitals Trends */}
           <Card>
             <CardHeader>
-              <CardTitle>Web Vitals Trends</CardTitle>
-              <CardDescription>Core Web Vitals over time</CardDescription>
+              <CardTitle>{t('common.web_vitals_trends')}</CardTitle>
+              <CardDescription>{t('common.core_web_vitals_over_time')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -568,17 +569,17 @@ export default function AdminMonitoring() {
         <TabsContent value="logs" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>System Logs</CardTitle>
-              <CardDescription>Real-time system log stream</CardDescription>
+              <CardTitle>{t('common.system_logs')}</CardTitle>
+              <CardDescription>{t('common.realtime_system_log_stream')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[500px] w-full">
                 <div className="space-y-1 font-mono text-sm">
-                  <p className="text-gray-500">[2025-09-14 11:54:00] INFO: System monitoring initialized</p>
-                  <p className="text-green-500">[2025-09-14 11:54:01] SUCCESS: All health checks passed</p>
-                  <p className="text-blue-500">[2025-09-14 11:54:02] DEBUG: Agent layer 35 processing request</p>
-                  <p className="text-yellow-500">[2025-09-14 11:54:03] WARN: Cache hit rate below threshold</p>
-                  <p className="text-gray-500">[2025-09-14 11:54:04] INFO: WebSocket connection established</p>
+                  <p className="text-gray-500">{t('common.20250914_115400_info_system_monitoring_initialized')}</p>
+                  <p className="text-green-500">{t('common.20250914_115401_success_all_health_checks_passed')}</p>
+                  <p className="text-blue-500">{t('common.20250914_115402_debug_agent_layer_35_processing_re')}</p>
+                  <p className="text-yellow-500">{t('common.20250914_115403_warn_cache_hit_rate_below_threshol')}</p>
+                  <p className="text-gray-500">{t('common.20250914_115404_info_websocket_connection_establis')}</p>
                 </div>
               </ScrollArea>
             </CardContent>

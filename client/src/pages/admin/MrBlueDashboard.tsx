@@ -12,6 +12,7 @@ import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 import { startTour, TourType } from '@/lib/mrBlue/tours/InteractiveTour';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 /**
  * ESA Mr Blue Dashboard - Super Admin Control Center
@@ -99,7 +100,7 @@ export default function MrBlueDashboard() {
         <TabsContent value="avatar" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Agent #73: 3D AI Avatar</CardTitle>
+              <CardTitle>{t('common.agent_73_3d_ai_avatar')}</CardTitle>
               <CardDescription>
                 Your personal AI companion with voice input/output
               </CardDescription>
@@ -107,8 +108,8 @@ export default function MrBlueDashboard() {
             <CardContent>
               <div className="h-[500px] flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-lg border-2 border-dashed border-blue-300 dark:border-blue-700">
                 <div className="text-center p-8">
-                  <Sparkles className="h-20 w-20 mx-auto mb-4 text-blue-500 animate-pulse" />
-                  <h3 className="text-xl font-semibold mb-2">3D Avatar Coming Soon</h3>
+                  <Sparkles className="h-20 w-20 mx-auto mb-4 text-blue-500 dark:text-blue-400 animate-pulse" />
+                  <h3 className="text-xl font-semibold mb-2">{t('common.3d_avatar_coming_soon')}</h3>
                   <p className="text-sm text-muted-foreground max-w-md">
                     Agent #73 (3D AI Avatar) is temporarily disabled while we update the @react-three packages for React 19 compatibility. This will be resolved soon!
                   </p>
@@ -122,7 +123,7 @@ export default function MrBlueDashboard() {
         <TabsContent value="admin" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Agent #76: Admin Superpowers</CardTitle>
+              <CardTitle>{t('common.agent_76_admin_superpowers')}</CardTitle>
               <CardDescription>
                 Control your platform with natural language commands
               </CardDescription>
@@ -137,7 +138,7 @@ export default function MrBlueDashboard() {
         <TabsContent value="builder" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Agent #77: AI Site Builder</CardTitle>
+              <CardTitle>{t('common.agent_77_ai_site_builder')}</CardTitle>
               <CardDescription>
                 Generate complete websites in under 30 seconds
               </CardDescription>
@@ -154,7 +155,7 @@ export default function MrBlueDashboard() {
         <TabsContent value="subscription" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Agent #75: Subscription Manager</CardTitle>
+              <CardTitle>{t('common.agent_75_subscription_manager')}</CardTitle>
               <CardDescription>
                 Manage platform subscriptions and feature access
               </CardDescription>
@@ -172,7 +173,7 @@ export default function MrBlueDashboard() {
         <TabsContent value="tours" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Agent #74: Interactive Tours</CardTitle>
+              <CardTitle>{t('common.agent_74_interactive_tours')}</CardTitle>
               <CardDescription>
                 Guide users through platform features
               </CardDescription>
@@ -199,7 +200,7 @@ export default function MrBlueDashboard() {
         <TabsContent value="validation" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Agents #79 & #80: Quality & Learning</CardTitle>
+              <CardTitle>{t('common.agents_79_80_quality_learning')}</CardTitle>
               <CardDescription>
                 Validation metrics and inter-agent learning insights
               </CardDescription>
@@ -209,29 +210,29 @@ export default function MrBlueDashboard() {
                 <div className="grid grid-cols-3 gap-4">
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm">Validations</CardTitle>
+                      <CardTitle className="text-sm">{t('common.validations')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-2xl font-bold">247</p>
-                      <p className="text-xs text-muted-foreground">Total checks run</p>
+                      <p className="text-xs text-muted-foreground">{t('common.total_checks_run')}</p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm">Learnings</CardTitle>
+                      <CardTitle className="text-sm">{t('common.learnings')}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-2xl font-bold">1,432</p>
-                      <p className="text-xs text-muted-foreground">Patterns captured</p>
+                      <p className="text-2xl font-bold">{t('common.1432')}</p>
+                      <p className="text-xs text-muted-foreground">{t('common.patterns_captured')}</p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm">Fix Success</CardTitle>
+                      <CardTitle className="text-sm">{t('common.fix_success')}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-2xl font-bold">98%</p>
-                      <p className="text-xs text-muted-foreground">AI suggestions</p>
+                      <p className="text-2xl font-bold">{t('common.98')}</p>
+                      <p className="text-xs text-muted-foreground">{t('common.ai_suggestions')}</p>
                     </CardContent>
                   </Card>
                 </div>

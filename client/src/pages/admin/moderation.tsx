@@ -69,6 +69,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useTranslation } from 'react-i18next';
 
 interface ReportedContent {
   id: number;
@@ -167,6 +168,7 @@ export default function AdminModerationPage() {
   });
 
   const handleAction = (action: string) => {
+  const { t } = useTranslation();
     if (!selectedReport) return;
     setSelectedAction(action);
     setShowActionDialog(true);
@@ -217,7 +219,7 @@ export default function AdminModerationPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Content Moderation
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Review reported content and maintain platform safety
             </p>
           </div>
@@ -253,7 +255,7 @@ export default function AdminModerationPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.pendingReports || 0}
               </div>
-              <div className="text-sm text-red-600 mt-2">
+              <div className="text-sm text-red-600 dark:text-red-300 mt-2">
                 Requires immediate attention
               </div>
             </CardContent>
@@ -272,7 +274,7 @@ export default function AdminModerationPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.reviewingReports || 0}
               </div>
-              <div className="text-sm text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-2">
                 By {stats?.activeReviewers || 0} reviewers
               </div>
             </CardContent>
@@ -310,7 +312,7 @@ export default function AdminModerationPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.aiDetected || 0}
               </div>
-              <div className="text-sm text-purple-600 mt-2">
+              <div className="text-sm text-purple-600 dark:text-purple-300 mt-2">
                 {stats?.accuracy || 0}% accuracy
               </div>
             </CardContent>
@@ -323,11 +325,11 @@ export default function AdminModerationPage() {
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4" />
                   <Input
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search reports by content or user..."
+                    placeholder={t('common.inputs.search_reports_by_content_or_user')}
                     className="pl-10"
                     data-testid="moderation-search"
                   />
@@ -337,29 +339,29 @@ export default function AdminModerationPage() {
               <div className="flex gap-3">
                 <Select value={filterCategory} onValueChange={setFilterCategory}>
                   <SelectTrigger className="w-40" data-testid="filter-category">
-                    <SelectValue placeholder="Category" />
+                    <SelectValue placeholder={t('common.inputs.category')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    <SelectItem value="spam">Spam</SelectItem>
-                    <SelectItem value="harassment">Harassment</SelectItem>
-                    <SelectItem value="nsfw">NSFW</SelectItem>
-                    <SelectItem value="violence">Violence</SelectItem>
-                    <SelectItem value="misinformation">Misinformation</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="all">{t('common.all_categories')}</SelectItem>
+                    <SelectItem value="spam">{t('common.spam')}</SelectItem>
+                    <SelectItem value="harassment">{t('common.harassment')}</SelectItem>
+                    <SelectItem value="nsfw">{t('common.nsfw')}</SelectItem>
+                    <SelectItem value="violence">{t('common.violence')}</SelectItem>
+                    <SelectItem value="misinformation">{t('common.misinformation')}</SelectItem>
+                    <SelectItem value="other">{t('common.other')}</SelectItem>
                   </SelectContent>
                 </Select>
 
                 <Select value={filterSeverity} onValueChange={setFilterSeverity}>
                   <SelectTrigger className="w-40" data-testid="filter-severity">
-                    <SelectValue placeholder="Severity" />
+                    <SelectValue placeholder={t('common.inputs.severity')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Severity</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="critical">Critical</SelectItem>
+                    <SelectItem value="all">{t('common.all_severity')}</SelectItem>
+                    <SelectItem value="low">{t('common.low')}</SelectItem>
+                    <SelectItem value="medium">{t('common.medium')}</SelectItem>
+                    <SelectItem value="high">{t('common.high')}</SelectItem>
+                    <SelectItem value="critical">{t('common.critical')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -388,8 +390,8 @@ export default function AdminModerationPage() {
                     </Badge>
                   )}
                 </TabsTrigger>
-                <TabsTrigger value="escalated">Escalated</TabsTrigger>
-                <TabsTrigger value="resolved">Resolved</TabsTrigger>
+                <TabsTrigger value="escalated">{t('common.escalated')}</TabsTrigger>
+                <TabsTrigger value="resolved">{t('common.resolved')}</TabsTrigger>
               </TabsList>
             </Tabs>
           </CardHeader>
@@ -398,12 +400,12 @@ export default function AdminModerationPage() {
             {isLoading ? (
               <div className="text-center py-8">
                 <RefreshCw className="w-6 h-6 animate-spin text-teal-500 mx-auto mb-2" />
-                <p className="text-gray-500">Loading reports...</p>
+                <p className="text-gray-500">{t('common.loading_reports')}</p>
               </div>
             ) : reportsData?.reports?.length === 0 ? (
               <div className="text-center py-8">
-                <ShieldCheck className="w-12 h-12 text-green-500 mx-auto mb-2" />
-                <p className="text-gray-500">No reports in this category</p>
+                <ShieldCheck className="w-12 h-12 text-green-500 dark:text-green-400 mx-auto mb-2" />
+                <p className="text-gray-500">{t('common.no_reports_in_this_category')}</p>
               </div>
             ) : (
               reportsData?.reports?.map((report: ReportedContent) => (
@@ -432,10 +434,10 @@ export default function AdminModerationPage() {
                               </Badge>
                             )}
                             {report.reportedUser.isSuspended && (
-                              <Badge variant="destructive">Suspended</Badge>
+                              <Badge variant="destructive">{t('common.suspended')}</Badge>
                             )}
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
+                          <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mt-1">
                             <span className="flex items-center gap-1">
                               <Clock className="w-3 h-3" />
                               {format(new Date(report.createdAt), 'MMM d, h:mm a')}
@@ -450,7 +452,7 @@ export default function AdminModerationPage() {
                       </div>
 
                       {/* Content Preview */}
-                      <div className="bg-gray-50 rounded-lg p-3 mb-3">
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 mb-3">
                         <div className="flex items-start gap-2 mb-2">
                           <Badge variant="outline">{report.type}</Badge>
                           {report.aiFlags && report.aiFlags.length > 0 && (
@@ -462,13 +464,13 @@ export default function AdminModerationPage() {
                             </div>
                           )}
                         </div>
-                        <p className="text-sm text-gray-700 line-clamp-3">
+                        <p className="text-sm text-gray-700 dark:text-gray-200 line-clamp-3">
                           {report.content}
                         </p>
                         {report.mediaUrls && report.mediaUrls.length > 0 && (
                           <div className="flex gap-2 mt-2">
                             {report.mediaUrls.slice(0, 3).map((url, idx) => (
-                              <div key={idx} className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
+                              <div key={idx} className="w-16 h-16 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 rounded flex items-center justify-center">
                                 {url.includes('video') ? (
                                   <Video className="w-6 h-6 text-gray-400" />
                                 ) : (
@@ -522,7 +524,7 @@ export default function AdminModerationPage() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
+                              <DropdownMenuLabel>{t('common.quick_actions')}</DropdownMenuLabel>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem 
                                 onClick={() => handleAction('approve')}
@@ -573,7 +575,7 @@ export default function AdminModerationPage() {
         <Dialog open={showActionDialog} onOpenChange={setShowActionDialog}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Confirm Moderation Action</DialogTitle>
+              <DialogTitle>{t('common.confirm_moderation_action')}</DialogTitle>
               <DialogDescription>
                 You are about to {selectedAction} this content. Please provide a reason for this action.
               </DialogDescription>
@@ -581,18 +583,18 @@ export default function AdminModerationPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium">Review Note</label>
+                <label className="text-sm font-medium">{t('common.review_note')}</label>
                 <Textarea
                   value={reviewNote}
                   onChange={(e) => setReviewNote(e.target.value)}
-                  placeholder="Provide details about this moderation action..."
+                  placeholder={t('common.inputs.provide_details_about_this_moderation_action')}
                   className="mt-1"
                   rows={4}
                 />
               </div>
               
               {selectedAction === 'suspend' && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-lg">
                   <p className="text-sm text-red-700">
                     <AlertTriangle className="w-4 h-4 inline mr-1" />
                     This will suspend the user's account immediately.

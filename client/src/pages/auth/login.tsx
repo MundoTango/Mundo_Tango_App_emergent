@@ -46,19 +46,19 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:to-blue-900/20 flex items-center justify-center p-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-300/20 to-blue-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8 relative">
           <MTFormButton
             variant="outline"
             onClick={() => navigate("/")}
-            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 border-0 shadow-none px-2 py-1"
+            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 border-0 shadow-none px-2 py-1"
             data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -67,7 +67,7 @@ export default function Login() {
           
           <div className="mx-auto relative">
             <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
-              <Heart className="text-white w-10 h-10 animate-pulse" />
+              <Heart className="text-white dark:text-gray-900 w-10 h-10 animate-pulse" />
             </div>
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-cyan-400 rounded-full animate-bounce" />
           </div>
@@ -76,7 +76,7 @@ export default function Login() {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
               {t('auth.login.title', 'Welcome Back')}
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2">
+            <CardDescription className="text-gray-600 dark:text-gray-300 mt-2 flex items-center justify-center gap-2">
               <Globe className="h-4 w-4" />
               {t('auth.login.subtitle', 'Sign in to your Mundo Tango account')}
             </CardDescription>
@@ -113,11 +113,11 @@ export default function Login() {
             />
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+              <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
                 <input
                   type="checkbox"
                   {...form.register("rememberMe")}
-                  className="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                  className="rounded border-gray-300 dark:border-gray-600 text-teal-600 focus:ring-teal-500"
                 />
                 {t('auth.login.remember_me', 'Remember me')}
               </label>
@@ -147,7 +147,7 @@ export default function Login() {
               <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">{t('auth.login.or_continue_with', 'Or continue with')}</span>
+              <span className="px-4 bg-white dark:bg-gray-900 text-gray-500">{t('auth.login.or_continue_with', 'Or continue with')}</span>
             </div>
           </div>
 
@@ -202,7 +202,7 @@ export default function Login() {
             </MTFormButton>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
             <p className="text-sm text-gray-600">
               {t('auth.login.no_account', "Don't have an account?")}{" "}
               <Link 

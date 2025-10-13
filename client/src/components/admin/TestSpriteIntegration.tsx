@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { AlertCircle, CheckCircle, Clock, Play, RefreshCw } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface TestResult {
   testId: string;
@@ -145,6 +146,7 @@ export function TestSpriteIntegration() {
   ];
 
   const getStatusColor = (status: string) => {
+  const { t } = useTranslation();
     switch (status) {
       case 'passed': return 'text-green-600';
       case 'failed': return 'text-red-600';
@@ -222,8 +224,8 @@ export function TestSpriteIntegration() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">TestSprite AI Testing</h2>
-          <p className="text-gray-600 dark:text-gray-400">Autonomous AI-powered testing for your platform</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('common.testsprite_ai_testing')}</h2>
+          <p className="text-gray-600 dark:text-gray-400">{t('common.autonomous_aipowered_testing_for_your_platform')}</p>
           <p className="text-sm text-green-600 dark:text-green-400 mt-1">
             <CheckCircle className="inline h-3 w-3 mr-1" />
             TestSprite API Key Configured
@@ -290,7 +292,7 @@ export function TestSpriteIntegration() {
       {/* Test Results */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Recent Test Results</CardTitle>
+          <CardTitle>{t('common.recent_test_results')}</CardTitle>
           <Button 
             onClick={handleRefresh}
             variant="outline" 
@@ -309,7 +311,7 @@ export function TestSpriteIntegration() {
             </div>
           ) : testResults?.data && testResults.data.length > 0 ? (
             <div className="space-y-4">
-              <div className="text-sm text-gray-600 mb-2">
+              <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                 Showing {testResults.data.length} test results
               </div>
               {testResults.data.map((result: TestResult) => {
@@ -358,7 +360,7 @@ export function TestSpriteIntegration() {
 
                     {/* Test Coverage Details */}
                     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4">
-                      <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Test Coverage</h4>
+                      <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('common.test_coverage')}</h4>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
                         {testDetails.endpoints.map((endpoint: string, idx: number) => (
                           <div key={idx} className="flex items-center gap-1">
@@ -369,7 +371,7 @@ export function TestSpriteIntegration() {
                       </div>
                       {testDetails.features && (
                         <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-                          <span className="text-xs text-gray-500">Features Tested: </span>
+                          <span className="text-xs text-gray-500">{t('common.features_tested')}</span>
                           <span className="text-xs text-gray-700 dark:text-gray-300">
                             {testDetails.features.join(', ')}
                           </span>
@@ -381,15 +383,15 @@ export function TestSpriteIntegration() {
                     <div className="grid grid-cols-3 gap-4 mb-3">
                       <div className="text-center p-2 bg-green-50 dark:bg-green-900/20 rounded">
                         <div className="text-2xl font-bold text-green-600">{result.results.passed}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">Tests Passed</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{t('common.tests_passed')}</div>
                       </div>
                       <div className="text-center p-2 bg-red-50 dark:bg-red-900/20 rounded">
                         <div className="text-2xl font-bold text-red-600">{result.results.failed}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">Tests Failed</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{t('common.tests_failed')}</div>
                       </div>
                       <div className="text-center p-2 bg-gray-50 dark:bg-gray-900/20 rounded">
                         <div className="text-2xl font-bold text-gray-600">{result.results.skipped}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">Tests Skipped</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{t('common.tests_skipped')}</div>
                       </div>
                     </div>
                     
@@ -397,7 +399,7 @@ export function TestSpriteIntegration() {
                     {result.results.passed + result.results.failed > 0 && (
                       <div>
                         <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
-                          <span>Test Completion</span>
+                          <span>{t('common.test_completion')}</span>
                           <span>{successRate}% Passed</span>
                         </div>
                         <Progress 
@@ -417,7 +419,7 @@ export function TestSpriteIntegration() {
             </div>
           ) : (
             <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-              <div>No test results yet. Run your first test to see results here.</div>
+              <div>{t('common.no_test_results_yet_run_your_first_test_to_see_res')}</div>
               <div className="text-xs mt-2">
                 Debug: testResults = {JSON.stringify(testResults?.data ? `${testResults.data.length} results` : 'null')}
               </div>
@@ -430,25 +432,25 @@ export function TestSpriteIntegration() {
       {healthStatus?.data && (
         <Card>
           <CardHeader>
-            <CardTitle>Integration Status</CardTitle>
+            <CardTitle>{t('common.integration_status')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center">
-                <div className="font-semibold">Platform</div>
+                <div className="font-semibold">{t('common.platform')}</div>
                 <div className="text-sm text-gray-600">{healthStatus.data.platform}</div>
               </div>
               <div className="text-center">
-                <div className="font-semibold">Framework</div>
+                <div className="font-semibold">{t('common.framework')}</div>
                 <div className="text-sm text-gray-600">{healthStatus.data.framework}</div>
               </div>
               <div className="text-center">
-                <div className="font-semibold">Webhook</div>
-                <div className="text-sm text-green-600">Active</div>
+                <div className="font-semibold">{t('common.webhook')}</div>
+                <div className="text-sm text-green-600">{t('common.active')}</div>
               </div>
               <div className="text-center">
-                <div className="font-semibold">API</div>
-                <div className="text-sm text-green-600">Connected</div>
+                <div className="font-semibold">{t('common.api')}</div>
+                <div className="text-sm text-green-600">{t('common.connected')}</div>
               </div>
             </div>
           </CardContent>

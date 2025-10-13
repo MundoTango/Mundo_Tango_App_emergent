@@ -154,8 +154,8 @@ Analyze the root cause and provide comprehensive solution.`
           rootCause: p.rootCause,
           solutions: Array.isArray(p.solutions) ? p.solutions as Solution[] : [],
           codeExamples: Array.isArray(p.codeExamples) ? p.codeExamples as CodeExample[] : [],
-          effectiveness: p.effectiveness,
-          timesReused: p.timesReused,
+          effectiveness: p.effectiveness ?? 0,
+          timesReused: p.timesReused ?? 0,
           similarityScore: p.similarityScore
         }));
     } catch (error) {
@@ -263,8 +263,8 @@ Return JSON array of solutions.`
         rootCause: p.rootCause,
         solutions: Array.isArray(p.solutions) ? p.solutions as Solution[] : [],
         codeExamples: Array.isArray(p.codeExamples) ? p.codeExamples as CodeExample[] : [],
-        effectiveness: p.effectiveness,
-        timesReused: p.timesReused
+        effectiveness: p.effectiveness ?? 0,
+        timesReused: p.timesReused ?? 0
       }));
     } catch (error) {
       console.error('[Quality Validator] Library search error:', error);
@@ -360,8 +360,8 @@ Return JSON array of solutions.`
         rootCause: newPattern.rootCause,
         solutions: Array.isArray(newPattern.solutions) ? newPattern.solutions as Solution[] : [],
         codeExamples: Array.isArray(newPattern.codeExamples) ? newPattern.codeExamples as CodeExample[] : [],
-        effectiveness: newPattern.effectiveness,
-        timesReused: newPattern.timesReused
+        effectiveness: newPattern.effectiveness ?? 0,
+        timesReused: newPattern.timesReused ?? 0
       };
     } catch (error) {
       console.error('[Quality Validator] Add pattern error:', error);

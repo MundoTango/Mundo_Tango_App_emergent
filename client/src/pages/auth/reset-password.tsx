@@ -96,19 +96,19 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-teal-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 dark:from-purple-900/20 via-indigo-50 to-teal-50 flex items-center justify-center p-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 right-20 w-80 h-80 bg-gradient-to-br from-purple-300/20 to-indigo-300/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 -left-40 w-96 h-96 bg-gradient-to-br from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8">
           <div className="mx-auto relative">
             <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
               {resetSuccess ? (
-                <CheckCircle className="text-white w-10 h-10" />
+                <CheckCircle className="text-white dark:text-gray-900 dark:text-gray-900 w-10 h-10" />
               ) : (
                 <Lock className="text-white w-10 h-10" />
               )}
@@ -119,13 +119,13 @@ export default function ResetPassword() {
           </div>
           
           <div>
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 dark:from-purple-500 to-indigo-600 bg-clip-text text-transparent">
               {resetSuccess 
                 ? 'Password Reset Complete!'
                 : 'Set New Password'
               }
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2">
+            <CardDescription className="text-gray-600 dark:text-gray-300 mt-2 flex items-center justify-center gap-2">
               <Key className="h-4 w-4" />
               {resetSuccess
                 ? "You'll be redirected to login shortly"
@@ -148,7 +148,7 @@ export default function ResetPassword() {
                   control={form.control}
                   name="password"
                   label="New Password"
-                  placeholder="Enter your new password"
+                  placeholder={t('common.inputs.enter_your_new_password')}
                   type="password"
                   required
                   description="Must be at least 8 characters long"
@@ -159,7 +159,7 @@ export default function ResetPassword() {
                   control={form.control}
                   name="confirmPassword"
                   label="Confirm Password"
-                  placeholder="Re-enter your new password"
+                  placeholder={t('common.inputs.reenter_your_new_password')}
                   type="password"
                   required
                   description="Must match your new password"
@@ -192,8 +192,8 @@ export default function ResetPassword() {
             </>
           ) : (
             <div className="space-y-6">
-              <div className="p-6 bg-green-50 border border-green-200 rounded-lg text-center">
-                <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
+              <div className="p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 rounded-lg text-center">
+                <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-300 mx-auto mb-3" />
                 <p className="text-green-800 font-medium mb-2">
                   Password Successfully Reset!
                 </p>

@@ -25,6 +25,7 @@ import {
   BarChart3,
   RefreshCw
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface LayerData {
   id: number;
@@ -749,7 +750,7 @@ const Framework50x21Dashboard: React.FC = () => {
       const report = {
         timestamp: new Date().toISOString(),
         overallProgress,
-        criticalIssues: frameworkData.filter(layer => layer.issues.length > 0 && layer.progress < 60),
+        criticalIssues: frameworkData.filter(layer => layer.issues.length >{t('common.0_layerprogress')}< 60),
         completedLayers: frameworkData.filter(layer => layer.status === 'complete'),
         recommendations: [
           'Focus on Production Engineering layers (21-23) for production readiness',
@@ -779,6 +780,7 @@ const Framework50x21Dashboard: React.FC = () => {
   };
 
   const getStatusColor = (status: string) => {
+  const { t } = useTranslation();
     switch (status) {
       case 'complete': return 'text-green-600 bg-green-100';
       case 'in-progress': return 'text-yellow-600 bg-yellow-100';
@@ -798,11 +800,11 @@ const Framework50x21Dashboard: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50 flex items-center gap-3">
             <Layers className="w-7 h-7 text-turquoise-600" />
             44x21 Framework Dashboard
           </h2>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
             Comprehensive 44 layers × 21 phases production validation system with enhanced testing, developer experience, and operational capabilities
           </p>
         </div>
@@ -810,7 +812,7 @@ const Framework50x21Dashboard: React.FC = () => {
           <Button 
             onClick={generateReport}
             disabled={isGeneratingReport}
-            className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
+            className="bg-gradient-to-r from-turquoise-500 to-blue-600 dark:to-blue-500 text-white"
           >
             <FileText className="w-4 h-4 mr-2" />
             {isGeneratingReport ? 'Generating...' : 'Generate Report'}
@@ -829,12 +831,12 @@ const Framework50x21Dashboard: React.FC = () => {
       {/* Overall Progress */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Overall Framework Progress</CardTitle>
+          <CardTitle className="text-lg">{t('common.overall_framework_progress')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span>Production Readiness</span>
+              <span>{t('common.production_readiness')}</span>
               <span className="font-semibold">{overallProgress}%</span>
             </div>
             <Progress value={overallProgress} className="h-3" />
@@ -843,19 +845,19 @@ const Framework50x21Dashboard: React.FC = () => {
                 <div className="text-2xl font-bold text-green-600">
                   {frameworkData.filter(l => l.status === 'complete').length}
                 </div>
-                <div className="text-xs text-gray-600">Complete</div>
+                <div className="text-xs text-gray-600">{t('common.complete')}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-yellow-600">
                   {frameworkData.filter(l => l.status === 'in-progress').length}
                 </div>
-                <div className="text-xs text-gray-600">In Progress</div>
+                <div className="text-xs text-gray-600">{t('common.in_progress')}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-red-600">
                   {frameworkData.filter(l => l.status === 'pending').length}
                 </div>
-                <div className="text-xs text-gray-600">Pending</div>
+                <div className="text-xs text-gray-600">{t('common.pending')}</div>
               </div>
             </div>
           </div>
@@ -868,7 +870,7 @@ const Framework50x21Dashboard: React.FC = () => {
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Framework Layers</CardTitle>
+              <CardTitle className="text-lg">{t('common.framework_layers')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -893,13 +895,13 @@ const Framework50x21Dashboard: React.FC = () => {
                         {layer.status}
                       </Badge>
                     </div>
-                    <h4 className="font-semibold text-gray-900 text-sm mb-1">{layer.name}</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-50 text-sm mb-1">{layer.name}</h4>
                     <div className="mt-2">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-600">Progress</span>
+                        <span className="text-gray-600">{t('common.progress')}</span>
                         <span className="font-medium">{layer.progress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-1.5">
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                         <div 
                           className={`h-1.5 rounded-full ${getProgressColor(layer.progress)}`}
                           style={{ width: `${layer.progress}%` }}
@@ -917,13 +919,13 @@ const Framework50x21Dashboard: React.FC = () => {
         <div>
           <Card className="sticky top-4">
             <CardHeader>
-              <CardTitle className="text-lg">Layer Details</CardTitle>
+              <CardTitle className="text-lg">{t('common.layer_details')}</CardTitle>
             </CardHeader>
             <CardContent>
               {frameworkData.find(l => l.id === selectedLayer) && (
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-50 mb-2">
                       Layer {selectedLayer}: {frameworkData.find(l => l.id === selectedLayer)!.name}
                     </h4>
                     <p className="text-sm text-gray-600">
@@ -933,23 +935,23 @@ const Framework50x21Dashboard: React.FC = () => {
 
                   <Tabs defaultValue="overview" className="w-full">
                     <TabsList className="grid w-full grid-cols-4">
-                      <TabsTrigger value="overview">Overview</TabsTrigger>
-                      <TabsTrigger value="progress">Progress</TabsTrigger>
-                      <TabsTrigger value="components">Components</TabsTrigger>
-                      <TabsTrigger value="issues">Issues</TabsTrigger>
+                      <TabsTrigger value="overview">{t('common.overview')}</TabsTrigger>
+                      <TabsTrigger value="progress">{t('common.progress')}</TabsTrigger>
+                      <TabsTrigger value="components">{t('common.components')}</TabsTrigger>
+                      <TabsTrigger value="issues">{t('common.issues')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="overview" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What is this layer?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-2">{t('common.what_is_this_layer')}</h5>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 leading-relaxed">
                           {frameworkData.find(l => l.id === selectedLayer)!.detailedDescription}
                         </p>
                       </div>
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">Key Metrics</h5>
+                        <h5 className="font-semibold text-sm text-gray-900 mb-2">{t('common.key_metrics')}</h5>
                         <div className="grid grid-cols-2 gap-2">
                           {frameworkData.find(l => l.id === selectedLayer)!.metrics?.map((metric, idx) => (
-                            <div key={idx} className="bg-gray-50 p-2 rounded">
+                            <div key={idx} className="bg-gray-50 dark:bg-gray-800 p-2 rounded">
                               <div className="text-xs text-gray-500">{metric.label}</div>
                               <div className="text-sm font-semibold text-gray-900">{metric.value}</div>
                             </div>
@@ -966,7 +968,7 @@ const Framework50x21Dashboard: React.FC = () => {
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-600">Current Progress</span>
+                          <span className="text-gray-600">{t('common.current_progress')}</span>
                           <span className="font-semibold">{frameworkData.find(l => l.id === selectedLayer)!.progress}%</span>
                         </div>
                         <Progress value={frameworkData.find(l => l.id === selectedLayer)!.progress} className="h-3" />
@@ -984,12 +986,12 @@ const Framework50x21Dashboard: React.FC = () => {
                       {frameworkData.find(l => l.id === selectedLayer)!.issues.length > 0 ? (
                         frameworkData.find(l => l.id === selectedLayer)!.issues.map((issue, idx) => (
                           <div key={idx} className="flex items-start gap-2">
-                            <AlertTriangle className="w-4 h-4 text-yellow-500 mt-0.5" />
+                            <AlertTriangle className="w-4 h-4 text-yellow-500 dark:text-yellow-400 mt-0.5" />
                             <span className="text-sm">{issue}</span>
                           </div>
                         ))
                       ) : (
-                        <p className="text-sm text-gray-500">No issues found</p>
+                        <p className="text-sm text-gray-500">{t('common.no_issues_found')}</p>
                       )}
                     </TabsContent>
                   </Tabs>
@@ -1001,7 +1003,7 @@ const Framework50x21Dashboard: React.FC = () => {
       </div>
 
       {/* Critical Issues Alert */}
-      {frameworkData.filter(layer => layer.issues.length > 0 && layer.progress < 60).length > 0 && (
+      {frameworkData.filter(layer => layer.issues.length >{t('common.0_layerprogress')}< 60).length > 0 && (
         <Card className="border-red-200 bg-red-50">
           <CardHeader>
             <CardTitle className="text-lg text-red-800 flex items-center gap-2">
@@ -1012,13 +1014,13 @@ const Framework50x21Dashboard: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {frameworkData
-                .filter(layer => layer.issues.length > 0 && layer.progress < 60)
+                .filter(layer => layer.issues.length >{t('common.0_layerprogress')}< 60)
                 .map(layer => (
-                  <div key={layer.id} className="p-3 bg-white rounded-lg border border-red-200">
+                  <div key={layer.id} className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-red-200">
                     <div className="font-medium text-red-800 mb-1">
                       Layer {layer.id}: {layer.name}
                     </div>
-                    <ul className="text-sm text-red-600 space-y-1">
+                    <ul className="text-sm text-red-600 dark:text-red-300 space-y-1">
                       {layer.issues.map((issue, idx) => (
                         <li key={idx}>• {issue}</li>
                       ))}

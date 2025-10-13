@@ -27,6 +27,7 @@ import {
   History,
   UserCheck
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityMetrics {
   rlsEnabled: number;
@@ -182,6 +183,7 @@ export default function DatabaseSecurity() {
   });
 
   const getStatusColor = (ratio: number) => {
+  const { t } = useTranslation();
     if (ratio >= 90) return 'text-green-600';
     if (ratio >= 70) return 'text-yellow-600';
     return 'text-red-600';
@@ -206,16 +208,16 @@ export default function DatabaseSecurity() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50 flex items-center gap-2">
                 <Shield className="w-8 h-8 text-indigo-600" />
                 Database Security Center
               </h1>
-              <p className="text-gray-600 mt-2">Monitor and manage database security policies, audit logs, and compliance</p>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">{t('common.monitor_and_manage_database_security_policies_audi')}</p>
             </div>
             <Button
               onClick={() => runHealthCheckMutation.mutate()}
               disabled={runHealthCheckMutation.isPending}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:to-purple-500 hover:from-indigo-700 hover:to-purple-700 text-white"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${runHealthCheckMutation.isPending ? 'animate-spin' : ''}`} />
               Run Health Check
@@ -227,7 +229,7 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">RLS Coverage</p>
+                  <p className="text-sm text-gray-600">{t('common.rls_coverage')}</p>
                   <p className="text-2xl font-bold text-gray-900">
                     {mockMetrics.rlsEnabled}/{mockMetrics.totalTables}
                   </p>
@@ -242,9 +244,9 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Audit Logging</p>
+                  <p className="text-sm text-gray-600">{t('common.audit_logging')}</p>
                   <p className="text-2xl font-bold text-gray-900">{mockMetrics.auditLogsEnabled}</p>
-                  <p className="text-sm text-gray-600">Critical tables</p>
+                  <p className="text-sm text-gray-600">{t('common.critical_tables')}</p>
                 </div>
                 <FileCheck className="w-8 h-8 text-green-600" />
               </div>
@@ -253,11 +255,11 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Health Status</p>
+                  <p className="text-sm text-gray-600">{t('common.health_status')}</p>
                   <p className="text-2xl font-bold text-gray-900">
                     {mockMetrics.healthChecksPassed ? 
-                      <span className="text-green-600">Healthy</span> : 
-                      <span className="text-red-600">Issues</span>
+                      <span className="text-green-600">{t('common.healthy')}</span> : 
+                      <span className="text-red-600">{t('common.issues')}</span>
                     }
                   </p>
                   <p className="text-sm text-gray-600">
@@ -271,14 +273,14 @@ export default function DatabaseSecurity() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">GDPR Status</p>
+                  <p className="text-sm text-gray-600">{t('common.gdpr_status')}</p>
                   <p className="text-2xl font-bold text-gray-900">
                     {mockMetrics.gdprCompliant ? 
-                      <span className="text-green-600">Compliant</span> : 
-                      <span className="text-red-600">Review</span>
+                      <span className="text-green-600">{t('common.compliant')}</span> : 
+                      <span className="text-red-600">{t('common.review')}</span>
                     }
                   </p>
-                  <p className="text-sm text-gray-600">All functions ready</p>
+                  <p className="text-sm text-gray-600">{t('common.all_functions_ready')}</p>
                 </div>
                 <ShieldCheck className="w-8 h-8 text-green-600" />
               </div>
@@ -287,11 +289,11 @@ export default function DatabaseSecurity() {
 
           {/* Performance Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <Card className="p-4 bg-gradient-to-r from-blue-50 dark:from-blue-900/20 to-indigo-50">
               <div className="flex items-center gap-3">
                 <Server className="w-6 h-6 text-indigo-600" />
                 <div>
-                  <p className="text-sm text-gray-600">Connections</p>
+                  <p className="text-sm text-gray-600">{t('common.connections')}</p>
                   <p className="text-lg font-bold text-gray-900">
                     {mockMetrics.activeConnections}/{mockMetrics.maxConnections}
                   </p>
@@ -299,21 +301,21 @@ export default function DatabaseSecurity() {
               </div>
             </Card>
 
-            <Card className="p-4 bg-gradient-to-r from-green-50 to-emerald-50">
+            <Card className="p-4 bg-gradient-to-r from-green-50 dark:from-green-900/20 to-emerald-50">
               <div className="flex items-center gap-3">
                 <Zap className="w-6 h-6 text-emerald-600" />
                 <div>
-                  <p className="text-sm text-gray-600">Cache Hit Ratio</p>
+                  <p className="text-sm text-gray-600">{t('common.cache_hit_ratio')}</p>
                   <p className="text-lg font-bold text-gray-900">{mockMetrics.cacheHitRatio}%</p>
                 </div>
               </div>
             </Card>
 
-            <Card className="p-4 bg-gradient-to-r from-purple-50 to-violet-50">
+            <Card className="p-4 bg-gradient-to-r from-purple-50 dark:from-purple-900/20 to-violet-50">
               <div className="flex items-center gap-3">
                 <Database className="w-6 h-6 text-violet-600" />
                 <div>
-                  <p className="text-sm text-gray-600">Database Size</p>
+                  <p className="text-sm text-gray-600">{t('common.database_size')}</p>
                   <p className="text-lg font-bold text-gray-900">{mockMetrics.databaseSize}</p>
                 </div>
               </div>
@@ -324,16 +326,16 @@ export default function DatabaseSecurity() {
         {/* Tabs */}
         <Tabs defaultValue="policies" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
-            <TabsTrigger value="policies">RLS Policies</TabsTrigger>
-            <TabsTrigger value="audit">Audit Logs</TabsTrigger>
-            <TabsTrigger value="tables">Table Security</TabsTrigger>
-            <TabsTrigger value="gdpr">GDPR Tools</TabsTrigger>
+            <TabsTrigger value="policies">{t('common.rls_policies')}</TabsTrigger>
+            <TabsTrigger value="audit">{t('common.audit_logs')}</TabsTrigger>
+            <TabsTrigger value="tables">{t('common.table_security')}</TabsTrigger>
+            <TabsTrigger value="gdpr">{t('common.gdpr_tools')}</TabsTrigger>
           </TabsList>
 
           {/* RLS Policies Tab */}
           <TabsContent value="policies" className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Row Level Security Policies</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4">{t('common.row_level_security_policies')}</h3>
               <div className="space-y-4">
                 {mockRLSPolicies.map(policy => (
                   <div key={`${policy.table_name}-${policy.policy_name}`} 
@@ -347,12 +349,12 @@ export default function DatabaseSecurity() {
                           </Badge>
                           <Badge variant="outline">{policy.table_name}</Badge>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">
-                          <span className="font-medium">Using:</span> {policy.using_expression}
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                          <span className="font-medium">{t('common.using')}</span> {policy.using_expression}
                         </p>
                         {policy.with_check_expression && (
                           <p className="text-sm text-gray-600">
-                            <span className="font-medium">Check:</span> {policy.with_check_expression}
+                            <span className="font-medium">{t('common.check')}</span> {policy.with_check_expression}
                           </p>
                         )}
                       </div>
@@ -370,10 +372,10 @@ export default function DatabaseSecurity() {
           {/* Audit Logs Tab */}
           <TabsContent value="audit" className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Audit Logs</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('common.recent_audit_logs')}</h3>
               <div className="space-y-3">
                 {mockAuditLogs.map(log => (
-                  <div key={log.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={log.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center gap-4">
                       <div className={`p-2 rounded-lg ${
                         log.action === 'INSERT' ? 'bg-green-100' :
@@ -413,16 +415,16 @@ export default function DatabaseSecurity() {
           {/* Table Security Tab */}
           <TabsContent value="tables" className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Table Security Status</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('common.table_security_status')}</h3>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-2 px-4 font-medium text-gray-700">Table Name</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700">RLS</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700">Audit</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700">Sensitive</th>
-                      <th className="text-center py-2 px-4 font-medium text-gray-700">Actions</th>
+                      <th className="text-left py-2 px-4 font-medium text-gray-700">{t('common.table_name')}</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700">{t('common.rls')}</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700">{t('common.audit')}</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700">{t('common.sensitive')}</th>
+                      <th className="text-center py-2 px-4 font-medium text-gray-700">{t('common.actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -436,16 +438,16 @@ export default function DatabaseSecurity() {
                         </td>
                         <td className="text-center py-3 px-4">
                           {table.rls ? (
-                            <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
+                            <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-300 dark:text-green-300 mx-auto" />
                           ) : (
-                            <AlertTriangle className="w-5 h-5 text-yellow-600 mx-auto" />
+                            <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-300 mx-auto" />
                           )}
                         </td>
                         <td className="text-center py-3 px-4">
                           {table.audit ? (
                             <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
                           ) : (
-                            <AlertCircle className="w-5 h-5 text-gray-400 mx-auto" />
+                            <AlertCircle className="w-5 h-5 text-gray-400 dark:text-gray-500 mx-auto" />
                           )}
                         </td>
                         <td className="text-center py-3 px-4">
@@ -476,29 +478,29 @@ export default function DatabaseSecurity() {
           <TabsContent value="gdpr" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
                   <UserCheck className="w-5 h-5 text-indigo-600" />
                   Data Export
                 </h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 mb-4">
                   Export all user data for GDPR compliance. The export includes all personal data,
                   posts, events, and associated content.
                 </p>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-200 mb-2">
                       User ID or Email
                     </label>
                     <input
                       type="text"
-                      placeholder="Enter user ID or email"
+                      placeholder={t('common.inputs.enter_user_id_or_email')}
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   <Button
                     onClick={() => exportGDPRDataMutation.mutate(1)}
                     disabled={exportGDPRDataMutation.isPending}
-                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:to-purple-500 hover:from-indigo-700 hover:to-purple-700 text-white"
                   >
                     Export User Data
                   </Button>
@@ -521,7 +523,7 @@ export default function DatabaseSecurity() {
                     </label>
                     <input
                       type="text"
-                      placeholder="Enter user ID or email"
+                      placeholder={t('common.inputs.enter_user_id_or_email')}
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
                   </div>
@@ -532,7 +534,7 @@ export default function DatabaseSecurity() {
                   >
                     Anonymize User Data
                   </Button>
-                  <p className="text-xs text-red-600 text-center">
+                  <p className="text-xs text-red-600 dark:text-red-300 text-center">
                     This action requires additional authorization
                   </p>
                 </div>
@@ -540,27 +542,27 @@ export default function DatabaseSecurity() {
             </div>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">GDPR Compliance Checklist</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('common.gdpr_compliance_checklist')}</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">Data export function implemented</span>
+                  <span className="text-gray-700">{t('common.data_export_function_implemented')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">Data anonymization function ready</span>
+                  <span className="text-gray-700">{t('common.data_anonymization_function_ready')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">Audit logging enabled for compliance tracking</span>
+                  <span className="text-gray-700">{t('common.audit_logging_enabled_for_compliance_tracking')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">User consent tracking implemented</span>
+                  <span className="text-gray-700">{t('common.user_consent_tracking_implemented')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">Privacy policy and terms updated</span>
+                  <span className="text-gray-700">{t('common.privacy_policy_and_terms_updated')}</span>
                 </div>
               </div>
             </Card>

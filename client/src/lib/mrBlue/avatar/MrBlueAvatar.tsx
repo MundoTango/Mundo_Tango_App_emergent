@@ -127,8 +127,26 @@ export function MrBlueAvatar({ onMessage, autoSpeak = false }: MrBlueAvatarProps
 function AvatarModel({ isSpeaking }: { isSpeaking: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
+  const [avatarExists, setAvatarExists] = useState(false);
 
-  // Simulate loading 3D model (in production: use Ready Player Me GLB)
+  // Check if Meshy.ai generated avatar exists
+  useEffect(() => {
+    fetch('/api/avatar/info')
+      .then(res => res.json())
+      .then(data => {
+        if (data.exists) {
+          setAvatarExists(true);
+          console.log('✅ Mr Blue avatar found:', data.path);
+        }
+      })
+      .catch(() => setAvatarExists(false));
+  }, []);
+
+  // Try to load GLB model if it exists
+  const { scene: glbScene } = avatarExists 
+    ? useGLTF('/models/mr-blue-avatar.glb') 
+    : { scene: null };
+
   useFrame((state) => {
     if (groupRef.current) {
       // Idle animation
@@ -154,31 +172,38 @@ function AvatarModel({ isSpeaking }: { isSpeaking: boolean }) {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
     >
-      {/* Simple avatar representation (replace with Ready Player Me model) */}
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial color={hovered ? "#60a5fa" : "#3b82f6"} />
-      </mesh>
-      
-      {/* Eyes */}
-      <mesh position={[-0.2, 0.1, 0.4]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" />
-      </mesh>
-      <mesh position={[0.2, 0.1, 0.4]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" />
-      </mesh>
+      {/* Load Meshy.ai GLB model if available, otherwise show placeholder */}
+      {glbScene ? (
+        <primitive object={glbScene} scale={0.01} />
+      ) : (
+        <>
+          {/* Simple avatar representation (placeholder until Meshy.ai avatar is generated) */}
+          <mesh position={[0, 0, 0]}>
+            <sphereGeometry args={[0.5, 32, 32]} />
+            <meshStandardMaterial color={hovered ? "#60a5fa" : "#3b82f6"} />
+          </mesh>
+          
+          {/* Eyes */}
+          <mesh position={[-0.2, 0.1, 0.4]}>
+            <sphereGeometry args={[0.1, 16, 16]} />
+            <meshStandardMaterial color="#ffffff" />
+          </mesh>
+          <mesh position={[0.2, 0.1, 0.4]}>
+            <sphereGeometry args={[0.1, 16, 16]} />
+            <meshStandardMaterial color="#ffffff" />
+          </mesh>
 
-      {/* Pupils */}
-      <mesh position={[-0.2, 0.1, 0.5]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
-        <meshStandardMaterial color="#000000" />
-      </mesh>
-      <mesh position={[0.2, 0.1, 0.5]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
-        <meshStandardMaterial color="#000000" />
-      </mesh>
+          {/* Pupils */}
+          <mesh position={[-0.2, 0.1, 0.5]}>
+            <sphereGeometry args={[0.05, 16, 16]} />
+            <meshStandardMaterial color="#000000" />
+          </mesh>
+          <mesh position={[0.2, 0.1, 0.5]}>
+            <sphereGeometry args={[0.05, 16, 16]} />
+            <meshStandardMaterial color="#000000" />
+          </mesh>
+        </>
+      )}
     </group>
   );
 }
