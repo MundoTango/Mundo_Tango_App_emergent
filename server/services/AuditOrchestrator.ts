@@ -3,8 +3,7 @@ import { db } from '../db';
 import { auditResults, auditSchedules, features } from '@shared/schema';
 import { playwrightAuditService } from './PlaywrightAuditService';
 import { axeAuditService } from './AxeAuditService';
-// TODO: Re-enable Lighthouse after ESM module issues are resolved
-// import { lighthouseAuditService } from './LighthouseAuditService';
+import { lighthouseAuditService } from './LighthouseAuditService'; // Re-enabled with CLI fix
 import { auditAutomationService } from './AuditAutomationService';
 import type { InsertAuditResult } from '@shared/schema';
 
@@ -19,8 +18,8 @@ export class AuditOrchestrator {
     console.log(`[AuditOrchestrator] Running audit for ${pageAgent}: ${tools.join(', ')}`);
 
     const results: InsertAuditResult[] = [];
-    // Temporarily exclude Lighthouse until ESM issues are resolved
-    const runTools = tools.includes('all') ? ['playwright', 'axe'] : tools.filter(t => t !== 'lighthouse');
+    // All tools enabled (Lighthouse now uses CLI approach)
+    const runTools = tools.includes('all') ? ['playwright', 'axe', 'lighthouse'] : tools;
 
     // Run audits in parallel
     const auditPromises = runTools.map(async (tool) => {
@@ -34,9 +33,9 @@ export class AuditOrchestrator {
           case 'axe':
             result = await axeAuditService.auditPage(pageRoute, pageAgent);
             break;
-          // case 'lighthouse':
-          //   result = await lighthouseAuditService.auditPage(pageRoute, pageAgent);
-          //   break;
+          case 'lighthouse':
+            result = await lighthouseAuditService.auditPage(pageRoute, pageAgent);
+            break;
           default:
             return null;
         }

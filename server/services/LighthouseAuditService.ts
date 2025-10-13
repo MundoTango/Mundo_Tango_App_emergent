@@ -1,184 +1,133 @@
-// TRACK 5: Lighthouse Audit Service - Performance, SEO, PWA
-import lighthouse from 'lighthouse';
-import * as chromeLauncher from 'chrome-launcher';
+// TRACK 2: Lighthouse Audit Service - CLI-based approach (ESM fix)
+import { exec } from 'child_process';
+import { promisify } from 'util';
 import type { InsertAuditResult } from '@shared/schema';
 
+const execAsync = promisify(exec);
+
+interface LighthouseResult {
+  categories: {
+    performance: { score: number };
+    accessibility: { score: number };
+    'best-practices': { score: number };
+    seo: { score: number };
+    pwa: { score: number };
+  };
+  audits: {
+    [key: string]: {
+      id: string;
+      title: string;
+      description: string;
+      score: number | null;
+      displayValue?: string;
+    };
+  };
+}
+
 export class LighthouseAuditService {
-  async auditPage(pageRoute: string, pageAgent: string): Promise<Partial<InsertAuditResult>> {
-    const startTime = Date.now();
-    let chrome;
+  private baseUrl: string;
+
+  constructor() {
+    // Use environment domain for production, localhost for dev
+    const domain = process.env.REPL_SLUG 
+      ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`
+      : 'http://localhost:5000';
+    this.baseUrl = domain;
+  }
+
+  async auditPage(pageRoute: string, pageAgent: string): Promise<InsertAuditResult> {
+    const url = `${this.baseUrl}${pageRoute}`;
+    console.log(`[Lighthouse] Auditing ${url} for ${pageAgent}`);
 
     try {
-      const baseUrl = process.env.VITE_APP_URL || 'http://localhost:5000';
-      const url = `${baseUrl}${pageRoute}`;
-
-      console.log(`[LighthouseAudit] Testing ${pageAgent}: ${url}`);
-
-      // Launch Chrome
-      chrome = await chromeLauncher.launch({
-        chromeFlags: ['--headless', '--no-sandbox', '--disable-setuid-sandbox'],
+      // Run Lighthouse CLI as subprocess
+      const command = `npx lighthouse ${url} --output=json --quiet --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage"`;
+      
+      const { stdout } = await execAsync(command, {
+        maxBuffer: 10 * 1024 * 1024, // 10MB buffer
+        timeout: 120000, // 2 minute timeout
       });
 
-      // Run Lighthouse
-      const options = {
-        logLevel: 'error' as const,
-        output: 'json' as const,
-        port: chrome.port,
-      };
+      const result: LighthouseResult = JSON.parse(stdout);
 
-      const runnerResult = await lighthouse(url, options);
-      if (!runnerResult) throw new Error('Lighthouse audit failed');
+      // Calculate overall score (average of all categories)
+      const scores = [
+        result.categories.performance.score,
+        result.categories.accessibility.score,
+        result.categories['best-practices'].score,
+        result.categories.seo.score,
+        result.categories.pwa.score,
+      ];
+      const overallScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 100);
 
-      const { lhr } = runnerResult;
+      // Extract key findings
+      const findings: any[] = [];
+      const issues: string[] = [];
 
-      // Extract scores (0-100)
-      const performanceScore = (lhr.categories.performance?.score || 0) * 100;
-      const accessibilityScore = (lhr.categories.accessibility?.score || 0) * 100;
-      const bestPracticesScore = (lhr.categories['best-practices']?.score || 0) * 100;
-      const seoScore = (lhr.categories.seo?.score || 0) * 100;
-      const pwaScore = (lhr.categories.pwa?.score || 0) * 100;
-
-      // Average score
-      const averageScore = (performanceScore + accessibilityScore + bestPracticesScore + seoScore + pwaScore) / 5;
-
-      // Extract findings
-      const findings = [];
-      let passed = 0;
-      let failed = 0;
-      let warnings = 0;
-
-      // Performance metrics
-      const metrics = lhr.audits['metrics']?.details as any;
-      if (metrics?.items?.[0]) {
-        const item = metrics.items[0];
-        findings.push({
-          type: 'performance_metrics',
-          severity: 'low' as const,
-          message: `FCP: ${item.firstContentfulPaint}ms, LCP: ${item.largestContentfulPaint}ms, TBT: ${item.totalBlockingTime}ms`,
-        });
-      }
-
-      // Failed audits
-      Object.entries(lhr.audits).forEach(([key, audit]: [string, any]) => {
+      // Check critical performance metrics
+      Object.entries(result.audits).forEach(([key, audit]) => {
         if (audit.score !== null && audit.score < 0.9) {
-          failed++;
           findings.push({
-            type: key,
-            severity: audit.score < 0.5 ? 'high' as const : 'medium' as const,
-            message: audit.title,
-            location: audit.description,
+            type: 'lighthouse',
+            id: audit.id,
+            impact: audit.score < 0.5 ? 'critical' : audit.score < 0.7 ? 'serious' : 'moderate',
+            description: audit.title,
+            help: audit.description,
+            helpUrl: `https://web.dev/${audit.id}`,
           });
-        } else if (audit.score !== null) {
-          passed++;
+          issues.push(`${audit.title}: ${audit.displayValue || 'needs improvement'}`);
         }
       });
 
-      // Generate recommendations
-      const recommendations = this.generateRecommendations(lhr);
-      const severity = this.calculateSeverity(averageScore);
-
-      await chrome.kill();
+      // Determine severity based on score
+      let severity: 'critical' | 'high' | 'medium' | 'low' = 'low';
+      if (overallScore < 50) severity = 'critical';
+      else if (overallScore < 70) severity = 'high';
+      else if (overallScore < 85) severity = 'medium';
 
       return {
         pageAgent,
         pageRoute,
-        auditType: 'performance',
-        toolName: 'lighthouse',
-        score: averageScore,
-        passed,
-        failed,
-        warnings,
-        findings,
-        recommendations,
+        tool: 'lighthouse',
+        score: overallScore,
+        passed: overallScore >= 85,
+        findings: findings.slice(0, 10), // Top 10 issues
+        summary: `Performance: ${Math.round(result.categories.performance.score * 100)}, Accessibility: ${Math.round(result.categories.accessibility.score * 100)}, Best Practices: ${Math.round(result.categories['best-practices'].score * 100)}, SEO: ${Math.round(result.categories.seo.score * 100)}, PWA: ${Math.round(result.categories.pwa.score * 100)}`,
         severity,
-        runDuration: Date.now() - startTime,
+        issuesFound: issues.length,
+        metadata: {
+          categories: {
+            performance: Math.round(result.categories.performance.score * 100),
+            accessibility: Math.round(result.categories.accessibility.score * 100),
+            bestPractices: Math.round(result.categories['best-practices'].score * 100),
+            seo: Math.round(result.categories.seo.score * 100),
+            pwa: Math.round(result.categories.pwa.score * 100),
+          },
+          url,
+          timestamp: new Date().toISOString(),
+        },
       };
-    } catch (error) {
-      console.error(`[LighthouseAudit] Error auditing ${pageAgent}:`, error);
-      
-      if (chrome) {
-        await chrome.kill();
-      }
+    } catch (error: any) {
+      console.error(`[Lighthouse] Audit failed for ${pageAgent}:`, error.message);
 
+      // Return error result
       return {
         pageAgent,
         pageRoute,
-        auditType: 'performance',
-        toolName: 'lighthouse',
+        tool: 'lighthouse',
         score: 0,
-        passed: 0,
-        failed: 1,
-        warnings: 0,
-        findings: [{
-          type: 'error',
-          severity: 'critical',
-          message: `Audit failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        }],
-        recommendations: ['Fix critical errors before running performance audit'],
+        passed: false,
+        findings: [],
+        summary: `Lighthouse audit failed: ${error.message}`,
         severity: 'critical',
-        runDuration: Date.now() - startTime,
+        issuesFound: 1,
+        metadata: {
+          error: error.message,
+          url,
+          timestamp: new Date().toISOString(),
+        },
       };
     }
-  }
-
-  private generateRecommendations(lhr: any): string[] {
-    const recommendations: string[] = [];
-
-    // Performance recommendations
-    if (lhr.categories.performance.score < 0.9) {
-      const fcp = lhr.audits['first-contentful-paint'];
-      const lcp = lhr.audits['largest-contentful-paint'];
-      const cls = lhr.audits['cumulative-layout-shift'];
-
-      if (fcp?.score < 0.9) {
-        recommendations.push('Optimize First Contentful Paint - reduce render-blocking resources');
-      }
-      if (lcp?.score < 0.9) {
-        recommendations.push('Improve Largest Contentful Paint - optimize images and server response time');
-      }
-      if (cls?.score < 0.9) {
-        recommendations.push('Fix Cumulative Layout Shift - add dimensions to images and avoid dynamic content');
-      }
-    }
-
-    // SEO recommendations
-    if (lhr.categories.seo.score < 0.9) {
-      if (lhr.audits['meta-description']?.score < 1) {
-        recommendations.push('Add meta descriptions to improve SEO');
-      }
-      if (lhr.audits['document-title']?.score < 1) {
-        recommendations.push('Ensure page has a unique, descriptive title');
-      }
-    }
-
-    // PWA recommendations
-    if (lhr.categories.pwa.score < 0.9) {
-      if (lhr.audits['installable-manifest']?.score < 1) {
-        recommendations.push('Add web app manifest for PWA capabilities');
-      }
-      if (lhr.audits['service-worker']?.score < 1) {
-        recommendations.push('Register a service worker for offline functionality');
-      }
-    }
-
-    // Best practices
-    if (lhr.categories['best-practices'].score < 0.9) {
-      if (lhr.audits['errors-in-console']?.score < 1) {
-        recommendations.push('Fix JavaScript console errors');
-      }
-      if (lhr.audits['uses-https']?.score < 1) {
-        recommendations.push('Use HTTPS for all resources');
-      }
-    }
-
-    return recommendations.length > 0 ? recommendations : ['Page meets all Lighthouse standards'];
-  }
-
-  private calculateSeverity(score: number): 'critical' | 'high' | 'medium' | 'low' {
-    if (score < 50) return 'critical';
-    if (score < 70) return 'high';
-    if (score < 90) return 'medium';
-    return 'low';
   }
 }
 
