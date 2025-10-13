@@ -4623,3 +4623,183 @@ export type InsertComponent = z.infer<typeof insertComponentSchema>;
 
 export type Task = typeof tasks.$inferSelect;
 export type InsertTask = z.infer<typeof insertTaskSchema>;
+
+// Voice Settings - TRACK 3
+export const voiceSettings = pgTable("voice_settings", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  enabled: boolean("enabled").default(true),
+  inputEnabled: boolean("input_enabled").default(true),
+  outputEnabled: boolean("output_enabled").default(true),
+  language: varchar("language", { length: 10 }).default('en-US'),
+  voice: varchar("voice", { length: 100 }),
+  rate: real("rate").default(1.0),
+  pitch: real("pitch").default(1.0),
+  volume: real("volume").default(1.0),
+  autoSpeak: boolean("auto_speak").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_voice_settings_user").on(table.userId),
+]);
+
+// Agent Personalities - TRACK 4
+export const agentPersonalities = pgTable("agent_personalities", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 100 }).notNull().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  role: varchar("role", { length: 255 }).notNull(),
+  expertise: text("expertise").array(),
+  tone: varchar("tone", { length: 100 }).default('professional'),
+  style: varchar("style", { length: 100 }).default('concise'),
+  systemPrompt: text("system_prompt").notNull(),
+  exampleResponses: jsonb("example_responses").default([]),
+  capabilities: text("capabilities").array(),
+  category: varchar("category", { length: 100 }),
+  journeyTier: varchar("journey_tier", { length: 50 }),
+  pageRoute: varchar("page_route", { length: 255 }),
+  version: integer("version").default(1),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_personalities_agent").on(table.agentId),
+  index("idx_personalities_category").on(table.category),
+  index("idx_personalities_journey").on(table.journeyTier),
+]);
+
+// Personality Templates - TRACK 4
+export const personalityTemplates = pgTable("personality_templates", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  templateType: varchar("template_type", { length: 100 }).notNull(),
+  promptTemplate: text("prompt_template").notNull(),
+  variables: jsonb("variables").default([]),
+  category: varchar("category", { length: 100 }),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_templates_type").on(table.templateType),
+  index("idx_templates_category").on(table.category),
+]);
+
+// Audit Results - TRACK 5
+export const auditResults = pgTable("audit_results", {
+  id: serial("id").primaryKey(),
+  pageAgent: varchar("page_agent", { length: 100 }).notNull(),
+  pageRoute: varchar("page_route", { length: 255 }).notNull(),
+  auditType: varchar("audit_type", { length: 100 }).notNull(),
+  toolName: varchar("tool_name", { length: 100 }).notNull(),
+  score: real("score"),
+  passed: integer("passed").default(0),
+  failed: integer("failed").default(0),
+  warnings: integer("warnings").default(0),
+  findings: jsonb("findings").default([]),
+  recommendations: jsonb("recommendations").default([]),
+  severity: varchar("severity", { length: 50 }),
+  storyCardGenerated: boolean("story_card_generated").default(false),
+  featureId: integer("feature_id").references(() => features.id),
+  runDuration: integer("run_duration"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_audit_page").on(table.pageAgent),
+  index("idx_audit_type").on(table.auditType),
+  index("idx_audit_created").on(table.createdAt),
+]);
+
+// Audit Schedules - TRACK 5
+export const auditSchedules = pgTable("audit_schedules", {
+  id: serial("id").primaryKey(),
+  pageAgent: varchar("page_agent", { length: 100 }).notNull(),
+  pageRoute: varchar("page_route", { length: 255 }).notNull(),
+  journeyTier: varchar("journey_tier", { length: 50 }),
+  priority: varchar("priority", { length: 50 }).default('medium'),
+  frequency: varchar("frequency", { length: 100 }).notNull(),
+  cronExpression: varchar("cron_expression", { length: 100 }),
+  auditTypes: text("audit_types").array(),
+  isActive: boolean("is_active").default(true),
+  lastRun: timestamp("last_run"),
+  nextRun: timestamp("next_run"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_schedule_page").on(table.pageAgent),
+  index("idx_schedule_priority").on(table.priority),
+  index("idx_schedule_next_run").on(table.nextRun),
+]);
+
+// Audit Metrics - TRACK 5
+export const auditMetrics = pgTable("audit_metrics", {
+  id: serial("id").primaryKey(),
+  pageAgent: varchar("page_agent", { length: 100 }).notNull(),
+  metricType: varchar("metric_type", { length: 100 }).notNull(),
+  metricName: varchar("metric_name", { length: 255 }).notNull(),
+  value: real("value").notNull(),
+  threshold: real("threshold"),
+  status: varchar("status", { length: 50 }),
+  trend: varchar("trend", { length: 50 }),
+  previousValue: real("previous_value"),
+  changePercent: real("change_percent"),
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_metrics_page").on(table.pageAgent),
+  index("idx_metrics_type").on(table.metricType),
+  index("idx_metrics_created").on(table.createdAt),
+]);
+
+// Insert Schemas
+export const insertVoiceSettingsSchema = createInsertSchema(voiceSettings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentPersonalitySchema = createInsertSchema(agentPersonalities).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPersonalityTemplateSchema = createInsertSchema(personalityTemplates).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAuditResultSchema = createInsertSchema(auditResults).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAuditScheduleSchema = createInsertSchema(auditSchedules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAuditMetricSchema = createInsertSchema(auditMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types
+export type VoiceSettings = typeof voiceSettings.$inferSelect;
+export type InsertVoiceSettings = z.infer<typeof insertVoiceSettingsSchema>;
+
+export type AgentPersonality = typeof agentPersonalities.$inferSelect;
+export type InsertAgentPersonality = z.infer<typeof insertAgentPersonalitySchema>;
+
+export type PersonalityTemplate = typeof personalityTemplates.$inferSelect;
+export type InsertPersonalityTemplate = z.infer<typeof insertPersonalityTemplateSchema>;
+
+export type AuditResult = typeof auditResults.$inferSelect;
+export type InsertAuditResult = z.infer<typeof insertAuditResultSchema>;
+
+export type AuditSchedule = typeof auditSchedules.$inferSelect;
+export type InsertAuditSchedule = z.infer<typeof insertAuditScheduleSchema>;
+
+export type AuditMetric = typeof auditMetrics.$inferSelect;
+export type InsertAuditMetric = z.infer<typeof insertAuditMetricSchema>;
