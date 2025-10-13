@@ -118,6 +118,7 @@ interface UserStats {
 
 export default function AdminUsersPage() {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const [filterStatus, setFilterStatus] = useState('all');
@@ -197,7 +198,6 @@ export default function AdminUsersPage() {
   });
 
   const handleSelectAll = (checked: boolean) => {
-  const { t } = useTranslation();
     if (checked) {
       setSelectedUsers(usersData?.users?.map((u: User) => u.id) || []);
     } else {
