@@ -1,7 +1,7 @@
 # Life CEO & Multi-Community Platform
 
 ## Overview
-This project is an AI-powered life management system (Life CEO) integrated with independent, data-isolated social community platforms. It features 16 specialized AI agents for personalized life management via a mobile-first, voice-controlled interface. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer ensures secure, API-based communication while maintaining data isolation. Built on the ESA Framework (113 Agents, 61 Layers), the platform prioritizes security, performance, and user experience, featuring a global payment system, advanced internationalization, comprehensive administrative controls, and AI-driven performance optimization. It is designed as a production-ready system with full AI integration, PWA capabilities, and enterprise-grade security, targeting significant market potential and ambitious growth.
+This project is an AI-powered life management system (Life CEO) integrated with independent, data-isolated social community platforms. It features 16 specialized AI agents for personalized life management via a mobile-first, voice-controlled interface. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer ensures secure, API-based communication while maintaining data isolation. Built on the ESA Framework, the platform prioritizes security, performance, and user experience, featuring a global payment system, advanced internationalization, comprehensive administrative controls, and AI-driven performance optimization. It is designed as a production-ready system with full AI integration, PWA capabilities, and enterprise-grade security, targeting significant market potential and ambitious growth.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
@@ -9,43 +9,12 @@ Do not reference monetary values or investment amounts when describing the platf
 When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
-## Recent Updates (October 13, 2025)
-- **🚨 THE AUDIT - QUALITY CRISIS EXPOSED**: Platform audit reveals catastrophic failures - 3,973 critical issues found (1,397 translation issues, 2,576 dark mode issues). Health score: -81%. 90 pages lack translations (84% failure), 104 pages have broken dark mode (97% failure). BLOCKING DEPLOYMENT until 90%+ health achieved. Fix reports saved to docs/MrBlue/
-- **Collaborative Audit System v2.0 COMPLETE**: Enhanced audit workflow where intelligent Page Agents (P*) collaborate with auditors for comprehensive validation
-- **P10 Intelligent Agent CREATED**: Subject Matter Expert for Home Feed page with complete architecture knowledge, test scenarios, and collaborative protocol
-- **MB Agent Experts (MB1-MB8)**: Intelligent SME agents created for all Mr Blue tracks (3D Avatar, Integration, Visual Editor, Voice System)
-- **ESA Mind Map Context Bug FIXED**: Registry corrected to show "/" route agents, ESA Mind Map now context-aware for Memories page
-- **Page Agent Registry Enhanced**: Added P10 mapping to "/" route with ESA agents [6, 11, 13] for state, UI, and content management
-- **MB.MD Phase 1 COMPLETE**: Audit infrastructure complete, 166 critical routing bugs discovered via ESA106 Integration Validator (26% health score → requires systematic fixes)
-- **ESA106 Integration Validator**: NEW Operational Agent #106 scans all frontend API calls, validates backend routes, detects 166 critical mismatches (missing routes, wrong mount paths, method errors)
-- **Mr Blue Endpoint Bug FIXED**: Route mount corrected from `/api` to `/api/ai`, enabling proper AI chat functionality 
-- **Integration Verification Protocol**: NEW Quality Gate #5 added to ESA_NEW_AGENT_GUIDE.md - mandatory pre/post-build validation, health score >95% required for deployment
-- **Platform Audit Infrastructure**: 4 parallel audit scripts operational (platform, agent domains, completeness, performance) with 3-tool validation (Playwright + Axe + Lighthouse)
-- **Lessons Learned Documentation**: Created esa-lessons-learned.md documenting Mr Blue bug pattern, root cause analysis, and fix protocol for all 166 routing issues
-- **ESA Agent Count**: 113 → 114 agents (added ESA106 to Operational Excellence category in org chart)
-- **H2AC Phase 3 COMPLETE**: All completion tracks built in parallel (Voice System, DB Personalities, Audit Scheduler, GLB Pipeline)
-- **Voice Conversation System**: Web Speech API integrated in AgentChatPanel with speak/listen buttons, VoiceVisualizer, auto-speak agent responses, voiceSettings DB schema
-- **Database-Driven Personalities**: 88 agent personalities (P1-P88, ESA, MB, J agents) migrated to database with PersonalityMigrationService, AI enhancement via GPT-4o, 5 personality templates
-- **Audit Scheduler & Automation**: AuditSchedulerService with cron jobs (high 6hr, medium daily, low weekly), 88 page schedules initialized, baseline audit for 15 high-priority pages
-- **Lighthouse ESM Fix**: Refactored to CLI subprocess approach, all 3 audit tools operational (Playwright + Axe + Lighthouse), full platform coverage
-- **Avatar GLB Status API**: GLBConversionService for conversion status, avatar routes at /api/avatar/*, documentation for local Blender workflow
-- **H2AC Phase 2**: All 5 tracks built in parallel using mb.md methodology (Human Onboarding, Agent Chat, Audit Automation, 3D Avatar Pipeline, Integration)
-- **Human Onboarding Flow**: Team registration UI with role selection (frontend/backend/designer/admin), auto agent matching, work queue setup via POST /api/team/onboard
-- **Agent Chat Integration**: Real-time AI chat with 88+ agent personalities using OpenAI GPT-4o-mini, integrated into ProjectWorkspace "Ask Agents" tab via POST /api/agent-chat/message
-- **Audit-to-Story Automation**: 17-phase audit system with cron scheduler (high/medium/low priority), auto story card generation with zero duplication via AuditAutomationService
-- **3D Avatar Pipeline**: Blender automation script (convert-xbot-to-glb.py) ready to convert FBX→GLB with Draco compression for production Mr Blue avatar
-- **H2AC Orchestrator**: Coordinates all systems (onboarding, chat, audits, avatars), health checks, initialization on server start
-- **The Pages Infrastructure**: 88 Page Agents (P1-P88) created, one per platform route, complete registry at `docs/The Pages/thepages.md`
-- **The Plan (ESA65)**: Dynamic story cards with 4-level hierarchy (Feature→Sub→Component→Task), zero duplication, real-time auto-cascade updates
-- **H2AC Pattern**: Human-to-Agent Communication with AgentMatcher (role-based), ContextDetector (page awareness), MyWorkTab (personalized stories), ProjectWorkspace (interactive breakdown)
-- **Agent Naming Standardization**: ESA1-105 (ESA Framework), MB1-8 (Mr Blue), P1-P88 (Page Agents), J1-J15 (Journey Agents)
-
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
 ### UI/UX Decisions
-- **Design System**: "MT Ocean Theme" with glassmorphic elements, turquoise-to-blue gradients, design tokens, GSAP scroll reveals, Framer Motion, and an international icon/tooltip system (6 languages). Adheres to Aurora Tide design system for component usage, accessibility (WCAG 2.1 AA compliant), dark mode/i18n coverage. Mobile-first design approach.
-- **Mr Blue AI Companion**: Features a realistic 3D humanoid avatar with full animation system (idle, emotions, mouth sync, gestures) using React Three Fiber. Chat interface supports voice (Web Speech API) and text.
+- **Design System**: "MT Ocean Theme" with glassmorphic elements, turquoise-to-blue gradients, design tokens, and an international icon/tooltip system (6 languages). Adheres to Aurora Tide design system for component usage, accessibility (WCAG 2.1 AA compliant), dark mode/i18n coverage. Mobile-first design approach.
+- **Mr Blue AI Companion**: Features a realistic 3D humanoid avatar with full animation system using React Three Fiber. Chat interface supports voice (Web Speech API) and text.
 
 ### Technical Implementations
 - **Frontend**: React with functional components, hooks, React Query, and context APIs.
@@ -62,15 +31,15 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 
 ### Feature Specifications
 - **Life CEO**: 16 specialized AI agents with semantic memory and self-learning.
-- **Community Platforms**: User profiles, social features (posts, reactions, comments), community management (city-specific groups, events, housing listings, interactive map).
-- **AI Integration**: AI-powered analytics, user support AI with vector database, ML journey prediction, automated audit learning, and cross-page context preservation. Includes 71 AI agents in total.
-- **Mr Blue AI Companion**: Universal AI companion (Agents #73-80) with role-based content adaptation, Scott 3D avatar, interactive tours (Shepherd.js), subscription manager, quality validator, and learning coordinator. Conversations stored in localStorage only.
+- **Community Platforms**: User profiles, social features, community management (city-specific groups, events, housing listings, interactive map).
+- **AI Integration**: AI-powered analytics, user support AI with vector database, ML journey prediction, automated audit learning, and cross-page context preservation. Includes 71 AI agents.
+- **Mr Blue AI Companion**: Universal AI companion (Agents #73-80) with role-based content adaptation, 3D avatar, interactive tours, subscription manager, quality validator, and learning coordinator. Conversations stored in localStorage only.
 - **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
 - **Comprehensive Audit System**: Automated, multi-layer audit system for continuous quality improvement, including page audits and open-source management.
 - **Self-Hosted Project Tracker (Agent #65)**: Jira replacement with bidirectional GitHub integration (Epic/Story/Task hierarchy, agent assignment, code linking, and automated sync).
 - **Comments System (Agent #65)**: Rich collaboration features with @mentions, threading, file attachments, and activity feed integration.
 - **ESA Mind (/admin/esa-mind)**: Context-aware intelligence dashboard for the ESA Framework (105 Agents, 61 Layers) with 7 interactive views and full integration with admin design system.
-- **ESA MindMap (Interactive AI Agent & Navigator)**: Globally accessible floating button for Super Admins with quick navigator overlay and interactive AI chat (Replit AI Integrations / OpenAI GPT-4o) for ESA-compliant suggestions.
+- **ESA MindMap (Interactive AI Agent & Navigator)**: Globally accessible floating button for Super Admins with quick navigator overlay and interactive AI chat for ESA-compliant suggestions.
 - **AI Intelligence Network**: Self-learning user support system with AI Help Button, Smart Page Suggestions (ML-powered next-page predictions), AI Context Bar, Pattern Learning (Agent #68), and Cross-Page Context preservation.
 - **Multi-AI Integration Strategy**: Comprehensive AI orchestration framework including Multi-AI decision matrix (Replit AI, Direct OpenAI, Claude, Gemini), prompt engineering framework, long-context AI integration for `esa.md` analysis, AI agent memory systems, and vector database (LanceDB).
 
@@ -103,7 +72,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Caching**: Redis
 - **Image/Media Handling**: Multer, Pexels API, FFmpeg.wasm, WebCodecs API, Cloudinary
 - **Authentication/Authorization**: jsonwebtoken, bcrypt, @casl/ability
-- **UI Framework**: React, Tailwind CSS, shadcn/ui, Radix UI, Material-UI (MUI), Three.js (React Three Fiber v8.x with @react-three/drei v9.x), GrapesJS
+- **UI Framework**: React, Tailwind CSS, shadcn/ui, Radix UI, Material-UI (MUI), Three.js (React Three Fiber), GrapesJS
 - **Date/Time Utilities**: moment.js, date-fns
 - **PDF Generation**: jsPDF, html2canvas
 - **Data Visualization**: Recharts
