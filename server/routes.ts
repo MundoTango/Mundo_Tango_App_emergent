@@ -80,6 +80,7 @@ import personalityRoutes from "./routes/personalityRoutes"; // H2AC Phase 3: Dyn
 import auditRoutes from "./routes/auditRoutes"; // H2AC Phase 3: Full Platform Audit System (Playwright + Axe + Lighthouse)
 import auditSchedulerRoutes from "./routes/auditSchedulerRoutes"; // H2AC Phase 3 Completion: Audit Scheduler & Automation
 import avatarRoutes from "./routes/avatarRoutes"; // H2AC Phase 3 Completion: Avatar GLB Conversion Status
+import platformAuditRoutes from "./routes/platformAudit"; // THE AUDIT Layer 4 & 4B: Translation & Dark Mode Validation
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
 import { jiraProjectSync } from "./services/JiraProjectSync";
@@ -234,6 +235,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/audit', auditRoutes); // H2AC Phase 3: Full Platform Audit System
   app.use('/api/audit-scheduler', auditSchedulerRoutes); // H2AC Phase 3 Completion: Audit Scheduler
   app.use('/api/avatar', avatarRoutes); // H2AC Phase 3 Completion: Avatar GLB Status
+  app.use('/api/platform-audit', platformAuditRoutes); // THE AUDIT Layer 4 & 4B: Translation & Dark Mode Validation
   app.use('/api/ai', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46) - FIXED: Mr Blue endpoint now at /api/ai/mrblue/chat
   app.use('/api/agents', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
