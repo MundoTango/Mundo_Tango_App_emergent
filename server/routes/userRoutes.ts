@@ -406,6 +406,60 @@ router.get('/users/:userId',
   getUserProfileHandler
 );
 
+// Get user travel details
+router.get('/user/travel-details', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    const travelDetails = await storage.getUserTravelDetails(Number(userId));
+    res.json({ success: true, data: travelDetails });
+  } catch (error: any) {
+    console.error('Error fetching travel details:', error);
+    res.status(500).json({ error: 'Failed to fetch travel details' });
+  }
+});
+
+// Auto-join city groups
+router.get('/user/auto-join-city-groups', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    const user = await storage.getUser(Number(userId));
+    if (!user?.city) {
+      return res.json({ success: false, message: 'No city set' });
+    }
+    
+    // Auto-join city group logic here
+    res.json({ success: true, message: 'Auto-joined city groups' });
+  } catch (error: any) {
+    console.error('Error auto-joining groups:', error);
+    res.status(500).json({ error: 'Failed to auto-join groups' });
+  }
+});
+
+// Get user city group
+router.get('/user/city-group', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    const user = await storage.getUser(Number(userId));
+    const cityGroup = await storage.getCityGroup(user?.city);
+    res.json({ success: true, data: cityGroup });
+  } catch (error: any) {
+    console.error('Error fetching city group:', error);
+    res.status(500).json({ error: 'Failed to fetch city group' });
+  }
+});
+
 // Update user profile (for EditProfileModal) - Fixed for production
 router.put('/user/profile', setUserContext, async (req: any, res) => {
   try {

@@ -114,6 +114,14 @@ import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
 import toolbarRoutes from "./routes/toolbarRoutes"; // ESA LIFE CEO 61x21 - Toolbar API routes
 
+// MB.MD ROUTING FIX - New Routes (Phase 1 Completion)
+import profileRoutes from "./routes/profileRoutes"; // User profile & resume routes
+import chatRoutes from "./routes/chatRoutes"; // Chat & messaging routes
+import bookingRoutes from "./routes/bookingRoutes"; // Event bookings routes
+import travelRoutes from "./routes/travelRoutes"; // Travel plans routes
+import activityRoutes from "./routes/activityRoutes"; // Daily activities routes
+import miscRoutes from "./routes/miscRoutes"; // Miscellaneous routes (onboarding, friends, etc.)
+
 
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
@@ -250,6 +258,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/data-viz', dataVizRoutes); // ESA LIFE CEO 61x21 - Data Visualization Expert Agent (Layers 40,41,42)
   app.use('/api/content-media', contentMediaRoutes); // ESA LIFE CEO 61x21 - Content & Media Expert Agent (Layers 25,26,58)
   app.use('/api/code-quality', codeQualityRoutes); // ESA LIFE CEO 61x21 - Code Quality Expert Agent (Layers 6,7,57)
+  
+  // MB.MD ROUTING FIX - Mount New Routes (Phase 1 Completion)
+  app.use('/api', profileRoutes); // User profile & resume routes
+  app.use('/api', chatRoutes); // Chat & messaging routes  
+  app.use('/api', bookingRoutes); // Event bookings routes
+  app.use('/api', travelRoutes); // Travel plans routes
+  app.use('/api', activityRoutes); // Daily activities routes
+  app.use('/api', miscRoutes); // Miscellaneous routes
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
