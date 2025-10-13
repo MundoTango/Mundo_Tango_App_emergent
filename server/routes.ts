@@ -109,6 +109,15 @@ import locationRoutes from "./routes/locationRoutes"; // MB.MD TRACK 5: Location
 import friendRequestRoutes from "./routes/friendRequestRoutes"; // MB.MD TRACK 6: Friend Request Management
 import rolesRoutes from "./routes/rolesRoutes"; // MB.MD TRACK 8: Enhanced Role Management
 import securityRoutes from "./routes/securityRoutes"; // MB.MD TRACK 11: Security & CSRF Routes
+import validationRoutes from "./routes/validationRoutes"; // MB.MD FINAL TRACK 2: Validation & Quality Routes
+import trackerRoutes from "./routes/trackerRoutes"; // MB.MD FINAL TRACK 3: Project Tracker (Epics/Stories/Tasks/Sprints)
+import userUploadRoutes from "./routes/userUploadRoutes"; // MB.MD FINAL TRACK 4: User Search, Image Upload, Travel
+import testingRoutes from "./routes/testingRoutes"; // MB.MD FINAL TRACK 5: Site Builder, TestSprite, Sentry
+import socialCommerceRoutes from "./routes/socialCommerceRoutes"; // MB.MD FINAL TRACK 6: Social & Commerce Routes
+import gdprRoutes from "./routes/gdprRoutes"; // MB.MD FINAL TRACK 7: Friendship & GDPR Routes
+import lifeCeoExtrasRoutes from "./routes/lifeCeoExtrasRoutes"; // MB.MD FINAL PUSH: Life CEO Extras
+import mediaMemoryRoutes from "./routes/mediaMemoryRoutes"; // MB.MD FINAL PUSH: Media & Memory Enhancement
+import miscExtrasRoutes from "./routes/miscExtrasRoutes"; // MB.MD FINAL PUSH: Miscellaneous Extras
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -285,6 +294,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', friendRequestRoutes); // MB.MD TRACK 6: Friend Request Management
   app.use('/api', rolesRoutes); // MB.MD TRACK 8: Enhanced Role Management
   app.use('/api', securityRoutes); // MB.MD TRACK 11: Security & CSRF Routes
+  app.use('/api', validationRoutes); // MB.MD FINAL TRACK 2: Validation & Quality Routes
+  app.use('/api', trackerRoutes); // MB.MD FINAL TRACK 3: Project Tracker Routes
+  app.use('/api', userUploadRoutes); // MB.MD FINAL TRACK 4: User & Upload Routes
+  app.use('/api', testingRoutes); // MB.MD FINAL TRACK 5: Testing & Site Builder Routes
+  app.use('/api', socialCommerceRoutes); // MB.MD FINAL TRACK 6: Social & Commerce Routes
+  app.use('/api', gdprRoutes); // MB.MD FINAL TRACK 7: GDPR & Friendship Routes
+  app.use('/api', lifeCeoExtrasRoutes); // MB.MD FINAL PUSH: Life CEO Extras (7 endpoints)
+  app.use('/api', mediaMemoryRoutes); // MB.MD FINAL PUSH: Media & Memory Enhancement (4 endpoints)
+  app.use('/api', miscExtrasRoutes); // MB.MD FINAL PUSH: Miscellaneous Extras (6 endpoints)
+  registerStatisticsRoutes(app); // MB.MD FINAL: Statistics Routes (global, realtime)
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
