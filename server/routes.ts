@@ -73,6 +73,8 @@ import tagRoutes from "./routes/tagRoutes"; // ESA LIFE CEO 61x21 - Tag manageme
 import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
 import projectTrackerRoutes from "./routes/projectTracker"; // ESA Agent #65 - Self-Hosted Project Tracker (Epics/Stories/Tasks)
 import thePlanRoutes from "./routes/thePlanRoutes"; // ESA65: The Plan - H2AC Dynamic Story Cards (Feature→Sub→Component→Task)
+import teamRoutes from "./routes/teamRoutes"; // H2AC: Team Onboarding Routes
+import agentChatRoutes from "./routes/agentChatRoutes"; // H2AC: Agent Chat Integration
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
 import { jiraProjectSync } from "./services/JiraProjectSync";
@@ -195,6 +197,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', projectRoutes); // ESA LIFE CEO 56x21 - Project Tracker API routes (Layer 2: API Structure)
   app.use('/api', projectTrackerRoutes); // ESA Agent #65 - Self-Hosted Project Tracker (Epics/Stories/Tasks)
   app.use('/api/project-tracker', thePlanRoutes); // ESA65: The Plan - H2AC Dynamic Story Cards System
+  app.use('/api/team', teamRoutes); // H2AC: Team Onboarding & Management
+  app.use('/api/agent-chat', agentChatRoutes); // H2AC: AI Agent Chat Integration
   app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
@@ -4129,6 +4133,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('⚠️ Agent Learning System initialization failed:', error);
     // Continue without learning system - non-critical
+  }
+
+  // 🎯 H2AC Orchestrator - Initialize all H2AC systems
+  try {
+    const { h2acOrchestrator } = await import('./services/H2ACOrchestrator');
+    await h2acOrchestrator.initialize();
+  } catch (error) {
+    console.error('⚠️ H2AC Orchestrator initialization failed:', error);
   }
 
   // ESA Agent #62 (Resume AI) - Jira Integration Endpoints

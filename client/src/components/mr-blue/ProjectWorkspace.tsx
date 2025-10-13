@@ -92,8 +92,8 @@ export function ProjectWorkspace({ featureId, open, onClose }: ProjectWorkspaceP
                 <StoryDetails story={storyData?.feature} />
               </TabsContent>
 
-              <TabsContent value="chat" className="flex-1 overflow-auto px-6 py-4 mt-0">
-                <AgentChat featureId={featureId} />
+              <TabsContent value="chat" className="flex-1 overflow-auto px-0 py-0 mt-0">
+                <AgentChat featureId={featureId} story={storyData?.feature} />
               </TabsContent>
             </Tabs>
           </div>
@@ -259,17 +259,15 @@ function StoryDetails({ story }: { story?: Feature }) {
   );
 }
 
-// Agent Chat Component (placeholder)
-function AgentChat({ featureId }: { featureId: number }) {
+// Agent Chat Component - Now using real AI chat!
+import { AgentChatPanel } from './AgentChatPanel';
+
+function AgentChat({ featureId, story }: { featureId: number; story?: any }) {
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex-1 flex items-center justify-center text-muted-foreground">
-        <div className="text-center">
-          <MessageSquare className="h-12 w-12 mx-auto mb-3 text-muted-foreground/50" />
-          <p className="text-sm">Chat with matched agents</p>
-          <p className="text-xs mt-1">Coming soon: Real-time collaboration</p>
-        </div>
-      </div>
-    </div>
+    <AgentChatPanel
+      featureId={featureId}
+      pageAgent={story?.pageAgentId}
+      matchedAgents={story?.journeyAgentId ? [story.journeyAgentId] : []}
+    />
   );
 }
