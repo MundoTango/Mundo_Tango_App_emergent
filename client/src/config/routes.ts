@@ -73,6 +73,7 @@ import Sprints from '@/pages/admin/sprints';
 import ESAMind from '@/pages/admin/ESAMind';
 import MrBlueDashboard from '@/pages/admin/MrBlueDashboard';
 import TenantManagement from '@/pages/admin/TenantManagement';
+import AgentLearnings from '@/pages/admin/AgentLearnings';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
 import ProjectTracker from '@/pages/ProjectTracker';
@@ -646,6 +647,13 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading Tenant Management...',
     description: 'Multi-Tenant Community Management - White-Label Configuration (Super Admin Only)'
+  },
+  {
+    path: '/admin/agent-learnings',
+    component: AgentLearnings,
+    mode: 'production',
+    loadingMessage: 'Loading Agent Learnings...',
+    description: 'Agent Learning Dashboard - Captured Patterns and Collaborative Intelligence (Super Admin Only)'
   },
   {
     path: '/analytics',
