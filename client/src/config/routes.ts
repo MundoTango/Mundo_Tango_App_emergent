@@ -74,6 +74,8 @@ import ESAMind from '@/pages/admin/ESAMind';
 import MrBlueDashboard from '@/pages/admin/MrBlueDashboard';
 import TenantManagement from '@/pages/admin/TenantManagement';
 import AgentLearnings from '@/pages/admin/AgentLearnings';
+import DeploymentConfig from '@/pages/admin/DeploymentConfig';
+import AgentCollaborationVisualizer from '@/pages/admin/AgentCollaborationVisualizer';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
 import ProjectTracker from '@/pages/ProjectTracker';
@@ -654,6 +656,20 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading Agent Learnings...',
     description: 'Agent Learning Dashboard - Captured Patterns and Collaborative Intelligence (Super Admin Only)'
+  },
+  {
+    path: '/admin/deployment',
+    component: DeploymentConfig,
+    mode: 'production',
+    loadingMessage: 'Loading Deployment Config...',
+    description: 'Deployment Configuration - Production Settings and Quality Gates (Super Admin Only)'
+  },
+  {
+    path: '/admin/agent-collaboration',
+    component: AgentCollaborationVisualizer,
+    mode: 'production',
+    loadingMessage: 'Loading Agent Network...',
+    description: 'Agent Collaboration Visualizer - Real-time Knowledge Sharing Network (Super Admin Only)'
   },
   {
     path: '/analytics',
