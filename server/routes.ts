@@ -140,6 +140,7 @@ import pushRoutes from "./routes/pushRoutes"; // MB.MD TRACK 3: Push notificatio
 import aiRoutesNew from "./routes/aiRoutes"; // MB.MD TRACK 13: AI System Routes
 import lifeCEORoutes from "./routes/lifeCEORoutes"; // MB.MD TRACK 15: Life CEO Routes
 import streamingRoutes from "./routes/streamingRoutes"; // MB.MD TRACK 17: Live Streaming Routes
+import tenantAdminRoutes from "./routes/tenantAdminRoutes"; // MB.MD v2.0 TRACK 4: Multi-Tenant Management Routes
 
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
@@ -249,6 +250,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(siteBuilderRoutes); // ESA Agent #77 - AI Site Builder
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   app.use('/api/mr-blue', mrBlueRoutes); // ESA Mr Blue Routes (Agents #73-78, #79-80)
+  app.use(tenantAdminRoutes); // MB.MD v2.0 TRACK 4: Multi-Tenant Management
   
   // ESA Section 10.11: Interactive AI Chat for ESA MindMap (Agent #35)
   const { processChatMessage } = await import('./services/esa-ai-chat');
