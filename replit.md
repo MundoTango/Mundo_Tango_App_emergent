@@ -10,7 +10,13 @@ When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the prim
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
 ## Recent Updates (October 13, 2025)
-- **H2AC Phase 2 COMPLETE**: All 5 tracks built in parallel using mb.md methodology (Human Onboarding, Agent Chat, Audit Automation, 3D Avatar Pipeline, Integration)
+- **H2AC Phase 3 COMPLETE**: All completion tracks built in parallel (Voice System, DB Personalities, Audit Scheduler, GLB Pipeline)
+- **Voice Conversation System**: Web Speech API integrated in AgentChatPanel with speak/listen buttons, VoiceVisualizer, auto-speak agent responses, voiceSettings DB schema
+- **Database-Driven Personalities**: 88 agent personalities (P1-P88, ESA, MB, J agents) migrated to database with PersonalityMigrationService, AI enhancement via GPT-4o, 5 personality templates
+- **Audit Scheduler & Automation**: AuditSchedulerService with cron jobs (high 6hr, medium daily, low weekly), 88 page schedules initialized, baseline audit for 15 high-priority pages
+- **Lighthouse ESM Fix**: Refactored to CLI subprocess approach, all 3 audit tools operational (Playwright + Axe + Lighthouse), full platform coverage
+- **Avatar GLB Status API**: GLBConversionService for conversion status, avatar routes at /api/avatar/*, documentation for local Blender workflow
+- **H2AC Phase 2**: All 5 tracks built in parallel using mb.md methodology (Human Onboarding, Agent Chat, Audit Automation, 3D Avatar Pipeline, Integration)
 - **Human Onboarding Flow**: Team registration UI with role selection (frontend/backend/designer/admin), auto agent matching, work queue setup via POST /api/team/onboard
 - **Agent Chat Integration**: Real-time AI chat with 88+ agent personalities using OpenAI GPT-4o-mini, integrated into ProjectWorkspace "Ask Agents" tab via POST /api/agent-chat/message
 - **Audit-to-Story Automation**: 17-phase audit system with cron scheduler (high/medium/low priority), auto story card generation with zero duplication via AuditAutomationService
