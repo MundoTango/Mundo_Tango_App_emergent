@@ -98,14 +98,31 @@ router.post('/:agentId/enhance', async (req, res) => {
 router.post('/migrate', async (req, res) => {
   try {
     // TODO: Add admin role check
-    const count = await personalityService.migratePersonalities();
+    // Import the migration service
+    const { personalityMigrationService } = await import('../services/PersonalityMigration');
+    
+    const result = await personalityMigrationService.migrateAll();
+    
     res.json({ 
       success: true, 
-      message: `Migrated ${count} personalities to database` 
+      message: `Migrated ${result.agents} agent personalities and ${result.templates} templates`,
+      data: result,
     });
   } catch (error) {
     console.error('[Personality] Migration error:', error);
     res.status(500).json({ error: 'Failed to migrate personalities' });
+  }
+});
+
+// Check migration status
+router.get('/migration-status', async (req, res) => {
+  try {
+    const { personalityMigrationService } = await import('../services/PersonalityMigration');
+    const status = await personalityMigrationService.checkMigrationStatus();
+    res.json(status);
+  } catch (error) {
+    console.error('[Personality] Migration status error:', error);
+    res.status(500).json({ error: 'Failed to check migration status' });
   }
 });
 
