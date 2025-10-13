@@ -27,11 +27,8 @@ export function MrBlueFloatingButton() {
   const isAdmin = isSuperAdmin(user);
   console.log('🔵 [MR BLUE] isAdmin:', isAdmin);
   
-  // TEST MODE: Always show (bypassing access control for debugging)
-  const testMode = true;
-  console.log('🔵 [MR BLUE] testMode:', testMode, 'user:', !!user);
-  
-  if (!testMode && !user) {
+  // Access Control: Show to ALL authenticated users
+  if (!user) {
     console.log('🔵 [MR BLUE] RETURNING NULL - no user');
     return null;
   }
@@ -39,13 +36,21 @@ export function MrBlueFloatingButton() {
   console.log('🔵 [MR BLUE] RENDERING BUTTON');
   return (
     <>
-      {/* TEST: Simple div to verify positioning */}
+      {/* Floating Button - Base position (below ESA MindMap) */}
       <div 
-        className="fixed bottom-6 right-6 z-[9999] w-16 h-16 bg-red-500 rounded-full shadow-2xl"
-        data-testid="mr-blue-test-div"
-        style={{ backgroundColor: 'red', width: '64px', height: '64px' }}
+        className="fixed bottom-6 right-6 z-[9999]"
+        data-testid="mr-blue-floating-button"
       >
-        TEST
+        {!isOpen && (
+          <Button
+            onClick={() => setIsOpen(true)}
+            size="lg"
+            className="rounded-full w-16 h-16 shadow-2xl bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300 hover:scale-110"
+            data-testid="button-open-mr-blue"
+          >
+            <Sparkles className="h-8 w-8" />
+          </Button>
+        )}
       </div>
 
       {/* Mr Blue Panel */}
