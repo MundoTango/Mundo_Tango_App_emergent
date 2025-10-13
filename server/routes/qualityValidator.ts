@@ -1,110 +1,36 @@
 import { Router, Request, Response } from 'express';
-import OpenAI from 'openai';
+import { qualityValidatorService } from '../services/qualityValidatorService';
 
 /**
  * Agent #79: Quality Validator Backend API
- * Root cause analysis, pattern library search, agent collaboration
+ * Root cause analysis, pattern library search, agent collaboration, solution tracking
  */
 
 const router = Router();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-interface Pattern {
-  id: string;
-  issue: string;
-  rootCause: string;
-  solution: string;
-  codeExample: string;
-  similarityScore: number;
-  timesReused: number;
-  effectiveness: number;
-  agentId: string;
-}
-
-// In-memory pattern library (production would use LanceDB)
-const patternLibrary: Pattern[] = [
-  {
-    id: '1',
-    issue: 'Form submission not working',
-    rootCause: 'Event handler missing preventDefault()',
-    solution: 'Add e.preventDefault() to form onSubmit handler',
-    codeExample: `const handleSubmit = (e: FormEvent) => {\n  e.preventDefault();\n  // form logic\n};`,
-    similarityScore: 0,
-    timesReused: 15,
-    effectiveness: 0.95,
-    agentId: 'AGENT_2'
-  },
-  {
-    id: '2',
-    issue: 'Data not displaying after API call',
-    rootCause: 'Missing useEffect dependency',
-    solution: 'Add all dependencies to useEffect dependency array',
-    codeExample: `useEffect(() => {\n  fetchData();\n}, [fetchData]); // Add dependencies`,
-    similarityScore: 0,
-    timesReused: 22,
-    effectiveness: 0.92,
-    agentId: 'AGENT_1'
-  }
-];
-
 /**
- * Analyze issue and find root cause
+ * POST /api/quality-validator/analyze
+ * Analyze an issue and find root cause with AI
  */
 router.post('/api/quality-validator/analyze', async (req: Request, res: Response) => {
   try {
-    const { issue } = req.body;
+    const { issue, type, context, stackTrace, affectedComponents } = req.body;
 
     if (!issue) {
       return res.status(400).json({ error: 'Issue description required' });
     }
 
-    // Use OpenAI to analyze root cause
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        {
-          role: 'system',
-          content: `You are Agent #79 (Quality Validator) - an expert at diagnosing software issues and finding root causes.
-
-Analyze the issue and provide:
-1. Root cause (technical reason)
-2. Suggested fix (specific solution)
-3. Preventive measure (avoid future occurrences)
-
-Be concise and technical. Focus on actionable insights.`
-        },
-        {
-          role: 'user',
-          content: `Issue: ${issue}\n\nAnalyze the root cause and suggest a fix.`
-        }
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0.3
+    const analysis = await qualityValidatorService.analyzeIssue({
+      description: issue,
+      type,
+      context,
+      stackTrace,
+      affectedComponents
     });
 
-    const analysis = JSON.parse(completion.choices[0].message.content || '{}');
-
-    // Search for related patterns (semantic similarity)
-    const relatedPatterns = patternLibrary
-      .map(pattern => ({
-        ...pattern,
-        similarityScore: calculateSimilarity(issue, pattern.issue)
-      }))
-      .filter(p => p.similarityScore > 0.7)
-      .sort((a, b) => b.similarityScore - a.similarityScore)
-      .slice(0, 3);
-
-    res.json({
-      issue,
-      rootCause: analysis.rootCause || 'Unable to determine root cause',
-      suggestedFix: analysis.suggestedFix || 'No fix suggested',
-      relatedPatterns
-    });
+    res.json(analysis);
   } catch (error) {
-    console.error('Analysis error:', error);
+    console.error('[Quality Validator] Analysis error:', error);
     res.status(500).json({ 
       error: 'Failed to analyze issue',
       details: error instanceof Error ? error.message : 'Unknown error'
@@ -113,115 +39,213 @@ Be concise and technical. Focus on actionable insights.`
 });
 
 /**
- * Search pattern library
+ * GET /api/quality-validator/patterns
+ * Search pattern library with query
  */
-router.post('/api/quality-validator/search', async (req: Request, res: Response) => {
+router.get('/api/quality-validator/patterns', async (req: Request, res: Response) => {
   try {
-    const { query } = req.body;
+    const { query } = req.query;
 
-    if (!query) {
+    if (!query || typeof query !== 'string') {
       return res.status(400).json({ error: 'Search query required' });
     }
 
-    // Semantic search (simple keyword matching for now, use LanceDB in production)
-    const results = patternLibrary
-      .map(pattern => ({
-        ...pattern,
-        similarityScore: calculateSimilarity(query, pattern.issue + ' ' + pattern.solution)
-      }))
-      .filter(p => p.similarityScore > 0.5)
-      .sort((a, b) => b.similarityScore - a.similarityScore)
-      .slice(0, 10);
+    const patterns = await qualityValidatorService.searchPatternLibrary(query);
 
-    res.json(results);
+    res.json({
+      query,
+      patterns,
+      total: patterns.length
+    });
   } catch (error) {
-    console.error('Search error:', error);
+    console.error('[Quality Validator] Pattern search error:', error);
     res.status(500).json({ error: 'Pattern search failed' });
   }
 });
 
 /**
+ * POST /api/quality-validator/ask-agents
  * Request help from peer agents (A2A communication)
  */
-router.post('/api/quality-validator/collaborate', async (req: Request, res: Response) => {
+router.post('/api/quality-validator/ask-agents', async (req: Request, res: Response) => {
   try {
-    const { issue, agentIds } = req.body;
+    const { question, issueType } = req.body;
 
-    if (!issue || !agentIds || !Array.isArray(agentIds)) {
-      return res.status(400).json({ error: 'Issue and agent IDs required' });
+    if (!question) {
+      return res.status(400).json({ error: 'Question required' });
     }
 
-    // In production: Send A2A messages to specified agents
-    // For now: Log collaboration request
-    console.log('[Agent #79] Requesting collaboration:', {
-      issue,
-      requestedAgents: agentIds,
-      timestamp: new Date().toISOString()
-    });
-
-    // Simulate agent responses
-    const responses = agentIds.map(agentId => ({
-      agentId,
-      response: `Agent ${agentId} is analyzing the issue...`,
-      status: 'pending'
-    }));
+    const responses = await qualityValidatorService.askPeerAgents(question, issueType);
 
     res.json({
-      collaborationId: `collab-${Date.now()}`,
-      issue,
-      agents: responses,
-      status: 'initiated'
+      question,
+      responses,
+      agentsConsulted: responses.length,
+      timestamp: new Date().toISOString()
     });
   } catch (error) {
-    console.error('Collaboration error:', error);
+    console.error('[Quality Validator] Collaboration error:', error);
     res.status(500).json({ error: 'Collaboration request failed' });
   }
 });
 
 /**
- * Add pattern to library
+ * GET /api/quality-validator/solutions/:issueId
+ * Get solutions for a specific issue pattern
+ */
+router.get('/api/quality-validator/solutions/:issueId', async (req: Request, res: Response) => {
+  try {
+    const issueId = parseInt(req.params.issueId);
+
+    if (isNaN(issueId)) {
+      return res.status(400).json({ error: 'Invalid issue ID' });
+    }
+
+    const patterns = await qualityValidatorService.searchPatternLibrary('');
+    const pattern = patterns.find(p => p.id === issueId);
+
+    if (!pattern) {
+      return res.status(404).json({ error: 'Pattern not found' });
+    }
+
+    const stats = await qualityValidatorService.getSolutionStats(issueId);
+
+    res.json({
+      issueId,
+      pattern: pattern.pattern,
+      rootCause: pattern.rootCause,
+      solutions: pattern.solutions,
+      codeExamples: pattern.codeExamples,
+      effectiveness: pattern.effectiveness,
+      stats
+    });
+  } catch (error) {
+    console.error('[Quality Validator] Get solutions error:', error);
+    res.status(500).json({ error: 'Failed to get solutions' });
+  }
+});
+
+/**
+ * POST /api/quality-validator/add-pattern
+ * Add a new pattern to the library
  */
 router.post('/api/quality-validator/add-pattern', async (req: Request, res: Response) => {
   try {
-    const { issue, rootCause, solution, codeExample, agentId } = req.body;
+    const { pattern, issueType, rootCause, solutions, codeExamples, agentId, category, tags } = req.body;
 
-    const newPattern: Pattern = {
-      id: `pattern-${Date.now()}`,
-      issue,
+    if (!pattern || !issueType || !rootCause || !solutions) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: pattern, issueType, rootCause, solutions' 
+      });
+    }
+
+    const newPattern = await qualityValidatorService.addPattern({
+      pattern,
+      issueType,
       rootCause,
-      solution,
-      codeExample: codeExample || '',
-      similarityScore: 0,
-      timesReused: 0,
-      effectiveness: 0,
-      agentId: agentId || 'UNKNOWN'
-    };
-
-    patternLibrary.push(newPattern);
+      solutions,
+      codeExamples,
+      agentId,
+      category,
+      tags
+    });
 
     res.json({
       success: true,
       pattern: newPattern,
-      totalPatterns: patternLibrary.length
+      message: 'Pattern added successfully'
     });
   } catch (error) {
-    console.error('Add pattern error:', error);
+    console.error('[Quality Validator] Add pattern error:', error);
     res.status(500).json({ error: 'Failed to add pattern' });
   }
 });
 
 /**
- * Helper: Calculate text similarity (simple implementation)
- * Production would use vector embeddings (LanceDB)
+ * POST /api/quality-validator/track-solution
+ * Track solution reuse and effectiveness
  */
-function calculateSimilarity(text1: string, text2: string): number {
-  const words1 = text1.toLowerCase().split(/\s+/);
-  const words2 = text2.toLowerCase().split(/\s+/);
-  
-  const commonWords = words1.filter(word => words2.includes(word));
-  const similarity = commonWords.length / Math.max(words1.length, words2.length);
-  
-  return Math.min(similarity * 2, 1); // Boost score, cap at 1
-}
+router.post('/api/quality-validator/track-solution', async (req: Request, res: Response) => {
+  try {
+    const { solutionId, reusedBy, issueContext, successful, feedback } = req.body;
+
+    if (!solutionId || !reusedBy || !issueContext || successful === undefined) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: solutionId, reusedBy, issueContext, successful' 
+      });
+    }
+
+    await qualityValidatorService.trackSolutionReuse({
+      solutionId: parseInt(solutionId),
+      reusedBy,
+      issueContext,
+      successful,
+      feedback
+    });
+
+    res.json({
+      success: true,
+      message: 'Solution reuse tracked successfully'
+    });
+  } catch (error) {
+    console.error('[Quality Validator] Track solution error:', error);
+    res.status(500).json({ error: 'Failed to track solution' });
+  }
+});
+
+/**
+ * POST /api/quality-validator/suggest-solutions
+ * Get AI-suggested solutions for a root cause
+ */
+router.post('/api/quality-validator/suggest-solutions', async (req: Request, res: Response) => {
+  try {
+    const { rootCause } = req.body;
+
+    if (!rootCause) {
+      return res.status(400).json({ error: 'Root cause required' });
+    }
+
+    const solutions = await qualityValidatorService.suggestSolutions(rootCause);
+
+    res.json({
+      rootCause,
+      solutions,
+      count: solutions.length
+    });
+  } catch (error) {
+    console.error('[Quality Validator] Suggest solutions error:', error);
+    res.status(500).json({ error: 'Failed to suggest solutions' });
+  }
+});
+
+/**
+ * GET /api/quality-validator/stats
+ * Get overall quality validation statistics
+ */
+router.get('/api/quality-validator/stats', async (req: Request, res: Response) => {
+  try {
+    const patterns = await qualityValidatorService.searchPatternLibrary('');
+
+    const stats = {
+      totalPatterns: patterns.length,
+      avgEffectiveness: patterns.reduce((sum, p) => sum + p.effectiveness, 0) / Math.max(patterns.length, 1),
+      totalReuses: patterns.reduce((sum, p) => sum + p.timesReused, 0),
+      topPatterns: patterns
+        .sort((a, b) => b.effectiveness - a.effectiveness)
+        .slice(0, 5)
+        .map(p => ({
+          id: p.id,
+          pattern: p.pattern,
+          effectiveness: p.effectiveness,
+          timesReused: p.timesReused
+        }))
+    };
+
+    res.json(stats);
+  } catch (error) {
+    console.error('[Quality Validator] Stats error:', error);
+    res.status(500).json({ error: 'Failed to get stats' });
+  }
+});
 
 export default router;

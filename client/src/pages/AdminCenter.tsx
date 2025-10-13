@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDebounce, LazyLoad, withPerformance } from '@/lib/performance';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
@@ -155,6 +156,8 @@ interface ComplianceMetrics {
 
 // Memoized AdminCenter component for better performance
 const AdminCenter = memo(() => {
+  const { t } = useTranslation();
+  
   // Load saved tab from localStorage (ESA Priority 1: Tab State Persistence)
   const savedTab = localStorage.getItem('adminCenterSelectedTab');
   const [selectedTab, setSelectedTab] = useState(savedTab || 'life-ceo-command');
@@ -443,7 +446,7 @@ const AdminCenter = memo(() => {
     subtitle, 
     icon, 
     trend = null,
-    bgColor = "bg-white" 
+    bgColor = "bg-white dark:bg-gray-800" 
   }: { 
     title: string; 
     value: string | number; 
@@ -459,11 +462,11 @@ const AdminCenter = memo(() => {
             <div className="p-2 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
               {icon}
             </div>
-            <h3 className="text-xs sm:text-sm font-medium text-gray-600">{title}</h3>
+            <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300">{title}</h3>
           </div>
           <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent mb-1">{value}</div>
           {subtitle && (
-            <p className="text-xs sm:text-sm text-gray-500">{subtitle}</p>
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>
           )}
           {trend && (
             <div className="flex items-center gap-1 mt-2">
@@ -489,11 +492,11 @@ const AdminCenter = memo(() => {
   }) => {
     const getStatusColor = () => {
       switch (status) {
-        case 'excellent': return 'text-green-600 bg-green-50';
-        case 'good': return 'text-blue-600 bg-blue-50';
-        case 'warning': return 'text-yellow-600 bg-yellow-50';
-        case 'critical': return 'text-red-600 bg-red-50';
-        default: return 'text-gray-600 bg-gray-50';
+        case 'excellent': return 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950';
+        case 'good': return 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950';
+        case 'warning': return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950';
+        case 'critical': return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950';
+        default: return 'text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-900';
       }
     };
 
@@ -516,7 +519,7 @@ const AdminCenter = memo(() => {
             <span className="text-xs sm:text-sm font-medium">{score}%</span>
           </div>
         </div>
-        <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">{description}</p>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-3 sm:mb-4">{description}</p>
         <div className="w-full bg-turquoise-100/50 rounded-full h-1.5 sm:h-2">
           <div 
             className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
@@ -556,9 +559,9 @@ const AdminCenter = memo(() => {
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.totalUsers?.toLocaleString() || '0'}
             </div>
-            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Total Users</div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">{t("admin.stats.totalUsers")}</div>
             <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
-              Registered members
+              {t("admin.stats.registeredMembers")}
             </div>
           </GlassCard>
 
@@ -576,9 +579,9 @@ const AdminCenter = memo(() => {
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.activeUsers?.toLocaleString() || '0'}
             </div>
-            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Active Users</div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">{t("admin.stats.activeUsers")}</div>
             <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
-              Last 30 days
+              {t("admin.stats.last30Days")}
             </div>
           </GlassCard>
 
@@ -596,9 +599,9 @@ const AdminCenter = memo(() => {
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.totalEvents?.toLocaleString() || '0'}
             </div>
-            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Total Events</div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">{t("admin.stats.totalEvents")}</div>
             <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
-              All time
+              {t("admin.stats.allTime")}
             </div>
           </GlassCard>
 
@@ -627,7 +630,7 @@ const AdminCenter = memo(() => {
       {/* Aurora Tide Quick Actions */}
       <div>
         <FadeIn delay={0.2}>
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4">Quick Actions</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4">{t("admin.quickActions")}</h2>
         </FadeIn>
         <ScaleIn delay={0.3}>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -640,7 +643,7 @@ const AdminCenter = memo(() => {
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Users className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">Manage Users</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{t("admin.manageUsers")}</h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">View and manage user accounts</p>
             </MagneticButton>
 
@@ -653,7 +656,7 @@ const AdminCenter = memo(() => {
               <div className="p-3 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">Compliance Center</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{t("admin.complianceCenter")}</h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">Monitor GDPR and security</p>
             </MagneticButton>
 
@@ -667,7 +670,7 @@ const AdminCenter = memo(() => {
                 <Activity className="w-6 h-6 text-white" />
               </div>
               <h3 className="font-semibold text-slate-900 dark:text-white mb-1">System Health</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Check performance and logs</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{t("admin.checkPerformanceLogs")}</p>
             </MagneticButton>
 
             <MagneticButton 
@@ -757,7 +760,7 @@ const AdminCenter = memo(() => {
   const renderCompliance = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">Compliance Center</h2>
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{t("admin.complianceCenter")}</h2>
         <div className="flex flex-col sm:flex-row items-end gap-3">
           <div className="text-sm text-gray-600">
             Last audit: {compliance?.lastAudit || 'Never'}
@@ -809,7 +812,7 @@ const AdminCenter = memo(() => {
 
       {/* Audit History with MT Styling */}
       {auditHistory.length > 0 && (
-        <div className="bg-white rounded-2xl p-6 shadow-lg">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Audit History</h3>
           <div className="space-y-3">
             {auditHistory.slice(0, 5).map((audit, index) => (
@@ -889,7 +892,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Issues Summary with MT Styling */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Issues & Recommendations</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-xl hover:shadow-md transition-all">
@@ -963,7 +966,7 @@ const AdminCenter = memo(() => {
   const renderUserManagement = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">User Management</h2>
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{t("admin.userManagement")}</h2>
         <div className="flex gap-3">
           <div className="relative">
             <input
@@ -1041,7 +1044,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* User List Table */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">User List</h3>
         {usersLoading ? (
           <div className="text-center py-8 text-gray-500">Loading users...</div>
@@ -1195,7 +1198,7 @@ const AdminCenter = memo(() => {
   const renderContentModeration = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">Content Moderation</h2>
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{t("admin.contentModeration")}</h2>
         <div className="flex gap-3">
           <div className="relative">
             <input
@@ -1273,7 +1276,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Unified Moderation Interface */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-800">Content Review Queue</h3>
           <div className="text-sm text-gray-500">
@@ -1540,7 +1543,7 @@ const AdminCenter = memo(() => {
   const renderAnalytics = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">Platform Analytics</h2>
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{t("admin.platformAnalytics")}</h2>
         <div className="flex gap-3">
           <button 
             onClick={fetchAnalytics}
@@ -1619,7 +1622,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Geographic Analytics with MT Styling */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Top Locations</h3>
             <div className="space-y-3">
               {analyticsData?.topLocations?.map((location: any, idx: number) => {
@@ -1712,7 +1715,7 @@ const AdminCenter = memo(() => {
   const renderEventManagement = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">Event Management</h2>
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{t("admin.eventManagement")}</h2>
         <div className="flex gap-3">
           <select
             value={eventFilter}
@@ -1793,7 +1796,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Event Categories with MT Styling */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Event Categories</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(eventsData?.stats?.categories || {}).slice(0, 6).map(([category, count], idx) => {
@@ -1810,7 +1813,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Event List */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Events</h3>
             <div className="space-y-3">
               {eventsData?.events?.slice(0, 10).map((event: any) => (
@@ -2455,7 +2458,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Reports List */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">User Reports</h3>
         {reportsLoading ? (
           <div className="text-center py-8 text-gray-500">Loading reports...</div>
@@ -2522,7 +2525,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Blocked Users Management */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Blocked Users</h3>
         {blockedUsers.length === 0 ? (
           <div className="text-center py-8 text-gray-500">No blocked users</div>
@@ -2576,7 +2579,7 @@ const AdminCenter = memo(() => {
       ) : (
         <div className="grid gap-6">
           {/* General Settings */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">General Settings</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -2610,7 +2613,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Registration Settings */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Registration Settings</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -2632,7 +2635,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Feature Flags */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Feature Flags</h3>
             <div className="space-y-4">
               {settingsData?.featureFlags?.map((flag: any) => (

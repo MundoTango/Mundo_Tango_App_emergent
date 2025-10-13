@@ -3228,6 +3228,49 @@ export const agentCollaborationLog = pgTable("agent_collaboration_log", {
   index("idx_agent_collab_start_time").on(table.startTime),
 ]);
 
+// Agent #80: Knowledge Flow table - Track UP/ACROSS/DOWN knowledge distribution
+export const knowledgeFlow = pgTable("knowledge_flow", {
+  id: serial("id").primaryKey(),
+  direction: varchar("direction", { length: 10 }).notNull(), // 'UP', 'ACROSS', 'DOWN'
+  fromAgent: varchar("from_agent", { length: 100 }).notNull(), // Agent ID (matches agents table)
+  toAgent: varchar("to_agent", { length: 100 }), // null for DOWN (broadcast to all)
+  content: text("content").notNull(),
+  contentType: varchar("content_type", { length: 50 }), // pattern, solution, best-practice
+  effectiveness: varchar("effectiveness", { length: 10 }), // stored as string "0.95"
+  timesReused: integer("times_reused").default(0),
+  metadata: jsonb("metadata"), // Additional context
+  timestamp: timestamp("timestamp").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_knowledge_flow_direction").on(table.direction),
+  index("idx_knowledge_flow_from_agent").on(table.fromAgent),
+  index("idx_knowledge_flow_to_agent").on(table.toAgent),
+  index("idx_knowledge_flow_timestamp").on(table.timestamp),
+]);
+
+// Agent #80: Best Practices table - Reusable knowledge for all agents
+export const bestPractices = pgTable("best_practices", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  category: varchar("category", { length: 100 }).notNull(), // code-quality, performance, security, ux, etc.
+  adoptionRate: varchar("adoption_rate", { length: 10 }).default('0'), // stored as string "0.95"
+  sourceAgent: varchar("source_agent", { length: 100 }), // Agent ID (matches agents table)
+  codeExample: text("code_example"),
+  relatedPatterns: text("related_patterns").array(),
+  tags: text("tags").array(),
+  validated: boolean("validated").default(false),
+  validatedBy: varchar("validated_by", { length: 100 }), // Agent #79 validation
+  validatedAt: timestamp("validated_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_best_practices_category").on(table.category),
+  index("idx_best_practices_adoption_rate").on(table.adoptionRate),
+  index("idx_best_practices_validated").on(table.validated),
+  index("idx_best_practices_created_at").on(table.createdAt),
+]);
+
 // Insert schemas for agent learning tables
 export const insertAgentLearningSchema = createInsertSchema(agentLearnings).omit({
   id: true,
@@ -3240,11 +3283,27 @@ export const insertAgentCollaborationLogSchema = createInsertSchema(agentCollabo
   createdAt: true,
 });
 
+export const insertKnowledgeFlowSchema = createInsertSchema(knowledgeFlow).omit({
+  id: true,
+  createdAt: true,
+  timestamp: true,
+});
+
+export const insertBestPracticeSchema = createInsertSchema(bestPractices).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Types for agent learning tables
 export type AgentLearning = typeof agentLearnings.$inferSelect;
 export type InsertAgentLearning = z.infer<typeof insertAgentLearningSchema>;
 export type AgentCollaboration = typeof agentCollaborationLog.$inferSelect;
 export type InsertAgentCollaboration = z.infer<typeof insertAgentCollaborationLogSchema>;
+export type KnowledgeFlow = typeof knowledgeFlow.$inferSelect;
+export type InsertKnowledgeFlow = z.infer<typeof insertKnowledgeFlowSchema>;
+export type BestPractice = typeof bestPractices.$inferSelect;
+export type InsertBestPractice = z.infer<typeof insertBestPracticeSchema>;
 
 // Types for agent messages and token usage
 export type AgentMessage = typeof agentMessages.$inferSelect;
@@ -4803,3 +4862,59 @@ export type InsertAuditSchedule = z.infer<typeof insertAuditScheduleSchema>;
 
 export type AuditMetric = typeof auditMetrics.$inferSelect;
 export type InsertAuditMetric = z.infer<typeof insertAuditMetricSchema>;
+
+// Quality Patterns - Agent #79 (Quality Validator)
+export const qualityPatterns = pgTable("quality_patterns", {
+  id: serial("id").primaryKey(),
+  pattern: text("pattern").notNull(),
+  issueType: varchar("issue_type", { length: 100 }).notNull(),
+  rootCause: text("root_cause").notNull(),
+  solutions: jsonb("solutions").default([]).notNull(),
+  codeExamples: jsonb("code_examples").default([]),
+  effectiveness: real("effectiveness").default(0),
+  timesReused: integer("times_reused").default(0),
+  agentId: varchar("agent_id", { length: 100 }),
+  category: varchar("category", { length: 100 }),
+  tags: text("tags").array(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_quality_patterns_type").on(table.issueType),
+  index("idx_quality_patterns_agent").on(table.agentId),
+  index("idx_quality_patterns_effectiveness").on(table.effectiveness),
+]);
+
+// Solution Tracking - Agent #79 (Quality Validator)
+export const solutionTracking = pgTable("solution_tracking", {
+  id: serial("id").primaryKey(),
+  solutionId: integer("solution_id").references(() => qualityPatterns.id),
+  reusedBy: varchar("reused_by", { length: 100 }),
+  issueContext: text("issue_context"),
+  successful: boolean("successful").default(false),
+  feedback: text("feedback"),
+  appliedAt: timestamp("applied_at").defaultNow(),
+  metadata: jsonb("metadata").default({}),
+}, (table) => [
+  index("idx_solution_tracking_solution").on(table.solutionId),
+  index("idx_solution_tracking_reused").on(table.reusedBy),
+  index("idx_solution_tracking_successful").on(table.successful),
+]);
+
+// Insert Schemas for Quality Validator
+export const insertQualityPatternSchema = createInsertSchema(qualityPatterns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSolutionTrackingSchema = createInsertSchema(solutionTracking).omit({
+  id: true,
+  appliedAt: true,
+});
+
+// Types for Quality Validator
+export type QualityPattern = typeof qualityPatterns.$inferSelect;
+export type InsertQualityPattern = z.infer<typeof insertQualityPatternSchema>;
+
+export type SolutionTracking = typeof solutionTracking.$inferSelect;
+export type InsertSolutionTracking = z.infer<typeof insertSolutionTrackingSchema>;

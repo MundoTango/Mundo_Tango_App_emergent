@@ -1,250 +1,297 @@
 import { Router, Request, Response } from 'express';
+import { learningCoordinatorService } from '../services/learningCoordinatorService';
+import { z } from 'zod';
 
 /**
- * Agent #80: Learning Coordinator Backend API
+ * Agent #80: Learning Coordinator API Routes
  * Knowledge flows UP (to CEO), ACROSS (to peers), DOWN (to all agents)
  */
 
 const router = Router();
 
-interface Learning {
-  id: string;
-  agentId: string;
-  agentName: string;
-  pattern: string;
-  category: 'strategic' | 'tactical' | 'best-practice';
-  flowDirection: 'UP' | 'ACROSS' | 'DOWN';
-  recipients: string[];
-  effectiveness: number;
-  timesReused: number;
-  timestamp: Date;
-}
+// Validation schemas
+const escalatePatternSchema = z.object({
+  pattern: z.string().min(1),
+  category: z.string(),
+  impact: z.string(),
+  strategicValue: z.number().min(0).max(1),
+  sourceAgent: z.string(), // Agent ID
+  recommendation: z.string().optional()
+});
 
-interface KnowledgeFlow {
-  direction: 'UP' | 'ACROSS' | 'DOWN';
-  count: number;
-  avgEffectiveness: number;
-  recentLearnings: Learning[];
-}
+const distributeSolutionSchema = z.object({
+  id: z.number(),
+  description: z.string().min(1),
+  steps: z.array(z.string()),
+  codeExample: z.string().optional(),
+  targetAgents: z.array(z.string()), // Agent IDs
+  sourceAgent: z.string() // Agent ID
+});
 
-// In-memory knowledge base (production would use database)
-const learnings: Learning[] = [
-  {
-    id: 'learn-1',
-    agentId: 'AGENT_14',
-    agentName: 'Code Quality',
-    pattern: 'ESLint rule performance-no-await-in-loop prevents sequential async operations',
-    category: 'best-practice',
-    flowDirection: 'DOWN',
-    recipients: ['ALL_AGENTS'],
-    effectiveness: 0.95,
-    timesReused: 45,
-    timestamp: new Date('2025-10-12')
-  },
-  {
-    id: 'learn-2',
-    agentId: 'AGENT_31',
-    agentName: 'AI Integration',
-    pattern: 'User engagement increased 40% with conversational AI vs traditional forms',
-    category: 'strategic',
-    flowDirection: 'UP',
-    recipients: ['AGENT_0'],
-    effectiveness: 0.88,
-    timesReused: 3,
-    timestamp: new Date('2025-10-13')
-  },
-  {
-    id: 'learn-3',
-    agentId: 'AGENT_2',
-    agentName: 'Frontend',
-    pattern: 'React Query cache invalidation pattern for optimistic updates',
-    category: 'tactical',
-    flowDirection: 'ACROSS',
-    recipients: ['AGENT_1', 'AGENT_11', 'AGENT_36'],
-    effectiveness: 0.92,
-    timesReused: 18,
-    timestamp: new Date('2025-10-13')
-  }
-];
+const broadcastBestPracticeSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+  category: z.string(),
+  sourceAgent: z.string(), // Agent ID
+  codeExample: z.string().optional(),
+  tags: z.array(z.string()).optional()
+});
+
+const captureLearningSchema = z.object({
+  agentId: z.string(), // Agent ID
+  learning: z.object({
+    agentId: z.string(), // Agent ID (redundant but required by Learning interface)
+    learningType: z.enum(['pattern', 'solution', 'best-practice', 'insight']),
+    content: z.string().min(1),
+    context: z.string().optional(),
+    effectiveness: z.number().min(0).max(1).optional(),
+    metadata: z.any().optional()
+  })
+});
+
+const trackEffectivenessSchema = z.object({
+  solutionId: z.number(),
+  feedback: z.object({
+    successful: z.boolean(),
+    improvement: z.number().optional(),
+    notes: z.string().optional()
+  })
+});
 
 /**
- * Get all knowledge flows (UP, ACROSS, DOWN)
+ * POST /api/learning-coordinator/escalate
+ * Send pattern UP to CEO Agent #0
  */
-router.get('/api/learning-coordinator/flows', (req: Request, res: Response) => {
+router.post('/api/learning-coordinator/escalate', async (req: Request, res: Response) => {
   try {
-    const upFlow: KnowledgeFlow = {
-      direction: 'UP',
-      count: learnings.filter(l => l.flowDirection === 'UP').length,
-      avgEffectiveness: calculateAvgEffectiveness(learnings.filter(l => l.flowDirection === 'UP')),
-      recentLearnings: learnings
-        .filter(l => l.flowDirection === 'UP')
-        .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
-        .slice(0, 5)
-    };
-
-    const acrossFlow: KnowledgeFlow = {
-      direction: 'ACROSS',
-      count: learnings.filter(l => l.flowDirection === 'ACROSS').length,
-      avgEffectiveness: calculateAvgEffectiveness(learnings.filter(l => l.flowDirection === 'ACROSS')),
-      recentLearnings: learnings
-        .filter(l => l.flowDirection === 'ACROSS')
-        .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
-        .slice(0, 5)
-    };
-
-    const downFlow: KnowledgeFlow = {
-      direction: 'DOWN',
-      count: learnings.filter(l => l.flowDirection === 'DOWN').length,
-      avgEffectiveness: calculateAvgEffectiveness(learnings.filter(l => l.flowDirection === 'DOWN')),
-      recentLearnings: learnings
-        .filter(l => l.flowDirection === 'DOWN')
-        .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
-        .slice(0, 5)
-    };
+    const validated = escalatePatternSchema.parse(req.body);
+    
+    await learningCoordinatorService.escalatePattern(validated);
 
     res.json({
-      up: upFlow,
-      across: acrossFlow,
-      down: downFlow
+      success: true,
+      message: 'Pattern escalated to CEO Agent #0',
+      direction: 'UP',
+      strategicValue: validated.strategicValue
     });
   } catch (error) {
-    console.error('Failed to load knowledge flows:', error);
-    res.status(500).json({ error: 'Failed to load knowledge flows' });
+    console.error('[Learning Coordinator] Escalate error:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Invalid request data', details: error.errors });
+    }
+    res.status(500).json({ error: 'Failed to escalate pattern' });
   }
 });
 
 /**
- * Capture new learning
+ * POST /api/learning-coordinator/distribute
+ * Share solution ACROSS to peer agents
  */
-router.post('/api/learning-coordinator/capture', (req: Request, res: Response) => {
+router.post('/api/learning-coordinator/distribute', async (req: Request, res: Response) => {
   try {
-    const { agentId, agentName, pattern, category, flowDirection, recipients } = req.body;
-
-    if (!agentId || !pattern || !flowDirection) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    const newLearning: Learning = {
-      id: `learn-${Date.now()}`,
-      agentId,
-      agentName: agentName || agentId,
-      pattern,
-      category: category || 'tactical',
-      flowDirection,
-      recipients: recipients || [],
-      effectiveness: 0,
-      timesReused: 0,
-      timestamp: new Date()
-    };
-
-    learnings.push(newLearning);
-
-    // Log A2A message for knowledge distribution
-    console.log('[Agent #80] Knowledge captured:', {
-      from: agentId,
-      direction: flowDirection,
-      to: recipients,
-      pattern: pattern.substring(0, 50) + '...'
-    });
+    const validated = distributeSolutionSchema.parse(req.body);
+    
+    await learningCoordinatorService.distributeSolution(validated);
 
     res.json({
       success: true,
-      learning: newLearning,
-      totalLearnings: learnings.length
+      message: `Solution distributed to ${validated.targetAgents.length} peer agents`,
+      direction: 'ACROSS',
+      recipients: validated.targetAgents
     });
   } catch (error) {
-    console.error('Failed to capture learning:', error);
+    console.error('[Learning Coordinator] Distribute error:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Invalid request data', details: error.errors });
+    }
+    res.status(500).json({ error: 'Failed to distribute solution' });
+  }
+});
+
+/**
+ * POST /api/learning-coordinator/broadcast
+ * Send best practice DOWN to all agents
+ */
+router.post('/api/learning-coordinator/broadcast', async (req: Request, res: Response) => {
+  try {
+    const validated = broadcastBestPracticeSchema.parse(req.body);
+    
+    const practice = await learningCoordinatorService.broadcastBestPractice(validated);
+
+    res.json({
+      success: true,
+      message: 'Best practice broadcast to all agents',
+      direction: 'DOWN',
+      practice: {
+        id: practice.id,
+        title: practice.title,
+        category: practice.category
+      }
+    });
+  } catch (error) {
+    console.error('[Learning Coordinator] Broadcast error:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Invalid request data', details: error.errors });
+    }
+    res.status(500).json({ error: 'Failed to broadcast best practice' });
+  }
+});
+
+/**
+ * POST /api/learning-coordinator/capture
+ * Record agent learning (automatic knowledge capture)
+ */
+router.post('/api/learning-coordinator/capture', async (req: Request, res: Response) => {
+  try {
+    const validated = captureLearningSchema.parse(req.body);
+    
+    // Ensure learning has agentId set
+    const learningWithAgentId = {
+      ...validated.learning,
+      agentId: validated.agentId
+    };
+    
+    await learningCoordinatorService.captureLearning(
+      validated.agentId,
+      learningWithAgentId
+    );
+
+    res.json({
+      success: true,
+      message: 'Learning captured and distributed',
+      agentId: validated.agentId,
+      learningType: validated.learning.learningType
+    });
+  } catch (error) {
+    console.error('[Learning Coordinator] Capture error:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Invalid request data', details: error.errors });
+    }
     res.status(500).json({ error: 'Failed to capture learning' });
   }
 });
 
 /**
- * Get learnings for specific agent
+ * POST /api/learning-coordinator/track-effectiveness
+ * Track solution effectiveness after reuse
  */
-router.get('/api/learning-coordinator/agent/:agentId', (req: Request, res: Response) => {
+router.post('/api/learning-coordinator/track-effectiveness', async (req: Request, res: Response) => {
   try {
-    const { agentId } = req.params;
-
-    const agentLearnings = learnings.filter(l => 
-      l.agentId === agentId || l.recipients.includes(agentId)
+    const validated = trackEffectivenessSchema.parse(req.body);
+    
+    await learningCoordinatorService.trackEffectiveness(
+      validated.solutionId,
+      validated.feedback
     );
 
     res.json({
-      agentId,
-      learnings: agentLearnings,
-      count: agentLearnings.length
+      success: true,
+      message: 'Effectiveness tracked',
+      solutionId: validated.solutionId,
+      successful: validated.feedback.successful
     });
   } catch (error) {
-    console.error('Failed to get agent learnings:', error);
-    res.status(500).json({ error: 'Failed to get agent learnings' });
+    console.error('[Learning Coordinator] Track effectiveness error:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Invalid request data', details: error.errors });
+    }
+    res.status(500).json({ error: 'Failed to track effectiveness' });
   }
 });
 
 /**
- * Update learning effectiveness (after reuse)
+ * GET /api/learning-coordinator/network-status
+ * Get knowledge network health and statistics
  */
-router.post('/api/learning-coordinator/update-effectiveness', (req: Request, res: Response) => {
+router.get('/api/learning-coordinator/network-status', async (req: Request, res: Response) => {
   try {
-    const { learningId, wasEffective } = req.body;
-
-    const learning = learnings.find(l => l.id === learningId);
-    if (!learning) {
-      return res.status(404).json({ error: 'Learning not found' });
-    }
-
-    learning.timesReused++;
-    
-    // Calculate rolling average effectiveness
-    const currentTotal = learning.effectiveness * (learning.timesReused - 1);
-    learning.effectiveness = (currentTotal + (wasEffective ? 1 : 0)) / learning.timesReused;
+    const status = await learningCoordinatorService.syncKnowledgeNetwork();
 
     res.json({
       success: true,
-      learning,
-      message: `Effectiveness updated: ${Math.round(learning.effectiveness * 100)}%`
+      status,
+      timestamp: new Date().toISOString()
     });
   } catch (error) {
-    console.error('Failed to update effectiveness:', error);
-    res.status(500).json({ error: 'Failed to update effectiveness' });
+    console.error('[Learning Coordinator] Network status error:', error);
+    res.status(500).json({ error: 'Failed to get network status' });
   }
 });
 
 /**
- * Get knowledge flow statistics
+ * GET /api/learning-coordinator/best-practices
+ * Get all best practices (optionally filtered by category)
  */
-router.get('/api/learning-coordinator/stats', (req: Request, res: Response) => {
+router.get('/api/learning-coordinator/best-practices', async (req: Request, res: Response) => {
   try {
-    const stats = {
-      totalLearnings: learnings.length,
-      byDirection: {
-        UP: learnings.filter(l => l.flowDirection === 'UP').length,
-        ACROSS: learnings.filter(l => l.flowDirection === 'ACROSS').length,
-        DOWN: learnings.filter(l => l.flowDirection === 'DOWN').length
-      },
-      byCategory: {
-        strategic: learnings.filter(l => l.category === 'strategic').length,
-        tactical: learnings.filter(l => l.category === 'tactical').length,
-        'best-practice': learnings.filter(l => l.category === 'best-practice').length
-      },
-      avgEffectiveness: calculateAvgEffectiveness(learnings),
-      totalReuses: learnings.reduce((sum, l) => sum + l.timesReused, 0),
-      activeAgents: new Set(learnings.map(l => l.agentId)).size
-    };
+    const category = req.query.category as string | undefined;
+    const practices = await learningCoordinatorService.getBestPractices(category);
 
-    res.json(stats);
+    res.json({
+      success: true,
+      practices,
+      count: practices.length
+    });
   } catch (error) {
-    console.error('Failed to get stats:', error);
+    console.error('[Learning Coordinator] Get best practices error:', error);
+    res.status(500).json({ error: 'Failed to get best practices' });
+  }
+});
+
+/**
+ * GET /api/learning-coordinator/flows/:direction
+ * Get knowledge flows by direction (UP/ACROSS/DOWN)
+ */
+router.get('/api/learning-coordinator/flows/:direction', async (req: Request, res: Response) => {
+  try {
+    const direction = req.params.direction.toUpperCase() as 'UP' | 'ACROSS' | 'DOWN';
+    
+    if (!['UP', 'ACROSS', 'DOWN'].includes(direction)) {
+      return res.status(400).json({ error: 'Invalid direction. Must be UP, ACROSS, or DOWN' });
+    }
+
+    const flows = await learningCoordinatorService.getFlowsByDirection(direction);
+
+    res.json({
+      success: true,
+      direction,
+      flows,
+      count: flows.length
+    });
+  } catch (error) {
+    console.error('[Learning Coordinator] Get flows error:', error);
+    res.status(500).json({ error: 'Failed to get flows' });
+  }
+});
+
+/**
+ * GET /api/learning-coordinator/stats
+ * Get overall learning statistics
+ */
+router.get('/api/learning-coordinator/stats', async (req: Request, res: Response) => {
+  try {
+    const status = await learningCoordinatorService.syncKnowledgeNetwork();
+
+    res.json({
+      success: true,
+      stats: {
+        totalFlows: status.totalFlows,
+        flowsByDirection: {
+          UP: status.upFlows,
+          ACROSS: status.acrossFlows,
+          DOWN: status.downFlows
+        },
+        activeBestPractices: status.activeBestPractices,
+        avgEffectiveness: status.avgEffectiveness,
+        learningsToday: status.learningsToday,
+        networkHealth: status.networkHealth
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('[Learning Coordinator] Get stats error:', error);
     res.status(500).json({ error: 'Failed to get stats' });
   }
 });
-
-/**
- * Helper: Calculate average effectiveness
- */
-function calculateAvgEffectiveness(learningList: Learning[]): number {
-  if (learningList.length === 0) return 0;
-  const sum = learningList.reduce((acc, l) => acc + l.effectiveness, 0);
-  return sum / learningList.length;
-}
 
 export default router;
