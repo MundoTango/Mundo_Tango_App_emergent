@@ -822,7 +822,7 @@ function GroupDetailPageMT() {
 
         {/* Filters Panel */}
         {showFilters && (
-          <div className="bg-gray-50 p-4 rounded-lg space-y-4">
+          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Search */}
               <div>
@@ -1729,7 +1729,7 @@ function GroupDetailPageMT() {
                   </>
                 )}
                 
-                <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white dark:bg-gray-900/20">
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
@@ -1741,7 +1741,7 @@ function GroupDetailPageMT() {
         {/* Content Area */}
         <div className="max-w-7xl mx-auto px-4 py-6">
           {/* Tabs - Icon Design with Instant Tooltips */}
-          <div className="border-b border-gray-200 mb-6">
+          <div className="border-b border-gray-200 dark:border-gray-700 mb-6">
             <TooltipProvider>
               <nav className="flex gap-6" aria-label="Tabs">
                 <Tooltip>
@@ -1879,7 +1879,7 @@ function GroupDetailPageMT() {
       {/* Post Edit Modal - Unified with Memories Feed */}
       {createPostModal && editingPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
             <button
               onClick={() => {
                 setCreatePostModal(false);
@@ -1893,7 +1893,7 @@ function GroupDetailPageMT() {
               </svg>
             </button>
             
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-gray-100 mb-6">
               ✏️ Edit Your Post
             </h2>
             

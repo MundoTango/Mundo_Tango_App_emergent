@@ -298,7 +298,7 @@ export function Phase4ToolsDashboard() {
           </div>
           
           {toolStatuses?.k6?.lastResults && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <h4 className="text-sm font-medium mb-2">Last Test Results</h4>
               <div className="grid grid-cols-3 gap-2 text-xs">
                 <div>

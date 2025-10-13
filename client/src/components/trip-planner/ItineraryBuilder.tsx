@@ -113,7 +113,7 @@ export default function ItineraryBuilder({
               {/* Day Header */}
               <button
                 onClick={() => toggleDay(index)}
-                className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition"
+                className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-800/50 transition"
                 data-testid={`button-toggle-day-${index}`}
               >
                 <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export default function ItineraryBuilder({
 
               {/* Day Items */}
               {isExpanded && (
-                <div className="border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
+                <div className="border-t border-gray-200 dark:border-gray-700 dark:border-gray-700 p-4 space-y-3">
                   {dayItems.length === 0 ? (
                     <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                       <p className="text-sm">No activities planned for this day</p>
@@ -144,7 +144,7 @@ export default function ItineraryBuilder({
                     </div>
                   ) : (
                     dayItems.map((item) => (
-                      <Card key={item.id} className="p-3 bg-white dark:bg-gray-800/50" data-testid={`itinerary-item-${item.id}`}>
+                      <Card key={item.id} className="p-3 bg-white dark:bg-gray-900 dark:bg-gray-800/50" data-testid={`itinerary-item-${item.id}`}>
                         <div className="space-y-2">
                           {/* Item Header */}
                           <div className="flex items-start justify-between gap-3">

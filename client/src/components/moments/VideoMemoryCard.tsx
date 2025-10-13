@@ -117,7 +117,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
   });
   
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between">
@@ -135,7 +135,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-gray-900 dark:text-white">
                 {post.user?.name || post.user?.username || 'Unknown User'}
               </h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -236,7 +236,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   placeholder="Add a comment..."
-                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onKeyPress={(e) => {
                     if (e.key === 'Enter' && commentText.trim()) {
                       addCommentMutation.mutate(commentText);

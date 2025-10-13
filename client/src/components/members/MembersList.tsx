@@ -104,7 +104,7 @@ export const MembersList = ({
             <Users className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100" data-testid="text-members-title">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-gray-100" data-testid="text-members-title">
               {t('members.title', 'Home Community Residents')}
             </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -130,7 +130,7 @@ export const MembersList = ({
             placeholder={t('members.search.placeholder', 'Search members...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-cyan-500 dark:focus:border-cyan-400"
+            className="pl-10 bg-white dark:bg-gray-900/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 dark:border-gray-700 focus:border-cyan-500 dark:focus:border-cyan-400"
             data-testid="input-search-members"
           />
         </div>

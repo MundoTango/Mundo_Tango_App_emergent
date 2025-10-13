@@ -129,7 +129,7 @@ export default function GroupDetailPage() {
             </button>
 
             <div className="flex items-end gap-3">
-              <div className="w-20 h-20 bg-white rounded-full border-4 border-white shadow-lg">
+              <div className="w-20 h-20 bg-white dark:bg-gray-900 rounded-full border-4 border-white shadow-lg">
                 {group.imageUrl ? (
                   <img src={group.imageUrl} alt={group.name} className="w-full h-full rounded-full object-cover" />
                 ) : (
@@ -164,14 +164,14 @@ export default function GroupDetailPage() {
                       <Button
                         onClick={() => leaveGroupMutation.mutate()}
                         variant="outline"
-                        className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                        className="bg-white dark:bg-gray-900/10 border-white/20 text-white hover:bg-white/20"
                       >
                         Leave Group
                       </Button>
                       {group.isAdmin && (
                         <Button
                           onClick={() => setLocation(`/groups/${slug}/edit`)}
-                          className="bg-white text-gray-900 hover:bg-gray-100"
+                          className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white hover:bg-gray-100"
                         >
                           <Settings className="h-4 w-4 mr-2" />
                           Manage
@@ -181,7 +181,7 @@ export default function GroupDetailPage() {
                   ) : (
                     <Button
                       onClick={() => joinGroupMutation.mutate()}
-                      className="bg-white text-gray-900 hover:bg-gray-100"
+                      className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white hover:bg-gray-100"
                     >
                       <UserPlus className="h-4 w-4 mr-2" />
                       Join Group
@@ -190,7 +190,7 @@ export default function GroupDetailPage() {
                   
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
+                      <Button variant="ghost" size="icon" className="text-white hover:bg-white dark:bg-gray-900/20">
                         <MoreVertical className="h-5 w-5" />
                       </Button>
                     </DropdownMenuTrigger>

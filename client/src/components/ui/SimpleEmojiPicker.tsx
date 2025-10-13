@@ -17,7 +17,7 @@ export function SimpleEmojiPicker({ onEmojiSelect, className = '' }: SimpleEmoji
           key={emoji}
           type="button"
           onClick={() => onEmojiSelect(emoji)}
-          className="text-xl p-1 hover:bg-white hover:scale-110 rounded transition-all duration-150"
+          className="text-xl p-1 hover:bg-white dark:bg-gray-900 hover:scale-110 rounded transition-all duration-150"
           title={`Add ${emoji}`}
         >
           {emoji}

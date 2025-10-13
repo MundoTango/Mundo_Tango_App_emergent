@@ -64,14 +64,14 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             variant="ghost" 
             size="sm" 
             onClick={onClose}
-            className="text-white hover:text-gray-200 hover:bg-white/10"
+            className="text-white hover:text-gray-200 hover:bg-white dark:bg-gray-900/10"
           >
             <X className="h-6 w-6" />
           </Button>
         </div>
 
         {/* Search */}
-        <div className="p-4 border-b border-gray-200">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="relative">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             <Input

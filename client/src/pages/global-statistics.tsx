@@ -118,7 +118,7 @@ export default function GlobalStatistics() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Global Tango Statistics</h1>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Global Tango Statistics</h1>
               <p className="text-gray-600 mt-2">Comprehensive overview of the worldwide tango community</p>
             </div>
             <div className="flex gap-2">
@@ -144,7 +144,7 @@ export default function GlobalStatistics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Total Users</p>
-                  <p className="text-2xl font-bold text-gray-900">{formatNumber(mockStats.totalUsers)}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatNumber(mockStats.totalUsers)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" />
                     +12.3%
@@ -158,7 +158,7 @@ export default function GlobalStatistics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Active Users</p>
-                  <p className="text-2xl font-bold text-gray-900">{formatNumber(mockStats.activeUsers)}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatNumber(mockStats.activeUsers)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" />
                     +8.7%
@@ -172,7 +172,7 @@ export default function GlobalStatistics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Total Events</p>
-                  <p className="text-2xl font-bold text-gray-900">{formatNumber(mockStats.totalEvents)}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatNumber(mockStats.totalEvents)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" />
                     +15.4%
@@ -186,7 +186,7 @@ export default function GlobalStatistics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Communities</p>
-                  <p className="text-2xl font-bold text-gray-900">{formatNumber(mockStats.totalCommunities)}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatNumber(mockStats.totalCommunities)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" />
                     +6.2%
@@ -200,7 +200,7 @@ export default function GlobalStatistics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Total Posts</p>
-                  <p className="text-2xl font-bold text-gray-900">{formatNumber(mockStats.totalPosts)}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatNumber(mockStats.totalPosts)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" />
                     +23.8%
@@ -214,7 +214,7 @@ export default function GlobalStatistics() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Friendships</p>
-                  <p className="text-2xl font-bold text-gray-900">{formatNumber(mockStats.totalFriendships)}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatNumber(mockStats.totalFriendships)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
                     <ArrowUp className="w-3 h-3 mr-1" />
                     +18.5%
@@ -241,7 +241,7 @@ export default function GlobalStatistics() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* User Growth Chart */}
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-indigo-600" />
                   User Growth
                 </h3>
@@ -256,7 +256,7 @@ export default function GlobalStatistics() {
                             style={{ width: `${(month.newUsers / 800) * 100}%` }}
                           />
                         </div>
-                        <span className="text-sm font-medium text-gray-900 w-12 text-right">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white w-12 text-right">
                           {month.newUsers}
                         </span>
                       </div>
@@ -267,7 +267,7 @@ export default function GlobalStatistics() {
 
               {/* Role Distribution */}
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <PieChart className="w-5 h-5 text-purple-600" />
                   Role Distribution
                 </h3>
@@ -282,7 +282,7 @@ export default function GlobalStatistics() {
                             style={{ width: `${role.percentage}%` }}
                           />
                         </div>
-                        <span className="text-sm font-medium text-gray-900 w-12 text-right">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white w-12 text-right">
                           {role.percentage}%
                         </span>
                       </div>
@@ -294,21 +294,21 @@ export default function GlobalStatistics() {
 
             {/* Engagement Metrics */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Engagement Metrics</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Engagement Metrics</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <p className="text-2xl font-bold text-indigo-600">{mockStats.engagementMetrics.avgPostsPerUser}</p>
                   <p className="text-sm text-gray-600 mt-1">Avg Posts/User</p>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <p className="text-2xl font-bold text-purple-600">{mockStats.engagementMetrics.avgEventsAttended}</p>
                   <p className="text-sm text-gray-600 mt-1">Avg Events/User</p>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <p className="text-2xl font-bold text-pink-600">{mockStats.engagementMetrics.avgFriendsPerUser}</p>
                   <p className="text-sm text-gray-600 mt-1">Avg Friends/User</p>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <p className="text-2xl font-bold text-green-600">{mockStats.engagementMetrics.activePercentage}%</p>
                   <p className="text-sm text-gray-600 mt-1">Active Users</p>
                 </div>
@@ -319,13 +319,13 @@ export default function GlobalStatistics() {
           {/* Cities Tab */}
           <TabsContent value="cities" className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-indigo-600" />
                 Top Tango Cities Worldwide
               </h3>
               <div className="space-y-4">
                 {mockStats.topCities.map((city, index) => (
-                  <div key={city.city} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div key={city.city} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center gap-4">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold
                         ${index === 0 ? 'bg-gradient-to-r from-yellow-400 to-amber-400' : 
@@ -335,7 +335,7 @@ export default function GlobalStatistics() {
                         {index + 1}
                       </div>
                       <div>
-                        <p className="font-semibold text-gray-900">{city.city}</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{city.city}</p>
                         <p className="text-sm text-gray-600">
                           {formatNumber(city.users)} dancers • {city.events} events
                         </p>
@@ -354,13 +354,13 @@ export default function GlobalStatistics() {
           {/* Top Dancers Tab */}
           <TabsContent value="dancers" className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-yellow-600" />
                 Most Followed Dancers
               </h3>
               <div className="space-y-4">
                 {mockStats.topDancers.map((dancer, index) => (
-                  <div key={dancer.username} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div key={dancer.username} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center gap-4">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold
                         ${index === 0 ? 'bg-gradient-to-r from-yellow-400 to-amber-400' : 
@@ -370,7 +370,7 @@ export default function GlobalStatistics() {
                         {dancer.name.charAt(0)}
                       </div>
                       <div>
-                        <p className="font-semibold text-gray-900">{dancer.name}</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{dancer.name}</p>
                         <p className="text-sm text-gray-600">@{dancer.username}</p>
                         <div className="flex gap-2 mt-1">
                           {dancer.roles.map(role => (
@@ -394,7 +394,7 @@ export default function GlobalStatistics() {
           {/* Trends Tab */}
           <TabsContent value="trends" className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-purple-600" />
                 Event Trends
               </h3>
@@ -422,7 +422,7 @@ export default function GlobalStatistics() {
           <TabsContent value="engagement" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity Patterns</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Activity Patterns</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-3 bg-indigo-50 rounded-lg">
                     <div className="flex items-center gap-3">
@@ -449,7 +449,7 @@ export default function GlobalStatistics() {
               </Card>
 
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Performance</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Content Performance</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                     <div className="flex items-center gap-3">

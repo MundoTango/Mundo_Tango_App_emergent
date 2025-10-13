@@ -195,7 +195,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                 {searchResults?.users && searchResults.users.length > 0 && (
                   <div className="space-y-2 max-h-60 overflow-y-auto">
                     {searchResults.users.map((user: any) => (
-                      <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50">
+                      <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-gray-800">
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10">
                             <AvatarImage src={user.profileImage} />

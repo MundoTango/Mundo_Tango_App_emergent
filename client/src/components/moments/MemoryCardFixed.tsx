@@ -47,7 +47,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
   const mediaUrls = getMediaUrls();
 
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between">
@@ -65,7 +65,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-900">{post.user?.name || 'Unknown User'}</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white">{post.user?.name || 'Unknown User'}</h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <Clock className="w-3 h-3" />
                 <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>

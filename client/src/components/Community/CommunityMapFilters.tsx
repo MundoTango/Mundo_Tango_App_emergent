@@ -143,13 +143,13 @@ export default function CommunityMapFilters({
           <Button 
             variant="outline" 
             size="sm" 
-            className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-200" 
+            className="relative bg-white dark:bg-gray-900/80 dark:bg-slate-900/80 backdrop-blur-md border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-200" 
             data-testid="button-community-map-filters"
           >
             <Filter className="h-4 w-4 mr-2 text-cyan-600 dark:text-cyan-400" />
             <span className="text-slate-700 dark:text-slate-300">{t('common.filters')}</span>
             {activeFiltersCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 text-xs flex items-center justify-center font-medium shadow-lg" data-testid="badge-active-filters">
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 dark:text-white text-xs flex items-center justify-center font-medium shadow-lg" data-testid="badge-active-filters">
                 {activeFiltersCount}
               </span>
             )}
@@ -227,7 +227,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="event-type" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-event-type"
             >
               <SelectValue placeholder={t('common.inputs.select_event_type')} />
@@ -250,7 +250,7 @@ function FiltersContent({
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="justify-start text-left font-normal bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300"
+                  className="justify-start text-left font-normal bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300"
                   data-testid="button-event-start-date"
                 >
                   <Calendar className="h-3 w-3 mr-2 text-cyan-600 dark:text-cyan-400" />
@@ -272,7 +272,7 @@ function FiltersContent({
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="justify-start text-left font-normal bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300"
+                  className="justify-start text-left font-normal bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300"
                   data-testid="button-event-end-date"
                 >
                   <Calendar className="h-3 w-3 mr-2 text-cyan-600 dark:text-cyan-400" />
@@ -323,7 +323,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="room-type" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-room-type"
             >
               <SelectValue placeholder={t('common.inputs.select_room_type')} />
@@ -346,7 +346,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="min-guests" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-min-guests"
             >
               <SelectValue placeholder={t('common.inputs.select_minimum_guests')} />
@@ -369,7 +369,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="connection-level" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-connection-level"
             >
               <SelectValue placeholder={t('common.inputs.select_connection_level')} />
@@ -400,7 +400,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="cuisine" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-cuisine"
             >
               <SelectValue placeholder={t('common.inputs.select_cuisine')} />
@@ -423,7 +423,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="category" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-category"
             >
               <SelectValue placeholder={t('common.inputs.select_category')} />
@@ -446,7 +446,7 @@ function FiltersContent({
           >
             <SelectTrigger 
               id="price-level" 
-              className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
+              className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-price-level"
             >
               <SelectValue placeholder={t('common.inputs.select_price_level')} />

@@ -84,7 +84,7 @@ const LifeCEOPortal: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto p-6 space-y-6">
         {/* Header with Role Badge */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-lg p-6 text-white">
@@ -93,7 +93,7 @@ const LifeCEOPortal: React.FC = () => {
               <div className="flex items-center space-x-3 mb-2">
                 <Crown className="w-8 h-8" />
                 <h1 className="text-3xl font-bold">Life CEO Portal</h1>
-                <Badge className="bg-white/20 text-white border-white/30">
+                <Badge className="bg-white dark:bg-gray-900/20 text-white border-white/30">
                   <span className="mr-1">{userRoleInfo.icon}</span>
                   {userRoleInfo.badge}
                 </Badge>

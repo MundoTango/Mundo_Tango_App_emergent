@@ -125,7 +125,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
         
         <div className="space-y-4">
           {/* Weekly discount */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <Label>Weekly discount (7+ nights)</Label>
               <span className="text-sm text-gray-500">
@@ -152,7 +152,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           </div>
 
           {/* Monthly discount */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <Label>Monthly discount (28+ nights)</Label>
               <span className="text-sm text-gray-500">

@@ -155,7 +155,7 @@ export default function PostFeedV2({
                   setSearchQuery(e.target.value);
                   setPage(1);
                 }}
-                className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 rounded-xl border-0 focus:ring-2 focus:ring-teal-500"
+                className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-xl border-0 focus:ring-2 focus:ring-teal-500"
               />
             </div>
           )}
@@ -292,7 +292,7 @@ export default function PostFeedV2({
                         setStartDate(e.target.value);
                         setPage(1);
                       }}
-                      className="w-full px-3 py-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                      className="w-full px-3 py-2 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                   <div>
@@ -304,7 +304,7 @@ export default function PostFeedV2({
                         setEndDate(e.target.value);
                         setPage(1);
                       }}
-                      className="w-full px-3 py-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                      className="w-full px-3 py-2 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                 </div>
@@ -341,7 +341,7 @@ export default function PostFeedV2({
             <p className="mt-4 text-gray-500">{t('memories.feed.loading')}</p>
           </div>
         ) : posts.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl">
+          <div className="text-center py-12 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-xl">
             <p className="text-gray-500">{t('memories.feed.noPosts')}</p>
           </div>
         ) : (

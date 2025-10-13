@@ -281,7 +281,7 @@ export default function HostOnboarding() {
         {/* Aurora Tide Progress Bar */}
         <div ref={progressRef}>
           <ScaleIn delay={0.1}>
-            <div className="progress-indicator bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+            <div className="progress-indicator bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative h-1 bg-slate-200 dark:bg-slate-700">
                   <div 
@@ -296,7 +296,7 @@ export default function HostOnboarding() {
         </div>
 
       {/* Aurora Tide Step Indicators */}
-      <div ref={stepsRef} className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+      <div ref={stepsRef} className="bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerContainer className="flex justify-between py-4 overflow-x-auto">
             {STEPS.map((step, index) => {

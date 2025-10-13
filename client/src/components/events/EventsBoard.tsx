@@ -93,7 +93,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                   </div>
 
                   {event.isEventPage && (
-                    <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                       <p className="text-xs text-gray-500">
                         Event Page: {event.allowEventPagePosts ? 'Posts allowed' : 'Posts disabled'}
                       </p>

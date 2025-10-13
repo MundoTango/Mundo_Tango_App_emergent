@@ -157,7 +157,7 @@ export default function PostComposer() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
       {/* Modern Momento Composer */}
       <div className="flex items-start gap-4">
         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-turquoise-500 to-blue-500 flex items-center justify-center text-white font-semibold">
@@ -175,7 +175,7 @@ export default function PostComposer() {
         <div className="flex-1">
           <button
             onClick={() => setShowExpandedComposer(true)}
-            className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200"
+            className="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 rounded-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200"
           >
             <span className="text-gray-500 font-medium">Share your tango moment...</span>
           </button>
@@ -218,7 +218,7 @@ export default function PostComposer() {
       {/* Modern Expanded Composer Modal */}
       {showExpandedComposer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
+          <div className="bg-white dark:bg-gray-900 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
             <div className="p-6">
               {/* Header */}
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
@@ -235,7 +235,7 @@ export default function PostComposer() {
                     )}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">{user?.name}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white">{user?.name}</div>
                     <div className="text-sm text-gray-500 flex items-center gap-1">
                       {getVisibilityIcon()}
                       <span className="capitalize">{newPost.visibility}</span>
@@ -268,7 +268,7 @@ export default function PostComposer() {
                       placeholder="Add tags (comma separated)"
                       value={newPost.tags}
                       onChange={(e) => setNewPost(prev => ({ ...prev, tags: e.target.value }))}
-                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
                     />
                   </div>
                   <div className="relative">
@@ -278,7 +278,7 @@ export default function PostComposer() {
                       placeholder="Add location"
                       value={newPost.location}
                       onChange={(e) => setNewPost(prev => ({ ...prev, location: e.target.value }))}
-                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
                     />
                   </div>
                 </div>
@@ -357,7 +357,7 @@ export default function PostComposer() {
                   <div className="flex gap-3">
                     <button
                       onClick={() => setShowExpandedComposer(false)}
-                      className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                      className="px-5 py-2.5 border border-gray-200 dark:border-gray-700 text-gray-600 rounded-xl hover:bg-gray-50 dark:bg-gray-800 transition-colors font-medium"
                     >
                       Cancel
                     </button>

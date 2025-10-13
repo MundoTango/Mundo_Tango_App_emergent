@@ -93,7 +93,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-gray-100">
             {t('members.roleMetrics.title', 'Community Roles')}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400">

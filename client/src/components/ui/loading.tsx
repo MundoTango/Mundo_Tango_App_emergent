@@ -19,7 +19,7 @@ export function LoadingSpinner() {
 
 export function PageLoader() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-sm z-50">
       <LoadingFallback />
     </div>
   );

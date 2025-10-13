@@ -97,7 +97,7 @@ export const MemberActionsDropdown = ({
       
       <DropdownMenuContent 
         align="end" 
-        className="w-56 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-cyan-500/20 dark:border-cyan-400/20"
+        className="w-56 bg-white dark:bg-gray-900/80 dark:bg-gray-900/80 backdrop-blur-xl border-cyan-500/20 dark:border-cyan-400/20"
         data-testid={`dropdown-member-actions-content-${memberId}`}
       >
         <DropdownMenuLabel className="text-gray-700 dark:text-gray-300">

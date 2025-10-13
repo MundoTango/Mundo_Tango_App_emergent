@@ -95,13 +95,13 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
           </div>
           <Progress value={metrics.overallReadiness} className="h-4 mb-4" />
           <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="text-center p-3 bg-white/70 rounded-lg">
+            <div className="text-center p-3 bg-white dark:bg-gray-900/70 rounded-lg">
               <div className="font-medium">Critical Tasks</div>
               <div className="text-2xl font-bold mt-1">
                 {metrics.criticalTasksComplete}/{metrics.criticalTasksTotal}
               </div>
             </div>
-            <div className="text-center p-3 bg-white/70 rounded-lg">
+            <div className="text-center p-3 bg-white dark:bg-gray-900/70 rounded-lg">
               <div className="font-medium">Est. Launch Date</div>
               <div className="text-lg font-bold mt-1">
                 {metrics.estimatedLaunchDate.toLocaleDateString()}
@@ -119,7 +119,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
         <CardContent>
           <div className="space-y-3">
             {checklist.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex items-center gap-3">
                   {getStatusIcon(item.status)}
                   <div>

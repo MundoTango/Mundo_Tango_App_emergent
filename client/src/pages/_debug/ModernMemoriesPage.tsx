@@ -65,7 +65,7 @@ const PIERRE_DUBOIS = {
 // Memory Card Component with ARIA labels
 const MemoryCard = ({ memory }: { memory: any }) => (
   <Card 
-    className="bg-white/95 backdrop-blur-lg shadow-lg border border-cyan-200/20 hover:shadow-xl transition-all"
+    className="bg-white dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border border-cyan-200/20 hover:shadow-xl transition-all"
     role="article"
     aria-label={`Memory from ${memory.user?.name || 'Unknown'}`}
   >
@@ -79,7 +79,7 @@ const MemoryCard = ({ memory }: { memory: any }) => (
         </Avatar>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-semibold text-gray-900">{memory.user?.name || 'Unknown'}</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-white">{memory.user?.name || 'Unknown'}</h4>
             <span className="text-gray-500 text-sm">@{memory.user?.username || 'unknown'}</span>
           </div>
           <p className="text-gray-700 mb-3">{memory.content}</p>
@@ -205,7 +205,7 @@ const ModernMemoriesPage = () => {
       </div>
 
       {/* Header */}
-      <header className="bg-white/95 backdrop-blur-lg border-b border-cyan-200/30">
+      <header className="bg-white dark:bg-gray-900/95 backdrop-blur-lg border-b border-cyan-200/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-gradient-to-br from-[#5EEAD4] to-[#155E75] rounded-xl shadow-lg">
@@ -229,7 +229,7 @@ const ModernMemoriesPage = () => {
 
           {/* Left Sidebar - Navigation */}
           <nav className="lg:col-span-2" aria-label="Main navigation">
-            <Card className="bg-white/90 backdrop-blur-sm shadow-lg border border-cyan-200/20 sticky top-4">
+            <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-sm shadow-lg border border-cyan-200/20 sticky top-4">
               <CardContent className="p-6">
                 <div className="space-y-1" role="list">
                   <Button 
@@ -273,7 +273,7 @@ const ModernMemoriesPage = () => {
           {/* Center - Main Feed */}
           <section className="lg:col-span-7 space-y-6" aria-label="Memory feed">
             {/* Post Creator */}
-            <Card className="bg-white/95 backdrop-blur-lg shadow-lg border border-cyan-200/20">
+            <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border border-cyan-200/20">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-4">
                   <Avatar className="h-12 w-12 border-2 border-[#5EEAD4]">
@@ -283,7 +283,7 @@ const ModernMemoriesPage = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-900">{PIERRE_DUBOIS.name}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{PIERRE_DUBOIS.name}</p>
                     <p className="text-sm text-gray-600">@{PIERRE_DUBOIS.username}</p>
                   </div>
                 </div>
@@ -317,7 +317,7 @@ const ModernMemoriesPage = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
                     <button 
                       className="p-2 text-gray-600 hover:text-[#5EEAD4] hover:bg-[#5EEAD4]/10 rounded-lg transition-colors"
@@ -369,7 +369,7 @@ const ModernMemoriesPage = () => {
                   <MemoryCard key={memory.id} memory={memory} />
                 ))
               ) : (
-                <Card className="bg-white/90 backdrop-blur-sm">
+                <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
                     <p className="text-gray-500">No memories yet. Be the first to share!</p>
                   </CardContent>
@@ -381,7 +381,7 @@ const ModernMemoriesPage = () => {
           {/* Right Sidebar - Code Split Components */}
           <aside className="lg:col-span-3 space-y-6" aria-label="Sidebar">
             <Suspense fallback={
-              <div className="bg-white/95 rounded-xl shadow-lg border border-cyan-200/20 p-6">
+              <div className="bg-white dark:bg-gray-900/95 rounded-xl shadow-lg border border-cyan-200/20 p-6">
                 <div className="animate-pulse space-y-4">
                   <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                   <div className="h-4 bg-gray-200 rounded"></div>
@@ -391,7 +391,7 @@ const ModernMemoriesPage = () => {
               <UpcomingEvents />
             </Suspense>
             <Suspense fallback={
-              <div className="bg-white/95 rounded-xl shadow-lg border border-cyan-200/20 p-6">
+              <div className="bg-white dark:bg-gray-900/95 rounded-xl shadow-lg border border-cyan-200/20 p-6">
                 <div className="animate-pulse space-y-4">
                   <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                   <div className="h-4 bg-gray-200 rounded"></div>

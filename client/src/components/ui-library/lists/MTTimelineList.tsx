@@ -228,7 +228,7 @@ export default function MTTimelineList({
 
             {/* Metadata */}
             {item.metadata && item.metadata.length > 0 && isDetailed && (
-              <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-gray-200/50 dark:border-gray-700/50">
+              <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50">
                 {item.metadata.map((meta, idx) => (
                   <div key={idx} className="flex items-center gap-1 text-xs text-gray-500">
                     {meta.icon}

@@ -202,7 +202,7 @@ export const LifeCEODashboard: React.FC = () => {
             </h2>
             <p className="text-gray-600">{t('common.16_ai_agents_personalized_life_management_56_layer')}</p>
           </div>
-          <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 border-0">
+          <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 dark:text-white border-0">
             ESA LIFE CEO 56x21
           </Badge>
         </div>
@@ -335,7 +335,7 @@ export const LifeCEODashboard: React.FC = () => {
             </CardHeader>
             <CardContent className="flex flex-col h-[600px]">
               {/* Chat Messages */}
-              <ScrollArea className="flex-1 mb-4 p-4 rounded-lg bg-white/50">
+              <ScrollArea className="flex-1 mb-4 p-4 rounded-lg bg-white dark:bg-gray-900/50">
                 {chatHistory.length === 0 ? (
                   <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                     <MessageCircle className="h-12 w-12 mx-auto mb-3 text-gray-300" />
@@ -382,7 +382,7 @@ export const LifeCEODashboard: React.FC = () => {
                 <Button
                   onClick={handleSendMessage}
                   disabled={!message.trim() || chatMutation.isPending}
-                  className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white dark:text-gray-900 border-0"
+                  className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white dark:text-gray-900 dark:text-white border-0"
                 >
                   {chatMutation.isPending ? (
                     <div className="animate-spin h-4 w-4 border-2 border-white dark:border-gray-700 border-t-transparent rounded-full" />

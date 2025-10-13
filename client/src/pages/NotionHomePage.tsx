@@ -146,11 +146,11 @@ export function NotionHomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-10">
+      <div className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-b sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
                 Mundo Tango Stories
               </h1>
               <p className="text-gray-600">
@@ -274,7 +274,7 @@ export function NotionHomePage() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="flex items-center gap-2">
                     {TYPE_ICONS[type.toLowerCase() as keyof typeof TYPE_ICONS] || <FileText className="w-5 h-5" />}
-                    <h2 className="text-2xl font-semibold text-gray-900">
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
                       {type.charAt(0).toUpperCase() + type.slice(1)}s
                     </h2>
                   </div>
@@ -354,7 +354,7 @@ export function NotionHomePage() {
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                 <Search className="w-8 h-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 No stories found
               </h3>
               <p className="text-gray-600 mb-4">

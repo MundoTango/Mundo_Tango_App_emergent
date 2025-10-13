@@ -42,9 +42,9 @@ export default function ProfileSwitcher() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
@@ -59,7 +59,7 @@ export default function ProfileSwitcher() {
 
       {/* Current User Info */}
       <div className="px-4 py-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 flex items-center justify-center text-white font-bold">
               {user?.name?.[0] || 'S'}
@@ -90,7 +90,7 @@ export default function ProfileSwitcher() {
                     {profile.icon}
                   </div>
                   <div className="text-left">
-                    <h3 className="font-medium text-gray-900">{profile.name}</h3>
+                    <h3 className="font-medium text-gray-900 dark:text-white">{profile.name}</h3>
                     <p className="text-sm text-gray-500">{profile.description}</p>
                   </div>
                 </div>
@@ -114,11 +114,11 @@ export default function ProfileSwitcher() {
       {/* Quick Actions */}
       <div className="px-4 pb-6">
         <h2 className="text-sm font-medium text-gray-500 mb-3">QUICK ACTIONS</h2>
-        <div className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm space-y-3">
           {isSuperAdmin && (
             <button
               onClick={() => setLocation('/life-ceo')}
-              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors"
             >
               <Brain className="h-5 w-5 text-purple-500" />
               <span className="text-sm font-medium">Open Life CEO Voice Assistant</span>
@@ -126,7 +126,7 @@ export default function ProfileSwitcher() {
           )}
           <button
             onClick={() => setLocation('/memories')}
-            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors"
           >
             <Globe className="h-5 w-5 text-blue-500" />
             <span className="text-sm font-medium">Return to Mundo Tango</span>

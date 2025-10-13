@@ -40,7 +40,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
 
   return (
     <div 
-      className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
+      className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
       onClick={onClick}
     >
       {/* Community Image */}
@@ -56,17 +56,17 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
           </>
         ) : (
           <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #8E142E 0%, #0D448A 100%)' }}>
-            <Users className="text-white dark:text-gray-900 text-4xl h-12 w-12" />
+            <Users className="text-white dark:text-gray-900 dark:text-white text-4xl h-12 w-12" />
           </div>
         )}
         
         {/* Floating member/event badges */}
         <div className="absolute top-3 right-3 flex gap-2">
-          <div className="bg-white/90 dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
+          <div className="bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
             <Users className="h-3.5 w-3.5 text-blue-600" />
             <span className="text-xs font-semibold text-gray-800">{community.memberCount}</span>
           </div>
-          <div className="bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
+          <div className="bg-white dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
             <Calendar className="h-3.5 w-3.5 text-green-600" />
             <span className="text-xs font-semibold text-gray-800">{community.eventCount}</span>
           </div>

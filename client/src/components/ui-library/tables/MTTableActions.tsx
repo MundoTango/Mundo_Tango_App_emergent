@@ -273,7 +273,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-20">
+          <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 z-20">
             {actions.map((action, index) => (
               <div key={index}>
                 {action.divider && index > 0 && (

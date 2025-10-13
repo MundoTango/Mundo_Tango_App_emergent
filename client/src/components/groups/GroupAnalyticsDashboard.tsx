@@ -126,7 +126,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
           <div className="space-y-2">
             {insights.peakActivityTimes.length > 0 ? (
               insights.peakActivityTimes.map((time: any, index: number) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
                      data-testid={`peak-time-${index}`}>
                   <span className="font-medium">
                     {time.hour}:00 - {time.hour + 1}:00
@@ -152,7 +152,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
           <div className="space-y-2">
             {insights.topContributors.length > 0 ? (
               insights.topContributors.map((contributor: any, index: number) => (
-                <div key={contributor.userId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                <div key={contributor.userId} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
                      data-testid={`contributor-${contributor.userId}`}>
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${

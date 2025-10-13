@@ -52,7 +52,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
     <div className="space-y-4">
       {/* Header with filter */}
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">New Feeds</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">New Feeds</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600">
@@ -80,7 +80,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
       </div>
 
       {/* Post creation card */}
-      <Card className="bg-white shadow-sm">
+      <Card className="bg-white dark:bg-gray-900 shadow-sm">
         <CardContent className="p-6">
           {/* User info and visibility */}
           <div className="flex justify-between items-start mb-4">
@@ -95,7 +95,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 </AvatarFallback>
               </Avatar>
               <div>
-                <div className="text-sm font-semibold text-gray-900">{user?.name}</div>
+                <div className="text-sm font-semibold text-gray-900 dark:text-white">{user?.name}</div>
                 <div className="text-sm text-gray-500">@{user?.username}</div>
               </div>
             </div>
@@ -115,7 +115,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
           <div className="relative mb-6">
             <Input
               placeholder="What's on your mind?"
-              className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500"
+              className="w-full py-3 pl-4 pr-12 border-gray-200 dark:border-gray-700 rounded-lg focus:border-red-500 focus:ring-red-500"
               onClick={() => onCreatePost()}
               readOnly
             />
@@ -129,7 +129,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
             </Button>
           </div>
 
-          <hr className="my-4 border-gray-200" />
+          <hr className="my-4 border-gray-200 dark:border-gray-700" />
 
           {/* Action buttons */}
           <div className="flex items-center justify-between">

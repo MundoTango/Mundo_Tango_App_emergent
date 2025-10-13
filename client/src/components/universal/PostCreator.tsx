@@ -979,7 +979,7 @@ export default function PostCreator({
             </div>
 
             <div className="flex-1">
-              <h3 className="font-bold text-gray-900 text-lg">{user?.name}</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white text-lg">{user?.name}</h3>
               <p className="text-sm text-gray-500">@{user?.username}</p>
             </div>
           </div>
@@ -1020,7 +1020,7 @@ export default function PostCreator({
 
               {/* ESA LIFE CEO 61x21 - @Mention Dropdown - Now handled by SimpleMentionsInput */}
               {false && showMentions && users.length > 0 && (
-                <div className="absolute z-50 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 max-h-48 overflow-y-auto">
+                <div className="absolute z-50 mt-2 bg-white dark:bg-gray-900 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 max-h-48 overflow-y-auto">
                   {users.map((user: any) => (
                     <button
                       key={user.id}
@@ -1487,7 +1487,7 @@ export default function PostCreator({
                         <select
                           value={recommendationType}
                           onChange={(e) => setRecommendationType(e.target.value)}
-                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
+                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-white dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
                           style={{
                             background: 'linear-gradient(to bottom, hsl(0 0% 100% / 0.85), hsl(166 76% 97% / 0.75))', // white to teal-50
                             backdropFilter: 'blur(12px)'
@@ -1647,7 +1647,7 @@ export default function PostCreator({
                   }}
                 >
                   {/* Animated stripe effect */}
-                  <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                  <div className="absolute inset-0 bg-white dark:bg-gray-900/20 animate-pulse" />
                 </div>
               </div>
               <p className="text-sm text-gray-700 mt-3 flex items-center gap-2 font-medium">
@@ -1692,7 +1692,7 @@ export default function PostCreator({
                   <div className="space-y-4">
                     <div>
                       <h4 className="font-medium text-sm text-gray-600 mb-2">Original:</h4>
-                      <div className="p-3 bg-gray-50 rounded-lg text-sm">
+                      <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-sm">
                         {content}
                       </div>
                     </div>

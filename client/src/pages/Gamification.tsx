@@ -289,7 +289,7 @@ export default function Gamification() {
                   <p className="text-xl font-bold">{getLevelName(userStats?.currentLevel || 1)}</p>
                 </div>
               </div>
-              <Progress value={userStats?.levelProgress || 0} className="h-2 bg-white/20" />
+              <Progress value={userStats?.levelProgress || 0} className="h-2 bg-white dark:bg-gray-900/20" />
             </div>
             
             <div className="space-y-2">

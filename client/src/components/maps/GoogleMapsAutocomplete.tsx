@@ -248,7 +248,7 @@ export default function GoogleMapsAutocomplete({
   if (!isLoaded) {
     return (
       <div className={`relative ${className}`}>
-        <div className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center space-x-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
           <span className="text-sm text-gray-600">Loading location search...</span>
         </div>
@@ -270,7 +270,7 @@ export default function GoogleMapsAutocomplete({
           onChange={handleInputChange}
           placeholder={placeholder}
           required={required}
-          className="pl-10 pr-10 py-3 w-full border-gray-200 focus:border-pink-300 focus:ring-pink-100 rounded-lg"
+          className="pl-10 pr-10 py-3 w-full border-gray-200 dark:border-gray-700 focus:border-pink-300 focus:ring-pink-100 rounded-lg"
         />
         {inputValue && (
           <Button
@@ -320,7 +320,7 @@ export default function GoogleMapsAutocomplete({
           </div>
           <div 
             ref={mapRef}
-            className="w-full h-64 rounded-lg border border-gray-200"
+            className="w-full h-64 rounded-lg border border-gray-200 dark:border-gray-700"
           />
         </div>
       )}

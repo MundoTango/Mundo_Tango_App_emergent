@@ -119,7 +119,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
         <div className="text-center">
           <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Access Denied</h1>
           <p className="text-gray-600 mb-4">You don't have permission to access this area.</p>
           <Button onClick={() => setLocation('/')} variant="outline">
             Go to Homepage
@@ -132,7 +132,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50/30 via-cyan-50/20 to-blue-50/30">
       {/* Top Navigation Bar */}
-      <div className="fixed top-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-sm border-b border-teal-100 z-40">
+      <div className="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-900/95 backdrop-blur-sm border-b border-teal-100 z-40">
         <div className="flex items-center justify-between h-full px-6">
           {/* Left Section */}
           <div className="flex items-center gap-4">
@@ -164,7 +164,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search users, content, or settings..."
-                className="pl-10 bg-gray-50 border-gray-200 focus:border-teal-300"
+                className="pl-10 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:border-teal-300"
               />
             </div>
           </div>

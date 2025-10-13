@@ -213,7 +213,7 @@ export default function Profile() {
         {/* Story Highlights - REMOVED per user request */}
 
         {/* Profile Content Tabs */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList 
               className="w-full justify-start border-b rounded-none h-auto p-0"
@@ -729,13 +729,13 @@ export default function Profile() {
                           <div className="absolute bottom-2 left-2 right-2">
                             <Badge 
                               variant="secondary" 
-                              className="text-xs bg-white/80 text-gray-700"
+                              className="text-xs bg-white dark:bg-gray-900/80 text-gray-700"
                             >
                               {item % 3 === 0 ? t('profile.media.video', 'Video') : t('profile.media.photo', 'Photo')}
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white dark:bg-gray-900/80 hover:bg-white">
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
@@ -877,7 +877,7 @@ export default function Profile() {
                         <div className="border-l-4 border-turquoise-400 pl-6 py-4 bg-gradient-to-r from-turquoise-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Intermediate Tango Instructor</h6>
+                              <h6 className="font-semibold text-gray-900 dark:text-white">Intermediate Tango Instructor</h6>
                               <p className="text-turquoise-600 font-medium">Buenos Aires Tango Festival 2024</p>
                               <p className="text-gray-600 text-sm">Taught advanced technique to 50+ international students</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
@@ -901,7 +901,7 @@ export default function Profile() {
                         <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Milonga Organizer</h6>
+                              <h6 className="font-semibold text-gray-900 dark:text-white">Milonga Organizer</h6>
                               <p className="text-cyan-600 font-medium">Monthly Practica Series</p>
                               <p className="text-gray-600 text-sm">Coordinated weekly events for 100+ dancers</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
@@ -925,7 +925,7 @@ export default function Profile() {
                         <div className="border-l-4 border-purple-400 pl-6 py-4 bg-gradient-to-r from-purple-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Resident DJ</h6>
+                              <h6 className="font-semibold text-gray-900 dark:text-white">Resident DJ</h6>
                               <p className="text-purple-600 font-medium">La Milonguita Weekly</p>
                               <p className="text-gray-600 text-sm">Curated traditional tandas for intimate milonga setting</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
@@ -943,7 +943,7 @@ export default function Profile() {
                       <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h5 className="font-semibold text-gray-900">DJ & Music Curator</h5>
+                            <h5 className="font-semibold text-gray-900 dark:text-white">DJ & Music Curator</h5>
                             <p className="text-cyan-600 font-medium">Milonga Luna - Weekly Series</p>
                             <p className="text-gray-600 text-sm">Curated and performed music for weekly milonga events</p>
                             <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
@@ -1005,7 +1005,7 @@ export default function Profile() {
                   <Card className="glassmorphic-card" data-testid="empty-state-no-guest-profile">
                     <CardContent className="p-12 text-center">
                       <UserCheck className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('profile.guest.no_profile_title', 'No Guest Profile')}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('profile.guest.no_profile_title', 'No Guest Profile')}</h3>
                       <p className="text-gray-600 mb-4">
                         {t('profile.guest.no_profile_desc', 'Create your guest profile to start browsing and requesting stays with hosts.')}
                       </p>

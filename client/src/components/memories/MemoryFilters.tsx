@@ -98,12 +98,12 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
   };
 
   return (
-    <Card className="mb-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50">
+    <Card className="mb-6 bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-sm border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50">
       <CardContent className="p-4">
         {/* Filter Memories Header */}
         <div className="flex items-center gap-2 mb-4">
           <Filter className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white">
             Filter Memories
           </h3>
         </div>
@@ -166,7 +166,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="flex-1 bg-white/70 dark:bg-gray-800/70 border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400"
+              className="flex-1 bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border-gray-200 dark:border-gray-700 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400"
             />
             <Button
               onClick={handleAddTag}
@@ -210,7 +210,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
 
         {/* Active Filters Summary */}
         {(tags.length > 0 || filterType !== 'all') && (
-          <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+          <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
             <div className="text-xs text-gray-500 dark:text-gray-400">
               Active filters: {filterType !== 'all' && (
                 <span className="capitalize font-medium">{filterType}</span>

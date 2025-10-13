@@ -67,17 +67,17 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <Users className="w-8 h-8 text-pink-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.socialReach.toLocaleString()}</div>
               <div className="text-sm text-gray-600">Social Reach</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <Target className="w-8 h-8 text-purple-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.engagementRate}%</div>
               <div className="text-sm text-gray-600">Engagement Rate</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <TrendingUp className="w-8 h-8 text-blue-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.conversionRate}%</div>
               <div className="text-sm text-gray-600">Conversion Rate</div>
@@ -181,7 +181,7 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-4">
             {campaigns.map((campaign, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+              <div key={index} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">{campaign.name}</h4>
                   <Button size="sm" variant="outline">

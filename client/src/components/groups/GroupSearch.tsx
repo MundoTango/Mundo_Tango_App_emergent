@@ -137,12 +137,12 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
             />
             
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+              <div className="absolute top-full mt-2 w-full bg-white dark:bg-gray-900 border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
                    data-testid="search-suggestions">
                 {suggestions.map((group) => (
                   <button
                     key={group.id}
-                    className="w-full px-4 py-3 hover:bg-gray-50 text-left flex items-center gap-3 border-b last:border-b-0"
+                    className="w-full px-4 py-3 hover:bg-gray-50 dark:bg-gray-800 text-left flex items-center gap-3 border-b last:border-b-0"
                     onClick={() => {
                       updateFilter('query', group.name);
                       setShowSuggestions(false);

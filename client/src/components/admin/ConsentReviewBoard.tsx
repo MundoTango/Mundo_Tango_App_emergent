@@ -242,12 +242,12 @@ export default function ConsentReviewBoard() {
             placeholder="Search by memory title, author, or requester..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+            className="pl-10 rounded-xl border-gray-200 dark:border-gray-700 focus:border-indigo-300 focus:ring-indigo-200"
           />
         </div>
         
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
+          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-gray-700">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
@@ -307,7 +307,7 @@ export default function ConsentReviewBoard() {
       {/* Consent requests list */}
       <div className="space-y-4">
         {filteredRequests.map((request) => (
-          <div key={request.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div key={request.id} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <Badge className={`${getStatusBadge(request.status)} border font-medium`}>
@@ -328,7 +328,7 @@ export default function ConsentReviewBoard() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{request.memory.title}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{request.memory.title}</h3>
                 <p className="text-gray-600 line-clamp-2">{request.memory.content}</p>
               </div>
 
@@ -353,7 +353,7 @@ export default function ConsentReviewBoard() {
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-xl p-4">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
                 <div className="text-sm font-medium text-gray-700 mb-1">Reason for Request:</div>
                 <div className="text-sm text-gray-600">{request.reason}</div>
               </div>
@@ -397,8 +397,8 @@ export default function ConsentReviewBoard() {
           
           {selectedRequest && (
             <div className="space-y-6">
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{selectedRequest.memory.title}</h3>
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{selectedRequest.memory.title}</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">{selectedRequest.memory.content}</p>
                 
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -429,7 +429,7 @@ export default function ConsentReviewBoard() {
                   placeholder="Add your review notes here..."
                   value={reviewNotes}
                   onChange={(e) => setReviewNotes(e.target.value)}
-                  className="rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+                  className="rounded-xl border-gray-200 dark:border-gray-700 focus:border-indigo-300 focus:ring-indigo-200"
                   rows={4}
                 />
               </div>

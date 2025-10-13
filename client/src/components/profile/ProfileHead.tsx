@@ -124,7 +124,7 @@ export default function ProfileHead({
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2"
+                className="absolute bottom-0 right-0 bg-white dark:bg-gray-900 shadow-md hover:bg-gray-50 dark:bg-gray-800 rounded-full p-2"
               >
                 <Camera className="h-4 w-4" />
               </Button>
@@ -170,7 +170,7 @@ export default function ProfileHead({
           {/* Name and Roles */}
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                 {user.name}
               </h1>
               <div className="flex items-center">

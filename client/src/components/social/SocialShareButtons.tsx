@@ -118,9 +118,9 @@ export default function SocialShareButtons({
         </button>
         
         {showShareMenu && (
-          <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50 min-w-64">
+          <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-4 z-50 min-w-64">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-semibold text-gray-900">Share this post</h4>
+              <h4 className="font-semibold text-gray-900 dark:text-white">Share this post</h4>
               <button
                 onClick={() => setShowShareMenu(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -132,7 +132,7 @@ export default function SocialShareButtons({
             <div className="grid grid-cols-3 gap-3 mb-4">
               {shareButtons.map(({ component: ShareButton, icon: Icon, label, props }) => (
                 <ShareButton key={label} {...props} className="group">
-                  <div className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors">
                     <Icon size={24} round />
                     <span className="text-xs text-gray-600 group-hover:text-gray-800">{label}</span>
                   </div>
@@ -140,13 +140,13 @@ export default function SocialShareButtons({
               ))}
             </div>
             
-            <div className="border-t border-gray-200 pt-3">
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
               <div className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={shareUrl}
                   readOnly
-                  className="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600"
+                  className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-600"
                 />
                 <button
                   onClick={copyToClipboard}

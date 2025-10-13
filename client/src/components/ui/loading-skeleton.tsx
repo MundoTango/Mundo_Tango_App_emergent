@@ -27,7 +27,7 @@ export function Skeleton({ className, variant = 'text' }: SkeletonProps) {
 
 export function PostSkeleton() {
   return (
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-lg p-6 space-y-4">
+    <div className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-md rounded-lg p-6 space-y-4">
       <div className="flex items-center space-x-3">
         <Skeleton variant="avatar" />
         <div className="flex-1 space-y-2">

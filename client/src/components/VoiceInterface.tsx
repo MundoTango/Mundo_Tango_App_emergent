@@ -369,7 +369,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 w-80"
+              className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl shadow-2xl p-4 w-80"
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
@@ -387,7 +387,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               </div>
 
               {/* Transcript Display */}
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4 min-h-[100px]">
+              <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-900 rounded-lg p-3 mb-4 min-h-[100px]">
                 {isProcessing ? (
                   <div className="flex items-center justify-center h-full">
                     <Loader2 className="w-5 h-5 animate-spin text-teal-500" />

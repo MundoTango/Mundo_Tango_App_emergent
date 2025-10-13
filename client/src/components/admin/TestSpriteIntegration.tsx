@@ -224,7 +224,7 @@ export function TestSpriteIntegration() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('common.testsprite_ai_testing')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">{t('common.testsprite_ai_testing')}</h2>
           <p className="text-gray-600 dark:text-gray-400">{t('common.autonomous_aipowered_testing_for_your_platform')}</p>
           <p className="text-sm text-green-600 dark:text-green-400 mt-1">
             <CheckCircle className="inline h-3 w-3 mr-1" />
@@ -321,7 +321,7 @@ export function TestSpriteIntegration() {
                   : 0;
                 
                 return (
-                  <div key={result.testId} className="border rounded-lg p-4 bg-white dark:bg-gray-800">
+                  <div key={result.testId} className="border rounded-lg p-4 bg-white dark:bg-gray-900 dark:bg-gray-800">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -359,7 +359,7 @@ export function TestSpriteIntegration() {
                     </div>
 
                     {/* Test Coverage Details */}
-                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4">
+                    <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-900 rounded-lg p-3 mb-4">
                       <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('common.test_coverage')}</h4>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
                         {testDetails.endpoints.map((endpoint: string, idx: number) => (
@@ -370,7 +370,7 @@ export function TestSpriteIntegration() {
                         ))}
                       </div>
                       {testDetails.features && (
-                        <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                        <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                           <span className="text-xs text-gray-500">{t('common.features_tested')}</span>
                           <span className="text-xs text-gray-700 dark:text-gray-300">
                             {testDetails.features.join(', ')}
@@ -389,7 +389,7 @@ export function TestSpriteIntegration() {
                         <div className="text-2xl font-bold text-red-600">{result.results.failed}</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">{t('common.tests_failed')}</div>
                       </div>
-                      <div className="text-center p-2 bg-gray-50 dark:bg-gray-900/20 rounded">
+                      <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 dark:bg-gray-900/20 rounded">
                         <div className="text-2xl font-bold text-gray-600">{result.results.skipped}</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">{t('common.tests_skipped')}</div>
                       </div>
@@ -410,7 +410,7 @@ export function TestSpriteIntegration() {
                     )}
 
                     {/* Test ID for reference */}
-                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                       <span className="text-xs text-gray-500">Test ID: {result.testId}</span>
                     </div>
                   </div>

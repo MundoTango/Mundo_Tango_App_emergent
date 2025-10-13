@@ -168,7 +168,7 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-3">
             {complianceItems.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex-1">
                   <div className="font-medium">{item.requirement}</div>
                   <div className="text-sm text-gray-600">{item.category}</div>

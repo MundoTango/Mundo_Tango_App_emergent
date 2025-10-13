@@ -216,7 +216,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
               aria-label="Close modal"
               data-testid={`${testId}-close`}
             >
-              <X className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white" />
+              <X className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:text-white dark:group-hover:text-white" />
             </button>
           )}
 

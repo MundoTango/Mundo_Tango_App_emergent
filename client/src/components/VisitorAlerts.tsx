@@ -77,7 +77,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
         {visitors.slice(0, 3).map((visitor) => (
           <div 
             key={visitor.id}
-            className="p-4 bg-white rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer"
+            className="p-4 bg-white dark:bg-gray-900 rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer"
             onClick={() => setLocation(`/profile/${visitor.username}`)}
           >
             <div className="flex items-start justify-between">
@@ -94,7 +94,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
                   </div>
                 )}
                 <div>
-                  <h4 className="font-semibold text-gray-900">{visitor.name}</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white">{visitor.name}</h4>
                   <p className="text-sm text-gray-600 flex items-center gap-1">
                     <MapPin className="h-3 w-3" />
                     From {visitor.city}, {visitor.country}

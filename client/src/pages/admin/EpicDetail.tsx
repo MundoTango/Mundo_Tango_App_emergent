@@ -117,7 +117,7 @@ export default function EpicDetail() {
             Projects
           </Link>
           <ChevronRight className="h-4 w-4" />
-          <span className="text-gray-900 dark:text-white font-medium">{epic.key}</span>
+          <span className="text-gray-900 dark:text-white dark:text-white font-medium">{epic.key}</span>
         </div>
 
         {/* Epic Header */}
@@ -135,7 +135,7 @@ export default function EpicDetail() {
                   {epic.priority || 'Medium'}
                 </Badge>
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="text-epic-summary">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white mb-2" data-testid="text-epic-summary">
                 {epic.summary}
               </h1>
               {epic.description && (
@@ -154,7 +154,7 @@ export default function EpicDetail() {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-600 dark:text-gray-400">Epic Progress</span>
-              <span className="font-medium text-gray-900 dark:text-white">
+              <span className="font-medium text-gray-900 dark:text-white dark:text-white">
                 {completedStories} / {totalStories} stories ({progressPercent}%)
               </span>
             </div>
@@ -211,7 +211,7 @@ export default function EpicDetail() {
                 </p>
               </div>
               <div className="h-8 w-8 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-500 flex items-center justify-center">
-                <div className="h-3 w-3 rounded-full bg-white animate-pulse" />
+                <div className="h-3 w-3 rounded-full bg-white dark:bg-gray-900 animate-pulse" />
               </div>
             </div>
           </GlassCard>
@@ -220,7 +220,7 @@ export default function EpicDetail() {
         {/* Status Chart */}
         {statusData.length > 0 && (
           <GlassCard className="glassmorphic-card p-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Status Breakdown</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white dark:text-white mb-4">Status Breakdown</h2>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -257,7 +257,7 @@ export default function EpicDetail() {
         {/* Stories List */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Stories ({totalStories})</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">Stories ({totalStories})</h2>
           </div>
           <div className="grid gap-3">
             {stories.map((story: Story) => (
@@ -285,7 +285,7 @@ export default function EpicDetail() {
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white" data-testid={`text-story-summary-${story.id}`}>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white" data-testid={`text-story-summary-${story.id}`}>
                       {story.summary}
                     </h3>
                   </div>
@@ -306,7 +306,7 @@ export default function EpicDetail() {
                     <Target className="h-8 w-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No stories yet</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white mb-2">No stories yet</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">Get started by creating your first story in this epic</p>
                   </div>
                 </div>

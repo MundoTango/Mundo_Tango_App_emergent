@@ -500,7 +500,7 @@ export default function EnhancedGoogleMapsAutocomplete({
 
         {/* Nearby places suggestions */}
         {showSuggestions && nearbyPlaces.length > 0 && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
+          <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
             <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b">Nearby places:</p>
             {nearbyPlaces.map((place, index) => (
               <button
@@ -513,7 +513,7 @@ export default function EnhancedGoogleMapsAutocomplete({
                   setShowSuggestions(false);
                   if (showMap) updateMap(locationData);
                 }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm"
+                className="w-full px-4 py-2 text-left hover:bg-gray-50 dark:bg-gray-800 text-sm"
               >
                 <p className="font-medium">{place.name}</p>
                 <p className="text-gray-500">{place.vicinity}</p>
@@ -527,7 +527,7 @@ export default function EnhancedGoogleMapsAutocomplete({
       {showMap && (
         <div 
           ref={mapRef} 
-          className="w-full h-64 rounded-lg border border-gray-200"
+          className="w-full h-64 rounded-lg border border-gray-200 dark:border-gray-700"
           style={{ minHeight: '250px' }}
         />
       )}

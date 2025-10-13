@@ -115,7 +115,7 @@ export default function OnlinePresence({
                     {user.username[0].toUpperCase()}
                   </div>
                 )}
-                <Circle className="absolute -bottom-0.5 -right-0.5 w-3 h-3 text-emerald-500 fill-emerald-500 bg-white dark:bg-slate-900 rounded-full" />
+                <Circle className="absolute -bottom-0.5 -right-0.5 w-3 h-3 text-emerald-500 fill-emerald-500 bg-white dark:bg-gray-900 dark:bg-slate-900 rounded-full" />
               </div>
               <div className="flex-1">
                 <div className={cn(

@@ -209,7 +209,7 @@ export default function ControlledPostFeed({
                 </div>
               </div>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white mb-2">
               {t('memories.feed.emptyTitle')}
             </h3>
             <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">

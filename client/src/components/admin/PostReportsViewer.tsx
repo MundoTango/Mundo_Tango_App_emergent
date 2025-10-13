@@ -84,7 +84,7 @@ export function PostReportsViewer() {
       <h2 className="text-2xl font-bold mb-6">Post Reports</h2>
       
       {reports.map((report: PostReport) => (
-        <div key={report.id} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+        <div key={report.id} className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-6 space-y-4">
           {/* Report Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export function PostReportsViewer() {
 
           {/* Report Description */}
           {report.description && (
-            <div className="bg-gray-50 rounded-lg p-3">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
               <p className="text-sm text-gray-700">{report.description}</p>
             </div>
           )}

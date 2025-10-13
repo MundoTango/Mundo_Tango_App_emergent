@@ -185,7 +185,7 @@ export default function ProjectTrackerAdmin() {
               </DialogTrigger>
               <DialogContent className="glassmorphic-card backdrop-blur-xl">
                 <DialogHeader>
-                  <DialogTitle className="text-gray-900 dark:text-white">Create New Epic</DialogTitle>
+                  <DialogTitle className="text-gray-900 dark:text-white dark:text-white">Create New Epic</DialogTitle>
                 </DialogHeader>
                 <Form {...epicForm}>
                   <form onSubmit={epicForm.handleSubmit((data) => createEpicMutation.mutate(data))} className="space-y-4">
@@ -296,7 +296,7 @@ export default function ProjectTrackerAdmin() {
               </DialogTrigger>
               <DialogContent className="glassmorphic-card backdrop-blur-xl">
                 <DialogHeader>
-                  <DialogTitle className="text-gray-900 dark:text-white">Create New Story</DialogTitle>
+                  <DialogTitle className="text-gray-900 dark:text-white dark:text-white">Create New Story</DialogTitle>
                 </DialogHeader>
                 <Form {...storyForm}>
                   <form onSubmit={storyForm.handleSubmit((data) => createStoryMutation.mutate(data))} className="space-y-4">
@@ -375,7 +375,7 @@ export default function ProjectTrackerAdmin() {
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <div className="flex items-center gap-2">
-            <TabsList className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10">
+            <TabsList className="bg-white dark:bg-gray-900/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10">
               <TabsTrigger 
                 value="dashboard" 
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-ocean-600 data-[state=active]:text-white" 
@@ -416,7 +416,7 @@ export default function ProjectTrackerAdmin() {
             <Link href="/admin/projects/epics">
               <Button
                 variant="outline"
-                className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10 hover:bg-gradient-to-r hover:from-turquoise-500 hover:to-ocean-600 hover:text-white transition-all"
+                className="bg-white dark:bg-gray-900/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10 hover:bg-gradient-to-r hover:from-turquoise-500 hover:to-ocean-600 hover:text-white transition-all"
                 data-testid="nav-epics"
               >
                 <Target className="mr-2 h-4 w-4" /> Epics ({epics.length})
@@ -427,7 +427,7 @@ export default function ProjectTrackerAdmin() {
             <Link href="/admin/projects/stories">
               <Button
                 variant="outline"
-                className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10 hover:bg-gradient-to-r hover:from-turquoise-500 hover:to-ocean-600 hover:text-white transition-all"
+                className="bg-white dark:bg-gray-900/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-white/10 hover:bg-gradient-to-r hover:from-turquoise-500 hover:to-ocean-600 hover:text-white transition-all"
                 data-testid="nav-stories"
               >
                 <ListTodo className="mr-2 h-4 w-4" /> Stories ({stories.length})
@@ -526,7 +526,7 @@ export default function ProjectTrackerAdmin() {
                           {epic.priority}
                         </Badge>
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white" data-testid={`text-epic-summary-${epic.id}`}>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white" data-testid={`text-epic-summary-${epic.id}`}>
                         {epic.summary}
                       </h3>
                       {epic.description && (
@@ -578,7 +578,7 @@ export default function ProjectTrackerAdmin() {
                           {story.priority}
                         </Badge>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white" data-testid={`text-story-summary-${story.id}`}>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white" data-testid={`text-story-summary-${story.id}`}>
                         {story.summary}
                       </h3>
                     </div>
@@ -615,7 +615,7 @@ export default function ProjectTrackerAdmin() {
                     <GlassCard className="glassmorphic-card p-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-semibold text-gray-900 dark:text-white">
+                          <h3 className="font-semibold text-gray-900 dark:text-white dark:text-white">
                             {status === 'to_do' ? 'To Do' : status === 'in_progress' ? 'In Progress' : 'Done'}
                           </h3>
                           <Badge variant="secondary" className="text-xs" data-testid={`kanban-count-${status}`}>
@@ -641,7 +641,7 @@ export default function ProjectTrackerAdmin() {
                                   {story.priority}
                                 </Badge>
                               </div>
-                              <h4 className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-turquoise-600 dark:group-hover:text-turquoise-400 transition-colors">
+                              <h4 className="text-sm font-medium text-gray-900 dark:text-white dark:text-white group-hover:text-turquoise-600 dark:group-hover:text-turquoise-400 transition-colors">
                                 {story.summary}
                               </h4>
                               {story.storyPoints && (
@@ -694,7 +694,7 @@ export default function ProjectTrackerAdmin() {
                           </Badge>
                         </td>
                         <td className="px-4 py-3">
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">{story.summary}</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">{story.summary}</div>
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap">
                           <Badge className={statusColors[story.status as keyof typeof statusColors]}>
@@ -740,7 +740,7 @@ export default function ProjectTrackerAdmin() {
             <GlassCard className="glassmorphic-card p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Active Sprint</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">Active Sprint</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     {stats?.activeSprint ? `Sprint ${stats.activeSprint.number}` : 'No active sprint'}
                   </p>
@@ -772,7 +772,7 @@ export default function ProjectTrackerAdmin() {
               </div>
 
               <div className="space-y-3">
-                <h4 className="font-semibold text-gray-900 dark:text-white">Sprint Backlog</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white">Sprint Backlog</h4>
                 <div className="grid gap-3">
                   {stories.filter(s => s.status !== 'done').map(story => (
                     <GlassCard 
@@ -787,7 +787,7 @@ export default function ProjectTrackerAdmin() {
                             {story.key}
                           </Badge>
                           <div className="flex-1">
-                            <h5 className="text-sm font-medium text-gray-900 dark:text-white">{story.summary}</h5>
+                            <h5 className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">{story.summary}</h5>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">

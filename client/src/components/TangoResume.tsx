@@ -53,7 +53,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
       <Card>
         <CardContent className="p-8 text-center">
           <Star className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
             {isOwnProfile ? 'No accepted roles yet' : 'No public resume available'}
           </h3>
           <p className="text-gray-500">
@@ -72,7 +72,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
       {isOwnProfile && (
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">My Tango Resume</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">My Tango Resume</h2>
             <p className="text-gray-600">Professional experience in the tango community</p>
           </div>
           <div className="flex space-x-2">
@@ -123,7 +123,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
 
       {/* Resume Events */}
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-900">Professional Experience</h3>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Professional Experience</h3>
         
         {resume
           .sort((a: any, b: any) => new Date(b.eventStartDate).getTime() - new Date(a.eventStartDate).getTime())
@@ -144,7 +144,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                       </div>
                     </div>
                   </div>
-                  <Badge variant="secondary" className="bg-white text-[#8E142E]">
+                  <Badge variant="secondary" className="bg-white dark:bg-gray-900 text-[#8E142E]">
                     {event.roles.length} Role{event.roles.length !== 1 ? 's' : ''}
                   </Badge>
                 </div>
@@ -155,7 +155,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                   {event.roles.map((role: any, index: number) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-[#8E142E] rounded-full flex items-center justify-center">

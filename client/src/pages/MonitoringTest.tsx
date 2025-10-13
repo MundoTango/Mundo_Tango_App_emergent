@@ -122,7 +122,7 @@ export default function MonitoringTest() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Monitoring Test Page</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white mb-2">Monitoring Test Page</h1>
         <p className="text-gray-600 dark:text-gray-400">ESA Layer 48 - Performance Monitoring Agent</p>
       </div>
 
@@ -263,7 +263,7 @@ export default function MonitoringTest() {
                 const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                 
                 return (
-                  <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {displayKey}
                     </span>

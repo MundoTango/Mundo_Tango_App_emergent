@@ -252,7 +252,7 @@ export default function AdminModerationPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.pendingReports || 0}
               </div>
               <div className="text-sm text-red-600 dark:text-red-300 mt-2">
@@ -271,7 +271,7 @@ export default function AdminModerationPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.reviewingReports || 0}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-2">
@@ -290,7 +290,7 @@ export default function AdminModerationPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.resolvedToday || 0}
               </div>
               <div className="text-sm text-gray-500 mt-2">
@@ -309,7 +309,7 @@ export default function AdminModerationPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.aiDetected || 0}
               </div>
               <div className="text-sm text-purple-600 dark:text-purple-300 mt-2">
@@ -411,7 +411,7 @@ export default function AdminModerationPage() {
               reportsData?.reports?.map((report: ReportedContent) => (
                 <div
                   key={report.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                  className="border rounded-lg p-4 hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                   data-testid={`report-${report.id}`}
                 >
                   <div className="flex items-start justify-between">
@@ -452,7 +452,7 @@ export default function AdminModerationPage() {
                       </div>
 
                       {/* Content Preview */}
-                      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 mb-3">
+                      <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg p-3 mb-3">
                         <div className="flex items-start gap-2 mb-2">
                           <Badge variant="outline">{report.type}</Badge>
                           {report.aiFlags && report.aiFlags.length > 0 && (

@@ -230,7 +230,7 @@ export default function FriendsPage() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Friends</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Friends</h1>
             <p className="text-gray-600 mt-1">Connect with dancers in your community</p>
           </div>
           <Button
@@ -248,7 +248,7 @@ export default function FriendsPage() {
             <div className="flex items-center gap-3">
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{friends.length}</p>
                 <p className="text-sm text-gray-600">Total Friends</p>
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function FriendsPage() {
             <div className="flex items-center gap-3">
               <Clock className="w-8 h-8 text-blue-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
                 <p className="text-sm text-gray-600">Pending Requests</p>
@@ -268,7 +268,7 @@ export default function FriendsPage() {
             <div className="flex items-center gap-3">
               <Heart className="w-8 h-8 text-cyan-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {friends.reduce((sum: number, f: Friend) => sum + (f.mutualFriends || 0), 0)}
                 </p>
                 <p className="text-sm text-gray-600">Mutual Friends</p>
@@ -336,7 +336,7 @@ export default function FriendsPage() {
                           {request.friend_user?.name?.charAt(0) || 'U'}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-900">
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
                             {request.friend_user?.name}
                           </h4>
                           <p className="text-sm text-gray-600">@{request.friend_user?.username}</p>
@@ -345,7 +345,7 @@ export default function FriendsPage() {
                             {request.friend_user?.location}
                           </p>
                           {request.sender_notes && (
-                            <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+                            <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                               <p className="text-sm text-gray-700 italic">"{request.sender_notes}"</p>
                             </div>
                           )}
@@ -405,7 +405,7 @@ export default function FriendsPage() {
                           )}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-900">{friend.name}</h4>
+                          <h4 className="font-semibold text-gray-900 dark:text-white">{friend.name}</h4>
                           <p className="text-sm text-gray-600">@{friend.username}</p>
                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                             <MapPin className="w-3 h-3" />
@@ -457,7 +457,7 @@ export default function FriendsPage() {
         {showSendRequestModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <Card className="w-full max-w-md p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Send Friend Request</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Send Friend Request</h3>
               
               {/* Search Users */}
               <div className="mb-4">

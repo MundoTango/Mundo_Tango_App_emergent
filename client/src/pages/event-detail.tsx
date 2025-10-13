@@ -259,7 +259,7 @@ export default function EventDetailPage() {
                 </Badge>
               )}
               {event.eventType && (
-                <Badge className="bg-white/90 text-gray-800">
+                <Badge className="bg-white dark:bg-gray-900/90 text-gray-800">
                   {event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
                 </Badge>
               )}
@@ -270,7 +270,7 @@ export default function EventDetailPage() {
               <Button 
                 variant="ghost" 
                 size="sm"
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
+                className="bg-white dark:bg-gray-900/20 backdrop-blur-sm text-white hover:bg-white/30"
                 onClick={() => {
                   navigator.share({
                     title: event.title,
@@ -293,7 +293,7 @@ export default function EventDetailPage() {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
+                    className="bg-white dark:bg-gray-900/20 backdrop-blur-sm text-white hover:bg-white/30"
                     onClick={() => setShowEditDialog(true)}
                   >
                     <Edit className="h-4 w-4" />

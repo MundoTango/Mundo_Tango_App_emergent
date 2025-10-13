@@ -679,10 +679,10 @@ const AdminCenter = memo(() => {
               className="glass-card glass-depth-2 bg-gradient-to-r from-purple-500 to-pink-500 p-5 text-left group border-purple-200/30 dark:border-purple-500/30"
               data-testid="button-ttfiles-demo"
             >
-              <div className="p-3 bg-white/20 dark:bg-gray-900/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+              <div className="p-3 bg-white dark:bg-gray-900/20 dark:bg-gray-900/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Code className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-white dark:text-gray-900 mb-1">{t('common.ttfiles_demo')}</h3>
+              <h3 className="font-semibold text-white dark:text-gray-900 dark:text-white mb-1">{t('common.ttfiles_demo')}</h3>
               <p className="text-sm text-white/90">{t('common.view_trangotech_vintage_components')}</p>
             </MagneticButton>
           </StaggerContainer>
@@ -773,7 +773,7 @@ const AdminCenter = memo(() => {
           <button 
             onClick={refreshCompliance}
             disabled={complianceRefreshing}
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 dark:from-blue-500 to-purple-600 dark:to-purple-500 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-blue-600 dark:from-blue-500 to-purple-600 dark:to-purple-500 text-white dark:text-gray-900 dark:text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transform hover:-translate-y-0.5"
           >
             {complianceRefreshing ? (
               <>
@@ -812,7 +812,7 @@ const AdminCenter = memo(() => {
 
       {/* Audit History with MT Styling */}
       {auditHistory.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 mb-4">{t('common.recent_audit_history')}</h3>
           <div className="space-y-3">
             {auditHistory.slice(0, 5).map((audit, index) => (
@@ -892,7 +892,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Issues Summary with MT Styling */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 mb-4">{t('common.issues_recommendations')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 dark:from-red-900/20 to-red-100 dark:to-red-900/30 rounded-xl hover:shadow-md transition-all">
@@ -992,7 +992,7 @@ const AdminCenter = memo(() => {
           </select>
           <button 
             onClick={fetchUsers}
-            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 text-white dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 text-white dark:text-gray-900 dark:text-white dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
           >
             <RefreshCw className="w-4 h-4 inline mr-2" />
             Refresh
@@ -1044,7 +1044,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* User List Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.user_list')}</h3>
         {usersLoading ? (
           <div className="text-center py-8 text-gray-500">{t('common.loading_users')}</div>
@@ -1054,7 +1054,7 @@ const AdminCenter = memo(() => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200">
+                <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.user')}</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.email')}</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.role')}</th>
@@ -1065,14 +1065,14 @@ const AdminCenter = memo(() => {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50">
+                  <tr key={user.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:bg-gray-800">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-500 dark:to-blue-600 flex items-center justify-center text-white dark:text-gray-900 font-medium">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-500 dark:to-blue-600 flex items-center justify-center text-white dark:text-gray-900 dark:text-white font-medium">
                           {user.username?.[0]?.toUpperCase() || 'U'}
                         </div>
                         <div>
-                          <div className="font-medium text-gray-900">{user.username || 'Unknown'}</div>
+                          <div className="font-medium text-gray-900 dark:text-white">{user.username || 'Unknown'}</div>
                           <div className="text-sm text-gray-500">ID: {user.id}</div>
                         </div>
                       </div>
@@ -1133,10 +1133,10 @@ const AdminCenter = memo(() => {
 
       {/* User Details Modal */}
       {showUserModal && selectedUser && (
-        <div className="fixed inset-0 bg-black dark:bg-white bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black dark:bg-white dark:bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-bold text-gray-900">{t('common.user_details')}</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('common.user_details')}</h3>
               <button
                 onClick={() => setShowUserModal(false)}
                 className="text-gray-400 dark:text-gray-500 hover:text-gray-600"
@@ -1167,7 +1167,7 @@ const AdminCenter = memo(() => {
                 {!selectedUser.verified && (
                   <button
                     onClick={() => handleUserAction(selectedUser.id, 'verify')}
-                    className="px-4 py-2 bg-green-600 dark:bg-green-500 dark:bg-green-500 text-white dark:text-gray-900 dark:text-gray-900 rounded-lg hover:bg-green-700"
+                    className="px-4 py-2 bg-green-600 dark:bg-green-500 dark:bg-green-500 text-white dark:text-gray-900 dark:text-white dark:text-gray-900 rounded-lg hover:bg-green-700"
                   >
                     Verify User
                   </button>
@@ -1175,14 +1175,14 @@ const AdminCenter = memo(() => {
                 {!selectedUser.suspended ? (
                   <button
                     onClick={() => handleUserAction(selectedUser.id, 'suspend')}
-                    className="px-4 py-2 bg-red-600 dark:bg-red-500 text-white dark:text-gray-900 rounded-lg hover:bg-red-700"
+                    className="px-4 py-2 bg-red-600 dark:bg-red-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-red-700"
                   >
                     Suspend User
                   </button>
                 ) : (
                   <button
                     onClick={() => handleUserAction(selectedUser.id, 'unsuspend')}
-                    className="px-4 py-2 bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 rounded-lg hover:bg-green-700"
+                    className="px-4 py-2 bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-green-700"
                   >
                     Unsuspend User
                   </button>
@@ -1224,7 +1224,7 @@ const AdminCenter = memo(() => {
           </select>
           <button 
             onClick={fetchFlaggedContent}
-            className="px-4 py-2 bg-gradient-to-r from-red-600 dark:from-red-500 to-pink-600 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-red-600 dark:from-red-500 to-pink-600 text-white dark:text-gray-900 dark:text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
           >
             <RefreshCw className="w-4 h-4 inline mr-2" />
             Refresh
@@ -1276,7 +1276,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Unified Moderation Interface */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-800">{t('common.content_review_queue')}</h3>
           <div className="text-sm text-gray-500">
@@ -1290,7 +1290,7 @@ const AdminCenter = memo(() => {
         ) : (
           <div className="space-y-4">
             {flaggedContent.map((content) => (
-              <div key={content.id} className="border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
+              <div key={content.id} className="border border-gray-200 dark:border-gray-700 dark:border-gray-700 dark:border-gray-700 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
                 <div className="flex items-start justify-between w-full">
                   <div className="flex-1 mr-4">
                     <div className="flex items-center gap-3 mb-2">
@@ -1314,7 +1314,7 @@ const AdminCenter = memo(() => {
                         </span>
                       )}
                     </div>
-                    <div className="text-gray-900 dark:text-gray-50 mb-2">{content.content}</div>
+                    <div className="text-gray-900 dark:text-white dark:text-gray-50 mb-2">{content.content}</div>
                     {/* Show report reasons if available */}
                     {content.reportReason && (
                       <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-2 mb-2">
@@ -1372,7 +1372,7 @@ const AdminCenter = memo(() => {
         <>
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black dark:bg-white bg-opacity-50 z-40"
+            className="fixed inset-0 bg-black dark:bg-white dark:bg-gray-900 bg-opacity-50 z-40"
             onClick={() => setShowContentModal(false)}
           />
           
@@ -1387,7 +1387,7 @@ const AdminCenter = memo(() => {
                   <div className="p-2 bg-gradient-to-r from-turquoise-500 to-blue-500 dark:to-blue-600 rounded-lg">
                     <FileText className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">{t('common.content_review')}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('common.content_review')}</h3>
                 </div>
                 <button
                   onClick={() => setShowContentModal(false)}
@@ -1400,9 +1400,9 @@ const AdminCenter = memo(() => {
               {/* Content */}
               <div className="flex-1 overflow-y-auto p-6">
                 <div className="space-y-4">
-                  <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg p-4">
+                  <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 dark:bg-gray-800 rounded-lg p-4">
                     <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">{t('common.content')}</div>
-                    <div className="text-gray-900">{selectedContent.content}</div>
+                    <div className="text-gray-900 dark:text-white">{selectedContent.content}</div>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
@@ -1547,13 +1547,13 @@ const AdminCenter = memo(() => {
         <div className="flex gap-3">
           <button 
             onClick={fetchAnalytics}
-            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 text-white dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 text-white dark:text-gray-900 dark:text-white dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             disabled={analyticsLoading}
           >
             <RefreshCw className={`w-4 h-4 inline mr-2 ${analyticsLoading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
-          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 dark:from-blue-500 to-purple-600 dark:to-purple-500 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 dark:from-blue-500 to-purple-600 dark:to-purple-500 text-white dark:text-gray-900 dark:text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
             <TrendingUp className="w-4 h-4 inline mr-2" />
             Export Report
           </button>
@@ -1622,7 +1622,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Geographic Analytics with MT Styling */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.top_locations')}</h3>
             <div className="space-y-3">
               {analyticsData?.topLocations?.map((location: any, idx: number) => {
@@ -1735,7 +1735,7 @@ const AdminCenter = memo(() => {
             <RefreshCw className={`w-4 h-4 inline mr-2 ${eventsLoading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
-          <button className="px-4 py-2 bg-gradient-to-r from-green-600 dark:from-green-500 to-emerald-600 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+          <button className="px-4 py-2 bg-gradient-to-r from-green-600 dark:from-green-500 to-emerald-600 text-white dark:text-gray-900 dark:text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
             <Calendar className="w-4 h-4 inline mr-2" />
             Create Event
           </button>
@@ -1796,7 +1796,7 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Event Categories with MT Styling */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.event_categories')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(eventsData?.stats?.categories || {}).slice(0, 6).map(([category, count], idx) => {
@@ -1813,11 +1813,11 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Event List */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.recent_events')}</h3>
             <div className="space-y-3">
               {eventsData?.events?.slice(0, 10).map((event: any) => (
-                <div key={event.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl hover:bg-gray-100 transition-colors">
+                <div key={event.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 dark:bg-gray-800 rounded-xl hover:bg-gray-100 transition-colors">
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-800">{event.title}</h4>
                     <div className="flex gap-4 mt-1 text-sm text-gray-600">
@@ -1837,7 +1837,7 @@ const AdminCenter = memo(() => {
                     >
                       {event.is_featured ? 'Featured' : 'Feature'}
                     </button>
-                    <button className="px-3 py-1 bg-turquoise-600 text-white dark:text-gray-900 rounded-lg text-sm hover:bg-turquoise-700">
+                    <button className="px-3 py-1 bg-turquoise-600 text-white dark:text-gray-900 dark:text-white rounded-lg text-sm hover:bg-turquoise-700">
                       View
                     </button>
                   </div>
@@ -1894,7 +1894,7 @@ const AdminCenter = memo(() => {
   const renderReportsAndLogs = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900">{t('common.user_reports_moderation')}</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('common.user_reports_moderation')}</h2>
         <div className="flex gap-3">
           <select
             value={reportFilter}
@@ -1910,7 +1910,7 @@ const AdminCenter = memo(() => {
           <button 
             onClick={fetchReports}
             disabled={reportLoading}
-            className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             <Eye className="w-4 h-4 inline mr-2" />
             {reportLoading ? 'Loading...' : 'Refresh'}
@@ -1947,8 +1947,8 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Recent Reports */}
-      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-4">{t('common.user_reports')}</h3>
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-gray-50 mb-4">{t('common.user_reports')}</h3>
         {reportLoading ? (
           <div className="text-center py-8 text-gray-500">
             Loading reports...
@@ -1960,7 +1960,7 @@ const AdminCenter = memo(() => {
         ) : (
           <div className="space-y-4">
             {reports.map((report) => (
-              <div key={report.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50">
+              <div key={report.id} className="border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:bg-gray-800">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -1984,7 +1984,7 @@ const AdminCenter = memo(() => {
                         {report.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-900 dark:text-gray-50 mb-2">{report.description || 'No description provided'}</p>
+                    <p className="text-sm text-gray-900 dark:text-white dark:text-gray-50 mb-2">{report.description || 'No description provided'}</p>
                     <div className="flex items-center gap-4 text-xs text-gray-500">
                       <span>Reported by: {report.reporter_name}</span>
                       <span>•</span>
@@ -2002,19 +2002,19 @@ const AdminCenter = memo(() => {
                       <>
                         <button
                           onClick={() => updateReportStatus(report.id, 'investigating')}
-                          className="px-3 py-1 text-sm bg-yellow-600 text-white dark:text-gray-900 rounded hover:bg-yellow-700"
+                          className="px-3 py-1 text-sm bg-yellow-600 text-white dark:text-gray-900 dark:text-white rounded hover:bg-yellow-700"
                         >
                           Investigate
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'resolved')}
-                          className="px-3 py-1 text-sm bg-green-600 dark:bg-green-500 dark:bg-green-500 text-white dark:text-gray-900 dark:text-gray-900 rounded hover:bg-green-700"
+                          className="px-3 py-1 text-sm bg-green-600 dark:bg-green-500 dark:bg-green-500 text-white dark:text-gray-900 dark:text-white dark:text-gray-900 rounded hover:bg-green-700"
                         >
                           Resolve
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'dismissed')}
-                          className="px-3 py-1 text-sm bg-gray-600 dark:bg-gray-400 dark:bg-gray-400 text-white dark:text-gray-900 dark:text-gray-900 rounded hover:bg-gray-700"
+                          className="px-3 py-1 text-sm bg-gray-600 dark:bg-gray-400 dark:bg-gray-400 text-white dark:text-gray-900 dark:text-white dark:text-gray-900 rounded hover:bg-gray-700"
                         >
                           Dismiss
                         </button>
@@ -2024,13 +2024,13 @@ const AdminCenter = memo(() => {
                       <>
                         <button
                           onClick={() => updateReportStatus(report.id, 'resolved')}
-                          className="px-3 py-1 text-sm bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 rounded hover:bg-green-700"
+                          className="px-3 py-1 text-sm bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 dark:text-white rounded hover:bg-green-700"
                         >
                           Resolve
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'dismissed')}
-                          className="px-3 py-1 text-sm bg-gray-600 dark:bg-gray-400 text-white dark:text-gray-900 rounded hover:bg-gray-700"
+                          className="px-3 py-1 text-sm bg-gray-600 dark:bg-gray-400 text-white dark:text-gray-900 dark:text-white rounded hover:bg-gray-700"
                         >
                           Dismiss
                         </button>
@@ -2087,7 +2087,7 @@ const AdminCenter = memo(() => {
             <button 
               onClick={handleRefreshAll}
               disabled={systemHealthRefreshing}
-              className="px-4 py-2 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white dark:text-gray-900 dark:text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {systemHealthRefreshing ? (
                 <>
@@ -2257,7 +2257,7 @@ const AdminCenter = memo(() => {
         </div>
 
       {/* Service Status with MT Styling */}
-      <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-white/50 dark:border-gray-700/50 hover:shadow-xl transition-all">
+      <div className="bg-white dark:bg-gray-900/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-white/50 dark:border-gray-700/50 hover:shadow-xl transition-all">
         <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent mb-4">{t('common.service_status')}</h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between p-4 bg-gradient-to-br from-turquoise-50/70 to-cyan-50/70 rounded-xl backdrop-blur-sm border border-turquoise-200/50">
@@ -2458,7 +2458,7 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Reports List */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.user_reports')}</h3>
         {reportsLoading ? (
           <div className="text-center py-8 text-gray-500">{t('common.loading_reports')}</div>
@@ -2467,7 +2467,7 @@ const AdminCenter = memo(() => {
         ) : (
           <div className="space-y-4">
             {reportsData.map((report) => (
-              <div key={report.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
+              <div key={report.id} className="border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -2487,7 +2487,7 @@ const AdminCenter = memo(() => {
                         {report.status}
                       </span>
                     </div>
-                    <div className="text-gray-900 dark:text-gray-50 mb-2 font-medium">Report #{report.id}</div>
+                    <div className="text-gray-900 dark:text-white dark:text-gray-50 mb-2 font-medium">Report #{report.id}</div>
                     {report.description && (
                       <div className="text-gray-600 dark:text-gray-300 mb-2">"{report.description}"</div>
                     )}
@@ -2525,14 +2525,14 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Blocked Users Management */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.blocked_users')}</h3>
         {blockedUsers.length === 0 ? (
           <div className="text-center py-8 text-gray-500">{t('common.no_blocked_users')}</div>
         ) : (
           <div className="space-y-3">
             {blockedUsers.map((user) => (
-              <div key={user.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-xl hover:bg-gray-100 transition-colors">
+              <div key={user.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
                     <Users className="w-5 h-5 text-gray-600" />
@@ -2544,7 +2544,7 @@ const AdminCenter = memo(() => {
                 </div>
                 <button
                   onClick={() => unblockUser(user.id)}
-                  className="px-4 py-2 bg-gradient-to-r from-green-500 dark:from-green-600 to-emerald-500 text-white dark:text-gray-900 rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                  className="px-4 py-2 bg-gradient-to-r from-green-500 dark:from-green-600 to-emerald-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5"
                 >
                   Unblock User
                 </button>
@@ -2579,7 +2579,7 @@ const AdminCenter = memo(() => {
       ) : (
         <div className="grid gap-6">
           {/* General Settings */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.general_settings')}</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -2606,14 +2606,14 @@ const AdminCenter = memo(() => {
                     checked={settingsData?.settings?.maintenance_mode || false}
                     onChange={(e) => updateSetting('maintenance_mode', e.target.checked)}
                   />
-                  <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-purple-500"></div>
+                  <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-purple-500"></div>
                 </label>
               </div>
             </div>
           </div>
 
           {/* Registration Settings */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.registration_settings')}</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -2628,14 +2628,14 @@ const AdminCenter = memo(() => {
                     checked={settingsData?.settings?.registration_enabled || false}
                     onChange={(e) => updateSetting('registration_enabled', e.target.checked)}
                   />
-                  <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-500"></div>
+                  <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-500"></div>
                 </label>
               </div>
             </div>
           </div>
 
           {/* Feature Flags */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.feature_flags')}</h3>
             <div className="space-y-4">
               {settingsData?.featureFlags?.map((flag: any) => (
@@ -2651,7 +2651,7 @@ const AdminCenter = memo(() => {
                       checked={flag.enabled}
                       onChange={() => toggleFeatureFlag(flag.name, flag.enabled)}
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-turquoise-500 peer-checked:to-blue-500"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-turquoise-500 peer-checked:to-blue-500"></div>
                   </label>
                 </div>
               ))}
@@ -2663,7 +2663,7 @@ const AdminCenter = memo(() => {
             <button 
               onClick={saveSettings}
               disabled={settingsSaving}
-              className="px-6 py-3 bg-gradient-to-r from-green-600 dark:from-green-500 to-emerald-600 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-gradient-to-r from-green-600 dark:from-green-500 to-emerald-600 text-white dark:text-gray-900 dark:text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {settingsSaving ? 'Saving...' : 'Save Settings'}
             </button>
@@ -2676,10 +2676,10 @@ const AdminCenter = memo(() => {
   const renderRbacManager = () => (
     <div className="space-y-6">
       {/* RBAC/ABAC Header */}
-      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50 flex items-center gap-3">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white dark:text-gray-50 flex items-center gap-3">
               <Lock className="w-6 h-6 text-blue-600" />
               Automated RBAC/ABAC Management System
             </h2>
@@ -2689,21 +2689,21 @@ const AdminCenter = memo(() => {
             <button
               onClick={fetchRbacAnalytics}
               disabled={rbacLoading}
-              className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+              className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
             >
               <Database className="w-4 h-4" />
               {rbacLoading ? 'Loading...' : 'Refresh Analytics'}
             </button>
             <button
               onClick={triggerAutoAssignment}
-              className="px-4 py-2 bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 rounded-lg hover:bg-green-700 flex items-center gap-2"
+              className="px-4 py-2 bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
             >
               <Zap className="w-4 h-4" />
               Auto-Assign Roles
             </button>
             <button
               onClick={runComplianceAudit}
-              className="px-4 py-2 bg-purple-600 dark:bg-purple-500 text-white dark:text-gray-900 rounded-lg hover:bg-purple-700 flex items-center gap-2"
+              className="px-4 py-2 bg-purple-600 dark:bg-purple-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
             >
               <Shield className="w-4 h-4" />
               Run Audit
@@ -2716,16 +2716,16 @@ const AdminCenter = memo(() => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Role Distribution */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
               <Users className="w-5 h-5 text-blue-600" />
               Role Distribution & Assignment
             </h3>
             {rbacData?.roleDistribution ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {Object.entries(rbacData.roleDistribution).map(([role, count]) => (
-                  <div key={role} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-gray-900">{count as number}</div>
+                  <div key={role} className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white">{count as number}</div>
                     <div className="text-sm text-gray-600 dark:text-gray-300 capitalize">{role.replace('_', ' ')}</div>
                   </div>
                 ))}
@@ -2738,8 +2738,8 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Permission Testing Tool */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
               <Shield className="w-5 h-5 text-green-600" />
               Permission Testing & Validation
             </h3>
@@ -2788,7 +2788,7 @@ const AdminCenter = memo(() => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">{t('common.test')}</label>
                 <button
                   onClick={testPermission}
-                  className="w-full px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                  className="w-full px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                   disabled={!selectedUserId || !permissionTest.resource || !permissionTest.action}
                 >
                   Test Permission
@@ -2829,8 +2829,8 @@ const AdminCenter = memo(() => {
 
         <div className="space-y-6">
           {/* System Performance */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Activity className="w-5 h-5 text-purple-600" />
               Performance Metrics
             </h3>
@@ -2863,17 +2863,17 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* Security Events */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-yellow-600" />
               Security Events
             </h3>
             {rbacData?.securityEvents ? (
               <div className="space-y-3">
                 {rbacData.securityEvents.slice(0, 5).map((event: any, idx: number) => (
-                  <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">{event.type}</div>
+                      <div className="text-sm font-medium text-gray-900 dark:text-white">{event.type}</div>
                       <div className="text-xs text-gray-500">{event.timestamp}</div>
                     </div>
                     <div className={`px-2 py-1 rounded text-xs ${
@@ -2896,8 +2896,8 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Automated Assignment Rules */}
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+      <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
           <Zap className="w-5 h-5 text-yellow-600" />
           Automated Assignment Rules
         </h3>
@@ -2982,32 +2982,32 @@ const AdminCenter = memo(() => {
                   {/* Mobile Menu Toggle */}
                   <button
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    className="lg:hidden p-2 rounded-lg hover:bg-white/20 transition-colors min-h-[44px] min-w-[44px]"
+                    className="lg:hidden p-2 rounded-lg hover:bg-white dark:bg-gray-900/20 transition-colors min-h-[44px] min-w-[44px]"
                   >
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                   </button>
                   
-                  <div className="p-2 sm:p-3 bg-white/20 dark:bg-gray-900/20 backdrop-blur-sm rounded-xl sm:rounded-2xl">
+                  <div className="p-2 sm:p-3 bg-white dark:bg-gray-900/20 dark:bg-gray-900/20 backdrop-blur-sm rounded-xl sm:rounded-2xl">
                     <Shield className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                   </div>
                   <div className="flex-1">
                     <h1 className="text-lg sm:text-xl md:text-3xl font-bold text-white">{t('common.admin_center')}</h1>
-                    <p className="text-xs sm:text-sm text-white/80 dark:text-gray-900/80 hidden sm:block">{t('common.mundo_tango_platform')}</p>
+                    <p className="text-xs sm:text-sm text-white/80 dark:text-gray-900 dark:text-white/80 hidden sm:block">{t('common.mundo_tango_platform')}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3 justify-end w-full sm:w-auto">
                   {/* Mobile-Optimized Back Button */}
                   <button 
                     onClick={() => window.location.href = '/memories'}
-                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
+                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
                   >
                     <ArrowLeft className="w-4 h-4 text-gray-700 dark:text-gray-200 group-hover:text-turquoise-600 transition-colors" />
                     <span className="text-gray-700 dark:text-gray-200 font-medium text-sm sm:text-base">{t('common.back')}</span>
                   </button>
                   
-                  <div className="px-3 sm:px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-400 text-white dark:text-gray-900 rounded-full text-xs sm:text-sm font-medium shadow-lg hidden sm:flex">
+                  <div className="px-3 sm:px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-400 text-white dark:text-gray-900 dark:text-white rounded-full text-xs sm:text-sm font-medium shadow-lg hidden sm:flex">
                     System Healthy
                   </div>
                 </div>
@@ -3016,11 +3016,11 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* ESA Platform Audit - Enhanced Categorized Navigation */}
-          <div className="glassmorphic-card backdrop-blur-md bg-white/95 dark:bg-gray-900/95 shadow-xl" data-testid="admin-nav">
+          <div className="glassmorphic-card backdrop-blur-md bg-white dark:bg-gray-900/95 dark:bg-gray-900/95 shadow-xl" data-testid="admin-nav">
             <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
               <div className="py-4 space-y-3">
                 {tabCategories.map((category, idx) => (
-                  <div key={idx} className="border-b border-gray-200 dark:border-gray-700 pb-3 last:border-0">
+                  <div key={idx} className="border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 pb-3 last:border-0">
                     <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
                       {category.name}
                     </h3>
@@ -3068,7 +3068,7 @@ const AdminCenter = memo(() => {
           <div className="flex-1 bg-gradient-to-br from-turquoise-50/30 via-cyan-50/30 to-blue-50/30 overflow-hidden">
             <div className="h-full overflow-y-auto">
               <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
-                <div className="glassmorphic-card backdrop-blur-xl bg-white/90 dark:bg-gray-900/90 rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 border border-turquoise-100/50">
+                <div className="glassmorphic-card backdrop-blur-xl bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 border border-turquoise-100/50">
                   {renderContent()}
                 </div>
               </div>

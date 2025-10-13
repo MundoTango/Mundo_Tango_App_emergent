@@ -164,7 +164,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           Select dates when your property is available. You can update this anytime.
         </p>
         
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-3">
             <CalendarIcon className="w-4 h-4 text-gray-600" />
             <span className="text-sm font-medium">Availability options</span>

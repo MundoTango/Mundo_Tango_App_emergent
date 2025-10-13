@@ -57,7 +57,7 @@ export default function RecommendationBadge({
           {/* Price Level */}
           {priceLevel && (
             <div 
-              className="px-2 py-1 rounded-md bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm font-semibold border border-slate-200 dark:border-slate-700"
+              className="px-2 py-1 rounded-md bg-white dark:bg-gray-900/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm font-semibold border border-slate-200 dark:border-slate-700"
               data-testid={`badge-price-${priceLevel}`}
             >
               {priceLevel}

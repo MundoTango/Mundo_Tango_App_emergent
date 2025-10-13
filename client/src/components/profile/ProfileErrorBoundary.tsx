@@ -86,13 +86,13 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
       // Default error UI with recovery options
       return (
         <div className="min-h-screen flex items-center justify-center p-4">
-          <div className="max-w-md w-full bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-lg p-8">
+          <div className="max-w-md w-full bg-white dark:bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-lg p-8">
             <div className="flex flex-col items-center text-center">
               <div className="w-20 h-20 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-6">
                 <AlertCircle className="w-10 h-10 text-red-600 dark:text-red-400" />
               </div>
               
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white mb-2">
                 Oops! Something went wrong
               </h2>
               

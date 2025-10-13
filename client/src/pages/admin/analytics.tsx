@@ -200,7 +200,7 @@ export default function AdminAnalyticsPage() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-gray-900">{value}</div>
+        <div className="text-2xl font-bold text-gray-900 dark:text-white">{value}</div>
         {change !== undefined && (
           <div className="flex items-center mt-2 text-sm">
             {change > 0 ? (

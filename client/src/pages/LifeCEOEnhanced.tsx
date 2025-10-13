@@ -466,7 +466,7 @@ export default function LifeCEOEnhanced() {
   }
 
   return (
-    <main role="main" aria-label={t('lifeceo.aria.main', 'Life CEO AI Assistant')} className="flex h-screen bg-gray-50" data-testid="page-lifeceo">
+    <main role="main" aria-label={t('lifeceo.aria.main', 'Life CEO AI Assistant')} className="flex h-screen bg-gray-50 dark:bg-gray-800" data-testid="page-lifeceo">
       {/* Sidebar */}
       <aside 
         role="complementary"
@@ -569,7 +569,7 @@ export default function LifeCEOEnhanced() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="bg-white border-b border-gray-200 p-4">
+        <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Button
@@ -675,7 +675,7 @@ export default function LifeCEOEnhanced() {
         </div>
 
         {/* Input Area */}
-        <div className="bg-white border-t border-gray-200 p-4">
+        <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4">
           <div className="flex items-center gap-4">
             <Button
               onClick={toggleRecording}
@@ -731,7 +731,7 @@ export default function LifeCEOEnhanced() {
         </div>
 
         {/* Agent Status Bar */}
-        <div className="bg-gray-100 border-t border-gray-200 p-2">
+        <div className="bg-gray-100 border-t border-gray-200 dark:border-gray-700 p-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               {activeAgents.slice(0, 3).map(agent => (
@@ -779,7 +779,7 @@ export default function LifeCEOEnhanced() {
                     onClick={() => setShowAgentSwitcher(false)}
                     variant="ghost"
                     size="icon"
-                    className="text-white hover:bg-white/20 rounded-full"
+                    className="text-white hover:bg-white dark:bg-gray-900/20 rounded-full"
                     aria-label={t('lifeceo.aria.close_agent_switcher', 'Close agent selection')}
                   >
                     <X className="h-5 w-5" />
@@ -877,7 +877,7 @@ export default function LifeCEOEnhanced() {
               </div>
               
               {/* Footer Info */}
-              <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+              <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-center text-sm text-gray-600">
                   <span className="inline-flex items-center gap-1">
                     <Brain className="h-4 w-4 text-turquoise-500" />

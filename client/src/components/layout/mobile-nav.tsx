@@ -21,7 +21,7 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
   
   // LAYER 47 - Ensure 44x44px min tap targets for accessibility
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 z-40 shadow-2xl">
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t-2 border-gray-200 dark:border-gray-700 z-40 shadow-2xl">
       <div className="grid grid-cols-5 gap-1">
         <Link href="/memories">
           <Button 

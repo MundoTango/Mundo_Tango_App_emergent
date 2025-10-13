@@ -190,7 +190,7 @@ export const EventTypesManager: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">{t('common.event_types_management')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('common.event_types_management')}</h2>
           <p className="text-gray-600 dark:text-gray-300 mt-1">
             Manage event types for your platform. Super admin can create, edit, and deactivate event types.
           </p>
@@ -208,7 +208,7 @@ export const EventTypesManager: React.FC = () => {
           {!isCreating && (
             <button
               onClick={() => setIsCreating(true)}
-              className="px-4 py-2 bg-indigo-600 text-white dark:text-gray-900 rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+              className="px-4 py-2 bg-indigo-600 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
               Add Event Type
@@ -219,7 +219,7 @@ export const EventTypesManager: React.FC = () => {
 
       {/* Create Form */}
       {isCreating && (
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 border-2 border-indigo-500">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-lg shadow-md p-6 border-2 border-indigo-500">
           <h3 className="text-lg font-semibold mb-4">{t('common.create_new_event_type')}</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -296,7 +296,7 @@ export const EventTypesManager: React.FC = () => {
             <button
               onClick={handleCreate}
               disabled={!formData.name || createMutation.isPending}
-              className="px-4 py-2 bg-indigo-600 text-white dark:text-gray-900 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-4 py-2 bg-indigo-600 text-white dark:text-gray-900 dark:text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               <Save className="h-4 w-4" />
               Create
@@ -306,9 +306,9 @@ export const EventTypesManager: React.FC = () => {
       )}
 
       {/* Event Types List */}
-      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-lg shadow-md overflow-hidden">
         <table className="min-w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 dark:bg-gray-800">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider">
                 Order
@@ -330,7 +330,7 @@ export const EventTypesManager: React.FC = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-gray-900 dark:bg-gray-900 divide-y divide-gray-200">
             {eventTypes.map((eventType: EventType) => (
               <tr key={eventType.id} className={!eventType.is_active ? 'opacity-50' : ''}>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -414,7 +414,7 @@ export const EventTypesManager: React.FC = () => {
                       </button>
                       <button
                         onClick={handleCancelEdit}
-                        className="text-gray-600 dark:text-gray-300 hover:text-gray-900"
+                        className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white"
                       >
                         <X className="h-4 w-4" />
                       </button>

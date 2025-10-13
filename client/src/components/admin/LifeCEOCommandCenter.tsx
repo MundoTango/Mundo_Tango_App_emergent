@@ -97,7 +97,7 @@ const LifeCEOCommandCenter: React.FC = () => {
     <div className="space-y-6">
       {/* 44x21 Framework Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
           Life CEO 44x21 Framework
         </h2>
         <p className="text-gray-600 dark:text-gray-300 mt-2">{t('common.44_technical_layers_21_development_phases')}</p>
@@ -113,7 +113,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {stats.agentStatus}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 mt-1">{t('common.agent_status')}</p>
@@ -128,7 +128,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {stats.learningsToday}
             </p>
             <p className="text-sm text-gray-600 mt-1">{t('common.new_learnings')}</p>
@@ -143,7 +143,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {stats.frameworkLayers}
             </p>
             <p className="text-sm text-gray-600 mt-1">{t('common.technical_layers')}</p>
@@ -158,7 +158,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {stats.developmentPhases}
             </p>
             <p className="text-sm text-gray-600 mt-1">{t('common.dev_phases')}</p>
@@ -173,7 +173,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {stats.activeProjects}
             </p>
             <p className="text-sm text-gray-600 mt-1">{t('common.active_projects')}</p>
@@ -188,7 +188,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {stats.performanceScore}
             </p>
             <p className="text-sm text-gray-600 mt-1">{t('common.performance')}</p>
@@ -199,14 +199,14 @@ const LifeCEOCommandCenter: React.FC = () => {
       {/* Quick Actions */}
       <Card className="glassmorphic-card">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-900">
+          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
             Quick Actions
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Button 
-              className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white dark:text-gray-900 hover:from-turquoise-600 hover:to-cyan-600"
+              className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white dark:text-gray-900 dark:text-white hover:from-turquoise-600 hover:to-cyan-600"
               onClick={() => setActiveTab('agent')}
             >
               <Bot className="w-4 h-4 mr-2" />
@@ -244,7 +244,7 @@ const LifeCEOCommandCenter: React.FC = () => {
         <Card className="glassmorphic-card">
           <CardHeader>
             <div className="flex justify-between items-center">
-              <CardTitle className="text-lg font-semibold text-gray-900">
+              <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
                 Recent Agent Activity
               </CardTitle>
               <Button
@@ -310,7 +310,7 @@ const LifeCEOCommandCenter: React.FC = () => {
 
         <Card className="glassmorphic-card">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-900">
+            <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
               Framework Overview
             </CardTitle>
           </CardHeader>
@@ -344,7 +344,7 @@ const LifeCEOCommandCenter: React.FC = () => {
       {/* System Overview */}
       <Card className="glassmorphic-card">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-900">
+          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
             Life CEO System Overview
           </CardTitle>
           <CardDescription>
@@ -377,7 +377,7 @@ const LifeCEOCommandCenter: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-gray-50 mb-2">
           Life CEO Command Center
         </h2>
         <p className="text-gray-600">
@@ -386,7 +386,7 @@ const LifeCEOCommandCenter: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="flex flex-wrap gap-2 bg-white/50 dark:bg-gray-900/50 p-2 justify-start">
+        <TabsList className="flex flex-wrap gap-2 bg-white dark:bg-gray-900/50 dark:bg-gray-900/50 p-2 justify-start">
           <TabsTrigger 
             value="dashboard" 
             className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
@@ -400,7 +400,7 @@ const LifeCEOCommandCenter: React.FC = () => {
           >
             <Brain className="w-4 h-4 mr-2" />
             Learnings
-            <Badge className="absolute -top-2 -right-2 bg-green-500 dark:bg-green-600 text-white dark:text-gray-900 text-xs px-1">{t('common.live')}</Badge>
+            <Badge className="absolute -top-2 -right-2 bg-green-500 dark:bg-green-600 text-white dark:text-gray-900 dark:text-white text-xs px-1">{t('common.live')}</Badge>
           </TabsTrigger>
           <TabsTrigger 
             value="agent"
@@ -429,7 +429,7 @@ const LifeCEOCommandCenter: React.FC = () => {
           >
             <GitBranch className="w-4 h-4 mr-2" />
             JIRA Export
-            <Badge className="absolute -top-2 -right-2 bg-purple-500 dark:bg-purple-600 text-white dark:text-gray-900 text-xs px-1">{t('common.44x21')}</Badge>
+            <Badge className="absolute -top-2 -right-2 bg-purple-500 dark:bg-purple-600 text-white dark:text-gray-900 dark:text-white text-xs px-1">{t('common.44x21')}</Badge>
           </TabsTrigger>
         </TabsList>
 

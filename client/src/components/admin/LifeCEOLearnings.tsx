@@ -122,7 +122,7 @@ export function LifeCEOLearnings() {
         </CardHeader>
         <CardContent className="space-y-4">
           {learnings?.learnings.map((learning, index) => (
-            <div key={index} className="p-4 rounded-lg bg-white/70 border border-turquoise-200/50 hover:shadow-md transition-shadow">
+            <div key={index} className="p-4 rounded-lg bg-white dark:bg-gray-900/70 border border-turquoise-200/50 hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="font-semibold text-gray-800 flex items-center gap-2">
                   <Lightbulb className="w-4 h-4 text-yellow-500" />
@@ -159,7 +159,7 @@ export function LifeCEOLearnings() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {learnings?.improvements.applied.map((improvement, index) => (
-              <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-white/70 border border-cyan-200/50">
+              <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-white dark:bg-gray-900/70 border border-cyan-200/50">
                 <Target className="w-4 h-4 text-green-500 mt-0.5" />
                 <span className="text-sm text-gray-700">{improvement}</span>
               </div>
@@ -201,7 +201,7 @@ export function LifeCEOLearnings() {
           </CardHeader>
           <CardContent className="space-y-3">
             {learnings.improvements.agentInsights.map((insight, index) => (
-              <div key={index} className="p-3 rounded-lg bg-white/70 border border-purple-200/50">
+              <div key={index} className="p-3 rounded-lg bg-white dark:bg-gray-900/70 border border-purple-200/50">
                 <div className="flex items-center justify-between mb-1">
                   <Badge className="bg-purple-100 text-purple-700 capitalize">
                     {insight.agentId.replace('-', ' ')}

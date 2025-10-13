@@ -222,7 +222,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
       >
         {/* Header */}
         {showHeader && (title || showCloseButton) && (
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700">
             <div className="flex-1">
               {title && (
                 <h2 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">

@@ -161,13 +161,13 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
       {/* Consent Banner - Disabled - users manage privacy in settings */}
       {false && showConsentBanner && !hasConsent && (
         <div className="fixed bottom-4 right-4 left-4 md:left-auto md:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-500" data-testid="consent-banner">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-800 p-4">
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
                 <Shield className="w-5 h-5 text-teal-500" />
               </div>
               <div className="flex-1 space-y-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white">
                   Help us improve your experience
                 </h4>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
@@ -209,9 +209,9 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
       {showPrivacySettings && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="privacy-modal">
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPrivacySettings(false)} />
-          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4">
+          <div className="relative bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy Settings</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white">Privacy Settings</h3>
               <button
                 onClick={() => setShowPrivacySettings(false)}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
@@ -221,11 +221,11 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
                 <div className="flex items-center space-x-3">
                   <BarChart className="w-5 h-5 text-teal-500" />
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Analytics (PostHog)</p>
+                    <p className="font-medium text-gray-900 dark:text-white dark:text-white">Analytics (PostHog)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Product usage and feature adoption</p>
                   </div>
                 </div>
@@ -234,11 +234,11 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
                 <div className="flex items-center space-x-3">
                   <Eye className="w-5 h-5 text-teal-500" />
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Session Recording (OpenReplay)</p>
+                    <p className="font-medium text-gray-900 dark:text-white dark:text-white">Session Recording (OpenReplay)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Help us identify UX issues</p>
                   </div>
                 </div>
@@ -247,11 +247,11 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
                 <div className="flex items-center space-x-3">
                   <Shield className="w-5 h-5 text-teal-500" />
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Error Tracking (Sentry)</p>
+                    <p className="font-medium text-gray-900 dark:text-white dark:text-white">Error Tracking (Sentry)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Automatic error reporting</p>
                   </div>
                 </div>

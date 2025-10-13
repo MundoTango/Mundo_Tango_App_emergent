@@ -54,7 +54,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
       {/* Guest capacity */}
       <div>
         <Label className="text-lg font-medium mb-4 block">How many guests can you accommodate?</Label>
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
           <div className="flex items-center justify-between">
             <span className="font-medium">Maximum guests</span>
             <div className="flex items-center gap-3">
@@ -86,7 +86,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             { field: 'bedrooms', label: 'Bedrooms', min: 0, max: 50 },
             { field: 'beds', label: 'Beds', min: 1, max: 50 },
           ].map((item) => (
-            <div key={item.field} className="bg-gray-50 p-4 rounded-lg">
+            <div key={item.field} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{item.label}</span>
                 <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
           ))}
 
           {/* Bathrooms with decimal support */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
             <div className="flex items-center justify-between">
               <span className="font-medium">Bathrooms</span>
               <div className="flex items-center gap-3">

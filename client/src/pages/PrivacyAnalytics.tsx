@@ -315,7 +315,7 @@ export default function PrivacyAnalytics() {
             <Shield className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Privacy & Analytics</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">Privacy & Analytics</h1>
             <p className="text-gray-600 dark:text-gray-400">Manage your privacy settings and data collection preferences</p>
           </div>
         </div>
@@ -624,7 +624,7 @@ export default function PrivacyAnalytics() {
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 For privacy-related inquiries or to exercise your rights, contact our Data Protection Officer:
               </p>
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg">
                 <p className="font-medium">Data Protection Officer</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">privacy@mundotango.app</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Response time: Within 30 days</p>

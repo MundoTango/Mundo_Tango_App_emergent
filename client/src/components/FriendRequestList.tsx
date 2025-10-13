@@ -182,7 +182,7 @@ export function FriendRequestList() {
                   )}
 
                   {request.senderMessage && (
-                    <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50">
+                    <div className="bg-white dark:bg-gray-900/50 p-3 rounded-lg border border-gray-200 dark:border-gray-700/50">
                       <p className="text-sm flex items-start gap-2">
                         <MessageSquare className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                         <span>{request.senderMessage}</span>

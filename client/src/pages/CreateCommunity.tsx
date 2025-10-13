@@ -132,7 +132,7 @@ export default function CreateCommunity() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Basic Information</h3>
                 
                 <div>
                   <Label htmlFor="name">Community Name *</Label>
@@ -184,7 +184,7 @@ export default function CreateCommunity() {
               {/* Location (for city groups) */}
               {formData.type === 'city' && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Location</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -214,7 +214,7 @@ export default function CreateCommunity() {
 
               {/* Categories */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Event Categories</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Event Categories</h3>
                 <p className="text-sm text-gray-600">Select the types of events your community will host</p>
                 
                 <div className="grid grid-cols-3 gap-3">
@@ -237,7 +237,7 @@ export default function CreateCommunity() {
 
               {/* Privacy Settings */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Privacy Settings</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy Settings</h3>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -275,7 +275,7 @@ export default function CreateCommunity() {
 
               {/* Community Rules */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Community Rules (Optional)</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Community Rules (Optional)</h3>
                 <Textarea
                   value={formData.rules}
                   onChange={(e) => setFormData({ ...formData, rules: e.target.value })}

@@ -437,19 +437,19 @@ const MobileAppDashboard: React.FC = () => {
                 <div>
                   <h4 className="font-medium mb-3">Cached Content</h4>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Profile Data</span>
                       <Badge variant="secondary">Synced</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Recent Posts</span>
                       <Badge variant="secondary">50 items</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Event Details</span>
                       <Badge variant="secondary">12 events</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Images</span>
                       <Badge variant="secondary">234 files</Badge>
                     </div>

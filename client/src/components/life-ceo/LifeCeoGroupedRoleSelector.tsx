@@ -290,7 +290,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 <Badge
                   key={agentId}
                   variant="secondary"
-                  className="bg-white hover:bg-gray-50 cursor-pointer"
+                  className="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:bg-gray-800 cursor-pointer"
                   onClick={() => handleAgentToggle(agentId)}
                 >
                   {agent.emoji} {agent.label}

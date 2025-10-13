@@ -151,7 +151,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         }}
       >
         <div 
-          className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           style={{
             pointerEvents: 'auto',
             position: 'relative'
@@ -160,13 +160,13 @@ export const ReportModal: React.FC<ReportModalProps> = ({
           data-testid={`modal-report-${postId}`}
         >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
               <Flag className="h-5 w-5 text-red-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Report Post</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Report Post</h2>
               <p className="text-sm text-gray-600">Help us understand what's wrong</p>
             </div>
           </div>
@@ -183,7 +183,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         <div className="p-6">
           {/* Report Categories */}
           <div className="space-y-3 mb-6">
-            <h3 className="font-semibold text-gray-900 mb-4">What's wrong with this post?</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-4">What's wrong with this post?</h3>
             {REPORT_CATEGORIES.map((category) => (
               <button
                 key={category.id}
@@ -201,7 +201,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   {category.icon}
                 </div>
                 <div className="flex-1">
-                  <div className="font-medium text-gray-900">{category.label}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{category.label}</div>
                   <div className="text-sm text-gray-600">{category.description}</div>
                 </div>
                 <div className={`
@@ -212,7 +212,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   }
                 `}>
                   {selectedReason === category.id && (
-                    <div className="w-full h-full rounded-full bg-white scale-50"></div>
+                    <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 scale-50"></div>
                   )}
                 </div>
               </button>
@@ -222,7 +222,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
           {/* Additional Description */}
           {selectedReason && (
             <div className="space-y-3">
-              <h4 className="font-medium text-gray-900">Additional details (optional)</h4>
+              <h4 className="font-medium text-gray-900 dark:text-white">Additional details (optional)</h4>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -240,14 +240,14 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50">
+        <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
           <p className="text-sm text-gray-600">
             Reports are reviewed by our moderation team
           </p>
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="px-6 py-2.5 text-gray-700 hover:text-gray-900 font-medium transition-colors"
+              className="px-6 py-2.5 text-gray-700 hover:text-gray-900 dark:text-white font-medium transition-colors"
             >
               Cancel
             </button>

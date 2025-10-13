@@ -222,7 +222,7 @@ const Subscribe: React.FC = () => {
                   
                   {/* Not Included Features */}
                   {tier.notIncluded.length > 0 && (
-                    <div className="space-y-2 pt-4 border-t border-gray-200">
+                    <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                       {tier.notIncluded.map((feature, index) => (
                         <div key={index} className="flex items-start gap-2">
                           <X className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />

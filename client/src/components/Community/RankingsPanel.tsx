@@ -57,7 +57,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
     <div className={cn("flex flex-col h-full", className)}>
       {/* Header with Toggle */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-cyan-500" />
           Rankings
         </h3>

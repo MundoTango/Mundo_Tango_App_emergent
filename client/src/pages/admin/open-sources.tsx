@@ -174,7 +174,7 @@ export default function OpenSourcesPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Total Open Sources</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{status?.totalChecked || 0}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white mt-1">{status?.totalChecked || 0}</p>
             </div>
             <div className="p-3 bg-gradient-to-br from-turquoise-500/10 to-ocean-600/10 dark:from-turquoise-900/20 dark:to-ocean-900/20 rounded-xl">
               <Package className="h-6 w-6 text-turquoise-600 dark:text-turquoise-400" />
@@ -222,14 +222,14 @@ export default function OpenSourcesPage() {
       
       {/* Open Source Grid */}
       <GlassCard className="glassmorphic-card backdrop-blur-xl p-6 mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white mb-4">
           Open Source Inventory ({status?.openSources?.length || 0})
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {(inventory.length > 0 ? inventory : status?.openSources || []).map((os) => (
             <div 
               key={os.name}
-              className="p-4 bg-gradient-to-br from-white/50 to-gray-50/50 dark:from-gray-800/50 dark:to-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-turquoise-500 dark:hover:border-turquoise-400 transition-all cursor-pointer"
+              className="p-4 bg-gradient-to-br from-white/50 to-gray-50/50 dark:from-gray-800/50 dark:to-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-turquoise-500 dark:hover:border-turquoise-400 transition-all cursor-pointer"
               data-testid={`opensource-card-${os.name.toLowerCase().replace(/\s/g, '-')}`}
             >
               {/* Status Indicator */}
@@ -243,7 +243,7 @@ export default function OpenSourcesPage() {
               </div>
               
               {/* Name & Layer */}
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+              <h3 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-1">
                 {os.name}
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
@@ -267,7 +267,7 @@ export default function OpenSourcesPage() {
               )}
               
               {/* Responsible Agent */}
-              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                 <span className="text-xs text-gray-600 dark:text-gray-400">
                   {os.responsibleAgent}
                 </span>
@@ -285,7 +285,7 @@ export default function OpenSourcesPage() {
       {/* Training Queue */}
       <GlassCard className="glassmorphic-card backdrop-blur-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white">
             Agent Training Queue
           </h2>
           <span className="text-sm px-3 py-1 bg-gradient-to-r from-turquoise-500/10 to-ocean-600/10 dark:from-turquoise-900/20 dark:to-ocean-900/20 text-turquoise-700 dark:text-turquoise-400 rounded-full">
@@ -297,13 +297,13 @@ export default function OpenSourcesPage() {
           {trainingQueue.map((training) => (
             <div 
               key={training.id}
-              className="p-4 bg-gradient-to-r from-white/50 to-gray-50/50 dark:from-gray-800/50 dark:to-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700"
+              className="p-4 bg-gradient-to-r from-white/50 to-gray-50/50 dark:from-gray-800/50 dark:to-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700"
               data-testid={`training-${training.storyKey}`}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="font-medium text-gray-900 dark:text-white">
+                    <span className="font-medium text-gray-900 dark:text-white dark:text-white">
                       Agent #{training.agentNumber}
                     </span>
                     <span className="text-sm text-gray-600 dark:text-gray-400">→</span>
@@ -343,7 +343,7 @@ export default function OpenSourcesPage() {
       {/* CEO Approval Queue */}
       <GlassCard className="glassmorphic-card backdrop-blur-xl p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white">
             CEO Approval Queue
           </h2>
           <span className="text-sm px-3 py-1 bg-gradient-to-r from-orange-500/10 to-red-600/10 dark:from-orange-900/20 dark:to-red-900/20 text-orange-700 dark:text-orange-400 rounded-full">
@@ -361,7 +361,7 @@ export default function OpenSourcesPage() {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    <span className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">
                       {consolidation.duplicates.join(' vs ')}
                     </span>
                   </div>
@@ -386,7 +386,7 @@ export default function OpenSourcesPage() {
                 </div>
               </div>
               
-              <div className="flex gap-2 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex gap-2 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                 <button 
                   className="flex-1 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg text-sm transition-all disabled:opacity-50" 
                   data-testid={`button-approve-${consolidation.id}`}

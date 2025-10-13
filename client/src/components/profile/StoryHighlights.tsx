@@ -110,7 +110,7 @@ export default function StoryHighlights({
           >
             <div className="relative">
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-turquoise-400 to-cyan-600 p-[3px] group-hover:from-turquoise-500 group-hover:to-cyan-700 transition-all">
-                <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-900">
                   {highlight.coverImage ? (
                     <img 
                       src={highlight.coverImage} 

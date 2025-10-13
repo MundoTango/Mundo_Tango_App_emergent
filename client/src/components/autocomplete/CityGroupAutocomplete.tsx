@@ -140,7 +140,7 @@ export default function CityGroupAutocomplete({
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-turquoise-600" />
-                <span className="font-medium text-gray-900 dark:text-gray-100">{value.name}</span>
+                <span className="font-medium text-gray-900 dark:text-white dark:text-gray-100">{value.name}</span>
               </div>
               {value.memberCount !== undefined && (
                 <div className="flex items-center gap-1 mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -184,7 +184,7 @@ export default function CityGroupAutocomplete({
                       <div className="flex items-start gap-3">
                         <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5" />
                         <div>
-                          <div className="font-medium text-gray-900 dark:text-gray-100">
+                          <div className="font-medium text-gray-900 dark:text-white dark:text-gray-100">
                             {city}
                           </div>
                           {country && (

@@ -222,7 +222,7 @@ export default function StoryDetail() {
               </>
             )}
             <ChevronRight className="h-4 w-4" />
-            <span className="text-gray-900 dark:text-white font-medium">{story.key}</span>
+            <span className="text-gray-900 dark:text-white dark:text-white font-medium">{story.key}</span>
           </div>
           <Button onClick={() => navigate(story.epicId ? `/admin/projects/epic/${story.epicId}` : '/admin/projects')} variant="outline" size="sm" data-testid="button-back">
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -252,7 +252,7 @@ export default function StoryDetail() {
                   </Badge>
                 )}
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-3" data-testid="text-story-summary">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white mb-3" data-testid="text-story-summary">
                 {story.summary}
               </h1>
               {story.description && (
@@ -265,7 +265,7 @@ export default function StoryDetail() {
             {/* Tasks Section */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white flex items-center gap-2">
                   <CheckSquare className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
                   Tasks
                 </h2>
@@ -310,7 +310,7 @@ export default function StoryDetail() {
                         />
                         
                         <div className="space-y-3">
-                          <label className="text-sm font-medium text-gray-900 dark:text-white">Assign Agent</label>
+                          <label className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">Assign Agent</label>
                           <AgentSelector
                             value={selectedAgent}
                             onChange={setSelectedAgent}
@@ -379,7 +379,7 @@ export default function StoryDetail() {
                             </Badge>
                           )}
                         </div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white" data-testid={`text-task-title-${task.id}`}>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white" data-testid={`text-task-title-${task.id}`}>
                           {task.title}
                         </h3>
                         {task.description && (
@@ -427,7 +427,7 @@ export default function StoryDetail() {
                         <Check className="h-8 w-8 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No tasks yet</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white mb-2">No tasks yet</h3>
                         <p className="text-gray-600 dark:text-gray-400 mb-4">Break down this story into actionable tasks</p>
                       </div>
                     </div>
@@ -445,7 +445,7 @@ export default function StoryDetail() {
             <div className="lg:sticky lg:top-4 space-y-4">
               {/* Details Section */}
               <GlassCard className="glassmorphic-card p-4">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-3 flex items-center gap-2">
                   <FileText className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                   Details
                 </h3>
@@ -487,7 +487,7 @@ export default function StoryDetail() {
 
               {/* People Section */}
               <GlassCard className="glassmorphic-card p-4">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-3 flex items-center gap-2">
                   <Users className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                   People
                 </h3>
@@ -499,7 +499,7 @@ export default function StoryDetail() {
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-sm font-bold text-white">
                           {story.assignedAgentId.split('-')[1]}
                         </div>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">Agent #{story.assignedAgentId.split('-')[1]}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">Agent #{story.assignedAgentId.split('-')[1]}</span>
                       </div>
                     ) : (
                       <span className="text-sm text-gray-500 dark:text-gray-400">Not assigned</span>
@@ -522,7 +522,7 @@ export default function StoryDetail() {
 
               {/* Progress Section */}
               <GlassCard className="glassmorphic-card p-4">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-3 flex items-center gap-2">
                   <Target className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                   Progress
                 </h3>
@@ -530,7 +530,7 @@ export default function StoryDetail() {
                   <div>
                     <div className="flex items-center justify-between text-xs mb-1">
                       <span className="text-gray-600 dark:text-gray-400">Task Progress</span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                      <span className="font-medium text-gray-900 dark:text-white dark:text-white">
                         {completedTasks} / {totalTasks} ({progressPercent}%)
                       </span>
                     </div>
@@ -555,7 +555,7 @@ export default function StoryDetail() {
 
               {/* GitHub Section */}
               <GlassCard className="glassmorphic-card p-4">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-3 flex items-center gap-2">
                   <GitBranch className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                   GitHub
                 </h3>
@@ -581,7 +581,7 @@ export default function StoryDetail() {
               {/* ESA Layers Section */}
               {story.metadata?.esa_layers && story.metadata.esa_layers.length > 0 && (
                 <GlassCard className="glassmorphic-card p-4">
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-3 flex items-center gap-2">
                     <Layers className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
                     ESA Layers
                   </h3>
@@ -612,7 +612,7 @@ export default function StoryDetail() {
 
               {/* Actions Section */}
               <GlassCard className="glassmorphic-card p-4">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Actions</h3>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-3">Actions</h3>
                 <div className="space-y-2">
                   <Button variant="outline" size="sm" className="w-full justify-start" data-testid="button-watch">
                     <Eye className="h-4 w-4 mr-2" />
@@ -631,7 +631,7 @@ export default function StoryDetail() {
                   {/* Review Notes */}
                   {story.metadata.review_notes && (
                     <GlassCard className="glassmorphic-card p-4">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-2 flex items-center gap-2">
                         <FileText className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                         Review Notes
                       </h3>
@@ -648,7 +648,7 @@ export default function StoryDetail() {
                   {(story.metadata.risk_level || story.metadata.risk_description) && (
                     <GlassCard className="glassmorphic-card p-4">
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white flex items-center gap-2">
                           <Shield className="h-4 w-4 text-red-600 dark:text-red-400" />
                           Risk
                         </h3>
@@ -672,7 +672,7 @@ export default function StoryDetail() {
                   {/* Technical Details */}
                   {(story.metadata.complexity || story.metadata.technologies) && (
                     <GlassCard className="glassmorphic-card p-4">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white mb-2 flex items-center gap-2">
                         <Code className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                         Technical
                       </h3>

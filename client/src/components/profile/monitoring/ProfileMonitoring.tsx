@@ -200,19 +200,19 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="font-medium">Alert Threshold</span>
               <span className="text-sm text-gray-600">Error rate &gt; 1%</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="font-medium">Check Interval</span>
               <span className="text-sm text-gray-600">Every 30 seconds</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="font-medium">Alert Channels</span>
               <span className="text-sm text-gray-600">Email, Slack, PagerDuty</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="font-medium">Data Retention</span>
               <span className="text-sm text-gray-600">90 days</span>
             </div>

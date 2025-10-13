@@ -38,7 +38,7 @@ export function GuestProfileDisplay({ profile, isOwnProfile }: GuestProfileDispl
     <div className="space-y-6">
       {/* Guest Profile Badge */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">{t('common.guest_profile')}</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('common.guest_profile')}</h2>
         <Badge className="bg-green-100 dark:bg-green-900/30 text-green-800 border-green-300">
           <User className="h-3 w-3 mr-1" />
           Verified Guest

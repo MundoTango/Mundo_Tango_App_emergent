@@ -156,7 +156,7 @@ export default function GroupsPage() {
           aria-label={t('groups.aria.page_header', 'Groups page header')}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
           <p className="text-gray-600 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
           <button
             onClick={() => setLocation('/community-world-map')}
@@ -177,7 +177,7 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_total', `${stats.totalCommunities} total communities`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-total-communities"
           >
             <div 
@@ -186,13 +186,13 @@ export default function GroupsPage() {
             >
               <Users className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.total_count', `${stats.totalCommunities} communities`)}>{stats.totalCommunities}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white" aria-label={t('groups.aria.total_count', `${stats.totalCommunities} communities`)}>{stats.totalCommunities}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.total_communities', 'Total Communities')}</div>
           </div>
           <div 
             role="region"
             aria-label={t('groups.aria.stat_joined', `${stats.joinedCommunities} joined communities`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-joined-communities"
           >
             <div 
@@ -201,13 +201,13 @@ export default function GroupsPage() {
             >
               <Heart className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.joined_count', `${stats.joinedCommunities} joined`)}>{stats.joinedCommunities}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white" aria-label={t('groups.aria.joined_count', `${stats.joinedCommunities} joined`)}>{stats.joinedCommunities}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.joined_communities', 'Joined Communities')}</div>
           </div>
           <div 
             role="region"
             aria-label={t('groups.aria.stat_events', `${stats.totalEvents} total events`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-total-events"
           >
             <div 
@@ -216,13 +216,13 @@ export default function GroupsPage() {
             >
               <Calendar className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.events_count', `${stats.totalEvents} events`)}>{stats.totalEvents}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white" aria-label={t('groups.aria.events_count', `${stats.totalEvents} events`)}>{stats.totalEvents}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.total_events', 'Total Events')}</div>
           </div>
           <div 
             role="region"
             aria-label={t('groups.aria.stat_cities', `${stats.cities} cities`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-cities"
           >
             <div 
@@ -231,7 +231,7 @@ export default function GroupsPage() {
             >
               <MapPin className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900" aria-label={t('groups.aria.cities_count', `${stats.cities} cities`)}>{stats.cities}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white" aria-label={t('groups.aria.cities_count', `${stats.cities} cities`)}>{stats.cities}</div>
             <div className="text-sm text-gray-600">{t('groups.stats.cities', 'Cities')}</div>
           </div>
         </section>
@@ -387,7 +387,7 @@ export default function GroupsPage() {
             data-testid="empty-state-no-communities"
           >
             <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" aria-hidden="true" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('groups.empty.title', 'No communities found')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('groups.empty.title', 'No communities found')}</h3>
             <p className="text-gray-600 max-w-md mx-auto">
               {t('groups.empty.description', 'Try adjusting your search or filters to find communities that match your interests.')}
             </p>

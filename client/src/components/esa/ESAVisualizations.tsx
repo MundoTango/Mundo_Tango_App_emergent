@@ -207,7 +207,7 @@ function TrainingExecutionView() {
           <div key={idx} className="relative" data-testid={`training-level-${idx}`}>
             <GlassCard className={`p-6 bg-gradient-to-r ${level.color} border ${level.borderColor}`}>
               <div className="flex items-start gap-6">
-                <div className="p-3 rounded-xl bg-white/10">
+                <div className="p-3 rounded-xl bg-white dark:bg-gray-900/10">
                   <level.icon className="w-8 h-8 text-white" />
                 </div>
                 

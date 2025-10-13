@@ -237,7 +237,7 @@ const PaymentMethods: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Payment Methods</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Payment Methods</h1>
           <p className="text-gray-600">Manage your payment methods for subscriptions and purchases</p>
         </div>
 
@@ -271,7 +271,7 @@ const PaymentMethods: React.FC = () => {
                 {(paymentMethods as PaymentMethod[])?.map((method: PaymentMethod) => (
                   <div
                     key={method.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                   >
                     <div className="flex items-center gap-4">
                       <div className="text-2xl">{getCardBrandIcon(method.card?.brand || '')}</div>
@@ -332,10 +332,10 @@ const PaymentMethods: React.FC = () => {
         </Card>
 
         {/* Security Notice */}
-        <div className="bg-white/70 backdrop-blur-xl rounded-lg p-6 flex items-start gap-4">
+        <div className="bg-white dark:bg-gray-900/70 backdrop-blur-xl rounded-lg p-6 flex items-start gap-4">
           <Shield className="h-6 w-6 text-turquoise-500 flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-semibold text-gray-900 mb-1">Your payment information is secure</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Your payment information is secure</h3>
             <p className="text-sm text-gray-600">
               We use industry-standard encryption to protect your payment details. Your full card number is never stored on our servers.
               All payment processing is handled securely by Stripe.

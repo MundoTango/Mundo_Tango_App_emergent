@@ -152,13 +152,13 @@ export function RichTextCommentEditor({
           
           {/* ESA Simple Emoji Picker - Fixed Layout */}
           {showEmojiPicker && (
-            <div className="p-4 bg-gray-50 border-t border-gray-100">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-100">
               <div className="flex flex-wrap gap-2">
                 {emojis.map((emoji, index) => (
                   <button
                     key={index}
                     onClick={() => insertEmoji(emoji)}
-                    className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 border border-gray-200"
+                    className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-white dark:bg-gray-900 hover:shadow-md rounded-lg transition-all duration-200 border border-gray-200 dark:border-gray-700"
                     title={`Add ${emoji}`}
                     type="button"
                     data-testid={`button-editor-emoji-${postId}-${index}`}

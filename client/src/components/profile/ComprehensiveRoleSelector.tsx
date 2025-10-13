@@ -368,7 +368,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
 
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-semibold text-gray-900">{role.label}</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{role.label}</h4>
                       {selected && (
                         <Badge className="bg-turquoise-100 text-turquoise-700 border-turquoise-200">
                           Selected

@@ -221,7 +221,7 @@ const PromoCodesAdmin: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Promo Code Management</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Promo Code Management</h1>
             <p className="text-gray-600">Create and manage discount codes for subscriptions</p>
           </div>
           <Button

@@ -247,13 +247,13 @@ export default function AuditTrailViewer() {
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+            className="pl-10 rounded-xl border-gray-200 dark:border-gray-700 focus:border-indigo-300 focus:ring-indigo-200"
           />
         </div>
         
         <div className="flex gap-3">
           <Select value={actionFilter} onValueChange={setActionFilter}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-gray-700">
               <SelectValue placeholder="Filter by action" />
             </SelectTrigger>
             <SelectContent>
@@ -267,7 +267,7 @@ export default function AuditTrailViewer() {
           </Select>
 
           <Select value={severityFilter} onValueChange={setSeverityFilter}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-gray-700">
               <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
             <SelectContent>
@@ -282,7 +282,7 @@ export default function AuditTrailViewer() {
           <Button
             onClick={exportAuditLog}
             variant="outline"
-            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
+            className="rounded-xl border-gray-200 dark:border-gray-700 hover:bg-indigo-50 hover:border-indigo-300"
           >
             <Download className="h-4 w-4 mr-2" />
             Export
@@ -352,15 +352,15 @@ export default function AuditTrailViewer() {
       {/* Audit events list */}
       <div className="space-y-3">
         {filteredEvents.map((event) => (
-          <div key={event.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div key={event.id} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-50 rounded-xl">
+                <div className="p-2 bg-gray-50 dark:bg-gray-800 rounded-xl">
                   {getActionIcon(event.action)}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-gray-900">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
                     <Badge className={`${getSeverityBadge(event.severity)} border`}>
                       <div className="flex items-center gap-1">
                         {getSeverityIcon(event.severity)}
@@ -396,7 +396,7 @@ export default function AuditTrailViewer() {
             </div>
 
             {event.details && Object.keys(event.details).length > 0 && (
-              <div className="bg-gray-50 rounded-xl p-4">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
                 <div className="text-sm font-medium text-gray-700 mb-2">Event Details:</div>
                 <div className="space-y-1">
                   {Object.entries(event.details).map(([key, value]) => (
@@ -417,7 +417,7 @@ export default function AuditTrailViewer() {
       {filteredEvents.length === 0 && (
         <div className="text-center py-12">
           <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No audit events found</h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No audit events found</h3>
           <p className="text-gray-600">Try adjusting your filters or search terms</p>
         </div>
       )}

@@ -117,7 +117,7 @@ export default function LifeCEO() {
     <DashboardLayout>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -128,7 +128,7 @@ export default function LifeCEO() {
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900">Life CEO</h1>
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Life CEO</h1>
               <p className="text-xs text-gray-500">AI Life Management System</p>
             </div>
           </div>
@@ -208,7 +208,7 @@ export default function LifeCEO() {
 
             {/* Transcript */}
             {transcript && (
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left">
+              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg text-left">
                 <p className="text-sm text-gray-700">
                   <strong>{language === 'en' ? 'You said:' : 'Dijiste:'}</strong> {transcript}
                 </p>

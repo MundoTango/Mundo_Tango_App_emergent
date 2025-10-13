@@ -209,7 +209,7 @@ export const PlatformAuditDashboard: React.FC = () => {
             {auditSections.map((section) => (
               <div
                 key={section.name}
-                className="flex items-center justify-between p-3 bg-white/70 rounded-lg cursor-pointer hover:shadow-md transition-all"
+                className="flex items-center justify-between p-3 bg-white dark:bg-gray-900/70 rounded-lg cursor-pointer hover:shadow-md transition-all"
                 onClick={() => setSelectedSection(section.name.toLowerCase().replace(' ', '-'))}
               >
                 <div className="flex items-center gap-2">
@@ -245,30 +245,30 @@ export const PlatformAuditDashboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
+            <div className="flex items-start gap-3 p-3 bg-white dark:bg-gray-900 rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900">Create Comprehensive Settings Page</p>
+                <p className="font-medium text-gray-900 dark:text-white">Create Comprehensive Settings Page</p>
                 <p className="text-sm text-gray-600 mt-1">
                   Users cannot control notifications, themes, or privacy settings
                 </p>
               </div>
               <Badge variant="destructive">Week 1</Badge>
             </div>
-            <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
+            <div className="flex items-start gap-3 p-3 bg-white dark:bg-gray-900 rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900">Fix Security Vulnerabilities</p>
+                <p className="font-medium text-gray-900 dark:text-white">Fix Security Vulnerabilities</p>
                 <p className="text-sm text-gray-600 mt-1">
                   XSS and CSRF vulnerabilities need immediate attention
                 </p>
               </div>
               <Badge variant="destructive">Week 1</Badge>
             </div>
-            <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
+            <div className="flex items-start gap-3 p-3 bg-white dark:bg-gray-900 rounded-lg">
               <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900">Implement Image Optimization</p>
+                <p className="font-medium text-gray-900 dark:text-white">Implement Image Optimization</p>
                 <p className="text-sm text-gray-600 mt-1">
                   Large images causing slow profile loads
                 </p>
@@ -404,19 +404,19 @@ export const PlatformAuditDashboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="text-sm font-medium">Database & API (Layers 1-5)</span>
               <Progress value={85} className="w-32 h-2" />
             </div>
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="text-sm font-medium">UI/UX & Performance (Layers 6-15)</span>
               <Progress value={70} className="w-32 h-2" />
             </div>
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="text-sm font-medium">Advanced Features (Layers 16-25)</span>
               <Progress value={45} className="w-32 h-2" />
             </div>
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="text-sm font-medium">Innovation & Future (Layers 26-40)</span>
               <Progress value={20} className="w-32 h-2" />
             </div>

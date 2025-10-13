@@ -84,7 +84,7 @@ const TenantSwitcher = () => {
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <button
-          className="flex items-center justify-between w-full gap-2 p-3 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-blue-50/50 dark:hover:from-teal-900/30 dark:hover:to-blue-900/30 transition-all duration-300 shadow-lg hover:shadow-xl"
+          className="flex items-center justify-between w-full gap-2 p-3 rounded-xl bg-white dark:bg-gray-900/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-blue-50/50 dark:hover:from-teal-900/30 dark:hover:to-blue-900/30 transition-all duration-300 shadow-lg hover:shadow-xl"
         >
           <div className="flex items-center gap-2">
             {currentTenant.logo_url ? (
@@ -109,7 +109,7 @@ const TenantSwitcher = () => {
         </button>
       </DropdownMenuTrigger>
       
-      <DropdownMenuContent align="start" className="w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-teal-200/50 dark:border-teal-700/50 shadow-2xl">
+      <DropdownMenuContent align="start" className="w-72 bg-white dark:bg-gray-900/95 dark:bg-gray-900/95 backdrop-blur-xl border border-teal-200/50 dark:border-teal-700/50 shadow-2xl">
         {/* Community Selection */}
         <DropdownMenuLabel>Switch Community</DropdownMenuLabel>
         {userTenants.map((tenant) => (

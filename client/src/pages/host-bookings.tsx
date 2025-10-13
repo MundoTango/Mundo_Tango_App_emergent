@@ -608,7 +608,7 @@ export default function HostBookings() {
                   value={hostResponse}
                   onChange={(e) => setHostResponse(e.target.value)}
                   rows={4}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                   placeholder={responseAction === 'approve' 
                     ? t('housing.host_bookings.message_placeholder_approve', 'Welcome the guest and provide any additional details...')
                     : t('housing.host_bookings.message_placeholder_reject', 'Explain why you cannot accept this booking...')}

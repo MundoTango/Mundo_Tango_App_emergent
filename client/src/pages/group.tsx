@@ -144,7 +144,7 @@ export default function GroupPage() {
               <div className="text-right">
                 {isCurrentUserMember ? (
                   <div className="space-y-3">
-                    <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-lg px-4 py-2">
+                    <Badge variant="secondary" className="bg-white dark:bg-gray-900/20 text-white border-white/30 text-lg px-4 py-2">
                       <Users className="h-4 w-4 mr-2" />
                       {currentUserMembership.role === 'admin' ? 'Group Admin' : 'Member'}
                     </Badge>
@@ -156,7 +156,7 @@ export default function GroupPage() {
                   <Button
                     onClick={() => joinGroupMutation.mutate()}
                     disabled={joinGroupMutation.isPending}
-                    className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
+                    className="bg-white dark:bg-gray-900/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
                     size="lg"
                   >
                     <UserPlus className="h-5 w-5 mr-2" />
@@ -169,21 +169,21 @@ export default function GroupPage() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-coral-600 mb-2">{stats.totalMembers}</div>
                 <div className="text-gray-600 font-medium">Total Members</div>
               </CardContent>
             </Card>
             
-            <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">{upcomingEvents.length}</div>
                 <div className="text-gray-600 font-medium">Upcoming Events</div>
               </CardContent>
             </Card>
             
-            <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-teal-600 mb-2">{stats.recentlyJoined}</div>
                 <div className="text-gray-600 font-medium">Joined This Week</div>
@@ -195,7 +195,7 @@ export default function GroupPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left Column - Members */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl">
+              <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg rounded-xl">
                 <CardHeader>
                   <CardTitle className="flex items-center text-gray-800">
                     <Users className="h-5 w-5 mr-2 text-coral-500" />
@@ -204,7 +204,7 @@ export default function GroupPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {group.members.slice(0, 8).map((member) => (
-                    <div key={member.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div key={member.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors">
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={member.user.profileImage || undefined} />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-indigo-500 text-white">
@@ -212,7 +212,7 @@ export default function GroupPage() {
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 truncate">{member.user.name}</div>
+                        <div className="font-medium text-gray-900 dark:text-white truncate">{member.user.name}</div>
                         <div className="text-sm text-gray-500">@{member.user.username}</div>
                         {member.role === 'admin' && (
                           <Badge variant="outline" className="text-xs mt-1">Admin</Badge>
@@ -235,7 +235,7 @@ export default function GroupPage() {
             {/* Right Column - Events & Activity */}
             <div className="lg:col-span-2 space-y-6">
               {/* Upcoming Events */}
-              <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl">
+              <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg rounded-xl">
                 <CardHeader>
                   <CardTitle className="flex items-center text-gray-800">
                     <Calendar className="h-5 w-5 mr-2 text-blue-500" />
@@ -246,10 +246,10 @@ export default function GroupPage() {
                   {upcomingEvents.length > 0 ? (
                     <div className="space-y-4">
                       {upcomingEvents.map((event) => (
-                        <div key={event.id} className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div key={event.id} className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h3 className="font-semibold text-gray-900 mb-1">{event.title}</h3>
+                              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{event.title}</h3>
                               <p className="text-sm text-gray-600 mb-2">{event.description}</p>
                               <div className="flex items-center text-sm text-gray-500">
                                 <Calendar className="h-4 w-4 mr-1" />

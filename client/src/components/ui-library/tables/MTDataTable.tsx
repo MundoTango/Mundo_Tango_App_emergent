@@ -303,7 +303,7 @@ export default function MTDataTable<T = any>({
 
           {/* Column Settings */}
           <button
-            className="px-3 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300"
+            className="px-3 py-2 rounded-lg bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300"
             data-testid={`${testId}-settings`}
           >
             <Settings className="w-4 h-4" />
@@ -313,12 +313,12 @@ export default function MTDataTable<T = any>({
           {exportable && (
             <div className="relative group">
               <button
-                className="px-3 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300"
+                className="px-3 py-2 rounded-lg bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300"
                 data-testid={`${testId}-export`}
               >
                 <Download className="w-4 h-4" />
               </button>
-              <div className="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
+              <div className="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
                 <button
                   onClick={() => handleExport('csv')}
                   className="block w-full px-4 py-2 text-left text-sm hover:bg-teal-50 dark:hover:bg-teal-900/30"

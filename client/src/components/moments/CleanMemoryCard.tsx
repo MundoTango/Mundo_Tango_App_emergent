@@ -239,7 +239,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
 
   return (
     <>
-      <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow" data-testid={`card-memory-${post.id}`}>
+      <article className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow" data-testid={`card-memory-${post.id}`}>
         {/* Header */}
         <div className="p-4">
           <div className="flex items-start justify-between">
@@ -259,7 +259,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
               
               {/* User info */}
               <div>
-                <h3 className="font-semibold text-gray-900" data-testid={`text-username-${post.id}`}>{post.user?.name || 'Unknown User'}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white" data-testid={`text-username-${post.id}`}>{post.user?.name || 'Unknown User'}</h3>
                 <div className="flex items-center gap-2 text-sm text-gray-500">
                   {post.user?.city && (
                     <>
@@ -301,7 +301,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
               </Button>
               
               {showMenu && (
-                <div className="absolute right-0 top-8 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
+                <div className="absolute right-0 top-8 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-10">
                   {isOwner && (
                     <>
                       <button
@@ -309,7 +309,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                           onEdit?.(post);  // ESA Framework: Trigger parent edit handler
                           setShowMenu(false);
                         }}
-                        className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 dark:bg-gray-800 flex items-center gap-2"
                         data-testid="button-edit"
                       >
                         <Edit className="w-4 h-4 text-blue-600" />
@@ -340,7 +340,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                       setShowReportDialog(true);
                       setShowMenu(false);
                     }}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 dark:bg-gray-800 flex items-center gap-2"
                     data-testid="button-report"
                   >
                     <Flag className="w-4 h-4 text-red-500" />
@@ -629,7 +629,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                       {getAvatarFallback(comment.user?.name || 'U')}
                     </div>
                     <div className="flex-1">
-                      <div className="bg-gray-50 rounded-lg px-3 py-2">
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg px-3 py-2">
                         <p className="font-medium text-sm">{comment.user?.name || 'Anonymous'}</p>
                         <p className="text-gray-700">{comment.content}</p>
                       </div>

@@ -522,8 +522,8 @@ export default function UnifiedLocationPicker({
       {showSuggestions && suggestions.length > 0 && (
         <div
           ref={dropdownRef}
-          className="absolute z-popover w-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg 
-            border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
+          className="absolute z-popover w-full mt-2 bg-white dark:bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-lg 
+            border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
         >
           <div className="max-h-80 overflow-y-auto">
             {suggestions.map((suggestion, index) => (
@@ -540,7 +540,7 @@ export default function UnifiedLocationPicker({
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-gray-100 truncate">
                       {suggestion.structured_formatting?.main_text || suggestion.description}
                     </p>
                     {suggestion.structured_formatting?.secondary_text && (

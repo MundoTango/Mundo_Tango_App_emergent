@@ -159,12 +159,12 @@ export default function UserRoleTable() {
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+            className="pl-10 rounded-xl border-gray-200 dark:border-gray-700 focus:border-indigo-300 focus:ring-indigo-200"
           />
         </div>
         
         <Select value={roleFilter} onValueChange={setRoleFilter}>
-          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
+          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-gray-700">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
@@ -180,28 +180,28 @@ export default function UserRoleTable() {
       </div>
 
       {/* User table */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50/50">
-              <TableHead className="font-semibold text-gray-900">User</TableHead>
-              <TableHead className="font-semibold text-gray-900">Primary Role</TableHead>
-              <TableHead className="font-semibold text-gray-900">All Roles</TableHead>
-              <TableHead className="font-semibold text-gray-900">Last Active</TableHead>
-              <TableHead className="font-semibold text-gray-900">Status</TableHead>
-              <TableHead className="font-semibold text-gray-900">Actions</TableHead>
+            <TableRow className="bg-gray-50 dark:bg-gray-800/50">
+              <TableHead className="font-semibold text-gray-900 dark:text-white">User</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-white">Primary Role</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-white">All Roles</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-white">Last Active</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-white">Status</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-white">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredUsers.map((user: User) => (
-              <TableRow key={user.id} className="hover:bg-gray-50/30 transition-colors">
+              <TableRow key={user.id} className="hover:bg-gray-50 dark:bg-gray-800/30 transition-colors">
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-xl flex items-center justify-center text-white font-bold text-sm">
                       {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900">{user.name}</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
                       <div className="text-xs text-gray-400">{user.email}</div>
                     </div>
@@ -223,7 +223,7 @@ export default function UserRoleTable() {
                       </Badge>
                     ))}
                     {user.roles.length > 3 && (
-                      <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs">
+                      <Badge className="bg-gray-100 text-gray-600 border-gray-200 dark:border-gray-700 text-xs">
                         +{user.roles.length - 3}
                       </Badge>
                     )}
@@ -266,11 +266,11 @@ export default function UserRoleTable() {
           
           {selectedUser && (
             <div className="space-y-6">
-              <div className="text-center p-4 bg-gray-50 rounded-2xl">
+              <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-2xl">
                 <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
                   {selectedUser.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </div>
-                <h3 className="font-semibold text-gray-900">{selectedUser.name}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{selectedUser.name}</h3>
                 <p className="text-sm text-gray-500">@{selectedUser.username}</p>
               </div>
 
@@ -298,7 +298,7 @@ export default function UserRoleTable() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Additional Roles</label>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {mockRoles.filter((role: Role) => role.id !== selectedUser.primaryRole).map((role: Role) => (
-                      <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                      <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 dark:bg-gray-800 rounded-lg cursor-pointer">
                         <input
                           type="checkbox"
                           defaultChecked={selectedUser.roles.includes(role.id)}

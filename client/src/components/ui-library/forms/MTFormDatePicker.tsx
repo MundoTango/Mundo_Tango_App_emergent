@@ -95,7 +95,7 @@ export default function MTFormDatePicker<
               </FormControl>
             </PopoverTrigger>
             <PopoverContent 
-              className="w-auto p-0 rounded-xl shadow-xl border-gray-200" 
+              className="w-auto p-0 rounded-xl shadow-xl border-gray-200 dark:border-gray-700" 
               align="start"
             >
               <Calendar
@@ -207,7 +207,7 @@ export function MTFormDateRangePicker<
               </FormControl>
             </PopoverTrigger>
             <PopoverContent 
-              className="w-auto p-0 rounded-xl shadow-xl border-gray-200" 
+              className="w-auto p-0 rounded-xl shadow-xl border-gray-200 dark:border-gray-700" 
               align="start"
             >
               <Calendar

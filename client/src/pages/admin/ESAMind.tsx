@@ -220,7 +220,7 @@ export default function ESAMind() {
       <div className="space-y-8">
         {/* Header */}
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Customer Journey Flow</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Customer Journey Flow</h2>
           <p className="text-gray-600">Visual map of all 5 customer journeys covering ~200 pages across all user roles</p>
         </div>
 
@@ -259,7 +259,7 @@ export default function ESAMind() {
         {/* Journey Flow Visualization */}
         <div className="space-y-6">
           {journeys.map((journey, idx) => (
-            <GlassCard key={journey.id} className="p-6 border border-gray-200 hover:shadow-xl transition-all duration-300">
+            <GlassCard key={journey.id} className="p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
               <div className="flex items-start gap-6">
                 {/* Journey Number */}
                 <div className={`flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br ${journey.color} flex items-center justify-center`}>
@@ -270,7 +270,7 @@ export default function ESAMind() {
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-1">{journey.name}</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">{journey.name}</h3>
                       <p className="text-gray-600">{journey.description}</p>
                     </div>
                     <Badge className={`bg-gradient-to-r ${journey.color} text-white ml-4`}>
@@ -282,7 +282,7 @@ export default function ESAMind() {
                   <div className="flex items-center gap-2 flex-wrap">
                     {journey.keyPages.map((page, pageIdx) => (
                       <div key={pageIdx} className="flex items-center">
-                        <div className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 font-mono hover:border-turquoise-300 transition-colors">
+                        <div className="px-3 py-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-700 font-mono hover:border-turquoise-300 transition-colors">
                           {page}
                         </div>
                         {pageIdx < journey.keyPages.length - 1 && (
@@ -321,16 +321,16 @@ export default function ESAMind() {
               <Sparkles className="w-6 h-6 text-turquoise-600" />
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Journey-Based Audit System</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Journey-Based Audit System</h3>
               <p className="text-sm text-gray-600 mb-4">
                 All {totalPages} pages are audited using the 17-phase tiered system, following complete customer journeys from anonymous visitor to super admin.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
+                <div className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
                   <p className="text-sm font-medium text-gray-700 mb-1">Execution Command</p>
-                  <code className="text-xs text-turquoise-600 font-mono bg-gray-50 px-2 py-1 rounded">npm run audit:full</code>
+                  <code className="text-xs text-turquoise-600 font-mono bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">npm run audit:full</code>
                 </div>
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
+                <div className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
                   <p className="text-sm font-medium text-gray-700 mb-1">Expected Duration</p>
                   <p className="text-sm text-gray-600">~4-5 hours (automated)</p>
                 </div>
@@ -389,13 +389,13 @@ export default function ESAMind() {
                 <Sparkles className="w-6 h-6 text-turquoise-600" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Page Context</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Page Context</h3>
                 <p className="text-sm text-gray-600 mb-4">
                   {getContextSummary(contextRoute)}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {pageContext.agents.map((agent, idx) => (
-                    <div key={agent.id} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
+                    <div key={agent.id} className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
                       <Badge className={idx === 0 
                         ? "bg-turquoise-500 text-white" 
                         : "bg-gray-100 text-gray-700"
@@ -424,7 +424,7 @@ export default function ESAMind() {
             placeholder="Search agents, layers, or documentation..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 h-12 bg-white border-gray-200 focus:border-turquoise-500 focus:ring-turquoise-500"
+            className="pl-12 h-12 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:border-turquoise-500 focus:ring-turquoise-500"
             data-testid="input-esa-search"
           />
         </div>
@@ -486,7 +486,7 @@ export default function ESAMind() {
                   <Icon className="w-8 h-8 text-gray-700" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-turquoise-600 transition-colors">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-turquoise-600 transition-colors">
                     {view.title}
                   </h3>
                   <p className="text-gray-600 mb-4">{view.description}</p>
@@ -506,7 +506,7 @@ export default function ESAMind() {
 
       {/* Quick Links */}
       <GlassCard className="p-6 border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-turquoise-600" />
           Quick Reference
         </h3>
@@ -572,7 +572,7 @@ export default function ESAMind() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">{view.title}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{view.title}</h2>
             <p className="text-gray-600 mt-1">{view.description}</p>
           </div>
           <a
@@ -606,7 +606,7 @@ export default function ESAMind() {
                   {/* Mobile Menu Toggle */}
                   <button
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    className="lg:hidden p-2 rounded-lg hover:bg-white/20 transition-colors min-h-[44px] min-w-[44px]"
+                    className="lg:hidden p-2 rounded-lg hover:bg-white dark:bg-gray-900/20 transition-colors min-h-[44px] min-w-[44px]"
                     data-testid="button-menu-toggle"
                   >
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -614,7 +614,7 @@ export default function ESAMind() {
                     </svg>
                   </button>
                   
-                  <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl">
+                  <div className="p-2 sm:p-3 bg-white dark:bg-gray-900/20 backdrop-blur-sm rounded-xl sm:rounded-2xl">
                     <Map className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                   </div>
                   <div className="flex-1">
@@ -626,7 +626,7 @@ export default function ESAMind() {
                   {/* Back Button */}
                   <button 
                     onClick={() => window.location.href = '/admin'}
-                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
+                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white dark:bg-gray-900/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
                     data-testid="button-back"
                   >
                     <ArrowLeft className="w-4 h-4 text-gray-700 group-hover:text-turquoise-600 transition-colors" />
@@ -639,7 +639,7 @@ export default function ESAMind() {
 
           {/* Breadcrumb Navigation */}
           {breadcrumbs.length > 1 && (
-            <div className="bg-white/50 backdrop-blur-sm border-b border-gray-200">
+            <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
               <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3">
                 <div className="flex items-center gap-2 text-sm">
                   {breadcrumbs.map((crumb, index) => (

@@ -94,7 +94,7 @@ export default function RecommendedGroups() {
           {displayedRecommendations.map((group: any) => (
             <div
               key={group.id}
-              className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors"
               data-testid={`recommended-group-${group.id}`}
               role="article"
               aria-labelledby={`rec-group-name-${group.id}`}

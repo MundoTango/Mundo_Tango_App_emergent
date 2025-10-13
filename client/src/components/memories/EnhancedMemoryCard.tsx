@@ -166,7 +166,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
 
   return (
     <>
-      <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <article className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
         {/* Header */}
         <div className="p-4">
           <div className="flex items-start gap-3">
@@ -186,7 +186,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             {/* User info */}
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-semibold text-gray-900">{memory.userName || 'Unknown User'}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{memory.userName || 'Unknown User'}</h3>
                 <span className="text-gray-500">·</span>
                 <span className="text-sm text-gray-500">
                   {formatDistanceToNow(new Date(memory.createdAt))} ago
@@ -209,7 +209,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
 
         {/* Content */}
         <div className="px-4 pb-3">
-          <p className="text-gray-900 whitespace-pre-wrap">{memory.content}</p>
+          <p className="text-gray-900 dark:text-white whitespace-pre-wrap">{memory.content}</p>
           
           {/* Emotion tags */}
           {memory.emotionTags && memory.emotionTags.length > 0 && (
@@ -271,7 +271,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                 size="sm"
                 onMouseEnter={() => setShowReactionPicker(true)}
                 onMouseLeave={() => setShowReactionPicker(false)}
-                className="w-full justify-center gap-2 text-gray-600 hover:text-gray-900"
+                className="w-full justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-white"
                 data-testid={`button-reaction-${memory.id}`}
               >
                 {memory.userReaction ? (
@@ -287,7 +287,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               {/* Reaction picker */}
               {showReactionPicker && (
                 <div 
-                  className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-200 flex items-center gap-1 p-2"
+                  className="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-900 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 flex items-center gap-1 p-2"
                   onMouseEnter={() => setShowReactionPicker(true)}
                   onMouseLeave={() => setShowReactionPicker(false)}
                 >
@@ -310,7 +310,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               variant="ghost"
               size="sm"
               onClick={() => setShowComments(!showComments)}
-              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-white"
             >
               <MessageCircle className="h-4 w-4" />
               <span className="text-sm font-medium">Comment</span>
@@ -324,7 +324,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               variant="ghost"
               size="sm"
               onClick={() => setShowShareDialog(true)}
-              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-white"
             >
               <Share2 className="h-4 w-4" />
               <span className="text-sm font-medium">Share</span>
@@ -406,7 +406,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             />
             
             {/* Preview of the shared memory */}
-            <div className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+            <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-gray-50 dark:bg-gray-800">
               <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold">
                   {getAvatarInitials(memory.userName || 'U')}

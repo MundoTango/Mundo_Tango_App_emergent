@@ -177,7 +177,7 @@ export default function MTTableRow({
                   >
                     <MoreHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                   </button>
-                  <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
+                  <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
                     {actions.map((action, idx) => (
                       <button
                         key={idx}
@@ -205,7 +205,7 @@ export default function MTTableRow({
 
       {/* Expanded Content */}
       {expandable && expanded && expandContent && (
-        <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+        <tr className="bg-gray-50 dark:bg-gray-800/50 dark:bg-gray-800/50">
           <td colSpan={100} className="px-8 py-4">
             {expandContent}
           </td>

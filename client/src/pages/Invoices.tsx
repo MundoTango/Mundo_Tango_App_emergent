@@ -70,7 +70,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
 
   return (
     <>
-      <div ref={invoiceRef} className="bg-white p-8 rounded-lg shadow-sm">
+      <div ref={invoiceRef} className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-sm">
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
           <div>
@@ -156,7 +156,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500">
           <p>Thank you for your subscription!</p>
           <p className="mt-2">Questions? Contact support@mundotango.life</p>
         </div>
@@ -216,7 +216,7 @@ const Invoices: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Invoices & Receipts</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Invoices & Receipts</h1>
           <p className="text-gray-600">View and download your subscription invoices</p>
         </div>
 
@@ -256,7 +256,7 @@ const Invoices: React.FC = () => {
                 {(invoices as Invoice[])?.map((invoice: Invoice) => (
                   <div
                     key={invoice.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                   >
                     <div className="flex items-center gap-4">
                       <FileText className="h-8 w-8 text-gray-400" />
@@ -307,7 +307,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Invoice Details</h2>

@@ -385,7 +385,7 @@ export default function EnhancedPostComposer({
     };
 
     return (
-      <div key={index} className="relative mb-4 border border-gray-200 rounded-lg overflow-hidden">
+      <div key={index} className="relative mb-4 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
         <button
           onClick={() => removeEmbed(index)}
           className="absolute top-2 right-2 z-10 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70"
@@ -408,14 +408,14 @@ export default function EnhancedPostComposer({
   // Skip collapsed view entirely when editing to ensure rich text editor is always available
   if (!showExpandedComposer && !editMode && !existingPost) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <button
             onClick={() => setShowExpandedComposer(true)}
-            className="flex-1 text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-full text-gray-500 transition-colors"
+            className="flex-1 text-left px-4 py-3 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 rounded-full text-gray-500 transition-colors"
           >
             Share your tango moment...
           </button>
@@ -451,14 +451,14 @@ export default function EnhancedPostComposer({
   }
 
   return (
-    <div data-testid="enhanced-composer" className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6">
+    <div data-testid="enhanced-composer" className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <div>
-            <p className="font-semibold text-gray-900">{user?.name}</p>
+            <p className="font-semibold text-gray-900 dark:text-white">{user?.name}</p>
             <p className="text-sm text-gray-500">@{user?.username}</p>
           </div>
         </div>
@@ -498,14 +498,14 @@ export default function EnhancedPostComposer({
             modules={modules}
             formats={formats}
             placeholder="What's happening in your tango world?"
-            className="bg-white"
+            className="bg-white dark:bg-gray-900"
           />
         </Suspense>
       </div>
 
       {/* Emoji Picker */}
       {showEmojiPicker && (
-        <div className="mb-4 p-3 border border-gray-200 rounded-lg bg-gray-50">
+        <div className="mb-4 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
           <div className="grid grid-cols-10 gap-2">
             {commonEmojis.map((emoji, index) => (
               <button

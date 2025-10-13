@@ -59,7 +59,7 @@ export default function AgentLearnings() {
 
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">
           Agent Learning Dashboard
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -132,7 +132,7 @@ export default function AgentLearnings() {
 
       {/* Learnings List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white">
           Captured Patterns
         </h2>
 
@@ -182,13 +182,13 @@ export default function AgentLearnings() {
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">Category</p>
-                        <p className="font-semibold text-gray-900 dark:text-white">
+                        <p className="font-semibold text-gray-900 dark:text-white dark:text-white">
                           {learning.category}
                         </p>
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">Applications</p>
-                        <p className="font-semibold text-gray-900 dark:text-white">
+                        <p className="font-semibold text-gray-900 dark:text-white dark:text-white">
                           {learning.applications}
                         </p>
                       </div>

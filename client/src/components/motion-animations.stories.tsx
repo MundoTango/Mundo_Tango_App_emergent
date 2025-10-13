@@ -125,7 +125,7 @@ export const InteractiveAnimations: Story = () => (
           <AnimatedButton className="px-6 py-3 bg-cyan-500 text-white rounded-lg font-semibold">
             Primary Button
           </AnimatedButton>
-          <AnimatedButton className="px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 text-white rounded-lg font-semibold">
+          <AnimatedButton className="px-6 py-3 bg-white dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 text-white rounded-lg font-semibold">
             Glass Button
           </AnimatedButton>
         </div>

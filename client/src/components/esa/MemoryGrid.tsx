@@ -145,7 +145,7 @@ export default function MemoryGrid({
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">
+                      <p className="font-medium text-sm text-gray-900 dark:text-white dark:text-white">
                         {memory.author.name}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -183,7 +183,7 @@ export default function MemoryGrid({
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                     <Button
                       variant="ghost"
                       size="sm"

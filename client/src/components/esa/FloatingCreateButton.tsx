@@ -122,7 +122,7 @@ export default function FloatingCreateButton({ onClick, theme = 'light' }: Float
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="absolute inset-0 rounded-full bg-white/20"
+            className="absolute inset-0 rounded-full bg-white dark:bg-gray-900/20"
           />
         </div>
 

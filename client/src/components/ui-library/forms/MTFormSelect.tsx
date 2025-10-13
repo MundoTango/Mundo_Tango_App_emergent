@@ -90,7 +90,7 @@ export default function MTFormSelect<
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent className="rounded-xl border-gray-200 shadow-xl">
+            <SelectContent className="rounded-xl border-gray-200 dark:border-gray-700 shadow-xl">
               {options.map((option) => (
                 <SelectItem
                   key={option.value}

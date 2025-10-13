@@ -60,7 +60,7 @@ export default function TenantManagement() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">
             Tenant Management
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -176,7 +176,7 @@ export default function TenantManagement() {
 
       {/* Tenants List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white">
           Communities
         </h2>
 
@@ -220,19 +220,19 @@ export default function TenantManagement() {
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
                       <p className="text-gray-500 dark:text-gray-400">Users</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">
+                      <p className="font-semibold text-gray-900 dark:text-white dark:text-white">
                         {tenant.userCount}
                       </p>
                     </div>
                     <div>
                       <p className="text-gray-500 dark:text-gray-400">Domain</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">
+                      <p className="font-semibold text-gray-900 dark:text-white dark:text-white">
                         {tenant.domain || 'Default'}
                       </p>
                     </div>
                     <div>
                       <p className="text-gray-500 dark:text-gray-400">Theme</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">
+                      <p className="font-semibold text-gray-900 dark:text-white dark:text-white">
                         {tenant.theme || 'Ocean'}
                       </p>
                     </div>

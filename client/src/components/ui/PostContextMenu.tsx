@@ -85,7 +85,7 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
           />
           
           {/* Menu */}
-          <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+          <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
             {actions.map((action, index) => (
               <button
                 key={index}

@@ -148,7 +148,7 @@ export default function EventAutocomplete({
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{getEventTypeEmoji(value.eventType)}</span>
-                <span className="font-medium text-gray-900 dark:text-gray-100">{value.title}</span>
+                <span className="font-medium text-gray-900 dark:text-white dark:text-gray-100">{value.title}</span>
               </div>
               <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
                 <div className="flex items-center gap-1">
@@ -201,7 +201,7 @@ export default function EventAutocomplete({
                   <div className="flex items-start gap-3">
                     <span className="text-2xl mt-0.5">{getEventTypeEmoji(event.eventType)}</span>
                     <div className="flex-1">
-                      <div className="font-medium text-gray-900 dark:text-gray-100">
+                      <div className="font-medium text-gray-900 dark:text-white dark:text-gray-100">
                         {event.title}
                       </div>
                       <div className="flex items-center gap-3 mt-1 text-sm text-gray-600 dark:text-gray-400">

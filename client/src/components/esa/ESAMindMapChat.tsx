@@ -230,7 +230,7 @@ export function ESAMindMapChat({ isOpen, onClose, pageContext }: ESAMindMapChatP
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                         <Bot className="w-4 h-4 text-white" />
                       </div>
-                      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4">
+                      <div className="bg-white dark:bg-gray-900/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4">
                         <Loader2 className="w-5 h-5 text-cyan-400 animate-spin" />
                       </div>
                     </motion.div>
@@ -247,7 +247,7 @@ export function ESAMindMapChat({ isOpen, onClose, pageContext }: ESAMindMapChatP
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Ask about this page, request changes, or ask for help..."
-                    className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500/50"
+                    className="flex-1 bg-white dark:bg-gray-900/5 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500/50"
                     disabled={isLoading}
                     data-testid="input-chat-message"
                   />

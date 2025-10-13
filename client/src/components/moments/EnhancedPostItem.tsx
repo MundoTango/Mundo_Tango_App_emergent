@@ -478,7 +478,7 @@ function EnhancedPostItem({
               <div className="flex flex-col gap-1 mb-1">
                 <Link href={`/profile/${post.user?.id || post.userId}`}>
                   <h3 
-                    className="font-bold text-xl text-gray-900 hover:text-ocean-cyan-600 dark:text-white dark:hover:text-ocean-cyan-400 cursor-pointer transition-colors"
+                    className="font-bold text-xl text-gray-900 dark:text-white hover:text-ocean-cyan-600 dark:text-white dark:hover:text-ocean-cyan-400 cursor-pointer transition-colors"
                     style={{ '--tw-hover-text-opacity': '1' } as React.CSSProperties}
                     title={post.user?.fullName || post.user?.name || 'Anonymous'}
                   >
@@ -820,13 +820,13 @@ function EnhancedPostItem({
             {comments && comments.length > 0 && (
               <div className="space-y-3">
                 {comments.map((comment) => (
-                  <div key={comment.id} className="flex gap-3 p-3 bg-gray-50 rounded-xl">
+                  <div key={comment.id} className="flex gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
                     <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
                       {getAvatarFallback(comment.user?.name || t('memories.post.anonymous'))}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-gray-900">{comment.user?.name || t('memories.post.anonymous')}</span>
+                        <span className="font-medium text-gray-900 dark:text-white">{comment.user?.name || t('memories.post.anonymous')}</span>
                         <span className="text-xs text-gray-500">
                           {(() => {
                             const commentDate = comment.createdAt ? new Date(comment.createdAt) : new Date();
@@ -853,14 +853,14 @@ function EnhancedPostItem({
         {/* Share Options Dialog */}
         {showShareOptions && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
               <h3 className="text-xl font-bold mb-4">{t('memories.share.sharePost')}</h3>
               
               <div className="space-y-3">
                 {/* Share to Timeline */}
                 <button
                   onClick={() => handleShareToWall()}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                 >
                   <div className="p-2 bg-blue-100 rounded-full">
                     <Share2 className="h-5 w-5 text-blue-600" />
@@ -877,7 +877,7 @@ function EnhancedPostItem({
                     setShowShareOptions(false);
                     setShowShareWithCommentModal(true);
                   }}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                 >
                   <div className="p-2 bg-green-100 rounded-full">
                     <MessageCircle className="h-5 w-5 text-green-600" />
@@ -921,7 +921,7 @@ function EnhancedPostItem({
                       });
                     }
                   }}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                 >
                   <div className="p-2 bg-ocean-teal-100 dark:bg-ocean-teal-900/30 rounded-full">
                     <Share2 className="h-5 w-5 text-ocean-teal-600 dark:text-ocean-teal-400" />
@@ -946,14 +946,14 @@ function EnhancedPostItem({
         {/* Share with Comment Modal */}
         {showShareWithCommentModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <MessageCircle className="h-5 w-5 text-green-600" />
                 {t('memories.share.shareWithComment')}
               </h3>
               
               {/* Original Post Preview */}
-              <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 bg-gradient-to-br from-ocean-cyan-400 to-ocean-seafoam-400 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundImage: 'linear-gradient(to bottom right, var(--ocean-cyan-400), var(--ocean-seafoam-400))' }}>
                     {getAvatarFallback(post.user?.name || t('memories.post.anonymous'))}

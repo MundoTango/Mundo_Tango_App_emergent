@@ -70,7 +70,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-gray-600 mb-1">{title}</p>
-            <h3 className="text-2xl font-bold text-gray-900">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
               {prefix}{value}
             </h3>
             <div className="flex items-center gap-1 mt-2">
@@ -156,7 +156,7 @@ const SubscriptionAnalytics: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Subscription Analytics</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Subscription Analytics</h1>
             <p className="text-gray-600">Monitor your subscription performance and growth metrics</p>
           </div>
           <div className="flex items-center gap-4">

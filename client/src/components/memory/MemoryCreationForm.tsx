@@ -404,11 +404,11 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               
               {/* Search Results */}
               {showUserSearch && searchedUsers.length > 0 && (
-                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
+                <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-900 border rounded-md shadow-lg max-h-48 overflow-y-auto">
                   {searchedUsers.map((user) => (
                     <div
                       key={user.id}
-                      className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                      className="p-3 hover:bg-gray-50 dark:bg-gray-800 cursor-pointer border-b last:border-b-0"
                       onClick={() => addCoTaggedUser(user)}
                     >
                       <div className="font-medium">{user.name}</div>

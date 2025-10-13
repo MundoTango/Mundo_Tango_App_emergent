@@ -201,7 +201,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
               </CardHeader>
               <CardContent>
                 {doc.review_notes && (
-                  <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-1">Review Notes:</p>
                     <p className="text-sm text-gray-600">{doc.review_notes}</p>
                   </div>

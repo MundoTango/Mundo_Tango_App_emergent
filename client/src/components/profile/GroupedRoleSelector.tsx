@@ -314,7 +314,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                 <Badge
                   key={roleId}
                   variant="secondary"
-                  className="bg-white hover:bg-gray-50 cursor-pointer"
+                  className="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:bg-gray-800 cursor-pointer"
                   onClick={() => handleRoleToggle(roleId)}
                 >
                   {role.emoji} {role.label}

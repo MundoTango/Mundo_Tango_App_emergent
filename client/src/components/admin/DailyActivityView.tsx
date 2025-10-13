@@ -188,7 +188,7 @@ function DailyActivityView() {
           <button
             onClick={() => refetch()}
             disabled={isLoading}
-            className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"
+            className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"
             title="Refresh activities"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -240,7 +240,7 @@ function DailyActivityView() {
               {todayActivities.map((activity, index) => (
                 <div 
                   key={index} 
-                  className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                  className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 dark:bg-gray-800 cursor-pointer transition-colors"
                   onClick={() => setSelectedItem(activity.item)}
                 >
                   {/* Time */}

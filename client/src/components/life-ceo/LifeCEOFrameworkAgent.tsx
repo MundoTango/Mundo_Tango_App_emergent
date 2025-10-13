@@ -453,7 +453,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Brain className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Life CEO Framework Agent</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Life CEO Framework Agent</h2>
             <p className="text-sm text-gray-600">Natural language interface to the 40L x 20P framework</p>
           </div>
         </div>
@@ -479,8 +479,8 @@ I'll analyze your request and activate the appropriate framework layers and phas
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {FRAMEWORK_MAPPINGS.map((mapping, idx) => (
-                <div key={idx} className="p-3 bg-white rounded-lg border border-turquoise-200">
-                  <h4 className="font-semibold text-sm text-gray-900 mb-1">
+                <div key={idx} className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-turquoise-200">
+                  <h4 className="font-semibold text-sm text-gray-900 dark:text-white mb-1">
                     {mapping.description}
                   </h4>
                   <div className="space-y-1">
@@ -541,7 +541,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
                       <div className="whitespace-pre-wrap">{message.content}</div>
                     </div>
                     {message.analysis && (
-                      <div className="mt-3 pt-3 border-t border-gray-200">
+                      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-2 text-xs text-gray-600">
                           <Target className="w-3 h-3" />
                           Confidence: {message.analysis?.confidence || 0}%

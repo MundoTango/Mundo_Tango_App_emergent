@@ -95,7 +95,7 @@ export default function DeploymentConfig() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">
             Deployment Configuration
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -129,7 +129,7 @@ export default function DeploymentConfig() {
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                 Health Score
               </p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white" data-testid="text-health-score">
+              <p className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white" data-testid="text-health-score">
                 {currentStatus.healthScore}%
               </p>
             </div>
@@ -140,13 +140,13 @@ export default function DeploymentConfig() {
 
           {/* Quality Gates */}
           <div className="space-y-2">
-            <p className="text-sm font-medium text-gray-900 dark:text-white">
+            <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">
               Quality Gates
             </p>
             {currentStatus.gates.map((gate, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg"
                 data-testid={`gate-${gate.name.toLowerCase()}`}
               >
                 <div className="flex items-center gap-3">
@@ -156,7 +156,7 @@ export default function DeploymentConfig() {
                     <AlertTriangle className="w-5 h-5 text-red-500" />
                   )}
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-gray-900 dark:text-white dark:text-white">
                       {gate.name}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">

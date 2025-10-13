@@ -326,7 +326,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                             { name: 'Carlos Mendez', username: 'carlos_m', joinDate: '1 day ago' },
                             { name: 'Ana Silva', username: 'ana_dancer', joinDate: '2 days ago' }
                           ].map((request, index) => (
-                            <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                            <div key={index} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded">
                               <div>
                                 <div className="font-medium text-sm">{request.name}</div>
                                 <div className="text-xs text-gray-500">@{request.username}</div>

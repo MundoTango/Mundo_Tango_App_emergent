@@ -231,7 +231,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => setSelectedStoryIndex(null)}
-                    className="text-white hover:bg-white/10"
+                    className="text-white hover:bg-white dark:bg-gray-900/10"
                   >
                     <X className="h-5 w-5" />
                   </Button>
@@ -240,8 +240,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 {/* Progress Indicators */}
                 <div className="flex space-x-1 mt-4">
                   {userGroups[selectedStoryIndex].stories.map((_, storyIndex) => (
-                    <div key={storyIndex} className="flex-1 h-0.5 bg-white/30 rounded">
-                      <div className="h-full bg-white rounded" style={{ width: storyIndex === 0 ? '100%' : '0%' }}></div>
+                    <div key={storyIndex} className="flex-1 h-0.5 bg-white dark:bg-gray-900/30 rounded">
+                      <div className="h-full bg-white dark:bg-gray-900 rounded" style={{ width: storyIndex === 0 ? '100%' : '0%' }}></div>
                     </div>
                   ))}
                 </div>
@@ -271,7 +271,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => navigateStory('prev')}
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10"
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white dark:bg-gray-900/10"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
@@ -282,7 +282,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => navigateStory('next')}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white dark:bg-gray-900/10"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </Button>

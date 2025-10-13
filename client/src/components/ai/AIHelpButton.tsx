@@ -250,7 +250,7 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
                     <button
                       key={idx}
                       onClick={() => setUserQuery(suggestion)}
-                      className="w-full text-left p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm text-gray-300 flex items-center gap-2 group"
+                      className="w-full text-left p-2 rounded-lg bg-white dark:bg-gray-900/5 hover:bg-white/10 transition-colors text-sm text-gray-300 flex items-center gap-2 group"
                       data-testid={`suggestion-${idx}`}
                     >
                       <ArrowRight className="w-3 h-3 text-purple-400 group-hover:translate-x-1 transition-transform" />
@@ -291,7 +291,7 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
                       </div>
                     </div>
                     <div className="flex justify-start">
-                      <div className="bg-white/5 rounded-lg p-3 max-w-[80%] border border-white/10">
+                      <div className="bg-white dark:bg-gray-900/5 rounded-lg p-3 max-w-[80%] border border-white/10">
                         <p className="text-sm text-gray-300">{conv.aiResponse}</p>
                       </div>
                     </div>
@@ -307,14 +307,14 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
             </div>
 
             {/* Input Area */}
-            <div className="p-4 border-t border-white/10 bg-white/5">
+            <div className="p-4 border-t border-white/10 bg-white dark:bg-gray-900/5">
               <div className="flex gap-2">
                 <Input
                   placeholder="Ask AI for help..."
                   value={userQuery}
                   onChange={(e) => setUserQuery(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendQuery()}
-                  className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-gray-500"
+                  className="flex-1 bg-white dark:bg-gray-900/5 border-white/10 text-white placeholder:text-gray-500"
                   data-testid="input-ai-query"
                 />
                 <Button

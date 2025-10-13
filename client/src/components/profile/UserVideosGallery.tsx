@@ -43,7 +43,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load videos</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Unable to load videos</h3>
           <p className="text-gray-600">Please try again later.</p>
         </CardContent>
       </Card>
@@ -98,7 +98,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
           <Card className="glassmorphic-card">
             <CardContent className="p-12 text-center">
               <Video className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No videos yet</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No videos yet</h3>
               <p className="text-gray-600">
                 {isOwnProfile
                   ? 'Start sharing your tango performances by uploading your first video.'
