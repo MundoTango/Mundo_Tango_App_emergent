@@ -9,6 +9,18 @@ Do not reference monetary values or investment amounts when describing the platf
 When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
+## Recent Updates (October 13, 2025)
+- **H2AC Phase 2 COMPLETE**: All 5 tracks built in parallel using mb.md methodology (Human Onboarding, Agent Chat, Audit Automation, 3D Avatar Pipeline, Integration)
+- **Human Onboarding Flow**: Team registration UI with role selection (frontend/backend/designer/admin), auto agent matching, work queue setup via POST /api/team/onboard
+- **Agent Chat Integration**: Real-time AI chat with 88+ agent personalities using OpenAI GPT-4o-mini, integrated into ProjectWorkspace "Ask Agents" tab via POST /api/agent-chat/message
+- **Audit-to-Story Automation**: 17-phase audit system with cron scheduler (high/medium/low priority), auto story card generation with zero duplication via AuditAutomationService
+- **3D Avatar Pipeline**: Blender automation script (convert-xbot-to-glb.py) ready to convert FBX→GLB with Draco compression for production Mr Blue avatar
+- **H2AC Orchestrator**: Coordinates all systems (onboarding, chat, audits, avatars), health checks, initialization on server start
+- **The Pages Infrastructure**: 88 Page Agents (P1-P88) created, one per platform route, complete registry at `docs/The Pages/thepages.md`
+- **The Plan (ESA65)**: Dynamic story cards with 4-level hierarchy (Feature→Sub→Component→Task), zero duplication, real-time auto-cascade updates
+- **H2AC Pattern**: Human-to-Agent Communication with AgentMatcher (role-based), ContextDetector (page awareness), MyWorkTab (personalized stories), ProjectWorkspace (interactive breakdown)
+- **Agent Naming Standardization**: ESA1-105 (ESA Framework), MB1-8 (Mr Blue), P1-P88 (Page Agents), J1-J15 (Journey Agents)
+
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
