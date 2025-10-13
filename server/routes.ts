@@ -209,7 +209,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/audit', auditRoutes); // H2AC Phase 3: Full Platform Audit System
   app.use('/api/audit-scheduler', auditSchedulerRoutes); // H2AC Phase 3 Completion: Audit Scheduler
   app.use('/api/avatar', avatarRoutes); // H2AC Phase 3 Completion: Avatar GLB Status
-  app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
+  app.use('/api/ai', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46) - FIXED: Mr Blue endpoint now at /api/ai/mrblue/chat
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
   app.use(communityRoutes); // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)
