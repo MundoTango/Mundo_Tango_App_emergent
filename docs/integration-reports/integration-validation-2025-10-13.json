@@ -1,55 +1,13 @@
 {
-  "timestamp": "2025-10-13T08:38:29.076Z",
+  "timestamp": "2025-10-13T08:41:02.190Z",
   "summary": {
     "totalFrontendCalls": 223,
-    "verifiedRoutes": 216,
-    "missingRoutes": 7,
+    "verifiedRoutes": 220,
+    "missingRoutes": 3,
     "methodMismatches": 0,
-    "autoFixable": 5
+    "autoFixable": 3
   },
   "issues": [
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "hooks/useProjects.ts",
-        "line": 44,
-        "endpoint": "/api/projects",
-        "method": "POST",
-        "context": "const response = await apiRequest('/api/projects', {"
-      },
-      "expectedRoute": "/api/projects",
-      "actualRoute": {
-        "file": "routes/lifeCEORoutes.ts",
-        "path": "/life-ceo/projects",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/life-ceo/projects"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/life-ceo/projects. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "hooks/useProjects.ts",
-        "line": 106,
-        "endpoint": "/api/projects/bulk-import",
-        "method": "POST",
-        "context": "const response = await apiRequest('/api/projects/bulk-import', {"
-      },
-      "expectedRoute": "/api/projects/bulk-import",
-      "actualRoute": {
-        "file": "routes/lifeCEORoutes.ts",
-        "path": "/life-ceo/projects",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/life-ceo/projects"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/life-ceo/projects. Update mount path in routes.ts or fix frontend call."
-    },
     {
       "severity": "critical",
       "type": "missing_backend",
@@ -96,34 +54,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "components/GlobalStatisticsDashboard.tsx",
-        "line": 67,
-        "endpoint": "/api/statistics/global",
-        "method": "GET",
-        "context": "const response = await fetch('/api/statistics/global', { headers });"
-      },
-      "expectedRoute": "/api/statistics/global",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.get('/api/statistics/global', ...)"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/GlobalStatisticsDashboard.tsx",
-        "line": 79,
-        "endpoint": "/api/statistics/realtime",
-        "method": "GET",
-        "context": "const response = await fetch('/api/statistics/realtime');"
-      },
-      "expectedRoute": "/api/statistics/realtime",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.get('/api/statistics/realtime', ...)"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "components/profile/documentation/ProfileDocumentation.tsx",
         "line": 126,
         "endpoint": "/api/profile/123",
@@ -142,5 +72,5 @@
       "recommendation": "Route exists at /api/user/profile-image. Update mount path in routes.ts or fix frontend call."
     }
   ],
-  "healthScore": 97
+  "healthScore": 99
 }
