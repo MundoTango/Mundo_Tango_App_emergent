@@ -23,12 +23,9 @@ export function ESAMindMap() {
   const { user } = useAuth();
   console.log('🗺️ [ESA MINDMAP] User from hook:', user);
   
-  // TEST MODE: Always show (bypassing access control for debugging)
-  const testMode = true;
-  console.log('🗺️ [ESA MINDMAP] testMode:', testMode, 'shouldShow:', shouldShowESAMindMap(user));
-  
-  if (!testMode && !shouldShowESAMindMap(user)) {
-    console.log('🗺️ [ESA MINDMAP] RETURNING NULL');
+  // Access Control: Show only to Super Admins
+  if (!shouldShowESAMindMap(user)) {
+    console.log('🗺️ [ESA MINDMAP] RETURNING NULL - not authorized');
     return null;
   }
   
