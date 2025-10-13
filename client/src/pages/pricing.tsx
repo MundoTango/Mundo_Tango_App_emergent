@@ -92,7 +92,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b">
+      <div className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-b">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
@@ -126,7 +126,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Free Tier */}
-          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
+          <Card className="relative border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 Free
@@ -220,7 +220,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Business Tier */}
-          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
+          <Card className="relative border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-blue-600" />

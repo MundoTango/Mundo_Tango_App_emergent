@@ -514,19 +514,19 @@ const AnalyticsDashboard: React.FC = () => {
                 <div className="space-y-4">
                   <h3 className="font-semibold">Performance Metrics</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Page Load Time</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">2.1s</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">API Response Time</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">145ms</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Cache Hit Rate</span>
                       <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">87%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Error Rate</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">0.12%</Badge>
                     </div>
@@ -536,19 +536,19 @@ const AnalyticsDashboard: React.FC = () => {
                 <div className="space-y-4">
                   <h3 className="font-semibold">System Health</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Server Uptime</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">99.98%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Database Health</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">Healthy</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">Memory Usage</span>
                       <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">72%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <span className="text-sm">CPU Usage</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">45%</Badge>
                     </div>

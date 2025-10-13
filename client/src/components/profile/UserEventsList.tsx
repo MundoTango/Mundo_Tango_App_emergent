@@ -42,7 +42,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('events.errors.unableToLoad')}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('events.errors.unableToLoad')}</h3>
           <p className="text-gray-600">{t('app.tryAgainLater')}</p>
         </CardContent>
       </Card>
@@ -56,7 +56,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     <div className="space-y-6">
       {upcomingEvents.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">{t('events.upcomingEvents')}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('events.upcomingEvents')}</h3>
           {upcomingEvents.map((event: any) => (
             <UnifiedEventCard
               key={event.id}
@@ -80,7 +80,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
 
       {pastEvents.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">{t('events.pastEvents')}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('events.pastEvents')}</h3>
           {pastEvents.map((event: any) => (
             <Card key={event.id} className="glassmorphic-card opacity-75">
               <CardContent className="p-6">
@@ -101,7 +101,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
             <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('events.noEvents')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('events.noEvents')}</h3>
             <p className="text-gray-600">
               {isOwnProfile
                 ? t('events.noEventsOwn')

@@ -121,7 +121,7 @@ export function NotionEntryPage() {
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
               <FileText className="w-8 h-8 text-gray-400" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
               Story not found
             </h2>
             <p className="text-gray-600 mb-6">
@@ -142,7 +142,7 @@ export function NotionEntryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b">
+      <div className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-b">
         <div className="max-w-4xl mx-auto px-6 py-6">
           <Link href="/notion">
             <Button variant="ghost" className="mb-4">
@@ -172,7 +172,7 @@ export function NotionEntryPage() {
                 )}
               </div>
 
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {entry.title}
               </h1>
 

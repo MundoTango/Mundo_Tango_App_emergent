@@ -91,19 +91,19 @@ export const ProfilePhasesDashboard: React.FC<{ userId: number }> = ({ userId })
               <Progress value={overallProgress} className="h-4" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-white dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">10</div>
                 <div className="text-sm text-gray-600">Completed</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-white dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">6</div>
                 <div className="text-sm text-gray-600">In Progress</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-white dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-gray-600">4</div>
                 <div className="text-sm text-gray-600">Pending</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-white dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">40L</div>
                 <div className="text-sm text-gray-600">Framework</div>
               </div>

@@ -180,7 +180,7 @@ function SortableFriendCard({ friend, index, viewMode }: SortableFriendCardProps
                 )}
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-gray-900">{friend.name}</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white">{friend.name}</h4>
                 <p className="text-sm text-gray-600">@{friend.username}</p>
                 <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                   <MapPin className="w-3 h-3" />
@@ -208,7 +208,7 @@ function SortableFriendCard({ friend, index, viewMode }: SortableFriendCardProps
                 <Button size="icon" variant="ghost">
                   <Share2 className="w-4 h-4" />
                 </Button>
-                <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
+                <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white dark:bg-gray-900 shadow-lg rounded-lg p-2">
                   <FacebookShareButton
                     url={`https://mundotango.life/profile/${friend.username}`}
                   >
@@ -261,7 +261,7 @@ function SortableGroupItem({ friend, index }: SortableGroupItemProps) {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-white p-2 rounded-lg border text-sm"
+      className="bg-white dark:bg-gray-900 p-2 rounded-lg border text-sm"
     >
       {friend.name}
     </div>
@@ -537,7 +537,7 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{friends.length}</p>
                 <p className="text-sm text-gray-600">Total Friends</p>
               </div>
             </div>
@@ -546,7 +546,7 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Clock className="w-8 h-8 text-blue-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
                 <p className="text-sm text-gray-600">Pending</p>
@@ -557,7 +557,7 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Heart className="w-8 h-8 text-cyan-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {friendGroups.favorites.length}
                 </p>
                 <p className="text-sm text-gray-600">Favorites</p>
@@ -568,7 +568,7 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Activity className="w-8 h-8 text-purple-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {recentActivities.length}
                 </p>
                 <p className="text-sm text-gray-600">Active Today</p>
@@ -633,19 +633,19 @@ export default function EnhancedFriendsPage() {
           {/* Friend Activity Feed */}
           <div className="lg:col-span-1">
             <Card className="p-4">
-              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Activity className="w-5 h-5 text-turquoise-600" />
                 Friend Activity
               </h3>
               <div className="space-y-3">
                 {recentActivities.map((friend) => (
                   <LazyLoad key={friend.id} height={60} once>
-                    <div className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                    <div className="flex items-start gap-3 p-2 hover:bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors">
                       <div className="w-8 h-8 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                         {friend.name?.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                           {friend.name}
                         </p>
                         <p className="text-xs text-gray-600">
@@ -687,7 +687,7 @@ export default function EnhancedFriendsPage() {
                         id={group.id}
                         className="p-4 min-h-[100px] transition-all"
                       >
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                        <h4 className="font-medium text-gray-900 dark:text-white mb-2 flex items-center gap-2">
                           <group.icon className={`w-4 h-4 text-${group.color}-600`} />
                           {group.title}
                           <Badge variant="secondary" className="ml-auto">

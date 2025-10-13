@@ -165,7 +165,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
                     <button
                       key={route.route}
                       onClick={() => switchRole(route.route)}
-                      className="text-sm bg-white border border-blue-300 rounded px-2 py-1 hover:bg-blue-50 transition-colors"
+                      className="text-sm bg-white dark:bg-gray-900 border border-blue-300 rounded px-2 py-1 hover:bg-blue-50 transition-colors"
                     >
                       {route.role.replace(/_/g, ' ')}
                     </button>

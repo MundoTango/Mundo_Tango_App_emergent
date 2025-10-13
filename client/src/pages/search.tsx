@@ -67,7 +67,7 @@ export default function SearchPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
       {/* Header */}
-      <div className="glassmorphic-card bg-white/70 backdrop-blur-xl border-b border-white/50">
+      <div className="glassmorphic-card bg-white dark:bg-gray-900/70 backdrop-blur-xl border-b border-white/50">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-6">
             Search Mundo Tango
@@ -81,7 +81,7 @@ export default function SearchPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search for users, posts, events, or groups..."
-              className="w-full pl-12 pr-12 py-4 glassmorphic-card bg-white/80 backdrop-blur-xl border border-turquoise-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-turquoise-400 focus:border-transparent text-lg"
+              className="w-full pl-12 pr-12 py-4 glassmorphic-card bg-white dark:bg-gray-900/80 backdrop-blur-xl border border-turquoise-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-turquoise-400 focus:border-transparent text-lg"
               autoFocus
             />
             {searchQuery && (
@@ -127,7 +127,7 @@ export default function SearchPage() {
 
         {!isLoading && !debouncedQuery && (
           <div className="text-center py-12">
-            <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto">
+            <div className="glassmorphic-card bg-white dark:bg-gray-900/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto">
               <SearchIcon className="h-16 w-16 text-turquoise-400 mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Start typing to search</h2>
               <p className="text-gray-600">Find users, posts, events, and groups across Mundo Tango</p>
@@ -137,7 +137,7 @@ export default function SearchPage() {
 
         {!isLoading && debouncedQuery && searchResults?.results?.length === 0 && (
           <div className="text-center py-12">
-            <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto">
+            <div className="glassmorphic-card bg-white dark:bg-gray-900/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto">
               <SearchIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-gray-800 mb-2">No results found</h2>
               <p className="text-gray-600">Try adjusting your search terms or filters</p>
@@ -149,7 +149,7 @@ export default function SearchPage() {
           <div className="space-y-4">
             {searchResults.results.map((result: SearchResult) => (
               <Link key={`${result.type}-${result.id}`} href={result.link}>
-                <div className="glassmorphic-card bg-white/70 backdrop-blur-xl rounded-2xl p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer">
+                <div className="glassmorphic-card bg-white dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                   <div className="flex items-start gap-4">
                     {/* Icon or Image */}
                     <div className="flex-shrink-0">
@@ -178,7 +178,7 @@ export default function SearchPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
                         {result.title}
                       </h3>
                       {result.subtitle && (

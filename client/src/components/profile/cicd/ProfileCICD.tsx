@@ -114,15 +114,15 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl font-bold text-gray-800">{metrics.buildTime}min</div>
               <div className="text-sm text-gray-600">Avg Build Time</div>
             </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl font-bold text-gray-800">{metrics.deploymentFrequency}/week</div>
               <div className="text-sm text-gray-600">Deploy Frequency</div>
             </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl font-bold text-gray-800">{metrics.coverage}%</div>
               <div className="text-sm text-gray-600">Code Coverage</div>
             </div>
@@ -158,7 +158,7 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
                 <div className="font-bold text-red-700">{metrics.testsTotal - metrics.testsPassed}</div>
                 <div className="text-red-600">Failed</div>
               </div>
-              <div className="text-center p-2 bg-gray-50 rounded">
+              <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
                 <div className="font-bold text-gray-700">0</div>
                 <div className="text-gray-600">Skipped</div>
               </div>
@@ -174,21 +174,21 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div>
                 <div className="font-medium">Production - v2.1.0</div>
                 <div className="text-sm text-gray-600">2 hours ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Success</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div>
                 <div className="font-medium">Staging - v2.1.0-beta.1</div>
                 <div className="text-sm text-gray-600">4 hours ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Success</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div>
                 <div className="font-medium">Development - feature/profile-v2</div>
                 <div className="text-sm text-gray-600">6 hours ago</div>

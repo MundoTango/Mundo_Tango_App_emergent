@@ -110,7 +110,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
       {/* Reaction Picker Popup */}
       {showReactions && (
         <div 
-          className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-100 px-2 py-1 z-50"
+          className="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-900 rounded-full shadow-lg border border-gray-100 px-2 py-1 z-50"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => {
             setIsHovering(false);

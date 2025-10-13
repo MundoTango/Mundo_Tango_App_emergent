@@ -6,7 +6,7 @@ import { Users, Calendar, Globe2, Building, Music } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const CommunityStats = () => (
-  <div className="bg-white/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
+  <div className="bg-white dark:bg-gray-900/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
     <h3 className="text-lg font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent mb-4">
       Community
     </h3>
@@ -18,7 +18,7 @@ export const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Global Dancers</span>
         </div>
-        <span className="text-xl font-bold text-gray-900" aria-label="3,200 global dancers">3.2K</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white" aria-label="3,200 global dancers">3.2K</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ export const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Active Events</span>
         </div>
-        <span className="text-xl font-bold text-gray-900" aria-label="945 active events">945</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white" aria-label="945 active events">945</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -38,7 +38,7 @@ export const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Communities</span>
         </div>
-        <span className="text-xl font-bold text-gray-900" aria-label="6,800 communities">6.8K</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white" aria-label="6,800 communities">6.8K</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -48,11 +48,11 @@ export const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Your City</span>
         </div>
-        <span className="text-xl font-bold text-gray-900" aria-label="184 members in your city">184</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white" aria-label="184 members in your city">184</span>
       </div>
     </div>
 
-    <div className="mt-6 pt-6 border-t border-gray-200">
+    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
       <Button 
         className="w-full bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white hover:opacity-90"
         aria-label="Go to Mundo Tango"

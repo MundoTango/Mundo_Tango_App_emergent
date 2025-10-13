@@ -335,7 +335,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="✨ Share your tango moment..."
-                className="w-full min-h-[100px] p-4 bg-white/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300"
+                className="w-full min-h-[100px] p-4 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300"
                 style={{ height: 'auto' }}
               />
               
@@ -403,7 +403,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                               preload="metadata"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                              <div className="bg-white/90 rounded-full p-3">
+                              <div className="bg-white dark:bg-gray-900/90 rounded-full p-3">
                                 <Video className="w-6 h-6 text-gray-700" />
                               </div>
                             </div>
@@ -795,7 +795,7 @@ export const EnhancedMemoryCard: React.FC<{
                 
                 {showReactions && (
                   <div
-                    className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn"
+                    className="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-900 rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn"
                   >
                     {reactionOptions.map((reaction) => (
                       <button

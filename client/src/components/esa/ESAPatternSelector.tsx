@@ -75,7 +75,7 @@ export function ESAPatternSelector() {
           placeholder="Search patterns by name, scenario, or lead agent..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500"
+          className="pl-10 bg-white dark:bg-gray-900/5 border-white/10 text-white placeholder:text-gray-500"
           data-testid="input-search-patterns"
         />
       </div>
@@ -88,7 +88,7 @@ export function ESAPatternSelector() {
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
           {patternSelectionGuide.map((guide, idx) => (
-            <div key={idx} className="flex items-center justify-between p-2 rounded bg-white/5">
+            <div key={idx} className="flex items-center justify-between p-2 rounded bg-white dark:bg-gray-900/5">
               <span className="text-gray-300">{guide.scenario}</span>
               <div className="flex items-center gap-2">
                 <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30 text-xs">
@@ -156,7 +156,7 @@ export function ESAPatternSelector() {
               {/* Expand Steps */}
               <Button
                 variant="ghost"
-                className="w-full text-cyan-400 hover:text-cyan-300 hover:bg-white/5"
+                className="w-full text-cyan-400 hover:text-cyan-300 hover:bg-white dark:bg-gray-900/5"
                 onClick={(e) => {
                   e.stopPropagation();
                   setExpandedPattern(expandedPattern === pattern.id ? null : pattern.id);
@@ -181,7 +181,7 @@ export function ESAPatternSelector() {
                 <div className="space-y-2 pt-4 border-t border-white/10" onClick={(e) => e.stopPropagation()}>
                   {pattern.steps.map((step, idx) => (
                     <div key={idx} className="space-y-2">
-                      <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
+                      <div className="flex items-start gap-3 p-3 rounded-lg bg-white dark:bg-gray-900/5">
                         <div className="w-6 h-6 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                           {idx + 1}
                         </div>
@@ -254,15 +254,15 @@ export function ESAPatternSelector() {
               </div>
 
               <div className="grid grid-cols-3 gap-4">
-                <div className="p-4 rounded-lg bg-white/5">
+                <div className="p-4 rounded-lg bg-white dark:bg-gray-900/5">
                   <p className="text-xs text-gray-500 mb-1">Agents Involved</p>
                   <p className="text-sm font-semibold text-white">{selectedPattern.agentsInvolved}</p>
                 </div>
-                <div className="p-4 rounded-lg bg-white/5">
+                <div className="p-4 rounded-lg bg-white dark:bg-gray-900/5">
                   <p className="text-xs text-gray-500 mb-1">Timeline</p>
                   <p className="text-sm font-semibold text-white">{selectedPattern.timeline}</p>
                 </div>
-                <div className="p-4 rounded-lg bg-white/5">
+                <div className="p-4 rounded-lg bg-white dark:bg-gray-900/5">
                   <p className="text-xs text-gray-500 mb-1">Execution Type</p>
                   <p className="text-sm font-semibold text-white capitalize">{selectedPattern.executionType}</p>
                 </div>
@@ -276,7 +276,7 @@ export function ESAPatternSelector() {
               <div className="space-y-3">
                 <h4 className="font-semibold text-white">Complete Workflow</h4>
                 {selectedPattern.steps.map((step, idx) => (
-                  <div key={idx} className="p-4 rounded-lg bg-white/5">
+                  <div key={idx} className="p-4 rounded-lg bg-white dark:bg-gray-900/5">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                         {idx + 1}

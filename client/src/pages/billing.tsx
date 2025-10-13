@@ -434,7 +434,7 @@ export default function BillingDashboard() {
               <CardContent>
                 <div className="space-y-2">
                   {payments?.filter((p: any) => p.status === 'succeeded').map((payment: any) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-gray-800">
                       <div>
                         <p className="font-semibold">
                           Invoice #{payment.id.toString().slice(-8).toUpperCase()}

@@ -158,7 +158,7 @@ export default function EventInvitationManager() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Event Role Invitations</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Event Role Invitations</h1>
         <p className="text-gray-600">Manage your event role invitations and build your tango resume</p>
       </div>
 
@@ -197,7 +197,7 @@ export default function EventInvitationManager() {
             <Card>
               <CardContent className="p-8 text-center">
                 <Clock className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No pending invitations</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No pending invitations</h3>
                 <p className="text-gray-500">You're all caught up! Check back later for new opportunities.</p>
               </CardContent>
             </Card>
@@ -218,7 +218,7 @@ export default function EventInvitationManager() {
             <Card>
               <CardContent className="p-8 text-center">
                 <CheckCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No accepted invitations</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No accepted invitations</h3>
                 <p className="text-gray-500">Accept invitations to build your tango resume.</p>
               </CardContent>
             </Card>
@@ -239,7 +239,7 @@ export default function EventInvitationManager() {
             <Card>
               <CardContent className="p-8 text-center">
                 <XCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No declined invitations</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No declined invitations</h3>
                 <p className="text-gray-500">All your invitations are still active.</p>
               </CardContent>
             </Card>
@@ -260,7 +260,7 @@ export default function EventInvitationManager() {
             <Card>
               <CardContent className="p-8 text-center">
                 <User className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No invitations yet</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No invitations yet</h3>
                 <p className="text-gray-500">Event organizers will invite you to participate in their events.</p>
               </CardContent>
             </Card>

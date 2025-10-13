@@ -87,7 +87,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Simple Dropdown */}
       {showDropdown && (
         <div 
-          className="absolute bg-white border border-gray-200 rounded-lg shadow-2xl p-1 transition-all duration-300 ease-out"
+          className="absolute bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl p-1 transition-all duration-300 ease-out"
           style={{ 
             zIndex: 99999,
             width: '180px',

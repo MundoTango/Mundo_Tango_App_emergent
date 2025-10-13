@@ -701,7 +701,7 @@ const Framework30LDashboard: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
             <Layers className="w-7 h-7 text-turquoise-600" />
             30L Framework Dashboard
           </h2>
@@ -796,7 +796,7 @@ const Framework30LDashboard: React.FC = () => {
                         {layer.status}
                       </Badge>
                     </div>
-                    <h4 className="font-semibold text-gray-900 text-sm mb-1">{layer.name}</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1">{layer.name}</h4>
                     <div className="mt-2">
                       <div className="flex justify-between text-xs mb-1">
                         <span className="text-gray-600">Progress</span>
@@ -826,7 +826,7 @@ const Framework30LDashboard: React.FC = () => {
               {frameworkData.find(l => l.id === selectedLayer) && (
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                       Layer {selectedLayer}: {frameworkData.find(l => l.id === selectedLayer)!.name}
                     </h4>
                     <p className="text-sm text-gray-600">
@@ -843,18 +843,18 @@ const Framework30LDashboard: React.FC = () => {
                     </TabsList>
                     <TabsContent value="overview" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What is this layer?</h5>
+                        <h5 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">What is this layer?</h5>
                         <p className="text-sm text-gray-600 leading-relaxed">
                           {frameworkData.find(l => l.id === selectedLayer)!.detailedDescription}
                         </p>
                       </div>
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">Key Metrics</h5>
+                        <h5 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">Key Metrics</h5>
                         <div className="grid grid-cols-2 gap-2">
                           {frameworkData.find(l => l.id === selectedLayer)!.metrics?.map((metric, idx) => (
-                            <div key={idx} className="bg-gray-50 p-2 rounded">
+                            <div key={idx} className="bg-gray-50 dark:bg-gray-800 p-2 rounded">
                               <div className="text-xs text-gray-500">{metric.label}</div>
-                              <div className="text-sm font-semibold text-gray-900">{metric.value}</div>
+                              <div className="text-sm font-semibold text-gray-900 dark:text-white">{metric.value}</div>
                             </div>
                           ))}
                         </div>
@@ -862,7 +862,7 @@ const Framework30LDashboard: React.FC = () => {
                     </TabsContent>
                     <TabsContent value="progress" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What does {frameworkData.find(l => l.id === selectedLayer)!.progress}% mean?</h5>
+                        <h5 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">What does {frameworkData.find(l => l.id === selectedLayer)!.progress}% mean?</h5>
                         <p className="text-sm text-gray-600 leading-relaxed">
                           {frameworkData.find(l => l.id === selectedLayer)!.progressExplanation}
                         </p>
@@ -917,7 +917,7 @@ const Framework30LDashboard: React.FC = () => {
               {frameworkData
                 .filter(layer => layer.issues.length > 0 && layer.progress < 60)
                 .map(layer => (
-                  <div key={layer.id} className="p-3 bg-white rounded-lg border border-red-200">
+                  <div key={layer.id} className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-red-200">
                     <div className="font-medium text-red-800 mb-1">
                       Layer {layer.id}: {layer.name}
                     </div>

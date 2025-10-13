@@ -310,7 +310,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
 
   if (!isExpanded) {
     return (
-      <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
+      <Card className="mb-6 bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
         <div className="p-6">
           <div 
             className="flex items-center space-x-4 cursor-pointer"
@@ -319,7 +319,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
               {user?.name?.charAt(0) || 'U'}
             </div>
-            <div className="flex-1 bg-gray-50 hover:bg-gray-100 transition-colors rounded-full px-6 py-3 text-gray-500">
+            <div className="flex-1 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 transition-colors rounded-full px-6 py-3 text-gray-500">
               Share your tango moment...
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   }
 
   return (
-    <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
+    <Card className="mb-6 bg-white dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -338,7 +338,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               {user?.name?.charAt(0) || 'U'}
             </div>
             <div>
-              <p className="font-semibold text-gray-900">{user?.name}</p>
+              <p className="font-semibold text-gray-900 dark:text-white">{user?.name}</p>
               <p className="text-sm text-gray-500">@{user?.username}</p>
             </div>
           </div>
@@ -448,7 +448,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
               value={embedUrl}
               onChange={(e) => setEmbedUrl(e.target.value)}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             />
           </div>
         )}
@@ -522,7 +522,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
-              className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="px-3 py-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
             >
               <option value="public">🌍 Public</option>
               <option value="friends">👥 Friends</option>

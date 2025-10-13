@@ -139,7 +139,7 @@ export function ESAMindMap() {
 
               {/* Live Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white dark:bg-gray-900/5">
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 text-cyan-400" />
                     <div>
@@ -148,7 +148,7 @@ export function ESAMindMap() {
                     </div>
                   </div>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white dark:bg-gray-900/5">
                   <div className="flex items-center gap-2">
                     <LayersIcon className="w-4 h-4 text-blue-400" />
                     <div>
@@ -157,7 +157,7 @@ export function ESAMindMap() {
                     </div>
                   </div>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white dark:bg-gray-900/5">
                   <div className="flex items-center gap-2">
                     <GraduationCap className="w-4 h-4 text-green-400" />
                     <div>
@@ -166,7 +166,7 @@ export function ESAMindMap() {
                     </div>
                   </div>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white dark:bg-gray-900/5">
                   <div className="flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-purple-400" />
                     <div>
@@ -186,7 +186,7 @@ export function ESAMindMap() {
                   placeholder="Search agents, layers, or capabilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500"
+                  className="pl-10 bg-white dark:bg-gray-900/5 border-white/10 text-white placeholder:text-gray-500"
                   data-testid="input-search-agents"
                 />
               </div>
@@ -225,7 +225,7 @@ export function ESAMindMap() {
                   {filteredAgents.slice(0, 10).map((agent) => (
                     <div
                       key={agent.id}
-                      className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
+                      className="p-3 rounded-lg bg-white dark:bg-gray-900/5 hover:bg-white/10 transition-all cursor-pointer group"
                       onClick={() => {
                         setLocation('/admin/esa-mind');
                         setIsOpen(false);

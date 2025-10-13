@@ -112,7 +112,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
             </button>
           </div>
           {showHeaderDivider && (
-            <div className="mt-4 -mx-6 border-b border-gray-200 dark:border-gray-700" />
+            <div className="mt-4 -mx-6 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700" />
           )}
         </div>
 
@@ -132,7 +132,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
         {showFooter && (
           <>
             {showFooterDivider && (
-              <div className="border-t border-gray-200 dark:border-gray-700" />
+              <div className="border-t border-gray-200 dark:border-gray-700 dark:border-gray-700" />
             )}
             <div className="px-6 py-4">
               <div className="flex items-center justify-between">

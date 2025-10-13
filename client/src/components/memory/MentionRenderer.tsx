@@ -109,7 +109,7 @@ const MentionRenderer: React.FC<MentionRendererProps> = ({
     
     // Enhanced strong text
     strong: ({ children }: { children: React.ReactNode }) => (
-      <strong className="font-semibold text-gray-900">
+      <strong className="font-semibold text-gray-900 dark:text-white">
         {children}
       </strong>
     ),

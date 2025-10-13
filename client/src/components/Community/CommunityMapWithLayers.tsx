@@ -157,7 +157,7 @@ export default function CommunityMapWithLayers({
 
   if (isLoading) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+      <div className="h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-gray-600">{t('common.loading_map')}</p>
@@ -169,7 +169,7 @@ export default function CommunityMapWithLayers({
   return (
     <div className="flex flex-col w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]">
+      <div className="bg-white dark:bg-gray-900/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]">
         <CommunityMapFilters 
           filters={filters} 
           onFiltersChange={setFilters} 
@@ -202,7 +202,7 @@ export default function CommunityMapWithLayers({
           >
             <Popup>
               <div className="p-2 max-w-sm">
-                <h3 className="font-semibold text-gray-900 dark:text-gray-50 mb-1">{item.title}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white dark:text-gray-50 mb-1">{item.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{item.description}</p>
                 {item.address && (
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-1">

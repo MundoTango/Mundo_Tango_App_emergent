@@ -26,7 +26,7 @@ export const PostsFallback = () => (
       <h3 className="text-lg font-semibold">Posts</h3>
       <Skeleton className="h-10 w-32" />
     </div>
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-6 text-center">
+    <div className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-6 text-center">
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
           <AlertCircle className="w-8 h-8 text-gray-400" />
@@ -49,7 +49,7 @@ export const TravelDetailsFallback = () => (
       <h3 className="text-lg font-semibold">Travel History</h3>
       <Skeleton className="h-10 w-40" />
     </div>
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-6 text-center">
+    <div className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-6 text-center">
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
           <MapPin className="w-8 h-8 text-gray-400" />
@@ -66,12 +66,12 @@ export const TabContentFallback = ({ icon: Icon, title, message }: {
   title: string, 
   message?: string 
 }) => (
-  <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-8 text-center">
+  <div className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg p-8 text-center">
     <div className="flex flex-col items-center space-y-4">
       <div className="w-20 h-20 bg-gradient-to-br from-turquoise-100 to-cyan-100 dark:from-turquoise-900/20 dark:to-cyan-900/20 rounded-full flex items-center justify-center">
         <Icon className="w-10 h-10 text-turquoise-600 dark:text-turquoise-400" />
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300 max-w-sm">
         {message || `${title} content is temporarily unavailable. Please try again later.`}
       </p>
@@ -142,12 +142,12 @@ export const OfflineIndicator = () => (
 
 // Network error retry component
 export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
-  <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-6 text-center border border-red-200 dark:border-red-800">
+  <div className="bg-white dark:bg-gray-900/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-6 text-center border border-red-200 dark:border-red-800">
     <div className="flex flex-col items-center space-y-4">
       <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
         <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Connection Error</h3>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white">Connection Error</h3>
       <p className="text-gray-600 dark:text-gray-300 max-w-sm">
         We're having trouble connecting to our servers. Please check your internet connection.
       </p>

@@ -237,7 +237,7 @@ export default function HostCalendar() {
                   onValueChange={(value) => setSelectedHomeId(parseInt(value))}
                 >
                   <SelectTrigger 
-                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/50 dark:bg-slate-800/50" 
+                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50" 
                     data-testid="select-property-calendar"
                   >
                     <SelectValue placeholder={t('housing.host_calendar.choose_property', 'Choose a property')} />

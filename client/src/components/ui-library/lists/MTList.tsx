@@ -137,7 +137,7 @@ export default function MTList({
     >
       {/* Search Bar */}
       {searchable && (
-        <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -161,7 +161,7 @@ export default function MTList({
 
       {/* Select All */}
       {selectable && filteredItems.length > 0 && (
-        <div className="px-4 py-2 border-b border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50">
+        <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50 bg-gray-50 dark:bg-gray-800/50 dark:bg-gray-800/50">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="checkbox"

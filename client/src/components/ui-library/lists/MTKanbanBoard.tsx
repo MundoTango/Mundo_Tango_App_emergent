@@ -188,7 +188,7 @@ export default function MTKanbanBoard({
         )}
 
         {/* Title */}
-        <h4 className="font-medium text-gray-900 dark:text-gray-100 text-sm mb-1">
+        <h4 className="font-medium text-gray-900 dark:text-white dark:text-gray-100 text-sm mb-1">
           {card.title}
         </h4>
 
@@ -340,7 +340,7 @@ export default function MTKanbanBoard({
               data-testid={`${testId}-column-${column.id}`}
             >
               {/* Column Header */}
-              <div className="p-3 border-b border-gray-200/50 dark:border-gray-700/50">
+              <div className="p-3 border-b border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50">
                 {renderColumnHeader ? (
                   renderColumnHeader(column)
                 ) : (
@@ -352,7 +352,7 @@ export default function MTKanbanBoard({
                           style={{ backgroundColor: column.color }}
                         />
                       )}
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                      <h3 className="font-semibold text-gray-900 dark:text-white dark:text-gray-100">
                         {column.title}
                       </h3>
                       <span className="text-sm text-gray-500">

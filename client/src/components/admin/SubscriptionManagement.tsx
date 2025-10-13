@@ -156,7 +156,7 @@ const SubscriptionManagement: React.FC = () => {
                       <tr key={mapping.flag} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                         <td className="p-4">
                           <div>
-                            <div className="font-medium text-gray-900">
+                            <div className="font-medium text-gray-900 dark:text-white">
                               {mapping.flag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                             </div>
                             <div className="text-sm text-gray-500">{mapping.description}</div>
@@ -198,7 +198,7 @@ const SubscriptionManagement: React.FC = () => {
                 <CardTitle className="text-sm font-medium text-gray-600">{t('common.total_subscribers')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {analyticsData?.totalSubscribers || 0}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-1">
@@ -212,7 +212,7 @@ const SubscriptionManagement: React.FC = () => {
                 <CardTitle className="text-sm font-medium text-gray-600">{t('common.monthly_revenue')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   ${analyticsData?.monthlyRevenue || 0}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -226,7 +226,7 @@ const SubscriptionManagement: React.FC = () => {
                 <CardTitle className="text-sm font-medium text-gray-600">{t('common.conversion_rate')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {analyticsData?.conversionRate || 0}%
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -240,7 +240,7 @@ const SubscriptionManagement: React.FC = () => {
                 <CardTitle className="text-sm font-medium text-gray-600">{t('common.churn_rate')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {analyticsData?.churnRate || 0}%
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -297,7 +297,7 @@ const SubscriptionManagement: React.FC = () => {
                       'bg-blue-500'
                     }`} />
                     <div className="flex-1">
-                      <div className="font-medium text-gray-900">{activity.userName}</div>
+                      <div className="font-medium text-gray-900 dark:text-white">{activity.userName}</div>
                       <div className="text-sm text-gray-600">
                         {activity.type === 'upgrade' && `Upgraded to ${activity.toTier}`}
                         {activity.type === 'downgrade' && `Downgraded to ${activity.toTier}`}

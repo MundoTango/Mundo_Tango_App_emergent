@@ -65,7 +65,7 @@ export default function AgentCollaborationVisualizer() {
 
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white flex items-center gap-2">
           <Network className="w-8 h-8" />
           Agent Collaboration Network
         </h1>
@@ -81,7 +81,7 @@ export default function AgentCollaborationVisualizer() {
             <CardTitle className="text-sm font-medium">Active Agents</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">
               {agents.filter(a => a.status === 'active').length}
             </div>
           </CardContent>
@@ -103,7 +103,7 @@ export default function AgentCollaborationVisualizer() {
             <CardTitle className="text-sm font-medium">Patterns Shared</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">
               {agents.reduce((sum, a) => sum + a.patternsShared, 0)}
             </div>
           </CardContent>
@@ -154,7 +154,7 @@ export default function AgentCollaborationVisualizer() {
                         {agent.status}
                       </span>
                     </div>
-                    <p className="font-medium text-gray-900 dark:text-white mt-1">
+                    <p className="font-medium text-gray-900 dark:text-white dark:text-white mt-1">
                       {agent.name}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -162,7 +162,7 @@ export default function AgentCollaborationVisualizer() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">
                       {agent.patternsShared}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -213,7 +213,7 @@ export default function AgentCollaborationVisualizer() {
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                       Patterns Shared
                     </p>
-                    <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">
                       {selectedAgentData.patternsShared}
                     </p>
                   </div>
@@ -243,7 +243,7 @@ export default function AgentCollaborationVisualizer() {
               {flows.map((flow, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg"
                   data-testid={`flow-${idx}`}
                 >
                   <div className="flex-1">
@@ -252,7 +252,7 @@ export default function AgentCollaborationVisualizer() {
                       <ArrowRight className="w-4 h-4 text-gray-400" />
                       <Badge variant="outline">{flow.to}</Badge>
                     </div>
-                    <p className="text-sm text-gray-900 dark:text-white">
+                    <p className="text-sm text-gray-900 dark:text-white dark:text-white">
                       {flow.pattern}
                     </p>
                     <div className="flex items-center gap-2 mt-1">

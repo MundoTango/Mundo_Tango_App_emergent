@@ -411,7 +411,7 @@ export default function ListingDetail() {
   if (isLoading) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 p-6">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-800 p-6">
           <div className="max-w-7xl mx-auto">
             <Skeleton className="h-8 w-32 mb-6" />
             <Skeleton className="h-96 w-full mb-6" />
@@ -431,7 +431,7 @@ export default function ListingDetail() {
   if (error || !listing?.data) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-800 flex items-center justify-center p-6">
           <Card className="max-w-md w-full">
             <CardContent className="pt-6 text-center">
               <h2 className="text-2xl font-bold mb-2">{t('housing.listing_detail.not_found_title', 'Listing Not Found')}</h2>
@@ -993,7 +993,7 @@ export default function ListingDetail() {
             </div>
 
             {/* House Rules Checkbox */}
-            <div className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <Checkbox
                 id="house-rules"
                 checked={hasReadRules}

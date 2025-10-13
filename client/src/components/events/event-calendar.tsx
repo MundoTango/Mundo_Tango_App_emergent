@@ -173,7 +173,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
               selectedDateEvents.length > 0 ? (
                 <div className="space-y-4">
                   {selectedDateEvents.map(event => (
-                    <div key={event.id} className="border rounded-lg p-3 hover:bg-gray-50 transition-colors">
+                    <div key={event.id} className="border rounded-lg p-3 hover:bg-gray-50 dark:bg-gray-800 transition-colors">
                       <h4 className="font-medium text-tango-black mb-2">{event.title}</h4>
                       
                       <div className="space-y-1 text-sm text-gray-600">

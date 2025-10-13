@@ -466,7 +466,7 @@ const UserSettings: React.FC = () => {
 
       {/* Settings Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-6 w-full mb-6 bg-white/80 backdrop-blur-xl border border-white/50 shadow-lg">
+        <TabsList className="grid grid-cols-6 w-full mb-6 bg-white dark:bg-gray-900/80 backdrop-blur-xl border border-white/50 shadow-lg">
           <TabsTrigger value="notifications" className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-50 data-[state=active]:to-cyan-50" disabled={!filteredSettings('notifications')}>
             <Bell className="w-4 h-4" />
             <span className="hidden sm:inline">Notifications</span>
@@ -495,7 +495,7 @@ const UserSettings: React.FC = () => {
 
         {/* Notifications Tab */}
         <TabsContent value="notifications">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                 Notification Preferences
@@ -652,7 +652,7 @@ const UserSettings: React.FC = () => {
 
         {/* Privacy Tab */}
         <TabsContent value="privacy">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Privacy Settings</CardTitle>
               <CardDescription>
@@ -805,7 +805,7 @@ const UserSettings: React.FC = () => {
                 </Alert>
 
                 <div className="space-y-3">
-                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
                       <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
@@ -826,7 +826,7 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
                       <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
@@ -847,7 +847,7 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
                       <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
@@ -868,7 +868,7 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50 rounded-lg">
                     <Lock className="w-3 h-3 inline mr-1" />
                     Your data is encrypted and never sold. You can change these settings anytime in your privacy preferences.
                   </div>
@@ -880,7 +880,7 @@ const UserSettings: React.FC = () => {
 
         {/* Appearance Tab */}
         <TabsContent value="appearance">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Appearance & Display</CardTitle>
               <CardDescription className="text-gray-600">
@@ -1038,7 +1038,7 @@ const UserSettings: React.FC = () => {
 
         {/* Advanced Tab */}
         <TabsContent value="advanced">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Advanced Settings</CardTitle>
               <CardDescription className="text-gray-600">
@@ -1215,7 +1215,7 @@ const UserSettings: React.FC = () => {
 
         {/* Accessibility Tab */}
         <TabsContent value="accessibility">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Accessibility Settings</CardTitle>
               <CardDescription className="text-gray-600">
@@ -1369,7 +1369,7 @@ const UserSettings: React.FC = () => {
 
         {/* Security Tab */}
         <TabsContent value="security">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                 Security Settings
@@ -1387,7 +1387,7 @@ const UserSettings: React.FC = () => {
                 </h3>
                 
                 <div className="space-y-3">
-                  <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <Label className="text-base font-medium">Password</Label>
@@ -1415,7 +1415,7 @@ const UserSettings: React.FC = () => {
                 </h3>
                 
                 <div className="space-y-3">
-                  <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <Label className="text-base font-medium">2FA Status</Label>
@@ -1449,7 +1449,7 @@ const UserSettings: React.FC = () => {
                 </h3>
                 
                 <div className="space-y-3">
-                  <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Monitor className="w-5 h-5 text-gray-600" />
@@ -1484,7 +1484,7 @@ const UserSettings: React.FC = () => {
                 </h3>
                 
                 <div className="space-y-2">
-                  <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <CheckCircle2 className="w-4 h-4 text-green-600" />

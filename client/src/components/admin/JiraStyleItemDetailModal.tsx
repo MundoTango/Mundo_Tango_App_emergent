@@ -236,12 +236,12 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
       onClick={handleClose}
     >
       <div 
-        className="bg-white rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
+        className="bg-white dark:bg-gray-900 rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Jira-Style Header */}
-        <div className="border-b border-gray-200 px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="border-b border-gray-200 dark:border-gray-700 px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
@@ -252,7 +252,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                   <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">
                     {selectedItem.layer || 'Platform'} • {selectedItem.type || 'Feature'}
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900">{selectedItem.title || 'Untitled'}</h1>
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{selectedItem.title || 'Untitled'}</h1>
                 </div>
               </div>
               <div className="flex items-center gap-3 flex-wrap">
@@ -283,7 +283,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         </div>
 
         {/* Tab Navigation */}
-        <div className="border-b border-gray-200 px-6">
+        <div className="border-b border-gray-200 dark:border-gray-700 px-6">
           <div className="flex space-x-8">
             {[
               { id: 'overview', label: 'Overview', icon: BarChart3 },
@@ -422,7 +422,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                           {/* Phase content */}
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                              <h4 className="font-semibold text-gray-900">{phase.title}</h4>
+                              <h4 className="font-semibold text-gray-900 dark:text-white">{phase.title}</h4>
                               <Badge className={getStatusColor(phase.status)}>
                                 {phase.status.toUpperCase()}
                               </Badge>
@@ -440,7 +440,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             </div>
                             
                             {/* Metrics and details */}
-                            <div className="bg-gray-50 rounded-lg p-4">
+                            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                                 {Object.entries(phase.metrics).map(([key, value]) => (
                                   <div key={key} className="text-sm">
@@ -582,7 +582,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         </div>
 
         {/* Footer actions */}
-        <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
+        <div className="border-t border-gray-200 dark:border-gray-700 px-6 py-4 bg-gray-50 dark:bg-gray-800">
           <div className="flex justify-between items-center">
             <div className="text-sm text-gray-600">
               Last updated: {new Date().toLocaleDateString()}

@@ -182,7 +182,7 @@ function ESAMemoryFeedCore() {
           {/* Page Header - Feed Only */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between mb-4">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white dark:text-white flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-teal-500 dark:text-teal-400" aria-hidden="true" />
                 <span className="bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
                   {t('memories.title')}
@@ -389,7 +389,7 @@ function ESAMemoryFeedCore() {
       {/* ESA LIFE CEO 61×21 - Layer 9: Edit Modal with Rich Text Editor (react-quill) */}
       {showEditModal && editingPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/70 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-3xl shadow-2xl p-8">
             <button
               onClick={() => {
                 setShowEditModal(false);
@@ -404,7 +404,7 @@ function ESAMemoryFeedCore() {
               </svg>
             </button>
             
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white mb-6">
               ✏️ {t('memories.edit.title')}
             </h2>
             

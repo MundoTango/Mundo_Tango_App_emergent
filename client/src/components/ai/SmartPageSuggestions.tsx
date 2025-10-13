@@ -95,7 +95,7 @@ export function SmartPageSuggestions({
           )} />
 
           {/* Main Card */}
-          <div className="relative bg-white/10 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow-2xl max-w-md">
+          <div className="relative bg-white dark:bg-gray-900/10 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow-2xl max-w-md">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
@@ -106,7 +106,7 @@ export function SmartPageSuggestions({
                   <TrendingUp className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white">
                     Smart Suggestion
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -157,7 +157,7 @@ export function SmartPageSuggestions({
                 data-testid="button-navigate-suggested"
               >
                 <div className="text-left">
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white dark:text-white">
                     {formatPageName(prediction.nextPage)}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
@@ -168,7 +168,7 @@ export function SmartPageSuggestions({
               </motion.button>
 
               {/* Stats */}
-              <div className="flex items-center gap-4 pt-2 border-t border-gray-200/50 dark:border-gray-700/50">
+              <div className="flex items-center gap-4 pt-2 border-t border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50">
                 <div className="flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500" />
                   <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -185,7 +185,7 @@ export function SmartPageSuggestions({
             </div>
 
             {/* Confidence Indicator */}
-            <div className="mt-3 pt-3 border-t border-gray-200/50 dark:border-gray-700/50">
+            <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/50 dark:border-gray-700/50">
               <div className="flex items-center justify-between text-xs mb-1.5">
                 <span className="text-gray-500 dark:text-gray-400">AI Confidence</span>
                 <span className="font-semibold text-gray-700 dark:text-gray-300">

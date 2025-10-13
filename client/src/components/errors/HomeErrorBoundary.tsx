@@ -31,7 +31,7 @@ export class HomeErrorBoundary extends Component<Props, State> {
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
           <div className="p-6 text-center max-w-md">
             <AlertTriangle className="w-16 h-16 mx-auto text-red-500 mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white mb-2">
               Something went wrong on the home page
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">

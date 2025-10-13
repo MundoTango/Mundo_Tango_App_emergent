@@ -130,7 +130,7 @@ const BillingDashboard: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Billing & Subscription</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Billing & Subscription</h1>
           <p className="text-gray-600">Manage your subscription and payment methods</p>
         </div>
 
@@ -269,7 +269,7 @@ const BillingDashboard: React.FC = () => {
             {paymentMethods.length > 0 ? (
               <div className="space-y-3">
                 {paymentMethods.map((method) => (
-                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center gap-3">
                       <CreditCard className="w-5 h-5 text-gray-400" />
                       <div>
@@ -313,7 +313,7 @@ const BillingDashboard: React.FC = () => {
             {invoices.length > 0 ? (
               <div className="space-y-2">
                 {invoices.map((invoice) => (
-                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center gap-3">
                       <Calendar className="w-5 h-5 text-gray-400" />
                       <div>

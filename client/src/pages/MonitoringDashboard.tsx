@@ -81,7 +81,7 @@ export default function MonitoringDashboard() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">
               ESA Monitoring Dashboard
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
@@ -289,7 +289,7 @@ export default function MonitoringDashboard() {
               <CardContent>
                 <div className="space-y-3">
                   {Object.entries(featureFlags).map(([flag, value]) => (
-                    <div key={flag} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+                    <div key={flag} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
                       <div>
                         <p className="font-medium">{flag}</p>
                         <p className="text-xs text-gray-500">

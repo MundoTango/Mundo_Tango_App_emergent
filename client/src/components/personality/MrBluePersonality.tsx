@@ -112,11 +112,11 @@ export function MrBluePersonality({ currentMode, onModeChange, showGreeting = tr
 
           {/* Greeting Preview */}
           {showGreeting && (
-            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+            <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 p-4 rounded-lg">
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
                 Greeting Preview:
               </p>
-              <p className="text-gray-900 dark:text-white" data-testid="text-greeting">
+              <p className="text-gray-900 dark:text-white dark:text-white" data-testid="text-greeting">
                 {config.greeting}
               </p>
             </div>

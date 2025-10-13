@@ -218,7 +218,7 @@ const TrialBanner: React.FC = () => {
 
             {/* Benefits reminder */}
             {isUrgent && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center justify-center gap-8 text-sm">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-green-600" />

@@ -84,7 +84,7 @@ export default function SimpleRoleSelector({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-lg">🎯</span>
-                      <h3 className="font-medium text-gray-900 capitalize">
+                      <h3 className="font-medium text-gray-900 dark:text-white capitalize">
                         {role.name.replace(/_/g, ' ')}
                       </h3>
                     </div>
@@ -97,7 +97,7 @@ export default function SimpleRoleSelector({
                 {selectedRoles.includes(role.name) && (
                   <div className="absolute top-2 right-2">
                     <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                      <div className="w-1 h-1 bg-white rounded-full"></div>
+                      <div className="w-1 h-1 bg-white dark:bg-gray-900 rounded-full"></div>
                     </div>
                   </div>
                 )}

@@ -84,7 +84,7 @@ const LifeCEOPortal: React.FC = () => {
       <div className="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-xl p-6 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="p-3 bg-white/20 rounded-xl">
+            <div className="p-3 bg-white dark:bg-gray-900/20 rounded-xl">
               <Brain className="w-8 h-8" />
             </div>
             <div>
@@ -171,7 +171,7 @@ const LifeCEOPortal: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {activeAgents.map((agent) => (
-                <div key={agent.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={agent.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                       {agent.name.charAt(0)}
@@ -206,7 +206,7 @@ const LifeCEOPortal: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                   <div className="flex-1">
                     <div className="text-sm font-medium">{activity.action}</div>

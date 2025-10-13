@@ -151,7 +151,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Basic Information</h3>
             
             <div className="space-y-2">
               <Label htmlFor="name">
@@ -195,7 +195,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Tango Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Tango Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tango Information</h3>
             
             <div className="space-y-2">
               <Label>
@@ -301,7 +301,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Social Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Social Links</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Social Links</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">

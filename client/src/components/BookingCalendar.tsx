@@ -156,9 +156,9 @@ export function BookingCalendar({
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Legend */}
-          <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
+          <div className="flex flex-wrap gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-white border border-gray-300"></div>
+              <div className="w-6 h-6 rounded bg-white dark:bg-gray-900 border border-gray-300"></div>
               <span className="text-sm text-gray-700">Available</span>
             </div>
             <div className="flex items-center gap-2">

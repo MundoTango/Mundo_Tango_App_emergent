@@ -101,7 +101,7 @@ export function GuestOnboardingEntrance() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <PulseButton
                   onClick={() => setLocation('/guest-onboarding')}
-                  className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-semibold rounded-2xl shadow-lg shadow-cyan-500/30"
+                  className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 dark:text-white font-semibold rounded-2xl shadow-lg shadow-cyan-500/30"
                   data-testid="button-start-onboarding"
                 >
                   {t('housing.guest_entrance.button_start', 'Get Started - It only takes 2 minutes')}

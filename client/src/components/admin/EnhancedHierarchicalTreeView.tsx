@@ -654,7 +654,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">Team:</span>
             <select
-              className="px-3 py-1 border rounded-md bg-white dark:bg-gray-800"
+              className="px-3 py-1 border rounded-md bg-white dark:bg-gray-900 dark:bg-gray-800"
               value={filterTeam}
               onChange={(e) => setFilterTeam(e.target.value)}
             >

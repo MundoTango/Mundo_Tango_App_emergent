@@ -101,7 +101,7 @@ const MTModal: React.FC<MTModalProps> = ({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700">
             <div>
               {title && (
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
@@ -132,7 +132,7 @@ const MTModal: React.FC<MTModalProps> = ({
 
         {/* Footer */}
         {footer && (
-          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
             {footer}
           </div>
         )}

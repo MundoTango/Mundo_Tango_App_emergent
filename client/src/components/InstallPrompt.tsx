@@ -118,7 +118,7 @@ export function InstallPrompt() {
               </div>
 
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white mb-2">
                   Install Mundo Tango
                 </h3>
                 
@@ -156,7 +156,7 @@ export function InstallPrompt() {
 
             {/* Features list */}
             {!showIOSInstructions && (
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                 <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400">
                   <div className="flex items-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />

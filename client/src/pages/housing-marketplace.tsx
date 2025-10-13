@@ -370,7 +370,7 @@ export default function HousingMarketplace() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     aria-label={t('housing.aria.search', 'Search housing listings')}
                     aria-describedby="search-help-text"
-                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
+                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white dark:bg-gray-900/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
                     data-testid="input-search"
                   />
                   <span id="search-help-text" className="sr-only">{t('housing.aria.search_help', 'Search by location, title, or description')}</span>
@@ -426,7 +426,7 @@ export default function HousingMarketplace() {
                 id="filter-panel"
                 role="region"
                 aria-label={t('housing.aria.filters', 'Listing filters')}
-                className="p-6 bg-gray-50" 
+                className="p-6 bg-gray-50 dark:bg-gray-800" 
                 data-testid="filter-panel"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -505,7 +505,7 @@ export default function HousingMarketplace() {
                           </Button>
                           <span 
                             id="guest-count"
-                            className="px-4 py-1 bg-white border rounded text-sm font-medium" 
+                            className="px-4 py-1 bg-white dark:bg-gray-900 border rounded text-sm font-medium" 
                             aria-label={t('housing.aria.guest_count', 'Guest count: {{count}}', { count: guestCount })}
                             data-testid="text-guest-count"
                           >
@@ -539,7 +539,7 @@ export default function HousingMarketplace() {
                           </Button>
                           <span 
                             id="bedroom-count"
-                            className="px-4 py-1 bg-white border rounded text-sm font-medium" 
+                            className="px-4 py-1 bg-white dark:bg-gray-900 border rounded text-sm font-medium" 
                             aria-label={t('housing.aria.bedroom_count', 'Bedroom count: {{count}}', { count: bedroomCount })}
                             data-testid="text-bedroom-count"
                           >
@@ -794,7 +794,7 @@ export default function HousingMarketplace() {
         {!isLoading && filteredListings.length === 0 && (
           <Card className="p-12 text-center">
             <Home className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
             <p className="text-gray-600">{t('housing.marketplace.try_adjusting', 'Try adjusting your search or filters')}</p>
           </Card>
         )}
@@ -810,7 +810,7 @@ export default function HousingMarketplace() {
             <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <h2 id="modal-title" className="text-2xl font-bold text-gray-900">{selectedListing.title}</h2>
+                  <h2 id="modal-title" className="text-2xl font-bold text-gray-900 dark:text-white">{selectedListing.title}</h2>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -830,8 +830,8 @@ export default function HousingMarketplace() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 py-4">
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <h4 className="font-semibold text-gray-900 mb-2">Amenities</h4>
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Amenities</h4>
                       <div className="space-y-2">
                         {selectedListing.amenities.slice(0, 5).map(amenity => {
                           const Icon = amenityIcons[amenity] || Check;

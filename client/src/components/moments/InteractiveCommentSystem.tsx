@@ -206,7 +206,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
     
     return (
       <div key={comment.id} className={`${depth > 0 ? 'ml-8 border-l-2 border-gray-100 pl-4' : ''}`}>
-        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100 mb-3">
+        <div className="bg-white dark:bg-gray-900 rounded-lg p-4 shadow-sm border border-gray-100 mb-3">
           {/* Comment header */}
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center space-x-3">
@@ -214,7 +214,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 {comment.user.name.charAt(0)}
               </div>
               <div>
-                <p className="font-semibold text-gray-900 text-sm">{comment.user.name}</p>
+                <p className="font-semibold text-gray-900 dark:text-white text-sm">{comment.user.name}</p>
                 <p className="text-xs text-gray-500">@{comment.user.username}</p>
               </div>
               <span className="text-xs text-gray-400">
@@ -297,7 +297,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
             
             {/* Reaction picker */}
             {showReactionPicker === comment.id && (
-              <div className="absolute z-10 bg-white rounded-lg shadow-lg border p-2 flex space-x-1">
+              <div className="absolute z-10 bg-white dark:bg-gray-900 rounded-lg shadow-lg border p-2 flex space-x-1">
                 {Object.entries(REACTION_EMOJIS).map(([type, { emoji, label }]) => (
                   <button
                     key={type}
@@ -316,13 +316,13 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
         {/* Reply input */}
         {replyingTo === comment.id && (
           <div className="ml-8 mb-4">
-            <div className="bg-gray-50 rounded-lg p-3 border">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 border">
               <textarea
                 ref={commentInputRef}
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder={`Reply to ${comment.user.name}...`}
-                className="w-full p-2 border border-gray-200 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2 border border-gray-200 dark:border-gray-700 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={2}
               />
               <div className="flex items-center justify-between mt-2">
@@ -390,7 +390,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
     <div className="space-y-4">
       {/* Post reactions summary */}
       {postReactions.length > 0 && (
-        <div className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <div className="flex items-center space-x-2">
             {Object.entries(REACTION_EMOJIS).map(([type, { emoji }]) => {
               const count = postReactions.filter((r: Reaction) => r.type === type).length;
@@ -411,7 +411,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
 
       {/* Main comment input */}
       {!replyingTo && (
-        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+        <div className="bg-white dark:bg-gray-900 rounded-lg p-4 shadow-sm border border-gray-100">
           <div className="flex items-start space-x-3">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-semibold">
               {user?.name?.charAt(0) || 'U'}
@@ -421,7 +421,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write a comment..."
-                className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 border border-gray-200 dark:border-gray-700 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={3}
               />
               <div className="flex items-center justify-between mt-3">
@@ -455,7 +455,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
       )}
 
       {/* Post reaction picker */}
-      <div className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm border border-gray-100">
+      <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-100">
         <div className="flex items-center space-x-4">
           <button
             onClick={() => setShowReactionPicker(showReactionPicker === 0 ? null : 0)}
@@ -475,7 +475,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
         </div>
         
         {showReactionPicker === 0 && (
-          <div className="absolute z-10 bg-white rounded-lg shadow-lg border p-2 flex space-x-1">
+          <div className="absolute z-10 bg-white dark:bg-gray-900 rounded-lg shadow-lg border p-2 flex space-x-1">
             {Object.entries(REACTION_EMOJIS).map(([type, { emoji, label }]) => (
               <button
                 key={type}

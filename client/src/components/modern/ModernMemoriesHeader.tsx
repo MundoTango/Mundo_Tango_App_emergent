@@ -31,7 +31,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-2xl 
+            <div className="flex items-center gap-2 bg-white dark:bg-gray-900/70 backdrop-blur-sm px-4 py-2 rounded-2xl 
                           border border-blue-200/50 shadow-lg">
               <Users className="w-4 h-4 text-teal-500" />
               <span className="text-sm font-semibold text-blue-900">3.2K Online</span>
@@ -58,7 +58,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
             <input
               type="text"
               placeholder="Search events, people, memories..."
-              className="w-full pl-14 pr-6 py-5 bg-white/90 backdrop-blur-md border-2 border-blue-200/50 
+              className="w-full pl-14 pr-6 py-5 bg-white dark:bg-gray-900/90 backdrop-blur-md border-2 border-blue-200/50 
                        rounded-2xl focus:outline-none focus:ring-4 focus:ring-cyan-200/50 focus:border-cyan-300
                        text-blue-900 placeholder-blue-400/70 font-medium text-lg shadow-xl
                        hover:shadow-2xl transition-all duration-300"
@@ -71,7 +71,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
           </div>
           
           <div className="flex gap-3">
-            <button className="bg-white/90 backdrop-blur-md border-2 border-blue-200/50 hover:border-teal-300 
+            <button className="bg-white dark:bg-gray-900/90 backdrop-blur-md border-2 border-blue-200/50 hover:border-teal-300 
                              px-6 py-5 rounded-2xl text-blue-600 hover:text-teal-600 font-bold text-lg
                              shadow-xl hover:shadow-2xl hover:bg-teal-50 transform hover:-translate-y-0.5
                              transition-all duration-300 flex items-center space-x-3">
@@ -79,7 +79,7 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
               <span>Filter</span>
             </button>
             
-            <button className="bg-white/90 backdrop-blur-md border-2 border-blue-200/50 hover:border-pink-300 
+            <button className="bg-white dark:bg-gray-900/90 backdrop-blur-md border-2 border-blue-200/50 hover:border-pink-300 
                              px-6 py-5 rounded-2xl text-blue-600 hover:text-pink-600 font-bold text-lg
                              shadow-xl hover:shadow-2xl hover:bg-pink-50 transform hover:-translate-y-0.5
                              transition-all duration-300 flex items-center space-x-3">

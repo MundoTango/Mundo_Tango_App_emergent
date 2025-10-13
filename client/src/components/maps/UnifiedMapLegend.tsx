@@ -27,7 +27,7 @@ export default function UnifiedMapLegend({
       className={`absolute ${positionClasses[position]} bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 z-[1000] min-w-[150px]`}
       data-testid="map-legend"
     >
-      <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-white">
+      <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-white dark:text-white">
         {title}
       </h4>
       <div className="space-y-1.5">
@@ -42,7 +42,7 @@ export default function UnifiedMapLegend({
             <span className="flex-1">
               {item.label}
               {item.count !== undefined && (
-                <span className="ml-1 font-semibold text-gray-900 dark:text-white">
+                <span className="ml-1 font-semibold text-gray-900 dark:text-white dark:text-white">
                   ({item.count})
                 </span>
               )}

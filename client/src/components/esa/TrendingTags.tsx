@@ -57,7 +57,7 @@ export default function TrendingTags({
             <TrendingUp className="h-4 w-4 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white">
+            <h3 className="font-semibold text-gray-900 dark:text-white dark:text-white">
               Trending Tags
             </h3>
             <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -208,7 +208,7 @@ export default function TrendingTags({
       </div>
 
       {/* Footer Stats */}
-      <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
           <span>{tags.length} total tags</span>
           <span>{tags.filter(t => t.isHot).length} trending now 🔥</span>

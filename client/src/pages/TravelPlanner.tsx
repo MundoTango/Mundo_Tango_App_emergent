@@ -555,7 +555,7 @@ const TravelPlanner: React.FC = () => {
                 <div>
                   <h3 className="font-semibold mb-3">Estimated Costs by Category</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <div className="flex items-center gap-2">
                         <Hotel className="h-4 w-4 text-gray-600" />
                         <span>Accommodation</span>
@@ -566,7 +566,7 @@ const TravelPlanner: React.FC = () => {
                         className="w-32 glassmorphic-input"
                       />
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <div className="flex items-center gap-2">
                         <Plane className="h-4 w-4 text-gray-600" />
                         <span>Transportation</span>
@@ -577,7 +577,7 @@ const TravelPlanner: React.FC = () => {
                         className="w-32 glassmorphic-input"
                       />
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <div className="flex items-center gap-2">
                         <CalendarIcon className="h-4 w-4 text-gray-600" />
                         <span>Events & Classes</span>
@@ -588,7 +588,7 @@ const TravelPlanner: React.FC = () => {
                         className="w-32 glassmorphic-input"
                       />
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                       <div className="flex items-center gap-2">
                         <Heart className="h-4 w-4 text-gray-600" />
                         <span>Food & Entertainment</span>

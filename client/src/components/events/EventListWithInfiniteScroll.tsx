@@ -231,7 +231,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
               
               {/* Event Type Badge */}
               <div className="absolute top-3 left-3">
-                <Badge className="bg-white/90 backdrop-blur-sm">
+                <Badge className="bg-white dark:bg-gray-900/90 backdrop-blur-sm">
                   <span className="mr-1">{getEventTypeIcon(event.eventType)}</span>
                   {event.eventType}
                 </Badge>
@@ -241,7 +241,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
               <div className="absolute top-3 right-3">
                 <Badge 
                   variant={event.price === '0' || !event.price ? 'secondary' : 'default'}
-                  className="bg-white/90 backdrop-blur-sm"
+                  className="bg-white dark:bg-gray-900/90 backdrop-blur-sm"
                 >
                   {getPriceDisplay(event)}
                 </Badge>

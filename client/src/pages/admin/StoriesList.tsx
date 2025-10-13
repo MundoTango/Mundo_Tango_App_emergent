@@ -165,7 +165,7 @@ export default function StoriesList() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Stories</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-gray-100">Stories</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
             Manage user stories and task assignments
           </p>
@@ -200,7 +200,7 @@ export default function StoriesList() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full h-10 px-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full h-10 px-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 dark:bg-gray-800 text-gray-900 dark:text-white dark:text-gray-100"
               data-testid="filter-status"
             >
               <option value="all">All Statuses</option>
@@ -296,7 +296,7 @@ export default function StoriesList() {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-white dark:bg-gray-900 dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
               {isLoading ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i}>
@@ -315,7 +315,7 @@ export default function StoriesList() {
                 filteredAndSortedStories.map((story) => (
                   <tr
                     key={story.id}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+                    className="hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-800 cursor-pointer transition-colors"
                     onClick={() => navigate(`/admin/projects/story/${story.id}`)}
                     data-testid={`row-story-${story.id}`}
                   >
@@ -325,7 +325,7 @@ export default function StoriesList() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 dark:text-gray-100 line-clamp-2">
+                      <div className="text-sm text-gray-900 dark:text-white dark:text-gray-100 line-clamp-2">
                         {story.summary}
                       </div>
                     </td>

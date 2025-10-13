@@ -96,7 +96,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
       center={defaultCenter}
       zoom={2}
       style={{ height: '100%', width: '100%' }}
-      className="rounded-lg border border-gray-200"
+      className="rounded-lg border border-gray-200 dark:border-gray-700"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -121,7 +121,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
           >
             <Popup>
               <div 
-                className="text-center cursor-pointer p-2 hover:bg-gray-50 rounded transition-colors"
+                className="text-center cursor-pointer p-2 hover:bg-gray-50 dark:bg-gray-800 rounded transition-colors"
                 onClick={() => {
                   onCityClick?.(city);
                   // Navigate to city group page using slug
@@ -160,7 +160,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
         >
           <Popup>
             <div 
-              className="text-center cursor-pointer p-2 hover:bg-gray-50 rounded transition-colors"
+              className="text-center cursor-pointer p-2 hover:bg-gray-50 dark:bg-gray-800 rounded transition-colors"
               onClick={() => {
                 window.location.href = `/groups/buenos-aires`;
               }}

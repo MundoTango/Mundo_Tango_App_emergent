@@ -577,7 +577,7 @@ const PostFeed = memo(({
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 animate-pulse border border-gray-200/50">
+          <div key={i} className="bg-white dark:bg-gray-900/60 backdrop-blur-sm rounded-3xl p-8 animate-pulse border border-gray-200 dark:border-gray-700/50">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
@@ -599,7 +599,7 @@ const PostFeed = memo(({
     <div className={`space-y-6 ${className}`}>
       {/* Filters Section - Shown when showFilters or showSearch is true */}
       {(showFilters || showSearch) && (
-        <div className="relative group bg-white/60 backdrop-blur-sm rounded-3xl p-6 border border-gray-200/50 shadow-lg">
+        <div className="relative group bg-white dark:bg-gray-900/60 backdrop-blur-sm rounded-3xl p-6 border border-gray-200 dark:border-gray-700/50 shadow-lg">
           {/* Search Bar */}
           {showSearch && (
           <div className="mb-4">
@@ -610,7 +610,7 @@ const PostFeed = memo(({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('memories.feed.searchPlaceholder')}
-                className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900/80 rounded-2xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               />
               {searchQuery && (
                 <button
@@ -739,7 +739,7 @@ const PostFeed = memo(({
                       type="date"
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                      className="w-full px-3 py-2 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                   <div>
@@ -748,7 +748,7 @@ const PostFeed = memo(({
                       type="date"
                       value={endDate}
                       onChange={(e) => setEndDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                      className="w-full px-3 py-2 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                 </div>
@@ -806,8 +806,8 @@ const PostFeed = memo(({
       <div ref={scrollContainerRef} className="relative space-y-6" role="feed" aria-label={t('memories.feed.ariaLabel') || 'Memories feed'}>
         {/* Loading Overlay during filter transitions */}
         {isFetching && filteredPosts.length > 0 && (
-          <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl">
-            <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg">
+          <div className="absolute inset-0 bg-white dark:bg-gray-900/60 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl">
+            <div className="flex items-center gap-3 bg-white dark:bg-gray-900 px-6 py-3 rounded-full shadow-lg">
               <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
               <span className="text-sm font-medium text-gray-700">{t('memories.feed.updatingFeed')}</span>
             </div>
@@ -846,7 +846,7 @@ const PostFeed = memo(({
             <div className="w-24 h-24 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Heart className="h-12 w-12 text-teal-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{t('memories.feed.noMemories')}</h3>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{t('memories.feed.noMemories')}</h3>
             <p className="text-gray-600 leading-relaxed">
               {activeFilters.filterType === 'residents' 
                 ? t('memories.feed.noResidents')

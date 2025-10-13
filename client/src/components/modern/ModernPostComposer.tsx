@@ -79,7 +79,7 @@ export default function ModernPostComposer({
   ];
 
   return (
-    <div className="bg-white rounded-3xl shadow-2xl border-2 border-blue-100/50 overflow-hidden backdrop-blur-xl">
+    <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border-2 border-blue-100/50 overflow-hidden backdrop-blur-xl">
       {/* Header */}
       <div className="bg-gradient-to-r from-coral-50 via-blue-50 to-teal-50 px-8 py-6 border-b border-blue-100/50">
         <div className="flex items-center justify-between">

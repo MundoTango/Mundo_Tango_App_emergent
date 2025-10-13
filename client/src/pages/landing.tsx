@@ -81,12 +81,12 @@ export default function Landing() {
 
                     {/* Quick Actions Grid */}
                     <div className="grid md:grid-cols-2 gap-6">
-                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
+                      <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-turquoise-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Heart className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-gray-900">Share Memories</CardTitle>
+                          <CardTitle className="text-xl text-gray-900 dark:text-white">Share Memories</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <CardDescription className="text-gray-600 text-center">
@@ -95,12 +95,12 @@ export default function Landing() {
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/events'}>
+                      <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/events'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Calendar className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-gray-900">Find Events</CardTitle>
+                          <CardTitle className="text-xl text-gray-900 dark:text-white">Find Events</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <CardDescription className="text-gray-600 text-center">
@@ -109,12 +109,12 @@ export default function Landing() {
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/community'}>
+                      <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/community'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Users className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-gray-900">Explore Community</CardTitle>
+                          <CardTitle className="text-xl text-gray-900 dark:text-white">Explore Community</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <CardDescription className="text-gray-600 text-center">
@@ -123,12 +123,12 @@ export default function Landing() {
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/life-ceo'}>
+                      <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/life-ceo'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                             <Star className="w-6 h-6 text-white" />
                           </div>
-                          <CardTitle className="text-xl text-gray-900">Life CEO</CardTitle>
+                          <CardTitle className="text-xl text-gray-900 dark:text-white">Life CEO</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <CardDescription className="text-gray-600 text-center">
@@ -164,7 +164,7 @@ export default function Landing() {
             <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
               <Music className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">Mundo Tango</h1>
           </div>
           <Button 
             onClick={() => window.location.href = '/api/login'}
@@ -176,7 +176,7 @@ export default function Landing() {
 
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white dark:text-white mb-6 leading-tight">
             Welcome to the
             <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent block">
               Global Tango Community
@@ -204,12 +204,12 @@ export default function Landing() {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-gray-900 dark:text-white">Connect & Share</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white dark:text-white">Connect & Share</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -218,12 +218,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Calendar className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-gray-900 dark:text-white">Discover Events</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white dark:text-white">Discover Events</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -232,12 +232,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-gray-900 dark:text-white">Global Network</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white dark:text-white">Global Network</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -246,12 +246,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-gray-900 dark:text-white">Share Stories</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white dark:text-white">Share Stories</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -260,12 +260,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Music className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-gray-900 dark:text-white">Learn & Grow</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white dark:text-white">Learn & Grow</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -274,12 +274,12 @@ export default function Landing() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="bg-white dark:bg-gray-900/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Star className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-xl text-gray-900 dark:text-white">Authentic Community</CardTitle>
+              <CardTitle className="text-xl text-gray-900 dark:text-white dark:text-white">Authentic Community</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
@@ -291,7 +291,7 @@ export default function Landing() {
 
         {/* Call to Action */}
         <div className="text-center bg-gradient-to-r from-cyan-500/10 to-blue-600/10 dark:from-cyan-500/20 dark:to-blue-600/20 rounded-2xl p-12 backdrop-blur-sm">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white mb-4">
             Ready to Join the Movement?
           </h3>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">

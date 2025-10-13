@@ -129,7 +129,7 @@ export default function TrangoTechPostComposer() {
           
           <button
             onClick={() => setShowExpandedComposer(true)}
-            className="flex-1 text-left px-6 py-4 bg-white/80 backdrop-blur-sm rounded-xl 
+            className="flex-1 text-left px-6 py-4 bg-white dark:bg-gray-900/80 backdrop-blur-sm rounded-xl 
                        border border-white/50 shadow-sm hover:shadow-md hover:bg-white/90
                        transition-all duration-300 text-gray-600 hover:text-gray-800
                        focus:outline-none focus:ring-2 focus:ring-coral-300"
@@ -140,21 +140,21 @@ export default function TrangoTechPostComposer() {
         
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-coral-200/40">
           <div className="flex gap-4">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-pink-50 
+            <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900/80 hover:bg-pink-50 
                              border border-pink-200 rounded-lg cursor-pointer transition-colors
                              hover:scale-105 hover:shadow-md transform duration-300">
               <Camera className="h-4 w-4 text-pink-600" />
               <span className="text-sm text-pink-700 font-medium">Photo</span>
             </button>
             
-            <button className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-blue-50 
+            <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900/80 hover:bg-blue-50 
                              border border-blue-200 rounded-lg cursor-pointer transition-colors
                              hover:scale-105 hover:shadow-md transform duration-300">
               <Video className="h-4 w-4 text-blue-600" />
               <span className="text-sm text-blue-700 font-medium">Video</span>
             </button>
             
-            <button className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-green-50 
+            <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900/80 hover:bg-green-50 
                              border border-green-200 rounded-lg cursor-pointer transition-colors
                              hover:scale-105 hover:shadow-md transform duration-300">
               <MapPin className="h-4 w-4 text-green-600" />
@@ -181,7 +181,7 @@ export default function TrangoTechPostComposer() {
             onClick={() => setShowExpandedComposer(false)}
           />
           <div 
-            className="relative bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10"
+            className="relative bg-white dark:bg-gray-900 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6">
@@ -231,7 +231,7 @@ export default function TrangoTechPostComposer() {
                 {/* Media Upload */}
                 <div className="space-y-3">
                   <div className="flex gap-3">
-                    <label className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-pink-50 border border-pink-200 rounded-lg cursor-pointer transition-colors">
+                    <label className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900/80 hover:bg-pink-50 border border-pink-200 rounded-lg cursor-pointer transition-colors">
                       <ImageIcon className="h-4 w-4 text-pink-600" />
                       <span className="text-sm text-pink-700">Photo</span>
                       <input
@@ -242,7 +242,7 @@ export default function TrangoTechPostComposer() {
                       />
                     </label>
                     
-                    <label className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-blue-50 border border-blue-200 rounded-lg cursor-pointer transition-colors">
+                    <label className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900/80 hover:bg-blue-50 border border-blue-200 rounded-lg cursor-pointer transition-colors">
                       <Video className="h-4 w-4 text-blue-600" />
                       <span className="text-sm text-blue-700">Video</span>
                       <input

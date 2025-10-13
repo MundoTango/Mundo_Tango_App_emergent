@@ -270,7 +270,7 @@ export default function RecommendationsList({
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <CategoryIcon className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
-                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{rec.title}</h3>
+                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white dark:text-white">{rec.title}</h3>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{rec.description}</p>
                   </div>
@@ -282,7 +282,7 @@ export default function RecommendationsList({
                           <div className="flex items-center gap-1 justify-end">
                             <span className="text-xs text-gray-500 dark:text-gray-400">{t('common.mt')}</span>
                             <Star className="h-3.5 w-3.5 text-turquoise-600 dark:text-turquoise-400 fill-current" />
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.mtRating.toFixed(1)}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">{rec.mtRating.toFixed(1)}</span>
                             {rec.mtReviewCount && <span className="text-xs text-gray-500">({rec.mtReviewCount})</span>}
                           </div>
                         )}
@@ -290,7 +290,7 @@ export default function RecommendationsList({
                           <div className="flex items-center gap-1 justify-end">
                             <span className="text-xs text-gray-500 dark:text-gray-400">{t('common.google')}</span>
                             <Star className="h-3.5 w-3.5 text-yellow-500 dark:text-yellow-400 fill-current" />
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.googleRating.toFixed(1)}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">{rec.googleRating.toFixed(1)}</span>
                             {rec.googleReviewCount && <span className="text-xs text-gray-500">({rec.googleReviewCount})</span>}
                           </div>
                         )}
@@ -323,9 +323,9 @@ export default function RecommendationsList({
                 )}
                 
                 {/* Recommender Info */}
-                <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-600 flex items-center justify-center text-white dark:text-gray-900 font-semibold text-sm">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-600 flex items-center justify-center text-white dark:text-gray-900 dark:text-white font-semibold text-sm">
                       {userInfo?.profileImage ? (
                         <img src={userInfo.profileImage} alt={userInfo?.name || 'User'} className="w-full h-full rounded-full object-cover" />
                       ) : (
@@ -333,7 +333,7 @@ export default function RecommendationsList({
                       )}
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">{userInfo?.name || 'Community Member'}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">{userInfo?.name || 'Community Member'}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         {isLocal ? `Local ${rec.city} resident` : `Visitor${userCountry ? ` from ${userCountry}` : ''}`}
                       </p>
@@ -404,7 +404,7 @@ export default function RecommendationsList({
       <Dialog open={!!selectedRecommendation} onOpenChange={() => setSelectedRecommendation(null)}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto glass-card glass-depth-2">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+            <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white dark:text-white">
               {selectedRecommendation?.title}
             </DialogTitle>
           </DialogHeader>
@@ -428,7 +428,7 @@ export default function RecommendationsList({
                   <div className="flex items-center gap-2 px-4 py-2 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('common.mt_community')}</span>
                     <Star className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400 fill-current" />
-                    <span className="text-lg font-bold text-gray-900 dark:text-white">{selectedRecommendation.mtRating.toFixed(1)}</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white dark:text-white">{selectedRecommendation.mtRating.toFixed(1)}</span>
                     {selectedRecommendation.mtReviewCount && (
                       <span className="text-sm text-gray-500">({selectedRecommendation.mtReviewCount} reviews)</span>
                     )}
@@ -438,7 +438,7 @@ export default function RecommendationsList({
                   <div className="flex items-center gap-2 px-4 py-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('common.google')}</span>
                     <Star className="h-5 w-5 text-yellow-500 dark:text-yellow-400 fill-current" />
-                    <span className="text-lg font-bold text-gray-900 dark:text-white">{selectedRecommendation.googleRating.toFixed(1)}</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white dark:text-white">{selectedRecommendation.googleRating.toFixed(1)}</span>
                     {selectedRecommendation.googleReviewCount && (
                       <span className="text-sm text-gray-500">({selectedRecommendation.googleReviewCount} reviews)</span>
                     )}
@@ -448,14 +448,14 @@ export default function RecommendationsList({
 
               {/* Description */}
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{t('common.description')}</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-2">{t('common.description')}</h4>
                 <p className="text-gray-700 dark:text-gray-300">{selectedRecommendation.description}</p>
               </div>
 
               {/* Location & Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{t('common.location')}</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-2">{t('common.location')}</h4>
                   <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
                     <MapPin className="h-5 w-5 text-turquoise-600 mt-0.5" />
                     <span>{selectedRecommendation.address}</span>
@@ -464,7 +464,7 @@ export default function RecommendationsList({
                 
                 {selectedRecommendation.priceLevel && (
                   <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{t('common.price_level')}</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-2">{t('common.price_level')}</h4>
                     <p className="text-2xl text-gray-700 dark:text-gray-300">{getPriceLevelDisplay(selectedRecommendation.priceLevel)}</p>
                   </div>
                 )}
@@ -473,7 +473,7 @@ export default function RecommendationsList({
               {/* Tags */}
               {selectedRecommendation.tags && selectedRecommendation.tags.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{t('common.tags')}</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-2">{t('common.tags')}</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedRecommendation.tags.map((tag, index) => (
                       <span 
@@ -489,10 +489,10 @@ export default function RecommendationsList({
 
               {/* Recommender */}
               {selectedRecommendation.user && (
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">{t('common.recommended_by')}</h4>
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
+                  <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-3">{t('common.recommended_by')}</h4>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-600 flex items-center justify-center text-white dark:text-gray-900 font-semibold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-600 flex items-center justify-center text-white dark:text-gray-900 dark:text-white font-semibold">
                       {selectedRecommendation.user.profileImage ? (
                         <img 
                           src={selectedRecommendation.user.profileImage} 
@@ -504,7 +504,7 @@ export default function RecommendationsList({
                       )}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">{selectedRecommendation.user.name}</p>
+                      <p className="font-medium text-gray-900 dark:text-white dark:text-white">{selectedRecommendation.user.name}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {selectedRecommendation.user.city && selectedRecommendation.user.country 
                           ? `${selectedRecommendation.user.city}, ${selectedRecommendation.user.country}`
@@ -517,13 +517,13 @@ export default function RecommendationsList({
 
               {/* ESA Layer 24: Original Post/Memory Card */}
               {linkedPost && (
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">{t('common.original_recommendation_post')}</h4>
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
+                  <h4 className="font-semibold text-gray-900 dark:text-white dark:text-white mb-3">{t('common.original_recommendation_post')}</h4>
                   <div className="glass-card glass-depth-1 rounded-lg p-4 space-y-3">
                     {/* Post Author */}
                     {linkedPost.author && (
                       <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 dark:to-purple-600 flex items-center justify-center text-white dark:text-gray-900 text-sm font-semibold">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 dark:to-purple-600 flex items-center justify-center text-white dark:text-gray-900 dark:text-white text-sm font-semibold">
                           {linkedPost.author.profileImage ? (
                             <img 
                               src={linkedPost.author.profileImage} 
@@ -535,7 +535,7 @@ export default function RecommendationsList({
                           )}
                         </div>
                         <div>
-                          <p className="font-medium text-sm text-gray-900 dark:text-white">{linkedPost.author.name}</p>
+                          <p className="font-medium text-sm text-gray-900 dark:text-white dark:text-white">{linkedPost.author.name}</p>
                           <p className="text-xs text-gray-500 dark:text-gray-400">
                             {new Date(linkedPost.createdAt).toLocaleDateString()}
                           </p>
@@ -560,7 +560,7 @@ export default function RecommendationsList({
                     )}
 
                     {/* Post Metadata */}
-                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                       {linkedPost.likes > 0 && (
                         <span className="flex items-center gap-1">
                           <Heart className="h-3 w-3" />
@@ -586,7 +586,7 @@ export default function RecommendationsList({
 
               {/* Loading State for Post */}
               {isPostLoading && selectedRecommendation?.postId && (
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
                   <div className="flex items-center justify-center py-4">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-turquoise-500"></div>
                   </div>

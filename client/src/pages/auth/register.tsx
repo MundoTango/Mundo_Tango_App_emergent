@@ -65,12 +65,12 @@ export default function Register() {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8 relative">
           <MTFormButton
             variant="outline"
             onClick={() => navigate("/")}
-            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 border-0 shadow-none px-2 py-1"
+            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white border-0 shadow-none px-2 py-1"
             data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -79,7 +79,7 @@ export default function Register() {
           
           <div className="mx-auto relative">
             <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-teal-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
-              <Users className="text-white dark:text-gray-900 w-10 h-10" />
+              <Users className="text-white dark:text-gray-900 dark:text-white w-10 h-10" />
             </div>
             <div className="absolute -top-2 -right-2">
               <Sparkles className="h-6 w-6 text-yellow-400 animate-spin-slow" />
@@ -194,10 +194,10 @@ export default function Register() {
 
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200"></div>
+              <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white dark:bg-gray-900 text-gray-500">{t('auth.register.or_sign_up_with', 'Or sign up with')}</span>
+              <span className="px-4 bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-500">{t('auth.register.or_sign_up_with', 'Or sign up with')}</span>
             </div>
           </div>
 
@@ -252,7 +252,7 @@ export default function Register() {
             </MTFormButton>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700 text-center">
             <p className="text-sm text-gray-600">
               {t('auth.register.have_account', 'Already have an account?')}{" "}
               <Link 

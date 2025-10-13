@@ -94,7 +94,7 @@ export default function Messages() {
                 <CardContent className="p-0 h-full flex flex-col">
                   
                   {/* Header */}
-                  <div className="p-4 border-b border-gray-200">
+                  <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
                       <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">

@@ -285,7 +285,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             {uploadedFiles.map((file, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50"
+                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 dark:bg-gray-800"
               >
                 {showPreview && previews[file.originalName] ? (
                   <img

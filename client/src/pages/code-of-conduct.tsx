@@ -89,7 +89,7 @@ export default function CodeOfConduct() {
           <div className="relative inline-block">
             <Heart className="w-20 h-20 mx-auto text-pink-500 animate-pulse hover:scale-110 transition-transform duration-300" />
             <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-bounce flex items-center justify-center">
-              <span className="text-white dark:text-gray-900 text-xl">🌱</span>
+              <span className="text-white dark:text-gray-900 dark:text-white text-xl">🌱</span>
             </div>
           </div>
           <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 dark:via-purple-500 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent">
@@ -348,7 +348,7 @@ export default function CodeOfConduct() {
                   control={form.control}
                   name="termsOfService"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 dark:border-gray-600 p-4 bg-gray-50/50">
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 dark:border-gray-600 p-4 bg-gray-50 dark:bg-gray-800/50">
                       <FormControl>
                         <Checkbox
                           checked={field.value}
@@ -377,7 +377,7 @@ export default function CodeOfConduct() {
                 <Button
                   type="submit"
                   disabled={acceptCodeOfConductMutation.isPending}
-                  className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 dark:via-blue-500 to-purple-600 dark:to-purple-500 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white dark:text-gray-900 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"
+                  className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 dark:via-blue-500 to-purple-600 dark:to-purple-500 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white dark:text-gray-900 dark:text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"
                 >
                   <span className="flex items-center justify-center gap-3">
                     {acceptCodeOfConductMutation.isPending ? (

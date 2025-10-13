@@ -195,7 +195,7 @@ export default function ThreadedCommentsSection({
             <div className="glassmorphic rounded-xl px-4 py-3">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  <span className="text-sm font-medium text-gray-900 dark:text-white dark:text-white">
                     {comment.user.name}
                   </span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -214,14 +214,14 @@ export default function ThreadedCommentsSection({
                   <div className="relative">
                     <button
                       onClick={() => setShowActions(showActions === commentId ? null : commentId)}
-                      className="p-1 hover:bg-white/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                      className="p-1 hover:bg-white dark:bg-gray-900/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                       data-testid={`button-comment-actions-${commentId}`}
                     >
                       <MoreVertical className="w-4 h-4 text-gray-500" />
                     </button>
 
                     {showActions === commentId && (
-                      <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 overflow-hidden">
+                      <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-lg shadow-lg z-10 overflow-hidden">
                         <button
                           onClick={() => {
                             setEditingCommentId(commentId);
@@ -262,7 +262,7 @@ export default function ThreadedCommentsSection({
                   <textarea
                     value={editingContent}
                     onChange={(e) => setEditingContent(e.target.value)}
-                    className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 rounded-lg resize-none"
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/50 dark:bg-gray-800/50 rounded-lg resize-none"
                     rows={2}
                     autoFocus
                   />
@@ -358,7 +358,7 @@ export default function ThreadedCommentsSection({
 
   return (
     <div className="glassmorphic rounded-2xl p-6 border border-cyan-500/20" data-testid="comments-section">
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white dark:text-white mb-4">
         Comments ({comments.length})
       </h3>
 

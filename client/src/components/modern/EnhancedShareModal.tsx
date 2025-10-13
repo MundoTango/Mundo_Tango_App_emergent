@@ -222,7 +222,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
               {post.user.name.charAt(0)}
             </div>
             <div className="flex-1">
-              <p className="font-medium text-gray-900 dark:text-white">
+              <p className="font-medium text-gray-900 dark:text-white dark:text-white">
                 {post.user.name}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -272,10 +272,10 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
+            <div className="w-full border-t border-gray-200 dark:border-gray-700 dark:border-gray-700"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white dark:bg-gray-900 px-4 text-gray-500">
+            <span className="bg-white dark:bg-gray-900 dark:bg-gray-900 px-4 text-gray-500">
               Or share via
             </span>
           </div>
@@ -313,7 +313,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
         </div>
 
         {/* Copy Link Section */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <div className="flex items-center gap-3">
             <input
               type="text"

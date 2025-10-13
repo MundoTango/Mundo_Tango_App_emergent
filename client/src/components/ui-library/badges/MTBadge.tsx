@@ -106,7 +106,7 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
             e.stopPropagation();
             onRemove?.();
           }}
-          className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition-colors"
+          className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-white dark:bg-gray-900/10 rounded-full p-0.5 transition-colors"
         >
           <X className={cn(
             'flex-shrink-0',

@@ -175,7 +175,7 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 animate-pulse border border-gray-200/50">
+          <div key={i} className="bg-white dark:bg-gray-900/60 backdrop-blur-sm rounded-3xl p-8 animate-pulse border border-gray-200 dark:border-gray-700/50">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
@@ -244,7 +244,7 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
               <div className="w-24 h-24 bg-gradient-to-r from-turquoise-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Heart className="h-12 w-12 text-turquoise-400" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">No memories found</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">No memories found</h3>
               <p className="text-gray-600 leading-relaxed">
                 {filters?.filterType === 'following' 
                   ? "No memories from people you're following yet. Start following dancers to see their memories here!"

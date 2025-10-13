@@ -343,7 +343,7 @@ export function InternalUploader({
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {uploadedFiles.map((file) => (
               <div key={file.id} className="relative group">
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200 dark:border-gray-700">
                   {file.mimetype.startsWith('image/') ? (
                     <img
                       src={file.thumbnailUrl || file.url}

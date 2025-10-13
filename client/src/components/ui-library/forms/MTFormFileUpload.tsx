@@ -216,7 +216,7 @@ export default function MTFormFileUpload<
                 {files.map((file: File, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 transition-colors"
                   >
                     {showPreview && previews[index] ? (
                       <img 
@@ -230,7 +230,7 @@ export default function MTFormFileUpload<
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                         {file.name}
                       </p>
                       <p className="text-xs text-gray-500">

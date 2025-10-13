@@ -147,7 +147,7 @@ const WorldMap = forwardRef((props, ref) => {
         />
         
         {/* Map Legend - Positioned on top of the map */}
-        <div className="absolute top-4 left-4 z-[1000] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-lg shadow-lg p-4 border border-cyan-200/50" style={{zIndex: 1000}}>
+        <div className="absolute top-4 left-4 z-[1000] bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md rounded-lg shadow-lg p-4 border border-cyan-200/50" style={{zIndex: 1000}}>
           <h3 className="font-semibold text-sm mb-3 text-gray-800">{t('common.city_sizes')}</h3>
           <div className="space-y-2 text-xs">
             <div className="flex items-center gap-2">
@@ -192,7 +192,7 @@ const WorldMap = forwardRef((props, ref) => {
                      borderRadius: '12px'
                    }}>
                 {/* City Header */}
-                <div className="mb-3 pb-2 border-b border-gray-200">
+                <div className="mb-3 pb-2 border-b border-gray-200 dark:border-gray-700">
                   <h3 className="font-bold text-lg flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-cyan-600" />
                     {group.city}
@@ -238,7 +238,7 @@ const WorldMap = forwardRef((props, ref) => {
                 {/* View Group Button */}
                 <button 
                   onClick={() => window.location.href = `/groups/${group.slug || group.id}`}
-                  className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white dark:text-gray-900 rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition-all text-sm font-medium"
+                  className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white dark:text-gray-900 dark:text-white rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition-all text-sm font-medium"
                 >
                   View {group.city} Group
                 </button>
@@ -251,7 +251,7 @@ const WorldMap = forwardRef((props, ref) => {
       
       {/* Loading overlay */}
       {isLoading && (
-        <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 flex items-center justify-center z-[1000]">
+        <div className="absolute inset-0 bg-white dark:bg-gray-900/80 dark:bg-gray-900/80 flex items-center justify-center z-[1000]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-cyan-500 mx-auto mb-4"></div>
             <p className="text-gray-600">{t('common.loading_world_map')}</p>

@@ -103,12 +103,12 @@ export default function ResetPassword() {
         <div className="absolute bottom-20 -left-40 w-96 h-96 bg-gradient-to-br from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8">
           <div className="mx-auto relative">
             <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
               {resetSuccess ? (
-                <CheckCircle className="text-white dark:text-gray-900 dark:text-gray-900 w-10 h-10" />
+                <CheckCircle className="text-white dark:text-gray-900 dark:text-white dark:text-gray-900 w-10 h-10" />
               ) : (
                 <Lock className="text-white w-10 h-10" />
               )}

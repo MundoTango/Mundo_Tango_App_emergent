@@ -202,7 +202,7 @@ export function MTFormRadioCards<
                           <span className="text-2xl">{option.icon}</span>
                         )}
                         <div className="flex-1">
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-gray-900 dark:text-white">
                             {option.label}
                           </p>
                           {option.description && (

@@ -77,7 +77,7 @@ export const ProfileDocumentation: React.FC<{ userId: number }> = ({ userId }) =
         <CardContent>
           <div className="space-y-3">
             {documentationItems.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex items-center gap-3">
                   <FileText className="w-4 h-4 text-gray-600" />
                   <span className="font-medium">{item.title}</span>

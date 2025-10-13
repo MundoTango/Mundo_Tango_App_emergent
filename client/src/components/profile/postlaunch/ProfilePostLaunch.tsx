@@ -68,19 +68,19 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <div className="text-3xl font-bold text-purple-600">{metrics.adoptionRate}%</div>
               <div className="text-sm text-gray-600">Adoption Rate</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <div className="text-3xl font-bold text-blue-600">{metrics.userSatisfaction}/5</div>
               <div className="text-sm text-gray-600">User Satisfaction</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <div className="text-3xl font-bold text-green-600">{metrics.performanceScore}%</div>
               <div className="text-sm text-gray-600">Performance Score</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg">
+            <div className="text-center p-4 bg-white dark:bg-gray-900/70 rounded-lg">
               <div className="text-3xl font-bold text-orange-600">{positiveFeedbackPercent}%</div>
               <div className="text-sm text-gray-600">Positive Feedback</div>
             </div>
@@ -180,7 +180,7 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
               <span className="font-medium">Positive Feedback</span>
               <Badge className="bg-green-100 text-green-800">{metrics.userFeedback[0].count}</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <span className="font-medium">Neutral Feedback</span>
               <Badge className="bg-gray-100 text-gray-800">{metrics.userFeedback[1].count}</Badge>
             </div>
@@ -200,7 +200,7 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-4">
             {performanceImprovement.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div>
                   <div className="font-medium">{item.metric}</div>
                   <div className="text-sm text-gray-600">

@@ -178,7 +178,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   return (
     <Card className="card-shadow h-full flex flex-col">
       {/* Header */}
-      <CardHeader className="p-4 border-b border-gray-200">
+      <CardHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Button
@@ -286,7 +286,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       </CardContent>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
         <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" type="button" className="text-gray-600">
             <Paperclip className="h-5 w-5" />

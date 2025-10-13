@@ -290,7 +290,7 @@ export function GuestOnboardingFlow() {
                 placeholder={t('housing.guest_onboarding.special_needs_placeholder', 'E.g., wheelchair accessibility, medical conditions, etc.')}
                 value={profileData.specialNeeds}
                 onChange={(e) => setProfileData(prev => ({ ...prev, specialNeeds: e.target.value }))}
-                className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
               />
             </div>
           </div>
@@ -365,7 +365,7 @@ export function GuestOnboardingFlow() {
                 value={profileData.travelStyle}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, travelStyle: value }))}
               >
-                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-travel-style">
+                <SelectTrigger className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-travel-style">
                   <SelectValue placeholder={t('housing.guest_onboarding.travel_style_placeholder', 'Select your travel style')} />
                 </SelectTrigger>
                 <SelectContent>
@@ -436,7 +436,7 @@ export function GuestOnboardingFlow() {
                 value={profileData.stayDurationPreference}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, stayDurationPreference: value }))}
               >
-                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-stay-duration">
+                <SelectTrigger className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-stay-duration">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -485,7 +485,7 @@ export function GuestOnboardingFlow() {
                     budgetRange: { ...prev.budgetRange, currency: value }
                   }))}
                 >
-                  <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-currency">
+                  <SelectTrigger className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-currency">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -511,7 +511,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     budgetRange: { ...prev.budgetRange, min: parseInt(e.target.value) || 0 }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
 
@@ -529,7 +529,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     budgetRange: { ...prev.budgetRange, max: parseInt(e.target.value) || 0 }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
             </div>
@@ -565,7 +565,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     emergencyContact: { ...prev.emergencyContact, name: e.target.value }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
 
@@ -582,7 +582,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     emergencyContact: { ...prev.emergencyContact, phone: e.target.value }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
 
@@ -599,7 +599,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     emergencyContact: { ...prev.emergencyContact, relationship: e.target.value }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-white dark:bg-gray-900/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
             </div>
@@ -728,7 +728,7 @@ export function GuestOnboardingFlow() {
               {currentStep < totalSteps ? (
                 <PulseButton 
                   onClick={handleNext}
-                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-medium rounded-xl"
+                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 dark:text-white font-medium rounded-xl"
                   data-testid={`button-continue-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
                   aria-label={t('common.labels.continue_to_next_step')}
                 >
@@ -738,7 +738,7 @@ export function GuestOnboardingFlow() {
                 <PulseButton 
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-medium rounded-xl disabled:opacity-50"
+                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 dark:text-white font-medium rounded-xl disabled:opacity-50"
                   data-testid="button-complete-onboarding"
                 >
                   {isSubmitting 

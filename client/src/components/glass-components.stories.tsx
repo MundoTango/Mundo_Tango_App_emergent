@@ -31,7 +31,7 @@ export const GlassCardWithContent: Story = () => (
             <Input 
               type="email" 
               placeholder="Enter your email"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="bg-white dark:bg-gray-900/10 border-white/20 text-white placeholder:text-white/60"
               data-testid="input-email"
             />
           </div>
@@ -40,12 +40,12 @@ export const GlassCardWithContent: Story = () => (
             <Input 
               type="password" 
               placeholder="Enter your password"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="bg-white dark:bg-gray-900/10 border-white/20 text-white placeholder:text-white/60"
               data-testid="input-password"
             />
           </div>
           <Button 
-            className="w-full bg-white/20 hover:bg-white/30 border border-white/30"
+            className="w-full bg-white dark:bg-gray-900/20 hover:bg-white/30 border border-white/30"
             data-testid="button-submit"
           >
             Sign In

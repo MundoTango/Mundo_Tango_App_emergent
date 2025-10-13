@@ -115,7 +115,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
 
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 shadow-lg">
+        <TabsList className="grid w-full grid-cols-3 mb-6 bg-white dark:bg-gray-900/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 shadow-lg">
           <TabsTrigger value="map" className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Interactive Map
@@ -210,7 +210,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                         value={eventFilters.category}
                         onChange={(e) => setEventFilters({ ...eventFilters, category: e.target.value })}
-                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
+                        className="rounded-xl bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                       >
                         <option value="all">All Categories</option>
                         <option value="milonga">Milonga</option>
@@ -221,7 +221,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                         value={eventFilters.priceRange}
                         onChange={(e) => setEventFilters({ ...eventFilters, priceRange: e.target.value })}
-                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
+                        className="rounded-xl bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                       >
                         <option value="all">Any Price</option>
                         <option value="free">Free</option>
@@ -232,7 +232,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                         value={eventFilters.timeOfDay}
                         onChange={(e) => setEventFilters({ ...eventFilters, timeOfDay: e.target.value })}
-                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
+                        className="rounded-xl bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                       >
                         <option value="all">Any Time</option>
                         <option value="morning">Morning</option>
@@ -251,7 +251,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <select
                       value={friendFilter}
                       onChange={(e) => setFriendFilter(e.target.value as any)}
-                      className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
+                      className="w-full rounded-xl bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                     >
                       <option value="all">All Users</option>
                       <option value="direct">Direct Friends Only</option>
@@ -268,7 +268,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <select
                       value={recommendationType}
                       onChange={(e) => setRecommendationType(e.target.value as any)}
-                      className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
+                      className="w-full rounded-xl bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                     >
                       <option value="all">All Recommendations</option>
                       <option value="local">From Locals (e.g., best steaks)</option>

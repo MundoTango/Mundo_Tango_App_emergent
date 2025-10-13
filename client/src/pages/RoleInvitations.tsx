@@ -406,7 +406,7 @@ export default function RoleInvitations() {
                           </div>
                           
                           {invitation.message && (
-                            <div className="p-3 bg-gray-50 rounded-lg mb-4">
+                            <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg mb-4">
                               <p className="text-sm text-gray-700 italic">"{invitation.message}"</p>
                             </div>
                           )}

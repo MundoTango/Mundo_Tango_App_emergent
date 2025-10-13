@@ -205,7 +205,7 @@ export default function Onboarding() {
               variant="ghost"
               size="sm"
               onClick={() => setLocation("/")}
-              className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
@@ -223,12 +223,12 @@ export default function Onboarding() {
 
 
             {/* Nickname Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-cyan-300 transition-colors">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white dark:bg-gray-900/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700 group-hover:border-cyan-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-cyan-100 to-pink-100 rounded-full flex items-center justify-center group-hover:animate-bounce shadow-lg">
                   <Heart className="w-5 h-5 text-cyan-600 group-hover:text-pink-500 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-cyan-700 transition-colors">Nickname</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white group-hover:text-cyan-700 transition-colors">Nickname</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded-full">✨ Your tango identity!</span>
                 </div>
@@ -243,7 +243,7 @@ export default function Onboarding() {
                       <Input
                         placeholder="Enter your tango nickname"
                         {...field}
-                        className="h-12 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg hover:border-cyan-300 transition-all duration-200 focus:shadow-lg focus:shadow-cyan-100"
+                        className="h-12 border-gray-200 dark:border-gray-700 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg hover:border-cyan-300 transition-all duration-200 focus:shadow-lg focus:shadow-cyan-100"
                       />
                     </FormControl>
                     <FormMessage />
@@ -253,12 +253,12 @@ export default function Onboarding() {
             </div>
 
             {/* Languages Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-blue-300 transition-colors">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white dark:bg-gray-900/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700 group-hover:border-blue-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full flex items-center justify-center group-hover:animate-spin shadow-lg">
                   <Globe className="w-5 h-5 text-blue-600 group-hover:text-cyan-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Languages</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white group-hover:text-blue-700 transition-colors">Languages</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">🌍 Connect globally!</span>
                 </div>
@@ -285,12 +285,12 @@ export default function Onboarding() {
             </div>
 
             {/* Tango Roles Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-teal-300 transition-colors">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white dark:bg-gray-900/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700 group-hover:border-teal-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-full flex items-center justify-center group-hover:animate-pulse shadow-lg">
                   <Users className="w-5 h-5 text-teal-600 group-hover:text-emerald-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-teal-700 transition-colors">Tango Activities</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white group-hover:text-teal-700 transition-colors">Tango Activities</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">💃 Your tango style!</span>
                 </div>
@@ -318,12 +318,12 @@ export default function Onboarding() {
             </div>
 
             {/* Dance Role Skills Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-purple-300 transition-colors">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white dark:bg-gray-900/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700 group-hover:border-purple-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center group-hover:animate-pulse shadow-lg">
                   <Music className="w-5 h-5 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-purple-700 transition-colors">Do you dance as:</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white group-hover:text-purple-700 transition-colors">Do you dance as:</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">🕺 Your dance style!</span>
                 </div>
@@ -393,12 +393,12 @@ export default function Onboarding() {
             </div>
 
             {/* Years of Dancing Experience Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-orange-300 transition-colors">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white dark:bg-gray-900/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700 group-hover:border-orange-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-full flex items-center justify-center group-hover:animate-bounce shadow-lg">
                   <span className="text-xl group-hover:animate-pulse">⏰</span>
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-orange-700 transition-colors">Dancing Experience</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white group-hover:text-orange-700 transition-colors">Dancing Experience</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full">📅 Your journey!</span>
                 </div>
@@ -457,12 +457,12 @@ export default function Onboarding() {
             </div>
 
             {/* Location Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-indigo-300 transition-colors">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white dark:bg-gray-900/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700 group-hover:border-indigo-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center group-hover:animate-bounce shadow-lg">
                   <Sparkles className="w-5 h-5 text-indigo-600 group-hover:text-purple-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-indigo-700 transition-colors">Location</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white group-hover:text-indigo-700 transition-colors">Location</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">📍 Find your scene!</span>
                 </div>
@@ -488,7 +488,7 @@ export default function Onboarding() {
                             cityId: 0
                           });
                         }}
-                        className="border-gray-200 focus:border-indigo-500 rounded-lg hover:border-indigo-300 transition-all duration-200 focus:shadow-lg focus:shadow-indigo-100"
+                        className="border-gray-200 dark:border-gray-700 focus:border-indigo-500 rounded-lg hover:border-indigo-300 transition-all duration-200 focus:shadow-lg focus:shadow-indigo-100"
                         placeholder="Search for your city..."
                         allowManualEntry={true}
                       />
@@ -500,7 +500,7 @@ export default function Onboarding() {
             </div>
 
             {/* Terms and Privacy Checkboxes */}
-            <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
+            <div className="space-y-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
               <FormField
                 control={form.control}
                 name="acceptTerms"

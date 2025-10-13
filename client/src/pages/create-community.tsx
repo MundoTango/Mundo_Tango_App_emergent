@@ -123,7 +123,7 @@ export default function CreateCommunityPage() {
         <div className="mb-8">
           <button
             onClick={() => setLocation('/groups')}
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 mb-4 transition-colors"
+            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white mb-4 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             Back to Communities
@@ -146,7 +146,7 @@ export default function CreateCommunityPage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Cover Image */}
-            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-sm p-6">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">{t('common.cover_image')}</h3>
               <div className="relative">
                 <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden">
@@ -174,7 +174,7 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Basic Information */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 space-y-6">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-sm p-6 space-y-6">
               <h3 className="text-lg font-semibold">{t('common.basic_information')}</h3>
               
               <FormField
@@ -285,7 +285,7 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Location */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">{t('common.location')}</h3>
               <FormField
                 control={form.control}
@@ -319,7 +319,7 @@ export default function CreateCommunityPage() {
               <Button
                 type="submit"
                 disabled={createCommunityMutation.isPending}
-                className="bg-gradient-to-r from-purple-600 dark:from-purple-500 to-pink-600 text-white dark:text-gray-900 rounded-lg px-6"
+                className="bg-gradient-to-r from-purple-600 dark:from-purple-500 to-pink-600 text-white dark:text-gray-900 dark:text-white rounded-lg px-6"
               >
                 {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
               </Button>

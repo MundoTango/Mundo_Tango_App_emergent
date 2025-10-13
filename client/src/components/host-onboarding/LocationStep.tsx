@@ -251,7 +251,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
       {/* OpenStreetMap/Leaflet integration */}
       <div className="space-y-4">
         {/* Interactive Leaflet Map */}
-        <div className="rounded-lg overflow-hidden border border-gray-200" style={{ height: '400px' }}>
+        <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700" style={{ height: '400px' }}>
           <MapContainer
             center={markerPosition || [defaultCenter.lat, defaultCenter.lng]}
             zoom={markerPosition ? 17 : 15}
@@ -309,7 +309,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           
           {/* Address suggestions dropdown */}
           {showSuggestions && (
-            <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+            <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
               {isSearching ? (
                 <div className="p-3 text-center text-gray-500">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-pink-500 mx-auto"></div>
@@ -321,9 +321,9 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
                     key={index}
                     type="button"
                     onClick={() => handleSuggestionSelect(suggestion)}
-                    className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0"
+                    className="w-full text-left px-3 py-2 hover:bg-gray-50 dark:bg-gray-800 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0"
                   >
-                    <p className="text-sm font-medium text-gray-900 line-clamp-1">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white line-clamp-1">
                       {suggestion.display_name}
                     </p>
                     {suggestion.address && (

@@ -328,7 +328,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
             <span className="text-2xl">{getEventTypeIcon(travel.eventType)}</span>
             <div>
               {travel.eventName && (
-                <h5 className="font-medium text-gray-900 dark:text-gray-100">
+                <h5 className="font-medium text-gray-900 dark:text-white dark:text-gray-100">
                   {travel.eventName}
                 </h5>
               )}

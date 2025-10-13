@@ -371,7 +371,7 @@ export default function SecurityDemo() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-gray-50 p-4 rounded-lg max-h-64 overflow-y-auto font-mono text-sm">
+          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg max-h-64 overflow-y-auto font-mono text-sm">
             {logs.length === 0 ? (
               <p className="text-gray-500">No security events logged yet...</p>
             ) : (

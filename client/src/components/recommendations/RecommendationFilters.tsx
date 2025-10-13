@@ -68,7 +68,7 @@ export default function RecommendationFilters({
             <Filter className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+            <h3 className="font-semibold text-lg text-gray-900 dark:text-white dark:text-white">
               Filter Recommendations
             </h3>
             {activeFiltersCount > 0 && (
@@ -92,7 +92,7 @@ export default function RecommendationFilters({
           )}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
+            className="p-2 hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
             data-testid="button-toggle-filters"
           >
             {isExpanded ? (
@@ -151,7 +151,7 @@ export default function RecommendationFilters({
 
             {/* Closeness Score (shown when custom_closeness selected) */}
             {filters.connectionDegree === 'custom_closeness' && (
-              <div className="mt-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border border-turquoise-200 dark:border-turquoise-800">
+              <div className="mt-3 p-4 bg-white dark:bg-gray-900/50 dark:bg-gray-800/50 rounded-lg border border-turquoise-200 dark:border-turquoise-800">
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                   Minimum Closeness Score
                 </label>
@@ -161,7 +161,7 @@ export default function RecommendationFilters({
                   max="100"
                   value={filters.minClosenessScore || 50}
                   onChange={(e) => updateFilter('minClosenessScore', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-white dark:text-white"
                   data-testid="input-closeness-score"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -216,7 +216,7 @@ export default function RecommendationFilters({
                 value={filters.city || ''}
                 onChange={(e) => updateFilter('city', e.target.value || undefined)}
                 placeholder="e.g., Buenos Aires, Paris, Tokyo..."
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-white dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                 data-testid="input-city-filter"
               />
               {filters.city && (
@@ -304,7 +304,7 @@ export default function RecommendationFilters({
               <select
                 value={filters.cuisine || ''}
                 onChange={(e) => updateFilter('cuisine', e.target.value || undefined)}
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-white dark:text-white"
                 data-testid="select-cuisine"
               >
                 <option value="">All cuisines</option>
@@ -338,7 +338,7 @@ export default function RecommendationFilters({
               <select
               value={filters.originCountry || ''}
               onChange={(e) => updateFilter('originCountry', e.target.value || undefined)}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-white dark:text-white"
               data-testid="select-origin-country"
             >
               <option value="">All countries</option>

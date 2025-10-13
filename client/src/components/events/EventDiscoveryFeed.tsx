@@ -176,7 +176,7 @@ export const EventDiscoveryFeed: React.FC = () => {
         <Button
           variant="outline"
           onClick={() => setShowFilters(!showFilters)}
-          className="bg-white/50 border-white/30"
+          className="bg-white dark:bg-gray-900/50 border-white/30"
         >
           <SlidersHorizontal className="h-4 w-4 mr-2" />
           Filters
@@ -193,13 +193,13 @@ export const EventDiscoveryFeed: React.FC = () => {
               placeholder="Search events..."
               value={filters.search}
               onChange={(e) => updateFilter('search', e.target.value)}
-              className="pl-10 bg-white/50 border-white/30"
+              className="pl-10 bg-white dark:bg-gray-900/50 border-white/30"
             />
           </div>
 
           {/* Expandable Filters */}
           {showFilters && (
-            <div className="space-y-4 border-t border-gray-200/50 pt-4">
+            <div className="space-y-4 border-t border-gray-200 dark:border-gray-700/50 pt-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -209,7 +209,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                     placeholder="City or venue..."
                     value={filters.location}
                     onChange={(e) => updateFilter('location', e.target.value)}
-                    className="bg-white/50 border-white/30"
+                    className="bg-white dark:bg-gray-900/50 border-white/30"
                   />
                 </div>
 
@@ -221,7 +221,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                     type="date"
                     value={filters.startDate}
                     onChange={(e) => updateFilter('startDate', e.target.value)}
-                    className="bg-white/50 border-white/30"
+                    className="bg-white dark:bg-gray-900/50 border-white/30"
                   />
                 </div>
 
@@ -233,7 +233,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                     type="date"
                     value={filters.endDate}
                     onChange={(e) => updateFilter('endDate', e.target.value)}
-                    className="bg-white/50 border-white/30"
+                    className="bg-white dark:bg-gray-900/50 border-white/30"
                   />
                 </div>
               </div>
@@ -262,7 +262,7 @@ export const EventDiscoveryFeed: React.FC = () => {
 
               {/* Active Filters */}
               {(filters.tags.length > 0 || filters.location || filters.startDate || filters.endDate) && (
-                <div className="flex items-center gap-2 pt-2 border-t border-gray-200/50">
+                <div className="flex items-center gap-2 pt-2 border-t border-gray-200 dark:border-gray-700/50">
                   <span className="text-sm font-medium text-gray-600">Active filters:</span>
                   {filters.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="cursor-pointer" onClick={() => removeTag(tag)}>
@@ -336,7 +336,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                 onClick={() => fetchEvents(false)}
                 disabled={loadingMore}
                 variant="outline"
-                className="bg-white/50 border-white/30"
+                className="bg-white dark:bg-gray-900/50 border-white/30"
               >
                 {loadingMore ? 'Loading...' : 'Load More Events'}
               </Button>

@@ -57,7 +57,7 @@ const PIERRE_DUBOIS = {
 
 // ESA Framework: Community Statistics Component
 const CommunityStats = () => (
-  <div className="bg-white/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
+  <div className="bg-white dark:bg-gray-900/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
     <h3 className="text-lg font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent mb-4">
       Community
     </h3>
@@ -69,7 +69,7 @@ const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Global Dancers</span>
         </div>
-        <span className="text-xl font-bold text-gray-900">3.2K</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white">3.2K</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -79,7 +79,7 @@ const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Active Events</span>
         </div>
-        <span className="text-xl font-bold text-gray-900">945</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white">945</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -89,7 +89,7 @@ const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Communities</span>
         </div>
-        <span className="text-xl font-bold text-gray-900">6.8K</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white">6.8K</span>
       </div>
 
       <div className="flex items-center justify-between">
@@ -99,11 +99,11 @@ const CommunityStats = () => (
           </div>
           <span className="text-sm font-medium text-gray-700">Your City</span>
         </div>
-        <span className="text-xl font-bold text-gray-900">184</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white">184</span>
       </div>
     </div>
 
-    <div className="mt-6 pt-6 border-t border-gray-200">
+    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
       <Button className="w-full bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white hover:opacity-90">
         <Music className="h-4 w-4 mr-2" />
         Mundo Tango
@@ -114,7 +114,7 @@ const CommunityStats = () => (
 
 // ESA Framework: Upcoming Events Component
 const UpcomingEvents = () => (
-  <div className="bg-white/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
+  <div className="bg-white dark:bg-gray-900/95 backdrop-blur-lg rounded-xl shadow-lg border border-cyan-200/20 p-6">
     <h3 className="text-lg font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent mb-4">
       Upcoming Events
     </h3>
@@ -127,7 +127,7 @@ const UpcomingEvents = () => (
 
 // ESA Framework: Memory Card Component
 const MemoryCard = ({ memory }: { memory: any }) => (
-  <Card className="bg-white/95 backdrop-blur-lg shadow-lg border border-cyan-200/20 hover:shadow-xl transition-all">
+  <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border border-cyan-200/20 hover:shadow-xl transition-all">
     <CardContent className="p-6">
       <div className="flex items-start gap-4">
         <Avatar className="h-10 w-10 border-2 border-[#5EEAD4]">
@@ -138,7 +138,7 @@ const MemoryCard = ({ memory }: { memory: any }) => (
         </Avatar>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-semibold text-gray-900">{memory.user?.name || 'Unknown'}</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-white">{memory.user?.name || 'Unknown'}</h4>
             <span className="text-gray-500 text-sm">@{memory.user?.username || 'unknown'}</span>
           </div>
           <p className="text-gray-700 mb-3">{memory.content}</p>
@@ -276,7 +276,7 @@ const ModernMemoriesPage = () => {
         <div className="text-xl mt-2">If you see this, ModernMemoriesPage.tsx is working!</div>
       </div>
       {/* ESA Framework: Header Section */}
-      <div className="bg-white/95 backdrop-blur-lg border-b border-cyan-200/30">
+      <div className="bg-white dark:bg-gray-900/95 backdrop-blur-lg border-b border-cyan-200/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-gradient-to-br from-[#5EEAD4] to-[#155E75] rounded-xl shadow-lg">
@@ -300,7 +300,7 @@ const ModernMemoriesPage = () => {
 
           {/* Left Sidebar - Navigation */}
           <div className="lg:col-span-2">
-            <Card className="bg-white/90 backdrop-blur-sm shadow-lg border border-cyan-200/20 sticky top-4">
+            <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-sm shadow-lg border border-cyan-200/20 sticky top-4">
               <CardContent className="p-6">
                 <div className="space-y-1">
                   <Button variant="ghost" className="w-full justify-start text-[#155E75] hover:bg-[#5EEAD4]/20">
@@ -339,7 +339,7 @@ const ModernMemoriesPage = () => {
           {/* Center - Main Feed */}
           <div className="lg:col-span-7 space-y-6">
             {/* ESA Framework: Pierre Dubois Post Creator */}
-            <Card className="bg-white/95 backdrop-blur-lg shadow-lg border border-cyan-200/20">
+            <Card className="bg-white dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border border-cyan-200/20">
               <CardContent className="p-6">
                 {/* Pierre Dubois User Header */}
                 <div className="flex items-center gap-4 mb-4">
@@ -351,7 +351,7 @@ const ModernMemoriesPage = () => {
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-gray-900">{PIERRE_DUBOIS.name}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{PIERRE_DUBOIS.name}</h3>
                       <span className="text-gray-500 text-sm">@{PIERRE_DUBOIS.username}</span>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
@@ -465,7 +465,7 @@ const ModernMemoriesPage = () => {
                   <MemoryCard key={memory.id} memory={memory} />
                 ))
               ) : (
-                <Card className="bg-white/90 backdrop-blur-sm">
+                <Card className="bg-white dark:bg-gray-900/90 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
                     <p className="text-gray-500">No memories yet. Be the first to share!</p>
                   </CardContent>

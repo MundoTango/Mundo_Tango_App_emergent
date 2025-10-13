@@ -86,7 +86,7 @@ export class ResilientBoundary extends Component<Props, State> {
       return (
         <div className="min-h-[200px] flex items-center justify-center p-6">
           <div className="max-w-md w-full">
-            <div className="bg-white/90 backdrop-blur-sm border border-red-200 rounded-lg p-6 shadow-lg">
+            <div className="bg-white dark:bg-gray-900/90 backdrop-blur-sm border border-red-200 rounded-lg p-6 shadow-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <AlertCircle className="w-6 h-6 text-red-500" />
@@ -121,7 +121,7 @@ export class ResilientBoundary extends Component<Props, State> {
                     
                     <button
                       onClick={() => window.location.reload()}
-                      className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                      className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                     >
                       Reload Page
                     </button>
@@ -132,7 +132,7 @@ export class ResilientBoundary extends Component<Props, State> {
                       <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700">
                         Error Details (Development Only)
                       </summary>
-                      <pre className="mt-2 text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto max-h-40">
+                      <pre className="mt-2 text-xs text-gray-600 bg-gray-50 dark:bg-gray-800 p-2 rounded overflow-auto max-h-40">
                         {this.state.error?.stack}
                         {'\n\nComponent Stack:'}
                         {this.state.errorInfo.componentStack}

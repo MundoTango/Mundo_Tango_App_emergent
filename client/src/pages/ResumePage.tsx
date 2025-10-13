@@ -256,7 +256,7 @@ export default function ResumePage() {
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
           <AlertCircle className="h-16 w-16 mx-auto mb-4 text-red-300" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Unable to load resume</h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Unable to load resume</h3>
           <p className="text-red-600 mb-4">
             {error.message.includes('401') || error.message.includes('Authentication')
               ? 'You must be logged in to view your resume.'
@@ -278,12 +278,12 @@ export default function ResumePage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Tango Resume</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">My Tango Resume</h1>
           <p className="text-gray-600">Professional experience in the tango community</p>
         </div>
         <div className="text-center py-12">
           <Star className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No resume entries yet</h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No resume entries yet</h3>
           <p className="text-gray-600">Tag yourself or get tagged at events to build your tango resume.</p>
         </div>
       </div>
@@ -307,7 +307,7 @@ export default function ResumePage() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Tango Resume</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">My Tango Resume</h1>
           <p className="text-gray-600">Professional experience in the tango community</p>
         </div>
         
@@ -349,13 +349,13 @@ export default function ResumePage() {
 
       {/* Resume Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <Card className="bg-white rounded-xl shadow-md">
+        <Card className="bg-white dark:bg-gray-900 rounded-xl shadow-md">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">{resumeEntries.length}</div>
             <div className="text-xs text-gray-600">Total Roles</div>
           </CardContent>
         </Card>
-        <Card className="bg-white rounded-xl shadow-md">
+        <Card className="bg-white dark:bg-gray-900 rounded-xl shadow-md">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resumeEntries.map((entry: ResumeEntry) => entry.event_id)).size}
@@ -363,7 +363,7 @@ export default function ResumePage() {
             <div className="text-xs text-gray-600">Events Participated</div>
           </CardContent>
         </Card>
-        <Card className="bg-white rounded-xl shadow-md">
+        <Card className="bg-white dark:bg-gray-900 rounded-xl shadow-md">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resumeEntries.map((entry: ResumeEntry) => entry.role)).size}
@@ -377,16 +377,16 @@ export default function ResumePage() {
       <div ref={resumeRef} className="space-y-8">
         {sortedYears.map((year) => (
           <div key={year}>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{year}</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{year}</h2>
             <div className="space-y-4">
               {groupedResume[year]
                 .sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime())
                 .map((entry, index) => (
-                  <Card key={`${entry.event_id}-${entry.role}-${index}`} className="bg-white rounded-xl shadow-md">
+                  <Card key={`${entry.event_id}-${entry.role}-${index}`} className="bg-white dark:bg-gray-900 rounded-xl shadow-md">
                     <CardHeader className="pb-3">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <CardTitle className="text-lg font-bold text-gray-900 mb-2">
+                          <CardTitle className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                             {entry.event_name}
                           </CardTitle>
                           <div className="flex items-center space-x-4 text-xs text-gray-600">

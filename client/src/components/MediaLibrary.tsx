@@ -213,11 +213,11 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white dark:text-white">
               Media Library
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -233,7 +233,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
         </div>
 
         {/* Search */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -241,7 +241,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
               placeholder="Search by filename or folder..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 dark:bg-gray-700 text-gray-900 dark:text-white dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -315,7 +315,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
                     {/* Enhanced Metadata Section - Only show for selected items */}
                     {isSelected && (
-                      <div className="p-4 bg-white dark:bg-gray-800 rounded-b-xl border-t border-gray-100 dark:border-gray-700">
+                      <div className="p-4 bg-white dark:bg-gray-900 dark:bg-gray-800 rounded-b-xl border-t border-gray-100 dark:border-gray-700">
                         {/* Caption Input */}
                         <div className="mb-3">
                           <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -327,7 +327,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             value={metadata?.caption || ''}
                             onChange={(e) => updateMediaMetadata(media.id, { caption: e.target.value })}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 dark:bg-gray-700 text-gray-900 dark:text-white dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         </div>
 
@@ -379,7 +379,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                                 }
                               }}
                               onClick={(e) => e.stopPropagation()}
-                              className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
+                              className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 dark:bg-gray-700 text-gray-900 dark:text-white dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                             />
                             <button
                               onClick={(e) => {
@@ -405,7 +405,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             value={metadata?.sortOrder || 0}
                             onChange={(e) => updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
+                            className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 dark:bg-gray-700 text-gray-900 dark:text-white dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                           />
                         </div>
                       </div>
@@ -414,7 +414,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                     {/* Basic Info for non-selected items */}
                     {!isSelected && (
                       <div className="p-3">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                        <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-white truncate">
                           {media.originalFilename}
                         </p>
                         <div className="flex items-center justify-between mt-1">
@@ -435,7 +435,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+        <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {selectedMedia.size} file(s) selected
           </p>

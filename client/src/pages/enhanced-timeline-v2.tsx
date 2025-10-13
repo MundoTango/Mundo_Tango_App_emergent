@@ -244,7 +244,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
              }} />
       </div>
 
-      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
+      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white dark:bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
         {/* Ocean accent decoration */}
         <div className="absolute -top-2 -right-2 w-24 h-24 bg-gradient-to-br from-turquoise-200 to-cyan-200 rounded-full blur-2xl opacity-30" />
         <div className="absolute -bottom-2 -left-2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-full blur-2xl opacity-25" />
@@ -255,7 +255,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             <div className="relative">
               <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300">
                 <AvatarImage src={memory.userProfileImage || memory.user?.profileImage} />
-                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-bold">
+                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 dark:text-white font-bold">
                   {(memory.userName || memory.user?.name || 'U').charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -265,7 +265,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-lg text-gray-900 dark:text-gray-50 group-hover:text-turquoise-700 transition-colors">
+                <h3 className="font-bold text-lg text-gray-900 dark:text-white dark:text-gray-50 group-hover:text-turquoise-700 transition-colors">
                   {memory.userName || memory.user?.name || 'Anonymous'}
                 </h3>
                 <span className="text-sm text-gray-500">@{memory.userUsername || memory.user?.username || 'user'}</span>
@@ -466,13 +466,13 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
       {/* Share Dialog */}
       {showShareDialog && (
-        <div className="fixed inset-0 bg-black/50 dark:bg-white/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
-          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 dark:bg-white dark:bg-gray-900/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-bold mb-4">{t('common.share_memory')}</h3>
             <div className="space-y-3">
               <button
                 onClick={() => handleShare()}
-                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors"
               >
                 <p className="font-medium">{t('common.share_to_timeline')}</p>
                 <p className="text-sm text-gray-600">{t('common.share_this_memory_on_your_timeline')}</p>
@@ -483,7 +483,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                   const comment = prompt("Add a comment to your share:");
                   if (comment !== null) handleShare(comment);
                 }}
-                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors"
               >
                 <p className="font-medium">{t('common.share_with_comment')}</p>
                 <p className="text-sm text-gray-600">{t('common.add_your_thoughts_when_sharing')}</p>
@@ -495,7 +495,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                   toast({ title: "Link copied!" });
                   setShowShareDialog(false);
                 }}
-                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors"
               >
                 <p className="font-medium">{t('common.copy_link')}</p>
                 <p className="text-sm text-gray-600">{t('common.copy_memory_link_to_clipboard')}</p>

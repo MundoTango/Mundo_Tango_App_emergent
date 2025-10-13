@@ -250,7 +250,7 @@ export default function EnhancedProfileHeader({
             onClick={handleShare}
             variant="secondary"
             size="sm"
-            className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border-white/30"
+            className="bg-white dark:bg-gray-900/20 backdrop-blur-md hover:bg-white/30 text-white border-white/30"
           >
             <Share2 className="h-4 w-4" />
           </Button>
@@ -258,7 +258,7 @@ export default function EnhancedProfileHeader({
       </div>
 
       {/* Profile Content */}
-      <div className="bg-white rounded-b-xl shadow-sm">
+      <div className="bg-white dark:bg-gray-900 rounded-b-xl shadow-sm">
         <div className="px-6 md:px-10 pb-8">
           {/* Avatar and Actions Row */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between -mt-20 gap-6">
@@ -295,7 +295,7 @@ export default function EnhancedProfileHeader({
                 )}
                 
                 {user.isVerified && (
-                  <div className="group absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-md cursor-help">
+                  <div className="group absolute -top-2 -right-2 bg-white dark:bg-gray-900 rounded-full p-1 shadow-md cursor-help">
                     <CheckCircle className="h-6 w-6 text-blue-500 fill-current" />
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                       Verified Tango Professional
@@ -308,7 +308,7 @@ export default function EnhancedProfileHeader({
               {/* Name and Details */}
               <div className="mb-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
                     {user.name || user.username || 'Tango Dancer'}
                   </h1>
                   {user.isVerified && (
@@ -497,31 +497,31 @@ export default function EnhancedProfileHeader({
           </div>
 
           {/* Stats Bar */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
             <div className="flex flex-wrap gap-8 justify-center md:justify-start">
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.posts || 0}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.posts || 0}</p>
                 <p className="text-sm text-gray-600">Recuerdos</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.followers || 0}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.followers || 0}</p>
                 <p className="text-sm text-gray-600">Mi Círculo</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.following || 0}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.following || 0}</p>
                 <p className="text-sm text-gray-600">Siguiendo</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.events || 0}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.events || 0}</p>
                 <p className="text-sm text-gray-600">Milongas</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.photos || 0}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.photos || 0}</p>
                 <p className="text-sm text-gray-600">Photos</p>
               </div>
               {user.profileViews !== undefined && (
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-gray-900">{user.profileViews}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{user.profileViews}</p>
                   <p className="text-sm text-gray-600">Profile Views</p>
                 </div>
               )}

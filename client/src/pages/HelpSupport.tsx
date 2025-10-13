@@ -269,7 +269,7 @@ const HelpSupport = () => {
                 <Button variant="secondary" size="lg" data-testid="button-contact-support">
                   Contact Support
                 </Button>
-                <Button variant="outline" size="lg" className="bg-white/10 border-white/20 hover:bg-white/20 text-white" data-testid="button-community-forum">
+                <Button variant="outline" size="lg" className="bg-white dark:bg-gray-900/10 border-white/20 hover:bg-white/20 text-white" data-testid="button-community-forum">
                   Community Forum
                 </Button>
               </div>

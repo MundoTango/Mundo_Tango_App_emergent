@@ -126,7 +126,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="font-medium text-gray-900 truncate">
+          <div className="font-medium text-gray-900 dark:text-white truncate">
             {highlightedDisplay}
           </div>
           {suggestion.status && (
@@ -299,7 +299,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
       
       {/* Suggestions dropdown */}
       {showSuggestions && filteredSuggestions.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-48 overflow-y-auto">
           {filteredSuggestions.map((suggestion, index) => (
             <div
               key={suggestion.id}
@@ -307,7 +307,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
                 e.stopPropagation();
                 selectSuggestion(suggestion);
               }}
-              className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50"
+              className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50 dark:bg-gray-800"
             >
               {/* Avatar or Icon */}
               <div className="flex-shrink-0">
@@ -329,7 +329,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-gray-900 truncate">
+                <div className="font-medium text-gray-900 dark:text-white truncate">
                   {suggestion.display}
                 </div>
                 {suggestion.status && (

@@ -157,15 +157,15 @@ export default function EpicsList() {
       <div className="container mx-auto space-y-6" data-testid="page-epics-list">
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <span className="text-gray-900 dark:text-white font-medium">Admin</span>
+          <span className="text-gray-900 dark:text-white dark:text-white font-medium">Admin</span>
           <ChevronRight className="h-4 w-4" />
-          <span className="text-gray-900 dark:text-white font-medium">Projects</span>
+          <span className="text-gray-900 dark:text-white dark:text-white font-medium">Projects</span>
         </div>
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Epics</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-gray-100">Epics</h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
               Manage project epics and track progress
             </p>
@@ -290,7 +290,7 @@ export default function EpicsList() {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-white dark:bg-gray-900 dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
               {isLoading ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i}>
@@ -309,7 +309,7 @@ export default function EpicsList() {
                 filteredAndSortedEpics.map((epic) => (
                   <tr
                     key={epic.id}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+                    className="hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-800 cursor-pointer transition-colors"
                     onClick={() => navigate(`/admin/projects/epic/${epic.id}`)}
                     data-testid={`row-epic-${epic.id}`}
                   >
@@ -319,7 +319,7 @@ export default function EpicsList() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 dark:text-gray-100 line-clamp-2">
+                      <div className="text-sm text-gray-900 dark:text-white dark:text-gray-100 line-clamp-2">
                         {epic.summary}
                       </div>
                     </td>

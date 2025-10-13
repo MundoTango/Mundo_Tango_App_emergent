@@ -258,7 +258,7 @@ export default function LifeCEOContinuousLearnings() {
 
       {/* Category Tabs */}
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-        <TabsList className="flex flex-wrap h-auto gap-2 bg-white/50 p-2">
+        <TabsList className="flex flex-wrap h-auto gap-2 bg-white dark:bg-gray-900/50 p-2">
           {categories.map(category => (
             <TabsTrigger
               key={category}
@@ -309,7 +309,7 @@ export default function LifeCEOContinuousLearnings() {
 
                                     {/* Metrics if available */}
                                     {learning.metrics && (
-                                      <div className="mt-3 p-2 bg-gray-50 rounded">
+                                      <div className="mt-3 p-2 bg-gray-50 dark:bg-gray-800 rounded">
                                         <p className="text-xs font-medium text-gray-700">
                                           Improvement: {learning.metrics.improvement}
                                         </p>

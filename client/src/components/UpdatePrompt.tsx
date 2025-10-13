@@ -100,7 +100,7 @@ export function UpdatePrompt() {
               </div>
 
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white dark:text-white mb-2">
                   Update Available! 🎉
                 </h3>
                 
@@ -143,7 +143,7 @@ export function UpdatePrompt() {
             </div>
 
             {/* What's new section */}
-            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
               <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 What's New:
               </p>

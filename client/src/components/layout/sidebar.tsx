@@ -280,7 +280,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 text-red-600 font-bold text-xl gap-6">
+        <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 dark:border-gray-700 text-red-600 font-bold text-xl gap-6">
           <div>
             <Button
               variant="ghost"
@@ -298,7 +298,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           {/* User Profile Section */}
           <div className="px-4 mb-6">
             <Link href="/profile?tab=memories">
-              <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
+              <div className="text-black dark:text-white flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:bg-gray-800 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
                 <Avatar className="h-10 w-10">
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
@@ -369,7 +369,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           })}
 
           {/* Mundo Tango Statistics */}
-          <div className="px-6 my-6 text-black space-y-4">
+          <div className="px-6 my-6 text-black dark:text-white space-y-4">
             <div className="uppercase text-gray-400 font-bold text-xs">
               Mundo Tango Details
             </div>

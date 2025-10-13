@@ -87,7 +87,7 @@ export default function NovuNotificationSystem({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-gray-900">{template.title}</p>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white">{template.title}</p>
             <span className="text-xs text-gray-500">
               {new Date(notification.createdAt).toLocaleDateString()}
             </span>
@@ -181,7 +181,7 @@ export default function NovuNotificationSystem({
           }
         >
           {({ unseenCount }) => (
-            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <button className="relative p-2 text-gray-600 hover:text-gray-900 dark:text-white transition-colors">
               <Bell className="h-5 w-5" />
               {unseenCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">

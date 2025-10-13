@@ -136,7 +136,7 @@ export function AIContextBar({ position = 'top', collapsible = true }: AIContext
               {collapsible && (
                 <button
                   onClick={() => setIsCollapsed(!isCollapsed)}
-                  className="p-1.5 rounded-lg hover:bg-white/10 dark:hover:bg-gray-700/50 transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-white dark:bg-gray-900/10 dark:hover:bg-gray-700/50 transition-colors"
                   data-testid="button-toggle-context-bar"
                 >
                   {isCollapsed ? (

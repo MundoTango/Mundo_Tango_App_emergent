@@ -279,7 +279,7 @@ export function ProjectHierarchyTree() {
         </div>
       </div>
 
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+      <div className="border-t border-gray-200 dark:border-gray-700 dark:border-gray-700 pt-4">
         {systems.length === 0 ? (
           <p className="text-gray-500 text-center py-8">No projects found</p>
         ) : (

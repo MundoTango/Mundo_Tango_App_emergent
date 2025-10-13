@@ -227,7 +227,7 @@ export default function AdminDashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.users?.total?.toLocaleString() || '0'}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -268,7 +268,7 @@ export default function AdminDashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 ${stats?.revenue?.mrr?.toLocaleString() || '0'}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -316,7 +316,7 @@ export default function AdminDashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.content?.posts?.toLocaleString() || '0'}
               </div>
               <div className="text-sm text-gray-500">{t('common.posts_today')}</div>
@@ -354,7 +354,7 @@ export default function AdminDashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.system?.uptime || '99.9'}%
               </div>
               <div className="text-sm text-gray-500">{t('common.uptime')}</div>
@@ -468,7 +468,7 @@ export default function AdminDashboardPage() {
                   {activity?.items?.map((item: ActivityItem) => (
                     <div
                       key={item.id}
-                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                       data-testid={`activity-${item.id}`}
                     >
                       <div className={cn(

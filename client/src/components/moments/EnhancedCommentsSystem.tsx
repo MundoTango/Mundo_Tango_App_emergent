@@ -350,7 +350,7 @@ export default function EnhancedCommentsSystem({
             />
             
             {showGifPicker && showGifs && (
-              <div className="mt-2 p-3 border border-gray-200 rounded-lg bg-gray-50">
+              <div className="mt-2 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <p className="text-sm font-medium text-gray-700 mb-2">Popular GIFs:</p>
                 <div className="grid grid-cols-3 gap-2">
                   {popularGifs.map((gifUrl, index) => (
@@ -418,10 +418,10 @@ export default function EnhancedCommentsSystem({
         <div className="flex space-x-3">
           {renderAvatar(comment.user)}
           <div className="flex-1">
-            <div className="bg-gray-50 rounded-lg p-3">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-gray-900">{comment.user.name}</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{comment.user.name}</span>
                   <span className="text-sm text-gray-500">@{comment.user.username}</span>
                   <span className="text-sm text-gray-400">
                     {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}

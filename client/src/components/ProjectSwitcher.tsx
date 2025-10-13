@@ -85,7 +85,7 @@ const ProjectSwitcher: React.FC = () => {
           {currentProject.icon}
           <span className="font-medium text-xs sm:text-sm hidden sm:inline">{currentProject.name}</span>
           {currentProject.badge && (
-            <span className="bg-white/20 text-xs px-1 sm:px-1.5 py-0.5 rounded-full">
+            <span className="bg-white dark:bg-gray-900/20 text-xs px-1 sm:px-1.5 py-0.5 rounded-full">
               {currentProject.badge}
             </span>
           )}
@@ -102,9 +102,9 @@ const ProjectSwitcher: React.FC = () => {
           />
           
           {/* Dropdown */}
-          <div className="absolute top-full mt-2 right-0 w-72 sm:w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
-            <div className="p-4 bg-gray-50 border-b border-gray-200">
-              <h3 className="font-semibold text-gray-900">Switch Project</h3>
+          <div className="absolute top-full mt-2 right-0 w-72 sm:w-80 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+              <h3 className="font-semibold text-gray-900 dark:text-white">Switch Project</h3>
               <p className="text-sm text-gray-600">Choose your active workspace</p>
             </div>
 
@@ -130,7 +130,7 @@ const ProjectSwitcher: React.FC = () => {
                         
                         <div className="text-left">
                           <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-900">{project.name}</span>
+                            <span className="font-medium text-gray-900 dark:text-white">{project.name}</span>
                             {project.badge && (
                               <span className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-xs px-2 py-0.5 rounded-full">
                                 {project.badge}
@@ -155,7 +155,7 @@ const ProjectSwitcher: React.FC = () => {
               })}
             </div>
 
-            <div className="p-4 bg-gray-50 border-t border-gray-200">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <Crown className="w-4 h-4" />
                 <span>Life CEO System - AI Agent Management</span>

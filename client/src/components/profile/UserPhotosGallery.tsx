@@ -43,7 +43,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load photos</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Unable to load photos</h3>
           <p className="text-gray-600">Please try again later.</p>
         </CardContent>
       </Card>
@@ -87,7 +87,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
           <Card className="glassmorphic-card">
             <CardContent className="p-12 text-center">
               <Camera className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No photos yet</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No photos yet</h3>
               <p className="text-gray-600">
                 {isOwnProfile
                   ? 'Start sharing your tango moments by uploading your first photo.'
@@ -117,7 +117,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
               onClick={() => setSelectedPhoto(null)}
               variant="ghost"
               size="icon"
-              className="absolute top-2 right-2 bg-white/20 backdrop-blur-md hover:bg-white/30"
+              className="absolute top-2 right-2 bg-white dark:bg-gray-900/20 backdrop-blur-md hover:bg-white/30"
             >
               <X className="h-4 w-4" />
             </Button>

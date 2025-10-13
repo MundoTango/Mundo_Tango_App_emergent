@@ -116,7 +116,7 @@ export const RoleChangeModal = ({
                 </div>
               )}
 
-              <DialogTitle className="text-center text-xl font-semibold text-gray-900 dark:text-gray-100">
+              <DialogTitle className="text-center text-xl font-semibold text-gray-900 dark:text-white dark:text-gray-100">
                 {t('members.roleChange.title', 'Change Member Role?')}
               </DialogTitle>
 
@@ -124,7 +124,7 @@ export const RoleChangeModal = ({
                 {/* Member Info */}
                 <div className="text-base text-gray-700 dark:text-gray-300">
                   {t('members.roleChange.description', 'You are about to change the role of')}
-                  <span className="font-semibold text-gray-900 dark:text-gray-100 mx-1">
+                  <span className="font-semibold text-gray-900 dark:text-white dark:text-gray-100 mx-1">
                     @{memberUsername}
                   </span>
                 </div>

@@ -149,12 +149,12 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                     setSelectedEvent(event);
                     if (onEventClick) onEventClick(event);
                   }}
-                  className="p-4 rounded-lg border border-gray-200 hover:border-turquoise-400 cursor-pointer transition-all"
+                  className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-turquoise-400 cursor-pointer transition-all"
                   style={{ borderLeft: `4px solid ${getEventColor(event)}` }}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-semibold text-gray-900">{event.title}</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{event.title}</h4>
                       <p className="text-sm text-gray-600 mt-1">
                         {format(new Date(event.startDate), 'MMM d, yyyy h:mm a')}
                       </p>
@@ -176,7 +176,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
         </div>
 
         {/* Event Legend */}
-        <div className="mt-6 pt-4 border-t border-gray-200">
+        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
           <h4 className="text-sm font-medium text-gray-700 mb-2">Event Types</h4>
           <div className="flex flex-wrap gap-2">
             {[

@@ -58,7 +58,7 @@ export default function RecommendationsBrowsePage() {
                       value={searchCity}
                       onChange={(e) => setSearchCity(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      className="pl-10 pr-4 h-12 bg-white/50 dark:bg-gray-800/50 border-white/20 dark:border-gray-700/20 focus:ring-2 focus:ring-turquoise-500 dark:focus:ring-turquoise-400"
+                      className="pl-10 pr-4 h-12 bg-white dark:bg-gray-900/50 dark:bg-gray-800/50 border-white/20 dark:border-gray-700/20 focus:ring-2 focus:ring-turquoise-500 dark:focus:ring-turquoise-400"
                       data-testid="input-city-search"
                     />
                   </div>

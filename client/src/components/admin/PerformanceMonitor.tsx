@@ -178,7 +178,7 @@ const PerformanceMonitor: React.FC = () => {
         <Button 
           onClick={runPerformanceTests}
           disabled={isRunningTests}
-          className="bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 text-white dark:text-gray-900 hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+          className="bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 text-white dark:text-gray-900 dark:text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
         >
           {isRunningTests ? (
             <>
@@ -209,7 +209,7 @@ const PerformanceMonitor: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-2">
+              <div className="text-3xl font-bold text-gray-900 dark:text-white dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-2">
                 {avgLCP > 0 ? `${(avgLCP / 1000).toFixed(2)}s` : '--'}
               </div>
               <Badge className={`${lcpRating.bgColor} ${lcpRating.color} border-0`}>
@@ -233,7 +233,7 @@ const PerformanceMonitor: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {avgCLS > 0 ? avgCLS.toFixed(4) : '--'}
               </div>
               <Badge className={`${clsRating.bgColor} ${clsRating.color} border-0`}>
@@ -257,7 +257,7 @@ const PerformanceMonitor: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {avgFID > 0 ? `${avgFID.toFixed(0)}ms` : '--'}
               </div>
               <Badge className={`${fidRating.bgColor} ${fidRating.color} border-0`}>
@@ -291,7 +291,7 @@ const PerformanceMonitor: React.FC = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {apiPerformance.singleCall.toFixed(2)}ms
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-1">
@@ -308,7 +308,7 @@ const PerformanceMonitor: React.FC = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {apiPerformance.parallelCalls.toFixed(2)}ms
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -325,7 +325,7 @@ const PerformanceMonitor: React.FC = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {apiPerformance.cachePerformance.toFixed(2)}ms
                 </div>
                 <div className="text-xs text-gray-500 mt-1">

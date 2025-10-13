@@ -177,7 +177,7 @@ const ProjectTrackerDashboard: React.FC = () => {
         <div className="bg-gradient-to-r from-turquoise-500 via-ocean-500 to-blue-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
+              <div className="p-2 bg-white dark:bg-gray-900/20 rounded-lg backdrop-blur-sm">
                 <GitCommit className="h-6 w-6 text-white" />
               </div>
               <div>
@@ -195,7 +195,7 @@ const ProjectTrackerDashboard: React.FC = () => {
         </div>
         
         {/* Statistics Bar - Glassmorphic */}
-        <div className="bg-white/90 dark:bg-slate-900/70 backdrop-blur-md border-t border-turquoise-200/30 p-4">
+        <div className="bg-white dark:bg-gray-900/90 dark:bg-slate-900/70 backdrop-blur-md border-t border-turquoise-200/30 p-4">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
             <div>
               <div className="text-2xl font-bold text-gray-800">{totalCount}</div>

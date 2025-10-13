@@ -100,7 +100,7 @@ const NewFeedEvents = () => {
                     >
                       <div className="w-2 h-2 rounded-full bg-gradient-to-r from-turquoise-400 to-cyan-500 mt-2 flex-shrink-0"></div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
+                        <h4 className="font-semibold text-gray-900 dark:text-white text-sm leading-tight mb-1">
                           {event.title}
                         </h4>
                         <div className="space-y-1">

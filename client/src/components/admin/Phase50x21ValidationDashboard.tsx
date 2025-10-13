@@ -221,7 +221,7 @@ export function Phase50x21ValidationDashboard() {
                   <div className="space-y-2">
                     <h3 className="font-semibold">Test Results</h3>
                     {phase2Results.results?.map((result: Phase2Result, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:bg-gray-800">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.passed ? 'passed' : 'failed')}
                           <div>
@@ -391,7 +391,7 @@ export function Phase50x21ValidationDashboard() {
                   <div className="space-y-2">
                     <h3 className="font-semibold">Load Test Results</h3>
                     {phase3Results.results?.map((result: Phase3Result, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:bg-gray-800">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.status)}
                           <div>

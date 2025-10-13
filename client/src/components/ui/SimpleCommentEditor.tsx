@@ -53,7 +53,7 @@ export function SimpleCommentEditor({
           onChange={(e) => setContent(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={defaultPlaceholder}
-          className="w-full min-h-[60px] p-2 outline-none resize-none text-gray-900 placeholder-gray-400"
+          className="w-full min-h-[60px] p-2 outline-none resize-none text-gray-900 dark:text-white placeholder-gray-400"
           rows={2}
         />
         

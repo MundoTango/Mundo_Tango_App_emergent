@@ -110,7 +110,7 @@ function SortableMediaItem({ item, index, thumbnailIndex, onRemove, onSetThumbna
           <div
             {...attributes}
             {...listeners}
-            className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute bottom-2 left-2 bg-white dark:bg-gray-900/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
             data-testid={`drag-handle-${index}`}
           >
             <GripVertical className="w-4 h-4 text-gray-600" />

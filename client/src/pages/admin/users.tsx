@@ -310,7 +310,7 @@ export default function AdminUsersPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.total?.toLocaleString() || 0}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -330,7 +330,7 @@ export default function AdminUsersPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.active?.toLocaleString() || 0}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-2">
@@ -349,7 +349,7 @@ export default function AdminUsersPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.verified?.toLocaleString() || 0}
               </div>
               <div className="text-sm text-gray-500 mt-2">
@@ -368,7 +368,7 @@ export default function AdminUsersPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
                 {stats?.suspended || 0}
               </div>
               <div className="text-sm text-red-600 dark:text-red-300 mt-2">
@@ -540,7 +540,7 @@ export default function AdminUsersPage() {
                     </TableRow>
                   ) : (
                     usersData?.users?.map((user: User) => (
-                      <TableRow key={user.id} className="hover:bg-gray-50">
+                      <TableRow key={user.id} className="hover:bg-gray-50 dark:bg-gray-800">
                         {showBulkActions && (
                           <TableCell>
                             <Checkbox
@@ -559,7 +559,7 @@ export default function AdminUsersPage() {
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium text-gray-900">{user.name}</div>
+                              <div className="font-medium text-gray-900 dark:text-white">{user.name}</div>
                               <div className="text-sm text-gray-500">{user.email}</div>
                               <div className="text-xs text-gray-400">@{user.username}</div>
                             </div>

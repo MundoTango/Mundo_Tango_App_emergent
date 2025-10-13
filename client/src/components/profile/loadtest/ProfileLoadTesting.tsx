@@ -147,11 +147,11 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl font-bold text-gray-800">{metrics.p95Latency}ms</div>
               <div className="text-sm text-gray-600">95th Percentile</div>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl font-bold text-gray-800">{metrics.p99Latency}ms</div>
               <div className="text-sm text-gray-600">99th Percentile</div>
             </div>

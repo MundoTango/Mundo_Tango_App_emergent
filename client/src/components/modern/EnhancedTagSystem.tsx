@@ -161,7 +161,7 @@ export default function EnhancedTagSystem({
                 placeholder="Search or add tags..."
                 className="w-full pl-14 pr-6 py-5 glassmorphic
                          border-2 border-cyan-200/20 rounded-2xl focus:outline-none focus:ring-4 
-                         focus:ring-cyan-200/50 focus:border-cyan-300 text-gray-900 dark:text-white 
+                         focus:ring-cyan-200/50 focus:border-cyan-300 text-gray-900 dark:text-white dark:text-white 
                          placeholder-gray-400 font-medium text-lg hover:border-cyan-300/50 
                          transition-all duration-300"
               />
@@ -242,7 +242,7 @@ export default function EnhancedTagSystem({
             <div className="p-2 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white dark:text-white">
               Discover Tags
             </h3>
           </div>
@@ -288,7 +288,7 @@ export default function EnhancedTagSystem({
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-medium text-sm text-gray-900 dark:text-white">
+                      <span className="font-medium text-sm text-gray-900 dark:text-white dark:text-white">
                         #{tag.name}
                       </span>
                       <span className={`text-lg ${getTrendColor(tag.trend)}`}>
@@ -332,7 +332,7 @@ export default function EnhancedTagSystem({
                     }`}
                   >
                     <Clock className="w-4 h-4 text-gray-400" />
-                    <span className="font-medium text-sm text-gray-900 dark:text-white">
+                    <span className="font-medium text-sm text-gray-900 dark:text-white dark:text-white">
                       #{tag}
                     </span>
                   </motion.button>
@@ -362,7 +362,7 @@ export default function EnhancedTagSystem({
                     }`}
                   >
                     <Users className="w-4 h-4 text-gray-400" />
-                    <span className="font-medium text-sm text-gray-900 dark:text-white">
+                    <span className="font-medium text-sm text-gray-900 dark:text-white dark:text-white">
                       #{tag}
                     </span>
                   </motion.button>
@@ -377,7 +377,7 @@ export default function EnhancedTagSystem({
         </div>
 
         {/* Quick Suggestions */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-yellow-500" />
             Quick suggestions for Mundo Tango:
