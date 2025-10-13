@@ -75,6 +75,9 @@ import projectTrackerRoutes from "./routes/projectTracker"; // ESA Agent #65 - S
 import thePlanRoutes from "./routes/thePlanRoutes"; // ESA65: The Plan - H2AC Dynamic Story Cards (Feature→Sub→Component→Task)
 import teamRoutes from "./routes/teamRoutes"; // H2AC: Team Onboarding Routes
 import agentChatRoutes from "./routes/agentChatRoutes"; // H2AC: Agent Chat Integration
+import voiceRoutes from "./routes/voiceRoutes"; // H2AC Phase 3: Voice Conversation System (Speech-to-Text & Text-to-Speech)
+import personalityRoutes from "./routes/personalityRoutes"; // H2AC Phase 3: Dynamic Agent Personalities (Database-driven)
+import auditRoutes from "./routes/auditRoutes"; // H2AC Phase 3: Full Platform Audit System (Playwright + Axe + Lighthouse)
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
 import { jiraProjectSync } from "./services/JiraProjectSync";
@@ -199,6 +202,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/project-tracker', thePlanRoutes); // ESA65: The Plan - H2AC Dynamic Story Cards System
   app.use('/api/team', teamRoutes); // H2AC: Team Onboarding & Management
   app.use('/api/agent-chat', agentChatRoutes); // H2AC: AI Agent Chat Integration
+  app.use('/api/voice', voiceRoutes); // H2AC Phase 3: Voice Conversation System
+  app.use('/api/personalities', personalityRoutes); // H2AC Phase 3: Dynamic Agent Personalities
+  app.use('/api/audit', auditRoutes); // H2AC Phase 3: Full Platform Audit System
   app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
