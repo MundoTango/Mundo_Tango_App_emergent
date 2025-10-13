@@ -7,6 +7,30 @@ import type { Request, Response } from 'express';
 
 const router = Router();
 
+// MB.MD TRACK 16: Create project endpoint (POST)
+router.post('/projects', async (req: Request, res: Response) => {
+  try {
+    const projectData = req.body;
+    const newProject = await db.insert(projects).values(projectData).returning();
+    res.json({ success: true, data: newProject[0] });
+  } catch (error: any) {
+    console.error('Error creating project:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// MB.MD TRACK 16: Bulk import projects endpoint (POST)
+router.post('/projects/bulk-import', async (req: Request, res: Response) => {
+  try {
+    const { projects: projectList } = req.body;
+    const imported = await db.insert(projects).values(projectList).returning();
+    res.json({ success: true, data: imported, count: imported.length });
+  } catch (error: any) {
+    console.error('Error bulk importing projects:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Get all projects with optional filters
 router.get('/projects', async (req: Request, res: Response) => {
   try {

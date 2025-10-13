@@ -8,6 +8,23 @@ import { eq, desc, and, sql } from 'drizzle-orm';
 
 const router = Router();
 
+// MB.MD TRACK 14: Trial status endpoint
+router.get('/api/payments/trial-status', async (req, res) => {
+  try {
+    res.json({
+      success: true,
+      data: {
+        inTrial: false,
+        daysRemaining: 0,
+        trialEndDate: null
+      }
+    });
+  } catch (error) {
+    console.error('Trial status error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch trial status' });
+  }
+});
+
 // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions Routes
 
 // Enhanced subscription tiers configuration
