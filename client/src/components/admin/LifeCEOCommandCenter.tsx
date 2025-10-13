@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   Brain,
   Zap,
@@ -39,13 +40,11 @@ const LifeCEOCommandCenter: React.FC = () => {
 
   // Import project data to get real counts
   const getActiveProjectCount = () => {
-  const { t } = useTranslation();
     // Import dynamically to avoid circular dependencies
     import('../../data/comprehensive-project-data').then(({ comprehensiveProjectData }) => {
       const countActiveProjects = (items: any[]): number => {
         return items.reduce((count, item) => {
           const itemCount = item.status === 'In Progress' ? 1 : 0;
-import { useTranslation } from 'react-i18next';
           const childCount = item.children ? countActiveProjects(item.children) : 0;
           return count + itemCount + childCount;
         }, 0);

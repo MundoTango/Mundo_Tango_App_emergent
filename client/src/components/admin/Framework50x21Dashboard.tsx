@@ -750,7 +750,7 @@ const Framework50x21Dashboard: React.FC = () => {
       const report = {
         timestamp: new Date().toISOString(),
         overallProgress,
-        criticalIssues: frameworkData.filter(layer => layer.issues.length >{t('common.0_layerprogress')}< 60),
+        criticalIssues: frameworkData.filter(layer => layer.issues.length > 0 && layer.progress < 60),
         completedLayers: frameworkData.filter(layer => layer.status === 'complete'),
         recommendations: [
           'Focus on Production Engineering layers (21-23) for production readiness',
@@ -780,7 +780,6 @@ const Framework50x21Dashboard: React.FC = () => {
   };
 
   const getStatusColor = (status: string) => {
-  const { t } = useTranslation();
     switch (status) {
       case 'complete': return 'text-green-600 bg-green-100';
       case 'in-progress': return 'text-yellow-600 bg-yellow-100';
@@ -1003,7 +1002,7 @@ const Framework50x21Dashboard: React.FC = () => {
       </div>
 
       {/* Critical Issues Alert */}
-      {frameworkData.filter(layer => layer.issues.length >{t('common.0_layerprogress')}< 60).length > 0 && (
+      {frameworkData.filter(layer => layer.issues.length > 0 && layer.progress < 60).length > 0 && (
         <Card className="border-red-200 bg-red-50">
           <CardHeader>
             <CardTitle className="text-lg text-red-800 flex items-center gap-2">
@@ -1014,7 +1013,7 @@ const Framework50x21Dashboard: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {frameworkData
-                .filter(layer => layer.issues.length >{t('common.0_layerprogress')}< 60)
+                .filter(layer => layer.issues.length > 0 && layer.progress < 60)
                 .map(layer => (
                   <div key={layer.id} className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-red-200">
                     <div className="font-medium text-red-800 mb-1">
