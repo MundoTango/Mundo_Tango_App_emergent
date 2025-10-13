@@ -93,6 +93,9 @@ import devExperienceRoutes from "./routes/dev-experience"; // ESA LIFE CEO 61x21
 import aiIntelligenceRoutes from "./routes/ai-intelligence"; // ESA AI Intelligence Network - Agent #31 + #68-71 (Learning, Context, Patterns)
 import mrBlueRoutes from "./routes/mrBlue"; // ESA Mr Blue - Agents #73-78, #79-80 (Visual Editor, Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning)
 import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visual Page Editor with OpenAI code generation
+import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
+import learningCoordinatorRoutes from "./routes/learningCoordinator"; // ESA Agent #80 - Learning Coordinator (Knowledge Flow UP/ACROSS/DOWN)
+import siteBuilderRoutes from "./routes/siteBuilder"; // ESA Agent #77 - AI Site Builder (Page Generation)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -198,6 +201,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/agent-learning', agentLearningRouter); // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
   app.use('/api/ai-intelligence', aiIntelligenceRoutes); // ESA AI Intelligence Network - User Support AI with Pattern Learning (Agent #31, #68-71)
   app.use(visualEditorRoutes); // ESA Agent #78 - Visual Page Editor with OpenAI code generation
+  app.use(qualityValidatorRoutes); // ESA Agent #79 - Quality Validator
+  app.use(learningCoordinatorRoutes); // ESA Agent #80 - Learning Coordinator
+  app.use(siteBuilderRoutes); // ESA Agent #77 - AI Site Builder
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   app.use('/api/mr-blue', mrBlueRoutes); // ESA Mr Blue Routes (Agents #73-78, #79-80)
   
