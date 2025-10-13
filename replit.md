@@ -9,6 +9,16 @@ Do not reference monetary values or investment amounts when describing the platf
 When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the primary entry point.
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
+## Recent Changes
+**October 13, 2025 - Critical Bug Fixes:**
+- ✅ **FIXED:** ReferenceError crashes in admin pages (users.tsx, dashboard.tsx, moderation.tsx)
+  - Root cause: `useTranslation()` hook called inside functions violating React Hooks rules
+  - Solution: Moved hooks to component level (lines 124, 124, 122 respectively)
+- ✅ **VERIFIED:** Pierre has `super_admin` role in database (user_id=7, confirmed via SQL query)
+- ⚠️ **PENDING:** Pierre's admin access visibility (frontend may not detect role correctly)
+- ⚠️ **PENDING:** Mr Blue AI Companion not visible (conditional render or API key issue)
+- 📋 **MB.MD Master Plan v4.0:** Created comprehensive 12-track parallel execution plan for 100% health score
+
 ## System Architecture
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
