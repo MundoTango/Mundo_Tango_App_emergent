@@ -10,6 +10,11 @@ When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the prim
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
 ## Recent Updates (October 13, 2025)
+- **Collaborative Audit System v2.0 COMPLETE**: Enhanced audit workflow where intelligent Page Agents (P*) collaborate with auditors for comprehensive validation
+- **P10 Intelligent Agent CREATED**: Subject Matter Expert for Home Feed page with complete architecture knowledge, test scenarios, and collaborative protocol
+- **MB Agent Experts (MB1-MB8)**: Intelligent SME agents created for all Mr Blue tracks (3D Avatar, Integration, Visual Editor, Voice System)
+- **ESA Mind Map Context Bug FIXED**: Registry corrected to show "/" route agents, ESA Mind Map now context-aware for Memories page
+- **Page Agent Registry Enhanced**: Added P10 mapping to "/" route with ESA agents [6, 11, 13] for state, UI, and content management
 - **MB.MD Phase 1 COMPLETE**: Audit infrastructure complete, 166 critical routing bugs discovered via ESA106 Integration Validator (26% health score → requires systematic fixes)
 - **ESA106 Integration Validator**: NEW Operational Agent #106 scans all frontend API calls, validates backend routes, detects 166 critical mismatches (missing routes, wrong mount paths, method errors)
 - **Mr Blue Endpoint Bug FIXED**: Route mount corrected from `/api` to `/api/ai`, enabling proper AI chat functionality 

@@ -46,7 +46,7 @@
 
 | # | Agent | Route | Page | Roles | Status |
 |---|-------|-------|------|-------|--------|
-| P10 | Home Feed | / | Feed | Frontend | 🔲 |
+| P10 | Home Feed | / | Feed | Frontend | ✅ |
 | P11 | Create Post | /post/create | Content | Frontend, Backend | 🔲 |
 | P12 | Post Detail | /post/:id | Content | Frontend | 🔲 |
 | P13 | Events List | /events | Events | Frontend | 🔲 |
