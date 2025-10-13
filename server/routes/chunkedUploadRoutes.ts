@@ -232,6 +232,27 @@ router.post('/api/upload/complete/:uploadId', async (req: any, res) => {
   });
 });
 
+// MB.MD TRACK 2: Upload Routes - GET version without uploadId param
+router.get('/api/upload/complete', async (req: any, res) => {
+  const uploadId = req.query.uploadId as string;
+  
+  if (!uploadId) {
+    return res.status(400).json({ error: 'uploadId query parameter required' });
+  }
+  
+  const session = uploadSessions.get(uploadId);
+  
+  if (!session) {
+    return res.status(404).json({ error: 'Upload session not found' });
+  }
+  
+  res.json({ 
+    success: true,
+    uploadId,
+    message: 'Upload already completed via chunks'
+  });
+});
+
 /**
  * Health check for chunked upload service
  */

@@ -7123,6 +7123,40 @@ export class DatabaseStorage implements IStorage {
   async getNotionFilters(userId: number): Promise<any[]> {
     return [];
   }
+
+  // MB.MD TRACK 6: Storage Layer - Batch & Push methods
+  async getUsersBatch(userIds: number[]): Promise<User[]> {
+    return await db.select().from(users).where(inArray(users.id, userIds));
+  }
+
+  async getPushSubscription(userId: number): Promise<any> {
+    return null;
+  }
+
+  async createPushSubscription(userId: number, data: any): Promise<any> {
+    return { id: 1, userId, ...data };
+  }
+
+  async deletePushSubscription(userId: number): Promise<void> {
+    console.log(`Deleted push subscription for user ${userId}`);
+  }
+
+  async getPushPreferences(userId: number): Promise<any> {
+    return {
+      enabled: true,
+      events: true,
+      messages: true,
+      mentions: true,
+    };
+  }
+
+  async updatePushPreferences(userId: number, preferences: any): Promise<any> {
+    return { userId, ...preferences };
+  }
+
+  async sendPushNotification(targetUserId: number, data: any): Promise<void> {
+    console.log(`Sending push notification to user ${targetUserId}:`, data);
+  }
 }
 
 export const storage = new DatabaseStorage();

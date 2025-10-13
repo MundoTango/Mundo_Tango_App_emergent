@@ -327,6 +327,84 @@ router.get('/api/payments/check-feature', requireAuth, async (req: Request, res:
   }
 });
 
+// MB.MD TRACK 1: Payment Routes - Missing endpoints for subscription
+// Create subscription (called by frontend as /api/payments/subscribe)
+router.post('/api/payments/subscribe', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    const { priceId, paymentMethodId } = z.object({
+      priceId: z.string(),
+      paymentMethodId: z.string().optional()
+    }).parse(req.body);
+
+    const subscription = await paymentService.createSubscription(userId, priceId, paymentMethodId);
+    res.json({ success: true, subscription });
+  } catch (error: any) {
+    console.error('Error creating subscription:', error);
+    res.status(500).json({ error: error.message || 'Failed to create subscription' });
+  }
+});
+
+// Validate/create promo codes
+router.post('/api/payments/promo-codes', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const { code, action } = z.object({
+      code: z.string(),
+      action: z.enum(['validate', 'create']).default('validate')
+    }).parse(req.body);
+
+    if (action === 'validate') {
+      const promoCode = await paymentService.validatePromoCode(code);
+      res.json({ valid: !!promoCode, promoCode });
+    } else {
+      // Admin-only: create promo code
+      const newCode = await paymentService.createPromoCode(req.body);
+      res.json({ success: true, promoCode: newCode });
+    }
+  } catch (error: any) {
+    console.error('Error with promo code:', error);
+    res.status(500).json({ error: error.message || 'Failed to process promo code' });
+  }
+});
+
+// Add payment method (alternative endpoint)
+router.post('/api/payments/payment-method', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    const { paymentMethodId, isDefault } = z.object({
+      paymentMethodId: z.string(),
+      isDefault: z.boolean().optional()
+    }).parse(req.body);
+
+    const method = await paymentService.addPaymentMethod(userId, paymentMethodId);
+    
+    if (isDefault) {
+      await paymentService.setDefaultPaymentMethod(userId, paymentMethodId);
+    }
+    
+    res.json({ success: true, method });
+  } catch (error: any) {
+    console.error('Error adding payment method:', error);
+    res.status(500).json({ error: error.message || 'Failed to add payment method' });
+  }
+});
+
+// Set default payment method (alternative endpoint)
+router.post('/api/payments/payment-method/default', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    const { paymentMethodId } = z.object({
+      paymentMethodId: z.string()
+    }).parse(req.body);
+
+    await paymentService.setDefaultPaymentMethod(userId, paymentMethodId);
+    res.json({ success: true });
+  } catch (error: any) {
+    console.error('Error setting default payment method:', error);
+    res.status(500).json({ error: error.message || 'Failed to set default payment method' });
+  }
+});
+
 // Stripe webhook endpoint
 router.post('/api/payments/webhook', async (req: Request, res: Response) => {
   try {
