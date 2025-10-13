@@ -1,5 +1,5 @@
-# 17-PHASE TIERED AUDIT STRUCTURE
-## ESA 105-Agent System - Complete Page Audit Framework
+# 19-PHASE TIERED AUDIT STRUCTURE
+## ESA 105-Agent System - Complete Page Audit Framework (Updated: MB.MD Track 5)
 
 **Master Reference:** [esa.md Section 5](../../platform-handoff/esa.md#5-for-audits--quality-assurance)
 
@@ -561,4 +561,187 @@ router.get('/health', (req, res) => {
 
 ---
 
-**END OF 17-PHASE TIERED AUDIT STRUCTURE**
+## 🔄 TIER 6: HORIZONTAL INTEGRATION (New - MB.MD Track 5)
+*Added: October 13, 2025 - Addresses cross-component data flow*
+
+### Phase 18: UI/UX Integration & Cohesion Audit
+**Agent:** #106 (Auto-API Path Validator)  
+**ESA Layer:** 11 (UI/UX Design)  
+**Priority:** HIGH (Prevents fragmented user experience)
+
+**Audit Focus:**
+- [ ] **Unified Widget Integration** - All AI tools (Mr Blue, ESA MindMap, Visual Editor) in single interface
+- [ ] **Component Cohesion** - No duplicate floating buttons or fragmented UI elements
+- [ ] **Page Context Awareness** - UI shows current page context, active agents, user selections
+- [ ] **Action Tracking Display** - Real-time feedback for user actions across components
+- [ ] **Intercom/Drift Pattern** - Professional unified widget UX (not multiple scattered tools)
+
+**Evidence to Find:**
+```typescript
+// Unified Mr Blue widget with tabs
+<MrBlueWidget>
+  <TabPanel value="chat">
+    <MrBlueChatInterface />
+  </TabPanel>
+  <TabPanel value="esa">
+    <ESAMindMapNavigator />
+  </TabPanel>
+  <TabPanel value="editor">
+    <VisualPageEditor />
+  </TabPanel>
+</MrBlueWidget>
+
+// Page context displayed
+<MrBlueHeader>
+  Current Page: {currentPage}
+  Active Agents: {activeAgents.join(', ')}
+  User Selection: {userContext}
+</MrBlueHeader>
+```
+
+**Common Failures:**
+- ❌ Separate floating buttons for Mr Blue, ESA, Visual Editor
+- ❌ No page context shown in AI interface
+- ❌ User actions not tracked/displayed
+- ❌ Fragmented UX (Intercom would NEVER do this)
+
+**Pass Threshold:** >95% (UI cohesion critical for UX)
+
+---
+
+### Phase 19: End-to-End Data Flow Validation
+**Agent:** #107 (Batch Query Optimizer)  
+**ESA Layer:** 2 (API Structure) + 8 (Frontend)  
+**Priority:** CRITICAL (Prevents data disconnection bugs)
+
+**Audit Focus:**
+- [ ] **API Contract Validation** - Frontend `useQuery` paths match backend routes
+- [ ] **Real Data Flow** - DB → API → UI with NO mock fallbacks in production
+- [ ] **Route Prefix Consistency** - All routes use `/api/` prefix (no `/admin/` vs `/api/admin/` mismatches)
+- [ ] **Mock Data Detection** - Flag any production code using test/mock data
+- [ ] **End-to-End Testing** - Actual data flows from database to UI correctly
+
+**Evidence to Find:**
+```typescript
+// Frontend query matches backend route
+const { data } = useQuery({ 
+  queryKey: ['/api/admin/analytics'] 
+});
+
+// Backend route exists (MUST MATCH)
+router.get('/api/admin/analytics', requireAdmin, async (req, res) => {
+  // Returns REAL data from database
+  const analytics = await db.select()...;
+  res.json(analytics);
+});
+
+// E2E test validates data flow
+test('Admin Analytics shows real data', async () => {
+  const response = await fetch('/api/admin/analytics');
+  expect(response.status).toBe(200);
+  expect(await response.json()).toHaveProperty('userMetrics');
+});
+```
+
+**Common Failures:**
+- ❌ Frontend calls `/api/admin/dashboard/stats` but backend has `/api/admin/stats`
+- ❌ Frontend calls missing endpoint `/api/admin/analytics` (404)
+- ❌ Admin pages fallback to mock data when API fails
+- ❌ Route prefix inconsistency (`/tracker/epics` vs `/api/tracker/epics`)
+
+**Validation Tools:**
+```bash
+# Extract frontend API calls
+node scripts/validate-api-paths.mjs --extract-frontend
+
+# Extract backend routes
+node scripts/validate-api-paths.mjs --extract-backend
+
+# Compare and report mismatches
+node scripts/validate-api-paths.mjs --compare
+```
+
+**Pass Threshold:** 100% (All API paths must match, zero tolerance for data disconnection)
+
+---
+
+## 📊 Updated Execution Flow (19 Phases)
+
+```
+┌─────────────────────────────────────────┐
+│  Agent #0: Initiates Platform Audit    │
+│  Domain #9: Orchestrates Execution     │
+└─────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│  TIER 1: Foundation (Sequential)        │
+│  ├── Phase 1: Database (Agent #1) ✓    │
+│  ├── Phase 2: API (Agent #2) ✓         │
+│  ├── Phase 3: Real-time (Agent #4) ✓   │
+│  └── Phase 4: Caching (Agent #5) ✓     │
+└─────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│  TIER 2: App Layer (Parallel)           │
+│  ├── Phase 5: Frontend (Agent #8) ✓    │
+│  ├── Phase 6: Security (Agent #7) ✓    │
+│  └── Phase 7: Files (Agent #6) ✓       │
+└─────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│  TIER 3: Quality (Parallel)             │
+│  ├── Phase 8: Performance (Agent #48) ✓│
+│  ├── Phase 9: Testing (Agent #52) ✓    │
+│  └── Phase 10: Docs (Agent #54) ✓      │
+└─────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│  TIER 4: UX (Parallel)                  │
+│  ├── Phase 11: Design (Agent #11) ✓    │
+│  ├── Phase 12: Accessibility (#50) ✓   │
+│  ├── Phase 13: i18n (Agent #16) ✓      │
+│  └── Phase 14: SEO (Agent #55) ✓       │
+└─────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│  TIER 5: Deployment (Sequential)        │
+│  ├── Phase 15: Open Source (#59) ✓     │
+│  ├── Phase 16: Deploy Ready (#49) ✓    │
+│  └── Phase 17: CEO Cert (Agent #0) ✓   │
+└─────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────────────┐
+│  TIER 6: HORIZONTAL INTEGRATION (NEW!)          │
+│  ├── Phase 18: UI/UX Cohesion (Agent #106) ✓   │
+│  └── Phase 19: Data Flow Validation (#107) ✓   │
+└─────────────────────────────────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│  ✅ PRODUCTION CERTIFIED                │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## 🎯 Updated Success Metrics
+
+**Per Phase:**
+- Each phase must score above threshold
+- Evidence must be found in codebase
+- No critical blockers
+
+**Overall Certification:**
+- All **19 phases** pass (updated from 17)
+- Human Review Story generated
+- Agent #0 approves
+- Platform health stable
+
+**Typical Results:**
+- **Tier 1 failures** → Fix before proceeding (foundation issues)
+- **Tier 2-4 failures** → Document in Human Review Story, prioritize fixes
+- **Tier 5 failures** → Blocks production deployment
+- **Tier 6 failures** → Blocks production (horizontal integration critical)
+
+---
+
+**END OF 19-PHASE TIERED AUDIT STRUCTURE** (Updated: MB.MD Track 5)
