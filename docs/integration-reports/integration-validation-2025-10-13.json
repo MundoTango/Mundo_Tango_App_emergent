@@ -1,76 +1,13 @@
 {
-  "timestamp": "2025-10-13T08:28:00.837Z",
+  "timestamp": "2025-10-13T08:30:01.285Z",
   "summary": {
     "totalFrontendCalls": 223,
-    "verifiedRoutes": 164,
-    "missingRoutes": 56,
+    "verifiedRoutes": 169,
+    "missingRoutes": 51,
     "methodMismatches": 3,
-    "autoFixable": 37
+    "autoFixable": 32
   },
   "issues": [
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "lib/security-utils.ts",
-        "line": 12,
-        "endpoint": "/api/security/csrf-token",
-        "method": "GET",
-        "context": "const response = await fetch('/api/security/csrf-token', {"
-      },
-      "expectedRoute": "/api/security/csrf-token",
-      "actualRoute": {
-        "file": "routes/securityRoutes.ts",
-        "path": "/security/2fa/setup",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/security/2fa/setup"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /security/2fa/setup. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "lib/queryClient.ts",
-        "line": 10,
-        "endpoint": "/api/security/csrf-token",
-        "method": "GET",
-        "context": "const response = await fetch('/api/security/csrf-token', {"
-      },
-      "expectedRoute": "/api/security/csrf-token",
-      "actualRoute": {
-        "file": "routes/securityRoutes.ts",
-        "path": "/security/2fa/setup",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/security/2fa/setup"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /security/2fa/setup. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "lib/performance-optimizations.ts",
-        "line": 63,
-        "endpoint": "/api/notifications/batch",
-        "method": "GET",
-        "context": "const response = await fetch('/api/notifications/batch', {"
-      },
-      "expectedRoute": "/api/notifications/batch",
-      "actualRoute": {
-        "file": "routes/toolbarRoutes.ts",
-        "path": "/api/notifications/count",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/notifications/count"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/notifications/count. Update mount path in routes.ts or fix frontend call."
-    },
     {
       "severity": "critical",
       "type": "missing_backend",
@@ -117,27 +54,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "hooks/useFriendRequest.ts",
-        "line": 65,
-        "endpoint": "/api/friends/request",
-        "method": "POST",
-        "context": "return apiRequest('/api/friends/request', {"
-      },
-      "expectedRoute": "/api/friends/request",
-      "actualRoute": {
-        "file": "routes/friendsRoutes.ts",
-        "path": "/friendship/:friendId",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/friendship/:friendId"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/friendship/:friendId. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "contexts/auth-context.tsx",
         "line": 82,
         "endpoint": "/api/user/login",
@@ -154,27 +70,6 @@
       },
       "autoFixable": true,
       "recommendation": "Route exists at /api/user/:userId/roles. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "contexts/CsrfContext.tsx",
-        "line": 23,
-        "endpoint": "/api/security/csrf-token",
-        "method": "GET",
-        "context": "const response = await fetch('/api/security/csrf-token', {"
-      },
-      "expectedRoute": "/api/security/csrf-token",
-      "actualRoute": {
-        "file": "routes/securityRoutes.ts",
-        "path": "/security/2fa/setup",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/security/2fa/setup"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /security/2fa/setup. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -1061,13 +956,13 @@
       "expectedRoute": "/api/security/csp-report",
       "actualRoute": {
         "file": "routes/securityRoutes.ts",
-        "path": "/security/2fa/setup",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/security/2fa/setup"
+        "path": "/security/csrf-token",
+        "method": "GET",
+        "mountPath": "/api",
+        "fullPath": "/api/security/csrf-token"
       },
       "autoFixable": true,
-      "recommendation": "Route exists at /security/2fa/setup. Update mount path in routes.ts or fix frontend call."
+      "recommendation": "Route exists at /api/security/csrf-token. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -1091,5 +986,5 @@
       "recommendation": "Route exists at /api/user/profile. Update mount path in routes.ts or fix frontend call."
     }
   ],
-  "healthScore": 74
+  "healthScore": 76
 }

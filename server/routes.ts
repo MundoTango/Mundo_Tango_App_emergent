@@ -108,6 +108,7 @@ import performanceRoutes from "./routes/performanceRoutes"; // MB.MD TRACK 2: Pe
 import locationRoutes from "./routes/locationRoutes"; // MB.MD TRACK 5: Location Detection & Internationalization
 import friendRequestRoutes from "./routes/friendRequestRoutes"; // MB.MD TRACK 6: Friend Request Management
 import rolesRoutes from "./routes/rolesRoutes"; // MB.MD TRACK 8: Enhanced Role Management
+import securityRoutes from "./routes/securityRoutes"; // MB.MD TRACK 11: Security & CSRF Routes
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -283,6 +284,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', locationRoutes); // MB.MD TRACK 5: Location Detection & Internationalization
   app.use('/api', friendRequestRoutes); // MB.MD TRACK 6: Friend Request Management
   app.use('/api', rolesRoutes); // MB.MD TRACK 8: Enhanced Role Management
+  app.use('/api', securityRoutes); // MB.MD TRACK 11: Security & CSRF Routes
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
