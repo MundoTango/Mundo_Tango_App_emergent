@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { users, userProfiles } from '../../shared/schema';
+import { users, userProfiles, userRoles } from '../../shared/schema';
 import { eq, and } from 'drizzle-orm';
 
 export type UserRole = 'admin' | 'organizer' | 'teacher' | 'dancer' | 'guest';
@@ -67,28 +67,43 @@ export class AuthService {
    */
   async getUserWithRole(userId: number): Promise<UserWithRole | null> {
     try {
-      const result = await db
+      // Get user data
+      const userResult = await db
         .select({
           userId: users.id,
           email: users.email,
           name: users.name,
           username: users.username,
           profileImage: users.profileImage,
-          isActive: users.isActive,
-          role: userProfiles.role,
-          displayName: userProfiles.displayName,
-          avatarUrl: userProfiles.avatarUrl
+          isActive: users.isActive
         })
         .from(users)
-        .leftJoin(userProfiles, eq(users.id, userProfiles.userId))
         .where(eq(users.id, userId))
         .limit(1);
 
-      if (!result[0]) return null;
+      if (!userResult[0]) return null;
 
-      const user = result[0];
-      // Default to 'guest' if no user_profile exists
-      const role: UserRole = (user.role as UserRole) || 'guest';
+      const user = userResult[0];
+      
+      // Get role from user_roles table
+      const roleResult = await db
+        .select({ roleName: userRoles.roleName })
+        .from(userRoles)
+        .where(eq(userRoles.userId, userId))
+        .limit(1);
+      
+      // Default to 'guest' if no role exists
+      const role: UserRole = (roleResult[0]?.roleName as UserRole) || 'guest';
+      
+      // Try to get display info from userProfiles
+      const profileResult = await db
+        .select({
+          displayName: userProfiles.displayName,
+          avatarUrl: userProfiles.avatarUrl
+        })
+        .from(userProfiles)
+        .where(eq(userProfiles.userId, userId))
+        .limit(1);
       
       return {
         id: user.userId,
@@ -96,8 +111,8 @@ export class AuthService {
         name: user.name,
         username: user.username,
         role,
-        displayName: user.displayName || user.name,
-        avatarUrl: user.avatarUrl || user.profileImage,
+        displayName: profileResult[0]?.displayName || user.name,
+        avatarUrl: profileResult[0]?.avatarUrl || user.profileImage,
         permissions: ROLE_PERMISSIONS[role],
         isActive: user.isActive ?? true
       };
