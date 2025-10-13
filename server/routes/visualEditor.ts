@@ -114,33 +114,57 @@ Generate the updated component code that applies these visual changes.`,
 
 /**
  * Apply generated code to codebase (git workflow)
+ * Uses Track C: Git Automation Service
  */
 router.post('/api/visual-editor/apply-code', async (req: Request, res: Response) => {
   try {
-    const { filePath, updatedCode, branchName } = req.body;
+    const { filePath, updatedCode, branchName, author } = req.body;
 
     if (!filePath || !updatedCode) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // In production, this would:
-    // 1. Create git branch
-    // 2. Write file changes
-    // 3. Commit changes
-    // 4. Return branch info
+    // Import git automation service
+    const { gitService, createVisualEditBranch } = await import('../services/gitAutomation.js');
+    
+    // Step 1: Create feature branch (if not provided)
+    let branch = branchName;
+    if (!branch) {
+      const branchResult = await createVisualEditBranch('visual-edit');
+      branch = branchResult.branch;
+    } else {
+      await gitService.checkoutBranch(branch);
+    }
 
-    const branch = branchName || `visual-edit-${Date.now()}`;
+    // Step 2: Apply file changes
+    const fileChanges = [{
+      path: filePath,
+      content: updatedCode,
+      type: 'update' as const
+    }];
+    
+    await gitService.applyChanges(fileChanges);
 
-    // Placeholder response
+    // Step 3: Commit changes
+    const commitResult = await gitService.commitChanges(
+      fileChanges,
+      `Visual edit: Update ${filePath.split('/').pop()}`,
+      author ? { name: author.name, email: author.email } : undefined
+    );
+
     res.json({
       success: true,
       branch,
-      message: 'Code applied to branch (simulated)',
-      previewUrl: `https://preview-${Date.now()}.staging.app.com`,
+      commit: commitResult.commitHash,
+      filesChanged: commitResult.filesChanged,
+      message: `Changes committed to branch: ${branch}`
     });
   } catch (error) {
     console.error('Apply code error:', error);
-    res.status(500).json({ error: 'Failed to apply code' });
+    res.status(500).json({
+      error: 'Failed to apply code changes',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 });
 
