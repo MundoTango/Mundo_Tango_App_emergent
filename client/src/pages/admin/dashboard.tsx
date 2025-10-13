@@ -118,6 +118,7 @@ interface ActivityItem {
 }
 
 export default function AdminDashboardPage() {
+  const { t } = useTranslation();
   const [refreshInterval, setRefreshInterval] = useState(30000); // 30 seconds
 
   // Fetch dashboard statistics
@@ -155,7 +156,6 @@ export default function AdminDashboardPage() {
   ];
 
   const getActivityIcon = (type: string) => {
-  const { t } = useTranslation();
     const icons: Record<string, any> = {
       user: UserPlus,
       post: FileText,

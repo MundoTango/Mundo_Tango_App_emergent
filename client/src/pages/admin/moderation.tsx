@@ -116,6 +116,7 @@ interface ModerationStats {
 
 export default function AdminModerationPage() {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState('pending');
   const [selectedReport, setSelectedReport] = useState<ReportedContent | null>(null);
   const [filterCategory, setFilterCategory] = useState('all');
@@ -168,7 +169,6 @@ export default function AdminModerationPage() {
   });
 
   const handleAction = (action: string) => {
-  const { t } = useTranslation();
     if (!selectedReport) return;
     setSelectedAction(action);
     setShowActionDialog(true);
