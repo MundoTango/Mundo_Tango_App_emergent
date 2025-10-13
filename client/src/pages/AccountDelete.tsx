@@ -62,8 +62,8 @@ const AccountDelete = () => {
     },
     onSuccess: () => {
       toast({
-        title: 'Account Deleted',
-        description: 'Your account has been permanently deleted. You will be logged out.',
+        title: t("account.delete.success.title"),
+        description: t("account.delete.success.description"),
         variant: 'default',
       });
       setTimeout(() => {
@@ -72,8 +72,8 @@ const AccountDelete = () => {
     },
     onError: (error: any) => {
       toast({
-        title: 'Deletion Failed',
-        description: error.message || 'Unable to delete account. Please try again.',
+        title: t("account.delete.error.title"),
+        description: error.message || t("account.delete.error.description"),
         variant: 'destructive',
       });
     },
@@ -91,33 +91,33 @@ const AccountDelete = () => {
   const consequencesData = [
     {
       icon: XCircle,
-      title: 'All Posts Deleted',
-      description: 'All your memories, posts, and comments will be permanently removed',
+      title: t("account.delete.consequence.posts.title"),
+      description: t("account.delete.consequence.posts.description"),
     },
     {
       icon: XCircle,
-      title: 'Events Canceled',
-      description: 'If you\'re an organizer, your events will be canceled',
+      title: t("account.delete.consequence.events.title"),
+      description: t("account.delete.consequence.events.description"),
     },
     {
       icon: XCircle,
-      title: 'Listings Removed',
-      description: 'All housing listings and bookings will be canceled',
+      title: t("account.delete.consequence.listings.title"),
+      description: t("account.delete.consequence.listings.description"),
     },
     {
       icon: XCircle,
-      title: 'Groups & Friendships',
-      description: 'You\'ll be removed from all groups and friendships',
+      title: t("account.delete.consequence.groups.title"),
+      description: t("account.delete.consequence.groups.description"),
     },
     {
       icon: XCircle,
-      title: 'Data Export Lost',
-      description: 'Any saved data or exports will be inaccessible',
+      title: t("account.delete.consequence.exports.title"),
+      description: t("account.delete.consequence.exports.description"),
     },
     {
       icon: XCircle,
-      title: 'Subscription Canceled',
-      description: 'Active subscriptions will be canceled (no refunds)',
+      title: t("account.delete.consequence.subscription.title"),
+      description: t("account.delete.consequence.subscription.description"),
     },
   ];
 
@@ -133,7 +133,7 @@ const AccountDelete = () => {
             data-testid="button-back-settings"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Settings
+            {t("account.delete.back")}
           </Button>
 
           {/* Warning Header */}
@@ -144,19 +144,18 @@ const AccountDelete = () => {
               </div>
             </div>
             <h1 className="text-4xl font-bold mb-4 text-red-600 dark:text-red-400">
-              Delete Account
+              {t("account.delete.title")}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              This action is permanent and cannot be undone
+              {t("account.delete.subtitle")}
             </p>
           </div>
 
           {/* Critical Warning */}
-          <Alert className="mb-8 border-red-600 bg-red-50 dark:bg-red-950/30">
-            <ShieldAlert className="h-5 w-5 text-red-600" />
+          <Alert className="mb-8 border-red-600 dark:border-red-900 bg-red-50 dark:bg-red-950/30">
+            <ShieldAlert className="h-5 w-5 text-red-600 dark:text-red-400" />
             <AlertDescription className="text-red-900 dark:text-red-300">
-              <strong>Warning:</strong> Deleting your account will permanently remove all your data.
-              This includes posts, events, bookings, and connections. This action cannot be reversed.
+              <strong>{t("account.delete.warning.title")}</strong> {t("account.delete.warning.description")}
             </AlertDescription>
           </Alert>
 
@@ -165,10 +164,10 @@ const AccountDelete = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Trash2 className="h-5 w-5" />
-                What will be deleted
+                {t("account.delete.consequences.title")}
               </CardTitle>
               <CardDescription>
-                Here's everything that will be permanently removed
+                {t("account.delete.consequences.description")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -195,9 +194,9 @@ const AccountDelete = () => {
           {/* Confirmation Form */}
           <Card className="border-red-200 dark:border-red-900">
             <CardHeader>
-              <CardTitle>Confirm Account Deletion</CardTitle>
+              <CardTitle>{t("account.delete.confirm")}</CardTitle>
               <CardDescription>
-                Please confirm all checkboxes and enter the required information
+                {t("account.delete.confirm.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -213,7 +212,7 @@ const AccountDelete = () => {
                     data-testid="checkbox-data-loss"
                   />
                   <Label htmlFor="dataLoss" className="text-sm font-normal cursor-pointer">
-                    I understand that all my data will be permanently deleted
+                    {t("account.delete.checkbox.dataloss")}
                   </Label>
                 </div>
 
@@ -227,7 +226,7 @@ const AccountDelete = () => {
                     data-testid="checkbox-no-recovery"
                   />
                   <Label htmlFor="noRecovery" className="text-sm font-normal cursor-pointer">
-                    I understand this action cannot be undone or recovered
+                    {t("account.delete.checkbox.norecovery")}
                   </Label>
                 </div>
 
@@ -241,7 +240,7 @@ const AccountDelete = () => {
                     data-testid="checkbox-subscription"
                   />
                   <Label htmlFor="activeSubscription" className="text-sm font-normal cursor-pointer">
-                    I understand my subscription will be canceled with no refund
+                    {t("account.delete.checkbox.subscription")}
                   </Label>
                 </div>
 
@@ -255,7 +254,7 @@ const AccountDelete = () => {
                     data-testid="checkbox-final"
                   />
                   <Label htmlFor="finalDecision" className="text-sm font-normal cursor-pointer">
-                    This is my final decision and I want to delete my account
+                    {t("account.delete.checkbox.finaldecision")}
                   </Label>
                 </div>
               </div>
@@ -263,13 +262,13 @@ const AccountDelete = () => {
               {/* Confirmation Text */}
               <div className="space-y-2">
                 <Label htmlFor="confirmText">
-                  Type <strong>DELETE</strong> to confirm
+                  {t("account.delete.typeconfirm")}
                 </Label>
                 <Input
                   id="confirmText"
                   value={confirmText}
                   onChange={(e) => setConfirmText(e.target.value)}
-                  placeholder="Type DELETE here"
+                  placeholder={t("account.delete.typedelete")}
                   className="font-mono"
                   data-testid="input-confirm-delete"
                 />
@@ -277,13 +276,13 @@ const AccountDelete = () => {
 
               {/* Password Verification */}
               <div className="space-y-2">
-                <Label htmlFor="password">Enter your password to confirm</Label>
+                <Label htmlFor="password">{t("account.delete.enterpassword")}</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Your current password"
+                  placeholder={t("account.delete.currentpassword")}
                   data-testid="input-password"
                 />
               </div>
@@ -296,7 +295,7 @@ const AccountDelete = () => {
                   className="flex-1"
                   data-testid="button-cancel"
                 >
-                  Cancel
+                  {t("account.delete.cancel")}
                 </Button>
                 <Button
                   variant="destructive"
@@ -306,11 +305,11 @@ const AccountDelete = () => {
                   data-testid="button-delete-account"
                 >
                   {deleteMutation.isPending ? (
-                    <>Deleting...</>
+                    <>{t("account.delete.deleting")}</>
                   ) : (
                     <>
                       <Trash2 className="h-4 w-4 mr-2" />
-                      Delete My Account
+                      {t("account.delete.deleteaccount")}
                     </>
                   )}
                 </Button>
@@ -322,14 +321,14 @@ const AccountDelete = () => {
           <Card className="mt-8 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-900">
             <CardContent className="py-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-blue-600" />
-                Looking for alternatives?
+                <CheckCircle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                {t("account.delete.alternatives.title")}
               </h3>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p>• <strong>Deactivate temporarily:</strong> Go to Settings → Privacy to hide your account</p>
-                <p>• <strong>Download your data:</strong> Go to Settings → Privacy → Export Data</p>
-                <p>• <strong>Pause subscription:</strong> Go to Settings → Billing to cancel subscription only</p>
-                <p>• <strong>Contact support:</strong> We're here to help if something isn't working</p>
+                <p>• <strong>{t("account.delete.alternatives.deactivate.title")}</strong> {t("account.delete.alternatives.deactivate.description")}</p>
+                <p>• <strong>{t("account.delete.alternatives.download.title")}</strong> {t("account.delete.alternatives.download.description")}</p>
+                <p>• <strong>{t("account.delete.alternatives.pause.title")}</strong> {t("account.delete.alternatives.pause.description")}</p>
+                <p>• <strong>{t("account.delete.alternatives.support.title")}</strong> {t("account.delete.alternatives.support.description")}</p>
               </div>
             </CardContent>
           </Card>
@@ -340,25 +339,24 @@ const AccountDelete = () => {
       <AlertDialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2 text-red-600">
+            <AlertDialogTitle className="flex items-center gap-2 text-red-600 dark:text-red-400">
               <AlertTriangle className="h-5 w-5" />
-              Final Confirmation
+              {t("account.delete.dialog.title")}
             </AlertDialogTitle>
             <AlertDialogDescription>
-              Are you absolutely sure? This will permanently delete your account and all
-              associated data. This action cannot be undone.
+              {t("account.delete.dialog.description")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel data-testid="button-dialog-cancel">
-              Cancel
+              {t("account.delete.dialog.cancel")}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmDelete}
-              className="bg-red-600 hover:bg-red-700"
+              className="bg-red-600 dark:bg-red-500 hover:bg-red-700 dark:hover:bg-red-600"
               data-testid="button-dialog-confirm"
             >
-              Yes, Delete My Account
+              {t("account.delete.dialog.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
