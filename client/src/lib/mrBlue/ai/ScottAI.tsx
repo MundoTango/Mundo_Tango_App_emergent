@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  loadConversation, 
+  addMessage as saveMessage, 
+  updateCurrentAgent, 
+  loadPreferences,
+  trackModelUsage 
+} from '../storage/localStorage';
 
 /**
  * ESA Agent #73-80: Scott AI Integration
@@ -33,6 +40,15 @@ export function useScottAI(config: ScottAIConfig = {}) {
   const [currentAgent, setCurrentAgent] = useState<string>('Mr Blue');
   const [isSpeaking, setIsSpeaking] = useState(false);
   const { toast } = useToast();
+
+  // Load conversation history on mount
+  useEffect(() => {
+    const savedConversation = loadConversation();
+    if (savedConversation) {
+      setMessages(savedConversation.messages);
+      setCurrentAgent(savedConversation.currentAgent);
+    }
+  }, []);
 
   // ========================================
   // SCOTT'S VOICE PERSONALITY (from blueprint)
@@ -102,6 +118,7 @@ NEVER:
 
     for (const [agent, keywords] of Object.entries(agents)) {
       if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+        updateCurrentAgent(agent); // Save to localStorage
         return agent;
       }
     }
@@ -121,6 +138,9 @@ NEVER:
       // Get page context
       const context = getCurrentPageContext();
 
+      // Get user preferences
+      const preferences = loadPreferences();
+
       // Call Mr Blue AI endpoint
       const response = await fetch('/api/ai/mrblue/chat', {
         method: 'POST',
@@ -130,11 +150,15 @@ NEVER:
           personality: scottPersonality,
           agent: targetAgent,
           context,
-          model: config.defaultModel || 'gpt-4o',
+          model: preferences.aiModel || config.defaultModel || 'gpt-4o',
         }),
       });
 
       const data = await response.json();
+      
+      // Track model usage
+      trackModelUsage(data.model || preferences.aiModel);
+      
       return data.response || "Let's tackle this together. What specifically needs help?";
     } catch (error) {
       console.error('AI error:', error);
@@ -181,6 +205,7 @@ NEVER:
       timestamp: new Date(),
     };
     setMessages(prev => [...prev, userMessage]);
+    saveMessage(userMessage); // Save to localStorage
 
     // Show typing indicator
     setIsTyping(true);
@@ -199,6 +224,7 @@ NEVER:
     };
     
     setMessages(prev => [...prev, aiMessage]);
+    saveMessage(aiMessage); // Save to localStorage
     setIsTyping(false);
 
     // Speak response if voice mode
