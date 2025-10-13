@@ -4460,6 +4460,103 @@ export const customerJourneyTests = pgTable("customer_journey_tests", {
 ]);
 
 // ============================================================================
+// ESA65: THE PLAN - DYNAMIC STORY CARD SYSTEM (H2AC Pattern)
+// ============================================================================
+
+// Features (Level 1) - Top-level story cards
+export const features = pgTable("features", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  pageAgentId: varchar("page_agent_id", { length: 10 }), // e.g., "P1"
+  journeyAgentId: varchar("journey_agent_id", { length: 10 }), // e.g., "J1"
+  status: varchar("status", { length: 50 }).default('backlog'), // backlog/active/review/done
+  assignedTo: varchar("assigned_to", { length: 100 }), // Human role (frontend/backend/designer)
+  category: varchar("category", { length: 50 }), // frontend/backend/design
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_features_page_agent").on(table.pageAgentId),
+  index("idx_features_status").on(table.status),
+  index("idx_features_assigned_to").on(table.assignedTo),
+]);
+
+// Sub-Features (Level 2) - Audit phases or feature sections
+export const subFeatures = pgTable("sub_features", {
+  id: serial("id").primaryKey(),
+  featureId: integer("feature_id").references(() => features.id, { onDelete: 'cascade' }).notNull(),
+  title: text("title").notNull(),
+  whatWasBuilt: text("what_was_built"), // From audit findings
+  whatNeedsReview: text("what_needs_review"), // Human action items
+  status: varchar("status", { length: 50 }).default('pending'), // pending/in-progress/done
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_sub_features_feature").on(table.featureId),
+  index("idx_sub_features_status").on(table.status),
+]);
+
+// Components (Level 3) - Specific files or UI elements to fix
+export const components = pgTable("components", {
+  id: serial("id").primaryKey(),
+  subFeatureId: integer("sub_feature_id").references(() => subFeatures.id, { onDelete: 'cascade' }).notNull(),
+  title: text("title").notNull(),
+  fileLocation: text("file_location"), // e.g., "client/src/pages/Login.tsx:45"
+  instructions: text("instructions"), // Step-by-step for human
+  codeExample: text("code_example"), // Auto-generated fix
+  status: varchar("status", { length: 50 }).default('pending'), // pending/in-progress/done
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_components_sub_feature").on(table.subFeatureId),
+  index("idx_components_status").on(table.status),
+  index("idx_components_file").on(table.fileLocation),
+]);
+
+// Tasks (Level 4) - Individual action items
+export const tasks = pgTable("tasks", {
+  id: serial("id").primaryKey(),
+  componentId: integer("component_id").references(() => components.id, { onDelete: 'cascade' }).notNull(),
+  title: text("title").notNull(),
+  agentResponsible: text("agent_responsible"), // e.g., "ESA2, P1"
+  estimatedTime: varchar("estimated_time", { length: 50 }),
+  status: varchar("status", { length: 50 }).default('todo'), // todo/in-progress/done
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_tasks_component").on(table.componentId),
+  index("idx_tasks_status").on(table.status),
+]);
+
+// Relations for hierarchy traversal
+export const featuresRelations = relations(features, ({ many }) => ({
+  subFeatures: many(subFeatures),
+}));
+
+export const subFeaturesRelations = relations(subFeatures, ({ one, many }) => ({
+  feature: one(features, {
+    fields: [subFeatures.featureId],
+    references: [features.id],
+  }),
+  components: many(components),
+}));
+
+export const componentsRelations = relations(components, ({ one, many }) => ({
+  subFeature: one(subFeatures, {
+    fields: [components.subFeatureId],
+    references: [subFeatures.id],
+  }),
+  tasks: many(tasks),
+}));
+
+export const tasksRelations = relations(tasks, ({ one }) => ({
+  component: one(components, {
+    fields: [tasks.componentId],
+    references: [components.id],
+  }),
+}));
+
+// ============================================================================
 // INSERT SCHEMAS & TYPES (ESA Agent #79 & #80)
 // ============================================================================
 
@@ -4481,6 +4578,30 @@ export const insertCustomerJourneyTestSchema = createInsertSchema(customerJourne
   createdAt: true,
 });
 
+// The Plan - Dynamic Story Cards
+export const insertFeatureSchema = createInsertSchema(features).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSubFeatureSchema = createInsertSchema(subFeatures).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertComponentSchema = createInsertSchema(components).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertTaskSchema = createInsertSchema(tasks).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types
 export type LearningPattern = typeof learningPatterns.$inferSelect;
 export type InsertLearningPattern = z.infer<typeof insertLearningPatternSchema>;
@@ -4490,3 +4611,15 @@ export type InsertValidationResult = z.infer<typeof insertValidationResultSchema
 
 export type CustomerJourneyTest = typeof customerJourneyTests.$inferSelect;
 export type InsertCustomerJourneyTest = z.infer<typeof insertCustomerJourneyTestSchema>;
+
+export type Feature = typeof features.$inferSelect;
+export type InsertFeature = z.infer<typeof insertFeatureSchema>;
+
+export type SubFeature = typeof subFeatures.$inferSelect;
+export type InsertSubFeature = z.infer<typeof insertSubFeatureSchema>;
+
+export type Component = typeof components.$inferSelect;
+export type InsertComponent = z.infer<typeof insertComponentSchema>;
+
+export type Task = typeof tasks.$inferSelect;
+export type InsertTask = z.infer<typeof insertTaskSchema>;
