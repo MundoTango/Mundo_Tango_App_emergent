@@ -210,14 +210,32 @@ export class ESA106IntegrationValidator {
   }
 
   private findSimilarRoute(endpoint: string, routes: BackendRoute[]): BackendRoute | undefined {
-    // Remove /api prefix and check if route path matches
-    const pathWithoutApi = endpoint.replace('/api', '');
+    // Extract the main path segment (e.g., /api/payments/subscribe -> /payments)
+    const segments = endpoint.split('/').filter(Boolean);
+    if (segments.length < 2) return undefined;
     
-    return routes.find(route => {
-      return route.path === pathWithoutApi || 
-             route.fullPath?.includes(pathWithoutApi) ||
-             pathWithoutApi.includes(route.path);
+    const mainSegment = `/${segments[1]}`; // e.g., /payments
+    const subPath = segments.slice(2).join('/'); // e.g., subscribe
+    
+    // Find routes that match the main segment in their mount path
+    const candidateRoutes = routes.filter(route => {
+      const routeMountPath = route.mountPath || '';
+      const routePath = route.path || '';
+      
+      // Check if mount path contains the main segment
+      return routeMountPath.includes(mainSegment) || 
+             routePath.includes(mainSegment) ||
+             route.fullPath === endpoint;
     });
+    
+    // Return the best match (prefer exact fullPath match, then similar paths)
+    return candidateRoutes.sort((a, b) => {
+      const aScore = (a.fullPath === endpoint ? 100 : 0) + 
+                     (a.path.includes(subPath) ? 50 : 0);
+      const bScore = (b.fullPath === endpoint ? 100 : 0) + 
+                     (b.path.includes(subPath) ? 50 : 0);
+      return bScore - aScore;
+    })[0];
   }
 
   private generateReport(
