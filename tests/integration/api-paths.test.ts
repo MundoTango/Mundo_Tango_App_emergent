@@ -97,17 +97,18 @@ describe('API Path Validation', () => {
   });
   
   it('should validate all useQuery paths', () => {
-    const frontendCalls = validationReport.frontendCalls;
+    const frontendCallsCount = validationReport.frontendCalls;
     
-    expect(frontendCalls).toBeGreaterThan(0);
-    expect(frontendCalls).toBeLessThan(1000); // Reasonable limit
+    expect(frontendCallsCount).toBeGreaterThan(0);
+    expect(frontendCallsCount).toBeLessThan(1000); // Reasonable limit
   });
   
   it('should have backend routes documented', () => {
     const backendRoutes = validationReport.backendRoutes;
+    const frontendCallsCount = validationReport.frontendCalls;
     
     expect(backendRoutes).toBeGreaterThan(0);
-    expect(backendRoutes).toBeGreaterThan(frontendCalls); // More routes than calls
+    expect(backendRoutes).toBeGreaterThan(frontendCallsCount); // More routes than calls
   });
   
   it('should match report timestamp to recent execution', () => {

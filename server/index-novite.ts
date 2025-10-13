@@ -241,6 +241,10 @@ app.use('/api/ui-ux', uiUxRoutes);
 app.use('/api/translation', translationRoutes);
 app.use('/api/audit', auditRoutes); // ESA Audit Runner System
 
+// MB.MD PHASE 4 - Smart Agents Routes (Agents #106-109)
+import smartAgentsRoutes from './routes/smartAgentsRoutes';
+app.use('/api/smart-agents', smartAgentsRoutes);
+
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
@@ -291,6 +295,15 @@ const startServer = async () => {
     // Initialize Socket.io real-time features
     const io = setupSocketIO(httpServer);
     console.log('✅ Socket.io real-time features initialized on port 5000');
+
+    // MB.MD PHASE 4 - Initialize Smart Agents (Agents #106-109)
+    try {
+      const { smartAgents } = await import('./agents');
+      await smartAgents.initialize(io);
+      console.log('✅ MB.MD: Smart Agents #106-109 initialized and scheduled');
+    } catch (error) {
+      console.error('⚠️  Failed to initialize Smart Agents:', error);
+    }
 
     // Mount API routes
     app.use(authRoutes); // ESA Agent #3-4: Authentication routes
