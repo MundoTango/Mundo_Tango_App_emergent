@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { FadeIn, ScaleIn } from '@/components/animations/FramerMotionWrappers';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
+import { useTranslation } from 'react-i18next';
 
 interface CityRanking {
   rank: number;
@@ -60,6 +61,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
   }, [toast]);
 
   const handleSearch = () => {
+  const { t } = useTranslation();
     if (!searchQuery) return;
     
     const city = cityGroups?.find(
@@ -106,7 +108,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 h-4 w-4 z-10" />
                   <Input
                     data-testid="input-search-city"
-                    placeholder="Search city..."
+                    placeholder={t('common.inputs.search_city')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSearch()}

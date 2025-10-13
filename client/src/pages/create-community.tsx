@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 // import GoogleMapsLocationPicker from '@/components/GoogleMapsLocationPicker';
+import { useTranslation } from 'react-i18next';
 
 // Form schema with 23L validation patterns
 const createCommunitySchema = z.object({
@@ -88,6 +89,7 @@ export default function CreateCommunityPage() {
   });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { t } = useTranslation();
     const file = e.target.files?.[0];
     if (file) {
       setUploadingImage(true);
@@ -121,17 +123,17 @@ export default function CreateCommunityPage() {
         <div className="mb-8">
           <button
             onClick={() => setLocation('/groups')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
+            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 mb-4 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             Back to Communities
           </button>
           
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl text-white">
+            <div className="p-3 bg-gradient-to-br from-purple-500 dark:from-purple-600 to-pink-500 rounded-xl text-white">
               <Sparkles className="h-6 w-6" />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 dark:from-purple-500 to-pink-600 bg-clip-text text-transparent">
               Create New Community
             </h1>
           </div>
@@ -144,10 +146,10 @@ export default function CreateCommunityPage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Cover Image */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-4">Cover Image</h3>
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-sm p-6">
+              <h3 className="text-lg font-semibold mb-4">{t('common.cover_image')}</h3>
               <div className="relative">
-                <div className="w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
+                <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden">
                   {imagePreview ? (
                     <img
                       src={imagePreview}
@@ -157,7 +159,7 @@ export default function CreateCommunityPage() {
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-gray-400">
                       <Upload className="h-12 w-12 mb-2" />
-                      <p className="text-sm">Upload a cover image</p>
+                      <p className="text-sm">{t('common.upload_a_cover_image')}</p>
                     </div>
                   )}
                 </div>
@@ -172,19 +174,19 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Basic Information */}
-            <div className="bg-white rounded-xl shadow-sm p-6 space-y-6">
-              <h3 className="text-lg font-semibold">Basic Information</h3>
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 space-y-6">
+              <h3 className="text-lg font-semibold">{t('common.basic_information')}</h3>
               
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">Community Name</FormLabel>
+                    <FormLabel className="text-sm font-medium">{t('common.community_name')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="e.g., Buenos Aires Tango Collective"
+                        placeholder={t('common.inputs.eg_buenos_aires_tango_collective')}
                         className="rounded-lg"
                       />
                     </FormControl>
@@ -198,11 +200,11 @@ export default function CreateCommunityPage() {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">Description</FormLabel>
+                    <FormLabel className="text-sm font-medium">{t('common.description')}</FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
-                        placeholder="Tell us about your community..."
+                        placeholder={t('common.inputs.tell_us_about_your_community')}
                         className="rounded-lg min-h-[100px]"
                       />
                     </FormControl>
@@ -217,11 +219,11 @@ export default function CreateCommunityPage() {
                   name="type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">Community Type</FormLabel>
+                      <FormLabel className="text-sm font-medium">{t('common.community_type')}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="rounded-lg">
-                            <SelectValue placeholder="Select type" />
+                            <SelectValue placeholder={t('common.inputs.select_type')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -237,10 +239,10 @@ export default function CreateCommunityPage() {
                               Professional
                             </div>
                           </SelectItem>
-                          <SelectItem value="music">Music</SelectItem>
-                          <SelectItem value="practice">Practice</SelectItem>
-                          <SelectItem value="festival">Festival</SelectItem>
-                          <SelectItem value="social">Social</SelectItem>
+                          <SelectItem value="music">{t('common.music')}</SelectItem>
+                          <SelectItem value="practice">{t('common.practice')}</SelectItem>
+                          <SelectItem value="festival">{t('common.festival')}</SelectItem>
+                          <SelectItem value="social">{t('common.social')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -253,11 +255,11 @@ export default function CreateCommunityPage() {
                   name="privacy"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">Privacy</FormLabel>
+                      <FormLabel className="text-sm font-medium">{t('common.privacy')}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="rounded-lg">
-                            <SelectValue placeholder="Select privacy" />
+                            <SelectValue placeholder={t('common.inputs.select_privacy')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -284,17 +286,17 @@ export default function CreateCommunityPage() {
 
             {/* Location */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-4">Location</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('common.location')}</h3>
               <FormField
                 control={form.control}
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">Location</FormLabel>
+                    <FormLabel className="text-sm font-medium">{t('common.location')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Where is your community based?"
+                        placeholder={t('common.inputs.where_is_your_community_based')}
                         className="rounded-lg"
                       />
                     </FormControl>
@@ -317,7 +319,7 @@ export default function CreateCommunityPage() {
               <Button
                 type="submit"
                 disabled={createCommunityMutation.isPending}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg px-6"
+                className="bg-gradient-to-r from-purple-600 dark:from-purple-500 to-pink-600 text-white dark:text-gray-900 rounded-lg px-6"
               >
                 {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
               </Button>

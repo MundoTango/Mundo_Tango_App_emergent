@@ -551,10 +551,10 @@ const AdminCenter = memo(() => {
             data-testid="stat-total-users"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-cyan-500 to-blue-500 dark:to-blue-600 rounded-lg sm:rounded-xl">
                 <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-cyan-600 dark:text-cyan-400">+12%</span>
+              <span className="text-[10px] sm:text-xs font-medium text-cyan-600 dark:text-cyan-400">{t('common.12')}</span>
             </div>
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.totalUsers?.toLocaleString() || '0'}
@@ -574,7 +574,7 @@ const AdminCenter = memo(() => {
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg sm:rounded-xl">
                 <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-teal-600 dark:text-teal-400">+8%</span>
+              <span className="text-[10px] sm:text-xs font-medium text-teal-600 dark:text-teal-400">{t('common.8')}</span>
             </div>
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.activeUsers?.toLocaleString() || '0'}
@@ -591,10 +591,10 @@ const AdminCenter = memo(() => {
             data-testid="stat-total-events"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-blue-500 dark:from-blue-600 to-indigo-500 rounded-lg sm:rounded-xl">
                 <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-blue-600 dark:text-blue-400">+15%</span>
+              <span className="text-[10px] sm:text-xs font-medium text-blue-600 dark:text-blue-400">{t('common.15')}</span>
             </div>
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.totalEvents?.toLocaleString() || '0'}
@@ -611,15 +611,15 @@ const AdminCenter = memo(() => {
             data-testid="stat-system-health"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-purple-500 dark:from-purple-600 to-pink-500 rounded-lg sm:rounded-xl">
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-purple-600 dark:text-purple-400">Excellent</span>
+              <span className="text-[10px] sm:text-xs font-medium text-purple-600 dark:text-purple-400">{t('common.excellent')}</span>
             </div>
             <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
               {stats?.systemHealth?.toFixed(1) || '99.9'}%
             </div>
-            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">System Health</div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">{t('common.system_health')}</div>
             <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
               Overall performance
             </div>
@@ -640,11 +640,11 @@ const AdminCenter = memo(() => {
               className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 p-5 text-left group"
               data-testid="button-manage-users"
             >
-              <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+              <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 dark:to-blue-600 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{t("admin.manageUsers")}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">View and manage user accounts</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{t('common.view_and_manage_user_accounts')}</p>
             </MagneticButton>
 
             <MagneticButton 
@@ -657,7 +657,7 @@ const AdminCenter = memo(() => {
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{t("admin.complianceCenter")}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Monitor GDPR and security</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{t('common.monitor_gdpr_and_security')}</p>
             </MagneticButton>
 
             <MagneticButton 
@@ -666,10 +666,10 @@ const AdminCenter = memo(() => {
               className="glass-card glass-depth-2 border-blue-200/30 dark:border-blue-500/30 p-5 text-left group"
               data-testid="button-system-health"
             >
-              <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+              <div className="p-3 bg-gradient-to-r from-blue-500 dark:from-blue-600 to-indigo-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Activity className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">System Health</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{t('common.system_health')}</h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">{t("admin.checkPerformanceLogs")}</p>
             </MagneticButton>
 
@@ -679,11 +679,11 @@ const AdminCenter = memo(() => {
               className="glass-card glass-depth-2 bg-gradient-to-r from-purple-500 to-pink-500 p-5 text-left group border-purple-200/30 dark:border-purple-500/30"
               data-testid="button-ttfiles-demo"
             >
-              <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+              <div className="p-3 bg-white/20 dark:bg-gray-900/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Code className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-white mb-1">TTfiles Demo</h3>
-              <p className="text-sm text-white/90">View TrangoTech vintage components</p>
+              <h3 className="font-semibold text-white dark:text-gray-900 mb-1">{t('common.ttfiles_demo')}</h3>
+              <p className="text-sm text-white/90">{t('common.view_trangotech_vintage_components')}</p>
             </MagneticButton>
           </StaggerContainer>
         </ScaleIn>
@@ -765,7 +765,7 @@ const AdminCenter = memo(() => {
           <div className="text-sm text-gray-600">
             Last audit: {compliance?.lastAudit || 'Never'}
             {compliance?.auditType && (
-              <span className="ml-2 px-2 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-purple-700 text-xs rounded-full font-medium">
+              <span className="ml-2 px-2 py-1 bg-gradient-to-r from-blue-100 dark:from-blue-900/30 to-purple-100 dark:to-purple-900/30 text-purple-700 text-xs rounded-full font-medium">
                 {compliance.auditType}
               </span>
             )}
@@ -773,11 +773,11 @@ const AdminCenter = memo(() => {
           <button 
             onClick={refreshCompliance}
             disabled={complianceRefreshing}
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-blue-600 dark:from-blue-500 to-purple-600 dark:to-purple-500 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transform hover:-translate-y-0.5"
           >
             {complianceRefreshing ? (
               <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-white dark:border-gray-700 border-t-transparent rounded-full animate-spin"></div>
                 Running...
               </>
             ) : (
@@ -792,18 +792,18 @@ const AdminCenter = memo(() => {
 
       {/* Monitoring Status with MT Styling */}
       {monitoringStatus && (
-        <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-5 shadow-md">
+        <div className="bg-gradient-to-br from-green-50 dark:from-green-900/20 to-emerald-100 rounded-2xl p-5 shadow-md">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
+              <div className="w-3 h-3 bg-green-500 dark:bg-green-600 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
               <div>
-                <h3 className="font-semibold text-green-900">Automated Monitoring Active</h3>
+                <h3 className="font-semibold text-green-900">{t('common.automated_monitoring_active')}</h3>
                 <p className="text-sm text-green-700">
                   Next scheduled audit: {new Date(monitoringStatus.nextScheduledAudit).toLocaleString()}
                 </p>
               </div>
             </div>
-            <div className="text-sm text-green-600 font-medium">
+            <div className="text-sm text-green-600 dark:text-green-300 font-medium">
               {compliance?.executionTimeMs && `Last audit: ${compliance.executionTimeMs}ms`}
             </div>
           </div>
@@ -813,10 +813,10 @@ const AdminCenter = memo(() => {
       {/* Audit History with MT Styling */}
       {auditHistory.length > 0 && (
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Audit History</h3>
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 mb-4">{t('common.recent_audit_history')}</h3>
           <div className="space-y-3">
             {auditHistory.slice(0, 5).map((audit, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl hover:shadow-md transition-all">
+              <div key={index} className="flex items-center justify-between p-4 bg-gradient-to-br from-gray-50 dark:from-gray-800 to-gray-100 dark:to-gray-800 rounded-xl hover:shadow-md transition-all">
                 <div className="flex items-center gap-3">
                   <div className={`w-3 h-3 rounded-full ${
                     audit.overallScore >= 85 ? 'bg-green-500 shadow-lg shadow-green-500/50' : 
@@ -845,11 +845,11 @@ const AdminCenter = memo(() => {
       )}
 
       {/* Overall Compliance Score with MT Styling */}
-      <div className="bg-gradient-to-r from-turquoise-50 to-blue-100 rounded-2xl p-6 shadow-lg">
+      <div className="bg-gradient-to-r from-turquoise-50 to-blue-100 dark:to-blue-900/30 rounded-2xl p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-lg font-semibold text-gray-800">Overall Compliance Score</h3>
-            <p className="text-sm text-gray-600">Comprehensive security and privacy assessment</p>
+            <h3 className="text-lg font-semibold text-gray-800">{t('common.overall_compliance_score')}</h3>
+            <p className="text-sm text-gray-600">{t('common.comprehensive_security_and_privacy_assessment')}</p>
           </div>
           <div className="text-3xl font-bold text-turquoise-600">
             {compliance?.overallScore || 78}%
@@ -857,7 +857,7 @@ const AdminCenter = memo(() => {
         </div>
         <div className="w-full bg-turquoise-200 rounded-full h-3">
           <div 
-            className="h-3 bg-gradient-to-r from-turquoise-500 to-blue-600 rounded-full transition-all duration-500"
+            className="h-3 bg-gradient-to-r from-turquoise-500 to-blue-600 dark:to-blue-500 rounded-full transition-all duration-500"
             style={{ width: `${compliance?.overallScore || 78}%` }}
           />
         </div>
@@ -893,33 +893,33 @@ const AdminCenter = memo(() => {
 
       {/* Issues Summary with MT Styling */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Issues & Recommendations</h3>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 mb-4">{t('common.issues_recommendations')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-xl hover:shadow-md transition-all">
-            <div className="p-2 bg-red-500 rounded-lg">
+          <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 dark:from-red-900/20 to-red-100 dark:to-red-900/30 rounded-xl hover:shadow-md transition-all">
+            <div className="p-2 bg-red-500 dark:bg-red-600 rounded-lg">
               <AlertTriangle className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="font-bold text-red-800 text-xl">{compliance?.criticalIssues || 0}</div>
-              <div className="text-sm text-red-700">Critical Issues</div>
+              <div className="text-sm text-red-700">{t('common.critical_issues')}</div>
             </div>
           </div>
-          <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl hover:shadow-md transition-all">
-            <div className="p-2 bg-yellow-500 rounded-lg">
+          <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-yellow-50 dark:from-yellow-900/20 to-yellow-100 dark:to-yellow-900/30 rounded-xl hover:shadow-md transition-all">
+            <div className="p-2 bg-yellow-500 dark:bg-yellow-600 rounded-lg">
               <Clock className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="font-bold text-yellow-800 text-xl">{compliance?.warnings || 2}</div>
-              <div className="text-sm text-yellow-700">Warnings</div>
+              <div className="text-sm text-yellow-700">{t('common.warnings')}</div>
             </div>
           </div>
-          <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl hover:shadow-md transition-all">
-            <div className="p-2 bg-green-500 rounded-lg">
+          <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 dark:from-green-900/20 to-green-100 dark:to-green-900/30 rounded-xl hover:shadow-md transition-all">
+            <div className="p-2 bg-green-500 dark:bg-green-600 rounded-lg">
               <CheckCircle className="w-5 h-5 text-white" />
             </div>
             <div>
-              <div className="font-bold text-green-800 text-xl">Active</div>
-              <div className="text-sm text-green-700">Monitoring</div>
+              <div className="font-bold text-green-800 text-xl">{t('common.active')}</div>
+              <div className="text-sm text-green-700">{t('common.monitoring')}</div>
             </div>
           </div>
         </div>
@@ -971,28 +971,28 @@ const AdminCenter = memo(() => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search users..."
+              placeholder={t('common.inputs.search_users')}
               value={userSearchTerm}
               onChange={(e) => setUserSearchTerm(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && fetchUsers()}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+              className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
-            <Users className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <Users className="w-4 h-4 text-gray-400 dark:text-gray-500 dark:text-gray-500 absolute left-3 top-3" />
           </div>
           <select
             value={userFilter}
             onChange={(e) => setUserFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
           >
-            <option value="all">All Users</option>
-            <option value="active">Active</option>
-            <option value="verified">Verified</option>
-            <option value="suspended">Suspended</option>
-            <option value="pending">Pending</option>
+            <option value="all">{t('common.all_users')}</option>
+            <option value="active">{t('common.active')}</option>
+            <option value="verified">{t('common.verified')}</option>
+            <option value="suspended">{t('common.suspended')}</option>
+            <option value="pending">{t('common.pending')}</option>
           </select>
           <button 
             onClick={fetchUsers}
-            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 text-white dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
           >
             <RefreshCw className="w-4 h-4 inline mr-2" />
             Refresh
@@ -1002,73 +1002,73 @@ const AdminCenter = memo(() => {
 
       {/* User Stats Cards with MT Design */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-blue-50 dark:from-blue-900/20 dark:from-blue-900/20 dark:from-blue-900/20 dark:from-blue-900/20 to-blue-100 dark:to-blue-900/30 dark:to-blue-900/30 dark:to-blue-900/30 dark:to-blue-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-blue-500 rounded-xl">
+            <div className="p-2 bg-blue-500 dark:bg-blue-600 dark:bg-blue-600 dark:bg-blue-600 dark:bg-blue-600 dark:bg-blue-600 rounded-xl">
               <Users className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">{stats?.totalUsers || 0}</div>
-          <div className="text-sm text-gray-600 mt-1">Total Users</div>
+          <div className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 mt-1">{t('common.total_users')}</div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-green-50 dark:from-green-900/20 dark:from-green-900/20 dark:from-green-900/20 dark:from-green-900/20 to-green-100 dark:to-green-900/30 dark:to-green-900/30 dark:to-green-900/30 dark:to-green-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-green-500 rounded-xl">
+            <div className="p-2 bg-green-500 dark:bg-green-600 dark:bg-green-600 dark:bg-green-600 dark:bg-green-600 dark:bg-green-600 rounded-xl">
               <Activity className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">{stats?.activeUsers || 0}</div>
-          <div className="text-sm text-gray-600 mt-1">Active Today</div>
+          <div className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 mt-1">{t('common.active_today')}</div>
         </div>
 
-        <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-red-50 dark:from-red-900/20 dark:from-red-900/20 to-red-100 dark:to-red-900/30 dark:to-red-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-red-500 rounded-xl">
+            <div className="p-2 bg-red-500 dark:bg-red-600 dark:bg-red-600 rounded-xl">
               <Ban className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">3</div>
-          <div className="text-sm text-gray-600 mt-1">Suspended</div>
+          <div className="text-sm text-gray-600 mt-1">{t('common.suspended')}</div>
         </div>
 
-        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-yellow-50 dark:from-yellow-900/20 dark:from-yellow-900/20 dark:from-yellow-900/20 to-yellow-100 dark:to-yellow-900/30 dark:to-yellow-900/30 dark:to-yellow-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-yellow-500 rounded-xl">
+            <div className="p-2 bg-yellow-500 dark:bg-yellow-600 dark:bg-yellow-600 dark:bg-yellow-600 dark:bg-yellow-600 rounded-xl">
               <Clock className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">7</div>
-          <div className="text-sm text-gray-600 mt-1">Pending Approval</div>
+          <div className="text-sm text-gray-600 mt-1">{t('common.pending_approval')}</div>
         </div>
       </div>
 
       {/* User List Table */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">User List</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.user_list')}</h3>
         {usersLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading users...</div>
+          <div className="text-center py-8 text-gray-500">{t('common.loading_users')}</div>
         ) : users.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">No users found</div>
+          <div className="text-center py-8 text-gray-500">{t('common.no_users_found')}</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">User</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Email</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Role</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Joined</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Actions</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.user')}</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.email')}</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.role')}</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.status')}</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">{t('common.joined')}</th>
+                  <th className="text-right py-3 px-4 font-medium text-gray-700">{t('common.actions')}</th>
                 </tr>
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={user.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-500 flex items-center justify-center text-white font-medium">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-500 dark:to-blue-600 flex items-center justify-center text-white dark:text-gray-900 font-medium">
                           {user.username?.[0]?.toUpperCase() || 'U'}
                         </div>
                         <div>
@@ -1079,7 +1079,7 @@ const AdminCenter = memo(() => {
                     </td>
                     <td className="py-3 px-4 text-gray-700">{user.email || 'N/A'}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
+                      <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200 rounded-full text-xs">
                         {user.tangoRole || 'User'}
                       </span>
                     </td>
@@ -1102,21 +1102,21 @@ const AdminCenter = memo(() => {
                             setSelectedUser(user);
                             setShowUserModal(true);
                           }}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-blue-600 dark:text-blue-300 hover:text-blue-800"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         {!user.suspended ? (
                           <button
                             onClick={() => handleUserAction(user.id, 'suspend')}
-                            className="text-red-600 hover:text-red-800"
+                            className="text-red-600 dark:text-red-300 hover:text-red-800"
                           >
                             <Ban className="w-4 h-4" />
                           </button>
                         ) : (
                           <button
                             onClick={() => handleUserAction(user.id, 'unsuspend')}
-                            className="text-green-600 hover:text-green-800"
+                            className="text-green-600 dark:text-green-300 hover:text-green-800"
                           >
                             <CheckCircle className="w-4 h-4" />
                           </button>
@@ -1133,13 +1133,13 @@ const AdminCenter = memo(() => {
 
       {/* User Details Modal */}
       {showUserModal && selectedUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black dark:bg-white bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-bold text-gray-900">User Details</h3>
+              <h3 className="text-xl font-bold text-gray-900">{t('common.user_details')}</h3>
               <button
                 onClick={() => setShowUserModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600"
               >
                 <Ban className="w-5 h-5" />
               </button>
@@ -1147,19 +1147,19 @@ const AdminCenter = memo(() => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-sm text-gray-500">Username</div>
+                  <div className="text-sm text-gray-500">{t('common.username')}</div>
                   <div className="font-medium">{selectedUser.username}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500">Email</div>
+                  <div className="text-sm text-gray-500">{t('common.email')}</div>
                   <div className="font-medium">{selectedUser.email || 'N/A'}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500">Location</div>
+                  <div className="text-sm text-gray-500">{t('common.location')}</div>
                   <div className="font-medium">{selectedUser.location || 'N/A'}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500">Tango Role</div>
+                  <div className="text-sm text-gray-500">{t('common.tango_role')}</div>
                   <div className="font-medium">{selectedUser.tangoRole || 'N/A'}</div>
                 </div>
               </div>
@@ -1167,7 +1167,7 @@ const AdminCenter = memo(() => {
                 {!selectedUser.verified && (
                   <button
                     onClick={() => handleUserAction(selectedUser.id, 'verify')}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    className="px-4 py-2 bg-green-600 dark:bg-green-500 dark:bg-green-500 text-white dark:text-gray-900 dark:text-gray-900 rounded-lg hover:bg-green-700"
                   >
                     Verify User
                   </button>
@@ -1175,14 +1175,14 @@ const AdminCenter = memo(() => {
                 {!selectedUser.suspended ? (
                   <button
                     onClick={() => handleUserAction(selectedUser.id, 'suspend')}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                    className="px-4 py-2 bg-red-600 dark:bg-red-500 text-white dark:text-gray-900 rounded-lg hover:bg-red-700"
                   >
                     Suspend User
                   </button>
                 ) : (
                   <button
                     onClick={() => handleUserAction(selectedUser.id, 'unsuspend')}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    className="px-4 py-2 bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 rounded-lg hover:bg-green-700"
                   >
                     Unsuspend User
                   </button>
@@ -1203,28 +1203,28 @@ const AdminCenter = memo(() => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search content..."
+              placeholder={t('common.inputs.search_content')}
               value={contentSearch}
               onChange={(e) => setContentSearch(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && fetchFlaggedContent()}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+              className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
-            <FileText className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <FileText className="w-4 h-4 text-gray-400 dark:text-gray-500 absolute left-3 top-3" />
           </div>
           <select
             value={contentFilter}
             onChange={(e) => setContentFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
           >
-            <option value="all">All Content</option>
-            <option value="posts">Posts</option>
-            <option value="comments">Comments</option>
-            <option value="flagged">Flagged Only</option>
-            <option value="reported">Reported</option>
+            <option value="all">{t('common.all_content')}</option>
+            <option value="posts">{t('common.posts')}</option>
+            <option value="comments">{t('common.comments')}</option>
+            <option value="flagged">{t('common.flagged_only')}</option>
+            <option value="reported">{t('common.reported')}</option>
           </select>
           <button 
             onClick={fetchFlaggedContent}
-            className="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-red-600 dark:from-red-500 to-pink-600 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
           >
             <RefreshCw className="w-4 h-4 inline mr-2" />
             Refresh
@@ -1234,63 +1234,63 @@ const AdminCenter = memo(() => {
 
       {/* Content Stats with MT Design */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-blue-50 dark:from-blue-900/20 dark:from-blue-900/20 dark:from-blue-900/20 to-blue-100 dark:to-blue-900/30 dark:to-blue-900/30 dark:to-blue-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-blue-500 rounded-xl">
+            <div className="p-2 bg-blue-500 dark:bg-blue-600 dark:bg-blue-600 dark:bg-blue-600 dark:bg-blue-600 rounded-xl">
               <FileText className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">{stats?.totalPosts || 0}</div>
-          <div className="text-sm text-gray-600 mt-1">Total Posts</div>
+          <div className="text-sm text-gray-600 mt-1">{t('common.total_posts')}</div>
         </div>
 
-        <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-red-50 dark:from-red-900/20 to-red-100 dark:to-red-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-red-500 rounded-xl">
+            <div className="p-2 bg-red-500 dark:bg-red-600 rounded-xl">
               <Flag className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">12</div>
-          <div className="text-sm text-gray-600 mt-1">Flagged Content</div>
+          <div className="text-sm text-gray-600 mt-1">{t('common.flagged_content')}</div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-green-50 dark:from-green-900/20 dark:from-green-900/20 dark:from-green-900/20 to-green-100 dark:to-green-900/30 dark:to-green-900/30 dark:to-green-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-green-500 rounded-xl">
+            <div className="p-2 bg-green-500 dark:bg-green-600 dark:bg-green-600 dark:bg-green-600 dark:bg-green-600 rounded-xl">
               <Shield className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">89</div>
-          <div className="text-sm text-gray-600 mt-1">Auto-Moderated</div>
+          <div className="text-sm text-gray-600 mt-1">{t('common.automoderated')}</div>
         </div>
 
-        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-yellow-50 dark:from-yellow-900/20 dark:from-yellow-900/20 to-yellow-100 dark:to-yellow-900/30 dark:to-yellow-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div className="flex items-start justify-between mb-3">
-            <div className="p-2 bg-yellow-500 rounded-xl">
+            <div className="p-2 bg-yellow-500 dark:bg-yellow-600 dark:bg-yellow-600 dark:bg-yellow-600 rounded-xl">
               <MessageSquare className="w-5 h-5 text-white" />
             </div>
           </div>
           <div className="text-2xl font-bold text-gray-800">4</div>
-          <div className="text-sm text-gray-600 mt-1">Appeals</div>
+          <div className="text-sm text-gray-600 mt-1">{t('common.appeals')}</div>
         </div>
       </div>
 
       {/* Unified Moderation Interface */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-800">Content Review Queue</h3>
+          <h3 className="text-lg font-semibold text-gray-800">{t('common.content_review_queue')}</h3>
           <div className="text-sm text-gray-500">
             All flagged content and user reports in one place
           </div>
         </div>
         {contentLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading content...</div>
+          <div className="text-center py-8 text-gray-500">{t('common.loading_content')}</div>
         ) : flaggedContent.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">No content to moderate</div>
+          <div className="text-center py-8 text-gray-500">{t('common.no_content_to_moderate')}</div>
         ) : (
           <div className="space-y-4">
             {flaggedContent.map((content) => (
-              <div key={content.id} className="border border-gray-200 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
+              <div key={content.id} className="border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
                 <div className="flex items-start justify-between w-full">
                   <div className="flex-1 mr-4">
                     <div className="flex items-center gap-3 mb-2">
@@ -1314,14 +1314,14 @@ const AdminCenter = memo(() => {
                         </span>
                       )}
                     </div>
-                    <div className="text-gray-900 mb-2">{content.content}</div>
+                    <div className="text-gray-900 dark:text-gray-50 mb-2">{content.content}</div>
                     {/* Show report reasons if available */}
                     {content.reportReason && (
-                      <div className="bg-red-50 rounded-lg p-2 mb-2">
-                        <span className="text-xs font-medium text-red-700">Report Reason: </span>
+                      <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-2 mb-2">
+                        <span className="text-xs font-medium text-red-700">{t('common.report_reason')}</span>
                         <span className="text-xs text-red-600">{content.reportReason}</span>
                         {content.reportDescription && (
-                          <div className="text-xs text-gray-600 mt-1 italic">"{content.reportDescription}"</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-300 mt-1 italic">"{content.reportDescription}"</div>
                         )}
                       </div>
                     )}
@@ -1340,21 +1340,21 @@ const AdminCenter = memo(() => {
                         setSelectedContent(content);
                         setShowContentModal(true);
                       }}
-                      className="p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition-all"
+                      className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 rounded-lg transition-all"
                       title="View Details"
                     >
                       <Eye className="w-5 h-5" />
                     </button>
                     <button
                       onClick={() => handleContentAction(content.id, 'approve', content.type)}
-                      className="p-2 bg-green-100 text-green-600 hover:bg-green-200 rounded-lg transition-all"
+                      className="p-2 bg-green-100 dark:bg-green-900/30 dark:bg-green-900/30 text-green-600 dark:text-green-300 dark:text-green-300 hover:bg-green-200 rounded-lg transition-all"
                       title="Approve"
                     >
                       <CheckCircle className="w-5 h-5" />
                     </button>
                     <button
                       onClick={() => handleContentAction(content.id, 'remove', content.type)}
-                      className="p-2 bg-red-100 text-red-600 hover:bg-red-200 rounded-lg transition-all"
+                      className="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 hover:bg-red-200 rounded-lg transition-all"
                       title="Remove"
                     >
                       <Ban className="w-5 h-5" />
@@ -1372,7 +1372,7 @@ const AdminCenter = memo(() => {
         <>
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed inset-0 bg-black dark:bg-white bg-opacity-50 z-40"
             onClick={() => setShowContentModal(false)}
           />
           
@@ -1382,16 +1382,16 @@ const AdminCenter = memo(() => {
           }`}>
             <div className="h-full flex flex-col">
               {/* Header */}
-              <div className="flex justify-between items-center px-6 py-4 border-b bg-gradient-to-r from-gray-50 to-white">
+              <div className="flex justify-between items-center px-6 py-4 border-b bg-gradient-to-r from-gray-50 dark:from-gray-800 to-white">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-r from-turquoise-500 to-blue-500 rounded-lg">
+                  <div className="p-2 bg-gradient-to-r from-turquoise-500 to-blue-500 dark:to-blue-600 rounded-lg">
                     <FileText className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Content Review</h3>
+                  <h3 className="text-xl font-bold text-gray-900">{t('common.content_review')}</h3>
                 </div>
                 <button
                   onClick={() => setShowContentModal(false)}
-                  className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="text-gray-400 dark:text-gray-500 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -1400,41 +1400,41 @@ const AdminCenter = memo(() => {
               {/* Content */}
               <div className="flex-1 overflow-y-auto p-6">
                 <div className="space-y-4">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="text-sm text-gray-500 mb-2">Content</div>
+                  <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg p-4">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">{t('common.content')}</div>
                     <div className="text-gray-900">{selectedContent.content}</div>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <div className="text-sm text-gray-500">Author</div>
+                      <div className="text-sm text-gray-500">{t('common.author')}</div>
                       <div className="font-medium">@{selectedContent.author}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Type</div>
+                      <div className="text-sm text-gray-500">{t('common.type')}</div>
                       <div className="font-medium capitalize">{selectedContent.type}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Posted</div>
+                      <div className="text-sm text-gray-500">{t('common.posted')}</div>
                       <div className="font-medium">{new Date(selectedContent.createdAt).toLocaleString()}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">Reports</div>
+                      <div className="text-sm text-gray-500">{t('common.reports')}</div>
                       <div className="font-medium">{selectedContent.reportCount || 0}</div>
                     </div>
                   </div>
                   
                   {selectedContent.reportReason && (
-                    <div className="bg-red-50 rounded-lg p-4">
-                      <div className="text-sm font-medium text-red-700 mb-1">Report Reason</div>
+                    <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
+                      <div className="text-sm font-medium text-red-700 mb-1">{t('common.report_reason')}</div>
                       <div className="text-sm text-red-600">{selectedContent.reportReason}</div>
                       {selectedContent.reportDescription && (
-                        <div className="text-sm text-gray-600 mt-2 italic">
+                        <div className="text-sm text-gray-600 dark:text-gray-300 mt-2 italic">
                           "{selectedContent.reportDescription}"
                         </div>
                       )}
                       {selectedContent.reportedBy && (
-                        <div className="text-xs text-gray-500 mt-2">
+                        <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-2">
                           Reported by @{selectedContent.reportedBy}
                         </div>
                       )}
@@ -1444,7 +1444,7 @@ const AdminCenter = memo(() => {
               </div>
               
               {/* Actions */}
-              <div className="p-6 border-t bg-gradient-to-r from-gray-50 via-white to-gray-50">
+              <div className="p-6 border-t bg-gradient-to-r from-gray-50 dark:from-gray-800 via-white dark:via-gray-900 to-gray-50">
                 <div className="flex flex-col gap-3">
                   <button
                     onClick={() => {
@@ -1547,13 +1547,13 @@ const AdminCenter = memo(() => {
         <div className="flex gap-3">
           <button 
             onClick={fetchAnalytics}
-            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 dark:to-blue-500 text-white dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             disabled={analyticsLoading}
           >
             <RefreshCw className={`w-4 h-4 inline mr-2 ${analyticsLoading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
-          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 dark:from-blue-500 to-purple-600 dark:to-purple-500 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
             <TrendingUp className="w-4 h-4 inline mr-2" />
             Export Report
           </button>
@@ -1564,7 +1564,7 @@ const AdminCenter = memo(() => {
         <div className="animate-pulse space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-32 bg-gray-200 rounded-2xl"></div>
+              <div key={i} className="h-32 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 rounded-2xl"></div>
             ))}
           </div>
         </div>
@@ -1582,8 +1582,8 @@ const AdminCenter = memo(() => {
                 </span>
               </div>
               <div className="text-2xl font-bold text-gray-800">{analyticsData?.dailyActiveUsers || 0}</div>
-              <div className="text-sm text-gray-600 mt-1">Daily Active Users</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-sm text-gray-600 mt-1">{t('common.daily_active_users')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-1">
                 {analyticsData?.dauChange > 0 ? '+' : ''}{analyticsData?.dauChange || 0}% from yesterday
               </div>
             </div>
@@ -1598,15 +1598,15 @@ const AdminCenter = memo(() => {
                 </span>
               </div>
               <div className="text-2xl font-bold text-gray-800">{analyticsData?.pageViews?.toLocaleString() || 0}</div>
-              <div className="text-sm text-gray-600 mt-1">Page Views</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-sm text-gray-600 mt-1">{t('common.page_views')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-1">
                 {analyticsData?.pageViewsChange > 0 ? '+' : ''}{analyticsData?.pageViewsChange || 0}% from last week
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+            <div className="bg-gradient-to-br from-purple-50 dark:from-purple-900/20 dark:from-purple-900/20 to-purple-100 dark:to-purple-900/30 dark:to-purple-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div className="flex items-start justify-between mb-3">
-                <div className="p-2 bg-purple-500 rounded-xl">
+                <div className="p-2 bg-purple-500 dark:bg-purple-600 dark:bg-purple-600 dark:bg-purple-600 rounded-xl">
                   <TrendingUp className="w-5 h-5 text-white" />
                 </div>
                 <span className={`text-xs font-medium ${analyticsData?.engagementChange > 0 ? 'text-purple-600' : 'text-red-600'}`}>
@@ -1614,7 +1614,7 @@ const AdminCenter = memo(() => {
                 </span>
               </div>
               <div className="text-2xl font-bold text-gray-800">{analyticsData?.engagementRate || 0}%</div>
-              <div className="text-sm text-gray-600 mt-1">Engagement Rate</div>
+              <div className="text-sm text-gray-600 mt-1">{t('common.engagement_rate')}</div>
               <div className="text-xs text-gray-500 mt-1">
                 {analyticsData?.engagementChange > 0 ? '+' : ''}{analyticsData?.engagementChange || 0}% improvement
               </div>
@@ -1623,7 +1623,7 @@ const AdminCenter = memo(() => {
 
           {/* Geographic Analytics with MT Styling */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Top Locations</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.top_locations')}</h3>
             <div className="space-y-3">
               {analyticsData?.topLocations?.map((location: any, idx: number) => {
                 const gradients = [
@@ -1720,12 +1720,12 @@ const AdminCenter = memo(() => {
           <select
             value={eventFilter}
             onChange={(e) => setEventFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-turquoise-500"
           >
-            <option value="all">All Events</option>
-            <option value="upcoming">Upcoming</option>
-            <option value="past">Past</option>
-            <option value="featured">Featured</option>
+            <option value="all">{t('common.all_events')}</option>
+            <option value="upcoming">{t('common.upcoming')}</option>
+            <option value="past">{t('common.past')}</option>
+            <option value="featured">{t('common.featured')}</option>
           </select>
           <button 
             onClick={fetchEvents}
@@ -1735,7 +1735,7 @@ const AdminCenter = memo(() => {
             <RefreshCw className={`w-4 h-4 inline mr-2 ${eventsLoading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
-          <button className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+          <button className="px-4 py-2 bg-gradient-to-r from-green-600 dark:from-green-500 to-emerald-600 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
             <Calendar className="w-4 h-4 inline mr-2" />
             Create Event
           </button>
@@ -1746,7 +1746,7 @@ const AdminCenter = memo(() => {
         <div className="animate-pulse space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className="h-32 bg-gray-200 rounded-2xl"></div>
+              <div key={i} className="h-32 bg-gray-200 dark:bg-gray-700 rounded-2xl"></div>
             ))}
           </div>
         </div>
@@ -1761,7 +1761,7 @@ const AdminCenter = memo(() => {
                 </div>
               </div>
               <div className="text-2xl font-bold text-gray-800">{eventsData?.stats?.totalEvents || 0}</div>
-              <div className="text-sm text-gray-600 mt-1">Total Events</div>
+              <div className="text-sm text-gray-600 mt-1">{t('common.total_events')}</div>
             </div>
 
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
@@ -1771,7 +1771,7 @@ const AdminCenter = memo(() => {
                 </div>
               </div>
               <div className="text-2xl font-bold text-gray-800">{eventsData?.stats?.eventsThisMonth || 0}</div>
-              <div className="text-sm text-gray-600 mt-1">This Month</div>
+              <div className="text-sm text-gray-600 mt-1">{t('common.this_month')}</div>
             </div>
 
             <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
@@ -1781,23 +1781,23 @@ const AdminCenter = memo(() => {
                 </div>
               </div>
               <div className="text-2xl font-bold text-gray-800">{eventsData?.stats?.upcomingEvents || 0}</div>
-              <div className="text-sm text-gray-600 mt-1">Upcoming</div>
+              <div className="text-sm text-gray-600 mt-1">{t('common.upcoming')}</div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
+            <div className="bg-gradient-to-br from-purple-50 dark:from-purple-900/20 to-purple-100 dark:to-purple-900/30 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1">
               <div className="flex items-start justify-between mb-3">
-                <div className="p-2 bg-purple-500 rounded-xl">
+                <div className="p-2 bg-purple-500 dark:bg-purple-600 dark:bg-purple-600 rounded-xl">
                   <TrendingUp className="w-5 h-5 text-white" />
                 </div>
               </div>
               <div className="text-2xl font-bold text-gray-800">{eventsData?.stats?.featuredEvents || 0}</div>
-              <div className="text-sm text-gray-600 mt-1">Featured Events</div>
+              <div className="text-sm text-gray-600 mt-1">{t('common.featured_events')}</div>
             </div>
           </div>
 
           {/* Event Categories with MT Styling */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Event Categories</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.event_categories')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(eventsData?.stats?.categories || {}).slice(0, 6).map(([category, count], idx) => {
                 const colors = ['blue', 'green', 'purple', 'yellow', 'red', 'pink'];
@@ -1805,7 +1805,7 @@ const AdminCenter = memo(() => {
                 return (
                   <div key={category} className={`p-4 bg-gradient-to-br from-${color}-50 to-${color}-100 rounded-xl hover:shadow-md transition-all transform hover:-translate-y-0.5`}>
                     <div className={`text-2xl font-bold text-${color}-600`}>{count as number}</div>
-                    <div className="text-sm text-gray-700 font-medium">{category}</div>
+                    <div className="text-sm text-gray-700 dark:text-gray-200 font-medium">{category}</div>
                   </div>
                 );
               })}
@@ -1814,10 +1814,10 @@ const AdminCenter = memo(() => {
 
           {/* Event List */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Events</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.recent_events')}</h3>
             <div className="space-y-3">
               {eventsData?.events?.slice(0, 10).map((event: any) => (
-                <div key={event.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                <div key={event.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl hover:bg-gray-100 transition-colors">
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-800">{event.title}</h4>
                     <div className="flex gap-4 mt-1 text-sm text-gray-600">
@@ -1837,7 +1837,7 @@ const AdminCenter = memo(() => {
                     >
                       {event.is_featured ? 'Featured' : 'Feature'}
                     </button>
-                    <button className="px-3 py-1 bg-turquoise-600 text-white rounded-lg text-sm hover:bg-turquoise-700">
+                    <button className="px-3 py-1 bg-turquoise-600 text-white dark:text-gray-900 rounded-lg text-sm hover:bg-turquoise-700">
                       View
                     </button>
                   </div>
@@ -1894,23 +1894,23 @@ const AdminCenter = memo(() => {
   const renderReportsAndLogs = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900">User Reports & Moderation</h2>
+        <h2 className="text-xl font-bold text-gray-900">{t('common.user_reports_moderation')}</h2>
         <div className="flex gap-3">
           <select
             value={reportFilter}
             onChange={(e) => setReportFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="unresolved">Unresolved</option>
-            <option value="resolved">Resolved</option>
-            <option value="investigating">Investigating</option>
-            <option value="dismissed">Dismissed</option>
-            <option value="">All Reports</option>
+            <option value="unresolved">{t('common.unresolved')}</option>
+            <option value="resolved">{t('common.resolved')}</option>
+            <option value="investigating">{t('common.investigating')}</option>
+            <option value="dismissed">{t('common.dismissed')}</option>
+            <option value="">{t('common.all_reports')}</option>
           </select>
           <button 
             onClick={fetchReports}
             disabled={reportLoading}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             <Eye className="w-4 h-4 inline mr-2" />
             {reportLoading ? 'Loading...' : 'Refresh'}
@@ -1947,8 +1947,8 @@ const AdminCenter = memo(() => {
       </div>
 
       {/* Recent Reports */}
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">User Reports</h3>
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-4">{t('common.user_reports')}</h3>
         {reportLoading ? (
           <div className="text-center py-8 text-gray-500">
             Loading reports...
@@ -1960,7 +1960,7 @@ const AdminCenter = memo(() => {
         ) : (
           <div className="space-y-4">
             {reports.map((report) => (
-              <div key={report.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
+              <div key={report.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -1984,7 +1984,7 @@ const AdminCenter = memo(() => {
                         {report.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-900 mb-2">{report.description || 'No description provided'}</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-50 mb-2">{report.description || 'No description provided'}</p>
                     <div className="flex items-center gap-4 text-xs text-gray-500">
                       <span>Reported by: {report.reporter_name}</span>
                       <span>•</span>
@@ -2002,19 +2002,19 @@ const AdminCenter = memo(() => {
                       <>
                         <button
                           onClick={() => updateReportStatus(report.id, 'investigating')}
-                          className="px-3 py-1 text-sm bg-yellow-600 text-white rounded hover:bg-yellow-700"
+                          className="px-3 py-1 text-sm bg-yellow-600 text-white dark:text-gray-900 rounded hover:bg-yellow-700"
                         >
                           Investigate
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'resolved')}
-                          className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                          className="px-3 py-1 text-sm bg-green-600 dark:bg-green-500 dark:bg-green-500 text-white dark:text-gray-900 dark:text-gray-900 rounded hover:bg-green-700"
                         >
                           Resolve
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'dismissed')}
-                          className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700"
+                          className="px-3 py-1 text-sm bg-gray-600 dark:bg-gray-400 dark:bg-gray-400 text-white dark:text-gray-900 dark:text-gray-900 rounded hover:bg-gray-700"
                         >
                           Dismiss
                         </button>
@@ -2024,13 +2024,13 @@ const AdminCenter = memo(() => {
                       <>
                         <button
                           onClick={() => updateReportStatus(report.id, 'resolved')}
-                          className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                          className="px-3 py-1 text-sm bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 rounded hover:bg-green-700"
                         >
                           Resolve
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'dismissed')}
-                          className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700"
+                          className="px-3 py-1 text-sm bg-gray-600 dark:bg-gray-400 text-white dark:text-gray-900 rounded hover:bg-gray-700"
                         >
                           Dismiss
                         </button>
@@ -2087,7 +2087,7 @@ const AdminCenter = memo(() => {
             <button 
               onClick={handleRefreshAll}
               disabled={systemHealthRefreshing}
-              className="px-4 py-2 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {systemHealthRefreshing ? (
                 <>
@@ -2113,26 +2113,26 @@ const AdminCenter = memo(() => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-xl p-4">
               <div className="text-2xl font-bold text-turquoise-700">3.2s</div>
-              <div className="text-sm text-gray-600">Render Time</div>
+              <div className="text-sm text-gray-600">{t('common.render_time')}</div>
               <div className="text-xs text-gray-500">Target: {'<3s'}</div>
               <Progress value={93} className="mt-2 h-1" />
             </div>
             <div className="bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-xl p-4">
               <div className="text-2xl font-bold text-turquoise-700">0.16MB</div>
-              <div className="text-sm text-gray-600">Bundle Size</div>
-              <div className="text-xs text-gray-500">99.5% reduction</div>
+              <div className="text-sm text-gray-600">{t('common.bundle_size')}</div>
+              <div className="text-xs text-gray-500">{t('common.995_reduction')}</div>
               <Progress value={99.5} className="mt-2 h-1" />
             </div>
             <div className="bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-turquoise-700">70%</div>
-              <div className="text-sm text-gray-600">Cache Hit Rate</div>
-              <div className="text-xs text-gray-500">60-70% average</div>
+              <div className="text-2xl font-bold text-turquoise-700">{t('common.70')}</div>
+              <div className="text-sm text-gray-600">{t('common.cache_hit_rate')}</div>
+              <div className="text-xs text-gray-500">{t('common.6070_average')}</div>
               <Progress value={70} className="mt-2 h-1" />
             </div>
             <div className="bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-xl p-4">
               <div className="text-2xl font-bold text-turquoise-700">{systemMetrics.responseTime}ms</div>
-              <div className="text-sm text-gray-600">API Response</div>
-              <div className="text-xs text-gray-500">Average latency</div>
+              <div className="text-sm text-gray-600">{t('common.api_response')}</div>
+              <div className="text-xs text-gray-500">{t('common.average_latency')}</div>
               <Progress value={Math.min((200 - systemMetrics.responseTime) / 200 * 100, 100)} className="mt-2 h-1" />
             </div>
           </div>
@@ -2146,28 +2146,28 @@ const AdminCenter = memo(() => {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-gradient-to-br from-purple-50/50 to-pink-50/50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-purple-700">8GB</div>
-              <div className="text-sm text-gray-600">Build Memory</div>
-              <div className="text-xs text-gray-500">Allocated for builds</div>
-              <CheckCircle className="w-4 h-4 text-green-500 mt-2" />
+              <div className="text-2xl font-bold text-purple-700">{t('common.8gb')}</div>
+              <div className="text-sm text-gray-600">{t('common.build_memory')}</div>
+              <div className="text-xs text-gray-500">{t('common.allocated_for_builds')}</div>
+              <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400 dark:text-green-400 mt-2" />
             </div>
             <div className="bg-gradient-to-br from-purple-50/50 to-pink-50/50 rounded-xl p-4">
               <div className="text-2xl font-bold text-purple-700">{systemMetrics.storageUsed}%</div>
-              <div className="text-sm text-gray-600">Storage Used</div>
-              <div className="text-xs text-gray-500">of allocated space</div>
+              <div className="text-sm text-gray-600">{t('common.storage_used')}</div>
+              <div className="text-xs text-gray-500">{t('common.of_allocated_space')}</div>
               <Progress value={systemMetrics.storageUsed} className="mt-2 h-1" />
             </div>
             <div className="bg-gradient-to-br from-purple-50/50 to-pink-50/50 rounded-xl p-4">
               <div className="text-2xl font-bold text-purple-700">{systemMetrics.databaseLoad}%</div>
-              <div className="text-sm text-gray-600">Database Load</div>
-              <div className="text-xs text-gray-500">Current utilization</div>
+              <div className="text-sm text-gray-600">{t('common.database_load')}</div>
+              <div className="text-xs text-gray-500">{t('common.current_utilization')}</div>
               <Progress value={systemMetrics.databaseLoad} className="mt-2 h-1" />
             </div>
             <div className="bg-gradient-to-br from-purple-50/50 to-pink-50/50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-purple-700">Active</div>
-              <div className="text-sm text-gray-600">Memory Cleanup</div>
-              <div className="text-xs text-gray-500">Auto-optimizing</div>
-              <Activity className="w-4 h-4 text-green-500 mt-2" />
+              <div className="text-2xl font-bold text-purple-700">{t('common.active')}</div>
+              <div className="text-sm text-gray-600">{t('common.memory_cleanup')}</div>
+              <div className="text-xs text-gray-500">{t('common.autooptimizing')}</div>
+              <Activity className="w-4 h-4 text-green-500 dark:text-green-400 mt-2" />
             </div>
           </div>
         </div>
@@ -2181,30 +2181,30 @@ const AdminCenter = memo(() => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-gradient-to-br from-green-50/50 to-emerald-50/50 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">SOC 2 Type II Readiness</span>
-                <Badge className="bg-yellow-100 text-yellow-700">In Progress</Badge>
+                <span className="text-sm font-medium text-gray-700">{t('common.soc_2_type_ii_readiness')}</span>
+                <Badge className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700">{t('common.in_progress')}</Badge>
               </div>
-              <div className="text-2xl font-bold text-green-700">70%</div>
+              <div className="text-2xl font-bold text-green-700">{t('common.70')}</div>
               <Progress value={70} className="mt-2 h-2 bg-gray-200" />
-              <div className="text-xs text-gray-500 mt-2">Access controls: 80% • Encryption: 0% • Audit: 60%</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-2">{t('common.access_controls_80_encryption_0_audit_60')}</div>
             </div>
             <div className="bg-gradient-to-br from-green-50/50 to-emerald-50/50 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">Enterprise Data Handling</span>
-                <Badge className="bg-orange-100 text-orange-700">Critical</Badge>
+                <span className="text-sm font-medium text-gray-700">{t('common.enterprise_data_handling')}</span>
+                <Badge className="bg-orange-100 text-orange-700">{t('common.critical')}</Badge>
               </div>
-              <div className="text-2xl font-bold text-green-700">45%</div>
+              <div className="text-2xl font-bold text-green-700">{t('common.45')}</div>
               <Progress value={45} className="mt-2 h-2 bg-gray-200" />
-              <div className="text-xs text-gray-500 mt-2">Classification: 50% • Retention: 0% • GDPR: 65%</div>
+              <div className="text-xs text-gray-500 mt-2">{t('common.classification_50_retention_0_gdpr_65')}</div>
             </div>
             <div className="bg-gradient-to-br from-green-50/50 to-emerald-50/50 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">Security Monitoring</span>
-                <Badge className="bg-gray-100 text-gray-700">Planned</Badge>
+                <span className="text-sm font-medium text-gray-700">{t('common.security_monitoring')}</span>
+                <Badge className="bg-gray-100 dark:bg-gray-800 text-gray-700">{t('common.planned')}</Badge>
               </div>
-              <div className="text-2xl font-bold text-green-700">0%</div>
+              <div className="text-2xl font-bold text-green-700">{t('common.0')}</div>
               <Progress value={0} className="mt-2 h-2 bg-gray-200" />
-              <div className="text-xs text-gray-500 mt-2">IDS/IPS: 0% • Security Dashboard: 0%</div>
+              <div className="text-xs text-gray-500 mt-2">{t('common.idsips_0_security_dashboard_0')}</div>
             </div>
           </div>
         </div>
@@ -2218,8 +2218,8 @@ const AdminCenter = memo(() => {
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-800">{systemMetrics.uptime.toFixed(1)}%</div>
-            <div className="text-sm text-gray-600 mt-1">Server Uptime</div>
-            <div className="text-xs text-gray-500 mt-1">30-day average</div>
+            <div className="text-sm text-gray-600 mt-1">{t('common.server_uptime')}</div>
+            <div className="text-xs text-gray-500 mt-1">{t('common.30day_average')}</div>
           </div>
 
           <div className={`bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 ${systemHealthRefreshing ? 'animate-pulse' : ''}`}>
@@ -2228,9 +2228,9 @@ const AdminCenter = memo(() => {
                 <Gauge className="w-5 h-5 text-white" />
               </div>
             </div>
-            <div className="text-2xl font-bold text-gray-800">92%</div>
-            <div className="text-sm text-gray-600 mt-1">Performance Score</div>
-            <div className="text-xs text-gray-500 mt-1">Life CEO optimized</div>
+            <div className="text-2xl font-bold text-gray-800">{t('common.92')}</div>
+            <div className="text-sm text-gray-600 mt-1">{t('common.performance_score')}</div>
+            <div className="text-xs text-gray-500 mt-1">{t('common.life_ceo_optimized')}</div>
           </div>
 
           <div className={`bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 ${systemHealthRefreshing ? 'animate-pulse' : ''}`}>
@@ -2240,8 +2240,8 @@ const AdminCenter = memo(() => {
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-800">258</div>
-            <div className="text-sm text-gray-600 mt-1">DB Indexes</div>
-            <div className="text-xs text-gray-500 mt-1">Optimized queries</div>
+            <div className="text-sm text-gray-600 mt-1">{t('common.db_indexes')}</div>
+            <div className="text-xs text-gray-500 mt-1">{t('common.optimized_queries')}</div>
           </div>
 
           <div className={`bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 ${systemHealthRefreshing ? 'animate-pulse' : ''}`}>
@@ -2251,50 +2251,50 @@ const AdminCenter = memo(() => {
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-800">40</div>
-            <div className="text-sm text-gray-600 mt-1">RLS Tables</div>
-            <div className="text-xs text-gray-500 mt-1">Row-level security</div>
+            <div className="text-sm text-gray-600 mt-1">{t('common.rls_tables')}</div>
+            <div className="text-xs text-gray-500 mt-1">{t('common.rowlevel_security')}</div>
           </div>
         </div>
 
       {/* Service Status with MT Styling */}
-      <div className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-all">
-        <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent mb-4">Service Status</h3>
+      <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-white/50 dark:border-gray-700/50 hover:shadow-xl transition-all">
+        <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent mb-4">{t('common.service_status')}</h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between p-4 bg-gradient-to-br from-turquoise-50/70 to-cyan-50/70 rounded-xl backdrop-blur-sm border border-turquoise-200/50">
             <div className="flex items-center gap-3">
               <div className="p-1.5 bg-gradient-to-r from-turquoise-500 to-cyan-500 rounded-lg shadow-md">
                 <CheckCircle className="w-5 h-5 text-white" />
               </div>
-              <span className="font-medium text-turquoise-800">Web Application</span>
+              <span className="font-medium text-turquoise-800">{t('common.web_application')}</span>
             </div>
-            <span className="text-sm text-turquoise-600 font-semibold">Operational</span>
+            <span className="text-sm text-turquoise-600 font-semibold">{t('common.operational')}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-gradient-to-br from-turquoise-50/70 to-cyan-50/70 rounded-xl backdrop-blur-sm border border-turquoise-200/50">
             <div className="flex items-center gap-3">
               <div className="p-1.5 bg-gradient-to-r from-turquoise-500 to-cyan-500 rounded-lg shadow-md">
                 <CheckCircle className="w-5 h-5 text-white" />
               </div>
-              <span className="font-medium text-turquoise-800">Database</span>
+              <span className="font-medium text-turquoise-800">{t('common.database')}</span>
             </div>
-            <span className="text-sm text-turquoise-600 font-semibold">Operational</span>
+            <span className="text-sm text-turquoise-600 font-semibold">{t('common.operational')}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-gradient-to-br from-turquoise-50/70 to-cyan-50/70 rounded-xl backdrop-blur-sm border border-turquoise-200/50">
             <div className="flex items-center gap-3">
               <div className="p-1.5 bg-gradient-to-r from-turquoise-500 to-cyan-500 rounded-lg shadow-md">
                 <CheckCircle className="w-5 h-5 text-white" />
               </div>
-              <span className="font-medium text-turquoise-800">WebSocket Services</span>
+              <span className="font-medium text-turquoise-800">{t('common.websocket_services')}</span>
             </div>
-            <span className="text-sm text-turquoise-600 font-semibold">Operational</span>
+            <span className="text-sm text-turquoise-600 font-semibold">{t('common.operational')}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-gradient-to-br from-turquoise-50/70 to-cyan-50/70 rounded-xl backdrop-blur-sm border border-turquoise-200/50">
             <div className="flex items-center gap-3">
               <div className="p-1.5 bg-gradient-to-r from-turquoise-500 to-cyan-500 rounded-lg shadow-md">
                 <Wifi className="w-5 h-5 text-white" />
               </div>
-              <span className="font-medium text-turquoise-800">CDN</span>
+              <span className="font-medium text-turquoise-800">{t('common.cdn')}</span>
             </div>
-            <span className="text-sm text-turquoise-600 font-semibold">Operational</span>
+            <span className="text-sm text-turquoise-600 font-semibold">{t('common.operational')}</span>
           </div>
         </div>
       </div>
@@ -2434,17 +2434,17 @@ const AdminCenter = memo(() => {
   const renderReportsManagement = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">Reports Management</h2>
+        <h2 className="text-xl font-bold text-gray-800">{t('common.reports_management')}</h2>
         <div className="flex gap-3">
           <select
             value={reportsFilter}
             onChange={(e) => setReportsFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-turquoise-500"
           >
-            <option value="all">All Reports</option>
-            <option value="pending">Pending</option>
-            <option value="resolved">Resolved</option>
-            <option value="dismissed">Dismissed</option>
+            <option value="all">{t('common.all_reports')}</option>
+            <option value="pending">{t('common.pending')}</option>
+            <option value="resolved">{t('common.resolved')}</option>
+            <option value="dismissed">{t('common.dismissed')}</option>
           </select>
           <button 
             onClick={fetchReports}
@@ -2459,15 +2459,15 @@ const AdminCenter = memo(() => {
 
       {/* Reports List */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">User Reports</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.user_reports')}</h3>
         {reportsLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading reports...</div>
+          <div className="text-center py-8 text-gray-500">{t('common.loading_reports')}</div>
         ) : reportsData.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">No reports found</div>
+          <div className="text-center py-8 text-gray-500">{t('common.no_reports_found')}</div>
         ) : (
           <div className="space-y-4">
             {reportsData.map((report) => (
-              <div key={report.id} className="border border-gray-200 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
+              <div key={report.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-turquoise-200 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -2487,9 +2487,9 @@ const AdminCenter = memo(() => {
                         {report.status}
                       </span>
                     </div>
-                    <div className="text-gray-900 mb-2 font-medium">Report #{report.id}</div>
+                    <div className="text-gray-900 dark:text-gray-50 mb-2 font-medium">Report #{report.id}</div>
                     {report.description && (
-                      <div className="text-gray-600 mb-2">"{report.description}"</div>
+                      <div className="text-gray-600 dark:text-gray-300 mb-2">"{report.description}"</div>
                     )}
                     <div className="flex items-center gap-4 text-sm text-gray-600">
                       <span>Reported by: {report.reported_by_username || 'Anonymous'}</span>
@@ -2502,14 +2502,14 @@ const AdminCenter = memo(() => {
                       <>
                         <button
                           onClick={() => updateReportStatus(report.id, 'resolved')}
-                          className="p-2 bg-green-100 text-green-600 hover:bg-green-200 rounded-lg transition-all"
+                          className="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 hover:bg-green-200 rounded-lg transition-all"
                           title="Resolve"
                         >
                           <CheckCircle className="w-5 h-5" />
                         </button>
                         <button
                           onClick={() => updateReportStatus(report.id, 'dismissed')}
-                          className="p-2 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg transition-all"
+                          className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 rounded-lg transition-all"
                           title="Dismiss"
                         >
                           <Ban className="w-5 h-5" />
@@ -2526,15 +2526,15 @@ const AdminCenter = memo(() => {
 
       {/* Blocked Users Management */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Blocked Users</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.blocked_users')}</h3>
         {blockedUsers.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">No blocked users</div>
+          <div className="text-center py-8 text-gray-500">{t('common.no_blocked_users')}</div>
         ) : (
           <div className="space-y-3">
             {blockedUsers.map((user) => (
-              <div key={user.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+              <div key={user.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-xl hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
                     <Users className="w-5 h-5 text-gray-600" />
                   </div>
                   <div>
@@ -2544,7 +2544,7 @@ const AdminCenter = memo(() => {
                 </div>
                 <button
                   onClick={() => unblockUser(user.id)}
-                  className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                  className="px-4 py-2 bg-gradient-to-r from-green-500 dark:from-green-600 to-emerald-500 text-white dark:text-gray-900 rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5"
                 >
                   Unblock User
                 </button>
@@ -2559,7 +2559,7 @@ const AdminCenter = memo(() => {
   const renderSettings = () => (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-800">Platform Settings</h2>
+        <h2 className="text-xl font-bold text-gray-800">{t('common.platform_settings')}</h2>
         <button 
           onClick={fetchSettings}
           className="px-4 py-2 bg-gradient-to-r from-turquoise-600 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5"
@@ -2573,31 +2573,31 @@ const AdminCenter = memo(() => {
       {settingsLoading && !settingsData ? (
         <div className="animate-pulse space-y-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-40 bg-gray-200 rounded-2xl"></div>
+            <div key={i} className="h-40 bg-gray-200 dark:bg-gray-700 rounded-2xl"></div>
           ))}
         </div>
       ) : (
         <div className="grid gap-6">
           {/* General Settings */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">General Settings</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.general_settings')}</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-medium text-gray-800">Site Name</div>
-                  <div className="text-sm text-gray-600">The name of your platform</div>
+                  <div className="font-medium text-gray-800">{t('common.site_name')}</div>
+                  <div className="text-sm text-gray-600">{t('common.the_name_of_your_platform')}</div>
                 </div>
                 <input 
                   type="text" 
                   value={settingsData?.settings?.site_name || ''}
                   onChange={(e) => updateSetting('site_name', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
+                  className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
                 />
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-medium text-gray-800">Maintenance Mode</div>
-                  <div className="text-sm text-gray-600">Show maintenance page to users</div>
+                  <div className="font-medium text-gray-800">{t('common.maintenance_mode')}</div>
+                  <div className="text-sm text-gray-600">{t('common.show_maintenance_page_to_users')}</div>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input 
@@ -2606,7 +2606,7 @@ const AdminCenter = memo(() => {
                     checked={settingsData?.settings?.maintenance_mode || false}
                     onChange={(e) => updateSetting('maintenance_mode', e.target.checked)}
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-purple-500"></div>
+                  <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-purple-500"></div>
                 </label>
               </div>
             </div>
@@ -2614,12 +2614,12 @@ const AdminCenter = memo(() => {
 
           {/* Registration Settings */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Registration Settings</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.registration_settings')}</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-medium text-gray-800">Registration Enabled</div>
-                  <div className="text-sm text-gray-600">Allow new users to register</div>
+                  <div className="font-medium text-gray-800">{t('common.registration_enabled')}</div>
+                  <div className="text-sm text-gray-600">{t('common.allow_new_users_to_register')}</div>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input 
@@ -2628,7 +2628,7 @@ const AdminCenter = memo(() => {
                     checked={settingsData?.settings?.registration_enabled || false}
                     onChange={(e) => updateSetting('registration_enabled', e.target.checked)}
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-500"></div>
+                  <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-500"></div>
                 </label>
               </div>
             </div>
@@ -2636,7 +2636,7 @@ const AdminCenter = memo(() => {
 
           {/* Feature Flags */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Feature Flags</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('common.feature_flags')}</h3>
             <div className="space-y-4">
               {settingsData?.featureFlags?.map((flag: any) => (
                 <div key={flag.name} className="flex items-center justify-between">
@@ -2663,7 +2663,7 @@ const AdminCenter = memo(() => {
             <button 
               onClick={saveSettings}
               disabled={settingsSaving}
-              className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-gradient-to-r from-green-600 dark:from-green-500 to-emerald-600 text-white dark:text-gray-900 rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {settingsSaving ? 'Saving...' : 'Save Settings'}
             </button>
@@ -2676,34 +2676,34 @@ const AdminCenter = memo(() => {
   const renderRbacManager = () => (
     <div className="space-y-6">
       {/* RBAC/ABAC Header */}
-      <div className="bg-white rounded-xl p-6 border border-gray-200">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50 flex items-center gap-3">
               <Lock className="w-6 h-6 text-blue-600" />
               Automated RBAC/ABAC Management System
             </h2>
-            <p className="text-sm text-gray-600 mt-1">Centralized role-based and attribute-based access control with automated permission management</p>
+            <p className="text-sm text-gray-600 mt-1">{t('common.centralized_rolebased_and_attributebased_access_co')}</p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={fetchRbacAnalytics}
               disabled={rbacLoading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+              className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
             >
               <Database className="w-4 h-4" />
               {rbacLoading ? 'Loading...' : 'Refresh Analytics'}
             </button>
             <button
               onClick={triggerAutoAssignment}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+              className="px-4 py-2 bg-green-600 dark:bg-green-500 text-white dark:text-gray-900 rounded-lg hover:bg-green-700 flex items-center gap-2"
             >
               <Zap className="w-4 h-4" />
               Auto-Assign Roles
             </button>
             <button
               onClick={runComplianceAudit}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+              className="px-4 py-2 bg-purple-600 dark:bg-purple-500 text-white dark:text-gray-900 rounded-lg hover:bg-purple-700 flex items-center gap-2"
             >
               <Shield className="w-4 h-4" />
               Run Audit
@@ -2717,16 +2717,16 @@ const AdminCenter = memo(() => {
         <div className="lg:col-span-2 space-y-6">
           {/* Role Distribution */}
           <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
               <Users className="w-5 h-5 text-blue-600" />
               Role Distribution & Assignment
             </h3>
             {rbacData?.roleDistribution ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {Object.entries(rbacData.roleDistribution).map(([role, count]) => (
-                  <div key={role} className="bg-gray-50 rounded-lg p-4">
+                  <div key={role} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
                     <div className="text-2xl font-bold text-gray-900">{count as number}</div>
-                    <div className="text-sm text-gray-600 capitalize">{role.replace('_', ' ')}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300 capitalize">{role.replace('_', ' ')}</div>
                   </div>
                 ))}
               </div>
@@ -2739,56 +2739,56 @@ const AdminCenter = memo(() => {
 
           {/* Permission Testing Tool */}
           <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-4 flex items-center gap-2">
               <Shield className="w-5 h-5 text-green-600" />
               Permission Testing & Validation
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">User ID</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-200 dark:text-gray-200 dark:text-gray-200 mb-2">{t('common.user_id')}</label>
                 <input
                   type="number"
                   value={selectedUserId || ''}
                   onChange={(e) => setSelectedUserId(e.target.value ? parseInt(e.target.value) : null)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter user ID"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:border-gray-600 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder={t('common.inputs.enter_user_id')}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Resource</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-200 dark:text-gray-200 mb-2">{t('common.resource')}</label>
                 <select
                   value={permissionTest.resource}
                   onChange={(e) => setPermissionTest(prev => ({ ...prev, resource: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="">Select resource</option>
-                  <option value="posts">Posts</option>
-                  <option value="events">Events</option>
-                  <option value="users">Users</option>
-                  <option value="groups">Groups</option>
-                  <option value="admin">Admin Panel</option>
+                  <option value="">{t('common.select_resource')}</option>
+                  <option value="posts">{t('common.posts')}</option>
+                  <option value="events">{t('common.events')}</option>
+                  <option value="users">{t('common.users')}</option>
+                  <option value="groups">{t('common.groups')}</option>
+                  <option value="admin">{t('common.admin_panel')}</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Action</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('common.action')}</label>
                 <select
                   value={permissionTest.action}
                   onChange={(e) => setPermissionTest(prev => ({ ...prev, action: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="">Select action</option>
-                  <option value="create">Create</option>
-                  <option value="read">Read</option>
-                  <option value="update">Update</option>
-                  <option value="delete">Delete</option>
-                  <option value="moderate">Moderate</option>
+                  <option value="">{t('common.select_action')}</option>
+                  <option value="create">{t('common.create')}</option>
+                  <option value="read">{t('common.read')}</option>
+                  <option value="update">{t('common.update')}</option>
+                  <option value="delete">{t('common.delete')}</option>
+                  <option value="moderate">{t('common.moderate')}</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Test</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('common.test')}</label>
                 <button
                   onClick={testPermission}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                  className="w-full px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 disabled:opacity-50"
                   disabled={!selectedUserId || !permissionTest.resource || !permissionTest.action}
                 >
                   Test Permission
@@ -2814,10 +2814,10 @@ const AdminCenter = memo(() => {
                 <p className="text-sm text-gray-600 mt-1">{permissionTest.result.reason}</p>
                 {permissionTest.result.appliedPolicies?.length > 0 && (
                   <div className="mt-2">
-                    <span className="text-xs font-medium text-gray-500">Applied Policies:</span>
+                    <span className="text-xs font-medium text-gray-500">{t('common.applied_policies')}</span>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {permissionTest.result.appliedPolicies.map((policy: string, idx: number) => (
-                        <span key={idx} className="text-xs bg-gray-100 px-2 py-1 rounded">{policy}</span>
+                        <span key={idx} className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{policy}</span>
                       ))}
                     </div>
                   </div>
@@ -2838,20 +2838,20 @@ const AdminCenter = memo(() => {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Average Evaluation Time</span>
+                    <span className="text-gray-600">{t('common.average_evaluation_time')}</span>
                     <span className="font-medium">{rbacData.performance.avgEvaluationTime}ms</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                    <div className="bg-purple-500 h-2 rounded-full" style={{ width: `${Math.min(rbacData.performance.avgEvaluationTime / 10, 100)}%` }} />
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 rounded-full h-2 mt-1">
+                    <div className="bg-purple-500 dark:bg-purple-600 h-2 rounded-full" style={{ width: `${Math.min(rbacData.performance.avgEvaluationTime / 10, 100)}%` }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Cache Hit Rate</span>
+                    <span className="text-gray-600">{t('common.cache_hit_rate')}</span>
                     <span className="font-medium">{rbacData.performance.cacheHitRate}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                    <div className="bg-green-500 h-2 rounded-full" style={{ width: `${rbacData.performance.cacheHitRate}%` }} />
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+                    <div className="bg-green-500 dark:bg-green-600 h-2 rounded-full" style={{ width: `${rbacData.performance.cacheHitRate}%` }} />
                   </div>
                 </div>
               </div>
@@ -2871,7 +2871,7 @@ const AdminCenter = memo(() => {
             {rbacData?.securityEvents ? (
               <div className="space-y-3">
                 {rbacData.securityEvents.slice(0, 5).map((event: any, idx: number) => (
-                  <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div>
                       <div className="text-sm font-medium text-gray-900">{event.type}</div>
                       <div className="text-xs text-gray-500">{event.timestamp}</div>
@@ -2902,17 +2902,17 @@ const AdminCenter = memo(() => {
           Automated Assignment Rules
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <h4 className="font-medium text-blue-900 mb-2">Location-Based Assignment</h4>
-            <p className="text-sm text-blue-700">Users automatically assigned city-specific roles based on location data</p>
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200">
+            <h4 className="font-medium text-blue-900 mb-2">{t('common.locationbased_assignment')}</h4>
+            <p className="text-sm text-blue-700">{t('common.users_automatically_assigned_cityspecific_roles_ba')}</p>
           </div>
-          <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-            <h4 className="font-medium text-green-900 mb-2">Experience-Based Roles</h4>
-            <p className="text-sm text-green-700">Roles assigned based on user experience levels and specializations</p>
+          <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200">
+            <h4 className="font-medium text-green-900 mb-2">{t('common.experiencebased_roles')}</h4>
+            <p className="text-sm text-green-700">{t('common.roles_assigned_based_on_user_experience_levels_and')}</p>
           </div>
-          <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-            <h4 className="font-medium text-purple-900 mb-2">Activity-Based Promotion</h4>
-            <p className="text-sm text-purple-700">Users promoted to higher roles based on community contributions</p>
+          <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200">
+            <h4 className="font-medium text-purple-900 mb-2">{t('common.activitybased_promotion')}</h4>
+            <p className="text-sm text-purple-700">{t('common.users_promoted_to_higher_roles_based_on_community_')}</p>
           </div>
         </div>
       </div>
@@ -2969,7 +2969,7 @@ const AdminCenter = memo(() => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-blue-50 to-cyan-50 flex">
+    <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-blue-50 dark:via-blue-900/20 to-cyan-50 flex">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       
       <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : ''}`}>
@@ -2989,25 +2989,25 @@ const AdminCenter = memo(() => {
                     </svg>
                   </button>
                   
-                  <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl">
+                  <div className="p-2 sm:p-3 bg-white/20 dark:bg-gray-900/20 backdrop-blur-sm rounded-xl sm:rounded-2xl">
                     <Shield className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h1 className="text-lg sm:text-xl md:text-3xl font-bold text-white">Admin Center</h1>
-                    <p className="text-xs sm:text-sm text-white/80 hidden sm:block">Mundo Tango Platform</p>
+                    <h1 className="text-lg sm:text-xl md:text-3xl font-bold text-white">{t('common.admin_center')}</h1>
+                    <p className="text-xs sm:text-sm text-white/80 dark:text-gray-900/80 hidden sm:block">{t('common.mundo_tango_platform')}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3 justify-end w-full sm:w-auto">
                   {/* Mobile-Optimized Back Button */}
                   <button 
                     onClick={() => window.location.href = '/memories'}
-                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
+                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
                   >
-                    <ArrowLeft className="w-4 h-4 text-gray-700 group-hover:text-turquoise-600 transition-colors" />
-                    <span className="text-gray-700 font-medium text-sm sm:text-base">Back</span>
+                    <ArrowLeft className="w-4 h-4 text-gray-700 dark:text-gray-200 group-hover:text-turquoise-600 transition-colors" />
+                    <span className="text-gray-700 dark:text-gray-200 font-medium text-sm sm:text-base">{t('common.back')}</span>
                   </button>
                   
-                  <div className="px-3 sm:px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-400 text-white rounded-full text-xs sm:text-sm font-medium shadow-lg hidden sm:flex">
+                  <div className="px-3 sm:px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-400 text-white dark:text-gray-900 rounded-full text-xs sm:text-sm font-medium shadow-lg hidden sm:flex">
                     System Healthy
                   </div>
                 </div>
@@ -3016,12 +3016,12 @@ const AdminCenter = memo(() => {
           </div>
 
           {/* ESA Platform Audit - Enhanced Categorized Navigation */}
-          <div className="glassmorphic-card backdrop-blur-md bg-white/95 shadow-xl" data-testid="admin-nav">
+          <div className="glassmorphic-card backdrop-blur-md bg-white/95 dark:bg-gray-900/95 shadow-xl" data-testid="admin-nav">
             <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
               <div className="py-4 space-y-3">
                 {tabCategories.map((category, idx) => (
-                  <div key={idx} className="border-b border-gray-200 pb-3 last:border-0">
-                    <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">
+                  <div key={idx} className="border-b border-gray-200 dark:border-gray-700 pb-3 last:border-0">
+                    <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
                       {category.name}
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
@@ -3068,7 +3068,7 @@ const AdminCenter = memo(() => {
           <div className="flex-1 bg-gradient-to-br from-turquoise-50/30 via-cyan-50/30 to-blue-50/30 overflow-hidden">
             <div className="h-full overflow-y-auto">
               <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
-                <div className="glassmorphic-card backdrop-blur-xl bg-white/90 rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 border border-turquoise-100/50">
+                <div className="glassmorphic-card backdrop-blur-xl bg-white/90 dark:bg-gray-900/90 rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 border border-turquoise-100/50">
                   {renderContent()}
                 </div>
               </div>

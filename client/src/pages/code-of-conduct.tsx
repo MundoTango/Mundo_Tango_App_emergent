@@ -14,6 +14,7 @@ import { Heart, Shield, Users, Globe, CheckCircle, UserCheck, MessageSquare, Ale
 import { useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
+import { useTranslation } from 'react-i18next';
 
 const codeOfConductSchema = z.object({
   respectfulBehavior: z.boolean().refine(val => val === true, "You must agree to be respectful"),
@@ -76,33 +77,34 @@ export default function CodeOfConduct() {
   });
 
   const onSubmit = (data: CodeOfConductData) => {
+  const { t } = useTranslation();
     acceptCodeOfConductMutation.mutate(data);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 dark:via-blue-900/20 to-cyan-50 p-6">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
           <div className="relative inline-block">
             <Heart className="w-20 h-20 mx-auto text-pink-500 animate-pulse hover:scale-110 transition-transform duration-300" />
             <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-bounce flex items-center justify-center">
-              <span className="text-white text-xl">🌱</span>
+              <span className="text-white dark:text-gray-900 text-xl">🌱</span>
             </div>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 dark:via-purple-500 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent">
             Code of Conduct
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
             A space for connection, creativity, and mutual respect
           </p>
-          <p className="text-sm text-gray-500">Effective Date: June 27, 2025</p>
+          <p className="text-sm text-gray-500">{t('common.effective_date_june_27_2025')}</p>
         </div>
 
         {/* Introduction */}
-        <Card className="border-0 shadow-xl bg-gradient-to-r from-white via-blue-50 to-cyan-50">
+        <Card className="border-0 shadow-xl bg-gradient-to-r from-white dark:from-gray-900 via-blue-50 dark:via-blue-900/20 to-cyan-50">
           <CardContent className="p-8">
-            <p className="text-lg text-gray-700 leading-relaxed text-center">
+            <p className="text-lg text-gray-700 dark:text-gray-200 leading-relaxed text-center">
               Mundo Tango is a space for connection, creativity, and mutual respect. Everyone is here to enjoy, share, and grow — so we keep things simple and kind.
             </p>
           </CardContent>
@@ -113,17 +115,17 @@ export default function CodeOfConduct() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid gap-6 md:grid-cols-2">
               {/* Be Respectful */}
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-pink-50">
+              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white dark:from-gray-900 to-pink-50">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-pink-100 rounded-full group-hover:bg-pink-200 transition-colors">
                       <UserCheck className="w-6 h-6 text-pink-600" />
                     </div>
-                    <CardTitle className="text-xl text-pink-700">Be Respectful</CardTitle>
+                    <CardTitle className="text-xl text-pink-700">{t('common.be_respectful')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 leading-relaxed">
                     Treat others the way you'd like to be treated. Don't be rude, aggressive, or dismissive — in words, comments, or behavior.
                   </p>
                   <FormField
@@ -150,13 +152,13 @@ export default function CodeOfConduct() {
               </Card>
 
               {/* Keep It Friendly */}
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-blue-50">
+              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white dark:from-gray-900 to-blue-50">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-blue-100 rounded-full group-hover:bg-blue-200 transition-colors">
+                    <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full group-hover:bg-blue-200 transition-colors">
                       <Heart className="w-6 h-6 text-blue-600" />
                     </div>
-                    <CardTitle className="text-xl text-blue-700">Keep It Friendly</CardTitle>
+                    <CardTitle className="text-xl text-blue-700">{t('common.keep_it_friendly')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -187,13 +189,13 @@ export default function CodeOfConduct() {
               </Card>
 
               {/* Share With Consent */}
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-green-50">
+              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white dark:from-gray-900 to-green-50">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-green-100 rounded-full group-hover:bg-green-200 transition-colors">
+                    <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full group-hover:bg-green-200 transition-colors">
                       <Shield className="w-6 h-6 text-green-600" />
                     </div>
-                    <CardTitle className="text-xl text-green-700">Share With Consent</CardTitle>
+                    <CardTitle className="text-xl text-green-700">{t('common.share_with_consent')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -224,13 +226,13 @@ export default function CodeOfConduct() {
               </Card>
 
               {/* Don't Be Foul */}
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-purple-50">
+              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white dark:from-gray-900 to-purple-50">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-purple-100 rounded-full group-hover:bg-purple-200 transition-colors">
+                    <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-full group-hover:bg-purple-200 transition-colors">
                       <AlertTriangle className="w-6 h-6 text-purple-600" />
                     </div>
-                    <CardTitle className="text-xl text-purple-700">Don't Be Foul</CardTitle>
+                    <CardTitle className="text-xl text-purple-700">{t('common.dont_be_foul')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -261,13 +263,13 @@ export default function CodeOfConduct() {
               </Card>
 
               {/* Report Problems Gently */}
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-orange-50">
+              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white dark:from-gray-900 to-orange-50">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-orange-100 rounded-full group-hover:bg-orange-200 transition-colors">
                       <Flag className="w-6 h-6 text-orange-600" />
                     </div>
-                    <CardTitle className="text-xl text-orange-700">Report Problems Gently</CardTitle>
+                    <CardTitle className="text-xl text-orange-700">{t('common.report_problems_gently')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -298,13 +300,13 @@ export default function CodeOfConduct() {
               </Card>
 
               {/* Let's Build Something Good */}
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-cyan-50">
+              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white dark:from-gray-900 to-cyan-50">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-cyan-100 rounded-full group-hover:bg-cyan-200 transition-colors">
                       <Users className="w-6 h-6 text-cyan-600" />
                     </div>
-                    <CardTitle className="text-xl text-cyan-700">Let's Build Something Good</CardTitle>
+                    <CardTitle className="text-xl text-cyan-700">{t('common.lets_build_something_good')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -336,17 +338,17 @@ export default function CodeOfConduct() {
             </div>
 
             {/* Terms of Service Agreement */}
-            <Card className="mt-6 border-0 shadow-2xl bg-gradient-to-r from-white via-cyan-50 to-blue-50">
+            <Card className="mt-6 border-0 shadow-2xl bg-gradient-to-r from-white dark:from-gray-900 via-cyan-50 to-blue-50">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl text-gray-800">Final Agreement</CardTitle>
-                <p className="text-gray-600">Please confirm you agree to all our terms and policies</p>
+                <CardTitle className="text-2xl text-gray-800">{t('common.final_agreement')}</CardTitle>
+                <p className="text-gray-600">{t('common.please_confirm_you_agree_to_all_our_terms_and_poli')}</p>
               </CardHeader>
               <CardContent>
                 <FormField
                   control={form.control}
                   name="termsOfService"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 p-4 bg-gray-50/50">
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 dark:border-gray-600 p-4 bg-gray-50/50">
                       <FormControl>
                         <Checkbox
                           checked={field.value}
@@ -375,12 +377,12 @@ export default function CodeOfConduct() {
                 <Button
                   type="submit"
                   disabled={acceptCodeOfConductMutation.isPending}
-                  className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"
+                  className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 dark:via-blue-500 to-purple-600 dark:to-purple-500 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white dark:text-gray-900 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"
                 >
                   <span className="flex items-center justify-center gap-3">
                     {acceptCodeOfConductMutation.isPending ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-5 h-5 border-2 border-white dark:border-gray-700 border-t-transparent rounded-full animate-spin"></div>
                         Joining Community...
                       </>
                     ) : (
@@ -393,7 +395,7 @@ export default function CodeOfConduct() {
                   </span>
                 </Button>
               </div>
-              <p className="text-sm text-gray-500 mt-4">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
                 Welcome to the global tango family!
               </p>
             </div>
@@ -401,11 +403,11 @@ export default function CodeOfConduct() {
         </Form>
 
         {/* Contact Information */}
-        <Card className="border-0 shadow-lg bg-gradient-to-r from-gray-50 to-blue-50">
+        <Card className="border-0 shadow-lg bg-gradient-to-r from-gray-50 dark:from-gray-800 to-blue-50">
           <CardContent className="p-6 text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Questions or Concerns?</h3>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">{t('common.questions_or_concerns')}</h3>
             <p className="text-gray-600">
-              Contact us at <span className="font-medium text-blue-600">support@mundotango.life</span>
+              Contact us at <span className="font-medium text-blue-600">{t('common.supportmundotangolife')}</span>
             </p>
           </CardContent>
         </Card>

@@ -76,8 +76,8 @@ export class LearningCoordinator {
       const pattern = existingPatterns[0];
       await db.update(learningPatterns)
         .set({
-          timesApplied: pattern.timesApplied + 1,
-          discoveredBy: [...(pattern.discoveredBy || []), learning.agentId],
+          timesApplied: (pattern.timesApplied ?? 0) + 1,
+          discoveredBy: [...(pattern.discoveredBy || []), learning.agentId ?? ''],
         })
         .where(eq(learningPatterns.id, pattern.id));
     } else {
@@ -88,7 +88,7 @@ export class LearningCoordinator {
         patterns.push({
           problemSignature: learning.problem,
           solutionTemplate: learning.solution,
-          discoveredBy: [learning.agentId, ...similarLearnings.map(l => l.agentId)],
+          discoveredBy: [learning.agentId ?? '', ...similarLearnings.map(l => l.agentId ?? '')],
         });
       }
     }
@@ -142,7 +142,8 @@ export class LearningCoordinator {
     let value = 0.5;
 
     // High impact outcomes
-    if (learning.outcome?.impact === 'high') {
+    const outcome = learning.outcome as { impact?: string } | null;
+    if (outcome?.impact === 'high') {
       value += 0.3;
     }
 
@@ -152,7 +153,8 @@ export class LearningCoordinator {
     }
 
     // High confidence solutions
-    if (learning.confidence > 0.9) {
+    const confidence = learning.confidence ? Number(learning.confidence) : 0;
+    if (confidence > 0.9) {
       value += 0.1;
     }
 
@@ -163,12 +165,13 @@ export class LearningCoordinator {
    * Step 7: Distribute knowledge UP to Agent #0 (CEO)
    */
   private async distributeUp(learning: AgentLearning, strategicValue: number): Promise<void> {
+    const outcome = learning.outcome as { impact?: string } | null;
     console.log(`[Agent #80 → Agent #0] Strategic learning (value: ${strategicValue}):`, {
       from: learning.agentId,
       domain: learning.domain,
       insight: learning.problem,
       recommendation: learning.solution,
-      impact: learning.outcome?.impact,
+      impact: outcome?.impact,
     });
 
     // In production, this would send to Agent #0's queue/webhook
@@ -239,11 +242,12 @@ export class LearningCoordinator {
       .limit(1);
 
     if (learning[0]) {
-      const newReuseCount = learning[0].reuseCount + 1;
-      const currentSuccessRate = learning[0].successRate;
+      const newReuseCount = (learning[0].reuseCount ?? 0) + 1;
+      const currentSuccessRate = learning[0].successRate ?? 0.5;
+      const currentReuseCount = learning[0].reuseCount ?? 0;
       const newSuccessRate = success 
-        ? (currentSuccessRate * learning[0].reuseCount + 1) / newReuseCount
-        : (currentSuccessRate * learning[0].reuseCount) / newReuseCount;
+        ? (currentSuccessRate * currentReuseCount + 1) / newReuseCount
+        : (currentSuccessRate * currentReuseCount) / newReuseCount;
 
       await db.update(agentLearnings)
         .set({

@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
 
 interface PerformanceMetrics {
   cls: number[];
@@ -141,6 +142,7 @@ const PerformanceMonitor: React.FC = () => {
 
   // Get performance ratings
   const getCLSRating = (cls: number) => {
+  const { t } = useTranslation();
     if (cls <= 0.1) return { status: 'Good', color: 'text-green-600', bgColor: 'bg-green-100' };
     if (cls <= 0.25) return { status: 'Needs Improvement', color: 'text-yellow-600', bgColor: 'bg-yellow-100' };
     return { status: 'Poor', color: 'text-red-600', bgColor: 'bg-red-100' };
@@ -167,16 +169,16 @@ const PerformanceMonitor: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
             <Activity className="w-7 h-7 text-turquoise-600" />
             Performance Monitor
           </h2>
-          <p className="text-gray-600 mt-1">Real-time performance metrics and optimization tracking</p>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">{t('common.realtime_performance_metrics_and_optimization_trac')}</p>
         </div>
         <Button 
           onClick={runPerformanceTests}
           disabled={isRunningTests}
-          className="bg-gradient-to-r from-turquoise-600 to-blue-600 text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+          className="bg-gradient-to-r from-turquoise-600 to-blue-600 dark:to-blue-500 text-white dark:text-gray-900 hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
         >
           {isRunningTests ? (
             <>
@@ -194,7 +196,7 @@ const PerformanceMonitor: React.FC = () => {
 
       {/* Core Web Vitals */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-turquoise-600" />
           Core Web Vitals
         </h3>
@@ -207,13 +209,13 @@ const PerformanceMonitor: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-3xl font-bold text-gray-900 dark:text-gray-50 dark:text-gray-50 dark:text-gray-50 mb-2">
                 {avgLCP > 0 ? `${(avgLCP / 1000).toFixed(2)}s` : '--'}
               </div>
               <Badge className={`${lcpRating.bgColor} ${lcpRating.color} border-0`}>
                 {avgLCP > 0 ? lcpRating.status : 'Measuring...'}
               </Badge>
-              <div className="text-xs text-gray-500 mt-2">
+              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-2">
                 Target: &lt; 2.5s
               </div>
               <Progress 
@@ -281,9 +283,9 @@ const PerformanceMonitor: React.FC = () => {
             API Performance Tests
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-gradient-to-br from-turquoise-50 to-blue-50 border-turquoise-200">
+            <Card className="bg-gradient-to-br from-turquoise-50 to-blue-50 dark:to-blue-900/20 border-turquoise-200">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2">
+                <CardTitle className="text-base font-medium text-gray-700 dark:text-gray-200 dark:text-gray-200 dark:text-gray-200 dark:text-gray-200 flex items-center gap-2">
                   <Wifi className="w-4 h-4 text-turquoise-600" />
                   Single API Call
                 </CardTitle>
@@ -292,13 +294,13 @@ const PerformanceMonitor: React.FC = () => {
                 <div className="text-2xl font-bold text-gray-900">
                   {apiPerformance.singleCall.toFixed(2)}ms
                 </div>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-1">
                   /api/posts/feed endpoint
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
+            <Card className="bg-gradient-to-br from-blue-50 dark:from-blue-900/20 to-cyan-50 border-blue-200">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-blue-600" />
@@ -343,7 +345,7 @@ const PerformanceMonitor: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Frontend Optimizations */}
-          <Card className="border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+          <Card className="border-green-200 bg-gradient-to-br from-green-50 dark:from-green-900/20 to-emerald-50">
             <CardHeader>
               <CardTitle className="text-base font-medium text-gray-700">
                 Frontend Optimizations
@@ -352,31 +354,31 @@ const PerformanceMonitor: React.FC = () => {
             <CardContent>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">React Query caching (5min stale time)</span>
+                  <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-300 dark:text-green-300 dark:text-green-300 dark:text-green-300 dark:text-green-300 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">{t('common.react_query_caching_5min_stale_time')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Request batching</span>
+                  <span className="text-sm text-gray-700">{t('common.request_batching')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Image lazy loading</span>
+                  <span className="text-sm text-gray-700">{t('common.image_lazy_loading')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Smart prefetching</span>
+                  <span className="text-sm text-gray-700">{t('common.smart_prefetching')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">WebSocket optimization</span>
+                  <span className="text-sm text-gray-700">{t('common.websocket_optimization')}</span>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Backend Optimizations */}
-          <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <Card className="border-blue-200 bg-gradient-to-br from-blue-50 dark:from-blue-900/20 to-indigo-50">
             <CardHeader>
               <CardTitle className="text-base font-medium text-gray-700">
                 Backend Optimizations
@@ -385,24 +387,24 @@ const PerformanceMonitor: React.FC = () => {
             <CardContent>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Request batching</span>
+                  <CheckCircle className="w-4 h-4 text-blue-600 dark:text-blue-300 dark:text-blue-300 dark:text-blue-300 dark:text-blue-300 dark:text-blue-300 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">{t('common.request_batching')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Response compression</span>
+                  <span className="text-sm text-gray-700">{t('common.response_compression')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Database query optimization</span>
+                  <span className="text-sm text-gray-700">{t('common.database_query_optimization')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Redis caching layer</span>
+                  <span className="text-sm text-gray-700">{t('common.redis_caching_layer')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Connection pooling</span>
+                  <span className="text-sm text-gray-700">{t('common.connection_pooling')}</span>
                 </div>
               </div>
             </CardContent>

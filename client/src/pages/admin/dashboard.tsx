@@ -66,6 +66,7 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 // Dashboard data types
 interface DashboardStats {
@@ -154,6 +155,7 @@ export default function AdminDashboardPage() {
   ];
 
   const getActivityIcon = (type: string) => {
+  const { t } = useTranslation();
     const icons: Record<string, any> = {
       user: UserPlus,
       post: FileText,
@@ -191,7 +193,7 @@ export default function AdminDashboardPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Admin Dashboard
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Platform overview and real-time monitoring
             </p>
           </div>
@@ -231,14 +233,14 @@ export default function AdminDashboardPage() {
               <div className="flex items-center mt-2 text-sm">
                 {stats?.users?.growth > 0 ? (
                   <>
-                    <ArrowUp className="w-4 h-4 text-green-500 mr-1" />
+                    <ArrowUp className="w-4 h-4 text-green-500 dark:text-green-400 dark:text-green-400 mr-1" />
                     <span className="text-green-600">
                       +{stats.users.growth}% this month
                     </span>
                   </>
                 ) : (
                   <>
-                    <ArrowDown className="w-4 h-4 text-red-500 mr-1" />
+                    <ArrowDown className="w-4 h-4 text-red-500 dark:text-red-400 dark:text-red-400 mr-1" />
                     <span className="text-red-600">
                       {stats?.users?.growth}% this month
                     </span>
@@ -249,7 +251,7 @@ export default function AdminDashboardPage() {
                 value={stats?.users?.active / stats?.users?.total * 100 || 0} 
                 className="mt-2"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-1">
                 {stats?.users?.active?.toLocaleString() || '0'} active users
               </p>
             </CardContent>
@@ -288,13 +290,13 @@ export default function AdminDashboardPage() {
               </div>
               <div className="mt-2 space-y-1">
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500">ARR</span>
+                  <span className="text-gray-500">{t('common.arr')}</span>
                   <span className="font-medium">
                     ${stats?.revenue?.arr?.toLocaleString() || '0'}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500">Churn</span>
+                  <span className="text-gray-500">{t('common.churn')}</span>
                   <span className="font-medium text-orange-600">
                     {stats?.revenue?.churn || '0'}%
                   </span>
@@ -317,10 +319,10 @@ export default function AdminDashboardPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.content?.posts?.toLocaleString() || '0'}
               </div>
-              <div className="text-sm text-gray-500">posts today</div>
+              <div className="text-sm text-gray-500">{t('common.posts_today')}</div>
               <div className="grid grid-cols-3 gap-2 mt-3">
                 <div className="text-center">
-                  <MessageSquare className="w-4 h-4 text-gray-400 mx-auto" />
+                  <MessageSquare className="w-4 h-4 text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-500 mx-auto" />
                   <p className="text-xs font-medium mt-1">
                     {stats?.content?.comments || '0'}
                   </p>
@@ -355,22 +357,22 @@ export default function AdminDashboardPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.system?.uptime || '99.9'}%
               </div>
-              <div className="text-sm text-gray-500">uptime</div>
+              <div className="text-sm text-gray-500">{t('common.uptime')}</div>
               <div className="space-y-2 mt-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500">Response</span>
+                  <span className="text-gray-500">{t('common.response')}</span>
                   <Badge variant="outline" className="text-green-600">
                     {stats?.system?.responseTime || '45'}ms
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500">Errors</span>
+                  <span className="text-gray-500">{t('common.errors')}</span>
                   <Badge variant="outline" className="text-orange-600">
                     {stats?.system?.errorRate || '0.1'}%
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500">Queue</span>
+                  <span className="text-gray-500">{t('common.queue')}</span>
                   <Badge variant="outline">
                     {stats?.system?.queueSize || '0'}
                   </Badge>
@@ -386,8 +388,8 @@ export default function AdminDashboardPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>User Growth</CardTitle>
-                <Badge variant="outline">Last 6 months</Badge>
+                <CardTitle>{t('common.user_growth')}</CardTitle>
+                <Badge variant="outline">{t('common.last_6_months')}</Badge>
               </div>
             </CardHeader>
             <CardContent>
@@ -419,8 +421,8 @@ export default function AdminDashboardPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Revenue by Tier</CardTitle>
-                <Badge variant="outline">Current month</Badge>
+                <CardTitle>{t('common.revenue_by_tier')}</CardTitle>
+                <Badge variant="outline">{t('common.current_month')}</Badge>
               </div>
             </CardHeader>
             <CardContent>
@@ -453,7 +455,7 @@ export default function AdminDashboardPage() {
           <Card className="lg:col-span-2">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Real-time Activity</CardTitle>
+                <CardTitle>{t('common.realtime_activity')}</CardTitle>
                 <Badge className="bg-green-500">
                   <span className="animate-pulse mr-1">●</span>
                   Live
@@ -479,7 +481,7 @@ export default function AdminDashboardPage() {
                         <div className="flex items-center justify-between">
                           <p className="text-sm">
                             <span className="font-medium">{item.user}</span>
-                            <span className="text-gray-600 ml-1">{item.action}</span>
+                            <span className="text-gray-600 dark:text-gray-300 ml-1">{item.action}</span>
                           </p>
                           <span className="text-xs text-gray-400">
                             {format(new Date(item.timestamp), 'h:mm a')}
@@ -504,13 +506,13 @@ export default function AdminDashboardPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>ESA Agents</CardTitle>
+                <CardTitle>{t('common.esa_agents')}</CardTitle>
                 <Brain className="w-4 h-4 text-purple-500" />
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Active Agents</span>
+                <span className="text-sm text-gray-600">{t('common.active_agents')}</span>
                 <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500">
                   {stats?.agents?.active || 61}/61
                 </Badge>
@@ -518,7 +520,7 @@ export default function AdminDashboardPage() {
               
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Tasks Processed</span>
+                  <span className="text-gray-600">{t('common.tasks_processed')}</span>
                   <span className="font-medium">{stats?.agents?.tasks || '1,234'}</span>
                 </div>
                 <Progress value={85} className="h-2" />
@@ -526,7 +528,7 @@ export default function AdminDashboardPage() {
 
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Performance</span>
+                  <span className="text-gray-600">{t('common.performance')}</span>
                   <span className="font-medium text-green-600">
                     {stats?.agents?.performance || 95}%
                   </span>
@@ -540,7 +542,7 @@ export default function AdminDashboardPage() {
                     <div key={layer} className="flex items-center justify-between text-xs">
                       <span className="text-gray-500">{layer}</span>
                       <Badge variant="outline" className="text-xs">
-                        <CheckCircle className="w-3 h-3 text-green-500 mr-1" />
+                        <CheckCircle className="w-3 h-3 text-green-500 dark:text-green-400 mr-1" />
                         Active
                       </Badge>
                     </div>
@@ -562,25 +564,25 @@ export default function AdminDashboardPage() {
         {/* Quick Actions */}
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle>{t('common.quick_actions')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Button variant="outline" className="h-auto py-4 flex-col">
                 <Mail className="w-5 h-5 mb-2 text-teal-600" />
-                <span className="text-xs">Send Announcement</span>
+                <span className="text-xs">{t('common.send_announcement')}</span>
               </Button>
               <Button variant="outline" className="h-auto py-4 flex-col">
                 <Shield className="w-5 h-5 mb-2 text-cyan-600" />
-                <span className="text-xs">Moderation Queue</span>
+                <span className="text-xs">{t('common.moderation_queue')}</span>
               </Button>
               <Button variant="outline" className="h-auto py-4 flex-col">
                 <Database className="w-5 h-5 mb-2 text-purple-600" />
-                <span className="text-xs">Database Backup</span>
+                <span className="text-xs">{t('common.database_backup')}</span>
               </Button>
               <Button variant="outline" className="h-auto py-4 flex-col">
                 <BarChart3 className="w-5 h-5 mb-2 text-orange-600" />
-                <span className="text-xs">Export Reports</span>
+                <span className="text-xs">{t('common.export_reports')}</span>
               </Button>
             </div>
           </CardContent>

@@ -31,6 +31,7 @@ import {
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { toast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 // Agent icon mapping
 const AGENT_ICONS = {
@@ -167,6 +168,7 @@ export const LifeCEODashboard: React.FC = () => {
   });
 
   const handleSendMessage = () => {
+  const { t } = useTranslation();
     if (!message.trim()) return;
     
     chatMutation.mutate({
@@ -183,7 +185,7 @@ export const LifeCEODashboard: React.FC = () => {
   if (agentsLoading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="animate-pulse text-cyan-600">Loading Life CEO Agents...</div>
+        <div className="animate-pulse text-cyan-600">{t('common.loading_life_ceo_agents')}</div>
       </div>
     );
   }
@@ -198,9 +200,9 @@ export const LifeCEODashboard: React.FC = () => {
               <Brain className="h-6 w-6 text-cyan-600" />
               Life CEO Intelligence System
             </h2>
-            <p className="text-gray-600">16 AI Agents • Personalized Life Management • 56 Layer Framework</p>
+            <p className="text-gray-600">{t('common.16_ai_agents_personalized_life_management_56_layer')}</p>
           </div>
-          <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white border-0">
+          <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 border-0">
             ESA LIFE CEO 56x21
           </Badge>
         </div>
@@ -211,46 +213,46 @@ export const LifeCEODashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-cyan-700">Chat Interactions</CardTitle>
+              <CardTitle className="text-sm font-medium text-cyan-700">{t('common.chat_interactions')}</CardTitle>
               <MessageCircle className="h-4 w-4 text-cyan-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-cyan-600">
                 {metrics.chat_interaction?.count || 0}
               </div>
-              <p className="text-xs text-gray-600">Total conversations</p>
+              <p className="text-xs text-gray-600">{t('common.total_conversations')}</p>
             </CardContent>
           </Card>
 
           <Card className="border-teal-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-teal-700">Active Agents</CardTitle>
+              <CardTitle className="text-sm font-medium text-teal-700">{t('common.active_agents')}</CardTitle>
               <Bot className="h-4 w-4 text-teal-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-teal-600">
                 {agents?.length || 0}
               </div>
-              <p className="text-xs text-gray-600">Available for assistance</p>
+              <p className="text-xs text-gray-600">{t('common.available_for_assistance')}</p>
             </CardContent>
           </Card>
 
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-cyan-700">Recommendations</CardTitle>
+              <CardTitle className="text-sm font-medium text-cyan-700">{t('common.recommendations')}</CardTitle>
               <TrendingUp className="h-4 w-4 text-cyan-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-cyan-600">
                 {recommendations?.length || 0}
               </div>
-              <p className="text-xs text-gray-600">Pending actions</p>
+              <p className="text-xs text-gray-600">{t('common.pending_actions')}</p>
             </CardContent>
           </Card>
 
           <Card className="border-teal-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-teal-700">Success Rate</CardTitle>
+              <CardTitle className="text-sm font-medium text-teal-700">{t('common.success_rate')}</CardTitle>
               <Activity className="h-4 w-4 text-teal-500" />
             </CardHeader>
             <CardContent>
@@ -259,7 +261,7 @@ export const LifeCEODashboard: React.FC = () => {
                   `${(metrics.chat_interaction.average * 100).toFixed(0)}%` : 
                   'N/A'}
               </div>
-              <p className="text-xs text-gray-600">Response accuracy</p>
+              <p className="text-xs text-gray-600">{t('common.response_accuracy')}</p>
             </CardContent>
           </Card>
         </div>
@@ -271,7 +273,7 @@ export const LifeCEODashboard: React.FC = () => {
         <div className="lg:col-span-1">
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/10">
             <CardHeader>
-              <CardTitle className="text-cyan-700">Life CEO Agents</CardTitle>
+              <CardTitle className="text-cyan-700">{t('common.life_ceo_agents')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[600px]">
@@ -297,7 +299,7 @@ export const LifeCEODashboard: React.FC = () => {
                             </div>
                             <div className="flex-1">
                               <h4 className="font-semibold text-sm">{agent.name}</h4>
-                              <p className="text-xs text-gray-600 mt-1">{agent.description}</p>
+                              <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{agent.description}</p>
                               <div className="flex flex-wrap gap-1 mt-2">
                                 {agent.capabilities.slice(0, 2).map(cap => (
                                   <Badge 
@@ -335,10 +337,10 @@ export const LifeCEODashboard: React.FC = () => {
               {/* Chat Messages */}
               <ScrollArea className="flex-1 mb-4 p-4 rounded-lg bg-white/50">
                 {chatHistory.length === 0 ? (
-                  <div className="text-center text-gray-500 py-8">
+                  <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                     <MessageCircle className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                    <p>Start a conversation with any Life CEO agent</p>
-                    <p className="text-sm mt-2">They're here to help you optimize every aspect of your life</p>
+                    <p>{t('common.start_a_conversation_with_any_life_ceo_agent')}</p>
+                    <p className="text-sm mt-2">{t('common.theyre_here_to_help_you_optimize_every_aspect_of_y')}</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -373,17 +375,17 @@ export const LifeCEODashboard: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                  placeholder="Ask anything... I'm here to help optimize your life"
+                  placeholder={t('common.inputs.ask_anything_i')}m here to help optimize your life"
                   className="flex-1 border-cyan-300 focus:border-cyan-500"
                   disabled={chatMutation.isPending}
                 />
                 <Button
                   onClick={handleSendMessage}
                   disabled={!message.trim() || chatMutation.isPending}
-                  className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0"
+                  className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white dark:text-gray-900 border-0"
                 >
                   {chatMutation.isPending ? (
-                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                    <div className="animate-spin h-4 w-4 border-2 border-white dark:border-gray-700 border-t-transparent rounded-full" />
                   ) : (
                     <Send className="h-4 w-4" />
                   )}
@@ -398,7 +400,7 @@ export const LifeCEODashboard: React.FC = () => {
       {recommendations && recommendations.length > 0 && (
         <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/10">
           <CardHeader>
-            <CardTitle className="text-cyan-700">Personalized Recommendations</CardTitle>
+            <CardTitle className="text-cyan-700">{t('common.personalized_recommendations')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -409,8 +411,8 @@ export const LifeCEODashboard: React.FC = () => {
                     <p className="text-sm font-medium mb-1">{rec.item.title || 'Recommendation'}</p>
                     <p className="text-xs text-gray-600">{rec.reasoning}</p>
                     <div className="flex gap-2 mt-3">
-                      <Button size="sm" variant="outline" className="text-xs">Accept</Button>
-                      <Button size="sm" variant="ghost" className="text-xs">Dismiss</Button>
+                      <Button size="sm" variant="outline" className="text-xs">{t('common.accept')}</Button>
+                      <Button size="sm" variant="ghost" className="text-xs">{t('common.dismiss')}</Button>
                     </div>
                   </CardContent>
                 </Card>

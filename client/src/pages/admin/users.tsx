@@ -79,6 +79,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 interface User {
   id: number;
@@ -196,6 +197,7 @@ export default function AdminUsersPage() {
   });
 
   const handleSelectAll = (checked: boolean) => {
+  const { t } = useTranslation();
     if (checked) {
       setSelectedUsers(usersData?.users?.map((u: User) => u.id) || []);
     } else {
@@ -236,15 +238,15 @@ export default function AdminUsersPage() {
 
   const getStatusBadge = (user: User) => {
     if (user.suspended) {
-      return <Badge variant="destructive">Suspended</Badge>;
+      return <Badge variant="destructive">{t('common.suspended')}</Badge>;
     }
     if (!user.isActive) {
-      return <Badge variant="secondary">Inactive</Badge>;
+      return <Badge variant="secondary">{t('common.inactive')}</Badge>;
     }
     if (user.isVerified) {
-      return <Badge className="bg-green-500">Verified</Badge>;
+      return <Badge className="bg-green-500">{t('common.verified')}</Badge>;
     }
-    return <Badge variant="outline">Pending</Badge>;
+    return <Badge variant="outline">{t('common.pending')}</Badge>;
   };
 
   const getSubscriptionBadge = (tier?: string, status?: string) => {
@@ -275,7 +277,7 @@ export default function AdminUsersPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               User Management
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Manage platform users, roles, and permissions
             </p>
           </div>
@@ -312,7 +314,7 @@ export default function AdminUsersPage() {
                 {stats?.total?.toLocaleString() || 0}
               </div>
               <div className="flex items-center mt-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
+                <TrendingUp className="w-4 h-4 text-green-500 dark:text-green-400 mr-1" />
                 <span className="text-green-600">+{stats?.newThisMonth || 0} this month</span>
               </div>
             </CardContent>
@@ -331,7 +333,7 @@ export default function AdminUsersPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.active?.toLocaleString() || 0}
               </div>
-              <div className="text-sm text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-2">
                 {((stats?.active / stats?.total) * 100).toFixed(1)}% of total
               </div>
             </CardContent>
@@ -369,7 +371,7 @@ export default function AdminUsersPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stats?.suspended || 0}
               </div>
-              <div className="text-sm text-red-600 mt-2">
+              <div className="text-sm text-red-600 dark:text-red-300 mt-2">
                 {stats?.suspended > 0 ? 'Requires review' : 'No issues'}
               </div>
             </CardContent>
@@ -382,11 +384,11 @@ export default function AdminUsersPage() {
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4" />
                   <Input
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search by name, email, or username..."
+                    placeholder={t('common.inputs.search_by_name_email_or_username')}
                     className="pl-10"
                     data-testid="admin-user-search"
                   />
@@ -396,42 +398,42 @@ export default function AdminUsersPage() {
               <div className="flex gap-3">
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
                   <SelectTrigger className="w-40" data-testid="filter-status">
-                    <SelectValue placeholder="Status" />
+                    <SelectValue placeholder={t('common.inputs.status')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="verified">Verified</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="suspended">Suspended</SelectItem>
+                    <SelectItem value="all">{t('common.all_status')}</SelectItem>
+                    <SelectItem value="active">{t('common.active')}</SelectItem>
+                    <SelectItem value="verified">{t('common.verified')}</SelectItem>
+                    <SelectItem value="pending">{t('common.pending')}</SelectItem>
+                    <SelectItem value="suspended">{t('common.suspended')}</SelectItem>
                   </SelectContent>
                 </Select>
 
                 <Select value={filterRole} onValueChange={setFilterRole}>
                   <SelectTrigger className="w-40" data-testid="filter-role">
-                    <SelectValue placeholder="Role" />
+                    <SelectValue placeholder={t('common.inputs.role')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Roles</SelectItem>
-                    <SelectItem value="user">User</SelectItem>
-                    <SelectItem value="organizer">Organizer</SelectItem>
-                    <SelectItem value="teacher">Teacher</SelectItem>
-                    <SelectItem value="moderator">Moderator</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="all">{t('common.all_roles')}</SelectItem>
+                    <SelectItem value="user">{t('common.user')}</SelectItem>
+                    <SelectItem value="organizer">{t('common.organizer')}</SelectItem>
+                    <SelectItem value="teacher">{t('common.teacher')}</SelectItem>
+                    <SelectItem value="moderator">{t('common.moderator')}</SelectItem>
+                    <SelectItem value="admin">{t('common.admin')}</SelectItem>
                   </SelectContent>
                 </Select>
 
                 <Select value={filterSubscription} onValueChange={setFilterSubscription}>
                   <SelectTrigger className="w-40" data-testid="filter-subscription">
-                    <SelectValue placeholder="Subscription" />
+                    <SelectValue placeholder={t('common.inputs.subscription')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Tiers</SelectItem>
-                    <SelectItem value="free">Free</SelectItem>
-                    <SelectItem value="basic">Basic</SelectItem>
-                    <SelectItem value="enthusiast">Enthusiast</SelectItem>
-                    <SelectItem value="professional">Professional</SelectItem>
-                    <SelectItem value="enterprise">Enterprise</SelectItem>
+                    <SelectItem value="all">{t('common.all_tiers')}</SelectItem>
+                    <SelectItem value="free">{t('common.free')}</SelectItem>
+                    <SelectItem value="basic">{t('common.basic')}</SelectItem>
+                    <SelectItem value="enthusiast">{t('common.enthusiast')}</SelectItem>
+                    <SelectItem value="professional">{t('common.professional')}</SelectItem>
+                    <SelectItem value="enterprise">{t('common.enterprise')}</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -474,7 +476,7 @@ export default function AdminUsersPage() {
                       size="sm"
                       variant="outline"
                       onClick={() => handleBulkAction('delete')}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 dark:text-red-300 hover:text-red-700"
                     >
                       <Trash className="w-4 h-4 mr-1" />
                       Delete
@@ -510,14 +512,14 @@ export default function AdminUsersPage() {
                         />
                       </TableHead>
                     )}
-                    <TableHead>User</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Subscription</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Joined</TableHead>
-                    <TableHead>Last Active</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead>{t('common.user')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('common.role')}</TableHead>
+                    <TableHead>{t('common.subscription')}</TableHead>
+                    <TableHead>{t('common.location')}</TableHead>
+                    <TableHead>{t('common.joined')}</TableHead>
+                    <TableHead>{t('common.last_active')}</TableHead>
+                    <TableHead className="text-right">{t('common.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -593,7 +595,7 @@ export default function AdminUsersPage() {
                               {format(new Date(user.lastLoginAt), 'MMM d, h:mm a')}
                             </div>
                           ) : (
-                            <span className="text-gray-400">Never</span>
+                            <span className="text-gray-400">{t('common.never')}</span>
                           )}
                         </TableCell>
                         <TableCell className="text-right">
@@ -608,7 +610,7 @@ export default function AdminUsersPage() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuLabel>{t('common.actions')}</DropdownMenuLabel>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem onClick={() => setSelectedUser(user)}>
                                 <Eye className="w-4 h-4 mr-2" />

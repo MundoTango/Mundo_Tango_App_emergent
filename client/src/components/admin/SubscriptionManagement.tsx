@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 // Define subscription tiers
 const SUBSCRIPTION_TIERS = {
@@ -56,6 +57,7 @@ const SubscriptionManagement: React.FC = () => {
   });
 
   const handleTierToggle = (flagKey: string, tier: string, isEnabled: boolean) => {
+  const { t } = useTranslation();
     setFeatureMappings(prev => {
       const mapping = prev.find(m => m.flag === flagKey);
       if (!mapping) return prev;
@@ -94,15 +96,15 @@ const SubscriptionManagement: React.FC = () => {
     <div className="space-y-6">
       <Tabs defaultValue="features" className="w-full">
         <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto">
-          <TabsTrigger value="features">Feature Mapping</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="activity">Activity</TabsTrigger>
+          <TabsTrigger value="features">{t('common.feature_mapping')}</TabsTrigger>
+          <TabsTrigger value="analytics">{t('common.analytics')}</TabsTrigger>
+          <TabsTrigger value="activity">{t('common.activity')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="features" className="space-y-4">
           {/* Header with Edit/Save button */}
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800">Feature Flag → Subscription Tier Mapping</h3>
+            <h3 className="text-xl font-semibold text-gray-800">{t('common.feature_flag_subscription_tier_mapping')}</h3>
             <Button
               onClick={() => editMode ? saveChanges() : setEditMode(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
@@ -141,12 +143,12 @@ const SubscriptionManagement: React.FC = () => {
                 <table className="w-full">
                   <thead className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-b">
                     <tr>
-                      <th className="text-left p-4 font-semibold">Feature Flag</th>
-                      <th className="text-center p-4">Free</th>
-                      <th className="text-center p-4">Basic</th>
-                      <th className="text-center p-4">Enthusiast</th>
-                      <th className="text-center p-4">Professional</th>
-                      <th className="text-center p-4">Enterprise</th>
+                      <th className="text-left p-4 font-semibold">{t('common.feature_flag')}</th>
+                      <th className="text-center p-4">{t('common.free')}</th>
+                      <th className="text-center p-4">{t('common.basic')}</th>
+                      <th className="text-center p-4">{t('common.enthusiast')}</th>
+                      <th className="text-center p-4">{t('common.professional')}</th>
+                      <th className="text-center p-4">{t('common.enterprise')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -193,13 +195,13 @@ const SubscriptionManagement: React.FC = () => {
             {/* Subscription Metrics Cards */}
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">Total Subscribers</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">{t('common.total_subscribers')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.totalSubscribers || 0}
                 </div>
-                <div className="text-sm text-gray-500 mt-1">
+                <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 mt-1">
                   <TrendingUp className="w-4 h-4 inline text-green-500" /> +12% this month
                 </div>
               </CardContent>
@@ -207,7 +209,7 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">Monthly Revenue</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">{t('common.monthly_revenue')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900">
@@ -221,7 +223,7 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">Conversion Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">{t('common.conversion_rate')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900">
@@ -235,7 +237,7 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">Churn Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">{t('common.churn_rate')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900">
@@ -251,7 +253,7 @@ const SubscriptionManagement: React.FC = () => {
           {/* Tier Distribution */}
           <Card className="glassmorphic-card">
             <CardHeader>
-              <CardTitle>Subscriber Distribution by Tier</CardTitle>
+              <CardTitle>{t('common.subscriber_distribution_by_tier')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -282,7 +284,7 @@ const SubscriptionManagement: React.FC = () => {
         <TabsContent value="activity" className="space-y-4">
           <Card className="glassmorphic-card">
             <CardHeader>
-              <CardTitle>Recent Subscription Activity</CardTitle>
+              <CardTitle>{t('common.recent_subscription_activity')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -302,11 +304,11 @@ const SubscriptionManagement: React.FC = () => {
                         {activity.type === 'cancel' && 'Cancelled subscription'}
                         {activity.type === 'new' && `Started ${activity.tier} subscription`}
                       </div>
-                      <div className="text-xs text-gray-400 mt-1">{activity.timestamp}</div>
+                      <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">{activity.timestamp}</div>
                     </div>
                   </div>
                 )) || (
-                  <div className="text-center text-gray-500 py-8">
+                  <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                     <Activity className="w-12 h-12 mx-auto mb-2 text-gray-300" />
                     No recent activity
                   </div>

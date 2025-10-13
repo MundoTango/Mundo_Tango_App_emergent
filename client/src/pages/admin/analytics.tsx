@@ -68,6 +68,7 @@ import {
 } from 'lucide-react';
 import { format, subDays, startOfMonth, endOfMonth } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 interface AnalyticsData {
   userMetrics: {
@@ -204,16 +205,16 @@ export default function AdminAnalyticsPage() {
           <div className="flex items-center mt-2 text-sm">
             {change > 0 ? (
               <>
-                <ArrowUp className="w-4 h-4 text-green-500 mr-1" />
+                <ArrowUp className="w-4 h-4 text-green-500 dark:text-green-400 mr-1" />
                 <span className="text-green-600">+{change}%</span>
               </>
             ) : (
               <>
-                <ArrowDown className="w-4 h-4 text-red-500 mr-1" />
+                <ArrowDown className="w-4 h-4 text-red-500 dark:text-red-400 mr-1" />
                 <span className="text-red-600">{change}%</span>
               </>
             )}
-            <span className="text-gray-500 ml-1">vs last period</span>
+            <span className="text-gray-500 dark:text-gray-400 ml-1">{t('common.vs_last_period')}</span>
           </div>
         )}
       </CardContent>
@@ -229,7 +230,7 @@ export default function AdminAnalyticsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Analytics Dashboard
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Comprehensive platform insights and metrics
             </p>
           </div>
@@ -237,14 +238,14 @@ export default function AdminAnalyticsPage() {
           <div className="flex items-center gap-3">
             <Select value={dateRange} onValueChange={setDateRange}>
               <SelectTrigger className="w-40" data-testid="date-range-selector">
-                <SelectValue placeholder="Select range" />
+                <SelectValue placeholder={t('common.inputs.select_range')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="24h">Last 24 hours</SelectItem>
-                <SelectItem value="7d">Last 7 days</SelectItem>
-                <SelectItem value="30d">Last 30 days</SelectItem>
-                <SelectItem value="90d">Last 90 days</SelectItem>
-                <SelectItem value="1y">Last year</SelectItem>
+                <SelectItem value="24h">{t('common.last_24_hours')}</SelectItem>
+                <SelectItem value="7d">{t('common.last_7_days')}</SelectItem>
+                <SelectItem value="30d">{t('common.last_30_days')}</SelectItem>
+                <SelectItem value="90d">{t('common.last_90_days')}</SelectItem>
+                <SelectItem value="1y">{t('common.last_year')}</SelectItem>
               </SelectContent>
             </Select>
             
@@ -295,11 +296,11 @@ export default function AdminAnalyticsPage() {
         {/* Analytics Tabs */}
         <Tabs defaultValue="users" className="space-y-4">
           <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="users">Users</TabsTrigger>
-            <TabsTrigger value="engagement">Engagement</TabsTrigger>
-            <TabsTrigger value="content">Content</TabsTrigger>
-            <TabsTrigger value="revenue">Revenue</TabsTrigger>
-            <TabsTrigger value="demographics">Demographics</TabsTrigger>
+            <TabsTrigger value="users">{t('common.users')}</TabsTrigger>
+            <TabsTrigger value="engagement">{t('common.engagement')}</TabsTrigger>
+            <TabsTrigger value="content">{t('common.content')}</TabsTrigger>
+            <TabsTrigger value="revenue">{t('common.revenue')}</TabsTrigger>
+            <TabsTrigger value="demographics">{t('common.demographics')}</TabsTrigger>
           </TabsList>
 
           {/* Users Tab */}
@@ -308,7 +309,7 @@ export default function AdminAnalyticsPage() {
               {/* User Growth Chart */}
               <Card>
                 <CardHeader>
-                  <CardTitle>User Growth Trend</CardTitle>
+                  <CardTitle>{t('common.user_growth_trend')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -338,7 +339,7 @@ export default function AdminAnalyticsPage() {
               {/* User Retention */}
               <Card>
                 <CardHeader>
-                  <CardTitle>User Retention Cohort</CardTitle>
+                  <CardTitle>{t('common.user_retention_cohort')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -350,7 +351,7 @@ export default function AdminAnalyticsPage() {
                             <span className="text-gray-600">{week}</span>
                             <span className="font-medium">{retention}%</span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 dark:bg-gray-700 rounded-full h-2">
                             <div 
                               className="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full"
                               style={{ width: `${retention}%` }}
@@ -363,12 +364,12 @@ export default function AdminAnalyticsPage() {
                   
                   <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t">
                     <div>
-                      <p className="text-sm text-gray-600">Avg. Retention</p>
-                      <p className="text-xl font-bold text-teal-600">62.5%</p>
+                      <p className="text-sm text-gray-600">{t('common.avg_retention')}</p>
+                      <p className="text-xl font-bold text-teal-600">{t('common.625')}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Churn Rate</p>
-                      <p className="text-xl font-bold text-red-600">37.5%</p>
+                      <p className="text-sm text-gray-600">{t('common.churn_rate')}</p>
+                      <p className="text-xl font-bold text-red-600">{t('common.375')}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -382,7 +383,7 @@ export default function AdminAnalyticsPage() {
               {/* Engagement Radar */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Engagement Metrics</CardTitle>
+                  <CardTitle>{t('common.engagement_metrics')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -400,20 +401,20 @@ export default function AdminAnalyticsPage() {
               {/* Session Analytics */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Session Analytics</CardTitle>
+                  <CardTitle>{t('common.session_analytics')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-600">Avg. Session Duration</p>
-                      <p className="text-2xl font-bold">5m 32s</p>
+                      <p className="text-sm text-gray-600">{t('common.avg_session_duration')}</p>
+                      <p className="text-2xl font-bold">{t('common.5m_32s')}</p>
                       <Badge variant="outline" className="text-green-600">
                         <TrendingUp className="w-3 h-3 mr-1" />
                         +12%
                       </Badge>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-600">Pages per Session</p>
+                      <p className="text-sm text-gray-600">{t('common.pages_per_session')}</p>
                       <p className="text-2xl font-bold">4.2</p>
                       <Badge variant="outline" className="text-green-600">
                         <TrendingUp className="w-3 h-3 mr-1" />
@@ -423,23 +424,23 @@ export default function AdminAnalyticsPage() {
                   </div>
                   
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-600 mb-3">Active Users</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{t('common.active_users')}</p>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Daily (DAU)</span>
+                        <span className="text-sm">{t('common.daily_dau')}</span>
                         <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500">
                           {analytics?.engagementMetrics?.dailyActiveUsers?.toLocaleString() || '1,234'}
                         </Badge>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Weekly (WAU)</span>
+                        <span className="text-sm">{t('common.weekly_wau')}</span>
                         <Badge className="bg-gradient-to-r from-cyan-500 to-blue-500">
                           {analytics?.engagementMetrics?.weeklyActiveUsers?.toLocaleString() || '5,678'}
                         </Badge>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Monthly (MAU)</span>
-                        <Badge className="bg-gradient-to-r from-blue-500 to-purple-500">
+                        <span className="text-sm">{t('common.monthly_mau')}</span>
+                        <Badge className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-500">
                           {analytics?.engagementMetrics?.monthlyActiveUsers?.toLocaleString() || '12,345'}
                         </Badge>
                       </div>
@@ -456,7 +457,7 @@ export default function AdminAnalyticsPage() {
               {/* Content Types */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Content Distribution</CardTitle>
+                  <CardTitle>{t('common.content_distribution')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={250}>
@@ -489,7 +490,7 @@ export default function AdminAnalyticsPage() {
               {/* Top Hashtags */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Trending Hashtags</CardTitle>
+                  <CardTitle>{t('common.trending_hashtags')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -511,30 +512,30 @@ export default function AdminAnalyticsPage() {
               {/* Content Metrics */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Engagement Metrics</CardTitle>
+                  <CardTitle>{t('common.engagement_metrics')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Avg. Likes per Post</span>
+                      <span className="text-sm text-gray-600">{t('common.avg_likes_per_post')}</span>
                       <span className="font-bold">24.5</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Avg. Comments per Post</span>
+                      <span className="text-sm text-gray-600">{t('common.avg_comments_per_post')}</span>
                       <span className="font-bold">8.3</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Avg. Shares per Post</span>
+                      <span className="text-sm text-gray-600">{t('common.avg_shares_per_post')}</span>
                       <span className="font-bold">3.7</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Posts per User</span>
+                      <span className="text-sm text-gray-600">{t('common.posts_per_user')}</span>
                       <span className="font-bold">2.1</span>
                     </div>
                   </div>
                   
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-600 mb-2">Top Performing Post</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{t('common.top_performing_post')}</p>
                     <div className="p-3 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg">
                       <p className="text-sm font-medium text-teal-700">
                         "First milonga after lockdown..."
@@ -563,7 +564,7 @@ export default function AdminAnalyticsPage() {
               {/* Revenue Growth */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Revenue Growth</CardTitle>
+                  <CardTitle>{t('common.revenue_growth')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -584,7 +585,7 @@ export default function AdminAnalyticsPage() {
               {/* Subscription Breakdown */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Subscription Tiers</CardTitle>
+                  <CardTitle>{t('common.subscription_tiers')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -623,10 +624,10 @@ export default function AdminAnalyticsPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600">MRR</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">{t('common.mrr')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$21,800</p>
+                  <p className="text-2xl font-bold">{t('common.21800')}</p>
                   <Badge variant="outline" className="mt-2 text-green-600">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +15.3%
@@ -636,10 +637,10 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600">ARR</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">{t('common.arr')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$261,600</p>
+                  <p className="text-2xl font-bold">{t('common.261600')}</p>
                   <Badge variant="outline" className="mt-2 text-green-600">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +18.7%
@@ -649,10 +650,10 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600">ARPU</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">{t('common.arpu')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$19.82</p>
+                  <p className="text-2xl font-bold">{t('common.1982')}</p>
                   <Badge variant="outline" className="mt-2 text-orange-600">
                     <TrendingDown className="w-3 h-3 mr-1" />
                     -2.1%
@@ -662,10 +663,10 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600">LTV</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">{t('common.ltv')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$237.84</p>
+                  <p className="text-2xl font-bold">{t('common.23784')}</p>
                   <Badge variant="outline" className="mt-2 text-green-600">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +5.6%
@@ -681,7 +682,7 @@ export default function AdminAnalyticsPage() {
               {/* Geographic Distribution */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Top Countries</CardTitle>
+                  <CardTitle>{t('common.top_countries')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -699,7 +700,7 @@ export default function AdminAnalyticsPage() {
               {/* Device Distribution */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Device Usage</CardTitle>
+                  <CardTitle>{t('common.device_usage')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -730,14 +731,14 @@ export default function AdminAnalyticsPage() {
               {/* Age Distribution */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">Age Groups</CardTitle>
+                  <CardTitle className="text-base">{t('common.age_groups')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {['18-24', '25-34', '35-44', '45-54', '55+'].map((age, idx) => (
                     <div key={age} className="flex items-center justify-between text-sm">
                       <span className="text-gray-600">{age}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                           <div 
                             className="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full"
                             style={{ width: `${80 - idx * 15}%` }}
@@ -755,7 +756,7 @@ export default function AdminAnalyticsPage() {
               {/* Language Distribution */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">Languages</CardTitle>
+                  <CardTitle className="text-base">{t('common.languages')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {[
@@ -776,21 +777,21 @@ export default function AdminAnalyticsPage() {
               {/* Gender Distribution */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">Gender</CardTitle>
+                  <CardTitle className="text-base">{t('common.gender')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Female</span>
-                      <span className="font-bold">52%</span>
+                      <span className="text-sm text-gray-600">{t('common.female')}</span>
+                      <span className="font-bold">{t('common.52')}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Male</span>
-                      <span className="font-bold">46%</span>
+                      <span className="text-sm text-gray-600">{t('common.male')}</span>
+                      <span className="font-bold">{t('common.46')}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Other</span>
-                      <span className="font-bold">2%</span>
+                      <span className="text-sm text-gray-600">{t('common.other')}</span>
+                      <span className="font-bold">{t('common.2')}</span>
                     </div>
                   </div>
                   

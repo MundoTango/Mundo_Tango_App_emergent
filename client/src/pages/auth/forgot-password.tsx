@@ -60,19 +60,19 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-teal-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 dark:from-purple-900/20 via-indigo-50 to-teal-50 flex items-center justify-center p-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 right-20 w-80 h-80 bg-gradient-to-br from-purple-300/20 to-indigo-300/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 -left-40 w-96 h-96 bg-gradient-to-br from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8 relative">
           <MTFormButton
             variant="outline"
             onClick={() => navigate("/login")}
-            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 border-0 shadow-none px-2 py-1"
+            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 border-0 shadow-none px-2 py-1"
             data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
           <div className="mx-auto relative">
             <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
               {emailSent ? (
-                <CheckCircle className="text-white w-10 h-10" />
+                <CheckCircle className="text-white dark:text-gray-900 dark:text-gray-900 w-10 h-10" />
               ) : (
                 <Key className="text-white w-10 h-10" />
               )}
@@ -93,13 +93,13 @@ export default function ForgotPassword() {
           </div>
           
           <div>
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 dark:from-purple-500 to-indigo-600 bg-clip-text text-transparent">
               {emailSent 
                 ? t('auth.forgot_password.title_sent', 'Check Your Email')
                 : t('auth.forgot_password.title', 'Forgot Password?')
               }
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2">
+            <CardDescription className="text-gray-600 dark:text-gray-300 mt-2 flex items-center justify-center gap-2">
               <Mail className="h-4 w-4" />
               {emailSent
                 ? t('auth.forgot_password.subtitle_sent', "We've sent you reset instructions")
@@ -156,8 +156,8 @@ export default function ForgotPassword() {
             </>
           ) : (
             <div className="space-y-6">
-              <div className="p-6 bg-green-50 border border-green-200 rounded-lg text-center">
-                <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
+              <div className="p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 rounded-lg text-center">
+                <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-300 mx-auto mb-3" />
                 <p className="text-green-800 font-medium mb-2">
                   {t('auth.forgot_password.email_sent_to', 'Email sent to:')}
                 </p>
@@ -196,7 +196,7 @@ export default function ForgotPassword() {
             </div>
           )}
 
-          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
             <p className="text-sm text-gray-600">
               {t('auth.forgot_password.remember_password', 'Remember your password?')}{" "}
               <Link 

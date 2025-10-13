@@ -45,6 +45,7 @@ import VideoMemoryCard from '../components/moments/VideoMemoryCard';
 import { FacebookReactionSelector } from '../components/ui/FacebookReactionSelector';
 import { RichTextCommentEditor } from '../components/ui/RichTextCommentEditor';
 import { ReportModal } from '../components/ui/ReportModal';
+import { useTranslation } from 'react-i18next';
 
 // Force UI refresh timestamp: 2025-08-05T18:54:00.000Z
 
@@ -191,6 +192,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
   });
 
   const handleReaction = (reactionId: string) => {
+  const { t } = useTranslation();
     setCurrentUserReaction(reactionId === currentUserReaction ? '' : reactionId);
     reactionMutation.mutate({ reaction: reactionId });
   };
@@ -242,7 +244,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
              }} />
       </div>
 
-      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
+      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
         {/* Ocean accent decoration */}
         <div className="absolute -top-2 -right-2 w-24 h-24 bg-gradient-to-br from-turquoise-200 to-cyan-200 rounded-full blur-2xl opacity-30" />
         <div className="absolute -bottom-2 -left-2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-full blur-2xl opacity-25" />
@@ -253,17 +255,17 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             <div className="relative">
               <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300">
                 <AvatarImage src={memory.userProfileImage || memory.user?.profileImage} />
-                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 text-white font-bold">
+                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-bold">
                   {(memory.userName || memory.user?.name || 'U').charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               {/* Online indicator */}
-              <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full animate-pulse" />
+              <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-gray-700 rounded-full animate-pulse" />
             </div>
 
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-lg text-gray-900 group-hover:text-turquoise-700 transition-colors">
+                <h3 className="font-bold text-lg text-gray-900 dark:text-gray-50 group-hover:text-turquoise-700 transition-colors">
                   {memory.userName || memory.user?.name || 'Anonymous'}
                 </h3>
                 <span className="text-sm text-gray-500">@{memory.userUsername || memory.user?.username || 'user'}</span>
@@ -287,7 +289,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-gray-500 bg-gradient-to-r from-turquoise-50 to-cyan-50 px-3 py-1.5 rounded-full">
+          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-gradient-to-r from-turquoise-50 to-cyan-50 px-3 py-1.5 rounded-full">
             <Clock className="h-3.5 w-3.5 text-turquoise-600" />
             <time className="font-medium">{formatDistanceToNow(new Date(memory.createdAt))} ago</time>
           </div>
@@ -325,7 +327,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
       {/* Enhanced Content with better typography */}
       <div className="prose prose-lg max-w-none">
-        <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+        <p className="text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap">
           {memory.content}
         </p>
       </div>
@@ -365,10 +367,10 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
           <button
             onClick={() => setShowShareDialog(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover"
           >
             <Share2 className="h-5 w-5 icon-glow" />
-            <span className="font-medium">Share</span>
+            <span className="font-medium">{t('common.share')}</span>
           </button>
         </div>
 
@@ -434,7 +436,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           <RichTextCommentEditor
             postId={Number(memory.id)}
             onSubmit={handleComment}
-            placeholder="Write a comment..."
+            placeholder={t('common.inputs.write_a_comment')}
           />
 
           {comments.length > 0 && (
@@ -447,11 +449,11 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <div className="bg-gray-100 rounded-lg p-3">
+                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
                       <p className="font-medium text-sm">{comment.user?.name || 'Unknown User'}</p>
                       <div className="text-sm" dangerouslySetInnerHTML={{ __html: comment.content }} />
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       {formatDistanceToNow(new Date(comment.createdAt))} ago
                     </p>
                   </div>
@@ -464,16 +466,16 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
       {/* Share Dialog */}
       {showShareDialog && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
-          <div className="bg-white rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
-            <h3 className="text-xl font-bold mb-4">Share Memory</h3>
+        <div className="fixed inset-0 bg-black/50 dark:bg-white/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
+            <h3 className="text-xl font-bold mb-4">{t('common.share_memory')}</h3>
             <div className="space-y-3">
               <button
                 onClick={() => handleShare()}
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
               >
-                <p className="font-medium">Share to Timeline</p>
-                <p className="text-sm text-gray-600">Share this memory on your timeline</p>
+                <p className="font-medium">{t('common.share_to_timeline')}</p>
+                <p className="text-sm text-gray-600">{t('common.share_this_memory_on_your_timeline')}</p>
               </button>
 
               <button
@@ -483,8 +485,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 }}
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
               >
-                <p className="font-medium">Share with Comment</p>
-                <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
+                <p className="font-medium">{t('common.share_with_comment')}</p>
+                <p className="text-sm text-gray-600">{t('common.add_your_thoughts_when_sharing')}</p>
               </button>
 
               <button
@@ -495,8 +497,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 }}
                 className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
               >
-                <p className="font-medium">Copy Link</p>
-                <p className="text-sm text-gray-600">Copy memory link to clipboard</p>
+                <p className="font-medium">{t('common.copy_link')}</p>
+                <p className="text-sm text-gray-600">{t('common.copy_memory_link_to_clipboard')}</p>
               </button>
             </div>
           </div>
@@ -670,16 +672,16 @@ export default function EnhancedTimelineV2() {
               {/* Beautiful Ocean-Themed Header - Mobile Optimized */}
               <div className="mb-6 lg:mb-8 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-turquoise-200 to-cyan-300 rounded-2xl lg:rounded-3xl blur-2xl opacity-30" />
-                <div className="relative p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl bg-gradient-to-r from-turquoise-50 via-cyan-50 to-blue-50 shadow-xl border-2 border-turquoise-200/50 backdrop-blur-sm">
+                <div className="relative p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl bg-gradient-to-r from-turquoise-50 via-cyan-50 to-blue-50 dark:to-blue-900/20 shadow-xl border-2 border-turquoise-200/50 backdrop-blur-sm">
                   <div className="flex items-center gap-3 lg:gap-4 mb-2">
                     <div className="p-2.5 lg:p-3 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-xl animate-float shadow-lg">
                       <Sparkles className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                     </div>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-turquoise-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-turquoise-600 via-cyan-600 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent">
                       Memories
                     </h1>
                   </div>
-                  <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium">Share your precious moments with the Tango community</p>
+                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-200 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium">{t('common.share_your_precious_moments_with_the_tango_communi')}</p>
                 </div>
               </div>
 
@@ -706,8 +708,8 @@ export default function EnhancedTimelineV2() {
             {/* Mobile Events Section - Placeholder */}
             <div className="block lg:hidden mb-6">
               <div className="glassmorphic-card p-4 rounded-xl">
-                <h3 className="font-semibold text-gray-800 mb-2">Upcoming Events</h3>
-                <p className="text-sm text-gray-600">Event integration coming soon!</p>
+                <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">{t('common.upcoming_events')}</h3>
+                <p className="text-sm text-gray-600">{t('common.event_integration_coming_soon')}</p>
               </div>
             </div>
 
@@ -724,33 +726,33 @@ export default function EnhancedTimelineV2() {
                         {/* Header Skeleton */}
                         <div className="flex items-start justify-between">
                           <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full animate-pulse" />
+                            <div className="w-12 h-12 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-full animate-pulse" />
                             <div className="space-y-2">
-                              <div className="h-5 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg w-32 animate-pulse" />
-                              <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg w-24 animate-pulse" />
-                              <div className="h-3 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg w-40 animate-pulse" />
+                              <div className="h-5 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg w-32 animate-pulse" />
+                              <div className="h-4 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg w-24 animate-pulse" />
+                              <div className="h-3 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg w-40 animate-pulse" />
                             </div>
                           </div>
                         </div>
 
                         {/* Content Skeleton */}
                         <div className="space-y-3">
-                          <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg w-full animate-pulse" />
-                          <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg w-5/6 animate-pulse" />
-                          <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg w-4/6 animate-pulse" />
+                          <div className="h-4 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg w-full animate-pulse" />
+                          <div className="h-4 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg w-5/6 animate-pulse" />
+                          <div className="h-4 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg w-4/6 animate-pulse" />
                         </div>
 
                         {/* Image Skeleton */}
-                        <div className="h-64 bg-gradient-to-r from-gray-200 to-gray-300 rounded-2xl animate-pulse" />
+                        <div className="h-64 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-2xl animate-pulse" />
 
                         {/* Actions Skeleton */}
                         <div className="flex items-center justify-between pt-4">
                           <div className="flex gap-4">
                             {[1, 2, 3].map((j) => (
-                              <div key={j} className="h-10 w-20 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg animate-pulse" />
+                              <div key={j} className="h-10 w-20 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg animate-pulse" />
                             ))}
                           </div>
-                          <div className="h-8 w-16 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg animate-pulse" />
+                          <div className="h-8 w-16 bg-gradient-to-r from-gray-200 dark:from-gray-700 to-gray-300 dark:to-gray-600 rounded-lg animate-pulse" />
                         </div>
                       </Card>
                     </div>
@@ -771,11 +773,11 @@ export default function EnhancedTimelineV2() {
               ) : (
                 <div className="glassmorphic-card p-12 rounded-3xl text-center">
                   <div className="max-w-md mx-auto">
-                    <div className="p-4 bg-gradient-to-r from-turquoise-400 to-blue-500 rounded-2xl inline-block mb-4">
+                    <div className="p-4 bg-gradient-to-r from-turquoise-400 to-blue-500 dark:to-blue-600 rounded-2xl inline-block mb-4">
                       <Sparkles className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">No memories yet</h3>
-                    <p className="text-gray-600">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{t('common.no_memories_yet')}</h3>
+                    <p className="text-gray-600">{t('common.start_sharing_your_precious_tango_moments_with_the')}</p>
                   </div>
                 </div>
               )}
@@ -786,8 +788,8 @@ export default function EnhancedTimelineV2() {
           <div className="lg:col-span-4">
             <div className="sticky top-6">
               <div className="glassmorphic-card p-6 rounded-xl">
-                <h3 className="font-semibold text-gray-800 mb-4">Upcoming Events</h3>
-                <p className="text-sm text-gray-600">Event integration coming soon!</p>
+                <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-4">{t('common.upcoming_events')}</h3>
+                <p className="text-sm text-gray-600">{t('common.event_integration_coming_soon')}</p>
               </div>
             </div>
           </div>

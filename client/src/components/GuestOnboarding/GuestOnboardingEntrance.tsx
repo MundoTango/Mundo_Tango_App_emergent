@@ -50,10 +50,10 @@ export function GuestOnboardingEntrance() {
             <div className="p-8 md:p-12">
               <ScaleIn delay={0.1}>
                 <div className="text-center space-y-6 mb-12">
-                  <div className="mx-auto w-24 h-24 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 rounded-3xl flex items-center justify-center shadow-xl shadow-cyan-500/20">
+                  <div className="mx-auto w-24 h-24 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 rounded-3xl flex items-center justify-center shadow-xl shadow-cyan-500/20">
                     <Users className="w-12 h-12 text-white" />
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent">
                     {t('housing.guest_entrance.title', 'Welcome to Our Community!')}
                   </h1>
                   <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
@@ -101,7 +101,7 @@ export function GuestOnboardingEntrance() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <PulseButton
                   onClick={() => setLocation('/guest-onboarding')}
-                  className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold rounded-2xl shadow-lg shadow-cyan-500/30"
+                  className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-semibold rounded-2xl shadow-lg shadow-cyan-500/30"
                   data-testid="button-start-onboarding"
                 >
                   {t('housing.guest_entrance.button_start', 'Get Started - It only takes 2 minutes')}

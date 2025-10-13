@@ -162,7 +162,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-accommodation">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 dark:to-blue-600 dark:to-blue-600 dark:to-blue-600 dark:to-blue-600 dark:to-blue-600 flex items-center justify-center">
                 <Home className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-accommodation">
@@ -489,10 +489,10 @@ export function GuestOnboardingFlow() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="USD" data-testid="option-currency-USD">USD - US Dollar</SelectItem>
-                    <SelectItem value="EUR" data-testid="option-currency-EUR">EUR - Euro</SelectItem>
-                    <SelectItem value="ARS" data-testid="option-currency-ARS">ARS - Argentine Peso</SelectItem>
-                    <SelectItem value="GBP" data-testid="option-currency-GBP">GBP - British Pound</SelectItem>
+                    <SelectItem value="USD" data-testid="option-currency-USD">{t('common.usd_us_dollar')}</SelectItem>
+                    <SelectItem value="EUR" data-testid="option-currency-EUR">{t('common.eur_euro')}</SelectItem>
+                    <SelectItem value="ARS" data-testid="option-currency-ARS">{t('common.ars_argentine_peso')}</SelectItem>
+                    <SelectItem value="GBP" data-testid="option-currency-GBP">{t('common.gbp_british_pound')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -626,7 +626,7 @@ export function GuestOnboardingFlow() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent">
                     {t('housing.guest_onboarding.title', 'Complete Your Guest Profile')}
                   </h1>
                 </div>
@@ -652,7 +652,7 @@ export function GuestOnboardingFlow() {
               <ScaleIn delay={0.1}>
                 <div className="relative w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                   <div 
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-500 ease-out"
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 transition-all duration-500 ease-out"
                     style={{ width: `${(currentStep / totalSteps) * 100}%` }}
                     data-testid="progress-bar"
                     aria-valuenow={(currentStep / totalSteps) * 100}
@@ -716,7 +716,7 @@ export function GuestOnboardingFlow() {
                   strength={0.2}
                   className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-2"
                   data-testid={`button-back-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
-                  aria-label="Go back to previous step"
+                  aria-label={t('common.labels.go_back_to_previous_step')}
                 >
                   <ChevronLeft className="w-4 h-4" />
                   {t('housing.guest_onboarding.button_previous', 'Previous')}
@@ -728,9 +728,9 @@ export function GuestOnboardingFlow() {
               {currentStep < totalSteps ? (
                 <PulseButton 
                   onClick={handleNext}
-                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-medium rounded-xl"
+                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-medium rounded-xl"
                   data-testid={`button-continue-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
-                  aria-label="Continue to next step"
+                  aria-label={t('common.labels.continue_to_next_step')}
                 >
                   {t('housing.guest_onboarding.button_next', 'Next')}
                 </PulseButton>
@@ -738,7 +738,7 @@ export function GuestOnboardingFlow() {
                 <PulseButton 
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-medium rounded-xl disabled:opacity-50"
+                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 dark:to-blue-600 text-white dark:text-gray-900 font-medium rounded-xl disabled:opacity-50"
                   data-testid="button-complete-onboarding"
                 >
                   {isSubmitting 

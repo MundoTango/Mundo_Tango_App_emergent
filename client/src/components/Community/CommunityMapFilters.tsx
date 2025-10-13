@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { GlassCard } from '@/components/glass/GlassComponents';
+import { useTranslation } from 'react-i18next';
 
 export interface CommunityMapFilters {
   // Event filters
@@ -103,6 +104,7 @@ export default function CommunityMapFilters({
   compact = false 
 }: CommunityMapFiltersProps) {
   const updateFilter = (key: keyof CommunityMapFilters, value: any) => {
+  const { t } = useTranslation();
     onFiltersChange({ ...filters, [key]: value });
   };
 
@@ -145,9 +147,9 @@ export default function CommunityMapFilters({
             data-testid="button-community-map-filters"
           >
             <Filter className="h-4 w-4 mr-2 text-cyan-600 dark:text-cyan-400" />
-            <span className="text-slate-700 dark:text-slate-300">Filters</span>
+            <span className="text-slate-700 dark:text-slate-300">{t('common.filters')}</span>
             {activeFiltersCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-xs flex items-center justify-center font-medium shadow-lg" data-testid="badge-active-filters">
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 text-xs flex items-center justify-center font-medium shadow-lg" data-testid="badge-active-filters">
                 {activeFiltersCount}
               </span>
             )}
@@ -214,11 +216,11 @@ function FiltersContent({
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-cyan-200/30 dark:border-cyan-500/30">
           <Calendar className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-          <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Events</h4>
+          <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">{t('common.events')}</h4>
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="event-type" className="text-xs text-slate-600 dark:text-slate-400">Event Type</Label>
+          <Label htmlFor="event-type" className="text-xs text-slate-600 dark:text-slate-400">{t('common.event_type')}</Label>
           <Select 
             value={filters.eventType} 
             onValueChange={(value) => updateFilter('eventType', value)}
@@ -228,7 +230,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-event-type"
             >
-              <SelectValue placeholder="Select event type" />
+              <SelectValue placeholder={t('common.inputs.select_event_type')} />
             </SelectTrigger>
             <SelectContent>
               {EVENT_TYPES.map((type) => (
@@ -241,7 +243,7 @@ function FiltersContent({
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs text-slate-600 dark:text-slate-400">Date Range</Label>
+          <Label className="text-xs text-slate-600 dark:text-slate-400">{t('common.date_range')}</Label>
           <div className="grid grid-cols-2 gap-2">
             <Popover>
               <PopoverTrigger asChild>
@@ -310,11 +312,11 @@ function FiltersContent({
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-cyan-200/30 dark:border-cyan-500/30">
           <Home className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-          <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Housing</h4>
+          <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">{t('common.housing')}</h4>
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="room-type" className="text-xs text-slate-600 dark:text-slate-400">Room Type</Label>
+          <Label htmlFor="room-type" className="text-xs text-slate-600 dark:text-slate-400">{t('common.room_type')}</Label>
           <Select 
             value={filters.roomType} 
             onValueChange={(value) => updateFilter('roomType', value)}
@@ -324,7 +326,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-room-type"
             >
-              <SelectValue placeholder="Select room type" />
+              <SelectValue placeholder={t('common.inputs.select_room_type')} />
             </SelectTrigger>
             <SelectContent>
               {ROOM_TYPES.map((type) => (
@@ -337,7 +339,7 @@ function FiltersContent({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="min-guests" className="text-xs text-slate-600 dark:text-slate-400">Minimum Guests</Label>
+          <Label htmlFor="min-guests" className="text-xs text-slate-600 dark:text-slate-400">{t('common.minimum_guests')}</Label>
           <Select 
             value={filters.minGuests} 
             onValueChange={(value) => updateFilter('minGuests', value)}
@@ -347,7 +349,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-min-guests"
             >
-              <SelectValue placeholder="Select minimum guests" />
+              <SelectValue placeholder={t('common.inputs.select_minimum_guests')} />
             </SelectTrigger>
             <SelectContent>
               {MIN_GUESTS.map((guest) => (
@@ -360,7 +362,7 @@ function FiltersContent({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="connection-level" className="text-xs text-slate-600 dark:text-slate-400">Connection Level</Label>
+          <Label htmlFor="connection-level" className="text-xs text-slate-600 dark:text-slate-400">{t('common.connection_level')}</Label>
           <Select 
             value={filters.connectionLevel} 
             onValueChange={(value) => updateFilter('connectionLevel', value)}
@@ -370,7 +372,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-connection-level"
             >
-              <SelectValue placeholder="Select connection level" />
+              <SelectValue placeholder={t('common.inputs.select_connection_level')} />
             </SelectTrigger>
             <SelectContent>
               {CONNECTION_LEVELS.map((level) => (
@@ -387,11 +389,11 @@ function FiltersContent({
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-cyan-200/30 dark:border-cyan-500/30">
           <MapPin className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-          <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Recommendations</h4>
+          <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">{t('common.recommendations')}</h4>
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="cuisine" className="text-xs text-slate-600 dark:text-slate-400">Cuisine</Label>
+          <Label htmlFor="cuisine" className="text-xs text-slate-600 dark:text-slate-400">{t('common.cuisine')}</Label>
           <Select 
             value={filters.cuisine} 
             onValueChange={(value) => updateFilter('cuisine', value)}
@@ -401,7 +403,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-cuisine"
             >
-              <SelectValue placeholder="Select cuisine" />
+              <SelectValue placeholder={t('common.inputs.select_cuisine')} />
             </SelectTrigger>
             <SelectContent>
               {CUISINES.map((cuisine) => (
@@ -414,7 +416,7 @@ function FiltersContent({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="category" className="text-xs text-slate-600 dark:text-slate-400">Category</Label>
+          <Label htmlFor="category" className="text-xs text-slate-600 dark:text-slate-400">{t('common.category')}</Label>
           <Select 
             value={filters.category} 
             onValueChange={(value) => updateFilter('category', value)}
@@ -424,7 +426,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-category"
             >
-              <SelectValue placeholder="Select category" />
+              <SelectValue placeholder={t('common.inputs.select_category')} />
             </SelectTrigger>
             <SelectContent>
               {CATEGORIES.map((cat) => (
@@ -437,7 +439,7 @@ function FiltersContent({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="price-level" className="text-xs text-slate-600 dark:text-slate-400">Price Level</Label>
+          <Label htmlFor="price-level" className="text-xs text-slate-600 dark:text-slate-400">{t('common.price_level')}</Label>
           <Select 
             value={filters.priceLevel} 
             onValueChange={(value) => updateFilter('priceLevel', value)}
@@ -447,7 +449,7 @@ function FiltersContent({
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
               data-testid="select-price-level"
             >
-              <SelectValue placeholder="Select price level" />
+              <SelectValue placeholder={t('common.inputs.select_price_level')} />
             </SelectTrigger>
             <SelectContent>
               {PRICE_LEVELS.map((price) => (
