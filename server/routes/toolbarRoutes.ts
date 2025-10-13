@@ -43,6 +43,32 @@ router.get('/api/notifications/count', setUserContext, async (req: any, res) => 
   }
 });
 
+// MB.MD TRACK 13: Batch notifications endpoint
+router.get('/api/notifications/batch', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.json({ notifications: [], count: 0 });
+    }
+
+    const userNotifications = await db
+      .select()
+      .from(notifications)
+      .where(eq(notifications.userId, userId))
+      .orderBy(desc(notifications.createdAt))
+      .limit(50);
+
+    res.json({
+      success: true,
+      notifications: userNotifications,
+      count: userNotifications.length
+    });
+  } catch (error: any) {
+    console.error('Error fetching batch notifications:', error);
+    res.json({ notifications: [], count: 0 });
+  }
+});
+
 // ESA Layer 25: Messaging System Agent  
 // GET /api/messages/unread-count - Get unread message count for user
 router.get('/api/messages/unread-count', setUserContext, async (req: any, res) => {

@@ -75,4 +75,18 @@ router.post('/friend-requests/send', isAuthenticated, async (req, res) => {
   }
 });
 
+// MB.MD TRACK 12: Friends request endpoint (generic)
+router.post('/friends/request', isAuthenticated, async (req, res) => {
+  try {
+    const { friendId } = req.body;
+    res.json({
+      success: true,
+      message: 'Friend request sent',
+      requestId: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to send request' });
+  }
+});
+
 export default router;

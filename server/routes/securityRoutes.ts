@@ -41,6 +41,17 @@ const router = Router();
 // Initialize OAuth strategies
 initializeOAuth();
 
+// MB.MD TRACK 11: CSRF Token Generation
+router.get('/security/csrf-token', async (req, res) => {
+  try {
+    const token = require('crypto').randomBytes(32).toString('hex');
+    res.json({ success: true, token, expiresIn: 3600 });
+  } catch (error) {
+    console.error('CSRF token error:', error);
+    res.status(500).json({ success: false, message: 'Failed to generate CSRF token' });
+  }
+});
+
 // ============================================
 // OAuth Routes
 // ============================================
