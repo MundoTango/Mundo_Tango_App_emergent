@@ -502,4 +502,34 @@ router.post('/api/payments/apply-coupon', requireAuth, async (req: Request, res:
   }
 });
 
+// MB.MD TRACK 18: Missing payment endpoints
+router.post('/api/payments/create-checkout-session', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    const { priceId, successUrl, cancelUrl } = req.body;
+    
+    const session = await paymentService.createCheckoutSession(userId, {
+      priceId,
+      successUrl: successUrl || `${process.env.REPLIT_DEV_DOMAIN || 'http://localhost:5000'}/checkout/success`,
+      cancelUrl: cancelUrl || `${process.env.REPLIT_DEV_DOMAIN || 'http://localhost:5000'}/checkout/cancel`
+    });
+    
+    res.json({ success: true, data: session });
+  } catch (error: any) {
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: error.message || 'Failed to create checkout session' });
+  }
+});
+
+router.post('/api/payments/validate-promo', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const { code } = req.body;
+    const validation = await paymentService.validatePromoCode(code);
+    res.json({ success: true, data: validation });
+  } catch (error: any) {
+    console.error('Error validating promo code:', error);
+    res.status(500).json({ error: error.message || 'Invalid promo code' });
+  }
+});
+
 export default router;

@@ -7,6 +7,8 @@ import { z } from 'zod';
 import { insertUserSchema } from '../../shared/schema';
 import { authService } from '../services/authService';
 import { randomBytes } from 'crypto';
+import { setUserContext } from '../middleware/tenantMiddleware';
+import { getUserId } from '../utils/authHelper';
 
 const router = Router();
 
@@ -153,6 +155,27 @@ router.get("/api/auth/csrf", (req, res) => {
   }
   
   res.json({ csrfToken: session.csrfToken });
+});
+
+// MB.MD TRACK 11: Missing auth GET endpoints
+router.get('/auth/reset-password', async (req, res) => {
+  const { token } = req.query;
+  if (!token) return res.status(400).json({ error: 'Token required' });
+  
+  const isValid = await storage.validateResetToken(token as string);
+  res.json({ success: true, valid: isValid });
+});
+
+router.get('/auth/reset-password-request', async (req, res) => {
+  res.json({ success: true, message: 'Use POST to request password reset' });
+});
+
+router.get('/auth/user', setUserContext, async (req: any, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.json(null);
+  
+  const user = await storage.getUser(Number(userId));
+  res.json({ success: true, data: user });
 });
 
 export default router;

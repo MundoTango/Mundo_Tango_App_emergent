@@ -97,4 +97,55 @@ router.post('/admin/moderation/:contentId/reject', requireAdmin, async (req, res
   res.status(501).json({ error: 'Reject content feature not yet implemented' });
 });
 
+// MB.MD TRACK 9: Missing Admin Endpoints
+router.get('/admin/analytics', requireAdmin, async (req, res) => {
+  const analytics = await storage.getAdminAnalytics();
+  res.json({ success: true, data: analytics });
+});
+
+router.get('/admin/blocked-users', requireAdmin, async (req, res) => {
+  const blockedUsers = await storage.getBlockedUsers();
+  res.json({ success: true, data: blockedUsers });
+});
+
+router.get('/admin/compliance', requireAdmin, async (req, res) => {
+  const compliance = await storage.getComplianceStatus();
+  res.json({ success: true, data: compliance });
+});
+
+router.get('/admin/compliance/monitoring-status', requireAdmin, async (req, res) => {
+  const status = await storage.getComplianceMonitoringStatus();
+  res.json({ success: true, data: status });
+});
+
+router.get('/admin/compliance/refresh', requireAdmin, async (req, res) => {
+  await storage.refreshComplianceData();
+  res.json({ success: true, message: 'Refreshed' });
+});
+
+router.post('/admin/event-types', requireAdmin, async (req, res) => {
+  const eventType = await storage.createEventType(req.body);
+  res.json({ success: true, data: eventType });
+});
+
+router.post('/admin/execute-command', requireAdmin, async (req, res) => {
+  const result = await storage.executeAdminCommand(req.body);
+  res.json({ success: true, data: result });
+});
+
+router.get('/admin/reports', requireAdmin, async (req, res) => {
+  const reports = await storage.getAdminReports();
+  res.json({ success: true, data: reports });
+});
+
+router.get('/admin/settings', requireAdmin, async (req, res) => {
+  const settings = await storage.getAdminSettings();
+  res.json({ success: true, data: settings });
+});
+
+router.post('/admin/users/bulk-action', requireAdmin, async (req, res) => {
+  const result = await storage.executeBulkUserAction(req.body);
+  res.json({ success: true, data: result });
+});
+
 export default router;

@@ -1,560 +1,13 @@
 {
-  "timestamp": "2025-10-13T08:03:11.833Z",
+  "timestamp": "2025-10-13T08:14:55.780Z",
   "summary": {
     "totalFrontendCalls": 223,
-    "verifiedRoutes": 83,
-    "missingRoutes": 112,
-    "methodMismatches": 28,
-    "autoFixable": 111
+    "verifiedRoutes": 148,
+    "missingRoutes": 68,
+    "methodMismatches": 7,
+    "autoFixable": 52
   },
   "issues": [
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "utils/esa-memory-optimizer.ts",
-        "line": 54,
-        "endpoint": "/api/upload/chunk",
-        "method": "GET",
-        "context": "const response = await fetch('/api/upload/chunk', {"
-      },
-      "actualRoute": {
-        "file": "routes/chunkedUploadRoutes.ts",
-        "path": "/api/upload/chunk",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/upload/chunk"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "utils/chunkedUpload.ts",
-        "line": 57,
-        "endpoint": "/api/upload/chunk",
-        "method": "GET",
-        "context": "const response = await fetch('/api/upload/chunk', {"
-      },
-      "actualRoute": {
-        "file": "routes/chunkedUploadRoutes.ts",
-        "path": "/api/upload/chunk",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/upload/chunk"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "utils/chunked-upload.ts",
-        "line": 47,
-        "endpoint": "/api/upload/chunk",
-        "method": "GET",
-        "context": "const response = await fetch('/api/upload/chunk', {"
-      },
-      "actualRoute": {
-        "file": "routes/chunkedUploadRoutes.ts",
-        "path": "/api/upload/chunk",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/upload/chunk"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "services/upload.ts",
-        "line": 15,
-        "endpoint": "/api/upload",
-        "method": "GET",
-        "context": "const response = await fetch('/api/upload', {"
-      },
-      "actualRoute": {
-        "file": "routes/upload.ts",
-        "path": "/api/upload",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/upload"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/search.tsx",
-        "line": 29,
-        "endpoint": "/api/search",
-        "method": "POST",
-        "context": "const response = await apiRequest('/api/search', {"
-      },
-      "actualRoute": {
-        "file": "routes/searchRoutes.ts",
-        "path": "/api/search",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/search"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use GET instead of POST"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/friends.tsx",
-        "line": 118,
-        "endpoint": "/api/friend/send-friend-request",
-        "method": "GET",
-        "context": "const response = await fetch('/api/friend/send-friend-request', {"
-      },
-      "actualRoute": {
-        "file": "routes/miscRoutes.ts",
-        "path": "/friend/send-friend-request",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/friend/send-friend-request"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/create-community.tsx",
-        "line": 59,
-        "endpoint": "/api/groups/create",
-        "method": "GET",
-        "context": "const response = await fetch('/api/groups/create', {"
-      },
-      "actualRoute": {
-        "file": "routes/miscRoutes.ts",
-        "path": "/groups/create",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/groups/create"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/UserSettings.tsx",
-        "line": 235,
-        "endpoint": "/api/user/settings",
-        "method": "POST",
-        "context": "return apiRequest('/api/user/settings', 'PUT', settingsData);"
-      },
-      "actualRoute": {
-        "file": "routes/userRoutes.ts",
-        "path": "/user/settings",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/user/settings"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use GET instead of POST"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/RoleInvitations.tsx",
-        "line": 135,
-        "endpoint": "/api/events/invite-participant",
-        "method": "GET",
-        "context": "const response = await fetch('/api/events/invite-participant', {"
-      },
-      "actualRoute": {
-        "file": "routes/eventsRoutes.ts",
-        "path": "/api/events/invite-participant",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/events/invite-participant"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/Notifications.tsx",
-        "line": 136,
-        "endpoint": "/api/notifications/mark-all-read",
-        "method": "GET",
-        "context": "const response = await fetch('/api/notifications/mark-all-read', {"
-      },
-      "actualRoute": {
-        "file": "routes/toolbarRoutes.ts",
-        "path": "/api/notifications/mark-all-read",
-        "method": "PUT",
-        "mountPath": "",
-        "fullPath": "/api/notifications/mark-all-read"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use PUT instead of GET"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/LiveStreaming.tsx",
-        "line": 92,
-        "endpoint": "/api/streaming/streams/scheduled",
-        "method": "GET",
-        "context": "const response = await fetch(\"/api/streaming/streams/scheduled\", {"
-      },
-      "expectedRoute": "/api/streaming/streams/scheduled",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.get('/api/streaming/streams/scheduled', ...)"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/LiveStreaming.tsx",
-        "line": 104,
-        "endpoint": "/api/streaming/streams",
-        "method": "POST",
-        "context": "return apiRequest(\"/api/streaming/streams\", {"
-      },
-      "expectedRoute": "/api/streaming/streams",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.post('/api/streaming/streams', ...)"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/LifeCEOEnhanced.tsx",
-        "line": 138,
-        "endpoint": "/api/life-ceo/conversations",
-        "method": "POST",
-        "context": "return await apiRequest('/api/life-ceo/conversations', {"
-      },
-      "expectedRoute": "/api/life-ceo/conversations",
-      "actualRoute": {
-        "file": "routes/lifeCeoLearnings.ts",
-        "path": "/api/life-ceo/learnings",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/life-ceo/learnings"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/life-ceo/learnings. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/LifeCEOEnhanced.tsx",
-        "line": 172,
-        "endpoint": "/api/life-ceo/projects",
-        "method": "POST",
-        "context": "return await apiRequest('/api/life-ceo/projects', {"
-      },
-      "expectedRoute": "/api/life-ceo/projects",
-      "actualRoute": {
-        "file": "routes/lifeCeoLearnings.ts",
-        "path": "/api/life-ceo/learnings",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/life-ceo/learnings"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/life-ceo/learnings. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/HostOnboarding.tsx",
-        "line": 133,
-        "endpoint": "/api/upload/host-home-photos",
-        "method": "POST",
-        "context": "const uploadResponse = await apiRequest('/api/upload/host-home-photos', {"
-      },
-      "expectedRoute": "/api/upload/host-home-photos",
-      "actualRoute": {
-        "file": "routes/uploadRoutes.ts",
-        "path": "/api/upload/health",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/upload/health"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/upload/health. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/HostOnboarding.tsx",
-        "line": 161,
-        "endpoint": "/api/host-homes",
-        "method": "POST",
-        "context": "const response = await apiRequest('/api/host-homes', {"
-      },
-      "actualRoute": {
-        "file": "routes/hostHomesRoutes.ts",
-        "path": "/api/host-homes",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/host-homes"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use GET instead of POST"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/HierarchyDashboard.tsx",
-        "line": 62,
-        "endpoint": "/api/evolution/metrics/latest",
-        "method": "GET",
-        "context": "const response = await fetch('/api/evolution/metrics/latest', {"
-      },
-      "expectedRoute": "/api/evolution/metrics/latest",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.get('/api/evolution/metrics/latest', ...)"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/GroupDetailPageMT.tsx",
-        "line": 507,
-        "endpoint": "/api/user/memberships",
-        "method": "GET",
-        "context": "const response = await fetch(`/api/user/memberships`, {"
-      },
-      "expectedRoute": "/api/user/memberships",
-      "actualRoute": {
-        "file": "routes/userStatsRoutes.ts",
-        "path": "/user/stats",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/user/stats"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/user/stats. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/GroupDetailPageMT.tsx",
-        "line": 520,
-        "endpoint": "/api/user/following",
-        "method": "GET",
-        "context": "const response = await fetch(`/api/user/following`, {"
-      },
-      "expectedRoute": "/api/user/following",
-      "actualRoute": {
-        "file": "routes/userStatsRoutes.ts",
-        "path": "/user/stats",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/user/stats"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/user/stats. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/Friends.tsx",
-        "line": 118,
-        "endpoint": "/api/friend/send-friend-request",
-        "method": "GET",
-        "context": "const response = await fetch('/api/friend/send-friend-request', {"
-      },
-      "actualRoute": {
-        "file": "routes/miscRoutes.ts",
-        "path": "/friend/send-friend-request",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/friend/send-friend-request"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/ErrorBoundaryPage.tsx",
-        "line": 46,
-        "endpoint": "/api/error-reports",
-        "method": "GET",
-        "context": "// await fetch('/api/error-reports', {"
-      },
-      "expectedRoute": "/api/error-reports",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.get('/api/error-reports', ...)"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "pages/ESAMemoryFeed.tsx",
-        "line": 247,
-        "endpoint": "/api/posts/direct",
-        "method": "GET",
-        "context": "fetch('/api/posts/direct', {"
-      },
-      "actualRoute": {
-        "file": "routes/postsRoutes.ts",
-        "path": "/api/posts/direct",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/posts/direct"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/Checkout.tsx",
-        "line": 155,
-        "endpoint": "/api/payments/create-checkout-session",
-        "method": "POST",
-        "context": "return apiRequest('/api/payments/create-checkout-session', {"
-      },
-      "expectedRoute": "/api/payments/create-checkout-session",
-      "actualRoute": {
-        "file": "routes/paymentRoutes.ts",
-        "path": "/api/payments/subscription-tiers",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/payments/subscription-tiers"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/payments/subscription-tiers. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/Checkout.tsx",
-        "line": 169,
-        "endpoint": "/api/payments/validate-promo",
-        "method": "POST",
-        "context": "return apiRequest('/api/payments/validate-promo', {"
-      },
-      "expectedRoute": "/api/payments/validate-promo",
-      "actualRoute": {
-        "file": "routes/paymentRoutes.ts",
-        "path": "/api/payments/subscription-tiers",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/api/payments/subscription-tiers"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/payments/subscription-tiers. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AgentFrameworkDashboard.tsx",
-        "line": 72,
-        "endpoint": "/api/agents/framework-status",
-        "method": "GET",
-        "context": "const statusResponse = await fetch('/api/agents/framework-status');"
-      },
-      "expectedRoute": "/api/agents/framework-status",
-      "actualRoute": {
-        "file": "routes/monitoring.ts",
-        "path": "/agents",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/agents"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /agents. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AgentFrameworkDashboard.tsx",
-        "line": 78,
-        "endpoint": "/api/agents/achievements",
-        "method": "GET",
-        "context": "const achievementsResponse = await fetch('/api/agents/achievements');"
-      },
-      "expectedRoute": "/api/agents/achievements",
-      "actualRoute": {
-        "file": "routes/monitoring.ts",
-        "path": "/agents",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/agents"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /agents. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AgentFrameworkDashboard.tsx",
-        "line": 93,
-        "endpoint": "/api/agents/audit",
-        "method": "GET",
-        "context": "const response = await fetch('/api/agents/audit');"
-      },
-      "expectedRoute": "/api/agents/audit",
-      "actualRoute": {
-        "file": "routes/monitoring.ts",
-        "path": "/agents",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/agents"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /agents. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 314,
-        "endpoint": "/api/admin/compliance",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/compliance', {"
-      },
-      "expectedRoute": "/api/admin/compliance",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
     {
       "severity": "critical",
       "type": "missing_backend",
@@ -615,173 +68,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 694,
-        "endpoint": "/api/admin/compliance/refresh",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/compliance/refresh', {"
-      },
-      "expectedRoute": "/api/admin/compliance/refresh",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 740,
-        "endpoint": "/api/admin/compliance/monitoring-status",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/compliance/monitoring-status');"
-      },
-      "expectedRoute": "/api/admin/compliance/monitoring-status",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 1518,
-        "endpoint": "/api/admin/analytics",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/analytics', {"
-      },
-      "expectedRoute": "/api/admin/analytics",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 2323,
-        "endpoint": "/api/admin/settings",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/settings', {"
-      },
-      "expectedRoute": "/api/admin/settings",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 2376,
-        "endpoint": "/api/admin/settings",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/settings', {"
-      },
-      "expectedRoute": "/api/admin/settings",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AdminCenter.tsx",
-        "line": 2397,
-        "endpoint": "/api/admin/blocked-users",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/blocked-users', {"
-      },
-      "expectedRoute": "/api/admin/blocked-users",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/AccountDelete.tsx",
-        "line": 58,
-        "endpoint": "/api/user/delete-account",
-        "method": "POST",
-        "context": "return await apiRequest('/api/user/delete-account', {"
-      },
-      "expectedRoute": "/api/user/delete-account",
-      "actualRoute": {
-        "file": "routes/userStatsRoutes.ts",
-        "path": "/user/stats",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/user/stats"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/user/stats. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "lib/performance-optimizations.ts",
-        "line": 49,
-        "endpoint": "/api/users/batch",
-        "method": "GET",
-        "context": "const response = await fetch('/api/users/batch', {"
-      },
-      "actualRoute": {
-        "file": "routes/userRoutes.ts",
-        "path": "/users/batch",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/users/batch"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "lib/performance-optimizations.ts",
         "line": 63,
         "endpoint": "/api/notifications/batch",
@@ -798,48 +84,6 @@
       },
       "autoFixable": true,
       "recommendation": "Route exists at /api/notifications/count. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "lib/performance-critical-fix.ts",
-        "line": 211,
-        "endpoint": "/api/auth/user",
-        "method": "GET",
-        "context": "fetch('/api/auth/user', { credentials: 'include' })"
-      },
-      "expectedRoute": "/api/auth/user",
-      "actualRoute": {
-        "file": "routes/authRoutes.ts",
-        "path": "/api/auth/user",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/api/auth/user"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/api/auth/user. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "lib/performance-critical-fix.ts",
-        "line": 221,
-        "endpoint": "/api/events/sidebar",
-        "method": "GET",
-        "context": "fetch('/api/events/sidebar', { credentials: 'include' })"
-      },
-      "expectedRoute": "/api/events/sidebar",
-      "actualRoute": {
-        "file": "routes/groupRoutes.ts",
-        "path": "/groups/:groupId/events",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/groups/:groupId/events"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/groups/:groupId/events. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -882,26 +126,6 @@
       "expectedRoute": "/api/location/detect",
       "autoFixable": false,
       "recommendation": "Create backend route: router.get('/api/location/detect', ...)"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "i18n/config.ts",
-        "line": 539,
-        "endpoint": "/api/user/language-preference",
-        "method": "GET",
-        "context": "await fetch('/api/user/language-preference', {"
-      },
-      "actualRoute": {
-        "file": "routes/toolbarRoutes.ts",
-        "path": "/api/user/language-preference",
-        "method": "PUT",
-        "mountPath": "",
-        "fullPath": "/api/user/language-preference"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use PUT instead of GET"
     },
     {
       "severity": "critical",
@@ -1023,27 +247,6 @@
       "recommendation": "Route exists at /api/friendship/:friendId. Update mount path in routes.ts or fix frontend call."
     },
     {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "contexts/auth-context.tsx",
-        "line": 27,
-        "endpoint": "/api/auth/user",
-        "method": "GET",
-        "context": "const authResponse = await fetch('/api/auth/user', {"
-      },
-      "expectedRoute": "/api/auth/user",
-      "actualRoute": {
-        "file": "routes/authRoutes.ts",
-        "path": "/api/auth/user",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/api/auth/user"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/api/auth/user. Update mount path in routes.ts or fix frontend call."
-    },
-    {
       "severity": "high",
       "type": "method_mismatch",
       "frontendCall": {
@@ -1130,27 +333,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "components/VoiceInterface.tsx",
-        "line": 291,
-        "endpoint": "/api/ai/process",
-        "method": "GET",
-        "context": "const response = await fetch('/api/ai/process', {"
-      },
-      "expectedRoute": "/api/ai/process",
-      "actualRoute": {
-        "file": "routes/integrationHelpers.ts",
-        "path": "/ai-health",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/ai-health"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /ai-health. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "components/TrialBanner.tsx",
         "line": 45,
         "endpoint": "/api/payments/trial-status",
@@ -1167,48 +349,6 @@
       },
       "autoFixable": true,
       "recommendation": "Route exists at /api/payments/subscription-tiers. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/SecurityDemo.tsx",
-        "line": 67,
-        "endpoint": "/api/auth/user",
-        "method": "GET",
-        "context": "const response = await fetch('/api/auth/user', {"
-      },
-      "expectedRoute": "/api/auth/user",
-      "actualRoute": {
-        "file": "routes/authRoutes.ts",
-        "path": "/api/auth/user",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/api/auth/user"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/api/auth/user. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/SecurityDemo.tsx",
-        "line": 95,
-        "endpoint": "/api/chat/security-test-room/message",
-        "method": "GET",
-        "context": "const response = await fetch('/api/chat/security-test-room/message', {"
-      },
-      "expectedRoute": "/api/chat/security-test-room/message",
-      "actualRoute": {
-        "file": "routes/chatRoutes.ts",
-        "path": "/chat/rooms",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/chat/rooms"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/chat/rooms. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -1529,69 +669,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "pages/auth/reset-password.tsx",
-        "line": 63,
-        "endpoint": "/api/auth/reset-password",
-        "method": "GET",
-        "context": "const response = await fetch('/api/auth/reset-password', {"
-      },
-      "expectedRoute": "/api/auth/reset-password",
-      "actualRoute": {
-        "file": "routes/authRoutes.ts",
-        "path": "/api/auth/reset-password-request",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/api/auth/reset-password-request"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/api/auth/reset-password-request. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/auth/forgot-password.tsx",
-        "line": 36,
-        "endpoint": "/api/auth/reset-password-request",
-        "method": "GET",
-        "context": "const response = await fetch('/api/auth/reset-password-request', {"
-      },
-      "expectedRoute": "/api/auth/reset-password-request",
-      "actualRoute": {
-        "file": "routes/authRoutes.ts",
-        "path": "/api/auth/reset-password-request",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/api/auth/reset-password-request"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/api/auth/reset-password-request. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "pages/admin/users.tsx",
-        "line": 221,
-        "endpoint": "/api/admin/users/bulk-action",
-        "method": "POST",
-        "context": "await apiRequest('/api/admin/users/bulk-action', {"
-      },
-      "expectedRoute": "/api/admin/users/bulk-action",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "pages/admin/sprints.tsx",
         "line": 67,
         "endpoint": "/api/tracker/sprints",
@@ -1694,26 +771,6 @@
       "recommendation": "Route exists at /tracker/tasks. Update mount path in routes.ts or fix frontend call."
     },
     {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "components/universal/PostCreator.tsx",
-        "line": 665,
-        "endpoint": "/api/posts/enhance-content",
-        "method": "GET",
-        "context": "const response = await fetch('/api/posts/enhance-content', {"
-      },
-      "actualRoute": {
-        "file": "routes/postsRoutes.ts",
-        "path": "/api/posts/enhance-content",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/posts/enhance-content"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
@@ -1724,8 +781,15 @@
         "context": "return apiRequest('/api/reports', {"
       },
       "expectedRoute": "/api/reports",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.post('/api/reports', ...)"
+      "actualRoute": {
+        "file": "routes/adminRoutes.ts",
+        "path": "/admin/reports",
+        "method": "GET",
+        "mountPath": "/api",
+        "fullPath": "/api/admin/reports"
+      },
+      "autoFixable": true,
+      "recommendation": "Route exists at /api/admin/reports. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -1770,46 +834,6 @@
       "recommendation": "Create backend route: router.post('/api/reviews/guest', ...)"
     },
     {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "components/profile/ProfileLocationEditor.tsx",
-        "line": 58,
-        "endpoint": "/api/user/profile",
-        "method": "POST",
-        "context": "apiRequest(`/api/user/profile`, 'PUT', data),"
-      },
-      "actualRoute": {
-        "file": "routes/userRoutes.ts",
-        "path": "/user/profile",
-        "method": "PUT",
-        "mountPath": "/api",
-        "fullPath": "/api/user/profile"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use PUT instead of POST"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "components/profile/ProfileAboutSection.tsx",
-        "line": 208,
-        "endpoint": "/api/user/profile",
-        "method": "POST",
-        "context": "return apiRequest('/api/user/profile', {"
-      },
-      "actualRoute": {
-        "file": "routes/userRoutes.ts",
-        "path": "/user/profile",
-        "method": "PUT",
-        "mountPath": "/api",
-        "fullPath": "/api/user/profile"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use PUT instead of POST"
-    },
-    {
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
@@ -1850,26 +874,6 @@
       },
       "autoFixable": true,
       "recommendation": "Route exists at /api/user/stats. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "components/profile/EditProfileModal.tsx",
-        "line": 92,
-        "endpoint": "/api/user/profile",
-        "method": "POST",
-        "context": "return apiRequest('/api/user/profile', {"
-      },
-      "actualRoute": {
-        "file": "routes/userRoutes.ts",
-        "path": "/user/profile",
-        "method": "PUT",
-        "mountPath": "/api",
-        "fullPath": "/api/user/profile"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use PUT instead of POST"
     },
     {
       "severity": "high",
@@ -1955,27 +959,6 @@
       "recommendation": "Route exists at /api/notifications/count. Update mount path in routes.ts or fix frontend call."
     },
     {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/moments/EnhancedPostItem.tsx",
-        "line": 378,
-        "endpoint": "/api/admin/reports",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/reports', {"
-      },
-      "expectedRoute": "/api/admin/reports",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
       "severity": "high",
       "type": "method_mismatch",
       "frontendCall": {
@@ -1994,27 +977,6 @@
       },
       "autoFixable": true,
       "recommendation": "Update frontend to use POST instead of GET"
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/messaging/chat-room.tsx",
-        "line": 80,
-        "endpoint": "/api/chat/messages",
-        "method": "GET",
-        "context": "const response = await fetch('/api/chat/messages', {"
-      },
-      "expectedRoute": "/api/chat/messages",
-      "actualRoute": {
-        "file": "routes/chatRoutes.ts",
-        "path": "/chat/rooms/:id/messages",
-        "method": "POST",
-        "mountPath": "/api",
-        "fullPath": "/api/chat/rooms/:id/messages"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/chat/rooms/:id/messages. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -2043,26 +1005,6 @@
       "expectedRoute": "/api/memory/switch-role",
       "autoFixable": false,
       "recommendation": "Create backend route: router.get('/api/memory/switch-role', ...)"
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "components/memories/EnhancedMemoriesUI.tsx",
-        "line": 214,
-        "endpoint": "/api/upload",
-        "method": "GET",
-        "context": "const response = await fetch('/api/upload', {"
-      },
-      "actualRoute": {
-        "file": "routes/upload.ts",
-        "path": "/api/upload",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/upload"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
     },
     {
       "severity": "critical",
@@ -2266,27 +1208,6 @@
       "recommendation": "Route exists at /api/upload/health. Update mount path in routes.ts or fix frontend call."
     },
     {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/feed/PostLikeComment.tsx",
-        "line": 99,
-        "endpoint": "/api/post/share",
-        "method": "GET",
-        "context": "return fetch(\"/api/post/share\", {"
-      },
-      "expectedRoute": "/api/post/share",
-      "actualRoute": {
-        "file": "routes/postsRoutes.ts",
-        "path": "/api/posts/share",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/posts/share"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/posts/share. Update mount path in routes.ts or fix frontend call."
-    },
-    {
       "severity": "high",
       "type": "method_mismatch",
       "frontendCall": {
@@ -2310,36 +1231,22 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "components/esa/ESAMindMapChat.tsx",
-        "line": 70,
-        "endpoint": "/api/esa/chat",
+        "file": "components/feed/PostLikeComment.tsx",
+        "line": 99,
+        "endpoint": "/api/post/share",
         "method": "GET",
-        "context": "const response = await fetch('/api/esa/chat', {"
+        "context": "return fetch(\"/api/post/share\", {"
       },
-      "expectedRoute": "/api/esa/chat",
+      "expectedRoute": "/api/post/share",
       "actualRoute": {
-        "file": "routes/esa-tools.ts",
-        "path": "/esa-tools",
-        "method": "GET",
+        "file": "routes/postsRoutes.ts",
+        "path": "/api/posts/share",
+        "method": "POST",
         "mountPath": "",
-        "fullPath": "/esa-tools"
+        "fullPath": "/api/posts/share"
       },
       "autoFixable": true,
-      "recommendation": "Route exists at /esa-tools. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/ai/AIHelpButton.tsx",
-        "line": 75,
-        "endpoint": "/api/ai-intelligence/conversation",
-        "method": "POST",
-        "context": "return await apiRequest('/api/ai-intelligence/conversation', {"
-      },
-      "expectedRoute": "/api/ai-intelligence/conversation",
-      "autoFixable": false,
-      "recommendation": "Create backend route: router.post('/api/ai-intelligence/conversation', ...)"
+      "recommendation": "Route exists at /api/posts/share. Update mount path in routes.ts or fix frontend call."
     },
     {
       "severity": "critical",
@@ -2387,153 +1294,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "components/admin/PostReportsViewer.tsx",
-        "line": 35,
-        "endpoint": "/api/admin/reports",
-        "method": "GET",
-        "context": "const response = await fetch('/api/admin/reports', {"
-      },
-      "expectedRoute": "/api/admin/reports",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/admin/PerformanceMonitor.tsx",
-        "line": 110,
-        "endpoint": "/api/events/sidebar",
-        "method": "GET",
-        "context": "fetch('/api/events/sidebar')"
-      },
-      "expectedRoute": "/api/events/sidebar",
-      "actualRoute": {
-        "file": "routes/groupRoutes.ts",
-        "path": "/groups/:groupId/events",
-        "method": "GET",
-        "mountPath": "/api",
-        "fullPath": "/api/groups/:groupId/events"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /api/groups/:groupId/events. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/admin/LifeCEODashboard.tsx",
-        "line": 100,
-        "endpoint": "/api/ai/agents",
-        "method": "GET",
-        "context": "const response = await fetch('/api/ai/agents');"
-      },
-      "expectedRoute": "/api/ai/agents",
-      "actualRoute": {
-        "file": "routes/integrationHelpers.ts",
-        "path": "/ai-health",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/ai-health"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /ai-health. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/admin/LifeCEODashboard.tsx",
-        "line": 122,
-        "endpoint": "/api/ai/recommendations",
-        "method": "GET",
-        "context": "const response = await fetch('/api/ai/recommendations');"
-      },
-      "expectedRoute": "/api/ai/recommendations",
-      "actualRoute": {
-        "file": "routes/ai.ts",
-        "path": "/ai/recommendations",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/ai/recommendations"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /ai/recommendations. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/admin/LifeCEODashboard.tsx",
-        "line": 132,
-        "endpoint": "/api/ai/metrics",
-        "method": "GET",
-        "context": "const response = await fetch('/api/ai/metrics');"
-      },
-      "expectedRoute": "/api/ai/metrics",
-      "actualRoute": {
-        "file": "routes/integrationHelpers.ts",
-        "path": "/ai-health",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/ai-health"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /ai-health. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/admin/LifeCEODashboard.tsx",
-        "line": 142,
-        "endpoint": "/api/ai/chat",
-        "method": "POST",
-        "context": "const response = await apiRequest('/api/ai/chat', {"
-      },
-      "expectedRoute": "/api/ai/chat",
-      "actualRoute": {
-        "file": "routes/integrationHelpers.ts",
-        "path": "/ai-health",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/ai-health"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /ai-health. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "components/admin/EventTypesManager.tsx",
-        "line": 47,
-        "endpoint": "/api/admin/event-types",
-        "method": "POST",
-        "context": "return await apiRequest('/api/admin/event-types', {"
-      },
-      "expectedRoute": "/api/admin/event-types",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "components/_archive/ModernPostCreator.tsx",
         "line": 63,
         "endpoint": "/api/users/search",
@@ -2550,26 +1310,6 @@
       },
       "autoFixable": true,
       "recommendation": "Route exists at /api/users/:userId. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "high",
-      "type": "method_mismatch",
-      "frontendCall": {
-        "file": "components/_archive/EnhancedPostCreator.tsx",
-        "line": 138,
-        "endpoint": "/api/upload",
-        "method": "GET",
-        "context": "const response = await fetch('/api/upload', {"
-      },
-      "actualRoute": {
-        "file": "routes/upload.ts",
-        "path": "/api/upload",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/api/upload"
-      },
-      "autoFixable": true,
-      "recommendation": "Update frontend to use POST instead of GET"
     },
     {
       "severity": "critical",
@@ -2637,48 +1377,6 @@
       "severity": "critical",
       "type": "missing_backend",
       "frontendCall": {
-        "file": "lib/mrBlue/ai/ScottAI.tsx",
-        "line": 145,
-        "endpoint": "/api/ai/mrblue/chat",
-        "method": "GET",
-        "context": "const response = await fetch('/api/ai/mrblue/chat', {"
-      },
-      "expectedRoute": "/api/ai/mrblue/chat",
-      "actualRoute": {
-        "file": "routes/integrationHelpers.ts",
-        "path": "/ai-health",
-        "method": "GET",
-        "mountPath": "",
-        "fullPath": "/ai-health"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /ai-health. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
-        "file": "lib/mrBlue/admin/AdminSuperpowers.tsx",
-        "line": 29,
-        "endpoint": "/api/admin/execute-command",
-        "method": "POST",
-        "context": "return await apiRequest('/api/admin/execute-command', {"
-      },
-      "expectedRoute": "/api/admin/execute-command",
-      "actualRoute": {
-        "file": "routes/mrBlue.ts",
-        "path": "/admin/execute-command",
-        "method": "POST",
-        "mountPath": "",
-        "fullPath": "/admin/execute-command"
-      },
-      "autoFixable": true,
-      "recommendation": "Route exists at /admin/execute-command. Update mount path in routes.ts or fix frontend call."
-    },
-    {
-      "severity": "critical",
-      "type": "missing_backend",
-      "frontendCall": {
         "file": "components/profile/security/ProfileSecurityLayer.tsx",
         "line": 42,
         "endpoint": "/api/security/csp-report",
@@ -2718,5 +1416,5 @@
       "recommendation": "Route exists at /api/user/profile. Update mount path in routes.ts or fix frontend call."
     }
   ],
-  "healthScore": 37
+  "healthScore": 66
 }

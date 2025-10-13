@@ -406,7 +406,7 @@ router.get('/users/:userId',
   getUserProfileHandler
 );
 
-// MB.MD TRACK 4: Batch user fetching
+// MB.MD TRACK 4: Batch user fetching (both GET and POST)
 router.post('/users/batch', setUserContext, async (req: any, res) => {
   try {
     const userId = getUserId(req);
@@ -425,6 +425,69 @@ router.post('/users/batch', setUserContext, async (req: any, res) => {
     console.error('Error fetching users batch:', error);
     res.status(500).json({ error: 'Failed to fetch users' });
   }
+});
+
+router.get('/users/batch', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const userIds = req.query.ids as string;
+    if (!userIds) {
+      return res.status(400).json({ error: 'ids query parameter required' });
+    }
+
+    const ids = userIds.split(',').map(id => parseInt(id));
+    const users = await storage.getUsersBatch(ids);
+    res.json({ success: true, data: users });
+  } catch (error: any) {
+    console.error('Error fetching users batch:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// MB.MD TRACK 10: Language preference (PUT → GET also)
+router.get('/user/language-preference', setUserContext, async (req: any, res) => {
+  try {
+    const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    const user = await storage.getUser(Number(userId));
+    res.json({ success: true, language: user?.preferredLanguage || 'en' });
+  } catch (error: any) {
+    console.error('Error fetching language preference:', error);
+    res.json({ error: 'Failed to fetch language preference' });
+  }
+});
+
+// MB.MD TRACK 19: User memberships and following
+router.get('/user/memberships', setUserContext, async (req: any, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+  
+  const memberships = await storage.getUserMemberships(Number(userId));
+  res.json({ success: true, data: memberships });
+});
+
+router.get('/user/following', setUserContext, async (req: any, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+  
+  const following = await storage.getUserFollowing(Number(userId));
+  res.json({ success: true, data: following });
+});
+
+// MB.MD TRACK 21: Delete account
+router.post('/user/delete-account', setUserContext, async (req: any, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+  
+  await storage.deleteUserAccount(Number(userId));
+  res.json({ success: true, message: 'Account deleted successfully' });
 });
 
 // Get user travel details
