@@ -122,7 +122,9 @@ import travelRoutes from "./routes/travelRoutes"; // Travel plans routes
 import activityRoutes from "./routes/activityRoutes"; // Daily activities routes
 import miscRoutes from "./routes/miscRoutes"; // Miscellaneous routes (onboarding, friends, etc.)
 import pushRoutes from "./routes/pushRoutes"; // MB.MD TRACK 3: Push notification routes
-
+import aiRoutesNew from "./routes/aiRoutes"; // MB.MD TRACK 13: AI System Routes
+import lifeCEORoutes from "./routes/lifeCEORoutes"; // MB.MD TRACK 15: Life CEO Routes
+import streamingRoutes from "./routes/streamingRoutes"; // MB.MD TRACK 17: Live Streaming Routes
 
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
@@ -219,7 +221,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/audit-scheduler', auditSchedulerRoutes); // H2AC Phase 3 Completion: Audit Scheduler
   app.use('/api/avatar', avatarRoutes); // H2AC Phase 3 Completion: Avatar GLB Status
   app.use('/api/ai', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46) - FIXED: Mr Blue endpoint now at /api/ai/mrblue/chat
-  app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
+  app.use('/api/agents', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
   app.use(communityRoutes); // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)
   app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
@@ -268,6 +270,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', activityRoutes); // Daily activities routes
   app.use('/api', miscRoutes); // Miscellaneous routes
   app.use('/api', pushRoutes); // MB.MD TRACK 3: Push notification routes
+  app.use('/api', aiRoutesNew); // MB.MD TRACK 13: AI System Routes
+  app.use('/api', lifeCEORoutes); // MB.MD TRACK 15: Life CEO Routes
+  app.use('/api/streaming', streamingRoutes); // MB.MD TRACK 17: Live Streaming Routes
+  app.use('/api', rbacRoutes); // MB.MD TRACK 22: RBAC/ABAC Permission Management Routes
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
