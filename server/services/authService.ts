@@ -2,7 +2,7 @@ import { db } from '../db';
 import { users, userProfiles, userRoles } from '../../shared/schema';
 import { eq, and } from 'drizzle-orm';
 
-export type UserRole = 'admin' | 'organizer' | 'teacher' | 'dancer' | 'guest';
+export type UserRole = 'super_admin' | 'admin' | 'organizer' | 'teacher' | 'dancer' | 'guest';
 
 export interface UserWithRole {
   id: number;
@@ -22,6 +22,19 @@ export interface RolePermissions {
 
 // Define role-based permissions
 export const ROLE_PERMISSIONS: Record<UserRole, RolePermissions> = {
+  super_admin: {
+    'manage_users': true,
+    'manage_events': true,
+    'manage_communities': true,
+    'moderate_content': true,
+    'view_analytics': true,
+    'manage_roles': true,
+    'delete_any_content': true,
+    'ban_users': true,
+    'manage_system': true,
+    'access_admin': true,
+    'manage_platform': true
+  },
   admin: {
     'manage_users': true,
     'manage_events': true,
@@ -30,7 +43,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, RolePermissions> = {
     'view_analytics': true,
     'manage_roles': true,
     'delete_any_content': true,
-    'ban_users': true
+    'ban_users': true,
+    'access_admin': true
   },
   organizer: {
     'create_events': true,

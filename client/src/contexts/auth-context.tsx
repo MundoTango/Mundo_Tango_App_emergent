@@ -29,7 +29,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       
       if (authResponse.ok) {
-        const userData = await authResponse.json();
+        const response = await authResponse.json();
+        // Handle both wrapped ({ success: true, data: {...} }) and unwrapped responses
+        const userData = response.data || response;
         if (userData && userData.id) {
           setUser(userData);
           console.log('🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated');
