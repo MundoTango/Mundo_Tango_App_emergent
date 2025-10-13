@@ -1,0 +1,304 @@
+{
+  "timestamp": "2025-10-13T19:28:31.444Z",
+  "summary": {
+    "totalFiles": 45,
+    "totalTranslationFixes": 0,
+    "totalDarkModeFixes": 0,
+    "totalFixes": 0,
+    "totalErrors": 0,
+    "missingFiles": 45
+  },
+  "batches": [
+    {
+      "name": "critical",
+      "files": 15,
+      "duration": "0.00",
+      "results": [
+        {
+          "file": "client/src/pages/AdminCenter.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Settings.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Profile.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/EventDetails.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Map.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Messaging.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Search.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Housing.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Events.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Groups.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Dashboard.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Feed.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/CommunityHub.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/Notifications.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/UserProfile.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        }
+      ]
+    },
+    {
+      "name": "medium",
+      "files": 19,
+      "duration": "0.00",
+      "results": [
+        {
+          "file": "client/src/pages/admin/UserManagement.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/admin/ContentModeration.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/admin/Analytics.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/pages/admin/SystemSettings.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/Community/CommunityCard.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/Community/CommunityList.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/Community/JoinCommunityButton.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/events/EventCard.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/events/EventList.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/events/CreateEventForm.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/groups/GroupCard.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/groups/GroupList.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/profile/ProfileHeader.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/profile/ProfileSettings.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/feed/FeedPost.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/feed/CreatePost.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/notifications/NotificationList.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/messaging/MessageThread.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/messaging/ConversationList.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        }
+      ]
+    },
+    {
+      "name": "low",
+      "files": 11,
+      "duration": "0.00",
+      "results": [
+        {
+          "file": "client/src/components/ui/Dialog.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/ui/Modal.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/ui/Alert.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/ui/Toast.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/ui/Tooltip.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/layout/Header.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/layout/Footer.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/layout/Sidebar.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/auth/LoginForm.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/auth/RegisterForm.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        },
+        {
+          "file": "client/src/components/auth/ForgotPassword.tsx",
+          "exists": false,
+          "translationResult": null,
+          "darkModeResult": null
+        }
+      ]
+    }
+  ]
+}
