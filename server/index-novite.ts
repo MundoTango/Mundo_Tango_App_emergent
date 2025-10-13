@@ -245,6 +245,10 @@ app.use('/api/audit', auditRoutes); // ESA Audit Runner System
 import smartAgentsRoutes from './routes/smartAgentsRoutes';
 app.use('/api/smart-agents', smartAgentsRoutes);
 
+// MB.MD PHASE 5 - Smart Agents V2 Routes (Enhanced)
+import smartAgentsV2Routes from './routes/smartAgentsV2Routes';
+app.use('/api/smart-agents', smartAgentsV2Routes);
+
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
