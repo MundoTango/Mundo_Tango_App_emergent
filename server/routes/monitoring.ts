@@ -6,7 +6,8 @@
  */
 
 import { Router, Request, Response } from 'express';
-import { requireAuth, requireAdmin } from '../middleware/auth';
+import { requireAuth, requireAdmin as requireAdminSecure } from '../middleware/secureAuth';
+const requireAdmin = requireAdminSecure;
 import {
   getMetrics,
   httpRequestDuration,
