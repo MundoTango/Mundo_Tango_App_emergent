@@ -1,0 +1,122 @@
+[
+  {
+    "query": "What is 2+2?",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "math_simple"
+  },
+  {
+    "query": "Calculate the sum of numbers from 1 to 100",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "math_simple"
+  },
+  {
+    "query": "What is the capital of France?",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "factual"
+  },
+  {
+    "query": "Define photosynthesis",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "factual"
+  },
+  {
+    "query": "List the planets in our solar system",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "factual"
+  },
+  {
+    "query": "Explain the difference between HTTP and HTTPS",
+    "complexity": "medium",
+    "expected_model": "gpt-4o",
+    "category": "technical_explanation"
+  },
+  {
+    "query": "Compare React and Vue.js frameworks",
+    "complexity": "medium",
+    "expected_model": "gpt-4o",
+    "category": "comparison"
+  },
+  {
+    "query": "Explain quantum entanglement in simple terms",
+    "complexity": "medium",
+    "expected_model": "gpt-4o",
+    "category": "science_explanation"
+  },
+  {
+    "query": "How does machine learning differ from deep learning?",
+    "complexity": "medium",
+    "expected_model": "gpt-4o",
+    "category": "technical_explanation"
+  },
+  {
+    "query": "Describe the process of DNA replication",
+    "complexity": "medium",
+    "expected_model": "gpt-4o",
+    "category": "science_explanation"
+  },
+  {
+    "query": "Design a distributed consensus algorithm for a multi-node system",
+    "complexity": "high",
+    "expected_model": "claude-sonnet-4.5",
+    "category": "system_design"
+  },
+  {
+    "query": "Create a comprehensive marketing strategy for a SaaS product launch",
+    "complexity": "high",
+    "expected_model": "claude-sonnet-4.5",
+    "category": "strategic_planning"
+  },
+  {
+    "query": "Write a research paper outline on climate change mitigation strategies",
+    "complexity": "high",
+    "expected_model": "claude-sonnet-4.5",
+    "category": "research_writing"
+  },
+  {
+    "query": "Analyze the architectural patterns for building scalable microservices",
+    "complexity": "high",
+    "expected_model": "claude-sonnet-4.5",
+    "category": "system_design"
+  },
+  {
+    "query": "Develop a comprehensive data privacy framework for a healthcare platform",
+    "complexity": "high",
+    "expected_model": "claude-sonnet-4.5",
+    "category": "strategic_planning"
+  },
+  {
+    "query": "What's the weather like today?",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "factual"
+  },
+  {
+    "query": "Convert 100 USD to EUR",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "conversion"
+  },
+  {
+    "query": "Translate 'Hello, how are you?' to Spanish",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "translation"
+  },
+  {
+    "query": "What year did World War II end?",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "factual"
+  },
+  {
+    "query": "Name three programming languages",
+    "complexity": "low",
+    "expected_model": "gemini-2.5-flash",
+    "category": "factual"
+  }
+]

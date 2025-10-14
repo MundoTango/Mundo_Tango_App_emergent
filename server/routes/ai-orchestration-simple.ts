@@ -10,11 +10,17 @@ import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import { trackAIPerformance } from '../utils/ai-performance-monitor';
 import analyticsRouter from './ai-analytics-extended';
+import { getSemanticCache } from '../utils/semantic-cache';
+import { getCostAttributionService } from '../utils/cost-attribution';
+import { tokenBucketRateLimiter } from '../middleware/token-bucket-limiter';
 
 const router = Router();
 
 // Mount analytics routes
 router.use('/analytics', analyticsRouter);
+
+// Apply rate limiting to AI endpoints
+router.use(tokenBucketRateLimiter);
 
 // Initialize AI clients
 const anthropic = new Anthropic({
@@ -33,6 +39,9 @@ router.post('/route', async (req: Request, res: Response) => {
   let selectedModel = 'gpt-4o';
   let complexity: 'low' | 'medium' | 'high' = 'medium';
   let success = false;
+  let cached = false;
+  let cacheSimilarity: number | undefined;
+  let estimatedCost = 0;
 
   try {
     const { query, context, costPriority = 'balanced' } = req.body;
@@ -41,7 +50,46 @@ router.post('/route', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Query is required' });
     }
 
-    // Simple complexity analysis
+    // PHASE 4: Check semantic cache first
+    const cache = getSemanticCache();
+    const cacheResult = await cache.lookup(query);
+    
+    if (cacheResult.hit) {
+      // Cache hit! Return cached response
+      cached = true;
+      cacheSimilarity = cacheResult.similarity;
+      const latency = Date.now() - startTime;
+
+      console.log(`🎯 Cache hit! Saved $${cacheResult.cost_saved?.toFixed(4)} (${(cacheSimilarity! * 100).toFixed(1)}% similarity)`);
+
+      // Track cost savings
+      const costService = getCostAttributionService();
+      costService.trackCost({
+        user_id: (req.user as any)?.id,
+        endpoint: '/api/ai/route',
+        model: cacheResult.model || 'cached',
+        tokens_input: 0,
+        tokens_output: 0,
+        complexity: 'low',
+        cached: true
+      });
+
+      return res.json({
+        model: cacheResult.model,
+        content: cacheResult.response,
+        complexity: 'low',
+        cached: true,
+        cache_similarity: cacheSimilarity,
+        routing: {
+          costPriority,
+          estimatedCost: 0,
+          reasoning: `Cache hit (${(cacheSimilarity! * 100).toFixed(1)}% similar to: "${cacheResult.original_query}")`
+        },
+        latency_ms: latency
+      });
+    }
+
+    // Cache miss - proceed with normal routing
     const wordCount = query.split(' ').length;
     complexity = wordCount > 50 ? 'high' : wordCount > 20 ? 'medium' : 'low';
 
@@ -55,6 +103,9 @@ router.post('/route', async (req: Request, res: Response) => {
 
     // Execute with selected model
     let response;
+    let tokensInput = 0;
+    let tokensOutput = 0;
+
     if (selectedModel.includes('claude')) {
       const message = await anthropic.messages.create({
         model: 'claude-sonnet-4-20250514',
@@ -62,16 +113,45 @@ router.post('/route', async (req: Request, res: Response) => {
         messages: [{ role: 'user', content: query }]
       });
       response = message.content[0].type === 'text' ? message.content[0].text : '';
+      tokensInput = message.usage.input_tokens;
+      tokensOutput = message.usage.output_tokens;
     } else {
       const completion = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [{ role: 'user', content: query }]
       });
       response = completion.choices[0]?.message?.content || '';
+      tokensInput = completion.usage?.prompt_tokens || 0;
+      tokensOutput = completion.usage?.completion_tokens || 0;
     }
 
     success = true;
     const latency = Date.now() - startTime;
+
+    // Track cost
+    const costService = getCostAttributionService();
+    estimatedCost = costService.trackCost({
+      user_id: (req.user as any)?.id,
+      endpoint: '/api/ai/route',
+      model: selectedModel,
+      tokens_input: tokensInput,
+      tokens_output: tokensOutput,
+      complexity,
+      cached: false
+    });
+
+    // Add to semantic cache for future queries
+    await cache.add({
+      query_text: query,
+      response: response,
+      model: selectedModel,
+      cost: estimatedCost,
+      timestamp: new Date().toISOString(),
+      metadata: {
+        complexity,
+        user_id: (req.user as any)?.id
+      }
+    });
 
     // Track performance
     trackAIPerformance('/api/ai/route', selectedModel, complexity, latency, success, (req.user as any)?.id);
@@ -80,11 +160,13 @@ router.post('/route', async (req: Request, res: Response) => {
       model: selectedModel,
       content: response,
       complexity,
+      cached: false,
       routing: {
         costPriority,
-        estimatedCost: 0.001,
+        estimatedCost,
         reasoning: `Selected ${selectedModel} based on ${complexity} complexity and ${costPriority} cost priority`
-      }
+      },
+      latency_ms: latency
     });
   } catch (error: any) {
     console.error('AI routing error:', error);
