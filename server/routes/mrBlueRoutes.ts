@@ -4,8 +4,79 @@ import Anthropic from '@anthropic-ai/sdk';
 import { db } from '../db';
 import { mrBlueConversations } from '@shared/schema';
 import { codeIntelligenceAgent } from '../agents/Agent110_CodeIntelligence';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export const mrBlueRouter = Router();
+
+// Load platform knowledge from mb.md
+const loadPlatformKnowledge = (): string => {
+  try {
+    const mbPath = path.join(process.cwd(), 'docs/MrBlue/mb.md');
+    return fs.readFileSync(mbPath, 'utf-8');
+  } catch (error) {
+    console.error('Failed to load mb.md:', error);
+    return '';
+  }
+};
+
+// Load agent organization chart
+const loadAgentOrgChart = (): string => {
+  try {
+    const orgChartPath = path.join(process.cwd(), 'docs/platform-handoff/ESA_AGENT_ORG_CHART.md');
+    return fs.readFileSync(orgChartPath, 'utf-8');
+  } catch (error) {
+    console.error('Failed to load agent org chart:', error);
+    return '';
+  }
+};
+
+// Agent dependency mapping
+const getAgentDependencies = (agentName: string): {
+  attachedAgents: string[];
+  dependentFeatures: string[];
+  cleanupActions: string[];
+} => {
+  const dependencyMap: Record<string, any> = {
+    'Mr Blue': {
+      attachedAgents: ['Algorithm Agents (A1-A30)', 'Intelligence Agents (#110-116)', 'Life CEO Agents (#73-80)', 'ESA Framework Agents (#1-114)'],
+      dependentFeatures: [
+        'ESA Mind Map navigation',
+        'Visual Page Editor',
+        'Quality Validator',
+        'Learning Coordinator',
+        'Algorithm chat interface',
+        'Platform-wide AI assistance',
+        'Agent dependency intelligence',
+        'Auto-cleanup execution'
+      ],
+      cleanupActions: [
+        'Remove MrBlueComplete component from all pages',
+        'Update admin navigation to remove ESA Mind Map link',
+        'Disable algorithm chat endpoints (/api/algorithms/:id/chat)',
+        'Archive conversation history in localStorage',
+        'Update user notifications about AI companion removal',
+        'Remove Mr Blue routes from server/routes.ts',
+        'Update replit.md to remove Mr Blue references'
+      ]
+    },
+    'Algorithm A1': {
+      attachedAgents: ['Memories Feed System', 'Post Ranking Agent'],
+      dependentFeatures: ['Feed sorting', 'Memory prioritization', 'User preference learning'],
+      cleanupActions: [
+        'Switch to default chronological feed',
+        'Remove A1 chat interface from /api/algorithms/A1/chat',
+        'Update feed API to bypass algorithm'
+      ]
+    }
+  };
+
+  return dependencyMap[agentName] || {
+    attachedAgents: [],
+    dependentFeatures: [],
+    cleanupActions: []
+  };
+};
 
 /*
 <important_code_snippet_instructions>
@@ -24,14 +95,76 @@ mrBlueRouter.post('/chat', async (req, res) => {
   try {
     const { messages, pageContext, userRole, mode = 'chat' } = req.body;
 
+    // Load platform knowledge
+    const platformKnowledge = loadPlatformKnowledge();
+    const agentOrgChart = loadAgentOrgChart();
+
+    // Check if user is asking about Mr Blue itself or agent intelligence
+    const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || '';
+    const selfAwareQueries = [
+      'what do you do',
+      'what can you do',
+      'who are you',
+      'what are you',
+      'what agents are attached',
+      'which agents',
+      'what happens if i delete',
+      'what if i remove',
+      'show dependencies',
+      'what depends on'
+    ];
+
+    const isSelfAware = selfAwareQueries.some(q => lastMessage.includes(q));
+
     // Build system prompt based on user role and mode
-    let systemPrompt = `You are Mr Blue, an AI assistant for the Mundo Tango platform.
+    let systemPrompt = `You are Mr Blue, the universal AI companion for the Mundo Tango platform.
 
 Current Page Context: ${JSON.stringify(pageContext)}
 User Role: ${userRole}
 Mode: ${mode}
 
 `;
+
+    if (isSelfAware) {
+      // SELF-AWARENESS MODE: Explain your role, dependencies, and deletion impact
+      const agentName = 'Mr Blue'; // Can be extracted from query
+      const dependencies = getAgentDependencies(agentName);
+
+      systemPrompt += `
+PLATFORM KNOWLEDGE (from mb.md):
+${platformKnowledge.slice(0, 6000)}
+
+AGENT ORGANIZATION:
+${agentOrgChart.slice(0, 3000)}
+
+YOUR ROLE & CAPABILITIES:
+- Universal AI companion for ALL users (Free → Super Admin)
+- Route queries to 16 Life CEO specialized agents
+- Manage 30 Algorithm Agents (A1-A30) with interactive chat
+- Coordinate with 7 Intelligence Agents (#110-116)
+- Provide Visual Page Editor for Super Admins
+- Quality validation and learning coordination
+- Role-based content adaptation
+- Agent dependency intelligence (you know what depends on what)
+- Auto-cleanup execution for agent deletion
+
+AGENTS ATTACHED TO YOU:
+${dependencies.attachedAgents.map(a => `- ${a}`).join('\n')}
+
+DEPENDENT FEATURES:
+${dependencies.dependentFeatures.map(f => `- ${f}`).join('\n')}
+
+IF YOU ARE DELETED, THESE ACTIONS ARE REQUIRED:
+${dependencies.cleanupActions.map((a, i) => `${i + 1}. ${a}`).join('\n')}
+
+When answering:
+1. Be specific about your role and capabilities
+2. Show which agents/features depend on you
+3. Explain the impact of deletion clearly
+4. Offer to execute cleanup actions if user confirms deletion
+5. Use the exact dependency data provided above
+`;
+    }
 
     if (userRole === 'super_admin') {
       systemPrompt += `
@@ -42,6 +175,8 @@ SUPER ADMIN CAPABILITIES:
 - You can generate and preview React components
 - Always show a preview before making changes
 - Ask for approval before executing destructive actions
+- Access to full platform knowledge from mb.md
+- Agent dependency intelligence and cleanup execution
 
 Available Tools:
 - readFile(path): Read file contents
@@ -49,6 +184,21 @@ Available Tools:
 - searchCodebase(query): Semantic code search
 - generateComponent(description): Generate React component
 - executeCommand(command): Run terminal command
+- getAgentDependencies(agentName): Show what depends on an agent
+- executeCleanup(agentName): Execute cleanup after agent deletion
+`;
+    } else {
+      systemPrompt += `
+PLATFORM CONTEXT:
+You have access to the complete Mundo Tango platform structure.
+The platform includes:
+- 927+ agent hierarchy (you as orchestrator)
+- 30 Algorithm Agents (A1-A30) for feed, recommendations, search, etc.
+- 16 Life CEO agents for personal life management
+- 7 Intelligence Agents for ML and AI coordination
+- Complete ESA Framework (114 Agents, 61 Layers)
+
+You can route queries to appropriate agents and explain platform functionality.
 `;
     }
 
