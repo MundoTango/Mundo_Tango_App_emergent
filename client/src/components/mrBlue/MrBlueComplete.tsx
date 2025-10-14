@@ -115,15 +115,14 @@ export function MrBlueComplete() {
                   <>
                     <Button
                       variant="outline"
-                      size="sm"
+                      size="icon"
                       onClick={() => {
                         window.location.href = '/admin/esa-mind';
                       }}
-                      className="gap-1"
                       data-testid="button-esa-mind-map"
+                      title="ESA Mind Map"
                     >
                       <Map className="h-4 w-4" />
-                      ESA Mind Map
                     </Button>
                     <Button
                       variant="outline"
