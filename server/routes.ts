@@ -126,6 +126,7 @@ import mrBlueRouter from "./routes/mrBlueRoutes"; // MB.MD PHASE 9: Mr Blue Chat
 import mrBlueAgentRoutes from "./routes/mrBlueAgentRoutes"; // Mr Blue Agent Intelligence & Dependency System
 import phase9Router from "./routes/phase9Routes"; // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
 import { registerAlgorithmRoutes } from "./routes/algorithmRoutes"; // MB.MD ALGORITHM AGENTS: Interactive Algorithm System (A1-Ax)
+import aiMonitoringRoutes from "./routes/ai-monitoring"; // MB.MD PHASE 5: AI Monitoring & FinOps Dashboard
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -245,6 +246,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/avatar', avatarRoutes); // H2AC Phase 3 Completion: Avatar GLB Status
   app.use('/api/platform-audit', platformAuditRoutes); // THE AUDIT Layer 4 & 4B: Translation & Dark Mode Validation
   app.use('/api/ai', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46) - FIXED: Mr Blue endpoint now at /api/ai/mrblue/chat
+  app.use('/api/ai', aiMonitoringRoutes); // MB.MD PHASE 5: AI Monitoring & FinOps (semantic cache, drift detection, cost tracking)
   app.use('/api/agents', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
   app.use(communityRoutes); // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)

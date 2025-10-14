@@ -78,6 +78,7 @@ import DeploymentConfig from '@/pages/admin/DeploymentConfig';
 import AgentCollaborationVisualizer from '@/pages/admin/AgentCollaborationVisualizer';
 import MultiAIDashboard from '@/pages/admin/MultiAIDashboard';
 import MultiAIAnalytics from '@/pages/admin/MultiAIAnalytics';
+import FinOpsDashboard from '@/pages/FinOpsDashboard';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
 import ProjectTracker from '@/pages/ProjectTracker';
@@ -658,6 +659,13 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading Multi-AI Analytics...',
     description: 'Multi-AI Performance Analytics - Cost savings, model usage & quality metrics'
+  },
+  {
+    path: '/finops',
+    component: FinOpsDashboard,
+    mode: 'production',
+    loadingMessage: 'Loading FinOps Dashboard...',
+    description: 'MB.MD Phase 5: AI Cost Monitoring & Financial Operations Dashboard'
   },
   {
     path: '/admin/mr-blue',
