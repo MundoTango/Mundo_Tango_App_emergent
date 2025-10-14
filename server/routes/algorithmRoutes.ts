@@ -16,11 +16,68 @@ import { eq, desc } from 'drizzle-orm';
 
 // Import all algorithm agents
 import { memoriesFeedAgent } from '../algorithms/A1_MemoriesFeedAgent';
+import { friendRecommendationsAgent } from '../algorithms/A2_FriendRecommendationsAgent';
+import { eventRankingsAgent } from '../algorithms/A3_EventRankingsAgent';
+import { searchRelevanceAgent } from '../algorithms/A4_SearchRelevanceAgent';
+import { notificationPriorityAgent } from '../algorithms/A5_NotificationPriorityAgent';
+import { contentModerationAgent } from '../algorithms/A6_ContentModerationAgent';
+import { housingMatchAgent } from '../algorithms/A7_HousingMatchAgent';
+import { sentimentAnalysisAgent } from '../algorithms/A8_SentimentAnalysisAgent';
+import { topicExtractionAgent } from '../algorithms/A9_TopicExtractionAgent';
+import { userClusteringAgent } from '../algorithms/A10_UserClusteringAgent';
+import { churnPredictionAgent } from '../algorithms/A11_ChurnPredictionAgent';
+import { spamDetectionAgent } from '../algorithms/A12_SpamDetectionAgent';
+import { imageRecognitionAgent } from '../algorithms/A13_ImageRecognitionAgent';
+import { translationQualityAgent } from '../algorithms/A14_TranslationQualityAgent';
+import { voiceCommandsAgent } from '../algorithms/A15_VoiceCommandsAgent';
+import { cacheStrategyAgent } from '../algorithms/A16_CacheStrategyAgent';
+import { queryOptimizationAgent } from '../algorithms/A17_QueryOptimizationAgent';
+import { loadBalancingAgent } from '../algorithms/A18_LoadBalancingAgent';
+import { resourceAllocationAgent } from '../algorithms/A19_ResourceAllocationAgent';
+import { rateLimitingAgent } from '../algorithms/A20_RateLimitingAgent';
+import { cdnRoutingAgent } from '../algorithms/A21_CDNRoutingAgent';
+import { backgroundJobsAgent } from '../algorithms/A22_BackgroundJobsAgent';
+import { fraudDetectionAgent } from '../algorithms/A23_FraudDetectionAgent';
+import { accessControlAgent } from '../algorithms/A24_AccessControlAgent';
+import { dataEncryptionAgent } from '../algorithms/A25_DataEncryptionAgent';
+import { auditScoringAgent } from '../algorithms/A26_AuditScoringAgent';
+import { mapRoutePlanningAgent } from '../algorithms/A27_MapRoutePlanningAgent';
+import { calendarSchedulingAgent } from '../algorithms/A28_CalendarSchedulingAgent';
+import { paymentProcessingAgent } from '../algorithms/A29_PaymentProcessingAgent';
+import { analyticsAggregationAgent } from '../algorithms/A30_AnalyticsAggregationAgent';
 
 // Registry of all algorithm agents
 const algorithmRegistry = new Map([
   ['A1', memoriesFeedAgent],
-  // Add more as they're created
+  ['A2', friendRecommendationsAgent],
+  ['A3', eventRankingsAgent],
+  ['A4', searchRelevanceAgent],
+  ['A5', notificationPriorityAgent],
+  ['A6', contentModerationAgent],
+  ['A7', housingMatchAgent],
+  ['A8', sentimentAnalysisAgent],
+  ['A9', topicExtractionAgent],
+  ['A10', userClusteringAgent],
+  ['A11', churnPredictionAgent],
+  ['A12', spamDetectionAgent],
+  ['A13', imageRecognitionAgent],
+  ['A14', translationQualityAgent],
+  ['A15', voiceCommandsAgent],
+  ['A16', cacheStrategyAgent],
+  ['A17', queryOptimizationAgent],
+  ['A18', loadBalancingAgent],
+  ['A19', resourceAllocationAgent],
+  ['A20', rateLimitingAgent],
+  ['A21', cdnRoutingAgent],
+  ['A22', backgroundJobsAgent],
+  ['A23', fraudDetectionAgent],
+  ['A24', accessControlAgent],
+  ['A25', dataEncryptionAgent],
+  ['A26', auditScoringAgent],
+  ['A27', mapRoutePlanningAgent],
+  ['A28', calendarSchedulingAgent],
+  ['A29', paymentProcessingAgent],
+  ['A30', analyticsAggregationAgent],
 ]);
 
 export function registerAlgorithmRoutes(app: Express) {
