@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Rocket, Server, Database, Shield, CheckCircle, AlertTriangle } from "lucide-react";
 import { MetaTags } from "@/components/seo/MetaTags";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from 'react-i18next';
 
 interface DeploymentStatus {
   ready: boolean;
@@ -24,6 +25,7 @@ interface DeploymentStatus {
 }
 
 export default function DeploymentConfig() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [config, setConfig] = useState({
     environment: 'production',

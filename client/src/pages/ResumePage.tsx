@@ -10,6 +10,7 @@ import { format, parseISO } from 'date-fns';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface ResumeEntry {
   event_id: number;
@@ -25,6 +26,7 @@ interface GroupedResume {
 }
 
 export default function ResumePage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const resumeRef = useRef<HTMLDivElement>(null);

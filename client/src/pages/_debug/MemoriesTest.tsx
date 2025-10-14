@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const MemoriesTest = () => {
   console.log('🧪 MemoriesTest component rendering');

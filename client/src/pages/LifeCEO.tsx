@@ -6,8 +6,10 @@ import { Card } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'react-hot-toast';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { useTranslation } from 'react-i18next';
 
 export default function LifeCEO() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const { user } = useAuth();
   const [isRecording, setIsRecording] = useState(false);

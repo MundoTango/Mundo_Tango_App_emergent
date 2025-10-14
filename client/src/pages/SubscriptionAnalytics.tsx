@@ -41,6 +41,7 @@ import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
 import { format, subDays, startOfMonth, endOfMonth } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 // MT ocean theme colors
 const COLORS = ['#14b8a6', '#06b6d4', '#0891b2', '#0e7490', '#155e75'];

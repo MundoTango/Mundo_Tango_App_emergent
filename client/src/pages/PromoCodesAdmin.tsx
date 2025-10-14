@@ -49,6 +49,7 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 interface PromoCode {
   id: string;

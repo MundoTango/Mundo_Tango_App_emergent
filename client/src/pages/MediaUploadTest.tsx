@@ -1,7 +1,9 @@
 import React from 'react';
 import { MediaUploadTest } from '@/components/media/MediaUploadTest';
+import { useTranslation } from 'react-i18next';
 
 export default function MediaUploadTestPage() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
       <div className="container mx-auto px-4">

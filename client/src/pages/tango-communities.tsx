@@ -6,6 +6,7 @@ import { Card } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { useToast } from '../hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 import { 
   Search, 
   Users, 
@@ -35,6 +36,7 @@ interface TangoCommunity {
 }
 
 export default function TangoCommunities() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showCreateModal, setShowCreateModal] = useState(false);

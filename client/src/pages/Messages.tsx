@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, Plus, MessageCircle } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 interface ChatRoomType {
   id: string;
@@ -24,6 +25,7 @@ interface ChatRoomType {
 }
 
 export default function Messages() {
+  const { t } = useTranslation();
   const [selectedRoom, setSelectedRoom] = useState<ChatRoomType | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {

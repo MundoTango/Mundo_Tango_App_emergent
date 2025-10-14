@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { useSocket } from "@/contexts/socket-context";
 import { format } from "date-fns";
+import { useTranslation } from 'react-i18next';
 
 interface Stream {
   id: string;
@@ -54,6 +55,7 @@ interface Stream {
 }
 
 export default function LiveStreaming() {
+  const { t } = useTranslation();
   const [isStreaming, setIsStreaming] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [createDialogOpen, setCreateDialogOpen] = useState(false);

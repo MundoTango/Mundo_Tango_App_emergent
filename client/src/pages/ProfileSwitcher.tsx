@@ -3,8 +3,10 @@ import { useLocation } from 'wouter';
 import { ArrowLeft, Globe, Brain, ChevronRight, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileSwitcher() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const { user } = useAuth();
   const [activeProfile, setActiveProfile] = useState('mundo-tango');

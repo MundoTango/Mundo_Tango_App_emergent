@@ -7,6 +7,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { RoleEmojiDisplay } from "@/components/ui/RoleEmojiDisplay";
 import { Users } from "lucide-react";
 import PostFeed from "@/components/moments/PostFeed";
+import { useTranslation } from 'react-i18next';
 
 interface PublicUser {
   id: number;
@@ -25,6 +26,7 @@ interface PublicUser {
 }
 
 export default function PublicProfilePage() {
+  const { t } = useTranslation();
   // Support multiple route patterns: /u/:username, /profile/:userId, /public-profile/:userId
   const [matchUsername, paramsUsername] = useRoute("/u/:username");
   const [matchUserId, paramsUserId] = useRoute("/profile/:userId");

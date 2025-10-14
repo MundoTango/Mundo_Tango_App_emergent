@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useTranslation } from 'react-i18next';
 import { 
   AlertCircle, 
   CheckCircle, 
@@ -44,6 +45,7 @@ interface ProjectMetrics {
 }
 
 export default function HierarchyDashboard() {
+  const { t } = useTranslation();
   const [metrics, setMetrics] = useState<ProjectMetrics | null>(null);
   const [loading, setLoading] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(false); // Disabled auto-refresh to prevent 404 errors
@@ -130,7 +132,7 @@ export default function HierarchyDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Project Hierarchy Dashboard</h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
             Real-time analysis of your project structure health
           </p>
         </div>
@@ -170,13 +172,13 @@ export default function HierarchyDashboard() {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
-              <span className="text-sm text-gray-600">Module Cohesion</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Module Cohesion</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.moduleCohesion * 100).toFixed(1)}%
               </div>
             </div>
             <div>
-              <span className="text-sm text-gray-600">Coupling Score</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Coupling Score</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.couplingScore * 100).toFixed(1)}%
               </div>
@@ -204,7 +206,7 @@ export default function HierarchyDashboard() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Files</CardTitle>
-                <FileText className="h-4 w-4 text-muted-foreground" />
+                <FileText className="h-4 w-4 text-muted-foreground dark:text-gray-400" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{metrics.hierarchy.totalFiles}</div>
@@ -214,7 +216,7 @@ export default function HierarchyDashboard() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Directories</CardTitle>
-                <FolderOpen className="h-4 w-4 text-muted-foreground" />
+                <FolderOpen className="h-4 w-4 text-muted-foreground dark:text-gray-400" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{metrics.hierarchy.totalDirectories}</div>
@@ -224,7 +226,7 @@ export default function HierarchyDashboard() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Max Depth</CardTitle>
-                <GitBranch className="h-4 w-4 text-muted-foreground" />
+                <GitBranch className="h-4 w-4 text-muted-foreground dark:text-gray-400" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{metrics.hierarchy.maxDepth}</div>
@@ -237,7 +239,7 @@ export default function HierarchyDashboard() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Avg Files/Dir</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                <TrendingUp className="h-4 w-4 text-muted-foreground dark:text-gray-400" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">

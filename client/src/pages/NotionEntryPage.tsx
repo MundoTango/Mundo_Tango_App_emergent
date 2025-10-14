@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from 'react-i18next';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -56,6 +57,7 @@ const TONE_COLORS = {
 };
 
 export function NotionEntryPage() {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
 
   const { data: entry, isLoading, error } = useQuery<NotionEntry>({

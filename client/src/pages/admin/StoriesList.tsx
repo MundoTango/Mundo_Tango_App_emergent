@@ -11,6 +11,7 @@ import { ArrowUpDown, ArrowUp, ArrowDown, Search, Plus } from 'lucide-react';
 import { useLocation } from 'wouter';
 import Skeleton from 'react-loading-skeleton';
 import { AgentSelector } from '@/components/tracker/AgentSelector';
+import { useTranslation } from 'react-i18next';
 
 type Story = {
   id: number;
@@ -31,6 +32,7 @@ type SortConfig = {
 };
 
 export default function StoriesList() {
+  const { t } = useTranslation();
   const [, navigate] = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');

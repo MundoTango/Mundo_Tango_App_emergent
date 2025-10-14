@@ -10,10 +10,12 @@ import { Check, Sparkles, Building2, Crown, ArrowRight, X } from 'lucide-react';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 // ESA LIFE CEO 61x21 - Phase 18: Pricing Page
 
 export default function PricingPage() {
+  const { t } = useTranslation();
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();

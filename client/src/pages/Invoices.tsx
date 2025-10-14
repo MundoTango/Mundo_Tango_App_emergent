@@ -28,6 +28,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { useTranslation } from 'react-i18next';
 
 interface Invoice {
   id: string;

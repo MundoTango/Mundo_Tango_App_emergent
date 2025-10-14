@@ -15,6 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { format } from 'date-fns';
 import DashboardLayout from '@/components/esa/DashboardLayout';
+import { useTranslation } from 'react-i18next';
 
 interface FavoriteItem {
   id: number;
@@ -29,6 +30,7 @@ interface FavoriteItem {
 }
 
 export default function Favorites() {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('all');

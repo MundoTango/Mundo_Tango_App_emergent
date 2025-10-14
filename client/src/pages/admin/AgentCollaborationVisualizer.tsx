@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Network, Share2, Brain, ArrowRight, Zap } from "lucide-react";
 import { MetaTags } from "@/components/seo/MetaTags";
+import { useTranslation } from 'react-i18next';
 
 interface Agent {
   id: string;
@@ -23,6 +24,7 @@ interface CollaborationFlow {
 }
 
 export default function AgentCollaborationVisualizer() {
+  const { t } = useTranslation();
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
 
   // Mock data - would come from API

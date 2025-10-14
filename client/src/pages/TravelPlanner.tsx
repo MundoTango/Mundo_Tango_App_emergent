@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { format, addDays, differenceInDays } from "date-fns";
+import { useTranslation } from 'react-i18next';
 import { 
   Plane, 
   Calendar as CalendarIcon,

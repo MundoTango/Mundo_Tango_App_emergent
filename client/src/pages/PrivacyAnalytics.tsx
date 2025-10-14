@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { monitoring } from '@/services/monitoring';
 import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useTranslation } from 'react-i18next';
 
 interface ConsentState {
   analytics: boolean;
@@ -37,6 +38,7 @@ interface ServiceStatus {
 }
 
 export default function PrivacyAnalytics() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { updateConsent: updateMonitoringConsent, revokeConsent } = useMonitoringContext();
   const [consentState, setConsentState] = useState<ConsentState>({

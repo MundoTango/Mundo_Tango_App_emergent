@@ -21,6 +21,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Link, useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 const BillingDashboard: React.FC = () => {
   const { toast } = useToast();

@@ -12,6 +12,7 @@ import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter, Plus, ChevronRight } f
 import { useLocation } from 'wouter';
 import Skeleton from 'react-loading-skeleton';
 import AdminLayout from '@/components/admin/AdminLayout';
+import { useTranslation } from 'react-i18next';
 
 type Epic = {
   id: number;
@@ -32,6 +33,7 @@ type SortConfig = {
 };
 
 export default function EpicsList() {
+  const { t } = useTranslation();
   const [, navigate] = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');

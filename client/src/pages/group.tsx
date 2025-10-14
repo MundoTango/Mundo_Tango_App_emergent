@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import EnhancedPostItem from "@/components/moments/EnhancedPostItem";
+import { useTranslation } from 'react-i18next';
 
 interface GroupMember {
   id: number;
@@ -58,6 +59,7 @@ interface GroupPageData {
 }
 
 export default function GroupPage() {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const { user } = useAuth();
   const { toast } = useToast();

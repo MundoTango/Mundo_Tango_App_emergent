@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Brain, Zap, Database, TrendingUp, Activity, CheckCircle2, Clock, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { useTranslation } from 'react-i18next';
 
 interface LearningStats {
   totalPatterns: number;
@@ -26,6 +27,7 @@ interface Pattern {
 }
 
 export default function AgentLearningDashboard() {
+  const { t } = useTranslation();
   const [autoRefresh, setAutoRefresh] = useState(true);
 
   const { data: stats, refetch: refetchStats } = useQuery<LearningStats>({

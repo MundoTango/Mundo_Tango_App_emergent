@@ -43,6 +43,7 @@ import {
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import LazyLoad from 'react-lazyload';
+import { useTranslation } from 'react-i18next';
 import { 
   Search, 
   UserPlus, 
@@ -269,6 +270,7 @@ function SortableGroupItem({ friend, index }: SortableGroupItemProps) {
 }
 
 export default function EnhancedFriendsPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
   const [showSendRequestModal, setShowSendRequestModal] = useState(false);

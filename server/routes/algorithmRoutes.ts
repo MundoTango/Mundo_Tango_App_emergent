@@ -104,11 +104,12 @@ export function registerAlgorithmRoutes(app: Express) {
   app.get('/api/algorithms/:id', async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
+      const normalizedId = id.toUpperCase(); // Handle both 'a1' and 'A1'
       
       const agent = await db
         .select()
         .from(algorithmAgents)
-        .where(eq(algorithmAgents.id, id))
+        .where(eq(algorithmAgents.id, normalizedId))
         .limit(1);
       
       if (agent.length === 0) {

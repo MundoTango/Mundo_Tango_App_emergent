@@ -21,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Link } from 'wouter';
+import { useTranslation } from 'react-i18next';
 
 // Form schemas
 const epicSchema = z.object({
@@ -72,6 +73,7 @@ type DashboardStats = {
 };
 
 export default function ProjectTrackerAdmin() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [createEpicOpen, setCreateEpicOpen] = useState(false);
   const [createStoryOpen, setCreateStoryOpen] = useState(false);

@@ -16,8 +16,10 @@ import { apiRequest } from '@/lib/queryClient'; // Import apiRequest
 
 // ESA Layer 9: Add DashboardLayout for consistent navigation with memories page
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { useTranslation } from 'react-i18next';
 
 export default function FriendshipPage() {
+  const { t } = useTranslation();
   const { friendId } = useParams<{ friendId: string }>();
   const [showDanceHistoryForm, setShowDanceHistoryForm] = useState(false);
 

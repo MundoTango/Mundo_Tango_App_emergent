@@ -4,6 +4,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { useTranslation } from 'react-i18next';
 import { 
   TrendingUp, 
   Users, 
@@ -45,6 +46,7 @@ interface GlobalStats {
 }
 
 export default function GlobalStatistics() {
+  const { t } = useTranslation();
   const [selectedPeriod, setSelectedPeriod] = useState('month');
   
   // Mock data for demonstration

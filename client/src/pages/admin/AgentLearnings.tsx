@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Brain, TrendingUp, AlertTriangle, CheckCircle, Clock } from "lucide-react";
 import { MetaTags } from "@/components/seo/MetaTags";
+import { useTranslation } from 'react-i18next';
 
 interface AgentLearning {
   id: number;
@@ -18,6 +19,7 @@ interface AgentLearning {
 }
 
 export default function AgentLearnings() {
+  const { t } = useTranslation();
   const { data: learnings = [], isLoading } = useQuery<AgentLearning[]>({
     queryKey: ['/api/agent-learning/patterns'],
   });

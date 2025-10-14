@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Building2, Plus, Settings, Users, Globe } from "lucide-react";
 import { MetaTags } from "@/components/seo/MetaTags";
+import { useTranslation } from 'react-i18next';
 
 interface Tenant {
   id: number;
@@ -22,6 +23,7 @@ interface Tenant {
 }
 
 export default function TenantManagement() {
+  const { t } = useTranslation();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [newTenant, setNewTenant] = useState({
     name: "",

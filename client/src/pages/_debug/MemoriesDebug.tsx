@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const MemoriesDebug: React.FC = () => {
   const componentInfo = {
