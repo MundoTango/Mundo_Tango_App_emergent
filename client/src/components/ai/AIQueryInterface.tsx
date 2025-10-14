@@ -18,12 +18,13 @@ export function AIQueryInterface() {
     autoRoute: true,
   });
 
-  const queryMutation = useMutation({
+  const queryMutation = useMutation<AIRouteResponse, Error, AIRouteRequest>({
     mutationFn: async (request: AIRouteRequest) => {
-      return apiRequest<AIRouteResponse>('/api/ai/route', {
+      const response = await apiRequest('/api/ai/route', {
         method: 'POST',
         body: JSON.stringify(request),
       });
+      return response as AIRouteResponse;
     },
     onError: (error) => {
       toast({
