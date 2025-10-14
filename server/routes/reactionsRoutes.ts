@@ -18,7 +18,7 @@ router.get('/api/posts/:postId/reactions', async (req, res) => {
 
     // Group by reaction type
     const grouped = postReactions.reduce((acc: any, reaction) => {
-      const type = reaction.reactionType;
+      const type = reaction.type;
       if (!acc[type]) {
         acc[type] = {
           type,
@@ -45,10 +45,10 @@ router.get('/api/posts/:postId/reactions', async (req, res) => {
 router.post('/api/reactions', requireAuth, async (req, res) => {
   try {
     const userId = req.user!.id;
-    const { postId, reactionType } = req.body;
+    const { postId, type } = req.body;
 
-    if (!postId || !reactionType) {
-      return res.status(400).json({ error: 'postId and reactionType are required' });
+    if (!postId || !type) {
+      return res.status(400).json({ error: 'postId and type are required' });
     }
 
     // Remove any existing reaction from this user on this post
@@ -65,7 +65,7 @@ router.post('/api/reactions', requireAuth, async (req, res) => {
       .values({
         userId,
         postId,
-        reactionType
+        type
       })
       .returning();
 
