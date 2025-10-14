@@ -252,9 +252,8 @@ Always be helpful, conversational, and explain things in simple terms.`;
       await db.insert(algorithmChatHistory).values({
         algorithmId: this.id,
         userId,
-        userMessage,
-        agentResponse: response,
-        actionTaken: null
+        message: userMessage,
+        response: response
       });
       
       return {
