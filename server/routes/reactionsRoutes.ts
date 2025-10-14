@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { db } from '../db';
 import { reactions } from '@shared/schema';
 import { eq, and } from 'drizzle-orm';
-import { requireAuth } from '../middleware/authMiddleware';
+import { requireAuth } from '../middleware/secureAuth';
 
 const router = Router();
 
