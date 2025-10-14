@@ -24,7 +24,7 @@ export function AIQueryInterface() {
         method: 'POST',
         body: JSON.stringify(request),
       });
-      return response as AIRouteResponse;
+      return response as unknown as AIRouteResponse;
     },
     onError: (error) => {
       toast({

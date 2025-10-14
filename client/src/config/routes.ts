@@ -76,6 +76,8 @@ import TenantManagement from '@/pages/admin/TenantManagement';
 import AgentLearnings from '@/pages/admin/AgentLearnings';
 import DeploymentConfig from '@/pages/admin/DeploymentConfig';
 import AgentCollaborationVisualizer from '@/pages/admin/AgentCollaborationVisualizer';
+import MultiAIDashboard from '@/pages/admin/MultiAIDashboard';
+import MultiAIAnalytics from '@/pages/admin/MultiAIAnalytics';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
 import ProjectTracker from '@/pages/ProjectTracker';
@@ -642,6 +644,20 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading ESA Mind...',
     description: 'Context-aware ESA Framework (105 Agents, 61 Layers) intelligence and metrics dashboard'
+  },
+  {
+    path: '/admin/multi-ai',
+    component: MultiAIDashboard,
+    mode: 'production',
+    loadingMessage: 'Loading Multi-AI Dashboard...',
+    description: 'Multi-AI Orchestration Dashboard (Agents #115-117) - Model selection, routing & ensemble synthesis'
+  },
+  {
+    path: '/admin/multi-ai/analytics',
+    component: MultiAIAnalytics,
+    mode: 'production',
+    loadingMessage: 'Loading Multi-AI Analytics...',
+    description: 'Multi-AI Performance Analytics - Cost savings, model usage & quality metrics'
   },
   {
     path: '/admin/mr-blue',

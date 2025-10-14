@@ -18,12 +18,13 @@ export function EnsembleSynthesis() {
   const [selectedModels, setSelectedModels] = useState<AIModel[]>(['claude', 'openai', 'gemini']);
   const [ensemble, setEnsemble] = useState<EnsembleResponse | null>(null);
 
-  const ensembleMutation = useMutation({
+  const ensembleMutation = useMutation<EnsembleResponse, Error, EnsembleRequest>({
     mutationFn: async (request: EnsembleRequest) => {
-      return apiRequest<EnsembleResponse>('/api/ai/ensemble', {
+      const response = await apiRequest('/api/ai/ensemble', {
         method: 'POST',
         body: JSON.stringify(request),
       });
+      return response as unknown as EnsembleResponse;
     },
     onSuccess: (data) => {
       setEnsemble(data);
