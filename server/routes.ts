@@ -122,6 +122,7 @@ import miscExtrasRoutes from "./routes/miscExtrasRoutes"; // MB.MD FINAL PUSH: M
 import intelligenceRouter from "./routes/intelligenceRoutes"; // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
 import mrBlueRouter from "./routes/mrBlueRoutes"; // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
 import phase9Router from "./routes/phase9Routes"; // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
+import { registerAlgorithmRoutes } from "./routes/algorithmRoutes"; // MB.MD ALGORITHM AGENTS: Interactive Algorithm System (A1-Ax)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -4207,6 +4208,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('⚠️ Agent Learning System initialization failed:', error);
     // Continue without learning system - non-critical
+  }
+
+  // 🎯 ALGORITHM AGENTS: Interactive Algorithm System (A1-Ax)
+  // Chat with and modify platform algorithms through conversational interface
+  try {
+    registerAlgorithmRoutes(app);
+    console.log('✅ Algorithm Agents System: Registered');
+    console.log('📊 Agents: A1-Ax | Interactive: Chat/Simulate/Deploy');
+  } catch (error) {
+    console.error('⚠️ Algorithm Agents registration failed:', error);
   }
 
   // 🎯 H2AC Orchestrator - Initialize all H2AC systems
