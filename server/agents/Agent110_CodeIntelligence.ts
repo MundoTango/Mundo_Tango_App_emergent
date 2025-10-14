@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { codebaseIndex } from '@/shared/phase9-schema';
+// import { codebaseIndex } from '@shared/schema'; // TODO: Add codebaseIndex table to schema if needed
 import { eq, sql } from 'drizzle-orm';
 
 /**

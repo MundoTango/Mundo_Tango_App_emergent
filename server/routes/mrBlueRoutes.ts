@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { streamText } from 'ai';
 import Anthropic from '@anthropic-ai/sdk';
 import { db } from '../db';
-import { mrBlueConversations } from '@/shared/phase9-schema';
+import { mrBlueConversations } from '@shared/schema';
 import { codeIntelligenceAgent } from '../agents/Agent110_CodeIntelligence';
 
 export const mrBlueRouter = Router();

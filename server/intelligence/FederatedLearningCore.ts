@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { crossPhaseLearning } from '@/shared/phase9-schema';
+import { crossPhaseLearning } from '@shared/schema';
 import { sql } from 'drizzle-orm';
 
 interface AgentModel {
