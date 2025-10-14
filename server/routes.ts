@@ -121,6 +121,7 @@ import mediaMemoryRoutes from "./routes/mediaMemoryRoutes"; // MB.MD FINAL PUSH:
 import miscExtrasRoutes from "./routes/miscExtrasRoutes"; // MB.MD FINAL PUSH: Miscellaneous Extras
 import intelligenceRouter from "./routes/intelligenceRoutes"; // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
 import mrBlueRouter from "./routes/mrBlueRoutes"; // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
+import phase9Router from "./routes/phase9Routes"; // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -311,6 +312,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', miscExtrasRoutes); // MB.MD FINAL PUSH: Miscellaneous Extras (6 endpoints)
   app.use('/api/intelligence', intelligenceRouter); // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
   app.use('/api/mrblue', mrBlueRouter); // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
+  app.use('/api/phase9', phase9Router); // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
   registerStatisticsRoutes(app); // MB.MD FINAL: Statistics Routes (global, realtime)
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
