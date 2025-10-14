@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { db } from '../db';
-import { crossPhaseLearning, agentInsights, learningPatterns } from '@/shared/phase9-schema';
+import { crossPhaseLearning, agentInsights, learningPatterns } from '@shared/schema';
 import { eq, desc, and, sql } from 'drizzle-orm';
 
 export const intelligenceRouter = Router();
