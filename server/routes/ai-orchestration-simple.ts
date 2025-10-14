@@ -8,8 +8,13 @@ import { Router } from 'express';
 import type { Request, Response } from 'express';
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
+import { trackAIPerformance } from '../utils/ai-performance-monitor';
+import analyticsRouter from './ai-analytics-extended';
 
 const router = Router();
+
+// Mount analytics routes
+router.use('/analytics', analyticsRouter);
 
 // Initialize AI clients
 const anthropic = new Anthropic({
@@ -24,6 +29,11 @@ const openai = new OpenAI({
  * POST /api/ai/route - Route query to optimal AI model
  */
 router.post('/route', async (req: Request, res: Response) => {
+  const startTime = Date.now();
+  let selectedModel = 'gpt-4o';
+  let complexity: 'low' | 'medium' | 'high' = 'medium';
+  let success = false;
+
   try {
     const { query, context, costPriority = 'balanced' } = req.body;
 
@@ -33,10 +43,10 @@ router.post('/route', async (req: Request, res: Response) => {
 
     // Simple complexity analysis
     const wordCount = query.split(' ').length;
-    const complexity = wordCount > 50 ? 'high' : wordCount > 20 ? 'medium' : 'low';
+    complexity = wordCount > 50 ? 'high' : wordCount > 20 ? 'medium' : 'low';
 
     // Route based on complexity and cost
-    let selectedModel = 'gpt-4o';
+    selectedModel = 'gpt-4o';
     if (costPriority === 'cheap') {
       selectedModel = 'gemini-2.5-flash';
     } else if (complexity === 'high') {
@@ -60,6 +70,12 @@ router.post('/route', async (req: Request, res: Response) => {
       response = completion.choices[0]?.message?.content || '';
     }
 
+    success = true;
+    const latency = Date.now() - startTime;
+
+    // Track performance
+    trackAIPerformance('/api/ai/route', selectedModel, complexity, latency, success, (req.user as any)?.id);
+
     res.json({
       model: selectedModel,
       content: response,
@@ -72,6 +88,9 @@ router.post('/route', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('AI routing error:', error);
+    const latency = Date.now() - startTime;
+    trackAIPerformance('/api/ai/route', selectedModel, complexity, latency, false, (req.user as any)?.id);
+    
     res.status(500).json({ 
       error: 'AI routing failed', 
       details: error.message 

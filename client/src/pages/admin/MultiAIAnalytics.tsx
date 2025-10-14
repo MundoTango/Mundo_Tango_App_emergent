@@ -18,6 +18,8 @@ import {
 } from 'recharts';
 import { TrendingDown, TrendingUp, DollarSign, Zap, Clock, Target } from 'lucide-react';
 import type { AIMetricsResponse } from '@shared/multi-ai-types';
+import { CostTrendChart } from '@/components/ai/CostTrendChart';
+import { ModelPerformanceTable } from '@/components/ai/ModelPerformanceTable';
 
 export default function MultiAIAnalytics() {
   const { data: metrics, isLoading } = useQuery<AIMetricsResponse>({
@@ -282,6 +284,25 @@ export default function MultiAIAnalytics() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Enhanced Analytics (MB.MD Phase 3) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <CostTrendChart />
+        <Card>
+          <CardHeader>
+            <CardTitle>Coming Soon: Complexity Distribution</CardTitle>
+            <CardDescription>Query complexity breakdown by category</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64 flex items-center justify-center text-muted-foreground">
+              Additional analytics features available in next update
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Model Performance Table */}
+      <ModelPerformanceTable />
     </div>
   );
 }
