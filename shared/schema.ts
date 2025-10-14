@@ -4958,3 +4958,11 @@ export const agentInsights = pgTable('agent_insights', {
   category: varchar('category', { length: 100 }).notNull(),
   title: varchar('title', { length: 255 }).notNull(),
   description: text('description').notNull(),
+  applicablePhases: integer('applicable_phases').array(),
+  implementation: text('implementation').notNull(),
+  successRate: real('success_rate'),
+  usageCount: integer('usage_count').default(0),
+  embeddings: text('embeddings'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
