@@ -233,6 +233,9 @@ export const requireModerator = requireRole('moderator', 'admin', 'super_admin')
 // Middleware: Require organizer or higher
 export const requireOrganizer = requireRole('organizer', 'teacher', 'moderator', 'admin', 'super_admin');
 
+// Middleware: Require Super Admin role (for Phase 9 intelligence features, Mr Blue)
+export const requireSuperAdmin = requireRole('super_admin');
+
 // Middleware: Check specific ability using CASL
 export const requireAbility = (action: string, subject: any) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -375,6 +378,7 @@ export default {
   requireAdmin,
   requireModerator,
   requireOrganizer,
+  requireSuperAdmin,
   requireAbility,
   checkPageAccess,
   csrfProtection,
