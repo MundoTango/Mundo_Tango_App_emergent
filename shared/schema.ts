@@ -4966,3 +4966,120 @@ export const agentInsights = pgTable('agent_insights', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+// ============================================================================
+// ALGORITHM AGENTS (A1-Ax) - Interactive Algorithm System
+// ============================================================================
+
+export const algorithmAgents = pgTable("algorithm_agents", {
+  id: varchar("id", { length: 50 }).primaryKey(), // A1, A2, A3, etc.
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  filePath: varchar("file_path", { length: 500 }).notNull(),
+  algorithmType: varchar("algorithm_type", { length: 50 }).notNull(), // scoring, ranking, recommendation, optimization, prediction
+  currentConfig: jsonb("current_config").default({}).notNull(),
+  defaultConfig: jsonb("default_config").default({}).notNull(),
+  version: varchar("version", { length: 50 }).default("1.0.0"),
+  esaLayers: integer("esa_layers").array(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_algorithm_agents_type").on(table.algorithmType),
+]);
+
+export const algorithmParameters = pgTable("algorithm_parameters", {
+  id: serial("id").primaryKey(),
+  algorithmId: varchar("algorithm_id", { length: 50 }).references(() => algorithmAgents.id).notNull(),
+  name: varchar("name", { length: 100 }).notNull(),
+  type: varchar("type", { length: 50 }).notNull(), // number, boolean, string, enum
+  currentValue: jsonb("current_value").notNull(),
+  defaultValue: jsonb("default_value").notNull(),
+  constraints: jsonb("constraints"), // min, max, enum values
+  description: text("description"),
+  impact: text("impact"),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_algorithm_parameters_algorithm").on(table.algorithmId),
+]);
+
+export const algorithmChangelog = pgTable("algorithm_changelog", {
+  id: serial("id").primaryKey(),
+  algorithmId: varchar("algorithm_id", { length: 50 }).references(() => algorithmAgents.id).notNull(),
+  parameter: varchar("parameter", { length: 100 }),
+  oldValue: jsonb("old_value"),
+  newValue: jsonb("new_value"),
+  reason: text("reason"),
+  modifiedBy: integer("modified_by").references(() => users.id),
+  modifiedAt: timestamp("modified_at").defaultNow()
+}, (table) => [
+  index("idx_algorithm_changelog_algorithm").on(table.algorithmId),
+  index("idx_algorithm_changelog_modified").on(table.modifiedAt),
+]);
+
+export const algorithmChatHistory = pgTable("algorithm_chat_history", {
+  id: serial("id").primaryKey(),
+  algorithmId: varchar("algorithm_id", { length: 50 }).references(() => algorithmAgents.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  userMessage: text("user_message").notNull(),
+  agentResponse: text("agent_response").notNull(),
+  actionTaken: jsonb("action_taken"),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_algorithm_chat_algorithm").on(table.algorithmId),
+  index("idx_algorithm_chat_user").on(table.userId),
+]);
+
+export const algorithmMetrics = pgTable("algorithm_metrics", {
+  id: serial("id").primaryKey(),
+  algorithmId: varchar("algorithm_id", { length: 50 }).references(() => algorithmAgents.id).notNull(),
+  executionTime: integer("execution_time"), // ms
+  callCount: integer("call_count").default(0),
+  errorCount: integer("error_count").default(0),
+  accuracy: real("accuracy"), // For ML algorithms
+  impactScore: integer("impact_score"), // 0-100
+  recordedAt: timestamp("recorded_at").defaultNow()
+}, (table) => [
+  index("idx_algorithm_metrics_algorithm").on(table.algorithmId),
+  index("idx_algorithm_metrics_recorded").on(table.recordedAt),
+]);
+
+export const insertAlgorithmAgentSchema = createInsertSchema(algorithmAgents).omit({
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAlgorithmParameterSchema = createInsertSchema(algorithmParameters).omit({
+  id: true,
+  updatedAt: true,
+});
+
+export const insertAlgorithmChangelogSchema = createInsertSchema(algorithmChangelog).omit({
+  id: true,
+  modifiedAt: true,
+});
+
+export const insertAlgorithmChatSchema = createInsertSchema(algorithmChatHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAlgorithmMetricSchema = createInsertSchema(algorithmMetrics).omit({
+  id: true,
+  recordedAt: true,
+});
+
+export type AlgorithmAgent = typeof algorithmAgents.$inferSelect;
+export type InsertAlgorithmAgent = z.infer<typeof insertAlgorithmAgentSchema>;
+
+export type AlgorithmParameter = typeof algorithmParameters.$inferSelect;
+export type InsertAlgorithmParameter = z.infer<typeof insertAlgorithmParameterSchema>;
+
+export type AlgorithmChangelog = typeof algorithmChangelog.$inferSelect;
+export type InsertAlgorithmChangelog = z.infer<typeof insertAlgorithmChangelogSchema>;
+
+export type AlgorithmChatHistory = typeof algorithmChatHistory.$inferSelect;
+export type InsertAlgorithmChat = z.infer<typeof insertAlgorithmChatSchema>;
+
+export type AlgorithmMetric = typeof algorithmMetrics.$inferSelect;
+export type InsertAlgorithmMetric = z.infer<typeof insertAlgorithmMetricSchema>;
+
