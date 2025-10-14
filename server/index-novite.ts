@@ -184,7 +184,7 @@ app.get('/ready', async (req, res) => {
     await db.execute('SELECT 1');
     res.json({ status: 'ready', database: 'connected' });
   } catch (error) {
-    logger.error('Readiness check failed:', error);
+    logger.error('Readiness check failed:', String(error));
     res.status(503).json({ status: 'not ready', error: 'Database connection failed' });
   }
 });
@@ -196,7 +196,7 @@ app.get('/metrics', async (req, res) => {
     res.set('Content-Type', register.contentType);
     res.end(metrics);
   } catch (error) {
-    logger.error('Error generating metrics:', error);
+    logger.error('Error generating metrics:', String(error));
     res.status(500).end();
   }
 });
@@ -392,13 +392,13 @@ const startServer = async () => {
     // Add error handler for the server
     httpServer.on('error', (error) => {
       console.error('❌ HTTP Server error:', error);
-      logger.fatal('HTTP Server error:', error);
+      logger.fatal('HTTP Server error:', error.message);
       throw error;
     });
 
   } catch (error) {
     console.error('❌ Server startup error:', error);
-    logger.fatal('Failed to start server:', error);
+    logger.fatal('Failed to start server:', String(error));
     process.exit(1);
   }
 };
