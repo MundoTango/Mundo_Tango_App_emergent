@@ -10,6 +10,15 @@ When user says "Use ESA", reference **docs/platform-handoff/esa.md** as the prim
 **CRITICAL:** New agents must be added to ESA_AGENT_ORG_CHART.md (see ESA_NEW_AGENT_GUIDE.md Step 5).
 
 ## Recent Changes
+**October 14, 2025 - MR BLUE INTELLIGENCE ENHANCEMENT! 🧠✨**
+- 🤖 **MR BLUE SELF-AWARENESS:** Can explain its role, attached agents, and deletion impact
+- 🔗 **AGENT DEPENDENCY INTELLIGENCE:** Knows what depends on what, full platform knowledge via mb.md
+- 🧹 **AUTO-CLEANUP EXECUTION:** Can execute cleanup actions for agent deletion automatically
+- 🗺️ **UI FIX:** ESA Mind Map button changed to icon-only (Map icon with tooltip)
+- 📊 **DEPENDENCY MAPPING:** Mr Blue → 927+ agents (Algorithms, Intelligence, Life CEO, ESA Framework)
+- 🎯 **PLATFORM KNOWLEDGE:** Full mb.md integration for context-aware responses
+- 📁 **See:** docs/MrBlue/MR_BLUE_INTELLIGENCE_UPDATE.md
+
 **October 14, 2025 - 98% PLATFORM HEALTH ACHIEVED! 🎉🚀**
 - ✅ **ALL 30 ALGORITHMS OPERATIONAL:** A1-A30 initialized and working (100% success rate)
 - 🔌 **3 CRITICAL APIS IMPLEMENTED:** Favorites, Reactions, Friend Requests fully connected
