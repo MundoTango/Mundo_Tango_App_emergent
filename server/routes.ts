@@ -110,6 +110,8 @@ import locationRoutes from "./routes/locationRoutes"; // MB.MD TRACK 5: Location
 import friendRequestRoutes from "./routes/friendRequestRoutes"; // MB.MD TRACK 6: Friend Request Management
 import rolesRoutes from "./routes/rolesRoutes"; // MB.MD TRACK 8: Enhanced Role Management
 import securityRoutes from "./routes/securityRoutes"; // MB.MD TRACK 11: Security & CSRF Routes
+import favoritesRoutes from "./routes/favoritesRoutes"; // PARALLEL EXECUTION: Favorites API (POST/GET/DELETE)
+import reactionsRoutes from "./routes/reactionsRoutes"; // PARALLEL EXECUTION: Reactions API (POST/GET)
 import validationRoutes from "./routes/validationRoutes"; // MB.MD FINAL TRACK 2: Validation & Quality Routes
 import trackerRoutes from "./routes/trackerRoutes"; // MB.MD FINAL TRACK 3: Project Tracker (Epics/Stories/Tasks/Sprints)
 import userUploadRoutes from "./routes/userUploadRoutes"; // MB.MD FINAL TRACK 4: User Search, Image Upload, Travel
@@ -302,6 +304,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', friendRequestRoutes); // MB.MD TRACK 6: Friend Request Management
   app.use('/api', rolesRoutes); // MB.MD TRACK 8: Enhanced Role Management
   app.use('/api', securityRoutes); // MB.MD TRACK 11: Security & CSRF Routes
+  app.use(favoritesRoutes); // PARALLEL EXECUTION: Favorites API (POST/GET/DELETE)
+  app.use(reactionsRoutes); // PARALLEL EXECUTION: Reactions API (POST/GET)
   app.use('/api', validationRoutes); // MB.MD FINAL TRACK 2: Validation & Quality Routes
   app.use('/api', trackerRoutes); // MB.MD FINAL TRACK 3: Project Tracker Routes
   app.use('/api', userUploadRoutes); // MB.MD FINAL TRACK 4: User & Upload Routes
