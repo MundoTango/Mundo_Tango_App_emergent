@@ -1,0 +1,43 @@
+{
+  "name": "Mundo Tango - Life CEO & Community Platform",
+  "short_name": "Mundo Tango",
+  "description": "AI-powered life management system with social community platforms",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "productivity", "social"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "description": "View your dashboard"
+    },
+    {
+      "name": "Groups",
+      "url": "/groups",
+      "description": "Browse groups"
+    },
+    {
+      "name": "Events",
+      "url": "/events",
+      "description": "Discover events"
+    }
+  ]
+}
