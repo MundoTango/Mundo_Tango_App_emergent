@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { AlertCircle, CheckCircle, Clock, Trophy, Zap, Brain, Shield, Settings } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface FrameworkStatus {
   framework: {
@@ -55,6 +56,7 @@ interface AchievementData {
 }
 
 export default function AgentFrameworkDashboard() {
+  const { t } = useTranslation();
   const [frameworkStatus, setFrameworkStatus] = useState<FrameworkStatus | null>(null);
   const [achievements, setAchievements] = useState<AchievementData | null>(null);
   const [isLoading, setIsLoading] = useState(true);

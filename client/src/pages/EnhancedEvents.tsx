@@ -87,6 +87,7 @@ import {
 } from 'react-share';
 import UnifiedEventCard from '@/components/events/UnifiedEventCard';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
+import { useTranslation } from 'react-i18next';
 
 // Lazy load the map component for better performance
 const LeafletMap = lazy(() => import('@/components/LeafletMap'));
@@ -168,6 +169,7 @@ const viewOptions = [
 ];
 
 export default function EnhancedEventsPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'list' | 'grid' | 'calendar' | 'map'>('list');
   const [activeTab, setActiveTab] = useState('upcoming');
@@ -324,10 +326,10 @@ export default function EnhancedEventsPage() {
   // Countdown renderer
   const countdownRenderer = ({ days, hours, minutes, completed }: any) => {
     if (completed) {
-      return <span className="text-green-600 font-medium">Happening now!</span>;
+      return <span className="text-green-600 dark:text-green-400 font-medium">Happening now!</span>;
     } else {
       return (
-        <span className="text-turquoise-600 font-medium">
+        <span className="text-turquoise-600 dark:text-turquoise-400 font-medium">
           {days}d {hours}h {minutes}m
         </span>
       );
@@ -358,13 +360,13 @@ export default function EnhancedEventsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Events
             </h1>
-            <p className="text-gray-600 mt-1">Discover and join tango events worldwide</p>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">Discover and join tango events worldwide</p>
           </div>
           <div className="flex gap-2">
             <Button
               onClick={exportEventsToCSV}
               variant="outline"
-              className="border-turquoise-200 hover:bg-turquoise-50"
+              className="border-turquoise-200 dark:border-turquoise-800/40 hover:bg-turquoise-50"
             >
               <Download className="w-4 h-4 mr-2" />
               Export
@@ -381,12 +383,12 @@ export default function EnhancedEventsPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 glassmorphic-card">
+          <Card className="p-4 bg-gradient-to-r from-turquoise-50 dark:from-turquoise-900/30 to-cyan-50 dark:to-cyan-900/30 glassmorphic-card">
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-turquoise-600" />
+              <Calendar className="w-8 h-8 text-turquoise-600 dark:text-turquoise-400" />
               <div>
                 <p className="text-2xl font-bold">{events.length}</p>
-                <p className="text-sm text-gray-600">Total Events</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Total Events</p>
               </div>
             </div>
           </Card>
@@ -397,18 +399,18 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => isAfter(new Date(e.startDate), new Date())).length}
                 </p>
-                <p className="text-sm text-gray-600">Upcoming</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Upcoming</p>
               </div>
             </div>
           </Card>
-          <Card className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 glassmorphic-card">
+          <Card className="p-4 bg-gradient-to-r from-blue-50 dark:from-blue-900/30 to-purple-50 dark:to-purple-900/30 glassmorphic-card">
             <div className="flex items-center gap-3">
-              <Users className="w-8 h-8 text-blue-600" />
+              <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               <div>
                 <p className="text-2xl font-bold">
                   {events.filter(e => e.userStatus === 'going').length}
                 </p>
-                <p className="text-sm text-gray-600">Attending</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Attending</p>
               </div>
             </div>
           </Card>
@@ -419,7 +421,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => isSameWeek(new Date(e.startDate), new Date())).length}
                 </p>
-                <p className="text-sm text-gray-600">This Week</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">This Week</p>
               </div>
             </div>
           </Card>
@@ -437,7 +439,7 @@ export default function EnhancedEventsPage() {
                   placeholder="Search events... (Cmd+/)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 glassmorphic-input border-turquoise-200 focus:border-turquoise-400 focus:ring-turquoise-400/20"
+                  className="pl-10 glassmorphic-input border-turquoise-200 dark:border-turquoise-800/40 focus:border-turquoise-400 focus:ring-turquoise-400/20"
                 />
               </div>
               <div className="flex gap-2">
@@ -462,7 +464,7 @@ export default function EnhancedEventsPage() {
             
             <div className="flex flex-wrap gap-2">
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
+                <SelectTrigger className="w-40 border-turquoise-200 dark:border-turquoise-800/40 focus:border-turquoise-400">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -478,7 +480,7 @@ export default function EnhancedEventsPage() {
               </Select>
 
               <Select value={levelFilter} onValueChange={setLevelFilter}>
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
+                <SelectTrigger className="w-40 border-turquoise-200 dark:border-turquoise-800/40 focus:border-turquoise-400">
                   <SelectValue placeholder="Level" />
                 </SelectTrigger>
                 <SelectContent>
@@ -491,7 +493,7 @@ export default function EnhancedEventsPage() {
               </Select>
 
               <Select value={priceFilter} onValueChange={setPriceFilter}>
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
+                <SelectTrigger className="w-40 border-turquoise-200 dark:border-turquoise-800/40 focus:border-turquoise-400">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
                 <SelectContent>
@@ -518,7 +520,7 @@ export default function EnhancedEventsPage() {
                 variant="outline"
                 size="sm"
                 onClick={() => refetch()}
-                className="border-turquoise-200 hover:bg-turquoise-50"
+                className="border-turquoise-200 dark:border-turquoise-800/40 hover:bg-turquoise-50"
               >
                 <RefreshCw className="w-4 h-4 mr-1" />
                 Refresh
@@ -529,7 +531,7 @@ export default function EnhancedEventsPage() {
 
         {/* Event Tabs with MT styling */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid w-full grid-cols-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 border border-turquoise-200/50">
+          <TabsList className="grid w-full grid-cols-4 bg-gradient-to-r from-turquoise-50 dark:from-turquoise-900/30 to-cyan-50 dark:to-cyan-900/30 border border-turquoise-200/50">
             <TabsTrigger value="upcoming" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-400 data-[state=active]:to-cyan-500 data-[state=active]:text-white">
               Upcoming
             </TabsTrigger>
@@ -654,7 +656,7 @@ export default function EnhancedEventsPage() {
                   event: ({ event }: any) => (
                     <div className="p-1 text-xs">
                       <div className="font-semibold truncate">{event.title}</div>
-                      <div className="text-gray-600">{format(new Date(event.start), 'h:mm a')}</div>
+                      <div className="text-gray-600 dark:text-gray-400">{format(new Date(event.start), 'h:mm a')}</div>
                     </div>
                   )
                 }}
@@ -670,7 +672,7 @@ export default function EnhancedEventsPage() {
                 <div className="h-full bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 flex items-center justify-center">
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading map...</p>
+                    <p className="text-gray-600 dark:text-gray-400">Loading map...</p>
                   </div>
                 </div>
               }>
@@ -705,9 +707,9 @@ export default function EnhancedEventsPage() {
         {/* Keyboard Shortcuts */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>
-            <kbd className="px-2 py-1 bg-gray-100 rounded">Cmd+N</kbd> Create Event • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+E</kbd> Export • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+/</kbd> Search
+            <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Cmd+N</kbd> Create Event • 
+            <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded ml-2">Cmd+E</kbd> Export • 
+            <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded ml-2">Cmd+/</kbd> Search
           </p>
         </div>
 

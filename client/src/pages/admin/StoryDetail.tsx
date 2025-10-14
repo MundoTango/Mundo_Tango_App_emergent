@@ -26,6 +26,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import { getLayerName } from '@/lib/esaLayers';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { StoryComments } from '@/components/tracker/StoryComments';
+import { useTranslation } from 'react-i18next';
 
 type Task = {
   id: number;
@@ -99,6 +100,7 @@ const taskSchema = z.object({
 });
 
 export default function StoryDetail() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [, navigate] = useLocation();
   const { toast } = useToast();

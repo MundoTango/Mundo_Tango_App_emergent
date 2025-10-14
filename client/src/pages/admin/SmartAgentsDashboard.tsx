@@ -13,8 +13,10 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Activity, Brain, Zap, MessageSquare, TrendingUp, Play, Pause } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function SmartAgentsDashboard() {
+  const { t } = useTranslation();
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedAgent, setSelectedAgent] = useState<number | null>(null);
 

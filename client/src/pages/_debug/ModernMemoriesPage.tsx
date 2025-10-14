@@ -49,6 +49,7 @@ import { useLocation } from 'wouter';
 import { useCreateMemory } from '@/hooks/useCreateMemory';
 import { useMemoriesFeed } from '@/hooks/useMemoriesFeed';
 import { ResponsiveImage } from '@/components/ui/responsive-image';
+import { useTranslation } from 'react-i18next';
 
 // Code Splitting: Lazy load sidebar components (Vite best practices)
 const CommunityStats = lazy(() => import('@/components/memories/CommunityStats').then(m => ({ default: m.CommunityStats })));

@@ -18,6 +18,7 @@ import EnhancedPostComposer from "@/components/moments/EnhancedPostComposer";
 // ESA Layer 7: Edit functionality handled by BeautifulPostCreator in edit mode
 // ESA Layer 7: Icons handled by BeautifulPostCreator internally
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { useTranslation } from 'react-i18next';
 
 interface Post {
   id: number; // Must be number to work with EnhancedPostItem

@@ -21,6 +21,7 @@ import { Heart, Sparkles, Globe, Users, Music, Calendar, ArrowLeft, CheckCircle,
 import { useState, useEffect } from "react";
 import { apiRequest } from "@/lib/queryClient";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useTranslation } from 'react-i18next';
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -122,6 +123,7 @@ interface CommunityRole {
 }
 
 export default function Onboarding() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();

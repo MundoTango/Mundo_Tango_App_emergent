@@ -8,6 +8,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { Package, TrendingUp, AlertTriangle, Check, X } from 'lucide-react';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface OpenSource {
   name: string;
@@ -64,6 +65,7 @@ interface Consolidation {
 }
 
 export default function OpenSourcesPage() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   
   // Fetch platform-wide status

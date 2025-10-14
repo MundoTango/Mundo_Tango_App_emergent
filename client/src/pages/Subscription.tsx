@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, CreditCard, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
@@ -137,7 +138,7 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
           </>
         )}
       </Button>
-      <p className="text-xs text-muted-foreground text-center">
+      <p className="text-xs text-muted-foreground dark:text-gray-400 text-center">
         Test with card: 4242 4242 4242 4242 (any future expiry, any CVC)
       </p>
     </form>
@@ -145,6 +146,7 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
 };
 
 export default function Subscription() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
@@ -203,7 +205,7 @@ export default function Subscription() {
     <div className="container mx-auto py-10 px-4">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">Choose Your Plan</h1>
-        <p className="text-xl text-muted-foreground">
+        <p className="text-xl text-muted-foreground dark:text-gray-400">
           Unlock premium features and take your experience to the next level
         </p>
         {hasActiveSubscription && (
@@ -242,7 +244,7 @@ export default function Subscription() {
                     <span className="text-3xl font-bold">
                       ${price}
                     </span>
-                    {tierKey !== 'free' && <span className="text-muted-foreground">/month</span>}
+                    {tierKey !== 'free' && <span className="text-muted-foreground dark:text-gray-400">/month</span>}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

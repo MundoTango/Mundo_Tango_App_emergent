@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from 'react-i18next';
 
 interface UserStats {
   totalPoints: number;
@@ -103,6 +104,7 @@ interface LeaderboardEntry {
 }
 
 export default function Gamification() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [selectedLeaderboardType, setSelectedLeaderboardType] = useState("global");
   const [selectedLeaderboardPeriod, setSelectedLeaderboardPeriod] = useState("weekly");

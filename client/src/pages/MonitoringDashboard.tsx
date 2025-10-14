@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useMonitoring } from '@/hooks/useMonitoring';
 import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { lifeCEOTracker } from '@/services/monitoring/lifeceo-tracking';
+import { useTranslation } from 'react-i18next';
 import {
   Activity,
   Brain,
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react';
 
 export default function MonitoringDashboard() {
+  const { t } = useTranslation();
   const { trackEvent, trackAgentInteraction, getFeatureFlag } = useMonitoring();
   const { hasConsent, requestConsent, setShowPrivacySettings } = useMonitoringContext();
   const [agentMetrics, setAgentMetrics] = useState<any[]>([]);

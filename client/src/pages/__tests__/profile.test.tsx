@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { vi } from 'vitest';
 import Profile from '../profile';
 import { useRouter } from 'wouter';
+import { useTranslation } from 'react-i18next';
 
 // Mock wouter
 vi.mock('wouter', () => ({

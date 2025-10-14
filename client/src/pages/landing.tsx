@@ -5,8 +5,10 @@ import { useAuth } from "@/hooks/useAuth";
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 export default function Landing() {
+  const { t } = useTranslation();
   const { isAuthenticated, isLoading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {

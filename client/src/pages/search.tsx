@@ -5,6 +5,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { useDebounce } from '@/hooks/use-debounce';
 import { Link } from 'wouter';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 interface SearchResult {
   id: string;
@@ -17,6 +18,7 @@ interface SearchResult {
 }
 
 export default function SearchPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<'all' | 'users' | 'posts' | 'events' | 'groups'>('all');
   const debouncedQuery = useDebounce(searchQuery, 300);

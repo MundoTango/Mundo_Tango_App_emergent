@@ -13,6 +13,7 @@ import { ArrowLeft, Plus, Target, Users, Calendar, TrendingUp, ChevronRight } fr
 import { useToast } from '@/hooks/use-toast';
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import AdminLayout from '@/components/admin/AdminLayout';
+import { useTranslation } from 'react-i18next';
 
 type Story = {
   id: number;
@@ -40,6 +41,7 @@ type Epic = {
 };
 
 export default function EpicDetail() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [, navigate] = useLocation();
   const { toast } = useToast();

@@ -17,6 +17,7 @@ import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Progress } from '@/components/ui/progress';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 const sprintSchema = z.object({
   name: z.string().min(1, "Sprint name is required"),
@@ -40,6 +41,7 @@ type Sprint = {
 };
 
 export default function SprintManagement() {
+  const { t } = useTranslation();
   const [createSprintOpen, setCreateSprintOpen] = useState(false);
   const { toast } = useToast();
 

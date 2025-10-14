@@ -51,6 +51,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import PostFeed from '@/components/moments/PostFeed';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
+import { useTranslation } from 'react-i18next';
 
 interface EventDetail {
   id: number;
@@ -91,6 +92,7 @@ interface EventDetail {
 }
 
 export default function EventDetailPage() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { user } = useAuth();
   const [, setLocation] = useLocation();

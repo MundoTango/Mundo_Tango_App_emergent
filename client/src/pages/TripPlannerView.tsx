@@ -9,6 +9,7 @@ import ItineraryBuilder from '@/components/trip-planner/ItineraryBuilder';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface TripConfig {
   startDate: string;
@@ -27,7 +28,8 @@ interface TripPlannerViewProps {
   groupId?: number;
 }
 
-export default function TripPlannerView({ city, country, cityLat, cityLng, groupId }: TripPlannerViewProps) {
+export default function TripPlannerView({
+  const { t } = useTranslation(); city, country, cityLat, cityLng, groupId }: TripPlannerViewProps) {
   const { toast } = useToast();
   const [tripConfig, setTripConfig] = useState<TripConfig | null>(null);
   const [mapLayers, setMapLayers] = useState({

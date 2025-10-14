@@ -5,8 +5,10 @@ import { Search, Plus, Users, Globe, Lock, Star, MapPin, UserPlus } from 'lucide
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 export default function GroupsPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
   const [, setLocation] = useLocation();

@@ -26,6 +26,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
 
 // ESA Framework (105 Agents, 61 Layers) - Interactive Dashboard
 
@@ -45,6 +46,7 @@ interface Breadcrumb {
 }
 
 export default function ESAMind() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [location] = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

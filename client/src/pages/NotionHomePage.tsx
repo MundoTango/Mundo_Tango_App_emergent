@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from 'react-i18next';
 import { 
   Search, 
   Filter, 
@@ -64,6 +65,7 @@ const TONE_COLORS = {
 };
 
 export function NotionHomePage() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedTone, setSelectedTone] = useState<string>('');

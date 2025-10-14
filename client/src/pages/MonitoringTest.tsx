@@ -11,8 +11,10 @@ import { useMonitoring } from '@/hooks/useMonitoring';
 import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { monitoring } from '@/services/monitoring';
 import { CheckCircle, XCircle, AlertCircle, Activity, Shield, BarChart, Eye } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function MonitoringTest() {
+  const { t } = useTranslation();
   const { trackEvent, trackPageView, captureException } = useMonitoring();
   const { hasConsent, isInitialized, requestConsent, showPrivacySettings, setShowPrivacySettings } = useMonitoringContext();
   const [testResults, setTestResults] = useState<Record<string, boolean | string>>({});

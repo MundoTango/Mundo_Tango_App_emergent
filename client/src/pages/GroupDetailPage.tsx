@@ -22,9 +22,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 import '../styles/mt-group.css';
 
 export default function GroupDetailPage() {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const [, setLocation] = useLocation();
   const { toast } = useToast();

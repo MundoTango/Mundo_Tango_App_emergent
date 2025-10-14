@@ -11,6 +11,7 @@ import { toast } from '@/hooks/use-toast';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useLocation } from 'wouter';
+import { useTranslation } from 'react-i18next';
 import { 
   Users, 
   Globe, 
@@ -56,6 +57,7 @@ const CATEGORIES = [
 ];
 
 export default function CreateCommunity() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [formData, setFormData] = useState<CommunityFormData>({
     name: '',

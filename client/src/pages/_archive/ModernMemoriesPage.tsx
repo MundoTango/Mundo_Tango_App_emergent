@@ -46,6 +46,7 @@ import {
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
 import { useLocation } from 'wouter';
+import { useTranslation } from 'react-i18next';
 
 // ESA Framework: Pierre Dubois default user
 const PIERRE_DUBOIS = {

@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Activity, TrendingUp, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface HealthMetric {
   category: string;
@@ -27,6 +28,7 @@ interface PlatformHealth {
 }
 
 export default function PlatformHealthDashboard() {
+  const { t } = useTranslation();
   const { data: health, isLoading } = useQuery<PlatformHealth>({
     queryKey: ['/api/admin/platform-health'],
     refetchInterval: 30000 // Refresh every 30s
@@ -78,23 +80,23 @@ export default function PlatformHealthDashboard() {
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Current</span>
-                <span className="text-sm text-muted-foreground">{health?.overall}% / 100%</span>
+                <span className="text-sm text-muted-foreground dark:text-gray-400">{health?.overall}% / 100%</span>
               </div>
               <Progress value={health?.overall || 0} className="h-3" />
             </div>
             
             <div className="grid grid-cols-3 gap-4 pt-4 border-t">
               <div>
-                <p className="text-sm text-muted-foreground">24h Trend</p>
-                <p className="text-2xl font-bold text-green-600">+{health?.trends.day}%</p>
+                <p className="text-sm text-muted-foreground dark:text-gray-400">24h Trend</p>
+                <p className="text-2xl font-bold text-green-600 dark:text-green-400">+{health?.trends.day}%</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">7d Trend</p>
-                <p className="text-2xl font-bold text-green-600">+{health?.trends.week}%</p>
+                <p className="text-sm text-muted-foreground dark:text-gray-400">7d Trend</p>
+                <p className="text-2xl font-bold text-green-600 dark:text-green-400">+{health?.trends.week}%</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">30d Trend</p>
-                <p className="text-2xl font-bold text-green-600">+{health?.trends.month}%</p>
+                <p className="text-sm text-muted-foreground dark:text-gray-400">30d Trend</p>
+                <p className="text-2xl font-bold text-green-600 dark:text-green-400">+{health?.trends.month}%</p>
               </div>
             </div>
           </div>
@@ -121,9 +123,9 @@ export default function PlatformHealthDashboard() {
               
               {metric.issues.length > 0 && (
                 <div className="mt-3 space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground">Issues:</p>
+                  <p className="text-xs font-medium text-muted-foreground dark:text-gray-400">Issues:</p>
                   {metric.issues.map((issue, idx) => (
-                    <p key={idx} className="text-xs text-red-600">• {issue}</p>
+                    <p key={idx} className="text-xs text-red-600 dark:text-red-400">• {issue}</p>
                   ))}
                 </div>
               )}
@@ -143,7 +145,7 @@ export default function PlatformHealthDashboard() {
               {health.overall < 95 && (
                 <li className="flex items-center gap-2 text-sm">
                   <AlertTriangle className="h-4 w-4 text-yellow-500" />
-                  <span>Run API path validation: <code className="bg-gray-100 px-2 py-1 rounded">node scripts/validate-api-paths.mjs</code></span>
+                  <span>Run API path validation: <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">node scripts/validate-api-paths.mjs</code></span>
                 </li>
               )}
               {health.metrics.some(m => m.status === 'warning' || m.status === 'critical') && (

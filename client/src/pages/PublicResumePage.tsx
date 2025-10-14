@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Star, User, AlertCircle, Loader2 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 interface PublicResumeEntry {
   event_name: string;
@@ -27,6 +28,7 @@ interface GroupedResume {
 }
 
 export default function PublicResumePage() {
+  const { t } = useTranslation();
   const { username } = useParams();
 
   const { data: resumeData, isLoading, error } = useQuery({

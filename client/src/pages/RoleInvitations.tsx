@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useTranslation } from 'react-i18next';
 
 // ESA Framework: Enhanced Role Invitations tied to Events
 interface RoleInvitation {
@@ -71,6 +72,7 @@ const ROLE_COLORS = {
 };
 
 export default function RoleInvitations() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('pending');
   const [showSendForm, setShowSendForm] = useState(false);
   const [sendForm, setSendForm] = useState({

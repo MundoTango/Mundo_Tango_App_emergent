@@ -16,6 +16,7 @@ import {
   FileText
 } from "lucide-react";
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { useTranslation } from 'react-i18next';
 
 interface Statistics {
   users: {
@@ -64,6 +65,7 @@ interface Statistics {
 }
 
 export default function LiveGlobalStatistics() {
+  const { t } = useTranslation();
   const [isConnected, setIsConnected] = useState(false);
   const [liveStats, setLiveStats] = useState<Statistics | null>(null);
 
