@@ -5174,7 +5174,7 @@ export const agentCollaborations = pgTable('agent_collaborations', {
   outcome: varchar('outcome', { length: 50 }) // success, failure, partial
 }, (table) => [
   index('idx_agent_collab_leader').on(table.leaderAgent),
-  index('idx_agent_collab_status').on(table.currentStatus),
+  index('idx_agent_collaborations_status').on(table.currentStatus),
   index('idx_agent_collab_started').on(table.startedAt),
 ]);
 

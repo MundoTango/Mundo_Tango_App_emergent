@@ -5,13 +5,13 @@
  * Agents record learnings, retrieve past experiences, and contribute to collective wisdom.
  */
 
-import { db } from '@db';
+import { db } from '../../db';
 import { 
   agentMemories, 
   agentKnowledgeBase,
   type InsertAgentMemory,
   type InsertAgentKnowledge 
-} from '@shared/schema';
+} from '../../../shared/schema';
 import { eq, desc, and, ilike, sql } from 'drizzle-orm';
 
 export class AgentMemoryService {

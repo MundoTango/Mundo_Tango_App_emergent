@@ -12,8 +12,8 @@ import { agentMemoryService } from '../services/agent-intelligence/AgentMemorySe
 import { agentSelfTestFramework, type TestResult } from '../services/agent-intelligence/AgentSelfTestFramework';
 import { agentCollaborationService } from '../services/agent-intelligence/AgentCollaborationService';
 import { agentEscalationService } from '../services/agent-intelligence/AgentEscalationService';
-import { db } from '@db';
-import { componentAgents, type InsertComponentAgent } from '@shared/schema';
+import { db } from '../db';
+import { componentAgents, type InsertComponentAgent } from '../../shared/schema';
 import { eq } from 'drizzle-orm';
 
 export class ComponentAgent {

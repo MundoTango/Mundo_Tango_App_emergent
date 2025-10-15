@@ -5,8 +5,8 @@
  * Agents run tests, attempt auto-fixes, and escalate when needed.
  */
 
-import { db } from '@db';
-import { agentSelfTests, type InsertAgentSelfTest } from '@shared/schema';
+import { db } from '../../db';
+import { agentSelfTests, type InsertAgentSelfTest } from '../../../shared/schema';
 import { eq, desc, and } from 'drizzle-orm';
 
 export interface TestCriteria {

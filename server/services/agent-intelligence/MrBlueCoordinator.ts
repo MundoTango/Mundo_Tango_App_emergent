@@ -5,13 +5,13 @@
  * requests confirmation, and broadcasts changes to affected agents.
  */
 
-import { db } from '@db';
+import { db } from '../../db';
 import { 
   userEditSessions, 
   trackedChanges,
   type InsertUserEditSession,
   type InsertTrackedChange 
-} from '@shared/schema';
+} from '../../../shared/schema';
 import { eq, desc, and } from 'drizzle-orm';
 import OpenAI from 'openai';
 

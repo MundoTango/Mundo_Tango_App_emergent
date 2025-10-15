@@ -5,8 +5,8 @@
  */
 
 import { agentCollaborationService } from './AgentCollaborationService';
-import { db } from '@db';
-import { trackedChanges } from '@shared/schema';
+import { db } from '../../db';
+import { trackedChanges } from '../../../shared/schema';
 import { eq } from 'drizzle-orm';
 
 export interface BroadcastPackage {

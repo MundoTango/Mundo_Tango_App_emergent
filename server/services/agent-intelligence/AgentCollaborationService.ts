@@ -5,13 +5,13 @@
  * Implements agent-to-agent messaging and collaboration sessions.
  */
 
-import { db } from '@db';
+import { db } from '../../db';
 import { 
   agentCommunications, 
   agentCollaborations,
   type InsertAgentCommunication,
   type InsertAgentCollaboration 
-} from '@shared/schema';
+} from '../../../shared/schema';
 import { eq, desc, and, or, isNull, inArray } from 'drizzle-orm';
 
 export class AgentCollaborationService {

@@ -464,8 +464,8 @@ router.get('/mr-blue/broadcast/:id/status', async (req, res) => {
  */
 router.get('/components', async (req, res) => {
   try {
-    const { db } = await import('@db');
-    const { componentAgents } = await import('@shared/schema');
+    const { db } = await import('../db');
+    const { componentAgents } = await import('../../shared/schema');
 
     const components = await db.select().from(componentAgents);
 
@@ -545,7 +545,7 @@ router.post('/components/:name/autonomous-cycle', async (req, res) => {
  */
 router.get('/stats', async (req, res) => {
   try {
-    const { db } = await import('@db');
+    const { db } = await import('../db');
     const { 
       agentMemories, 
       agentSelfTests, 
@@ -553,7 +553,7 @@ router.get('/stats', async (req, res) => {
       agentCommunications,
       agentCollaborations,
       componentAgents 
-    } = await import('@shared/schema');
+    } = await import('../../shared/schema');
 
     const [
       totalLearnings,
