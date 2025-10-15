@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
 import { 
   loadConversation, 
   addMessage as saveMessage, 
@@ -148,9 +149,9 @@ NEVER:
 
       // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
       console.log('🚀 [Mr Blue] Calling API:', '/api/mrblue/simple-chat');
-      const response = await fetch('/api/mrblue/simple-chat', {
+      
+      const data = await apiRequest('/api/mrblue/simple-chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: userMessage,
           personality: scottPersonality,
@@ -160,9 +161,10 @@ NEVER:
         }),
       });
       
-      console.log('✅ [Mr Blue] Response status:', response.status);
-
-      const data = await response.json();
+      console.log('✅ [Mr Blue] Response received:', {
+        hasResponse: !!data.response,
+        model: data.model
+      });
       
       // Track model usage
       trackModelUsage(data.model || preferences.aiModel);

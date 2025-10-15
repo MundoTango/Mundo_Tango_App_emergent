@@ -81,33 +81,56 @@ export const authenticateUser = async (req: Request, res: Response, next: NextFu
   try {
     // Development bypass - ONLY in development mode
     if (AUTH_BYPASS_ENABLED) {
-      console.log('🔧 [DEV ONLY] Auth bypass enabled - using default admin user');
-      const defaultUser = await storage.getUser(7); // Scott Boddye's admin ID
-      if (defaultUser) {
+      console.log('🔧 [DEV ONLY] Auth bypass enabled');
+      
+      // Try to get user from session first
+      let bypassUser = null;
+      const sessionUserId = (req.session as any)?.userId;
+      
+      if (sessionUserId) {
+        bypassUser = await storage.getUser(sessionUserId);
+        console.log('🔧 [DEV ONLY] Using session user:', bypassUser?.email);
+      }
+      
+      // Fallback: Try user #7 (Scott Boddye's admin ID)
+      if (!bypassUser) {
+        bypassUser = await storage.getUser(7);
+        console.log('🔧 [DEV ONLY] Using fallback user #7:', bypassUser?.email);
+      }
+      
+      // If we have a user, set it and continue
+      if (bypassUser) {
+        const userWithRole = await authService.getUserWithRole(bypassUser.id);
+        const role = userWithRole?.role || 'admin';
+        
         req.user = {
-          id: defaultUser.id,
-          email: defaultUser.email,
-          username: defaultUser.username,
-          name: defaultUser.name,
-          role: 'admin',
-          bio: defaultUser.bio ?? undefined,
-          firstName: defaultUser.firstName ?? undefined,
-          lastName: defaultUser.lastName ?? undefined,
-          mobileNo: defaultUser.mobileNo ?? undefined,
-          profileImage: defaultUser.profileImage ?? undefined,
-          backgroundImage: defaultUser.backgroundImage ?? undefined,
-          country: defaultUser.country ?? undefined,
-          city: defaultUser.city ?? undefined,
-          facebookUrl: defaultUser.facebookUrl ?? undefined,
-          isVerified: defaultUser.isVerified ?? undefined,
-          isActive: defaultUser.isActive ?? undefined,
-          apiToken: defaultUser.apiToken ?? undefined,
-          createdAt: defaultUser.createdAt ?? undefined,
-          updatedAt: defaultUser.updatedAt ?? undefined,
+          id: bypassUser.id,
+          email: bypassUser.email,
+          username: bypassUser.username,
+          name: bypassUser.name,
+          role: role,
+          bio: bypassUser.bio ?? undefined,
+          firstName: bypassUser.firstName ?? undefined,
+          lastName: bypassUser.lastName ?? undefined,
+          mobileNo: bypassUser.mobileNo ?? undefined,
+          profileImage: bypassUser.profileImage ?? undefined,
+          backgroundImage: bypassUser.backgroundImage ?? undefined,
+          country: bypassUser.country ?? undefined,
+          city: bypassUser.city ?? undefined,
+          facebookUrl: bypassUser.facebookUrl ?? undefined,
+          isVerified: bypassUser.isVerified ?? undefined,
+          isActive: bypassUser.isActive ?? undefined,
+          apiToken: bypassUser.apiToken ?? undefined,
+          createdAt: bypassUser.createdAt ?? undefined,
+          updatedAt: bypassUser.updatedAt ?? undefined,
         };
-        req.ability = defineAbilitiesFor({ id: defaultUser.id, role: 'admin' });
+        req.ability = defineAbilitiesFor({ id: bypassUser.id, role });
+        console.log('✅ [DEV ONLY] Auth bypass successful:', bypassUser.email, 'role:', role);
         return next();
       }
+      
+      console.warn('⚠️  [DEV ONLY] Auth bypass failed - no user found in session or user #7');
+      // Fall through to normal auth flow
     }
 
     // Extract token
