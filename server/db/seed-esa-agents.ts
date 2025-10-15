@@ -15,9 +15,18 @@
  * Total: 114 Agents
  */
 
-import { db } from './index';
+import pkg from 'pg';
+const { Pool } = pkg;
+import { drizzle } from 'drizzle-orm/node-postgres';
 import { esaAgents } from '../../shared/schema';
 import type { InsertEsaAgent } from '../../shared/schema';
+
+// Create database connection
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const db = drizzle(pool);
 
 // Define agent capabilities by type
 const capabilities = {
