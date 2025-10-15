@@ -5231,6 +5231,85 @@ export const componentAgents = pgTable('component_agents', {
   index('idx_component_agents_health').on(table.currentHealth),
 ]);
 
+// ============================================================================
+// PHASE 7: AUTO-FIX & ML INTELLIGENCE SYSTEM
+// Advanced autonomous agent capabilities with self-healing and learning
+// ============================================================================
+
+// Auto-Fix System: Track automated issue resolution
+export const agentAutoFixes = pgTable('agent_auto_fixes', {
+  id: serial('id').primaryKey(),
+  agentId: varchar('agent_id', { length: 100 }).notNull(),
+  issueId: integer('issue_id').references(() => agentSelfTests.id),
+  fixStrategy: varchar('fix_strategy', { length: 50 }).notNull(), // code_patch, config_update, dependency_fix, type_annotation, accessibility, performance
+  appliedAt: timestamp('applied_at').defaultNow(),
+  success: boolean('success').notNull(),
+  changes: jsonb('changes'), // { files: [], lines: [], diff: '' }
+  rollbackPlan: jsonb('rollback_plan'),
+  validated: boolean('validated').default(false),
+  executionTime: integer('execution_time'), // milliseconds
+  confidence: real('confidence'), // 0.0-1.0
+  errorMessage: text('error_message')
+}, (table) => [
+  index('idx_agent_auto_fixes_agent').on(table.agentId),
+  index('idx_agent_auto_fixes_success').on(table.success),
+  index('idx_agent_auto_fixes_applied').on(table.appliedAt),
+]);
+
+// Collaboration Voting: Multi-agent democratic decision making
+export const agentVotes = pgTable('agent_votes', {
+  id: serial('id').primaryKey(),
+  collaborationId: integer('collaboration_id').references(() => agentCollaborations.id).notNull(),
+  voterId: varchar('voter_id', { length: 100 }).notNull(),
+  solution: text('solution').notNull(),
+  vote: varchar('vote', { length: 20 }).notNull(), // approve, reject
+  expertise: real('expertise').notNull(), // 0.0-1.0 weighted voting
+  reasoning: text('reasoning'),
+  votedAt: timestamp('voted_at').defaultNow()
+}, (table) => [
+  index('idx_agent_votes_collaboration').on(table.collaborationId),
+  index('idx_agent_votes_voter').on(table.voterId),
+  index('idx_agent_votes_voted').on(table.votedAt),
+]);
+
+// Performance Metrics: Track agent efficiency over time
+export const agentPerformanceMetrics = pgTable('agent_performance_metrics', {
+  id: serial('id').primaryKey(),
+  agentId: varchar('agent_id', { length: 100 }).notNull(),
+  metricType: varchar('metric_type', { length: 50 }).notNull(), // test_execution, auto_fix, collaboration, learning
+  executionTime: integer('execution_time'), // milliseconds
+  result: varchar('result', { length: 20 }), // pass, fail, success, error
+  issuesFound: integer('issues_found').default(0),
+  autoFixed: boolean('auto_fixed').default(false),
+  timestamp: timestamp('timestamp').defaultNow(),
+  metadata: jsonb('metadata')
+}, (table) => [
+  index('idx_agent_perf_agent').on(table.agentId),
+  index('idx_agent_perf_type').on(table.metricType),
+  index('idx_agent_perf_timestamp').on(table.timestamp),
+]);
+
+// ESA Agent Registry: Complete 114-agent framework integration
+export const esaAgents = pgTable('esa_agents', {
+  id: varchar('id', { length: 100 }).primaryKey(), // e.g., 'CHIEF-FOUNDATION', 'LAYER-31', 'AGENT-0'
+  name: varchar('name', { length: 255 }).notNull(),
+  type: varchar('type', { length: 50 }).notNull(), // ceo, chief, domain, layer, expert, life_ceo, mr_blue, algorithm
+  division: varchar('division', { length: 50 }), // foundation, core, business, intelligence, platform, extended
+  esaLayers: integer('esa_layers').array(), // e.g., [1, 2, 3] for Foundation Chief
+  domains: text('domains').array(), // e.g., ['database', 'api', 'security']
+  reportsTo: text('reports_to').array(), // Dual reporting: [chief_id, domain_id]
+  capabilities: jsonb('capabilities'), // { self_test: true, auto_fix: true, collaborate: true }
+  expertiseScore: real('expertise_score').default(0.5), // 0.0-1.0
+  status: varchar('status', { length: 20 }).default('active'), // active, busy, testing, fixing, collaborating
+  registeredAt: timestamp('registered_at').defaultNow(),
+  lastActiveAt: timestamp('last_active_at'),
+  metadata: jsonb('metadata')
+}, (table) => [
+  index('idx_esa_agents_type').on(table.type),
+  index('idx_esa_agents_division').on(table.division),
+  index('idx_esa_agents_status').on(table.status),
+]);
+
 // Insert Schemas & Types
 export const insertAgentMemorySchema = createInsertSchema(agentMemories).omit({
   id: true,
@@ -5297,4 +5376,36 @@ export type InsertTrackedChange = z.infer<typeof insertTrackedChangeSchema>;
 
 export type ComponentAgent = typeof componentAgents.$inferSelect;
 export type InsertComponentAgent = z.infer<typeof insertComponentAgentSchema>;
+
+// Phase 7: Auto-Fix & ML Intelligence Types
+export const insertAgentAutoFixSchema = createInsertSchema(agentAutoFixes).omit({
+  id: true,
+  appliedAt: true,
+});
+
+export const insertAgentVoteSchema = createInsertSchema(agentVotes).omit({
+  id: true,
+  votedAt: true,
+});
+
+export const insertAgentPerformanceMetricSchema = createInsertSchema(agentPerformanceMetrics).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertEsaAgentSchema = createInsertSchema(esaAgents).omit({
+  registeredAt: true,
+});
+
+export type AgentAutoFix = typeof agentAutoFixes.$inferSelect;
+export type InsertAgentAutoFix = z.infer<typeof insertAgentAutoFixSchema>;
+
+export type AgentVote = typeof agentVotes.$inferSelect;
+export type InsertAgentVote = z.infer<typeof insertAgentVoteSchema>;
+
+export type AgentPerformanceMetric = typeof agentPerformanceMetrics.$inferSelect;
+export type InsertAgentPerformanceMetric = z.infer<typeof insertAgentPerformanceMetricSchema>;
+
+export type EsaAgent = typeof esaAgents.$inferSelect;
+export type InsertEsaAgent = z.infer<typeof insertEsaAgentSchema>;
 
