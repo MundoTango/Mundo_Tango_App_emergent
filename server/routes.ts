@@ -218,6 +218,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // ESA AUTH FIX (Agent #89): Must be FIRST - All routes below need authenticateUser middleware
+  // MB.MD Research: setupSecureAuth MUST be registered BEFORE routes that depend on it
+  // Fix for: Mr Blue 401, Admin Center refresh, Memory Feed loading issues
+  if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
+    console.log('🔧 [DEV ONLY] Using legacy auth with bypass');
+    await setupAuth(app);
+  } else {
+    console.log('🔒 Using secure authentication middleware');
+    setupSecureAuth(app);
+  }
+
   // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
   app.use('/api', userRoutes);    // User profile and settings routes
   app.use('/api', userStatsRoutes); // ESA Performance optimized stats routes
@@ -431,16 +442,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // app.use(contentSecurityPolicy); // DISABLED for preview
   app.use(sanitizeInput); // ESA LIFE CEO 61x21 - Security restored
 
-  // Set up Replit Auth middleware
-  // ESA LIFE CEO 61x21 - Phase 2: Setup secure authentication
-  // Use legacy auth in dev with bypass, secure auth in production
-  if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
-    console.log('🔧 [DEV ONLY] Using legacy auth with bypass');
-    await setupAuth(app);
-  } else {
-    console.log('🔒 Using secure authentication middleware');
-    setupSecureAuth(app);
-  }
+  // ESA AUTH FIX: setupSecureAuth MOVED to line 220 (before route registrations)
+  // This ensures all routes registered below receive authenticateUser middleware
 
   // Apply CSRF protection after session is initialized
   app.use(csrfProtection); // ESA LIFE CEO 61x21 - Security restored
