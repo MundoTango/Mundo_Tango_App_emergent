@@ -90,19 +90,36 @@ export default function AgentIntelligenceNetwork() {
     }
   });
 
-  const { data: communications, refetch: refetchCommunications } = useQuery<AgentCommunication[]>({
-    queryKey: ['/api/agent-intelligence/communications'],
-    enabled: false
+  const { data: learnings, refetch: refetchLearnings } = useQuery<{learnings: any[], count: number}>({
+    queryKey: ['/api/agent-intelligence/learnings/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/learnings/recent?limit=10');
+      return res.json();
+    }
   });
 
-  const { data: testResults, refetch: refetchTests } = useQuery<AgentTestResult[]>({
+  const { data: testResults, refetch: refetchTests } = useQuery<{tests: AgentTestResult[], count: number}>({
     queryKey: ['/api/agent-intelligence/tests/recent'],
-    enabled: false
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/tests/recent?limit=10');
+      return res.json();
+    }
   });
 
-  const { data: collaborations, refetch: refetchCollaborations } = useQuery<AgentCollaboration[]>({
+  const { data: messages, refetch: refetchMessages } = useQuery<{messages: any[], count: number}>({
+    queryKey: ['/api/agent-intelligence/messages/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/messages/recent?limit=10');
+      return res.json();
+    }
+  });
+
+  const { data: collaborations, refetch: refetchCollaborations } = useQuery<{collaborations: AgentCollaboration[], count: number}>({
     queryKey: ['/api/agent-intelligence/collaborations/recent'],
-    enabled: false
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/collaborations/recent?limit=10');
+      return res.json();
+    }
   });
 
   useEffect(() => {
@@ -111,21 +128,20 @@ export default function AgentIntelligenceNetwork() {
     const interval = setInterval(() => {
       refetchStats();
       refetchActivities();
-      refetchCommunications();
+      refetchLearnings();
       refetchTests();
+      refetchMessages();
       refetchCollaborations();
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [autoRefresh, refetchStats, refetchActivities, refetchCommunications, refetchTests, refetchCollaborations]);
+  }, [autoRefresh, refetchStats, refetchActivities, refetchLearnings, refetchTests, refetchMessages, refetchCollaborations]);
 
   const totalTests = stats?.stats?.totalTests || 0;
   const totalLearnings = stats?.stats?.totalLearnings || 0;
   const totalMessages = stats?.stats?.totalMessages || 0;
   const totalComponents = stats?.stats?.totalComponents || 0;
   const systemHealth = stats?.stats?.systemHealth || 'unknown';
-  
-  const unreadCommunications = communications?.filter(c => !c.isRead).length || 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-6">
