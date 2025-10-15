@@ -79,6 +79,11 @@ import AgentCollaborationVisualizer from '@/pages/admin/AgentCollaborationVisual
 import MultiAIDashboard from '@/pages/admin/MultiAIDashboard';
 import MultiAIAnalytics from '@/pages/admin/MultiAIAnalytics';
 import UISubAgents from '@/pages/admin/UISubAgents'; // Phase 11: UI Sub-Agents Dashboard
+import HealthMonitor from '@/pages/admin/HealthMonitor'; // MB.MD Track 2: Auto-Healing Monitor
+import PageStateMonitor from '@/pages/admin/PageStateMonitor'; // MB.MD Track 3: Page State Tracker
+import AutoFixDashboard from '@/pages/admin/AutoFixDashboard'; // MB.MD Track 4: Auto-Fix Proposals
+import PerformanceDashboard from '@/pages/admin/PerformanceDashboard'; // MB.MD Track 6: Performance Monitor
+import AgentCoordination from '@/pages/admin/AgentCoordination'; // MB.MD Track 8: Agent Coordination
 import FinOpsDashboard from '@/pages/FinOpsDashboard';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
@@ -683,6 +688,41 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading Mr Blue Dashboard...',
     description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
+  },
+  {
+    path: '/admin/health-monitor',
+    component: HealthMonitor,
+    mode: 'production',
+    loadingMessage: 'Loading Health Monitor...',
+    description: 'MB.MD Track 2: Service Health Monitor with Auto-Healing'
+  },
+  {
+    path: '/admin/page-states',
+    component: PageStateMonitor,
+    mode: 'production',
+    loadingMessage: 'Loading Page State Monitor...',
+    description: 'MB.MD Track 3: Omniscient Page State Tracker & Error Aggregation'
+  },
+  {
+    path: '/admin/auto-fix',
+    component: AutoFixDashboard,
+    mode: 'production',
+    loadingMessage: 'Loading Auto-Fix Dashboard...',
+    description: 'MB.MD Track 4: AI-Powered Auto-Fix Proposals & One-Click Deployment'
+  },
+  {
+    path: '/admin/performance',
+    component: PerformanceDashboard,
+    mode: 'production',
+    loadingMessage: 'Loading Performance Dashboard...',
+    description: 'MB.MD Track 6: Real-Time Performance Monitoring & Alerts'
+  },
+  {
+    path: '/admin/agent-coordination',
+    component: AgentCoordination,
+    mode: 'production',
+    loadingMessage: 'Loading Agent Coordination...',
+    description: 'MB.MD Track 8: Agent Registry, Learning Systems & Collaboration'
   },
   {
     path: '/admin/tenants',
