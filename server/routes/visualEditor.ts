@@ -299,11 +299,31 @@ function groupChangesByFile(changes: VisualChange[]): Record<string, VisualChang
 }
 
 /**
- * Helper: Get file content (stub for now)
+ * Helper: Get file content from filesystem
+ * Reads actual component files for AI code generation
  */
 async function getFileContent(filePath: string): Promise<string> {
-  // TODO: Implement actual file reading with fs
-  return `// Placeholder for ${filePath}\nexport default function Component() {\n  return <div>Hello</div>;\n}`;
+  const fs = await import('fs/promises');
+  const path = await import('path');
+  
+  try {
+    // Resolve relative path from project root
+    const fullPath = path.resolve(process.cwd(), filePath);
+    
+    // Security: Only allow reading from client/src directory
+    const clientSrcPath = path.resolve(process.cwd(), 'client/src');
+    if (!fullPath.startsWith(clientSrcPath)) {
+      throw new Error('Access denied: Can only read files from client/src directory');
+    }
+    
+    // Read file content
+    const content = await fs.readFile(fullPath, 'utf-8');
+    return content;
+  } catch (error) {
+    // Fallback for missing files
+    console.warn(`Could not read file ${filePath}:`, error instanceof Error ? error.message : 'Unknown error');
+    return `// File not found: ${filePath}\nexport default function Component() {\n  return <div>Component</div>;\n}`;
+  }
 }
 
 /**

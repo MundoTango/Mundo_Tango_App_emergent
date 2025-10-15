@@ -15,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { ComponentSelector, type SelectedComponent } from './ComponentSelector';
 import { EditControls, type ComponentChanges } from './EditControls';
 import { MrBlueVisualChat } from './MrBlueVisualChat';
+import { DragDropHandler } from './DragDropHandler';
 
 interface VisualEditorOverlayProps {
   currentUrl: string;
@@ -49,6 +50,13 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
 
   const handleSelectComponent = (component: SelectedComponent) => {
     setSelectedComponent(component);
+  };
+
+  const handleDragPositionChange = (x: number, y: number) => {
+    // Track position change in real-time
+    if (selectedComponent) {
+      tracker.trackMove(selectedComponent.testId, x - selectedComponent.bounds.left, y - selectedComponent.bounds.top);
+    }
   };
 
   const handleSaveChanges = async (changes: ComponentChanges) => {
@@ -154,6 +162,13 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
                       />
                     </div>
                   )}
+
+                  {/* Drag & Drop Handler */}
+                  <DragDropHandler
+                    enabled={!!selectedComponent}
+                    selectedComponent={selectedComponent}
+                    onPositionChange={handleDragPositionChange}
+                  />
                 </div>
               </div>
             </ResizablePanel>
