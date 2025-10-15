@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Image, Video, MapPin, Smile, X, Send, Globe, Users, Lock, Camera, FileImage } from 'lucide-react';
 
 interface ModernPostComposerProps {

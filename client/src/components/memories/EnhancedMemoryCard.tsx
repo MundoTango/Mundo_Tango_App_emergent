@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Heart, MessageCircle, Share2, MoreHorizontal, MapPin, Clock, Send, Smile, ThumbsUp, Laugh, Frown, Angry } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';

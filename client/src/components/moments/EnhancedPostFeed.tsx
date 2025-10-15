@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Heart, Search, X, Tag, Filter, Sparkles, Users, Globe, MapPin } from 'lucide-react';

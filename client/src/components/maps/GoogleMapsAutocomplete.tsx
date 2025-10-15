@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { loadGoogleMaps, isGoogleMapsLoaded } from '@/lib/google-maps-loader';
 import { MapPin, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';

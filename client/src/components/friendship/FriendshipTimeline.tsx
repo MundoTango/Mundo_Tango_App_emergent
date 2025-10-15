@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery } from '@tanstack/react-query';
 import { Calendar, MapPin, Music, Heart, MessageCircle, Camera, Users, Award } from 'lucide-react';
 import { Card } from '@/components/ui/card';

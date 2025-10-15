@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -432,7 +433,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                         <Input 
                           {...field} 
                           placeholder="Your nickname" 
-                          className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white dark:bg-gray-900/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg"
+                          className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white dark:bg-gray-900/70 backdrop-blur-xl hover:bg-white dark:bg-gray-800/80 transition-all duration-300 px-4 py-2.5 rounded-lg"
                         />
                       </FormControl>
                       <FormMessage />
@@ -455,7 +456,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                           selected={field.value}
                           onChange={field.onChange}
                           placeholder="Select languages"
-                          className="glassmorphic-input border-2 border-turquoise-200/50 focus-within:border-turquoise-400 bg-white dark:bg-gray-900/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300"
+                          className="glassmorphic-input border-2 border-turquoise-200/50 focus-within:border-turquoise-400 bg-white dark:bg-gray-900/70 backdrop-blur-xl hover:bg-white dark:bg-gray-800/80 transition-all duration-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -571,7 +572,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                           value={field.value?.toString()}
                           onValueChange={(value) => field.onChange(parseInt(value))}
                         >
-                          <SelectTrigger className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white dark:bg-gray-900/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg">
+                          <SelectTrigger className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white dark:bg-gray-900/70 backdrop-blur-xl hover:bg-white dark:bg-gray-800/80 transition-all duration-300 px-4 py-2.5 rounded-lg">
                             <SelectValue placeholder="Select year" />
                           </SelectTrigger>
                           <SelectContent className="glassmorphic-card max-h-60 overflow-y-auto border border-turquoise-200/50">

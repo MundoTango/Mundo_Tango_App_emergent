@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback, memo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback, memo } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { MapContainer, TileLayer, Marker, Popup, CircleMarker, useMap, ZoomControl, ScaleControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -561,7 +562,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                     {/* Statistics Grid with glassmorphic cards */}
                     <div className="grid grid-cols-2 gap-3">
                       {/* People Count */}
-                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
+                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white dark:bg-gray-800/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-turquoise-500 to-cyan-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Users className="h-4 w-4 text-white" />
@@ -576,7 +577,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                       
                       {/* Events Count */}
-                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
+                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white dark:bg-gray-800/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Calendar className="h-4 w-4 text-white" />
@@ -591,7 +592,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                       
                       {/* Housing Hosts Count */}
-                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
+                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white dark:bg-gray-800/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-teal-500 to-green-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Home className="h-4 w-4 text-white" />
@@ -606,7 +607,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                       
                       {/* Recommendations Count */}
-                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
+                      <div className="bg-white dark:bg-gray-900/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white dark:bg-gray-800/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Star className="h-4 w-4 text-white" />

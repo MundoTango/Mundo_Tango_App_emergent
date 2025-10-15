@@ -6,7 +6,8 @@
  * Aurora Tide Design System + MT Ocean Theme
  */
 
-import { useState, useRef } from 'react';
+import { useState, useRef } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { HelpCircle, X, MessageSquare, Sparkles, Lightbulb, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '@/components/glass/GlassComponents';

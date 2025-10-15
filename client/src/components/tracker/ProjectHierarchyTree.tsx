@@ -1,7 +1,8 @@
 // ESA Agent #65: Project Hierarchy Tree Visualization
 // System → Area → Epic → Story → Task with agent filtering
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery } from '@tanstack/react-query';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { Badge } from '@/components/ui/badge';

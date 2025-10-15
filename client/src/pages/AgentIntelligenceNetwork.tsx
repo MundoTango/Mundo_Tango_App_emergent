@@ -170,7 +170,7 @@ export default function AgentIntelligenceNetwork() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <Layers className="w-4 h-4" />
@@ -187,7 +187,7 @@ export default function AgentIntelligenceNetwork() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <TestTube2 className="w-4 h-4" />
@@ -204,7 +204,7 @@ export default function AgentIntelligenceNetwork() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <MessageSquare className="w-4 h-4" />
@@ -221,7 +221,7 @@ export default function AgentIntelligenceNetwork() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <Shield className="w-4 h-4" />
@@ -243,7 +243,7 @@ export default function AgentIntelligenceNetwork() {
 
         {/* Main Content Tabs */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 bg-white/10 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 bg-white dark:bg-gray-800/10 backdrop-blur">
             <TabsTrigger value="overview" data-testid="tab-overview">
               <Activity className="w-4 h-4 mr-2" />
               Overview
@@ -280,7 +280,7 @@ export default function AgentIntelligenceNetwork() {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-4">
-            <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+            <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
               <CardHeader>
                 <CardTitle className="text-xl text-white flex items-center gap-2">
                   <Activity className="w-5 h-5 text-blue-400" />
@@ -293,7 +293,7 @@ export default function AgentIntelligenceNetwork() {
                     {activities?.activities?.map((activity, index) => (
                       <div
                         key={index}
-                        className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
+                        className="bg-white dark:bg-gray-800/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
                         data-testid={`activity-${index}`}
                       >
                         <div className="flex items-start justify-between">
@@ -342,7 +342,7 @@ export default function AgentIntelligenceNetwork() {
 
           {/* Communications Tab */}
           <TabsContent value="communications" className="space-y-4">
-            <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+            <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
               <CardHeader>
                 <CardTitle className="text-xl text-white flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-blue-400" />
@@ -403,7 +403,7 @@ export default function AgentIntelligenceNetwork() {
 
           {/* Tests Tab */}
           <TabsContent value="tests" className="space-y-4">
-            <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+            <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
               <CardHeader>
                 <CardTitle className="text-xl text-white flex items-center gap-2">
                   <TestTube2 className="w-5 h-5 text-blue-400" />
@@ -416,7 +416,7 @@ export default function AgentIntelligenceNetwork() {
                     {testResults?.tests?.map((test) => (
                       <div
                         key={test.id}
-                        className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
+                        className="bg-white dark:bg-gray-800/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
                         data-testid={`test-result-${test.id}`}
                       >
                         <div className="flex items-start justify-between mb-2">
@@ -466,7 +466,7 @@ export default function AgentIntelligenceNetwork() {
 
           {/* Collaborations Tab */}
           <TabsContent value="collaborations" className="space-y-4">
-            <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+            <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
               <CardHeader>
                 <CardTitle className="text-xl text-white flex items-center gap-2">
                   <Users className="w-5 h-5 text-blue-400" />
@@ -479,7 +479,7 @@ export default function AgentIntelligenceNetwork() {
                     {collaborations?.collaborations?.map((collab) => (
                       <div
                         key={collab.id}
-                        className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
+                        className="bg-white dark:bg-gray-800/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
                         data-testid={`collaboration-${collab.id}`}
                       >
                         <div className="flex items-start justify-between mb-2">
@@ -526,7 +526,7 @@ export default function AgentIntelligenceNetwork() {
 
           {/* Learning Tab */}
           <TabsContent value="learning" className="space-y-4">
-            <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+            <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
               <CardHeader>
                 <CardTitle className="text-xl text-white flex items-center gap-2">
                   <Brain className="w-5 h-5 text-blue-400" />
@@ -539,7 +539,7 @@ export default function AgentIntelligenceNetwork() {
                     {learnings?.learnings?.map((learning) => (
                       <div
                         key={learning.id}
-                        className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
+                        className="bg-white dark:bg-gray-800/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
                         data-testid={`learning-${learning.id}`}
                       >
                         <div className="flex items-start justify-between mb-3">
@@ -618,7 +618,7 @@ function EsaRegistryTab() {
 
   return (
     <div className="space-y-4">
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-2xl text-white flex items-center gap-2">
             <Layers className="w-6 h-6 text-blue-400" />
@@ -628,7 +628,7 @@ function EsaRegistryTab() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Object.entries(groupedAgents).map(([division, agents]: [string, any]) => (
-              <Card key={division} className="bg-white/5 border-blue-500/20">
+              <Card key={division} className="bg-white dark:bg-gray-800/5 border-blue-500/20">
                 <CardHeader>
                   <CardTitle className="text-lg text-white capitalize">{division} Division</CardTitle>
                   <p className="text-sm text-blue-300">{agents.length} agents</p>
@@ -639,7 +639,7 @@ function EsaRegistryTab() {
                       {agents.map((agent: any) => (
                         <div
                           key={agent.id}
-                          className="bg-white/5 rounded p-3 hover:bg-white/10 transition-colors"
+                          className="bg-white dark:bg-gray-800/5 rounded p-3 hover:bg-white/10 transition-colors"
                           data-testid={`esa-agent-${agent.id}`}
                         >
                           <div className="flex items-start justify-between mb-1">
@@ -693,7 +693,7 @@ function AutoFixTab() {
   return (
     <div className="space-y-4">
       {/* Success Rate Card */}
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-2xl text-white flex items-center gap-2">
             <Zap className="w-6 h-6 text-blue-400" />
@@ -702,7 +702,7 @@ function AutoFixTab() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Success Rate</CardTitle>
               </CardHeader>
@@ -713,7 +713,7 @@ function AutoFixTab() {
                 <Progress value={successRate * 100} className="w-full h-2 mt-2" />
               </CardContent>
             </Card>
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Total Fixes</CardTitle>
               </CardHeader>
@@ -722,7 +722,7 @@ function AutoFixTab() {
                 <p className="text-xs text-blue-300 mt-2">Automated resolutions</p>
               </CardContent>
             </Card>
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Successful</CardTitle>
               </CardHeader>
@@ -738,7 +738,7 @@ function AutoFixTab() {
       </Card>
 
       {/* Recent Fixes Table */}
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl text-white">Recent Auto-Fixes</CardTitle>
         </CardHeader>
@@ -817,7 +817,7 @@ function MetricsTab() {
   return (
     <div className="space-y-4">
       {/* System-wide Metrics Cards */}
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-2xl text-white flex items-center gap-2">
             <TrendingUp className="w-6 h-6 text-blue-400" />
@@ -826,7 +826,7 @@ function MetricsTab() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Total Tests</CardTitle>
               </CardHeader>
@@ -838,7 +838,7 @@ function MetricsTab() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Avg Pass Rate</CardTitle>
               </CardHeader>
@@ -850,7 +850,7 @@ function MetricsTab() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Auto-Fix Rate</CardTitle>
               </CardHeader>
@@ -862,7 +862,7 @@ function MetricsTab() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-blue-500/20">
+            <Card className="bg-white dark:bg-gray-800/5 border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-sm text-blue-200">Collaboration Success</CardTitle>
               </CardHeader>
@@ -878,21 +878,21 @@ function MetricsTab() {
       </Card>
 
       {/* Additional Stats */}
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl text-white">Detailed Metrics</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Total Auto-Fixes</h4>
               <p className="text-3xl font-bold text-white">{systemMetrics?.totalFixes || 0}</p>
             </div>
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Total Collaborations</h4>
               <p className="text-3xl font-bold text-white">{systemMetrics?.totalCollaborations || 0}</p>
             </div>
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Total Metrics Tracked</h4>
               <p className="text-3xl font-bold text-white">{systemMetrics?.totalMetrics || 0}</p>
             </div>
@@ -901,7 +901,7 @@ function MetricsTab() {
       </Card>
 
       {/* Performance Trends Placeholder */}
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl text-white">Performance Trends</CardTitle>
         </CardHeader>

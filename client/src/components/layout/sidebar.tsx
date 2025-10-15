@@ -36,7 +36,8 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { useTranslation } from 'react-i18next';;
 
 interface SidebarProps {
   isOpen: boolean;

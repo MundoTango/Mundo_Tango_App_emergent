@@ -145,7 +145,7 @@ export function OnboardingWizard() {
 
             <Button
               onClick={handleNext}
-              className="bg-white dark:bg-gray-900 text-cyan-600 hover:bg-white/90"
+              className="bg-white dark:bg-gray-900 text-cyan-600 hover:bg-white dark:bg-gray-800/90"
             >
               {currentStep === ONBOARDING_STEPS.length - 1 ? 'Get Started' : 'Next'}
               <ChevronRight className="ml-2 h-4 w-4" />

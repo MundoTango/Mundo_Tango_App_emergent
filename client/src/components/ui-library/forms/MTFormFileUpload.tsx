@@ -12,7 +12,8 @@ import {
 } from '@/components/ui/form';
 import { cn } from '@/lib/utils';
 import { Upload, X, FileIcon, ImageIcon, VideoIcon, Music } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef } from 'react'
+import { useTranslation } from 'react-i18next';;
 
 export interface MTFormFileUploadProps<
   TFieldValues extends FieldValues = FieldValues,

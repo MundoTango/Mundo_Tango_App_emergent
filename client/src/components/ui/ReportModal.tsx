@@ -3,7 +3,8 @@
  * 11L Layer 5: Component Implementation
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import ReactDOM from 'react-dom';
 import { X, Flag, AlertCircle, Shield, User, Zap, Heart, MessageSquare } from 'lucide-react';
 

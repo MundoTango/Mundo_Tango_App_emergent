@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useOpenReplay } from '@/hooks/useOpenReplay';
 
 export function SessionRecordingNotice() {

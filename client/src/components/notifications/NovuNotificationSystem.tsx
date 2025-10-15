@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { NovuProvider, PopoverNotificationCenter, useNotifications } from '@novu/react';
 import { Bell, MessageCircle, Heart, UserPlus, Calendar, Award } from 'lucide-react';
 import { useAuthContext } from '../../auth/useAuthContext';

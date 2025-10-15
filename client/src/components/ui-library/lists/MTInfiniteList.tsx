@@ -1,7 +1,8 @@
 // MT Ocean Infinite List - Infinite Scrolling List Component
 // ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { MTOceanTheme, applyGlassmorphism } from '@/styles/mt-ocean-theme';

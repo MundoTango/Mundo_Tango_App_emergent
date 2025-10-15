@@ -136,7 +136,7 @@ export default function AgentDetail() {
 
         {/* Key Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <Shield className="w-4 h-4" />
@@ -151,7 +151,7 @@ export default function AgentDetail() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <TestTube2 className="w-4 h-4" />
@@ -168,7 +168,7 @@ export default function AgentDetail() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <Zap className="w-4 h-4" />
@@ -185,7 +185,7 @@ export default function AgentDetail() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+          <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-blue-200 flex items-center gap-2">
                 <Brain className="w-4 h-4" />
@@ -203,7 +203,7 @@ export default function AgentDetail() {
 
         {/* Main Content Tabs */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 bg-white/10 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-5 bg-white dark:bg-gray-800/10 backdrop-blur">
             <TabsTrigger value="overview" data-testid="tab-overview">
               <Activity className="w-4 h-4 mr-2" />
               Overview
@@ -230,7 +230,7 @@ export default function AgentDetail() {
           <TabsContent value="overview" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Agent Capabilities */}
-              <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+              <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
                 <CardHeader>
                   <CardTitle className="text-xl text-white flex items-center gap-2">
                     <Shield className="w-5 h-5 text-blue-400" />
@@ -258,7 +258,7 @@ export default function AgentDetail() {
               </Card>
 
               {/* Agent Domains */}
-              <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+              <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
                 <CardHeader>
                   <CardTitle className="text-xl text-white flex items-center gap-2">
                     <Code className="w-5 h-5 text-blue-400" />
@@ -281,7 +281,7 @@ export default function AgentDetail() {
               </Card>
 
               {/* ESA Layers */}
-              <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+              <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
                 <CardHeader>
                   <CardTitle className="text-xl text-white flex items-center gap-2">
                     <Layers className="w-5 h-5 text-blue-400" />
@@ -306,7 +306,7 @@ export default function AgentDetail() {
               </Card>
 
               {/* Reporting Structure */}
-              <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+              <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
                 <CardHeader>
                   <CardTitle className="text-xl text-white flex items-center gap-2">
                     <GitBranch className="w-5 h-5 text-blue-400" />
@@ -366,7 +366,7 @@ function TestsTabContent({ agentId, metrics }: any) {
   });
 
   return (
-    <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+    <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
       <CardHeader>
         <CardTitle className="text-xl text-white">Test Execution History</CardTitle>
       </CardHeader>
@@ -426,7 +426,7 @@ function TestsTabContent({ agentId, metrics }: any) {
 
 function LearningsTabContent({ agentId, learnings }: any) {
   return (
-    <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+    <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
       <CardHeader>
         <CardTitle className="text-xl text-white">Pattern Library & Memory</CardTitle>
       </CardHeader>
@@ -436,7 +436,7 @@ function LearningsTabContent({ agentId, learnings }: any) {
             {learnings?.learnings?.map((learning: any) => (
               <div
                 key={learning.id}
-                className="bg-white/5 rounded-lg p-4 border border-blue-500/20"
+                className="bg-white dark:bg-gray-800/5 rounded-lg p-4 border border-blue-500/20"
                 data-testid={`learning-${learning.id}`}
               >
                 <div className="flex items-start justify-between mb-2">
@@ -478,7 +478,7 @@ function LearningsTabContent({ agentId, learnings }: any) {
 
 function AutoFixesTabContent({ agentId, fixHistory }: any) {
   return (
-    <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+    <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
       <CardHeader>
         <CardTitle className="text-xl text-white">Automated Resolution History</CardTitle>
       </CardHeader>
@@ -543,27 +543,27 @@ function MetricsTabContent({ agentId, metrics }: any) {
 
   return (
     <div className="space-y-4">
-      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+      <Card className="bg-white dark:bg-gray-800/10 border-blue-500/30 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl text-white">Performance Analytics</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Tests Run</h4>
               <p className="text-3xl font-bold text-white">{summary.testsRun || 0}</p>
             </div>
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Pass Rate</h4>
               <p className="text-3xl font-bold text-green-400">
                 {((summary.passRate || 0) * 100).toFixed(0)}%
               </p>
             </div>
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Avg Execution</h4>
               <p className="text-3xl font-bold text-white">{summary.avgExecutionTime || 0}ms</p>
             </div>
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-white dark:bg-gray-800/5 rounded-lg p-4">
               <h4 className="text-blue-300 font-medium mb-2">Auto-Fix Rate</h4>
               <p className="text-3xl font-bold text-blue-400">
                 {((summary.autoFixRate || 0) * 100).toFixed(0)}%

@@ -3,7 +3,8 @@
  * GDPR-compliant consent modal for analytics and monitoring
  */
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Shield, Eye, BarChart, AlertCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';

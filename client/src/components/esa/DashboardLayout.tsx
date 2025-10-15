@@ -2,7 +2,8 @@
 // Layer 9: UI Framework Agent - DashboardLayout Component
 // Canonical layout wrapper for all dashboard pages with theme support
 
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Link, useLocation } from 'wouter';
 import { 
   Home, Users, UserPlus, MessageSquare, 

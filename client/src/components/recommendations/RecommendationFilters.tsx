@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Filter, ChevronDown, ChevronUp, Users, Globe, MapPin, Star, DollarSign, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

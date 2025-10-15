@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { 
   Heart, MessageCircle, Share2, MoreHorizontal, MapPin, 
   Clock, Send, AlertCircle, X, Edit, Trash2, Flag, Users

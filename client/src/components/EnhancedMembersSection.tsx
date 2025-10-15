@@ -3,7 +3,8 @@
  * Layer 7: Frontend Layer - Advanced member organization with filtering and role visualization
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useLocation } from 'wouter';
 import { Search, Filter, Users, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';

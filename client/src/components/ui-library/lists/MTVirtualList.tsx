@@ -1,7 +1,8 @@
 // MT Ocean Virtual List - High Performance Virtual Scrolling List
 // ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
 
-import { useRef, useState, useEffect, useCallback, memo } from 'react';
+import { useRef, useState, useEffect, useCallback, memo } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { cn } from '@/lib/utils';
 import { MTOceanTheme, applyGlassmorphism } from '@/styles/mt-ocean-theme';
 

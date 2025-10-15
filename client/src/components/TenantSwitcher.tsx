@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useTenant } from '../contexts/TenantContext';
 import { useAuth } from '@/hooks/useAuth';
 import { defineAbilitiesFor } from '@/lib/casl/abilities';

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { useTranslation } from 'react-i18next';;
 import { InternalUploader } from '../upload/InternalUploader';
 import { Card } from '@/components/ui/card';
 

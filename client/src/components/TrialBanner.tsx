@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import Countdown from 'react-countdown';
 import Confetti from 'react-confetti';
 import { Card } from '@/components/ui/card';

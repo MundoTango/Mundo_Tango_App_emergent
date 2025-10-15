@@ -1,7 +1,8 @@
 // ESA Agent #65: Story Comments Component
 // Reuses postComments pattern with rich text, @mentions, attachments, threading
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { GlassCard } from '@/components/glass/GlassComponents';

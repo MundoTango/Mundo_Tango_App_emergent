@@ -3,7 +3,8 @@
  * Provides monitoring context and consent management UI
  */
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { monitoring } from '@/services/monitoring';
 import { ConsentModal } from './ConsentModal';
 import { useToast } from '@/hooks/use-toast';

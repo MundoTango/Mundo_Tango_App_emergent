@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, useLocation } from "wouter";
-import { useState } from "react";
+import { useState } from "react"
+import { useTranslation } from 'react-i18next';;
 
 interface NavbarProps {
   onMenuClick: () => void;
@@ -57,7 +58,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                   <h3 className="font-semibold text-sm text-gray-700 mb-2">Posts</h3>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 p-2 hover:bg-gray-50 dark:bg-gray-800 rounded cursor-pointer">
-                      <img src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
+                      <img alt="" src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
                       <span className="text-sm">Sample post content...</span>
                     </div>
                   </div>
@@ -66,7 +67,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                   <h3 className="font-semibold text-sm text-gray-700 mb-2">Groups</h3>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 p-2 hover:bg-gray-50 dark:bg-gray-800 rounded cursor-pointer">
-                      <img src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
+                      <img alt="" src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
                       <span className="text-sm">Tango Buenos Aires</span>
                     </div>
                   </div>
@@ -78,7 +79,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                       className="flex items-center gap-2 p-2 hover:bg-gray-50 dark:bg-gray-800 rounded cursor-pointer"
                       onClick={() => window.location.href = '/profile/1'}
                     >
-                      <img src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
+                      <img alt="" src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
                       <span className="text-sm">Maria Rodriguez</span>
                     </div>
                   </div>
@@ -87,7 +88,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                   <h3 className="font-semibold text-sm text-gray-700 mb-2">Events</h3>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 p-2 hover:bg-gray-50 dark:bg-gray-800 rounded cursor-pointer">
-                      <img src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
+                      <img alt="" src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
                       <span className="text-sm">Milonga Night</span>
                     </div>
                   </div>
