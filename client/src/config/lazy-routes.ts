@@ -6,6 +6,7 @@ export const AdminDashboard = lazy(() => import('@/pages/admin/dashboard'));
 export const AdminUsers = lazy(() => import('@/pages/admin/users'));
 export const AdminModeration = lazy(() => import('@/pages/admin/moderation'));
 export const AdminAnalytics = lazy(() => import('@/pages/admin/analytics'));
+export const AdminUISubAgents = lazy(() => import('@/pages/admin/UISubAgents')); // Phase 11: UI Sub-Agents Dashboard
 
 // Heavy feature routes
 export const Events = lazy(() => import('@/pages/EnhancedEvents'));

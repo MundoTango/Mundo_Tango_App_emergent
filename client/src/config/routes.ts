@@ -78,6 +78,7 @@ import DeploymentConfig from '@/pages/admin/DeploymentConfig';
 import AgentCollaborationVisualizer from '@/pages/admin/AgentCollaborationVisualizer';
 import MultiAIDashboard from '@/pages/admin/MultiAIDashboard';
 import MultiAIAnalytics from '@/pages/admin/MultiAIAnalytics';
+import UISubAgents from '@/pages/admin/UISubAgents'; // Phase 11: UI Sub-Agents Dashboard
 import FinOpsDashboard from '@/pages/FinOpsDashboard';
 import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
 import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
