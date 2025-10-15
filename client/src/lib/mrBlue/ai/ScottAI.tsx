@@ -148,6 +148,19 @@ NEVER:
 
       // Get user preferences
       const preferences = loadPreferences();
+      
+      // ⚡ AUTO-MIGRATION: Fix invalid models for Anthropic endpoint
+      const validClaudeModels = ['claude-sonnet-4-20250514', 'claude-3-5-sonnet-20241022', 'claude'];
+      let selectedModel = preferences.aiModel || config.defaultModel || 'claude-sonnet-4-20250514';
+      
+      if (!validClaudeModels.includes(selectedModel)) {
+        console.warn('🔄 [MB.MD MIGRATION] Invalid model detected, auto-fixing:', selectedModel, '→ claude-sonnet-4-20250514');
+        selectedModel = 'claude-sonnet-4-20250514';
+        // Save corrected preference for future use
+        import('../storage/localStorage').then(({ savePreferences }) => {
+          savePreferences({ aiModel: 'claude-sonnet-4-20250514' });
+        });
+      }
 
       // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
       console.log('🚀 [MB.MD Track 3] Calling API with apiRequest():', '/api/mrblue/simple-chat');
@@ -159,7 +172,7 @@ NEVER:
           personality: scottPersonality,
           agent: targetAgent,
           context,
-          model: preferences.aiModel || config.defaultModel || 'claude-sonnet-4-20250514',
+          model: selectedModel,
         },
       });
       
