@@ -23,15 +23,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface AgentStats {
-  totalAgents: number;
-  activeAgents: number;
-  learningAgents: number;
-  totalMemories: number;
-  totalTests: number;
-  passedTests: number;
-  totalCommunications: number;
-  totalCollaborations: number;
-  avgHealthScore: number;
+  stats: {
+    totalLearnings: number;
+    totalTests: number;
+    totalKnowledge: number;
+    totalMessages: number;
+    totalCollaborations: number;
+    totalComponents: number;
+    systemHealth: string;
+  };
 }
 
 interface AgentActivity {
@@ -76,22 +76,33 @@ export default function AgentIntelligenceNetwork() {
 
   const { data: stats, refetch: refetchStats } = useQuery<AgentStats>({
     queryKey: ['/api/agent-intelligence/stats'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/stats');
+      return res.json();
+    }
   });
 
-  const { data: activities, refetch: refetchActivities } = useQuery<AgentActivity[]>({
+  const { data: activities, refetch: refetchActivities } = useQuery<{activities: AgentActivity[], count: number}>({
     queryKey: ['/api/agent-intelligence/activities'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/activities?limit=10');
+      return res.json();
+    }
   });
 
   const { data: communications, refetch: refetchCommunications } = useQuery<AgentCommunication[]>({
     queryKey: ['/api/agent-intelligence/communications'],
+    enabled: false
   });
 
   const { data: testResults, refetch: refetchTests } = useQuery<AgentTestResult[]>({
     queryKey: ['/api/agent-intelligence/tests/recent'],
+    enabled: false
   });
 
   const { data: collaborations, refetch: refetchCollaborations } = useQuery<AgentCollaboration[]>({
     queryKey: ['/api/agent-intelligence/collaborations/recent'],
+    enabled: false
   });
 
   useEffect(() => {
@@ -108,10 +119,12 @@ export default function AgentIntelligenceNetwork() {
     return () => clearInterval(interval);
   }, [autoRefresh, refetchStats, refetchActivities, refetchCommunications, refetchTests, refetchCollaborations]);
 
-  const testPassRate = stats?.totalTests 
-    ? ((stats.passedTests / stats.totalTests) * 100).toFixed(1) 
-    : "0";
-
+  const totalTests = stats?.stats?.totalTests || 0;
+  const totalLearnings = stats?.stats?.totalLearnings || 0;
+  const totalMessages = stats?.stats?.totalMessages || 0;
+  const totalComponents = stats?.stats?.totalComponents || 0;
+  const systemHealth = stats?.stats?.systemHealth || 'unknown';
+  
   const unreadCommunications = communications?.filter(c => !c.isRead).length || 0;
 
   return (
@@ -150,10 +163,10 @@ export default function AgentIntelligenceNetwork() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-white" data-testid="text-total-agents">
-                {stats?.totalAgents || 0}
+                {totalComponents}
               </div>
               <p className="text-xs text-blue-300 mt-1">
-                {stats?.activeAgents || 0} active • {stats?.learningAgents || 0} learning
+                {totalLearnings} learnings • {totalMessages} messages
               </p>
             </CardContent>
           </Card>
@@ -167,10 +180,10 @@ export default function AgentIntelligenceNetwork() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-white" data-testid="text-total-tests">
-                {stats?.totalTests || 0}
+                {totalTests}
               </div>
               <p className="text-xs text-blue-300 mt-1">
-                {testPassRate}% pass rate • {stats?.passedTests || 0} passed
+                Self-tests running • {totalTests} total
               </p>
             </CardContent>
           </Card>
@@ -184,10 +197,10 @@ export default function AgentIntelligenceNetwork() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-white" data-testid="text-total-communications">
-                {stats?.totalCommunications || 0}
+                {totalMessages}
               </div>
               <p className="text-xs text-blue-300 mt-1">
-                {unreadCommunications} unread messages
+                Agent-to-agent messages
               </p>
             </CardContent>
           </Card>
@@ -201,13 +214,13 @@ export default function AgentIntelligenceNetwork() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-white" data-testid="text-health-score">
-                {stats?.avgHealthScore?.toFixed(1) || "0.0"}
+                {systemHealth === 'operational' ? '100' : '0.0'}
               </div>
               <Progress 
-                value={stats?.avgHealthScore || 0} 
+                value={systemHealth === 'operational' ? 100 : 0} 
                 className="w-full h-2 mt-2"
               />
-              <p className="text-xs text-blue-300 mt-1">Average across all agents</p>
+              <p className="text-xs text-blue-300 mt-1">System {systemHealth}</p>
             </CardContent>
           </Card>
         </div>
@@ -249,7 +262,7 @@ export default function AgentIntelligenceNetwork() {
               <CardContent>
                 <ScrollArea className="h-[500px]">
                   <div className="space-y-3">
-                    {activities?.map((activity, index) => (
+                    {activities?.activities?.map((activity, index) => (
                       <div
                         key={index}
                         className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
@@ -273,7 +286,7 @@ export default function AgentIntelligenceNetwork() {
                         </div>
                       </div>
                     ))}
-                    {!activities || activities.length === 0 && (
+                    {!activities?.activities || activities.activities.length === 0 && (
                       <div className="text-center text-blue-300 py-8">
                         No recent activity
                       </div>

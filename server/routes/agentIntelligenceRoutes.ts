@@ -112,6 +112,27 @@ router.post('/knowledge/search', async (req, res) => {
 });
 
 /**
+ * GET /api/agent-intelligence/knowledge
+ * Get all knowledge base entries
+ */
+router.get('/knowledge', async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const { db } = await import('../db');
+    const { agentKnowledgeBase } = await import('../../shared/schema');
+    
+    const knowledge = await db
+      .select()
+      .from(agentKnowledgeBase)
+      .limit(limit ? parseInt(limit as string) : 20);
+    
+    res.json({ knowledge, count: knowledge.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * POST /api/agent-intelligence/knowledge/contribute
  * Share knowledge to collective knowledge base
  */
@@ -534,6 +555,38 @@ router.post('/components/:name/autonomous-cycle', async (req, res) => {
       cycleResult,
       message: 'Autonomous cycle completed'
     });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/activities
+ * Get recent agent activities across all agents
+ */
+router.get('/activities', async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const { db } = await import('../db');
+    const { agentMemories, agentSelfTests, agentCommunications } = await import('../../shared/schema');
+    const { desc } = await import('drizzle-orm');
+    
+    // Get recent learnings, tests, and communications
+    const [recentLearnings, recentTests, recentMessages] = await Promise.all([
+      db.select().from(agentMemories).orderBy(desc(agentMemories.createdAt)).limit(5),
+      db.select().from(agentSelfTests).orderBy(desc(agentSelfTests.runAt)).limit(5),
+      db.select().from(agentCommunications).orderBy(desc(agentCommunications.createdAt)).limit(5)
+    ]);
+    
+    // Combine and sort by timestamp
+    const activities = [
+      ...recentLearnings.map(l => ({ type: 'learning', ...l, timestamp: l.createdAt })),
+      ...recentTests.map(t => ({ type: 'test', ...t, timestamp: t.runAt })),
+      ...recentMessages.map(m => ({ type: 'message', ...m, timestamp: m.createdAt }))
+    ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      .slice(0, parseInt(limit as string) || 10);
+    
+    res.json({ activities, count: activities.length });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
