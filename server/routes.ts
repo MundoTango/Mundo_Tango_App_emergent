@@ -105,6 +105,10 @@ import esaChatRoutes from "./routes/esaChatRoutes"; // ESA Mind Map Chat - Conte
 import mrBlueSimpleChatRouter from "./routes/mrBlueSimpleChat"; // Mr Blue Simple Chat - Lightweight JSON endpoint for ScottAI
 import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visual Page Editor with OpenAI code generation
 import visualEditorConfirmationRoutes from "./routes/visualEditorConfirmationRoutes"; // Visual Editor → Phase 12 Learning Integration
+import visualEditorSimpleChatRouter from "./routes/visualEditorSimpleChat"; // Phase 12: Visual Editor AI Chat
+import componentSimpleChatRouter from "./routes/componentSimpleChat"; // Phase 12: Component Agent AI Chat
+import algorithmSimpleChatRouter from "./routes/algorithmSimpleChat"; // Phase 12: Algorithm Agent AI Chat (A1-A30)
+import componentRegistrationRouter from "./routes/componentRegistration"; // Phase 12: On-demand Component Registration
 import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
 import uiSubAgentsRoutes from "./routes/uiSubAgentsRoutes"; // Phase 11: UI Sub-Agents Dashboard API
 import integrationSetupRoutes from "./routes/integrationSetupRoutes"; // Phase 11: Track 5 Integration Setup
@@ -339,6 +343,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/mrblue', mrBlueAgentRoutes); // Mr Blue Agent Intelligence & Dependency System
   app.use('/api/esa', esaChatRoutes); // ESA Mind Map Chat - Context-aware AI assistant
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor → Phase 12 Learning Integration
+  app.use('/api/visual-editor', visualEditorSimpleChatRouter); // PHASE 12: Visual Editor AI Chat
+  app.use('/api/component', componentSimpleChatRouter); // PHASE 12: Component Agent AI Chat
+  app.use('/api/algorithms', algorithmSimpleChatRouter); // PHASE 12: Algorithm Agent AI Chat (A1-A30)
+  app.use('/api/components', componentRegistrationRouter); // PHASE 12: On-demand Component Registration
   app.use('/api/phase9', phase9Router); // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
   app.use('/api/ui-sub-agents', uiSubAgentsRoutes); // MB.MD PHASE 11: UI Sub-Agents (Agent #11.1-11.5)
   registerStatisticsRoutes(app); // MB.MD FINAL: Statistics Routes (global, realtime)
