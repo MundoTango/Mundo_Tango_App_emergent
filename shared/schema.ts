@@ -5535,3 +5535,6 @@ export type InsertComponentLearningHistory = z.infer<typeof insertComponentLearn
 export type VisualEditorChange = typeof visualEditorChanges.$inferSelect;
 export type InsertVisualEditorChange = z.infer<typeof insertVisualEditorChangesSchema>;
 
+// NOTE: mrBlueConversations table already defined at line 4404
+// Using existing table for Mr Blue conversation storage
+

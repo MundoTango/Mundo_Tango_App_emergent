@@ -18,6 +18,7 @@ import { useTheme } from '@/lib/theme/theme-provider';
 import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use existing auth
 import { useTranslation } from 'react-i18next';
 import { useMemoriesFeed } from '@/hooks/useMemoriesFeed'; // Track A: Real-time Socket.IO
+import { MrBlueMemoriesButton } from '@/components/mrBlue/MrBlueMemoriesButton'; // MB.MD PHASE 13: Mr Blue AI Integration
 
 // RESILIENCE IMPORTS - Platform-wide protection
 import { withResilience } from '@/components/resilient/ResilientBoundary';
@@ -436,6 +437,9 @@ function ESAMemoryFeedCore() {
           </div>
         </div>
       )}
+      
+      {/* MB.MD PHASE 13: Mr Blue AI Integration */}
+      <MrBlueMemoriesButton />
     </>
   );
 }
