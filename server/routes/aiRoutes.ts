@@ -50,4 +50,22 @@ router.post('/ai-intelligence/conversation', setUserContext, async (req: any, re
   res.json({ success: true, data: result });
 });
 
+// STUB: Journey prediction endpoint (Agent #71)
+router.get('/ai-intelligence/journey/predict', setUserContext, async (req: any, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+  
+  // Stub response - returns null so components gracefully handle it
+  res.json(null);
+});
+
+// STUB: Context endpoint (Agent #33)
+router.get('/ai-intelligence/context', setUserContext, async (req: any, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+  
+  // Stub response - returns null so components gracefully handle it
+  res.json(null);
+});
+
 export default router;
