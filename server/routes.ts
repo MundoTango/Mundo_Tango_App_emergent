@@ -4434,5 +4434,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get('/api/phase10/trend-forecast', requireAdminSecure, async (req, res) => {
+    try {
+      const { trendForecaster } = await import('./services/ml/TrendForecaster');
+      const forecast = await trendForecaster.forecastAgentPerformance(7);
+      res.json({
+        success: true,
+        data: forecast,
+        summary: trendForecaster.getForecastSummary(forecast)
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/phase10/circuit-breakers', requireAdminSecure, async (req, res) => {
+    try {
+      const { circuitBreakerManager } = await import('./services/infrastructure/CircuitBreaker');
+      const stats = circuitBreakerManager.getAllStats();
+      const statsObject = Object.fromEntries(stats);
+      res.json({
+        success: true,
+        data: statsObject
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/phase10/memory-status', requireAdminSecure, async (req, res) => {
+    try {
+      const { memoryLeakDetector } = await import('./services/infrastructure/MemoryLeakDetector');
+      const status = memoryLeakDetector.getCurrentStatus();
+      res.json({
+        success: true,
+        data: status
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/phase10/connection-pool-stats', requireAdminSecure, async (req, res) => {
+    try {
+      const { dbConnectionPool } = await import('./db/connectionPool');
+      const stats = await dbConnectionPool.getStats();
+      res.json({
+        success: true,
+        data: stats
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
   return server;
 }
