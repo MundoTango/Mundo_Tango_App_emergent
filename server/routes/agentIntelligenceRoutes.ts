@@ -732,4 +732,429 @@ router.get('/stats', async (req, res) => {
   }
 });
 
+// ============================================================================
+// PHASE 7: AUTO-FIX & ML INTELLIGENCE APIS
+// ============================================================================
+
+/**
+ * POST /api/agent-intelligence/:agentId/auto-fix
+ * Trigger automated issue resolution
+ */
+router.post('/:agentId/auto-fix', async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { issueId, dryRun = false } = req.body;
+    const { autoFixEngine } = await import('../services/agent-intelligence/AutoFixEngine');
+    const { db } = await import('../db');
+    const { agentSelfTests } = await import('../../shared/schema');
+    const { eq } = await import('drizzle-orm');
+
+    // Get the test/issue
+    const [test] = await db.select()
+      .from(agentSelfTests)
+      .where(eq(agentSelfTests.id, issueId))
+      .limit(1);
+
+    if (!test) {
+      return res.status(404).json({ error: 'Test/issue not found' });
+    }
+
+    // Analyze failure to determine fix strategy
+    const { strategy, confidence } = await autoFixEngine.analyzeFailure(test);
+
+    // Apply fix
+    const result = await autoFixEngine.applyFix(test, strategy, confidence, dryRun);
+
+    res.json({
+      success: result.success,
+      result,
+      message: dryRun ? 'Dry run completed' : result.success ? 'Fix applied successfully' : 'Fix failed'
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/:agentId/fix-history
+ * Get auto-fix history for an agent
+ */
+router.get('/:agentId/fix-history', async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { limit = 50 } = req.query;
+    const { autoFixEngine } = await import('../services/agent-intelligence/AutoFixEngine');
+
+    const history = await autoFixEngine.getFixHistory(
+      agentId,
+      parseInt(limit as string)
+    );
+
+    res.json(history);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/agent-intelligence/:agentId/rollback
+ * Rollback a failed auto-fix
+ */
+router.post('/:agentId/rollback', async (req, res) => {
+  try {
+    const { fixId } = req.body;
+    const { autoFixEngine } = await import('../services/agent-intelligence/AutoFixEngine');
+
+    const result = await autoFixEngine.rollback(fixId);
+
+    res.json({
+      success: result.success,
+      message: result.success ? 'Fix rolled back successfully' : result.errorMessage
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/auto-fixes/recent
+ * Get recent auto-fixes across all agents
+ */
+router.get('/auto-fixes/recent', async (req, res) => {
+  try {
+    const { limit = 20 } = req.query;
+    const { db } = await import('../db');
+    const { agentAutoFixes } = await import('../../shared/schema');
+    const { desc } = await import('drizzle-orm');
+
+    const fixes = await db.select()
+      .from(agentAutoFixes)
+      .orderBy(desc(agentAutoFixes.appliedAt))
+      .limit(parseInt(limit as string));
+
+    const successCount = fixes.filter(f => f.success).length;
+    const successRate = fixes.length > 0 ? successCount / fixes.length : 0;
+
+    res.json({
+      fixes,
+      successRate,
+      totalFixed: fixes.length,
+      successfulFixes: successCount
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// PHASE 7: ESA AGENT REGISTRY APIS
+// ============================================================================
+
+/**
+ * GET /api/agent-intelligence/esa/agents
+ * Get all ESA agents
+ */
+router.get('/esa/agents', async (req, res) => {
+  try {
+    const { division, type } = req.query;
+    const { db } = await import('../db');
+    const { esaAgents } = await import('../../shared/schema');
+    const { eq } = await import('drizzle-orm');
+
+    let query = db.select().from(esaAgents);
+
+    if (division) {
+      query = query.where(eq(esaAgents.division, division as string)) as any;
+    } else if (type) {
+      query = query.where(eq(esaAgents.type, type as string)) as any;
+    }
+
+    const agents = await query;
+
+    res.json({ agents, count: agents.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/esa/agent/:agentId
+ * Get single ESA agent by ID
+ */
+router.get('/esa/agent/:agentId', async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { db } = await import('../db');
+    const { esaAgents } = await import('../../shared/schema');
+    const { eq } = await import('drizzle-orm');
+
+    const [agent] = await db.select()
+      .from(esaAgents)
+      .where(eq(esaAgents.id, agentId))
+      .limit(1);
+
+    if (!agent) {
+      return res.status(404).json({ error: 'Agent not found' });
+    }
+
+    res.json({ agent });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/esa/divisions
+ * Get all divisions with agent counts
+ */
+router.get('/esa/divisions', async (req, res) => {
+  try {
+    const { db } = await import('../db');
+    const { esaAgents } = await import('../../shared/schema');
+    const { sql } = await import('drizzle-orm');
+
+    const divisions = await db.execute(sql`
+      SELECT 
+        division,
+        COUNT(*) as agent_count,
+        JSON_AGG(type) as agent_types
+      FROM esa_agents
+      WHERE division IS NOT NULL
+      GROUP BY division
+      ORDER BY division
+    `);
+
+    res.json({ divisions: divisions.rows });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// PHASE 7: COLLABORATION VOTING APIS
+// ============================================================================
+
+/**
+ * POST /api/agent-intelligence/collaborate/:id/vote
+ * Submit a vote on a collaboration
+ */
+router.post('/collaborate/:id/vote', async (req, res) => {
+  try {
+    const collaborationId = parseInt(req.params.id);
+    const { voterId, solution, vote, reasoning } = req.body;
+    const { db } = await import('../db');
+    const { agentVotes, esaAgents } = await import('../../shared/schema');
+    const { eq } = await import('drizzle-orm');
+
+    // Get voter expertise
+    const [voter] = await db.select()
+      .from(esaAgents)
+      .where(eq(esaAgents.id, voterId))
+      .limit(1);
+
+    const expertise = voter?.expertiseScore || 0.5;
+
+    // Record vote
+    const [voteRecord] = await db.insert(agentVotes).values({
+      collaborationId,
+      voterId,
+      solution,
+      vote,
+      expertise,
+      reasoning
+    }).returning();
+
+    // Check for consensus
+    const votes = await db.select()
+      .from(agentVotes)
+      .where(eq(agentVotes.collaborationId, collaborationId));
+
+    let approveWeight = 0;
+    let totalWeight = 0;
+
+    for (const v of votes) {
+      totalWeight += v.expertise;
+      if (v.vote === 'approve') {
+        approveWeight += v.expertise;
+      }
+    }
+
+    const consensus = totalWeight > 0 ? approveWeight / totalWeight : 0;
+    let decision = 'pending';
+
+    if (consensus >= 0.7) {
+      decision = 'approved';
+    } else if (consensus <= 0.3) {
+      decision = 'rejected';
+    }
+
+    res.json({
+      success: true,
+      vote: voteRecord,
+      consensus: {
+        decision,
+        consensusScore: consensus,
+        totalVotes: votes.length,
+        needMoreVotes: decision === 'pending'
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/collaborate/:id/consensus
+ * Check consensus status
+ */
+router.get('/collaborate/:id/consensus', async (req, res) => {
+  try {
+    const collaborationId = parseInt(req.params.id);
+    const { db } = await import('../db');
+    const { agentVotes } = await import('../../shared/schema');
+    const { eq } = await import('drizzle-orm');
+
+    const votes = await db.select()
+      .from(agentVotes)
+      .where(eq(agentVotes.collaborationId, collaborationId));
+
+    let approveWeight = 0;
+    let rejectWeight = 0;
+    let totalWeight = 0;
+
+    for (const v of votes) {
+      totalWeight += v.expertise;
+      if (v.vote === 'approve') {
+        approveWeight += v.expertise;
+      } else {
+        rejectWeight += v.expertise;
+      }
+    }
+
+    const consensus = totalWeight > 0 ? approveWeight / totalWeight : 0;
+    let decision = 'pending';
+
+    if (consensus >= 0.7) decision = 'approved';
+    else if (consensus <= 0.3) decision = 'rejected';
+
+    res.json({
+      votes,
+      consensus: {
+        decision,
+        consensusScore: consensus,
+        approveWeight,
+        rejectWeight,
+        totalWeight,
+        threshold: 0.7
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// PHASE 7: PERFORMANCE METRICS APIS
+// ============================================================================
+
+/**
+ * GET /api/agent-intelligence/:agentId/metrics
+ * Get performance metrics for an agent
+ */
+router.get('/:agentId/metrics', async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { db } = await import('../db');
+    const { agentPerformanceMetrics } = await import('../../shared/schema');
+    const { eq, desc, sql } = await import('drizzle-orm');
+
+    // Get recent metrics
+    const metrics = await db.select()
+      .from(agentPerformanceMetrics)
+      .where(eq(agentPerformanceMetrics.agentId, agentId))
+      .orderBy(desc(agentPerformanceMetrics.timestamp))
+      .limit(100);
+
+    // Calculate stats
+    const totalTests = metrics.filter(m => m.metricType === 'test_execution').length;
+    const passedTests = metrics.filter(m => m.metricType === 'test_execution' && m.result === 'pass').length;
+    const passRate = totalTests > 0 ? passedTests / totalTests : 0;
+
+    const avgExecutionTime = metrics.length > 0
+      ? metrics.reduce((sum, m) => sum + (m.executionTime || 0), 0) / metrics.length
+      : 0;
+
+    const autoFixCount = metrics.filter(m => m.autoFixed).length;
+    const autoFixRate = metrics.length > 0 ? autoFixCount / metrics.length : 0;
+
+    res.json({
+      metrics,
+      summary: {
+        testsRun: totalTests,
+        passRate,
+        avgExecutionTime,
+        autoFixRate,
+        totalMetrics: metrics.length
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/system-metrics
+ * Get platform-wide metrics
+ */
+router.get('/system-metrics', async (req, res) => {
+  try {
+    const { db } = await import('../db');
+    const { 
+      agentSelfTests, 
+      agentAutoFixes, 
+      agentCollaborations,
+      agentPerformanceMetrics 
+    } = await import('../../shared/schema');
+
+    const [
+      totalTests,
+      totalFixes,
+      totalCollaborations,
+      totalMetrics
+    ] = await Promise.all([
+      db.select().from(agentSelfTests).then(r => r.length),
+      db.select().from(agentAutoFixes).then(r => r.length),
+      db.select().from(agentCollaborations).then(r => r.length),
+      db.select().from(agentPerformanceMetrics).then(r => r.length)
+    ]);
+
+    // Calculate pass rate
+    const allTests = await db.select().from(agentSelfTests);
+    const passedTests = allTests.filter(t => t.testResult === 'pass').length;
+    const avgPassRate = allTests.length > 0 ? passedTests / allTests.length : 0;
+
+    // Calculate auto-fix rate
+    const allFixes = await db.select().from(agentAutoFixes);
+    const successfulFixes = allFixes.filter(f => f.success).length;
+    const autoFixRate = allFixes.length > 0 ? successfulFixes / allFixes.length : 0;
+
+    // Calculate collaboration success
+    const allCollaborations = await db.select().from(agentCollaborations);
+    const successfulCollaborations = allCollaborations.filter(c => c.outcome === 'success').length;
+    const collaborationSuccess = allCollaborations.length > 0 ? successfulCollaborations / allCollaborations.length : 0;
+
+    res.json({
+      totalTests,
+      totalFixes,
+      totalCollaborations,
+      totalMetrics,
+      avgPassRate,
+      autoFixRate,
+      collaborationSuccess
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;

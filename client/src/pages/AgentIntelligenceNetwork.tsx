@@ -243,10 +243,22 @@ export default function AgentIntelligenceNetwork() {
 
         {/* Main Content Tabs */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 bg-white/10 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 bg-white/10 backdrop-blur">
             <TabsTrigger value="overview" data-testid="tab-overview">
               <Activity className="w-4 h-4 mr-2" />
               Overview
+            </TabsTrigger>
+            <TabsTrigger value="esa-registry" data-testid="tab-esa-registry">
+              <Layers className="w-4 h-4 mr-2" />
+              ESA Registry
+            </TabsTrigger>
+            <TabsTrigger value="auto-fix" data-testid="tab-auto-fix">
+              <Zap className="w-4 h-4 mr-2" />
+              Auto-Fix
+            </TabsTrigger>
+            <TabsTrigger value="metrics" data-testid="tab-metrics">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Metrics
             </TabsTrigger>
             <TabsTrigger value="communications" data-testid="tab-communications">
               <MessageSquare className="w-4 h-4 mr-2" />
@@ -311,6 +323,21 @@ export default function AgentIntelligenceNetwork() {
                 </ScrollArea>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* ESA Registry Tab */}
+          <TabsContent value="esa-registry" className="space-y-4">
+            <EsaRegistryTab />
+          </TabsContent>
+
+          {/* Auto-Fix Tab */}
+          <TabsContent value="auto-fix" className="space-y-4">
+            <AutoFixTab />
+          </TabsContent>
+
+          {/* Metrics Tab */}
+          <TabsContent value="metrics" className="space-y-4">
+            <MetricsTab />
           </TabsContent>
 
           {/* Communications Tab */}
@@ -564,6 +591,328 @@ export default function AgentIntelligenceNetwork() {
           </TabsContent>
         </Tabs>
       </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// PHASE 7: ESA REGISTRY TAB
+// ============================================================================
+
+function EsaRegistryTab() {
+  const { data: esaAgents } = useQuery({
+    queryKey: ['/api/agent-intelligence/esa/agents'],
+  });
+
+  const { data: divisions } = useQuery({
+    queryKey: ['/api/agent-intelligence/esa/divisions'],
+  });
+
+  // Group agents by division
+  const groupedAgents = esaAgents?.agents?.reduce((acc: any, agent: any) => {
+    const div = agent.division || 'other';
+    if (!acc[div]) acc[div] = [];
+    acc[div].push(agent);
+    return acc;
+  }, {}) || {};
+
+  return (
+    <div className="space-y-4">
+      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-2xl text-white flex items-center gap-2">
+            <Layers className="w-6 h-6 text-blue-400" />
+            ESA Framework: 114 Agents Across 6 Divisions
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Object.entries(groupedAgents).map(([division, agents]: [string, any]) => (
+              <Card key={division} className="bg-white/5 border-blue-500/20">
+                <CardHeader>
+                  <CardTitle className="text-lg text-white capitalize">{division} Division</CardTitle>
+                  <p className="text-sm text-blue-300">{agents.length} agents</p>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[300px]">
+                    <div className="space-y-2">
+                      {agents.map((agent: any) => (
+                        <div
+                          key={agent.id}
+                          className="bg-white/5 rounded p-3 hover:bg-white/10 transition-colors"
+                          data-testid={`esa-agent-${agent.id}`}
+                        >
+                          <div className="flex items-start justify-between mb-1">
+                            <Badge variant="outline" className="text-blue-300 border-blue-500/50">
+                              {agent.type}
+                            </Badge>
+                            <Badge className={`${agent.status === 'active' ? 'bg-green-500' : 'bg-gray-500'} text-white`}>
+                              {agent.status}
+                            </Badge>
+                          </div>
+                          <p className="text-white font-medium text-sm">{agent.name}</p>
+                          <p className="text-xs text-blue-300 font-mono mt-1">{agent.id}</p>
+                          <div className="flex items-center gap-2 mt-2">
+                            <span className="text-xs text-blue-300">Expertise:</span>
+                            <Progress 
+                              value={(agent.expertiseScore || 0.5) * 100} 
+                              className="w-full h-2"
+                            />
+                            <span className="text-xs text-blue-300">{((agent.expertiseScore || 0.5) * 100).toFixed(0)}%</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// ============================================================================
+// PHASE 7: AUTO-FIX TAB
+// ============================================================================
+
+function AutoFixTab() {
+  const { data: autoFixes } = useQuery({
+    queryKey: ['/api/agent-intelligence/auto-fixes/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/auto-fixes/recent?limit=20');
+      return res.json();
+    }
+  });
+
+  const successRate = autoFixes?.successRate || 0;
+  const fixes = autoFixes?.fixes || [];
+
+  return (
+    <div className="space-y-4">
+      {/* Success Rate Card */}
+      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-2xl text-white flex items-center gap-2">
+            <Zap className="w-6 h-6 text-blue-400" />
+            Auto-Fix System
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Success Rate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-4xl font-bold text-white">
+                  {(successRate * 100).toFixed(1)}%
+                </div>
+                <Progress value={successRate * 100} className="w-full h-2 mt-2" />
+              </CardContent>
+            </Card>
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Total Fixes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-4xl font-bold text-white">{fixes.length}</div>
+                <p className="text-xs text-blue-300 mt-2">Automated resolutions</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Successful</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-4xl font-bold text-green-400">
+                  {fixes.filter((f: any) => f.success).length}
+                </div>
+                <p className="text-xs text-blue-300 mt-2">Issues resolved</p>
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Fixes Table */}
+      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-xl text-white">Recent Auto-Fixes</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea className="h-[500px]">
+            <div className="space-y-3">
+              {fixes.map((fix: any) => (
+                <div
+                  key={fix.id}
+                  className={`bg-white/5 rounded-lg p-4 border transition-colors ${
+                    fix.success 
+                      ? 'border-green-500/30 hover:border-green-400/40' 
+                      : 'border-red-500/30 hover:border-red-400/40'
+                  }`}
+                  data-testid={`auto-fix-${fix.id}`}
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="text-blue-300 border-blue-500/50">
+                        {fix.agentId}
+                      </Badge>
+                      <Badge className={`${fix.success ? 'bg-green-500' : 'bg-red-500'} text-white`}>
+                        {fix.success ? <CheckCircle2 className="w-3 h-3 mr-1" /> : <AlertCircle className="w-3 h-3 mr-1" />}
+                        {fix.success ? 'Success' : 'Failed'}
+                      </Badge>
+                    </div>
+                    <span className="text-xs text-blue-300">
+                      {new Date(fix.appliedAt).toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="mb-2">
+                    <Badge className="bg-blue-500/30 text-blue-200">
+                      {fix.fixStrategy}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm">
+                    <div>
+                      <span className="text-blue-300">Confidence:</span>
+                      <span className="text-white ml-1">{((fix.confidence || 0) * 100).toFixed(0)}%</span>
+                    </div>
+                    <div>
+                      <span className="text-blue-300">Execution:</span>
+                      <span className="text-white ml-1">{fix.executionTime}ms</span>
+                    </div>
+                    {fix.validated && (
+                      <Badge className="bg-green-500/30 text-green-200">Validated</Badge>
+                    )}
+                  </div>
+                  {fix.errorMessage && (
+                    <p className="text-red-300 text-sm mt-2">{fix.errorMessage}</p>
+                  )}
+                </div>
+              ))}
+              {fixes.length === 0 && (
+                <div className="text-center text-blue-300 py-8">
+                  No auto-fixes yet
+                </div>
+              )}
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// ============================================================================
+// PHASE 7: METRICS TAB
+// ============================================================================
+
+function MetricsTab() {
+  const { data: systemMetrics } = useQuery({
+    queryKey: ['/api/agent-intelligence/system-metrics'],
+  });
+
+  return (
+    <div className="space-y-4">
+      {/* System-wide Metrics Cards */}
+      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-2xl text-white flex items-center gap-2">
+            <TrendingUp className="w-6 h-6 text-blue-400" />
+            Platform Performance Metrics
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Total Tests</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-white">
+                  {systemMetrics?.totalTests || 0}
+                </div>
+                <p className="text-xs text-blue-300 mt-1">Self-tests executed</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Avg Pass Rate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-green-400">
+                  {((systemMetrics?.avgPassRate || 0) * 100).toFixed(1)}%
+                </div>
+                <Progress value={(systemMetrics?.avgPassRate || 0) * 100} className="w-full h-2 mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Auto-Fix Rate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-blue-400">
+                  {((systemMetrics?.autoFixRate || 0) * 100).toFixed(1)}%
+                </div>
+                <Progress value={(systemMetrics?.autoFixRate || 0) * 100} className="w-full h-2 mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle className="text-sm text-blue-200">Collaboration Success</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-purple-400">
+                  {((systemMetrics?.collaborationSuccess || 0) * 100).toFixed(1)}%
+                </div>
+                <Progress value={(systemMetrics?.collaborationSuccess || 0) * 100} className="w-full h-2 mt-2" />
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Additional Stats */}
+      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-xl text-white">Detailed Metrics</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white/5 rounded-lg p-4">
+              <h4 className="text-blue-300 font-medium mb-2">Total Auto-Fixes</h4>
+              <p className="text-3xl font-bold text-white">{systemMetrics?.totalFixes || 0}</p>
+            </div>
+            <div className="bg-white/5 rounded-lg p-4">
+              <h4 className="text-blue-300 font-medium mb-2">Total Collaborations</h4>
+              <p className="text-3xl font-bold text-white">{systemMetrics?.totalCollaborations || 0}</p>
+            </div>
+            <div className="bg-white/5 rounded-lg p-4">
+              <h4 className="text-blue-300 font-medium mb-2">Total Metrics Tracked</h4>
+              <p className="text-3xl font-bold text-white">{systemMetrics?.totalMetrics || 0}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Performance Trends Placeholder */}
+      <Card className="bg-white/10 border-blue-500/30 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-xl text-white">Performance Trends</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center text-blue-300 py-12">
+            <TrendingUp className="w-12 h-12 mx-auto mb-4" />
+            <p>Performance trend charts coming soon...</p>
+            <p className="text-sm mt-2">Will show test pass rates, auto-fix success, and collaboration metrics over time</p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
