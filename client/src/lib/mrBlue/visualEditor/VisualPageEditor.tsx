@@ -5,6 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 import { SelectionLayer } from './SelectionLayer';
 import { ChangeTracker } from './ChangeTracker';
 import { AICodeGenerator } from './AICodeGenerator';
+import { useVisualEditorActions } from '@/hooks/useVisualEditorActions';
 
 /**
  * ESA Agent #78: Visual Page Editor
@@ -23,6 +24,9 @@ export function VisualPageEditor({ enabled, onToggle }: VisualPageEditorProps) {
   const [showCode, setShowCode] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  
+  // Visual Editor Tracker - connects to Mr Blue + Phase 12
+  const { actions, getDataForMrBlue, tracker } = useVisualEditorActions();
 
   useEffect(() => {
     if (enabled) {
@@ -73,17 +77,46 @@ export function VisualPageEditor({ enabled, onToggle }: VisualPageEditorProps) {
 
   const handleSaveChanges = async () => {
     try {
-      // In production: Save changes to database/file system
-      toast({
-        title: "Changes Saved",
-        description: `${changes.length} changes applied successfully`,
+      console.log('[Visual Editor] Saving changes and triggering learning...');
+      
+      // Get tracked actions for Phase 12 learning
+      const actionsData = getDataForMrBlue();
+      
+      if (actionsData.length === 0) {
+        toast({
+          title: "No Changes",
+          description: "Make some edits first, then save",
+        });
+        return;
+      }
+
+      // Send to Phase 12 learning system
+      const response = await fetch('/api/visual-editor/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          actions: actionsData,
+          userConfirmed: true,
+          userFeedback: `User saved ${actionsData.length} visual edits`,
+        }),
       });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Changes Saved & Learned! 🎓",
+          description: result.message,
+        });
+        
+        // Clear local changes
+        setChanges([]);
+      } else {
+        throw new Error(result.message);
+      }
       
-      // Log learning to Agent #80
-      console.log('[Agent #78] Visual edits saved:', changes);
-      
-      setChanges([]);
     } catch (error) {
+      console.error('[Visual Editor] Save failed:', error);
       toast({
         title: "Save Failed",
         description: "Could not save changes",

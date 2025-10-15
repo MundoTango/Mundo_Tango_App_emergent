@@ -86,17 +86,22 @@ NEVER:
 - Don't over-explain; summarize then link`;
 
   // ========================================
-  // PAGE CONTEXT AWARENESS
+  // PAGE CONTEXT AWARENESS (Enhanced with Visual Editor)
   // ========================================
   const getCurrentPageContext = () => {
     const path = window.location.pathname;
     const page = path.split('/').pop() || 'home';
+    
+    // Get Visual Editor actions if available
+    const visualEditorTracker = (window as any).__visualEditorTracker__;
+    const recentEdits = visualEditorTracker?.getContextForMrBlue() || 'No recent edits';
     
     return {
       page,
       url: path,
       title: document.title,
       elements: document.querySelectorAll('[data-testid]').length,
+      visualEdits: recentEdits,
     };
   };
 

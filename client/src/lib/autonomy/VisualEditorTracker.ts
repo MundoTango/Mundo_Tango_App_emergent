@@ -275,6 +275,8 @@ let trackerInstance: VisualEditorTracker | null = null;
 export function getVisualEditorTracker(): VisualEditorTracker {
   if (!trackerInstance) {
     trackerInstance = new VisualEditorTracker();
+    // Make available globally for Mr Blue integration
+    (window as any).__visualEditorTracker__ = trackerInstance;
   }
   return trackerInstance;
 }

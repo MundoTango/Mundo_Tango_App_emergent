@@ -101,7 +101,9 @@ import codeQualityRoutes from "./routes/code-quality"; // ESA LIFE CEO 61x21 - C
 import devExperienceRoutes from "./routes/dev-experience"; // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
 import aiIntelligenceRoutes from "./routes/ai-intelligence"; // ESA AI Intelligence Network - Agent #31 + #68-71 (Learning, Context, Patterns)
 import mrBlueRoutes from "./routes/mrBlue"; // ESA Mr Blue - Agents #73-78, #79-80 (Visual Editor, Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning)
+import esaChatRoutes from "./routes/esaChatRoutes"; // ESA Mind Map Chat - Context-aware AI assistant
 import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visual Page Editor with OpenAI code generation
+import visualEditorConfirmationRoutes from "./routes/visualEditorConfirmationRoutes"; // Visual Editor → Phase 12 Learning Integration
 import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
 import uiSubAgentsRoutes from "./routes/uiSubAgentsRoutes"; // Phase 11: UI Sub-Agents Dashboard API
 import integrationSetupRoutes from "./routes/integrationSetupRoutes"; // Phase 11: Track 5 Integration Setup
@@ -333,6 +335,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', miscExtrasRoutes); // MB.MD FINAL PUSH: Miscellaneous Extras (6 endpoints)
   app.use('/api/intelligence', intelligenceRouter); // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
   app.use('/api/mrblue', mrBlueRouter); // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
+  app.use('/api/esa', esaChatRoutes); // ESA Mind Map Chat - Context-aware AI assistant
+  app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor → Phase 12 Learning Integration
   app.use('/api/phase9', phase9Router); // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
   app.use('/api/ui-sub-agents', uiSubAgentsRoutes); // MB.MD PHASE 11: UI Sub-Agents (Agent #11.1-11.5)
   registerStatisticsRoutes(app); // MB.MD FINAL: Statistics Routes (global, realtime)
