@@ -104,6 +104,7 @@ import PostingDemo from '@/pages/_debug/PostingDemo';
 import ModernMemoriesPage from '@/pages/_debug/ModernMemoriesPage';
 import AgentLearningDashboard from '@/pages/AgentLearningDashboard';
 import AgentIntelligenceNetwork from '@/pages/AgentIntelligenceNetwork';
+import AgentDetail from '@/pages/AgentDetail';
 
 // Direct imports (critical pages only)
 import Login from '@/pages/auth/login';
@@ -937,6 +938,13 @@ export const debugRoutes: RouteConfig[] = [
     mode: 'debug',
     loadingMessage: 'Loading Agent Intelligence Network...',
     description: 'Phase 6: Agent Intelligence Network - Self-Learning & Collaborative Agents (150+ Agents)'
+  },
+  {
+    path: '/agent-intelligence/:agentId',
+    component: AgentDetail,
+    mode: 'debug',
+    loadingMessage: 'Loading Agent Details...',
+    description: 'Phase 7: Individual Agent Detail Page with 5-Tab Layout (Overview/Tests/Learnings/Fixes/Metrics)'
   },
 ];
 
