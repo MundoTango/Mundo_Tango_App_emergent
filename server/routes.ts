@@ -123,6 +123,7 @@ import mediaMemoryRoutes from "./routes/mediaMemoryRoutes"; // MB.MD FINAL PUSH:
 import miscExtrasRoutes from "./routes/miscExtrasRoutes"; // MB.MD FINAL PUSH: Miscellaneous Extras
 import intelligenceRouter from "./routes/intelligenceRoutes"; // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
 import mrBlueRouter from "./routes/mrBlueRoutes"; // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
+import agentRegistryRoutes from "./routes/agentRegistry"; // MB.MD PHASE 11: Agent Registry System (Component Autonomy)
 import mrBlueAgentRoutes from "./routes/mrBlueAgentRoutes"; // Mr Blue Agent Intelligence & Dependency System
 import phase9Router from "./routes/phase9Routes"; // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
 import { registerAlgorithmRoutes } from "./routes/algorithmRoutes"; // MB.MD ALGORITHM AGENTS: Interactive Algorithm System (A1-Ax)
@@ -257,6 +258,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(visualEditorRoutes); // ESA Agent #78 - Visual Page Editor with OpenAI code generation
   app.use(qualityValidatorRoutes); // ESA Agent #79 - Quality Validator
   app.use(learningCoordinatorRoutes); // ESA Agent #80 - Learning Coordinator
+  app.use('/api/agent-registry', agentRegistryRoutes); // MB.MD PHASE 11: Agent Registry System (Component Autonomy)
   app.use(siteBuilderRoutes); // ESA Agent #77 - AI Site Builder
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   app.use('/api/mr-blue', mrBlueRoutes); // ESA Mr Blue Routes (Agents #73-78, #79-80)
