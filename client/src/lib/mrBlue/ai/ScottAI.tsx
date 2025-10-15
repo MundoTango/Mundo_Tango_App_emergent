@@ -142,7 +142,8 @@ NEVER:
       const preferences = loadPreferences();
 
       // Call Mr Blue AI endpoint
-      const response = await fetch('/api/ai/mrblue/chat', {
+      console.log('🚀 [Mr Blue] Calling API:', '/api/mrblue/chat');
+      const response = await fetch('/api/mrblue/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -153,6 +154,8 @@ NEVER:
           model: preferences.aiModel || config.defaultModel || 'gpt-4o',
         }),
       });
+      
+      console.log('✅ [Mr Blue] Response status:', response.status);
 
       const data = await response.json();
       
