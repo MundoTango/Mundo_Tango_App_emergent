@@ -103,6 +103,7 @@ import aiIntelligenceRoutes from "./routes/ai-intelligence"; // ESA AI Intellige
 import mrBlueRoutes from "./routes/mrBlue"; // ESA Mr Blue - Agents #73-78, #79-80 (Visual Editor, Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning)
 import esaChatRoutes from "./routes/esaChatRoutes"; // ESA Mind Map Chat - Context-aware AI assistant
 import mrBlueSimpleChatRouter from "./routes/mrBlueSimpleChat"; // Mr Blue Simple Chat - Lightweight JSON endpoint for ScottAI
+import aiTestEndpoint from "./routes/ai-test-endpoint"; // MB.MD TRACK A: Diagnostic test endpoint
 import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visual Page Editor with OpenAI code generation
 import visualEditorConfirmationRoutes from "./routes/visualEditorConfirmationRoutes"; // Visual Editor → Phase 12 Learning Integration
 import visualEditorSimpleChatRouter from "./routes/visualEditorSimpleChat"; // Phase 12: Visual Editor AI Chat
@@ -355,6 +356,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/intelligence', intelligenceRouter); // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
   app.use('/api/mrblue', mrBlueRouter); // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5 (streaming)
   app.use('/api/mrblue', mrBlueSimpleChatRouter); // Mr Blue Simple Chat - Clean JSON endpoint for ScottAI
+  app.use('/api/mrblue', aiTestEndpoint); // MB.MD TRACK A: Diagnostic test endpoint
   app.use('/api/mrblue', mrBlueAgentRoutes); // Mr Blue Agent Intelligence & Dependency System
   app.use('/api/esa', esaChatRoutes); // ESA Mind Map Chat - Context-aware AI assistant
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor → Phase 12 Learning Integration
