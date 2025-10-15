@@ -126,6 +126,7 @@ import mrBlueRouter from "./routes/mrBlueRoutes"; // MB.MD PHASE 9: Mr Blue Chat
 import agentRegistryRoutes from "./routes/agentRegistry"; // MB.MD PHASE 11: Agent Registry System (Component Autonomy)
 import mrBlueAgentRoutes from "./routes/mrBlueAgentRoutes"; // Mr Blue Agent Intelligence & Dependency System
 import phase9Router from "./routes/phase9Routes"; // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
+import uiSubAgentsRoutes from "./routes/uiSubAgents"; // MB.MD PHASE 11: UI Sub-Agents (Dark Mode, Translation, Accessibility, Component Watcher)
 import { registerAlgorithmRoutes } from "./routes/algorithmRoutes"; // MB.MD ALGORITHM AGENTS: Interactive Algorithm System (A1-Ax)
 import agentIntelligenceRoutes from "./routes/agentIntelligenceRoutes"; // PHASE 6: Agent Intelligence Network - Self-Learning & Collaborative Agents
 import aiMonitoringRoutes from "./routes/ai-monitoring"; // MB.MD PHASE 5: AI Monitoring & FinOps Dashboard
@@ -325,6 +326,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/intelligence', intelligenceRouter); // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
   app.use('/api/mrblue', mrBlueRouter); // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
   app.use('/api/phase9', phase9Router); // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
+  app.use('/api/ui-sub-agents', uiSubAgentsRoutes); // MB.MD PHASE 11: UI Sub-Agents (Agent #11.1-11.5)
   registerStatisticsRoutes(app); // MB.MD FINAL: Statistics Routes (global, realtime)
   app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions

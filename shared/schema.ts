@@ -5229,6 +5229,44 @@ export const trackedChanges = pgTable('tracked_changes', {
   index('idx_tracked_changes_timestamp').on(table.timestamp),
 ]);
 
+// Component History Tracking - For Component Autonomy (Phase 11)
+export const componentHistory = pgTable('component_history', {
+  id: serial('id').primaryKey(),
+  componentPath: varchar('component_path', { length: 255 }).notNull(),
+  agentId: varchar('agent_id', { length: 100 }).notNull(),
+  changeType: varchar('change_type', { length: 50 }).notNull(), // created, modified, deleted, visual_edit, auto_fix
+  changeDescription: text('change_description'),
+  changedBy: varchar('changed_by', { length: 100 }).notNull(), // user_id or agent_id
+  beforeSnapshot: jsonb('before_snapshot'),
+  afterSnapshot: jsonb('after_snapshot'),
+  timestamp: timestamp('timestamp').defaultNow()
+}, (table) => [
+  index('idx_component_history_path').on(table.componentPath),
+  index('idx_component_history_agent').on(table.agentId),
+  index('idx_component_history_timestamp').on(table.timestamp),
+]);
+
+// Agent Schedules - For Autonomous Sub-Agent Execution (Phase 11)
+export const agentSchedules = pgTable('agent_schedules', {
+  id: serial('id').primaryKey(),
+  agentId: varchar('agent_id', { length: 100 }).notNull().unique(),
+  agentName: varchar('agent_name', { length: 255 }).notNull(),
+  schedule: varchar('schedule', { length: 100 }).notNull(), // cron format
+  lastRun: timestamp('last_run'),
+  nextRun: timestamp('next_run'),
+  status: varchar('status', { length: 20 }).default('active'), // active, paused, failed
+  runCount: integer('run_count').default(0),
+  successCount: integer('success_count').default(0),
+  failCount: integer('fail_count').default(0),
+  lastError: text('last_error'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+}, (table) => [
+  index('idx_agent_schedules_agent').on(table.agentId),
+  index('idx_agent_schedules_status').on(table.status),
+  index('idx_agent_schedules_next_run').on(table.nextRun),
+]);
+
 // TRACK D: Component Agent System
 export const componentAgents = pgTable('component_agents', {
   id: serial('id').primaryKey(),
@@ -5425,4 +5463,22 @@ export type InsertAgentPerformanceMetric = z.infer<typeof insertAgentPerformance
 
 export type EsaAgent = typeof esaAgents.$inferSelect;
 export type InsertEsaAgent = z.infer<typeof insertEsaAgentSchema>;
+
+// Component History & Agent Schedules (Phase 11)
+export const insertComponentHistorySchema = createInsertSchema(componentHistory).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertAgentScheduleSchema = createInsertSchema(agentSchedules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type ComponentHistory = typeof componentHistory.$inferSelect;
+export type InsertComponentHistory = z.infer<typeof insertComponentHistorySchema>;
+
+export type AgentSchedule = typeof agentSchedules.$inferSelect;
+export type InsertAgentSchedule = z.infer<typeof insertAgentScheduleSchema>;
 
