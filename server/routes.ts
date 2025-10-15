@@ -102,6 +102,7 @@ import devExperienceRoutes from "./routes/dev-experience"; // ESA LIFE CEO 61x21
 import aiIntelligenceRoutes from "./routes/ai-intelligence"; // ESA AI Intelligence Network - Agent #31 + #68-71 (Learning, Context, Patterns)
 import mrBlueRoutes from "./routes/mrBlue"; // ESA Mr Blue - Agents #73-78, #79-80 (Visual Editor, Avatar, Tours, Subscriptions, Site Builder, Admin, Validation, Learning)
 import esaChatRoutes from "./routes/esaChatRoutes"; // ESA Mind Map Chat - Context-aware AI assistant
+import mrBlueSimpleChatRouter from "./routes/mrBlueSimpleChat"; // Mr Blue Simple Chat - Lightweight JSON endpoint for ScottAI
 import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visual Page Editor with OpenAI code generation
 import visualEditorConfirmationRoutes from "./routes/visualEditorConfirmationRoutes"; // Visual Editor → Phase 12 Learning Integration
 import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
@@ -273,7 +274,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(siteBuilderRoutes); // ESA Agent #77 - AI Site Builder
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   app.use('/api/mr-blue', mrBlueRoutes); // ESA Mr Blue Routes (Agents #73-78, #79-80)
-  app.use('/api/mrblue', mrBlueAgentRoutes); // Mr Blue Agent Intelligence & Dependency System
   app.use(tenantAdminRoutes); // MB.MD v2.0 TRACK 4: Multi-Tenant Management
   
   // ESA Section 10.11: Interactive AI Chat for ESA MindMap (Agent #35)
@@ -334,7 +334,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', mediaMemoryRoutes); // MB.MD FINAL PUSH: Media & Memory Enhancement (4 endpoints)
   app.use('/api', miscExtrasRoutes); // MB.MD FINAL PUSH: Miscellaneous Extras (6 endpoints)
   app.use('/api/intelligence', intelligenceRouter); // MB.MD PHASE 9: Intelligence Layer (Cross-Phase Learning, Federated Learning)
-  app.use('/api/mrblue', mrBlueRouter); // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5
+  app.use('/api/mrblue', mrBlueRouter); // MB.MD PHASE 9: Mr Blue Chat with Claude Sonnet 4.5 (streaming)
+  app.use('/api/mrblue', mrBlueSimpleChatRouter); // Mr Blue Simple Chat - Clean JSON endpoint for ScottAI
+  app.use('/api/mrblue', mrBlueAgentRoutes); // Mr Blue Agent Intelligence & Dependency System
   app.use('/api/esa', esaChatRoutes); // ESA Mind Map Chat - Context-aware AI assistant
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor → Phase 12 Learning Integration
   app.use('/api/phase9', phase9Router); // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)

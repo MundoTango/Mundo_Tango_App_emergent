@@ -146,9 +146,9 @@ NEVER:
       // Get user preferences
       const preferences = loadPreferences();
 
-      // Call Mr Blue AI endpoint
-      console.log('🚀 [Mr Blue] Calling API:', '/api/mrblue/chat');
-      const response = await fetch('/api/mrblue/chat', {
+      // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
+      console.log('🚀 [Mr Blue] Calling API:', '/api/mrblue/simple-chat');
+      const response = await fetch('/api/mrblue/simple-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -156,7 +156,7 @@ NEVER:
           personality: scottPersonality,
           agent: targetAgent,
           context,
-          model: preferences.aiModel || config.defaultModel || 'gpt-4o',
+          model: preferences.aiModel || config.defaultModel || 'claude-sonnet-4-20250514',
         }),
       });
       
