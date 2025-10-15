@@ -126,6 +126,7 @@ import mrBlueRouter from "./routes/mrBlueRoutes"; // MB.MD PHASE 9: Mr Blue Chat
 import mrBlueAgentRoutes from "./routes/mrBlueAgentRoutes"; // Mr Blue Agent Intelligence & Dependency System
 import phase9Router from "./routes/phase9Routes"; // MB.MD PHASE 9: All Intelligence Agents & Engines (#111-116)
 import { registerAlgorithmRoutes } from "./routes/algorithmRoutes"; // MB.MD ALGORITHM AGENTS: Interactive Algorithm System (A1-Ax)
+import agentIntelligenceRoutes from "./routes/agentIntelligenceRoutes"; // PHASE 6: Agent Intelligence Network - Self-Learning & Collaborative Agents
 import aiMonitoringRoutes from "./routes/ai-monitoring"; // MB.MD PHASE 5: AI Monitoring & FinOps Dashboard
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
@@ -4227,6 +4228,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('⚠️ Algorithm Agents registration failed:', error);
   }
+
+  // === PHASE 6: Agent Intelligence Network - Self-Learning & Collaborative Agents ===
+  app.use('/api/agent-intelligence', agentIntelligenceRoutes);
+  console.log('✅ Agent Intelligence Network: Registered');
+  console.log('🧠 Features: Learning, Self-Testing, Collaboration, Mr Blue Coordination');
 
   // 🎯 H2AC Orchestrator - Initialize all H2AC systems
   try {
