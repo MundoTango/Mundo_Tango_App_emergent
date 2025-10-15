@@ -7,6 +7,7 @@ import { Router } from 'express';
 import { componentTrainer } from '../services/ComponentTrainer';
 import { visualEditorLoop } from '../services/VisualEditorLoop';
 import { bottomUpLearning } from '../services/BottomUpLearning';
+import { parallelExecutor } from '../services/ParallelExecutor';
 
 const router = Router();
 
@@ -73,6 +74,26 @@ router.post('/api/phase12/learn-history/:componentId', async (req, res) => {
     console.error('Learning error:', error);
     res.status(500).json({
       error: 'Failed to learn history',
+      details: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+/**
+ * POST /api/phase12/execute-all-parallel
+ * Execute all 27 tasks across 3 tracks in parallel
+ */
+router.post('/api/phase12/execute-all-parallel', async (req, res) => {
+  try {
+    const result = await parallelExecutor.executeAll3LayerPlan();
+    res.json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    console.error('Parallel execution error:', error);
+    res.status(500).json({
+      error: 'Failed to execute parallel plan',
       details: error instanceof Error ? error.message : 'Unknown error',
     });
   }
