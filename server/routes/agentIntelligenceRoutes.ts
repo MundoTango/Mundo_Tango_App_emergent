@@ -277,13 +277,13 @@ router.get('/messages/recent', async (req, res) => {
   try {
     const { limit } = req.query;
     const { db } = await import('../db');
-    const { agentMessages } = await import('../../shared/schema');
+    const { agentCommunications } = await import('../../shared/schema');
     const { desc } = await import('drizzle-orm');
     
     const messages = await db
       .select()
-      .from(agentMessages)
-      .orderBy(desc(agentMessages.id))
+      .from(agentCommunications)
+      .orderBy(desc(agentCommunications.id))
       .limit(limit ? parseInt(limit as string) : 10);
 
     res.json({ messages, count: messages.length });
