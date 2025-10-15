@@ -103,6 +103,7 @@ import MemoriesTest from '@/pages/_debug/MemoriesTest';
 import PostingDemo from '@/pages/_debug/PostingDemo';
 import ModernMemoriesPage from '@/pages/_debug/ModernMemoriesPage';
 import AgentLearningDashboard from '@/pages/AgentLearningDashboard';
+import AgentIntelligenceNetwork from '@/pages/AgentIntelligenceNetwork';
 
 // Direct imports (critical pages only)
 import Login from '@/pages/auth/login';
@@ -929,6 +930,13 @@ export const debugRoutes: RouteConfig[] = [
     mode: 'debug',
     loadingMessage: 'Loading AGI dashboard...',
     description: 'Real-time agent learning dashboard - ESA Layers 11, 18, 48'
+  },
+  {
+    path: '/agent-intelligence',
+    component: AgentIntelligenceNetwork,
+    mode: 'debug',
+    loadingMessage: 'Loading Agent Intelligence Network...',
+    description: 'Phase 6: Agent Intelligence Network - Self-Learning & Collaborative Agents (150+ Agents)'
   },
 ];
 
