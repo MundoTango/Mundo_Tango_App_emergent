@@ -145,6 +145,14 @@ import { registerAlgorithmRoutes } from "./routes/algorithmRoutes"; // MB.MD ALG
 import agentIntelligenceRoutes from "./routes/agentIntelligenceRoutes"; // PHASE 6: Agent Intelligence Network - Self-Learning & Collaborative Agents
 import aiMonitoringRoutes from "./routes/ai-monitoring"; // MB.MD PHASE 5: AI Monitoring & FinOps Dashboard
 
+// MB.MD SESSION 3: AUTONOMOUS GUARDIAN FOUNDATION (8-Track Parallel Integration)
+import semanticSearchRouter from "./routes/semanticSearchRoutes"; // TRACK 1: LanceDB + EventMemoryGraph Semantic Search
+import autoHealingRouter from "./routes/autoHealingRoutes"; // TRACK 2: ServiceHealthMonitor Auto-Healing
+import pageStateRouter from "./routes/pageStateRoutes"; // TRACK 3: PageStateMonitor Omniscient Tracking
+import autoFixRouter from "./routes/autoFixRoutes"; // TRACK 4: AutoFixProposal Super Admin AI
+import performanceDashboardRouter from "./routes/performanceDashboardRoutes"; // TRACK 6: PerformanceDashboard Observability
+import agentCoordinationRouter from "./routes/agentCoordinationRoutes"; // TRACK 8: AgentRegistry Learning Systems
+
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
 import userStatsRoutes from "./routes/userStatsRoutes"; // ESA Performance optimized stats routes
@@ -358,6 +366,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/mrblue', mrBlueSimpleChatRouter); // Mr Blue Simple Chat - Clean JSON endpoint for ScottAI
   app.use('/api/mrblue', aiTestEndpoint); // MB.MD TRACK A: Diagnostic test endpoint
   app.use('/api/mrblue', mrBlueAgentRoutes); // Mr Blue Agent Intelligence & Dependency System
+  
+  // MB.MD SESSION 3: AUTONOMOUS GUARDIAN FOUNDATION - 8-Track Parallel Integration
+  app.use('/api/semantic', semanticSearchRouter); // TRACK 1: Semantic Search (LanceDB + EventMemoryGraph)
+  app.use('/api/health', autoHealingRouter); // TRACK 2: Auto-Healing (ServiceHealthMonitor)
+  app.use('/api/page-states', pageStateRouter); // TRACK 3: Page State Monitoring (Omniscient Tracking)
+  app.use('/api/auto-fix', autoFixRouter); // TRACK 4: Auto-Fix Proposals (Super Admin AI)
+  app.use('/api/performance', performanceDashboardRouter); // TRACK 6: Performance Dashboard (Observability)
+  app.use('/api/agent-coordination', agentCoordinationRouter); // TRACK 8: Agent Coordination (Learning Systems)
+  
   app.use('/api/esa', esaChatRoutes); // ESA Mind Map Chat - Context-aware AI assistant
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor → Phase 12 Learning Integration
   app.use('/api/visual-editor', visualEditorSimpleChatRouter); // PHASE 12: Visual Editor AI Chat
