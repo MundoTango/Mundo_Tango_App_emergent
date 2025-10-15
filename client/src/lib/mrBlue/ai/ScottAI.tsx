@@ -40,6 +40,12 @@ export function useScottAI(config: ScottAIConfig = {}) {
   const [isTyping, setIsTyping] = useState(false);
   const [currentAgent, setCurrentAgent] = useState<string>('Mr Blue');
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isSearchingContext, setIsSearchingContext] = useState(false);
+  const [semanticContext, setSemanticContext] = useState<{
+    matchCount?: number;
+    eventName?: string;
+    confidence?: number;
+  } | null>(null);
   const { toast } = useToast();
 
   // Load conversation history on mount
@@ -133,7 +139,7 @@ NEVER:
   };
 
   // ========================================
-  // AI RESPONSE GENERATION
+  // AI RESPONSE GENERATION (Enhanced with Semantic Search)
   // ========================================
   const generateResponse = async (userMessage: string): Promise<string> => {
     try {
@@ -162,6 +168,13 @@ NEVER:
         });
       }
 
+      // MB.MD Track 1: Detect semantic queries and show searching indicator
+      const semanticPatterns = /met at|last event|friend who|person from|teacher|engineer|from (buenos aires|berlin|paris|nyc)/i;
+      if (semanticPatterns.test(userMessage)) {
+        setIsSearchingContext(true);
+        console.log('🔍 [MB.MD Track 1] Semantic query detected, activating platform search');
+      }
+
       // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
       console.log('🚀 [MB.MD Track 3] Calling API with apiRequest():', '/api/mrblue/simple-chat');
       
@@ -183,8 +196,29 @@ NEVER:
       console.log('✅ [MB.MD Track 3] Data received:', {
         hasResponse: !!data.response,
         model: data.model,
+        semanticData: data.semanticContext,
         dataKeys: Object.keys(data)
       });
+
+      // MB.MD Track 1: Store semantic context for UI display
+      if (data.semanticContext) {
+        setSemanticContext({
+          matchCount: data.semanticContext.matchCount,
+          eventName: data.semanticContext.eventName,
+          confidence: data.semanticContext.confidence
+        });
+        
+        // Show context preview toast
+        if (data.semanticContext.matchCount > 0) {
+          toast({
+            title: "🔍 Platform Knowledge Retrieved",
+            description: `Found ${data.semanticContext.matchCount} matching ${data.semanticContext.matchCount === 1 ? 'person' : 'people'}${data.semanticContext.eventName ? ` at ${data.semanticContext.eventName}` : ''}`,
+            duration: 3000,
+          });
+        }
+      }
+      
+      setIsSearchingContext(false);
       
       // Track model usage
       trackModelUsage(data.model || preferences.aiModel);
@@ -196,6 +230,8 @@ NEVER:
         error: error,
         stack: error instanceof Error ? error.stack : undefined
       });
+      setIsSearchingContext(false);
+      setSemanticContext(null);
       return "No worries—hit a quick snag. Let's try that again.";
     }
   };
@@ -296,6 +332,8 @@ NEVER:
     isTyping,
     currentAgent,
     isSpeaking,
+    isSearchingContext,
+    semanticContext,
     sendMessage,
     suggestions: getSuggestions(),
   };

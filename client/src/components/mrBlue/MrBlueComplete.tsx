@@ -35,6 +35,8 @@ export function MrBlueComplete() {
     isTyping,
     currentAgent,
     isSpeaking,
+    isSearchingContext,
+    semanticContext,
     sendMessage,
     suggestions,
   } = useScottAI({
@@ -103,7 +105,18 @@ export function MrBlueComplete() {
                 <Sparkles className="h-5 w-5 text-blue-500" />
                 <div>
                   <h3 className="font-semibold">Mr Blue AI Companion</h3>
-                  {currentAgent !== 'Mr Blue' && (
+                  {isSearchingContext && (
+                    <p className="text-xs text-blue-600 animate-pulse">
+                      🔍 Searching platform data...
+                    </p>
+                  )}
+                  {!isSearchingContext && semanticContext && semanticContext.matchCount! > 0 && (
+                    <p className="text-xs text-green-600">
+                      ✓ Found {semanticContext.matchCount} match{semanticContext.matchCount === 1 ? '' : 'es'}
+                      {semanticContext.eventName && ` at ${semanticContext.eventName}`}
+                    </p>
+                  )}
+                  {!isSearchingContext && currentAgent !== 'Mr Blue' && (
                     <p className="text-xs text-muted-foreground">
                       Connected to: {currentAgent}
                     </p>
