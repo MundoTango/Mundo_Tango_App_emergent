@@ -28,7 +28,7 @@ interface MrBlueConversation {
 interface MrBluePreferences {
   voiceEnabled: boolean;
   avatarQuality: 'auto' | 'high' | 'low';
-  aiModel: 'gpt-4o' | 'gpt-3.5-turbo' | 'claude' | 'gemini';
+  aiModel: 'claude-sonnet-4-20250514' | 'claude-3-5-sonnet-20241022' | 'claude' | 'gpt-4o' | 'gpt-3.5-turbo' | 'gemini';
   language: string;
 }
 
@@ -149,7 +149,7 @@ export function loadPreferences(): MrBluePreferences {
       return {
         voiceEnabled: true,
         avatarQuality: 'auto',
-        aiModel: 'gpt-4o',
+        aiModel: 'claude-sonnet-4-20250514',
         language: 'en-US',
       };
     }
@@ -160,7 +160,7 @@ export function loadPreferences(): MrBluePreferences {
     return {
       voiceEnabled: true,
       avatarQuality: 'auto',
-      aiModel: 'gpt-4o',
+      aiModel: 'claude-sonnet-4-20250514',
       language: 'en-US',
     };
   }
