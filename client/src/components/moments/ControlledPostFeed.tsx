@@ -103,6 +103,16 @@ export default function ControlledPostFeed({
     }
   }, [tagInput, onTagAdd]);
 
+  const handleShare = useCallback((post: Post) => {
+    if (onShare) {
+      onShare(post);
+    } else {
+      // Built-in share modal fallback
+      setSharePost(post);
+      setShareModalOpen(true);
+    }
+  }, [onShare]);
+
   // MB.MD FIX: Show skeleton screens during loading to prevent CLS
   if (isLoading) {
     return (
@@ -113,16 +123,6 @@ export default function ControlledPostFeed({
       </div>
     );
   }
-
-  const handleShare = useCallback((post: Post) => {
-    if (onShare) {
-      onShare(post);
-    } else {
-      // Built-in share modal fallback
-      setSharePost(post);
-      setShareModalOpen(true);
-    }
-  }, [onShare]);
 
   // ESA DEBUG: Log ControlledPostFeed render state
   console.log('🔍 [ControlledPostFeed] Rendering:', {
