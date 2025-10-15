@@ -4363,5 +4363,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Phase 10: Advanced Health & Performance Monitoring
+  app.get('/health/liveness', async (req, res) => {
+    const { healthMonitor } = await import('./services/infrastructure/HealthMonitor');
+    const isAlive = await healthMonitor.checkLiveness();
+    res.status(isAlive ? 200 : 503).json({ status: isAlive ? 'alive' : 'dead' });
+  });
+
+  app.get('/health/readiness', async (req, res) => {
+    const { healthMonitor } = await import('./services/infrastructure/HealthMonitor');
+    const result = await healthMonitor.checkReadiness();
+    res.status(result.healthy ? 200 : 503).json(result);
+  });
+
+  app.get('/api/phase10/drift-status', requireAdminSecure, async (req, res) => {
+    try {
+      const { dataDriftDetector } = await import('./services/ml/DataDriftDetector');
+      const driftResult = await dataDriftDetector.detectDrift();
+      res.json({
+        success: true,
+        data: driftResult,
+        summary: dataDriftDetector.getDriftSummary(driftResult)
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/phase10/query-performance', requireAdminSecure, async (req, res) => {
+    try {
+      const { queryAnalyzer } = await import('./services/performance/QueryAnalyzer');
+      const slowQueries = queryAnalyzer.getSlowQueries(10);
+      const stats = queryAnalyzer.getQueryStats();
+      const recommendations = await queryAnalyzer.getOptimizationRecommendations();
+      const summary = queryAnalyzer.getSummary();
+
+      res.json({
+        success: true,
+        data: {
+          slowQueries,
+          stats: stats.slice(0, 10), // Top 10 by total time
+          recommendations,
+          summary
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
+  app.get('/api/phase10/system-health', requireAdminSecure, async (req, res) => {
+    try {
+      const { healthMonitor } = await import('./services/infrastructure/HealthMonitor');
+      const status = await healthMonitor.getHealthStatus();
+      res.json({
+        success: true,
+        data: status
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: (error as Error).message
+      });
+    }
+  });
+
   return server;
 }
