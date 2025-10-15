@@ -16,13 +16,11 @@ export const pageStateRouter = Router();
 pageStateRouter.post('/track', optionalAuth, async (req, res) => {
   try {
     const { url, components, apiCalls, errors } = req.body;
-    const userId = req.user?.id;
 
     pageStateMonitor.recordPageState(url, {
       components: components || [],
       apiCalls: apiCalls || [],
-      errors: errors || [],
-      userId
+      errors: errors || []
     });
 
     res.json({ tracked: true, url });

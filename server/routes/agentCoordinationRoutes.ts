@@ -5,7 +5,7 @@
 
 import { Router } from 'express';
 import { requireAdmin } from '../middleware/secureAuth';
-import { agentRegistry } from '../services/AgentRegistry';
+import { agentRegistry } from '../services/agentRegistry';
 
 export const agentCoordinationRouter = Router();
 

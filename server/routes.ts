@@ -111,7 +111,7 @@ import componentSimpleChatRouter from "./routes/componentSimpleChat"; // Phase 1
 import algorithmSimpleChatRouter from "./routes/algorithmSimpleChat"; // Phase 12: Algorithm Agent AI Chat (A1-A30)
 import componentRegistrationRouter from "./routes/componentRegistration"; // Phase 12: On-demand Component Registration
 import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
-import uiSubAgentsRoutes from "./routes/uiSubAgentsRoutes"; // Phase 11: UI Sub-Agents Dashboard API
+// import uiSubAgentsRoutes from "./routes/uiSubAgentsRoutes"; // Phase 11: UI Sub-Agents Dashboard API (Duplicate - using uiSubAgents instead)
 import integrationSetupRoutes from "./routes/integrationSetupRoutes"; // Phase 11: Track 5 Integration Setup
 import autonomousExecutorRoutes from "./routes/autonomousExecutorRoutes"; // Phase 11: Track 6 Autonomous Execution
 import phase12Routes from "./routes/phase12Routes"; // Phase 12: Complete UI/UX Autonomy (Train, Visual Loop, Bottom-Up Learning)
