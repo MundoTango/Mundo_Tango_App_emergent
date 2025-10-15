@@ -104,6 +104,7 @@ import mrBlueRoutes from "./routes/mrBlue"; // ESA Mr Blue - Agents #73-78, #79-
 import visualEditorRoutes from "./routes/visualEditor"; // ESA Agent #78 - Visual Page Editor with OpenAI code generation
 import qualityValidatorRoutes from "./routes/qualityValidator"; // ESA Agent #79 - Quality Validator (Pattern Library, Root Cause Analysis)
 import uiSubAgentsRoutes from "./routes/uiSubAgentsRoutes"; // Phase 11: UI Sub-Agents Dashboard API
+import integrationSetupRoutes from "./routes/integrationSetupRoutes"; // Phase 11: Track 5 Integration Setup
 import learningCoordinatorRoutes from "./routes/learningCoordinator"; // ESA Agent #80 - Learning Coordinator (Knowledge Flow UP/ACROSS/DOWN)
 import siteBuilderRoutes from "./routes/siteBuilder"; // ESA Agent #77 - AI Site Builder (Page Generation)
 import performanceRoutes from "./routes/performanceRoutes"; // MB.MD TRACK 2: Performance Metrics & Reporting
@@ -260,6 +261,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(visualEditorRoutes); // ESA Agent #78 - Visual Page Editor with OpenAI code generation
   app.use(qualityValidatorRoutes); // ESA Agent #79 - Quality Validator
   app.use(uiSubAgentsRoutes); // Phase 11: UI Sub-Agents Dashboard API
+  app.use(integrationSetupRoutes); // Phase 11: Track 5 Integration Setup
   app.use(learningCoordinatorRoutes); // ESA Agent #80 - Learning Coordinator
   app.use('/api/agent-registry', agentRegistryRoutes); // MB.MD PHASE 11: Agent Registry System (Component Autonomy)
   app.use(siteBuilderRoutes); // ESA Agent #77 - AI Site Builder

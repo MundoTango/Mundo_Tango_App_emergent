@@ -8,11 +8,12 @@
  * - 9 Domain Coordinators
  * - 61 Layer Agents
  * - 7 Expert Agents
+ * - 5 UI Sub-Agents (#11.1-11.5) - Phase 11: Component Autonomy
  * - 16 Life CEO Agents
  * - 8 Mr Blue Agents (#73-80)
- * - 6 Additional Operational Agents
+ * - 12 Algorithm Agents
  * 
- * Total: 114 Agents
+ * Total: 119 Agents
  */
 
 import pkg from 'pg';
@@ -365,7 +366,14 @@ const esaAgentsList: InsertEsaAgent[] = [
 
   // ========== EXPERT AGENTS (7 agents #10-#16) ==========
   { id: 'AGENT-10', name: 'Database Expert', type: 'expert', division: null, esaLayers: [], domains: ['database'], reportsTo: ['AGENT-0'], capabilities: capabilities.expert, expertiseScore: 0.95, status: 'active' },
-  { id: 'AGENT-11', name: 'API Expert', type: 'expert', division: null, esaLayers: [], domains: ['api'], reportsTo: ['AGENT-0'], capabilities: capabilities.expert, expertiseScore: 0.95, status: 'active' },
+  { id: 'AGENT-11', name: 'UI/UX Sub-Agents Coordinator', type: 'expert', division: null, esaLayers: [9, 10, 53, 54], domains: ['ui', 'ux', 'autonomy'], reportsTo: ['AGENT-0'], capabilities: capabilities.expert, expertiseScore: 0.95, status: 'active' },
+  
+  // UI Sub-Agents (Phase 11: Component Autonomy System)
+  { id: 'AGENT-11.1', name: 'Dark Mode Fixer', type: 'layer', division: 'foundation', esaLayers: [9, 10], domains: ['ui', 'dark_mode'], reportsTo: ['AGENT-11'], capabilities: capabilities.layer, expertiseScore: 0.85, status: 'active' },
+  { id: 'AGENT-11.2', name: 'Translation Fixer', type: 'layer', division: 'foundation', esaLayers: [53], domains: ['ui', 'i18n', 'translation'], reportsTo: ['AGENT-11'], capabilities: capabilities.layer, expertiseScore: 0.85, status: 'active' },
+  { id: 'AGENT-11.3', name: 'Accessibility Auditor', type: 'layer', division: 'foundation', esaLayers: [54], domains: ['ui', 'accessibility', 'wcag'], reportsTo: ['AGENT-11'], capabilities: capabilities.layer, expertiseScore: 0.85, status: 'active' },
+  { id: 'AGENT-11.4', name: 'Performance Monitor', type: 'layer', division: 'foundation', esaLayers: [9, 10], domains: ['ui', 'performance'], reportsTo: ['AGENT-11'], capabilities: capabilities.layer, expertiseScore: 0.85, status: 'active' },
+  { id: 'AGENT-11.5', name: 'Component Watcher', type: 'layer', division: 'foundation', esaLayers: [9, 10, 53, 54], domains: ['ui', 'monitoring', 'autonomy'], reportsTo: ['AGENT-11'], capabilities: capabilities.layer, expertiseScore: 0.85, status: 'active' },
   { id: 'AGENT-12', name: 'Frontend Expert', type: 'expert', division: null, esaLayers: [], domains: ['frontend', 'react'], reportsTo: ['AGENT-0'], capabilities: capabilities.expert, expertiseScore: 0.95, status: 'active' },
   { id: 'AGENT-13', name: 'AI/ML Expert', type: 'expert', division: null, esaLayers: [], domains: ['ai', 'ml'], reportsTo: ['AGENT-0'], capabilities: capabilities.expert, expertiseScore: 0.95, status: 'active' },
   { id: 'AGENT-14', name: 'Security Expert', type: 'expert', division: null, esaLayers: [], domains: ['security'], reportsTo: ['AGENT-0'], capabilities: capabilities.expert, expertiseScore: 0.95, status: 'active' },
@@ -424,17 +432,18 @@ export async function seedEsaAgents() {
     // Insert all agents
     await db.insert(esaAgents).values(esaAgentsList);
     
-    console.log('✅ Successfully registered all 114 ESA agents!');
+    console.log('✅ Successfully registered all 119 ESA agents!');
     console.log('\n📈 Agent Breakdown:');
     console.log('  - 1 CEO (Agent #0)');
     console.log('  - 6 Division Chiefs');
     console.log('  - 9 Domain Coordinators');
     console.log('  - 61 Layer Agents');
     console.log('  - 7 Expert Agents (#10-#16)');
+    console.log('  - 5 UI Sub-Agents (#11.1-#11.5) - Phase 11: Component Autonomy');
     console.log('  - 16 Life CEO Agents');
     console.log('  - 8 Mr Blue Agents (#73-#80)');
     console.log('  - 12 Algorithm Agents');
-    console.log('\n🎯 Total: 114 agents ready for autonomous operations!');
+    console.log('\n🎯 Total: 119 agents ready for autonomous operations!');
     
     return { success: true, count: esaAgentsList.length };
   } catch (error) {
