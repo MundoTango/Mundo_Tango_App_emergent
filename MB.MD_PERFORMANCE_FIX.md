@@ -267,9 +267,21 @@ router.get('/api/ai-intelligence/context', ...);
 **Auth**: Uses `requireAuth` middleware  
 **Status**: **READY TO TEST**
 
+**CORRECTED Visual Editor Workflow**:
+❌ WRONG: Go to any page with `?edit=true`
+
+✅ CORRECT:
+1. Navigate to Memories page (/)
+2. Click "Mr Blue AI chat" button
+3. Mr Blue chat panel opens
+4. Click "Visual Editor" button inside chat
+5. Split-screen overlay appears:
+   - LEFT: Preview panel (editable components)
+   - RIGHT: Mr Blue AI chat (context-aware assistance)
+
 **Test Plan**:
-1. Go to any page with `?edit=true`
-2. Open Visual Editor
+1. Go to Memories page
+2. Click Mr Blue button → Visual Editor button
 3. Ask Mr Blue a question
 4. Verify response is from real AI (not canned)
 

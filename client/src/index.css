@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* MB.MD FIX: Font optimization to prevent FOIT (Flash of Invisible Text) */
+/* This reduces CLS (Cumulative Layout Shift) by ensuring text is visible during font loading */
+@font-face {
+  font-family: system-ui;
+  font-display: swap; /* Show fallback font immediately, swap when custom font loads */
+}
+
 /* ================================
    ESA LIFE CEO 61x21 - Icon Button Animations
    ================================ */

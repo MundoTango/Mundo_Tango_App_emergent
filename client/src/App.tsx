@@ -35,6 +35,13 @@ import { productionRoutes, debugRoutes, type RouteConfig } from "@/config/routes
 // Import shared queryClient with ESA Layer 14 cache configuration
 import { queryClient } from "@/lib/queryClient";
 
+// MB.MD FIX: Clear stale queries on app initialization to prevent queryFn warnings
+if (typeof window !== 'undefined') {
+  queryClient.removeQueries({ 
+    predicate: (query) => !query.options.queryFn && query.state.status === 'error',
+  });
+}
+
 // Critical components that load immediately - minimal initial bundle
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
