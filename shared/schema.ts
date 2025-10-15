@@ -5286,6 +5286,42 @@ export const componentAgents = pgTable('component_agents', {
   index('idx_component_agents_health').on(table.currentHealth),
 ]);
 
+// MB.MD Phase 13: Component Learning History
+export const componentLearningHistory = pgTable('component_learning_history', {
+  id: serial('id').primaryKey(),
+  componentId: varchar('component_id', { length: 255 }).notNull(),
+  issueType: varchar('issue_type', { length: 100 }).notNull(),
+  issue: text('issue').notNull(),
+  solution: text('solution').notNull(),
+  success: boolean('success').notNull(),
+  confidence: integer('confidence').notNull().default(80), // 0-100
+  learnedFrom: varchar('learned_from', { length: 255 }), // colleague component ID
+  createdAt: timestamp('created_at').defaultNow().notNull()
+}, (table) => [
+  index('idx_component_learning_component').on(table.componentId),
+  index('idx_component_learning_type').on(table.issueType),
+  index('idx_component_learning_success').on(table.success),
+  index('idx_component_learning_created').on(table.createdAt),
+]);
+
+// MB.MD Phase 13: Visual Editor Changes
+export const visualEditorChanges = pgTable('visual_editor_changes', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id),
+  componentId: varchar('component_id', { length: 255 }).notNull(),
+  changeType: varchar('change_type', { length: 50 }).notNull(), // attribute, text, style, class, structure
+  changeData: jsonb('change_data').notNull(),
+  approved: boolean('approved'),
+  approvedAt: timestamp('approved_at'),
+  appliedAt: timestamp('applied_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+}, (table) => [
+  index('idx_visual_editor_user').on(table.userId),
+  index('idx_visual_editor_component').on(table.componentId),
+  index('idx_visual_editor_approved').on(table.approved),
+  index('idx_visual_editor_created').on(table.createdAt),
+]);
+
 // ============================================================================
 // PHASE 7: AUTO-FIX & ML INTELLIGENCE SYSTEM
 // Advanced autonomous agent capabilities with self-healing and learning
@@ -5481,4 +5517,21 @@ export type InsertComponentHistory = z.infer<typeof insertComponentHistorySchema
 
 export type AgentSchedule = typeof agentSchedules.$inferSelect;
 export type InsertAgentSchedule = z.infer<typeof insertAgentScheduleSchema>;
+
+// MB.MD Phase 13: Component Learning & Visual Editor schemas
+export const insertComponentLearningHistorySchema = createInsertSchema(componentLearningHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertVisualEditorChangesSchema = createInsertSchema(visualEditorChanges).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type ComponentLearningHistory = typeof componentLearningHistory.$inferSelect;
+export type InsertComponentLearningHistory = z.infer<typeof insertComponentLearningHistorySchema>;
+
+export type VisualEditorChange = typeof visualEditorChanges.$inferSelect;
+export type InsertVisualEditorChange = z.infer<typeof insertVisualEditorChangesSchema>;
 
