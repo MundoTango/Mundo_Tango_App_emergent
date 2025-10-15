@@ -152,16 +152,18 @@ NEVER:
       // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
       console.log('🚀 [MB.MD Track 3] Calling API with apiRequest():', '/api/mrblue/simple-chat');
       
-      const data = await apiRequest('/api/mrblue/simple-chat', {
+      const response = await apiRequest('/api/mrblue/simple-chat', {
         method: 'POST',
-        body: JSON.stringify({
+        body: {
           message: userMessage,
           personality: scottPersonality,
           agent: targetAgent,
           context,
           model: preferences.aiModel || config.defaultModel || 'claude-sonnet-4-20250514',
-        }),
+        },
       });
+      
+      const data = await response.json();
       
       console.log('✅ [Mr Blue] Response received:', {
         hasResponse: !!data.response,
