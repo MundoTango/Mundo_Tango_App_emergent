@@ -142,6 +142,21 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
     );
   };
 
+  // MB.MD FIX: Show skeleton during loading to prevent CLS
+  if (isLoading) {
+    return (
+      <div className="h-full space-y-4" data-testid="events-sidebar-loading">
+        <div className="mb-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Calendar className="w-5 h-5 text-[#5EEAD4]" />
+            <h2 className="text-lg font-semibold text-[#0B3C49]">{t('events.upcomingEvents')}</h2>
+          </div>
+        </div>
+        <ListSkeleton count={4} />
+      </div>
+    );
+  }
+
   return (
     <div className="h-full space-y-4">
       {/* Events Section */}
