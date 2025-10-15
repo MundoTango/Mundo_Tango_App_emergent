@@ -5083,3 +5083,217 @@ export type InsertAlgorithmChat = z.infer<typeof insertAlgorithmChatSchema>;
 export type AlgorithmMetric = typeof algorithmMetrics.$inferSelect;
 export type InsertAlgorithmMetric = z.infer<typeof insertAlgorithmMetricSchema>;
 
+// ============================================================================
+// AGENT INTELLIGENCE NETWORK - Self-Learning & Collaborative Agents
+// Tracks: Learning & Memory, Self-Testing, Collaboration, Component Agents
+// ============================================================================
+
+// TRACK A: Agent Learning & Memory
+export const agentMemories = pgTable('agent_memories', {
+  id: serial('id').primaryKey(),
+  agentId: varchar('agent_id', { length: 100 }).notNull(),
+  learningType: varchar('learning_type', { length: 50 }).notNull(), // success, failure, pattern, optimization
+  context: text('context').notNull(),
+  lessonLearned: text('lesson_learned').notNull(),
+  confidenceScore: integer('confidence_score').default(50), // 0-100
+  appliedCount: integer('applied_count').default(0),
+  createdAt: timestamp('created_at').defaultNow(),
+  metadata: jsonb('metadata')
+}, (table) => [
+  index('idx_agent_memories_agent').on(table.agentId),
+  index('idx_agent_memories_type').on(table.learningType),
+  index('idx_agent_memories_created').on(table.createdAt),
+]);
+
+export const agentSelfTests = pgTable('agent_self_tests', {
+  id: serial('id').primaryKey(),
+  agentId: varchar('agent_id', { length: 100 }).notNull(),
+  testType: varchar('test_type', { length: 50 }).notNull(), // functionality, performance, accessibility, security
+  testResult: varchar('test_result', { length: 20 }).notNull(), // pass, fail, warning
+  issuesFound: jsonb('issues_found'),
+  autoFixed: boolean('auto_fixed').default(false),
+  escalatedTo: varchar('escalated_to', { length: 100 }),
+  runAt: timestamp('run_at').defaultNow(),
+  testData: jsonb('test_data')
+}, (table) => [
+  index('idx_agent_self_tests_agent').on(table.agentId),
+  index('idx_agent_self_tests_result').on(table.testResult),
+  index('idx_agent_self_tests_run').on(table.runAt),
+]);
+
+export const agentKnowledgeBase = pgTable('agent_knowledge_base', {
+  id: serial('id').primaryKey(),
+  topic: varchar('topic', { length: 200 }).notNull(),
+  sourceAgent: varchar('source_agent', { length: 100 }).notNull(),
+  knowledgeType: varchar('knowledge_type', { length: 50 }).notNull(), // best_practice, fix, pattern, warning
+  content: text('content').notNull(),
+  upvotes: integer('upvotes').default(0),
+  tags: text('tags').array(),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+}, (table) => [
+  index('idx_agent_knowledge_topic').on(table.topic),
+  index('idx_agent_knowledge_source').on(table.sourceAgent),
+  index('idx_agent_knowledge_type').on(table.knowledgeType),
+]);
+
+// TRACK B: Collaborative Intelligence Protocol
+export const agentMessages = pgTable('agent_messages', {
+  id: serial('id').primaryKey(),
+  fromAgent: varchar('from_agent', { length: 100 }).notNull(),
+  toAgent: varchar('to_agent', { length: 100 }), // null for broadcasts
+  messageType: varchar('message_type', { length: 50 }).notNull(), // question, answer, request, update, alert
+  priority: varchar('priority', { length: 20 }).default('medium'), // low, medium, high, critical
+  subject: varchar('subject', { length: 200 }).notNull(),
+  content: text('content').notNull(),
+  requiresResponse: boolean('requires_response').default(false),
+  responseBy: timestamp('response_by'),
+  parentMessageId: integer('parent_message_id'),
+  status: varchar('status', { length: 20 }).default('sent'), // sent, read, responded, archived
+  createdAt: timestamp('created_at').defaultNow(),
+  metadata: jsonb('metadata')
+}, (table) => [
+  index('idx_agent_messages_from').on(table.fromAgent),
+  index('idx_agent_messages_to').on(table.toAgent),
+  index('idx_agent_messages_status').on(table.status),
+  index('idx_agent_messages_created').on(table.createdAt),
+]);
+
+export const agentCollaborations = pgTable('agent_collaborations', {
+  id: serial('id').primaryKey(),
+  collaborationType: varchar('collaboration_type', { length: 50 }).notNull(), // planning, fixing, building, reviewing
+  leaderAgent: varchar('leader_agent', { length: 100 }).notNull(),
+  participantAgents: text('participant_agents').array(),
+  goal: text('goal').notNull(),
+  currentStatus: varchar('current_status', { length: 50 }).default('planning'), // planning, executing, testing, complete
+  plan: jsonb('plan'),
+  progress: integer('progress').default(0), // 0-100
+  startedAt: timestamp('started_at').defaultNow(),
+  completedAt: timestamp('completed_at'),
+  outcome: varchar('outcome', { length: 50 }) // success, failure, partial
+}, (table) => [
+  index('idx_agent_collab_leader').on(table.leaderAgent),
+  index('idx_agent_collab_status').on(table.currentStatus),
+  index('idx_agent_collab_started').on(table.startedAt),
+]);
+
+// TRACK C: Mr Blue Coordination Layer
+export const userEditSessions = pgTable('user_edit_sessions', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id).notNull(),
+  pagePath: varchar('page_path', { length: 255 }).notNull(),
+  componentPath: varchar('component_path', { length: 255 }),
+  sessionStart: timestamp('session_start').defaultNow(),
+  sessionEnd: timestamp('session_end'),
+  totalChanges: integer('total_changes').default(0),
+  status: varchar('status', { length: 20 }).default('active') // active, confirmed, cancelled
+}, (table) => [
+  index('idx_user_edit_sessions_user').on(table.userId),
+  index('idx_user_edit_sessions_status').on(table.status),
+  index('idx_user_edit_sessions_start').on(table.sessionStart),
+]);
+
+export const trackedChanges = pgTable('tracked_changes', {
+  id: serial('id').primaryKey(),
+  sessionId: integer('session_id').references(() => userEditSessions.id).notNull(),
+  changeType: varchar('change_type', { length: 50 }).notNull(), // move, resize, style, text, delete, add
+  componentId: varchar('component_id', { length: 100 }).notNull(),
+  beforeState: jsonb('before_state'),
+  afterState: jsonb('after_state'),
+  changeDelta: jsonb('change_delta'),
+  aiSummary: text('ai_summary'),
+  userConfirmed: boolean('user_confirmed').default(false),
+  timestamp: timestamp('timestamp').defaultNow(),
+  affectedAgents: text('affected_agents').array()
+}, (table) => [
+  index('idx_tracked_changes_session').on(table.sessionId),
+  index('idx_tracked_changes_component').on(table.componentId),
+  index('idx_tracked_changes_timestamp').on(table.timestamp),
+]);
+
+// TRACK D: Component Agent System
+export const componentAgents = pgTable('component_agents', {
+  id: serial('id').primaryKey(),
+  componentName: varchar('component_name', { length: 100 }).notNull(),
+  componentPath: varchar('component_path', { length: 255 }).notNull(),
+  componentType: varchar('component_type', { length: 50 }).notNull(), // button, input, layout, page
+  parentAgent: varchar('parent_agent', { length: 100 }),
+  layerAgents: text('layer_agents').array(),
+  lastModified: timestamp('last_modified').defaultNow(),
+  modificationHistory: jsonb('modification_history'),
+  currentHealth: varchar('current_health', { length: 20 }).default('healthy'), // healthy, warning, error
+  testCoverage: integer('test_coverage').default(0), // 0-100
+  learningCount: integer('learning_count').default(0)
+}, (table) => [
+  index('idx_component_agents_name').on(table.componentName),
+  index('idx_component_agents_type').on(table.componentType),
+  index('idx_component_agents_health').on(table.currentHealth),
+]);
+
+// Insert Schemas & Types
+export const insertAgentMemorySchema = createInsertSchema(agentMemories).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAgentSelfTestSchema = createInsertSchema(agentSelfTests).omit({
+  id: true,
+  runAt: true,
+});
+
+export const insertAgentKnowledgeSchema = createInsertSchema(agentKnowledgeBase).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentMessageSchema = createInsertSchema(agentMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAgentCollaborationSchema = createInsertSchema(agentCollaborations).omit({
+  id: true,
+  startedAt: true,
+});
+
+export const insertUserEditSessionSchema = createInsertSchema(userEditSessions).omit({
+  id: true,
+  sessionStart: true,
+});
+
+export const insertTrackedChangeSchema = createInsertSchema(trackedChanges).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertComponentAgentSchema = createInsertSchema(componentAgents).omit({
+  id: true,
+  lastModified: true,
+});
+
+// TypeScript Types
+export type AgentMemory = typeof agentMemories.$inferSelect;
+export type InsertAgentMemory = z.infer<typeof insertAgentMemorySchema>;
+
+export type AgentSelfTest = typeof agentSelfTests.$inferSelect;
+export type InsertAgentSelfTest = z.infer<typeof insertAgentSelfTestSchema>;
+
+export type AgentKnowledge = typeof agentKnowledgeBase.$inferSelect;
+export type InsertAgentKnowledge = z.infer<typeof insertAgentKnowledgeSchema>;
+
+export type AgentMessage = typeof agentMessages.$inferSelect;
+export type InsertAgentMessage = z.infer<typeof insertAgentMessageSchema>;
+
+export type AgentCollaboration = typeof agentCollaborations.$inferSelect;
+export type InsertAgentCollaboration = z.infer<typeof insertAgentCollaborationSchema>;
+
+export type UserEditSession = typeof userEditSessions.$inferSelect;
+export type InsertUserEditSession = z.infer<typeof insertUserEditSessionSchema>;
+
+export type TrackedChange = typeof trackedChanges.$inferSelect;
+export type InsertTrackedChange = z.infer<typeof insertTrackedChangeSchema>;
+
+export type ComponentAgent = typeof componentAgents.$inferSelect;
+export type InsertComponentAgent = z.infer<typeof insertComponentAgentSchema>;
+
