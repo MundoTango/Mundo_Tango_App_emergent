@@ -51,6 +51,29 @@ router.post('/learn', async (req, res) => {
 });
 
 /**
+ * GET /api/agent-intelligence/learnings/recent
+ * Get recent learnings across all agents
+ */
+router.get('/learnings/recent', async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const { db } = await import('../db');
+    const { agentLearnings } = await import('../../shared/schema');
+    const { desc } = await import('drizzle-orm');
+    
+    const learnings = await db
+      .select()
+      .from(agentLearnings)
+      .orderBy(desc(agentLearnings.id))
+      .limit(limit ? parseInt(limit as string) : 10);
+
+    res.json({ learnings, count: learnings.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * GET /api/agent-intelligence/:agentId/learnings
  * Get agent's past learnings
  */
@@ -163,6 +186,29 @@ router.post('/knowledge/contribute', async (req, res) => {
 // ============================================================================
 
 /**
+ * GET /api/agent-intelligence/tests/recent
+ * Get recent test results across all agents
+ */
+router.get('/tests/recent', async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const { db } = await import('../db');
+    const { agentSelfTests } = await import('../../shared/schema');
+    const { desc } = await import('drizzle-orm');
+    
+    const tests = await db
+      .select()
+      .from(agentSelfTests)
+      .orderBy(desc(agentSelfTests.id))
+      .limit(limit ? parseInt(limit as string) : 10);
+
+    res.json({ tests, count: tests.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * POST /api/agent-intelligence/:agentId/self-test
  * Run self-test for an agent
  */
@@ -224,6 +270,29 @@ router.get('/:agentId/health', async (req, res) => {
 // ============================================================================
 
 /**
+ * GET /api/agent-intelligence/messages/recent
+ * Get recent messages across all agents
+ */
+router.get('/messages/recent', async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const { db } = await import('../db');
+    const { agentMessages } = await import('../../shared/schema');
+    const { desc } = await import('drizzle-orm');
+    
+    const messages = await db
+      .select()
+      .from(agentMessages)
+      .orderBy(desc(agentMessages.id))
+      .limit(limit ? parseInt(limit as string) : 10);
+
+    res.json({ messages, count: messages.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * POST /api/agent-intelligence/:agentId/message
  * Send message from one agent to another
  */
@@ -267,6 +336,29 @@ router.get('/:agentId/inbox', async (req, res) => {
     );
 
     res.json({ inbox, count: inbox.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/collaborations/recent
+ * Get recent collaborations across all agents
+ */
+router.get('/collaborations/recent', async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const { db } = await import('../db');
+    const { agentCollaborations } = await import('../../shared/schema');
+    const { desc } = await import('drizzle-orm');
+    
+    const collaborations = await db
+      .select()
+      .from(agentCollaborations)
+      .orderBy(desc(agentCollaborations.id))
+      .limit(limit ? parseInt(limit as string) : 10);
+
+    res.json({ collaborations, count: collaborations.length });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
