@@ -90,6 +90,61 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+// Page Details Mapper - Maps routes to page information
+const getPageDetails = (path: string) => {
+  const pathMap: Record<string, { name: string; purpose: string; agents: string[] }> = {
+    '/': {
+      name: 'Home Page',
+      purpose: 'Landing page with platform overview',
+      agents: ['Agent #1 (Landing)', 'Mr Blue (Agent #73-80)']
+    },
+    '/feed': {
+      name: 'Social Feed',
+      purpose: 'Browse community posts and memories',
+      agents: ['Agent #2 (Feed)', 'Algorithm A1 (Feed Ranking)', 'Mr Blue']
+    },
+    '/admin/dashboard': {
+      name: 'Admin Dashboard',
+      purpose: 'System metrics and management overview',
+      agents: ['Agent #11 (UI Coordinator)', 'Mr Blue', 'Agent #79 (Quality)', 'Agent #80 (Learning)']
+    },
+    '/admin/visual-editor': {
+      name: 'Visual Page Editor',
+      purpose: 'Edit UI components visually - I track all your changes!',
+      agents: ['Agent #11 (UI)', 'Agent #11.1-11.5 (UI Sub-Agents)', 'Mr Blue', 'All 559 Component Agents']
+    },
+    '/admin/esa-mind': {
+      name: 'ESA Mind Dashboard',
+      purpose: 'View ESA Framework intelligence and agent network',
+      agents: ['Agent #11 (UI)', 'Mr Blue', '125 ESA Agents']
+    },
+    '/admin/autonomy-demo': {
+      name: 'Autonomy Demo Page',
+      purpose: 'Interactive demo of component autonomy and self-fixing',
+      agents: ['Agent #11', 'Mr Blue', '559 Component Agents', 'Agent #79', 'Agent #80']
+    }
+  };
+
+  // Check for exact match
+  if (pathMap[path]) {
+    return pathMap[path];
+  }
+
+  // Check for partial matches
+  for (const [route, details] of Object.entries(pathMap)) {
+    if (path.startsWith(route)) {
+      return details;
+    }
+  }
+
+  // Default
+  return {
+    name: 'Unknown Page',
+    purpose: `Currently viewing ${path}`,
+    agents: ['Mr Blue']
+  };
+};
+
 // POST /api/mrblue/chat
 mrBlueRouter.post('/chat', async (req, res) => {
   try {
@@ -111,17 +166,39 @@ mrBlueRouter.post('/chat', async (req, res) => {
       'what happens if i delete',
       'what if i remove',
       'show dependencies',
-      'what depends on'
+      'what depends on',
+      'what page',
+      'where am i',
+      'current page',
+      'what am i looking at'
     ];
 
     const isSelfAware = selfAwareQueries.some(q => lastMessage.includes(q));
+    const isPageQuery = ['what page', 'where am i', 'current page', 'what am i looking at'].some(q => lastMessage.includes(q));
+
+    // Enhanced page context detection
+    const currentPath = pageContext?.url || '/';
+    const pageDetails = getPageDetails(currentPath);
+    const recentActions = pageContext?.recentActions || [];
+    const visualEditorActive = currentPath.includes('visual-editor') || mode === 'visual';
 
     // Build system prompt based on user role and mode
     let systemPrompt = `You are Mr Blue, the universal AI companion for the Mundo Tango platform.
 
-Current Page Context: ${JSON.stringify(pageContext)}
-User Role: ${userRole}
-Mode: ${mode}
+CURRENT CONTEXT (CRITICAL - ALWAYS REFERENCE THIS):
+- Current Page: ${pageDetails.name} (${currentPath})
+- Page Purpose: ${pageDetails.purpose}
+- Active Agents: ${pageDetails.agents.join(', ')}
+- Visual Editor: ${visualEditorActive ? 'ACTIVE' : 'Inactive'}
+- Recent Actions: ${recentActions.length > 0 ? recentActions.join(', ') : 'None yet'}
+- User Role: ${userRole}
+- Mode: ${mode}
+
+IMPORTANT INSTRUCTIONS:
+- When user asks "what page are we on" or "where am I", respond with the EXACT page name and purpose above
+- Reference recent actions when relevant
+- If in Visual Editor, mention component tracking is active
+- Be specific and context-aware, NOT generic
 
 `;
 
