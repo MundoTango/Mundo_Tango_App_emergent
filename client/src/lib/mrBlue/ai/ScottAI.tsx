@@ -137,6 +137,8 @@ NEVER:
   // ========================================
   const generateResponse = async (userMessage: string): Promise<string> => {
     try {
+      console.log('🔵 [MB.MD DEBUG v2.0] ScottAI generateResponse START - NEW CODE LOADED ✅');
+      
       // Detect which agent should handle this
       const targetAgent = routeToAgent(userMessage);
       setCurrentAgent(targetAgent);
@@ -148,7 +150,7 @@ NEVER:
       const preferences = loadPreferences();
 
       // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
-      console.log('🚀 [Mr Blue] Calling API:', '/api/mrblue/simple-chat');
+      console.log('🚀 [MB.MD Track 3] Calling API with apiRequest():', '/api/mrblue/simple-chat');
       
       const data = await apiRequest('/api/mrblue/simple-chat', {
         method: 'POST',
