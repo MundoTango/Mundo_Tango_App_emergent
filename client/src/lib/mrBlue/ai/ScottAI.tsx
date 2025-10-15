@@ -163,11 +163,14 @@ NEVER:
         },
       });
       
+      console.log('📡 [MB.MD Track 3] Response status:', response.status, response.statusText);
+      
       const data = await response.json();
       
-      console.log('✅ [Mr Blue] Response received:', {
+      console.log('✅ [MB.MD Track 3] Data received:', {
         hasResponse: !!data.response,
-        model: data.model
+        model: data.model,
+        dataKeys: Object.keys(data)
       });
       
       // Track model usage
@@ -175,7 +178,11 @@ NEVER:
       
       return data.response || "Let's tackle this together. What specifically needs help?";
     } catch (error) {
-      console.error('AI error:', error);
+      console.error('🔴 [MB.MD Track 3] AI error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        error: error,
+        stack: error instanceof Error ? error.stack : undefined
+      });
       return "No worries—hit a quick snag. Let's try that again.";
     }
   };
