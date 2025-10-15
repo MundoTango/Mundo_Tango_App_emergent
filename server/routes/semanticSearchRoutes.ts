@@ -57,8 +57,8 @@ semanticSearchRouter.post('/context-query', optionalAuth, async (req, res) => {
     console.log('🧠 [Context Query] Request:', { eventId, occupation, city, isTeacher, userId });
 
     const results = await eventMemoryGraph.findAttendeesAtEvent(
-      { userId, eventId, occupation, city, isTeacher },
-      userId
+      eventId,
+      { occupation, city, isTeacher }
     );
 
     console.log('✅ [Context Query] Found:', results.length, 'results');
