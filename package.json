@@ -344,6 +344,7 @@
     "memoizee": "^0.4.17",
     "memorystore": "^1.6.7",
     "mjml": "^4.7.1",
+    "ml-random-forest": "^2.1.0",
     "motion": "^12.23.22",
     "mui-chips-input": "^7.0.1",
     "multer": "^2.0.1",
