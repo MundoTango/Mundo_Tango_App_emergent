@@ -8,6 +8,11 @@ import { Router } from 'express';
 import Anthropic from '@anthropic-ai/sdk';
 import { optionalAuth } from '../middleware/secureAuth';
 import { userContextService } from '../services/UserContextService';
+import { eventMemoryGraph } from '../services/EventMemoryGraph';
+import { detectSemanticQuery, buildQueryDescription, extractEventId } from '../utils/semanticQueryDetector';
+import { db } from '../db';
+import { events, eventRsvps } from '../../shared/schema';
+import { eq, desc, and } from 'drizzle-orm';
 
 export const mrBlueSimpleChatRouter = Router();
 
@@ -47,6 +52,14 @@ mrBlueSimpleChatRouter.post('/simple-chat', optionalAuth, async (req, res) => {
       userId
     });
 
+    // TRACK 1: Detect semantic query intent
+    const semanticQuery = detectSemanticQuery(message);
+    console.log('🔍 [Semantic Detection]', buildQueryDescription(semanticQuery), {
+      confidence: semanticQuery.confidence,
+      type: semanticQuery.type,
+      isContextual: semanticQuery.isContextual
+    });
+
     // Aggregate user context if logged in
     let userContext = null;
     if (userId) {
@@ -59,6 +72,98 @@ mrBlueSimpleChatRouter.post('/simple-chat', optionalAuth, async (req, res) => {
         });
       } catch (error) {
         console.warn('⚠️ [Mr Blue] Could not load user context:', error);
+      }
+    }
+
+    // TRACK 1: Semantic Search - Retrieve platform knowledge
+    let platformKnowledge = '';
+    let semanticContext = null;
+    
+    if (semanticQuery.isContextual && userId && semanticQuery.confidence >= 0.3) {
+      try {
+        console.log('🔎 [Semantic Search] Executing context query...');
+        
+        // Determine event ID
+        let eventId = extractEventId(message) || semanticQuery.entities.eventId;
+        
+        // If "last event" or "recent event", find most recent attended event
+        if (!eventId && (semanticQuery.entities.eventName === 'most_recent' || semanticQuery.type === 'event_attendee')) {
+          const recentEvents = await db
+            .select({
+              eventId: eventRsvps.eventId,
+              eventTitle: events.title,
+              eventDate: events.date
+            })
+            .from(eventRsvps)
+            .innerJoin(events, eq(events.id, eventRsvps.eventId))
+            .where(
+              and(
+                eq(eventRsvps.userId, userId),
+                eq(eventRsvps.status, 'going')
+              )
+            )
+            .orderBy(desc(events.date))
+            .limit(1);
+
+          if (recentEvents.length > 0) {
+            eventId = recentEvents[0].eventId;
+            console.log(`📅 [Semantic] Found most recent event: ${recentEvents[0].eventTitle} (ID: ${eventId})`);
+          }
+        }
+
+        // Execute semantic search if we have an event
+        if (eventId) {
+          const attendees = await eventMemoryGraph.findAttendeesAtEvent(eventId, {
+            isTeacher: semanticQuery.entities.isTeacher,
+            occupation: semanticQuery.entities.occupation,
+            city: semanticQuery.entities.city
+          });
+
+          // Get event details
+          const eventDetails = await db
+            .select()
+            .from(events)
+            .where(eq(events.id, eventId))
+            .limit(1);
+
+          semanticContext = {
+            event: eventDetails[0],
+            matches: attendees,
+            query: semanticQuery
+          };
+
+          // Build platform knowledge string
+          platformKnowledge = `
+PLATFORM KNOWLEDGE (Retrieved from semantic search - Confidence: ${Math.round(semanticQuery.confidence * 100)}%):
+
+Event Context:
+- Event: "${eventDetails[0]?.title || 'Unknown'}" (ID: ${eventId})
+- Date: ${eventDetails[0]?.date || 'Unknown'}
+- Location: ${eventDetails[0]?.city || 'Unknown'}
+
+Matching Attendees Found: ${attendees.length}
+${attendees.map((a, i) => `
+${i + 1}. ${a.userName}
+   - City: ${a.userCity || 'Not specified'}
+   - Occupation: ${a.userOccupation || 'Not specified'}
+   - Teacher: ${a.userIsTeacher ? 'Yes' : 'No'}
+`).join('')}
+
+Search Criteria:
+${semanticQuery.entities.occupation ? `- Occupation: ${semanticQuery.entities.occupation}` : ''}
+${semanticQuery.entities.city ? `- City: ${semanticQuery.entities.city}` : ''}
+${semanticQuery.entities.isTeacher ? `- Is Teacher: Yes` : ''}
+`;
+
+          console.log(`✅ [Semantic Search] Found ${attendees.length} matches at event ${eventId}`);
+        } else {
+          console.log('⚠️ [Semantic Search] Could not determine event ID for context query');
+          platformKnowledge = '\nPLATFORM KNOWLEDGE: Could not find specific event context. Using general user context.\n';
+        }
+
+      } catch (error) {
+        console.error('❌ [Semantic Search] Error:', error);
+        platformKnowledge = '\nPLATFORM KNOWLEDGE: Semantic search unavailable, using general context.\n';
       }
     }
 
@@ -75,6 +180,8 @@ ${context ? `
 - Interactive Elements: ${context.elements || 0}
 - Recent Visual Edits: ${context.visualEdits || 'None'}
 ` : '- No page context available'}
+
+${platformKnowledge ? platformKnowledge : ''}
 
 ${userContext ? `
 USER CONTEXT (Private data for ${userContext.profile.name}):
@@ -106,6 +213,8 @@ You CAN now answer questions like:
 - "What events am I attending?"
 - "Do I know any teachers in Buenos Aires?"
 - "Show me my upcoming events"
+- "Who did I meet at the last event who's a teacher?"
+- "I met an engineer from Buenos Aires at event X, what's their name?"
 ` : '- User not logged in (cannot access personal data)'}
 
 ${agent && agent !== 'Mr Blue' ? `
@@ -115,6 +224,7 @@ You are acting as ${agent}. Respond in the style and expertise of this specializ
 
 INSTRUCTIONS:
 - Answer questions about friends, events, and connections using the USER CONTEXT above
+- ${platformKnowledge ? 'PRIORITIZE information from PLATFORM KNOWLEDGE above - it contains specific search results for the user query' : ''}
 - Be specific and reference actual names, events, and details
 - If user asks "what page am i on", tell them the exact page name and URL
 - Keep responses concise but helpful
@@ -142,7 +252,7 @@ INSTRUCTIONS:
       model: model || DEFAULT_MODEL,
     });
 
-    // Return clean JSON
+    // Return clean JSON with semantic context
     res.json({
       response: aiMessage,
       model: model || DEFAULT_MODEL,
@@ -151,6 +261,14 @@ INSTRUCTIONS:
         input: response.usage.input_tokens,
         output: response.usage.output_tokens,
       },
+      semanticSearch: semanticContext ? {
+        isContextual: semanticQuery.isContextual,
+        confidence: semanticQuery.confidence,
+        type: semanticQuery.type,
+        matchCount: semanticContext.matches.length,
+        eventName: semanticContext.event?.title,
+        eventId: semanticContext.event?.id,
+      } : undefined,
     });
 
   } catch (error) {
