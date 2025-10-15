@@ -1,17 +1,20 @@
 /**
  * VISUAL EDITOR OVERLAY
- * Split-screen overlay for any page: Live Preview + Mr Blue Chat
+ * Complete integrated system: Live Preview + Component Selection + Edit Controls + Mr Blue AI
  * Activates with ?edit=true URL parameter
  * Part of Phase 12 Autonomous Learning System
  */
 
 import { useState, useEffect } from 'react';
-import { X, Eye, Code, Maximize2, Minimize2 } from 'lucide-react';
-import { ResizableHandle, ResizablePanel, ResizablePanel Group } from '@/components/ui/resizable';
+import { X, Eye, Maximize2, Minimize2 } from 'lucide-react';
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { getVisualEditorTracker } from '@/lib/autonomy/VisualEditorTracker';
 import { useAuth } from '@/hooks/useAuth';
+import { ComponentSelector, type SelectedComponent } from './ComponentSelector';
+import { EditControls, type ComponentChanges } from './EditControls';
+import { MrBlueVisualChat } from './MrBlueVisualChat';
 
 interface VisualEditorOverlayProps {
   currentUrl: string;
@@ -21,8 +24,9 @@ interface VisualEditorOverlayProps {
 export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlayProps) {
   const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedComponent, setSelectedComponent] = useState<any>(null);
+  const [selectedComponent, setSelectedComponent] = useState<SelectedComponent | null>(null);
   const [recentEdits, setRecentEdits] = useState<any[]>([]);
+  const [showEditPanel, setShowEditPanel] = useState(false);
   const tracker = getVisualEditorTracker();
 
   // Subscribe to tracker updates
@@ -33,10 +37,40 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
     return unsubscribe;
   }, [tracker]);
 
+  // Show edit panel when component is selected
+  useEffect(() => {
+    setShowEditPanel(!!selectedComponent);
+  }, [selectedComponent]);
+
   // Super admin only
   if (user?.role !== 'super_admin') {
     return null;
   }
+
+  const handleSelectComponent = (component: SelectedComponent) => {
+    setSelectedComponent(component);
+  };
+
+  const handleSaveChanges = async (changes: ComponentChanges) => {
+    // Apply changes to the actual element
+    if (selectedComponent && changes) {
+      // Register component in database
+      await fetch('/api/components/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          componentName: selectedComponent.testId,
+          componentPath: selectedComponent.path,
+          componentType: selectedComponent.type as any,
+        }),
+      });
+
+      // Close edit panel
+      setShowEditPanel(false);
+      setSelectedComponent(null);
+    }
+  };
 
   return (
     <div 
@@ -78,13 +112,18 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
         {/* Split-screen content */}
         <div className="flex-1 overflow-hidden">
           <ResizablePanelGroup direction="horizontal">
-            {/* LEFT PANEL: Live Preview */}
+            {/* LEFT PANEL: Live Preview with Component Selection */}
             <ResizablePanel defaultSize={60} minSize={40}>
               <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-950">
                 <div className="px-4 py-2 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-2">
                     <Eye className="w-4 h-4 text-gray-500" />
                     <span className="text-sm font-medium">Live Preview</span>
+                    {selectedComponent && (
+                      <Badge variant="default" className="ml-auto text-xs">
+                        Selected: {selectedComponent.testId}
+                      </Badge>
+                    )}
                   </div>
                 </div>
                 
@@ -96,52 +135,38 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
                     data-testid="preview-iframe"
                   />
                   
-                  {/* Component overlay will go here */}
-                  <div 
-                    id="component-selection-overlay"
-                    className="absolute inset-0 pointer-events-none"
+                  {/* Component Selection Overlay */}
+                  <ComponentSelector
+                    enabled={true}
+                    onSelectComponent={handleSelectComponent}
                   />
+
+                  {/* Edit Controls Panel (floating) */}
+                  {showEditPanel && selectedComponent && (
+                    <div className="absolute bottom-4 left-4 right-4 z-10">
+                      <EditControls
+                        component={selectedComponent}
+                        onSave={handleSaveChanges}
+                        onCancel={() => {
+                          setShowEditPanel(false);
+                          setSelectedComponent(null);
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </ResizablePanel>
 
             <ResizableHandle withHandle />
 
-            {/* RIGHT PANEL: Mr Blue Chat */}
+            {/* RIGHT PANEL: Mr Blue Visual Chat */}
             <ResizablePanel defaultSize={40} minSize={30}>
-              <div className="h-full flex flex-col bg-white dark:bg-gray-900">
-                <div className="px-4 py-2 bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-2">
-                    <Code className="w-4 h-4 text-purple-500" />
-                    <span className="text-sm font-medium">Mr Blue AI</span>
-                  </div>
-                </div>
-
-                {/* Chat interface (will integrate MrBlueChat) */}
-                <div className="flex-1 flex items-center justify-center text-gray-500">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🤖</div>
-                    <p className="text-sm">Mr Blue Chat Integration</p>
-                    <p className="text-xs text-gray-400 mt-2">Coming in next step</p>
-                  </div>
-                </div>
-
-                {/* Recent edits sidebar */}
-                {recentEdits.length > 0 && (
-                  <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2">
-                      Recent Edits
-                    </h4>
-                    <div className="space-y-2">
-                      {recentEdits.map((edit, i) => (
-                        <div key={i} className="text-xs text-gray-600 dark:text-gray-400">
-                          • {edit.description}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+              <MrBlueVisualChat
+                currentPage={currentUrl}
+                selectedComponent={selectedComponent}
+                recentEdits={recentEdits}
+              />
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>
