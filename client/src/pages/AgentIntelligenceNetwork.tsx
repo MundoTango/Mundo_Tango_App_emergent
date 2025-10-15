@@ -325,46 +325,47 @@ export default function AgentIntelligenceNetwork() {
               <CardContent>
                 <ScrollArea className="h-[500px]">
                   <div className="space-y-3">
-                    {communications?.map((comm) => (
+                    {messages?.messages?.map((msg) => (
                       <div
-                        key={comm.id}
+                        key={msg.id}
                         className={`bg-white/5 rounded-lg p-4 border transition-colors ${
-                          comm.isRead 
+                          msg.isRead 
                             ? 'border-blue-500/20 hover:border-blue-400/40' 
                             : 'border-yellow-500/50 bg-yellow-500/10'
                         }`}
-                        data-testid={`communication-${comm.id}`}
+                        data-testid={`message-${msg.id}`}
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <Badge variant="outline" className="text-blue-300 border-blue-500/50">
-                              {comm.fromAgent}
+                              {msg.fromAgent}
                             </Badge>
                             <span className="text-blue-400">→</span>
                             <Badge variant="outline" className="text-blue-300 border-blue-500/50">
-                              {comm.toAgent}
+                              {msg.toAgent}
                             </Badge>
                           </div>
                           <div className="flex items-center gap-2">
-                            {!comm.isRead && (
+                            {!msg.isRead && (
                               <Badge className="bg-yellow-500 text-white">New</Badge>
                             )}
                             <span className="text-xs text-blue-300">
-                              {new Date(comm.createdAt).toLocaleString()}
+                              {new Date(msg.sentAt).toLocaleString()}
                             </span>
                           </div>
                         </div>
                         <div className="mb-2">
                           <Badge className="bg-blue-500/30 text-blue-200">
-                            {comm.messageType}
+                            {msg.messageType}
                           </Badge>
                         </div>
-                        <p className="text-white">{comm.message}</p>
+                        <p className="text-white font-semibold mb-1">{msg.subject}</p>
+                        <p className="text-blue-100 text-sm">{msg.content}</p>
                       </div>
                     ))}
-                    {!communications || communications.length === 0 && (
+                    {!messages?.messages || messages.messages.length === 0 && (
                       <div className="text-center text-blue-300 py-8">
-                        No communications
+                        No messages yet
                       </div>
                     )}
                   </div>
@@ -385,7 +386,7 @@ export default function AgentIntelligenceNetwork() {
               <CardContent>
                 <ScrollArea className="h-[500px]">
                   <div className="space-y-3">
-                    {testResults?.map((test) => (
+                    {testResults?.tests?.map((test) => (
                       <div
                         key={test.id}
                         className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
@@ -401,37 +402,31 @@ export default function AgentIntelligenceNetwork() {
                             </Badge>
                           </div>
                           <span className="text-xs text-blue-300">
-                            {new Date(test.executedAt).toLocaleString()}
+                            {new Date(test.runAt).toLocaleString()}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            {test.status === 'passed' ? (
-                              <CheckCircle2 className="w-5 h-5 text-green-400" />
-                            ) : (
-                              <AlertCircle className="w-5 h-5 text-red-400" />
-                            )}
-                            <Badge className={
-                              test.status === 'passed' 
-                                ? 'bg-green-500/30 text-green-200' 
-                                : 'bg-red-500/30 text-red-200'
-                            }>
-                              {test.status.toUpperCase()}
+                        <div className="flex items-center gap-2">
+                          {test.testResult === 'pass' ? (
+                            <CheckCircle2 className="w-5 h-5 text-green-400" />
+                          ) : (
+                            <AlertCircle className="w-5 h-5 text-red-400" />
+                          )}
+                          <Badge className={
+                            test.testResult === 'pass' 
+                              ? 'bg-green-500/30 text-green-200' 
+                              : 'bg-red-500/30 text-red-200'
+                          }>
+                            {test.testResult?.toUpperCase() || 'UNKNOWN'}
+                          </Badge>
+                          {test.autoFixed && (
+                            <Badge className="bg-purple-500/30 text-purple-200">
+                              AUTO-FIXED
                             </Badge>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Progress 
-                              value={test.score} 
-                              className="w-24 h-2"
-                            />
-                            <span className="text-sm text-white font-medium">
-                              {test.score.toFixed(0)}%
-                            </span>
-                          </div>
+                          )}
                         </div>
                       </div>
                     ))}
-                    {!testResults || testResults.length === 0 && (
+                    {!testResults?.tests || testResults.tests.length === 0 && (
                       <div className="text-center text-blue-300 py-8">
                         No test results
                       </div>
@@ -454,7 +449,7 @@ export default function AgentIntelligenceNetwork() {
               <CardContent>
                 <ScrollArea className="h-[500px]">
                   <div className="space-y-3">
-                    {collaborations?.map((collab) => (
+                    {collaborations?.collaborations?.map((collab) => (
                       <div
                         key={collab.id}
                         className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
@@ -463,30 +458,35 @@ export default function AgentIntelligenceNetwork() {
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <Badge variant="outline" className="text-blue-300 border-blue-500/50">
-                              {collab.agentId}
+                              {collab.leaderAgent}
                             </Badge>
                             <span className="text-blue-400">↔</span>
                             <Badge variant="outline" className="text-blue-300 border-blue-500/50">
-                              {collab.collaboratorId}
+                              {collab.participantAgents?.join(', ')}
                             </Badge>
                           </div>
                           <span className="text-xs text-blue-300">
                             {new Date(collab.createdAt).toLocaleString()}
                           </span>
                         </div>
-                        <p className="text-white mb-2">{collab.issue}</p>
-                        <Badge className={
-                          collab.status === 'resolved' 
-                            ? 'bg-green-500/30 text-green-200' 
-                            : collab.status === 'active'
-                            ? 'bg-blue-500/30 text-blue-200'
-                            : 'bg-yellow-500/30 text-yellow-200'
-                        }>
-                          {collab.status.toUpperCase()}
-                        </Badge>
+                        <p className="text-white mb-2 font-semibold">{collab.goal}</p>
+                        <div className="flex gap-2">
+                          <Badge className="bg-blue-500/30 text-blue-200">
+                            {collab.collaborationType}
+                          </Badge>
+                          <Badge className={
+                            collab.status === 'completed' 
+                              ? 'bg-green-500/30 text-green-200' 
+                              : collab.status === 'active'
+                              ? 'bg-blue-500/30 text-blue-200'
+                              : 'bg-yellow-500/30 text-yellow-200'
+                          }>
+                            {collab.status?.toUpperCase() || 'PENDING'}
+                          </Badge>
+                        </div>
                       </div>
                     ))}
-                    {!collaborations || collaborations.length === 0 && (
+                    {!collaborations?.collaborations || collaborations.collaborations.length === 0 && (
                       <div className="text-center text-blue-300 py-8">
                         No collaborations
                       </div>
@@ -507,56 +507,58 @@ export default function AgentIntelligenceNetwork() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="bg-white/5 rounded-lg p-6 border border-blue-500/20">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold text-white">Knowledge Base</h3>
-                      <Badge className="bg-blue-500/30 text-blue-200">
-                        {stats?.totalMemories || 0} memories
-                      </Badge>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white/5 rounded p-4">
-                        <div className="text-2xl font-bold text-white mb-1">
-                          {stats?.learningAgents || 0}
+                <ScrollArea className="h-[500px]">
+                  <div className="space-y-3">
+                    {learnings?.learnings?.map((learning) => (
+                      <div
+                        key={learning.id}
+                        className="bg-white/5 rounded-lg p-4 border border-blue-500/20 hover:border-blue-400/40 transition-colors"
+                        data-testid={`learning-${learning.id}`}
+                      >
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <h4 className="text-white font-semibold text-lg mb-1">{learning.pattern}</h4>
+                            <Badge className="bg-blue-500/30 text-blue-200">
+                              Confidence: {(parseFloat(learning.confidence) * 100).toFixed(0)}%
+                            </Badge>
+                          </div>
+                          <span className="text-xs text-blue-300">
+                            {new Date(learning.createdAt).toLocaleString()}
+                          </span>
                         </div>
-                        <p className="text-sm text-blue-300">Active Learners</p>
-                      </div>
-                      <div className="bg-white/5 rounded p-4">
-                        <div className="text-2xl font-bold text-white mb-1">
-                          {stats?.totalCollaborations || 0}
+                        <div className="space-y-2 mb-3">
+                          <div>
+                            <p className="text-sm text-blue-300 font-medium">Problem:</p>
+                            <p className="text-white text-sm">{learning.problem}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-blue-300 font-medium">Solution:</p>
+                            <p className="text-white text-sm">{learning.solution}</p>
+                          </div>
                         </div>
-                        <p className="text-sm text-blue-300">Total Collaborations</p>
+                        {learning.codeExample && (
+                          <div className="bg-black/30 rounded p-3 mt-2">
+                            <pre className="text-xs text-green-300 overflow-x-auto">
+                              {learning.codeExample}
+                            </pre>
+                          </div>
+                        )}
+                        <div className="flex gap-2 mt-3 flex-wrap">
+                          {learning.esaLayers?.map((layer: string, idx: number) => (
+                            <Badge key={idx} variant="outline" className="text-blue-300 border-blue-500/50">
+                              Layer {layer}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    ))}
+                    {!learnings?.learnings || learnings.learnings.length === 0 && (
+                      <div className="text-center text-blue-300 py-8">
+                        No learnings yet
+                      </div>
+                    )}
                   </div>
-
-                  <div className="bg-white/5 rounded-lg p-6 border border-blue-500/20">
-                    <h3 className="text-lg font-semibold text-white mb-4">Learning Capabilities</h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-blue-200">Self-Testing Framework</span>
-                        <CheckCircle2 className="w-5 h-5 text-green-400" />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-blue-200">Peer Collaboration</span>
-                        <CheckCircle2 className="w-5 h-5 text-green-400" />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-blue-200">Mr Blue Coordination</span>
-                        <CheckCircle2 className="w-5 h-5 text-green-400" />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-blue-200">Auto-Fix Issues</span>
-                        <CheckCircle2 className="w-5 h-5 text-green-400" />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-blue-200">Context Preservation</span>
-                        <CheckCircle2 className="w-5 h-5 text-green-400" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </ScrollArea>
               </CardContent>
             </Card>
           </TabsContent>
