@@ -23,6 +23,8 @@ import ShareModal from '@/components/modern/ShareModal';
 import { Post } from '@/data/posts';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+// MB.MD FIX: Import optimized skeletons for CLS prevention
+import { PostSkeleton } from '@/components/ui/skeleton-optimized';
 
 interface ControlledPostFeedProps {
   // Data props (controlled by parent)
@@ -100,6 +102,17 @@ export default function ControlledPostFeed({
       setTagInput('');
     }
   }, [tagInput, onTagAdd]);
+
+  // MB.MD FIX: Show skeleton screens during loading to prevent CLS
+  if (isLoading) {
+    return (
+      <div className={className} data-testid="post-feed-loading">
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton />
+      </div>
+    );
+  }
 
   const handleShare = useCallback((post: Post) => {
     if (onShare) {

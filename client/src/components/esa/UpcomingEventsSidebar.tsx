@@ -11,6 +11,8 @@ import { useEventRSVP } from '@/hooks/useEventRSVP';
 import { useLocation } from 'wouter';
 import UnifiedEventCard from '@/components/events/UnifiedEventCard';
 import { useTranslation } from 'react-i18next';
+// MB.MD FIX: Import optimized skeletons for CLS prevention
+import { ListSkeleton } from '@/components/ui/skeleton-optimized';
 
 
 interface Event {
