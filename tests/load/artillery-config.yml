@@ -1,0 +1,92 @@
+# Phase 9 - Track D4: Artillery Load Testing Configuration
+# DDoS simulation and rate limiting validation
+
+config:
+  target: "http://localhost:5000"
+  phases:
+    # Phase 1: Warm-up (60 seconds)
+    - duration: 60
+      arrivalRate: 10
+      name: "Warm up"
+    
+    # Phase 2: Ramp-up (120 seconds)
+    - duration: 120
+      arrivalRate: 20
+      rampTo: 200
+      name: "Ramp to high load"
+    
+    # Phase 3: Sustained high load (180 seconds)
+    - duration: 180
+      arrivalRate: 200
+      name: "Sustained load"
+    
+    # Phase 4: DDoS simulation spike (60 seconds)
+    - duration: 60
+      arrivalRate: 1000
+      name: "DDoS spike simulation"
+    
+    # Phase 5: Cool down (60 seconds)
+    - duration: 60
+      arrivalRate: 50
+      name: "Cool down"
+  
+  # Performance thresholds
+  plugins:
+    ensure:
+      thresholds:
+        # Response time thresholds
+        - "http.response_time.p50": 100    # 50th percentile < 100ms
+        - "http.response_time.p95": 500    # 95th percentile < 500ms
+        - "http.response_time.p99": 2000   # 99th percentile < 2s
+        
+        # Request success rate (some rate limiting expected)
+        - "http.response_time.min": 0
+  
+  # HTTP configuration
+  http:
+    timeout: 10
+    headers:
+      User-Agent: "Artillery-Load-Test"
+      X-Load-Test: "true"
+
+scenarios:
+  # Scenario 1: Agent Intelligence API Load Test
+  - name: "Agent Intelligence Endpoints"
+    weight: 40
+    flow:
+      - get:
+          url: "/api/agent-intelligence/learnings"
+      - get:
+          url: "/api/agent-intelligence/auto-fixes"
+      - get:
+          url: "/api/agent-intelligence/patterns"
+      - get:
+          url: "/api/agent-intelligence/collaborations"
+
+  # Scenario 2: Metrics endpoint
+  - name: "Metrics Endpoint"
+    weight: 10
+    flow:
+      - get:
+          url: "/metrics"
+
+  # Scenario 3: Health check
+  - name: "Health Check"
+    weight: 20
+    flow:
+      - get:
+          url: "/health"
+
+  # Scenario 4: API stress test (POST requests)
+  - name: "Write Operations"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/agent-intelligence/learnings"
+          json:
+            agentId: "test-agent"
+            pattern: "load-test-pattern"
+            problem: "Load testing"
+            solution: "Artillery test"
+            context: "Performance validation"
+            confidence: "0.95"

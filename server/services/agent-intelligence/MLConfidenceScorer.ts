@@ -12,6 +12,7 @@ import { connect, Table } from '@lancedb/lancedb';
 import { db } from '../../db';
 import { agentLearnings, agentSelfTests, esaAgents } from '../../../shared/schema';
 import { eq, sql } from 'drizzle-orm';
+import { mlEnsemble } from '../ml/MLEnsemble';
 
 interface ConfidenceFactors {
   historicalSuccessRate: number;  // 0-1
@@ -41,11 +42,21 @@ class MLConfidenceScorer {
   private lanceDb: any = null;
   private learningTable: Table<LearningEmbedding> | null = null;
   private vectorDimension = 768; // OpenAI embeddings dimension
+  private mlEnsembleLoaded = false;
+  private useMLEnsemble = true; // Phase 9: Toggle ML ensemble usage
 
   /**
    * Initialize LanceDB connection and learning embeddings table
    */
   async initialize() {
+    // Phase 9: Load ML Ensemble model
+    if (this.useMLEnsemble) {
+      const loaded = await mlEnsemble.loadModel();
+      this.mlEnsembleLoaded = loaded;
+      if (loaded) {
+        console.log('✅ [ML Scorer] ML Ensemble model loaded successfully');
+      }
+    }
     try {
       // Connect to LanceDB (in-memory for Replit compatibility)
       this.lanceDb = await connect('data/lancedb');
@@ -68,6 +79,7 @@ class MLConfidenceScorer {
 
   /**
    * Calculate confidence score for a learning pattern
+   * Phase 9: Enhanced with ML Ensemble prediction
    */
   async calculateConfidence(
     agentId: string,
@@ -87,12 +99,29 @@ class MLConfidenceScorer {
       agentExpertise
     };
 
-    // Calculate weighted confidence score
-    const confidence = (
-      historicalSuccessRate * 0.4 +  // 40% weight on past success
-      contextSimilarity * 0.3 +       // 30% weight on context match
-      agentExpertise * 0.3            // 30% weight on agent skill
-    );
+    let confidence: number;
+
+    // Phase 9: Use ML Ensemble if loaded
+    if (this.mlEnsembleLoaded && this.useMLEnsemble) {
+      // Prepare features for ML model
+      const features = [
+        0, // strategyCode (placeholder)
+        agentExpertise,
+        0.5, // codeComplexity (placeholder)
+        historicalSuccessRate,
+        0.3 // executionTime (normalized)
+      ];
+
+      const prediction = mlEnsemble.predict(features);
+      confidence = prediction.confidence;
+    } else {
+      // Fallback to heuristic calculation
+      confidence = (
+        historicalSuccessRate * 0.4 +  // 40% weight on past success
+        contextSimilarity * 0.3 +       // 30% weight on context match
+        agentExpertise * 0.3            // 30% weight on agent skill
+      );
+    }
 
     // Determine accuracy tier
     let accuracy: 'high' | 'medium' | 'low';
@@ -114,6 +143,24 @@ class MLConfidenceScorer {
       factors,
       accuracy,
       recommendation
+    };
+  }
+
+  /**
+   * Phase 9: Toggle ML Ensemble usage
+   */
+  setUseMLEnsemble(enabled: boolean): void {
+    this.useMLEnsemble = enabled;
+    console.log(`[ML Scorer] ML Ensemble ${enabled ? 'enabled' : 'disabled'}`);
+  }
+
+  /**
+   * Phase 9: Get ML Ensemble status
+   */
+  getMLEnsembleStatus(): { loaded: boolean; enabled: boolean } {
+    return {
+      loaded: this.mlEnsembleLoaded,
+      enabled: this.useMLEnsemble
     };
   }
 

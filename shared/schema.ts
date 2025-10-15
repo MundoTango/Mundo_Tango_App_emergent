@@ -132,6 +132,23 @@ export const insertPasswordResetTokenSchema = createInsertSchema(passwordResetTo
 export type InsertPasswordResetToken = z.infer<typeof insertPasswordResetTokenSchema>;
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
 
+// Refresh Tokens table - Phase 9: JWT Token Rotation
+export const refreshTokens = pgTable("refresh_tokens", {
+  userId: varchar("user_id", { length: 255 }).primaryKey(), // User ID as primary key (one token per user)
+  tokenHash: text("token_hash").notNull(), // Hashed refresh token
+  expiresAt: timestamp("expires_at", { mode: 'date' }).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_refresh_tokens_expires").on(table.expiresAt),
+]);
+
+// Refresh Tokens types
+export const insertRefreshTokenSchema = createInsertSchema(refreshTokens).omit({
+  createdAt: true,
+});
+export type InsertRefreshToken = z.infer<typeof insertRefreshTokenSchema>;
+export type RefreshToken = typeof refreshTokens.$inferSelect;
+
 // Roles table for comprehensive role management
 export const roles = pgTable("roles", {
   id: uuid("id").primaryKey().defaultRandom(),
