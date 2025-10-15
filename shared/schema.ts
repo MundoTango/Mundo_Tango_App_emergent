@@ -5138,7 +5138,8 @@ export const agentKnowledgeBase = pgTable('agent_knowledge_base', {
 ]);
 
 // TRACK B: Collaborative Intelligence Protocol
-export const agentMessages = pgTable('agent_messages', {
+// Agent-to-Agent Communication (distinct from user-agent conversations)
+export const agentCommunications = pgTable('agent_communications', {
   id: serial('id').primaryKey(),
   fromAgent: varchar('from_agent', { length: 100 }).notNull(),
   toAgent: varchar('to_agent', { length: 100 }), // null for broadcasts
@@ -5153,10 +5154,10 @@ export const agentMessages = pgTable('agent_messages', {
   createdAt: timestamp('created_at').defaultNow(),
   metadata: jsonb('metadata')
 }, (table) => [
-  index('idx_agent_messages_from').on(table.fromAgent),
-  index('idx_agent_messages_to').on(table.toAgent),
-  index('idx_agent_messages_status').on(table.status),
-  index('idx_agent_messages_created').on(table.createdAt),
+  index('idx_agent_comms_from').on(table.fromAgent),
+  index('idx_agent_comms_to').on(table.toAgent),
+  index('idx_agent_comms_status').on(table.status),
+  index('idx_agent_comms_created').on(table.createdAt),
 ]);
 
 export const agentCollaborations = pgTable('agent_collaborations', {
@@ -5247,7 +5248,7 @@ export const insertAgentKnowledgeSchema = createInsertSchema(agentKnowledgeBase)
   updatedAt: true,
 });
 
-export const insertAgentMessageSchema = createInsertSchema(agentMessages).omit({
+export const insertAgentCommunicationSchema = createInsertSchema(agentCommunications).omit({
   id: true,
   createdAt: true,
 });
@@ -5282,8 +5283,8 @@ export type InsertAgentSelfTest = z.infer<typeof insertAgentSelfTestSchema>;
 export type AgentKnowledge = typeof agentKnowledgeBase.$inferSelect;
 export type InsertAgentKnowledge = z.infer<typeof insertAgentKnowledgeSchema>;
 
-export type AgentMessage = typeof agentMessages.$inferSelect;
-export type InsertAgentMessage = z.infer<typeof insertAgentMessageSchema>;
+export type AgentCommunication = typeof agentCommunications.$inferSelect;
+export type InsertAgentCommunication = z.infer<typeof insertAgentCommunicationSchema>;
 
 export type AgentCollaboration = typeof agentCollaborations.$inferSelect;
 export type InsertAgentCollaboration = z.infer<typeof insertAgentCollaborationSchema>;
