@@ -6,7 +6,7 @@
 
 import { Router } from 'express';
 import Anthropic from '@anthropic-ai/sdk';
-import { requireAuth } from '../middleware/secureAuth';
+import { optionalAuth } from '../middleware/secureAuth';
 
 export const mrBlueSimpleChatRouter = Router();
 
@@ -34,7 +34,7 @@ interface SimpleChatRequest {
  * POST /api/mrblue/simple-chat
  * Simple JSON endpoint for basic Mr Blue conversations
  */
-mrBlueSimpleChatRouter.post('/simple-chat', requireAuth, async (req, res) => {
+mrBlueSimpleChatRouter.post('/simple-chat', optionalAuth, async (req, res) => {
   try {
     const { message, context, personality, agent, model }: SimpleChatRequest = req.body;
 

@@ -4,11 +4,11 @@
  */
 
 import express from 'express';
-import { requireAuth } from '../middleware/secureAuth';
+import { optionalAuth } from '../middleware/secureAuth';
 
 const router = express.Router();
 
-router.post('/test-simple', requireAuth, async (req, res) => {
+router.post('/test-simple', optionalAuth, async (req, res) => {
   try {
     console.log('🔵 [TRACK A TEST] Test endpoint hit');
     console.log('🔵 [TRACK A TEST] Body:', JSON.stringify(req.body, null, 2));
