@@ -14,7 +14,7 @@ import { connect, Connection, Table } from "@lancedb/lancedb";
 
 export class LanceDBService {
   private db: Connection | null = null;
-  private tables: Map<string, Table<any>> = new Map();
+  private tables: Map<string, Table> = new Map();
   private dbPath: string;
   private initialized: boolean = false;
 
@@ -42,7 +42,7 @@ export class LanceDBService {
     name: string,
     data: T[],
     overwrite: boolean = false
-  ): Promise<Table<T>> {
+  ): Promise<Table> {
     if (!this.db) throw new Error("LanceDB not initialized");
     
     try {
@@ -57,11 +57,11 @@ export class LanceDBService {
     }
   }
 
-  async openTable<T extends Record<string, any>>(name: string): Promise<Table<T>> {
+  async openTable<T extends Record<string, any>>(name: string): Promise<Table> {
     if (!this.db) throw new Error("LanceDB not initialized");
     
     if (this.tables.has(name)) {
-      return this.tables.get(name) as Table<T>;
+      return this.tables.get(name) as Table;
     }
 
     try {
