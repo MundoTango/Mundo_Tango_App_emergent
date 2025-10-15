@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import { createTestSuite } from './testDefinitions';
 
 export interface SelfTestConfig {
   agentId: string;
@@ -38,6 +39,9 @@ export type TestStatus = 'unknown' | 'testing' | 'healthy' | 'warning' | 'error'
  * Self-testing hook for components
  * Every component can validate its own correctness
  */
+// Export createTestSuite for external use
+export { createTestSuite };
+
 export function useSelfTest(config: SelfTestConfig) {
   const [testStatus, setTestStatus] = useState<TestStatus>('unknown');
   const [issues, setIssues] = useState<Issue[]>([]);
