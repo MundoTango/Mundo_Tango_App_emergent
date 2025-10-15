@@ -573,6 +573,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Admin analytics'
   },
   {
+    path: '/admin/ui-sub-agents',
+    component: UISubAgents,
+    mode: 'production',
+    loadingMessage: 'Loading UI Sub-Agents Dashboard...',
+    description: 'Phase 11: Autonomous UI/UX Agent Control Panel (Agents #11.1-11.5)'
+  },
+  {
     path: '/admin-legacy',
     component: AdminCenter,
     mode: 'production',
