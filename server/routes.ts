@@ -4234,6 +4234,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   console.log('✅ Agent Intelligence Network: Registered');
   console.log('🧠 Features: Learning, Self-Testing, Collaboration, Mr Blue Coordination');
 
+  // === PHASE 7: ML Confidence Scoring with LanceDB ===
+  try {
+    const { mlConfidenceScorer } = await import('./services/agent-intelligence/MLConfidenceScorer');
+    await mlConfidenceScorer.initialize();
+    console.log('✅ ML Confidence Scorer: Initialized with LanceDB');
+    console.log('📊 Features: Semantic Similarity, Historical Analysis, Agent Expertise');
+  } catch (error) {
+    console.error('⚠️ ML Confidence Scorer initialization failed:', error);
+    // Continue without ML scorer - uses fallback text similarity
+  }
+
   // 🎯 H2AC Orchestrator - Initialize all H2AC systems
   try {
     const { h2acOrchestrator } = await import('./services/H2ACOrchestrator');

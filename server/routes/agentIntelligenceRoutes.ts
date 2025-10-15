@@ -15,6 +15,7 @@ import { agentCollaborationService } from '../services/agent-intelligence/AgentC
 import { agentEscalationService } from '../services/agent-intelligence/AgentEscalationService';
 import { mrBlueCoordinator } from '../services/agent-intelligence/MrBlueCoordinator';
 import { changeBroadcastService } from '../services/agent-intelligence/ChangeBroadcastService';
+import { mlConfidenceScorer } from '../services/agent-intelligence/MLConfidenceScorer';
 import ComponentAgent from '../agents/ComponentAgent';
 
 const router = Router();
@@ -1151,6 +1152,125 @@ router.get('/system-metrics', async (req, res) => {
       avgPassRate,
       autoFixRate,
       collaborationSuccess
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// PHASE 7: ML CONFIDENCE SCORING APIS
+// ============================================================================
+
+/**
+ * POST /api/agent-intelligence/:agentId/validate-learning
+ * Calculate ML-based confidence score for a learning pattern
+ */
+router.post('/:agentId/validate-learning', async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { pattern, context } = req.body;
+
+    if (!pattern || !context) {
+      return res.status(400).json({ error: 'pattern and context are required' });
+    }
+
+    const result = await mlConfidenceScorer.calculateConfidence(
+      agentId,
+      pattern,
+      context
+    );
+
+    res.json({
+      success: true,
+      confidence: result.confidence,
+      factors: result.factors,
+      accuracy: result.accuracy,
+      recommendation: result.recommendation
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/agent-intelligence/learning-accuracy
+ * Track learning pattern accuracy over time
+ */
+router.get('/learning-accuracy', async (req, res) => {
+  try {
+    const { agentId } = req.query;
+
+    const accuracy = await mlConfidenceScorer.getLearningAccuracy(
+      agentId as string | undefined
+    );
+
+    res.json({
+      patterns: accuracy.patterns,
+      overallAccuracy: accuracy.overallAccuracy,
+      totalPatterns: accuracy.patterns.length
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/agent-intelligence/learning/:id/validate
+ * Validate a specific learning's accuracy
+ */
+router.post('/learning/:id/validate', async (req, res) => {
+  try {
+    const learningId = parseInt(req.params.id);
+
+    const validation = await mlConfidenceScorer.validateLearning(learningId);
+
+    res.json({
+      success: true,
+      validated: validation.validated,
+      confidence: validation.confidence,
+      usageCount: validation.usageCount,
+      successRate: validation.successRate,
+      message: validation.validated 
+        ? 'Learning validated - high accuracy confirmed'
+        : 'Learning needs more usage data for validation'
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/agent-intelligence/learning/:id/add-embedding
+ * Add learning to vector database for semantic search
+ */
+router.post('/learning/:id/add-embedding', async (req, res) => {
+  try {
+    const learningId = parseInt(req.params.id);
+    const { db } = await import('../db');
+    const { agentLearnings } = await import('../../shared/schema');
+    const { eq } = await import('drizzle-orm');
+
+    const [learning] = await db.select()
+      .from(agentLearnings)
+      .where(eq(agentLearnings.id, learningId))
+      .limit(1);
+
+    if (!learning) {
+      return res.status(404).json({ error: 'Learning not found' });
+    }
+
+    await mlConfidenceScorer.addLearningEmbedding(
+      learning.id,
+      learning.agentId,
+      learning.pattern,
+      learning.problem,
+      learning.solution
+    );
+
+    res.json({
+      success: true,
+      message: 'Learning added to vector database for semantic search'
     });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
