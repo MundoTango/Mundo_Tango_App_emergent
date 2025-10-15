@@ -61,6 +61,9 @@ import { MrBlueFloatingButton } from "@/components/mrBlue/MrBlueFloatingButton";
 // ESA Dev Tools - Super Admin toggle for development testing
 import { SuperAdminToggle } from "@/components/dev/SuperAdminToggle";
 
+// ESA Visual Editor - Replit-style page editor (Agent #78)
+import VisualEditorWrapper from "@/components/visual-editor/VisualEditorWrapper";
+
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 
@@ -176,7 +179,7 @@ function AppContent() {
   console.log('🎯 [AppContent] After hooks - about to render');
 
   return (
-    <>
+    <VisualEditorWrapper>
       <Router />
       <ErrorBoundary>
         <ESAMindMap />
@@ -185,7 +188,7 @@ function AppContent() {
       </ErrorBoundary>
       <Toaster />
       <TrialBanner />
-    </>
+    </VisualEditorWrapper>
   );
 }
 
