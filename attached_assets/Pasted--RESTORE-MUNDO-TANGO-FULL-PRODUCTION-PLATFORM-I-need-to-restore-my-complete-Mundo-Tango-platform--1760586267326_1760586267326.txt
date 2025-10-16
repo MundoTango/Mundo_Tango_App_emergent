@@ -1,0 +1,492 @@
+# RESTORE MUNDO TANGO - FULL PRODUCTION PLATFORM
+I need to restore my complete Mundo Tango platform from GitHub. This is a production-grade, enterprise-level Multi-AI orchestration platform with Life CEO AI assistant, Memories Feed, Events system, and ESA Framework (105 agents, 61 layers).
+## 🚨 CRITICAL CONTEXT
+**Previous Environment Issue:**
+- Catastrophic npm corruption in previous Replit (see docs/NPM_CORRUPTION_INCIDENT_REPORT.md)
+- Emergency CDN React fallback was deployed - THIS IS NOT THE REAL APP
+- Full React/TypeScript/Vite application needs to be restored
+- Latest code is on branch: **conflict_100925_1852**
+**What Went Wrong:**
+- npm package manager completely corrupted (ENOTEMPTY errors)
+- Missing dependencies (tsx/cjs, tinyglobby, esbuild)
+- User saw simplified CDN version instead of full platform
+- All build tools failed
+**Prevention:**
+- Pre-flight health checks documented in docs/PREVENTION_GUIDE.md
+- Health check script available: server/health-check.sh
+- Full incident analysis in docs/CRITICAL_FAILURE_ANALYSIS.md
+---
+## 📦 STEP 1: CLONE REPOSITORY
+```bash
+git clone https://github.com/MundoTango/Mundo_Tango_App_emergent.git
+cd Mundo_Tango_App_emergent
+git checkout conflict_100925_1852
+Verify you have these key files:
+
+✅ replit.md (project documentation)
+✅ package.json (475+ dependencies)
+✅ client/src/App.tsx (main React app)
+✅ client/src/pages/ESAMemoryFeed.tsx (Memories feed)
+✅ server/index.ts (Express server)
+✅ shared/schema.ts (Drizzle database schema)
+🏗️ STEP 2: INSTALL DEPENDENCIES
+CRITICAL: Verify EVERY package installs correctly
+
+npm install
+Key packages that MUST install (476 total):
+
+Core Build Tools:
+vite (^7.0.6)
+tsx (^4.20.5)
+esbuild (^0.25.0)
+typescript (^5.6.3)
+Frontend Framework:
+react (^18.3.1)
+react-dom (^18.3.1)
+@tanstack/react-query (^5.60.5)
+wouter (^3.3.5) - routing
+framer-motion (^11.13.1)
+UI Components:
+@radix-ui/react-* (30+ components)
+shadcn/ui components
+tailwindcss (^3.4.17)
+lucide-react (^0.453.0)
+@mui/material (^7.2.0)
+Backend:
+express (^4.21.2)
+socket.io (^4.8.1)
+drizzle-orm (^0.39.1)
+@neondatabase/serverless (^0.10.4)
+Authentication & Security:
+jsonwebtoken (^9.0.2)
+bcrypt (^6.0.0)
+passport (^0.7.0)
+@casl/ability (^6.7.3)
+helmet (^8.1.0)
+AI/ML:
+openai (^5.23.2)
+@anthropic-ai/sdk (^0.37.0)
+@lancedb/lancedb (^0.22.1)
+@langchain/openai (^0.6.14)
+Payment:
+stripe (^18.5.0)
+@stripe/stripe-js (^7.9.0)
+@stripe/react-stripe-js (^3.10.0)
+Real-time & Communication:
+socket.io (^4.8.1)
+socket.io-client (^4.8.1)
+@novu/node (^2.6.6)
+3D/Graphics:
+three (^0.180.0)
+@react-three/fiber (^8.18.0)
+@react-three/drei (^9.117.3)
+Internationalization:
+i18next (^25.3.2)
+react-i18next (^15.6.1)
+Visual Editor:
+grapesjs (^0.22.13)
+grapesjs-react (^4.0.3)
+If ANY package fails to install:
+
+STOP immediately
+Document which package failed
+Check npm logs
+Do NOT proceed until all packages install
+🗄️ STEP 3: DATABASE SETUP
+Create PostgreSQL Database:
+
+# Replit will provide DATABASE_URL automatically
+# Or create using Replit's database panel
+Database Schema (Drizzle ORM):
+
+Location: shared/schema.ts
+ORM: Drizzle ORM with Neon serverless PostgreSQL
+Tables: Users, Posts, Events, Groups, Messages, Agents, etc.
+Run Migrations:
+
+# First try normal push
+npm run db:push
+# If data-loss warning, force push (safe in new environment)
+npm run db:push --force
+Verify database connection:
+
+Check that tables are created
+Verify DATABASE_URL environment variable exists
+Test connection in console
+⚙️ STEP 4: ENVIRONMENT SECRETS
+I will provide these secrets when asked:
+
+AI Services:
+ANTHROPIC_API_KEY (Claude)
+GEMINI_API_KEY (Google Gemini)
+OPENAI_API_KEY (if needed)
+Project Management:
+JIRA_API_TOKEN
+JIRA_DOMAIN
+JIRA_EMAIL
+Maps & Location:
+LOCATIONIQ_API_KEY
+3D Graphics:
+MESHY_API_KEY
+Replit Integrations (May auto-configure):
+GitHub OAuth (connection)
+Stripe (javascript_stripe==1.0.0)
+Replit Auth (javascript_log_in_with_replit==1.0.0)
+IMPORTANT: Ask me for any missing secrets before proceeding
+
+🚀 STEP 5: WORKFLOW CONFIGURATION
+Create workflow named: "Start application"
+
+Name: Start application
+Command: npm run dev
+Port: 5000
+Output Type: webview
+Start command details:
+
+NODE_ENV=development node --max-old-space-size=512 -r tsx/cjs server/index.ts
+This starts:
+
+Express server on port 5000
+Vite dev server for React frontend
+WebSocket server (Socket.io)
+All in one process
+Verify workflow starts without errors:
+
+No module not found errors
+No missing dependency errors
+Server binds to port 5000
+Vite compiles successfully
+✅ STEP 6: VERIFY FULL APPLICATION
+CRITICAL: This is where the previous setup failed
+
+Take Screenshot of Home Page (/)
+You MUST see ALL of these:
+
+✅ UnifiedTopBar - Full navigation bar at top
+✅ Sidebar - Collapsible left sidebar (not just header buttons)
+✅ Story Viewer - Horizontal story carousel at top of feed
+✅ Rich PostFeed - Glassmorphic cards with:
+
+User avatars
+Post content with rich formatting
+Images/video embeds
+Like, Comment, Share actions
+Timestamp and location
+✅ Create Post Button - With media upload capability
+✅ MT Ocean Theme - Turquoise-to-blue gradient background
+✅ shadcn/ui Components - Buttons, cards, dialogs visible
+Test Memories Feed (/memories)
+Navigate to /memories route and verify:
+
+✅ ESAMemoryFeed Component loads
+✅ Full feed functionality:
+
+Create memory with rich text editor (React Quill)
+Upload images/video
+Add location
+Post interactions (like, comment, share)
+Real-time updates (Socket.io)
+User profiles and avatars
+✅ NOT the CDN fallback:
+
+❌ Simple text-only posts
+❌ Basic HTML forms
+❌ No sidebar
+❌ Missing features
+Test Events Page (/events)
+Verify Events system loads with:
+
+Event discovery feed
+Event creation
+Calendar integration
+Location-based events
+🎨 WHAT THE FULL APP LOOKS LIKE
+Design System (MT Ocean Theme):
+Gradient: Turquoise (#40E0D0) to Royal Blue (#0047AB)
+Glassmorphic Cards: Translucent with backdrop blur
+Typography: Modern sans-serif stack
+Dark Mode: Full support via ThemeProvider
+Responsive: Mobile-first design
+Key Components That MUST Be Visible:
+UnifiedTopBar (client/src/components/navigation/UnifiedTopBar.tsx)
+
+Logo and branding
+Search bar
+Notifications
+User menu
+Theme toggle
+Sidebar (client/src/components/layout/sidebar.tsx)
+
+Navigation links
+Profile section
+Quick actions
+Collapsible on mobile
+Story Viewer (client/src/components/feed/story-viewer.tsx)
+
+Horizontal scrolling
+User stories
+"Add Story" option
+PostFeed/SmartPostFeed (client/src/components/moments/)
+
+Individual post cards
+Rich content rendering
+Social interactions
+Infinite scroll
+CreatePost (client/src/components/feed/create-post.tsx)
+
+Rich text editor
+Media upload (images/video)
+Location picker
+Emoji picker
+Post visibility settings
+🏗️ ARCHITECTURE OVERVIEW
+Frontend Stack:
+Framework: React 18 with TypeScript
+Routing: Wouter (client-side)
+State Management: @tanstack/react-query, Zustand, Context APIs
+UI Library: shadcn/ui (Radix UI primitives)
+Styling: Tailwind CSS with custom theme
+Animations: Framer Motion, GSAP
+Forms: react-hook-form with Zod validation
+i18n: i18next (68 languages supported)
+Backend Stack:
+Server: Node.js with Express.js
+Language: TypeScript
+Database: PostgreSQL (Neon serverless)
+ORM: Drizzle ORM
+Real-time: Socket.io
+Authentication: JWT + Passport.js
+Authorization: @casl/ability (RBAC/ABAC)
+Validation: Zod schemas
+Session Store: connect-pg-simple
+Infrastructure:
+Build Tool: Vite 7
+Runtime: tsx for TypeScript execution
+Bundler: esbuild (via Vite)
+Process Manager: PM2 (production)
+Monitoring: Sentry, Prometheus
+Caching: Redis, LRU Cache
+Queue: BullMQ
+Search: Elasticsearch
+AI/ML Integration:
+LLMs: OpenAI GPT-4o, Anthropic Claude, Google Gemini
+Vector DB: LanceDB
+Frameworks: LangChain, LlamaIndex
+Observability: Langfuse
+External Services:
+Payment: Stripe
+Maps: Leaflet.js, Google Maps API, LocationIQ
+Storage: Cloudinary (media)
+Email: Resend, SendGrid
+Notifications: Novu
+Analytics: Plausible, PostHog
+Error Tracking: Sentry
+Session Recording: OpenReplay
+📂 KEY FILE LOCATIONS
+Critical Files to Verify Exist:
+Documentation:
+
+/replit.md - Main project documentation
+/docs/platform-handoff/esa.md - ESA Framework guide (182KB)
+/docs/NPM_CORRUPTION_INCIDENT_REPORT.md - Incident analysis
+/docs/PREVENTION_GUIDE.md - Prevention measures
+/docs/CRITICAL_FAILURE_ANALYSIS.md - Failure breakdown
+Frontend:
+
+/client/src/App.tsx - Main React app entry
+/client/src/pages/ESAMemoryFeed.tsx - Memories feed (471 lines)
+/client/src/pages/home.tsx - Home page
+/client/src/config/routes.ts - Route configuration
+/client/src/lib/queryClient.ts - React Query setup
+/client/src/lib/theme/theme-provider.tsx - Theme system
+Backend:
+
+/server/index.ts - Main server entry
+/server/routes.ts - API routes
+/server/storage.ts - Storage interface
+/server/index-novite.ts - Production server (no Vite)
+Database:
+
+/shared/schema.ts - Drizzle schema definitions
+/drizzle.config.ts - Drizzle configuration
+Configuration:
+
+/package.json - All dependencies
+/tsconfig.json - TypeScript config
+/vite.config.ts - Vite configuration
+/tailwind.config.ts - Tailwind setup
+Emergency Files (DO NOT USE unless npm fails again):
+
+/server/minimal-mt-server.js - Zero-dependency server
+/client/dist/index.html - CDN React fallback
+🚫 DO NOT ACCEPT / CRITICAL WARNINGS
+❌ DO NOT use Emergency Fallback:
+/server/minimal-mt-server.js - Emergency only
+/client/dist/index.html - CDN React fallback
+These were created for npm corruption workaround
+The REAL app uses Vite + React + TypeScript
+❌ DO NOT accept simplified versions:
+Just header buttons (no sidebar)
+No story viewer
+Simple text posts only
+Missing glassmorphic design
+No media upload
+Basic HTML/CSS only
+❌ DO NOT skip verification:
+Must screenshot FULL app
+Must test /memories route
+Must verify all components load
+Must confirm shadcn/ui visible
+⚠️ WARNING SIGNS of Wrong Setup:
+If you see:
+
+"🌎 Mundo Tango loaded successfully with CDN React!" in console
+Simple welcome card only
+No sidebar navigation
+Missing story viewer
+Basic text-only interface
+THEN STOP - This is the CDN fallback, not the real app!
+
+✅ SUCCESS VERIFICATION CHECKLIST
+After setup, verify ALL of these:
+
+Installation:
+ npm install completed without errors
+ All 476 packages installed successfully
+ Vite, tsx, esbuild, TypeScript confirmed working
+ node_modules folder populated (~500MB+)
+Database:
+ PostgreSQL database created
+ DATABASE_URL environment variable set
+ npm run db:push completed successfully
+ All tables created (check in database panel)
+Server:
+ npm run dev starts without errors
+ Server listening on port 5000
+ Vite dev server running
+ No module resolution errors
+ WebSocket server connected
+Frontend (CRITICAL):
+ Screenshot shows FULL sidebar
+ Story viewer visible at top
+ Rich post feed with glassmorphic cards
+ Create post button with media upload
+ MT Ocean Theme (turquoise-to-blue gradient)
+ shadcn/ui components rendered
+ User avatars and profiles visible
+Routes:
+ / (home) - Full feed with all features
+ /memories - ESAMemoryFeed component loads
+ /events - Event discovery feed works
+ Navigation between routes functional
+Real-time:
+ Socket.io connection established
+ Console shows connection logs
+ Real-time updates working (if testable)
+🎯 REFERENCE FILES FOR CONTEXT
+Read these to understand the platform:
+
+replit.md - Complete platform documentation
+
+Overview of Life CEO system
+ESA Framework (105 agents, 61 layers)
+Technical architecture
+External dependencies
+Feature specifications
+docs/platform-handoff/esa.md (182KB)
+
+ESA Framework guide
+Agent organizational structure
+Development methodology
+docs/NPM_CORRUPTION_INCIDENT_REPORT.md
+
+What went wrong
+Failed recovery attempts
+Emergency solution deployed
+Lessons learned
+docs/PREVENTION_GUIDE.md
+
+Pre-work health checks
+Early warning signs
+Emergency response protocol
+Visual verification procedures
+client/src/pages/ESAMemoryFeed.tsx (471 lines)
+
+Main Memories feed component
+Shows full feature set
+Real-time integration
+Social interactions
+🔧 TROUBLESHOOTING
+If npm install fails:
+Check for ENOTEMPTY errors
+Clear npm cache: npm cache clean --force
+Remove node_modules: rm -rf node_modules package-lock.json
+Try again: npm install
+If still fails, STOP and report specific error
+If server won't start:
+Check for missing dependencies
+Verify DATABASE_URL is set
+Check port 5000 is available
+Look for module resolution errors
+Try: npm run check to verify TypeScript
+If you see CDN fallback:
+Check workflow command is npm run dev
+Verify Vite is installed
+Check server is using server/index.ts (NOT minimal-mt-server.js)
+Restart workflow
+Take fresh screenshot
+If database migrations fail:
+Check DATABASE_URL is valid
+Ensure PostgreSQL database created
+Try: npm run db:push --force
+Check shared/schema.ts for syntax errors
+🎉 FINAL GOAL
+A fully functional Mundo Tango platform with:
+
+✅ Complete React/TypeScript/Vite application
+✅ Full sidebar navigation and UI components
+✅ Story viewer and rich post feed
+✅ Memories feed with all features
+✅ Events system
+✅ Real-time updates via Socket.io
+✅ MT Ocean Theme with glassmorphic design
+✅ AI integrations ready
+✅ Database connected
+✅ All 105 ESA agents and features
+
+NOT a simplified CDN fallback!
+
+📸 FINAL VERIFICATION
+Before declaring success:
+
+Take screenshot of home page (/)
+
+Take screenshot of memories feed (/memories)
+
+Confirm I see:
+
+Full sidebar
+Story viewer
+Rich post cards
+Create post with media
+Glassmorphic design
+All UI components
+Share screenshots with me for confirmation
+
+Only then proceed to next steps
+
+Let's restore the FULL Mundo Tango platform! 🚀
+
+---
+**This comprehensive prompt includes:**
+- ✅ All 476 dependencies listed
+- ✅ Complete architecture details
+- ✅ Database setup with Drizzle
+- ✅ Environment variables needed
+- ✅ Visual verification steps (the critical part!)
+- ✅ Reference to all key files
+- ✅ What NOT to do (avoid CDN fallback)
+- ✅ Troubleshooting guide
+- ✅ Success criteria
+- ✅ Screenshot verification requirements
+Copy this entire prompt and use it in your new Replit. It will ensure the agent restores your FULL platform, not a simplified version! 🎯

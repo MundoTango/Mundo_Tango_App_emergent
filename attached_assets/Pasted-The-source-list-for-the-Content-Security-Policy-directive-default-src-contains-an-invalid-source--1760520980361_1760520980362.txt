@@ -1,0 +1,2217 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-c9ca3a552390b735.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+index.js:1 content loaded
+index.59b2ae62.js:3 Content Script: Initializing
+_app-c9ca3a552390b735.js:28 [LaunchDarkly] LaunchDarkly client initialized
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'battery'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-a9c93489e40d8584.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar48%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+injected.js:27 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 [vite] connecting...
+injected.js:27 [vite] connected.
+chrome-extension://hdokiejnpimakedhajhdlcegeplioahd/web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+injected.js:27 ⚡ Life CEO Performance Optimizer initialized
+injected.js:27 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+injected.js:27 Starting React app...
+injected.js:27 React app mounted
+injected.js:27 🚀 [App] ROOT COMPONENT RENDERING
+injected.js:27 🚀 [App] About to return JSX tree
+injected.js:27 Long task detected: 205ms
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+injected.js:27 ⏸️ Socket connection deferred - no user
+injected.js:27 🚀 [App] useEffect running - setup starting
+injected.js:27 📊 Plausible Analytics is live on mundo-tango.replit.dev
+injected.js:27 🚀 [App] useEffect complete - setup done
+injected.js:27 [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 📍 Using browser GPS location: Object
+injected.js:27 Long task detected: 66ms
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ✅ CSRF token fetched successfully
+injected.js:27 Long task detected: 83ms
+(anonymous) @ VM9354 injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 Life CEO Performance Metrics: Object
+injected.js:27 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+injected.js:27 User authenticated via auth bypass: Object
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /memories
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: Object
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🌐 [usePostFeed] Making request: Object
+injected.js:27 [Framework] User authenticated from context, ID: 7
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+injected.js:27 ✅ Real-time feed connected: EAW9D3zLUxCfJjmRAAAM
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+injected.js:27 ✅ [usePostFeed] Response: Object
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Global error: window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:89:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+(anonymous) @ VM9354 injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:89:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Global error: window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:89:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+(anonymous) @ VM9354 injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:89:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+injected.js:27 The above error occurred in the <ControlledPostFeed> component:
+
+    at ControlledPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/ControlledPostFeed.tsx:28:3)
+    at SmartPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/SmartPostFeed.tsx:27:3)
+    at section
+    at div
+    at main
+    at div
+    at div
+    at div
+    at div
+    at main
+    at div
+    at div
+    at DashboardLayout (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/layouts/DashboardLayout.tsx:22:43)
+    at ESAMemoryFeedCore (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/pages/ESAMemoryFeed.tsx:42:17)
+    at ResilientBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/resilient/ResilientBoundary.tsx:9:5)
+    at Route (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:205:16)
+    at Switch (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:261:17)
+    at Suspense
+    at ErrorBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:93:5)
+    at Router
+    at AppContent (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:208:3)
+    at MicroInteractionProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MicroInteractionProvider.tsx:20:44)
+    at MonitoringProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MonitoringProvider.tsx:34:38)
+    at OpenReplayProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/OpenReplayProvider.tsx:22:38)
+    at Provider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-36WGJFHK.js?v=b2ea31f1:37:15)
+    at TooltipProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=b2ea31f1:66:5)
+    at SocketProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/socket-context.tsx:22:34)
+    at LocationBiasProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/LocationBiasContext.tsx:115:40)
+    at TenantProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/TenantContext.tsx:21:34)
+    at AuthProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/auth-context.tsx:20:32)
+    at CsrfProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/CsrfContext.tsx:20:32)
+    at QueryClientProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=b2ea31f1:3018:3)
+    at ThemeProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/lib/theme/theme-provider.tsx:231:33)
+    at App (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:261:3)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ResilientBoundary.
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 [ErrorHub] ESAMemoryFeed:render window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:89:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at beginWork$1 (chunk-FIVTYXJO.js?v=b2ea31f1:19806:22)
+    at performUnitOfWork (chunk-FIVTYXJO.js?v=b2ea31f1:19251:20)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 [ErrorHub] Degrading ESAMemoryFeed due to: Rendered more hooks than during the previous render.
+(anonymous) @ VM9354 injected.js:27
+socket__io-client.js?v=b2ea31f1:1035 WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: WebSocket is closed before the connection is established.
+doClose @ VM9412 socket__io-client.js:1035
+injected.js:27 ⚠️ Performance warning: CLS = 0.1727786210907077ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 🚨 Critical performance issue: LCP = 21904ms (threshold: 4000ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.17371168434680215ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.17507897040730766ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.17666128615953822ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.17925768404222056ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.18216481529418505ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.1855398391840976ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.18972827451978422ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.19384335071662803ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.1974021744099395ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.20150055461175084ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.20471172701332951ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.20750439239632643ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.20991996354179743ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.2120295711993176ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.2138303946229784ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.21541198685388344ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.21676762464415972ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.21794755394067566ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.21897709516907907ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.21987219259561783ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.22066103393415573ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.22134203956698403ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.2219012453914826ms (threshold: 0.1ms)
+(anonymous) @ VM9354 injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+injected.js:27 ✅ Socket.io connected
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🔵 [MB.MD DEBUG v2.0] ScottAI generateResponse START - NEW CODE LOADED ✅
+injected.js:27 🚀 [MB.MD Track 3] Calling API with apiRequest(): /api/mrblue/simple-chat
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/mrblue/simple-chat:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🔴 [MB.MD Track 3] AI error details: Object
+(anonymous) @ VM9354 injected.js:27
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🚨 Critical performance issue: CLS = 0.9586860547343083ms (threshold: 0.25ms)
+(anonymous) @ VM9354 injected.js:27
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+injected.js:27 🚨 Critical performance issue: CLS = 0.9639992795198704ms (threshold: 0.25ms)
+(anonymous) @ VM9354 injected.js:27
+console.<computed> @ VM9370 console-cleanup.ts:26
+(anonymous) @ VM9354 injected.js:27
+(anonymous) @ VM9354 injected.js:27
+checkThresholds @ VM9619 performanceMonitor.ts:83
+recordMetric @ VM9619 performanceMonitor.ts:67
+(anonymous) @ VM9619 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 1.1909147264859006ms (threshold: 0.25ms)
+(anonymous) @ VM9354 injected.js:27
+console.<computed> @ VM9370 console-cleanup.ts:26
+(anonymous) @ VM9354 injected.js:27
+(anonymous) @ VM9354 injected.js:27
+checkThresholds @ VM9619 performanceMonitor.ts:83
+recordMetric @ VM9619 performanceMonitor.ts:67
+(anonymous) @ VM9619 performanceMonitor.ts:50
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ VM9354 injected.js:204
+o @ VM9362 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ VM9362 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ VM9619 performanceMonitor.ts:69
+(anonymous) @ VM9619 performanceMonitor.ts:50
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ VM9354 injected.js:204
+o @ VM9362 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ VM9362 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ VM9619 performanceMonitor.ts:69
+(anonymous) @ VM9619 performanceMonitor.ts:50
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:27 🔌 [Toolbar] WebSocket disconnected
+injected.js:27 ⚠️ Socket.io disconnected: transport close
+injected.js:27 [vite] server connection lost. Polling for restart...
+[Violation] Forced reflow while executing JavaScript took 34ms
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'battery'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'layout-animations'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'legacy-image-formats'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'navigation-override'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'oversized-images'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'publickey-credentials'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'speaker-selection'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'unoptimized-images'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Unrecognized feature: 'unsized-media'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arvf%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+injected.js:27 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+Eda @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1424
+google.maps.Load @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:14
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1723
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1723
+injected.js:27 [vite] connecting...
+injected.js:27 [vite] connected.
+injected.js:27 ⚡ Life CEO Performance Optimizer initialized
+injected.js:27 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+injected.js:27 Starting React app...
+injected.js:27 React app mounted
+injected.js:27 🚀 [App] ROOT COMPONENT RENDERING
+injected.js:27 🚀 [App] About to return JSX tree
+injected.js:27 Long task detected: 236ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+injected.js:27 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+injected.js:27 ⏸️ Socket connection deferred - no user
+LocationBiasContext.tsx:93 [Violation] Only request geolocation information in response to a user gesture.
+(anonymous) @ LocationBiasContext.tsx:93
+detectBrowserLocation @ LocationBiasContext.tsx:92
+refreshLocation @ LocationBiasContext.tsx:126
+(anonymous) @ LocationBiasContext.tsx:155
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:19381
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 [App] useEffect running - setup starting
+injected.js:27 📊 Plausible Analytics is live on mundo-tango.replit.dev
+injected.js:27 🚀 [App] useEffect complete - setup done
+injected.js:27 [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: {user: undefined, isAdmin: false, isFeatureEnabled: true, shouldShow: true}
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: {user: undefined, isAdmin: false, isFeatureEnabled: true, shouldShow: true}
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 Long task detected: 79ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+injected.js:27 📍 Using browser GPS location: {lat: 41.22520446381322, lng: -122.13512419772971}
+injected.js:27 Long task detected: 167ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+injected.js:27 ✅ CSRF token fetched successfully
+injected.js:27 ⚠️ Performance warning: TTFB = 1597.2000000476837ms (threshold: 800ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:86
+recordMetric @ performanceMonitor.ts:67
+(anonymous) @ performanceMonitor.ts:140
+injected.js:27 Life CEO Performance Metrics: {pageLoadTime: '-1760520751882ms', connectTime: '1599ms', renderTime: '31743ms', totalResources: 250}
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+injected.js:27 User authenticated via auth bypass: {id: 7, name: 'Pierre Dubois', username: 'pierre_dancer', email: 'pierre@example.com', password: '$2b$10$hash', …}
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /memories
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: {id: 7, name: 'Pierre Dubois', username: 'pierre_dancer', email: 'pierre@example.com', password: '$2b$10$hash', …}
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🗺️ [Framework] Access check: {user: 'pierre@example.com', isAdmin: true, isFeatureEnabled: true, shouldShow: true}
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🌐 [usePostFeed] Making request: {url: '/api/posts/feed?page=1&limit=20&filter=all', params: {…}}
+injected.js:27 [Framework] User authenticated from context, ID: 7
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 ✅ Real-time feed connected: QbjABc-NUiNpoW0sAAAF
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+injected.js:27 ✅ [usePostFeed] Response: {postsCount: 20, hasMore: true, total: 100}
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+injected.js:27 Global error: 
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:16
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18927
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught 
+updateWorkInProgressHook @ chunk-FIVTYXJO.js?v=b2ea31f1:11726
+updateCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12225
+useCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12741
+useCallback @ chunk-QJTFJ6OV.js?v=b2ea31f1:1090
+ControlledPostFeed @ ControlledPostFeed.tsx:89
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18927
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+injected.js:27 Global error: 
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:16
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+recoverFromConcurrentError @ chunk-FIVTYXJO.js?v=b2ea31f1:18786
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18932
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught 
+updateWorkInProgressHook @ chunk-FIVTYXJO.js?v=b2ea31f1:11726
+updateCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12225
+useCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12741
+useCallback @ chunk-QJTFJ6OV.js?v=b2ea31f1:1090
+ControlledPostFeed @ ControlledPostFeed.tsx:89
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+recoverFromConcurrentError @ chunk-FIVTYXJO.js?v=b2ea31f1:18786
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18932
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 The above error occurred in the <ControlledPostFeed> component:
+
+    at ControlledPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/ControlledPostFeed.tsx:28:3)
+    at SmartPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/SmartPostFeed.tsx:27:3)
+    at section
+    at div
+    at main
+    at div
+    at div
+    at div
+    at div
+    at main
+    at div
+    at div
+    at DashboardLayout (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/layouts/DashboardLayout.tsx:22:43)
+    at ESAMemoryFeedCore (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/pages/ESAMemoryFeed.tsx:42:17)
+    at ResilientBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/resilient/ResilientBoundary.tsx:9:5)
+    at Route (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:205:16)
+    at Switch (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:261:17)
+    at Suspense
+    at ErrorBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:93:5)
+    at Router
+    at AppContent (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:208:3)
+    at MicroInteractionProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MicroInteractionProvider.tsx:20:44)
+    at MonitoringProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MonitoringProvider.tsx:34:38)
+    at OpenReplayProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/OpenReplayProvider.tsx:22:38)
+    at Provider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-36WGJFHK.js?v=b2ea31f1:37:15)
+    at TooltipProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=b2ea31f1:66:5)
+    at SocketProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/socket-context.tsx:22:34)
+    at LocationBiasProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/LocationBiasContext.tsx:115:40)
+    at TenantProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/TenantContext.tsx:21:34)
+    at AuthProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/auth-context.tsx:20:32)
+    at CsrfProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/CsrfContext.tsx:20:32)
+    at QueryClientProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=b2ea31f1:3018:3)
+    at ThemeProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/lib/theme/theme-provider.tsx:231:33)
+    at App (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:261:3)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ResilientBoundary.
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+logCapturedError @ chunk-FIVTYXJO.js?v=b2ea31f1:14080
+callback @ chunk-FIVTYXJO.js?v=b2ea31f1:14126
+callCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:11296
+commitUpdateQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:11313
+commitLayoutEffectOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:17123
+commitLayoutMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18030
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18019
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18000
+commitLayoutEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:17970
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19406
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 [ErrorHub] ESAMemoryFeed:render 
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+handle @ errorHub.ts:39
+componentDidCatch @ ResilientBoundary.tsx:35
+callback @ chunk-FIVTYXJO.js?v=b2ea31f1:14132
+callCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:11296
+commitUpdateQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:11313
+commitLayoutEffectOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:17123
+commitLayoutMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18030
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18019
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18000
+commitLayoutEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:17970
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19406
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 [ErrorHub] Degrading ESAMemoryFeed due to: Rendered more hooks than during the previous render.
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+degradeGracefully @ errorHub.ts:126
+handle @ errorHub.ts:48
+componentDidCatch @ ResilientBoundary.tsx:35
+callback @ chunk-FIVTYXJO.js?v=b2ea31f1:14132
+callCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:11296
+commitUpdateQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:11313
+commitLayoutEffectOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:17123
+commitLayoutMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18030
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18019
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18000
+commitLayoutEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:17970
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19406
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+socket__io-client.js?v=b2ea31f1:1035 WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: WebSocket is closed before the connection is established.
+doClose @ socket__io-client.js?v=b2ea31f1:1035
+close @ socket__io-client.js?v=b2ea31f1:511
+_onClose @ socket__io-client.js?v=b2ea31f1:1609
+close @ socket__io-client.js?v=b2ea31f1:1556
+close @ socket__io-client.js?v=b2ea31f1:1581
+onclose @ socket__io-client.js?v=b2ea31f1:3313
+_close @ socket__io-client.js?v=b2ea31f1:3291
+_destroy @ socket__io-client.js?v=b2ea31f1:3259
+destroy @ socket__io-client.js?v=b2ea31f1:2745
+disconnect @ socket__io-client.js?v=b2ea31f1:2767
+(anonymous) @ UnifiedTopBar.tsx:113
+safelyCallDestroy @ chunk-FIVTYXJO.js?v=b2ea31f1:16796
+commitHookEffectListUnmount @ chunk-FIVTYXJO.js?v=b2ea31f1:16923
+commitPassiveUnmountInsideDeletedTreeOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18333
+commitPassiveUnmountEffectsInsideOfDeletedTree_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18295
+commitPassiveUnmountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18231
+commitPassiveUnmountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18219
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19542
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚨 Critical performance issue: LCP = 34020ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:83
+recordMetric @ performanceMonitor.ts:67
+(anonymous) @ performanceMonitor.ts:21
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 ✅ Socket.io connected
+web-client-content-script.js:2 Uncaught 
+(anonymous) @ web-client-content-script.js:2
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+[Violation] Forced reflow while executing JavaScript took 31ms
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+Navigated to https://replit.com/@admin3304/MundoTangoAppemergent
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+ Content Script: Initializing
+framework-a9c93489e40d8584.js:1 [Violation] 'message' handler took 170ms
+ [LaunchDarkly] LaunchDarkly client initialized
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3s%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+web-client-content-script.js:2 Uncaught 
+(anonymous) @ web-client-content-script.js:2
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+Eda @ js?key=AIzaSyDNTpCEG…braries=places:1424
+google.maps.Load @ js?key=AIzaSyDNTpCEG…libraries=places:14
+(anonymous) @ js?key=AIzaSyDNTpCEG…braries=places:1723
+(anonymous) @ js?key=AIzaSyDNTpCEG…braries=places:1723
+ [vite] connecting...
+ [vite] connected.
+framework-a9c93489e40d8584.js:1 [Violation] 'message' handler took 309ms
+[Violation] Forced reflow while executing JavaScript took 33ms
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 211ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ [Violation] Only request geolocation information in response to a user gesture.
+(anonymous) @ LocationBiasContext.tsx:93
+detectBrowserLocation @ LocationBiasContext.tsx:92
+refreshLocation @ LocationBiasContext.tsx:126
+(anonymous) @ LocationBiasContext.tsx:155
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:19381
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: {user: undefined, isAdmin: false, isFeatureEnabled: true, shouldShow: true}
+ 🗺️ [Framework] RENDERING BUTTON
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: {user: undefined, isAdmin: false, isFeatureEnabled: true, shouldShow: true}
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 81ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ ✅ CSRF token fetched successfully
+ 📍 Using browser GPS location: {lat: 41.22496554267038, lng: -122.13526644240851}
+  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Long task detected: 140ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ Life CEO Performance Metrics: {pageLoadTime: '-1760520942501ms', connectTime: '255ms', renderTime: '14777ms', totalResources: 250}
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: {id: 7, name: 'Pierre Dubois', username: 'pierre_dancer', email: 'pierre@example.com', password: '$2b$10$hash', …}
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+ 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+ 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: {id: 7, name: 'Pierre Dubois', username: 'pierre_dancer', email: 'pierre@example.com', password: '$2b$10$hash', …}
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: {user: 'pierre@example.com', isAdmin: true, isFeatureEnabled: true, shouldShow: true}
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: {url: '/api/posts/feed?page=1&limit=20&filter=all', params: {…}}
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+ 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+ 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+ 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+ 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+ 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+ ✅ Real-time feed connected: ATdyJ6_jr610O3-JAAAL
+ 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+ 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+ 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+ Analytics tracking active - events will be sent to Plausible
+ ✅ [usePostFeed] Response: {postsCount: 20, hasMore: true, total: 100}
+ 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+ 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+ 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+ Global error: 
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:16
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18927
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught 
+updateWorkInProgressHook @ chunk-FIVTYXJO.js?v=b2ea31f1:11726
+updateCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12225
+useCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12741
+useCallback @ chunk-QJTFJ6OV.js?v=b2ea31f1:1090
+ControlledPostFeed @ ControlledPostFeed.tsx:89
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18927
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+ 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+ 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+ Global error: 
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:16
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+recoverFromConcurrentError @ chunk-FIVTYXJO.js?v=b2ea31f1:18786
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18932
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught 
+updateWorkInProgressHook @ chunk-FIVTYXJO.js?v=b2ea31f1:11726
+updateCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12225
+useCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:12741
+useCallback @ chunk-QJTFJ6OV.js?v=b2ea31f1:1090
+ControlledPostFeed @ ControlledPostFeed.tsx:89
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19818
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+recoverFromConcurrentError @ chunk-FIVTYXJO.js?v=b2ea31f1:18786
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18932
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ The above error occurred in the <ControlledPostFeed> component:
+
+    at ControlledPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/ControlledPostFeed.tsx:28:3)
+    at SmartPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/SmartPostFeed.tsx:27:3)
+    at section
+    at div
+    at main
+    at div
+    at div
+    at div
+    at div
+    at main
+    at div
+    at div
+    at DashboardLayout (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/layouts/DashboardLayout.tsx:22:43)
+    at ESAMemoryFeedCore (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/pages/ESAMemoryFeed.tsx:42:17)
+    at ResilientBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/resilient/ResilientBoundary.tsx:9:5)
+    at Route (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:205:16)
+    at Switch (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:261:17)
+    at Suspense
+    at ErrorBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:93:5)
+    at Router
+    at AppContent (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:208:3)
+    at MicroInteractionProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MicroInteractionProvider.tsx:20:44)
+    at MonitoringProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MonitoringProvider.tsx:34:38)
+    at OpenReplayProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/OpenReplayProvider.tsx:22:38)
+    at Provider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-36WGJFHK.js?v=b2ea31f1:37:15)
+    at TooltipProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=b2ea31f1:66:5)
+    at SocketProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/socket-context.tsx:22:34)
+    at LocationBiasProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/LocationBiasContext.tsx:115:40)
+    at TenantProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/TenantContext.tsx:21:34)
+    at AuthProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/auth-context.tsx:20:32)
+    at CsrfProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/CsrfContext.tsx:20:32)
+    at QueryClientProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=b2ea31f1:3018:3)
+    at ThemeProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/lib/theme/theme-provider.tsx:231:33)
+    at App (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:261:3)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ResilientBoundary.
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+logCapturedError @ chunk-FIVTYXJO.js?v=b2ea31f1:14080
+callback @ chunk-FIVTYXJO.js?v=b2ea31f1:14126
+callCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:11296
+commitUpdateQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:11313
+commitLayoutEffectOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:17123
+commitLayoutMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18030
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18019
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18000
+commitLayoutEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:17970
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19406
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ [ErrorHub] ESAMemoryFeed:render 
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+handle @ errorHub.ts:39
+componentDidCatch @ ResilientBoundary.tsx:35
+callback @ chunk-FIVTYXJO.js?v=b2ea31f1:14132
+callCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:11296
+commitUpdateQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:11313
+commitLayoutEffectOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:17123
+commitLayoutMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18030
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18019
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18000
+commitLayoutEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:17970
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19406
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ [ErrorHub] Degrading ESAMemoryFeed due to: Rendered more hooks than during the previous render.
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+degradeGracefully @ errorHub.ts:126
+handle @ errorHub.ts:48
+componentDidCatch @ ResilientBoundary.tsx:35
+callback @ chunk-FIVTYXJO.js?v=b2ea31f1:14132
+callCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:11296
+commitUpdateQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:11313
+commitLayoutEffectOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:17123
+commitLayoutMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18030
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18019
+commitLayoutEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18000
+commitLayoutEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:17970
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19406
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: WebSocket is closed before the connection is established.
+doClose @ socket__io-client.js?v=b2ea31f1:1035
+close @ socket__io-client.js?v=b2ea31f1:511
+_onClose @ socket__io-client.js?v=b2ea31f1:1609
+close @ socket__io-client.js?v=b2ea31f1:1556
+close @ socket__io-client.js?v=b2ea31f1:1581
+onclose @ socket__io-client.js?v=b2ea31f1:3313
+_close @ socket__io-client.js?v=b2ea31f1:3291
+_destroy @ socket__io-client.js?v=b2ea31f1:3259
+destroy @ socket__io-client.js?v=b2ea31f1:2745
+disconnect @ socket__io-client.js?v=b2ea31f1:2767
+(anonymous) @ UnifiedTopBar.tsx:113
+safelyCallDestroy @ chunk-FIVTYXJO.js?v=b2ea31f1:16796
+commitHookEffectListUnmount @ chunk-FIVTYXJO.js?v=b2ea31f1:16923
+commitPassiveUnmountInsideDeletedTreeOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18333
+commitPassiveUnmountEffectsInsideOfDeletedTree_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18295
+commitPassiveUnmountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18231
+commitPassiveUnmountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18219
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19542
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🚨 Critical performance issue: LCP = 15992ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:83
+recordMetric @ performanceMonitor.ts:67
+(anonymous) @ performanceMonitor.ts:21
+  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+(anonymous) @ _app-c9ca3a552390b735.js:28
+(anonymous) @ _app-c9ca3a552390b735.js:28
+(anonymous) @ 5144-e143ec268dc4b7df.js:1
+oO @ framework-a9c93489e40d8584.js:1
+uB @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uO @ framework-a9c93489e40d8584.js:1
+u_ @ framework-a9c93489e40d8584.js:1
+r6 @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+[Violation] Forced reflow while executing JavaScript took 30ms
+ ✅ Socket.io connected
+[Violation] Forced reflow while executing JavaScript took 72ms
+ 🔌 [Toolbar] WebSocket connected for real-time updates
+  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+apply @ injected.js:204
+queryFn @ Sidebar.tsx:122
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:797
+Promise.then
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:793
+Promise.catch
+run @ @tanstack_react-query.js?v=b2ea31f1:777
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ @react-three_drei.js?v=b2ea31f1:23622
+(anonymous) @ @react-three_drei.js?v=b2ea31f1:89284
+commitHookEffectListMount @ chunk-Y4IJHDPZ.js?v=b2ea31f1:10913
+commitPassiveMountOnFiber @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12222
+commitPassiveMountEffects_complete @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12194
+commitPassiveMountEffects_begin @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12184
+commitPassiveMountEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12174
+flushPassiveEffectsImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13945
+flushPassiveEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13908
+performSyncWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13311
+flushSyncCallbacks @ chunk-Y4IJHDPZ.js?v=b2ea31f1:2767
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13893
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+finishConcurrentRender @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13248
+performConcurrentWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13158
+workLoop @ chunk-Y4IJHDPZ.js?v=b2ea31f1:274
+flushWork @ chunk-Y4IJHDPZ.js?v=b2ea31f1:253
+performWorkUntilDeadline @ chunk-Y4IJHDPZ.js?v=b2ea31f1:461
+ [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ @react-three_drei.js?v=b2ea31f1:23622
+(anonymous) @ @react-three_drei.js?v=b2ea31f1:89284
+commitHookEffectListMount @ chunk-Y4IJHDPZ.js?v=b2ea31f1:10913
+commitPassiveMountOnFiber @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12222
+commitPassiveMountEffects_complete @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12194
+commitPassiveMountEffects_begin @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12184
+commitPassiveMountEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12174
+flushPassiveEffectsImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13945
+flushPassiveEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13908
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13877
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+performSyncWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13338
+flushSyncCallbacks @ chunk-Y4IJHDPZ.js?v=b2ea31f1:2767
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13893
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+finishConcurrentRender @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13248
+performConcurrentWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13158
+workLoop @ chunk-Y4IJHDPZ.js?v=b2ea31f1:274
+flushWork @ chunk-Y4IJHDPZ.js?v=b2ea31f1:253
+performWorkUntilDeadline @ chunk-Y4IJHDPZ.js?v=b2ea31f1:461
+ 🔵 [MB.MD DEBUG v2.0] ScottAI generateResponse START - NEW CODE LOADED ✅
+ 🚀 [MB.MD Track 3] Calling API with apiRequest(): /api/mrblue/simple-chat
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+  POST https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/mrblue/simple-chat 500 (Internal Server Error)
+apply @ injected.js:204
+apiRequest @ queryClient.ts:38
+generateResponse @ ScottAI.tsx:96
+sendMessage @ ScottAI.tsx:150
+handleMessage @ MrBlueComplete.tsx:60
+handleSend @ ChatInterface.tsx:77
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+invokeGuardedCallbackAndCatchFirstError @ chunk-FIVTYXJO.js?v=b2ea31f1:3742
+executeDispatch @ chunk-FIVTYXJO.js?v=b2ea31f1:7046
+processDispatchQueueItemsInOrder @ chunk-FIVTYXJO.js?v=b2ea31f1:7066
+processDispatchQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:7075
+dispatchEventsForPlugins @ chunk-FIVTYXJO.js?v=b2ea31f1:7083
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:7206
+batchedUpdates$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:18966
+batchedUpdates @ chunk-FIVTYXJO.js?v=b2ea31f1:3585
+dispatchEventForPluginEventSystem @ chunk-FIVTYXJO.js?v=b2ea31f1:7205
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-FIVTYXJO.js?v=b2ea31f1:5484
+dispatchEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5478
+dispatchDiscreteEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5455
+ 🔴 [MB.MD Track 3] AI error details: {message: '500: {"response":"I encountered an error. Please t…"request_id\\":\\"req_011CU8kuBvGEab6yyBdC6fd4\\"}"}', error: window.Error: 500: {"response":"I encountered an error. Please try again.","error":"404 {\"type\":\…, stack: 'Error: 500: {"response":"I encountered an error. P…ev/src/components/mrBlue/MrBlueComplete.tsx:60:5)'}
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+generateResponse @ ScottAI.tsx:116
+await in generateResponse
+sendMessage @ ScottAI.tsx:150
+handleMessage @ MrBlueComplete.tsx:60
+handleSend @ ChatInterface.tsx:77
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+invokeGuardedCallbackAndCatchFirstError @ chunk-FIVTYXJO.js?v=b2ea31f1:3742
+executeDispatch @ chunk-FIVTYXJO.js?v=b2ea31f1:7046
+processDispatchQueueItemsInOrder @ chunk-FIVTYXJO.js?v=b2ea31f1:7066
+processDispatchQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:7075
+dispatchEventsForPlugins @ chunk-FIVTYXJO.js?v=b2ea31f1:7083
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:7206
+batchedUpdates$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:18966
+batchedUpdates @ chunk-FIVTYXJO.js?v=b2ea31f1:3585
+dispatchEventForPluginEventSystem @ chunk-FIVTYXJO.js?v=b2ea31f1:7205
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-FIVTYXJO.js?v=b2ea31f1:5484
+dispatchEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5478
+dispatchDiscreteEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5455
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage

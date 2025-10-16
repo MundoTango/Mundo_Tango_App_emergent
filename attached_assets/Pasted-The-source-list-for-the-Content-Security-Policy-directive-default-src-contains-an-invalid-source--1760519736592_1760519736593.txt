@@ -1,0 +1,528 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+ [LaunchDarkly] LaunchDarkly client initialized
+ Content Script: Initializing
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar44%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+web-client-content-script.js:2 Uncaught 
+(anonymous) @ web-client-content-script.js:2
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+Eda @ js?key=AIzaSyDNTpCEG…braries=places:1424
+google.maps.Load @ js?key=AIzaSyDNTpCEG…libraries=places:14
+(anonymous) @ js?key=AIzaSyDNTpCEG…braries=places:1723
+(anonymous) @ js?key=AIzaSyDNTpCEG…braries=places:1723
+ [vite] connecting...
+ [vite] connected.
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 179ms
+(anonymous) @ injected.js:27
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 68ms
+(anonymous) @ injected.js:27
+ 📍 Using browser GPS location: Object
+ Life CEO Performance Metrics: Object
+ Long task detected: 103ms
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.10324058817748144ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ✅ CSRF token fetched successfully
+ ⚠️ Performance warning: CLS = 0.10791429496491198ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.11540646551935428ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.11828938384626039ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.12082995595870519ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ ⚠️ Performance warning: CLS = 0.12295329814881517ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.12506607644743206ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.12686797451068105ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.12949844075845252ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.13157952738259016ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: Object
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: Object
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: Object
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 ✅ Real-time feed connected: oFYhjOGQuRCC17r2AAAM
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+injected.js:27 ✅ [usePostFeed] Response: Object
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Global error: window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:117:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+(anonymous) @ injected.js:27
+chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:117:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Global error: window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:117:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+(anonymous) @ injected.js:27
+chunk-FIVTYXJO.js?v=b2ea31f1:11726 Uncaught window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:117:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at HTMLUnknownElement.callCallback2 (chunk-FIVTYXJO.js?v=b2ea31f1:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-FIVTYXJO.js?v=b2ea31f1:3705:24)
+injected.js:27 The above error occurred in the <ControlledPostFeed> component:
+
+    at ControlledPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/ControlledPostFeed.tsx:28:3)
+    at SmartPostFeed (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/moments/SmartPostFeed.tsx:27:3)
+    at section
+    at div
+    at main
+    at div
+    at div
+    at div
+    at div
+    at main
+    at div
+    at div
+    at DashboardLayout (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/layouts/DashboardLayout.tsx:22:43)
+    at ESAMemoryFeedCore (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/pages/ESAMemoryFeed.tsx:42:17)
+    at ResilientBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/resilient/ResilientBoundary.tsx:9:5)
+    at Route (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:205:16)
+    at Switch (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=b2ea31f1:261:17)
+    at Suspense
+    at ErrorBoundary (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:93:5)
+    at Router
+    at AppContent (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:208:3)
+    at MicroInteractionProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MicroInteractionProvider.tsx:20:44)
+    at MonitoringProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/MonitoringProvider.tsx:34:38)
+    at OpenReplayProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/components/OpenReplayProvider.tsx:22:38)
+    at Provider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-36WGJFHK.js?v=b2ea31f1:37:15)
+    at TooltipProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=b2ea31f1:66:5)
+    at SocketProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/socket-context.tsx:22:34)
+    at LocationBiasProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/LocationBiasContext.tsx:115:40)
+    at TenantProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/TenantContext.tsx:21:34)
+    at AuthProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/auth-context.tsx:20:32)
+    at CsrfProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/contexts/CsrfContext.tsx:20:32)
+    at QueryClientProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=b2ea31f1:3018:3)
+    at ThemeProvider (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/lib/theme/theme-provider.tsx:231:33)
+    at App (https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/src/App.tsx:261:3)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ResilientBoundary.
+(anonymous) @ injected.js:27
+injected.js:27 [ErrorHub] ESAMemoryFeed:render window.Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-FIVTYXJO.js?v=b2ea31f1:11726:21)
+    at updateCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12225:22)
+    at Object.useCallback (chunk-FIVTYXJO.js?v=b2ea31f1:12741:22)
+    at useCallback (chunk-QJTFJ6OV.js?v=b2ea31f1:1090:29)
+    at ControlledPostFeed (ControlledPostFeed.tsx:117:23)
+    at renderWithHooks (chunk-FIVTYXJO.js?v=b2ea31f1:11596:26)
+    at updateFunctionComponent (chunk-FIVTYXJO.js?v=b2ea31f1:14630:28)
+    at beginWork (chunk-FIVTYXJO.js?v=b2ea31f1:15972:22)
+    at beginWork$1 (chunk-FIVTYXJO.js?v=b2ea31f1:19806:22)
+    at performUnitOfWork (chunk-FIVTYXJO.js?v=b2ea31f1:19251:20)
+(anonymous) @ injected.js:27
+injected.js:27 [ErrorHub] Degrading ESAMemoryFeed due to: Rendered more hooks than during the previous render.
+(anonymous) @ injected.js:27
+ WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: WebSocket is closed before the connection is established.
+doClose @ socket__io-client.js?v=b2ea31f1:1035
+injected.js:27 🚨 Critical performance issue: CLS = 0.3043581484732979ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: LCP = 17940ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3052768936231607ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3065657093532372ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.30833356389871924ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3103401917646113ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3205631461381204ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3251674835335423ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.329175357282133ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3329024314170227ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3361622546336585ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3390023170101562ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3414867087143032ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3436053258342552ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3454386527130198ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3483096826484742ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.34964777680957243ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3506915769085434ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.35161159139406506ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.352401016627006ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.35308581616308127ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3536773547875562ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+injected.js:27 ✅ Socket.io connected
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+injected.js:27 🔵 [MB.MD DEBUG v2.0] ScottAI generateResponse START - NEW CODE LOADED ✅
+injected.js:27 🚀 [MB.MD Track 3] Calling API with apiRequest(): /api/mrblue/simple-chat
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/mrblue/simple-chat:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 AI error: window.Error: 401: {"error":"Authentication required","message":"You must be logged in to access this resource"}
+    at throwIfResNotOk (queryClient.ts:28:11)
+    at async apiRequest (queryClient.ts:87:3)
+    at async generateResponse (ScottAI.tsx:155:24)
+    at async sendMessage (ScottAI.tsx:228:22)
+    at async handleMessage (MrBlueComplete.tsx:59:5)
+(anonymous) @ injected.js:27
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🚨 Critical performance issue: CLS = 1.090462164130382ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+injected.js:27 🚨 Critical performance issue: CLS = 1.3217574129220433ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73

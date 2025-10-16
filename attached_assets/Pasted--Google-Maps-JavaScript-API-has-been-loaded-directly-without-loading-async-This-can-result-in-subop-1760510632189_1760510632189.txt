@@ -1,0 +1,795 @@
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+Eda @ js?key=AIzaSyDNTpCEG…braries=places:1424
+(anonymous) @ js?key=AIzaSyDNTpCEG…libraries=places:14
+(anonymous) @ js?key=AIzaSyDNTpCEG…braries=places:1723
+(anonymous) @ js?key=AIzaSyDNTpCEG…braries=places:1723
+ [vite] connecting...
+ [vite] connected.
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 312ms
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /home
+ [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Home @ home.tsx:55
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+mountIndeterminateComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14974
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15962
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:100
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+mountIndeterminateComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14974
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15962
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:170
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+mountIndeterminateComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14974
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15962
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 📋 [PostFeed] Posts memo updated: Object
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🚀 [PostFeed] Query starting! propsPosts: undefined enabled check passed
+ 🔍 [PostFeed] Building URL (feed context): /api/posts/feed?page=1&limit=20 Filter: all
+ 🌐 [PostFeed] Fetching posts from: /api/posts/feed?page=1&limit=20
+ 🔄 [PostFeed] Query state: Object
+ 🔍 [PostFeed] useEffect triggered: Object
+ ⚠️ [PostFeed] Skipping allPosts update: Object
+ [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Home @ home.tsx:55
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:100
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.tooltips.close_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:125
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:170
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 🔍 [PostFeed] useEffect triggered: Object
+ ⚠️ [PostFeed] Skipping allPosts update: Object
+ Long task detected: 61ms
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ content loaded
+ Long task detected: 170ms
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ global-error-handler.ts:4
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ global-error-handler.ts:4
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ global-error-handler.ts:4
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ global-error-handler.ts:4
+ Long task detected: 61ms
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+ ✅ CSRF token fetched successfully
+ Content Script: Initializing
+ Life CEO Performance Metrics: Object
+ 📍 Using browser GPS location: Object
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: Object
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /home
+ [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Home @ home.tsx:55
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:100
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.tooltips.close_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:125
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+missingKeyHandler @ i18n.ts:80
+send @ i18next.js?v=b2ea31f1:667
+translate @ i18next.js?v=b2ea31f1:685
+t @ i18next.js?v=b2ea31f1:2035
+fixedT @ i18next.js?v=b2ea31f1:2023
+Home @ home.tsx:170
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: Object
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔍 [PostFeed] useEffect triggered: Object
+ ⚠️ [PostFeed] Skipping allPosts update: Object
+predict?route=%2Fhome&userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+home?edit=true:1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+ 📡 [PostFeed] Response status: 200 true
+ ✅ [PostFeed] Received data: Object
+ 📊 [PostFeed] Returning 20 posts, hasMore: true
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 📋 [PostFeed] Posts memo updated: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔄 [PostFeed] Query state: Object
+ 🔍 [PostFeed] useEffect triggered: Object
+ 📝 [PostFeed] Setting allPosts: Object
+ [Framework] Current posts with friendship status: Array(3)
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ Long task detected: 51ms
+console.<computed> @ console-cleanup.ts:26
+(anonymous) @ life-ceo-performance.ts:146
+(anonymous) @ life-ceo-performance.ts:144
+home?edit=true:1 Error while trying to use the following icon from the Manifest: https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/icons/icon-144x144.png (Download error or resource isn't a valid image)
+ Analytics tracking active - events will be sent to Plausible
+ 🔌 [Toolbar] WebSocket connected for real-time updates
+ ✅ Socket.io connected
+predict?route=%2Fhome&userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+ 🚀 [Mr Blue] Calling API: /api/mrblue/simple-chat
+/api/mrblue/simple-chat:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ ✅ [Mr Blue] Response status: 401
+ THREE.WebGLRenderer: Context Lost.
+ [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔍 [PostFeed] useEffect triggered: Object
+ 📝 [PostFeed] Setting allPosts: Object
+context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+ [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.tooltips.close_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔍 [PostFeed] useEffect triggered: Object
+ 📝 [PostFeed] Setting allPosts: Object
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+ [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:26
+ 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔍 [PostFeed] useEffect triggered: Object
+console-cleanup.ts:48 📝 [PostFeed] Setting allPosts: Object
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+console-cleanup.ts:48 [["/api/stories/following"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 Missing translation key: home.aria.navigation_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 Missing translation key: home.tooltips.close_sidebar in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 Missing translation key: home.empty.no_stories in namespace: translation for languages: en
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔍 [PostFeed] useEffect triggered: Object
+console-cleanup.ts:48 📝 [PostFeed] Setting allPosts: Object
+console-cleanup.ts:48 🔍 [PostFeed] BEFORE useQuery - propsPosts: undefined type: undefined isArray: false
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+home?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+SmartPageSuggestions.tsx:46  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/journey/predict?route=%2Fhome&userId=7 404 (Not Found)
+queryFn @ SmartPageSuggestions.tsx:46
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+AIContextBar.tsx:44  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459

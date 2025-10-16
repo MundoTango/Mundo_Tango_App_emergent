@@ -1,0 +1,654 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+ Content Script: Initializing
+ [LaunchDarkly] LaunchDarkly client initialized
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-c59fa85b7649389e.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-c59fa85b7649389e.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-c59fa85b7649389e.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ [vite] connecting...
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+ [vite] connected.
+web-client-content-script.js:2 Uncaught 
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 223ms
+(anonymous) @ injected.js:27
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 80ms
+(anonymous) @ injected.js:27
+ Long task detected: 59ms
+(anonymous) @ injected.js:27
+ ✅ CSRF token fetched successfully
+ 📍 Using browser GPS location: [object Object]
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ Life CEO Performance Metrics: [object Object]
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: [object Object]
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: [object Object]
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: [object Object]
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ ✅ Real-time feed connected: A_USvYMihSGtp621AAAd
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ ✅ [usePostFeed] Response: [object Object]
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ 🔍 [ControlledPostFeed] Rendering: [object Object]
+ 📝 [ControlledPostFeed] Rendering posts: [object Object],[object Object],[object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ Analytics tracking active - events will be sent to Plausible
+ 🔌 [Toolbar] WebSocket connected for real-time updates
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ ✅ Socket.io connected
+ ⚠️ Performance warning: CLS = 0.1308630179227218ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.2797133323537059ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.32196042881790105ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.7085892540275032ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.7264772335934437ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.126898147550016ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.1416589224926457ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.3289122690247002ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.7867306119197974ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.78925491210824ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.7917610238719837ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.795411303085288ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.9586950394383682ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.9620456895120792ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.999898023701152ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.0019891536702454ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.003780143319753ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.01701425599626ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.0178770966566013ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.0436572869472895ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🚨 Critical performance issue: CLS = 2.077946448584783ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ 🚨 Critical performance issue: CLS = 2.1269694076998786ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ [vite] connecting...
+ [vite] connected.
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ Long task detected: 98ms
+(anonymous) @ injected.js:27
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 📍 Using browser GPS location: Object
+ Life CEO Performance Metrics: Object
+ ✅ CSRF token fetched successfully
+ ⚠️ Performance warning: CLS = 0.10020261979238082ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.10420931251479593ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.10761392302541602ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.11054612394094393ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.11306458115510823ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ ⚠️ Performance warning: CLS = 0.11529482973711622ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.11709850766811485ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.11902884758379353ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.1204658167241773ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: CLS = 0.12101397982479294ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: Object
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: Object
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: Object
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ ✅ Real-time feed connected: -XGkaIEGuMGu6CvRAAAj
+ 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+injected.js:27 ✅ [usePostFeed] Response: Object
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: Array(3)
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+injected.js:27 ✅ Socket.io connected
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🚨 Critical performance issue: CLS = 0.5768212682955349ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.5797943833845361ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.5833216914623833ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.5886336052012402ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6055210990416647ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6206068228739642ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6347457974548483ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6509143183859682ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6656462099736337ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6824378753336044ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.6952124927926695ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7099104682500115ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7205101909386337ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7316418381379332ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.740555064974658ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7487225319230326ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7560198924736953ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7623491586083772ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7673140328755981ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7729228133791384ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7772851982152252ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7810438601498894ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 0.7837431893721779ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73

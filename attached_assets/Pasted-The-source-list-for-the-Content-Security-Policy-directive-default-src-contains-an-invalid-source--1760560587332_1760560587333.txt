@@ -1,0 +1,418 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-7c5f2ba006c31e76.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+index.59b2ae62.js:3 Content Script: Initializing
+_app-7c5f2ba006c31e76.js:28 [LaunchDarkly] LaunchDarkly client initialized
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-67b1a1a06aa11654.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar41%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+ [vite] connecting...
+ [vite] connected.
+chrome-extension://h…content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 270ms
+(anonymous) @ injected.js:27
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 67ms
+(anonymous) @ injected.js:27
+ Long task detected: 59ms
+(anonymous) @ injected.js:27
+ ✅ CSRF token fetched successfully
+ 📍 Using browser GPS location: Object
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: Object
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: Object
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: Object
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ Life CEO Performance Metrics: Object
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ ✅ Real-time feed connected: YhxMESujwy91tgqjAAAL
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ Analytics tracking active - events will be sent to Plausible
+ ✅ [usePostFeed] Response: Object
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+ 📝 [ControlledPostFeed] Rendering posts: Array(3)
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 Long task detected: 53ms
+(anonymous) @ injected.js:27
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+injected.js:27 ✅ Socket.io connected
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 ⚠️ Performance warning: CLS = 0.12275997459347474ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.1710805691342145ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.18643804538866168ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.19032432833463014ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.20783950485375552ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 ⚠️ Performance warning: CLS = 0.23697474249584796ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.2564191821773722ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.2581727470717147ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.2828996147690438ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.31327587502812865ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3424552549595585ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.37160888185261987ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.375130531154689ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3820727866392122ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.4407589670951001ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.4426926023623135ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.46868461705221715ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.4746293687874762ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5248133849056076ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5901517714612471ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6167435747474453ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6202687147723938ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6712011541599193ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.8902910896918468ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+plausible.io/api/event:1  Failed to load resource: net::ERR_FAILED
+t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://mb.now&size=32:1  Failed to load resource: the server responded with a status of 404 ()
+t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://mb.now/&size=32:1  Failed to load resource: the server responded with a status of 404 ()
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🚨 Critical performance issue: CLS = 1.764860422339693ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 Long task detected: 55ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 🚨 Critical performance issue: CLS = 2.4261803554279906ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 Long task detected: 57ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 20, isLoading: false, isFetching: false, hasMore: true, showingBranch: 'POSTS_LIST'}
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: (3) [{…}, {…}, {…}]
+injected.js:27 🔐 Post ownership check: {postId: 133, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 133, …}
+injected.js:27 🔐 Post ownership check: {postId: 132, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 132, …}
+injected.js:27 🔐 Post ownership check: {postId: 131, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 131, …}
+injected.js:27 🔐 Post ownership check: {postId: 130, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 130, …}
+injected.js:27 🔐 Post ownership check: {postId: 129, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 129, …}
+injected.js:27 🔐 Post ownership check: {postId: 128, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 128, …}
+injected.js:27 🔐 Post ownership check: {postId: 127, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 127, …}
+injected.js:27 🔐 Post ownership check: {postId: 126, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 126, …}
+injected.js:27 🔐 Post ownership check: {postId: 125, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 125, …}
+injected.js:27 🔐 Post ownership check: {postId: 124, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 124, …}
+injected.js:27 🔐 Post ownership check: {postId: 123, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 123, …}
+injected.js:27 🔐 Post ownership check: {postId: 122, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 122, …}
+injected.js:27 🔐 Post ownership check: {postId: 121, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 121, …}
+injected.js:27 🔐 Post ownership check: {postId: 120, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 120, …}
+injected.js:27 🔐 Post ownership check: {postId: 119, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 119, …}
+injected.js:27 🔐 Post ownership check: {postId: 118, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 118, …}
+injected.js:27 🔐 Post ownership check: {postId: 117, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 117, …}
+injected.js:27 🔐 Post ownership check: {postId: 116, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 116, …}
+injected.js:27 🔐 Post ownership check: {postId: 115, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 115, …}
+injected.js:27 🔐 Post ownership check: {postId: 114, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 114, …}
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 THREE.WebGLRenderer: Context Lost.
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 20, isLoading: false, isFetching: false, hasMore: true, showingBranch: 'POSTS_LIST'}
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: (3) [{…}, {…}, {…}]
+injected.js:27 🔐 Post ownership check: {postId: 133, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 133, …}
+injected.js:27 🔐 Post ownership check: {postId: 132, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 132, …}
+injected.js:27 🔐 Post ownership check: {postId: 131, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 131, …}
+injected.js:27 🔐 Post ownership check: {postId: 130, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 130, …}
+injected.js:27 🔐 Post ownership check: {postId: 129, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 129, …}
+injected.js:27 🔐 Post ownership check: {postId: 128, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 128, …}
+injected.js:27 🔐 Post ownership check: {postId: 127, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 127, …}
+injected.js:27 🔐 Post ownership check: {postId: 126, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 126, …}
+injected.js:27 🔐 Post ownership check: {postId: 125, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 125, …}
+injected.js:27 🔐 Post ownership check: {postId: 124, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 124, …}
+injected.js:27 🔐 Post ownership check: {postId: 123, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 123, …}
+injected.js:27 🔐 Post ownership check: {postId: 122, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 122, …}
+injected.js:27 🔐 Post ownership check: {postId: 121, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 121, …}
+injected.js:27 🔐 Post ownership check: {postId: 120, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 120, …}
+injected.js:27 🔐 Post ownership check: {postId: 119, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 119, …}
+injected.js:27 🔐 Post ownership check: {postId: 118, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 118, …}
+injected.js:27 🔐 Post ownership check: {postId: 117, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 117, …}
+injected.js:27 🔐 Post ownership check: {postId: 116, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 116, …}
+injected.js:27 🔐 Post ownership check: {postId: 115, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 115, …}
+injected.js:27 🔐 Post ownership check: {postId: 114, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 114, …}
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage

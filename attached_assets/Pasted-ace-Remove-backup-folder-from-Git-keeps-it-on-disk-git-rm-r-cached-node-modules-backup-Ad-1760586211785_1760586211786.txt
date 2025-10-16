@@ -1,0 +1,36 @@
+ace$ # Remove backup folder from Git (keeps it on disk)
+git rm -r --cached node_modules.backup
+
+# Add to .gitignore so it's never committed
+echo "node_modules.backup" >> .gitignore
+echo "node_modules" >> .gitignore
+
+# Commit the removal
+git add .gitignore
+git commit -m "Remove node_modules.backup from Git tracking"
+
+# Push successfully
+git push origin conflict_100925_1852
+fatal: pathspec 'node_modules.backup' did not match any files
+[conflict_100925_1852 224bd55] Remove node_modules.backup from Git tracking
+ 1 file changed, 2 insertions(+)
+Enumerating objects: 126217, done.
+Counting objects: 100% (126167/126167), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (121205/121205), done.
+Writing objects: 100% (126043/126043), 597.07 MiB | 4.87 MiB/s, done.
+Total 126043 (delta 36470), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (36470/36470), completed with 39 local objects.
+remote: warning: File node_modules.backup/@swc/core-linux-x64-musl/swc.linux-x64-musl.node is 52.84 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB
+remote: warning: File node_modules.backup/@lancedb/vectordb-linux-x64-gnu/index.node is 98.37 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB
+remote: error: Trace: 103adc6a8698289073865a4ffd8c00c475626005e7bbb5bd4fbcc76ff46f8f50
+remote: error: See https://gh.io/lfs for more information.
+remote: error: File node_modules.backup/@next/.swc-linux-x64-gnu-MpNLFKNo/next-swc.linux-x64-gnu.node is 136.36 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File node_modules.backup/@tensorflow/.tfjs-node-hEczyxbM/deps/lib/libtensorflow.so.2.9.1 is 344.12 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File node_modules.backup/snyk/wrapper_dist/snyk-linux is 131.18 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File node_modules.backup/@lancedb/.lancedb-linux-x64-gnu-Wg1c7GgO/lancedb.linux-x64-gnu.node is 108.62 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+To https://github.com/MundoTango/Mundo_Tango_App_emergent.git
+ ! [remote rejected] conflict_100925_1852 -> conflict_100925_1852 (pre-receive hook declined)
+error: failed to push some refs to 'https://github.com/MundoTango/Mundo_Tango_App_emergent.git'
+~/workspace$ 

@@ -1,0 +1,41 @@
+~/workspace$ pkill -9 git
+rm -f .git/index.lock
+git add -A
+git commit -m "Pre-migration backup"
+git push origin main
+[conflict_100925_1852 079e1cd] Pre-migration backup
+ 1 file changed, 4 deletions(-)
+To https://github.com/MundoTango/Mundo_Tango_App_emergent.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/MundoTango/Mundo_Tango_App_emergent.git'
+hint: Updates were rejected because a pushed branch tip is behind its remote
+hint: counterpart. If you want to integrate the remote changes, use 'git pull'
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+~/workspace$ git log -1  # Should show your latest commit
+commit 079e1cdf12d3a54a259cfdd69a59149b4a72a576 (HEAD -> conflict_100925_1852)
+Author: MundoTango <admin@mundotango.life>
+Date:   Thu Oct 16 03:33:05 2025 +0000
+
+    Pre-migration backup
+~/workspace$ # Push to your conflict branch (safe, won't overwrite anything)
+git push origin conflict_100925_1852
+Enumerating objects: 126206, done.
+Counting objects: 100% (126156/126156), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (121202/121202), done.
+Writing objects: 100% (126040/126040), 596.93 MiB | 4.82 MiB/s, done.
+Total 126040 (delta 36467), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (36467/36467), completed with 38 local objects.
+remote: warning: File node_modules.backup/@swc/core-linux-x64-musl/swc.linux-x64-musl.node is 52.84 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB
+remote: warning: File node_modules.backup/@lancedb/vectordb-linux-x64-gnu/index.node is 98.37 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB
+remote: error: Trace: f57031cd362ee507909bb20e0aff777738b1963a7ebc83e6f6e8ea0e4100ed5e
+remote: error: See https://gh.io/lfs for more information.
+remote: error: File node_modules.backup/@tensorflow/.tfjs-node-hEczyxbM/deps/lib/libtensorflow.so.2.9.1 is 344.12 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File node_modules.backup/snyk/wrapper_dist/snyk-linux is 131.18 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File node_modules.backup/@lancedb/.lancedb-linux-x64-gnu-Wg1c7GgO/lancedb.linux-x64-gnu.node is 108.62 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File node_modules.backup/@next/.swc-linux-x64-gnu-MpNLFKNo/next-swc.linux-x64-gnu.node is 136.36 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+To https://github.com/MundoTango/Mundo_Tango_App_emergent.git
+ ! [remote rejected] conflict_100925_1852 -> conflict_100925_1852 (pre-receive hook declined)
+error: failed to push some refs to 'https://github.com/MundoTango/Mundo_Tango_App_emergent.git'

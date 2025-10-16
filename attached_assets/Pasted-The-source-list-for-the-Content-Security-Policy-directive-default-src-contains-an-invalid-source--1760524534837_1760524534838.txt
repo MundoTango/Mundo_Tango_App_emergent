@@ -1,0 +1,862 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-c9ca3a552390b735.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+index.59b2ae62.js:3 Content Script: Initializing
+_app-c9ca3a552390b735.js:28 [LaunchDarkly] LaunchDarkly client initialized
+web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+(anonymous) @ web-client-content-script.js:2
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'battery'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'layout-animations'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'legacy-image-formats'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'navigation-override'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'oversized-images'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'publickey-credentials'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'speaker-selection'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'unoptimized-images'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Unrecognized feature: 'unsized-media'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar4n%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: WebSocket is closed before the connection is established.
+doClose @ socket__io-client.js?v=b2ea31f1:1035
+close @ socket__io-client.js?v=b2ea31f1:511
+_onClose @ socket__io-client.js?v=b2ea31f1:1609
+close @ socket__io-client.js?v=b2ea31f1:1556
+close @ socket__io-client.js?v=b2ea31f1:1581
+onclose @ socket__io-client.js?v=b2ea31f1:3313
+_close @ socket__io-client.js?v=b2ea31f1:3291
+_destroy @ socket__io-client.js?v=b2ea31f1:3259
+destroy @ socket__io-client.js?v=b2ea31f1:2745
+disconnect @ socket__io-client.js?v=b2ea31f1:2767
+(anonymous) @ UnifiedTopBar.tsx:113
+safelyCallDestroy @ chunk-FIVTYXJO.js?v=b2ea31f1:16796
+commitHookEffectListUnmount @ chunk-FIVTYXJO.js?v=b2ea31f1:16923
+commitPassiveUnmountInsideDeletedTreeOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18333
+commitPassiveUnmountEffectsInsideOfDeletedTree_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18295
+commitPassiveUnmountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18231
+commitPassiveUnmountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18219
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19542
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2Fmemories&id=%3Ar4n%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: WebSocket is closed before the connection is established.
+doClose @ socket__io-client.js?v=b2ea31f1:1035
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+workspace_iframe.html?initialPath=%2Ffriends&id=%3Ar4n%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+ [vite] connecting...
+ [vite] connected.
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 150ms
+(anonymous) @ injected.js:27
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /friends
+injected.js:27 [["/api/friends"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 [["/api/friends/requests"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 [["/api/friends/suggestions"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 ✅ CSRF token fetched successfully
+injected.js:27 📍 Using browser GPS location: Object
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 Life CEO Performance Metrics: Object
+injected.js:27 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+injected.js:27 User authenticated via auth bypass: Object
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /friends
+injected.js:27 [["/api/friends"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 [["/api/friends/requests"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 [["/api/friends/suggestions"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: Object
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+injected.js:27 ✅ Socket.io connected
+injected.js:27 [["/api/friends"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 [["/api/friends/requests"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 [["/api/friends/suggestions"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: LCP = 16492ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 ⚠️ Performance warning: CLS = 0.14538702164721257ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.3169018908020288ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5016262805514334ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5509709345633949ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5519144591762551ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5547654182070273ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.5928772789066831ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6101210489541643ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6104790137955773ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6276408747977074ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6510931634560702ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.6756494707005772ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 0.7704818553503164ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 1.0521226121715297ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 1.333763368992743ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 🚨 Critical performance issue: CLS = 2.2945152525927903ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+injected.js:27 Long task detected: 82ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 🚨 Critical performance issue: CLS = 2.334083841783922ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 2.6097454496982273ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 2.6100522492906477ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.0607932334436683ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.1003487566834127ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.104812894648723ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.1197457444515746ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.139586092644579ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.1594264408375836ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.174359290640435ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.1788234286057455ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.183287566571056ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 3.4909459222395345ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 4.098893571165271ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 4.1328258573238275ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 4.147964399346468ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 4.149113175251811ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 4.150261951157154ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🚨 Critical performance issue: CLS = 4.96454334759708ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+friends:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ injected.js:204
+o @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ performanceMonitor.ts:96
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 [["/api/friends"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+EnhancedFriendsPage @ EnhancedFriends.tsx:317
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 [["/api/friends/requests"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+EnhancedFriendsPage @ EnhancedFriends.tsx:323
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 [["/api/friends/suggestions"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+EnhancedFriendsPage @ EnhancedFriends.tsx:329
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 THREE.WebGLRenderer: Context Lost.
+injected.js:27 THREE.WebGLRenderer: Context Lost.
+injected.js:27 [["/api/friends"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+EnhancedFriendsPage @ EnhancedFriends.tsx:317
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 [["/api/friends/requests"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+EnhancedFriendsPage @ EnhancedFriends.tsx:323
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 [["/api/friends/suggestions"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+EnhancedFriendsPage @ EnhancedFriends.tsx:329
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage

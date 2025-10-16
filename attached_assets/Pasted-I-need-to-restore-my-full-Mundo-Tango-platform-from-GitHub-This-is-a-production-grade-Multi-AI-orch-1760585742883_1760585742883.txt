@@ -1,0 +1,77 @@
+I need to restore my full Mundo Tango platform from GitHub. This is a production-grade Multi-AI orchestration platform with Life CEO AI assistant, Memories Feed, Events system, and ESA Framework (105 agents, 61 layers).
+
+CRITICAL CONTEXT:
+- Previous Replit had catastrophic npm corruption (see docs/NPM_CORRUPTION_INCIDENT_REPORT.md)
+- Emergency CDN React fallback was deployed but it's NOT the full app
+- Full React app with shadcn/ui, Vite, TypeScript needs to be restored
+- Latest work is on branch: conflict_100925_1852
+
+WHAT I NEED:
+
+1. CLONE REPOSITORY:
+   - Clone from: https://github.com/MundoTango/Mundo_Tango_App_emergent.git
+   - Checkout branch: git checkout conflict_100925_1852
+   - This has ALL the code including emergency documentation
+
+2. INSTALL DEPENDENCIES:
+   - Run: npm install
+   - Verify Vite, tsx, esbuild, TypeScript all install correctly
+   - If ANY package fails, STOP and tell me immediately
+
+3. DATABASE SETUP:
+   - Create PostgreSQL database
+   - The schema is in: shared/schema.ts (Drizzle ORM)
+   - Run: npm run db:push --force
+   - Verify database connects
+
+4. CONFIGURE WORKFLOW:
+   - Name: "Start application"
+   - Command: npm run dev
+   - Port: 5000
+   - Output: webview
+
+5. VERIFY FULL APP (CRITICAL):
+   - Take screenshot of / (home page)
+   - Verify I see:
+     * Full sidebar navigation (NOT just header buttons)
+     * Story viewer at top
+     * Rich post feed with glassmorphic cards (NOT simple text)
+     * Create post with media upload capability
+     * shadcn/ui components visible
+   - Test /memories route has FULL feed with all features
+
+6. ENVIRONMENT SECRETS (I'll provide when asked):
+   - ANTHROPIC_API_KEY
+   - GEMINI_API_KEY
+   - JIRA credentials
+   - Other secrets from previous Replit
+
+WHAT THE FULL APP SHOULD LOOK LIKE:
+- MT Ocean Theme (turquoise-to-blue gradient) ✅
+- UnifiedTopBar with full sidebar ✅
+- Story viewer component at top ✅
+- Rich PostFeed with images/video support ✅
+- Create post with media upload ✅
+- All ESA Framework features ✅
+
+VERIFICATION CHECKLIST:
+□ npm install completes without errors
+□ npm run dev starts successfully  
+□ Database connects and migrations run
+□ Screenshot shows FULL app (not CDN fallback)
+□ Sidebar, stories, rich feed all visible
+□ /memories route shows complete feed
+
+REFERENCE FILES:
+- replit.md - Full platform documentation
+- docs/platform-handoff/esa.md - ESA Framework guide
+- docs/NPM_CORRUPTION_INCIDENT_REPORT.md - What went wrong
+- client/src/pages/ESAMemoryFeed.tsx - Real Memories feed component
+
+DO NOT ACCEPT:
+- ❌ The CDN React fallback (client/dist/index.html)
+- ❌ minimal-mt-server.js (emergency only)
+- ❌ Simplified versions with just header buttons
+- ❌ Missing sidebar or story viewer
+
+GOAL: Full Mundo Tango platform restored with ALL features working.

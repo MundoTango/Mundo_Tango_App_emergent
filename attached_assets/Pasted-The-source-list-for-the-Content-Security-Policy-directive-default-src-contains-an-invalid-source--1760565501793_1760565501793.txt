@@ -1,0 +1,775 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+ Content Script: Initializing
+ [LaunchDarkly] LaunchDarkly client initialized
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+[Intervention] Slow network is detected. See <URL> for more details. Fallback font will be used while loading: <URL>
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-c59fa85b7649389e.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-c59fa85b7649389e.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-c59fa85b7649389e.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-c59fa85b7649389e.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+web-client-content-script.js:2 Uncaught 
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/visual-editor/generate-code:1  Failed to load resource: the server responded with a status of 400 (Bad Request)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/visual-editor/generate-code:1  Failed to load resource: the server responded with a status of 400 (Bad Request)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/visual-editor/deploy:1  Failed to load resource: the server responded with a status of 400 (Bad Request)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/posts/feed?page=1&limit=20&filter=all:1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/tenants/user:1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+ WebSocket connection to 'wss://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/ws/?EIO=4&transport=websocket' failed: 
+createSocket @ 30590b1f-f13e-4679-9….js?v=b2ea31f1:1059
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev:8099/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3i%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+ [vite] connecting...
+ [vite] connected.
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 153ms
+(anonymous) @ injected.js:27
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 51ms
+(anonymous) @ injected.js:27
+ Long task detected: 51ms
+(anonymous) @ injected.js:27
+ ⚠️ Performance warning: TTFB = 1035.2000000476837ms (threshold: 800ms)
+(anonymous) @ injected.js:27
+ Life CEO Performance Metrics: [object Object]
+ 🚨 Critical performance issue: LCP = 38224ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+ ✅ CSRF token fetched successfully
+ 📍 Using browser GPS location: [object Object]
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: [object Object]
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: [object Object]
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: [object Object]
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ ✅ Real-time feed connected: eqkmvB9mUPIn-q_-AAAF
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ Analytics tracking active - events will be sent to Plausible
+ ✅ [usePostFeed] Response: [object Object]
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ 🔍 [ControlledPostFeed] Rendering: [object Object]
+ 📝 [ControlledPostFeed] Rendering posts: [object Object],[object Object],[object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+ 🔐 Post ownership check: [object Object]
+ [Framework] Ownership check: [object Object]
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ 🔌 [Toolbar] WebSocket connected for real-time updates
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ ✅ Socket.io connected
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🚨 Critical performance issue: CLS = 0.2908024295655802ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.4550736477669276ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.5334309744134154ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: LCP = 76180ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.8880178776638832ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.9341506913914972ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.9909883286315426ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.0542366171906596ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+ [vite] connecting...
+ [vite] connected.
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ Long task detected: 207ms
+(anonymous) @ injected.js:27
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ ✅ CSRF token fetched successfully
+ 📍 Using browser GPS location: Object
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ Life CEO Performance Metrics: Object
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: Object
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: Object
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: Object
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ ✅ Real-time feed connected: tWztuRB_Dhas1gmpAAAL
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ Analytics tracking active - events will be sent to Plausible
+ ✅ [usePostFeed] Response: Object
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+ 📝 [ControlledPostFeed] Rendering posts: Array(3)
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🔌 [Toolbar] WebSocket connected for real-time updates
+web-client-content-script.js:2 Uncaught 
+ ✅ Socket.io connected
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ ⚠️ Performance warning: CLS = 0.20456460143345007ms (threshold: 0.1ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.26895637914923953ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.3180166196231308ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.5587146232687367ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.8036330321898273ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 0.8955895242905509ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.1570706699076125ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.3662625282554937ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.5656713752924063ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.6443762473923265ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ Long task detected: 51ms
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 1.7251981663934282ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.419396280849221ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ Long task detected: 77ms
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.512749501766575ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ Long task detected: 77ms
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.6130586174626433ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.717754879409546ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.717888308790077ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.783705001281226ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 2.979362154146474ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.2767338378724804ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.279923022736432ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.2844563546650973ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.290960337801209ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.299303261615833ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.3102331183353066ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.323528657896228ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.3395171030452477ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.3570942570410423ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.374691092651578ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.391690773895749ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.4073777296004946ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.4215862925451512ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.4340167860657504ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.4451514369832994ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.454310747998478ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.463789181040296ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.471509171753089ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.477910330719113ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.4840863232893478ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.489232983764543ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.493688061738384ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.49780539011854ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ 🚨 Critical performance issue: CLS = 3.501408052451177ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+memories?edit=true:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+ 📝 [ControlledPostFeed] Rendering posts: Array(3)
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🚨 Critical performance issue: CLS = 3.562619475016029ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+ Long task detected: 59ms
+(anonymous) @ injected.js:27
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+ 📝 [ControlledPostFeed] Rendering posts: Array(3)
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/visual-editor/generate-code:1  Failed to load resource: the server responded with a status of 400 (Bad Request)
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: Array(3)
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🚨 Critical performance issue: CLS = 4.355770159947536ms (threshold: 0.25ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=17f6fedb:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:73
+injected.js:27 Long task detected: 86ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193

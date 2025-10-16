@@ -1,0 +1,1268 @@
+use.js for search
+✅ ESA Agent #65: Project Tracker routes loaded successfully
+[dotenv@17.2.3] injecting env (2) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+🔄 Initializing Life CEO Agents...
+📌 Initializing agent: health-advisor with type: specialist
+[ESA Agent Coordinator] Initialized with 61-layer agent system
+📊 Metrics collection started (interval: 10000ms)
+⚠️  Langfuse not configured (LANGFUSE_PUBLIC_KEY/SECRET_KEY missing)
+✅ Arize Phoenix tracing initialized (endpoint: http://localhost:6006)
+Google OAuth not configured - missing credentials
+GitHub OAuth not configured - missing credentials
+✅ OAuth providers initialized
+📊 Life CEO: Prometheus metrics initialized
+🚩 Life CEO: Feature flags system initialized
+⚡ [Parallel Orchestrator] Initialized 4 workers
+📦 [Agent Marketplace] Published: Community API Validator v1.0.0 by community
+📦 [Agent Marketplace] Published: Performance Booster v2.1.0 by community
+🏪 [Agent Marketplace] Initialized with 2 community agents
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+🧹 Garbage collection exposed, enabling aggressive memory management
+Google OAuth not configured - missing credentials
+GitHub OAuth not configured - missing credentials
+✅ OAuth providers initialized
+🚩 Life CEO: Initializing feature flags...
+🔧 [DEV] Will use Vite middleware for client assets
+🔄 Initializing database connection...
+✅ Layer 57: Automation routes registered
+[ESA Layer 1] Architecture Foundation Agent initialized
+✅ Supabase service client initialized
+✅ Supabase auth client initialized
+✅ Phase 21: Health monitoring routes registered
+⚠️  Redis connection failed, using in-memory fallback cache
+⚠️  Redis not available, using in-memory cache
+[ESA Layer 2] API Structure Agent initialized
+[ESA Layer 3] Server Framework Agent initialized
+[ESA Layer 4] Generated 5 authentication providers
+[ESA Layer 4] Authentication System Agent initialized
+🔧 [DEV ONLY] Using legacy auth with bypass
+[ESA Layer 44] Knowledge Graph Agent initialized
+OIDC Config loaded successfully
+Registering strategy: replitauth:30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev for domain: 30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev
+Strategy replitauth:30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev registered successfully
+[ESA Layer 45] Reasoning Engine Agent initialized
+🚀 Life CEO Performance Service initializing...
+🗜️ Compression already enabled
+🔌 Optimizing database connection pooling...
+🚀 HTTP/2 push configuration ready
+🔄 Request deduplication enabled
+📡 Response streaming enabled for large data
+🔮 Starting Life CEO predictive caching...
+🧠 Enabling Life CEO smart resource loading...
+⚡ Life CEO Performance Service initialized - site speed improvements active
+⚠️ Redis not available, using in-memory cache
+⚠️ Redis not available, using in-memory cache
+[ESA Layer 46] Integration Layer Agent initialized
+🚀 Life CEO Intelligent Performance Monitor starting...
+[ESA Layer 47] Mobile Optimization Agent initialized
+⚠️ Enhanced Redis cache not available, using in-memory cache
+⚠️ Enhanced Redis cache not available, using in-memory cache
+[ESA Layer 49] Security Hardening Agent initialized
+[ESA Layer 50] DevOps Automation Agent initialized
+[ESA Layer 51] Testing Framework Agent initialized
+[ESA Layer 52] Documentation System Agent initialized
+[ESA Layer 53] Internationalization Agent initialized
+[ESA Layer 54] Accessibility Agent initialized
+[ESA Layer 55] SEO Optimization Agent initialized
+[ESA Layer 56] Compliance Framework Agent initialized
+[ESA Layer 11] Generated sample data: 4 rooms, 5 event types, 50 connections
+[ESA Layer 11] Real-time Features Agent initialized
+[ESA Layer 13] Generated 5 storage providers
+[ESA Layer 13] Generated 20 file types
+[ESA Layer 13] File Management Agent initialized
+[ESA Layer 21] Generated 50 sample users
+[ESA Layer 21] Generated 6 user segments
+[ESA Layer 21] User Management Agent initialized
+[ESA Layer 22] Generated 8 sample tango groups
+[ESA Layer 22] Group Management Agent initialized
+[ESA Layer 31] Core AI Infrastructure Agent initialized
+[ESA Layer 32] Loaded 4 default prompt templates
+[ESA Layer 32] Prompt Engineering Agent initialized
+[ESA Layer 33] Generated 4 sample conversation contexts
+[ESA Layer 33] Context Management Agent initialized
+[ESA Layer 34] Generated 8 response templates
+[ESA Layer 34] Response Generation Agent initialized
+[ESA Layer 35] Generated 16 Life CEO agents
+[ESA Layer 35] AI Agent Management Agent initialized
+[ESA Layer 48] Generated 8 monitoring targets with 37 metrics
+[ESA Layer 48] Generated 8 alert rules
+[ESA Layer 48] Performance Monitoring Agent initialized
+[ESA Layer 57] Discovered 13 existing automations
+[ESA Layer 57] Automation Management Agent initialized
+[ESA Layer 58] Discovered 18 third-party integrations
+[ESA Layer 58] Third-Party Integration Tracking Agent initialized
+[ESA Layer 59] Loaded 381 dependencies from package.json
+[ESA Layer 59] Open Source Management Agent initialized
+[ESA Layer 60] GitHub Expertise & Organization Agent initialized
+[ESA Layer 61] Supabase Expertise & Organization Agent initialized
+[ESA Agent Coordinator] Registered 49 specialized layer agents
+✅ Database connection restored
+📌 Initializing agent: career-coach with type: specialist
+📌 Initializing agent: financial-advisor with type: specialist
+📌 Initializing agent: relationship-counselor with type: specialist
+📌 Initializing agent: education-mentor with type: specialist
+⚠️  Anomaly detected: low_cache_hit_rate (severity: medium)
+🔧 Low cache hit rate detected - warming cache...
+🔥 Warming critical caches...
+🧠 Life CEO Intelligent Performance Monitor active - Phase 4 optimization enabled
+🧠 Life CEO Enhanced Service initialized - 41x21s framework active
+🚀 Real-time notification service initialized
+🚀 Integrating ESA 61x21 Multi-Agent System...
+🚀 Initializing ESA 61x21 Multi-Agent System...
+🚀 Initializing ESA 61x21 Multi-Agent System...
+📌 Initializing agent: productivity-optimizer with type: specialist
+📌 Initializing agent: mindfulness-guide with type: specialist
+[A2A] Registered agent: infrastructure
+✅ Initialized: Infrastructure Orchestrator
+[A2A] Registered agent: frontend
+✅ Initialized: Frontend Coordinator
+[A2A] Registered agent: background
+✅ Initialized: Background Processor
+[A2A] Registered agent: ai_research
+✅ Initialized: AI Research & Innovation Expert
+[A2A] Registered agent: ui_ux
+✅ Initialized: UI/UX & Graphic Design Expert
+[A2A] Registered agent: data_viz
+✅ Initialized: Data Visualization Expert
+[A2A] Registered agent: content_media
+✅ Initialized: Content & Media Expert
+[A2A] Registered agent: code_quality
+✅ Initialized: Code Quality Expert
+[A2A] Registered agent: dev_experience
+✅ Initialized: Developer Experience Expert
+[A2A] Registered agent: translation_expert
+✅ Initialized: Translation & Internationalization Expert
+🔌 Expert agents available via getExpertAgent()
+🎯 All 10 agents initialized successfully!
+✅ Registering: Real-time Communications
+✅ Registering: Business Logic Manager
+✅ Registering: Search & Analytics
+✅ Registering: Life CEO Core
+✅ Registering: Platform Enhancement
+✅ Registering: Master Control
+🎯 ESA Multi-Agent System initialized successfully!
+📊 Total Agents: 9
+📊 Total ESA Layers: 61
+📊 Verified Patterns: 20
+📊 Anti-patterns Tracked: 15
+✅ ESA Agent API routes registered at /api/esa-agents
+🎯 ESA Multi-Agent System integration complete!
+📚 Documentation: /api/esa-agents/status
+📊 Knowledge Graph: /api/esa-agents/knowledge-graph
+🤖 Agent Domains: /api/esa-agents/agents
+✅ ESA test endpoints registered at /api/esa-test
+✅ ESA 61x21 Multi-Agent System: Operational
+📊 Agent Domains: 9 | ESA Layers: 61 | Parallel Execution: Enabled
+[Worker memory] Registered: memory.capture-learning
+[Worker memory] Registered: memory.discover-patterns
+[Worker memory] Registered: cache.analyze-performance
+[Worker memory] Registered: events.detect-patterns
+[Worker memory] Registered: social.analyze-engagement
+[Worker memory] Registered: ai.optimize-prompts
+[Worker memory] Registered: cross-domain.share-learning
+[Worker cache] Registered: memory.capture-learning
+[Worker cache] Registered: memory.discover-patterns
+[Worker cache] Registered: cache.analyze-performance
+[Worker cache] Registered: events.detect-patterns
+[Worker cache] Registered: social.analyze-engagement
+[Worker cache] Registered: ai.optimize-prompts
+[Worker cache] Registered: cross-domain.share-learning
+[Worker events] Registered: memory.capture-learning
+[Worker events] Registered: memory.discover-patterns
+[Worker events] Registered: cache.analyze-performance
+[Worker events] Registered: events.detect-patterns
+[Worker events] Registered: social.analyze-engagement
+[Worker events] Registered: ai.optimize-prompts
+[Worker events] Registered: cross-domain.share-learning
+[Worker social] Registered: memory.capture-learning
+[Worker social] Registered: memory.discover-patterns
+[Worker social] Registered: cache.analyze-performance
+[Worker social] Registered: events.detect-patterns
+[Worker social] Registered: social.analyze-engagement
+[Worker social] Registered: ai.optimize-prompts
+[Worker social] Registered: cross-domain.share-learning
+[Worker ai] Registered: memory.capture-learning
+[Worker ai] Registered: memory.discover-patterns
+[Worker ai] Registered: cache.analyze-performance
+[Worker ai] Registered: events.detect-patterns
+[Worker ai] Registered: social.analyze-engagement
+[Worker ai] Registered: ai.optimize-prompts
+[Worker ai] Registered: cross-domain.share-learning
+[Worker cross-domain] Registered: memory.capture-learning
+[Worker cross-domain] Registered: memory.discover-patterns
+[Worker cross-domain] Registered: cache.analyze-performance
+[Worker cross-domain] Registered: events.detect-patterns
+[Worker cross-domain] Registered: social.analyze-engagement
+[Worker cross-domain] Registered: ai.optimize-prompts
+[Worker cross-domain] Registered: cross-domain.share-learning
+
+🧠 ESA LIFE CEO 61x21 - AGI Agent Learning System
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Step 1/5: Capturing existing patterns...
+📌 Initializing agent: creative-catalyst with type: specialist
+✅ ESA Layer 15: Fuse.js data refreshed
+📌 Initializing agent: travel-planner with type: specialist
+📌 Initializing agent: home-organizer with type: specialist
+📌 Initializing agent: nutrition-specialist with type: specialist
+📌 Initializing agent: fitness-trainer with type: specialist
+📌 Initializing agent: sleep-optimizer with type: specialist
+📌 Initializing agent: habit-architect with type: specialist
+📌 Initializing agent: emergency-advisor with type: specialist
+📌 Initializing agent: life-strategist with type: specialist
+[Auto-Doc] Generated: docs/pages/architecture/segment-aware-query-matching-1760475617015.md
+[Agent Learning] Captured: segment-aware-query-matching (confidence: 0.95)
+✅ Captured cache pattern: segment-aware-query-matching
+✅ Life CEO Agents initialized successfully
+✅ AI agents initialization started
+[Auto-Doc] Generated: docs/pages/architecture/optimistic-update-preservation-1760475617160.md
+[Agent Learning] Captured: optimistic-update-preservation (confidence: 0.92)
+✅ Captured cache pattern: optimistic-update-preservation
+[Auto-Doc] Generated: docs/pages/architecture/cross-surface-synchronization-1760475617330.md
+[Agent Learning] Captured: cross-surface-synchronization (confidence: 0.93)
+✅ Captured cache pattern: cross-surface-synchronization
+[Auto-Doc] Generated: docs/pages/architecture/single-queryclient-pattern-1760475617489.md
+[Agent Learning] Captured: single-queryclient-pattern (confidence: 0.98)
+✅ Captured cache pattern: single-queryclient-pattern
+
+🎉 Captured 4 cache standardization patterns!
+✅ Cache patterns captured
+
+📊 Step 2/5: Starting modular workers (AGI pattern)...
+[Worker memory] 🚀 Started
+[Worker cache] 🚀 Started
+[Worker events] 🚀 Started
+[Worker social] 🚀 Started
+[Worker ai] 🚀 Started
+[Worker cross-domain] 🚀 Started
+✅ 6 workers started (memory, cache, events, social, ai, cross-domain)
+
+📊 Step 3/5: Expanding pattern detection to ESA Layers 21-56...
+[ESA Pattern Detector] Starting full layer scan...
+[Agent Router] Enqueued: memory.capture-learning (priority: 5)
+[Agent Router] Enqueued: memory.capture-learning (priority: 6)
+[Agent Router] Enqueued: memory.capture-learning (priority: 7)
+[Agent Router] Enqueued: memory.capture-learning (priority: 5)
+[Agent Router] Enqueued: memory.capture-learning (priority: 6)
+[Agent Router] Enqueued: memory.capture-learning (priority: 7)
+[ESA Pattern Detector] Discovered 6 patterns across ESA layers
+✅ Full ESA layer scan complete
+
+📊 Step 4/5: Broadcasting via LangGraph orchestrator...
+[LangGraph] Initiating learning discovery and sharing...
+[LangGraph] Agent #0 (CEO) orchestrating...
+[LangGraph] CHIEF_1 (Foundation) coordinating...
+[LangGraph] DOMAIN_1 (Infrastructure Orchestrator) executing...
+[Auto-Doc] Generated: docs/pages/architecture/segment-aware-query-matching-1760475617828.md
+[Agent Learning] Captured: segment-aware-query-matching (confidence: 0.95)
+✅ Captured cache pattern: segment-aware-query-matching
+[Auto-Doc] Generated: docs/pages/architecture/optimistic-update-preservation-1760475617973.md
+[Agent Learning] Captured: optimistic-update-preservation (confidence: 0.92)
+✅ Captured cache pattern: optimistic-update-preservation
+[Auto-Doc] Generated: docs/pages/architecture/cross-surface-synchronization-1760475618111.md
+[Agent Learning] Captured: cross-surface-synchronization (confidence: 0.93)
+✅ Captured cache pattern: cross-surface-synchronization
+[Auto-Doc] Generated: docs/pages/architecture/single-queryclient-pattern-1760475618247.md
+[Agent Learning] Captured: single-queryclient-pattern (confidence: 0.98)
+✅ Captured cache pattern: single-queryclient-pattern
+
+🎉 Captured 4 cache standardization patterns!
+[LangGraph] Workflow completed: { success: true, domain: 'Infrastructure Orchestrator' }
+✅ Knowledge shared across 9 agent domains
+
+📊 Step 5/5: Starting continuous learning loop...
+[Learning Loop] Started - continuous learning active
+[Learning Loop] Capturing initial cache standardization knowledge...
+✅ Continuous learning active (60s cycle)
+
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+━
+🎉 AGI Agent Learning System: OPERATIONAL
+   • Workers: 6 active (PostgreSQL queue + SKIP LOCKED)
+   • ESA Layers: 7, 14, 21-56 (Infrastructure → Platform)
+   • Patterns: Cache, Business Logic, AI, Platform
+   • Agent Domains: 9 orchestrated via LangGraph
+   • Auto-Documentation: Active → docs/pages/
+   • Real-time: Ready for dashboard integration
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Algorithm Agents System: Registered
+📊 Agents: A1-Ax | Interactive: Chat/Simulate/Deploy
+🚀 Initializing H2AC Systems...
+
+✅ TRACK 1: Team Onboarding API - Operational
+   Route: POST /api/team/onboard
+   Features: Role assignment, agent matching, work queue setup
+
+✅ TRACK 2: Agent Chat Integration - Operational
+   Route: POST /api/agent-chat/message
+   Features: AI-powered responses, context awareness, agent personalities
+
+✅ Audit Automation Service initialized
+✅ TRACK 3: Audit Automation - Operational
+   Features: Scheduled audits, auto story cards, priority queues
+
+⏳ TRACK 4: 3D Avatar Production - Manual Step Required
+   Script: scripts/convert-xbot-to-glb.py
+   Command: blender --background --python scripts/convert-xbot-to-glb.py
+   Status: FBX files ready in assets/models/x-bot/
+
+✅ TRACK 5: Integration & Testing - Complete
+   All systems connected via H2AC Orchestrator
+
+🎯 H2AC Pattern: FULLY OPERATIONAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Features Available:
+  • Human onboarding with role-based agent matching
+  • Real-time AI chat with context-aware agents
+  • Automated page audits → story cards
+  • 88 Page Agents (P1-P88) ready
+  • Dynamic story cards with 4-level hierarchy
+  • Full-screen project workspace
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Routes registered successfully
+🔄 ESA Layer 14: Initializing cache service...
+✅ ESA Layer 14: Cache service initialized
+  - Redis: ❌ Not available (using memory cache)
+  - Memory Cache: ✅ Active
+🔥 ESA Layer 14: Starting cache warming service...
+📅 ESA Layer 14: Scheduled cache warming job: city-groups (0 */6 * * *)
+📅 ESA Layer 14: Scheduled cache warming job: user-profiles (0 */12 * * *)
+📅 ESA Layer 14: Scheduled cache warming job: event-listings (*/30 * * * *)
+📅 ESA Layer 14: Scheduled cache warming job: popular-posts (*/15 * * * *)
+📅 ESA Layer 14: Scheduled cache warming job: active-communities (0 */3 * * *)
+🔥 ESA Layer 14: Running initial cache warming...
+✅ ESA Layer 14: Cache warming service started with 5 jobs
+✅ ESA Layer 14: Cache warming service started
+🚀 Socket.io server initializing...
+✅ Socket.io server setup complete
+✅ Socket.io real-time features initialized on port 5000
+📍 ESA Layer 14: No city groups to warm
+📅 ESA Layer 14: No upcoming events to warm
+📝 ESA Layer 14: No popular posts to warm
+✅ ESA Layer 14: Initial cache warming completed
+🤖 [Smart Agents] Initializing ESA Agents #106-109...
+[Agent #108] WebSocket Manager initialized
+✅ [Agent #108] WebSocket Connection Manager initialized
+✅ [Agent #106] API Path Validator scheduled (hourly)
+✅ [Agent #107] Batch Query Optimizer scheduled (daily 2 AM)
+✅ [Agent #109] Cache Intelligence scheduled (daily 3 AM)
+🚀 [Smart Agents] Running initial validation...
+[Agent #106] Starting API path validation...
+[Agent #106] Failed to create job: error: invalid input syntax for type integer: "medium"
+    at /home/runner/workspace/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/home/runner/workspace/node_modules/src/node-postgres/session.ts:104:19)
+    at async Agent106_APIPathValidator.createJob (/home/runner/workspace/server/agents/Agent106_APIPathValidator.ts:166:21)
+    at async Agent106_APIPathValidator.validate (/home/runner/workspace/server/agents/Agent106_APIPathValidator.ts:42:19)
+    at async SmartAgentsOrchestrator.initialize (/home/runner/workspace/server/agents/index.ts:86:24)
+    at async startServer (/home/runner/workspace/server/index-novite.ts:310:7) {
+  length: 149,
+  severity: 'ERROR',
+  code: '22P02',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: "unnamed portal parameter $3 = '...'",
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'numutils.c',
+  line: '617',
+  routine: 'pg_strtoint32_safe'
+}
+[Auto-Doc] Generated: docs/pages/architecture/segment-aware-query-matching-1760475619480.md
+[Agent Learning] Captured: segment-aware-query-matching (confidence: 0.95)
+✅ Captured cache pattern: segment-aware-query-matching
+[Worker memory] ⚙️  Processing memory.capture-learning
+[Auto-Doc] Generated: docs/pages/architecture/optimistic-update-preservation-1760475619648.md
+[Agent Learning] Captured: optimistic-update-preservation (confidence: 0.92)
+✅ Captured cache pattern: optimistic-update-preservation
+[Agent Learning] Captured: user-profile-optimization (confidence: 0.88)
+[Agent #106] Validation failed: Error: Command failed: node scripts/validate-api-paths.mjs --compare
+
+    at genericNodeError (node:internal/errors:984:15)
+    at wrappedFn (node:internal/errors:538:14)
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:524:28)
+    at maybeClose (node:internal/child_process:1104:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/validate-api-paths.mjs --compare',
+  stdout: '\x1B[35m\x1B[1m\n' +
+    '╔═══════════════════════════════════════════════════╗\n' +
+    '║   MB.MD TRACK 6.2: API Contract Validator        ║\n' +
+    '║   Phase 19: End-to-End Data Flow Validation      ║\n' +
+    '╚═══════════════════════════════════════════════════╝\n' +
+    '\x1B[0m\n' +
+    '\n' +
+    '\x1B[36m\x1B[1mExtracting Frontend API Calls...\x1B[0m\n' +
+    '\n' +
+    '\x1B[36m\x1B[1mExtracting Backend Routes...\x1B[0m\n' +
+    '\n' +
+    '\x1B[34mFrontend API Calls: 338\x1B[0m\n' +
+    '\x1B[34mBackend Routes: 635\x1B[0m\n' +
+    '\n' +
+    '\x1B[36m\x1B[1mComparing API Paths...\x1B[0m\n' +
+    '\n' +
+    '\x1B[32m\x1B[1m✅ Matching Paths (60):\x1B[0m\n' +
+    '  \x1B[32m✓\x1B[0m /api/admin/tenants\n' +
+    '  \x1B[32m✓\x1B[0m /api/auth/reset-password\n' +
+    '  \x1B[32m✓\x1B[0m /api/auth/reset-password-request\n' +
+    '  \x1B[32m✓\x1B[0m /api/auth/user\n' +
+    '  \x1B[32m✓\x1B[0m /api/comments\n' +
+    '  \x1B[32m✓\x1B[0m /api/community/map-data\n' +
+    '  \x1B[32m✓\x1B[0m /api/events\n' +
+    '  \x1B[32m✓\x1B[0m /api/events/feed\n' +
+    '  \x1B[32m✓\x1B[0m /api/events/invite-participant\n' +
+    '  \x1B[32m✓\x1B[0m /api/favorites\n' +
+    '  \x1B[36m... and 50 more\x1B[0m\n' +
+    '\n' +
+    '\x1B[31m\x1B[1m❌ Mismatched Paths (278):\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m${apiBasePath}/${memory.id}/comments\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m${apiBasePath}/${post.id}/comments\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/analytics\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/analytics but frontend calls /api/admin/analytics\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/blocked-users\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/blocked-users but frontend calls /api/admin/blocked-users\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/compliance\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/compliance but frontend calls /api/admin/compliance\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/compliance/monitoring-status\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/compliance/monitoring-status but frontend calls /api/admin/compliance/monitoring-status\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/compliance/refresh\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/compliance/refresh but frontend calls /api/admin/compliance/refresh\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/dashboard/activity\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/dashboard/charts\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/dashboard/stats\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/dashboard/stats but frontend calls /api/admin/dashboard/stats\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/event-types\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/event-types but frontend calls /api/admin/event-types\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/event-types/${id}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/event-types?includeInactive=${showInactive}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/execute-command\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/execute-command but frontend calls /api/admin/execute-command\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/moderation/reports\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/moderation/reports/${reportId}/action\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/moderation/stats\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/reports\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/reports but frontend calls /api/admin/reports\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/settings\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/settings but frontend calls /api/admin/settings\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/stats\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/stats but frontend calls /api/admin/stats\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/subscription/analytics\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/subscription/feature-flags\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/users but frontend calls /api/admin/users\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/${userId}/reset-password\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/${userId}/suspend\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/${userId}/verify\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/bulk-action\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/users/bulk-action but frontend calls /api/admin/users/bulk-action\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/stats\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agent-chat/message\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agents/achievements\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agents/audit\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agents/framework-status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai-intelligence/conversation\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai-intelligence/conversation but frontend calls /api/ai-intelligence/conversation\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai-intelligence/suggestions\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/agents\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/agents but frontend calls /api/ai/agents\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/chat\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/chat but frontend calls /api/ai/chat\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/memories\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/metrics\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/metrics but frontend calls /api/ai/metrics\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/mrblue/chat\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/mrblue/chat but frontend calls /api/ai/mrblue/chat\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/process\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/process but frontend calls /api/ai/process\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/recommendations\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/recommendations but frontend calls /api/ai/recommendations\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/analytics/dashboard\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/analytics/vitals\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/avatar/info\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/bookings\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /bookings but frontend calls /api/bookings\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/bookings/${bookingId}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/bookings/${bookingId}/status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/messages\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /chat/messages but frontend calls /api/chat/messages\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/rooms\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /chat/rooms but frontend calls /api/chat/rooms\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/rooms/${room.slug}/messages\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/security-test-room/message\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /chat/security-test-room/message but frontend calls /api/chat/security-test-room/message\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/cities/upcoming-visitors\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/code-of-conduct/accept\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /code-of-conduct/accept but frontend calls /api/code-of-conduct/accept\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/comments/${commentId}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/community/city-groups\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /community/city-groups but frontend calls /api/community/city-groups\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/community/global-stats\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /community/global-stats but frontend calls /api/community/global-stats\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/community/rankings\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /community/rankings but frontend calls /api/community/rankings\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/daily-activities\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /daily-activities but frontend calls /api/daily-activities\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/deployment/deploy\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/deployment/status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/error-reports\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /error-reports but frontend calls /api/error-reports\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/esa/chat\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /esa/chat but frontend calls /api/esa/chat\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/event-participants/${participantId}/status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/event/1/feedback\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/${eventId}/participants\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/${eventId}/rsvp\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/${id}/purchase\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/enhanced\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/sidebar\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /events/sidebar but frontend calls /api/events/sidebar\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/evolution/metrics/latest\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /evolution/metrics/latest but frontend calls /api/evolution/metrics/latest\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/favorites/${itemId}?type=${itemType}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-request\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend-request but frontend calls /api/friend-request\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/${requestId}/accept\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/${requestId}/reject\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/${requestId}/snooze\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/received\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend-requests/received but frontend calls /api/friend-requests/received\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/send\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend-requests/send but frontend calls /api/friend-requests/send\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend/send-friend-request\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend/send-friend-request but frontend calls /api/friend/send-friend-request\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friends\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route foun'... 22360 more characters,
+  stderr: ''
+}
+[Agent #106] Initial validation failed: Error: Command failed: node scripts/validate-api-paths.mjs --compare
+
+    at genericNodeError (node:internal/errors:984:15)
+    at wrappedFn (node:internal/errors:538:14)
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:524:28)
+    at maybeClose (node:internal/child_process:1104:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/validate-api-paths.mjs --compare',
+  stdout: '\x1B[35m\x1B[1m\n' +
+    '╔═══════════════════════════════════════════════════╗\n' +
+    '║   MB.MD TRACK 6.2: API Contract Validator        ║\n' +
+    '║   Phase 19: End-to-End Data Flow Validation      ║\n' +
+    '╚═══════════════════════════════════════════════════╝\n' +
+    '\x1B[0m\n' +
+    '\n' +
+    '\x1B[36m\x1B[1mExtracting Frontend API Calls...\x1B[0m\n' +
+    '\n' +
+    '\x1B[36m\x1B[1mExtracting Backend Routes...\x1B[0m\n' +
+    '\n' +
+    '\x1B[34mFrontend API Calls: 338\x1B[0m\n' +
+    '\x1B[34mBackend Routes: 635\x1B[0m\n' +
+    '\n' +
+    '\x1B[36m\x1B[1mComparing API Paths...\x1B[0m\n' +
+    '\n' +
+    '\x1B[32m\x1B[1m✅ Matching Paths (60):\x1B[0m\n' +
+    '  \x1B[32m✓\x1B[0m /api/admin/tenants\n' +
+    '  \x1B[32m✓\x1B[0m /api/auth/reset-password\n' +
+    '  \x1B[32m✓\x1B[0m /api/auth/reset-password-request\n' +
+    '  \x1B[32m✓\x1B[0m /api/auth/user\n' +
+    '  \x1B[32m✓\x1B[0m /api/comments\n' +
+    '  \x1B[32m✓\x1B[0m /api/community/map-data\n' +
+    '  \x1B[32m✓\x1B[0m /api/events\n' +
+    '  \x1B[32m✓\x1B[0m /api/events/feed\n' +
+    '  \x1B[32m✓\x1B[0m /api/events/invite-participant\n' +
+    '  \x1B[32m✓\x1B[0m /api/favorites\n' +
+    '  \x1B[36m... and 50 more\x1B[0m\n' +
+    '\n' +
+    '\x1B[31m\x1B[1m❌ Mismatched Paths (278):\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m${apiBasePath}/${memory.id}/comments\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m${apiBasePath}/${post.id}/comments\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/analytics\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/analytics but frontend calls /api/admin/analytics\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/blocked-users\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/blocked-users but frontend calls /api/admin/blocked-users\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/compliance\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/compliance but frontend calls /api/admin/compliance\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/compliance/monitoring-status\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/compliance/monitoring-status but frontend calls /api/admin/compliance/monitoring-status\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/compliance/refresh\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/compliance/refresh but frontend calls /api/admin/compliance/refresh\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/dashboard/activity\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/dashboard/charts\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/dashboard/stats\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/dashboard/stats but frontend calls /api/admin/dashboard/stats\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/event-types\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/event-types but frontend calls /api/admin/event-types\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/event-types/${id}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/event-types?includeInactive=${showInactive}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/execute-command\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/execute-command but frontend calls /api/admin/execute-command\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/moderation/reports\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/moderation/reports/${reportId}/action\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/moderation/stats\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/reports\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/reports but frontend calls /api/admin/reports\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/settings\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/settings but frontend calls /api/admin/settings\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/stats\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/stats but frontend calls /api/admin/stats\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/subscription/analytics\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/subscription/feature-flags\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/users but frontend calls /api/admin/users\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/${userId}/reset-password\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/${userId}/suspend\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/${userId}/verify\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/bulk-action\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /admin/users/bulk-action but frontend calls /api/admin/users/bulk-action\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/admin/users/stats\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agent-chat/message\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agents/achievements\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agents/audit\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/agents/framework-status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai-intelligence/conversation\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai-intelligence/conversation but frontend calls /api/ai-intelligence/conversation\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai-intelligence/suggestions\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/agents\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/agents but frontend calls /api/ai/agents\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/chat\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/chat but frontend calls /api/ai/chat\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/memories\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/metrics\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/metrics but frontend calls /api/ai/metrics\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/mrblue/chat\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/mrblue/chat but frontend calls /api/ai/mrblue/chat\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/process\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/process but frontend calls /api/ai/process\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/ai/recommendations\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /ai/recommendations but frontend calls /api/ai/recommendations\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/analytics/dashboard\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/analytics/vitals\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/avatar/info\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/bookings\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /bookings but frontend calls /api/bookings\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/bookings/${bookingId}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/bookings/${bookingId}/status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/messages\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /chat/messages but frontend calls /api/chat/messages\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/rooms\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /chat/rooms but frontend calls /api/chat/rooms\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/rooms/${room.slug}/messages\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/chat/security-test-room/message\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /chat/security-test-room/message but frontend calls /api/chat/security-test-room/message\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/cities/upcoming-visitors\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/code-of-conduct/accept\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /code-of-conduct/accept but frontend calls /api/code-of-conduct/accept\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/comments/${commentId}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/community/city-groups\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /community/city-groups but frontend calls /api/community/city-groups\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/community/global-stats\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /community/global-stats but frontend calls /api/community/global-stats\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/community/rankings\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /community/rankings but frontend calls /api/community/rankings\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/daily-activities\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /daily-activities but frontend calls /api/daily-activities\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/deployment/deploy\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/deployment/status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/error-reports\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /error-reports but frontend calls /api/error-reports\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/esa/chat\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /esa/chat but frontend calls /api/esa/chat\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/event-participants/${participantId}/status\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/event/1/feedback\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/${eventId}/participants\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/${eventId}/rsvp\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/${id}/purchase\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/enhanced\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/events/sidebar\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /events/sidebar but frontend calls /api/events/sidebar\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/evolution/metrics/latest\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /evolution/metrics/latest but frontend calls /api/evolution/metrics/latest\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/favorites/${itemId}?type=${itemType}\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-request\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend-request but frontend calls /api/friend-request\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/${requestId}/accept\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/${requestId}/reject\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/${requestId}/snooze\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route found\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/received\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend-requests/received but frontend calls /api/friend-requests/received\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend-requests/send\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend-requests/send but frontend calls /api/friend-requests/send\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friend/send-friend-request\x1B[0m\n' +
+    '    \x1B[36m→ Backend has /friend/send-friend-request but frontend calls /api/friend/send-friend-request\x1B[0m\n' +
+    '  \x1B[31m✗\x1B[0m \x1B[33m/api/friends\x1B[0m\n' +
+    '    \x1B[36m→ No matching backend route foun'... 22360 more characters,
+  stderr: ''
+}
+🎉 [Smart Agents] All agents initialized and scheduled successfully!
+✅ MB.MD: Smart Agents #106-109 initialized and scheduled
+🔧 [DEV] Setting up Vite development server...
+[Agent Router] ✅ Completed job 1636
+[Auto-Doc] Generated: docs/pages/architecture/cross-surface-synchronization-1760475619798.md
+[Agent Learning] Captured: cross-surface-synchronization (confidence: 0.93)
+✅ Captured cache pattern: cross-surface-synchronization
+✅ [DEV] Vite middleware configured
+🌐 Starting server on port 5000
+
+🚀 Initializing ESA Open Source Tools (Phases 1-4)...
+
+✅ LanceDB initialized at ./data/lancedb
+✅ LlamaIndex RAG service initialized
+
+✅ ESA Open Source Tools Summary (Phases 1-4):
+   Active: 5
+   Configured: 11
+   Total Registered: 18
+
+   ✅ Layer 26: LanceDB (active)
+      └─ Vector database operational
+   🔧 Layer 32: Langfuse (configured)
+      └─ Packages installed, ready for API key configuration
+   ✅ Layer 48: Arize Phoenix (active)
+      └─ OpenTelemetry tracing active
+   🔧 Layer 15: Milvus SDK (configured)
+      └─ Client SDK installed, requires external Milvus server for production
+   ❌ Layer 14: Dragonfly (unavailable)
+      └─ Requires Docker deployment (not supported in Replit environment)
+   ❌ Layer 44: Apache AGE (unavailable)
+      └─ Neon PostgreSQL does not support AGE extension
+   ❌ Layer 48: SigNoz (unavailable)
+      └─ Requires separate service deployment
+   ⚙️ Layer 36: Mem0 (requires_setup)
+      └─ Python package installed, needs Python-TypeScript bridge implementation
+   ⚙️ Layer 45: DSPy (requires_setup)
+      └─ Python package, needs Python-TypeScript bridge implementation
+   🔧 Layer 57: Temporal (configured)
+      └─ @temporalio/* packages installed, ready for workflow execution
+   ⚙️ Layer 35: CrewAI (requires_setup)
+      └─ Python-only framework, requires node-calls-python bridge or unofficial crewai-js SDK
+   ⚙️ Layer 20: Activepieces (requires_setup)
+      └─ TypeScript/Node.js automation platform, self-hostable via Docker
+   🔧 Layer 51: Bun Test (configured)
+      └─ 10-30x faster than Jest for sync tests, single-threaded (poor async performance)
+   ✅ Layer 11: Supabase Realtime (active)
+      └─ Already integrated, can optimize with broadcast patterns and reconnection logic
+   ✅ Layer 44: Knowledge Graph (PostgreSQL) (active)
+      └─ Implemented using recursive CTEs, no external dependencies
+   ✅ Layer 36: LlamaIndex (active)
+      └─ RAG service operational
+   🔧 Layer 48: OpenTelemetry (configured)
+      └─ SDK installed with auto-instrumentation for HTTP, Express, PostgreSQL
+   🔧 Layer 11: Realtime Optimization (configured)
+      └─ Exponential backoff reconnection and broadcast patterns implemented
+✅ AI Research Expert Scheduler: Daily intelligence scan set for 3:00 PM
+   Cron: 0 15 * * * (runs every day at 15:00)
+❌ HTTP Server error: Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 5000
+}
+[21:00:19 PM] FATAL: undefined - HTTP Server error:
+    service: "mundo-tango-life-ceo"
+    phase: "phase-4"
+    framework: "40x20s"
+    message: "HTTP Server error:"
+🚨 CRITICAL ERROR in agent system: uncaught_exception - listen EADDRINUSE: address already in use 0.0.0.0:5000
+[21:00:20 PM] FATAL: undefined - Uncaught Exception
+    service: "mundo-tango-life-ceo"
+    phase: "phase-4"
+    framework: "40x20s"
+    stack: "Error: listen EADDRINUSE: address already in use 0.0.0.0:5000\n    at Server.setupListenHandle [as _listen2] (node:net:1908:16)\n    at listenInCluster (node:net:1965:12)\n    at doListen (node:net:2139:7)\n    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)"
+    message: "Uncaught Exception"
+    error: {
+      "type": "Error",
+      "message": "listen EADDRINUSE: address already in use 0.0.0.0:5000",
+      "stack":
+          Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+              at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+              at listenInCluster (node:net:1965:12)
+              at doListen (node:net:2139:7)
+              at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+      "code": "EADDRINUSE",
+      "errno": -98,
+      "syscall": "listen",
+      "address": "0.0.0.0",
+      "port": 5000
+    }
+[Worker memory] ⚙️  Processing memory.capture-learning
+[Auto-Doc] Generated: docs/pages/architecture/single-queryclient-pattern-1760475620320.md
+[Agent Learning] Captured: single-queryclient-pattern (confidence: 0.98)
+✅ Captured cache pattern: single-queryclient-pattern
+
+🎉 Captured 4 cache standardization patterns!
+[Auto-Doc] Generated: docs/pages/learnings/event-rsvp-batch-update-1760475620416.md
+[Agent Learning] Captured: event-rsvp-batch-update (confidence: 0.91)
+[Agent Router] ✅ Completed job 1639
+[Worker memory] ⚙️  Processing memory.capture-learning
+[Auto-Doc] Generated: docs/pages/learnings/lazy-load-route-chunks-1760475621607.md
+[Agent Learning] Captured: lazy-load-route-chunks (confidence: 0.92)
+[Agent Router] ✅ Completed job 1638
+[A2A] infrastructure → infrastructure: broadcast { pattern: 'single-queryclient-pattern', priority: 1 }
+[A2A] infrastructure → frontend: broadcast { pattern: 'single-queryclient-pattern', priority: 1 }
+[A2A] Broadcasted learning to 2 agents: single-queryclient-pattern
+[Worker memory] ⚙️  Processing memory.capture-learning
+[A2A] infrastructure → infrastructure: broadcast { pattern: 'single-queryclient-pattern', priority: 1 }
+[A2A] infrastructure → frontend: broadcast { pattern: 'single-queryclient-pattern', priority: 1 }
+[A2A] Broadcasted learning to 2 agents: single-queryclient-pattern
+[Agent Learning] Captured: i18n-dynamic-loading (confidence: 0.87)
+[A2A] infrastructure → infrastructure: broadcast { pattern: 'single-queryclient-pattern', priority: 1 }
+[A2A] infrastructure → frontend: broadcast { pattern: 'single-queryclient-pattern', priority: 1 }
+[A2A] Broadcasted learning to 2 agents: single-queryclient-pattern
+[Agent Router] ✅ Completed job 1640
+[Learning Loop] Failed to capture initial knowledge: error: duplicate key value violates unique constraint "agent_collaboration_log_collaboration_id_key"
+    at /home/runner/workspace/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/home/runner/workspace/node_modules/src/node-postgres/session.ts:104:19)
+    at async CrossDomainLearningService.broadcastLearning (/home/runner/workspace/server/services/CrossDomainLearningService.ts:59:22)
+    at async ContinuousLearningLoop.captureInitialKnowledge (/home/runner/workspace/server/services/ContinuousLearningLoop.ts:74:9)
+    at async ContinuousLearningLoop.start (/home/runner/workspace/server/services/ContinuousLearningLoop.ts:20:5) {
+  length: 292,
+  severity: 'ERROR',
+  code: '23505',
+  detail: 'Key (collaboration_id)=(learning-4898) already exists.',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'agent_collaboration_log',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'agent_collaboration_log_collaboration_id_key',
+  file: 'nbtinsert.c',
+  line: '666',
+  routine: '_bt_check_unique'
+}
+[Learning Loop] Executing learning cycle...
+[Worker memory] ⚙️  Processing memory.capture-learning
+[Auto-Doc] Generated: docs/pages/esa-agents/streaming-response-optimization-1760475622336.md
+[Agent Learning] Captured: streaming-response-optimization (confidence: 0.94)
+[Agent Router] ✅ Completed job 1637
+[Worker memory] ⚙️  Processing memory.capture-learning
+[Agent Learning] Captured: context-window-management (confidence: 0.89)
+[Agent Router] ✅ Completed job 1641
+📊 System Metrics: { uptime: '14s', memory: '290MB', agents: 10 }
+[Learning Loop] Found 9820 application opportunities
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+📊 System Metrics: { uptime: '24s', memory: '456MB', agents: 10 }
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+⚠️  Anomaly detected: low_cache_hit_rate (severity: medium)
+🔧 Low cache hit rate detected - warming cache...
+🔥 Warming critical caches...
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+✅ Life CEO Continuous Validation: {
+  timestamp: '2025-10-14T21:00:46.213Z',
+  results: [
+    { category: 'typescript', passed: true, issues: 0 },
+    { category: 'memory', passed: true, issues: 0 },
+    { category: 'cache', passed: true, issues: 0 },
+    { category: 'api', passed: true, issues: 0 },
+    { category: 'design', passed: true, issues: 0 },
+    { category: 'mobile', passed: true, issues: 0 }
+  ]
+}
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+📊 System Metrics: { uptime: '34s', memory: '629MB', agents: 10 }
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+📊 System Metrics: { uptime: '44s', memory: '784MB', agents: 10 }
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+📊 System Metrics: { uptime: '54s', memory: '950MB', agents: 10 }
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-pattern on infrastructure
+[A2A] Pattern already applied: single-queryclient-pattern on frontend
+[A2A] Pattern already applied: single-queryclient-patt

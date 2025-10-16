@@ -1,0 +1,219 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ content loaded
+ Content Script: Initializing
+ [LaunchDarkly] LaunchDarkly client initialized
+web-client-content-script.js:2 Uncaught 
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-67b1a1a06aa11654.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-67b1a1a06aa11654.js:1
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4v%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+ [vite] connecting...
+ [vite] connected.
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 209ms
+(anonymous) @ injected.js:27
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 67ms
+(anonymous) @ injected.js:27
+ Life CEO Performance Metrics: [object Object]
+ 📍 Using browser GPS location: [object Object]
+ Long task detected: 64ms
+(anonymous) @ injected.js:27
+ ✅ CSRF token fetched successfully
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: [object Object]
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: [object Object]
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🗺️ [Framework] Access check: [object Object]
+ 🗺️ [Framework] RENDERING BUTTON
+ 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+ 🌐 [usePostFeed] Making request: [object Object]
+ [Framework] User authenticated from context, ID: 7
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ ✅ Real-time feed connected: o7HwP9L57NzjmleMAAAR
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+ Analytics tracking active - events will be sent to Plausible
+ ✅ [usePostFeed] Response: [object Object]
+ 🚀 usePostFeed CALLED [object Object]
+ 🔍 [usePostFeed] Query state: [object Object]
+ 🔍 [SmartPostFeed] Feed state: [object Object]
+injected.js:27 🔍 [ControlledPostFeed] Rendering: [object Object]
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: [object Object],[object Object],[object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🔐 Post ownership check: [object Object]
+injected.js:27 [Framework] Ownership check: [object Object]
+injected.js:27 🚀 usePostFeed CALLED [object Object]
+injected.js:27 🔍 [usePostFeed] Query state: [object Object]
+injected.js:27 🔍 [SmartPostFeed] Feed state: [object Object]
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 ✅ Socket.io connected
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+injected.js:27 [vite] connecting...
+injected.js:27 [vite] connected.

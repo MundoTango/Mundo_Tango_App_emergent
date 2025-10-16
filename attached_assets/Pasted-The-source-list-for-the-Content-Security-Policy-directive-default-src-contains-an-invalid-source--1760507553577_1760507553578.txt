@@ -1,0 +1,1755 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-c9ca3a552390b735.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ content loaded
+index.59b2ae62.js:3 Content Script: Initializing
+_app-c9ca3a552390b735.js:28 [LaunchDarkly] LaunchDarkly client initialized
+recaptcha__en.js:352 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2
+recaptcha__en.js:352 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'battery'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-a9c93489e40d8584.js:1
+chrome-extension://hdokiejnpimakedhajhdlcegeplioahd/web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Arj7%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+injected.js:27 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ VM593 injected.js:27
+injected.js:27 [vite] connecting...
+injected.js:27 [vite] connected.
+attached_assets/image_1760506135752.png:1  Failed to load resource: the server responded with a status of 404 ()
+attached_assets/image_1760507086675.png:1  Failed to load resource: the server responded with a status of 404 ()
+injected.js:27 ⚡ Life CEO Performance Optimizer initialized
+injected.js:27 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+injected.js:27 Starting React app...
+injected.js:27 React app mounted
+injected.js:27 🚀 [App] ROOT COMPONENT RENDERING
+injected.js:27 🚀 [App] About to return JSX tree
+injected.js:27 Long task detected: 225ms
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+injected.js:27 ⏸️ Socket connection deferred - no user
+injected.js:27 🚀 [App] useEffect running - setup starting
+injected.js:27 📊 Plausible Analytics is live on mundo-tango.replit.dev
+injected.js:27 🚀 [App] useEffect complete - setup done
+injected.js:27 [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 📍 Using browser GPS location: Object
+injected.js:27 Long task detected: 58ms
+(anonymous) @ VM593 injected.js:27
+injected.js:27 Long task detected: 69ms
+(anonymous) @ VM593 injected.js:27
+injected.js:27 ✅ CSRF token fetched successfully
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ VM593 injected.js:27
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ VM593 injected.js:27
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ VM593 injected.js:27
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ VM593 injected.js:27
+injected.js:27 Life CEO Performance Metrics: Object
+injected.js:27 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+injected.js:27 User authenticated via auth bypass: Object
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /memories
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: Object
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🗺️ [Framework] Access check: Object
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🌐 [usePostFeed] Making request: Object
+injected.js:27 [Framework] User authenticated from context, ID: 7
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/journey/predict?route=%2Fmemories&userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+injected.js:27 ✅ [usePostFeed] Response: Object
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: Array(3)
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 ✅ Real-time feed connected: j-hxSqQ9GWM1nmQlAAAr
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🚀 usePostFeed CALLED Object
+injected.js:27 🔍 [usePostFeed] Query state: Object
+injected.js:27 🔍 [SmartPostFeed] Feed state: Object
+injected.js:27 🔍 [ControlledPostFeed] Rendering: Object
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: Array(3)
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+injected.js:27 🔐 Post ownership check: Object
+injected.js:27 [Framework] Ownership check: Object
+web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+injected.js:27 ✅ Socket.io connected
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+injected.js:27 🚀 [Mr Blue] Calling API: /api/mrblue/simple-chat
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/mrblue/simple-chat:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+injected.js:27 ✅ [Mr Blue] Response status: 404
+injected.js:27 AI error: SyntaxError: Failed to execute 'json' on 'Response': Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at generateResponse (ScottAI.tsx?t=1760506843208:106:35)
+    at async sendMessage (ScottAI.tsx?t=1760506843208:140:22)
+    at async handleMessage (MrBlueComplete.tsx?t=1760506843208:60:5)
+(anonymous) @ VM593 injected.js:27
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🚨 Critical performance issue: CLS = 0.8389758280165134ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 56ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+@react-three_drei.js?v=b2ea31f1:23622 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ VM418 @react-three_drei.js:23622
+(anonymous) @ VM418 @react-three_drei.js:89284
+commitHookEffectListMount @ VM547 chunk-Y4IJHDPZ.js:10913
+commitPassiveMountOnFiber @ VM547 chunk-Y4IJHDPZ.js:12222
+commitPassiveMountEffects_complete @ VM547 chunk-Y4IJHDPZ.js:12194
+commitPassiveMountEffects_begin @ VM547 chunk-Y4IJHDPZ.js:12184
+commitPassiveMountEffects @ VM547 chunk-Y4IJHDPZ.js:12174
+flushPassiveEffectsImpl @ VM547 chunk-Y4IJHDPZ.js:13945
+flushPassiveEffects @ VM547 chunk-Y4IJHDPZ.js:13908
+performSyncWorkOnRoot @ VM547 chunk-Y4IJHDPZ.js:13311
+flushSyncCallbacks @ VM547 chunk-Y4IJHDPZ.js:2767
+commitRootImpl @ VM547 chunk-Y4IJHDPZ.js:13893
+commitRoot @ VM547 chunk-Y4IJHDPZ.js:13749
+finishConcurrentRender @ VM547 chunk-Y4IJHDPZ.js:13248
+performConcurrentWorkOnRoot @ VM547 chunk-Y4IJHDPZ.js:13158
+workLoop @ VM547 chunk-Y4IJHDPZ.js:274
+flushWork @ VM547 chunk-Y4IJHDPZ.js:253
+performWorkUntilDeadline @ VM547 chunk-Y4IJHDPZ.js:461
+@react-three_drei.js?v=b2ea31f1:23622 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ VM418 @react-three_drei.js:23622
+(anonymous) @ VM418 @react-three_drei.js:89284
+commitHookEffectListMount @ VM547 chunk-Y4IJHDPZ.js:10913
+commitPassiveMountOnFiber @ VM547 chunk-Y4IJHDPZ.js:12222
+commitPassiveMountEffects_complete @ VM547 chunk-Y4IJHDPZ.js:12194
+commitPassiveMountEffects_begin @ VM547 chunk-Y4IJHDPZ.js:12184
+commitPassiveMountEffects @ VM547 chunk-Y4IJHDPZ.js:12174
+flushPassiveEffectsImpl @ VM547 chunk-Y4IJHDPZ.js:13945
+flushPassiveEffects @ VM547 chunk-Y4IJHDPZ.js:13908
+commitRootImpl @ VM547 chunk-Y4IJHDPZ.js:13877
+commitRoot @ VM547 chunk-Y4IJHDPZ.js:13749
+performSyncWorkOnRoot @ VM547 chunk-Y4IJHDPZ.js:13338
+flushSyncCallbacks @ VM547 chunk-Y4IJHDPZ.js:2767
+commitRootImpl @ VM547 chunk-Y4IJHDPZ.js:13893
+commitRoot @ VM547 chunk-Y4IJHDPZ.js:13749
+finishConcurrentRender @ VM547 chunk-Y4IJHDPZ.js:13248
+performConcurrentWorkOnRoot @ VM547 chunk-Y4IJHDPZ.js:13158
+workLoop @ VM547 chunk-Y4IJHDPZ.js:274
+flushWork @ VM547 chunk-Y4IJHDPZ.js:253
+performWorkUntilDeadline @ VM547 chunk-Y4IJHDPZ.js:461
+injected.js:27 🚨 Critical performance issue: CLS = 1.5177560869769189ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 70ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+[Violation] Forced reflow while executing JavaScript took <N>ms
+injected.js:27 🚨 Critical performance issue: CLS = 2.0722138886282604ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 257ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 2.185018766677041ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 2.951725379143847ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 52ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 3.1357541604513854ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 222ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 3.1996272645284205ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 4.189009979246503ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 55ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 4.346206496906738ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 4.508867621490441ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 134ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 4.8355372571877515ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 76ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+framework-a9c93489e40d8584.js:1 [Violation] 'setTimeout' handler took 65ms
+injected.js:27 🚨 Critical performance issue: CLS = 5.005800745964396ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 85ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 6.053677003847288ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 117ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+useBaseQuery @ VM34 @tanstack_react-query.js:3212
+useQuery @ VM34 @tanstack_react-query.js:3279
+Sidebar @ VM367 Sidebar.tsx:119
+renderWithHooks @ VM29 chunk-FIVTYXJO.js:11596
+updateFunctionComponent @ VM29 chunk-FIVTYXJO.js:14630
+beginWork @ VM29 chunk-FIVTYXJO.js:15972
+beginWork$1 @ VM29 chunk-FIVTYXJO.js:19806
+performUnitOfWork @ VM29 chunk-FIVTYXJO.js:19251
+workLoopSync @ VM29 chunk-FIVTYXJO.js:19190
+renderRootSync @ VM29 chunk-FIVTYXJO.js:19169
+performSyncWorkOnRoot @ VM29 chunk-FIVTYXJO.js:18927
+flushSyncCallbacks @ VM29 chunk-FIVTYXJO.js:9166
+(anonymous) @ VM29 chunk-FIVTYXJO.js:18677
+injected.js:27 🚨 Critical performance issue: CLS = 6.64222995094436ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 53ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+apply @ VM593 injected.js:204
+queryFn @ VM63 AIContextBar.tsx:34
+fetchFn @ VM34 @tanstack_react-query.js:1064
+run @ VM34 @tanstack_react-query.js:773
+start @ VM34 @tanstack_react-query.js:815
+fetch @ VM34 @tanstack_react-query.js:1111
+#executeFetch @ VM34 @tanstack_react-query.js:1422
+(anonymous) @ VM34 @tanstack_react-query.js:1459
+injected.js:27 🚨 Critical performance issue: CLS = 7.228813956836127ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 58ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 7.23930845763502ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 7.259648482867193ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 56ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 7.527397483985473ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 142ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 7.627104680903045ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 7.8052111255545045ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 8.214466606558384ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 172ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+_app-c9ca3a552390b735.js:28 [Violation] 'requestAnimationFrame' handler took 52ms
+injected.js:27 🚨 Critical performance issue: CLS = 8.362985568097201ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 9.19269164774479ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 52ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ VM593 injected.js:204
+o @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ VM268 performanceMonitor.ts:69
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 Long task detected: 135ms
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+(anonymous) @ VM50 life-ceo-performance.ts:146
+(anonymous) @ VM50 life-ceo-performance.ts:144
+injected.js:27 🚨 Critical performance issue: CLS = 9.43056741458875ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ VM593 injected.js:204
+o @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ VM268 performanceMonitor.ts:69
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🚨 Critical performance issue: CLS = 9.821163501385207ms (threshold: 0.25ms)
+(anonymous) @ VM593 injected.js:27
+console.<computed> @ VM25 console-cleanup.ts:26
+(anonymous) @ VM593 injected.js:27
+console.error @ VM547 chunk-Y4IJHDPZ.js:17716
+(anonymous) @ VM593 injected.js:27
+checkThresholds @ VM268 performanceMonitor.ts:83
+recordMetric @ VM268 performanceMonitor.ts:67
+(anonymous) @ VM268 performanceMonitor.ts:50
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ VM593 injected.js:204
+o @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ VM268 performanceMonitor.ts:69
+(anonymous) @ VM268 performanceMonitor.ts:50
+memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+injected.js:204  POST https://plausible.io/api/event net::ERR_FAILED 429 (Too Many Requests)
+apply @ VM593 injected.js:204
+o @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+w @ VM597 script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js:1
+recordMetric @ VM268 performanceMonitor.ts:69
+(anonymous) @ VM268 performanceMonitor.ts:50
+injected.js:27 🌐 [usePostFeed] Making request: {url: '/api/posts/feed?page=1&limit=20&filter=all', params: {…}}
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: true, hasMore: true, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 20, isLoading: false, isFetching: true, hasMore: true, showingBranch: 'POSTS_LIST'}
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: (3) [{…}, {…}, {…}]
+injected.js:27 🔐 Post ownership check: {postId: 133, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 133, …}
+injected.js:27 🔐 Post ownership check: {postId: 132, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 132, …}
+injected.js:27 🔐 Post ownership check: {postId: 131, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 131, …}
+injected.js:27 🔐 Post ownership check: {postId: 130, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 130, …}
+injected.js:27 🔐 Post ownership check: {postId: 129, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 129, …}
+injected.js:27 🔐 Post ownership check: {postId: 128, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 128, …}
+injected.js:27 🔐 Post ownership check: {postId: 127, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 127, …}
+injected.js:27 🔐 Post ownership check: {postId: 126, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 126, …}
+injected.js:27 🔐 Post ownership check: {postId: 125, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 125, …}
+injected.js:27 🔐 Post ownership check: {postId: 124, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 124, …}
+injected.js:27 🔐 Post ownership check: {postId: 123, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 123, …}
+injected.js:27 🔐 Post ownership check: {postId: 122, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 122, …}
+injected.js:27 🔐 Post ownership check: {postId: 121, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 121, …}
+injected.js:27 🔐 Post ownership check: {postId: 120, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 120, …}
+injected.js:27 🔐 Post ownership check: {postId: 119, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 119, …}
+injected.js:27 🔐 Post ownership check: {postId: 118, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 118, …}
+injected.js:27 🔐 Post ownership check: {postId: 117, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 117, …}
+injected.js:27 🔐 Post ownership check: {postId: 116, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 116, …}
+injected.js:27 🔐 Post ownership check: {postId: 115, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 115, …}
+injected.js:27 🔐 Post ownership check: {postId: 114, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 114, …}
+injected.js:27 ✅ [usePostFeed] Response: {postsCount: 20, hasMore: true, total: 100}
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 20, isLoading: false, isFetching: false, hasMore: true, showingBranch: 'POSTS_LIST'}
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: (3) [{…}, {…}, {…}]
+injected.js:27 🔐 Post ownership check: {postId: 133, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 133, …}
+injected.js:27 🔐 Post ownership check: {postId: 132, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 132, …}
+injected.js:27 🔐 Post ownership check: {postId: 131, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 131, …}
+injected.js:27 🔐 Post ownership check: {postId: 130, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 130, …}
+injected.js:27 🔐 Post ownership check: {postId: 129, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 129, …}
+injected.js:27 🔐 Post ownership check: {postId: 128, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 128, …}
+injected.js:27 🔐 Post ownership check: {postId: 127, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 127, …}
+injected.js:27 🔐 Post ownership check: {postId: 126, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 126, …}
+injected.js:27 🔐 Post ownership check: {postId: 125, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 125, …}
+injected.js:27 🔐 Post ownership check: {postId: 124, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 124, …}
+injected.js:27 🔐 Post ownership check: {postId: 123, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 123, …}
+injected.js:27 🔐 Post ownership check: {postId: 122, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 122, …}
+injected.js:27 🔐 Post ownership check: {postId: 121, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 121, …}
+injected.js:27 🔐 Post ownership check: {postId: 120, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 120, …}
+injected.js:27 🔐 Post ownership check: {postId: 119, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 119, …}
+injected.js:27 🔐 Post ownership check: {postId: 118, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 118, …}
+injected.js:27 🔐 Post ownership check: {postId: 117, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 117, …}
+injected.js:27 🔐 Post ownership check: {postId: 116, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 116, …}
+injected.js:27 🔐 Post ownership check: {postId: 115, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 115, …}
+injected.js:27 🔐 Post ownership check: {postId: 114, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 114, …}
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+Navigated to https://replit.com/@admin3304/MundoTangoAppemergent
+_app-c9ca3a552390b735.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+index.js:1 content loaded
+framework-a9c93489e40d8584.js:1 [Violation] 'message' handler took 188ms
+_app-c9ca3a552390b735.js:28 [LaunchDarkly] LaunchDarkly client initialized
+index.59b2ae62.js:3 Content Script: Initializing
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+Navigated to https://replit.com/@admin3304/MundoTangoAppemergent
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-c9ca3a552390b735.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+index.js:1 content loaded
+_app-c9ca3a552390b735.js:28 [LaunchDarkly] LaunchDarkly client initialized
+index.59b2ae62.js:3 Content Script: Initializing
+framework-a9c93489e40d8584.js:1 [Violation] 'message' handler took 187ms
+framework-a9c93489e40d8584.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'battery'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+framework-a9c93489e40d8584.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uD @ framework-a9c93489e40d8584.js:1
+uI @ framework-a9c93489e40d8584.js:1
+uM @ framework-a9c93489e40d8584.js:1
+uS @ framework-a9c93489e40d8584.js:1
+C @ framework-a9c93489e40d8584.js:1
+z @ framework-a9c93489e40d8584.js:1
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'battery'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'layout-animations'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'legacy-image-formats'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'navigation-override'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'oversized-images'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'publickey-credentials'.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar29%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+injected.js:27 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+(anonymous) @ injected.js:27
+Eda @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1424
+google.maps.Load @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:14
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1723
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1723
+injected.js:27 [vite] connecting...
+injected.js:27 [vite] connected.
+web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:541674)
+(anonymous) @ web-client-content-script.js:2
+framework-a9c93489e40d8584.js:1 [Violation] 'message' handler took 182ms
+[Violation] Forced reflow while executing JavaScript took 31ms
+_app-c9ca3a552390b735.js:28 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+(anonymous) @ _app-c9ca3a552390b735.js:28
+(anonymous) @ _app-c9ca3a552390b735.js:28
+(anonymous) @ 5144-e143ec268dc4b7df.js:1
+oO @ framework-a9c93489e40d8584.js:1
+uB @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+uO @ framework-a9c93489e40d8584.js:1
+u_ @ framework-a9c93489e40d8584.js:1
+r6 @ framework-a9c93489e40d8584.js:1
+(anonymous) @ framework-a9c93489e40d8584.js:1
+[Violation] Forced reflow while executing JavaScript took 71ms
+[Violation] Forced reflow while executing JavaScript took 30ms
+injected.js:27 ⚡ Life CEO Performance Optimizer initialized
+injected.js:27 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+injected.js:27 Starting React app...
+injected.js:27 React app mounted
+injected.js:27 🚀 [App] ROOT COMPONENT RENDERING
+injected.js:27 🚀 [App] About to return JSX tree
+injected.js:27 Long task detected: 217ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+injected.js:27 ⏸️ Socket connection deferred - no user
+LocationBiasContext.tsx:126 [Violation] Only request geolocation information in response to a user gesture.
+(anonymous) @ LocationBiasContext.tsx:126
+detectBrowserLocation @ LocationBiasContext.tsx:125
+refreshLocation @ LocationBiasContext.tsx:161
+(anonymous) @ LocationBiasContext.tsx:197
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:19381
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 [App] useEffect running - setup starting
+injected.js:27 📊 Plausible Analytics is live on mundo-tango.replit.dev
+injected.js:27 🚀 [App] useEffect complete - setup done
+injected.js:27 [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: {user: undefined, isAdmin: false, isFeatureEnabled: true, shouldShow: true}
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Sidebar @ Sidebar.tsx:87
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+mountIndeterminateComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14974
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15962
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18927
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: null
+injected.js:27 🗺️ [Framework] Access check: {user: undefined, isAdmin: false, isFeatureEnabled: true, shouldShow: true}
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 📍 Using browser GPS location: {lat: 41.224965529896934, lng: -122.13526645001332}
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Sidebar @ Sidebar.tsx:87
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 Long task detected: 85ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 ✅ CSRF token fetched successfully
+injected.js:27 Long task detected: 132ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+injected.js:27 User authenticated via auth bypass: {id: 7, name: 'Pierre Dubois', username: 'pierre_dancer', email: 'pierre@example.com', password: '$2b$10$hash', …}
+injected.js:27 🎯 [AppContent] Rendering - ESA components should load
+injected.js:27 🎯 [AppContent] After hooks - about to render
+injected.js:27 🔍 Current path: /memories
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Sidebar @ Sidebar.tsx:87
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 0, isLoading: true, isFetching: true, hasMore: false, showingBranch: 'SKELETON'}
+injected.js:27 🗺️ [Framework] Component executing - START
+injected.js:27 🗺️ [Framework] User from hook: {id: 7, name: 'Pierre Dubois', username: 'pierre_dancer', email: 'pierre@example.com', password: '$2b$10$hash', …}
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🗺️ [Framework] Access check: {user: 'pierre@example.com', isAdmin: true, isFeatureEnabled: true, shouldShow: true}
+injected.js:27 🗺️ [Framework] RENDERING BUTTON
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🌐 [usePostFeed] Making request: {url: '/api/posts/feed?page=1&limit=20&filter=all', params: {…}}
+injected.js:27 [Framework] User authenticated from context, ID: 7
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Sidebar @ Sidebar.tsx:87
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 0, isLoading: true, isFetching: true, hasMore: false, showingBranch: 'SKELETON'}
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Sidebar @ Sidebar.tsx:87
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18927
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:18677
+setTimeout
+systemSetTimeoutZero @ @tanstack_react-query.js?v=b2ea31f1:95
+flush @ @tanstack_react-query.js?v=b2ea31f1:594
+batch @ @tanstack_react-query.js?v=b2ea31f1:612
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+onSubscribe @ @tanstack_react-query.js?v=b2ea31f1:1298
+subscribe @ @tanstack_react-query.js?v=b2ea31f1:19
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3233
+subscribeToStore @ chunk-FIVTYXJO.js?v=b2ea31f1:12032
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19469
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18948
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 0, isLoading: true, isFetching: true, hasMore: false, showingBranch: 'SKELETON'}
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+apply @ injected.js:204
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+setOptions @ @tanstack_react-query.js?v=b2ea31f1:1355
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3243
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/journey/predict?route=%2Fmemories&userId=7 404 (Not Found)
+apply @ injected.js:204
+queryFn @ SmartPageSuggestions.tsx:46
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+setOptions @ @tanstack_react-query.js?v=b2ea31f1:1355
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3243
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 Analytics tracking active - events will be sent to Plausible
+injected.js:27 ✅ Real-time feed connected: 7UbL_eFJ4HurzqVQAAAx
+injected.js:27 [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+useBaseQuery @ @tanstack_react-query.js?v=b2ea31f1:3212
+useQuery @ @tanstack_react-query.js?v=b2ea31f1:3279
+Sidebar @ Sidebar.tsx:87
+renderWithHooks @ chunk-FIVTYXJO.js?v=b2ea31f1:11596
+updateFunctionComponent @ chunk-FIVTYXJO.js?v=b2ea31f1:14630
+beginWork @ chunk-FIVTYXJO.js?v=b2ea31f1:15972
+beginWork$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:19806
+performUnitOfWork @ chunk-FIVTYXJO.js?v=b2ea31f1:19251
+workLoopSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19190
+renderRootSync @ chunk-FIVTYXJO.js?v=b2ea31f1:19169
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18728
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'pending', fetchStatus: 'fetching', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 0, isLoading: true, isFetching: true, hasMore: false, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 0, isLoading: true, isFetching: true, hasMore: false, showingBranch: 'SKELETON'}
+injected.js:27 ✅ [usePostFeed] Response: {postsCount: 20, hasMore: true, total: 100}
+injected.js:27 🚀 usePostFeed CALLED {context: {…}, page: 1, enabled: true}
+injected.js:27 🔍 [usePostFeed] Query state: {context: {…}, queryKey: Array(2), enabled: true, status: 'success', fetchStatus: 'idle', …}
+injected.js:27 🔍 [SmartPostFeed] Feed state: {context: {…}, postsCount: 20, isLoading: false, isFetching: false, hasMore: true, …}
+injected.js:27 🔍 [ControlledPostFeed] Rendering: {postsCount: 20, isLoading: false, isFetching: false, hasMore: true, showingBranch: 'POSTS_LIST'}
+injected.js:27 📝 [ControlledPostFeed] Rendering posts: (3) [{…}, {…}, {…}]
+injected.js:27 🔐 Post ownership check: {postId: 133, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 133, …}
+injected.js:27 🔐 Post ownership check: {postId: 132, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 132, …}
+injected.js:27 🔐 Post ownership check: {postId: 131, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 131, …}
+injected.js:27 🔐 Post ownership check: {postId: 130, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 130, …}
+injected.js:27 🔐 Post ownership check: {postId: 129, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 129, …}
+injected.js:27 🔐 Post ownership check: {postId: 128, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 128, …}
+injected.js:27 🔐 Post ownership check: {postId: 127, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 127, …}
+injected.js:27 🔐 Post ownership check: {postId: 126, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 126, …}
+injected.js:27 🔐 Post ownership check: {postId: 125, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 125, …}
+injected.js:27 🔐 Post ownership check: {postId: 124, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 124, …}
+injected.js:27 🔐 Post ownership check: {postId: 123, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 123, …}
+injected.js:27 🔐 Post ownership check: {postId: 122, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 122, …}
+injected.js:27 🔐 Post ownership check: {postId: 121, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 121, …}
+injected.js:27 🔐 Post ownership check: {postId: 120, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 120, …}
+injected.js:27 🔐 Post ownership check: {postId: 119, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 119, …}
+injected.js:27 🔐 Post ownership check: {postId: 118, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 118, …}
+injected.js:27 🔐 Post ownership check: {postId: 117, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 117, …}
+injected.js:27 🔐 Post ownership check: {postId: 116, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 116, …}
+injected.js:27 🔐 Post ownership check: {postId: 115, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 115, …}
+injected.js:27 🔐 Post ownership check: {postId: 114, postUserId: 7, currentUserId: 7, isOwner: true, isTestPost: false}
+injected.js:27 [Framework] Ownership check: {currentUserId: 7, postUserId: 7, postUserId_alt: 7, isAuthor: true, postId: 114, …}
+chunk-FIVTYXJO.js?v=b2ea31f1:18675 [Violation] 'setTimeout' handler took 60ms
+injected.js:27 Long task detected: 61ms
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+(anonymous) @ life-ceo-performance.ts:195
+(anonymous) @ life-ceo-performance.ts:193
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:6
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:6
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:6
+injected.js:27 Unhandled promise rejection: IntegrationError: Please call Stripe() with your publishable key. You used an empty string.
+    at l (stripe.js:1:218918)
+    at new e (stripe.js:1:663859)
+    at nv (stripe.js:1:721725)
+    at initStripe2 (@stripe_stripe-js.js?v=b2ea31f1:121:28)
+    at @stripe_stripe-js.js?v=b2ea31f1:151:12
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+(anonymous) @ global-error-handler.ts:6
+injected.js:27 Life CEO Performance Metrics: {pageLoadTime: '-1760507490304ms', connectTime: '623ms', renderTime: '35916ms', totalResources: 250}
+injected.js:27 🔌 [Toolbar] WebSocket connected for real-time updates
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+injected.js:27 ✅ Socket.io connected
+injected.js:27 🚨 Critical performance issue: LCP = 39312ms (threshold: 4000ms)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+checkThresholds @ performanceMonitor.ts:112
+recordMetric @ performanceMonitor.ts:92
+(anonymous) @ performanceMonitor.ts:40
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+@react-three_drei.js?v=b2ea31f1:23622 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ @react-three_drei.js?v=b2ea31f1:23622
+(anonymous) @ @react-three_drei.js?v=b2ea31f1:89284
+commitHookEffectListMount @ chunk-Y4IJHDPZ.js?v=b2ea31f1:10913
+commitPassiveMountOnFiber @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12222
+commitPassiveMountEffects_complete @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12194
+commitPassiveMountEffects_begin @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12184
+commitPassiveMountEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12174
+flushPassiveEffectsImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13945
+flushPassiveEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13908
+performSyncWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13311
+flushSyncCallbacks @ chunk-Y4IJHDPZ.js?v=b2ea31f1:2767
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13893
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+finishConcurrentRender @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13248
+performConcurrentWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13158
+workLoop @ chunk-Y4IJHDPZ.js?v=b2ea31f1:274
+flushWork @ chunk-Y4IJHDPZ.js?v=b2ea31f1:253
+performWorkUntilDeadline @ chunk-Y4IJHDPZ.js?v=b2ea31f1:461
+@react-three_drei.js?v=b2ea31f1:23622 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ @react-three_drei.js?v=b2ea31f1:23622
+(anonymous) @ @react-three_drei.js?v=b2ea31f1:89284
+commitHookEffectListMount @ chunk-Y4IJHDPZ.js?v=b2ea31f1:10913
+commitPassiveMountOnFiber @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12222
+commitPassiveMountEffects_complete @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12194
+commitPassiveMountEffects_begin @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12184
+commitPassiveMountEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12174
+flushPassiveEffectsImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13945
+flushPassiveEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13908
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13877
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+performSyncWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13338
+flushSyncCallbacks @ chunk-Y4IJHDPZ.js?v=b2ea31f1:2767
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13893
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+finishConcurrentRender @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13248
+performConcurrentWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13158
+workLoop @ chunk-Y4IJHDPZ.js?v=b2ea31f1:274
+flushWork @ chunk-Y4IJHDPZ.js?v=b2ea31f1:253
+performWorkUntilDeadline @ chunk-Y4IJHDPZ.js?v=b2ea31f1:461
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+apply @ injected.js:204
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+setInterval
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:48
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:87
+#updateRefetchInterval @ @tanstack_react-query.js?v=b2ea31f1:1457
+#updateTimers @ @tanstack_react-query.js?v=b2ea31f1:1465
+onQueryUpdate @ @tanstack_react-query.js?v=b2ea31f1:1668
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1226
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1225
+batch @ @tanstack_react-query.js?v=b2ea31f1:608
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+setOptions @ @tanstack_react-query.js?v=b2ea31f1:1355
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3243
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384
+injected.js:27 🚀 [Mr Blue] Calling API: /api/mrblue/simple-chat
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:204  POST https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/mrblue/simple-chat 404 (Not Found)
+apply @ injected.js:204
+generateResponse @ ScottAI.tsx:151
+sendMessage @ ScottAI.tsx:222
+handleMessage @ MrBlueComplete.tsx:59
+handleSend @ ChatInterface.tsx:102
+handleKeyPress @ ChatInterface.tsx:109
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+invokeGuardedCallbackAndCatchFirstError @ chunk-FIVTYXJO.js?v=b2ea31f1:3742
+executeDispatch @ chunk-FIVTYXJO.js?v=b2ea31f1:7046
+processDispatchQueueItemsInOrder @ chunk-FIVTYXJO.js?v=b2ea31f1:7066
+processDispatchQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:7075
+dispatchEventsForPlugins @ chunk-FIVTYXJO.js?v=b2ea31f1:7083
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:7206
+batchedUpdates$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:18966
+batchedUpdates @ chunk-FIVTYXJO.js?v=b2ea31f1:3585
+dispatchEventForPluginEventSystem @ chunk-FIVTYXJO.js?v=b2ea31f1:7205
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-FIVTYXJO.js?v=b2ea31f1:5484
+dispatchEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5478
+dispatchDiscreteEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5455
+injected.js:27 ✅ [Mr Blue] Response status: 404
+injected.js:27 AI error: SyntaxError: Failed to execute 'json' on 'Response': Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at generateResponse (ScottAI.tsx:165:35)
+    at async sendMessage (ScottAI.tsx:222:22)
+    at async handleMessage (MrBlueComplete.tsx:59:5)
+(anonymous) @ injected.js:27
+console.<computed> @ console-cleanup.ts:48
+(anonymous) @ injected.js:27
+console.error @ chunk-Y4IJHDPZ.js?v=b2ea31f1:17716
+(anonymous) @ injected.js:27
+generateResponse @ ScottAI.tsx:172
+await in generateResponse
+sendMessage @ ScottAI.tsx:222
+handleMessage @ MrBlueComplete.tsx:59
+handleSend @ ChatInterface.tsx:102
+handleKeyPress @ ChatInterface.tsx:109
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+invokeGuardedCallbackAndCatchFirstError @ chunk-FIVTYXJO.js?v=b2ea31f1:3742
+executeDispatch @ chunk-FIVTYXJO.js?v=b2ea31f1:7046
+processDispatchQueueItemsInOrder @ chunk-FIVTYXJO.js?v=b2ea31f1:7066
+processDispatchQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:7075
+dispatchEventsForPlugins @ chunk-FIVTYXJO.js?v=b2ea31f1:7083
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:7206
+batchedUpdates$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:18966
+batchedUpdates @ chunk-FIVTYXJO.js?v=b2ea31f1:3585
+dispatchEventForPluginEventSystem @ chunk-FIVTYXJO.js?v=b2ea31f1:7205
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-FIVTYXJO.js?v=b2ea31f1:5484
+dispatchEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5478
+dispatchDiscreteEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5455
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:27 🔓 [Access Control] Dev mode Super Admin enabled via localStorage
+injected.js:204  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+apply @ injected.js:204
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+setInterval
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:48
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:87
+#updateRefetchInterval @ @tanstack_react-query.js?v=b2ea31f1:1457
+#updateTimers @ @tanstack_react-query.js?v=b2ea31f1:1465
+onQueryUpdate @ @tanstack_react-query.js?v=b2ea31f1:1668
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1226
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1225
+batch @ @tanstack_react-query.js?v=b2ea31f1:608
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+setInterval
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:48
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:87
+#updateRefetchInterval @ @tanstack_react-query.js?v=b2ea31f1:1457
+#updateTimers @ @tanstack_react-query.js?v=b2ea31f1:1465
+onQueryUpdate @ @tanstack_react-query.js?v=b2ea31f1:1668
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1226
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1225
+batch @ @tanstack_react-query.js?v=b2ea31f1:608
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+setOptions @ @tanstack_react-query.js?v=b2ea31f1:1355
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:3243
+commitHookEffectListMount @ chunk-FIVTYXJO.js?v=b2ea31f1:16963
+commitPassiveMountOnFiber @ chunk-FIVTYXJO.js?v=b2ea31f1:18206
+commitPassiveMountEffects_complete @ chunk-FIVTYXJO.js?v=b2ea31f1:18179
+commitPassiveMountEffects_begin @ chunk-FIVTYXJO.js?v=b2ea31f1:18169
+commitPassiveMountEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:18159
+flushPassiveEffectsImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19543
+flushPassiveEffects @ chunk-FIVTYXJO.js?v=b2ea31f1:19500
+performSyncWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18921
+flushSyncCallbacks @ chunk-FIVTYXJO.js?v=b2ea31f1:9166
+commitRootImpl @ chunk-FIVTYXJO.js?v=b2ea31f1:19485
+commitRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:19330
+finishConcurrentRender @ chunk-FIVTYXJO.js?v=b2ea31f1:18858
+performConcurrentWorkOnRoot @ chunk-FIVTYXJO.js?v=b2ea31f1:18768
+workLoop @ chunk-FIVTYXJO.js?v=b2ea31f1:197
+flushWork @ chunk-FIVTYXJO.js?v=b2ea31f1:176
+performWorkUntilDeadline @ chunk-FIVTYXJO.js?v=b2ea31f1:384

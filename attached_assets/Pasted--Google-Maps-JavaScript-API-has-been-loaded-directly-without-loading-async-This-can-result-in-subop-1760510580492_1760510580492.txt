@@ -1,0 +1,333 @@
+ Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+Eda @ js?key=AIzaSyDNTpCEG…braries=places:1424
+/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ [vite] connecting...
+ [vite] connected.
+/memories:1 Access to fetch at 'https://plausible.io/api/event' from origin 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+event:1  Failed to load resource: net::ERR_FAILED
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ ⚡ Life CEO Performance Optimizer initialized
+ 📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)
+ Starting React app...
+ React app mounted
+ 🚀 [App] ROOT COMPONENT RENDERING
+ 🚀 [App] About to return JSX tree
+ Long task detected: 222ms
+console.<computed> @ console-cleanup.ts:26
+ 🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY
+ ⏸️ Socket connection deferred - no user
+ 🚀 [App] useEffect running - setup starting
+ 📊 Plausible Analytics is live on mundo-tango.replit.dev
+ 🚀 [App] useEffect complete - setup done
+ [MonitoringProvider] No consent - user can enable analytics in Settings > Privacy
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+ Unhandled promise rejection: 
+console.<computed> @ console-cleanup.ts:26
+ Long task detected: 106ms
+console.<computed> @ console-cleanup.ts:26
+ content loaded
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: null
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ Long task detected: 125ms
+console.<computed> @ console-cleanup.ts:26
+ Long task detected: 70ms
+console.<computed> @ console-cleanup.ts:26
+ [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ ✅ CSRF token fetched successfully
+ Content Script: Initializing
+ 🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated
+ User authenticated via auth bypass: Object
+ 🎯 [AppContent] Rendering - ESA components should load
+ 🎯 [AppContent] After hooks - about to render
+ 🔍 Current path: /memories
+ [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+ 🗺️ [Framework] Component executing - START
+ 🗺️ [Framework] User from hook: Object
+ 🗺️ [Framework] Access check: Object
+ 🗺️ [Framework] RENDERING BUTTON
+ 🌐 [usePostFeed] Making request: Object
+ [Framework] User authenticated from context, ID: 7
+ [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+/memories:1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+ [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+/api/ai-intelligence/journey/predict?route=%2Fmemories&userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+/memories:1 Error while trying to use the following icon from the Manifest: https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/icons/icon-144x144.png (Download error or resource isn't a valid image)
+ ✅ [usePostFeed] Response: Object
+ 🚀 usePostFeed CALLED Object
+ 🔍 [usePostFeed] Query state: Object
+ 🔍 [SmartPostFeed] Feed state: Object
+ 🔍 [ControlledPostFeed] Rendering: Object
+ 📝 [ControlledPostFeed] Rendering posts: Array(3)
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ 🔐 Post ownership check: Object
+ [Framework] Ownership check: Object
+ ✅ Real-time feed connected: zWuStQmyOaDZV65GAAAZ
+ [["/api/admin/stats"]]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function
+console.<computed> @ console-cleanup.ts:26
+ 🚀 usePostFeed CALLED Object
+console-cleanup.ts:48 🔍 [usePostFeed] Query state: Object
+console-cleanup.ts:48 🔍 [SmartPostFeed] Feed state: Object
+console-cleanup.ts:48 🔍 [ControlledPostFeed] Rendering: Object
+console-cleanup.ts:48 📝 [ControlledPostFeed] Rendering posts: Array(3)
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 🔐 Post ownership check: Object
+console-cleanup.ts:48 [Framework] Ownership check: Object
+console-cleanup.ts:48 Long task detected: 56ms
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 Long task detected: 61ms
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 Analytics tracking active - events will be sent to Plausible
+console-cleanup.ts:48 🔌 [Toolbar] WebSocket connected for real-time updates
+console-cleanup.ts:48 ✅ Socket.io connected
+console-cleanup.ts:48 🚨 Critical performance issue: LCP = 19460ms (threshold: 4000ms)
+console.<computed> @ console-cleanup.ts:48
+console-cleanup.ts:48 📍 Using browser GPS location: Object
+api/ai-intelligence/journey/predict?route=%2Fmemories&userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+api/ai-intelligence/context?userId=7:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+@react-three_drei.js?v=b2ea31f1:23622 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ @react-three_drei.js?v=b2ea31f1:23622
+(anonymous) @ @react-three_drei.js?v=b2ea31f1:89284
+commitHookEffectListMount @ chunk-Y4IJHDPZ.js?v=b2ea31f1:10913
+commitPassiveMountOnFiber @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12222
+commitPassiveMountEffects_complete @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12194
+commitPassiveMountEffects_begin @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12184
+commitPassiveMountEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12174
+flushPassiveEffectsImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13945
+flushPassiveEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13908
+performSyncWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13311
+flushSyncCallbacks @ chunk-Y4IJHDPZ.js?v=b2ea31f1:2767
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13893
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+finishConcurrentRender @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13248
+performConcurrentWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13158
+workLoop @ chunk-Y4IJHDPZ.js?v=b2ea31f1:274
+flushWork @ chunk-Y4IJHDPZ.js?v=b2ea31f1:253
+performWorkUntilDeadline @ chunk-Y4IJHDPZ.js?v=b2ea31f1:461
+@react-three_drei.js?v=b2ea31f1:23622 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+OrbitControls.connect @ @react-three_drei.js?v=b2ea31f1:23622
+(anonymous) @ @react-three_drei.js?v=b2ea31f1:89284
+commitHookEffectListMount @ chunk-Y4IJHDPZ.js?v=b2ea31f1:10913
+commitPassiveMountOnFiber @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12222
+commitPassiveMountEffects_complete @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12194
+commitPassiveMountEffects_begin @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12184
+commitPassiveMountEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:12174
+flushPassiveEffectsImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13945
+flushPassiveEffects @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13908
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13877
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+performSyncWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13338
+flushSyncCallbacks @ chunk-Y4IJHDPZ.js?v=b2ea31f1:2767
+commitRootImpl @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13893
+commitRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13749
+finishConcurrentRender @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13248
+performConcurrentWorkOnRoot @ chunk-Y4IJHDPZ.js?v=b2ea31f1:13158
+workLoop @ chunk-Y4IJHDPZ.js?v=b2ea31f1:274
+flushWork @ chunk-Y4IJHDPZ.js?v=b2ea31f1:253
+performWorkUntilDeadline @ chunk-Y4IJHDPZ.js?v=b2ea31f1:461
+AIContextBar.tsx:44  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+console-cleanup.ts:48 🚀 [Mr Blue] Calling API: /api/mrblue/simple-chat
+ScottAI.tsx:151  POST https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/mrblue/simple-chat 401 (Unauthorized)
+generateResponse @ ScottAI.tsx:151
+sendMessage @ ScottAI.tsx:222
+handleMessage @ MrBlueComplete.tsx:59
+handleSend @ ChatInterface.tsx:102
+handleKeyPress @ ChatInterface.tsx:109
+callCallback2 @ chunk-FIVTYXJO.js?v=b2ea31f1:3680
+invokeGuardedCallbackDev @ chunk-FIVTYXJO.js?v=b2ea31f1:3705
+invokeGuardedCallback @ chunk-FIVTYXJO.js?v=b2ea31f1:3739
+invokeGuardedCallbackAndCatchFirstError @ chunk-FIVTYXJO.js?v=b2ea31f1:3742
+executeDispatch @ chunk-FIVTYXJO.js?v=b2ea31f1:7046
+processDispatchQueueItemsInOrder @ chunk-FIVTYXJO.js?v=b2ea31f1:7066
+processDispatchQueue @ chunk-FIVTYXJO.js?v=b2ea31f1:7075
+dispatchEventsForPlugins @ chunk-FIVTYXJO.js?v=b2ea31f1:7083
+(anonymous) @ chunk-FIVTYXJO.js?v=b2ea31f1:7206
+batchedUpdates$1 @ chunk-FIVTYXJO.js?v=b2ea31f1:18966
+batchedUpdates @ chunk-FIVTYXJO.js?v=b2ea31f1:3585
+dispatchEventForPluginEventSystem @ chunk-FIVTYXJO.js?v=b2ea31f1:7205
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-FIVTYXJO.js?v=b2ea31f1:5484
+dispatchEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5478
+dispatchDiscreteEvent @ chunk-FIVTYXJO.js?v=b2ea31f1:5455
+console-cleanup.ts:48 ✅ [Mr Blue] Response status: 401
+console-cleanup.ts:48 THREE.WebGLRenderer: Context Lost.
+AIContextBar.tsx:44  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+setInterval
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:48
+setInterval @ @tanstack_react-query.js?v=b2ea31f1:87
+#updateRefetchInterval @ @tanstack_react-query.js?v=b2ea31f1:1457
+#updateTimers @ @tanstack_react-query.js?v=b2ea31f1:1465
+onQueryUpdate @ @tanstack_react-query.js?v=b2ea31f1:1668
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1226
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1225
+batch @ @tanstack_react-query.js?v=b2ea31f1:608
+#dispatch @ @tanstack_react-query.js?v=b2ea31f1:1224
+setData @ @tanstack_react-query.js?v=b2ea31f1:902
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1120
+await in fetch
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:1459
+AIContextBar.tsx:44  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/context?userId=7 404 (Not Found)
+queryFn @ AIContextBar.tsx:44
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1412
+refetch @ @tanstack_react-query.js?v=b2ea31f1:1402
+onFocus @ @tanstack_react-query.js?v=b2ea31f1:967
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:2654
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:2653
+batch @ @tanstack_react-query.js?v=b2ea31f1:608
+onFocus @ @tanstack_react-query.js?v=b2ea31f1:2652
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:2691
+await in (anonymous)
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:379
+onFocus @ @tanstack_react-query.js?v=b2ea31f1:378
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:365
+listener @ @tanstack_react-query.js?v=b2ea31f1:338
+SmartPageSuggestions.tsx:46  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/ai-intelligence/journey/predict?route=%2Fmemories&userId=7 404 (Not Found)
+queryFn @ SmartPageSuggestions.tsx:46
+fetchFn @ @tanstack_react-query.js?v=b2ea31f1:1064
+run @ @tanstack_react-query.js?v=b2ea31f1:773
+start @ @tanstack_react-query.js?v=b2ea31f1:815
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1111
+#executeFetch @ @tanstack_react-query.js?v=b2ea31f1:1422
+fetch @ @tanstack_react-query.js?v=b2ea31f1:1412
+refetch @ @tanstack_react-query.js?v=b2ea31f1:1402
+onFocus @ @tanstack_react-query.js?v=b2ea31f1:967
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:2654
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:2653
+batch @ @tanstack_react-query.js?v=b2ea31f1:608
+onFocus @ @tanstack_react-query.js?v=b2ea31f1:2652
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:2691
+await in (anonymous)
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:379
+onFocus @ @tanstack_react-query.js?v=b2ea31f1:378
+(anonymous) @ @tanstack_react-query.js?v=b2ea31f1:365
+listener @ @tanstack_react-query.js?v=b2ea31f1:338
+Navigated to https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/home?edit=true
+js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1424 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+Eda @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1424
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:14
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1723
+(anonymous) @ js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places:1723
+client:733 [vite] connecting...
+client:827 [vite] connected.

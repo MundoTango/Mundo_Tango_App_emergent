@@ -1,0 +1,48 @@
+"who are my friends?
+
+3:30:23 AM
+
+🤖
+Mr Blue
+Hey! You're on your **friends page** right now (`/friends`), but I can't actually see your specific friend connections from here.
+
+Here's how to check who's in your network:
+
+— Look for your friend list or connections display on this page
+— Check if there are profile pics or names showing up
+— Might be organized by recent activity or alphabetical
+
+If you're not seeing anyone listed, it could mean:
+— You haven't connected with other tango dancers yet
+— Privacy settings might be hiding the list
+— The connections are loading
+
+Want to start building your tango network? Let's get you connected with dancers in your area or people you've met at milongas.
+
+What are you seeing on the page right now?
+
+3:30:30 AM
+
+are there any events happening today or sometime soon?
+
+3:31:06 AM
+
+👥
+Relationship Agent
+Looking at your friends page right now — I don't see any upcoming events displayed here.
+
+Let's get you to the events section to check what's happening:
+
+— Hit the events tab in your main nav
+— Or search "events near me" in the search bar
+
+Once you're there, you can filter by:
+- Today's events
+- This weekend 
+- Next 7 days
+
+If nothing shows up locally, try expanding your radius or check the featured global events section.
+
+Want me to help you set up event notifications so you never miss the good stuff?
+
+3:31:11 AM" this was my conversation with Mr Blue, i need him to have complete knowled over all public data on Mundo Tango and anything that is associated with that user. so if a person asks these questions or more diffult ones like "I was at y event and i meat a teacher from x city and she said she is an engienner but I can't remember her name, can you help me" so it woul understand what event the user went to (or going to) it would understand what people attended and which were teachers, then it would find teachers for that city, and then it would look through those tearchers for one that is an engineer and this would be the answer or "i was at a tango camp and I took this photo on a mountain with some new friends but i don't remember there names" then it should filter through, in the same way, all the data to find her. this is the type of deep MT understanding it should have
