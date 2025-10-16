@@ -8,7 +8,6 @@ module.exports = defineConfig({
   plugins: [
     react.default(),
     runtimeErrorOverlay.default(),
-    // Cartographer plugin disabled in CommonJS mode (uses top-level await)
   ],
   resolve: {
     alias: {
@@ -19,8 +18,14 @@ module.exports = defineConfig({
   },
   root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "client/dist"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+        inlineDynamicImports: true,
+      },
+    },
   },
   server: {
     fs: {
