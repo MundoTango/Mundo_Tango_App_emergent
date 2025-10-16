@@ -1,0 +1,54 @@
+2025-10-16T08:12:39Z info: Deployment: 01a58a8d-8af3-4481-950f-924d19c76112
+2025-10-16T08:12:39Z info: Build: 0f837ccf-537b-4d12-a1dc-bad5e59d42aa
+2025-10-16T08:12:39Z info: Running Security Scan
+2025-10-16T08:17:33Z info: Security Scan Complete
+2025-10-16T08:17:33Z info: Connecting to builder
+2025-10-16T08:17:36Z info: Builder connected
+2025-10-16T08:17:38Z info: Installing packages
+--> npm install
+
+npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+
+npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+
+npm warn deprecated grapesjs-react@4.0.3: This package is deprecated. Please use the official package @grapesjs/react instead: https://www.npmjs.com/package/@grapesjs/react
+
+npm warn deprecated gauge@3.0.2: This package is no longer supported.
+
+npm warn deprecated backbone-undo@0.2.6: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@2.6.3: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated puppeteer@22.15.0: < 24.10.2 is no longer supported
+
+npm warn deprecated @novu/node@2.6.6: March 20, 2025 marks the end of support for @novu/node. Users can migrate to the new @novu/api package for most popular JS runtimes. For more information, visit https://docs.novu.co/platform/sdks/server/typescript
+
+npm warn deprecated react-flow-renderer@10.3.17: react-flow-renderer has been renamed to reactflow, please use this package from now on https://reactflow.dev/docs/guides/migrate-to-v11/
+
+npm warn deprecated fluent-ffmpeg@2.1.3: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.

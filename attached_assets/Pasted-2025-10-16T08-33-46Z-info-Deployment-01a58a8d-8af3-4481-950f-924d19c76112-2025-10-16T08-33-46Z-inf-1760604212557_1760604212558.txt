@@ -1,0 +1,42 @@
+2025-10-16T08:33:46Z info: Deployment: 01a58a8d-8af3-4481-950f-924d19c76112
+2025-10-16T08:33:46Z info: Build: d058d620-f6c9-4dda-9802-bab5931ce300
+2025-10-16T08:33:46Z info: Running Security Scan
+2025-10-16T08:38:44Z info: Security Scan Complete
+2025-10-16T08:38:44Z info: Connecting to builder
+2025-10-16T08:38:48Z info: Builder connected
+2025-10-16T08:38:50Z info: Installing packages
+--> npm install
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@2.6.3: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+
+npm warn deprecated puppeteer@22.15.0: < 24.10.2 is no longer supported
+
+npm warn deprecated @novu/node@2.6.6: March 20, 2025 marks the end of support for @novu/node. Users can migrate to the new @novu/api package for most popular JS runtimes. For more information, visit https://docs.novu.co/platform/sdks/server/typescript
+
+npm warn deprecated fluent-ffmpeg@2.1.3: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+
+Deployment timed out. Check the Logs tab for more details. - 2025-10-16T08:42:46.045Z
