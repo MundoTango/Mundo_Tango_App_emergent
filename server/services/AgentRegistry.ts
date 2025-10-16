@@ -1,217 +1,321 @@
 /**
- * TRACK 8 (Legacy Task): Agent Registry & Knowledge Distribution
- * Agent #80 - Learning Coordinator
- * 
- * Distributes patterns to all 125 agents
+ * Phase 11 - Track 1A: Agent Registry System
+ * Central registry for all component-agents
+ * Every UI component is a self-aware agent that can self-test and self-fix
  */
 
-interface AgentCapability {
-  name: string;
-  version: string;
-  patterns: string[];
-  certifications: string[];
-  lastUpdated: Date;
+import { db } from '../db';
+import { componentAgents } from '../../shared/schema';
+import { eq, sql, inArray } from 'drizzle-orm';
+
+export interface ComponentAgent {
+  agentId: string;         // e.g., "BUTTON_LOGIN", "FORM_PROFILE", "PAGE_DASHBOARD"
+  componentName: string;   // Human-readable name
+  componentPath: string;   // File path
+  componentType: string;   // "button", "form", "page", "widget"
+  parentAgent?: string;    // Parent component agent ID
+  layerAgents?: string[];  // Associated layer agents
+  healthStatus: 'healthy' | 'warning' | 'error';
+  testCoverage: number;    // 0-100
+  learningCount: number;   // Number of times this component learned
+  modificationHistory?: any; // History of modifications
 }
 
-interface KnowledgePattern {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  code?: string;
-  documentation: string;
-  applicableAgents: number[]; // Agent IDs that can use this pattern
-  createdAt: Date;
-  distributedTo: number[]; // Agent IDs that received this pattern
+export interface AgentRegistryStats {
+  totalAgents: number;
+  healthyAgents: number;
+  warningAgents: number;
+  errorAgents: number;
+  avgTestCoverage: number;
+  totalLearnings: number;
+  byType: Record<string, number>;
 }
 
-export class AgentRegistry {
-  private agents: Map<number, AgentCapability> = new Map();
-  private patterns: Map<string, KnowledgePattern> = new Map();
-
-  constructor() {
-    this.initializeAgents();
-  }
-
+export class AgentRegistryService {
   /**
-   * Initialize all 125 ESA agents
+   * Register a new component-agent
+   * Always check if already exists first (MB.MD principle: "Have I already built this?")
    */
-  private initializeAgents() {
-    // Register all 125 agents
-    const agentDefinitions = [
-      { id: 73, name: 'Core AI Integration' },
-      { id: 74, name: 'Voice & Personality' },
-      { id: 75, name: 'Context Awareness' },
-      { id: 76, name: 'Multi-model Routing' },
-      { id: 77, name: 'Learning Integration' },
-      { id: 78, name: 'Visual Editor' },
-      { id: 79, name: 'Quality Validator' },
-      { id: 80, name: 'Learning Coordinator' },
-      { id: 81, name: 'Page Intelligence' },
-      { id: 72, name: 'Error Recovery' },
-      { id: 66, name: 'Performance Monitoring' },
-      { id: 59, name: 'Security Audit' },
-      { id: 68, name: 'Pattern Learning' },
-      // ... add all 125 agents
-    ];
-
-    for (const agent of agentDefinitions) {
-      this.agents.set(agent.id, {
-        name: agent.name,
-        version: '1.0.0',
-        patterns: [],
-        certifications: [],
-        lastUpdated: new Date()
-      });
-    }
-
-    console.log(`📊 [AgentRegistry] Initialized ${this.agents.size} agents`);
-  }
-
-  /**
-   * Register new knowledge pattern
-   */
-  registerPattern(pattern: Omit<KnowledgePattern, 'id' | 'createdAt' | 'distributedTo'>): string {
-    const patternId = `pattern-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
-    const newPattern: KnowledgePattern = {
-      id: patternId,
-      ...pattern,
-      createdAt: new Date(),
-      distributedTo: []
-    };
-
-    this.patterns.set(patternId, newPattern);
-    console.log(`📚 [AgentRegistry] Registered pattern: ${pattern.name}`);
-
-    // Auto-distribute to applicable agents
-    this.distributePattern(patternId);
-
-    return patternId;
-  }
-
-  /**
-   * Distribute pattern to applicable agents
-   */
-  private async distributePattern(patternId: string) {
-    const pattern = this.patterns.get(patternId);
-    if (!pattern) return;
-
-    console.log(`📤 [AgentRegistry] Distributing pattern "${pattern.name}" to ${pattern.applicableAgents.length} agents...`);
-
-    for (const agentId of pattern.applicableAgents) {
-      const agent = this.agents.get(agentId);
-      if (!agent) continue;
-
-      // Add pattern to agent's capabilities
-      if (!agent.patterns.includes(pattern.id)) {
-        agent.patterns.push(pattern.id);
-        agent.lastUpdated = new Date();
-        this.agents.set(agentId, agent);
-
-        pattern.distributedTo.push(agentId);
+  async registerAgent(agent: ComponentAgent): Promise<void> {
+    try {
+      // Check if already registered
+      const existing = await this.getAgent(agent.agentId);
+      
+      if (existing) {
+        console.log(`[Agent Registry] Agent ${agent.agentId} already registered - updating instead`);
+        await this.updateAgent(agent.agentId, agent);
+        return;
       }
-    }
 
-    this.patterns.set(patternId, pattern);
-    console.log(`✅ [AgentRegistry] Pattern distributed to ${pattern.distributedTo.length} agents`);
+      await db.insert(componentAgents).values({
+        componentName: agent.agentId,  // Use agentId as unique identifier
+        componentPath: agent.componentPath,
+        componentType: agent.componentType,
+        parentAgent: agent.parentAgent || null,
+        layerAgents: agent.layerAgents || [],
+        currentHealth: agent.healthStatus || 'healthy',
+        testCoverage: agent.testCoverage || 0,
+        learningCount: agent.learningCount || 0,
+        modificationHistory: agent.modificationHistory || {}
+      });
+
+      console.log(`✅ [Agent Registry] Registered ${agent.agentId} (${agent.componentType})`);
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to register ${agent.agentId}:`, error);
+      throw error;
+    }
   }
 
   /**
-   * Certify agent on a pattern
+   * Get agent by ID (componentName)
    */
-  certifyAgent(agentId: number, patternId: string): boolean {
-    const agent = this.agents.get(agentId);
-    const pattern = this.patterns.get(patternId);
+  async getAgent(agentId: string): Promise<ComponentAgent | null> {
+    try {
+      const result = await db
+        .select()
+        .from(componentAgents)
+        .where(eq(componentAgents.componentName, agentId))
+        .limit(1);
 
-    if (!agent || !pattern) {
-      console.warn(`⚠️ [AgentRegistry] Cannot certify: agent ${agentId} or pattern ${patternId} not found`);
-      return false;
+      if (result.length === 0) return null;
+
+      const agent = result[0];
+      return {
+        agentId: agent.componentName,
+        componentName: agent.componentName,
+        componentPath: agent.componentPath,
+        componentType: agent.componentType,
+        parentAgent: agent.parentAgent || undefined,
+        layerAgents: agent.layerAgents || [],
+        healthStatus: agent.currentHealth as 'healthy' | 'warning' | 'error',
+        testCoverage: agent.testCoverage || 0,
+        learningCount: agent.learningCount || 0,
+        modificationHistory: agent.modificationHistory
+      };
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to get agent ${agentId}:`, error);
+      return null;
     }
-
-    const certificationKey = `${patternId}:certified`;
-    if (!agent.certifications.includes(certificationKey)) {
-      agent.certifications.push(certificationKey);
-      agent.lastUpdated = new Date();
-      this.agents.set(agentId, agent);
-
-      console.log(`✅ [AgentRegistry] Agent ${agentId} (${agent.name}) certified on pattern "${pattern.name}"`);
-      return true;
-    }
-
-    return false;
   }
 
   /**
-   * Get agent capabilities
+   * Get all agents by type (e.g., "button", "form", "page")
    */
-  getAgentCapabilities(agentId: number): AgentCapability | undefined {
-    return this.agents.get(agentId);
-  }
+  async getAgentsByType(type: string): Promise<ComponentAgent[]> {
+    try {
+      const results = await db
+        .select()
+        .from(componentAgents)
+        .where(eq(componentAgents.componentType, type));
 
-  /**
-   * Get all agents with a specific pattern
-   */
-  getAgentsWithPattern(patternId: string): AgentCapability[] {
-    const pattern = this.patterns.get(patternId);
-    if (!pattern) return [];
-
-    return Array.from(this.agents.values())
-      .filter(agent => agent.patterns.includes(patternId));
-  }
-
-  /**
-   * Get distribution status
-   */
-  getDistributionStatus(): {
-    totalAgents: number;
-    totalPatterns: number;
-    distributionRate: number;
-    certificationRate: number;
-  } {
-    const totalPatterns = this.patterns.size;
-    const totalAgents = this.agents.size;
-
-    let totalDistributions = 0;
-    let totalCertifications = 0;
-
-    for (const agent of this.agents.values()) {
-      totalDistributions += agent.patterns.length;
-      totalCertifications += agent.certifications.length;
+      return results.map(agent => ({
+        agentId: agent.componentName,
+        componentName: agent.componentName,
+        componentPath: agent.componentPath,
+        componentType: agent.componentType,
+        parentAgent: agent.parentAgent || undefined,
+        layerAgents: agent.layerAgents || [],
+        healthStatus: agent.currentHealth as 'healthy' | 'warning' | 'error',
+        testCoverage: agent.testCoverage || 0,
+        learningCount: agent.learningCount || 0,
+        modificationHistory: agent.modificationHistory
+      }));
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to get agents by type ${type}:`, error);
+      return [];
     }
+  }
 
-    return {
-      totalAgents,
-      totalPatterns,
-      distributionRate: totalDistributions / (totalPatterns * totalAgents) || 0,
-      certificationRate: totalCertifications / totalDistributions || 0
-    };
+  /**
+   * Update agent (for modifications)
+   */
+  async updateAgent(agentId: string, updates: Partial<ComponentAgent>): Promise<void> {
+    try {
+      await db
+        .update(componentAgents)
+        .set({
+          componentPath: updates.componentPath,
+          componentType: updates.componentType,
+          parentAgent: updates.parentAgent,
+          layerAgents: updates.layerAgents,
+          currentHealth: updates.healthStatus,
+          testCoverage: updates.testCoverage,
+          learningCount: updates.learningCount,
+          modificationHistory: updates.modificationHistory,
+          lastModified: new Date()
+        })
+        .where(eq(componentAgents.componentName, agentId));
+
+      console.log(`✅ [Agent Registry] Updated ${agentId}`);
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to update ${agentId}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update agent health status
+   */
+  async updateHealth(agentId: string, status: 'healthy' | 'warning' | 'error'): Promise<void> {
+    try {
+      await db
+        .update(componentAgents)
+        .set({
+          currentHealth: status,
+          lastModified: new Date()
+        })
+        .where(eq(componentAgents.componentName, agentId));
+
+      console.log(`🏥 [Agent Registry] ${agentId} health → ${status}`);
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to update health for ${agentId}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Record test results
+   */
+  async recordTest(agentId: string, passed: boolean): Promise<void> {
+    try {
+      if (passed) {
+        await db
+          .update(componentAgents)
+          .set({
+            testCoverage: sql`LEAST(100, ${componentAgents.testCoverage} + 10)`,
+            currentHealth: 'healthy',
+            lastModified: new Date()
+          })
+          .where(eq(componentAgents.componentName, agentId));
+      } else {
+        await db
+          .update(componentAgents)
+          .set({
+            currentHealth: 'error',
+            lastModified: new Date()
+          })
+          .where(eq(componentAgents.componentName, agentId));
+      }
+
+      console.log(`📊 [Agent Registry] ${agentId} test ${passed ? 'PASSED' : 'FAILED'}`);
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to record test for ${agentId}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Record auto-fix attempt
+   */
+  async recordAutoFix(agentId: string, successful: boolean): Promise<void> {
+    try {
+      if (successful) {
+        await db
+          .update(componentAgents)
+          .set({
+            learningCount: sql`${componentAgents.learningCount} + 1`,
+            currentHealth: 'healthy',
+            lastModified: new Date()
+          })
+          .where(eq(componentAgents.componentName, agentId));
+      } else {
+        await db
+          .update(componentAgents)
+          .set({
+            lastModified: new Date()
+          })
+          .where(eq(componentAgents.componentName, agentId));
+      }
+
+      console.log(`🔧 [Agent Registry] ${agentId} auto-fix ${successful ? 'SUCCESS' : 'FAILED'}`);
+    } catch (error) {
+      console.error(`[Agent Registry] Failed to record auto-fix for ${agentId}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get unhealthy agents (need attention)
+   */
+  async getUnhealthyAgents(): Promise<ComponentAgent[]> {
+    try {
+      const results = await db
+        .select()
+        .from(componentAgents)
+        .where(inArray(componentAgents.currentHealth, ['warning', 'error']));
+
+      return results.map(agent => ({
+        agentId: agent.componentName,
+        componentName: agent.componentName,
+        componentPath: agent.componentPath,
+        componentType: agent.componentType,
+        parentAgent: agent.parentAgent || undefined,
+        layerAgents: agent.layerAgents || [],
+        healthStatus: agent.currentHealth as 'healthy' | 'warning' | 'error',
+        testCoverage: agent.testCoverage || 0,
+        learningCount: agent.learningCount || 0,
+        modificationHistory: agent.modificationHistory
+      }));
+    } catch (error) {
+      console.error('[Agent Registry] Failed to get unhealthy agents:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get agent statistics
+   */
+  async getStats(): Promise<AgentRegistryStats> {
+    try {
+      const allAgents = await db.select().from(componentAgents);
+
+      const stats: AgentRegistryStats = {
+        totalAgents: allAgents.length,
+        healthyAgents: allAgents.filter(a => a.currentHealth === 'healthy').length,
+        warningAgents: allAgents.filter(a => a.currentHealth === 'warning').length,
+        errorAgents: allAgents.filter(a => a.currentHealth === 'error').length,
+        avgTestCoverage: this.calculateAverage(allAgents.map(a => a.testCoverage || 0)),
+        totalLearnings: allAgents.reduce((sum, a) => sum + (a.learningCount || 0), 0),
+        byType: this.groupBy(allAgents, 'componentType')
+      };
+
+      return stats;
+    } catch (error) {
+      console.error('[Agent Registry] Failed to get stats:', error);
+      throw error;
+    }
+  }
+
+  private calculateAverage(numbers: number[]): number {
+    if (numbers.length === 0) return 0;
+    const sum = numbers.reduce((acc, n) => acc + n, 0);
+    return Math.round(sum / numbers.length);
+  }
+
+  private groupBy(agents: any[], field: string): Record<string, number> {
+    const grouped: Record<string, number> = {};
+    
+    for (const agent of agents) {
+      const key = agent[field];
+      grouped[key] = (grouped[key] || 0) + 1;
+    }
+    
+    return grouped;
+  }
+
+  /**
+   * Bulk register multiple agents (for initial setup)
+   */
+  async bulkRegister(agents: ComponentAgent[]): Promise<void> {
+    console.log(`[Agent Registry] Bulk registering ${agents.length} agents...`);
+    
+    for (const agent of agents) {
+      await this.registerAgent(agent);
+    }
+    
+    console.log(`✅ [Agent Registry] Bulk registration complete`);
   }
 }
 
-export const agentRegistry = new AgentRegistry();
-
-// Auto-register initial patterns
-agentRegistry.registerPattern({
-  name: 'Visual Editor Pattern',
-  description: 'Replit-style visual editor with AI code generation',
-  category: 'ui-editing',
-  documentation: 'See /docs/visual-editor-pattern.md',
-  applicableAgents: [78, 73, 75] // Visual Editor, Core AI, Context Awareness
-});
-
-agentRegistry.registerPattern({
-  name: 'User Context Intelligence',
-  description: 'Aggregate user data for contextual AI conversations',
-  category: 'ai-intelligence',
-  documentation: 'See /docs/user-context-pattern.md',
-  applicableAgents: [73, 75, 77] // Core AI, Context Awareness, Learning Integration
-});
-
-agentRegistry.registerPattern({
-  name: 'Auto-Healing Services',
-  description: 'Self-healing service monitoring and recovery',
-  category: 'reliability',
-  documentation: 'See /docs/auto-healing-pattern.md',
-  applicableAgents: [72, 66, 59] // Error Recovery, Performance, Security
-});
+// Singleton instance
+export const agentRegistry = new AgentRegistryService();
