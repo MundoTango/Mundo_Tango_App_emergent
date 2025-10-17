@@ -23,7 +23,9 @@ export default defineConfig({
   build: {
     outDir: "../dist/public",
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: false, // Disabled for production to save memory
+    minify: 'esbuild',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       external: [
         "@react-three/fiber",
@@ -43,6 +45,13 @@ export default defineConfig({
         "@openreplay/tracker",
         "posthog-js"
       ],
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-i18n': ['i18next', 'react-i18next'],
+        },
+      },
     },
   },
   server: {

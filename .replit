@@ -35,6 +35,6 @@ outputType = "webview"
 channel = "stable-25_05"
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "vm"
 run = ["node", "dist/index.js"]
 build = ["npm", "run", "build:production"]
