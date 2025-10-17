@@ -177,8 +177,8 @@ app.use(chunkedUploadRoutes);
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
-// Define client path early
-const clientPath = pathModule.join(process.cwd(), 'client', 'dist');
+// Define client path early - PRODUCTION: dist/public (built by vite)
+const clientPath = pathModule.join(process.cwd(), 'dist', 'public');
 
 // API routes
 const startServer = async () => {

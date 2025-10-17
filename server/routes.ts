@@ -4,7 +4,7 @@ import { ParsedQs } from "qs";
 import eventsRoutes from './routes/eventsRoutes';
 import * as path from 'path';
 import * as fs from 'fs';
-import { setupVite, serveStatic, log } from "./vite";
+// Vite utilities imported dynamically in development only to avoid bundling vite.config
 import { authMiddleware } from "./middleware/auth";
 import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
@@ -1044,15 +1044,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   
-  // Setup Vite in development or serve static files in production
+  // Setup Vite in development ONLY - production serves static files via index-novite.ts
   if (process.env.NODE_ENV === 'development') {
+    const { setupVite, log } = await import("./vite");
     log('🎨 Starting Vite development server...');
     await setupVite(app, server);
     log('✅ Vite development server ready');
   } else {
-    log('📦 Serving static production build...');
-    serveStatic(app);
-    log('✅ Static files ready');
+    console.log('📦 Production mode: static files served by express.static in index-novite.ts');
   }
   
   return server;
