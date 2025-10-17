@@ -37,6 +37,7 @@ export default defineConfig({
         "@dnd-kit/sortable",
         "@dnd-kit/utilities",
         "shepherd.js",
+        "shepherd.js/dist/css/shepherd.css",
         "heic2any",
         "zustand",
         "@openreplay/tracker",
