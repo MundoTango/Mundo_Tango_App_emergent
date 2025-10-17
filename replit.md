@@ -2,10 +2,10 @@
 
 ## Overview
 
-Mundo Tango is a comprehensive social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework with **105+ specialized AI agents** across four major categories. The platform combines social networking features (memories/posts, events, profiles, groups) with AI-powered life management capabilities through a multi-layered agent ecosystem.
+Mundo Tango is a comprehensive social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework with **200+ specialized AI agents** across SEVEN major categories. The platform combines social networking features (memories/posts, events, profiles, groups) with AI-powered life management capabilities through a multi-layered agent ecosystem.
 
 The application is production-ready with enterprise-grade features including:
-- **105+ AI Agents**: 61 ESA infrastructure agents, 16 Life CEO personality agents, 8 Mr Blue suite agents, 10+ specialized service agents
+- **200+ AI Agents**: 61 ESA infrastructure agents, 16 Life CEO personality agents, 8 Mr Blue suite agents, 125+ page agents, 4 journey agents, 10+ algorithm agents, 10+ specialized service agents
 - **Real-time AI orchestration** with WebSocket communication
 - **Mr Blue (Scott AI)** companion with visual editor capabilities
 - **Multi-model AI routing** (GPT-4o, Claude, Gemini)
@@ -103,23 +103,34 @@ Preferred communication style: Simple, everyday language.
 
 ### AI Agent Architecture
 
-**Complete Agent Ecosystem (105+ Agents):**
+**Complete Agent Ecosystem (200+ Agents):**
 
-1. **61 ESA Infrastructure Agents** (Layers 1-61)
+See **COMPLETE_AGENT_INVENTORY.md** and **AGENT_ORG_CHART.md** for full documentation.
+
+1. **Leadership & Management (14 Agents)**
+   - Agent #0 (CEO): Strategic Orchestrator
+   - Division Chiefs (#1-6): Foundation, Core, Business, Intelligence, Platform, Extended
+   - Expert Agents (#10-16): AI Research, UI/UX Design, Data Visualization, Content & Media, Code Quality, Developer Experience, i18n
+   - Reports to Agent #0 with escalation paths
+
+2. **61 ESA Infrastructure Agents** (Layers 1-61)
    - Foundation layers (1-10): Architecture, API, server, auth, database, routing, middleware, error handling, logging, configuration
    - Core features (11-30): Real-time, notifications, files, media, search, analytics, caching, queues, background jobs, workflows, users, groups, events, posts, comments, reactions, gamification, marketplace, payments, subscriptions
    - AI core (31-40): Infrastructure, prompts, context, responses, agent management, conversation memory, entity recognition, context awareness, intent recognition, formatting
    - Advanced features (41-50): Recommendations, moderation, sentiment, knowledge graph, reasoning, integration, mobile, performance, security, DevOps
    - Platform enhancement (51-61): Testing, documentation, i18n, accessibility, SEO, compliance, automation, third-party integrations, open source, GitHub, Supabase
 
-2. **16 Life CEO AI Agents** (Personal Life Management)
+3. **Operational Excellence (5 Agents: #63-67)**
+   - Sprint & Resource Manager, Documentation Architect, Project Tracker Manager, Code Review Expert, Community Relations
+
+4. **16 Life CEO AI Agents** (Personal Life Management)
    - Health & Wellness, Career Coach, Financial Advisor, Relationship Counselor
    - Education Mentor, Productivity Optimizer, Mindfulness Guide, Creative Catalyst
    - Travel Planner, Home Organizer, Nutrition Specialist, Fitness Trainer
    - Sleep Optimizer, Habit Architect, Emergency Advisor, Life Strategist
    - All use GPT-4o with specialized prompts and personalities
 
-3. **8 Mr Blue Suite Agents** (#73-80)
+5. **8 Mr Blue Suite Agents** (#73-80)
    - **#73 Mr Blue Core**: Scott AI with multi-model routing (GPT-4o, Claude, Gemini)
    - **#74 Schedule Agent**: Calendar and appointment management
    - **#75 Finance Agent**: Budget and expense tracking
@@ -129,11 +140,36 @@ Preferred communication style: Simple, everyday language.
    - **#79 Agent Matcher**: Intelligent agent routing
    - **#80 Mr Blue Coordinator**: Cross-agent orchestration
 
-4. **10+ Specialized Service Agents**
-   - Email, SMS, push notifications, image/video/audio processing
-   - PDF generation, QR codes, geolocation, translation
+6. **125+ Page Agents (P1-P125+)**
+   - Each route/page has a dedicated agent for context-aware AI assistance
+   - Tier 1 (P1-P10): Core user journey pages (login, register, onboarding, profile, settings, home feed)
+   - Tier 2 (P11-P30): Social & content pages (events, groups, friends, messages)
+   - Tier 3 (P31-P60): Commerce & admin pages (housing, subscriptions, analytics, monitoring)
+   - Tier 4-5 (P61-P125+): Additional features (travel, map, calendar, search, help, FAQ)
+
+7. **4 Customer Journey Agents (J1-J4)**
+   - J1: New User Journey (login → register → onboarding → profile)
+   - J2: Active User Journey (home → post → events → friends)
+   - J3: Power User Journey (groups → recommendations → map → travel)
+   - J4: Super Admin Journey (admin → projects → analytics → monitoring)
+
+8. **UI Sub-Agents (3+)**
+   - Agent #11.1: Dark Mode Fixer (monitors and fixes dark mode issues)
+   - Agent #11.2: Translation Fixer (68-language support maintenance)
+   - Agent #11.5: Component Watcher (reusable component registry)
+
+9. **Algorithm Agents (10+ Agents: A1-A10+)**
+   - Feed Ranking, Event Discovery, Friend Recommendations, Search Relevance
+   - Content Moderation, Notification Prioritization, Performance Optimization
+   - Cache Invalidation, Load Balancing, Anomaly Detection
+
+10. **10+ Specialized Service Agents**
+    - Email, SMS, push notifications, image/video/audio processing
+    - PDF generation, QR codes, geolocation, translation
 
 **Agent Status:** All core agents operational and passing continuous validation checks.
+**Documentation:** See AGENT_ORG_CHART.md for visual hierarchy and communication paths.
+**No Agent Left Behind™** - Complete inventory maintained in COMPLETE_AGENT_INVENTORY.md
 
 ### Core Feature Modules
 
