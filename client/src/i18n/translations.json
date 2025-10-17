@@ -1,0 +1,4777 @@
+{
+  "en": {
+    "translation": {
+      "common": {
+        "welcome": "Welcome",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "search": "Search",
+        "filter": "Filter",
+        "sort": "Sort",
+        "next": "Next",
+        "previous": "Previous",
+        "submit": "Submit",
+        "confirm": "Confirm",
+        "yes": "Yes",
+        "no": "No",
+        "ok": "OK",
+        "close": "Close",
+        "back": "Back",
+        "home": "Home",
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout",
+        "login": "Login",
+        "signup": "Sign Up",
+        "language": "Language",
+        "theme": "Theme",
+        "notifications": "Notifications",
+        "messages": "Messages",
+        "friends": "Friends",
+        "groups": "Groups",
+        "events": "Events",
+        "posts": "Posts",
+        "photos": "Photos",
+        "videos": "Videos",
+        "share": "Share",
+        "like": "Like",
+        "comment": "Comment",
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "online": "Online",
+        "offline": "Offline",
+        "preferred": "Preferred",
+        "popular": "Popular",
+        "new": "New",
+        "trending": "Trending",
+        "featured": "Featured"
+      },
+      "navigation": {
+        "feed": "Feed",
+        "discover": "Discover",
+        "explore": "Explore",
+        "community": "Community",
+        "marketplace": "Marketplace",
+        "resources": "Resources",
+        "help": "Help",
+        "about": "About",
+        "contact": "Contact",
+        "dashboard": "Dashboard",
+        "admin": "Admin",
+        "moderator": "Moderator",
+        "home": "Home",
+        "memories": "Memories",
+        "tangoCommunity": "Tango Community",
+        "friends": "Friends",
+        "messages": "Messages",
+        "groups": "Groups",
+        "events": "Events",
+        "roleInvitations": "Role Invitations",
+        "notifications": "Notifications",
+        "search": "Search",
+        "menu": "Menu",
+        "profile": "Profile",
+        "settings": "Settings",
+        "billing": "Billing",
+        "adminAccess": "Admin Access",
+        "logout": "Logout"
+      },
+      "tango": {
+        "milonga": "Milonga",
+        "practica": "Practice",
+        "workshop": "Workshop",
+        "festival": "Festival",
+        "teacher": "Teacher",
+        "student": "Student",
+        "dancer": "Dancer",
+        "musician": "Musician",
+        "dj": "DJ",
+        "organizer": "Organizer",
+        "venue": "Venue",
+        "tangoPartner": "Tango Partner",
+        "cabeceo": "Cabeceo",
+        "tanda": "Tanda",
+        "cortina": "Cortina",
+        "embrace": "Embrace",
+        "tangoShoes": "Tango Shoes",
+        "tangoMusic": "Tango Music",
+        "tangoHistory": "Tango History",
+        "buenosAires": "Buenos Aires",
+        "argentina": "Argentina",
+        "porteño": "Porteño",
+        "lunfardo": "Lunfardo"
+      },
+      "lifeceo": {
+        "aiAgents": "AI Agents",
+        "lifeManagement": "Life Management",
+        "personalGrowth": "Personal Growth",
+        "goals": "Goals",
+        "habits": "Habits",
+        "productivity": "Productivity",
+        "wellness": "Wellness",
+        "finance": "Finance",
+        "relationships": "Relationships",
+        "career": "Career",
+        "learning": "Learning",
+        "creativity": "Creativity",
+        "timeManagement": "Time Management",
+        "taskManager": "Task Manager",
+        "calendar": "Calendar",
+        "journal": "Journal",
+        "insights": "Insights",
+        "recommendations": "Recommendations",
+        "progress": "Progress",
+        "achievements": "Achievements",
+        "challenges": "Challenges",
+        "opportunities": "Opportunities",
+        "esaFramework": "ESA Framework"
+      },
+      "auth": {
+        "emailAddress": "Email Address",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "forgotPassword": "Forgot Password?",
+        "resetPassword": "Reset Password",
+        "rememberMe": "Remember Me",
+        "createAccount": "Create Account",
+        "alreadyHaveAccount": "Already have an account?",
+        "dontHaveAccount": "Don't have an account?",
+        "signInWith": "Sign in with",
+        "or": "Or",
+        "termsAndConditions": "Terms and Conditions",
+        "privacyPolicy": "Privacy Policy",
+        "agreeToTerms": "I agree to the terms and conditions",
+        "verifyEmail": "Verify Email",
+        "emailVerified": "Email Verified",
+        "resendVerification": "Resend Verification",
+        "accountCreated": "Account Created Successfully",
+        "welcomeBack": "Welcome Back"
+      },
+      "messages": {
+        "noMessages": "No messages",
+        "newMessage": "New message",
+        "typeMessage": "Type a message...",
+        "sendMessage": "Send message",
+        "messageDeleted": "Message deleted",
+        "messageSent": "Message sent",
+        "markAsRead": "Mark as read",
+        "markAsUnread": "Mark as unread",
+        "reply": "Reply",
+        "forward": "Forward",
+        "archive": "Archive",
+        "unarchive": "Unarchive",
+        "conversation": "Conversation",
+        "startConversation": "Start a conversation"
+      },
+      "errors": {
+        "somethingWentWrong": "Something went wrong",
+        "tryAgain": "Please try again",
+        "networkError": "Network error",
+        "serverError": "Server error",
+        "invalidCredentials": "Invalid credentials",
+        "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "notFound": "Not found",
+        "validationError": "Validation error",
+        "requiredField": "This field is required",
+        "invalidEmail": "Invalid email address",
+        "passwordTooShort": "Password too short",
+        "passwordMismatch": "Passwords do not match",
+        "userNotFound": "User not found",
+        "accountLocked": "Account locked",
+        "sessionExpired": "Session expired",
+        "tooManyRequests": "Too many requests"
+      },
+      "success": {
+        "dataSaved": "Data saved successfully",
+        "profileUpdated": "Profile updated",
+        "passwordChanged": "Password changed",
+        "emailSent": "Email sent",
+        "accountCreated": "Account created",
+        "loginSuccessful": "Login successful",
+        "logoutSuccessful": "Logout successful",
+        "operationCompleted": "Operation completed",
+        "fileUploaded": "File uploaded",
+        "postCreated": "Post created",
+        "commentAdded": "Comment added",
+        "friendRequestSent": "Friend request sent",
+        "friendRequestAccepted": "Friend request accepted",
+        "groupJoined": "Group joined",
+        "eventCreated": "Event created",
+        "registrationComplete": "Registration complete"
+      },
+      "settings": {
+        "accountSettings": "Account Settings",
+        "profileSettings": "Profile Settings",
+        "privacySettings": "Privacy Settings",
+        "notificationSettings": "Notification Settings",
+        "securitySettings": "Security Settings",
+        "languageSettings": "Language Settings",
+        "themeSettings": "Theme Settings",
+        "dataAndStorage": "Data & Storage",
+        "helpAndSupport": "Help & Support",
+        "aboutApp": "About App",
+        "version": "Version",
+        "checkUpdates": "Check for Updates",
+        "exportData": "Export Data",
+        "deleteAccount": "Delete Account",
+        "twoFactorAuth": "Two-Factor Authentication",
+        "changePassword": "Change Password",
+        "connectedAccounts": "Connected Accounts",
+        "blockedUsers": "Blocked Users",
+        "selectLanguage": "Select Language",
+        "chooseLanguage": "Choose Language"
+      },
+      "community": {
+        "globalDancers": "Global People",
+        "activeEvents": "Active Events",
+        "communities": "Communities",
+        "yourCity": "Your City",
+        "globalStatistics": "Global Statistics"
+      }
+    }
+  },
+  "es-AR-lunfardo": {
+    "translation": {
+      "common": {
+        "welcome": "¡Bienvenido!",
+        "loading": "Cargando...",
+        "error": "Error",
+        "success": "Éxito",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "delete": "Borrar",
+        "edit": "Editar",
+        "search": "Buscar",
+        "filter": "Filtrar",
+        "sort": "Ordenar",
+        "next": "Siguiente",
+        "previous": "Anterior",
+        "submit": "Enviar",
+        "confirm": "Confirmar",
+        "yes": "Sí",
+        "no": "No",
+        "ok": "Está bien",
+        "close": "Cerrar",
+        "back": "Atrás",
+        "home": "Inicio",
+        "profile": "Perfil",
+        "settings": "Configuraciones",
+        "logout": "Cerrar sesión",
+        "login": "Iniciar sesión",
+        "signup": "Registrate",
+        "language": "Idioma",
+        "theme": "Tema",
+        "notifications": "Notificaciones",
+        "messages": "Mensajes",
+        "friends": "Amigos",
+        "groups": "Grupos",
+        "events": "Eventos",
+        "posts": "Publicaciones",
+        "photos": "Fotos",
+        "videos": "Videos",
+        "share": "Compartir",
+        "like": "Como",
+        "comment": "Comentario",
+        "follow": "Seguir",
+        "unfollow": "Dejar de seguir",
+        "online": "En línea",
+        "offline": "Fuera de línea",
+        "preferred": "Preferido",
+        "popular": "Popular",
+        "new": "Nuevo",
+        "trending": "Tendencias",
+        "featured": "Destacado"
+      },
+      "navigation": {
+        "feed": "Muro",
+        "discover": "Descubrí",
+        "explore": "Explorá",
+        "community": "Comunidad",
+        "marketplace": "Mercado",
+        "resources": "Recursos",
+        "help": "Ayuda",
+        "about": "Acerca de",
+        "contact": "Contacto",
+        "dashboard": "Tablero",
+        "admin": "Admin",
+        "moderator": "Moderador",
+        "home": "Inicio",
+        "memories": "Recuerdos",
+        "tangoCommunity": "Comunidad de Tango",
+        "friends": "Amigos",
+        "messages": "Mensajes",
+        "groups": "Grupos",
+        "events": "Eventos",
+        "roleInvitations": "Invitaciones de Rol",
+        "notifications": "Notificaciones",
+        "search": "Buscar",
+        "menu": "Menú",
+        "profile": "Perfil",
+        "settings": "Configuraciones",
+        "billing": "Facturación",
+        "adminAccess": "Acceso de Admin",
+        "logout": "Cerrar sesión"
+      },
+      "tango": {
+        "milonga": "Milonga",
+        "practica": "Práctica",
+        "workshop": "Taller",
+        "festival": "Festival",
+        "teacher": "Profesor/a",
+        "student": "Estudiante",
+        "dancer": "Bailarín",
+        "musician": "Músico",
+        "dj": "DJ",
+        "organizer": "Organizador",
+        "venue": "Lugar",
+        "tangoPartner": "Compañero/a de tango",
+        "cabeceo": "Cabeceo",
+        "tanda": "Tanda",
+        "cortina": "Cortina",
+        "embrace": "Abrazá",
+        "tangoShoes": "Zapatos de Tango",
+        "tangoMusic": "Música de Tango",
+        "tangoHistory": "Historia del Tango",
+        "buenosAires": "Buenos Aires",
+        "argentina": "Argentina",
+        "porteño": "Porteño",
+        "lunfardo": "Lunfardo"
+      },
+      "lifeceo": {
+        "aiAgents": "Agentes de IA",
+        "lifeManagement": "Gestión de Vida",
+        "personalGrowth": "Crecimiento Personal",
+        "goals": "Metas",
+        "habits": "Hábitos",
+        "productivity": "Productividad",
+        "wellness": "Bienestar",
+        "finance": "Finanzas",
+        "relationships": "Relaciones",
+        "career": "Carrera",
+        "learning": "Aprendiendo",
+        "creativity": "Creatividad",
+        "timeManagement": "Gestión del Tiempo",
+        "taskManager": "Gestor de Tareas",
+        "calendar": "Calendario",
+        "journal": "Diario",
+        "insights": "Perspectivas",
+        "recommendations": "Recomendaciones",
+        "progress": "Progreso",
+        "achievements": "Logros",
+        "challenges": "Desafíos",
+        "opportunities": "Oportunidades",
+        "esaFramework": "Marco ESA"
+      },
+      "auth": {
+        "emailAddress": "Dirección de Correo Electrónico",
+        "password": "Contraseña",
+        "confirmPassword": "Confirmá la Contraseña",
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "resetPassword": "Reiniciar la Contraseña",
+        "rememberMe": "Recordame",
+        "createAccount": "Crear Cuenta",
+        "alreadyHaveAccount": "¿Ya tenés una cuenta?",
+        "dontHaveAccount": "¿No tenés una cuenta?",
+        "signInWith": "Iniciar sesión con",
+        "or": "O",
+        "termsAndConditions": "Términos y Condiciones",
+        "privacyPolicy": "Política de Privacidad",
+        "agreeToTerms": "Acepto los términos y condiciones.",
+        "verifyEmail": "Verificar Email",
+        "emailVerified": "Email Verificado",
+        "resendVerification": "Reenviar Verificación",
+        "accountCreated": "Cuenta creada con éxito.",
+        "welcomeBack": "¡Bienvenido de nuevo!"
+      },
+      "messages": {
+        "noMessages": "No hay mensajes",
+        "newMessage": "Nuevo mensaje",
+        "typeMessage": "Escribí un mensaje...",
+        "sendMessage": "Mandar mensaje",
+        "messageDeleted": "Mensaje borrado",
+        "messageSent": "Mensaje enviado",
+        "markAsRead": "Marcar como leído",
+        "markAsUnread": "Marcar como no leído",
+        "reply": "Responder",
+        "forward": "Adelante",
+        "archive": "Archivo",
+        "unarchive": "Desarchivar",
+        "conversation": "Charla",
+        "startConversation": "Empezá una charla"
+      },
+      "errors": {
+        "somethingWentWrong": "Algo salió mal.",
+        "tryAgain": "Por favor, probá de nuevo.",
+        "networkError": "Error de red",
+        "serverError": "Error de servidor",
+        "invalidCredentials": "Credenciales inválidas",
+        "unauthorized": "No autorizado",
+        "forbidden": "Prohibido",
+        "notFound": "No encontrado",
+        "validationError": "Error de validación",
+        "requiredField": "Este campo es obligatorio.",
+        "invalidEmail": "Dirección de email inválida",
+        "passwordTooShort": "La contraseña es muy corta.",
+        "passwordMismatch": "Las contraseñas no coinciden.",
+        "userNotFound": "Usuario no encontrado",
+        "accountLocked": "Cuenta bloqueada",
+        "sessionExpired": "La sesión ha expirado.",
+        "tooManyRequests": "Demasiadas solicitudes"
+      },
+      "success": {
+        "dataSaved": "Datos guardados con éxito.",
+        "profileUpdated": "Perfil actualizado",
+        "passwordChanged": "Contraseña cambiada",
+        "emailSent": "Email enviado",
+        "accountCreated": "Cuenta creada",
+        "loginSuccessful": "Inicio de sesión exitoso",
+        "logoutSuccessful": "Cierre de sesión exitoso",
+        "operationCompleted": "Operación completada",
+        "fileUploaded": "Archivo subido",
+        "postCreated": "Publicación creada",
+        "commentAdded": "Comentario agregado",
+        "friendRequestSent": "Solicitud de amistad enviada",
+        "friendRequestAccepted": "Solicitud de amistad aceptada",
+        "groupJoined": "Grupo unido",
+        "eventCreated": "Evento creado",
+        "registrationComplete": "Registro completo"
+      },
+      "settings": {
+        "accountSettings": "Configuración de Cuenta",
+        "profileSettings": "Configuración de Perfil",
+        "privacySettings": "Configuración de Privacidad",
+        "notificationSettings": "Configuración de Notificaciones",
+        "securitySettings": "Configuración de Seguridad",
+        "languageSettings": "Configuración de Idioma",
+        "themeSettings": "Configuración del Tema",
+        "dataAndStorage": "Datos y Almacenamiento",
+        "helpAndSupport": "Ayuda y Soporte",
+        "aboutApp": "Acerca de la App",
+        "version": "Versión",
+        "checkUpdates": "Che, fijate si hay actualizaciones.",
+        "exportData": "Exportar Datos",
+        "deleteAccount": "Borrar Cuenta",
+        "twoFactorAuth": "Autenticación de Dos Factores",
+        "changePassword": "Cambiar Contraseña",
+        "connectedAccounts": "Cuentas Conectadas",
+        "blockedUsers": "Usuarios bloqueados",
+        "selectLanguage": "Seleccionar idioma",
+        "chooseLanguage": "Elegí el Idioma"
+      },
+      "community": {
+        "globalStatistics": "Estadísticas del Mundo Tanguero",
+        "globalDancers": "Milongueros en el Mundo",
+        "activeEvents": "Milongas Activas",
+        "communities": "Barrios Tangueros",
+        "yourCity": "Tu Barrio"
+      }
+    }
+  },
+  "it": {
+    "translation": {
+      "common": {
+        "welcome": "Benvenuto",
+        "loading": "Caricamento...",
+        "error": "Errore",
+        "success": "Successo",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "delete": "Elimina",
+        "edit": "Modifica",
+        "search": "Cerca",
+        "filter": "Filtro",
+        "sort": "Ordina",
+        "next": "Prossimo",
+        "previous": "Precedente",
+        "submit": "Invia",
+        "confirm": "Conferma",
+        "yes": "Sì",
+        "no": "No",
+        "ok": "Va bene",
+        "close": "Chiudi",
+        "back": "Indietro",
+        "home": "Casa",
+        "profile": "Profilo",
+        "settings": "Impostazioni",
+        "logout": "Disconnetti",
+        "login": "Accedi",
+        "signup": "Iscriviti",
+        "language": "Lingua",
+        "theme": "Tema",
+        "notifications": "Notifiche",
+        "messages": "Messaggi",
+        "friends": "Amici",
+        "groups": "Gruppi",
+        "events": "Eventi",
+        "posts": "Postagens",
+        "photos": "Foto",
+        "videos": "Video",
+        "share": "Condividi",
+        "like": "Mi piace",
+        "comment": "Commento",
+        "follow": "Segui",
+        "unfollow": "Smettere di seguire",
+        "online": "Online",
+        "offline": "Offline",
+        "preferred": "Preferito",
+        "popular": "Popolare",
+        "new": "Nuovo",
+        "trending": "Tendenze",
+        "featured": "In evidenza"
+      },
+      "navigation": {
+        "feed": "Notizie",
+        "discover": "Scopri",
+        "explore": "Esplora",
+        "community": "Comunità",
+        "marketplace": "Mercato",
+        "resources": "Risorse",
+        "help": "Aiuto",
+        "about": "Informazioni su",
+        "contact": "Contatto",
+        "dashboard": "Cruscotto",
+        "admin": "Amministratore",
+        "moderator": "Moderatore",
+        "home": "Casa",
+        "memories": "Ricordi",
+        "tangoCommunity": "Comunità di Tango",
+        "friends": "Amici",
+        "messages": "Messaggi",
+        "groups": "Gruppi",
+        "events": "Eventi",
+        "roleInvitations": "Inviti ai Ruoli",
+        "notifications": "Notifiche",
+        "search": "Cerca",
+        "menu": "Menu",
+        "profile": "Profilo",
+        "settings": "Impostazioni",
+        "billing": "Fatturazione",
+        "adminAccess": "Accesso Amministratore",
+        "logout": "Disconnetti"
+      },
+      "tango": {
+        "milonga": "Milonga",
+        "practica": "Pratica",
+        "workshop": "Laboratorio",
+        "festival": "Festival",
+        "teacher": "Insegnante",
+        "student": "Studente",
+        "dancer": "Ballerino/Ballerina",
+        "musician": "Musicista",
+        "dj": "DJ",
+        "organizer": "Organizzatore",
+        "venue": "Luogo",
+        "tangoPartner": "Partner di Tango",
+        "cabeceo": "Cabeceo",
+        "tanda": "Tanda",
+        "cortina": "Cortina",
+        "embrace": "Abbraccia",
+        "tangoShoes": "Scarpe da Tango",
+        "tangoMusic": "Musica Tango",
+        "tangoHistory": "Storia del Tango",
+        "buenosAires": "Buenos Aires",
+        "argentina": "Argentina",
+        "porteño": "Porteño",
+        "lunfardo": "Lunfardo"
+      },
+      "lifeceo": {
+        "aiAgents": "Agenti AI",
+        "lifeManagement": "Gestione della Vita",
+        "personalGrowth": "Crescita Personale",
+        "goals": "Obiettivi",
+        "habits": "Abitudini",
+        "productivity": "Produttività",
+        "wellness": "Benessere",
+        "finance": "Finanza",
+        "relationships": "Relazioni",
+        "career": "Carriera",
+        "learning": "Apprendimento",
+        "creativity": "Creatività",
+        "timeManagement": "Gestione del Tempo",
+        "taskManager": "Gestore delle Attività",
+        "calendar": "Calendario",
+        "journal": "Giornale",
+        "insights": "Approfondimenti",
+        "recommendations": "Raccomandazioni",
+        "progress": "Progresso",
+        "achievements": "Risultati",
+        "challenges": "Sfide",
+        "opportunities": "Opportunità",
+        "esaFramework": "Struttura ESA"
+      },
+      "auth": {
+        "emailAddress": "Indirizzo Email",
+        "password": "Password",
+        "confirmPassword": "Conferma Password",
+        "forgotPassword": "Hai dimenticato la password?",
+        "resetPassword": "Reimposta la password",
+        "rememberMe": "Ricordami",
+        "createAccount": "Crea un Account",
+        "alreadyHaveAccount": "Hai già un account?",
+        "dontHaveAccount": "Non hai un account?",
+        "signInWith": "Accedi con",
+        "or": "O",
+        "termsAndConditions": "Termini e Condizioni",
+        "privacyPolicy": "Informativa sulla Privacy",
+        "agreeToTerms": "Accetto i termini e le condizioni",
+        "verifyEmail": "Verifica Email",
+        "emailVerified": "Email Verificato",
+        "resendVerification": "Invia nuovamente la verifica",
+        "accountCreated": "Account creato con successo",
+        "welcomeBack": "Bentornato"
+      },
+      "messages": {
+        "noMessages": "Nessun messaggio",
+        "newMessage": "Nuovo messaggio",
+        "typeMessage": "Scrivi un messaggio...",
+        "sendMessage": "Invia messaggio",
+        "messageDeleted": "Messaggio eliminato",
+        "messageSent": "Messaggio inviato",
+        "markAsRead": "Segna come letto",
+        "markAsUnread": "Segna come non letto",
+        "reply": "Rispondi",
+        "forward": "Avanti",
+        "archive": "Archivio",
+        "unarchive": "Ripristina",
+        "conversation": "Conversazione",
+        "startConversation": "Inizia una conversazione"
+      },
+      "errors": {
+        "somethingWentWrong": "Qualcosa è andato storto.",
+        "tryAgain": "Per favore, riprova.",
+        "networkError": "Errore di rete",
+        "serverError": "Errore del server",
+        "invalidCredentials": "Credenziali non valide",
+        "unauthorized": "Non autorizzato",
+        "forbidden": "Vietato",
+        "notFound": "Non trovato",
+        "validationError": "Errore di convalida",
+        "requiredField": "Questo campo è obbligatorio",
+        "invalidEmail": "Indirizzo email non valido",
+        "passwordTooShort": "Password troppo corta",
+        "passwordMismatch": "Le password non corrispondono",
+        "userNotFound": "Utente non trovato",
+        "accountLocked": "Account bloccato",
+        "sessionExpired": "Sessione scaduta",
+        "tooManyRequests": "Troppe richieste"
+      },
+      "success": {
+        "dataSaved": "Dati salvati con successo",
+        "profileUpdated": "Profilo aggiornato",
+        "passwordChanged": "Password cambiata",
+        "emailSent": "Email inviato",
+        "accountCreated": "Account creato",
+        "loginSuccessful": "Accesso riuscito",
+        "logoutSuccessful": "Disconnessione avvenuta con successo",
+        "operationCompleted": "Operazione completata",
+        "fileUploaded": "File caricato",
+        "postCreated": "Post creato",
+        "commentAdded": "Commento aggiunto",
+        "friendRequestSent": "Richiesta di amicizia inviata",
+        "friendRequestAccepted": "Richiesta di amicizia accettata",
+        "groupJoined": "Gruppo unito",
+        "eventCreated": "Evento creato",
+        "registrationComplete": "Registrazione completata"
+      },
+      "settings": {
+        "accountSettings": "Impostazioni dell'account",
+        "profileSettings": "Impostazioni del Profilo",
+        "privacySettings": "Impostazioni sulla privacy",
+        "notificationSettings": "Impostazioni di Notifica",
+        "securitySettings": "Impostazioni di Sicurezza",
+        "languageSettings": "Impostazioni della lingua",
+        "themeSettings": "Impostazioni del Tema",
+        "dataAndStorage": "Dati e Archiviazione",
+        "helpAndSupport": "Aiuto e Supporto",
+        "aboutApp": "Informazioni sull'app",
+        "version": "Versione",
+        "checkUpdates": "Controlla gli Aggiornamenti",
+        "exportData": "Esporta Dati",
+        "deleteAccount": "Elimina Account",
+        "twoFactorAuth": "Autenticazione a Due Fattori",
+        "changePassword": "Cambia Password",
+        "connectedAccounts": "Account collegati",
+        "blockedUsers": "Utenti Bloccati",
+        "selectLanguage": "Seleziona Lingua",
+        "chooseLanguage": "Scegli la lingua"
+      },
+      "community": {
+        "globalDancers": "Ballerini Globali",
+        "activeEvents": "Eventi Attivi",
+        "communities": "Comunità",
+        "yourCity": "La Tua Città",
+        "globalStatistics": "Statistiche Globali"
+      },
+      "memories": {
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Workshop",
+          "festival": "Festival",
+          "travel": "Viaggio",
+          "music": "Musica",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Economico",
+          "moderate": "Moderato",
+          "luxury": "Lusso"
+        },
+        "actions": {
+          "failedToUpdateLike": "Impossibile aggiornare il mi piace"
+        }
+      }
+    }
+  },
+  "fr": {
+    "translation": {
+      "common": {
+        "welcome": "Bienvenue",
+        "loading": "Chargement...",
+        "error": "Erreur",
+        "success": "Succès",
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "search": "Recherche",
+        "filter": "Filtrer",
+        "sort": "Trier",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "submit": "Soumettre",
+        "confirm": "Confirmer",
+        "yes": "Oui",
+        "no": "Non",
+        "ok": "D'accord",
+        "close": "Fermer",
+        "back": "Retour",
+        "home": "Accueil",
+        "profile": "Profil",
+        "settings": "Paramètres",
+        "logout": "Déconnexion",
+        "login": "Connexion",
+        "signup": "Inscription",
+        "language": "Langue",
+        "theme": "Thème",
+        "notifications": "Notifications",
+        "messages": "Messages",
+        "friends": "Amis",
+        "groups": "Groupes",
+        "events": "Événements",
+        "posts": "Publications",
+        "photos": "Photos",
+        "videos": "Vidéos",
+        "share": "Partager",
+        "like": "Aimer",
+        "comment": "Comment",
+        "follow": "Suivre",
+        "unfollow": "Se désabonner",
+        "online": "En ligne",
+        "offline": "Hors ligne",
+        "preferred": "Préféré",
+        "popular": "Populaire",
+        "new": "Nouveau",
+        "trending": "Tendances",
+        "featured": "En vedette"
+      },
+      "navigation": {
+        "feed": "Fil d'actualité",
+        "discover": "Découvrez",
+        "explore": "Explorer",
+        "community": "Communauté",
+        "marketplace": "Marché",
+        "resources": "Ressources",
+        "help": "Aide",
+        "about": "À propos",
+        "contact": "Contactez-nous",
+        "dashboard": "Tableau de bord",
+        "admin": "Administrateur",
+        "moderator": "Modérateur",
+        "home": "Accueil",
+        "memories": "Souvenirs",
+        "tangoCommunity": "Communauté de Tango",
+        "friends": "Amis",
+        "messages": "Messages",
+        "groups": "Groupes",
+        "events": "Événements",
+        "roleInvitations": "Invitations de Rôle",
+        "notifications": "Notifications",
+        "search": "Recherche",
+        "menu": "Menu",
+        "profile": "Profil",
+        "settings": "Paramètres",
+        "billing": "Facturation",
+        "adminAccess": "Accès Administrateur",
+        "logout": "Déconnexion"
+      },
+      "tango": {
+        "milonga": "Milonga",
+        "practica": "Pratique",
+        "workshop": "Atelier",
+        "festival": "Festival",
+        "teacher": "Enseignant",
+        "student": "Étudiant",
+        "dancer": "Danseur",
+        "musician": "Musicien",
+        "dj": "DJ",
+        "organizer": "Organisateur",
+        "venue": "Lieu",
+        "tangoPartner": "Partenaire de tango",
+        "cabeceo": "Cabeceo",
+        "tanda": "Tanda",
+        "cortina": "Cortina",
+        "embrace": "Étreindre",
+        "tangoShoes": "Chaussures de tango",
+        "tangoMusic": "Musique de Tango",
+        "tangoHistory": "Histoire du Tango",
+        "buenosAires": "Buenos Aires",
+        "argentina": "Argentine",
+        "porteño": "Porteño",
+        "lunfardo": "Lunfardo"
+      },
+      "lifeceo": {
+        "aiAgents": "Agents IA",
+        "lifeManagement": "Gestion de la Vie",
+        "personalGrowth": "Croissance personnelle",
+        "goals": "Objectifs",
+        "habits": "Habitudes",
+        "productivity": "Productivité",
+        "wellness": "Bien-être",
+        "finance": "Finance",
+        "relationships": "Relations",
+        "career": "Carrière",
+        "learning": "Apprentissage",
+        "creativity": "Créativité",
+        "timeManagement": "Gestion du temps",
+        "taskManager": "Gestionnaire de tâches",
+        "calendar": "Calendrier",
+        "journal": "Journal",
+        "insights": "Aperçus",
+        "recommendations": "Recommandations",
+        "progress": "Progrès",
+        "achievements": "Réalisations",
+        "challenges": "Défis",
+        "opportunities": "Opportunités",
+        "esaFramework": "Cadre ESA"
+      },
+      "auth": {
+        "emailAddress": "Adresse e-mail",
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmer le mot de passe",
+        "forgotPassword": "Mot de passe oublié ?",
+        "resetPassword": "Réinitialiser le mot de passe",
+        "rememberMe": "Souviens-toi de moi",
+        "createAccount": "Créer un compte",
+        "alreadyHaveAccount": "Vous avez déjà un compte ?",
+        "dontHaveAccount": "Vous n'avez pas de compte ?",
+        "signInWith": "Se connecter avec",
+        "or": "Ou",
+        "termsAndConditions": "Conditions Générales",
+        "privacyPolicy": "Politique de Confidentialité",
+        "agreeToTerms": "J'accepte les termes et conditions.",
+        "verifyEmail": "Vérifiez l'email",
+        "emailVerified": "Email vérifié",
+        "resendVerification": "Renvoyer la vérification",
+        "accountCreated": "Compte créé avec succès",
+        "welcomeBack": "Bienvenue de nouveau"
+      },
+      "messages": {
+        "noMessages": "Aucun message",
+        "newMessage": "Nouveau message",
+        "typeMessage": "Tapez un message...",
+        "sendMessage": "Envoyer un message",
+        "messageDeleted": "Message supprimé",
+        "messageSent": "Message envoyé",
+        "markAsRead": "Marquer comme lu",
+        "markAsUnread": "Marquer comme non lu",
+        "reply": "Répondre",
+        "forward": "Avancer",
+        "archive": "Archive",
+        "unarchive": "Désarchiver",
+        "conversation": "Conversation",
+        "startConversation": "Commencer une conversation"
+      },
+      "errors": {
+        "somethingWentWrong": "Quelque chose s'est mal passé.",
+        "tryAgain": "Veuillez réessayer.",
+        "networkError": "Erreur de réseau",
+        "serverError": "Erreur du serveur",
+        "invalidCredentials": "Identifiants invalides",
+        "unauthorized": "Non autorisé",
+        "forbidden": "Interdit",
+        "notFound": "Non trouvé",
+        "validationError": "Erreur de validation",
+        "requiredField": "Ce champ est requis.",
+        "invalidEmail": "Adresse e-mail invalide",
+        "passwordTooShort": "Mot de passe trop court",
+        "passwordMismatch": "Les mots de passe ne correspondent pas.",
+        "userNotFound": "Utilisateur non trouvé",
+        "accountLocked": "Compte verrouillé",
+        "sessionExpired": "Session expirée",
+        "tooManyRequests": "Trop de demandes"
+      },
+      "success": {
+        "dataSaved": "Données enregistrées avec succès",
+        "profileUpdated": "Profil mis à jour",
+        "passwordChanged": "Mot de passe changé",
+        "emailSent": "Email envoyé",
+        "accountCreated": "Compte créé",
+        "loginSuccessful": "Connexion réussie",
+        "logoutSuccessful": "Déconnexion réussie",
+        "operationCompleted": "Opération terminée",
+        "fileUploaded": "Fichier téléchargé",
+        "postCreated": "Publication créée",
+        "commentAdded": "Comment ajouté",
+        "friendRequestSent": "Demande d'ami envoyée",
+        "friendRequestAccepted": "Demande d'ami acceptée",
+        "groupJoined": "Groupe rejoint",
+        "eventCreated": "Événement créé",
+        "registrationComplete": "Inscription complétée"
+      },
+      "settings": {
+        "accountSettings": "Paramètres du compte",
+        "profileSettings": "Paramètres du Profil",
+        "privacySettings": "Paramètres de confidentialité",
+        "notificationSettings": "Paramètres de notification",
+        "securitySettings": "Paramètres de sécurité",
+        "languageSettings": "Paramètres de langue",
+        "themeSettings": "Paramètres du thème",
+        "dataAndStorage": "Données et Stockage",
+        "helpAndSupport": "Aide & Support",
+        "aboutApp": "À propos de l'application",
+        "version": "Version",
+        "checkUpdates": "Vérifier les mises à jour",
+        "exportData": "Exporter des données",
+        "deleteAccount": "Supprimer le compte",
+        "twoFactorAuth": "Authentification à deux facteurs",
+        "changePassword": "Changer le mot de passe",
+        "connectedAccounts": "Comptes Connectés",
+        "blockedUsers": "Utilisateurs Bloqués",
+        "selectLanguage": "Sélectionner la langue",
+        "chooseLanguage": "Choisir la langue"
+      },
+      "community": {
+        "globalDancers": "Danseurs Mondiaux",
+        "activeEvents": "Événements Actifs",
+        "communities": "Communautés",
+        "yourCity": "Votre Ville",
+        "globalStatistics": "Statistiques Mondiales"
+      },
+      "events": {
+        "upcomingEvents": "Événements à venir",
+        "attendeeCount": "{{count}} participant",
+        "attendeeCount_plural": "{{count}} participants"
+      },
+      "memories": {
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Atelier",
+          "festival": "Festival",
+          "travel": "Voyage",
+          "music": "Musique",
+          "fashion": "Mode"
+        },
+        "price": {
+          "budget": "Économique",
+          "moderate": "Modéré",
+          "luxury": "Luxe"
+        },
+        "actions": {
+          "failedToUpdateLike": "Échec de la mise à jour du j'aime"
+        }
+      }
+    }
+  },
+  "ko": {
+    "translation": {
+      "common": {
+        "welcome": "환영합니다",
+        "loading": "로딩 중...",
+        "error": "오류",
+        "success": "성공",
+        "save": "저장하기",
+        "cancel": "취소",
+        "delete": "삭제",
+        "edit": "편집",
+        "search": "검색",
+        "filter": "필터",
+        "sort": "정렬",
+        "next": "다음",
+        "previous": "이전",
+        "submit": "제출하기",
+        "confirm": "확인",
+        "yes": "네",
+        "no": "아니요",
+        "ok": "알겠습니다.",
+        "close": "닫기",
+        "back": "뒤로",
+        "home": "홈",
+        "profile": "프로필",
+        "settings": "설정",
+        "logout": "로그아웃",
+        "login": "로그인",
+        "signup": "가입하기",
+        "language": "언어",
+        "theme": "테마",
+        "notifications": "알림",
+        "messages": "메시지",
+        "friends": "친구들",
+        "groups": "그룹",
+        "events": "이벤트",
+        "posts": "게시물",
+        "photos": "사진",
+        "videos": "비디오",
+        "share": "공유하기",
+        "like": "좋아요",
+        "comment": "댓글",
+        "follow": "팔로우",
+        "unfollow": "언팔로우",
+        "online": "온라인",
+        "offline": "오프라인",
+        "preferred": "선호됨",
+        "popular": "인기",
+        "new": "새로운",
+        "trending": "트렌딩",
+        "featured": "추천"
+      },
+      "navigation": {
+        "feed": "피드",
+        "discover": "발견하기",
+        "explore": "탐색하기",
+        "community": "커뮤니티",
+        "marketplace": "마켓플레이스",
+        "resources": "자원",
+        "help": "도움 요청",
+        "about": "소개",
+        "contact": "연락하기",
+        "dashboard": "대시보드",
+        "admin": "관리자",
+        "moderator": "모더레이터",
+        "home": "홈",
+        "memories": "추억",
+        "tangoCommunity": "탱고 커뮤니티",
+        "friends": "친구들",
+        "messages": "메시지",
+        "groups": "그룹",
+        "events": "이벤트",
+        "roleInvitations": "역할 초대",
+        "notifications": "알림",
+        "search": "검색",
+        "menu": "메뉴",
+        "profile": "프로필",
+        "settings": "설정",
+        "billing": "청구서",
+        "adminAccess": "관리자 접근",
+        "logout": "로그아웃"
+      },
+      "tango": {
+        "milonga": "밀롱가",
+        "practica": "연습하기",
+        "workshop": "워크숍",
+        "festival": "축제",
+        "teacher": "선생님",
+        "student": "학생",
+        "dancer": "댄서",
+        "musician": "뮤지션",
+        "dj": "디제이",
+        "organizer": "주최자",
+        "venue": "장소",
+        "tangoPartner": "탱고 파트너",
+        "cabeceo": "카베세오",
+        "tanda": "탄다",
+        "cortina": "코르티나",
+        "embrace": "포옹하다",
+        "tangoShoes": "탱고 신발",
+        "tangoMusic": "탱고 음악",
+        "tangoHistory": "탱고 역사",
+        "buenosAires": "부에노스 아이레스",
+        "argentina": "아르헨티나",
+        "porteño": "포르테뇨",
+        "lunfardo": "룬파르도"
+      },
+      "lifeceo": {
+        "aiAgents": "AI 에이전트",
+        "lifeManagement": "라이프 관리",
+        "personalGrowth": "개인 성장",
+        "goals": "목표",
+        "habits": "습관",
+        "productivity": "생산성",
+        "wellness": "웰빙",
+        "finance": "재무",
+        "relationships": "관계",
+        "career": "경력",
+        "learning": "배우기",
+        "creativity": "창의성",
+        "timeManagement": "시간 관리",
+        "taskManager": "작업 관리자",
+        "calendar": "달력",
+        "journal": "저널",
+        "insights": "통찰력",
+        "recommendations": "추천 사항",
+        "progress": "진행 상황",
+        "achievements": "업적",
+        "challenges": "도전 과제",
+        "opportunities": "기회",
+        "esaFramework": "ESA 프레임워크"
+      },
+      "auth": {
+        "emailAddress": "이메일 주소",
+        "password": "비밀번호",
+        "confirmPassword": "비밀번호 확인",
+        "forgotPassword": "비밀번호를 잊으셨나요?",
+        "resetPassword": "비밀번호 재설정",
+        "rememberMe": "나를 기억해 주세요",
+        "createAccount": "계정 만들기",
+        "alreadyHaveAccount": "이미 계정이 있으신가요?",
+        "dontHaveAccount": "계정이 없으신가요?",
+        "signInWith": "로그인하기",
+        "or": "또는",
+        "termsAndConditions": "이용 약관",
+        "privacyPolicy": "개인정보 처리방침",
+        "agreeToTerms": "저는 약관에 동의합니다.",
+        "verifyEmail": "이메일 확인",
+        "emailVerified": "이메일 인증 완료",
+        "resendVerification": "재전송 확인",
+        "accountCreated": "계정이 성공적으로 생성되었습니다.",
+        "welcomeBack": "다시 오신 것을 환영합니다!"
+      },
+      "messages": {
+        "noMessages": "메시지가 없습니다.",
+        "newMessage": "새로운 메시지",
+        "typeMessage": "메시지를 입력하세요...",
+        "sendMessage": "메시지 보내기",
+        "messageDeleted": "메시지가 삭제되었습니다.",
+        "messageSent": "메시지가 전송되었습니다.",
+        "markAsRead": "읽음으로 표시",
+        "markAsUnread": "읽지 않음으로 표시",
+        "reply": "답글",
+        "forward": "앞으로",
+        "archive": "아카이브",
+        "unarchive": "비공개 해제",
+        "conversation": "대화",
+        "startConversation": "대화를 시작하세요"
+      },
+      "errors": {
+        "somethingWentWrong": "문제가 발생했습니다.",
+        "tryAgain": "다시 시도해 주세요.",
+        "networkError": "네트워크 오류",
+        "serverError": "서버 오류",
+        "invalidCredentials": "잘못된 자격 증명입니다.",
+        "unauthorized": "무단 접근",
+        "forbidden": "금지됨",
+        "notFound": "찾을 수 없습니다.",
+        "validationError": "유효성 검사 오류",
+        "requiredField": "이 필드는 필수입니다.",
+        "invalidEmail": "잘못된 이메일 주소입니다.",
+        "passwordTooShort": "비밀번호가 너무 짧습니다.",
+        "passwordMismatch": "비밀번호가 일치하지 않습니다.",
+        "userNotFound": "사용자를 찾을 수 없습니다.",
+        "accountLocked": "계정이 잠겼습니다.",
+        "sessionExpired": "세션이 만료되었습니다.",
+        "tooManyRequests": "요청이 너무 많습니다."
+      },
+      "success": {
+        "dataSaved": "데이터가 성공적으로 저장되었습니다.",
+        "profileUpdated": "프로필이 업데이트되었습니다.",
+        "passwordChanged": "비밀번호가 변경되었습니다.",
+        "emailSent": "이메일이 전송되었습니다.",
+        "accountCreated": "계정이 생성되었습니다.",
+        "loginSuccessful": "로그인에 성공했습니다.",
+        "logoutSuccessful": "로그아웃이 성공적으로 완료되었습니다.",
+        "operationCompleted": "작업이 완료되었습니다.",
+        "fileUploaded": "파일이 업로드되었습니다.",
+        "postCreated": "게시물이 생성되었습니다.",
+        "commentAdded": "댓글이 추가되었습니다.",
+        "friendRequestSent": "친구 요청이 전송되었습니다.",
+        "friendRequestAccepted": "친구 요청이 수락되었습니다.",
+        "groupJoined": "그룹에 가입했습니다.",
+        "eventCreated": "이벤트가 생성되었습니다.",
+        "registrationComplete": "등록이 완료되었습니다."
+      },
+      "settings": {
+        "accountSettings": "계정 설정",
+        "profileSettings": "프로필 설정",
+        "privacySettings": "개인정보 설정",
+        "notificationSettings": "알림 설정",
+        "securitySettings": "보안 설정",
+        "languageSettings": "언어 설정",
+        "themeSettings": "테마 설정",
+        "dataAndStorage": "데이터 및 저장소",
+        "helpAndSupport": "도움 및 지원",
+        "aboutApp": "앱 소개",
+        "version": "버전",
+        "checkUpdates": "업데이트 확인",
+        "exportData": "데이터 내보내기",
+        "deleteAccount": "계정 삭제",
+        "twoFactorAuth": "이중 인증",
+        "changePassword": "비밀번호 변경",
+        "connectedAccounts": "연결된 계정",
+        "blockedUsers": "차단된 사용자",
+        "selectLanguage": "언어 선택",
+        "chooseLanguage": "언어 선택"
+      },
+      "community": {
+        "globalDancers": "글로벌 댄서",
+        "activeEvents": "활성 이벤트",
+        "communities": "커뮤니티",
+        "yourCity": "당신의 도시",
+        "globalStatistics": "글로벌 통계"
+      }
+    }
+  },
+  "zh": {
+    "translation": {
+      "common": {
+        "welcome": "欢迎",
+        "loading": "加载中...",
+        "error": "错误",
+        "success": "成功",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除",
+        "edit": "编辑",
+        "search": "搜索",
+        "filter": "过滤器",
+        "sort": "排序",
+        "next": "下一个",
+        "previous": "上一个",
+        "submit": "提交",
+        "confirm": "确认",
+        "yes": "是的",
+        "no": "不",
+        "ok": "好的",
+        "close": "关闭",
+        "back": "返回",
+        "home": "首页",
+        "profile": "个人资料",
+        "settings": "设置",
+        "logout": "注销",
+        "login": "登录",
+        "signup": "注册",
+        "language": "语言",
+        "theme": "主题",
+        "notifications": "通知",
+        "messages": "消息",
+        "friends": "朋友",
+        "groups": "小组",
+        "events": "活动",
+        "posts": "帖子",
+        "photos": "照片",
+        "videos": "视频",
+        "share": "分享",
+        "like": "喜欢",
+        "comment": "评论",
+        "follow": "关注",
+        "unfollow": "取消关注",
+        "online": "在线",
+        "offline": "离线",
+        "preferred": "首选",
+        "popular": "流行的",
+        "new": "新建",
+        "trending": "热门趋势",
+        "featured": "特色"
+      },
+      "navigation": {
+        "feed": "动态",
+        "discover": "发现",
+        "explore": "探索",
+        "community": "社区",
+        "marketplace": "市场",
+        "resources": "资源",
+        "help": "帮助",
+        "about": "关于",
+        "contact": "联系",
+        "dashboard": "仪表盘",
+        "admin": "管理员",
+        "moderator": "主持人",
+        "home": "首页",
+        "memories": "回忆",
+        "tangoCommunity": "探戈社区",
+        "friends": "朋友",
+        "messages": "消息",
+        "groups": "小组",
+        "events": "活动",
+        "roleInvitations": "角色邀请",
+        "notifications": "通知",
+        "search": "搜索",
+        "menu": "菜单",
+        "profile": "个人资料",
+        "settings": "设置",
+        "billing": "账单",
+        "adminAccess": "管理员访问",
+        "logout": "注销"
+      },
+      "tango": {
+        "milonga": "米隆加",
+        "practica": "练习",
+        "workshop": "工作坊",
+        "festival": "节日",
+        "teacher": "老师",
+        "student": "学生",
+        "dancer": "舞者",
+        "musician": "音乐家",
+        "dj": "DJ",
+        "organizer": "组织者",
+        "venue": "场地",
+        "tangoPartner": "探戈伴侣",
+        "cabeceo": "头部示意",
+        "tanda": "探达",
+        "cortina": "窗帘",
+        "embrace": "拥抱",
+        "tangoShoes": "探戈鞋",
+        "tangoMusic": "探戈音乐",
+        "tangoHistory": "探戈历史",
+        "buenosAires": "布宜诺斯艾利斯",
+        "argentina": "阿根廷",
+        "porteño": "波尔特尼奥",
+        "lunfardo": "伦法多"
+      },
+      "lifeceo": {
+        "aiAgents": "人工智能代理",
+        "lifeManagement": "生活管理",
+        "personalGrowth": "个人成长",
+        "goals": "目标",
+        "habits": "习惯",
+        "productivity": "生产力",
+        "wellness": "健康",
+        "finance": "财务",
+        "relationships": "关系",
+        "career": "职业",
+        "learning": "学习",
+        "creativity": "创造力",
+        "timeManagement": "时间管理",
+        "taskManager": "任务管理器",
+        "calendar": "日历",
+        "journal": "日志",
+        "insights": "洞察",
+        "recommendations": "推荐",
+        "progress": "进展",
+        "achievements": "成就",
+        "challenges": "挑战",
+        "opportunities": "机会",
+        "esaFramework": "ESA框架"
+      },
+      "auth": {
+        "emailAddress": "电子邮件地址",
+        "password": "密码",
+        "confirmPassword": "确认密码",
+        "forgotPassword": "忘记密码了吗？",
+        "resetPassword": "重置密码",
+        "rememberMe": "记住我",
+        "createAccount": "创建账户",
+        "alreadyHaveAccount": "已经有账户了吗？",
+        "dontHaveAccount": "还没有账户吗？",
+        "signInWith": "使用以下方式登录",
+        "or": "或者",
+        "termsAndConditions": "条款和条件",
+        "privacyPolicy": "隐私政策",
+        "agreeToTerms": "我同意条款和条件",
+        "verifyEmail": "验证电子邮件",
+        "emailVerified": "邮箱已验证",
+        "resendVerification": "重新发送验证邮件",
+        "accountCreated": "账户创建成功",
+        "welcomeBack": "欢迎回来"
+      },
+      "messages": {
+        "noMessages": "没有消息",
+        "newMessage": "新消息",
+        "typeMessage": "输入消息...",
+        "sendMessage": "发送消息",
+        "messageDeleted": "消息已删除",
+        "messageSent": "消息已发送",
+        "markAsRead": "标记为已读",
+        "markAsUnread": "标记为未读",
+        "reply": "回复",
+        "forward": "前进",
+        "archive": "档案",
+        "unarchive": "解压缩",
+        "conversation": "对话",
+        "startConversation": "开始对话"
+      },
+      "errors": {
+        "somethingWentWrong": "出了点问题",
+        "tryAgain": "请再试一次",
+        "networkError": "网络错误",
+        "serverError": "服务器错误",
+        "invalidCredentials": "无效的凭证",
+        "unauthorized": "未经授权",
+        "forbidden": "禁止",
+        "notFound": "未找到",
+        "validationError": "验证错误",
+        "requiredField": "此字段为必填项",
+        "invalidEmail": "无效的电子邮件地址",
+        "passwordTooShort": "密码太短",
+        "passwordMismatch": "密码不匹配",
+        "userNotFound": "用户未找到",
+        "accountLocked": "账户已锁定",
+        "sessionExpired": "会话已过期",
+        "tooManyRequests": "请求过多"
+      },
+      "success": {
+        "dataSaved": "数据保存成功",
+        "profileUpdated": "个人资料已更新",
+        "passwordChanged": "密码已更改",
+        "emailSent": "邮件已发送",
+        "accountCreated": "账户已创建",
+        "loginSuccessful": "登录成功",
+        "logoutSuccessful": "注销成功",
+        "operationCompleted": "操作完成",
+        "fileUploaded": "文件已上传",
+        "postCreated": "帖子已创建",
+        "commentAdded": "评论已添加",
+        "friendRequestSent": "好友请求已发送",
+        "friendRequestAccepted": "好友请求已接受",
+        "groupJoined": "已加入小组",
+        "eventCreated": "活动已创建",
+        "registrationComplete": "注册完成"
+      },
+      "settings": {
+        "accountSettings": "账户设置",
+        "profileSettings": "个人资料设置",
+        "privacySettings": "隐私设置",
+        "notificationSettings": "通知设置",
+        "securitySettings": "安全设置",
+        "languageSettings": "语言设置",
+        "themeSettings": "主题设置",
+        "dataAndStorage": "数据与存储",
+        "helpAndSupport": "帮助与支持",
+        "aboutApp": "关于应用程序",
+        "version": "版本",
+        "checkUpdates": "检查更新",
+        "exportData": "导出数据",
+        "deleteAccount": "删除账户",
+        "twoFactorAuth": "双重身份验证",
+        "changePassword": "更改密码",
+        "connectedAccounts": "连接的账户",
+        "blockedUsers": "被屏蔽的用户",
+        "selectLanguage": "选择语言",
+        "chooseLanguage": "选择语言"
+      },
+      "community": {
+        "globalDancers": "全球舞者",
+        "activeEvents": "活跃活动",
+        "communities": "社区",
+        "yourCity": "你的城市",
+        "globalStatistics": "全球统计"
+      }
+    }
+  },
+  "es": {
+    "translation": {
+      "navigation": {
+        "memories": "Recuerdos  ",
+        "tangoCommunity": "Comunidad Tango  ",
+        "friends": "Amigos  ",
+        "messages": "Mensajes  ",
+        "groups": "Grupos  ",
+        "events": "Eventos  ",
+        "roleInvitations": "Invitaciones a Roles"
+      },
+      "common": {
+        "welcome": "Bienvenido  ",
+        "loading": "Cargando...  ",
+        "save": "Guardar  ",
+        "cancel": "Cancelar  ",
+        "search": "Buscar  ",
+        "profile": "Perfil  ",
+        "settings": "Configuraciones  ",
+        "logout": "Cerrar sesión  ",
+        "onlineNow": "En línea ahora"
+      },
+      "memories": {
+        "createMemory": "Crear Recuerdo",
+        "shareMemory": "Comparte tu momento de tango...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Taller",
+          "festival": "Festival",
+          "travel": "Viaje",
+          "music": "Música",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Económico",
+          "moderate": "Moderado",
+          "luxury": "Lujoso"
+        },
+        "actions": {
+          "failedToUpdateLike": "Error al actualizar me gusta"
+        }
+      },
+      "events": {
+        "upcomingEvents": "Próximos Eventos"
+      },
+      "friends": {
+        "myFriends": "Mis Amigos"
+      },
+      "messages": {
+        "newMessage": "Nuevo Mensaje"
+      },
+      "groups": {
+        "myGroups": "Mis Grupos"
+      },
+      "community": {
+        "globalDancers": "Bailarines Globales",
+        "activeEvents": "Eventos Activos",
+        "communities": "Comunidades",
+        "yourCity": "Tu Ciudad",
+        "globalStatistics": "Estadísticas Globales"
+      },
+      "settings": {
+        "chooseLanguage": "Elegir idioma"
+      },
+      "errors": {}
+    }
+  },
+  "es-AR": {
+    "translation": {
+      "navigation": {
+        "memories": "Recuerdos",
+        "tangoCommunity": "Comunidad Tanguera",
+        "friends": "Amigos",
+        "messages": "Mensajes",
+        "groups": "Grupos",
+        "events": "Eventos",
+        "roleInvitations": "Invitaciones de Rol"
+      },
+      "common": {
+        "welcome": "Bienvenido",
+        "loading": "Cargando...",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "search": "Buscar",
+        "profile": "Perfil",
+        "settings": "Configuración",
+        "logout": "Salir",
+        "onlineNow": "En línea ahora"
+      },
+      "memories": {
+        "createMemory": "Crear Recuerdo",
+        "shareMemory": "Compartí tu momento tanguero...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Taller",
+          "festival": "Festival",
+          "travel": "Viaje",
+          "music": "Música",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Económico",
+          "moderate": "Moderado",
+          "luxury": "Premium"
+        },
+        "actions": {
+          "failedToUpdateLike": "No se pudo actualizar el me gusta"
+        }
+      },
+      "events": {
+        "upcomingEvents": "Próximos Eventos"
+      },
+      "community": {
+        "globalDancers": "Bailarines Globales",
+        "activeEvents": "Eventos Activos",
+        "communities": "Comunidades",
+        "yourCity": "Tu Ciudad",
+        "globalStatistics": "Estadísticas Globales"
+      },
+      "settings": {
+        "chooseLanguage": "Elegí el Idioma"
+      }
+    }
+  },
+  "pt": {
+    "translation": {
+      "navigation": {
+        "memories": "Memórias  ",
+        "tangoCommunity": "Comunidade Tango  ",
+        "friends": "Amigos  ",
+        "messages": "Mensagens  ",
+        "groups": "Grupos  ",
+        "events": "Eventos  ",
+        "roleInvitations": "Convites de Papel"
+      },
+      "common": {
+        "welcome": "Bem-vindo  ",
+        "loading": "Carregando...  ",
+        "save": "Salvar  ",
+        "cancel": "Cancelar  ",
+        "search": "Pesquisar  ",
+        "profile": "Perfil  ",
+        "settings": "Configurações  ",
+        "logout": "Sair  ",
+        "onlineNow": "Online agora"
+      },
+      "memories": {
+        "createMemory": "Criar Memória",
+        "shareMemory": "Compartilhe seu momento de tango...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Workshop",
+          "festival": "Festival",
+          "travel": "Viagem",
+          "music": "Música",
+          "fashion": "Moda"
+        },
+        "price": {
+          "budget": "Econômico",
+          "moderate": "Moderado",
+          "luxury": "Luxo"
+        },
+        "actions": {
+          "failedToUpdateLike": "Falha ao atualizar curtida"
+        }
+      },
+      "events": {
+        "upcomingEvents": "Próximos Eventos"
+      },
+      "friends": {
+        "myFriends": "Meus Amigos"
+      },
+      "messages": {
+        "newMessage": "Nova Mensagem"
+      },
+      "groups": {
+        "myGroups": "Meus Grupos"
+      },
+      "community": {
+        "globalDancers": "Dançarinos Globais",
+        "activeEvents": "Eventos Ativos",
+        "communities": "Comunidades",
+        "yourCity": "Sua Cidade",
+        "globalStatistics": "Estatísticas Globais"
+      },
+      "settings": {
+        "chooseLanguage": "Escolher Idioma"
+      },
+      "errors": {}
+    }
+  },
+  "de": {
+    "translation": {
+      "navigation": {
+        "memories": "Erinnerungen  ",
+        "tangoCommunity": "Tango-Community  ",
+        "friends": "Freunde  ",
+        "messages": "Nachrichten  ",
+        "groups": "Gruppen  ",
+        "events": "Veranstaltungen  ",
+        "roleInvitations": "Rollen-Einladungen"
+      },
+      "common": {
+        "welcome": "Willkommen  ",
+        "loading": "Laden...  ",
+        "save": "Speichern  ",
+        "cancel": "Abbrechen  ",
+        "search": "Suchen  ",
+        "profile": "Profil  ",
+        "settings": "Einstellungen  ",
+        "logout": "Abmelden  ",
+        "onlineNow": "Jetzt online"
+      },
+      "memories": {
+        "createMemory": "Erinnerung erstellen",
+        "shareMemory": "Teile deinen Tango-Moment...",
+        "categories": {
+          "milonga": "Milonga",
+          "practica": "Práctica",
+          "performance": "Performance",
+          "workshop": "Workshop",
+          "festival": "Festival",
+          "travel": "Reise",
+          "music": "Musik",
+          "fashion": "Mode"
+        },
+        "price": {
+          "budget": "Günstig",
+          "moderate": "Mittel",
+          "luxury": "Luxus"
+        },
+        "actions": {
+          "failedToUpdateLike": "Gefällt mir konnte nicht aktualisiert werden"
+        }
+      },
+      "events": {
+        "upcomingEvents": "Bevorstehende Veranstaltungen"
+      },
+      "friends": {
+        "myFriends": "Meine Freunde"
+      },
+      "messages": {
+        "newMessage": "Neue Nachricht"
+      },
+      "groups": {
+        "myGroups": "Meine Gruppen"
+      },
+      "community": {
+        "globalDancers": "Globale Tänzer",
+        "activeEvents": "Aktive Veranstaltungen",
+        "communities": "Gemeinschaften",
+        "yourCity": "Deine Stadt",
+        "globalStatistics": "Globale Statistiken"
+      },
+      "settings": {
+        "chooseLanguage": "Sprache wählen"
+      },
+      "errors": {}
+    }
+  },
+  "ru": {
+    "translation": {
+      "navigation": {
+        "memories": "Воспоминания  ",
+        "tangoCommunity": "Танго Сообщество  ",
+        "friends": "Друзья  ",
+        "messages": "Сообщения  ",
+        "groups": "Группы  ",
+        "events": "События  ",
+        "roleInvitations": "Приглашения на роли"
+      },
+      "common": {
+        "welcome": "Добро пожаловать  ",
+        "loading": "Загрузка...  ",
+        "save": "Сохранить  ",
+        "cancel": "Отмена  ",
+        "search": "Поиск  ",
+        "profile": "Профиль  ",
+        "settings": "Настройки  ",
+        "logout": "Выйти  ",
+        "onlineNow": "Сейчас в сети"
+      },
+      "memories": {
+        "createMemory": "Создать воспоминание",
+        "shareMemory": "Поделитесь своим танго моментом..."
+      },
+      "events": {
+        "upcomingEvents": "Предстоящие события"
+      },
+      "friends": {
+        "myFriends": "Мои друзья"
+      },
+      "messages": {
+        "newMessage": "Новое сообщение"
+      },
+      "groups": {
+        "myGroups": "Мои группы"
+      },
+      "community": {
+        "globalDancers": "Глобальные танцоры",
+        "activeEvents": "Активные события",
+        "communities": "Сообщества",
+        "yourCity": "Ваш город",
+        "globalStatistics": "Глобальная статистика"
+      },
+      "settings": {
+        "chooseLanguage": "Выберите язык"
+      },
+      "errors": {}
+    }
+  },
+  "pl": {
+    "translation": {
+      "navigation": {
+        "memories": "Wspomnienia  ",
+        "tangoCommunity": "Społeczność Tango  ",
+        "friends": "Przyjaciele  ",
+        "messages": "Wiadomości  ",
+        "groups": "Grupy  ",
+        "events": "Wydarzenia  ",
+        "roleInvitations": "Zaproszenia do ról"
+      },
+      "common": {
+        "welcome": "Witaj  ",
+        "loading": "Ładowanie...  ",
+        "save": "Zapisz  ",
+        "cancel": "Anuluj  ",
+        "search": "Szukaj  ",
+        "profile": "Profil  ",
+        "settings": "Ustawienia  ",
+        "logout": "Wyloguj się  ",
+        "onlineNow": "Online teraz"
+      },
+      "memories": {
+        "createMemory": "Utwórz Wspomnienie",
+        "shareMemory": "Podziel się swoją chwilą tango..."
+      },
+      "events": {
+        "upcomingEvents": "Nadchodzące Wydarzenia"
+      },
+      "friends": {
+        "myFriends": "Moi Przyjaciele"
+      },
+      "messages": {
+        "newMessage": "Nowa wiadomość"
+      },
+      "groups": {
+        "myGroups": "Moje Grupy"
+      },
+      "community": {
+        "globalDancers": "Globalni Tancerze",
+        "activeEvents": "Aktywne Wydarzenia",
+        "communities": "Społeczności",
+        "yourCity": "Twoje Miasto",
+        "globalStatistics": "Statystyki Globalne"
+      },
+      "settings": {
+        "chooseLanguage": "Wybierz język"
+      },
+      "errors": {}
+    }
+  },
+  "nl": {
+    "translation": {
+      "navigation": {
+        "memories": "Herinneringen  ",
+        "tangoCommunity": "Tango Gemeenschap  ",
+        "friends": "Vrienden  ",
+        "messages": "Berichten  ",
+        "groups": "Groepen  ",
+        "events": "Evenementen  ",
+        "roleInvitations": "Roluitnodigingen"
+      },
+      "common": {
+        "welcome": "Welkom  ",
+        "loading": "Laden...  ",
+        "save": "Opslaan  ",
+        "cancel": "Annuleren  ",
+        "search": "Zoeken  ",
+        "profile": "Profiel  ",
+        "settings": "Instellingen  ",
+        "logout": "Uitloggen  ",
+        "onlineNow": "Online nu"
+      },
+      "memories": {
+        "createMemory": "Herinnering Maken",
+        "shareMemory": "Deel je tango-moment..."
+      },
+      "events": {
+        "upcomingEvents": "Aankomende Evenementen"
+      },
+      "friends": {
+        "myFriends": "Mijn Vrienden"
+      },
+      "messages": {
+        "newMessage": "Nieuw Bericht"
+      },
+      "groups": {
+        "myGroups": "Mijn Groepen"
+      },
+      "community": {
+        "globalDancers": "Wereldwijde Dansers",
+        "activeEvents": "Actieve Evenementen",
+        "communities": "Gemeenschappen",
+        "yourCity": "Jouw Stad",
+        "globalStatistics": "Wereldwijde Statistieken"
+      },
+      "settings": {
+        "chooseLanguage": "Kies Taal"
+      },
+      "errors": {}
+    }
+  },
+  "sv": {
+    "translation": {
+      "navigation": {
+        "memories": "Minnen  ",
+        "tangoCommunity": "Tango Gemenskap  ",
+        "friends": "Vänner  ",
+        "messages": "Meddelanden  ",
+        "groups": "Grupper  ",
+        "events": "Evenemang  ",
+        "roleInvitations": "Rollinbjudningar"
+      },
+      "common": {
+        "welcome": "Välkommen  ",
+        "loading": "Laddar...  ",
+        "save": "Spara  ",
+        "cancel": "Avbryt  ",
+        "search": "Sök  ",
+        "profile": "Profil  ",
+        "settings": "Inställningar  ",
+        "logout": "Logga ut  ",
+        "onlineNow": "Online nu"
+      },
+      "memories": {
+        "createMemory": "Skapa Minne",
+        "shareMemory": "Dela ditt tangomoment..."
+      },
+      "events": {
+        "upcomingEvents": "Kommande Evenemang"
+      },
+      "friends": {
+        "myFriends": "Mina Vänner"
+      },
+      "messages": {
+        "newMessage": "Nytt meddelande"
+      },
+      "groups": {
+        "myGroups": "Mina grupper"
+      },
+      "community": {
+        "globalDancers": "Globala Dansare",
+        "activeEvents": "Aktiva Evenemang",
+        "communities": "Gemenskaper",
+        "yourCity": "Din Stad",
+        "globalStatistics": "Global Statistik"
+      },
+      "settings": {
+        "chooseLanguage": "Välj språk"
+      },
+      "errors": {}
+    }
+  },
+  "no": {
+    "translation": {
+      "navigation": {
+        "memories": "Minnesmerker  ",
+        "tangoCommunity": "Tango Fellesskap  ",
+        "friends": "Venner  ",
+        "messages": "Meldinger  ",
+        "groups": "Grupper  ",
+        "events": "Arrangementer  ",
+        "roleInvitations": "Rolleinvitasjoner"
+      },
+      "common": {
+        "welcome": "Velkommen  ",
+        "loading": "Laster...  ",
+        "save": "Lagre  ",
+        "cancel": "Avbryt  ",
+        "search": "Søk  ",
+        "profile": "Profil  ",
+        "settings": "Innstillinger  ",
+        "logout": "Logg ut  ",
+        "onlineNow": "På nett nå"
+      },
+      "memories": {
+        "createMemory": "Opprett Minne",
+        "shareMemory": "Del din tango øjeblik..."
+      },
+      "events": {
+        "upcomingEvents": "Kommende Arrangementer"
+      },
+      "friends": {
+        "myFriends": "Vennene mine"
+      },
+      "messages": {
+        "newMessage": "Meldung erstellen"
+      },
+      "groups": {
+        "myGroups": "Mine Grupper"
+      },
+      "community": {
+        "globalDancers": "Globale Dansere",
+        "activeEvents": "Aktive Arrangementer",
+        "communities": "Fellesskap",
+        "yourCity": "Din By",
+        "globalStatistics": "Global Statistikk"
+      },
+      "settings": {
+        "chooseLanguage": "Velg språk"
+      },
+      "errors": {}
+    }
+  },
+  "da": {
+    "translation": {
+      "navigation": {
+        "memories": "Minder  ",
+        "tangoCommunity": "Tango Fællesskab  ",
+        "friends": "Venner  ",
+        "messages": "Beskeder  ",
+        "groups": "Grupper  ",
+        "events": "Begivenheder  ",
+        "roleInvitations": "Rolleinvitationer"
+      },
+      "common": {
+        "welcome": "Velkommen  ",
+        "loading": "Indlæser...  ",
+        "save": "Gem  ",
+        "cancel": "Annuller  ",
+        "search": "Søg  ",
+        "profile": "Profil  ",
+        "settings": "Indstillinger  ",
+        "logout": "Log ud  ",
+        "onlineNow": "Online nu"
+      },
+      "memories": {
+        "createMemory": "Opret Erindring",
+        "shareMemory": "Del din tango øjeblik..."
+      },
+      "events": {
+        "upcomingEvents": "Kommende Begivenheder"
+      },
+      "friends": {
+        "myFriends": "Mine Venner"
+      },
+      "messages": {
+        "newMessage": "Ny besked"
+      },
+      "groups": {
+        "myGroups": "Mine Grupper"
+      },
+      "community": {
+        "globalDancers": "Globale Dansere",
+        "activeEvents": "Aktive Begivenheder",
+        "communities": "Fællesskaber",
+        "yourCity": "Din By",
+        "globalStatistics": "Global Statistik"
+      },
+      "settings": {
+        "chooseLanguage": "Vælg sprog"
+      },
+      "errors": {}
+    }
+  },
+  "fi": {
+    "translation": {
+      "navigation": {
+        "memories": "Muistot  ",
+        "tangoCommunity": "Tango-yhteisö  ",
+        "friends": "Ystävät  ",
+        "messages": "Viestit  ",
+        "groups": "Ryhmät  ",
+        "events": "Tapahtumat  ",
+        "roleInvitations": "Roolikutsut"
+      },
+      "common": {
+        "welcome": "Tervetuloa  ",
+        "loading": "Ladataan...  ",
+        "save": "Tallenna  ",
+        "cancel": "Peruuta  ",
+        "search": "Hae  ",
+        "profile": "Profiili  ",
+        "settings": "Asetukset  ",
+        "logout": "Kirjaudu ulos  ",
+        "onlineNow": "Verkossa nyt"
+      },
+      "memories": {
+        "createMemory": "Luo Muisto",
+        "shareMemory": "Jaa tangohetkesi..."
+      },
+      "events": {
+        "upcomingEvents": "Tulevat Tapahtumat"
+      },
+      "friends": {
+        "myFriends": "Ystäväni"
+      },
+      "messages": {
+        "newMessage": "Uusi viesti"
+      },
+      "groups": {
+        "myGroups": "Omat ryhmät"
+      },
+      "community": {
+        "globalDancers": "Globaalit Tanssijat",
+        "activeEvents": "Aktiiviset Tapahtumat",
+        "communities": "Yhteisöt",
+        "yourCity": "Sinun Kaupunkisi",
+        "globalStatistics": "Globaalit Tilastot"
+      },
+      "settings": {
+        "chooseLanguage": "Valitse kieli"
+      },
+      "errors": {}
+    }
+  },
+  "cs": {
+    "translation": {
+      "navigation": {
+        "memories": "Vzpomínky  ",
+        "tangoCommunity": "Tango komunita  ",
+        "friends": "Přátelé  ",
+        "messages": "Zprávy  ",
+        "groups": "Skupiny  ",
+        "events": "Akce  ",
+        "roleInvitations": "Pozvánky na role  ",
+        "home": "Domov  ",
+        "explore": "Prozkoumat  ",
+        "settings": "Nastavení"
+      },
+      "common": {
+        "welcome": "Vítejte  ",
+        "loading": "Načítání...  ",
+        "save": "Uložit  ",
+        "cancel": "Zrušit  ",
+        "search": "Hledat  ",
+        "profile": "Profil  ",
+        "settings": "Nastavení  ",
+        "logout": "Odhlásit se  ",
+        "login": "Přihlásit se  ",
+        "language": "Jazyk  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Odeslat  ",
+        "delete": "Smazat  ",
+        "edit": "Upravit"
+      },
+      "memories": {
+        "createMemory": "Vytvořit vzpomínku  ",
+        "shareMemory": "Sdílejte svůj tango okamžik...  ",
+        "addPhotos": "Přidat fotografie  ",
+        "likeMemory": "Líbí se mi  ",
+        "commentMemory": "Komentář  ",
+        "shareMemoryAction": "Sdílet  ",
+        "publicMemory": "Veřejné  ",
+        "friendsOnly": "Pouze pro přátele"
+      },
+      "events": {
+        "upcomingEvents": "Nadcházející akce  ",
+        "createEvent": "Vytvořit akci  ",
+        "eventLocation": "Místo  ",
+        "attendees": "Účastníci  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globální tanečníci",
+        "activeEvents": "Aktivní akce",
+        "communities": "Komunity",
+        "yourCity": "Vaše město",
+        "globalStatistics": "Globální statistiky"
+      },
+      "settings": {
+        "chooseLanguage": "Vyberte jazyk  ",
+        "selectLanguage": "Zvolte jazyk"
+      }
+    }
+  },
+  "hu": {
+    "translation": {
+      "navigation": {
+        "memories": "Emlékek  ",
+        "tangoCommunity": "Tango Közösség  ",
+        "friends": "Barátok  ",
+        "messages": "Üzenetek  ",
+        "groups": "Csoportok  ",
+        "events": "Események  ",
+        "roleInvitations": "Szerepkör Meghívók  ",
+        "home": "Kezdőlap  ",
+        "explore": "Felfedezés  ",
+        "settings": "Beállítások"
+      },
+      "common": {
+        "welcome": "Üdvözöljük  ",
+        "loading": "Betöltés...  ",
+        "save": "Mentés  ",
+        "cancel": "Mégse  ",
+        "search": "Keresés  ",
+        "profile": "Profil  ",
+        "settings": "Beállítások  ",
+        "logout": "Kijelentkezés  ",
+        "login": "Bejelentkezés  ",
+        "language": "Nyelv  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Beküldés  ",
+        "delete": "Törlés  ",
+        "edit": "Szerkesztés"
+      },
+      "memories": {
+        "createMemory": "Emlék létrehozása  ",
+        "shareMemory": "Oszd meg a tango pillanatodat...  ",
+        "addPhotos": "Képek hozzáadása  ",
+        "likeMemory": "Tetszik  ",
+        "commentMemory": "Hozzászólás  ",
+        "shareMemoryAction": "Megosztás  ",
+        "publicMemory": "Nyilvános  ",
+        "friendsOnly": "Csak barátoknak"
+      },
+      "events": {
+        "upcomingEvents": "Közelgő Események  ",
+        "createEvent": "Esemény Létrehozása  ",
+        "eventLocation": "Helyszín  ",
+        "attendees": "Résztvevők  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globális Táncosok",
+        "activeEvents": "Aktív Események",
+        "communities": "Közösségek",
+        "yourCity": "Az Ön városa",
+        "globalStatistics": "Globális Statisztikák"
+      },
+      "settings": {
+        "chooseLanguage": "Nyelv kiválasztása  ",
+        "selectLanguage": "Nyelv választása"
+      }
+    }
+  },
+  "ro": {
+    "translation": {
+      "navigation": {
+        "memories": "Amintiri  ",
+        "tangoCommunity": "Comunitatea Tango  ",
+        "friends": "Prietenii  ",
+        "messages": "Mesaje  ",
+        "groups": "Grupuri  ",
+        "events": "Evenimente  ",
+        "roleInvitations": "Invitații la roluri  ",
+        "home": "Acasă  ",
+        "explore": "Explorează  ",
+        "settings": "Setări"
+      },
+      "common": {
+        "welcome": "Bine ai venit  ",
+        "loading": "Se încarcă...  ",
+        "save": "Salvează  ",
+        "cancel": "Anulează  ",
+        "search": "Caută  ",
+        "profile": "Profil  ",
+        "settings": "Setări  ",
+        "logout": "Deconectare  ",
+        "login": "Conectare  ",
+        "language": "Limba  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Trimite  ",
+        "delete": "Șterge  ",
+        "edit": "Editează"
+      },
+      "memories": {
+        "createMemory": "Creează Amintire  ",
+        "shareMemory": "Împărtășește-ți momentul de tango...  ",
+        "addPhotos": "Adaugă Fotografii  ",
+        "likeMemory": "Îmi place  ",
+        "commentMemory": "Comentariu  ",
+        "shareMemoryAction": "Împărtășește  ",
+        "publicMemory": "Public  ",
+        "friendsOnly": "Numai pentru Prieteni"
+      },
+      "events": {
+        "upcomingEvents": "Evenimente Viitoare  ",
+        "createEvent": "Creează Eveniment  ",
+        "eventLocation": "Locație  ",
+        "attendees": "Participanți  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Dansatori Globali",
+        "activeEvents": "Evenimente Active",
+        "communities": "Comunități",
+        "yourCity": "Orașul Tău",
+        "globalStatistics": "Statistici Globale"
+      },
+      "settings": {
+        "chooseLanguage": "Alegeți limba  ",
+        "selectLanguage": "Selectați limba"
+      }
+    }
+  },
+  "bg": {
+    "translation": {
+      "navigation": {
+        "memories": "Спомени  ",
+        "tangoCommunity": "Танго общност  ",
+        "friends": "Приятели  ",
+        "messages": "Съобщения  ",
+        "groups": "Групи  ",
+        "events": "Събития  ",
+        "roleInvitations": "Покани за роля  ",
+        "home": "Начало  ",
+        "explore": "Изследвай  ",
+        "settings": "Настройки"
+      },
+      "common": {
+        "welcome": "Добре дошли  ",
+        "loading": "Зареждане...  ",
+        "save": "Запази  ",
+        "cancel": "Отмени  ",
+        "search": "Търсене  ",
+        "profile": "Профил  ",
+        "settings": "Настройки  ",
+        "logout": "Изход  ",
+        "login": "Вход  ",
+        "language": "Език  ",
+        "online": "Онлайн  ",
+        "offline": "Офлайн  ",
+        "submit": "Изпрати  ",
+        "delete": "Изтрий  ",
+        "edit": "Редактирай"
+      },
+      "memories": {
+        "createMemory": "Създайте спомен  ",
+        "shareMemory": "Споделете вашия танго момент...  ",
+        "addPhotos": "Добавете снимки  ",
+        "likeMemory": "Харесвам  ",
+        "commentMemory": "Коментар  ",
+        "shareMemoryAction": "Сподели  ",
+        "publicMemory": "Публично  ",
+        "friendsOnly": "Само за приятели"
+      },
+      "events": {
+        "upcomingEvents": "Предстоящи събития  ",
+        "createEvent": "Създаване на събитие  ",
+        "eventLocation": "Местоположение  ",
+        "attendees": "Участници  ",
+        "milonga": "Милонга  ",
+        "practica": "Практика"
+      },
+      "community": {
+        "globalDancers": "Глобални танцьори",
+        "activeEvents": "Активни събития",
+        "communities": "Общности",
+        "yourCity": "Вашият град",
+        "globalStatistics": "Глобална статистика"
+      },
+      "settings": {
+        "chooseLanguage": "Изберете език  ",
+        "selectLanguage": "Изберете език"
+      }
+    }
+  },
+  "hr": {
+    "translation": {
+      "navigation": {
+        "memories": "Sjećanja  ",
+        "tangoCommunity": "Tango zajednica  ",
+        "friends": "Prijatelji  ",
+        "messages": "Poruke  ",
+        "groups": "Grupe  ",
+        "events": "Događaji  ",
+        "roleInvitations": "Pozivnice za uloge  ",
+        "home": "Početna  ",
+        "explore": "Istraži  ",
+        "settings": "Postavke"
+      },
+      "common": {
+        "welcome": "Dobrodošli  ",
+        "loading": "Učitavanje...  ",
+        "save": "Spremi  ",
+        "cancel": "Otkaži  ",
+        "search": "Pretraži  ",
+        "profile": "Profil  ",
+        "settings": "Postavke  ",
+        "logout": "Odjavi se  ",
+        "login": "Prijavi se  ",
+        "language": "Jezik  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Pošalji  ",
+        "delete": "Izbriši  ",
+        "edit": "Uredi"
+      },
+      "memories": {
+        "createMemory": "Stvori uspomenu  ",
+        "shareMemory": "Podijeli svoj tango trenutak...  ",
+        "addPhotos": "Dodaj fotografije  ",
+        "likeMemory": "Sviđa mi se  ",
+        "commentMemory": "Komentiraj  ",
+        "shareMemoryAction": "Podijeli  ",
+        "publicMemory": "Javno  ",
+        "friendsOnly": "Samo prijatelji"
+      },
+      "events": {
+        "upcomingEvents": "Nadolazeći događaji  ",
+        "createEvent": "Kreiraj događaj  ",
+        "eventLocation": "Lokacija  ",
+        "attendees": "Sudionici  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globalni plesači",
+        "activeEvents": "Aktivni događaji",
+        "communities": "Zajednice",
+        "yourCity": "Vaš grad",
+        "globalStatistics": "Globalne statistike"
+      },
+      "settings": {
+        "chooseLanguage": "Odaberite jezik  ",
+        "selectLanguage": "Odaberite jezik"
+      }
+    }
+  },
+  "sr": {
+    "translation": {
+      "navigation": {
+        "memories": "Sećanja  ",
+        "tangoCommunity": "Tango zajednica  ",
+        "friends": "Prijatelji  ",
+        "messages": "Poruke  ",
+        "groups": "Grupe  ",
+        "events": "Događaji  ",
+        "roleInvitations": "Pozivnice za uloge  ",
+        "home": "Početna  ",
+        "explore": "Istraži  ",
+        "settings": "Podešavanja"
+      },
+      "common": {
+        "welcome": "Dobrodošli  ",
+        "loading": "Učitavanje...  ",
+        "save": "Sačuvaj  ",
+        "cancel": "Otkaži  ",
+        "search": "Pretraži  ",
+        "profile": "Profil  ",
+        "settings": "Podešavanja  ",
+        "logout": "Odjavi se  ",
+        "login": "Prijavi se  ",
+        "language": "Jezik  ",
+        "online": "Na mreži  ",
+        "offline": "Van mreže  ",
+        "submit": "Pošalji  ",
+        "delete": "Obriši  ",
+        "edit": "Uredi"
+      },
+      "memories": {
+        "createMemory": "Kreiraj uspomenu  ",
+        "shareMemory": "Podeli svoj tango trenutak...  ",
+        "addPhotos": "Dodaj fotografije  ",
+        "likeMemory": "Sviđa mi se  ",
+        "commentMemory": "Komentar  ",
+        "shareMemoryAction": "Podeli  ",
+        "publicMemory": "Javno  ",
+        "friendsOnly": "Samo za prijatelje"
+      },
+      "events": {
+        "upcomingEvents": "Nadolazeći događaji  ",
+        "createEvent": "Kreiraj događaj  ",
+        "eventLocation": "Lokacija  ",
+        "attendees": "Učesnici  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globalni igrači",
+        "activeEvents": "Aktivni događaji",
+        "communities": "Zajednice",
+        "yourCity": "Vaš grad",
+        "globalStatistics": "Глобална статистика"
+      },
+      "settings": {
+        "chooseLanguage": "Izaberite jezik  ",
+        "selectLanguage": "Odaberite jezik"
+      }
+    }
+  },
+  "sk": {
+    "translation": {
+      "navigation": {
+        "memories": "Spomienky  ",
+        "tangoCommunity": "Tango komunita  ",
+        "friends": "Priatelia  ",
+        "messages": "Správy  ",
+        "groups": "Skupiny  ",
+        "events": "Podujatia  ",
+        "roleInvitations": "Pozvánky na úlohy  ",
+        "home": "Domov  ",
+        "explore": "Preskúmať  ",
+        "settings": "Nastavenia"
+      },
+      "common": {
+        "welcome": "Vitajte  ",
+        "loading": "Načítava sa...  ",
+        "save": "Uložiť  ",
+        "cancel": "Zrušiť  ",
+        "search": "Hľadať  ",
+        "profile": "Profil  ",
+        "settings": "Nastavenia  ",
+        "logout": "Odhlásiť sa  ",
+        "login": "Prihlásiť sa  ",
+        "language": "Jazyk  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Odoslať  ",
+        "delete": "Vymazať  ",
+        "edit": "Upraviť"
+      },
+      "memories": {
+        "createMemory": "Vytvoriť spomienku  ",
+        "shareMemory": "Zdieľajte svoj tango okamih...  ",
+        "addPhotos": "Pridať fotografie  ",
+        "likeMemory": "Páči sa mi  ",
+        "commentMemory": "Komentár  ",
+        "shareMemoryAction": "Zdieľať  ",
+        "publicMemory": "Verejné  ",
+        "friendsOnly": "Iba pre priateľov"
+      },
+      "events": {
+        "upcomingEvents": "Nadchádzajúce podujatia  ",
+        "createEvent": "Vytvoriť podujatie  ",
+        "eventLocation": "Miesto  ",
+        "attendees": "Účastníci  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globálni tanečníci",
+        "activeEvents": "Aktívne podujatia",
+        "communities": "Komunity",
+        "yourCity": "Vaše mesto",
+        "globalStatistics": "Globálne štatistiky"
+      },
+      "settings": {
+        "chooseLanguage": "Vyberte jazyk  ",
+        "selectLanguage": "Zvoľte jazyk"
+      }
+    }
+  },
+  "sl": {
+    "translation": {
+      "navigation": {
+        "memories": "Spomini  ",
+        "tangoCommunity": "Tango skupnost  ",
+        "friends": "Prijatelji  ",
+        "messages": "Sporočila  ",
+        "groups": "Skupine  ",
+        "events": "Dogodki  ",
+        "roleInvitations": "Vabila za vloge  ",
+        "home": "Domov  ",
+        "explore": "Raziskuj  ",
+        "settings": "Nastavitve"
+      },
+      "common": {
+        "welcome": "Dobrodošli  ",
+        "loading": "Nalaganje...  ",
+        "save": "Shrani  ",
+        "cancel": "Prekliči  ",
+        "search": "Išči  ",
+        "profile": "Profil  ",
+        "settings": "Nastavitve  ",
+        "logout": "Odjava  ",
+        "login": "Prijava  ",
+        "language": "Jezik  ",
+        "online": "Na spletu  ",
+        "offline": "Izven spleta  ",
+        "submit": "Pošlji  ",
+        "delete": "Izbriši  ",
+        "edit": "Uredi"
+      },
+      "memories": {
+        "createMemory": "Ustvari spomin  ",
+        "shareMemory": "Deli svoj tango trenutek...  ",
+        "addPhotos": "Dodaj fotografije  ",
+        "likeMemory": "Všeč mi je  ",
+        "commentMemory": "Komentiraj  ",
+        "shareMemoryAction": "Deli  ",
+        "publicMemory": "Javno  ",
+        "friendsOnly": "Samo prijatelji"
+      },
+      "events": {
+        "upcomingEvents": "Prihajajoči dogodki  ",
+        "createEvent": "Ustvari dogodek  ",
+        "eventLocation": "Lokacija  ",
+        "attendees": "Udeleženci  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globalni plesalci",
+        "activeEvents": "Aktivni dogodki",
+        "communities": "Skupnosti",
+        "yourCity": "Vaše mesto",
+        "globalStatistics": "Globalna statistika"
+      },
+      "settings": {
+        "chooseLanguage": "Izberi jezik  ",
+        "selectLanguage": "Izberi jezik"
+      }
+    }
+  },
+  "el": {
+    "translation": {
+      "navigation": {
+        "memories": "Αναμνήσεις  ",
+        "tangoCommunity": "Κοινότητα Τάνγκο  ",
+        "friends": "Φίλοι  ",
+        "messages": "Μηνύματα  ",
+        "groups": "Ομάδες  ",
+        "events": "Εκδηλώσεις  ",
+        "roleInvitations": "Προσκλήσεις Ρόλων  ",
+        "home": "Αρχική  ",
+        "explore": "Εξερεύνηση  ",
+        "settings": "Ρυθμίσεις"
+      },
+      "common": {
+        "welcome": "Καλώς ήρθατε  ",
+        "loading": "Φόρτωση...  ",
+        "save": "Αποθήκευση  ",
+        "cancel": "Ακύρωση  ",
+        "search": "Αναζήτηση  ",
+        "profile": "Προφίλ  ",
+        "settings": "Ρυθμίσεις  ",
+        "logout": "Αποσύνδεση  ",
+        "login": "Σύνδεση  ",
+        "language": "Γλώσσα  ",
+        "online": "Συνδεδεμένος  ",
+        "offline": "Αποσυνδεδεμένος  ",
+        "submit": "Υποβολή  ",
+        "delete": "Διαγραφή  ",
+        "edit": "Επεξεργασία"
+      },
+      "memories": {
+        "createMemory": "Δημιουργία Μνήμης  ",
+        "shareMemory": "Μοιραστείτε τη στιγμή σας στο τάνγκο...  ",
+        "addPhotos": "Προσθήκη Φωτογραφιών  ",
+        "likeMemory": "Μου αρέσει  ",
+        "commentMemory": "Σχόλιο  ",
+        "shareMemoryAction": "Μοιραστείτε  ",
+        "publicMemory": "Δημόσιο  ",
+        "friendsOnly": "Μόνο Φίλοι"
+      },
+      "events": {
+        "upcomingEvents": "Επερχόμενες Εκδηλώσεις  ",
+        "createEvent": "Δημιουργία Εκδήλωσης  ",
+        "eventLocation": "Τοποθεσία  ",
+        "attendees": "Συμμετέχοντες  ",
+        "milonga": "Μιλόνγκα  ",
+        "practica": "Πράκτικα"
+      },
+      "community": {
+        "globalDancers": "Παγκόσμιοι Χορευτές",
+        "activeEvents": "Ενεργές Εκδηλώσεις",
+        "communities": "Κοινότητες",
+        "yourCity": "Η Πόλη σας",
+        "globalStatistics": "Παγκόσμιες Στατιστικές"
+      },
+      "settings": {
+        "chooseLanguage": "Επιλέξτε Γλώσσα  ",
+        "selectLanguage": "Επιλέξτε Γλώσσα"
+      }
+    }
+  },
+  "uk": {
+    "translation": {
+      "navigation": {
+        "memories": "Спогади  ",
+        "tangoCommunity": "Танго Спільнота  ",
+        "friends": "Друзі  ",
+        "messages": "Повідомлення  ",
+        "groups": "Групи  ",
+        "events": "Події  ",
+        "roleInvitations": "Запрошення на ролі  ",
+        "home": "Головна  ",
+        "explore": "Досліджувати  ",
+        "settings": "Налаштування"
+      },
+      "common": {
+        "welcome": "Ласкаво просимо  ",
+        "loading": "Завантаження...  ",
+        "save": "Зберегти  ",
+        "cancel": "Скасувати  ",
+        "search": "Пошук  ",
+        "profile": "Профіль  ",
+        "settings": "Налаштування  ",
+        "logout": "Вийти  ",
+        "login": "Увійти  ",
+        "language": "Мова  ",
+        "online": "Онлайн  ",
+        "offline": "Офлайн  ",
+        "submit": "Відправити  ",
+        "delete": "Видалити  ",
+        "edit": "Редагувати"
+      },
+      "memories": {
+        "createMemory": "Створити спогад  ",
+        "shareMemory": "Поділіться своїм танго моментом...  ",
+        "addPhotos": "Додати фотографії  ",
+        "likeMemory": "Подобається  ",
+        "commentMemory": "Коментар  ",
+        "shareMemoryAction": "Поділитися  ",
+        "publicMemory": "Публічно  ",
+        "friendsOnly": "Тільки для друзів"
+      },
+      "events": {
+        "upcomingEvents": "Найближчі події  ",
+        "createEvent": "Створити подію  ",
+        "eventLocation": "Місцезнаходження  ",
+        "attendees": "Учасники  ",
+        "milonga": "Мілонга  ",
+        "practica": "Практика"
+      },
+      "community": {
+        "globalDancers": "Глобальні танцюристи",
+        "activeEvents": "Активні події",
+        "communities": "Спільноти",
+        "yourCity": "Ваше місто",
+        "globalStatistics": "Глобальна статистика"
+      },
+      "settings": {
+        "chooseLanguage": "Виберіть мову  ",
+        "selectLanguage": "Виберіть мову"
+      }
+    }
+  },
+  "be": {
+    "translation": {
+      "navigation": {
+        "memories": "Успаміны  ",
+        "tangoCommunity": "Супольнасць танга  ",
+        "friends": "Сябры  ",
+        "messages": "Паведамленні  ",
+        "groups": "Групы  ",
+        "events": "Мерапрыемствы  ",
+        "roleInvitations": "Запрашэнні на ролі  ",
+        "home": "Галоўная  ",
+        "explore": "Даследаваць  ",
+        "settings": "Налады"
+      },
+      "common": {
+        "welcome": "Сардэчна запрашаем  ",
+        "loading": "Загрузка...  ",
+        "save": "Захаваць  ",
+        "cancel": "Скасаваць  ",
+        "search": "Пошук  ",
+        "profile": "Профіль  ",
+        "settings": "Налады  ",
+        "logout": "Выйсці  ",
+        "login": "Увайсці  ",
+        "language": "Мова  ",
+        "online": "Онлайн  ",
+        "offline": "Афлайн  ",
+        "submit": "Адправіць  ",
+        "delete": "Выдаліць  ",
+        "edit": "Рэдагаваць"
+      },
+      "memories": {
+        "createMemory": "Стварыць успамін  ",
+        "shareMemory": "Падзяліцеся вашым танга момантам...  ",
+        "addPhotos": "Дадаць фота  ",
+        "likeMemory": "Падабаецца  ",
+        "commentMemory": "Каментар  ",
+        "shareMemoryAction": "Падзяліцца  ",
+        "publicMemory": "Агульны  ",
+        "friendsOnly": "Толькі для сяброў"
+      },
+      "events": {
+        "upcomingEvents": "Блізкія падзеі  ",
+        "createEvent": "Стварыць падзею  ",
+        "eventLocation": "Месцазнаходжанне  ",
+        "attendees": "Удзельнікі  ",
+        "milonga": "Мілонга  ",
+        "practica": "Практыка"
+      },
+      "community": {
+        "globalDancers": "Глабальныя танцоры",
+        "activeEvents": "Актыўныя падзеі",
+        "communities": "Супольнасці",
+        "yourCity": "Ваш горад",
+        "globalStatistics": "Глабальная статыстыка"
+      },
+      "settings": {
+        "chooseLanguage": "Выберыце мову  ",
+        "selectLanguage": "Выберыце мову"
+      }
+    }
+  },
+  "is": {
+    "translation": {
+      "navigation": {
+        "memories": "Minnisvarir  ",
+        "tangoCommunity": "Tango Samfélag  ",
+        "friends": "Vinir  ",
+        "messages": "Skilaboð  ",
+        "groups": "Hópar  ",
+        "events": "Viðburðir  ",
+        "roleInvitations": "Ráðning á hlutverkum  ",
+        "home": "Heim  ",
+        "explore": "Kanna  ",
+        "settings": "Stillingar"
+      },
+      "common": {
+        "welcome": "Velkomin  ",
+        "loading": "Hleð inn...  ",
+        "save": "Vista  ",
+        "cancel": "Hætta við  ",
+        "search": "Leita  ",
+        "profile": "Prófíll  ",
+        "settings": "Stillingar  ",
+        "logout": "Skrá út  ",
+        "login": "Skrá inn  ",
+        "language": "Tungumál  ",
+        "online": "Á netinu  ",
+        "offline": "Ótengt  ",
+        "submit": "Senda inn  ",
+        "delete": "Eyða  ",
+        "edit": "Breyta"
+      },
+      "memories": {
+        "createMemory": "Búa til minningu  ",
+        "shareMemory": "Deildu tango augnablikinu þínu...  ",
+        "addPhotos": "Bæta við myndum  ",
+        "likeMemory": "Líka  ",
+        "commentMemory": "Athugasemd  ",
+        "shareMemoryAction": "Deila  ",
+        "publicMemory": "Opin  ",
+        "friendsOnly": "Aðeins vinir"
+      },
+      "events": {
+        "upcomingEvents": "Næstu viðburðir  ",
+        "createEvent": "Búa til viðburð  ",
+        "eventLocation": "Staðsetning  ",
+        "attendees": "Gestir  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Alþjóðlegir dansarar",
+        "activeEvents": "Virkar viðburðir",
+        "communities": "Samskiptahópar",
+        "yourCity": "Þín borg",
+        "globalStatistics": "Alþjóðlegar tölfræði"
+      },
+      "settings": {
+        "chooseLanguage": "Veldu tungumál  ",
+        "selectLanguage": "Veldu tungumál"
+      }
+    }
+  },
+  "mk": {
+    "translation": {
+      "navigation": {
+        "memories": "Спомени  ",
+        "tangoCommunity": "Танго Заедница  ",
+        "friends": "Пријатели  ",
+        "messages": "Пораки  ",
+        "groups": "Групи  ",
+        "events": "Настани  ",
+        "roleInvitations": "Покани за улоги  ",
+        "home": "Дома  ",
+        "explore": "Истражи  ",
+        "settings": "Поставки"
+      },
+      "common": {
+        "welcome": "Добредојдовте  ",
+        "loading": "Вчитување...  ",
+        "save": "Зачувај  ",
+        "cancel": "Откажи  ",
+        "search": "Пребарај  ",
+        "profile": "Профил  ",
+        "settings": "Поставки  ",
+        "logout": "Одјави се  ",
+        "login": "Најави се  ",
+        "language": "Јазик  ",
+        "online": "Онлајн  ",
+        "offline": "Офлајн  ",
+        "submit": "Испрати  ",
+        "delete": "Избриши  ",
+        "edit": "Уреди"
+      },
+      "memories": {
+        "createMemory": "Создај Спомен",
+        "shareMemory": "Сподели го твојот танго момент...",
+        "addPhotos": "Додај Фотографии",
+        "likeMemory": "Свижи",
+        "commentMemory": "Коментар",
+        "shareMemoryAction": "Сподели",
+        "publicMemory": "Јавно",
+        "friendsOnly": "Само пријатели"
+      },
+      "events": {
+        "upcomingEvents": "Надојдни настани  ",
+        "createEvent": "Создај настан  ",
+        "eventLocation": "Локација  ",
+        "attendees": "Учесници  ",
+        "milonga": "Милонга  ",
+        "practica": "Практика"
+      },
+      "community": {
+        "globalDancers": "Глобални Танцувачи",
+        "activeEvents": "Активни Настани",
+        "communities": "Заедници",
+        "yourCity": "Вашиот град",
+        "globalStatistics": "Глобална статистика"
+      },
+      "settings": {
+        "chooseLanguage": "Избери Јазик  ",
+        "selectLanguage": "Избери Јазик"
+      }
+    }
+  },
+  "lt": {
+    "translation": {
+      "navigation": {
+        "memories": "Atsiminimai  ",
+        "tangoCommunity": "Tango bendruomenė  ",
+        "friends": "Draugai  ",
+        "messages": "Žinutės  ",
+        "groups": "Grupės  ",
+        "events": "Renginiai  ",
+        "roleInvitations": "Vaidmenų kvietimai  ",
+        "home": "Pagrindinis  ",
+        "explore": "Tyrinėti  ",
+        "settings": "Nustatymai"
+      },
+      "common": {
+        "welcome": "Sveiki atvykę  ",
+        "loading": "Kraunama...  ",
+        "save": "Išsaugoti  ",
+        "cancel": "Atšaukti  ",
+        "search": "Ieškoti  ",
+        "profile": "Profilis  ",
+        "settings": "Nustatymai  ",
+        "logout": "Atsijungti  ",
+        "login": "Prisijungti  ",
+        "language": "Kalba  ",
+        "online": "Internete  ",
+        "offline": "Išjungta  ",
+        "submit": "Pateikti  ",
+        "delete": "Ištrinti  ",
+        "edit": "Redaguoti"
+      },
+      "memories": {
+        "createMemory": "Sukurti atmintį  ",
+        "shareMemory": "Pasidalykite savo tango akimirka...  ",
+        "addPhotos": "Pridėti nuotraukas  ",
+        "likeMemory": "Patinka  ",
+        "commentMemory": "Komentuoti  ",
+        "shareMemoryAction": "Pasidalinti  ",
+        "publicMemory": "Vieša  ",
+        "friendsOnly": "Tik draugams"
+      },
+      "events": {
+        "upcomingEvents": "Artimiausi renginiai  ",
+        "createEvent": "Sukurti renginį  ",
+        "eventLocation": "Vieta  ",
+        "attendees": "Dalyviai  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Pasauliniai šokėjai",
+        "activeEvents": "Aktyvūs renginiai",
+        "communities": "Bendruomenės",
+        "yourCity": "Jūsų miestas",
+        "globalStatistics": "Pasaulinė statistika"
+      },
+      "settings": {
+        "chooseLanguage": "Pasirinkite kalbą  ",
+        "selectLanguage": "Pasirinkite kalbą"
+      }
+    }
+  },
+  "lv": {
+    "translation": {
+      "navigation": {
+        "memories": "Atmiņas  ",
+        "tangoCommunity": "Tango kopiena  ",
+        "friends": "Draugi  ",
+        "messages": "Ziņas  ",
+        "groups": "Grupas  ",
+        "events": "Notikumi  ",
+        "roleInvitations": "Lomu ielūgumi  ",
+        "home": "Mājas  ",
+        "explore": "Izpētīt  ",
+        "settings": "Iestatījumi"
+      },
+      "common": {
+        "welcome": "Laipni lūdzam  ",
+        "loading": "Ielādē...  ",
+        "save": "Saglabāt  ",
+        "cancel": "Atcelt  ",
+        "search": "Meklēt  ",
+        "profile": "Profils  ",
+        "settings": "Iestatījumi  ",
+        "logout": "Iziet  ",
+        "login": "Pieteikties  ",
+        "language": "Valoda  ",
+        "online": "Tiešsaistē  ",
+        "offline": "Bezsaistē  ",
+        "submit": "Iesniegt  ",
+        "delete": "Dzēst  ",
+        "edit": "Rediģēt"
+      },
+      "memories": {
+        "createMemory": "Izveidot atmiņu  ",
+        "shareMemory": "Dalies ar savu tango mirkli...  ",
+        "addPhotos": "Pievienot fotoattēlus  ",
+        "likeMemory": "Patīk  ",
+        "commentMemory": "Komentēt  ",
+        "shareMemoryAction": "Dalīties  ",
+        "publicMemory": "Publiski  ",
+        "friendsOnly": "Tikai draugiem"
+      },
+      "events": {
+        "upcomingEvents": "Nākamie pasākumi  ",
+        "createEvent": "Izveidot pasākumu  ",
+        "eventLocation": "Atrašanās vieta  ",
+        "attendees": "Dalībnieki  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globālie dejotāji",
+        "activeEvents": "Aktīvās pasākumi",
+        "communities": "Kopienas",
+        "yourCity": "Jūsu pilsēta",
+        "globalStatistics": "Globālā statistika"
+      },
+      "settings": {
+        "chooseLanguage": "Izvēlieties valodu  ",
+        "selectLanguage": "Atlasiet valodu"
+      }
+    }
+  },
+  "et": {
+    "translation": {
+      "navigation": {
+        "memories": "Mälestused  ",
+        "tangoCommunity": "Tango kogukond  ",
+        "friends": "Sõbrad  ",
+        "messages": "Sõnumid  ",
+        "groups": "Grupid  ",
+        "events": "Üritused  ",
+        "roleInvitations": "Rolli kutseid  ",
+        "home": "Avaleht  ",
+        "explore": "Uurima  ",
+        "settings": "Seaded"
+      },
+      "common": {
+        "welcome": "Tere tulemast  ",
+        "loading": "Laadimine...  ",
+        "save": "Salvesta  ",
+        "cancel": "Tühista  ",
+        "search": "Otsi  ",
+        "profile": "Profiil  ",
+        "settings": "Seaded  ",
+        "logout": "Logi välja  ",
+        "login": "Logi sisse  ",
+        "language": "Keel  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Esita  ",
+        "delete": "Kustuta  ",
+        "edit": "Muuda"
+      },
+      "memories": {
+        "createMemory": "Loo mälestus  ",
+        "shareMemory": "Jaga oma tango hetke...  ",
+        "addPhotos": "Lisa fotosid  ",
+        "likeMemory": "Meeldib  ",
+        "commentMemory": "Kommentaar  ",
+        "shareMemoryAction": "Jaga  ",
+        "publicMemory": "Avalik  ",
+        "friendsOnly": "Ainult sõpradele"
+      },
+      "events": {
+        "upcomingEvents": "Eelseisuvad üritused  ",
+        "createEvent": "Loo üritus  ",
+        "eventLocation": "Asukoht  ",
+        "attendees": "Osalejad  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Globaalsed tantsijad",
+        "activeEvents": "Aktiivsed sündmused",
+        "communities": "Kogukonnad",
+        "yourCity": "Teie linn",
+        "globalStatistics": "Globaalne statistika"
+      },
+      "settings": {
+        "chooseLanguage": "Vali keel  ",
+        "selectLanguage": "Vali keel"
+      }
+    }
+  },
+  "sq": {
+    "translation": {
+      "navigation": {
+        "memories": "Kujtime  ",
+        "tangoCommunity": "Komuniteti i Tango  ",
+        "friends": "Miq  ",
+        "messages": "Mesazhe  ",
+        "groups": "Grupet  ",
+        "events": "Ngjarjet  ",
+        "roleInvitations": "Ftesat për Rola  ",
+        "home": "Shtëpia  ",
+        "explore": "Eksploro  ",
+        "settings": "Cilësimet"
+      },
+      "common": {
+        "welcome": "Mirësevini  ",
+        "loading": "Duke ngarkuar...  ",
+        "save": "Ruaj  ",
+        "cancel": "Anulo  ",
+        "search": "Kërko  ",
+        "profile": "Profili  ",
+        "settings": "Cilësimet  ",
+        "logout": "Shkyç  ",
+        "login": "Kyçu  ",
+        "language": "Gjuha  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Dërgo  ",
+        "delete": "Fshi  ",
+        "edit": "Redakto"
+      },
+      "memories": {
+        "createMemory": "Krijo Kujtim  ",
+        "shareMemory": "Ndani momentin tuaj të tangos...  ",
+        "addPhotos": "Shto Fotografitë  ",
+        "likeMemory": "Pëlqe  ",
+        "commentMemory": "Koment  ",
+        "shareMemoryAction": "Ndani  ",
+        "publicMemory": "Publik  ",
+        "friendsOnly": "Vetëm Miq"
+      },
+      "events": {
+        "upcomingEvents": "Ngjarjet e Ardhshme  ",
+        "createEvent": "Krijo Ngjarje  ",
+        "eventLocation": "Lokacioni  ",
+        "attendees": "Pjesëmarrësit  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Vallëzues Globalë",
+        "activeEvents": "Ngjarje Aktive",
+        "communities": "Komunitetet",
+        "yourCity": "Qyteti juaj",
+        "globalStatistics": "Statistikat Globale"
+      },
+      "settings": {
+        "chooseLanguage": "Zgjidh Gjuha  ",
+        "selectLanguage": "Zgjidh Gjuhën"
+      }
+    }
+  },
+  "mt": {
+    "translation": {
+      "navigation": {
+        "memories": "Memorji  ",
+        "tangoCommunity": "Komunità tat-Tango  ",
+        "friends": "Ħbieb  ",
+        "messages": "Messaġġi  ",
+        "groups": "Gruppi  ",
+        "events": "Avvenimenti  ",
+        "roleInvitations": "Invitazzjonijiet għall-Rwol  ",
+        "home": "Daru  ",
+        "explore": "Esplora  ",
+        "settings": "Impostazzjonijiet"
+      },
+      "common": {
+        "welcome": "Merħba  ",
+        "loading": "Qed jiġi mniżżel...  ",
+        "save": "Ħażna  ",
+        "cancel": "Annulla  ",
+        "search": "Tfittxija  ",
+        "profile": "Profil  ",
+        "settings": "Impostazzjonijiet  ",
+        "logout": "Oħroġ  ",
+        "login": "Idħol  ",
+        "language": "Lingwa  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Sottometti  ",
+        "delete": "Ħassar  ",
+        "edit": "Editja"
+      },
+      "memories": {
+        "createMemory": "Oħloq Memorja  ",
+        "shareMemory": "Aqsam il-mument tiegħek ta' tango...  ",
+        "addPhotos": "Żid Ritratti  ",
+        "likeMemory": "Iħobb  ",
+        "commentMemory": "Kummenta  ",
+        "shareMemoryAction": "Aqsam  ",
+        "publicMemory": "Pubbliku  ",
+        "friendsOnly": "Biss Għal Ħbieb"
+      },
+      "events": {
+        "upcomingEvents": "Avvenimenti Li Ġejjin  ",
+        "createEvent": "Oħloq Avveniment  ",
+        "eventLocation": "Post  ",
+        "attendees": "Parteċipanti  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Żeffiena Globali",
+        "activeEvents": "Avvenimenti Attivi",
+        "communities": "Komunitajiet",
+        "yourCity": "Il-Belt Tiegħek",
+        "globalStatistics": "Statistika Globali"
+      },
+      "settings": {
+        "chooseLanguage": "Agħżel Lingwa  ",
+        "selectLanguage": "Agħżel Lingwa"
+      }
+    }
+  },
+  "ga": {
+    "translation": {
+      "navigation": {
+        "memories": "Cuimhní ",
+        "tangoCommunity": "Pobal Tango ",
+        "friends": "Cairde ",
+        "messages": "Teachtaireachtaí ",
+        "groups": "Grúpaí ",
+        "events": "Imeachtaí ",
+        "roleInvitations": "Tugann Róil ",
+        "home": "Baile ",
+        "explore": "Fiosrú ",
+        "settings": "Socruithe"
+      },
+      "common": {
+        "welcome": "Fáilte  ",
+        "loading": "Ag luchtú...  ",
+        "save": "Sábháil  ",
+        "cancel": "Cealaigh  ",
+        "search": "Cuardach  ",
+        "profile": "Próifíl  ",
+        "settings": "Socruithe  ",
+        "logout": "Logáil amach  ",
+        "login": "Logáil isteach  ",
+        "language": "Teanga  ",
+        "online": "Ar líne  ",
+        "offline": "As líne  ",
+        "submit": "Seol  ",
+        "delete": "Scrios  ",
+        "edit": "Eagarthóireacht"
+      },
+      "memories": {
+        "createMemory": "Cruthaigh Cuimhne  ",
+        "shareMemory": "Roinn do nóiméad tango...  ",
+        "addPhotos": "Cuir Grianghraif leis  ",
+        "likeMemory": "Taitneamh  ",
+        "commentMemory": "Tuairim  ",
+        "shareMemoryAction": "Roinn  ",
+        "publicMemory": "Poiblí  ",
+        "friendsOnly": "Cáirde amháin"
+      },
+      "events": {
+        "upcomingEvents": "Imeachtaí atá le teacht  ",
+        "createEvent": "Cruthaigh Imeacht  ",
+        "eventLocation": "Suíomh  ",
+        "attendees": "Freastalaithe  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Rinceoirí Domhanda",
+        "activeEvents": "Imeachtaí Gníomhacha",
+        "communities": "Pobail",
+        "yourCity": "Do Chathair",
+        "globalStatistics": "Staitisticí Domhanda"
+      },
+      "settings": {
+        "chooseLanguage": "Roghnaigh Teanga  ",
+        "selectLanguage": "Roghnaigh Teanga"
+      }
+    }
+  },
+  "cy": {
+    "translation": {
+      "navigation": {
+        "memories": "Cofnodion  ",
+        "tangoCommunity": "Cymuned Tango  ",
+        "friends": "Ffrindiau  ",
+        "messages": "Negeseuon  ",
+        "groups": "Grwpiau  ",
+        "events": "Digwyddiadau  ",
+        "roleInvitations": "Gwahoddiadau Rôl  ",
+        "home": "Cartref  ",
+        "explore": "Archwilio  ",
+        "settings": "Gosodiadau"
+      },
+      "common": {
+        "welcome": "Croeso  ",
+        "loading": "Llwytho...  ",
+        "save": "Cadw  ",
+        "cancel": "Diddymu  ",
+        "search": "Chwilio  ",
+        "profile": "Proffil  ",
+        "settings": "Gosodiadau  ",
+        "logout": "Allgofnodi  ",
+        "login": "Mewngofnodi  ",
+        "language": "Iaith  ",
+        "online": "Ar-lein  ",
+        "offline": "Y tu allan i'r rhyngrwyd  ",
+        "submit": "Cyflwyno  ",
+        "delete": "Dileu  ",
+        "edit": "Golygu"
+      },
+      "memories": {
+        "createMemory": "Creu Cofnod  ",
+        "shareMemory": "Rhannwch eich eiliad tango...  ",
+        "addPhotos": "Ychwanegu Lluniau  ",
+        "likeMemory": "Hoffi  ",
+        "commentMemory": "Sylwad  ",
+        "shareMemoryAction": "Rhannu  ",
+        "publicMemory": "Cyhoeddus  ",
+        "friendsOnly": "Dim ond Ffrindiau"
+      },
+      "events": {
+        "upcomingEvents": "Digwyddiadau yn Dod Ymlaen  ",
+        "createEvent": "Creu Digwyddiad  ",
+        "eventLocation": "Lleoliad  ",
+        "attendees": "Ymyrwyr  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Dawnswyr Byd-eang",
+        "activeEvents": "Digwyddiadau Gweithredol",
+        "communities": "Cymunedau",
+        "yourCity": "Eich Dinas",
+        "globalStatistics": "Ystadegau Byd-eang"
+      },
+      "settings": {
+        "chooseLanguage": "Dewiswch Iaith  ",
+        "selectLanguage": "Dewiswch Iaith"
+      }
+    }
+  },
+  "eu": {
+    "translation": {
+      "navigation": {
+        "memories": "Memoriak  ",
+        "tangoCommunity": "Tango Komunitatea  ",
+        "friends": "Lagunak  ",
+        "messages": "Mezuak  ",
+        "groups": "Taldeak  ",
+        "events": "Gertaerak  ",
+        "roleInvitations": "Rol Deialdiak  ",
+        "home": "Etxea  ",
+        "explore": "Aztertu  ",
+        "settings": "Ezarpenak"
+      },
+      "common": {
+        "welcome": "Ongi etorri  ",
+        "loading": "Kargatzen...  ",
+        "save": "Gorde  ",
+        "cancel": "Ezeztatu  ",
+        "search": "Bilatu  ",
+        "profile": "Profila  ",
+        "settings": "Ezarpenak  ",
+        "logout": "Saioa itxi  ",
+        "login": "Saioa hasi  ",
+        "language": "Hizkuntza  ",
+        "online": "Linean  ",
+        "offline": "Lineatik kanpo  ",
+        "submit": "Bidali  ",
+        "delete": "Ezabatu  ",
+        "edit": "Editatu"
+      },
+      "memories": {
+        "createMemory": "Memoria Sortu  ",
+        "shareMemory": "Zure tango momentua partekatu...  ",
+        "addPhotos": "Argazkiak Gehitu  ",
+        "likeMemory": "Gustatu  ",
+        "commentMemory": "Iruzkin  ",
+        "shareMemoryAction": "Partekatu  ",
+        "publicMemory": "Publikoa  ",
+        "friendsOnly": "Lagunentzako Soilik"
+      },
+      "events": {
+        "upcomingEvents": "Hurrengo Ekitaldiak  ",
+        "createEvent": "Ekitaldia Sortu  ",
+        "eventLocation": "Kokalekua  ",
+        "attendees": "Parte-hartzaileak  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Dantzari Globalak",
+        "activeEvents": "Ekitaldi Aktiboak",
+        "communities": "Komunitateak",
+        "yourCity": "Zure Hiria",
+        "globalStatistics": "Estatistika Globalak"
+      },
+      "settings": {
+        "chooseLanguage": "Hizkuntza Aukeratu  ",
+        "selectLanguage": "Hizkuntza Hautatu"
+      }
+    }
+  },
+  "ca": {
+    "translation": {
+      "navigation": {
+        "memories": "Records",
+        "tangoCommunity": "Comunitat de Tango",
+        "friends": "Amics",
+        "messages": "Missatges",
+        "groups": "Grups",
+        "events": "Esdeveniments",
+        "roleInvitations": "Invitacions de Rol",
+        "home": "Inici",
+        "explore": "Explorar",
+        "settings": "Configuració"
+      },
+      "common": {
+        "welcome": "Benvingut  ",
+        "loading": "Carregant...  ",
+        "save": "Desa  ",
+        "cancel": "Cancel·la  ",
+        "search": "Cerca  ",
+        "profile": "Perfil  ",
+        "settings": "Configuració  ",
+        "logout": "Tancar sessió  ",
+        "login": "Iniciar sessió  ",
+        "language": "Idioma  ",
+        "online": "En línia  ",
+        "offline": "Desconnectat  ",
+        "submit": "Envia  ",
+        "delete": "Esborra  ",
+        "edit": "Edita"
+      },
+      "memories": {
+        "createMemory": "Crea Record",
+        "shareMemory": "Comparte el teu moment de tango...",
+        "addPhotos": "Afegeix Fotos",
+        "likeMemory": "M'agrada",
+        "commentMemory": "Comentar",
+        "shareMemoryAction": "Compartir",
+        "publicMemory": "Públic",
+        "friendsOnly": "Només Amics"
+      },
+      "events": {
+        "upcomingEvents": "Esdeveniments futurs  ",
+        "createEvent": "Crear esdeveniment  ",
+        "eventLocation": "Ubicació  ",
+        "attendees": "Assistents  ",
+        "milonga": "Milonga  ",
+        "practica": "Pràctica"
+      },
+      "community": {
+        "globalDancers": "Ballarins Globals",
+        "activeEvents": "Esdeveniments Actius",
+        "communities": "Comunitats",
+        "yourCity": "La Teva Ciutat",
+        "globalStatistics": "Estadístiques Globals"
+      },
+      "settings": {
+        "chooseLanguage": "Trieu idioma  ",
+        "selectLanguage": "Selecciona idioma"
+      }
+    }
+  },
+  "pt-BR": {
+    "translation": {
+      "navigation": {
+        "memories": "Memórias  ",
+        "tangoCommunity": "Comunidade Tango  ",
+        "friends": "Amigos  ",
+        "messages": "Mensagens  ",
+        "groups": "Grupos  ",
+        "events": "Eventos  ",
+        "roleInvitations": "Convites de Papel  ",
+        "home": "Início  ",
+        "explore": "Explorar  ",
+        "settings": "Configurações"
+      },
+      "common": {
+        "welcome": "Bem-vindo  ",
+        "loading": "Carregando...  ",
+        "save": "Salvar  ",
+        "cancel": "Cancelar  ",
+        "search": "Pesquisar  ",
+        "profile": "Perfil  ",
+        "settings": "Configurações  ",
+        "logout": "Sair  ",
+        "login": "Entrar  ",
+        "language": "Idioma  ",
+        "online": "Online  ",
+        "offline": "Offline  ",
+        "submit": "Enviar  ",
+        "delete": "Excluir  ",
+        "edit": "Editar"
+      },
+      "memories": {
+        "createMemory": "Criar Memória  ",
+        "shareMemory": "Compartilhe seu momento de tango...  ",
+        "addPhotos": "Adicionar Fotos  ",
+        "likeMemory": "Curtir  ",
+        "commentMemory": "Comentar  ",
+        "shareMemoryAction": "Compartilhar  ",
+        "publicMemory": "Público  ",
+        "friendsOnly": "Apenas Amigos"
+      },
+      "events": {
+        "upcomingEvents": "Eventos Futuros  ",
+        "createEvent": "Criar Evento  ",
+        "eventLocation": "Localização  ",
+        "attendees": "Participantes  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Dançarinos Globais",
+        "activeEvents": "Eventos Ativos",
+        "communities": "Comunidades",
+        "yourCity": "Sua Cidade",
+        "globalStatistics": "Estatísticas Globais"
+      },
+      "settings": {
+        "chooseLanguage": "Escolha o Idioma  ",
+        "selectLanguage": "Selecione o Idioma"
+      }
+    }
+  },
+  "es-MX": {
+    "translation": {
+      "navigation": {
+        "memories": "Recuerdos  ",
+        "tangoCommunity": "Comunidad Tango  ",
+        "friends": "Amigos  ",
+        "messages": "Mensajes  ",
+        "groups": "Grupos  ",
+        "events": "Eventos  ",
+        "roleInvitations": "Invitaciones de Rol  ",
+        "home": "Inicio  ",
+        "explore": "Explorar  ",
+        "settings": "Configuraciones"
+      },
+      "common": {
+        "welcome": "Bienvenido  ",
+        "loading": "Cargando...  ",
+        "save": "Guardar  ",
+        "cancel": "Cancelar  ",
+        "search": "Buscar  ",
+        "profile": "Perfil  ",
+        "settings": "Configuraciones  ",
+        "logout": "Cerrar sesión  ",
+        "login": "Iniciar sesión  ",
+        "language": "Idioma  ",
+        "online": "En línea  ",
+        "offline": "Fuera de línea  ",
+        "submit": "Enviar  ",
+        "delete": "Eliminar  ",
+        "edit": "Editar"
+      },
+      "memories": {
+        "createMemory": "Crear Memoria  ",
+        "shareMemory": "Comparte tu momento de tango...  ",
+        "addPhotos": "Agregar Fotos  ",
+        "likeMemory": "Me gusta  ",
+        "commentMemory": "Comentar  ",
+        "shareMemoryAction": "Compartir  ",
+        "publicMemory": "Público  ",
+        "friendsOnly": "Solo Amigos"
+      },
+      "events": {
+        "upcomingEvents": "Eventos Próximos  ",
+        "createEvent": "Crear Evento  ",
+        "eventLocation": "Ubicación  ",
+        "attendees": "Asistentes  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Bailarines Globales",
+        "activeEvents": "Eventos Activos",
+        "communities": "Comunidades",
+        "yourCity": "Tu Ciudad",
+        "globalStatistics": "Estadísticas Globales"
+      },
+      "settings": {
+        "chooseLanguage": "Elegir idioma  ",
+        "selectLanguage": "Seleccionar idioma"
+      }
+    }
+  },
+  "fr-CA": {
+    "translation": {
+      "navigation": {
+        "memories": "Souvenirs  ",
+        "tangoCommunity": "Communauté Tango  ",
+        "friends": "Amis  ",
+        "messages": "Messages  ",
+        "groups": "Groupes  ",
+        "events": "Événements  ",
+        "roleInvitations": "Invitations de rôle  ",
+        "home": "Accueil  ",
+        "explore": "Explorer  ",
+        "settings": "Paramètres"
+      },
+      "common": {
+        "welcome": "Bienvenue  ",
+        "loading": "Chargement...  ",
+        "save": "Enregistrer  ",
+        "cancel": "Annuler  ",
+        "search": "Rechercher  ",
+        "profile": "Profil  ",
+        "settings": "Paramètres  ",
+        "logout": "Déconnexion  ",
+        "login": "Connexion  ",
+        "language": "Langue  ",
+        "online": "En ligne  ",
+        "offline": "Hors ligne  ",
+        "submit": "Soumettre  ",
+        "delete": "Supprimer  ",
+        "edit": "Modifier"
+      },
+      "memories": {
+        "createMemory": "Créer un souvenir  ",
+        "shareMemory": "Partagez votre moment de tango...  ",
+        "addPhotos": "Ajouter des photos  ",
+        "likeMemory": "Aimer  ",
+        "commentMemory": "Commenter  ",
+        "shareMemoryAction": "Partager  ",
+        "publicMemory": "Public  ",
+        "friendsOnly": "Amis seulement"
+      },
+      "events": {
+        "upcomingEvents": "Événements à venir  ",
+        "createEvent": "Créer un événement  ",
+        "eventLocation": "Lieu  ",
+        "attendees": "Participants  ",
+        "milonga": "Milonga  ",
+        "practica": "Práctica"
+      },
+      "community": {
+        "globalDancers": "Danseurs Mondiaux",
+        "activeEvents": "Événements Actifs",
+        "communities": "Communautés",
+        "yourCity": "Votre Ville",
+        "globalStatistics": "Statistiques Mondiales"
+      },
+      "settings": {
+        "chooseLanguage": "Choisir la langue  ",
+        "selectLanguage": "Sélectionner la langue"
+      }
+    }
+  },
+  "ja": {
+    "translation": {
+      "navigation": {
+        "memories": "思い出  ",
+        "tangoCommunity": "タンゴコミュニティ  ",
+        "friends": "友達  ",
+        "messages": "メッセージ  ",
+        "groups": "グループ  ",
+        "events": "イベント  ",
+        "roleInvitations": "役割の招待  ",
+        "home": "ホーム  ",
+        "explore": "探す  ",
+        "settings": "設定"
+      },
+      "common": {
+        "welcome": "ようこそ  ",
+        "loading": "読み込み中...  ",
+        "save": "保存  ",
+        "cancel": "キャンセル  ",
+        "search": "検索  ",
+        "profile": "プロフィール  ",
+        "settings": "設定  ",
+        "logout": "ログアウト  ",
+        "login": "ログイン  ",
+        "language": "言語  ",
+        "online": "オンライン  ",
+        "offline": "オフライン  ",
+        "submit": "送信  ",
+        "delete": "削除  ",
+        "edit": "編集"
+      },
+      "memories": {
+        "createMemory": "思い出を作成  ",
+        "shareMemory": "あなたのタンゴの瞬間を共有しましょう...  ",
+        "addPhotos": "写真を追加  ",
+        "likeMemory": "いいね  ",
+        "commentMemory": "コメント  ",
+        "shareMemoryAction": "共有  ",
+        "publicMemory": "公開  ",
+        "friendsOnly": "友達のみ"
+      },
+      "events": {
+        "upcomingEvents": "今後のイベント  ",
+        "createEvent": "イベントを作成  ",
+        "eventLocation": "場所  ",
+        "attendees": "参加者  ",
+        "milonga": "ミロンガ  ",
+        "practica": "プラクティカ"
+      },
+      "community": {
+        "globalDancers": "グローバルダンサー",
+        "activeEvents": "アクティブイベント",
+        "communities": "コミュニティ",
+        "yourCity": "あなたの街",
+        "globalStatistics": "グローバル統計"
+      },
+      "settings": {
+        "chooseLanguage": "言語を選択  ",
+        "selectLanguage": "言語を選択してください"
+      }
+    }
+  },
+  "zh-TW": {
+    "translation": {
+      "navigation": {
+        "memories": "回憶  ",
+        "tangoCommunity": "探戈社群  ",
+        "friends": "朋友  ",
+        "messages": "訊息  ",
+        "groups": "群組  ",
+        "events": "活動  ",
+        "roleInvitations": "角色邀請  ",
+        "home": "首頁  ",
+        "explore": "探索  ",
+        "settings": "設定"
+      },
+      "common": {
+        "welcome": "歡迎  ",
+        "loading": "載入中...  ",
+        "save": "儲存  ",
+        "cancel": "取消  ",
+        "search": "搜尋  ",
+        "profile": "個人檔案  ",
+        "settings": "設定  ",
+        "logout": "登出  ",
+        "login": "登入  ",
+        "language": "語言  ",
+        "online": "在線上  ",
+        "offline": "離線  ",
+        "submit": "提交  ",
+        "delete": "刪除  ",
+        "edit": "編輯"
+      },
+      "memories": {
+        "createMemory": "創建回憶  ",
+        "shareMemory": "分享你的探戈時刻...  ",
+        "addPhotos": "新增照片  ",
+        "likeMemory": "喜歡  ",
+        "commentMemory": "評論  ",
+        "shareMemoryAction": "分享  ",
+        "publicMemory": "公開  ",
+        "friendsOnly": "僅限朋友"
+      },
+      "events": {
+        "upcomingEvents": "即將舉行的活動  ",
+        "createEvent": "創建活動  ",
+        "eventLocation": "地點  ",
+        "attendees": "參加者  ",
+        "milonga": "米隆加  ",
+        "practica": "練習舞會"
+      },
+      "community": {
+        "globalDancers": "全球舞者",
+        "activeEvents": "活躍活動",
+        "communities": "社群",
+        "yourCity": "你的城市",
+        "globalStatistics": "全球統計"
+      },
+      "settings": {
+        "chooseLanguage": "選擇語言  ",
+        "selectLanguage": "選擇語言"
+      }
+    }
+  },
+  "hi": {
+    "translation": {
+      "navigation": {
+        "memories": "स्मृतियाँ  ",
+        "tangoCommunity": "टैंगो समुदाय  ",
+        "friends": "दोस्त  ",
+        "messages": "संदेश  ",
+        "groups": "समूह  ",
+        "events": "इवेंट्स  ",
+        "roleInvitations": "भूमिका निमंत्रण  ",
+        "home": "घर  ",
+        "explore": "अन्वेषण  ",
+        "settings": "सेटिंग्स"
+      },
+      "common": {
+        "welcome": "स्वागत है  ",
+        "loading": "लोड हो रहा है...  ",
+        "save": "सहेजें  ",
+        "cancel": "रद्द करें  ",
+        "search": "खोजें  ",
+        "profile": "प्रोफ़ाइल  ",
+        "settings": "सेटिंग्स  ",
+        "logout": "लॉगआउट  ",
+        "login": "लॉगिन  ",
+        "language": "भाषा  ",
+        "online": "ऑनलाइन  ",
+        "offline": "ऑफलाइन  ",
+        "submit": "जमा करें  ",
+        "delete": "हटाएं  ",
+        "edit": "संपादित करें"
+      },
+      "memories": {
+        "createMemory": "स्मृति बनाएं  ",
+        "shareMemory": "अपने टैंगो पल साझा करें...  ",
+        "addPhotos": "फोटो जोड़ें  ",
+        "likeMemory": "पसंद करें  ",
+        "commentMemory": "टिप्पणी करें  ",
+        "shareMemoryAction": "साझा करें  ",
+        "publicMemory": "सार्वजनिक  ",
+        "friendsOnly": "केवल दोस्तों के लिए"
+      },
+      "events": {
+        "upcomingEvents": "आगामी कार्यक्रम  ",
+        "createEvent": "कार्यक्रम बनाएं  ",
+        "eventLocation": "स्थान  ",
+        "attendees": "प्रतिभागी  ",
+        "milonga": "मिलोंगा  ",
+        "practica": "प्रैक्टिका"
+      },
+      "community": {
+        "globalDancers": "वैश्विक नर्तक",
+        "activeEvents": "सक्रिय कार्यक्रम",
+        "communities": "समुदाय",
+        "yourCity": "आपका शहर",
+        "globalStatistics": "वैश्विक आँकड़े"
+      },
+      "settings": {
+        "chooseLanguage": "भाषा चुनें  ",
+        "selectLanguage": "भाषा चुनें"
+      }
+    }
+  },
+  "bn": {
+    "translation": {
+      "navigation": {
+        "memories": "স্মৃতি  ",
+        "tangoCommunity": "টাঙ্গো কমিউনিটি  ",
+        "friends": "বন্ধুরা  ",
+        "messages": "বার্তা  ",
+        "groups": "গ্রুপ  ",
+        "events": "ইভেন্ট  ",
+        "roleInvitations": "ভূমিকা আমন্ত্রণ  ",
+        "home": "বাড়ি  ",
+        "explore": "অন্বেষণ  ",
+        "settings": "সেটিংস"
+      },
+      "common": {
+        "welcome": "স্বাগতম  ",
+        "loading": "লোড হচ্ছে...  ",
+        "save": "সংরক্ষণ করুন  ",
+        "cancel": "বাতিল করুন  ",
+        "search": "অনুসন্ধান করুন  ",
+        "profile": "প্রোফাইল  ",
+        "settings": "সেটিংস  ",
+        "logout": "লগআউট  ",
+        "login": "লগইন  ",
+        "language": "ভাষা  ",
+        "online": "অনলাইনে  ",
+        "offline": "অফলাইনে  ",
+        "submit": "জমা দিন  ",
+        "delete": "মুছুন  ",
+        "edit": "সম্পাদনা করুন"
+      },
+      "memories": {
+        "createMemory": "মেমোরি তৈরি করুন  ",
+        "shareMemory": "আপনার টাঙ্গোর মুহূর্ত শেয়ার করুন...  ",
+        "addPhotos": "ছবি যোগ করুন  ",
+        "likeMemory": "পছন্দ করুন  ",
+        "commentMemory": "মন্তব্য করুন  ",
+        "shareMemoryAction": "শেয়ার করুন  ",
+        "publicMemory": "সাধারণ  ",
+        "friendsOnly": "শুধুমাত্র বন্ধুদের জন্য"
+      },
+      "events": {
+        "upcomingEvents": "আসন্ন ইভেন্টগুলি  ",
+        "createEvent": "ইভেন্ট তৈরি করুন  ",
+        "eventLocation": "অবস্থান  ",
+        "attendees": "অংশগ্রহণকারীরা  ",
+        "milonga": "মিলোঙ্গা  ",
+        "practica": "প্র্যাকটিকা"
+      },
+      "community": {
+        "globalDancers": "গ্লোবাল ডান্সারস",
+        "activeEvents": "সক্রিয় ইভেন্টস",
+        "communities": "কমিউনিটিজ",
+        "yourCity": "আপনার শহর",
+        "globalStatistics": "বৈশ্বিক পরিসংখ্যান"
+      },
+      "settings": {
+        "chooseLanguage": "ভাষা নির্বাচন করুন  ",
+        "selectLanguage": "ভাষা নির্বাচন করুন"
+      }
+    }
+  },
+  "ta": {
+    "translation": {
+      "navigation": {
+        "memories": "நினைவுகள்  ",
+        "tangoCommunity": "தங்கோ சமூகம்  ",
+        "friends": "நண்பர்கள்  ",
+        "messages": "செய்திகள்  ",
+        "groups": "குழுக்கள்  ",
+        "events": "நிகழ்வுகள்  ",
+        "roleInvitations": "பங்கு அழைப்புகள்  ",
+        "home": "வீடு  ",
+        "explore": "ஆவணிக்கவும்  ",
+        "settings": "அமைப்புகள்"
+      },
+      "common": {
+        "welcome": "வரவேற்கிறேன்  ",
+        "loading": "ஏற்றுகிறது...  ",
+        "save": "சேமிக்க  ",
+        "cancel": "ரத்து செய்  ",
+        "search": "தேடு  ",
+        "profile": "சுயவிவரம்  ",
+        "settings": "அமைப்புகள்  ",
+        "logout": "வெளியேறு  ",
+        "login": "உள்நுழைவு  ",
+        "language": "மொழி  ",
+        "online": "ஆன்லைன்  ",
+        "offline": "ஆஃப்லைன்  ",
+        "submit": "சமர்ப்பிக்க  ",
+        "delete": "அழிக்க  ",
+        "edit": "திருத்து"
+      },
+      "memories": {
+        "createMemory": "நினைவுகளை உருவாக்கு  ",
+        "shareMemory": "உங்கள் தாங்கோ தருணத்தை பகிரவும்...  ",
+        "addPhotos": "படங்களை சேர்க்கவும்  ",
+        "likeMemory": "விரும்புகிறது  ",
+        "commentMemory": "கருத்து  ",
+        "shareMemoryAction": "பகிரவும்  ",
+        "publicMemory": "பொது  ",
+        "friendsOnly": "மிதவாதிகள் மட்டும்"
+      },
+      "events": {
+        "upcomingEvents": "எதிர்வரும் நிகழ்வுகள்  ",
+        "createEvent": "நிகழ்வு உருவாக்கவும்  ",
+        "eventLocation": "இடம்  ",
+        "attendees": "பங்கேற்பாளர்கள்  ",
+        "milonga": "மிலோங்கா  ",
+        "practica": "பிராக்டிகா"
+      },
+      "community": {
+        "globalDancers": "உலகளாவிய நடனக்காரர்கள்",
+        "activeEvents": "செயலில் உள்ள நிகழ்வுகள்",
+        "communities": "சமூகங்கள்",
+        "yourCity": "உங்கள் நகரம்",
+        "globalStatistics": "உலகளாவிய புள்ளிவிவரங்கள்"
+      },
+      "settings": {
+        "chooseLanguage": "மொழியை தேர்வு செய்யவும்  ",
+        "selectLanguage": "மொழியைத் தேர்வு செய்க"
+      }
+    }
+  },
+  "te": {
+    "translation": {
+      "navigation": {
+        "memories": "స్మృతులు  ",
+        "tangoCommunity": "టాంగో సమాజం  ",
+        "friends": "మిత్రులు  ",
+        "messages": "సందేశాలు  ",
+        "groups": "గుంపులు  ",
+        "events": "ఈవెంట్స్  ",
+        "roleInvitations": "పాత్ర ఆహ్వానాలు  ",
+        "home": "ఇంటికి  ",
+        "explore": "అన్వేషించండి  ",
+        "settings": "సెట్టింగ్స్"
+      },
+      "common": {
+        "welcome": "స్వాగతం  ",
+        "loading": "లోడింగ్...  ",
+        "save": "సేవ్  ",
+        "cancel": "రద్దు  ",
+        "search": "శోధన  ",
+        "profile": "ప్రొఫైల్  ",
+        "settings": "సెట్టింగ్స్  ",
+        "logout": "లాగ్ఔట్  ",
+        "login": "లాగిన్  ",
+        "language": "భాష  ",
+        "online": "ఆన్‌లైన్  ",
+        "offline": "ఆఫ్‌లైన్  ",
+        "submit": "సమర్పించు  ",
+        "delete": "తొలగించు  ",
+        "edit": "సవరించు"
+      },
+      "memories": {
+        "createMemory": "స్మృతి సృష్టించు  ",
+        "shareMemory": "మీ టాంగో క్షణాన్ని పంచుకోండి...  ",
+        "addPhotos": "ఫోటోలు జోడించు  ",
+        "likeMemory": "ఇష్టపడు  ",
+        "commentMemory": "వ్యాఖ్య  ",
+        "shareMemoryAction": "పంచుకోండి  ",
+        "publicMemory": "ప్రజా  ",
+        "friendsOnly": "మిత్రులకే"
+      },
+      "events": {
+        "upcomingEvents": "చేయాల్సిన ఈవెంట్స్  ",
+        "createEvent": "ఈవెంట్ సృష్టించండి  ",
+        "eventLocation": "స్థానం  ",
+        "attendees": "హాజరైన వారు  ",
+        "milonga": "మిలొంగా  ",
+        "practica": "ప్రాక్టికా"
+      },
+      "community": {
+        "globalDancers": "ప్రపంచ నృత్యకారులు",
+        "activeEvents": "సక్రియమైన ఈవెంట్స్",
+        "communities": "సమూహాలు",
+        "yourCity": "మీ నగరం",
+        "globalStatistics": "ప్రపంచ గణాంకాలు"
+      },
+      "settings": {
+        "chooseLanguage": "భాషను ఎంచుకోండి  ",
+        "selectLanguage": "భాషను ఎంచుకోండి"
+      }
+    }
+  },
+  "mr": {
+    "translation": {
+      "navigation": {
+        "memories": "स्मृती",
+        "tangoCommunity": "टांगो समुदाय",
+        "friends": "मित्र",
+        "messages": "संदेश",
+        "groups": "गट",
+        "events": "कार्यक्रम",
+        "roleInvitations": "भूमिका आमंत्रण",
+        "home": "मुख्यपृष्ठ",
+        "explore": "अन्वेषण",
+        "settings": "सेटिंग्ज"
+      },
+      "common": {
+        "welcome": "स्वागत आहे  ",
+        "loading": "लोड करत आहे...  ",
+        "save": "जतन करा  ",
+        "cancel": "रद्द करा  ",
+        "search": "शोधा  ",
+        "profile": "प्रोफाइल  ",
+        "settings": "सेटिंग्ज  ",
+        "logout": "लॉगआउट  ",
+        "login": "लॉगिन  ",
+        "language": "भाषा  ",
+        "online": "ऑनलाइन  ",
+        "offline": "ऑफलाइन  ",
+        "submit": "सादर करा  ",
+        "delete": "काढा  ",
+        "edit": "संपादित करा"
+      },
+      "memories": {
+        "createMemory": "स्मृती तयार करा  ",
+        "shareMemory": "तुमचा तांगा क्षण शेअर करा...  ",
+        "addPhotos": "फोटो जोडा  ",
+        "likeMemory": "आवडते  ",
+        "commentMemory": "टिप्पणी  ",
+        "shareMemoryAction": "शेअर करा  ",
+        "publicMemory": "सार्वजनिक  ",
+        "friendsOnly": "फक्त मित्रांसाठी"
+      },
+      "events": {
+        "upcomingEvents": "उपकामी कार्यक्रम  ",
+        "createEvent": "कार्यक्रम तयार करा  ",
+        "eventLocation": "स्थान  ",
+        "attendees": "उपस्थित  ",
+        "milonga": "मिलोंगा  ",
+        "practica": "प्रॅक्टिका"
+      },
+      "community": {
+        "globalDancers": "जागतिक नर्तक",
+        "activeEvents": "सक्रिय कार्यक्रम",
+        "communities": "समुदाय",
+        "yourCity": "तुमचे शहर",
+        "globalStatistics": "जागतिक सांख्यिकी"
+      },
+      "settings": {
+        "chooseLanguage": "भाषा निवडा  ",
+        "selectLanguage": "भाषा निवडा"
+      }
+    }
+  },
+  "kn": {
+    "translation": {
+      "navigation": {
+        "memories": "ಸ್ಮೃತಿಗಳು  ",
+        "tangoCommunity": "ಟ್ಯಾಂಗೋ ಸಮುದಾಯ  ",
+        "friends": "ಮಿತ್ರರು  ",
+        "messages": "ಸಂದೇಶಗಳು  ",
+        "groups": "ಗುಂಪುಗಳು  ",
+        "events": "ಘಟನಗಳು  ",
+        "roleInvitations": "ಪಾತ್ರಾ ಆಮಂತ್ರಣಗಳು"
+      },
+      "common": {
+        "welcome": "ಸ್ವಾಗತ  ",
+        "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...  ",
+        "save": "ಉಳಿಸಿ  ",
+        "cancel": "ರದ್ದು ಮಾಡಿ  ",
+        "search": "ಹುಡುಕಿ  ",
+        "profile": "ಪ್ರೊಫೈಲ್  ",
+        "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು  ",
+        "logout": "ಲಾಗ್ ಔಟ್",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "ಜಾಗತಿಕ ನರ್ತಕರು",
+        "activeEvents": "ಸಕ್ರಿಯ ಕಾರ್ಯಕ್ರಮಗಳು",
+        "communities": "ಸಮುದಾಯಗಳು",
+        "yourCity": "ನಿಮ್ಮ ನಗರ",
+        "globalStatistics": "ಜಾಗತಿಕ ಅಂಕಿಅಂಶಗಳು"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "ml": {
+    "translation": {
+      "navigation": {
+        "memories": "സ്മൃതികൾ  ",
+        "tangoCommunity": "താംഗോ സമൂഹം  ",
+        "friends": "സുഹൃത്തുകൾ  ",
+        "messages": "സന്ദേശങ്ങൾ  ",
+        "groups": "ഗ്രൂപ്പുകൾ  ",
+        "events": "ഇവന്റുകൾ  ",
+        "roleInvitations": "റോൾ ക്ഷണങ്ങൾ"
+      },
+      "common": {
+        "welcome": "സ്വാഗതം  ",
+        "loading": "ലോഡിംഗ്...  ",
+        "save": "സേവ്  ",
+        "cancel": "റദ്ദാക്കുക  ",
+        "search": "ശോധനം  ",
+        "profile": "പ്രൊഫൈൽ  ",
+        "settings": "സജ്ജീകരണങ്ങൾ  ",
+        "logout": "ലോഗ്ഔട്ട്",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "ആഗോള നർത്തകർ",
+        "activeEvents": "സജീവ ഇവന്റുകൾ",
+        "communities": "സമൂഹങ്ങൾ",
+        "yourCity": "നിങ്ങളുടെ നഗരം",
+        "globalStatistics": "ആഗോള സ്ഥിതിവിവരക്കണക്കുകൾ"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "pa": {
+    "translation": {
+      "navigation": {
+        "memories": "ਯਾਦਾਂ  ",
+        "tangoCommunity": "ਟੈਂਗੋ ਸਮੁਦਾਇ  ",
+        "friends": "ਦੋਸਤ  ",
+        "messages": "ਸੁਨੇਹੇ  ",
+        "groups": "ਗਰੁੱਪ  ",
+        "events": "ਇਵੈਂਟ  ",
+        "roleInvitations": "ਭੂਮਿਕਾ ਨਿਯੋਤਨ"
+      },
+      "common": {
+        "welcome": "ਸਵਾਗਤ ਹੈ  ",
+        "loading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...  ",
+        "save": "ਸੇਵ ਕਰੋ  ",
+        "cancel": "ਰੱਦ ਕਰੋ  ",
+        "search": "ਖੋਜ  ",
+        "profile": "ਪ੍ਰੋਫਾਈਲ  ",
+        "settings": "ਸੈਟਿੰਗਜ਼  ",
+        "logout": "ਲੌਗਆਉਟ",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "ਗਲੋਬਲ ਡਾਂਸਰ",
+        "activeEvents": "ਸਰਗਰਮ ਸਮਾਗਮ",
+        "communities": "ਭਾਈਚਾਰੇ",
+        "yourCity": "ਤੁਹਾਡਾ ਸ਼ਹਿਰ",
+        "globalStatistics": "ਗਲੋਬਲ ਅੰਕੜੇ"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "th": {
+    "translation": {
+      "navigation": {
+        "memories": "ความทรงจำ  ",
+        "tangoCommunity": "ชุมชนแทงโก้  ",
+        "friends": "เพื่อน  ",
+        "messages": "ข้อความ  ",
+        "groups": "กลุ่ม  ",
+        "events": "กิจกรรม  ",
+        "roleInvitations": "คำเชิญบทบาท"
+      },
+      "common": {
+        "welcome": "ยินดีต้อนรับ  ",
+        "loading": "กำลังโหลด...  ",
+        "save": "บันทึก  ",
+        "cancel": "ยกเลิก  ",
+        "search": "ค้นหา  ",
+        "profile": "โปรไฟล์  ",
+        "settings": "การตั้งค่า  ",
+        "logout": "ออกจากระบบ",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "นักเต้นทั่วโลก",
+        "activeEvents": "กิจกรรมที่กำลังดำเนินอยู่",
+        "communities": "ชุมชน",
+        "yourCity": "เมืองของคุณ",
+        "globalStatistics": "สถิติระดับโลก"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "vi": {
+    "translation": {
+      "navigation": {
+        "memories": "Ký ức  ",
+        "tangoCommunity": "Cộng đồng Tango  ",
+        "friends": "Bạn bè  ",
+        "messages": "Tin nhắn  ",
+        "groups": "Nhóm  ",
+        "events": "Sự kiện  ",
+        "roleInvitations": "Lời mời vai trò"
+      },
+      "common": {
+        "welcome": "Chào mừng  ",
+        "loading": "Đang tải...  ",
+        "save": "Lưu  ",
+        "cancel": "Hủy  ",
+        "search": "Tìm kiếm  ",
+        "profile": "Hồ sơ  ",
+        "settings": "Cài đặt  ",
+        "logout": "Đăng xuất",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "Vũ công Toàn cầu",
+        "activeEvents": "Sự kiện Đang diễn ra",
+        "communities": "Cộng đồng",
+        "yourCity": "Thành phố của bạn",
+        "globalStatistics": "Thống kê Toàn cầu"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "id": {
+    "translation": {
+      "navigation": {
+        "memories": "Kenangan  ",
+        "tangoCommunity": "Komunitas Tango  ",
+        "friends": "Teman  ",
+        "messages": "Pesan  ",
+        "groups": "Grup  ",
+        "events": "Acara  ",
+        "roleInvitations": "Undangan Peran"
+      },
+      "common": {
+        "welcome": "Selamat datang  ",
+        "loading": "Memuat...  ",
+        "save": "Simpan  ",
+        "cancel": "Batal  ",
+        "search": "Cari  ",
+        "profile": "Profil  ",
+        "settings": "Pengaturan  ",
+        "logout": "Keluar",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "Penari Global",
+        "activeEvents": "Acara Aktif",
+        "communities": "Komunitas",
+        "yourCity": "Kota Anda",
+        "globalStatistics": "Statistik Global"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "ms": {
+    "translation": {
+      "navigation": {
+        "memories": "Kenangan  ",
+        "tangoCommunity": "Komuniti Tango  ",
+        "friends": "Kawan  ",
+        "messages": "Mesej  ",
+        "groups": "Kumpulan  ",
+        "events": "Acara  ",
+        "roleInvitations": "Jemputan Peranan"
+      },
+      "common": {
+        "welcome": "Selamat datang  ",
+        "loading": "Memuat...  ",
+        "save": "Simpan  ",
+        "cancel": "Batal  ",
+        "search": "Cari  ",
+        "profile": "Profil  ",
+        "settings": "Tetapan  ",
+        "logout": "Log keluar",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "Penari Global",
+        "activeEvents": "Acara Aktif",
+        "communities": "Komuniti",
+        "yourCity": "Bandar Anda",
+        "globalStatistics": "Statistik Global"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "tl": {
+    "translation": {
+      "navigation": {
+        "memories": "Mga Alaala  ",
+        "tangoCommunity": "Komunidad ng Tango  ",
+        "friends": "Mga Kaibigan  ",
+        "messages": "Mga Mensahe  ",
+        "groups": "Mga Grupo  ",
+        "events": "Mga Kaganapan  ",
+        "roleInvitations": "Mga Paanyaya sa Papel"
+      },
+      "common": {
+        "welcome": "Maligayang pagdating  ",
+        "loading": "Naglo-load...  ",
+        "save": "I-save  ",
+        "cancel": "Kanselahin  ",
+        "search": "Maghanap  ",
+        "profile": "Profile  ",
+        "settings": "Mga Setting  ",
+        "logout": "Mag-logout",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "Pandaigdigang Mananayaw",
+        "activeEvents": "Aktibong Kaganapan",
+        "communities": "Mga Komunidad",
+        "yourCity": "Iyong Lungsod",
+        "globalStatistics": "Pandaigdigang Estadistika"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "my": {
+    "translation": {
+      "navigation": {
+        "memories": "Kenangan  ",
+        "tangoCommunity": "Komuniti Tango  ",
+        "friends": "Kawan  ",
+        "messages": "Mesej  ",
+        "groups": "Kumpulan  ",
+        "events": "Acara  ",
+        "roleInvitations": "Jemputan Peranan"
+      },
+      "common": {
+        "welcome": "Selamat datang  ",
+        "loading": "Memuat...  ",
+        "save": "Simpan  ",
+        "cancel": "Batal  ",
+        "search": "Cari  ",
+        "profile": "Profil  ",
+        "settings": "Tetapan  ",
+        "logout": "Log keluar",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "ကမ္ဘာလုံးဆိုင်ရာ အကသမားများ",
+        "activeEvents": "လှုပ်ရှားနေသော ပွဲများ",
+        "communities": "အသိုင်းအဝိုင်းများ",
+        "yourCity": "သင့်မြို့",
+        "globalStatistics": "ကမ္ဘာလုံးဆိုင်ရာ စာရင်းအင်း"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "km": {
+    "translation": {
+      "navigation": {
+        "memories": "អនុស្សាវរីយ៍  ",
+        "tangoCommunity": "សហគមន៍តង់ហ្គូ  ",
+        "friends": "មិត្តភក្តិ  ",
+        "messages": "សារ  ",
+        "groups": "ក្រុម  ",
+        "events": "ព្រឹត្តិការណ៍  ",
+        "roleInvitations": "ការអញ្ជើញតួនាទី"
+      },
+      "common": {
+        "welcome": "សូមស្វាគមន៍  ",
+        "loading": "កំពុងផ្ទុក...  ",
+        "save": "រក្សាទុក  ",
+        "cancel": "បោះបង់  ",
+        "search": "ស្វែងរក  ",
+        "profile": "ប្រវត្តិ  ",
+        "settings": "ការកំណត់  ",
+        "logout": "ចាកចេញ",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "អ្នករាំពិភពលោក",
+        "activeEvents": "ព្រឹត្តិការណ៍សកម្ម",
+        "communities": "សហគមន៍",
+        "yourCity": "ទីក្រុងរបស់អ្នក",
+        "globalStatistics": "ស្ថិតិពិភពលោក"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "ar": {
+    "translation": {
+      "navigation": {
+        "memories": "ذكريات  ",
+        "tangoCommunity": "مجتمع التانغو  ",
+        "friends": "أصدقاء  ",
+        "messages": "رسائل  ",
+        "groups": "مجموعات  ",
+        "events": "فعاليات  ",
+        "roleInvitations": "دعوات الأدوار"
+      },
+      "common": {
+        "welcome": "مرحبًا  ",
+        "loading": "جارٍ التحميل...  ",
+        "save": "حفظ  ",
+        "cancel": "إلغاء  ",
+        "search": "بحث  ",
+        "profile": "الملف الشخصي  ",
+        "settings": "الإعدادات  ",
+        "logout": "تسجيل الخروج",
+        "onlineNow": "Online Now",
+        "direction": "rtl"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "الراقصون العالميون",
+        "activeEvents": "الأحداث النشطة",
+        "communities": "المجتمعات",
+        "yourCity": "مدينتك",
+        "globalStatistics": "الإحصائيات العالمية"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "he": {
+    "translation": {
+      "navigation": {
+        "memories": "זיכרונות  ",
+        "tangoCommunity": "קהילת טנגו  ",
+        "friends": "חברים  ",
+        "messages": "הודעות  ",
+        "groups": "קבוצות  ",
+        "events": "אירועים  ",
+        "roleInvitations": "הזמנות תפקיד"
+      },
+      "common": {
+        "welcome": "ברוך הבא  ",
+        "loading": "טוען...  ",
+        "save": "שמור  ",
+        "cancel": "ביטול  ",
+        "search": "חפש  ",
+        "profile": "פרופיל  ",
+        "settings": "הגדרות  ",
+        "logout": "התנתק",
+        "onlineNow": "Online Now",
+        "direction": "rtl"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "רקדנים גלובליים",
+        "activeEvents": "אירועים פעילים",
+        "communities": "קהילות",
+        "yourCity": "העיר שלך",
+        "globalStatistics": "סטטיסטיקה גלובלית"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "tr": {
+    "translation": {
+      "navigation": {
+        "memories": "Anılar  ",
+        "tangoCommunity": "Tango Topluluğu  ",
+        "friends": "Arkadaşlar  ",
+        "messages": "Mesajlar  ",
+        "groups": "Gruplar  ",
+        "events": "Etkinlikler  ",
+        "roleInvitations": "Rol Davetleri"
+      },
+      "common": {
+        "welcome": "Hoş geldiniz  ",
+        "loading": "Yükleniyor...  ",
+        "save": "Kaydet  ",
+        "cancel": "İptal  ",
+        "search": "Ara  ",
+        "profile": "Profil  ",
+        "settings": "Ayarlar  ",
+        "logout": "Çıkış yap",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "Küresel Dansçılar",
+        "activeEvents": "Aktif Etkinlikler",
+        "communities": "Topluluklar",
+        "yourCity": "Şehriniz",
+        "globalStatistics": "Küresel İstatistikler"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "fa": {
+    "translation": {
+      "navigation": {
+        "memories": "خاطرات  ",
+        "tangoCommunity": "جامعه تانگو  ",
+        "friends": "دوستان  ",
+        "messages": "پیام‌ها  ",
+        "groups": "گروه‌ها  ",
+        "events": "رویدادها  ",
+        "roleInvitations": "دعوتنامه‌های نقش"
+      },
+      "common": {
+        "welcome": "خوش آمدید  ",
+        "loading": "در حال بارگذاری...  ",
+        "save": "ذخیره  ",
+        "cancel": "لغو  ",
+        "search": "جستجو  ",
+        "profile": "پروفایل  ",
+        "settings": "تنظیمات  ",
+        "logout": "خروج",
+        "onlineNow": "Online Now",
+        "direction": "rtl"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "رقصندگان جهانی",
+        "activeEvents": "رویدادهای فعال",
+        "communities": "جوامع",
+        "yourCity": "شهر شما",
+        "globalStatistics": "آمار جهانی"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "ur": {
+    "translation": {
+      "navigation": {
+        "memories": "یادیں  ",
+        "tangoCommunity": "ٹینگو کمیونٹی  ",
+        "friends": "دوست  ",
+        "messages": "پیغامات  ",
+        "groups": "گروپ  ",
+        "events": "تقریبات  ",
+        "roleInvitations": "کردار کی دعوتیں"
+      },
+      "common": {
+        "welcome": "خوش آمدید  ",
+        "loading": "لوڈ ہو رہا ہے...  ",
+        "save": "محفوظ کریں  ",
+        "cancel": "منسوخ کریں  ",
+        "search": "تلاش کریں  ",
+        "profile": "پروفائل  ",
+        "settings": "ترتیبات  ",
+        "logout": "لاگ آؤٹ",
+        "onlineNow": "Online Now",
+        "direction": "rtl"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "عالمی رقاص",
+        "activeEvents": "فعال تقریبات",
+        "communities": "برادریاں",
+        "yourCity": "آپ کا شہر",
+        "globalStatistics": "عالمی شماریات"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "sw": {
+    "translation": {
+      "navigation": {
+        "memories": "Minnen  ",
+        "tangoCommunity": "Tango Gemenskap  ",
+        "friends": "Vänner  ",
+        "messages": "Meddelanden  ",
+        "groups": "Grupper  ",
+        "events": "Evenemang  ",
+        "roleInvitations": "Rollinbjudningar"
+      },
+      "common": {
+        "welcome": "Välkommen  ",
+        "loading": "Laddar...  ",
+        "save": "Spara  ",
+        "cancel": "Avbryt  ",
+        "search": "Sök  ",
+        "profile": "Profil  ",
+        "settings": "Inställningar  ",
+        "logout": "Logga ut",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "Wachezaji wa Kimataifa",
+        "activeEvents": "Matukio Yanayoendelea",
+        "communities": "Jamii",
+        "yourCity": "Jiji Lako",
+        "globalStatistics": "Takwimu za Kimataifa"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  },
+  "am": {
+    "translation": {
+      "navigation": {
+        "memories": "እንቅስቃሴዎች  ",
+        "tangoCommunity": "ታንጎ ማህበረሰብ  ",
+        "friends": "ጓደኞች  ",
+        "messages": "መልእክቶች  ",
+        "groups": "ቡድኖች  ",
+        "events": "ዝግጅቶች  ",
+        "roleInvitations": "ሚና ግባት"
+      },
+      "common": {
+        "welcome": "እንኳን ወደ ምዕራብ በደህና መጡ  ",
+        "loading": "እንደሚሄድ እቅፍ...  ",
+        "save": "ያስቀምጡ  ",
+        "cancel": "ይቅርታ  ",
+        "search": "ፈልግ  ",
+        "profile": "መገለጫ  ",
+        "settings": "ቅንብር  ",
+        "logout": "ውጣ",
+        "onlineNow": "Online Now"
+      },
+      "memories": {
+        "createMemory": "Create Memory",
+        "shareMemory": "Share your tango moment..."
+      },
+      "events": {
+        "upcomingEvents": "Upcoming Events"
+      },
+      "community": {
+        "globalDancers": "ዓለም አቀፍ ዳንሰኞች",
+        "activeEvents": "ንቁ ክስተቶች",
+        "communities": "ማህበረሰቦች",
+        "yourCity": "ከተማዎ",
+        "globalStatistics": "ዓለም አቀፍ ስታቲስቲክስ"
+      },
+      "settings": {
+        "chooseLanguage": "Choose Language"
+      }
+    }
+  }
+}
