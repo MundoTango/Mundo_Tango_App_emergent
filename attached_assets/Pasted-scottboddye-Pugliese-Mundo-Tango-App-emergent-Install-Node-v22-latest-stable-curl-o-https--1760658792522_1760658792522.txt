@@ -1,0 +1,72 @@
+scottboddye@Pugliese Mundo_Tango_App_emergent % # Install Node v22 (latest stable)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.zshrc
+nvm install 22
+nvm use 22
+node --version  # Should show v22.x.x
+zsh: bad pattern: #
+scottboddye@Pugliese Mundo_Tango_App_emergent % curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 16555  100 16555    0     0  39925      0 --:--:-- --:--:-- --:--:-- 39987
+=> nvm is already installed in /Users/scottboddye/.nvm, trying to update using git
+=> => Compressing and cleaning up git repository
+
+=> nvm source string already in /Users/scottboddye/.zshrc
+=> Appending bash_completion source string to /Users/scottboddye/.zshrc
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v21.5.0 --silent` to unset it.
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+scottboddye@Pugliese Mundo_Tango_App_emergent % export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v21.5.0 --silent` to unset it.
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm --version
+0.39.7
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm install 22
+Downloading and installing node v22.20.0...
+Downloading https://nodejs.org/dist/v22.20.0/node-v22.20.0-darwin-arm64.tar.xz...
+######################################################################### 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0` to unset it.
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm use 22
+nvm alias default 22
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0` to unset it.
+default -> 22 (-> v22.20.0)
+scottboddye@Pugliese Mundo_Tango_App_emergent % node --version
+npm --version
+v22.20.0
+10.9.3
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm ls
+        v21.5.0
+->     v22.20.0
+         system
+default -> 22 (-> v22.20.0)
+iojs -> N/A (default)
+unstable -> N/A (default)
+node -> stable (-> v22.20.0) (default)
+stable -> 22.20 (-> v22.20.0) (default)
+lts/* -> lts/jod (-> v22.20.0)
+lts/argon -> v4.9.1 (-> N/A)
+lts/boron -> v6.17.1 (-> N/A)
+lts/carbon -> v8.17.0 (-> N/A)
+lts/dubnium -> v10.24.1 (-> N/A)
+lts/erbium -> v12.22.12 (-> N/A)
+lts/fermium -> v14.21.3 (-> N/A)
+lts/gallium -> v16.20.2 (-> N/A)
+lts/hydrogen -> v18.20.8 (-> N/A)
+lts/iron -> v20.19.5 (-> N/A)
+lts/jod -> v22.20.0
+scottboddye@Pugliese Mundo_Tango_App_emergent % 

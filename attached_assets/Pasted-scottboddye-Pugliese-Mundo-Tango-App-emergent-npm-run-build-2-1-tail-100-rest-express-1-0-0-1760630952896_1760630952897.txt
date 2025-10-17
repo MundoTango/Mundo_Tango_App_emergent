@@ -1,0 +1,75 @@
+scottboddye@Pugliese Mundo_Tango_App_emergent % npm run build 2>&1 | tail -100
+
+> rest-express@1.0.0 prebuild
+> rm -rf dist build .vite client/dist
+
+
+> rest-express@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=2048' vite build
+
+You are using Node.js 21.5.0. Vite requires Node.js version 20.19+ or 22.12+. Please upgrade your Node.js version.
+vite v7.1.10 building for production...
+transforming...
+
+/ocean-pattern.svg referenced in /ocean-pattern.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 5416 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/en/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/es/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/fr/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/de/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/it/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/pt/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/GuestProfile/GuestProfileDisplay.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/profile/OptimizedProfileComponents.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/profile.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/modern/ShareModal.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/ESAMemoryFeed.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/ControlledPostFeed.tsx, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/PostFeed.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/data/comprehensive-project-data.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/LifeCEOCommandCenter.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/JiraExportDashboard.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/storage/localStorage.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx, dynamic import will not move module into another chunk.
+
+dist/assets/manifest-D4CB6x4t.json               4.10 kB
+dist/index.html                                  4.51 kB
+dist/assets/vendor-Ct8VOvjE.css                 18.39 kB
+dist/assets/vendor-react-DBMJUraV.css           27.81 kB
+dist/assets/index-CBs2d1VV.css                 409.60 kB
+dist/js/ui-ByoYm48K.js                           0.20 kB
+dist/js/TestGroupedRoleSelector-CPmGZqtX.js      0.63 kB
+dist/js/UpcomingEvents-B2NTdUsI.js               0.67 kB
+dist/js/UserEventsList-j-syCKwz.js               2.79 kB
+dist/js/CommunityStats-COpW8p4D.js               2.85 kB
+dist/js/UserPhotosGallery-dnIEl1MV.js            3.08 kB
+dist/js/UserFriendsList-Dqy5Uf_g.js              3.28 kB
+dist/js/UserVideosGallery-Cj1dNAk-.js            3.42 kB
+dist/js/UpcomingEventsSidebar-Kb-pHKFl.js        4.20 kB
+dist/js/LeafletMap-BPo_4Ixl.js                   4.35 kB
+dist/js/EnhancedPostFeed-ChSAENQC.js             8.12 kB
+dist/js/common-CcvKlgcH.js                      15.39 kB
+dist/js/TravelDetailsComponent-CdU_zcEq.js      20.98 kB
+dist/js/utils-DeT-0jYS.js                      224.78 kB
+dist/js/vendor-react-396XIGf4.js               939.71 kB
+dist/js/index-lSALljnB.js                    2,431.13 kB
+dist/js/vendor-DEaN9ZZR.js                   4,216.30 kB
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 25.71s
+scottboddye@Pugliese Mundo_Tango_App_emergent % 

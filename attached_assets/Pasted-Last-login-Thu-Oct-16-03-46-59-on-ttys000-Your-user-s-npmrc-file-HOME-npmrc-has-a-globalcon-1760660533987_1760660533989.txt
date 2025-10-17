@@ -1,0 +1,966 @@
+Last login: Thu Oct 16 03:46:59 on ttys000
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v21.5.0 --silent` to unset it.
+scottboddye@Pugliese ~ % ~c /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent
+zsh: no such user or named directory: c
+scottboddye@Pugliese ~ % [open]cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+npm run dev
+zsh: no matches found: [open]cd
+scottboddye@Pugliese ~ % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+git fetch
+git checkout production-restore-oct14
+npm install
+npm run dev
+error: pathspec 'production-restore-oct14' did not match any file(s) known to git
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@faker-js/faker@10.1.0',
+npm WARN EBADENGINE   required: { npm: '>=10', node: '^20.19.0 || ^22.13.0 || ^23.5.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'artillery@2.0.26',
+npm WARN EBADENGINE   required: { node: '>= 22.13.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'connect-pg-simple@10.0.0',
+npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=22.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'cypress@14.5.4',
+npm WARN EBADENGINE   required: { node: '^18.0.0 || ^20.0.0 || >=22.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-environment-jsdom@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'lru-cache@11.2.2',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'vite@7.1.10',
+npm WARN EBADENGINE   required: { node: '^20.19.0 || >=22.12.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'vitest@3.2.4',
+npm WARN EBADENGINE   required: { node: '^18.0.0 || ^20.0.0 || >=22.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'rimraf@6.0.1',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'vite@6.4.0',
+npm WARN EBADENGINE   required: { node: '^18.0.0 || ^20.0.0 || >=22.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'expect@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'pretty-format@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/expect-utils@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/get-type@30.1.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-matcher-utils@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-message-util@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-mock@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-util@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/core@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/types@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-cli@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/console@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/pattern@30.0.1',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/reporters@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/test-result@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/transform@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-changed-files@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-config@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-haste-map@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-regex-util@30.0.1',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-resolve@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-resolve-dependencies@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-runner@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-runtime@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-snapshot@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-validate@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-watcher@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-worker@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/schemas@30.0.5',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/test-sequencer@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'babel-jest@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-circus@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-docblock@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-environment-node@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'babel-preset-jest@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'babel-plugin-jest-hoist@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/environment@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/expect@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-each@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/fake-timers@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/environment-jsdom-abstract@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-diff@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/diff-sequences@30.0.1',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jest-leak-detector@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/globals@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/source-map@30.0.1',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@jest/snapshot-utils@30.2.0',
+npm WARN EBADENGINE   required: { node: '^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'glob@11.0.3',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'glob@11.0.3',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'vite-node@3.2.4',
+npm WARN EBADENGINE   required: { node: '^18.0.0 || ^20.0.0 || >=22.0.0' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jackspeak@4.1.1',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'minimatch@10.0.3',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'path-scurry@2.0.0',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@isaacs/brace-expansion@5.0.0',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@isaacs/balanced-match@4.0.1',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'jackspeak@4.1.1',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'minimatch@10.0.3',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'path-scurry@2.0.0',
+npm WARN EBADENGINE   required: { node: '20 || >=22' },
+npm WARN EBADENGINE   current: { node: 'v21.5.0', npm: '10.2.4' }
+npm WARN EBADENGINE }
+
+up to date in 14s
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development node --max-old-space-size=4096 --expose-gc -r tsx/cjs server/index.ts
+
+[ESA 61x21] Server bootstrap starting...
+[ESA 61x21] Memory allocation: 4GB
+[ESA 61x21] Environment: development
+node: --expose-gc is not allowed in NODE_OPTIONS
+[ESA 56x21] Server exited with code 9
+scottboddye@Pugliese Mundo_Tango_App_emergent % # Install Node v22 (latest stable)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.zshrc
+nvm install 22
+nvm use 22
+node --version  # Should show v22.x.x
+zsh: bad pattern: #
+scottboddye@Pugliese Mundo_Tango_App_emergent % curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 16555  100 16555    0     0  39925      0 --:--:-- --:--:-- --:--:-- 39987
+=> nvm is already installed in /Users/scottboddye/.nvm, trying to update using git
+=> => Compressing and cleaning up git repository
+
+=> nvm source string already in /Users/scottboddye/.zshrc
+=> Appending bash_completion source string to /Users/scottboddye/.zshrc
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v21.5.0 --silent` to unset it.
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+scottboddye@Pugliese Mundo_Tango_App_emergent % export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v21.5.0 --silent` to unset it.
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm --version
+0.39.7
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm install 22
+Downloading and installing node v22.20.0...
+Downloading https://nodejs.org/dist/v22.20.0/node-v22.20.0-darwin-arm64.tar.xz...
+######################################################################### 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0` to unset it.
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm use 22
+nvm alias default 22
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0` to unset it.
+default -> 22 (-> v22.20.0)
+scottboddye@Pugliese Mundo_Tango_App_emergent % node --version
+npm --version
+v22.20.0
+10.9.3
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm ls
+        v21.5.0
+->     v22.20.0
+         system
+default -> 22 (-> v22.20.0)
+iojs -> N/A (default)
+unstable -> N/A (default)
+node -> stable (-> v22.20.0) (default)
+stable -> 22.20 (-> v22.20.0) (default)
+lts/* -> lts/jod (-> v22.20.0)
+lts/argon -> v4.9.1 (-> N/A)
+lts/boron -> v6.17.1 (-> N/A)
+lts/carbon -> v8.17.0 (-> N/A)
+lts/dubnium -> v10.24.1 (-> N/A)
+lts/erbium -> v12.22.12 (-> N/A)
+lts/fermium -> v14.21.3 (-> N/A)
+lts/gallium -> v16.20.2 (-> N/A)
+lts/hydrogen -> v18.20.8 (-> N/A)
+lts/iron -> v20.19.5 (-> N/A)
+lts/jod -> v22.20.0
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+rm -rf node_modules package-lock.json client/dist
+npm install
+npm run build
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+npm warn deprecated rimraf@2.6.3: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
+npm warn deprecated opn@6.0.0: The package has been renamed to `open`
+npm warn deprecated grapesjs-react@4.0.3: This package is deprecated. Please use the official package @grapesjs/react instead: https://www.npmjs.com/package/@grapesjs/react
+npm warn deprecated backbone-undo@0.2.6: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated acorn-import-assertions@1.9.0: package has been renamed to acorn-import-attributes
+npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+npm warn deprecated
+npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+npm warn deprecated gauge@3.0.2: This package is no longer supported.
+npm warn deprecated argv@0.0.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated boolean@3.2.0: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated puppeteer@22.15.0: < 24.15.0 is no longer supported
+npm warn deprecated vectordb@0.21.2: Use @lancedb/lancedb instead.
+npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+npm warn deprecated @opentelemetry/otlp-proto-exporter-base@0.41.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @novu/node@2.6.6: March 20, 2025 marks the end of support for @novu/node. Users can migrate to the new @novu/api package for most popular JS runtimes. For more information, visit https://docs.novu.co/platform/sdks/server/typescript
+npm warn deprecated react-flow-renderer@10.3.17: react-flow-renderer has been renamed to reactflow, please use this package from now on https://reactflow.dev/docs/guides/migrate-to-v11/
+npm warn deprecated fluent-ffmpeg@2.1.3: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @faker-js/faker@5.5.3: Please update to a newer version.
+
+added 4146 packages in 5m
+
+> rest-express@1.0.0 prebuild
+> rm -rf dist build .vite client/dist
+
+
+> rest-express@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=2048' vite build
+
+vite v7.1.10 building for production...
+
+/ocean-pattern.svg referenced in /ocean-pattern.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 5416 modules transformed.
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/en/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/es/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/fr/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/de/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/it/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/pt/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/GuestProfile/GuestProfileDisplay.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/profile/OptimizedProfileComponents.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/profile.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/modern/ShareModal.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/ESAMemoryFeed.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/ControlledPostFeed.tsx, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/PostFeed.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/data/comprehensive-project-data.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/LifeCEOCommandCenter.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/JiraExportDashboard.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/storage/localStorage.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx, dynamic import will not move module into another chunk.
+
+dist/assets/manifest-D4CB6x4t.json               4.10 kB
+dist/index.html                                  4.51 kB
+dist/assets/vendor-Ct8VOvjE.css                 18.39 kB
+dist/assets/vendor-react-DBMJUraV.css           27.81 kB
+dist/assets/index-CBs2d1VV.css                 409.60 kB
+dist/js/ui-ByoYm48K.js                           0.20 kB
+dist/js/TestGroupedRoleSelector-DuTLzl4b.js      0.63 kB
+dist/js/UpcomingEvents-Dt6Jr4dt.js               0.67 kB
+dist/js/UserEventsList-xz8Awq4W.js               2.79 kB
+dist/js/CommunityStats-DX30MySX.js               2.85 kB
+dist/js/UserPhotosGallery-BXB0LSnW.js            3.08 kB
+dist/js/UserFriendsList-CznJVyKx.js              3.28 kB
+dist/js/UserVideosGallery-D8qDiBo3.js            3.42 kB
+dist/js/UpcomingEventsSidebar-VKE_y34c.js        4.20 kB
+dist/js/LeafletMap-CoJ0NoR9.js                   4.35 kB
+dist/js/EnhancedPostFeed-CaHsbV2p.js             8.12 kB
+dist/js/common-CcvKlgcH.js                      15.39 kB
+dist/js/TravelDetailsComponent-KTCHEdTG.js      20.98 kB
+dist/js/utils-CEPa3U-Y.js                      224.78 kB
+dist/js/vendor-react-Bm6VAiMt.js               939.71 kB
+dist/js/index-BQtQPii-.js                    2,431.13 kB
+dist/js/vendor-CyGJMDPb.js                   4,216.33 kB
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 25.91s
+scottboddye@Pugliese Mundo_Tango_App_emergent % ls -lh client/dist/js/ | grep vendor
+-rw-r--r--  1 scottboddye  staff   4.0M Oct 16 17:00 vendor-CyGJMDPb.js
+-rw-r--r--  1 scottboddye  staff   918K Oct 16 17:00 vendor-react-Bm6VAiMt.js
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd client
+zip -r dist.zip dist/
+ls -lh dist.zip
+updating: dist/ (stored 0%)
+updating: dist/offline.html (deflated 73%)
+updating: dist/index.html (deflated 61%)
+updating: dist/locales/ (stored 0%)
+updating: dist/locales/pl/ (stored 0%)
+updating: dist/locales/pl/common.json (deflated 69%)
+updating: dist/locales/pl/admin.json (deflated 67%)
+updating: dist/locales/sv/ (stored 0%)
+updating: dist/locales/sv/common.json (deflated 69%)
+updating: dist/locales/sv/admin.json (deflated 67%)
+updating: dist/locales/da/ (stored 0%)
+updating: dist/locales/da/common.json (deflated 69%)
+updating: dist/locales/da/admin.json (deflated 67%)
+updating: dist/locales/no/ (stored 0%)
+updating: dist/locales/no/common.json (deflated 69%)
+updating: dist/locales/no/admin.json (deflated 67%)
+updating: dist/locales/ja/ (stored 0%)
+updating: dist/locales/ja/common.json (deflated 69%)
+updating: dist/locales/ja/admin.json (deflated 67%)
+updating: dist/locales/it/ (stored 0%)
+updating: dist/locales/it/common.json (deflated 69%)
+updating: dist/locales/it/admin.json (deflated 67%)
+updating: dist/locales/cs/ (stored 0%)
+updating: dist/locales/cs/common.json (deflated 69%)
+updating: dist/locales/cs/admin.json (deflated 67%)
+updating: dist/locales/ru/ (stored 0%)
+updating: dist/locales/ru/common.json (deflated 69%)
+updating: dist/locales/ru/admin.json (deflated 67%)
+updating: dist/locales/pt/ (stored 0%)
+updating: dist/locales/pt/common.json (deflated 69%)
+updating: dist/locales/pt/admin.json (deflated 67%)
+updating: dist/locales/zh/ (stored 0%)
+updating: dist/locales/zh/common.json (deflated 69%)
+updating: dist/locales/zh/admin.json (deflated 67%)
+updating: dist/locales/ar/ (stored 0%)
+updating: dist/locales/ar/common.json (deflated 69%)
+updating: dist/locales/ar/admin.json (deflated 67%)
+updating: dist/locales/nl/ (stored 0%)
+updating: dist/locales/nl/common.json (deflated 69%)
+updating: dist/locales/nl/admin.json (deflated 67%)
+updating: dist/locales/hi/ (stored 0%)
+updating: dist/locales/hi/common.json (deflated 69%)
+updating: dist/locales/hi/admin.json (deflated 67%)
+updating: dist/locales/de/ (stored 0%)
+updating: dist/locales/de/common.json (deflated 69%)
+updating: dist/locales/de/admin.json (deflated 67%)
+updating: dist/locales/ko/ (stored 0%)
+updating: dist/locales/ko/common.json (deflated 69%)
+updating: dist/locales/ko/admin.json (deflated 67%)
+updating: dist/locales/fi/ (stored 0%)
+updating: dist/locales/fi/common.json (deflated 69%)
+updating: dist/locales/fi/admin.json (deflated 67%)
+updating: dist/locales/fr/ (stored 0%)
+updating: dist/locales/fr/common.json (deflated 69%)
+updating: dist/locales/fr/admin.json (deflated 67%)
+updating: dist/locales/es/ (stored 0%)
+updating: dist/locales/es/common.json (deflated 69%)
+updating: dist/locales/es/admin.json (deflated 67%)
+updating: dist/locales/en/ (stored 0%)
+updating: dist/locales/en/common.json (deflated 66%)
+updating: dist/locales/en/admin.json (deflated 64%)
+updating: dist/locales/tr/ (stored 0%)
+updating: dist/locales/tr/common.json (deflated 69%)
+updating: dist/locales/tr/admin.json (deflated 67%)
+updating: dist/js/ (stored 0%)
+updating: dist/js/ui-ByoYm48K.js (deflated 28%)
+updating: dist/js/common-CcvKlgcH.js (deflated 60%)
+updating: dist/test-react.html (deflated 54%)
+updating: dist/life-ceo-icon-512.png (deflated 17%)
+updating: dist/icons/ (stored 0%)
+updating: dist/icons/icon-192.svg (deflated 43%)
+updating: dist/icons/icon-192.png (deflated 2%)
+updating: dist/icons/icon-512.svg (deflated 43%)
+updating: dist/icons/icon-512.png (deflated 17%)
+updating: dist/i18n/ (stored 0%)
+updating: dist/i18n/it/ (stored 0%)
+updating: dist/i18n/it/common.json (deflated 64%)
+updating: dist/i18n/pt/ (stored 0%)
+updating: dist/i18n/pt/common.json (deflated 63%)
+updating: dist/i18n/fr/ (stored 0%)
+updating: dist/i18n/fr/common.json (deflated 64%)
+updating: dist/i18n/es/ (stored 0%)
+updating: dist/i18n/es/events.json (deflated 64%)
+updating: dist/i18n/es/common.json (deflated 63%)
+updating: dist/i18n/es/social.json (deflated 67%)
+updating: dist/i18n/es/agents.json (deflated 66%)
+updating: dist/i18n/en/ (stored 0%)
+updating: dist/i18n/en/events.json (deflated 68%)
+updating: dist/i18n/en/common.json (deflated 69%)
+updating: dist/i18n/en/social.json (deflated 71%)
+updating: dist/i18n/en/agents.json (deflated 69%)
+updating: dist/i18n/en/placeholders.json (deflated 65%)
+updating: dist/assets/ (stored 0%)
+updating: dist/assets/manifest-D4CB6x4t.json (deflated 75%)
+updating: dist/assets/vendor-Ct8VOvjE.css (deflated 61%)
+updating: dist/assets/vendor-react-DBMJUraV.css (deflated 81%)
+updating: dist/assets/index-CBs2d1VV.css (deflated 87%)
+updating: dist/life-ceo-icon-192.png (deflated 2%)
+updating: dist/sw.js (deflated 70%)
+updating: dist/placeholder.svg (deflated 40%)
+  adding: dist/js/UserFriendsList-CznJVyKx.js (deflated 65%)
+  adding: dist/js/UpcomingEvents-Dt6Jr4dt.js (deflated 39%)
+  adding: dist/js/TestGroupedRoleSelector-DuTLzl4b.js (deflated 40%)
+  adding: dist/js/vendor-CyGJMDPb.js (deflated 72%)
+  adding: dist/js/CommunityStats-DX30MySX.js (deflated 73%)
+  adding: dist/js/UserVideosGallery-D8qDiBo3.js (deflated 62%)
+  adding: dist/js/UserEventsList-xz8Awq4W.js (deflated 65%)
+  adding: dist/js/TravelDetailsComponent-KTCHEdTG.js (deflated 77%)
+  adding: dist/js/index-BQtQPii-.js (deflated 78%)
+  adding: dist/js/vendor-react-Bm6VAiMt.js (deflated 69%)
+  adding: dist/js/LeafletMap-CoJ0NoR9.js (deflated 65%)
+  adding: dist/js/EnhancedPostFeed-CaHsbV2p.js (deflated 68%)
+  adding: dist/js/UserPhotosGallery-BXB0LSnW.js (deflated 61%)
+  adding: dist/js/UpcomingEventsSidebar-VKE_y34c.js (deflated 61%)
+  adding: dist/js/utils-CEPa3U-Y.js (deflated 71%)
+-rw-r--r--@ 1 scottboddye  staff   4.5M Oct 16 17:02 dist.zip
+scottboddye@Pugliese client % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+
+# Force delete ALL old build files
+rm -rf client/dist
+rm -rf .vite
+rm -rf dist
+rm -rf build
+
+# Clean rebuild
+npm run build
+
+# Verify only NEW files exist
+ls -la client/dist/js/vendor-react*.js
+
+# Create fresh zip
+cd client
+rm -f dist.zip
+zip -r dist.zip dist/
+ls -lh dist.zip
+zsh: bad pattern: #
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+
+# Force delete ALL old build files
+rm -rf client/dist
+rm -rf .vite
+rm -rf dist
+rm -rf build
+
+# Clean rebuild
+npm run build
+
+# Verify only NEW files exist
+ls -la client/dist/js/vendor-react*.js
+
+# Create fresh zip
+cd client
+rm -f dist.zip
+zip -r dist.zip dist/
+ls -lh dist.zip
+zsh: bad pattern: #
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+
+# Force delete ALL old build files
+rm -rf client/dist
+rm -rf .vite
+rm -rf dist
+rm -rf build
+
+# Clean rebuild
+npm run build
+
+# Verify only NEW files exist
+ls -la client/dist/js/vendor-react*.js
+
+# Create fresh zip
+cd client
+rm -f dist.zip
+zip -r dist.zip dist/
+ls -lh dist.zip
+zsh: bad pattern: #
+scottboddye@Pugliese Mundo_Tango_App_emergent % ls -lh client/dist/js/ | grep vendor
+-rw-r--r--  1 scottboddye  staff   4.0M Oct 16 17:00 vendor-CyGJMDPb.js
+-rw-r--r--  1 scottboddye  staff   918K Oct 16 17:00 vendor-react-Bm6VAiMt.js
+scottboddye@Pugliese Mundo_Tango_App_emergent % rm -rf client/dist
+rm -rf .vite
+rm -rf dist
+rm -rf build
+scottboddye@Pugliese Mundo_Tango_App_emergent % npm run build
+
+
+> rest-express@1.0.0 prebuild
+> rm -rf dist build .vite client/dist
+
+
+> rest-express@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=2048' vite build
+
+vite v7.1.10 building for production...
+
+/ocean-pattern.svg referenced in /ocean-pattern.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 5416 modules transformed.
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/en/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/es/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/fr/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/de/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/it/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/pt/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/GuestProfile/GuestProfileDisplay.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/profile/OptimizedProfileComponents.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/profile.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/modern/ShareModal.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/ESAMemoryFeed.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/ControlledPostFeed.tsx, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/PostFeed.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/data/comprehensive-project-data.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/LifeCEOCommandCenter.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/JiraExportDashboard.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/storage/localStorage.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx, dynamic import will not move module into another chunk.
+
+dist/assets/manifest-D4CB6x4t.json               4.10 kB
+dist/index.html                                  4.51 kB
+dist/assets/vendor-Ct8VOvjE.css                 18.39 kB
+dist/assets/vendor-react-DBMJUraV.css           27.81 kB
+dist/assets/index-CBs2d1VV.css                 409.60 kB
+dist/js/ui-ByoYm48K.js                           0.20 kB
+dist/js/TestGroupedRoleSelector-DuTLzl4b.js      0.63 kB
+dist/js/UpcomingEvents-Dt6Jr4dt.js               0.67 kB
+dist/js/UserEventsList-xz8Awq4W.js               2.79 kB
+dist/js/CommunityStats-DX30MySX.js               2.85 kB
+dist/js/UserPhotosGallery-BXB0LSnW.js            3.08 kB
+dist/js/UserFriendsList-CznJVyKx.js              3.28 kB
+dist/js/UserVideosGallery-D8qDiBo3.js            3.42 kB
+dist/js/UpcomingEventsSidebar-VKE_y34c.js        4.20 kB
+dist/js/LeafletMap-CoJ0NoR9.js                   4.35 kB
+dist/js/EnhancedPostFeed-CaHsbV2p.js             8.12 kB
+dist/js/common-CcvKlgcH.js                      15.39 kB
+dist/js/TravelDetailsComponent-KTCHEdTG.js      20.98 kB
+dist/js/utils-CEPa3U-Y.js                      224.78 kB
+dist/js/vendor-react-Bm6VAiMt.js               939.71 kB
+dist/js/index-BQtQPii-.js                    2,431.13 kB
+dist/js/vendor-CyGJMDPb.js                   4,216.33 kB
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 26.51s
+scottboddye@Pugliese Mundo_Tango_App_emergent % ls -la client/dist/js/vendor-react*.js
+
+-rw-r--r--  1 scottboddye  staff  939709 Oct 16 17:10 client/dist/js/vendor-react-Bm6VAiMt.js
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd client
+rm -f dist.zip
+zip -r dist.zip dist/
+ls -lh dist.zip
+  adding: dist/ (stored 0%)
+  adding: dist/offline.html (deflated 73%)
+  adding: dist/index.html (deflated 61%)
+  adding: dist/locales/ (stored 0%)
+  adding: dist/locales/pl/ (stored 0%)
+  adding: dist/locales/pl/common.json (deflated 69%)
+  adding: dist/locales/pl/admin.json (deflated 67%)
+  adding: dist/locales/sv/ (stored 0%)
+  adding: dist/locales/sv/common.json (deflated 69%)
+  adding: dist/locales/sv/admin.json (deflated 67%)
+  adding: dist/locales/da/ (stored 0%)
+  adding: dist/locales/da/common.json (deflated 69%)
+  adding: dist/locales/da/admin.json (deflated 67%)
+  adding: dist/locales/no/ (stored 0%)
+  adding: dist/locales/no/common.json (deflated 69%)
+  adding: dist/locales/no/admin.json (deflated 67%)
+  adding: dist/locales/ja/ (stored 0%)
+  adding: dist/locales/ja/common.json (deflated 69%)
+  adding: dist/locales/ja/admin.json (deflated 67%)
+  adding: dist/locales/it/ (stored 0%)
+  adding: dist/locales/it/common.json (deflated 69%)
+  adding: dist/locales/it/admin.json (deflated 67%)
+  adding: dist/locales/cs/ (stored 0%)
+  adding: dist/locales/cs/common.json (deflated 69%)
+  adding: dist/locales/cs/admin.json (deflated 67%)
+  adding: dist/locales/ru/ (stored 0%)
+  adding: dist/locales/ru/common.json (deflated 69%)
+  adding: dist/locales/ru/admin.json (deflated 67%)
+  adding: dist/locales/pt/ (stored 0%)
+  adding: dist/locales/pt/common.json (deflated 69%)
+  adding: dist/locales/pt/admin.json (deflated 67%)
+  adding: dist/locales/zh/ (stored 0%)
+  adding: dist/locales/zh/common.json (deflated 69%)
+  adding: dist/locales/zh/admin.json (deflated 67%)
+  adding: dist/locales/ar/ (stored 0%)
+  adding: dist/locales/ar/common.json (deflated 69%)
+  adding: dist/locales/ar/admin.json (deflated 67%)
+  adding: dist/locales/nl/ (stored 0%)
+  adding: dist/locales/nl/common.json (deflated 69%)
+  adding: dist/locales/nl/admin.json (deflated 67%)
+  adding: dist/locales/hi/ (stored 0%)
+  adding: dist/locales/hi/common.json (deflated 69%)
+  adding: dist/locales/hi/admin.json (deflated 67%)
+  adding: dist/locales/de/ (stored 0%)
+  adding: dist/locales/de/common.json (deflated 69%)
+  adding: dist/locales/de/admin.json (deflated 67%)
+  adding: dist/locales/ko/ (stored 0%)
+  adding: dist/locales/ko/common.json (deflated 69%)
+  adding: dist/locales/ko/admin.json (deflated 67%)
+  adding: dist/locales/fi/ (stored 0%)
+  adding: dist/locales/fi/common.json (deflated 69%)
+  adding: dist/locales/fi/admin.json (deflated 67%)
+  adding: dist/locales/fr/ (stored 0%)
+  adding: dist/locales/fr/common.json (deflated 69%)
+  adding: dist/locales/fr/admin.json (deflated 67%)
+  adding: dist/locales/es/ (stored 0%)
+  adding: dist/locales/es/common.json (deflated 69%)
+  adding: dist/locales/es/admin.json (deflated 67%)
+  adding: dist/locales/en/ (stored 0%)
+  adding: dist/locales/en/common.json (deflated 66%)
+  adding: dist/locales/en/admin.json (deflated 64%)
+  adding: dist/locales/tr/ (stored 0%)
+  adding: dist/locales/tr/common.json (deflated 69%)
+  adding: dist/locales/tr/admin.json (deflated 67%)
+  adding: dist/js/ (stored 0%)
+  adding: dist/js/UserFriendsList-CznJVyKx.js (deflated 65%)
+  adding: dist/js/UpcomingEvents-Dt6Jr4dt.js (deflated 39%)
+  adding: dist/js/TestGroupedRoleSelector-DuTLzl4b.js (deflated 40%)
+  adding: dist/js/vendor-CyGJMDPb.js (deflated 72%)
+  adding: dist/js/CommunityStats-DX30MySX.js (deflated 73%)
+  adding: dist/js/UserVideosGallery-D8qDiBo3.js (deflated 62%)
+  adding: dist/js/UserEventsList-xz8Awq4W.js (deflated 65%)
+  adding: dist/js/TravelDetailsComponent-KTCHEdTG.js (deflated 77%)
+  adding: dist/js/ui-ByoYm48K.js (deflated 28%)
+  adding: dist/js/index-BQtQPii-.js (deflated 78%)
+  adding: dist/js/vendor-react-Bm6VAiMt.js (deflated 69%)
+  adding: dist/js/LeafletMap-CoJ0NoR9.js (deflated 65%)
+  adding: dist/js/EnhancedPostFeed-CaHsbV2p.js (deflated 68%)
+  adding: dist/js/UserPhotosGallery-BXB0LSnW.js (deflated 61%)
+  adding: dist/js/UpcomingEventsSidebar-VKE_y34c.js (deflated 61%)
+  adding: dist/js/utils-CEPa3U-Y.js (deflated 71%)
+  adding: dist/js/common-CcvKlgcH.js (deflated 60%)
+  adding: dist/test-react.html (deflated 54%)
+  adding: dist/life-ceo-icon-512.png (deflated 17%)
+  adding: dist/icons/ (stored 0%)
+  adding: dist/icons/icon-192.svg (deflated 43%)
+  adding: dist/icons/icon-192.png (deflated 2%)
+  adding: dist/icons/icon-512.svg (deflated 43%)
+  adding: dist/icons/icon-512.png (deflated 17%)
+  adding: dist/i18n/ (stored 0%)
+  adding: dist/i18n/it/ (stored 0%)
+  adding: dist/i18n/it/common.json (deflated 64%)
+  adding: dist/i18n/pt/ (stored 0%)
+  adding: dist/i18n/pt/common.json (deflated 63%)
+  adding: dist/i18n/fr/ (stored 0%)
+  adding: dist/i18n/fr/common.json (deflated 64%)
+  adding: dist/i18n/es/ (stored 0%)
+  adding: dist/i18n/es/events.json (deflated 64%)
+  adding: dist/i18n/es/common.json (deflated 63%)
+  adding: dist/i18n/es/social.json (deflated 67%)
+  adding: dist/i18n/es/agents.json (deflated 66%)
+  adding: dist/i18n/en/ (stored 0%)
+  adding: dist/i18n/en/events.json (deflated 68%)
+  adding: dist/i18n/en/common.json (deflated 69%)
+  adding: dist/i18n/en/social.json (deflated 71%)
+  adding: dist/i18n/en/agents.json (deflated 69%)
+  adding: dist/i18n/en/placeholders.json (deflated 65%)
+  adding: dist/assets/ (stored 0%)
+  adding: dist/assets/manifest-D4CB6x4t.json (deflated 75%)
+  adding: dist/assets/vendor-Ct8VOvjE.css (deflated 61%)
+  adding: dist/assets/vendor-react-DBMJUraV.css (deflated 81%)
+  adding: dist/assets/index-CBs2d1VV.css (deflated 87%)
+  adding: dist/life-ceo-icon-192.png (deflated 2%)
+  adding: dist/sw.js (deflated 70%)
+  adding: dist/placeholder.svg (deflated 40%)
+-rw-r--r--  1 scottboddye  staff   2.5M Oct 16 17:10 dist.zip
+scottboddye@Pugliese client % minify: 'terser',
+terserOptions: {
+  compress: {
+    drop_console: true,
+    drop_debugger: true
+  }
+}
+zsh: parse error near `}'
+scottboddye@Pugliese client % minify: 'esbuild',  // Use esbuild instead of terser
+zsh: command not found: minify:
+scottboddye@Pugliese client % minify: 'terser',
+terserOptions: {
+  compress: {
+    drop_console: false,  // Don't drop console
+    drop_debugger: true
+  },
+  mangle: {
+    reserved: ['Children', 'React', 'ReactDOM']  // Protect React internals
+  }
+}
+quote> 

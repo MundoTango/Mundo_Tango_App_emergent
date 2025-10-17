@@ -1,0 +1,135 @@
+~/workspace$ cd ~/workspace/client
+ls -lh dist.zip
+unzip -o dist.zip
+ls -la dist/
+-rw------- 1 runner runner 2.6M Oct 16 16:23 dist.zip
+Archive:  dist.zip
+  inflating: dist/offline.html       
+  inflating: dist/index.html         
+   creating: dist/locales/
+   creating: dist/locales/pl/
+  inflating: dist/locales/pl/common.json  
+  inflating: dist/locales/pl/admin.json  
+   creating: dist/locales/sv/
+  inflating: dist/locales/sv/common.json  
+  inflating: dist/locales/sv/admin.json  
+   creating: dist/locales/da/
+  inflating: dist/locales/da/common.json  
+  inflating: dist/locales/da/admin.json  
+   creating: dist/locales/no/
+  inflating: dist/locales/no/common.json  
+  inflating: dist/locales/no/admin.json  
+   creating: dist/locales/ja/
+  inflating: dist/locales/ja/common.json  
+  inflating: dist/locales/ja/admin.json  
+   creating: dist/locales/it/
+  inflating: dist/locales/it/common.json  
+  inflating: dist/locales/it/admin.json  
+   creating: dist/locales/cs/
+  inflating: dist/locales/cs/common.json  
+  inflating: dist/locales/cs/admin.json  
+   creating: dist/locales/ru/
+  inflating: dist/locales/ru/common.json  
+  inflating: dist/locales/ru/admin.json  
+   creating: dist/locales/pt/
+  inflating: dist/locales/pt/common.json  
+  inflating: dist/locales/pt/admin.json  
+   creating: dist/locales/zh/
+  inflating: dist/locales/zh/common.json  
+  inflating: dist/locales/zh/admin.json  
+   creating: dist/locales/ar/
+  inflating: dist/locales/ar/common.json  
+  inflating: dist/locales/ar/admin.json  
+   creating: dist/locales/nl/
+  inflating: dist/locales/nl/common.json  
+  inflating: dist/locales/nl/admin.json  
+   creating: dist/locales/hi/
+  inflating: dist/locales/hi/common.json  
+  inflating: dist/locales/hi/admin.json  
+   creating: dist/locales/de/
+  inflating: dist/locales/de/common.json  
+  inflating: dist/locales/de/admin.json  
+   creating: dist/locales/ko/
+  inflating: dist/locales/ko/common.json  
+  inflating: dist/locales/ko/admin.json  
+   creating: dist/locales/fi/
+  inflating: dist/locales/fi/common.json  
+  inflating: dist/locales/fi/admin.json  
+   creating: dist/locales/fr/
+  inflating: dist/locales/fr/common.json  
+  inflating: dist/locales/fr/admin.json  
+   creating: dist/locales/es/
+  inflating: dist/locales/es/common.json  
+  inflating: dist/locales/es/admin.json  
+   creating: dist/locales/en/
+  inflating: dist/locales/en/common.json  
+  inflating: dist/locales/en/admin.json  
+   creating: dist/locales/tr/
+  inflating: dist/locales/tr/common.json  
+  inflating: dist/locales/tr/admin.json  
+   creating: dist/js/
+  inflating: dist/js/UserVideosGallery-Cj1dNAk-.js  
+  inflating: dist/js/vendor-react-396XIGf4.js  
+  inflating: dist/js/UserEventsList-j-syCKwz.js  
+  inflating: dist/js/TravelDetailsComponent-CdU_zcEq.js  
+  inflating: dist/js/UserFriendsList-Dqy5Uf_g.js  
+  inflating: dist/js/utils-DeT-0jYS.js  
+  inflating: dist/js/UpcomingEvents-B2NTdUsI.js  
+  inflating: dist/js/ui-ByoYm48K.js  
+  inflating: dist/js/EnhancedPostFeed-ChSAENQC.js  
+  inflating: dist/js/index-lSALljnB.js  
+  inflating: dist/js/UserPhotosGallery-dnIEl1MV.js  
+  inflating: dist/js/vendor-DEaN9ZZR.js  
+  inflating: dist/js/UpcomingEventsSidebar-Kb-pHKFl.js  
+  inflating: dist/js/TestGroupedRoleSelector-CPmGZqtX.js  
+  inflating: dist/js/CommunityStats-COpW8p4D.js  
+  inflating: dist/js/LeafletMap-BPo_4Ixl.js  
+  inflating: dist/js/common-CcvKlgcH.js  
+  inflating: dist/test-react.html    
+  inflating: dist/life-ceo-icon-512.png  
+   creating: dist/icons/
+  inflating: dist/icons/icon-192.svg  
+  inflating: dist/icons/icon-192.png  
+  inflating: dist/icons/icon-512.svg  
+  inflating: dist/icons/icon-512.png  
+   creating: dist/i18n/
+   creating: dist/i18n/it/
+  inflating: dist/i18n/it/common.json  
+   creating: dist/i18n/pt/
+  inflating: dist/i18n/pt/common.json  
+   creating: dist/i18n/fr/
+  inflating: dist/i18n/fr/common.json  
+   creating: dist/i18n/es/
+  inflating: dist/i18n/es/events.json  
+  inflating: dist/i18n/es/common.json  
+  inflating: dist/i18n/es/social.json  
+  inflating: dist/i18n/es/agents.json  
+   creating: dist/i18n/en/
+  inflating: dist/i18n/en/events.json  
+  inflating: dist/i18n/en/common.json  
+  inflating: dist/i18n/en/social.json  
+  inflating: dist/i18n/en/agents.json  
+  inflating: dist/i18n/en/placeholders.json  
+   creating: dist/assets/
+  inflating: dist/assets/manifest-D4CB6x4t.json  
+  inflating: dist/assets/vendor-Ct8VOvjE.css  
+  inflating: dist/assets/vendor-react-DBMJUraV.css  
+  inflating: dist/assets/index-CBs2d1VV.css  
+  inflating: dist/life-ceo-icon-192.png  
+  inflating: dist/sw.js              
+  inflating: dist/placeholder.svg    
+total 80
+drwxr-xr-x 1 runner runner   246 Oct 16 16:24 .
+drwxr-xr-x 1 runner runner   214 Oct 16 16:23 ..
+drwxr-xr-x 1 runner runner   168 Oct 16 16:08 assets
+drwxr-xr-x 1 runner runner    20 Oct 16 16:08 i18n
+drwxr-xr-x 1 runner runner    96 Oct 16 16:08 icons
+-rw-r--r-- 1 runner runner  4509 Oct 16 16:08 index.html
+drwxr-xr-x 1 runner runner   846 Oct 16 16:08 js
+-rw-r--r-- 1 runner runner  8957 Oct 16 16:08 life-ceo-icon-192.png
+-rw-r--r-- 1 runner runner 28423 Oct 16 16:08 life-ceo-icon-512.png
+drwxr-xr-x 1 runner runner    80 Oct 16 16:08 locales
+-rw-r--r-- 1 runner runner  9774 Oct 16 16:08 offline.html
+-rw-r--r-- 1 runner runner   553 Oct 16 16:08 placeholder.svg
+-rw-r--r-- 1 runner runner  9795 Oct 16 16:08 sw.js
+-rw-r--r-- 1 runner runner  1595 Oct 16 16:08 test-react.html

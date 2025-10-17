@@ -1,0 +1,63 @@
+~/workspace$ rm -f .git/index.lock
+~/workspace$ git status
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 6 and 3 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    attached_assets/Pasted--workspace-cd-workspace-client-ls-lh-dist-zip-unzip-o-dist-zip-ls-la-dist-rw-1-runne-1760631860034_1760631860035.txt
+    attached_assets/Pasted--workspace-git-pull-origin-conflict-100925-1852-remote-Enumerating-objects-11-done-remote-Cou-1760631337436_1760631337436.txt
+    attached_assets/Pasted-2025-10-17T01-09-11Z-info-Deployment-4be29fbc-8d54-4fff-a3d3-e33d241164ea-2025-10-17T01-09-11Z-inf-1760663749747_1760663749747.txt
+    attached_assets/Pasted-Last-login-Sat-Oct-11-20-19-35-on-ttys000-node-version-Your-user-s-npmrc-file-HOME-npmrc-h-1760630723152_1760630723154.txt
+    attached_assets/Pasted-Last-login-Thu-Oct-16-03-46-59-on-ttys000-Your-user-s-npmrc-file-HOME-npmrc-has-a-globalcon-1760660533987_1760660533989.txt
+    attached_assets/Pasted-Last-login-Thu-Oct-16-10-47-54-on-ttys000-Your-user-s-npmrc-file-HOME-npmrc-has-a-globalcon-1760661127019_1760661127022.txt
+    attached_assets/Pasted-The-source-list-for-the-Content-Security-Policy-directive-default-src-contains-an-invalid-source--1760632012608_1760632012609.txt
+    attached_assets/Pasted-The-source-list-for-the-Content-Security-Policy-directive-default-src-contains-an-invalid-source--1760633720830_1760633720830.txt
+    attached_assets/Pasted-The-source-list-for-the-Content-Security-Policy-directive-default-src-contains-an-invalid-source--1760635155734_1760635155734.txt
+    attached_assets/Pasted-The-source-list-for-the-Content-Security-Policy-directive-default-src-contains-an-invalid-source--1760667539097_1760667539098.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-Install-Node-v22-latest-stable-curl-o-https--1760658792522_1760658792522.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-cd-Documents-GitHub-Mundo-Tango-App-emergent-rm-r-1760635001558_1760635001558.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-find-name-dist-type-d-2-dev-null-node-modul-1760631072724_1760631072727.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-ls-la-client-dist-total-160-drwxr-xr-x-14-scottbo-1760631273298_1760631273299.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-npm-install-npm-run-build-npm-WARN-EBADENGINE-Unsupp-1760630851611_1760630851612.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-npm-run-build-2-1-tail-100-rest-express-1-0-0-1760630952896_1760630952897.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-nvm-install-22-Downloading-and-installing-node-v22-2-1760659307740_1760659307741.txt
+    attached_assets/Pasted-scottboddye-Pugliese-Mundo-Tango-App-emergent-rm-rf-client-dist-rm-rf-vite-rm-rf-dist-rm-rf-b-1760659855032_1760659855033.txt
+    attached_assets/Pasted-scottboddye-Pugliese-cd-Documents-GitHub-Mundo-Tango-App-emergent-git-fetch-git-checkout-produ-1760637191109_1760637191110.txt
+    attached_assets/Pasted-scottboddye-Pugliese-client-cat-Documents-GitHub-Mundo-Tango-App-emergent-vite-config-cjs-grep-1760634886363_1760634886364.txt
+    attached_assets/dist_1760659408482.zip
+    attached_assets/dist_1760659860361.zip
+    attached_assets/dist_1760661130236.zip
+    attached_assets/image_1760614884168.png
+    attached_assets/image_1760615159889.png
+    attached_assets/image_1760631709705.png
+    attached_assets/image_1760632604107.png
+    attached_assets/image_1760632968099.png
+    attached_assets/image_1760633069435.png
+    attached_assets/image_1760635166087.png
+    attached_assets/image_1760663740326.png
+    attached_assets/image_1760664996616.png
+    attached_assets/image_1760665000222.png
+    attached_assets/image_1760665014172.png
+    attached_assets/image_1760665301199.png
+    attached_assets/image_1760667551900.png
+    attached_assets/image_1760679577083.png
+    attached_assets/image_1760680039655.png
+    attached_assets/image_1760680775857.png
+    attached_assets/image_1760680784928.png
+    attached_assets/image_1760683200824.png
+    attached_assets/image_1760686910637.png
+
+nothing added to commit but untracked files present (use "git add" to track)
+~/workspace$ git checkout main
+Already on 'main'
+Your branch and 'origin/main' have diverged,
+and have 6 and 3 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+~/workspace$ git branch
+  conflict_100925_1852
+* main
+  production-restore-oct14
+  replit-agent

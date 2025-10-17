@@ -1,0 +1,51 @@
+scottboddye@Pugliese client % cat ~/Documents/GitHub/Mundo_Tango_App_emergent/vite.config.cjs | grep -A5 "build:"
+  build: {
+    outDir: path.resolve(__dirname, "client/dist"),
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+scottboddye@Pugliese client % cat ~/Documents/GitHub/Mundo_Tango_App_emergent/vite.config.cjs | grep -A10 "build:"
+  build: {
+    outDir: path.resolve(__dirname, "client/dist"),
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+        inlineDynamicImports: true,
+      },
+    },
+  },
+  server: {
+scottboddye@Pugliese client % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+
+# Clear ALL caches
+rm -rf node_modules/.vite
+rm -rf client/dist
+rm -rf client/.vite
+
+# Rebuild from scratch
+npm run build
+zsh: bad pattern: #
+scottboddye@Pugliese Mundo_Tango_App_emergent % 
+scottboddye@Pugliese Mundo_Tango_App_emergent % ls -lh client/dist/js/
+total 15464
+-rw-r--r--  1 scottboddye  staff    15K Oct 16 10:06 common-CcvKlgcH.js
+-rw-r--r--  1 scottboddye  staff   2.8K Oct 16 10:06 CommunityStats-COpW8p4D.js
+-rw-r--r--  1 scottboddye  staff   7.9K Oct 16 10:06 EnhancedPostFeed-ChSAENQC.js
+-rw-r--r--  1 scottboddye  staff   2.3M Oct 16 10:06 index-lSALljnB.js
+-rw-r--r--  1 scottboddye  staff   4.3K Oct 16 10:06 LeafletMap-BPo_4Ixl.js
+-rw-r--r--  1 scottboddye  staff   632B Oct 16 10:06 TestGroupedRoleSelector-CPmGZqtX.js
+-rw-r--r--  1 scottboddye  staff    20K Oct 16 10:06 TravelDetailsComponent-CdU_zcEq.js
+-rw-r--r--  1 scottboddye  staff   199B Oct 16 10:06 ui-ByoYm48K.js
+-rw-r--r--  1 scottboddye  staff   674B Oct 16 10:06 UpcomingEvents-B2NTdUsI.js
+-rw-r--r--  1 scottboddye  staff   4.1K Oct 16 10:06 UpcomingEventsSidebar-Kb-pHKFl.js
+-rw-r--r--  1 scottboddye  staff   2.7K Oct 16 10:06 UserEventsList-j-syCKwz.js
+-rw-r--r--  1 scottboddye  staff   3.2K Oct 16 10:06 UserFriendsList-Dqy5Uf_g.js
+-rw-r--r--  1 scottboddye  staff   3.0K Oct 16 10:06 UserPhotosGallery-dnIEl1MV.js
+-rw-r--r--  1 scottboddye  staff   3.3K Oct 16 10:06 UserVideosGallery-Cj1dNAk-.js
+-rw-r--r--  1 scottboddye  staff   220K Oct 16 10:06 utils-DeT-0jYS.js
+-rw-r--r--  1 scottboddye  staff   4.0M Oct 16 10:06 vendor-DEaN9ZZR.js
+-rw-r--r--  1 scottboddye  staff   918K Oct 16 10:06 vendor-react-396XIGf4.js
+scottboddye@Pugliese Mundo_Tango_App_emergent % 
+

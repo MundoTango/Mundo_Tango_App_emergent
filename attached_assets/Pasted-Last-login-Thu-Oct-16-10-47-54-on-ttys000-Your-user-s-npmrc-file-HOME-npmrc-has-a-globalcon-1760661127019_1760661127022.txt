@@ -1,0 +1,1367 @@
+Last login: Thu Oct 16 10:47:54 on ttys000
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0 --silent` to unset it.
+scottboddye@Pugliese ~ % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+npm ls react react-dom
+rest-express@1.0.0 /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent
+├─┬ @casl/react@5.0.0
+│ └── react@18.3.1 deduped
+├─┬ @codesandbox/sandpack-react@2.20.0
+│ ├─┬ @react-hook/intersection-observer@3.1.2
+│ │ ├─┬ @react-hook/passive-layout-effect@1.2.1
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @craftjs/core@0.2.12
+│ ├─┬ @craftjs/utils@0.2.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/core@6.3.1
+│ ├─┬ @dnd-kit/accessibility@3.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/modifiers@9.0.0
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/sortable@10.0.0
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/utilities@3.2.2
+│ └── react@18.3.1 deduped
+├─┬ @emotion/react@11.14.0
+│ ├─┬ @emotion/use-insertion-effect-with-fallbacks@1.2.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @emotion/styled@11.14.1
+│ └── react@18.3.1 deduped
+├─┬ @gsap/react@2.1.2
+│ └── react@18.3.1 deduped
+├─┬ @ladle/react@5.1.0
+│ ├─┬ @ladle/react-context@1.0.1
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @mdx-js/react@3.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ prism-react-renderer@2.4.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-hotkeys-hook@4.6.2
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-inspector@6.0.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @langchain/langgraph@0.4.9
+│ └─┬ @langchain/langgraph-sdk@0.1.10
+│   ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ @mui/icons-material@7.3.4
+│ └── react@18.3.1 deduped
+├─┬ @mui/material@7.3.4
+│ ├─┬ @mui/system@7.3.3
+│ │ ├─┬ @mui/private-theming@7.3.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @mui/styled-engine@7.3.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @mui/utils@7.3.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-transition-group@4.4.5
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @mui/x-date-pickers@8.14.1
+│ ├─┬ @mui/x-internals@8.14.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @novu/react@3.10.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-accordion@1.2.12
+│ ├─┬ @radix-ui/react-collection@1.1.7
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-compose-refs@1.1.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-context@1.1.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-direction@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-id@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-primitive@2.1.3
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-controllable-state@1.2.2
+│ │ ├─┬ @radix-ui/react-use-effect-event@0.0.2
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-alert-dialog@1.1.15
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-aspect-ratio@1.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-avatar@1.1.10
+│ ├─┬ @radix-ui/react-use-callback-ref@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-is-hydrated@0.1.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-layout-effect@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-checkbox@1.3.3
+│ ├─┬ @radix-ui/react-presence@1.1.5
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-previous@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-size@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-collapsible@1.1.12
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-context-menu@2.2.16
+│ ├─┬ @radix-ui/react-menu@2.1.16
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-dialog@1.1.15
+│ ├─┬ @radix-ui/react-dismissable-layer@1.1.11
+│ │ ├─┬ @radix-ui/react-use-escape-keydown@1.1.1
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-focus-guards@1.1.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-focus-scope@1.1.7
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-portal@1.1.9
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-remove-scroll@2.7.1
+│ │ ├─┬ react-remove-scroll-bar@2.3.8
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ react-style-singleton@2.2.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ use-callback-ref@1.3.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └─┬ use-sidecar@1.1.3
+│ │   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-dropdown-menu@2.1.16
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-hover-card@1.1.15
+│ ├─┬ @radix-ui/react-popper@1.2.8
+│ │ ├─┬ @floating-ui/react-dom@2.1.6
+│ │ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @radix-ui/react-arrow@1.1.7
+│ │ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @radix-ui/react-use-rect@1.1.1
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-label@2.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-menubar@1.1.16
+│ ├─┬ @radix-ui/react-roving-focus@1.1.11
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-navigation-menu@1.2.14
+│ ├─┬ @radix-ui/react-visually-hidden@1.2.3
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-popover@1.1.15
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-progress@1.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-radio-group@1.3.8
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-scroll-area@1.2.10
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-select@2.2.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-separator@1.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-slider@1.3.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-slot@1.2.3
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-switch@1.2.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-tabs@1.1.13
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-toast@1.2.15
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-toggle-group@1.1.11
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-toggle@1.1.10
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-tooltip@1.2.8
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @react-email/components@0.3.3
+│ ├─┬ @react-email/body@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/button@0.2.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/code-block@0.1.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/code-inline@0.0.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/column@0.0.13
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/container@0.0.15
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/font@0.0.9
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/head@0.0.12
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/heading@0.0.15
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/hr@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/html@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/img@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/link@0.0.12
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/markdown@0.0.15
+│ │ ├─┬ md-to-react-email@5.0.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/preview@0.0.13
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/render@1.1.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/row@0.0.12
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/section@0.0.16
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/tailwind@1.2.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/text@0.1.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @react-google-maps/api@2.20.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @react-three/drei@9.122.0
+│ ├─┬ @react-spring/three@9.7.5
+│ │ ├─┬ @react-spring/animated@9.7.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@9.7.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@9.7.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @use-gesture/react@10.3.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-composer@5.0.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ ├─┬ suspend-react@0.1.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └─┬ tunnel-rat@0.1.2
+│   └─┬ zustand@4.5.7
+│     └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ @react-three/fiber@8.18.0
+│ ├─┬ its-fine@1.2.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-reconciler@0.27.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-use-measure@2.1.7
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped
+│ └─┬ zustand@3.7.2
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ @reduxjs/toolkit@2.9.0
+│ └── react@18.3.1 deduped
+├─┬ @sentry/react@9.46.0
+│ └── react@18.3.1 deduped
+├─┬ @stripe/react-stripe-js@3.10.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @tanstack/react-query@5.90.5
+│ └── react@18.3.1 deduped
+├─┬ @testing-library/react@16.3.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @uppy/react@4.5.2
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ use-sync-external-store@1.6.0
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ cmdk@1.1.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ embla-carousel-react@8.6.0
+│ └── react@18.3.1 deduped
+├─┬ emoji-picker-react@4.14.1
+│ └── react@18.3.1 deduped
+├─┬ framer-motion@11.18.2
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ grapesjs-react@4.0.3
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ input-otp@1.4.2
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ lucide-react@0.453.0
+│ └── react@18.3.1 deduped
+├─┬ motion@12.23.24
+│ ├─┬ framer-motion@12.23.24
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ mui-chips-input@7.0.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ next-themes@0.4.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ next@15.5.5
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ styled-jsx@5.1.6
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-avatar-group@1.0.2
+│ ├─┬ @tippyjs/react@4.2.6
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-big-calendar@1.19.4
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-overlays@5.2.1
+│ │ ├─┬ @restart/hooks@0.4.16
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped
+│ └─┬ uncontrollable@7.2.1
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-confetti@6.4.0
+│ └── react@18.3.1 deduped
+├─┬ react-contenteditable@3.3.7
+│ └── react@18.3.1 deduped
+├─┬ react-copy-to-clipboard@5.1.0
+│ └── react@18.3.1 deduped
+├─┬ react-countdown@2.3.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-day-picker@8.10.1
+│ └── react@18.3.1 deduped
+├─┬ react-dom@18.3.1
+│ └── react@18.3.1 deduped
+├─┬ react-dropzone@14.3.8
+│ └── react@18.3.1 deduped
+├─┬ react-flow-renderer@10.3.17
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ zustand@3.7.2
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-helmet@6.1.0
+│ ├─┬ react-side-effect@2.1.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ react-hook-form@7.65.0
+│ └── react@18.3.1 deduped
+├─┬ react-hot-toast@2.6.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-hotkeys-hook@5.2.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-i18next@15.7.4
+│ └── react@18.3.1 deduped
+├─┬ react-icons@5.5.0
+│ └── react@18.3.1 deduped
+├─┬ react-image-crop@11.0.10
+│ └── react@18.3.1 deduped
+├─┬ react-image-gallery@1.4.0
+│ └── react@18.3.1 deduped
+├─┬ react-infinite-scroll-component@6.1.0
+│ └── react@18.3.1 deduped
+├─┬ react-intersection-observer@9.16.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-lazy-load-image-component@1.6.3
+│ └── react@18.3.1 deduped
+├─┬ react-lazyload@3.2.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-leaflet@4.2.1
+│ ├─┬ @react-leaflet/core@2.1.0
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-loading-skeleton@3.5.0
+│ └── react@18.3.1 deduped
+├─┬ react-markdown@10.1.0
+│ └── react@18.3.1 deduped
+├─┬ react-mentions@3.3.2
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └─┬ substyle@6.3.1
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-quill@0.0.2
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-redux@9.2.0
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-resizable-panels@2.1.9
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-router-dom@7.9.4
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-router@7.9.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-select@5.10.2
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └─┬ use-isomorphic-layout-effect@1.2.1
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-share@5.2.2
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-social-media-embed@2.5.18
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-html-props@2.1.1
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-sub-unsub@2.2.8
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-twitter-embed@4.0.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-youtube@10.1.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-spring@10.0.3
+│ ├─┬ @react-spring/core@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/konva@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/native@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/three@10.0.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/web@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/zdog@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-sticky@6.0.3
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-tooltip@5.30.0
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-window@1.8.11
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├── react@18.3.1 invalid: "16.x" from node_modules/react-mentions
+├─┬ recharts@2.15.4
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-smooth@4.0.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ resend@4.8.0
+│ └─┬ @react-email/render@1.1.2
+│   ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ vaul@1.1.2
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ wouter@3.7.1
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+└─┬ zustand@5.0.8
+  └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+
+npm error code ELSPROBLEMS
+npm error invalid: react@18.3.1 /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/node_modules/react
+npm error invalid: react-dom@18.3.1 /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/node_modules/react-dom
+npm error A complete log of this run can be found in: /tmp/npm-cache/_logs/2025-10-17T00_26_21_508Z-debug-0.log
+scottboddye@Pugliese Mundo_Tango_App_emergent % cat >> package.json << 'EOF'
+
+This command will ADD these lines to your package.json - Run this:
+
+npm pkg set overrides.react="^18.3.1"
+npm pkg set overrides.react-dom="^18.3.1"
+heredoc> ç
+scottboddye@Pugliese Mundo_Tango_App_emergent % cat >> package.json << 'EOF'
+
+heredoc> 
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+npm ls react react-dom
+rest-express@1.0.0 /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent
+├─┬ @casl/react@5.0.0
+│ └── react@18.3.1 deduped
+├─┬ @codesandbox/sandpack-react@2.20.0
+│ ├─┬ @react-hook/intersection-observer@3.1.2
+│ │ ├─┬ @react-hook/passive-layout-effect@1.2.1
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @craftjs/core@0.2.12
+│ ├─┬ @craftjs/utils@0.2.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/core@6.3.1
+│ ├─┬ @dnd-kit/accessibility@3.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/modifiers@9.0.0
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/sortable@10.0.0
+│ └── react@18.3.1 deduped
+├─┬ @dnd-kit/utilities@3.2.2
+│ └── react@18.3.1 deduped
+├─┬ @emotion/react@11.14.0
+│ ├─┬ @emotion/use-insertion-effect-with-fallbacks@1.2.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @emotion/styled@11.14.1
+│ └── react@18.3.1 deduped
+├─┬ @gsap/react@2.1.2
+│ └── react@18.3.1 deduped
+├─┬ @ladle/react@5.1.0
+│ ├─┬ @ladle/react-context@1.0.1
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @mdx-js/react@3.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ prism-react-renderer@2.4.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-hotkeys-hook@4.6.2
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-inspector@6.0.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @langchain/langgraph@0.4.9
+│ └─┬ @langchain/langgraph-sdk@0.1.10
+│   ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ @mui/icons-material@7.3.4
+│ └── react@18.3.1 deduped
+├─┬ @mui/material@7.3.4
+│ ├─┬ @mui/system@7.3.3
+│ │ ├─┬ @mui/private-theming@7.3.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @mui/styled-engine@7.3.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @mui/utils@7.3.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-transition-group@4.4.5
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @mui/x-date-pickers@8.14.1
+│ ├─┬ @mui/x-internals@8.14.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @novu/react@3.10.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-accordion@1.2.12
+│ ├─┬ @radix-ui/react-collection@1.1.7
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-compose-refs@1.1.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-context@1.1.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-direction@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-id@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-primitive@2.1.3
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-controllable-state@1.2.2
+│ │ ├─┬ @radix-ui/react-use-effect-event@0.0.2
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-alert-dialog@1.1.15
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-aspect-ratio@1.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-avatar@1.1.10
+│ ├─┬ @radix-ui/react-use-callback-ref@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-is-hydrated@0.1.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-layout-effect@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-checkbox@1.3.3
+│ ├─┬ @radix-ui/react-presence@1.1.5
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-previous@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-use-size@1.1.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-collapsible@1.1.12
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-context-menu@2.2.16
+│ ├─┬ @radix-ui/react-menu@2.1.16
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-dialog@1.1.15
+│ ├─┬ @radix-ui/react-dismissable-layer@1.1.11
+│ │ ├─┬ @radix-ui/react-use-escape-keydown@1.1.1
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-focus-guards@1.1.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-focus-scope@1.1.7
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @radix-ui/react-portal@1.1.9
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-remove-scroll@2.7.1
+│ │ ├─┬ react-remove-scroll-bar@2.3.8
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ react-style-singleton@2.2.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ use-callback-ref@1.3.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └─┬ use-sidecar@1.1.3
+│ │   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-dropdown-menu@2.1.16
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-hover-card@1.1.15
+│ ├─┬ @radix-ui/react-popper@1.2.8
+│ │ ├─┬ @floating-ui/react-dom@2.1.6
+│ │ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @radix-ui/react-arrow@1.1.7
+│ │ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @radix-ui/react-use-rect@1.1.1
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-label@2.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-menubar@1.1.16
+│ ├─┬ @radix-ui/react-roving-focus@1.1.11
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-navigation-menu@1.2.14
+│ ├─┬ @radix-ui/react-visually-hidden@1.2.3
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-popover@1.1.15
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-progress@1.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-radio-group@1.3.8
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-scroll-area@1.2.10
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-select@2.2.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-separator@1.1.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-slider@1.3.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-slot@1.2.3
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-switch@1.2.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-tabs@1.1.13
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-toast@1.2.15
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-toggle-group@1.1.11
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-toggle@1.1.10
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @radix-ui/react-tooltip@1.2.8
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @react-email/components@0.3.3
+│ ├─┬ @react-email/body@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/button@0.2.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/code-block@0.1.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/code-inline@0.0.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/column@0.0.13
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/container@0.0.15
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/font@0.0.9
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/head@0.0.12
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/heading@0.0.15
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/hr@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/html@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/img@0.0.11
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/link@0.0.12
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/markdown@0.0.15
+│ │ ├─┬ md-to-react-email@5.0.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/preview@0.0.13
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/render@1.1.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/row@0.0.12
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/section@0.0.16
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/tailwind@1.2.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-email/text@0.1.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ @react-google-maps/api@2.20.7
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @react-three/drei@9.122.0
+│ ├─┬ @react-spring/three@9.7.5
+│ │ ├─┬ @react-spring/animated@9.7.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@9.7.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@9.7.5
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @use-gesture/react@10.3.1
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-composer@5.0.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ ├─┬ suspend-react@0.1.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └─┬ tunnel-rat@0.1.2
+│   └─┬ zustand@4.5.7
+│     └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ @react-three/fiber@8.18.0
+│ ├─┬ its-fine@1.2.5
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-reconciler@0.27.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-use-measure@2.1.7
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped
+│ └─┬ zustand@3.7.2
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ @reduxjs/toolkit@2.9.0
+│ └── react@18.3.1 deduped
+├─┬ @sentry/react@9.46.0
+│ └── react@18.3.1 deduped
+├─┬ @stripe/react-stripe-js@3.10.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @tanstack/react-query@5.90.5
+│ └── react@18.3.1 deduped
+├─┬ @testing-library/react@16.3.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ @uppy/react@4.5.2
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ use-sync-external-store@1.6.0
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ cmdk@1.1.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ embla-carousel-react@8.6.0
+│ └── react@18.3.1 deduped
+├─┬ emoji-picker-react@4.14.1
+│ └── react@18.3.1 deduped
+├─┬ framer-motion@11.18.2
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ grapesjs-react@4.0.3
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ input-otp@1.4.2
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ lucide-react@0.453.0
+│ └── react@18.3.1 deduped
+├─┬ motion@12.23.24
+│ ├─┬ framer-motion@12.23.24
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ mui-chips-input@7.0.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ next-themes@0.4.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ next@15.5.5
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ styled-jsx@5.1.6
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-avatar-group@1.0.2
+│ ├─┬ @tippyjs/react@4.2.6
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-big-calendar@1.19.4
+│ ├── react-dom@18.3.1 deduped
+│ ├─┬ react-overlays@5.2.1
+│ │ ├─┬ @restart/hooks@0.4.16
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped
+│ └─┬ uncontrollable@7.2.1
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-confetti@6.4.0
+│ └── react@18.3.1 deduped
+├─┬ react-contenteditable@3.3.7
+│ └── react@18.3.1 deduped
+├─┬ react-copy-to-clipboard@5.1.0
+│ └── react@18.3.1 deduped
+├─┬ react-countdown@2.3.6
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-day-picker@8.10.1
+│ └── react@18.3.1 deduped
+├─┬ react-dom@18.3.1
+│ └── react@18.3.1 deduped
+├─┬ react-dropzone@14.3.8
+│ └── react@18.3.1 deduped
+├─┬ react-flow-renderer@10.3.17
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ zustand@3.7.2
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-helmet@6.1.0
+│ ├─┬ react-side-effect@2.1.2
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped
+├─┬ react-hook-form@7.65.0
+│ └── react@18.3.1 deduped
+├─┬ react-hot-toast@2.6.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-hotkeys-hook@5.2.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-i18next@15.7.4
+│ └── react@18.3.1 deduped
+├─┬ react-icons@5.5.0
+│ └── react@18.3.1 deduped
+├─┬ react-image-crop@11.0.10
+│ └── react@18.3.1 deduped
+├─┬ react-image-gallery@1.4.0
+│ └── react@18.3.1 deduped
+├─┬ react-infinite-scroll-component@6.1.0
+│ └── react@18.3.1 deduped
+├─┬ react-intersection-observer@9.16.0
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-lazy-load-image-component@1.6.3
+│ └── react@18.3.1 deduped
+├─┬ react-lazyload@3.2.1
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-leaflet@4.2.1
+│ ├─┬ @react-leaflet/core@2.1.0
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped
+│ └── react@18.3.1 deduped
+├─┬ react-loading-skeleton@3.5.0
+│ └── react@18.3.1 deduped
+├─┬ react-markdown@10.1.0
+│ └── react@18.3.1 deduped
+├─┬ react-mentions@3.3.2
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └─┬ substyle@6.3.1
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-quill@0.0.2
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-redux@9.2.0
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-resizable-panels@2.1.9
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-router-dom@7.9.4
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-router@7.9.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-select@5.10.2
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └─┬ use-isomorphic-layout-effect@1.2.1
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-share@5.2.2
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-social-media-embed@2.5.18
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-html-props@2.1.1
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-sub-unsub@2.2.8
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-twitter-embed@4.0.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-youtube@10.1.0
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-spring@10.0.3
+│ ├─┬ @react-spring/core@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/konva@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/native@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/three@10.0.3
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/web@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ @react-spring/zdog@10.0.3
+│ │ ├─┬ @react-spring/animated@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/core@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├─┬ @react-spring/shared@10.0.3
+│ │ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-sticky@6.0.3
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-tooltip@5.30.0
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ react-window@1.8.11
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├── react@18.3.1 invalid: "16.x" from node_modules/react-mentions
+├─┬ recharts@2.15.4
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ ├─┬ react-smooth@4.0.4
+│ │ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ │ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ resend@4.8.0
+│ └─┬ @react-email/render@1.1.2
+│   ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│   └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ vaul@1.1.2
+│ ├── react-dom@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+├─┬ wouter@3.7.1
+│ └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+└─┬ zustand@5.0.8
+  └── react@18.3.1 deduped invalid: "16.x" from node_modules/react-mentions
+
+npm error code ELSPROBLEMS
+npm error invalid: react@18.3.1 /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/node_modules/react
+npm error invalid: react-dom@18.3.1 /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/node_modules/react-dom
+npm error A complete log of this run can be found in: /tmp/npm-cache/_logs/2025-10-17T00_27_27_301Z-debug-0.log
+scottboddye@Pugliese Mundo_Tango_App_emergent % npm pkg set overrides.react="^18.3.1"
+npm pkg set overrides.react-dom="^18.3.1"
+scottboddye@Pugliese Mundo_Tango_App_emergent % rm -rf node_modules package-lock.json client/dist .vite
+npm install
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+npm warn deprecated rimraf@2.6.3: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
+npm warn deprecated opn@6.0.0: The package has been renamed to `open`
+npm warn deprecated grapesjs-react@4.0.3: This package is deprecated. Please use the official package @grapesjs/react instead: https://www.npmjs.com/package/@grapesjs/react
+npm warn deprecated backbone-undo@0.2.6: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated acorn-import-assertions@1.9.0: package has been renamed to acorn-import-attributes
+npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+npm warn deprecated
+npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+npm warn deprecated gauge@3.0.2: This package is no longer supported.
+npm warn deprecated argv@0.0.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated boolean@3.2.0: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated puppeteer@22.15.0: < 24.15.0 is no longer supported
+npm warn deprecated vectordb@0.21.2: Use @lancedb/lancedb instead.
+npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+npm warn deprecated @opentelemetry/otlp-proto-exporter-base@0.41.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @novu/node@2.6.6: March 20, 2025 marks the end of support for @novu/node. Users can migrate to the new @novu/api package for most popular JS runtimes. For more information, visit https://docs.novu.co/platform/sdks/server/typescript
+npm warn deprecated react-flow-renderer@10.3.17: react-flow-renderer has been renamed to reactflow, please use this package from now on https://reactflow.dev/docs/guides/migrate-to-v11/
+npm warn deprecated fluent-ffmpeg@2.1.3: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @faker-js/faker@5.5.3: Please update to a newer version.
+
+added 4146 packages in 2m
+scottboddye@Pugliese Mundo_Tango_App_emergent % npm run build
+
+> rest-express@1.0.0 prebuild
+> rm -rf dist build .vite client/dist
+
+
+> rest-express@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=2048' vite build
+
+vite v7.1.10 building for production...
+
+/ocean-pattern.svg referenced in /ocean-pattern.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 5416 modules transformed.
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/en/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/es/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/fr/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/de/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/it/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/pt/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/GuestProfile/GuestProfileDisplay.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/profile/OptimizedProfileComponents.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/profile.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/modern/ShareModal.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/ESAMemoryFeed.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/ControlledPostFeed.tsx, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/PostFeed.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/data/comprehensive-project-data.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/LifeCEOCommandCenter.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/JiraExportDashboard.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/storage/localStorage.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx, dynamic import will not move module into another chunk.
+
+dist/assets/manifest-D4CB6x4t.json               4.10 kB
+dist/index.html                                  4.51 kB
+dist/assets/vendor-Ct8VOvjE.css                 18.39 kB
+dist/assets/vendor-react-DBMJUraV.css           27.81 kB
+dist/assets/index-CBs2d1VV.css                 409.60 kB
+dist/js/ui-ByoYm48K.js                           0.20 kB
+dist/js/TestGroupedRoleSelector-DuTLzl4b.js      0.63 kB
+dist/js/UpcomingEvents-Dt6Jr4dt.js               0.67 kB
+dist/js/UserEventsList-xz8Awq4W.js               2.79 kB
+dist/js/CommunityStats-DX30MySX.js               2.85 kB
+dist/js/UserPhotosGallery-BXB0LSnW.js            3.08 kB
+dist/js/UserFriendsList-CznJVyKx.js              3.28 kB
+dist/js/UserVideosGallery-D8qDiBo3.js            3.42 kB
+dist/js/UpcomingEventsSidebar-VKE_y34c.js        4.20 kB
+dist/js/LeafletMap-CoJ0NoR9.js                   4.35 kB
+dist/js/EnhancedPostFeed-CaHsbV2p.js             8.12 kB
+dist/js/common-CcvKlgcH.js                      15.39 kB
+dist/js/TravelDetailsComponent-KTCHEdTG.js      20.98 kB
+dist/js/utils-CEPa3U-Y.js                      224.78 kB
+dist/js/vendor-react-Bm6VAiMt.js               939.71 kB
+dist/js/index-BQtQPii-.js                    2,431.13 kB
+dist/js/vendor-CyGJMDPb.js                   4,216.33 kB
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 26.05s
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd client
+rm -f dist.zip
+zip -r dist.zip dist/
+ls -lh dist.zip
+  adding: dist/ (stored 0%)
+  adding: dist/offline.html (deflated 73%)
+  adding: dist/index.html (deflated 61%)
+  adding: dist/locales/ (stored 0%)
+  adding: dist/locales/pl/ (stored 0%)
+  adding: dist/locales/pl/common.json (deflated 69%)
+  adding: dist/locales/pl/admin.json (deflated 67%)
+  adding: dist/locales/sv/ (stored 0%)
+  adding: dist/locales/sv/common.json (deflated 69%)
+  adding: dist/locales/sv/admin.json (deflated 67%)
+  adding: dist/locales/da/ (stored 0%)
+  adding: dist/locales/da/common.json (deflated 69%)
+  adding: dist/locales/da/admin.json (deflated 67%)
+  adding: dist/locales/no/ (stored 0%)
+  adding: dist/locales/no/common.json (deflated 69%)
+  adding: dist/locales/no/admin.json (deflated 67%)
+  adding: dist/locales/ja/ (stored 0%)
+  adding: dist/locales/ja/common.json (deflated 69%)
+  adding: dist/locales/ja/admin.json (deflated 67%)
+  adding: dist/locales/it/ (stored 0%)
+  adding: dist/locales/it/common.json (deflated 69%)
+  adding: dist/locales/it/admin.json (deflated 67%)
+  adding: dist/locales/cs/ (stored 0%)
+  adding: dist/locales/cs/common.json (deflated 69%)
+  adding: dist/locales/cs/admin.json (deflated 67%)
+  adding: dist/locales/ru/ (stored 0%)
+  adding: dist/locales/ru/common.json (deflated 69%)
+  adding: dist/locales/ru/admin.json (deflated 67%)
+  adding: dist/locales/pt/ (stored 0%)
+  adding: dist/locales/pt/common.json (deflated 69%)
+  adding: dist/locales/pt/admin.json (deflated 67%)
+  adding: dist/locales/zh/ (stored 0%)
+  adding: dist/locales/zh/common.json (deflated 69%)
+  adding: dist/locales/zh/admin.json (deflated 67%)
+  adding: dist/locales/ar/ (stored 0%)
+  adding: dist/locales/ar/common.json (deflated 69%)
+  adding: dist/locales/ar/admin.json (deflated 67%)
+  adding: dist/locales/nl/ (stored 0%)
+  adding: dist/locales/nl/common.json (deflated 69%)
+  adding: dist/locales/nl/admin.json (deflated 67%)
+  adding: dist/locales/hi/ (stored 0%)
+  adding: dist/locales/hi/common.json (deflated 69%)
+  adding: dist/locales/hi/admin.json (deflated 67%)
+  adding: dist/locales/de/ (stored 0%)
+  adding: dist/locales/de/common.json (deflated 69%)
+  adding: dist/locales/de/admin.json (deflated 67%)
+  adding: dist/locales/ko/ (stored 0%)
+  adding: dist/locales/ko/common.json (deflated 69%)
+  adding: dist/locales/ko/admin.json (deflated 67%)
+  adding: dist/locales/fi/ (stored 0%)
+  adding: dist/locales/fi/common.json (deflated 69%)
+  adding: dist/locales/fi/admin.json (deflated 67%)
+  adding: dist/locales/fr/ (stored 0%)
+  adding: dist/locales/fr/common.json (deflated 69%)
+  adding: dist/locales/fr/admin.json (deflated 67%)
+  adding: dist/locales/es/ (stored 0%)
+  adding: dist/locales/es/common.json (deflated 69%)
+  adding: dist/locales/es/admin.json (deflated 67%)
+  adding: dist/locales/en/ (stored 0%)
+  adding: dist/locales/en/common.json (deflated 66%)
+  adding: dist/locales/en/admin.json (deflated 64%)
+  adding: dist/locales/tr/ (stored 0%)
+  adding: dist/locales/tr/common.json (deflated 69%)
+  adding: dist/locales/tr/admin.json (deflated 67%)
+  adding: dist/js/ (stored 0%)
+  adding: dist/js/UserFriendsList-CznJVyKx.js (deflated 65%)
+  adding: dist/js/UpcomingEvents-Dt6Jr4dt.js (deflated 39%)
+  adding: dist/js/TestGroupedRoleSelector-DuTLzl4b.js (deflated 40%)
+  adding: dist/js/vendor-CyGJMDPb.js (deflated 72%)
+  adding: dist/js/CommunityStats-DX30MySX.js (deflated 73%)
+  adding: dist/js/UserVideosGallery-D8qDiBo3.js (deflated 62%)
+  adding: dist/js/UserEventsList-xz8Awq4W.js (deflated 65%)
+  adding: dist/js/TravelDetailsComponent-KTCHEdTG.js (deflated 77%)
+  adding: dist/js/ui-ByoYm48K.js (deflated 28%)
+  adding: dist/js/index-BQtQPii-.js (deflated 78%)
+  adding: dist/js/vendor-react-Bm6VAiMt.js (deflated 69%)
+  adding: dist/js/LeafletMap-CoJ0NoR9.js (deflated 65%)
+  adding: dist/js/EnhancedPostFeed-CaHsbV2p.js (deflated 68%)
+  adding: dist/js/UserPhotosGallery-BXB0LSnW.js (deflated 61%)
+  adding: dist/js/UpcomingEventsSidebar-VKE_y34c.js (deflated 61%)
+  adding: dist/js/utils-CEPa3U-Y.js (deflated 71%)
+  adding: dist/js/common-CcvKlgcH.js (deflated 60%)
+  adding: dist/test-react.html (deflated 54%)
+  adding: dist/life-ceo-icon-512.png (deflated 17%)
+  adding: dist/icons/ (stored 0%)
+  adding: dist/icons/icon-192.svg (deflated 43%)
+  adding: dist/icons/icon-192.png (deflated 2%)
+  adding: dist/icons/icon-512.svg (deflated 43%)
+  adding: dist/icons/icon-512.png (deflated 17%)
+  adding: dist/i18n/ (stored 0%)
+  adding: dist/i18n/it/ (stored 0%)
+  adding: dist/i18n/it/common.json (deflated 64%)
+  adding: dist/i18n/pt/ (stored 0%)
+  adding: dist/i18n/pt/common.json (deflated 63%)
+  adding: dist/i18n/fr/ (stored 0%)
+  adding: dist/i18n/fr/common.json (deflated 64%)
+  adding: dist/i18n/es/ (stored 0%)
+  adding: dist/i18n/es/events.json (deflated 64%)
+  adding: dist/i18n/es/common.json (deflated 63%)
+  adding: dist/i18n/es/social.json (deflated 67%)
+  adding: dist/i18n/es/agents.json (deflated 66%)
+  adding: dist/i18n/en/ (stored 0%)
+  adding: dist/i18n/en/events.json (deflated 68%)
+  adding: dist/i18n/en/common.json (deflated 69%)
+  adding: dist/i18n/en/social.json (deflated 71%)
+  adding: dist/i18n/en/agents.json (deflated 69%)
+  adding: dist/i18n/en/placeholders.json (deflated 65%)
+  adding: dist/assets/ (stored 0%)
+  adding: dist/assets/manifest-D4CB6x4t.json (deflated 75%)
+  adding: dist/assets/vendor-Ct8VOvjE.css (deflated 61%)
+  adding: dist/assets/vendor-react-DBMJUraV.css (deflated 81%)
+  adding: dist/assets/index-CBs2d1VV.css (deflated 87%)
+  adding: dist/life-ceo-icon-192.png (deflated 2%)
+  adding: dist/sw.js (deflated 70%)
+  adding: dist/placeholder.svg (deflated 40%)
+-rw-r--r--  1 scottboddye  staff   2.5M Oct 16 17:31 dist.zip
+scottboddye@Pugliese client % 

@@ -1,0 +1,158 @@
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm install 22
+Downloading and installing node v22.20.0...
+Downloading https://nodejs.org/dist/v22.20.0/node-v22.20.0-darwin-arm64.tar.xz...
+######################################################################### 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0` to unset it.
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm use 22
+nvm alias default 22
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.20.0` to unset it.
+default -> 22 (-> v22.20.0)
+scottboddye@Pugliese Mundo_Tango_App_emergent % node --version
+npm --version
+v22.20.0
+10.9.3
+scottboddye@Pugliese Mundo_Tango_App_emergent % nvm ls
+        v21.5.0
+->     v22.20.0
+         system
+default -> 22 (-> v22.20.0)
+iojs -> N/A (default)
+unstable -> N/A (default)
+node -> stable (-> v22.20.0) (default)
+stable -> 22.20 (-> v22.20.0) (default)
+lts/* -> lts/jod (-> v22.20.0)
+lts/argon -> v4.9.1 (-> N/A)
+lts/boron -> v6.17.1 (-> N/A)
+lts/carbon -> v8.17.0 (-> N/A)
+lts/dubnium -> v10.24.1 (-> N/A)
+lts/erbium -> v12.22.12 (-> N/A)
+lts/fermium -> v14.21.3 (-> N/A)
+lts/gallium -> v16.20.2 (-> N/A)
+lts/hydrogen -> v18.20.8 (-> N/A)
+lts/iron -> v20.19.5 (-> N/A)
+lts/jod -> v22.20.0
+scottboddye@Pugliese Mundo_Tango_App_emergent % cd ~/Documents/GitHub/Mundo_Tango_App_emergent
+rm -rf node_modules package-lock.json client/dist
+npm install
+npm run build
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+npm warn deprecated rimraf@2.6.3: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
+npm warn deprecated opn@6.0.0: The package has been renamed to `open`
+npm warn deprecated grapesjs-react@4.0.3: This package is deprecated. Please use the official package @grapesjs/react instead: https://www.npmjs.com/package/@grapesjs/react
+npm warn deprecated backbone-undo@0.2.6: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated acorn-import-assertions@1.9.0: package has been renamed to acorn-import-attributes
+npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+npm warn deprecated
+npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+npm warn deprecated gauge@3.0.2: This package is no longer supported.
+npm warn deprecated argv@0.0.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated boolean@3.2.0: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated puppeteer@22.15.0: < 24.15.0 is no longer supported
+npm warn deprecated vectordb@0.21.2: Use @lancedb/lancedb instead.
+npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+npm warn deprecated @opentelemetry/otlp-proto-exporter-base@0.41.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @novu/node@2.6.6: March 20, 2025 marks the end of support for @novu/node. Users can migrate to the new @novu/api package for most popular JS runtimes. For more information, visit https://docs.novu.co/platform/sdks/server/typescript
+npm warn deprecated react-flow-renderer@10.3.17: react-flow-renderer has been renamed to reactflow, please use this package from now on https://reactflow.dev/docs/guides/migrate-to-v11/
+npm warn deprecated fluent-ffmpeg@2.1.3: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @faker-js/faker@5.5.3: Please update to a newer version.
+
+added 4146 packages in 5m
+
+> rest-express@1.0.0 prebuild
+> rm -rf dist build .vite client/dist
+
+
+> rest-express@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=2048' vite build
+
+vite v7.1.10 building for production...
+
+/ocean-pattern.svg referenced in /ocean-pattern.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 5416 modules transformed.
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/en/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/es/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/fr/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/de/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/it/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/locales/pt/common.json is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/i18n/config.ts, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/i18n.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/GuestProfile/GuestProfileDisplay.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/profile/OptimizedProfileComponents.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/profile.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/modern/ShareModal.tsx is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/pages/ESAMemoryFeed.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/ControlledPostFeed.tsx, /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/moments/PostFeed.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/data/comprehensive-project-data.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/LifeCEOCommandCenter.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/components/admin/JiraExportDashboard.tsx, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/storage/localStorage.ts is dynamically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx but also statically imported by /Users/scottboddye/Documents/GitHub/Mundo_Tango_App_emergent/client/src/lib/mrBlue/ai/ScottAI.tsx, dynamic import will not move module into another chunk.
+
+dist/assets/manifest-D4CB6x4t.json               4.10 kB
+dist/index.html                                  4.51 kB
+dist/assets/vendor-Ct8VOvjE.css                 18.39 kB
+dist/assets/vendor-react-DBMJUraV.css           27.81 kB
+dist/assets/index-CBs2d1VV.css                 409.60 kB
+dist/js/ui-ByoYm48K.js                           0.20 kB
+dist/js/TestGroupedRoleSelector-DuTLzl4b.js      0.63 kB
+dist/js/UpcomingEvents-Dt6Jr4dt.js               0.67 kB
+dist/js/UserEventsList-xz8Awq4W.js               2.79 kB
+dist/js/CommunityStats-DX30MySX.js               2.85 kB
+dist/js/UserPhotosGallery-BXB0LSnW.js            3.08 kB
+dist/js/UserFriendsList-CznJVyKx.js              3.28 kB
+dist/js/UserVideosGallery-D8qDiBo3.js            3.42 kB
+dist/js/UpcomingEventsSidebar-VKE_y34c.js        4.20 kB
+dist/js/LeafletMap-CoJ0NoR9.js                   4.35 kB
+dist/js/EnhancedPostFeed-CaHsbV2p.js             8.12 kB
+dist/js/common-CcvKlgcH.js                      15.39 kB
+dist/js/TravelDetailsComponent-KTCHEdTG.js      20.98 kB
+dist/js/utils-CEPa3U-Y.js                      224.78 kB
+dist/js/vendor-react-Bm6VAiMt.js               939.71 kB
+dist/js/index-BQtQPii-.js                    2,431.13 kB
+dist/js/vendor-CyGJMDPb.js                   4,216.33 kB
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 25.91s

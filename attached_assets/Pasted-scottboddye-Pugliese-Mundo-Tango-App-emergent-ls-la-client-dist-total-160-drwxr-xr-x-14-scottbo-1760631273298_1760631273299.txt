@@ -1,0 +1,44 @@
+scottboddye@Pugliese Mundo_Tango_App_emergent % ls -la client/dist/
+total 160
+drwxr-xr-x  14 scottboddye  staff    448 Oct 16 09:08 .
+drwxr-xr-x@ 11 scottboddye  staff    352 Oct 16 09:08 ..
+drwxr-xr-x   6 scottboddye  staff    192 Oct 16 09:08 assets
+drwxr-xr-x   7 scottboddye  staff    224 Oct 16 09:08 i18n
+drwxr-xr-x   6 scottboddye  staff    192 Oct 16 09:08 icons
+-rw-r--r--   1 scottboddye  staff   4509 Oct 16 09:08 index.html
+drwxr-xr-x  19 scottboddye  staff    608 Oct 16 09:08 js
+-rw-r--r--   1 scottboddye  staff   8957 Oct 16 09:08 life-ceo-icon-192.png
+-rw-r--r--   1 scottboddye  staff  28423 Oct 16 09:08 life-ceo-icon-512.png
+drwxr-xr-x  22 scottboddye  staff    704 Oct 16 09:08 locales
+-rw-r--r--   1 scottboddye  staff   9774 Oct 16 09:08 offline.html
+-rw-r--r--   1 scottboddye  staff    553 Oct 16 09:08 placeholder.svg
+-rw-r--r--   1 scottboddye  staff   9795 Oct 16 09:08 sw.js
+-rw-r--r--   1 scottboddye  staff   1595 Oct 16 09:08 test-react.html
+scottboddye@Pugliese Mundo_Tango_App_emergent % 
+
+replit:
+~/workspace$ git pull origin conflict_100925_1852
+remote: Enumerating objects: 11, done.
+remote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objremote: Counting objects: 100% (11/11), done.
+remote: Compressing remote: Compressing remote: Compressing remote: Compressing remote: Compressing remote: Compressing objects: 100% (5/5), done.
+remote: Total 5 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects:  
+  100% (5/5), 1.44 KiB | 47.00 KiB/s, done.
+From https://github.com/MundoTango/Mundo_Tango_App_emergent
+ * branch            conflict_100925_1852 -> FETCH_HEAD
+   aadfa6f..304c0eb  conflict_100925_1852 -> origin/conflict_100925_1852
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+~/workspace$ 
+did it work 
