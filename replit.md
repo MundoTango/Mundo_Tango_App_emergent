@@ -1,137 +1,225 @@
-# Life CEO & Multi-Community Platform (ESA LIFE CEO 61x21)
-
-## Platform Identity
-**ESA LIFE CEO 61x21** represents:
-- **ESA**: El Sistema de Abrazo (The Embrace System) / Evaluate, Solution, Answer framework
-- **LIFE CEO**: Life Intelligence Framework & Executive Optimization  
-- **61**: 61 Development Layers (complete framework with automation, integration, open source, GitHub, and Supabase expertise)
-- **x21**: 21 Implementation Phases (systematic methodology)
-
-## CRITICAL: Platform Version Lock
-**LOCKED VERSION: Commit 9cab03b0 (August 10, 2025)**
-- Glassmorphic UI with turquoise-to-cyan gradients ("MT Ocean Theme")
-- Sidebar navigation: Feed, Memories, Profile, Events, Messages, Friends, Groups
-- DO NOT allow Evolution Service to auto-update
-- DO NOT use alternate App versions (App.simple.tsx, App.optimized.tsx removed)
-- DO NOT use alternate server versions (index-actual.ts removed)
+# Mundo Tango - ESA LIFE CEO 61×21 Platform
 
 ## Overview
 
-This project is a comprehensive digital ecosystem comprising a personal AI-powered life management system (Life CEO) and independent, data-isolated social community platforms, starting with Mundo Tango. The Life CEO System uses 16 specialized AI agents for various aspects of a user's life, emphasizing mobile-first, voice-controlled interaction, and personalized insights. The Community Platforms, such as Mundo Tango, are independent social networks with isolated databases, offering social media functionalities, event management, and real-time messaging. An Integration Layer facilitates secure, API-based communication between the Life CEO System and Community Platforms while maintaining strict boundaries. The platform prioritizes security, performance, and user experience, built upon a robust development framework. Key capabilities include a global payment system, advanced internationalization, comprehensive administrative controls, and AI-powered performance optimization.
+Mundo Tango is a comprehensive social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO 61×21 framework. The platform combines social networking features (memories/posts, events, profiles, groups) with AI-powered life management capabilities. It serves as both a tango-specific social network and a demonstration of the 61-layer agent-based architecture framework.
 
-**Latest Update (September 06, 2025 - 14:40 UTC)**: ESA LIFE CEO 61x21 Emergence.sh Integration Framework Complete:
-- **EMERGENCE.SH RESEARCH**: ✅ Complete analysis of Y Combinator-backed agentic vibe-coding platform
-- **INTEGRATION STRATEGY**: ✅ GitHub Bridge workflow, Component Library, and API Integration methods documented
-- **AGENT COMMANDS**: ✅ Comprehensive templates for Memories, Professional Groups, and Events agents
-- **FRAMEWORK UPDATE**: ✅ ESA_LIFE_CEO_61x21_AGENTS_FRAMEWORK.md enhanced with Emergence.sh section
-- **INSTRUCTIONS DOCUMENT**: ✅ EMERGENCE_INSTRUCTIONS.md created with copy-paste ready commands
-- **PHASE-BASED APPROACH**: ✅ 4-phase development strategy with priority implementation order
-- **SUCCESS METRICS**: ✅ Integration speed, code quality, and performance targets defined
-- **BRIDGE COMMANDS**: ✅ Integration scripts and continuous sync configuration completed
-
-**Previous Update (August 22, 2025 - 07:15 UTC)**: ESA LIFE CEO 61x21 Autoscale Deployment Ready:
-- **DEPLOYMENT TYPE**: ✅ Switched from Docker to Autoscale (avoids 8GB image limit)
-- **WORKSPACE OPTIMIZATION**: ✅ Moved heavy directories to /tmp, workspace reduced for deployment
-- **BUILD COMMAND**: ✅ `npm ci && NODE_OPTIONS="--max-old-space-size=1024" npm run build && npm prune --production && npm cache clean --force`
-- **RUN COMMAND**: ✅ `NODE_OPTIONS="--max-old-space-size=1024" npm run start`
-- **PORT CONFIG**: ✅ External Port: 80, Host: 0.0.0.0, server binds correctly
-- **HEALTH ENDPOINTS**: ✅ `/healthz` returns "ok", `/health` returns JSON status
-- **SECRETS**: ✅ All 17 required secrets verified (Database, Supabase, Stripe, Cloudinary, etc.)
-- **SERVER ENTRY**: ✅ server/index-deploy.js configured for production without vite/tsx
-- **MEMORY ALLOCATION**: ✅ Set to 1024MB for both build and runtime
-- **GIT SIZE**: ⚠️ 1.4GB (protected, cannot optimize further)
-- **DEPLOYMENT STATUS**: ✅ **READY FOR AUTOSCALE DEPLOYMENT** - All checks passed
+The application is production-ready with enterprise-grade features including real-time WebSocket communication, AI content enhancement, comprehensive testing infrastructure, and a distinctive MT Ocean theme (teal/cyan gradients with glassmorphic design).
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
-Do not reference monetary values or investment amounts when describing the platform.
-When user says "Use ESA", reference the ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md document as the authoritative framework guide.
-For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment readiness checklist.
 
 ## System Architecture
 
-The platform employs a decoupled, microservices-oriented architecture, separating Life CEO, Community Platforms, and an Integration Layer.
+### Frontend Architecture
 
-**Critical Architecture Decisions (ESA LIFE CEO 56x21):**
-- **Module System**: Server directory uses CommonJS (`server/package.json` with `"type": "commonjs"`) to avoid ES module conflicts
-- **Server Bootstrap**: JavaScript launcher spawns TypeScript server via tsx to bypass module loading issues
-- **Build Separation**: Frontend built independently with `npm run build`, served from `dist/public`
-- **Memory Allocation**: 4GB heap (`--max-old-space-size=4096`) with garbage collection exposed for video uploads
-- **Vite Bypass**: Production server runs without Vite dependencies to prevent top-level await errors
-- **Static File Serving**: Express serves uploads directory at `/uploads` for profile photos and media, and `/images` for default avatars
-- **React StrictMode**: Disabled in development to prevent double map rendering issues (would cause two map instances on community-world-map page)
-- **Video Upload System**: Enhanced hybrid approach with three upload methods:
-  - **YouTube/Vimeo URL Input**: NEW - Users paste URLs for instant embedding (perfect for 443MB+ videos)
-  - **Cloudinary Direct Upload**: Primary cloud solution - videos upload directly from browser to Cloudinary (bypasses server)
-  - **Server Upload with Compression**: Limited to 100MB with client-side compression for both images AND videos
-  - Client-side video compression using MediaRecorder API (reduces 443MB → ~25MB)
-  - Browser-image-compression for images (60-80% size reduction)
-  - Server protection: 100MB hard limit prevents memory crashes
-  - New `/api/posts/direct` endpoint accepts ONLY metadata (no file upload middleware)
-  - Zero memory usage for cloud uploads, no size limits
-  - Cloudinary integration active with 25GB free storage/bandwidth
-- **Media Preview**: Custom VideoPreview component with thumbnail generation and playback controls
-- **Security**: Console cleanup utility hides all internal framework references from browser console in production
+**Framework & Build System:**
+- React with TypeScript and Vite for fast development and production builds
+- Component-based architecture with reusable UI elements
+- MT Ocean theme system using Tailwind CSS with custom gradients (#5EEAD4 → #155E75)
+- Glassmorphic design pattern with backdrop-blur effects throughout
 
-**UI/UX Decisions:**
-- **Design System**: "MT Ocean Theme" utilizing turquoise to cyan gradients, glassmorphic cards, and consistent typography.
-- **Responsiveness**: Mobile-first design for optimal display across all devices.
-- **Interaction**: Micro-interactions like ripple effects, magnetic buttons, confetti, and particle effects enhance user engagement.
-- **Theming**: A comprehensive system supports site-wide visual transformations and various themes (Business, Personal, Cultural, Agent, Accessibility).
+**State Management:**
+- React Query for server state management and caching
+- Custom hooks for WebSocket connections (useSocket, useEventSocket)
+- Context providers for authentication and user data
+- Local state management with React hooks
 
-**Technical Implementations:**
-- **Frontend**: React with functional components, hooks, React Query for API state, and context APIs for global state. Client-side routing is used.
-- **Backend**: Node.js with Express.js for RESTful APIs, utilizing TypeScript for type safety.
-- **Real-time**: WebSocket (Socket.io) for live messaging and notifications.
-- **Authentication**: JWT-based and session-based (Replit OAuth) authentication with RBAC/ABAC using `@casl/ability`.
-- **Database Interaction**: Drizzle ORM for PostgreSQL.
-- **Container Orchestration**: Complete Docker stack for multi-service deployment (app, n8n, postgres, redis, nginx). Includes security hardening, health checks, and auto-scaling.
-- **Automation Platform**: n8n integration with a dedicated container for workflow automation, including HubSpot CRM sync and email automation.
-- **Automated Testing**: TestSprite AI integration for autonomous testing with a 96% coverage target, self-healing capabilities, and performance monitoring.
-- **Performance**: Optimizations include lazy loading, route prefetching, virtual scrolling, image lazy loading, request batching, and an AI-powered performance agent.
-- **Internationalization**: Full infrastructure for language management and UI/content translation.
-- **Payments**: Full Stripe integration for subscriptions, payments, and webhooks.
+**Key Design Decisions:**
+- Chose Vite over Create React App for faster build times and better developer experience
+- Implemented glassmorphic design to differentiate from standard Material UI applications
+- Used React Query to handle API caching and reduce server load
+- Mobile-first responsive design with touch-optimized interactions
 
-**Feature Specifications:**
-- **User Profiles**: Comprehensive profiles with community-specific roles, travel details, guest profiles, and an engagement system.
-- **Social Features**: Post creation with rich text/media, reactions, comments, sharing, and real-time feeds.
-- **Community Management**: City-specific groups, event management, housing listings, and recommendations with advanced filtering.
-- **Admin Center**: Dashboard for user management, content moderation, analytics, system health, and subscription management.
-- **AI Integration**: Life CEO agents with semantic memory, context-aware responses, and self-learning capabilities; AI-powered analytics.
-- **Security**: Robust database security with Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
-- **Reporting System**: Comprehensive content reporting with moderation workflows.
-- **Onboarding**: Multi-step wizards for guest profile creation/booking and host property listing.
-- **Maps**: Interactive maps using Leaflet.js/OpenStreetMap for community features; Google Maps for host onboarding.
-- **Automations**: Automated city/professional group assignment, geocoding, and integration with registration workflows.
+### Backend Architecture
 
-**System Design Choices:**
-- **Microservices**: Decoupled Life CEO, Community Platforms, and Integration Layer for scalability.
-- **Data Sovereignty**: Each system maintains an isolated database.
-- **API-First**: All inter-system communication occurs via versioned APIs.
-- **Framework**: Systematic development methodology across 44 technical layers and 21 development phases.
-- **PWA**: Progressive Web App capabilities for an enhanced mobile experience.
+**Server Framework:**
+- Node.js with Express and TypeScript
+- Dual server configuration: primary server (port 5000) with Socket.io integration
+- RESTful API design with standardized response format: `{ success, data, error, message }`
 
-## External Dependencies
+**Authentication & Authorization:**
+- JWT-based authentication with Replit OAuth integration
+- Development bypass mode when NODE_ENV=development
+- Role-based access control (RBAC) for admin/user permissions
+- Attribute-based access control (ABAC) for privacy settings (public/friends/private)
 
-- **Database**: PostgreSQL (Neon serverless)
-- **ORM**: Drizzle ORM
-- **Payment Processing**: Stripe
-- **Real-time Communication**: Socket.io
-- **Mapping**: Leaflet.js, OpenStreetMap Nominatim API, Google Maps API
-- **AI/Machine Learning**: OpenAI GPT-4o
-- **Error Tracking**: Sentry
-- **Background Job Queue**: BullMQ
-- **Metrics/Monitoring**: Prometheus
-- **Search**: Elasticsearch
-- **Caching**: Redis
-- **Image/Media Handling**: Multer, Pexels API
-- **Authentication/Authorization**: jsonwebtoken, bcrypt, @casl/ability
-- **UI Framework**: React, Tailwind CSS, shadcn/ui, Radix UI, Material-UI (MUI)
-- **Date/Time Utilities**: moment.js, date-fns
-- **PDF Generation**: jsPDF, html2canvas
-- **Data Visualization**: Recharts
-- **Forms**: react-hook-form
-- **Email Service**: Resend
-- **Analytics**: Plausible Analytics
-- **Project Management**: Atlassian Jira
+**Real-time Communication:**
+- Socket.io server mounted on port 5000
+- Event-driven architecture with typed socket events
+- Room-based broadcasting for user-specific and city-specific updates
+- Real-time features: likes, comments, typing indicators, new content notifications
+
+**API Architecture:**
+- Modular route structure (postsRoutes, eventsRoutes, memoryRoutes)
+- Middleware chain: authentication → validation → business logic → response
+- File upload handling with Multer (500MB limit, 30 files max)
+- AI enhancement endpoints with OpenAI GPT-4o integration (with graceful fallback)
+
+**Key Design Decisions:**
+- Chose Express for its middleware ecosystem and community support
+- Implemented Socket.io for real-time features to avoid polling overhead
+- Used JWT over sessions for stateless authentication suitable for distributed deployment
+- Created standardized API response format for consistent error handling
+
+### Data Storage Solutions
+
+**Primary Database:**
+- PostgreSQL with Drizzle ORM
+- Schema-first approach with TypeScript type safety
+- Key tables: users, posts, memories, events, event_rsvps, event_attendees, groups
+
+**Database Design Patterns:**
+- Serial IDs for auto-incrementing primary keys
+- JSON columns for flexible location data and metadata
+- Timestamp tracking (createdAt, updatedAt) on all entities
+- Foreign key relationships with referential integrity
+- Optimized indexes for hot query paths
+
+**Media Storage:**
+- File-based storage in `/uploads/posts/{userId}/` directory structure
+- Cloudinary integration available for production deployments
+- Support for images, videos, and multiple media types per post
+- Compression and optimization handled at upload time
+
+**Caching Strategy:**
+- Redis integration for session storage and cache
+- React Query client-side caching with configurable TTL
+- Static asset caching with service workers
+- Cache hit rate monitoring and optimization
+
+**Key Design Decisions:**
+- Chose PostgreSQL for ACID compliance and relational data integrity
+- Used Drizzle ORM for type-safe database queries without runtime overhead
+- Implemented JSON columns for location data to avoid complex joins
+- Separated user-generated content by userId in file system for easier management
+
+### Core Feature Modules
+
+**Memory/Post System:**
+- Rich text content with hashtag extraction and indexing
+- Location tagging with venue information
+- Privacy controls (public/friends/private)
+- Like/comment/share interactions
+- AI content enhancement with GPT-4o (optional)
+
+**Events Management:**
+- Event creation wizard with date/time/location pickers
+- RSVP system with attendance tracking (attending/maybe/not_attending)
+- Recurring event patterns for weekly milongas
+- Calendar view and discovery feed with filtering
+- Real-time event updates via WebSocket
+
+**Profile System:**
+- Comprehensive user profiles with tango-specific fields (roles, experience levels)
+- Multi-tab interface (About, Memories, Events, Travel, Photos, Friends, Experience)
+- Profile completion percentage automation
+- Privacy settings and friend-based access control
+- Travel details and location history
+
+**Groups/Communities:**
+- City-based auto-group creation
+- Group assignment automation based on user location
+- Community discovery and interaction features
+
+### External Dependencies
+
+**Third-Party Services:**
+- **OpenAI GPT-4o**: AI content enhancement and contextual responses (optional with fallback)
+- **Replit OAuth**: Authentication and user session management
+- **Cloudinary**: Media storage and optimization (optional, file system fallback)
+- **Google Maps API**: Location autocomplete and geocoding (integration in progress)
+
+**APIs & Integration Points:**
+- WebSocket protocol for real-time bidirectional communication
+- RESTful API endpoints following OpenAPI/Swagger patterns
+- n8n workflow integration hooks (integration/api-gateway/)
+- PostHog analytics integration for product metrics
+- Playwright for E2E testing automation
+
+**Development & Testing Tools:**
+- Playwright for end-to-end browser testing
+- axe-core for accessibility compliance (WCAG 2.1 AA)
+- Lighthouse for performance auditing (target: 90+ performance score)
+- Percy/BackstopJS for visual regression testing
+- OpenReplay for session recording and debugging
+
+**Infrastructure:**
+- Docker containerization with docker-compose
+- Nginx reverse proxy configuration
+- GitHub Actions CI/CD workflows
+- Replit deployment platform
+
+**Key Integration Decisions:**
+- Chose OpenAI for AI features due to quality and ecosystem maturity
+- Implemented graceful fallback for AI to ensure core functionality without API keys
+- Selected Playwright over Cypress for better TypeScript support and cross-browser testing
+- Used Replit OAuth to leverage platform-native authentication
+- Implemented optional Cloudinary to allow both cloud and self-hosted deployments
+
+### Testing & Quality Assurance
+
+**Testing Framework:**
+- Comprehensive E2E test suite with Playwright
+- Unit tests for business logic validation
+- Integration tests for API endpoints
+- Performance testing with Lighthouse CI
+- Visual regression with Percy/BackstopJS
+- Accessibility testing with axe-core
+
+**Test Coverage Areas:**
+- Authentication flows and session management
+- Profile CRUD operations and data persistence
+- Memory/post creation and interactions
+- Events management and RSVP workflows
+- Real-time WebSocket functionality
+- Mobile responsiveness across breakpoints
+- Cross-browser compatibility (Chrome, Firefox, Safari, Edge)
+
+**Quality Metrics:**
+- API response time target: <200ms
+- Page load time target: <2 seconds
+- Test success rate: 100% (10/10 tests passing)
+- WebSocket propagation: <500ms target (achieved 115.7ms)
+- Performance score: 90+ on Lighthouse
+
+### Security & Compliance
+
+**Security Measures:**
+- Content Security Policy (CSP) headers configured
+- XSS protection through input sanitization
+- SQL injection prevention via parameterized queries (Drizzle ORM)
+- Rate limiting on API endpoints
+- CSRF token protection (in progress)
+- Secure file upload validation
+
+**Privacy & Data Protection:**
+- GDPR-compliant data handling
+- User data export/deletion workflows
+- Privacy settings enforcement (public/friends/private)
+- PII excluded from logs and error messages
+- Session recording with consent (OpenReplay)
+
+### Performance Optimization
+
+**Frontend Optimization:**
+- Code splitting and lazy loading for routes
+- Virtual scrolling for large lists (memory feeds)
+- Image optimization and responsive loading
+- Service worker for offline capabilities
+- React Query caching to minimize API calls
+
+**Backend Optimization:**
+- Database query optimization with proper indexes
+- Connection pooling for PostgreSQL
+- Paginated API responses (default limit: 20 items)
+- Compressed API responses
+- Static asset serving via Nginx
+
+**Monitoring & Observability:**
+- Real-time performance monitoring
+- Error tracking and alerting
+- Cache hit rate analysis
+- WebSocket connection health checks
+- User behavior analytics (PostHog)

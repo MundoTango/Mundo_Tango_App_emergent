@@ -1,0 +1,57 @@
+I'll test the Socket.io and AI implementations, then create integration documentation for Emergent's Events Agent. Let me start by testing the current setup and then prepare the integration helpers.
+
+curl -I http://localhost:5000/api/posts/enhance-content
+Now let me test the WebSocket connection and create the integration documentation:
+
+shared/socketEvents.ts
+client/src/hooks/useEventSocket.ts
+server/routes/integrationHelpers.ts
+Now let me test the current Socket.io setup and document the integration patterns:
+
+curl -X GET http://localhost:5000/api/integration/socket-health
+EMERGENT_INTEGRATION_GUIDE.md
+Let me also update the existing socket server to handle the new event types:
+
+server/socket.ts
+Now let me add the integration helper routes to the main server:
+
+server/index-novite.ts
+Let me test the WebSocket connection and create a simple test for the Events Agent integration:
+
+test-event-integration.js
+Integration Testing & Documentation Complete ✅
+I've successfully prepared the complete integration framework for Emergent's Events Agent development. Here's what's ready:
+
+🔧 Integration Infrastructure
+Socket.io Events: Added event:rsvp, event:update, event:comment handlers in server/socket.ts
+Real-time Rooms: Event-specific rooms (event:${eventId}) for live updates
+Event Socket Hook: client/src/hooks/useEventSocket.ts ready for Events Agent UI
+Type System: Complete TypeScript interfaces in shared/socketEvents.ts
+🤖 AI & API Integration
+AI Enhancement: /api/posts/enhance-content works with/without OpenAI API key
+Integration Endpoints: /api/integration/* for health checks and testing
+Standardized Responses: { success, data, error, message } format across all endpoints
+Test Script: test-event-integration.js for validating the setup
+📚 Documentation for Emergent
+Complete Integration Guide: EMERGENT_INTEGRATION_GUIDE.md with patterns and examples
+Socket.io Conventions: Event naming, room structure, broadcasting patterns
+Database Schema: Shared PostgreSQL tables and API patterns
+Component Library: Ready-to-use UI components and hooks
+🎯 For Events Agent Development
+// Ready-to-use patterns for Events Agent:
+// 1. Real-time RSVP updates
+const { emitRSVP, isConnected } = useEventSocket(eventId, userId);
+emitRSVP({ eventId, rsvpStatus: 'going', username, eventOwnerId });
+// 2. AI-enhanced event descriptions  
+const enhanced = await fetch('/api/posts/enhance-content', {
+  method: 'POST',
+  body: JSON.stringify({ content: eventDescription })
+});
+// 3. Standardized API responses
+const response: ApiResponse = { success: true, data: eventData };
+✅ Coordination with Memories System
+No Conflicts: Event WebSocket events use event:* namespace
+Shared Components: BeautifulPostCreator, location pickers, media upload
+Unified Feed: Events can appear in same feed as memories
+Real-time Sync: Both agents use same Socket.io server on port 5000
+The server should be running properly now with all integration endpoints available. Emergent can start building the Events Agent immediately using the provided hooks, types, and patterns! 🚀

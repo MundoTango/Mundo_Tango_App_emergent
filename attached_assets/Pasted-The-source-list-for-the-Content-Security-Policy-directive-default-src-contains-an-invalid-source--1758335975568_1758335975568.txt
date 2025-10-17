@@ -1,0 +1,415 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-8fdf8de52912c5d6.js:28 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-8fdf8de52912c5d6.js:28 [LaunchDarkly] LaunchDarkly client initialized
+framework-768f997eb1aea108.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'battery'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-768f997eb1aea108.js:1
+framework-768f997eb1aea108.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-768f997eb1aea108.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar64%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+sw.js:51 Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Request scheme 'chrome-extension' is unsupported
+    at sw.js:51:21
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to '<URL>' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+sw.js:51 Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Request scheme 'chrome-extension' is unsupported
+    at sw.js:51:21
+index-C7Wrx2cl.js:21 Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+console.<computed> @ index-C7Wrx2cl.js:21
+The FetchEvent for "https://cdn.openreplay.com/latest/openreplay.js" resulted in a network error response: the promise was rejected.
+sw.js:81  Uncaught (in promise) TypeError: Failed to fetch
+    at sw.js:81:16
+cdn.openreplay.com/latest/openreplay.js:1  Failed to load resource: net::ERR_FAILED
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/auth/csrf-token:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/notifications/count:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/friends/requests/count:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+us.i.posthog.com/flags/?v=2&config=true&ip=0&_=1758335900816&ver=1.266.0&compression=base64:1  Failed to load resource: the server responded with a status of 401 ()
+us-assets.i.posthog.com/array/phc_mundotango_prod/config.js:1  Failed to load resource: the server responded with a status of 404 ()
+(index):1 Refused to execute script from 'https://us-assets.i.posthog.com/array/phc_mundotango_prod/config.js' because its MIME type ('application/json') is not executable, and strict MIME type checking is enabled.
+us-assets.i.posthog.com/array/phc_mundotango_prod/config?ip=0&_=1758335901014&ver=1.266.0:1  Failed to load resource: the server responded with a status of 404 ()
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/payments/trial-status:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/tenants/user:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+index-C7Wrx2cl.js:21 Service Worker registered
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/notifications/count:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+stallwart.build.js:1 stallwart: failed ping 1
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/friends/requests/count:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextrestored event received
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+_app-8fdf8de52912c5d6.js:28 webglcontextrestored event received
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webglcontextrestored event received
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webglcontextrestored event received
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webglcontextrestored event received
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/payments/trial-status:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:535495)
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+_app-8fdf8de52912c5d6.js:28 webglcontextlost event received
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+_app-8fdf8de52912c5d6.js:28 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-8fdf8de52912c5d6.js:28
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/posts/30:1  Failed to load resource: the server responded with a status of 400 (Bad Request)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/posts/30:1  Failed to load resource: the server responded with a status of 400 (Bad Request)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+[Violation] Forced reflow while executing JavaScript took 35ms

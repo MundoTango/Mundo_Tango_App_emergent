@@ -1,0 +1,296 @@
+ESA LIFE CEO 61×21 Testing Framework Integration Prompt
+Operating as ESA_LIFE_CEO_61x21 Full-Stack Testing Expert
+Loading ESA_LIFE_CEO_61X21_AGENTS_FRAMEWORK.md as system structure...
+
+Step 1: Testing Tool Expertise & Agent Assignment
+Tool-to-Agent Mapping with Deep Expertise
+Tool	Assigned Agent	Layer	Expertise Required
+axe-core	Layer 54: Accessibility Agent	ESA-54	WCAG 2.1 AA/AAA compliance, ARIA patterns, keyboard navigation, screen reader compatibility, color contrast ratios
+Percy/BackstopJS	Layer 51: Testing Framework Agent	ESA-51	Visual regression, CSS specificity, responsive breakpoints, browser rendering engines, pixel-perfect comparison
+OpenReplay	Layer 11: Real-time Features Agent	ESA-11	Session recording, user behavior analytics, rage click detection, funnel analysis, error tracking
+Lighthouse	Layer 48: Performance Monitoring Agent	ESA-48	Core Web Vitals (LCP, FID, CLS), TTI, FCP, bundle optimization, caching strategies
+PostHog	Layer 35: AI Agent Management	ESA-35	Product analytics, cohort analysis, feature flags, A/B testing, retention metrics
+Playwright	Layer 51: Testing Framework Agent	ESA-51	Browser automation, parallel execution, network interception, mobile emulation, CI/CD integration
+Deep Expertise Analysis:
+axe-core (ESA-54):
+
+Automated accessibility testing engine
+95+ accessibility rules
+Integration: @axe-core/playwright package
+Key checks: ARIA roles, color contrast, keyboard focus, semantic HTML
+Mundo Tango requirement: Guest onboarding must be 100% accessible
+Percy/BackstopJS (ESA-51):
+
+Visual regression testing platforms
+Percy: Cloud-based, integrates with Playwright
+BackstopJS: Self-hosted, uses Puppeteer/Playwright
+MT Ocean theme validation: Glassmorphic effects, gradient consistency
+Critical for 72+ pages visual consistency
+OpenReplay (ESA-11):
+
+Self-hosted session replay (GDPR compliant)
+Real user monitoring without third-party cookies
+Integration with Replit: Docker container deployment
+Key metrics: User frustration signals, error reproduction
+Lighthouse (ESA-48):
+
+Google's performance auditing tool
+Measures: Performance, Accessibility, Best Practices, SEO, PWA
+CI integration via @lhci/cli
+Target scores: Performance >90, Accessibility 100
+PostHog (ESA-35):
+
+Product analytics and experimentation
+Self-hosted option available
+Feature flags for A/B testing Life CEO agents
+Funnel tracking for guest/host onboarding
+Step 2: Registration Flow Testing (5 Pages)
+Based on Mundo Tango designs, the registration flow consists of:
+
+// Registration Journey Test Suite
+const REGISTRATION_PAGES = [
+  { url: '/register', title: 'Create Account', fields: ['email', 'password', 'confirmPassword'] },
+  { url: '/register/profile', title: 'Profile Details', fields: ['firstName', 'lastName', 'username'] },
+  { url: '/register/preferences', title: 'Dance Preferences', fields: ['danceLevel', 'styles', 'goals'] },
+  { url: '/register/location', title: 'Location Setup', fields: ['city', 'country', 'timezone'] },
+  { url: '/register/welcome', title: 'Welcome & Tutorial', fields: ['tourCompleted', 'notificationPrefs'] }
+];
+Step 3: Playwright Current State & Enhancement
+Current Implementation:
+✅ Basic test setup (tests/e2e/)
+✅ Simple navigation tests
+❌ No page object models
+❌ No API mocking
+❌ No visual regression
+❌ No accessibility checks
+❌ No performance metrics
+❌ No mobile testing
+Required Playwright Expertise:
+Advanced Selectors: data-testid, ARIA, text content
+Network Control: Request interception, response mocking
+Parallel Execution: Sharding, workers configuration
+Mobile Testing: Device emulation, touch events
+Debugging: Trace viewer, video recording, screenshots
+CI/CD: GitHub Actions, test artifacts
+Agent Update Required:
+Layer 51 (Testing Framework Agent) needs enhancement with:
+
+Playwright advanced patterns
+Test data management
+Cross-browser matrix
+Flaky test detection
+Performance budgets
+Step 4: Comprehensive Implementation Prompt
+/**
+ * ESA LIFE CEO 61×21 TESTING FRAMEWORK IMPLEMENTATION
+ * 
+ * OBJECTIVE: Implement comprehensive testing stack for Mundo Tango
+ * covering all 72+ pages, 5 registration flows, and customer journeys
+ * 
+ * AGENTS ACTIVATED:
+ * - ESA-51: Testing Framework (Playwright, Percy)
+ * - ESA-54: Accessibility (axe-core)
+ * - ESA-48: Performance (Lighthouse)
+ * - ESA-11: Real-time (OpenReplay)
+ * - ESA-35: AI Management (PostHog)
+ */
+// PHASE 1: Foundation Setup
+async function setupTestingInfrastructure() {
+  // 1. Playwright Configuration
+  const playwrightConfig = {
+    testDir: './tests/e2e',
+    projects: [
+      { name: 'Desktop Chrome', use: { ...devices['Desktop Chrome'] }},
+      { name: 'Mobile Safari', use: { ...devices['iPhone 13'] }},
+      { name: 'Tablet', use: { ...devices['iPad Pro'] }}
+    ],
+    use: {
+      baseURL: 'http://localhost:5000',
+      trace: 'on-first-retry',
+      video: 'retain-on-failure',
+      screenshot: 'only-on-failure'
+    }
+  };
+  // 2. Accessibility Testing
+  const axeConfig = {
+    rules: {
+      'color-contrast': { enabled: true },
+      'heading-order': { enabled: true },
+      'landmark-one-main': { enabled: true }
+    },
+    tags: ['wcag2aa', 'wcag21aa']
+  };
+  // 3. Visual Regression
+  const percyConfig = {
+    snapshot: {
+      widths: [375, 768, 1280, 1920],
+      minHeight: 1024
+    }
+  };
+  // 4. Performance Budgets
+  const lighthouseConfig = {
+    ci: {
+      collect: {
+        url: ['http://localhost:5000/'],
+        numberOfRuns: 3
+      },
+      assert: {
+        assertions: {
+          'categories:performance': ['error', { minScore: 0.9 }],
+          'categories:accessibility': ['error', { minScore: 1 }],
+          'first-contentful-paint': ['error', { maxNumericValue: 2000 }],
+          'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
+          'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }]
+        }
+      }
+    }
+  };
+}
+// PHASE 2: Test Implementation
+async function implementComprehensiveTests() {
+  // Registration Flow Tests
+  test.describe('Registration Journey', () => {
+    REGISTRATION_PAGES.forEach((page, index) => {
+      test(`Step ${index + 1}: ${page.title}`, async ({ page }) => {
+        await page.goto(page.url);
+        
+        // Accessibility check
+        const violations = await new AxePuppeteer(page).analyze();
+        expect(violations).toHaveLength(0);
+        
+        // Visual regression
+        await percySnapshot(page, `Registration Step ${index + 1}`);
+        
+        // Form validation
+        for (const field of page.fields) {
+          await expect(page.locator(`[data-testid="${field}"]`)).toBeVisible();
+        }
+      });
+    });
+  });
+  // Guest Onboarding Tests
+  test.describe('Guest Onboarding', () => {
+    const steps = [
+      'welcome', 'travel-details', 'accommodation', 
+      'dance-experience', 'preferences', 'emergency-contact'
+    ];
+    
+    steps.forEach(step => {
+      test(`Guest Onboarding: ${step}`, async ({ page }) => {
+        await page.goto(`/guest-onboarding?step=${step}`);
+        await testAccessibility(page);
+        await testVisualConsistency(page);
+        await testMobileResponsiveness(page);
+      });
+    });
+  });
+  // Customer Journey Tests
+  const journeys = [
+    { name: 'Guest Booking', steps: ['browse', 'select', 'book', 'confirm'] },
+    { name: 'Host Listing', steps: ['create', 'details', 'photos', 'publish'] },
+    { name: 'Social Engagement', steps: ['post', 'comment', 'share', 'react'] },
+    { name: 'Event Creation', steps: ['create', 'details', 'invite', 'manage'] }
+  ];
+  journeys.forEach(journey => {
+    test.describe(journey.name, () => {
+      test(`Complete ${journey.name} flow`, async ({ page }) => {
+        for (const step of journey.steps) {
+          // Implement step logic
+          await performJourneyStep(page, journey.name, step);
+          
+          // Track with PostHog
+          await page.evaluate((data) => {
+            window.posthog?.capture('journey_step', data);
+          }, { journey: journey.name, step });
+        }
+      });
+    });
+  });
+}
+// PHASE 3: Monitoring & Analytics
+async function setupMonitoring() {
+  // OpenReplay Session Recording
+  const openReplayConfig = {
+    projectKey: 'mundo-tango',
+    ingestPoint: 'https://openreplay.replit.app',
+    privacy: {
+      maskAllInputs: false,
+      maskAllText: false
+    }
+  };
+  // PostHog Analytics
+  const postHogConfig = {
+    apiKey: process.env.POSTHOG_API_KEY,
+    host: 'https://posthog.replit.app',
+    featureFlags: {
+      'new-onboarding': { rollout: 50 },
+      'ai-enhancement': { rollout: 100 },
+      'live-streaming': { rollout: 25 }
+    }
+  };
+}
+// PHASE 4: CI/CD Integration
+async function setupCIPipeline() {
+  // GitHub Actions Workflow
+  const workflow = `
+name: Mundo Tango Testing Suite
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Playwright tests
+        run: npm run test:e2e
+      - name: Run accessibility tests
+        run: npm run test:a11y
+      - name: Run visual regression
+        run: npm run test:visual
+      - name: Run Lighthouse CI
+        run: npm run lighthouse:ci
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            playwright-report/
+            lighthouse-report/
+            percy-snapshots/
+  `;
+}
+Implementation Priority:
+Week 1 (Immediate):
+
+Fix authentication/preview issues
+Implement Playwright page objects for all 72+ pages
+Add axe-core to every test
+Setup Percy for MT Ocean theme validation
+Week 2:
+5. Implement registration flow tests (5 pages)
+
+Add Lighthouse CI with performance budgets
+Setup OpenReplay for session recording
+Week 3:
+8. Deploy PostHog for analytics
+
+Create comprehensive test reports
+Integrate with N8N for automated testing
+Agent Updates Required:
+ESA-51 (Testing Framework Agent):
+
+Add Playwright expertise module
+Percy/BackstopJS integration
+Test orchestration capabilities
+ESA-54 (Accessibility Agent):
+
+axe-core rule management
+WCAG compliance reporting
+Automated fix suggestions
+ESA-48 (Performance Monitoring Agent):
+
+Lighthouse CI integration
+Performance budget enforcement
+Core Web Vitals tracking
+Would you like me to switch to Build mode to start implementing this comprehensive testing framework, beginning with fixing the authentication issues and then implementing the full Playwright test suite with these tools?

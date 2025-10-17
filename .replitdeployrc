@@ -1,5 +1,0 @@
-{
-  "build": "",
-  "run": "node server/minimal-mt-server.js",
-  "deploymentTarget": "static"
-}

@@ -1,0 +1,164 @@
+# Mundo Tango – Release Readiness & Test Plan (ESA LIFE CEO 61×21)
+
+**Repo:** `MundoTango/Mundo_Tango_App_emergent`  
+**Stack:** Full-stack: React + TS + Vite (frontend); Node/Express + TS (backend); PostgreSQL (Drizzle); WebSockets; Redis; Docker + Nginx; CI workflows.  
+**Target:** Deploy on Replit with full confidence—tested, observable, and rollback-ready.
+
+---
+
+## 0) Run Order
+
+1. Perform initial audit using this checklist to map all features/pages/APIs and identify gaps.  
+2. Write or update Playwright tests (E2E), plus unit/integration tests for uncovered logic.  
+3. Run full test suite (unit, integration, E2E), then add performance, accessibility, and security tests.  
+4. Deploy to staging; run smoke tests; do manual exploratory testing.  
+5. Review metrics, logs, alerting; confirm rollback procedures.  
+6. Make Go/No-Go decision based on exit gates.
+
+---
+
+## 1) Feature & Module Inventory
+
+List all major sections and their code locations:
+
+| Area                          | Directory (approx)         |
+|-------------------------------|-----------------------------|
+| Frontend code                 | `client/`, `components/`, `tsx/`, `public/` |
+| Backend API & routes          | `server/`, `backend/`, `routes/`             |
+| Services/Business Logic       | `services/`, `shared/`, `utils/`             |
+| Authentication                | `auth/`, possibly in `shared/` or `backend/` |
+| Database & Migrations         | `database/`, `migrations/`  |
+| Realtime/WebSocket features   | `server/`, `services/`, maybe `routes/`      |
+| Groups/Communities            | `communities/`, `routes/`, `services/`       |
+| AI / Life-CEO logic           | `life-ceo/`, `services/`, `backend/`         |
+| Compliance / GDPR flows       | `compliance/`, possibly `util/`, `routes/`   |
+| External integrations         | `n8n-workflows/`, `integration/api-gateway/` |
+| Infrastructure                | `infra/docker/`, `nginx/`, `.github/`, `scripts/`, `workflows/` |
+| Tests                         | `tests/` – add subfolders: `unit/`, `integration/`, `e2e/`, `performance/`, `a11y/` |
+
+→ Document this mapping in `reports/release_readiness.md` along with feature owners.
+
+---
+
+## 2) Audit Checklist
+
+### 2.1: Architecture & Legal
+
+- [ ] Data schema validated, migrations clean on fresh DB, indices for hot queries.  
+- [ ] Privacy policy and Terms accessible; documented data deletion/export process.  
+- [ ] Logs do not contain PII or sensitive secrets.
+
+### 2.2: Authentication & Authorization
+
+- [ ] Sign-up, login, password reset, OAuth (if enabled) flows tested.  
+- [ ] Role-based access control enforced on API and UI (e.g. admin vs user).  
+- [ ] Resource-level permissions (e.g. memory visibility, group posts).
+
+### 2.3: Core User Flows
+
+Cover (with unit/integration/E2E):
+
+- [ ] Memories: CRUD, media upload, visibility logic (public/mutual/private).  
+- [ ] Events: creation, RSVPs, attendee counts, visibility.  
+- [ ] Groups/Communities: creation, membership flows, permissions.  
+- [ ] Messaging & Real-time: chat send/receive, presence, disconnection handling.  
+- [ ] Search & Discovery: keywords, auto-complete, error or no-result cases.
+
+### 2.4: Resilience / Performance / Accessibility / Observability
+
+- [ ] API p95 latency < 500ms; front-end LCP p95 < 2.5s (mobile/desktop).  
+- [ ] Automated accessibility audit (axe/Lighthouse); manual keyboard & screen-reader checks.  
+- [ ] Central logging with correlation IDs; error alerting (e.g. Sentry); uptime/health monitoring.  
+- [ ] Backup / restore drill tested; rollback path validated.
+
+### 2.5: Release Execution
+
+- [ ] Full test suite (unit + integration + E2E) passes on staging build.  
+- [ ] Feature flags guard new or risky functionality.  
+- [ ] Release notes drafted; known issues documented; rollback steps clear.
+
+---
+
+## 3) Playwright E2E Test Plans
+
+### Auth
+
+- **Happy:** Sign-up → onboarding → dashboard redirect.  
+- **Edge:** Bad credentials error; expired sessions redirect to login.  
+- **Failure:** API error gracefully shown.
+
+### Memories + Media
+
+- **Happy:** Create memory with media; check visibility from another account.  
+- **Edge:** Oversize file; network throttling; retry logic.  
+- **Failure:** Storage or CDN failure; fallback UI; error logging.
+
+### Events
+
+- **Happy:** Create event → another user RSVPs → attendee count updates.  
+- **Edge:** Event at capacity; joining/leaving rapidly; past event no longer joinable.  
+- **Failure:** Access to private/draft event blocked.
+
+### Groups
+
+- **Happy:** Create public group; user joins; post visible to members.  
+- **Edge:** Re-join, banned user rejoin blocked, leave flow cleanup.  
+- **Failure:** Non-admin attempts to access admin endpoints.
+
+### Chat / Realtime
+
+- Two browser contexts: user A → send message → user B receives.  
+- **Edge:** Long text; emojis; attachments.  
+- **Failure:** WS disconnect → UI handles cleanly.
+
+### Search
+
+- **Happy:** Known term returns results; navigation works.  
+- **Edge:** No results; special chars; large result sets.  
+- **Failure:** Search API error → fallback UI.
+
+### Profile
+
+- **Happy:** Edit profile/avatar, changes persist, visible to others.  
+- **Edge:** Invalid input; oversized avatar; pref toggles.  
+- **Failure:** User tries to access another’s private settings.
+
+### Admin / Moderation
+
+- Admin changes roles, toggles flags.  
+- **Failure:** Non-admin blocked; server-side enforcement.
+
+---
+
+## 4) Playwright Spec Example
+
+```ts
+// tests/e2e/auth-memory-visibility.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('Auth → Create Memory → Visibility enforced', async ({ browser }) => {
+  const ownerCtx = await browser.newContext();
+  const owner = await ownerCtx.newPage();
+  await owner.goto('/login');
+  await owner.getByLabel('Email').fill(process.env.OWNER_EMAIL!);
+  await owner.getByLabel('Password').fill(process.env.OWNER_PW!);
+  await owner.getByRole('button', { name: /sign in/i }).click();
+  await expect(owner).toHaveURL(/dashboard/);
+
+  await owner.goto('/memories/new');
+  await owner.getByLabel('Title').fill('Visibility test');
+  await owner.setInputFiles('input[type=file]', 'tests/fixtures/photo.jpg');
+  await owner.getByLabel('Visibility').selectOption('mutual');
+  await owner.getByRole('button', { name: /publish/i }).click();
+  await expect(owner.getByText(/published/i)).toBeVisible();
+
+  const strangerCtx = await browser.newContext();
+  const stranger = await strangerCtx.newPage();
+  await stranger.goto('/login');
+  await stranger.getByLabel('Email').fill(process.env.STRANGER_EMAIL!);
+  await stranger.getByLabel('Password').fill(process.env.STRANGER_PW!);
+  await stranger.getByRole('button', { name: /sign in/i }).click();
+
+  await stranger.goto('/memories');
+  await expect(stranger.getByText('Visibility test')).toHaveCount(0);
+});

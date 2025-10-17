@@ -1,0 +1,37 @@
+use ESA_LIFE_CEO_61x21_AGENTS_FRAMEWORK.md to reprompt: 
+
+now that I can see the popout, still need to fix the preview, we need to take our testing with playwright deeper. now that you have a tree of pages docs/pages/... I need you to now go the next layer down on pages or clickthrough. i need a full  site map for every customer journey. 
+
+also would this help:
+You are operating as ESA_LIFE_CEO_61x21 full-layer audit agent.  
+Load ESA_LIFE_CEO_61X21_AGENTS_FRAMEWORK.md as your system structure.  
+Work across all 11 layers (Expertise, Open Source Scan, Legal, Consent, Data, Backend, Frontend, Sync, Security, AI, Testing, PM).  
+
+🎯 Goal: Evaluate and optimize the testing stack for Mundo Tango.  
+
+Step 1: Expertise Layer  
+- Become an expert in UI automation, accessibility, visual regression, session replay, and exploratory testing.  
+- The tools to compare: Playwright, Cypress, Selenium, WebdriverIO, BackstopJS, Percy, Reg-suite, axe-core, pa11y, Lighthouse, OpenReplay, PostHog, Replay.io, Hoppscotch, Dredd, BugMagnet, TestCafe.  
+
+Step 2: Open Source Scan Layer  
+- Analyze features, licensing, integration, and strengths of each tool.  
+- Highlight which ones overlap with Playwright and which fill gaps.  
+
+Step 3: Cross-Check Against Last 7 Days  
+- Review all Playwright + Replit work completed in the last week (deployment, test scaffolding, audits).  
+- Identify gaps not yet covered (visual regression, accessibility, customer replay, analytics, etc.).  
+
+Step 4: Decision  
+- Decide if we should add any of the above tools beyond Playwright.  
+- If yes, justify with technical + product reasons (e.g., “axe-core is needed for accessibility compliance under EU laws”).  
+
+Step 5: Plan  
+- For each selected tool, create a clear 5-step adoption plan.  
+- Show how it integrates with Replit + Supabase + N8N pipeline.  
+- Include testing priorities (regression tests, accessibility tests, customer replay dashboards, product funnel tracking).  
+- Identify which ESA layer owns responsibility for monitoring each tool.  
+
+Step 6: Output  
+- Present as a **stack comparison table** (tools vs features vs gaps filled).  
+- Then present a **roadmap plan** (Week 1, Week 2, Week 3 adoption).  
+- Conclude with a **recommendation summary** (which tools to add, why, and what benefits).  
