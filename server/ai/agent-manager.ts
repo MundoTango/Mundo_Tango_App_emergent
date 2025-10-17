@@ -234,6 +234,7 @@ export class AgentManager {
           .values({
             id: agent.id,
             name: agent.name,
+            type: 'life-ceo',
             category: agent.category,
             description: agent.description,
             capabilities: agent.capabilities,
@@ -251,6 +252,7 @@ export class AgentManager {
             target: agents.id,
             set: {
               name: agent.name,
+              type: 'life-ceo',
               category: agent.category,
               description: agent.description,
               capabilities: agent.capabilities,

@@ -4,14 +4,14 @@
  * Automatic cleanup, performance optimizations, and accessibility
  */
 
-import { useGSAP } from '@gsap/react';
+// import { useGSAP } from '@gsap/react'; // Temporarily disabled - package not installed
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef, useEffect } from 'react';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 /**

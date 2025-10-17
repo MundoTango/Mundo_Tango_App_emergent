@@ -86,6 +86,7 @@ export const nlpTasks = pgTable('nlp_tasks', {
 export const agents = pgTable('agents', {
   id: varchar('id', { length: 100 }).primaryKey(), // e.g., 'health-advisor', 'career-coach'
   name: varchar('name', { length: 255 }).notNull(),
+  type: varchar('type', { length: 100 }).notNull(), // 'life-ceo', 'mr-blue', 'custom'
   category: varchar('category', { length: 100 }).notNull(),
   description: text('description'),
   capabilities: jsonb('capabilities').notNull(),
@@ -94,12 +95,15 @@ export const agents = pgTable('agents', {
   configuration: jsonb('configuration').notNull(),
   status: varchar('status', { length: 50 }).default('active'),
   version: varchar('version', { length: 50 }).default('1.0.0'),
+  layer: integer('layer'), // ESA layer this agent belongs to
+  lastActive: timestamp('last_active'),
   metrics: jsonb('metrics'), // Usage stats, success rates
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow()
 }, (table) => [
   index('idx_agents_category').on(table.category),
-  index('idx_agents_status').on(table.status)
+  index('idx_agents_status').on(table.status),
+  index('idx_agents_type').on(table.type)
 ]);
 
 // Layer 36: Decision Engine

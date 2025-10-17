@@ -1044,5 +1044,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   
+  // Setup Vite in development or serve static files in production
+  if (process.env.NODE_ENV === 'development') {
+    log('🎨 Starting Vite development server...');
+    await setupVite(app, server);
+    log('✅ Vite development server ready');
+  } else {
+    log('📦 Serving static production build...');
+    serveStatic(app);
+    log('✅ Static files ready');
+  }
+  
   return server;
 }
