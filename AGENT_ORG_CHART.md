@@ -141,6 +141,11 @@
                     │     MR BLUE CORE (Agent #73)         │
                     │     Scott AI - Multi-Model Router    │
                     │   (GPT-4o, Claude, Gemini)           │
+                    │                                      │
+                    │  ⭐ SUPER ADMIN MODE:                │
+                    │  When user.role === 'super_admin'   │
+                    │  Mr Blue (#73) ←→ CEO (#0)           │
+                    │  Joint strategic collaboration       │
                     └──────────────┬───────────────────────┘
                                    │
          ┌─────────────────────────┼─────────────────────────┐
@@ -155,6 +160,10 @@
     │Agent #77│               │Agent #78│              │Agent #79│
     │ Context │               │ Visual  │              │ Agent   │
     │Detection│               │ Editor  │              │Matcher  │
+    │         │               │         │              │         │
+    │         │               │🔐 SUPER  │              │         │
+    │         │               │  ADMIN  │              │         │
+    │         │               │  ONLY   │              │         │
     └─────────┘               └─────────┘              └─────────┘
                                    │
                               ┌────▼────┐
@@ -163,6 +172,11 @@
                               │Coordin. │
                               └─────────┘
 ```
+
+**Key Notes:**
+- **Agent #78 (Visual Editor)**: Restricted to super_admin role only
+- **Super Admin Mode**: When user is super admin, Mr Blue (#73) joins forces with CEO (#0) for strategic platform decisions
+- **Collaboration Pattern**: Mr Blue provides user context → CEO validates strategic impact → Joint decision execution
 
 ---
 
