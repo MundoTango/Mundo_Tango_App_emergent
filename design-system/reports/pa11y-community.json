@@ -1,0 +1,11 @@
+Error: Could not find Chrome (ver. 139.0.7258.66). This can occur if either
+ 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome`) or
+ 2. your cache path is incorrectly configured (which is: /home/runner/.cache/puppeteer).
+For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.
+    at ChromeLauncher.resolveExecutablePath (/home/runner/workspace/node_modules/puppeteer-core/lib/cjs/puppeteer/node/BrowserLauncher.js:312:27)
+    at ChromeLauncher.computeLaunchArguments (/home/runner/workspace/node_modules/puppeteer-core/lib/cjs/puppeteer/node/ChromeLauncher.js:93:24)
+    at async ChromeLauncher.launch (/home/runner/workspace/node_modules/puppeteer-core/lib/cjs/puppeteer/node/BrowserLauncher.js:84:28)
+    at async setBrowser (/home/runner/workspace/node_modules/pa11y/lib/pa11y.js:132:19)
+    at async runPa11yTest (/home/runner/workspace/node_modules/pa11y/lib/pa11y.js:64:2)
+    at async pa11y (/home/runner/workspace/node_modules/pa11y/lib/pa11y.js:35:18)
+    at async runProgram (/home/runner/workspace/node_modules/pa11y/bin/pa11y.js:136:19)

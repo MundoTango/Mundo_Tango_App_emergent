@@ -1,0 +1,353 @@
+name: Lighthouse CI Performance Monitoring
+# ESA-48 Performance Monitoring Agent Configuration
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run performance tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      test_environment:
+        description: 'Environment to test'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      test_profile:
+        description: 'Test profile'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+          - standard
+          - mobile-only
+          - desktop-only
+          - comprehensive
+
+jobs:
+  lighthouse-desktop:
+    name: Lighthouse Desktop Performance Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Test multiple browsers and versions
+        browser: [chrome, edge]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g @lhci/cli@latest
+          
+      - name: Setup PostgreSQL for test database
+        uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '15'
+          postgresql db: 'mundotango_test'
+          postgresql user: 'test_user'
+          postgresql password: 'test_password'
+          
+      - name: Setup test environment
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/mundotango_test
+        run: |
+          npm run db:push --force
+          npm run test:setup
+          
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          
+      - name: Start server
+        run: |
+          npm run start:production &
+          npx wait-on http://localhost:5000 --timeout 60000
+        env:
+          NODE_ENV: production
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/mundotango_test
+          
+      - name: Run Lighthouse CI - Desktop
+        run: |
+          lhci autorun \
+            --config=lighthouserc.js \
+            --collect.settings.preset=desktop \
+            --collect.numberOfRuns=3
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_SERVER_URL: ${{ secrets.LHCI_SERVER_URL }}
+          LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
+          
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-desktop-${{ matrix.browser }}
+          path: lighthouse-results/
+          retention-days: 30
+          
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const resultsDir = 'lighthouse-results';
+            
+            // Read all JSON reports
+            const reports = fs.readdirSync(resultsDir)
+              .filter(file => file.endsWith('.json'))
+              .map(file => JSON.parse(fs.readFileSync(path.join(resultsDir, file), 'utf8')));
+            
+            // Calculate average scores
+            const avgScores = {
+              performance: 0,
+              accessibility: 0,
+              'best-practices': 0,
+              seo: 0,
+              pwa: 0
+            };
+            
+            reports.forEach(report => {
+              Object.keys(avgScores).forEach(key => {
+                avgScores[key] += report.categories[key].score;
+              });
+            });
+            
+            Object.keys(avgScores).forEach(key => {
+              avgScores[key] = (avgScores[key] / reports.length * 100).toFixed(1);
+            });
+            
+            // Create comment
+            const comment = `## 🔦 Lighthouse Performance Report - Desktop
+            
+            ### Average Scores (${reports.length} runs)
+            | Category | Score | Target | Status |
+            |----------|-------|--------|--------|
+            | Performance | ${avgScores.performance}% | >90% | ${avgScores.performance >= 90 ? '✅' : '❌'} |
+            | Accessibility | ${avgScores.accessibility}% | 100% | ${avgScores.accessibility == 100 ? '✅' : '❌'} |
+            | Best Practices | ${avgScores['best-practices']}% | >95% | ${avgScores['best-practices'] >= 95 ? '✅' : '❌'} |
+            | SEO | ${avgScores.seo}% | >95% | ${avgScores.seo >= 95 ? '✅' : '❌'} |
+            | PWA | ${avgScores.pwa}% | >80% | ${avgScores.pwa >= 80 ? '✅' : '⚠️'} |
+            
+            ### Core Web Vitals
+            | Metric | Value | Target | Status |
+            |--------|-------|--------|--------|
+            | LCP | ${reports[0].audits['largest-contentful-paint'].displayValue} | <2.5s | ${reports[0].audits['largest-contentful-paint'].score >= 0.9 ? '✅' : '❌'} |
+            | CLS | ${reports[0].audits['cumulative-layout-shift'].displayValue} | <0.1 | ${reports[0].audits['cumulative-layout-shift'].score >= 0.9 ? '✅' : '❌'} |
+            | TBT | ${reports[0].audits['total-blocking-time'].displayValue} | <300ms | ${reports[0].audits['total-blocking-time'].score >= 0.9 ? '✅' : '❌'} |
+            
+            [View full reports](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  lighthouse-mobile:
+    name: Lighthouse Mobile Performance Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g @lhci/cli@latest
+          
+      - name: Setup PostgreSQL for test database
+        uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '15'
+          postgresql db: 'mundotango_test'
+          postgresql user: 'test_user'
+          postgresql password: 'test_password'
+          
+      - name: Setup test environment
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/mundotango_test
+        run: |
+          npm run db:push --force
+          npm run test:setup
+          
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          
+      - name: Start server
+        run: |
+          npm run start:production &
+          npx wait-on http://localhost:5000 --timeout 60000
+        env:
+          NODE_ENV: production
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/mundotango_test
+          
+      - name: Run Lighthouse CI - Mobile
+        run: |
+          lhci autorun \
+            --config=lighthouserc.js \
+            --collect.settings.preset=mobile \
+            --collect.numberOfRuns=3
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_SERVER_URL: ${{ secrets.LHCI_SERVER_URL }}
+          LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
+          
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-mobile
+          path: lighthouse-results/
+          retention-days: 30
+          
+      - name: Performance regression check
+        run: |
+          # Check for performance regressions
+          node scripts/check-performance-regression.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  mt-ocean-theme-performance:
+    name: MT Ocean Theme Performance Analysis
+    runs-on: ubuntu-latest
+    needs: [lighthouse-desktop, lighthouse-mobile]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        
+      - name: Analyze MT Ocean theme performance
+        run: |
+          node lighthouse/analyze-theme-performance.js
+          
+      - name: Generate performance dashboard
+        run: |
+          node lighthouse/generate-dashboard.js
+          
+      - name: Upload dashboard
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-dashboard
+          path: lighthouse-results/dashboard/
+          retention-days: 30
+          
+      - name: Deploy dashboard to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./lighthouse-results/dashboard
+          destination_dir: performance
+
+  performance-alerts:
+    name: Performance Regression Alerts
+    runs-on: ubuntu-latest
+    needs: [lighthouse-desktop, lighthouse-mobile]
+    if: failure()
+    
+    steps:
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              text: "⚠️ Performance Regression Detected",
+              attachments: [{
+                color: 'danger',
+                title: 'Lighthouse CI Failed',
+                text: 'Performance metrics have degraded below acceptable thresholds.',
+                fields: [
+                  {
+                    title: 'Repository',
+                    value: '${{ github.repository }}',
+                    short: true
+                  },
+                  {
+                    title: 'Branch',
+                    value: '${{ github.ref }}',
+                    short: true
+                  },
+                  {
+                    title: 'Commit',
+                    value: '${{ github.sha }}',
+                    short: false
+                  },
+                  {
+                    title: 'Action',
+                    value: 'Review the performance report and fix any regressions',
+                    short: false
+                  }
+                ],
+                footer: 'Lighthouse CI',
+                footer_icon: 'https://raw.githubusercontent.com/GoogleChrome/lighthouse/master/assets/lighthouse-logo.png',
+                ts: Math.floor(Date.now() / 1000)
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          
+      - name: Create GitHub Issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Performance Regression Detected',
+              body: `## Performance metrics have degraded
+              
+              The latest Lighthouse CI run has detected performance regressions that need immediate attention.
+              
+              ### Affected Areas
+              - [ ] Core Web Vitals below target
+              - [ ] Performance score < 90%
+              - [ ] Accessibility issues detected
+              
+              ### Action Required
+              1. Review the [Lighthouse reports](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              2. Identify the cause of regression
+              3. Fix performance issues
+              4. Re-run Lighthouse CI to verify fixes
+              
+              ### Resources
+              - [Performance Budget Configuration](./lighthouse/budgets.json)
+              - [Lighthouse Configuration](./lighthouserc.js)
+              - [Performance Dashboard](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/performance)
+              
+              cc: @${{ github.actor }}`,
+              labels: ['performance', 'high-priority', 'lighthouse-ci'],
+              assignees: [context.actor]
+            });
+            
+            console.log(`Created issue #${issue.data.number}`);

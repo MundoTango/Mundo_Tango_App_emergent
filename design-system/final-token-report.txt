@@ -1,0 +1,542 @@
+🔍 Scanning for hardcoded colors...
+
+
+================================================================================
+📊 TOKEN VALIDATION REPORT
+================================================================================
+
+Files Scanned: 654
+Approved Ocean Colors: 180
+Violations Found: 597
+
+
+🔴 BURGUNDY (36 occurrences):
+--------------------------------------------------------------------------------
+  client/src/index.css:1079
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/styles/ttfiles.css:6
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:129
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:130
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:137
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:141
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:145
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:177
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:177
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  client/src/pages/ResumePage.tsx:249
+    Color: #8E142E
+    → Replace with ocean palette token
+
+  ... and 26 more
+
+
+🔴 PINK (11 occurrences):
+--------------------------------------------------------------------------------
+  client/src/index.css:1043
+    Color: #ec4899
+    → ocean-400 or ocean-500
+
+  client/src/index.css:1047
+    Color: #ec4899
+    → ocean-400 or ocean-500
+
+  client/src/index.css:1996
+    Color: #ec4899
+    → ocean-400 or ocean-500
+
+  client/src/styles/mt-group.css:104
+    Color: #EC4899
+    → ocean-400 or ocean-500
+
+  client/src/styles/mt-group.css:302
+    Color: #EC4899
+    → ocean-400 or ocean-500
+
+  client/src/styles/mt-group.css:306
+    Color: #EC4899
+    → ocean-400 or ocean-500
+
+  client/src/styles/mt-group.css:307
+    Color: #EC4899
+    → ocean-400 or ocean-500
+
+  client/src/pages/admin/AgentMetrics.tsx:83
+    Color: #EC4899
+    → ocean-400 or ocean-500
+
+  client/src/components/friendship/FriendshipAnalytics.tsx:30
+    Color: #ec4899
+    → ocean-400 or ocean-500
+
+  client/src/components/profile/marketing/ProfileMarketing.tsx:164
+    Color: #ec4899
+    → ocean-400 or ocean-500
+
+  ... and 1 more
+
+
+🔴 RGB (10 occurrences):
+--------------------------------------------------------------------------------
+  client/src/index.css:1808
+    Color: rgb(56, 178, 172)
+    → Replace with ocean palette token
+
+  client/src/index.css:1808
+    Color: rgb(6, 182, 212)
+    → Replace with ocean palette token
+
+  client/src/index.css:1815
+    Color: rgb(56, 178, 172)
+    → Replace with ocean palette token
+
+  client/src/components/reviews/StarRating.tsx:73
+    Color: rgb(20, 184, 166)
+    → Replace with ocean palette token
+
+  client/src/components/reviews/StarRating.tsx:74
+    Color: rgb(6, 182, 212)
+    → Replace with ocean palette token
+
+  client/src/components/reviews/StarRating.tsx:75
+    Color: rgb(59, 130, 246)
+    → Replace with ocean palette token
+
+  client/src/components/memory/SimpleMentionsInputV2.tsx:300
+    Color: rgb(59, 130, 246)
+    → Replace with ocean palette token
+
+  client/src/components/memory/SimpleMentionsInputV2.tsx:301
+    Color: rgb(34, 197, 94)
+    → Replace with ocean palette token
+
+  client/src/components/memory/SimpleMentionsInputV2.tsx:310
+    Color: rgb(219, 234, 254)
+    → Replace with ocean palette token
+
+  client/src/components/memory/SimpleMentionsInputV2.tsx:311
+    Color: rgb(220, 252, 231)
+    → Replace with ocean palette token
+
+
+🔴 RGBA (235 occurrences):
+--------------------------------------------------------------------------------
+  client/src/index.css:167
+    Color: rgba(14, 165, 233, 0.3)
+    → Replace with ocean palette token
+
+  client/src/index.css:170
+    Color: rgba(14, 165, 233, 0.5)
+    → Replace with ocean palette token
+
+  client/src/index.css:170
+    Color: rgba(14, 165, 233, 0.3)
+    → Replace with ocean palette token
+
+  client/src/index.css:402
+    Color: rgba(255, 255, 255, 0.1)
+    → Replace with ocean palette token
+
+  client/src/index.css:405
+    Color: rgba(255, 255, 255, 0.2)
+    → Replace with ocean palette token
+
+  client/src/index.css:406
+    Color: rgba(31, 38, 135, 0.15)
+    → Replace with ocean palette token
+
+  client/src/index.css:414
+    Color: rgba(255, 255, 255, 0.15)
+    → Replace with ocean palette token
+
+  client/src/index.css:415
+    Color: rgba(31, 38, 135, 0.25)
+    → Replace with ocean palette token
+
+  client/src/index.css:452
+    Color: rgba(255, 255, 255, 0.85)
+    → Replace with ocean palette token
+
+  client/src/index.css:455
+    Color: rgba(255, 255, 255, 0.3)
+    → Replace with ocean palette token
+
+  ... and 225 more
+
+
+🔴 HSL (153 occurrences):
+--------------------------------------------------------------------------------
+  client/src/index.css:356
+    Color: hsl(270, 100%, 98%)
+    → Replace with ocean palette token
+
+  client/src/index.css:357
+    Color: hsl(270, 100%, 95%)
+    → Replace with ocean palette token
+
+  client/src/index.css:358
+    Color: hsl(270, 95%, 90%)
+    → Replace with ocean palette token
+
+  client/src/index.css:359
+    Color: hsl(270, 90%, 80%)
+    → Replace with ocean palette token
+
+  client/src/index.css:360
+    Color: hsl(270, 85%, 70%)
+    → Replace with ocean palette token
+
+  client/src/index.css:361
+    Color: hsl(270, 80%, 60%)
+    → Replace with ocean palette token
+
+  client/src/index.css:362
+    Color: hsl(270, 75%, 50%)
+    → Replace with ocean palette token
+
+  client/src/index.css:363
+    Color: hsl(270, 70%, 45%)
+    → Replace with ocean palette token
+
+  client/src/index.css:364
+    Color: hsl(270, 65%, 35%)
+    → Replace with ocean palette token
+
+  client/src/index.css:365
+    Color: hsl(270, 60%, 25%)
+    → Replace with ocean palette token
+
+  ... and 143 more
+
+
+🔴 GRAY (99 occurrences):
+--------------------------------------------------------------------------------
+  client/src/index.css:960
+    Color: #E5E7EB
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:961
+    Color: #F9FAFB
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1057
+    Color: #FEF7FF
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1076
+    Color: #F8FAFC
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1082
+    Color: #F1F5F9
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1168
+    Color: #E1E1E1
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1192
+    Color: #949393
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1227
+    Color: #818080
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1245
+    Color: #818080
+    → Use semantic gray token (gray-50 to gray-950)
+
+  client/src/index.css:1250
+    Color: #F0F2F5
+    → Use semantic gray token (gray-50 to gray-950)
+
+  ... and 89 more
+
+
+🔴 AMBER (10 occurrences):
+--------------------------------------------------------------------------------
+  client/src/styles/mt-group.css:138
+    Color: #F59E0B
+    → ocean-300 or ocean-400
+
+  client/src/styles/design-tokens.css:65
+    Color: #F59E0B
+    → ocean-300 or ocean-400
+
+  client/src/pages/SubscriptionAnalytics.tsx:52
+    Color: #f59e0b
+    → ocean-300 or ocean-400
+
+  client/src/components/EnhancedCommunityMap.tsx:92
+    Color: #F59E0B
+    → ocean-300 or ocean-400
+
+  client/src/pages/admin/AgentMetrics.tsx:77
+    Color: #F59E0B
+    → ocean-300 or ocean-400
+
+  client/src/pages/admin/AgentMetrics.tsx:88
+    Color: #F59E0B
+    → ocean-300 or ocean-400
+
+  client/src/pages/admin/AgentMetrics.tsx:234
+    Color: #F59E0B
+    → ocean-300 or ocean-400
+
+  client/src/lib/theme/theme-provider.tsx:76
+    Color: #f59e0b
+    → ocean-300 or ocean-400
+
+  client/src/lib/theme/theme-provider.tsx:112
+    Color: #f59e0b
+    → ocean-300 or ocean-400
+
+  client/src/components/memory/PendingConsentMemories.tsx:249
+    Color: #f59e0b
+    → ocean-300 or ocean-400
+
+
+🔴 HSLA (3 occurrences):
+--------------------------------------------------------------------------------
+  client/src/styles/design-tokens.css:58
+    Color: hsla(0, 0%, 100%, 0.95)
+    → Replace with ocean palette token
+
+  client/src/styles/design-tokens.css:59
+    Color: hsla(0, 0%, 100%, 0.75)
+    → Replace with ocean palette token
+
+  client/src/styles/design-tokens.css:60
+    Color: hsla(0, 0%, 100%, 0.50)
+    → Replace with ocean palette token
+
+
+🔴 CYAN (13 occurrences):
+--------------------------------------------------------------------------------
+  client/src/pages/SubscriptionAnalytics.tsx:46
+    Color: #06b6d4
+    → ocean-400 or ocean-500
+
+  client/src/pages/SubscriptionAnalytics.tsx:49
+    Color: #06b6d4
+    → ocean-400 or ocean-500
+
+  client/src/components/TrialBanner.tsx:116
+    Color: #06b6d4
+    → ocean-400 or ocean-500
+
+  client/src/components/EnhancedCommunityMap.tsx:34
+    Color: #06B6D4
+    → ocean-400 or ocean-500
+
+  client/src/components/EnhancedCommunityMap.tsx:82
+    Color: #06b6d4
+    → ocean-400 or ocean-500
+
+  client/src/pages/admin/analytics.tsx:176
+    Color: #06B6D4
+    → ocean-400 or ocean-500
+
+  client/src/pages/admin/analytics.tsx:322
+    Color: #06B6D4
+    → ocean-400 or ocean-500
+
+  client/src/pages/admin/analytics.tsx:323
+    Color: #06B6D4
+    → ocean-400 or ocean-500
+
+  client/src/pages/admin/analytics.tsx:332
+    Color: #06B6D4
+    → ocean-400 or ocean-500
+
+  client/src/pages/admin/analytics.tsx:578
+    Color: #06B6D4
+    → ocean-400 or ocean-500
+
+  ... and 3 more
+
+
+🔴 EMERALD (10 occurrences):
+--------------------------------------------------------------------------------
+  client/src/pages/SubscriptionAnalytics.tsx:51
+    Color: #10b981
+    → ocean-500 or ocean-600
+
+  client/src/components/EnhancedCommunityMap.tsx:87
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/pages/admin/AgentMetrics.tsx:76
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/pages/admin/AgentMetrics.tsx:87
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/pages/admin/AgentMetrics.tsx:235
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/pages/admin/AgentMetrics.tsx:369
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/pages/admin/AgentMetrics.tsx:370
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/pages/admin/AgentMetrics.tsx:520
+    Color: #10B981
+    → ocean-500 or ocean-600
+
+  client/src/components/profile/postlaunch/ProfilePostLaunch.tsx:129
+    Color: #10b981
+    → ocean-500 or ocean-600
+
+  client/src/components/profile/postlaunch/ProfilePostLaunch.tsx:131
+    Color: #10b981
+    → ocean-500 or ocean-600
+
+
+🔴 BLUE (5 occurrences):
+--------------------------------------------------------------------------------
+  client/src/pages/AnalyticsDashboard.tsx:461
+    Color: #3182ce
+    → ocean-600 or ocean-700
+
+  client/src/lib/theme/theme-provider.tsx:22
+    Color: #3182ce
+    → ocean-600 or ocean-700
+
+  client/src/components/friendship/FriendshipAnalytics.tsx:28
+    Color: #3182ce
+    → ocean-600 or ocean-700
+
+  client/src/components/admin/Framework50x21Dashboard.tsx:120
+    Color: #3182ce
+    → ocean-600 or ocean-700
+
+  client/src/components/admin/Framework30LDashboard.tsx:120
+    Color: #3182ce
+    → ocean-600 or ocean-700
+
+
+🔴 TURQUOISE (6 occurrences):
+--------------------------------------------------------------------------------
+  client/src/components/EnhancedCommunityMap.tsx:82
+    Color: #38b2ac
+    → ocean-500 or ocean-600
+
+  client/src/lib/theme/theme-provider.tsx:22
+    Color: #38b2ac
+    → ocean-500 or ocean-600
+
+  client/src/components/friendship/FriendshipAnalytics.tsx:26
+    Color: #38b2ac
+    → ocean-500 or ocean-600
+
+  client/src/components/admin/Framework50x21Dashboard.tsx:120
+    Color: #38b2ac
+    → ocean-500 or ocean-600
+
+  client/src/components/admin/Framework30LDashboard.tsx:120
+    Color: #38b2ac
+    → ocean-500 or ocean-600
+
+  client/src/components/Community/CommunityMapWithLayers.tsx:135
+    Color: #38B2AC
+    → ocean-500 or ocean-600
+
+
+🔴 VIOLET (6 occurrences):
+--------------------------------------------------------------------------------
+  client/src/pages/admin/AgentMetrics.tsx:78
+    Color: #8B5CF6
+    → ocean-300 or ocean-400 (or keep for special features)
+
+  client/src/pages/admin/AgentMetrics.tsx:633
+    Color: #8B5CF6
+    → ocean-300 or ocean-400 (or keep for special features)
+
+  client/src/components/friendship/FriendshipAnalytics.tsx:29
+    Color: #8b5cf6
+    → ocean-300 or ocean-400 (or keep for special features)
+
+  client/src/components/profile/postlaunch/ProfilePostLaunch.tsx:112
+    Color: #8b5cf6
+    → ocean-300 or ocean-400 (or keep for special features)
+
+  client/src/components/profile/postlaunch/ProfilePostLaunch.tsx:113
+    Color: #8b5cf6
+    → ocean-300 or ocean-400 (or keep for special features)
+
+  client/src/components/profile/postlaunch/ProfilePostLaunch.tsx:175
+    Color: #8b5cf6
+    → ocean-300 or ocean-400 (or keep for special features)
+
+
+📁 FILES WITH VIOLATIONS:
+--------------------------------------------------------------------------------
+  client/src/index.css: 166 violation(s)
+  client/src/styles/design-tokens.css: 85 violation(s)
+  client/src/lib/theme/theme-provider.tsx: 40 violation(s)
+  client/src/pages/AnalyticsDashboard.tsx: 25 violation(s)
+  client/src/components/universal/PostCreator.tsx: 24 violation(s)
+  client/src/styles/mt-group.css: 18 violation(s)
+  client/src/pages/ResumePage.tsx: 16 violation(s)
+  client/src/styles/ttfiles.css: 14 violation(s)
+  client/src/components/EnhancedCommunityMap.tsx: 13 violation(s)
+  client/src/pages/admin/AgentMetrics.tsx: 13 violation(s)
+  client/src/components/TangoResume.tsx: 11 violation(s)
+  client/src/components/LeafletMap.tsx: 11 violation(s)
+  client/src/components/friendship/FriendshipAnalytics.tsx: 11 violation(s)
+  client/src/components/esa/MentionTextarea.tsx: 10 violation(s)
+  client/src/pages/admin/analytics.tsx: 9 violation(s)
+  client/src/utils/microInteractions.ts: 8 violation(s)
+  client/src/styles/enhanced-memories.css: 8 violation(s)
+  client/src/components/ui-library/modals/MTModalBase.tsx: 8 violation(s)
+  client/src/pages/EnhancedEvents.tsx: 7 violation(s)
+  client/src/components/events/UnifiedEventCard.tsx: 7 violation(s)
+  ... and 42 more files
+
+
+💡 NEXT STEPS:
+--------------------------------------------------------------------------------
+1. Replace legacy colors with ocean palette tokens
+2. Use semantic tokens for grays (gray-50 to gray-950)
+3. Convert inline styles to Tailwind classes where possible
+4. Run: npm run tokens:validate again to verify
+
+📖 Ocean Palette Reference:
+  ocean-50:  #F0FDFA   ocean-500: #14B8A6   ocean-900: #134E4A
+  ocean-100: #CCFBF1   ocean-600: #0D9488   ocean-950: #042F2E
+  ocean-200: #99F6E4   ocean-700: #0F766E
+  ocean-300: #5EEAD4   ocean-800: #115E59
+  ocean-400: #2DD4BF
+

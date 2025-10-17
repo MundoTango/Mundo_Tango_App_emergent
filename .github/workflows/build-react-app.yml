@@ -1,0 +1,40 @@
+name: Build MT Site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build React app
+        run: npm run build
+      
+      - name: Check build
+        run: |
+          if [ -f "dist/public/index.html" ]; then
+            echo "✅ Build successful!"
+          else
+            echo "❌ Build failed"
+            exit 1
+          fi
+      
+      - name: Commit built files
+        run: |
+          git config user.name "MT Builder"
+          git config user.email "build@mt.com"
+          git add dist/
+          git diff --staged --quiet || git commit -m "Build: Update dist/"
+          git push

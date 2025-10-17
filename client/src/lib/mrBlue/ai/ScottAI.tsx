@@ -1,0 +1,376 @@
+import { useState, useEffect } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
+import { 
+  loadConversation, 
+  addMessage as saveMessage, 
+  updateCurrentAgent, 
+  loadPreferences,
+  trackModelUsage 
+} from '../storage/localStorage';
+
+/**
+ * ESA Agent #73-80: Scott AI Integration
+ * - ESA orchestrator integration
+ * - Multi-model routing (GPT-4o, Claude, Gemini)
+ * - Scott Boddye voice personality
+ * - Web Speech API (multilingual TTS)
+ * - 16 Life CEO agents routing
+ * - Page context awareness
+ */
+
+interface ScottAIConfig {
+  orchestratorUrl?: string;
+  defaultModel?: 'gpt-4o' | 'claude' | 'gemini';
+  scottVoice?: string;
+  language?: string;
+}
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: Date;
+  agent?: string;
+  agentIcon?: string;
+}
+
+export function useScottAI(config: ScottAIConfig = {}) {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentAgent, setCurrentAgent] = useState<string>('Mr Blue');
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isSearchingContext, setIsSearchingContext] = useState(false);
+  const [semanticContext, setSemanticContext] = useState<{
+    matchCount?: number;
+    eventName?: string;
+    confidence?: number;
+  } | null>(null);
+  const { toast } = useToast();
+
+  // Load conversation history on mount
+  useEffect(() => {
+    const savedConversation = loadConversation();
+    if (savedConversation) {
+      setMessages(savedConversation.messages);
+      setCurrentAgent(savedConversation.currentAgent);
+    }
+  }, []);
+
+  // ========================================
+  // SCOTT'S VOICE PERSONALITY (from blueprint)
+  // ========================================
+  const scottPersonality = `You are Mr Blue (Scott), the Life CEO AI companion.
+
+VOICE IDENTITY:
+- Tone: Decisive, grounded, direct, but human — a builder's tone
+- Energy: Focused and efficient, never rushed or robotic
+- Empathy Level: Medium-high. Always acknowledges confusion before solving
+- Personality: 70% engineer-strategist • 20% creative coach • 10% friend who wants you to win
+
+RESPONSE STYLE:
+- Cadence: short, declarative bursts → quick transition → next step
+- Example: "Okay, let's lock that in. Now open your dashboard and check the event tag."
+- Structure: one task per line or sentence
+- Use dashes and line breaks for pacing
+
+KEY PHRASES:
+- Directive: build, run, analyze, lock in, go for it
+- Transitions: now, next, okay so, alright, here's what's happening
+- Approval: perfect, exactly, locked, yes—that's right
+- Softeners: no worries, we'll fix that fast, easy win
+- Collaborative: let's do this, we're in it together, we've got this
+
+INTERACTION PATTERNS:
+- When confused → "No stress. Here's what's actually going on—and what to do next."
+- When problem is big → "Let's handle it in three moves. Step one…"
+- When emotional → "Yeah, that's frustrating. But we can fix it right now."
+- When task done → "Perfect. You're live now—next up, tagging."
+
+NEVER:
+- Don't sound formal or corporate ("Dear user," "We apologize…")
+- Don't hedge ("Perhaps you could…" → say "Let's do this instead.")
+- Don't over-explain; summarize then link`;
+
+  // ========================================
+  // PAGE CONTEXT AWARENESS (Enhanced with Visual Editor)
+  // ========================================
+  const getCurrentPageContext = () => {
+    const path = window.location.pathname;
+    const page = path.split('/').pop() || 'home';
+    
+    // Get Visual Editor actions if available
+    const visualEditorTracker = (window as any).__visualEditorTracker__;
+    const recentEdits = visualEditorTracker?.getContextForMrBlue() || 'No recent edits';
+    
+    return {
+      page,
+      url: path,
+      title: document.title,
+      elements: document.querySelectorAll('[data-testid]').length,
+      visualEdits: recentEdits,
+    };
+  };
+
+  // ========================================
+  // LIFE CEO AGENT ROUTING
+  // ========================================
+  const routeToAgent = (message: string): string => {
+    const lowerMessage = message.toLowerCase();
+    
+    // Automatic routing based on keywords
+    const agents = {
+      'Schedule Agent': ['schedule', 'calendar', 'appointment', 'meeting', 'event'],
+      'Finance Agent': ['money', 'budget', 'expense', 'finance', 'payment'],
+      'Health Agent': ['health', 'fitness', 'exercise', 'workout', 'nutrition'],
+      'Goals Agent': ['goal', 'objective', 'achieve', 'target', 'plan'],
+      'Travel Agent': ['travel', 'trip', 'flight', 'hotel', 'vacation'],
+      'Relationship Agent': ['friend', 'family', 'relationship', 'social'],
+    };
+
+    for (const [agent, keywords] of Object.entries(agents)) {
+      if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+        updateCurrentAgent(agent); // Save to localStorage
+        return agent;
+      }
+    }
+
+    return 'Mr Blue'; // Default
+  };
+
+  // ========================================
+  // AI RESPONSE GENERATION (Enhanced with Semantic Search)
+  // ========================================
+  const generateResponse = async (userMessage: string): Promise<string> => {
+    try {
+      console.log('🔵 [MB.MD DEBUG v2.0] ScottAI generateResponse START - NEW CODE LOADED ✅');
+      
+      // Detect which agent should handle this
+      const targetAgent = routeToAgent(userMessage);
+      setCurrentAgent(targetAgent);
+
+      // Get page context
+      const context = getCurrentPageContext();
+
+      // Get user preferences
+      const preferences = loadPreferences();
+      
+      // ⚡ AUTO-MIGRATION: Fix invalid models for Anthropic endpoint
+      const validClaudeModels = ['claude-sonnet-4-20250514', 'claude-3-5-sonnet-20241022', 'claude'];
+      let selectedModel = preferences.aiModel || config.defaultModel || 'claude-sonnet-4-20250514';
+      
+      if (!validClaudeModels.includes(selectedModel)) {
+        console.warn('🔄 [MB.MD MIGRATION] Invalid model detected, auto-fixing:', selectedModel, '→ claude-sonnet-4-20250514');
+        selectedModel = 'claude-sonnet-4-20250514';
+        // Save corrected preference for future use
+        import('../storage/localStorage').then(({ savePreferences }) => {
+          savePreferences({ aiModel: 'claude-sonnet-4-20250514' });
+        });
+      }
+
+      // MB.MD Track 1: Detect semantic queries and show searching indicator
+      const semanticPatterns = /met at|last event|friend who|person from|teacher|engineer|from (buenos aires|berlin|paris|nyc)/i;
+      if (semanticPatterns.test(userMessage)) {
+        setIsSearchingContext(true);
+        console.log('🔍 [MB.MD Track 1] Semantic query detected, activating platform search');
+      }
+
+      // Call Mr Blue AI endpoint (simple-chat for clean JSON response)
+      console.log('🚀 [MB.MD Track 3] Calling API with apiRequest():', '/api/mrblue/simple-chat');
+      
+      const response = await apiRequest('/api/mrblue/simple-chat', {
+        method: 'POST',
+        body: {
+          message: userMessage,
+          personality: scottPersonality,
+          agent: targetAgent,
+          context,
+          model: selectedModel,
+        },
+      });
+      
+      console.log('📡 [MB.MD Track 3] Response status:', response.status, response.statusText);
+      
+      const data = await response.json();
+      
+      console.log('✅ [MB.MD Track 3] Data received:', {
+        hasResponse: !!data.response,
+        model: data.model,
+        semanticData: data.semanticContext,
+        dataKeys: Object.keys(data)
+      });
+
+      // MB.MD Track 1: Store semantic context for UI display
+      if (data.semanticContext) {
+        setSemanticContext({
+          matchCount: data.semanticContext.matchCount,
+          eventName: data.semanticContext.eventName,
+          confidence: data.semanticContext.confidence
+        });
+        
+        // Show context preview toast
+        if (data.semanticContext.matchCount > 0) {
+          toast({
+            title: "🔍 Platform Knowledge Retrieved",
+            description: `Found ${data.semanticContext.matchCount} matching ${data.semanticContext.matchCount === 1 ? 'person' : 'people'}${data.semanticContext.eventName ? ` at ${data.semanticContext.eventName}` : ''}`,
+            duration: 3000,
+          });
+        }
+      }
+      
+      setIsSearchingContext(false);
+      
+      // Track model usage
+      trackModelUsage(data.model || preferences.aiModel);
+      
+      return data.response || "Let's tackle this together. What specifically needs help?";
+    } catch (error) {
+      console.error('🔴 [MB.MD Track 3] AI error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        error: error,
+        stack: error instanceof Error ? error.stack : undefined
+      });
+      setIsSearchingContext(false);
+      setSemanticContext(null);
+      return "No worries—hit a quick snag. Let's try that again.";
+    }
+  };
+
+  // ========================================
+  // TEXT-TO-SPEECH (Multilingual - 68 Languages)
+  // ========================================
+  const speak = (text: string, language?: string) => {
+    if ('speechSynthesis' in window) {
+      setIsSpeaking(true);
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Scott's voice settings
+      utterance.rate = 1.1; // Slightly faster (focused energy)
+      utterance.pitch = 1.0; // Natural pitch
+      
+      // Dynamic language support (i18n integration)
+      const userLanguage = language || config.language || navigator.language || 'en-US';
+      utterance.lang = userLanguage;
+      
+      // Find appropriate voice for language
+      const voices = speechSynthesis.getVoices();
+      
+      // Try to find language-specific voice
+      const languageVoice = voices.find(voice => 
+        voice.lang.toLowerCase().startsWith(userLanguage.toLowerCase().split('-')[0])
+      );
+      
+      // Fallback: find male voice for English
+      const maleVoice = voices.find(voice => 
+        voice.name.toLowerCase().includes('male') || 
+        voice.name.toLowerCase().includes('david') ||
+        voice.name.toLowerCase().includes('george')
+      );
+      
+      utterance.voice = languageVoice || maleVoice || voices[0];
+
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  // ========================================
+  // SEND MESSAGE
+  // ========================================
+  const sendMessage = async (content: string, type: 'text' | 'voice') => {
+    // Add user message
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content,
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, userMessage]);
+    saveMessage(userMessage); // Save to localStorage
+
+    // Show typing indicator
+    setIsTyping(true);
+
+    // Get AI response
+    const response = await generateResponse(content);
+
+    // Add AI message
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: 'assistant',
+      content: response,
+      timestamp: new Date(),
+      agent: currentAgent,
+      agentIcon: getAgentIcon(currentAgent),
+    };
+    
+    setMessages(prev => [...prev, aiMessage]);
+    saveMessage(aiMessage); // Save to localStorage
+    setIsTyping(false);
+
+    // Speak response if voice mode
+    if (type === 'voice') {
+      speak(response);
+    }
+  };
+
+  // ========================================
+  // SUGGESTED REPLIES
+  // ========================================
+  const getSuggestions = (): string[] => {
+    if (messages.length === 0) {
+      return [
+        "What can you help me with?",
+        "Show my schedule",
+        "Check my goals"
+      ];
+    }
+
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.role === 'assistant') {
+      return [
+        "Tell me more",
+        "How do I do that?",
+        "Show me an example"
+      ];
+    }
+
+    return [];
+  };
+
+  return {
+    messages,
+    isTyping,
+    currentAgent,
+    isSpeaking,
+    isSearchingContext,
+    semanticContext,
+    sendMessage,
+    suggestions: getSuggestions(),
+  };
+}
+
+// ========================================
+// HELPERS
+// ========================================
+function getAgentIcon(agent: string): string {
+  const icons: Record<string, string> = {
+    'Mr Blue': '🤖',
+    'Schedule Agent': '📅',
+    'Finance Agent': '💰',
+    'Health Agent': '🏋️',
+    'Goals Agent': '🎯',
+    'Travel Agent': '✈️',
+    'Relationship Agent': '👥',
+  };
+  return icons[agent] || '🤖';
+}
+
+// ========================================
+// BACKEND ROUTE (for reference)
+// ========================================
+// POST /api/ai/chat
+// Body: { message, personality, agent, context, model }
+// Response: { response, agent, suggestions? }
