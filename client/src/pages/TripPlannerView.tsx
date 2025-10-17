@@ -29,7 +29,8 @@ interface TripPlannerViewProps {
 }
 
 export default function TripPlannerView({
-  const { t } = useTranslation(); city, country, cityLat, cityLng, groupId }: TripPlannerViewProps) {
+  city, country, cityLat, cityLng, groupId }: TripPlannerViewProps) {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [tripConfig, setTripConfig] = useState<TripConfig | null>(null);
   const [mapLayers, setMapLayers] = useState({

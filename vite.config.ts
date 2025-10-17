@@ -24,6 +24,25 @@ export default defineConfig({
     outDir: "../dist/public",
     emptyOutDir: true,
     sourcemap: true,
+    rollupOptions: {
+      external: [
+        "@react-three/fiber",
+        "@react-three/drei",
+        "three",
+        "gsap",
+        "gsap/ScrollTrigger",
+        "@gsap/react",
+        "react-helmet",
+        "@dnd-kit/core",
+        "@dnd-kit/sortable",
+        "@dnd-kit/utilities",
+        "shepherd.js",
+        "heic2any",
+        "zustand",
+        "@openreplay/tracker",
+        "posthog-js"
+      ],
+    },
   },
   server: {
     host: "0.0.0.0",
