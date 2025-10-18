@@ -246,7 +246,6 @@ export const pageAgents: IAgent[] = [
       return { status: 'operational', health: 'healthy' };
     }
   },
-,
   // P11-P20: Active User Journey
   {
     id: 'page-agent-create-post',
@@ -398,10 +397,305 @@ export const pageAgents: IAgent[] = [
       return { status: 'operational', health: 'healthy' };
     }
   },
+  // P21-P29: Power User Journey (continued)
+  {
+    id: 'page-agent-create-recommendation',
+    name: 'Create Recommendation Agent',
+    category: 'Page Agents',
+    purpose: 'Help users share venue and artist recommendations',
+    status: 'operational',
+    metadata: { route: '/recommendations/create', priority: 'medium', journey: 'Power User (P21)' },
+    async execute(input: any) {
+      return { success: true, message: 'Create Recommendation Agent operational', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-map',
+    name: 'Map Agent',
+    category: 'Page Agents',
+    purpose: 'Interactive map for discovering events and venues',
+    status: 'operational',
+    metadata: { route: '/map', priority: 'medium', journey: 'Power User (P22)' },
+    async execute(input: any) {
+      return { success: true, message: 'Map Agent operational - interactive location discovery', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-travel',
+    name: 'Travel Agent',
+    category: 'Page Agents',
+    purpose: 'Plan tango trips and travel experiences',
+    status: 'operational',
+    metadata: { route: '/travel', priority: 'medium', journey: 'Power User (P23)' },
+    async execute(input: any) {
+      return { success: true, message: 'Travel Agent operational - planning tango journeys', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-calendar',
+    name: 'Calendar Agent',
+    category: 'Page Agents',
+    purpose: 'Manage personal tango schedule and events',
+    status: 'operational',
+    metadata: { route: '/calendar', priority: 'medium', journey: 'Power User (P24)' },
+    async execute(input: any) {
+      return { success: true, message: 'Calendar Agent operational - schedule management', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-community',
+    name: 'Community Agent',
+    category: 'Page Agents',
+    purpose: 'Connect with local city tango communities',
+    status: 'operational',
+    metadata: { route: '/community/:city', priority: 'medium', journey: 'Power User (P25)' },
+    async execute(input: any) {
+      return { success: true, message: 'Community Agent operational - local connections', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-beautiful-post',
+    name: 'Beautiful Post Agent',
+    category: 'Page Agents',
+    purpose: 'Create stunning visual posts with AI enhancement',
+    status: 'operational',
+    metadata: { route: '/beautiful-post', priority: 'low', journey: 'Power User (P26)' },
+    async execute(input: any) {
+      return { success: true, message: 'Beautiful Post Agent operational - AI-enhanced content', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-artists',
+    name: 'Artists Agent',
+    category: 'Page Agents',
+    purpose: 'Discover and connect with tango artists',
+    status: 'operational',
+    metadata: { route: '/artists', priority: 'medium', journey: 'Power User (P27)' },
+    async execute(input: any) {
+      return { success: true, message: 'Artists Agent operational - artist directory', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-milongas',
+    name: 'Milongas Agent',
+    category: 'Page Agents',
+    purpose: 'Find and explore milonga events worldwide',
+    status: 'operational',
+    metadata: { route: '/milongas', priority: 'medium', journey: 'Power User (P28)' },
+    async execute(input: any) {
+      return { success: true, message: 'Milongas Agent operational - event discovery', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-music',
+    name: 'Music Agent',
+    category: 'Page Agents',
+    purpose: 'Explore tango music library and playlists',
+    status: 'operational',
+    metadata: { route: '/music', priority: 'low', journey: 'Power User (P29)' },
+    async execute(input: any) {
+      return { success: true, message: 'Music Agent operational - music library', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  // P30-P43: Super Admin Journey
+  {
+    id: 'page-agent-admin-users',
+    name: 'User Management Agent',
+    category: 'Page Agents',
+    purpose: 'Manage user accounts and permissions',
+    status: 'operational',
+    metadata: { route: '/admin/users', priority: 'high', journey: 'Super Admin (P31)' },
+    async execute(input: any) {
+      return { success: true, message: 'User Management Agent operational', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-moderation',
+    name: 'Content Moderation Agent',
+    category: 'Page Agents',
+    purpose: 'Review and moderate platform content',
+    status: 'operational',
+    metadata: { route: '/admin/content', priority: 'high', journey: 'Super Admin (P32)' },
+    async execute(input: any) {
+      return { success: true, message: 'Content Moderation Agent operational', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-analytics',
+    name: 'Analytics Agent',
+    category: 'Page Agents',
+    purpose: 'Platform analytics and insights dashboard',
+    status: 'operational',
+    metadata: { route: '/admin/analytics', priority: 'high', journey: 'Super Admin (P33)' },
+    async execute(input: any) {
+      return { success: true, message: 'Analytics Agent operational - data insights', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-esa-mind',
+    name: 'ESA Mind Agent',
+    category: 'Page Agents',
+    purpose: 'Monitor and manage AI agent system',
+    status: 'operational',
+    metadata: { route: '/admin/esa-mind', priority: 'high', journey: 'Super Admin (P35)' },
+    async execute(input: any) {
+      return { success: true, message: 'ESA Mind Agent operational - agent monitoring', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-mindmap',
+    name: 'ESA MindMap Agent',
+    category: 'Page Agents',
+    purpose: 'Interactive agent system visualization',
+    status: 'operational',
+    metadata: { route: '/admin/esa-mindmap', priority: 'medium', journey: 'Super Admin (P36)' },
+    async execute(input: any) {
+      return { success: true, message: 'ESA MindMap Agent operational - system visualization', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-subscriptions',
+    name: 'Subscription Manager Agent',
+    category: 'Page Agents',
+    purpose: 'Manage platform subscriptions and billing',
+    status: 'operational',
+    metadata: { route: '/admin/subscription-manager', priority: 'high', journey: 'Super Admin (P37)' },
+    async execute(input: any) {
+      return { success: true, message: 'Subscription Manager Agent operational', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-ai-network',
+    name: 'AI Network Agent',
+    category: 'Page Agents',
+    purpose: 'Monitor multi-model AI orchestration',
+    status: 'operational',
+    metadata: { route: '/admin/ai-network', priority: 'medium', journey: 'Super Admin (P38)' },
+    async execute(input: any) {
+      return { success: true, message: 'AI Network Agent operational - model routing', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-opensource',
+    name: 'Open Source Tracker Agent',
+    category: 'Page Agents',
+    purpose: 'Track open source deployment and contributions',
+    status: 'operational',
+    metadata: { route: '/admin/open-source-tracker', priority: 'low', journey: 'Super Admin (P39)' },
+    async execute(input: any) {
+      return { success: true, message: 'Open Source Tracker Agent operational', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-workflows',
+    name: 'Workflow Builder Agent',
+    category: 'Page Agents',
+    purpose: 'Design and manage n8n automation workflows',
+    status: 'operational',
+    metadata: { route: '/admin/workflow-builder', priority: 'medium', journey: 'Super Admin (P40)' },
+    async execute(input: any) {
+      return { success: true, message: 'Workflow Builder Agent operational - n8n integration', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-testing',
+    name: 'Test Sprite Agent',
+    category: 'Page Agents',
+    purpose: 'Automated testing and QA dashboard',
+    status: 'operational',
+    metadata: { route: '/admin/test-sprite', priority: 'medium', journey: 'Super Admin (P41)' },
+    async execute(input: any) {
+      return { success: true, message: 'Test Sprite Agent operational - QA automation', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-site-builder',
+    name: 'Site Builder Agent',
+    category: 'Page Agents',
+    purpose: 'AI-powered site generation and customization',
+    status: 'operational',
+    metadata: { route: '/admin/site-builder', priority: 'low', journey: 'Super Admin (P42)' },
+    async execute(input: any) {
+      return { success: true, message: 'Site Builder Agent operational - AI generation', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
+  {
+    id: 'page-agent-admin-visual-editor',
+    name: 'Visual Editor Agent',
+    category: 'Page Agents',
+    purpose: 'Mr Blue Visual Editor for design management',
+    status: 'operational',
+    metadata: { route: '/admin/visual-editor', priority: 'medium', journey: 'Super Admin (P43)' },
+    async execute(input: any) {
+      return { success: true, message: 'Visual Editor Agent operational - design interface', context: input };
+    },
+    async getStatus() {
+      return { status: 'operational', health: 'healthy' };
+    }
+  },
 ];
 
 console.log(`[Page Agents] ${pageAgents.length} agents initialized`);
 
 
-// NEXT BATCH: Add P21-P43 (Power User + Super Admin pages)
-// Then: P44-P88 (Marketplace, Professional, Special pages)
+// NEXT BATCH: Add P44-P88 (Marketplace, Professional, Special pages)
