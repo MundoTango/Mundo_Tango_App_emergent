@@ -82,9 +82,13 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Phase 11: Response time logging for performance monitoring
+  // Phase 11 Parallel: Security headers and performance monitoring
+  const { securityHeaders, requestId } = await import('./middleware/securityHeaders');
   const { responseTimeLogger } = await import('./middleware/responseTime');
-  app.use(responseTimeLogger);
+  
+  app.use(requestId);           // Add request ID for tracing
+  app.use(securityHeaders);     // Apply security headers to all responses
+  app.use(responseTimeLogger);  // Log response times
   
   // Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Register domain routes first
   app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1

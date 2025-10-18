@@ -1,48 +1,57 @@
-import { Router } from 'express';
+/**
+ * Mundo Tango ESA LIFE CEO - Memory Routes
+ * Phase 11 Parallel: Updated with standardized error handling
+ */
+
+import { Router, Request, Response, NextFunction } from 'express';
 import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
+import { success, successWithPagination, parsePagination } from '../utils/apiResponse';
+import { AuthenticationError, ValidationError, NotFoundError } from '../middleware/errorHandler';
 
 const router = Router();
 
-// Get memories feed
-router.get('/memories/feed', isAuthenticated, async (req: any, res) => {
+// Get memories feed (Phase 11: Updated with pagination and error handling)
+router.get('/memories/feed', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
     
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new AuthenticationError('User not found');
     }
     
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 20;
+    const { page, pageSize } = parsePagination(req.query);
     const filters = req.query.filters ? JSON.parse(req.query.filters as string) : {};
     
     const memories = await storage.getMemoriesFeed(user.id, {
       page,
-      limit,
+      limit: pageSize,
       filters
     });
     
-    res.json(memories);
+    res.json(success(memories, 'Memories feed fetched successfully'));
   } catch (error) {
-    console.error('Error fetching memories feed:', error);
-    res.status(500).json({ error: 'Failed to fetch memories' });
+    next(error);
   }
 });
 
-// Create memory
-router.post('/memories', isAuthenticated, async (req: any, res) => {
+// Create memory (Phase 11: Updated with validation and error handling)
+router.post('/memories', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
     
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new AuthenticationError('User not found');
     }
     
     const { content, type, tags, privacy, mediaUrls } = req.body;
+    
+    if (!content || content.trim().length === 0) {
+      throw new ValidationError('Memory content is required');
+    }
     
     const memory = await storage.createMemory({
       userId: user.id,
@@ -53,88 +62,95 @@ router.post('/memories', isAuthenticated, async (req: any, res) => {
       mediaUrls
     });
     
-    res.json(memory);
+    res.json(success(memory, 'Memory created successfully'));
   } catch (error) {
-    console.error('Error creating memory:', error);
-    res.status(500).json({ error: 'Failed to create memory' });
+    next(error);
   }
 });
 
-// Get memory stats
-router.get('/memories/stats', isAuthenticated, async (req: any, res) => {
+// Get memory stats (Phase 11: Updated with error handling)
+router.get('/memories/stats', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
     
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new AuthenticationError('User not found');
     }
     
     const stats = await storage.getMemoryStats(user.id);
     
-    res.json(stats);
+    res.json(success(stats, 'Memory stats fetched successfully'));
   } catch (error) {
-    console.error('Error fetching memory stats:', error);
-    res.status(500).json({ error: 'Failed to fetch memory stats' });
+    next(error);
   }
 });
 
-// Get memory suggestions
-router.get('/memories/suggestions', isAuthenticated, async (req: any, res) => {
+// Get memory suggestions (Phase 11: Updated with error handling)
+router.get('/memories/suggestions', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
     
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new AuthenticationError('User not found');
     }
     
     const suggestions = await storage.getMemorySuggestions(user.id);
     
-    res.json(suggestions);
+    res.json(success(suggestions, 'Memory suggestions fetched successfully'));
   } catch (error) {
-    console.error('Error fetching memory suggestions:', error);
-    res.status(500).json({ error: 'Failed to fetch suggestions' });
+    next(error);
   }
 });
 
-// Update memory
-router.patch('/memories/:memoryId', isAuthenticated, async (req: any, res) => {
+// Update memory (Phase 11: Updated with validation and error handling)
+router.patch('/memories/:memoryId', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
     const memoryId = parseInt(req.params.memoryId);
     
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new AuthenticationError('User not found');
+    }
+    
+    if (isNaN(memoryId)) {
+      throw new ValidationError('Invalid memory ID');
     }
     
     const memory = await storage.updateMemory(memoryId, user.id, req.body);
     
-    res.json(memory);
+    if (!memory) {
+      throw new NotFoundError('Memory not found or you do not have permission to update it');
+    }
+    
+    res.json(success(memory, 'Memory updated successfully'));
   } catch (error) {
-    console.error('Error updating memory:', error);
-    res.status(500).json({ error: 'Failed to update memory' });
+    next(error);
   }
 });
 
-// Delete memory
-router.delete('/memories/:memoryId', isAuthenticated, async (req: any, res) => {
+// Delete memory (Phase 11: Updated with error handling)
+router.delete('/memories/:memoryId', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
     const memoryId = parseInt(req.params.memoryId);
     
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      throw new AuthenticationError('User not found');
+    }
+    
+    if (isNaN(memoryId)) {
+      throw new ValidationError('Invalid memory ID');
     }
     
     await storage.deleteMemory(memoryId, user.id);
     
-    res.json({ success: true, message: 'Memory deleted successfully' });
+    res.json(success({ id: memoryId }, 'Memory deleted successfully'));
   } catch (error) {
-    console.error('Error deleting memory:', error);
-    res.status(500).json({ error: 'Failed to delete memory' });
+    next(error);
   }
 });
 
