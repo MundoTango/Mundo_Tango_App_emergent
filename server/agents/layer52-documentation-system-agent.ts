@@ -1,10 +1,15 @@
 /**
  * Mundo Tango ESA LIFE CEO - Layer 52 Agent: Documentation System
  * Expert agent responsible for API docs, user guides, and comprehensive documentation
+ * 
+ * ENHANCED: File Integrity Protection (Layer 3)
+ * - Real-time monitoring of critical files
+ * - Alert on missing files
+ * - Integration with pre-deploy checks
  */
 
 import { EventEmitter } from 'events';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 export interface DocumentationFile {
@@ -26,7 +31,17 @@ export interface APIDocumentation {
   framework: string;
 }
 
+export interface FileIntegrityStatus {
+  enabled: boolean;
+  lastCheck: Date | null;
+  totalCriticalFiles: number;
+  missingFiles: string[];
+  integrity: number; // 0-100%
+  alerts: string[];
+}
+
 export interface DocumentationSystemStatus {
+  fileIntegrity: FileIntegrityStatus;
   apiDocumentation: {
     swagger: boolean;
     openapi: boolean;
@@ -102,16 +117,29 @@ class Layer52DocumentationSystemAgent extends EventEmitter {
   private layerId = 52;
   private layerName = 'Documentation System';
   private status: DocumentationSystemStatus;
+  private fileIntegrityCheckInterval: NodeJS.Timer | null = null;
+  private criticalFiles: string[] = [];
 
   constructor() {
     super();
     this.status = this.initializeStatus();
+    this.loadCriticalFilesRegistry();
     this.generateSampleDocumentation();
+    this.startFileIntegrityMonitoring();
     console.log(`[ESA Layer ${this.layerId}] ${this.layerName} Agent initialized`);
+    console.log(`[ESA Layer ${this.layerId}] File Integrity Protection: ${this.status.fileIntegrity.enabled ? '✅ ACTIVE' : '❌ INACTIVE'}`);
   }
 
   private initializeStatus(): DocumentationSystemStatus {
     return {
+      fileIntegrity: {
+        enabled: false,
+        lastCheck: null,
+        totalCriticalFiles: 0,
+        missingFiles: [],
+        integrity: 100,
+        alerts: []
+      },
       apiDocumentation: {
         swagger: false,
         openapi: false,
@@ -976,6 +1004,139 @@ ${status.compliance.recommendations.map(rec => `- 📚 ${rec}`).join('\n')}
 
   getAPIDocumentation(): APIDocumentation {
     return { ...this.status.apiDocs };
+  }
+
+  // ======================================
+  // FILE INTEGRITY PROTECTION (Layer 3)
+  // ======================================
+
+  /**
+   * Load critical files registry from scripts/critical-files.json
+   */
+  private loadCriticalFilesRegistry(): void {
+    try {
+      const registryPath = join(process.cwd(), 'scripts', 'critical-files.json');
+      
+      if (!existsSync(registryPath)) {
+        console.warn(`[ESA Layer ${this.layerId}] ⚠️  Critical files registry not found at ${registryPath}`);
+        console.warn(`[ESA Layer ${this.layerId}] ⚠️  File integrity monitoring will be disabled`);
+        return;
+      }
+
+      const content = readFileSync(registryPath, 'utf-8');
+      const registry = JSON.parse(content);
+
+      // Flatten all files from all categories
+      this.criticalFiles = [];
+      for (const category of Object.values(registry.categories || {})) {
+        if ((category as any).files && Array.isArray((category as any).files)) {
+          this.criticalFiles.push(...(category as any).files);
+        }
+      }
+
+      this.status.fileIntegrity.totalCriticalFiles = this.criticalFiles.length;
+      this.status.fileIntegrity.enabled = this.criticalFiles.length > 0;
+
+      console.log(`[ESA Layer ${this.layerId}] ✅ Loaded ${this.criticalFiles.length} critical files for monitoring`);
+    } catch (error) {
+      console.error(`[ESA Layer ${this.layerId}] ❌ Failed to load critical files registry:`, error);
+    }
+  }
+
+  /**
+   * Check all critical files exist
+   */
+  private async checkFileIntegrity(): Promise<void> {
+    if (!this.status.fileIntegrity.enabled || this.criticalFiles.length === 0) {
+      return;
+    }
+
+    const missing: string[] = [];
+
+    for (const filePath of this.criticalFiles) {
+      if (!existsSync(join(process.cwd(), filePath))) {
+        missing.push(filePath);
+      }
+    }
+
+    // Update status
+    this.status.fileIntegrity.lastCheck = new Date();
+    this.status.fileIntegrity.missingFiles = missing;
+    this.status.fileIntegrity.integrity = this.criticalFiles.length > 0
+      ? Math.round(((this.criticalFiles.length - missing.length) / this.criticalFiles.length) * 100)
+      : 100;
+
+    // Generate alerts for missing files
+    if (missing.length > 0) {
+      const alert = `🚨 FILE INTEGRITY BREACH: ${missing.length} critical files missing!`;
+      this.status.fileIntegrity.alerts.push(alert);
+
+      console.error(`[ESA Layer ${this.layerId}] ${alert}`);
+      missing.forEach(file => {
+        console.error(`[ESA Layer ${this.layerId}]   - MISSING: ${file}`);
+      });
+
+      // Emit event for other systems to react
+      this.emit('fileIntegrityViolation', {
+        missing,
+        timestamp: new Date(),
+        severity: 'critical'
+      });
+    } else if (this.status.fileIntegrity.alerts.length > 0) {
+      // Clear alerts if all files recovered
+      const recovery = '✅ All critical files restored';
+      console.log(`[ESA Layer ${this.layerId}] ${recovery}`);
+      this.status.fileIntegrity.alerts = [];
+      
+      this.emit('fileIntegrityRestored', {
+        timestamp: new Date()
+      });
+    }
+  }
+
+  /**
+   * Start periodic file integrity monitoring
+   */
+  private startFileIntegrityMonitoring(): void {
+    if (!this.status.fileIntegrity.enabled) {
+      return;
+    }
+
+    // Run initial check
+    this.checkFileIntegrity();
+
+    // Check every 60 seconds
+    this.fileIntegrityCheckInterval = setInterval(() => {
+      this.checkFileIntegrity();
+    }, 60000);
+
+    console.log(`[ESA Layer ${this.layerId}] 🔍 File integrity monitoring started (check interval: 60s)`);
+  }
+
+  /**
+   * Stop file integrity monitoring (for cleanup)
+   */
+  public stopFileIntegrityMonitoring(): void {
+    if (this.fileIntegrityCheckInterval) {
+      clearInterval(this.fileIntegrityCheckInterval);
+      this.fileIntegrityCheckInterval = null;
+      console.log(`[ESA Layer ${this.layerId}] File integrity monitoring stopped`);
+    }
+  }
+
+  /**
+   * Get current file integrity status
+   */
+  public getFileIntegrityStatus(): FileIntegrityStatus {
+    return this.status.fileIntegrity;
+  }
+
+  /**
+   * Manual trigger for file integrity check (useful for testing)
+   */
+  public async runFileIntegrityCheck(): Promise<FileIntegrityStatus> {
+    await this.checkFileIntegrity();
+    return this.status.fileIntegrity;
   }
 }
 
