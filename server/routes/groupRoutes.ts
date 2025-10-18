@@ -8,8 +8,20 @@ import { db } from '../db';
 import { groups, groupMembers, users, insertGroupSchema } from '../../shared/schema';
 import { eq, and, or, sql, desc, ilike } from 'drizzle-orm';
 import { isAuthenticated } from '../replitAuth';
-import { success, error as errorResponse, ValidationError, AuthenticationError, NotFoundError } from '../middleware/errorHandler';
+import { ValidationError, AuthenticationError, NotFoundError } from '../middleware/errorHandler';
+import { success } from '../utils/apiResponse';
 import { z } from 'zod';
+
+// Slug generation utility
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special chars
+    .replace(/\s+/g, '-')          // Replace spaces with hyphens
+    .replace(/-+/g, '-')           // Remove consecutive hyphens
+    .substring(0, 255);             // Limit length
+}
 
 const router = Router();
 
@@ -52,10 +64,8 @@ router.get('/groups', async (req, res, next: NextFunction) => {
   try {
     const { search, city } = req.query;
     
-    let query = db.select().from(groups);
-    
     // Conditional query building (avoid undefined in where())
-    const conditions = [];
+    const conditions: any[] = [];
     
     if (search && typeof search === 'string') {
       conditions.push(
@@ -70,11 +80,11 @@ router.get('/groups', async (req, res, next: NextFunction) => {
       conditions.push(eq(groups.city, city));
     }
     
-    if (conditions.length > 0) {
-      query = query.where(and(...conditions));
-    }
-    
-    const allGroups = await query.orderBy(desc(groups.createdAt));
+    // Build query without reassignment to preserve types
+    const allGroups = await (conditions.length > 0
+      ? db.select().from(groups).where(and(...conditions)).orderBy(desc(groups.createdAt))
+      : db.select().from(groups).orderBy(desc(groups.createdAt))
+    );
     
     res.json(success(allGroups, 'Groups fetched successfully'));
   } catch (error) {
@@ -163,12 +173,23 @@ router.post('/groups', isAuthenticated, async (req: any, res, next: NextFunction
 
     const { name, description, city, isPrivate } = validationResult.data;
     
+    // Generate unique slug from name (reserve 15 chars for timestamp suffix)
+    let slug = generateSlug(name).substring(0, 240);
+    
+    // Check if slug exists and add suffix if needed
+    const [existing] = await db.select().from(groups).where(eq(groups.slug, slug)).limit(1);
+    if (existing) {
+      const timestamp = Date.now();
+      slug = `${slug}-${timestamp}`.substring(0, 255); // Ensure total length <= 255
+    }
+    
     const [newGroup] = await db.insert(groups).values({
       name,
+      slug,
       description,
       city,
       isPrivate: isPrivate || false,
-      createdById: user[0].id
+      createdBy: user[0].id
     }).returning();
     
     // Add creator as admin
@@ -271,12 +292,12 @@ router.get('/groups/:groupId/members', async (req, res, next: NextFunction) => {
       username: users.username,
       profileImage: users.profileImage,
       role: groupMembers.role,
-      joinedAt: groupMembers.createdAt
+      joinedAt: groupMembers.joinedAt
     })
     .from(groupMembers)
     .innerJoin(users, eq(users.id, groupMembers.userId))
     .where(eq(groupMembers.groupId, groupId))
-    .orderBy(desc(groupMembers.createdAt));
+    .orderBy(desc(groupMembers.joinedAt));
     
     res.json(success(members, 'Group members fetched successfully'));
   } catch (error) {
