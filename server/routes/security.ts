@@ -112,9 +112,11 @@ router.get('/api/security/csrf-token', (req, res) => {
     session.csrfToken = randomBytes(32).toString('hex');
   }
   
+  // Return both formats for compatibility
   res.json({
     success: true,
-    csrfToken: session.csrfToken
+    token: session.csrfToken,  // Frontend expects this
+    csrfToken: session.csrfToken  // Backward compatibility
   });
 });
 

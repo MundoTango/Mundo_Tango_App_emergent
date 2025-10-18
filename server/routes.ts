@@ -59,6 +59,7 @@ import authRoutes from "./routes/authRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
+import securityRoutes from "./routes/security"; // ESA LIFE CEO 61x21 - Security routes (CSRF, audit, etc.)
 
 import { getUserId } from "./utils/authHelper";
 
@@ -80,6 +81,7 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
+  app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1
   app.use('/api', userRoutes);    // User profile and settings routes
   app.use('/api', authRoutes);    // Authentication routes
   app.use('/api', adminRoutes);   // Admin management routes
