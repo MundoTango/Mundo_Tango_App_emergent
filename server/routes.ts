@@ -85,9 +85,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Phase 11 Parallel: Security headers and performance monitoring
   const { securityHeaders } = await import('./middleware/security');
   const { responseTimeLogger } = await import('./middleware/responseTime'); // ✅ RESTORED
-  const { requestValidator } = await import('./middleware/requestValidator'); // ✅ RESTORED
+  // Note: requestValidator exports validation factory functions, not a direct middleware
+  // Use validateRequest(schema), validateQuery(schema), validateParams(schema) on specific routes
   
-  app.use(requestValidator);    // ✅ ENABLED - Request validation for all routes
   app.use(securityHeaders);     // Apply security headers to all responses
   app.use(responseTimeLogger);  // ✅ ENABLED - Response time logging for performance monitoring
   

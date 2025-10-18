@@ -355,6 +355,339 @@ D - Deploy and document thoroughly
 
 ---
 
+## 🤖 Mundo Tango Agent Ecosystem
+
+### Agent Organization Chart (276 Total Agents)
+
+```
+Mundo Tango AI Ecosystem
+│
+├── 📊 Leadership & Management (14 agents)
+│   ├── Agent #0: CEO - Strategic Orchestrator
+│   ├── Agents #1-6: Division Chiefs (Infrastructure, Product, AI/ML, Ops, Security, Growth)
+│   └── Agents #10-16: Expert Advisors (Strategic, Technical, Product, Data, Security, UX, Growth)
+│
+├── 🏗️ ESA Infrastructure Layers (61 agents: Layers 1-61)
+│   ├── Foundation (Layers 1-10): Architecture, API, Server, Auth, State, UI
+│   ├── Core Features (Layers 11-20): Real-time, Files, Cache, Search, Notifications
+│   ├── Business Logic (Layers 21-30): Users, Groups, Events, Social, Messaging
+│   ├── AI Infrastructure (Layers 31-45): AI Core, Prompts, Context, NLP, Knowledge Graph
+│   └── Platform Enhancement (Layers 46-61): Mobile, Security, DevOps, Testing, i18n, SEO
+│
+├── 🎯 Operational Excellence (5 agents)
+│   ├── Sprint Management Agent
+│   ├── Documentation Coordinator
+│   ├── Code Review Agent
+│   ├── Release Manager
+│   └── Quality Assurance Agent
+│
+├── 🧠 Life CEO AI (16 agents)
+│   ├── Health & Wellness Coach
+│   ├── Career Development Coach
+│   ├── Financial Advisor
+│   ├── Relationship Coach
+│   ├── Time Management Expert
+│   ├── Personal Growth Mentor
+│   ├── Stress Management Coach
+│   ├── Nutrition Advisor
+│   ├── Fitness Trainer
+│   ├── Sleep Optimization Expert
+│   ├── Productivity Coach
+│   ├── Learning & Education Advisor
+│   ├── Social Life Coordinator
+│   ├── Hobby & Leisure Planner
+│   ├── Travel Planning Assistant
+│   └── Home Organization Expert
+│
+├── 💙 Mr Blue Suite (8 agents)
+│   ├── Mr Blue Core (Scott AI with multi-model routing)
+│   ├── Mr Blue Schedule
+│   ├── Mr Blue Finance
+│   ├── Mr Blue Health
+│   ├── Mr Blue Context Detection
+│   ├── Mr Blue Visual Editor
+│   ├── Mr Blue Agent Matcher
+│   └── Mr Blue Coordinator
+│
+├── 🗺️ Journey Agents (8 agents: J1-J8)
+│   ├── J1: New Visitor Journey
+│   ├── J2: Active User Journey
+│   ├── J3: Power User Journey
+│   ├── J4: Super Admin Journey
+│   ├── J5: Event Organizer Journey
+│   ├── J6: Group Leader Journey
+│   ├── J7: Host Journey
+│   └── J8: Premium User Journey
+│
+├── 📄 Page Agents (125+ agents)
+│   ├── Home Page Agent
+│   ├── Profile Page Agent
+│   ├── Events Page Agent
+│   ├── Groups Page Agent
+│   ├── Messages Page Agent
+│   ├── [... 120+ more page-specific agents]
+│   └── Settings Page Agent
+│
+├── 🎨 UI Sub-Agents (3 agents)
+│   ├── Dark Mode Agent
+│   ├── Translation Agent
+│   └── Component Watcher Agent
+│
+├── 🔬 Algorithm Agents (10+ agents)
+│   ├── Feed Ranking Algorithm
+│   ├── Event Discovery Algorithm
+│   ├── User Recommendation Engine
+│   ├── Content Moderation Algorithm
+│   ├── Search Relevance Algorithm
+│   ├── Notification Priority Algorithm
+│   ├── Group Matching Algorithm
+│   ├── Location Distance Calculator
+│   ├── Social Graph Analysis
+│   └── Engagement Scoring Algorithm
+│
+├── 🛠️ Specialized Services (10+ agents)
+│   ├── Email Service Agent
+│   ├── SMS Service Agent
+│   ├── Push Notification Agent
+│   ├── Media Processing Agent
+│   ├── Video Transcoding Agent
+│   ├── Image Optimization Agent
+│   ├── Geo-Location Service
+│   ├── Payment Processing Agent
+│   ├── Calendar Sync Agent
+│   └── Analytics Service Agent
+│
+├── 📱 3-App Architecture Leads (6 agents)
+│   ├── Mundo Tango Platform Lead
+│   ├── Life CEO Platform Lead
+│   ├── Mr Blue Platform Lead
+│   ├── Cross-Platform Integration Lead
+│   ├── Shared Infrastructure Lead
+│   └── Platform Sync Coordinator
+│
+├── 📢 Marketing Agents (5 agents)
+│   ├── Content Marketing Agent
+│   ├── Social Media Agent
+│   ├── Email Campaign Agent
+│   ├── SEO Optimization Agent
+│   └── Growth Hacking Agent
+│
+└── 👥 Hire/Volunteer Agents (5 agents)
+    ├── Recruitment Coordinator
+    ├── Volunteer Outreach Agent
+    ├── Onboarding Specialist
+    ├── Community Builder
+    └── Talent Matcher
+
+```
+
+### Agent Status (Current: 123/276 Active)
+
+**Fully Operational:**
+- ✅ ESA Infrastructure: 60/61 agents (Layer 52 disabled - doc truncation issue)
+- ✅ Leadership & Management: 14/14 agents
+- ✅ Operational Excellence: 5/5 agents
+- ✅ Mr Blue Suite: 8/8 agents
+- ✅ Journey Agents: 4/8 agents (J1-J4)
+- ✅ UI Sub-Agents: 3/3 agents
+- ✅ Algorithm Agents: 10/10 agents
+- ✅ Specialized Services: 10/10 agents
+- ✅ Hire/Volunteer: 5/5 agents
+
+**Partially Loaded:**
+- ⚠️ Life CEO AI: 1/16 agents (index file exports incomplete)
+- ⚠️ Page Agents: 1/125 agents (individual page agents not yet exported)
+- ⚠️ App Architecture Leads: 1/6 agents (index file exports incomplete)
+- ⚠️ Marketing Agents: 1/5 agents (index file exports incomplete)
+
+**Path to 276:** Complete the agent index files to export all agents properly
+
+---
+
+## 🛠️ Build Tools & Commands
+
+### Development Commands
+
+```bash
+# Start development server (port 5000)
+npm run dev
+
+# Build for production
+npm run build
+
+# Run production server
+npm start
+
+# Database operations
+npm run db:push          # Sync schema to database
+npm run db:push --force  # Force sync (data loss warning)
+npm run db:studio        # Open Drizzle Studio GUI
+```
+
+### Documentation Protection
+
+```bash
+# Backup all .md files to PostgreSQL
+npm run backup-docs
+
+# Restore all .md files from PostgreSQL
+npm run restore-docs
+
+# Restore specific file
+npm run restore-docs -- --file=filename.md
+```
+
+### Testing & Quality
+
+```bash
+# Run integrity checks
+npm run integrity-check
+
+# Pre-deployment validation
+npm run predeploy
+
+# Check for broken imports and TypeScript errors
+npx tsc --noEmit
+```
+
+### Agent System
+
+```bash
+# Check agent status (look for agent logs in console)
+# Server will show agent counts on startup:
+# "🎯 Total Agents: 123 / 276 agents registered"
+
+# Enable/disable specific agent categories
+# Edit: server/agents/agent-coordinator.ts
+```
+
+### File Structure
+
+```
+mundo-tango/
+├── client/                 # Frontend (React + Vite)
+│   ├── src/
+│   │   ├── pages/         # 125+ page components
+│   │   ├── components/    # Reusable UI components
+│   │   ├── contexts/      # React contexts (Auth, Socket, etc.)
+│   │   └── hooks/         # Custom React hooks
+│
+├── server/                # Backend (Express + TypeScript)
+│   ├── agents/            # 276 AI agents
+│   │   ├── leadership/    # 14 leadership agents
+│   │   ├── layer*.ts      # 61 ESA infrastructure agents
+│   │   ├── operational/   # 5 operational agents
+│   │   ├── life-ceo/      # 16 Life CEO AI agents
+│   │   ├── mr-blue/       # 8 Mr Blue suite agents
+│   │   ├── journey-agents/# 8 journey agents
+│   │   ├── page-agents/   # 125+ page agents
+│   │   ├── ui-sub-agents/ # 3 UI sub-agents
+│   │   ├── algorithms/    # 10+ algorithm agents
+│   │   ├── services/      # 10+ service agents
+│   │   ├── app-leads/     # 6 app architecture leads
+│   │   ├── marketing/     # 5 marketing agents
+│   │   └── hire-volunteer/# 5 hire/volunteer agents
+│   ├── routes/            # API endpoints
+│   ├── middleware/        # Express middleware
+│   ├── services/          # Business logic services
+│   └── db.ts             # Database connection
+│
+├── shared/                # Shared types & schemas
+│   └── schema.ts         # Drizzle ORM schemas
+│
+├── scripts/              # Utility scripts
+│   ├── backup-docs-to-db.ts
+│   ├── restore-docs-from-db.ts
+│   └── pre-deploy-check.ts
+│
+└── *.md                  # Documentation (protected in DB)
+```
+
+### How Agents Work
+
+**1. ESA Infrastructure Agents (Layers 1-61)**
+- Automatically loaded on server startup
+- Each layer manages a specific aspect of the platform
+- Layers run audits and generate reports
+- Example: Layer 21 manages users, Layer 11 handles real-time features
+
+**2. Specialized Agent Categories**
+- Loaded via category index files (`server/agents/*/index.ts`)
+- Each category has an array of agent objects
+- Agents export: `id`, `name`, `category`, `purpose`, `execute()`, `getStatus()`
+- Example: Life CEO agents provide personal life management advice
+
+**3. Agent Coordinator**
+- Central orchestration system: `server/agents/agent-coordinator.ts`
+- Registers all agents at startup
+- Provides agent status summary
+- Runs full platform audits on demand
+
+**4. Using Agents in Code**
+
+```typescript
+// Import the coordinator
+import { agentCoordinator } from './agents/agent-coordinator';
+
+// Get agent status
+const status = await agentCoordinator.getStatus();
+
+// Run full audit
+const auditResults = await agentCoordinator.runFullAudit();
+
+// Check specific layer
+const layer21Status = await layer21Agent.getStatus();
+```
+
+**5. Adding New Agents**
+1. Create agent file in appropriate category folder
+2. Export agent object with required interface
+3. Add to category index file (e.g., `leadership/index.ts`)
+4. Agent auto-loads on next server restart
+
+---
+
+## 🔒 File Protection System
+
+**Why:** Replit auto-commits can delete documentation files after sessions  
+**Solution:** 3-layer database-backed protection
+
+### Protection Layers
+
+1. **Layer 1:** Critical file registry (`scripts/critical-files.json`)
+2. **Layer 2:** Pre-deployment validation (`scripts/pre-deploy-check.ts`)
+3. **Layer 3:** PostgreSQL backup (`documentation_archive` table)
+
+### How to Protect New Files
+
+```bash
+# 1. Create your file
+touch IMPORTANT_DOC.md
+
+# 2. Add content
+echo "# Important Documentation" > IMPORTANT_DOC.md
+
+# 3. Back up to database
+npm run backup-docs
+
+# 4. File is now protected from git deletion!
+```
+
+### Recovery Process
+
+```bash
+# If files are deleted:
+npm run restore-docs
+
+# Verify restoration:
+ls *.md
+
+# Files restored from PostgreSQL backup!
+```
+
+---
+
 **Last Updated:** October 18, 2025  
 **Used Successfully:** 3+ major incidents resolved  
+**Agent System:** 123/276 agents active (45%)  
 **Status:** Active methodology for all complex work

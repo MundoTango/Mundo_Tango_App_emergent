@@ -50,8 +50,14 @@ export const responseTimeLogger = (req: Request, res: Response, next: NextFuncti
       }
     }
 
-    // Add X-Response-Time header
-    res.setHeader('X-Response-Time', `${duration}ms`);
+    // Try to add X-Response-Time header only if headers haven't been sent
+    if (!res.headersSent) {
+      try {
+        res.setHeader('X-Response-Time', `${duration}ms`);
+      } catch (error) {
+        // Silently fail if headers already sent (common with compression/streaming)
+      }
+    }
 
     // Call the original end method
     return originalEnd.apply(this, args);
