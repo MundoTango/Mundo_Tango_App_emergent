@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import JiraStyleItemDetailModal from './JiraStyleItemDetailModal';
-import { ProjectItem } from '../../../../COMPREHENSIVE_PROJECT_DATA';
+// import { ProjectItem } from '../../../../COMPREHENSIVE_PROJECT_DATA'; // TODO: Create this file
+type ProjectItem = any; // Stub for now
 
 interface SafeModalWrapperProps {
   selectedItem: ProjectItem | null;

@@ -6,7 +6,8 @@
  */
 
 import { onCLS, onFCP, onFID, onLCP, onTTFB, onINP, Metric } from 'web-vitals';
-import { webVitals } from '../../../server/monitoring/prometheus-metrics';
+// import { webVitals } from '../../../server/monitoring/prometheus-metrics'; // TODO: Fix path
+const webVitals = null; // Stub for now
 
 export interface WebVitalsData {
   lcp?: number; // Largest Contentful Paint
