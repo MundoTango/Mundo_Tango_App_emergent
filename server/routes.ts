@@ -61,6 +61,7 @@ import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
 import securityRoutes from "./routes/security"; // Mundo Tango ESA LIFE CEO - Security routes (CSRF, audit, etc.)
 import publicStatsRoutes from "./routes/publicStatsRoutes"; // J1 - Public stats for visitor landing page
+import journeyRoutes from "./routes/journeyRoutes"; // Phase 0 Task 0.5 - Journey Orchestration routes (J1-J4)
 
 import { getUserId } from "./utils/authHelper";
 
@@ -89,6 +90,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
+  app.use('/api/journey', journeyRoutes); // Phase 0 Task 0.5 - Journey Orchestration API (J1-J4)
   
   // Mundo Tango ESA LIFE CEO - Register optimized post routes early to reduce memory load
   app.use(postRoutes);

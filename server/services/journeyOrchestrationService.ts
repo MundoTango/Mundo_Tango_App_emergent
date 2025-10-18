@@ -71,21 +71,84 @@ export function detectUserJourney(user: Partial<User>, metrics: UserMetrics): Jo
 
 /**
  * Calculate metrics needed for journey detection
- * In production, these would come from database queries
+ * Queries actual database for real user metrics
  */
 export async function calculateUserMetrics(userId: number): Promise<UserMetrics> {
-  // TODO: Replace with actual database queries
-  // For now, return mock data to get infrastructure working
+  const { db } = await import('../db');
+  const { users, posts, follows, eventRsvps, events } = await import('@db/schema');
+  const { eq, and, count, sql } = await import('drizzle-orm');
   
-  return {
-    memoriesCount: 0,
-    connectionsCount: 0,
-    eventsOrganized: 0,
-    eventsAttended: 0,
-    daysSinceRegistration: 0,
-    loginCount: 0,
-    hasUsedAIFeatures: false,
-  };
+  try {
+    // Get user registration date
+    const user = await db.select({
+      createdAt: users.createdAt,
+    }).from(users).where(eq(users.id, userId)).limit(1);
+    
+    const registrationDate = user[0]?.createdAt || new Date();
+    const daysSinceRegistration = Math.floor(
+      (Date.now() - registrationDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    
+    // Count memories/posts created by user
+    const memoriesResult = await db.select({ count: count() })
+      .from(posts)
+      .where(eq(posts.userId, userId));
+    const memoriesCount = memoriesResult[0]?.count || 0;
+    
+    // Count connections (following + followers)
+    const followingResult = await db.select({ count: count() })
+      .from(follows)
+      .where(eq(follows.followerId, userId));
+    const followersResult = await db.select({ count: count() })
+      .from(follows)
+      .where(eq(follows.followingId, userId));
+    const connectionsCount = (followingResult[0]?.count || 0) + (followersResult[0]?.count || 0);
+    
+    // Count events attended (RSVPs with status 'going')
+    const eventsAttendedResult = await db.select({ count: count() })
+      .from(eventRsvps)
+      .where(and(
+        eq(eventRsvps.userId, userId),
+        eq(eventRsvps.status, 'going')
+      ));
+    const eventsAttended = eventsAttendedResult[0]?.count || 0;
+    
+    // Count events organized (created by user)
+    const eventsOrganizedResult = await db.select({ count: count() })
+      .from(events)
+      .where(eq(events.createdBy, userId));
+    const eventsOrganized = eventsOrganizedResult[0]?.count || 0;
+    
+    // Check if user has used AI features (posts with AI enhancement)
+    // For now, assume no AI usage tracking - can be enhanced later
+    const hasUsedAIFeatures = false;
+    
+    // Estimate login count from days since registration (rough approximation)
+    // In a real system, you'd track this in a sessions table
+    const loginCount = Math.min(daysSinceRegistration * 2, 100); // Rough estimate
+    
+    return {
+      memoriesCount,
+      connectionsCount,
+      eventsOrganized,
+      eventsAttended,
+      daysSinceRegistration,
+      loginCount,
+      hasUsedAIFeatures,
+    };
+  } catch (error) {
+    console.error('[Journey Orchestration] Error calculating metrics:', error);
+    // Fallback to safe defaults on error
+    return {
+      memoriesCount: 0,
+      connectionsCount: 0,
+      eventsOrganized: 0,
+      eventsAttended: 0,
+      daysSinceRegistration: 0,
+      loginCount: 0,
+      hasUsedAIFeatures: false,
+    };
+  }
 }
 
 /**
