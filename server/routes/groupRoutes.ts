@@ -1,16 +1,28 @@
-import { Router } from 'express';
-import { storage } from '../storage';
-import { isAuthenticated } from '../replitAuth';
-import { setUserContext } from '../middleware/tenantMiddleware';
+/**
+ * Mundo Tango ESA LIFE CEO - Group Routes
+ * Phase 11 Parallel: Updated with secure pattern (direct DB + error handling + Zod validation)
+ */
+
+import { Router, Response, NextFunction } from 'express';
 import { db } from '../db';
-import { groups, groupMembers, users } from '../../shared/schema';
+import { groups, groupMembers, users, insertGroupSchema } from '../../shared/schema';
 import { eq, and, or, sql, desc, ilike } from 'drizzle-orm';
+import { isAuthenticated } from '../replitAuth';
+import { success, error as errorResponse, ValidationError, AuthenticationError, NotFoundError } from '../middleware/errorHandler';
 import { z } from 'zod';
 
 const router = Router();
 
+// Validation schemas
+const createGroupSchema = insertGroupSchema.pick({
+  name: true,
+  description: true,
+  city: true,
+  isPrivate: true
+});
+
 // Get city groups for world map
-router.get('/community/city-groups', async (req, res) => {
+router.get('/community/city-groups', async (req, res, next: NextFunction) => {
   try {
     const cityGroups = await db.select({
       id: groups.id,
@@ -26,25 +38,27 @@ router.get('/community/city-groups', async (req, res) => {
     .where(eq(groups.type, 'city'))
     .orderBy(desc(groups.memberCount));
     
-    res.json({ 
-      success: true,
-      data: cityGroups.filter(g => g.lat && g.lng) // Only return groups with coordinates
-    });
+    res.json(success(
+      cityGroups.filter(g => g.lat && g.lng),
+      'City groups fetched successfully'
+    ));
   } catch (error) {
-    console.error('Error fetching city groups:', error);
-    res.status(500).json({ error: 'Failed to fetch city groups' });
+    next(error);
   }
 });
 
 // Get all groups
-router.get('/groups', setUserContext, async (req, res) => {
+router.get('/groups', async (req, res, next: NextFunction) => {
   try {
     const { search, city } = req.query;
     
     let query = db.select().from(groups);
     
-    if (search) {
-      query = query.where(
+    // Conditional query building (avoid undefined in where())
+    const conditions = [];
+    
+    if (search && typeof search === 'string') {
+      conditions.push(
         or(
           ilike(groups.name, `%${search}%`),
           ilike(groups.description, `%${search}%`)
@@ -52,27 +66,30 @@ router.get('/groups', setUserContext, async (req, res) => {
       );
     }
     
-    if (city) {
-      query = query.where(eq(groups.city, city as string));
+    if (city && typeof city === 'string') {
+      conditions.push(eq(groups.city, city));
+    }
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
     }
     
     const allGroups = await query.orderBy(desc(groups.createdAt));
     
-    res.json(allGroups);
+    res.json(success(allGroups, 'Groups fetched successfully'));
   } catch (error) {
-    console.error('Error fetching groups:', error);
-    res.status(500).json({ error: 'Failed to fetch groups' });
+    next(error);
   }
 });
 
 // Get user's groups
-router.get('/groups/my', isAuthenticated, async (req: any, res) => {
+router.get('/groups/my', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
-    const user = await storage.getUserByReplitId(userId);
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
     
-    if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
     }
 
     const userGroups = await db.select({
@@ -81,38 +98,37 @@ router.get('/groups/my', isAuthenticated, async (req: any, res) => {
     })
     .from(groupMembers)
     .innerJoin(groups, eq(groups.id, groupMembers.groupId))
-    .where(eq(groupMembers.userId, user.id))
+    .where(eq(groupMembers.userId, user[0].id))
     .orderBy(desc(groups.createdAt));
     
-    res.json(userGroups);
+    res.json(success(userGroups, 'User groups fetched successfully'));
   } catch (error) {
-    console.error('Error fetching user groups:', error);
-    res.status(500).json({ error: 'Failed to fetch user groups' });
+    next(error);
   }
 });
 
 // Get single group (by ID or slug)
-router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
+router.get('/groups/:groupIdentifier', async (req, res, next: NextFunction) => {
   try {
     const identifier = req.params.groupIdentifier;
     let group;
     
     // Check if identifier is numeric (ID) or string (slug)
     if (/^\d+$/.test(identifier)) {
-      // It's a numeric ID
       const groupId = parseInt(identifier);
       [group] = await db.select()
         .from(groups)
-        .where(eq(groups.id, groupId));
+        .where(eq(groups.id, groupId))
+        .limit(1);
     } else {
-      // It's a slug
       [group] = await db.select()
         .from(groups)
-        .where(eq(groups.slug, identifier));
+        .where(eq(groups.slug, identifier))
+        .limit(1);
     }
     
     if (!group) {
-      return res.status(404).json({ error: 'Group not found' });
+      throw new NotFoundError('Group not found');
     }
     
     // Get member count
@@ -120,59 +136,67 @@ router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
       .from(groupMembers)
       .where(eq(groupMembers.groupId, group.id));
     
-    res.json({
+    res.json(success({
       ...group,
       memberCount: members.length
-    });
+    }, 'Group fetched successfully'));
   } catch (error) {
-    console.error('Error fetching group:', error);
-    res.status(500).json({ error: 'Failed to fetch group' });
+    next(error);
   }
 });
 
-// Create group
-router.post('/groups', isAuthenticated, async (req: any, res) => {
+// Create group (with Zod validation)
+router.post('/groups', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
-    const user = await storage.getUserByReplitId(userId);
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
     
-    if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
     }
 
-    const { name, description, city, isPrivate } = req.body;
+    // Validate request body
+    const validationResult = createGroupSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      throw new ValidationError(`Invalid group data: ${validationResult.error.message}`);
+    }
+
+    const { name, description, city, isPrivate } = validationResult.data;
     
     const [newGroup] = await db.insert(groups).values({
       name,
       description,
       city,
       isPrivate: isPrivate || false,
-      createdById: user.id
+      createdById: user[0].id
     }).returning();
     
     // Add creator as admin
     await db.insert(groupMembers).values({
       groupId: newGroup.id,
-      userId: user.id,
+      userId: user[0].id,
       role: 'admin'
     });
     
-    res.json(newGroup);
+    res.json(success(newGroup, 'Group created successfully'));
   } catch (error) {
-    console.error('Error creating group:', error);
-    res.status(500).json({ error: 'Failed to create group' });
+    next(error);
   }
 });
 
 // Join group
-router.post('/groups/:groupId/join', isAuthenticated, async (req: any, res) => {
+router.post('/groups/:groupId/join', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
-    const user = await storage.getUserByReplitId(userId);
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
     const groupId = parseInt(req.params.groupId);
     
-    if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
+    }
+    
+    if (isNaN(groupId)) {
+      throw new ValidationError('Invalid group ID');
     }
     
     // Check if already member
@@ -180,69 +204,83 @@ router.post('/groups/:groupId/join', isAuthenticated, async (req: any, res) => {
       .from(groupMembers)
       .where(and(
         eq(groupMembers.groupId, groupId),
-        eq(groupMembers.userId, user.id)
-      ));
+        eq(groupMembers.userId, user[0].id)
+      ))
+      .limit(1);
     
     if (existingMember) {
-      return res.status(400).json({ error: 'Already a member' });
+      throw new ValidationError('Already a member of this group');
     }
     
     await db.insert(groupMembers).values({
       groupId,
-      userId: user.id,
+      userId: user[0].id,
       role: 'member'
     });
     
-    res.json({ success: true, message: 'Joined group successfully' });
+    res.json(success({ groupId }, 'Joined group successfully'));
   } catch (error) {
-    console.error('Error joining group:', error);
-    res.status(500).json({ error: 'Failed to join group' });
+    next(error);
   }
 });
 
 // Leave group
-router.post('/groups/:groupId/leave', isAuthenticated, async (req: any, res) => {
+router.post('/groups/:groupId/leave', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
-    const user = await storage.getUserByReplitId(userId);
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
     const groupId = parseInt(req.params.groupId);
     
-    if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
     }
     
-    await db.delete(groupMembers)
+    if (isNaN(groupId)) {
+      throw new ValidationError('Invalid group ID');
+    }
+    
+    const deleted = await db.delete(groupMembers)
       .where(and(
         eq(groupMembers.groupId, groupId),
-        eq(groupMembers.userId, user.id)
-      ));
+        eq(groupMembers.userId, user[0].id)
+      ))
+      .returning();
     
-    res.json({ success: true, message: 'Left group successfully' });
+    if (deleted.length === 0) {
+      throw new NotFoundError('Membership not found');
+    }
+    
+    res.json(success({ groupId }, 'Left group successfully'));
   } catch (error) {
-    console.error('Error leaving group:', error);
-    res.status(500).json({ error: 'Failed to leave group' });
+    next(error);
   }
 });
 
 // Get group members
-router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
+router.get('/groups/:groupId/members', async (req, res, next: NextFunction) => {
   try {
     const groupId = parseInt(req.params.groupId);
     
+    if (isNaN(groupId)) {
+      throw new ValidationError('Invalid group ID');
+    }
+    
     const members = await db.select({
-      user: users,
+      id: users.id,
+      name: users.name,
+      username: users.username,
+      profileImage: users.profileImage,
       role: groupMembers.role,
-      joinedAt: groupMembers.joinedAt
+      joinedAt: groupMembers.createdAt
     })
     .from(groupMembers)
     .innerJoin(users, eq(users.id, groupMembers.userId))
     .where(eq(groupMembers.groupId, groupId))
-    .orderBy(desc(groupMembers.joinedAt));
+    .orderBy(desc(groupMembers.createdAt));
     
-    res.json(members);
+    res.json(success(members, 'Group members fetched successfully'));
   } catch (error) {
-    console.error('Error fetching group members:', error);
-    res.status(500).json({ error: 'Failed to fetch group members' });
+    next(error);
   }
 });
 
