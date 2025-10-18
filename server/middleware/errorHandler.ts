@@ -94,6 +94,16 @@ export class InternalServerError extends ApiError {
 }
 
 /**
+ * 404 Not Found Handler - must be registered before errorHandler
+ */
+export function notFoundHandler(req: Request, res: Response, next: NextFunction) {
+  res.status(404).json({
+    success: false,
+    error: `Cannot ${req.method} ${req.path}`
+  });
+}
+
+/**
  * Global error handler middleware
  */
 export function errorHandler(
