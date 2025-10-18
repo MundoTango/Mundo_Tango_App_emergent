@@ -1,63 +1,44 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import tailwindcss from "tailwindcss";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineConfig({
-  root: "client",
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"),
+      "@": path.resolve(__dirname, "client", "src"),
       "@shared": path.resolve(__dirname, "shared"),
+      "@lib": path.resolve(__dirname, "client", "src", "lib"),
+      "@components": path.resolve(__dirname, "client", "src", "components"),
+      "@hooks": path.resolve(__dirname, "client", "src", "hooks"),
+      "@pages": path.resolve(__dirname, "client", "src", "pages"),
       "@assets": path.resolve(__dirname, "attached_assets"),
-      "@lib": path.resolve(__dirname, "client/src/lib"),
-      "@components": path.resolve(__dirname, "client/src/components"),
     },
   },
-  optimizeDeps: {
-    include: ["react", "react-dom"],
-  },
+  root: path.resolve(__dirname, "client"),
+  publicDir: path.resolve(__dirname, "client", "public"),
   build: {
-    outDir: "../dist/public",
+    outDir: path.resolve(__dirname, "dist", "public"),
     emptyOutDir: true,
-    sourcemap: false,
-    minify: 'esbuild',
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      external: [
-        "@react-three/fiber",
-        "@react-three/drei",
-        "three",
-        "gsap",
-        "gsap/ScrollTrigger",
-        "@gsap/react",
-        "react-helmet",
-        "@dnd-kit/core",
-        "@dnd-kit/sortable",
-        "@dnd-kit/utilities",
-        "shepherd.js",
-        "shepherd.js/dist/css/shepherd.css",
-        "heic2any",
-        "zustand",
-        "@openreplay/tracker",
-        "posthog-js"
-      ],
-      output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-query': ['@tanstack/react-query'],
-          'vendor-i18n': ['i18next', 'react-i18next'],
-        },
-      },
+    sourcemap: true,
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss()],
     },
   },
   server: {
     host: "0.0.0.0",
     port: 5000,
     strictPort: false,
-    allowedHosts: true,
+    proxy: {},
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom", "react-router-dom"],
   },
 });

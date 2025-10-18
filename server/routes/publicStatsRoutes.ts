@@ -1,63 +1,65 @@
-import { Router } from 'express';
-import { db } from '../db';
-import { users, events, groups } from '@shared/schema';
-import { sql, isNotNull } from 'drizzle-orm';
+/**
+ * J1 - First-Time Visitor Journey
+ * Public Stats API for visitor landing page
+ * 
+ * Endpoint: GET /api/stats/public
+ * Returns: Community statistics (users, events, cities, countries)
+ */
 
-const router = Router();
+import express from 'express';
+import { db } from '../db';
+import { users, events } from '../../shared/schema';
+import { sql, count } from 'drizzle-orm';
+
+const router = express.Router();
 
 /**
- * J1 - Public Stats API for Landing Page
- * Returns platform statistics for visitor landing page
+ * GET /api/stats/public
+ * Public statistics for visitor landing page
+ * No authentication required
  */
-router.get('/api/stats/public', async (req, res) => {
+router.get('/public', async (req, res) => {
   try {
-    console.log('📊 J1 - Fetching public platform statistics');
-    
-    // Get total users count
-    const userResult = await db
-      .select({ count: sql<number>`COUNT(*)::int` })
+    // Count total users
+    const [userCount] = await db
+      .select({ count: count() })
       .from(users);
-    const userCount = userResult[0]?.count || 0;
-    
-    // Get total events count
-    const eventResult = await db
-      .select({ count: sql<number>`COUNT(*)::int` })
+
+    // Count total events
+    const [eventCount] = await db
+      .select({ count: count() })
       .from(events);
-    const eventCount = eventResult[0]?.count || 0;
-    
-    // Get unique cities count (from groups)
-    const cityResult = await db
-      .select({ count: sql<number>`COUNT(DISTINCT city)::int` })
-      .from(groups)
-      .where(isNotNull(groups.city));
-    const cityCount = cityResult[0]?.count || 0;
-    
-    // Get unique countries count (from groups)
-    const countryResult = await db
-      .select({ count: sql<number>`COUNT(DISTINCT country)::int` })
-      .from(groups)
-      .where(isNotNull(groups.country));
-    const countryCount = countryResult[0]?.count || 0;
-    
-    const stats = {
-      users: userCount,
-      events: eventCount,
-      cities: cityCount,
-      countries: countryCount
-    };
-    
-    console.log('✅ J1 - Public stats:', stats);
-    
-    res.json(stats);
-    
+
+    // Count unique cities (from users table)
+    const [cityCount] = await db
+      .select({ 
+        count: sql<number>`COUNT(DISTINCT ${users.city})`.as('count')
+      })
+      .from(users)
+      .where(sql`${users.city} IS NOT NULL AND ${users.city} != ''`);
+
+    // Count unique countries (from users table)
+    const [countryCount] = await db
+      .select({ 
+        count: sql<number>`COUNT(DISTINCT ${users.country})`.as('count')
+      })
+      .from(users)
+      .where(sql`${users.country} IS NOT NULL AND ${users.country} != ''`);
+
+    res.json({
+      success: true,
+      data: {
+        totalUsers: userCount?.count || 0,
+        totalEvents: eventCount?.count || 0,
+        totalCities: cityCount?.count || 0,
+        totalCountries: countryCount?.count || 0,
+      }
+    });
   } catch (error) {
-    console.error('❌ J1 - Error fetching public stats:', error);
-    res.status(500).json({ 
-      error: 'Failed to fetch public statistics',
-      users: 0,
-      events: 0,
-      cities: 0,
-      countries: 0
+    console.error('Error fetching public stats:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch statistics'
     });
   }
 });
