@@ -1,0 +1,108 @@
+{
+  "description": "Critical files registry for Mundo Tango deployment integrity",
+  "version": "1.0.0",
+  "lastUpdated": "2025-10-18",
+  "categories": {
+    "core_config": {
+      "description": "Essential configuration files - NEVER delete",
+      "files": [
+        "package.json",
+        "tsconfig.json",
+        "drizzle.config.ts",
+        "tailwind.config.ts"
+      ]
+    },
+    "core_server": {
+      "description": "Core server infrastructure files",
+      "files": [
+        "server/index.ts",
+        "server/routes.ts",
+        "server/storage.ts",
+        "server/vite.ts"
+      ]
+    },
+    "middleware": {
+      "description": "Critical middleware - breaking these breaks all routes",
+      "files": [
+        "server/middleware/auth.ts"
+      ]
+    },
+    "utilities": {
+      "description": "Utility files used across the application",
+      "files": [
+        "server/utils/apiResponse.ts",
+        "server/utils/authHelper.ts",
+        "server/utils/slugGenerator.ts"
+      ]
+    },
+    "routes_batch1_complete": {
+      "description": "Batch 1 routes - fully optimized and production-ready",
+      "files": [
+        "server/routes/memoryRoutes.ts",
+        "server/routes/groupRoutes.ts",
+        "server/routes/profileRoutes.ts",
+        "server/routes/notificationsRoutes.ts"
+      ]
+    },
+    "routes_batch2_complete": {
+      "description": "Batch 2 routes - security hardened and production-ready",
+      "files": [
+        "server/routes/messagesRoutes.ts",
+        "server/routes/searchRoutes.ts",
+        "server/routes/authRoutes.ts",
+        "server/routes/userRoutes.ts",
+        "server/routes/eventsRoutes.ts"
+      ]
+    },
+    "routes_remaining": {
+      "description": "Remaining route files - to be optimized in future batches",
+      "files": [
+        "server/routes/dashboardRoutes.ts",
+        "server/routes/followRoutes.ts",
+        "server/routes/adminRoutes.ts"
+      ]
+    },
+    "database_schema": {
+      "description": "Database schema and ORM configuration",
+      "files": [
+        "shared/schema.ts"
+      ]
+    },
+    "agents_infrastructure": {
+      "description": "ESA Infrastructure Agents (Layers 1-61)",
+      "files": [
+        "server/agents/layer1-api-gateway-orchestrator.ts",
+        "server/agents/layer52-documentation-system-agent.ts"
+      ]
+    },
+    "documentation": {
+      "description": "Critical documentation files",
+      "files": [
+        "replit.md",
+        "README.md"
+      ]
+    },
+    "client_core": {
+      "description": "Critical frontend files",
+      "files": [
+        "client/src/main.tsx",
+        "client/src/App.tsx",
+        "client/index.html"
+      ]
+    },
+    "shared_types": {
+      "description": "Shared types between frontend and backend",
+      "files": [
+        "shared/schema.ts"
+      ]
+    },
+    "file_integrity_system": {
+      "description": "File integrity protection system itself",
+      "files": [
+        "scripts/critical-files.json",
+        "scripts/pre-deploy-check.ts",
+        "scripts/validate-imports.ts"
+      ]
+    }
+  }
+}
