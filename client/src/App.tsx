@@ -45,6 +45,10 @@ if (typeof window !== 'undefined') {
 // Critical components that load immediately - minimal initial bundle
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
+import LandingVisitor from "@/pages/landing-visitor";
+import Discover from "@/pages/discover";
+import About from "@/pages/about";
+import Join from "@/pages/join";
 import TrialBanner from "@/components/TrialBanner";
 
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
@@ -120,9 +124,25 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
   }
 }
 
+// J1 Visitor Route Guard - redirects authenticated users to /memories
+function VisitorRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <LoadingFallback message="Loading..." />;
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to="/memories" />;
+  }
+
+  return <>{children}</>;
+}
+
 function Router() {
   // ESA LIFE CEO 61x21 - Registry-driven routing (Layers 21-30)
   const currentPath = window.location.pathname;
+  const { isAuthenticated, isLoading } = useAuth();
   console.log("🔍 Current path:", currentPath);
 
   // Get routes from registry - debugRoutes only in development
@@ -135,12 +155,34 @@ function Router() {
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
         <Switch>
-          {/* Homepage - Redirect to unified Memories feed */}
+          {/* J1 - First-Time Visitor Journey */}
           <Route path="/">
-            <Redirect to="/memories" />
+            {isLoading ? (
+              <LoadingFallback />
+            ) : isAuthenticated ? (
+              <Redirect to="/memories" />
+            ) : (
+              <LandingVisitor />
+            )}
           </Route>
 
-          {/* Landing page for non-authenticated users */}
+          <Route path="/discover">
+            <VisitorRoute>
+              <Discover />
+            </VisitorRoute>
+          </Route>
+
+          <Route path="/about">
+            <About />
+          </Route>
+
+          <Route path="/join">
+            <VisitorRoute>
+              <Join />
+            </VisitorRoute>
+          </Route>
+
+          {/* Landing page for authenticated users (kept for backward compatibility) */}
           <Route path="/landing">
             <Landing />
           </Route>
