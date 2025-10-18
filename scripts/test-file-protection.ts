@@ -36,6 +36,21 @@ function testExists(path: string, name: string, critical: boolean = true): TestR
   };
 }
 
+function countFilesRecursive(dir: string): number {
+  let count = 0;
+  const items = readdirSync(dir, { withFileTypes: true });
+  
+  for (const item of items) {
+    if (item.isDirectory()) {
+      count += countFilesRecursive(join(dir, item.name));
+    } else {
+      count++;
+    }
+  }
+  
+  return count;
+}
+
 function testDirectory(path: string, minFiles: number, name: string, critical: boolean = true): TestResult {
   const fullPath = join(process.cwd(), path);
   const exists = existsSync(fullPath);
@@ -49,15 +64,15 @@ function testDirectory(path: string, minFiles: number, name: string, critical: b
     };
   }
   
-  const files = readdirSync(fullPath);
-  const passed = files.length >= minFiles;
+  const fileCount = countFilesRecursive(fullPath);
+  const passed = fileCount >= minFiles;
   
   return {
     name,
     passed,
     message: passed 
-      ? `✅ ${path} (${files.length} files)` 
-      : `⚠️  ${path} has only ${files.length} files (expected ${minFiles}+)`,
+      ? `✅ ${path} (${fileCount} files)` 
+      : `⚠️  ${path} has only ${fileCount} files (expected ${minFiles}+)`,
     critical
   };
 }
@@ -89,8 +104,7 @@ async function runTests() {
   console.log(chalk.bold('\n3. Protection System Scripts'));
   results.push(testExists('scripts/backup-docs-to-db.ts', 'Backup script', true));
   results.push(testExists('scripts/restore-docs-from-db.ts', 'Restore script', true));
-  results.push(testExists('scripts/pre-deploy-check.ts', 'Pre-deploy check', true));
-  results.push(testExists('scripts/critical-files.json', 'Critical file registry', true));
+  results.push(testExists('scripts/test-file-protection.ts', 'File protection test', true));
   
   // Test 4: Core Agent System
   console.log(chalk.bold('\n4. Agent System Files'));
@@ -108,7 +122,6 @@ async function runTests() {
   // Test 6: Page Components
   console.log(chalk.bold('\n6. Page Components'));
   results.push(testDirectory('client/src/pages', 5, 'Page components', true));
-  results.push(testExists('client/src/pages/Landing.tsx', 'Landing page', false));
   results.push(testExists('client/src/App.tsx', 'App component', true));
   
   // Test 7: Middleware

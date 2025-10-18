@@ -66,6 +66,46 @@ The frontend is built with React and TypeScript, utilizing Vite for fast develop
 **Usage:** Run `npm run integrity-check` or `npm run predeploy` before any deployment  
 **Full Report:** See `DEPLOYMENT_STABILITY_PLAN.md`
 
+### Agent Safety Protocols (NEW - Oct 18, 2025)
+
+**✅ COMPREHENSIVE GUARDRAILS ACTIVE**  
+Following documentation deletion incident (350+ files lost/recovered), implemented multi-layer protection system:
+
+**Protection Layers:**
+- **Layer 1:** AGENT_LEARNING.md - 8 critical rules for AI agents, mandatory compliance
+- **Layer 2:** Pre-commit hooks - Blocks deletion of docs/, .md files, scripts/, agents/, schema
+- **Layer 3:** Automated tests - `tsx scripts/test-file-protection.ts` validates 28 critical files/folders
+- **Layer 4:** PostgreSQL backup - 394 markdown files backed up, recoverable via `npm run restore-docs`
+- **Layer 5:** File integrity monitoring - Layer 52 agent actively monitoring
+
+**Protected Resources (NEVER DELETE):**
+- ✋ `docs/` folder (350 files - MrBlue, agents, ESA, audits, etc.)
+- ✋ Root `.md` files (platform documentation)
+- ✋ `scripts/` protection system
+- ✋ `server/agents/` 276-agent system
+- ✋ `shared/schema.ts` database schema
+- ✋ `client/src/pages/` UI pages
+
+**Recovery Commands:**
+```bash
+# Test file integrity
+tsx scripts/test-file-protection.ts
+
+# Restore from PostgreSQL
+npm run restore-docs
+
+# Backup documentation
+npm run backup-docs
+```
+
+**Key Rules:**
+1. **Archive, never delete** - Use `docs/archived/` for old docs
+2. **Ask first** - Get user approval before ANY file deletion
+3. **Run tests** - Check integrity before deployment
+4. **Follow AGENT_LEARNING.md** - Mandatory for all AI agents
+
+**See:** `AGENT_LEARNING.md` for complete safety protocols and lessons learned
+
 ### System Design Choices
 
 The platform employs an extensive AI agent ecosystem comprising over 200 agents across multiple categories:
