@@ -99,11 +99,12 @@ export default function Home() {
           <main 
             className={`flex-1 transition-all duration-300 ${
               isSidebarOpen ? 'lg:ml-64' : ''
-            }`}
+            } flex`}
             data-testid="main-feed"
             aria-label={t('home.aria.main_feed', 'Main content feed')}
           >
-            <div className="max-w-2xl mx-auto p-4 space-y-6" data-testid="container-feed-content">
+            {/* CENTER COLUMN - Feed */}
+            <div className="flex-1 max-w-3xl mx-auto p-4 space-y-6" data-testid="container-feed-content">
               {stories && stories.length > 0 ? (
                 <FadeIn delay={0.1}>
                   <section 
@@ -141,9 +142,73 @@ export default function Home() {
                 </section>
               </FadeIn>
             </div>
+
+            {/* RIGHT COLUMN - Upcoming Events */}
+            <aside 
+              className="hidden xl:block w-80 border-l border-gray-200 dark:border-gray-700 p-4 space-y-4"
+              data-testid="sidebar-events"
+              aria-label={t('home.aria.upcoming_events', 'Upcoming events')}
+            >
+              <GlassCard depth={1} className="p-4" data-testid="card-upcoming-events">
+                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-teal-100">
+                  {t('home.events.title', 'Upcoming Events')}
+                </h2>
+                <EventDiscoveryFeedWidget />
+              </GlassCard>
+            </aside>
           </main>
         </div>
       </div>
     </HomeErrorBoundary>
+  );
+}
+
+// Mini widget for upcoming events in right column
+function EventDiscoveryFeedWidget() {
+  const { t } = useTranslation();
+  const { data: eventsResponse } = useQuery({
+    queryKey: ['/api/events/upcoming'],
+  });
+
+  const events = (eventsResponse as any)?.data?.slice(0, 5) || [];
+
+  if (events.length === 0) {
+    return (
+      <div className="text-center py-6 text-gray-500 dark:text-gray-400">
+        <p className="text-sm">{t('home.events.no_events', 'No upcoming events')}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {events.map((event: any) => (
+        <div 
+          key={event.id}
+          className="p-3 rounded-lg bg-white/50 dark:bg-black/20 hover:bg-white/70 dark:hover:bg-black/30 transition-colors cursor-pointer"
+          onClick={() => window.location.href = `/event/${event.id}`}
+          data-testid={`event-widget-${event.id}`}
+        >
+          <h3 className="font-medium text-sm text-gray-900 dark:text-teal-100 line-clamp-2">
+            {event.title}
+          </h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            {new Date(event.startDate).toLocaleDateString()}
+          </p>
+          {event.venue && (
+            <p className="text-xs text-gray-500 dark:text-gray-500 line-clamp-1">
+              📍 {event.venue}
+            </p>
+          )}
+        </div>
+      ))}
+      <a 
+        href="/events" 
+        className="block text-center text-sm text-teal-600 dark:text-teal-400 hover:underline pt-2"
+        data-testid="link-view-all-events"
+      >
+        {t('home.events.view_all', 'View all events →')}
+      </a>
+    </div>
   );
 }
