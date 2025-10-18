@@ -32,6 +32,13 @@ export async function setupVite(app: Express, server: Server) {
   const vite = await createViteServer({
     configFile: false,
     root: path.resolve(__dirname, "..", "client"), // 🎯 MB.MD FIX: Set client/ as root directory
+    resolve: {
+      // 🎯 MB.MD FIX: Manually configure path aliases since configFile is disabled
+      alias: {
+        '@': path.resolve(__dirname, "..", "client", "src"),
+        '@shared': path.resolve(__dirname, "..", "shared"),
+      },
+    },
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
