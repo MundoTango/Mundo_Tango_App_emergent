@@ -82,6 +82,10 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Phase 11: Response time logging for performance monitoring
+  const { responseTimeLogger } = await import('./middleware/responseTime');
+  app.use(responseTimeLogger);
+  
   // Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Register domain routes first
   app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1
   // app.use(publicStatsRoutes);      // J1 - Public stats API for visitor landing page (TODO)

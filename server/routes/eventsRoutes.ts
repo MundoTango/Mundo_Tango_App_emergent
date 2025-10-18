@@ -1,32 +1,36 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { db } from '../db';
 import { events, eventAdmins, eventRsvps, users } from '../../shared/schema';
 import { eq, and, sql, inArray } from 'drizzle-orm';
 import { getUserId } from '../utils/authHelper';
 import RRule from 'rrule';
 import { emailService } from '../services/emailService';
+import { success, successWithPagination, parsePagination } from '../utils/apiResponse';
+import { AuthenticationError, ValidationError, NotFoundError } from '../middleware/errorHandler';
 
 const router = Router();
 
-// Get all events
-router.get('/api/events', async (req: Request, res: Response) => {
+// Get all events (Phase 11: Updated with standardized response)
+router.get('/api/events', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const allEvents = await db
-      .select()
-      .from(events);
+    const { page, pageSize, offset } = parsePagination(req.query);
     
-    res.json(allEvents || []);
+    const [allEvents, [{ count }]] = await Promise.all([
+      db.select().from(events).limit(pageSize).offset(offset),
+      db.select({ count: sql<number>`count(*)` }).from(events)
+    ]);
+    
+    res.json(successWithPagination(allEvents, page, pageSize, Number(count)));
   } catch (error) {
-    console.error('Error fetching events:', error);
-    res.status(500).json({ error: 'Failed to fetch events' });
+    next(error); // Pass to global error handler
   }
 });
 
-// Create recurring events
-router.post('/api/events/recurring', async (req: Request, res: Response) => {
+// Create recurring events (Phase 11: Updated with error handling)
+router.post('/api/events/recurring', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+    if (!userId) throw new AuthenticationError();
 
     const {
       title,
@@ -64,7 +68,7 @@ router.post('/api/events/recurring', async (req: Request, res: Response) => {
         freq = RRule.MONTHLY;
         break;
       default:
-        return res.status(400).json({ error: 'Invalid recurrence type' });
+        throw new ValidationError('Invalid recurrence type. Must be: daily, weekly, biweekly, or monthly');
     }
 
     const rule = new RRule({
@@ -146,14 +150,12 @@ router.post('/api/events/recurring', async (req: Request, res: Response) => {
       createdEvents.push(event);
     }
 
-    res.json({ 
-      success: true, 
+    res.json(success({
       eventsCreated: createdEvents.length,
       events: createdEvents 
-    });
-  } catch (error: any) {
-    console.error('Error creating recurring events:', error);
-    res.status(500).json({ error: error.message });
+    }, `Successfully created ${createdEvents.length} recurring events`));
+  } catch (error) {
+    next(error); // Pass to global error handler
   }
 });
 
