@@ -11,9 +11,15 @@
  */
 
 import type { User } from '@db/schema';
-import { isSuperAdmin } from '../utils/accessControl';
 
 export type JourneyState = 'J1' | 'J2' | 'J3' | 'J4';
+
+/**
+ * Check if user has super admin role
+ */
+function isSuperAdmin(user: Partial<User>): boolean {
+  return user.role === 'super-admin';
+}
 
 export interface UserMetrics {
   memoriesCount: number;
