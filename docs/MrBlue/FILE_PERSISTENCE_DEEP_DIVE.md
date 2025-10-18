@@ -128,7 +128,8 @@ Rollback to Checkpoint A:
 ### Behavior 3: Workspace vs Deployment Storage ✅ **CONFIRMED BY DOCS**
 
 **What Replit Docs Say:**
-> "Files in your Replit App's workspace, including application code, static assets, and configuration files, are **persisted across sessions**." *(Source: Replit Apps Documentation)*
+> "Files in your Replit App's workspace, including application code, static assets, and configuration files, are **persisted across sessions**."  
+> *(Source: [Replit Apps - File Storage](https://docs.replit.com/hosting/deployments/about-deployments#storage))*
 
 **CRITICAL DISTINCTION:**
 
@@ -153,10 +154,12 @@ Example: User uploads, generated files, temp data
 ```
 
 **Replit's Official Guidance:**
-> "For Autoscale, Static, and Reserved VM deployments, any data saved to the filesystem will **not persist after republishing** or restarting." *(Source: Replit Apps, Storage Overview)*
+> "For Autoscale, Static, and Reserved VM deployments, any data saved to the filesystem will **not persist after republishing** or restarting."  
+> *(Source: [Replit Apps - Storage Overview](https://docs.replit.com/hosting/deployments/about-deployments#storage))*
 
 **Recommended Solutions:**
-> "You should use Object Storage (now App Storage) to handle builder uploads and serve files, or Replit Database to store and retrieve data." *(Source: Replit Apps, About Publishing)*
+> "You should use Object Storage (now App Storage) to handle builder uploads and serve files, or Replit Database to store and retrieve data."  
+> *(Source: [Replit Apps - About Publishing](https://docs.replit.com/hosting/deployments/about-deployments))*
 
 **Solution:**
 - ✅ Workspace files (code, docs) → Already persistent
@@ -818,10 +821,10 @@ npm run integrity-check  # Verify files exist
 **Status:** ✅ Complete - Research-backed, solution-validated, citations added  
 **Last Updated:** October 18, 2025 (Technical accuracy validated)  
 **Research Sources:** 
-- Replit Apps Documentation (workspace persistence)
-- Replit Storage Overview (deployment filesystem behavior)
-- Replit About Publishing (published app constraints)
-- Open source tools (Chokidar, s3-sync-client, better-sqlite3)
+- [Replit Apps - File Storage](https://docs.replit.com/hosting/deployments/about-deployments#storage) (workspace persistence)
+- [Replit Apps - Storage Overview](https://docs.replit.com/hosting/deployments/about-deployments#storage) (deployment filesystem behavior)
+- [Replit Apps - About Publishing](https://docs.replit.com/hosting/deployments/about-deployments) (published app constraints)
+- Open source tools: [Chokidar](https://github.com/paulmillr/chokidar), [s3-sync-client](https://github.com/jeanbmar/s3-sync-client), [better-sqlite3](https://github.com/WiseLibs/better-sqlite3)
 - Industry patterns (ephemeral containers, Git-based deployments)
 
 **Solution Status:** ✅ Implemented and working (PostgreSQL backup + workspace files)
