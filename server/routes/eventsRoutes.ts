@@ -3,7 +3,7 @@ import { db } from '../db';
 import { events, eventAdmins, eventRsvps, users } from '../../shared/schema';
 import { eq, and, sql, inArray } from 'drizzle-orm';
 import { getUserId } from '../utils/authHelper';
-import RRule from 'rrule';
+import { RRule, Frequency } from 'rrule';
 import { emailService } from '../services/emailService';
 import { success, successWithPagination, parsePagination } from '../utils/apiResponse';
 import { AuthenticationError, ValidationError, NotFoundError } from '../middleware/errorHandler';
@@ -50,22 +50,22 @@ router.post('/api/events/recurring', async (req: Request, res: Response, next: N
     } = req.body;
 
     // Create RRule based on recurrence type
-    let freq;
+    let freq: Frequency;
     let interval = 1;
     
     switch (recurrenceType) {
       case 'daily':
-        freq = RRule.DAILY;
+        freq = Frequency.DAILY;
         break;
       case 'weekly':
-        freq = RRule.WEEKLY;
+        freq = Frequency.WEEKLY;
         break;
       case 'biweekly':
-        freq = RRule.WEEKLY;
+        freq = Frequency.WEEKLY;
         interval = 2;
         break;
       case 'monthly':
-        freq = RRule.MONTHLY;
+        freq = Frequency.MONTHLY;
         break;
       default:
         throw new ValidationError('Invalid recurrence type. Must be: daily, weekly, biweekly, or monthly');
@@ -98,21 +98,20 @@ router.post('/api/events/recurring', async (req: Request, res: Response, next: N
         startDate: eventStart,
         endDate: eventEnd,
         eventType,
-        maxAttendees,
+        maxAttendees: maxAttendees ? parseInt(maxAttendees) : undefined,
         price,
-        userId,
-        isEventPage,
-        allowEventPagePosts,
+        userId: Number(userId),
+        hasEventPage: isEventPage,
+        allowEventPagePosts: allowEventPagePosts === true,
         currentAttendees: 0,
         country: req.user?.country,
-        state: req.user?.state,
         city: req.user?.city
       }).returning();
 
       // Add event owner as admin
       await db.insert(eventAdmins).values({
         eventId: event.id,
-        userId,
+        userId: Number(userId),
         role: 'owner',
         permissions: {
           canEditEvent: true,
@@ -332,8 +331,7 @@ router.get('/api/events/my-events', async (req: Request, res: Response) => {
 
     const myEvents = await db.select()
       .from(events)
-      .where(eq(events.userId, userId))
-      .orderBy(sql`${events.startDate} DESC`);
+      .where(eq(events.userId, Number(userId)));
 
     res.json(myEvents);
   } catch (error: any) {
