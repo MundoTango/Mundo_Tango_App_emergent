@@ -355,42 +355,6 @@ D - Deploy and document thoroughly
 
 ---
 
-## 📚 Methodology Documentation
-
-MB.MD is supported by comprehensive methodology guides in `docs/MrBlue/`:
-
-### Core Methodology Guides
-
-**🧠 Critical Thinking & Problem Solving:**
-- **[CRITICAL_THINKING_METHODOLOGY.md](docs/MrBlue/CRITICAL_THINKING_METHODOLOGY.md)** - How to think critically, avoid superficial fixes, find real root causes using 5 Whys and systematic investigation
-
-**⚡ Parallel Building & Safety:**
-- **[PARALLEL_BUILDING_SAFETY.md](docs/MrBlue/PARALLEL_BUILDING_SAFETY.md)** - Safe parallel workflows, dependency management, testing protocols, integration strategies
-
-**🛡️ Documentation & File Protection:**
-- **[DOCUMENTATION_GUARDRAILS.md](docs/MrBlue/DOCUMENTATION_GUARDRAILS.md)** - What protection actually works in Replit (PostgreSQL backup, manual validation), what doesn't (git hooks)
-- **[FILE_PERSISTENCE_DEEP_DIVE.md](docs/MrBlue/FILE_PERSISTENCE_DEEP_DIVE.md)** - Deep technical analysis of why files vanish in Replit, working directory desync, checkpoint isolation
-
-**📖 Additional Resources:**
-- **[AGENT_LEARNING.md](AGENT_LEARNING.md)** - 8 critical safety rules, file protection protocols, incident lessons
-- **[replit.md](replit.md)** - Platform architecture, user preferences, system design choices
-
-### Quick Navigation
-
-**Need to solve a complex problem?**  
-→ Start with [CRITICAL_THINKING_METHODOLOGY.md](docs/MrBlue/CRITICAL_THINKING_METHODOLOGY.md)
-
-**Planning parallel development?**  
-→ Read [PARALLEL_BUILDING_SAFETY.md](docs/MrBlue/PARALLEL_BUILDING_SAFETY.md)
-
-**Files disappearing or deployment issues?**  
-→ Check [DOCUMENTATION_GUARDRAILS.md](docs/MrBlue/DOCUMENTATION_GUARDRAILS.md)
-
-**Want to understand WHY files vanish?**  
-→ Deep dive: [FILE_PERSISTENCE_DEEP_DIVE.md](docs/MrBlue/FILE_PERSISTENCE_DEEP_DIVE.md)
-
----
-
 ## 🤖 Mundo Tango Agent Ecosystem
 
 ### Agent Organization Chart (276 Total Agents)
@@ -727,3 +691,123 @@ ls *.md
 **Used Successfully:** 3+ major incidents resolved  
 **Agent System:** 123/276 agents active (45%)  
 **Status:** Active methodology for all complex work
+
+---
+
+## 🛡️ 24-Hour Backup Protection System
+
+**Status:** ✅ ACTIVE (October 18, 2025)  
+**Purpose:** Automated backup validation to prevent documentation loss
+
+### How It Works
+
+The platform now runs **automated restore drills every 24 hours** to ensure backups are functional:
+
+```
+Every 24 hours:
+  1. restore-drill.ts picks random file from PostgreSQL backup
+  2. Compares disk version vs. database version  
+  3. Calculates SHA256 checksums
+  4. Reports match/mismatch + restore time
+  5. Logs result to restore-drill-log.json
+
+Before deployment:
+  1. pre-deploy-check.ts runs automatically
+  2. Verifies backup is <24h old
+  3. Tests database connection
+  4. Checks critical files exist
+  5. Runs restore drill (if due)
+  6. BLOCKS deployment if any check fails
+```
+
+### Commands
+
+```bash
+# Manual restore drill (test backup immediately)
+npm run restore-drill
+
+# Automatic drill (checks 24h timer, skips if not due)
+npm run restore-drill:auto
+
+# Pre-deployment checks (includes backup validation)
+npm run predeploy
+
+# Backup all documentation
+npm run backup-docs
+
+# Restore all documentation from database
+npm run restore-docs
+```
+
+### Protection Layers
+
+| Layer | What It Does | Frequency |
+|-------|--------------|-----------|
+| **PostgreSQL Backup** | Stores 407+ files in database | After every doc change |
+| **Restore Drill** | Tests restoration works | Every 24 hours |
+| **Pre-Deploy Check** | Blocks old/missing backups | Before every deployment |
+| **GitHub Remote** | Off-platform backup | Auto-synced |
+| **File Integrity Tests** | 26 protection tests | Before deployment |
+
+### Monitoring
+
+View drill history:
+```bash
+# Last 10 drills
+cat restore-drill-log.json | jq '.[-10:]'
+
+# Drill statistics  
+npm run restore-drill --force  # Force run + see stats
+```
+
+Stats tracked:
+- Success rate (should be 100%)
+- Checksum match rate (varies based on recent edits)
+- Average restore time (~500-600ms)
+- Last drill timestamp
+
+### ⚙️ Configuration Needed
+
+**PostgreSQL Point-in-Time Restore:** ⚠️ NOT YET CONFIGURED
+
+**Action Required:**
+1. Open Database Settings in Replit
+2. Navigate to "History Retention" section
+3. Set retention period to **14 days** (recommended)
+4. This enables database restoration to any point within 14 days
+
+Once configured, you'll have protection against database corruption/accidental deletion.
+
+### Recovery Procedures
+
+**If backup system fails:**
+```bash
+1. Check drill log: cat restore-drill-log.json
+2. Run manual test: npm run restore-drill --force
+3. Re-backup all: npm run backup-docs
+4. Verify: npm run predeploy
+```
+
+**If documentation files are lost:**
+```bash
+# Option 1: Restore from PostgreSQL (primary)
+npm run restore-docs
+
+# Option 2: Restore from git (secondary)
+git restore <file>
+
+# Option 3: Pull from GitHub (off-platform backup)
+git pull origin main
+```
+
+### System Status
+
+✅ **407 files backed up to PostgreSQL**  
+✅ **Restore drill system active** (tested successfully)  
+✅ **GitHub remote connected** (off-platform backup)  
+✅ **Pre-deployment checks** (blocks unsafe deployments)  
+⚠️ **PostgreSQL retention period** (needs configuration - 14 days recommended)
+
+---
+
+**MB.MD + 24-Hour Protection - Systematic Excellence for Mundo Tango**

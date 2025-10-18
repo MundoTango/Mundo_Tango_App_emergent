@@ -14,6 +14,8 @@
     "integrity-check": "tsx scripts/pre-deploy-check.ts",
     "validate:imports": "tsx scripts/validate-imports.ts",
     "backup-docs": "tsx scripts/backup-docs-to-db.ts",
+    "restore-drill": "tsx scripts/restore-drill.ts",
+    "restore-drill:auto": "tsx scripts/restore-drill.ts --auto",
     "restore-docs": "tsx scripts/restore-docs-from-db.ts"
   },
   "dependencies": {
