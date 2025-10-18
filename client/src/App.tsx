@@ -125,18 +125,16 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
   }
 }
 
-// J1 Visitor Route Guard - redirects authenticated users to /memories
+// J1 Visitor Route Guard - NO LONGER REDIRECTS (allows authenticated users to see visitor pages)
 function VisitorRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return <LoadingFallback message="Loading..." />;
   }
 
-  if (isAuthenticated) {
-    return <Redirect to="/memories" />;
-  }
-
+  // J1 FIX: Show visitor pages even if user is authenticated
+  // (Allows logged-in users to view landing/discover/about pages)
   return <>{children}</>;
 }
 

@@ -16,11 +16,11 @@ export default function Discover() {
     document.title = "Discover Events & Memories - Mundo Tango";
   }, []);
 
-  const { data: events, isLoading: eventsLoading } = useQuery({
+  const { data: events, isLoading: eventsLoading } = useQuery<any[]>({
     queryKey: ['/api/events', { public: true, limit: 20 }],
   });
 
-  const { data: memories, isLoading: memoriesLoading } = useQuery({
+  const { data: memories, isLoading: memoriesLoading } = useQuery<any[]>({
     queryKey: ['/api/memories', { public: true, limit: 20 }],
   });
 
