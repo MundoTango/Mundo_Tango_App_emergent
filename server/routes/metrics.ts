@@ -1,7 +1,7 @@
 // Life CEO: Metrics and monitoring routes
 import { Router } from 'express';
-import { metricsHandler, getQueueMetrics } from '../lib/prometheus-metrics.js';
-import { queues } from '../lib/bullmq-config.js';
+import { metricsHandler, getQueueMetrics } from '../lib/prometheus-metrics';
+import { queues } from '../lib/bullmq-config';
 
 const router = Router();
 

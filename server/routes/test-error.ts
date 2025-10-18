@@ -1,6 +1,6 @@
 // 40x20s Layer 7: Test endpoint for Sentry error tracking
 import { Router } from 'express';
-import { logError } from '../lib/sentry.js';
+import { logError } from '../lib/sentry';
 
 const router = Router();
 

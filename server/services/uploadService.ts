@@ -1,6 +1,6 @@
-import { supabase } from '../supabaseClient.js';
+import { supabase } from '../supabaseClient';
 import { v4 as uuidv4 } from 'uuid';
-import type { MediaAsset, InsertMediaAsset } from '../../shared/schema.js';
+import type { MediaAsset, InsertMediaAsset } from '../../shared/schema';
 
 export interface UploadResult {
   success: boolean;

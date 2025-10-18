@@ -1,5 +1,5 @@
 // Life CEO: Feature Flags System
-import { lifeCeoMetrics } from './prometheus-metrics.js';
+import { lifeCeoMetrics } from './prometheus-metrics';
 
 // Feature flag definitions
 export interface FeatureFlag {

@@ -1,6 +1,6 @@
-import { db } from '../db.js';
-import { dailyActivities } from '../../shared/schema.js';
-import { comprehensiveProjectData } from '../../client/src/data/comprehensive-project-data.js';
+import { db } from '../db';
+import { dailyActivities } from '../../shared/schema';
+import { comprehensiveProjectData } from '../../client/src/data/comprehensive-project-data';
 
 interface ProjectUpdate {
   projectId: string;

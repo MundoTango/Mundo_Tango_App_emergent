@@ -1,6 +1,6 @@
 // Life CEO: CDN and Static Asset Configuration
 import { Router } from 'express';
-import { cacheControl } from '../middleware/cache-control.js';
+import { cacheControl } from '../middleware/cache-control';
 
 // CDN configuration for static assets
 export const configureCDN = (app: any) => {

@@ -1,8 +1,8 @@
 import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
-import EvolutionService from '../../evolution/services/evolutionService.js';
-import HierarchyAnalyzer from '../../evolution/services/hierarchyAnalyzer.js';
+import EvolutionService from '../../evolution/services/evolutionService';
+import HierarchyAnalyzer from '../../evolution/services/hierarchyAnalyzer';
 
 const router = express.Router();
 

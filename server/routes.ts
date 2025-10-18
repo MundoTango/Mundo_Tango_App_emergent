@@ -28,7 +28,7 @@ import { authService, UserRole } from "./services/authService";
 import { enhancedRoleService, AllRoles } from "./services/enhancedRoleService";
 import { requireRole, requireAdmin, ensureUserProfile, auditRoleAction } from "./middleware/roleAuth";
 import { supabase } from "./supabaseClient";
-import { getNotionEntries, getNotionEntryBySlug, getNotionFilterOptions } from "./notion.js";
+import { getNotionEntries, getNotionEntryBySlug, getNotionFilterOptions } from "./notion";
 import { CityPhotoService } from "./services/cityPhotoService";
 import rbacRoutes from "./rbacRoutes";
 import tenantRoutes from "./routes/tenantRoutes";

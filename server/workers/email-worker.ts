@@ -1,9 +1,9 @@
 // Life CEO: Email processing worker
 import { Worker } from 'bullmq';
 import Redis from 'ioredis';
-import { EmailJob } from '../lib/bullmq-config.js';
-import { logError } from '../lib/sentry.js';
-import { monitorQueueJob, lifeCeoMetrics } from '../lib/prometheus-metrics.js';
+import { EmailJob } from '../lib/bullmq-config';
+import { logError } from '../lib/sentry';
+import { monitorQueueJob, lifeCeoMetrics } from '../lib/prometheus-metrics';
 
 let connection: Redis | null = null;
 let emailWorker: Worker<EmailJob> | null = null;

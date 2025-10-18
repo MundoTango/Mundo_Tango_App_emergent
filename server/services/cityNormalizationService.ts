@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { CityPhotoService } from './CityPhotoService';
+import { CityPhotoService } from './cityPhotoService';
 
 export interface CityInfo {
   name: string;
