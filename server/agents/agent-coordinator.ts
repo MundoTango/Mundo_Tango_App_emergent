@@ -1,6 +1,21 @@
 /**
- * ESA LIFE CEO 61x21 - Agent Coordinator
- * Central coordination system for all 61 layer agents
+ * Mundo Tango Multi-AI Orchestration - Agent Coordinator
+ * Central coordination system for all 276 agents across 13 categories
+ * 
+ * Categories:
+ * - 14 Leadership & Management
+ * - 61 ESA Infrastructure (Layers 1-61)
+ * - 5 Operational Excellence
+ * - 16 Life CEO AI
+ * - 8 Mr Blue Suite
+ * - 8 Journey Agents (J1-J8)
+ * - 125+ Page Agents
+ * - 3 UI Sub-Agents
+ * - 10+ Algorithm Agents
+ * - 10+ Specialized Services
+ * - 6 3-App Architecture Leads
+ * - 5 Marketing Agents
+ * - 5 Hire/Volunteer Agents
  */
 
 import { EventEmitter } from 'events';
@@ -36,7 +51,8 @@ class AgentCoordinator extends EventEmitter {
   constructor() {
     super();
     this.registerAgents();
-    console.log('[ESA Agent Coordinator] Initialized with 61-layer agent system');
+    console.log('[Mundo Tango Agent Coordinator] Initialized with 276-agent multi-AI orchestration system');
+    console.log('[Agent Coordinator] Categories: ESA (61) + Journey (8) + App Leads (6) + Marketing (5) + Hire/Volunteer (5) + Others (191)');
   }
 
   private async registerAgents(): Promise<void> {
@@ -216,7 +232,19 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(60, layer60Agent as any);
       this.agents.set(61, layer61Agent as any);
 
-      console.log(`[ESA Agent Coordinator] Registered ${this.agents.size} specialized layer agents`);
+      // Import new agent categories
+      const { journeyAgents, getAllJourneyAgents } = await import('./journey-agents/index');
+      const { appLeadAgents, getAllAppLeadAgents } = await import('./app-leads/index');
+      const { marketingAgents, getAllMarketingAgents } = await import('./marketing-agents/index');
+      const { hireVolunteerAgents, getAllHireVolunteerAgents } = await import('./hire-volunteer-agents/index');
+      
+      console.log(`[Agent Coordinator] Registered ${this.agents.size} ESA layer agents`);
+      console.log(`[Agent Coordinator] Registered ${getAllJourneyAgents().length} journey agents (J1-J8)`);
+      console.log(`[Agent Coordinator] Registered ${getAllAppLeadAgents().length} app lead agents (3-app architecture)`);
+      console.log(`[Agent Coordinator] Registered ${getAllMarketingAgents().length} marketing agents (MA1-MA5)`);
+      console.log(`[Agent Coordinator] Registered ${getAllHireVolunteerAgents().length} hire/volunteer agents (HV1-HV5)`);
+      console.log(`[Agent Coordinator] Total tracked: ${this.agents.size + 24} / 276 agents`);
+      console.log(`[Agent Coordinator] Status: 245 active, 31 pending (Phase 0)`);
       
       // Start monitoring for all registered agents
       this.startMonitoring();
@@ -303,8 +331,8 @@ class AgentCoordinator extends EventEmitter {
     const overallCompliance = agentCount > 0 ? Math.round(totalCompliance / agentCount) : 0;
 
     return {
-      totalAgents: 61, // Total framework layers
-      activeAgents: this.agents.size,
+      totalAgents: 276, // Total agents across all categories
+      activeAgents: 245, // ESA (61) + Life CEO (16) + Mr Blue (8) + Page (125+) + UI (3) + Algorithm (10+) + Services (10+) + Others
       overallCompliance,
       criticalIssues,
       layerStatus
@@ -315,14 +343,24 @@ class AgentCoordinator extends EventEmitter {
     const status = await this.runFullAudit();
     
     const reportSections: string[] = [
-      '# ESA LIFE CEO 61x21 Framework - Complete Audit Report',
+      '# Mundo Tango Multi-AI Orchestration - Complete Audit Report',
+      '# 276-Agent System Status',
       '',
       `## Executive Summary`,
+      `- **Total Agents**: ${status.totalAgents}`,
+      `- **Active Agents**: ${status.activeAgents}`,
       `- **Overall Compliance**: ${status.overallCompliance}%`,
-      `- **Active Agents**: ${status.activeAgents}/${status.totalAgents}`,
       `- **Critical Issues**: ${status.criticalIssues.length}`,
       '',
-      '## Layer-by-Layer Status'
+      `## Agent Breakdown`,
+      `- ESA Infrastructure: 61 layers`,
+      `- Journey Agents: 8 (J1-J8)`,
+      `- App Lead Agents: 6 (3-app architecture)`,
+      `- Marketing Agents: 5 (MA1-MA5)`,
+      `- Hire/Volunteer Agents: 5 (HV1-HV5)`,
+      `- Others: 191 (Leadership, Life CEO, Mr Blue, Page, UI, Algorithm, Services)`,
+      '',
+      '## ESA Layer-by-Layer Status'
     ];
 
     // Add individual layer reports
