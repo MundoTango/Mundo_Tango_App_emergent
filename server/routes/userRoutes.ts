@@ -12,9 +12,47 @@ import { setupUpload } from '../middleware/upload';
 import { z } from 'zod';
 import { ValidationError, AuthenticationError, NotFoundError } from '../middleware/errorHandler';
 import { success } from '../utils/apiResponse';
+import multer from 'multer';
+import path from 'path';
+import { existsSync, mkdirSync } from 'fs';
 
 const router = Router();
-const upload = setupUpload();
+
+// Security: Restrict file uploads to images only with size limits
+const uploadsDir = 'uploads';
+if (!existsSync(uploadsDir)) {
+  mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const restrictedUpload = multer({
+  storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB max per file
+    files: 2 // Max 2 files total
+  },
+  fileFilter: (req, file, cb) => {
+    // Only allow image files
+    const allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (allowedMimes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed (JPEG, PNG, GIF, WebP)'));
+    }
+  }
+}).fields([
+  { name: 'image_url', maxCount: 1 },
+  { name: 'background_url', maxCount: 1 }
+]);
 
 // Validation schemas
 const updateUserSchema = z.object({
@@ -82,7 +120,7 @@ router.get('/user', isAuthenticated, async (req: any, res, next: NextFunction) =
 });
 
 // Update user profile
-router.patch('/user', isAuthenticated, upload.any(), async (req: any, res, next: NextFunction) => {
+router.patch('/user', isAuthenticated, restrictedUpload, async (req: any, res, next: NextFunction) => {
   try {
     const replitId = req.user.claims.sub;
     
@@ -100,7 +138,7 @@ router.patch('/user', isAuthenticated, upload.any(), async (req: any, res, next:
     // Validate request body
     const validated = updateUserSchema.parse(req.body);
     
-    const files = req.files as Express.Multer.File[];
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
     
     // Build update object with explicit field mapping
     const updateData: any = {};
@@ -113,9 +151,9 @@ router.patch('/user', isAuthenticated, upload.any(), async (req: any, res, next:
     if (validated.nickname !== undefined) updateData.nickname = validated.nickname;
     if (validated.occupation !== undefined) updateData.occupation = validated.occupation;
     
-    // Handle file uploads
-    const profileImageFile = files?.find(file => file.fieldname === 'image_url');
-    const backgroundImageFile = files?.find(file => file.fieldname === 'background_url');
+    // Handle file uploads (multer.fields format)
+    const profileImageFile = files?.['image_url']?.[0];
+    const backgroundImageFile = files?.['background_url']?.[0];
     
     if (profileImageFile) updateData.profileImage = `/uploads/${profileImageFile.filename}`;
     if (backgroundImageFile) updateData.backgroundImage = `/uploads/${backgroundImageFile.filename}`;
@@ -138,8 +176,8 @@ router.patch('/user', isAuthenticated, upload.any(), async (req: any, res, next:
 });
 
 // Get user settings
-// NOTE: Settings are stored in a separate userSettings table (not yet in schema)
-// For now, return default settings
+// DISABLED: Requires userSettings table not yet in schema
+// TODO: Implement userSettings table before enabling
 router.get("/user/settings", isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const replitId = req.user.claims.sub;
@@ -196,7 +234,7 @@ router.get("/user/settings", isAuthenticated, async (req: any, res, next: NextFu
 });
 
 // Update user settings
-// NOTE: Settings table not yet implemented in schema
+// DISABLED: Requires userSettings table not yet in schema - RETURNS ERROR
 router.put("/user/settings", isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const replitId = req.user.claims.sub;
@@ -212,13 +250,8 @@ router.put("/user/settings", isAuthenticated, async (req: any, res, next: NextFu
       throw new NotFoundError('User not found');
     }
 
-    // Validate settings
-    const validated = updateSettingsSchema.parse(req.body);
-
-    // TODO: Implement userSettings table and save settings
-    console.log('[User Settings] Update requested for user:', userResult[0].id, validated);
-
-    res.json(success({ updated: true }, 'Settings updated successfully'));
+    // Security: Reject until userSettings table is implemented
+    throw new ValidationError('User settings feature not yet implemented - requires database schema update');
   } catch (error) {
     if (error instanceof z.ZodError) {
       next(new ValidationError(error.errors[0].message));

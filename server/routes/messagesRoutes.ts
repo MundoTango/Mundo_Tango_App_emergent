@@ -5,8 +5,8 @@
 
 import { Router, Response, NextFunction } from 'express';
 import { db } from '../db';
-import { chatMessages, chatRooms, users, insertChatMessageSchema } from '../../shared/schema';
-import { eq, and, sql, desc } from 'drizzle-orm';
+import { chatMessages, chatRooms, chatRoomUsers, users, insertChatMessageSchema } from '../../shared/schema';
+import { eq, and, sql, desc, or } from 'drizzle-orm';
 import { getUserId } from '../utils/authHelper';
 import { isAuthenticated } from '../replitAuth';
 import { ValidationError, AuthenticationError, NotFoundError } from '../middleware/errorHandler';
@@ -32,17 +32,23 @@ const sendMessageSchema = z.object({
   messageType: z.enum(['text', 'image', 'video', 'audio', 'file']).default('text'),
   replyToSlug: z.string().optional(),
   forwardedFromSlug: z.string().optional(),
-  fileUrl: z.string().optional(),
-  fileName: z.string().optional(),
-  fileThumb: z.string().optional()
+  // Security: Validate URLs to prevent SSRF
+  fileUrl: z.string().url('Invalid file URL').refine(
+    (url) => url.startsWith('/uploads/') || url.startsWith('https://'),
+    'File URL must be internal (/uploads/) or HTTPS'
+  ).optional(),
+  fileName: z.string().max(255, 'Filename too long').optional(),
+  fileThumb: z.string().url('Invalid thumbnail URL').optional()
 });
 
 // Get user's chat rooms
-router.get('/api/messages', async (req, res, next: NextFunction) => {
+router.get('/api/messages', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
-    const userId = getUserId(req) || 7;
+    const replitId = req.user.claims.sub;
+    const userResult = await db.select().from(users).where(eq(users.replitId, replitId)).limit(1);
+    if (!userResult[0]) throw new AuthenticationError('User not found');
     
-    // Get all chat rooms (using actual schema fields)
+    // Security: Get only chat rooms where user is a participant
     const rooms = await db
       .select({
         id: chatRooms.id,
@@ -58,6 +64,14 @@ router.get('/api/messages', async (req, res, next: NextFunction) => {
         updatedAt: chatRooms.updatedAt
       })
       .from(chatRooms)
+      .innerJoin(chatRoomUsers, eq(chatRoomUsers.chatRoomSlug, chatRooms.slug))
+      .where(
+        and(
+          eq(chatRoomUsers.userSlug, userResult[0].username || `user_${userResult[0].id}`),
+          eq(chatRoomUsers.isLeaved, false),
+          eq(chatRoomUsers.isKicked, false)
+        )
+      )
       .orderBy(desc(chatRooms.updatedAt));
     
     res.json(success(rooms, 'Chat rooms fetched successfully'));
@@ -67,13 +81,18 @@ router.get('/api/messages', async (req, res, next: NextFunction) => {
 });
 
 // Get messages in a specific chat room
-router.get('/api/messages/:roomSlug', async (req, res, next: NextFunction) => {
+router.get('/api/messages/:roomSlug', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
     const { roomSlug } = req.params;
     
     if (!roomSlug) {
       throw new ValidationError('Room slug is required');
     }
+    
+    // Security: Get authenticated user
+    const replitId = req.user.claims.sub;
+    const userResult = await db.select().from(users).where(eq(users.replitId, replitId)).limit(1);
+    if (!userResult[0]) throw new AuthenticationError('User not found');
     
     // Verify room exists
     const room = await db
@@ -84,6 +103,25 @@ router.get('/api/messages/:roomSlug', async (req, res, next: NextFunction) => {
     
     if (!room[0]) {
       throw new NotFoundError('Chat room not found');
+    }
+    
+    // Security: Verify user is a participant in this room
+    const userSlug = userResult[0].username || `user_${userResult[0].id}`;
+    const membership = await db
+      .select()
+      .from(chatRoomUsers)
+      .where(
+        and(
+          eq(chatRoomUsers.chatRoomSlug, roomSlug),
+          eq(chatRoomUsers.userSlug, userSlug),
+          eq(chatRoomUsers.isLeaved, false),
+          eq(chatRoomUsers.isKicked, false)
+        )
+      )
+      .limit(1);
+    
+    if (!membership[0]) {
+      throw new AuthenticationError('You are not authorized to view messages in this room');
     }
     
     // Get messages with actual schema fields

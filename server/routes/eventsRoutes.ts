@@ -7,8 +7,30 @@ import { RRule, Frequency } from 'rrule';
 import { emailService } from '../services/emailService';
 import { success, successWithPagination, parsePagination } from '../utils/apiResponse';
 import { AuthenticationError, ValidationError, NotFoundError } from '../middleware/errorHandler';
+import { z } from 'zod';
+import { isAuthenticated } from '../replitAuth';
 
 const router = Router();
+
+// Validation schemas
+const createRecurringEventSchema = z.object({
+  title: z.string().min(1, 'Title is required').max(255, 'Title too long'),
+  description: z.string().max(5000, 'Description too long').optional(),
+  location: z.string().min(1, 'Location is required').max(500, 'Location too long'),
+  startDate: z.string().datetime('Invalid start date'),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time format (HH:MM)'),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time format (HH:MM)'),
+  recurrenceType: z.enum(['daily', 'weekly', 'biweekly', 'monthly'], {
+    errorMap: () => ({ message: 'Invalid recurrence type' })
+  }),
+  recurrenceEndDate: z.string().datetime('Invalid recurrence end date'),
+  eventType: z.string().max(50, 'Event type too long'),
+  maxAttendees: z.number().int().positive().optional(),
+  price: z.number().nonnegative().optional(),
+  isEventPage: z.boolean().optional(),
+  allowEventPagePosts: z.boolean().optional(),
+  eventPageAdmins: z.array(z.number().int().positive()).optional()
+});
 
 // Get all events (Phase 11: Updated with standardized response)
 router.get('/api/events', async (req: Request, res: Response, next: NextFunction) => {
@@ -26,11 +48,17 @@ router.get('/api/events', async (req: Request, res: Response, next: NextFunction
   }
 });
 
-// Create recurring events (Phase 11: Updated with error handling)
-router.post('/api/events/recurring', async (req: Request, res: Response, next: NextFunction) => {
+// Create recurring events (Phase 11: Updated with Zod validation and auth)
+router.post('/api/events/recurring', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
-    if (!userId) throw new AuthenticationError();
+    // Security: Validate request body with Zod
+    const validated = createRecurringEventSchema.parse(req.body);
+    
+    // Security: Get userId from authenticated context only
+    const replitId = req.user.claims.sub;
+    const userResult = await db.select().from(users).where(eq(users.replitId, replitId)).limit(1);
+    if (!userResult[0]) throw new AuthenticationError('User not found');
+    const userId = userResult[0].id;
 
     const {
       title,
@@ -47,7 +75,7 @@ router.post('/api/events/recurring', async (req: Request, res: Response, next: N
       isEventPage,
       allowEventPagePosts,
       eventPageAdmins
-    } = req.body;
+    } = validated;
 
     // Create RRule based on recurrence type
     let freq: Frequency;
@@ -98,14 +126,14 @@ router.post('/api/events/recurring', async (req: Request, res: Response, next: N
         startDate: eventStart,
         endDate: eventEnd,
         eventType,
-        maxAttendees: maxAttendees ? parseInt(maxAttendees) : undefined,
+        maxAttendees,
         price,
-        userId: Number(userId),
-        hasEventPage: isEventPage,
-        allowEventPagePosts: allowEventPagePosts === true,
+        userId,
+        hasEventPage: isEventPage || false,
+        allowEventPagePosts: allowEventPagePosts || false,
         currentAttendees: 0,
-        country: req.user?.country,
-        city: req.user?.city
+        country: userResult[0].country || null,
+        city: userResult[0].city || null
       }).returning();
 
       // Add event owner as admin
@@ -154,7 +182,11 @@ router.post('/api/events/recurring', async (req: Request, res: Response, next: N
       events: createdEvents 
     }, `Successfully created ${createdEvents.length} recurring events`));
   } catch (error) {
-    next(error); // Pass to global error handler
+    if (error instanceof z.ZodError) {
+      next(new ValidationError(error.errors[0].message));
+    } else {
+      next(error);
+    }
   }
 });
 
