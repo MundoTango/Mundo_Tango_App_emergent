@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 31 Agent: Core AI Infrastructure
+ * Mundo Tango ESA LIFE CEO - Layer 31 Agent: Core AI Infrastructure
  * Expert agent responsible for OpenAI GPT-4o integration and core AI capabilities
  */
 

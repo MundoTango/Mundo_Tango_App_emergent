@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Memory-optimized file upload manager
+// Mundo Tango ESA LIFE CEO - Memory-optimized file upload manager
 import { toast } from '@/hooks/use-toast';
 
 interface UploadProgress {
@@ -30,7 +30,7 @@ class FileUploadManager {
     return FileUploadManager.instance;
   }
   
-  // ESA LIFE CEO 56x21 - Chunked upload for large files
+  // Mundo Tango ESA LIFE CEO - Chunked upload for large files
   async uploadChunked({
     file,
     endpoint,

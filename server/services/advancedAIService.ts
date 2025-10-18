@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layers 32-34: Advanced AI Features
+ * Mundo Tango ESA LIFE CEO - Layers 32-34: Advanced AI Features
  * Context Management, Memory Systems, Learning Systems
  */
 

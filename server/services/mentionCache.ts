@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Mention Suggestions Cache Service
+ * Mundo Tango ESA LIFE CEO - Mention Suggestions Cache Service
  * Implements Redis-based caching for mention suggestions to achieve 100/100 score
  */
 

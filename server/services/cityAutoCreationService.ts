@@ -516,7 +516,7 @@ export class CityAutoCreationService {
   }
 
   /**
-   * ESA LIFE CEO 56x21 - Handle location from posts (including recommendations)
+   * Mundo Tango ESA LIFE CEO - Handle location from posts (including recommendations)
    * This method is called when a post with location is created
    */
   static async handleLocation(
@@ -526,7 +526,7 @@ export class CityAutoCreationService {
     postType: string = 'recommendation'
   ): Promise<{ group: any; isNew: boolean } | null> {
     try {
-      console.log(`🌍 ESA LIFE CEO 56x21 - Processing location: ${city}, ${country} for ${postType}`);
+      console.log(`🌍 Mundo Tango ESA LIFE CEO - Processing location: ${city}, ${country} for ${postType}`);
       
       // Use recommendation handler to create city groups
       const result = await this.handleRecommendation(
@@ -537,14 +537,14 @@ export class CityAutoCreationService {
       );
       
       if (result?.isNew) {
-        console.log(`✅ ESA LIFE CEO 56x21 - Created new city group: ${city}, ${country}`);
+        console.log(`✅ Mundo Tango ESA LIFE CEO - Created new city group: ${city}, ${country}`);
       } else if (result) {
-        console.log(`📍 ESA LIFE CEO 56x21 - City group already exists: ${city}, ${country}`);
+        console.log(`📍 Mundo Tango ESA LIFE CEO - City group already exists: ${city}, ${country}`);
       }
       
       return result;
     } catch (error) {
-      console.error('❌ ESA LIFE CEO 56x21 - Error handling location:', error);
+      console.error('❌ Mundo Tango ESA LIFE CEO - Error handling location:', error);
       return null;
     }
   }

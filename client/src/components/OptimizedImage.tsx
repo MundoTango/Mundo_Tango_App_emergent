@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Optimized Image Component (Phase 12)
+ * Mundo Tango ESA LIFE CEO - Optimized Image Component (Phase 12)
  * High-performance image component with lazy loading, WebP support, and blur placeholders
  */
 

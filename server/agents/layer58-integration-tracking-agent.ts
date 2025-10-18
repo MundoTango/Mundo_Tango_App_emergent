@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 58 Agent: Third-Party Integration Tracking
+ * Mundo Tango ESA LIFE CEO - Layer 58 Agent: Third-Party Integration Tracking
  * Expert agent responsible for monitoring all external service integrations
  */
 

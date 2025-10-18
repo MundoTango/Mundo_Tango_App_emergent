@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Facebook/Instagram-style Chunked Upload
+ * Mundo Tango ESA LIFE CEO - Facebook/Instagram-style Chunked Upload
  * Splits large files into chunks for parallel upload
  * Prevents memory crashes and enables resumable uploads
  */

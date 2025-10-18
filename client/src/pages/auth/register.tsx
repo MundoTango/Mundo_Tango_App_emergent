@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Register Page with MT Ocean Forms
+// Mundo Tango ESA LIFE CEO - Register Page with MT Ocean Forms
 import { useAuth } from "@/contexts/auth-context";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

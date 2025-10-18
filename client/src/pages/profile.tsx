@@ -57,8 +57,8 @@ export default function Profile() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [, setLocation] = useLocation(); // ESA LIFE CEO 56x21 - Navigation fix
-  // ESA LIFE CEO 56x21 - Get tab from URL parameter
+  const [, setLocation] = useLocation(); // Mundo Tango ESA LIFE CEO - Navigation fix
+  // Mundo Tango ESA LIFE CEO - Get tab from URL parameter
   const getInitialTab = () => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -76,7 +76,7 @@ export default function Profile() {
   useEffect(() => {
     const stopMeasure = measureComponentRender('Profile');
     
-    // ESA LIFE CEO 56x21 - Update tab when URL changes
+    // Mundo Tango ESA LIFE CEO - Update tab when URL changes
     const handleUrlChange = () => {
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');

@@ -77,7 +77,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
 
-  // ESA LIFE CEO 61x21 - Use passed posts or fetch memories with filters applied
+  // Mundo Tango ESA LIFE CEO - Use passed posts or fetch memories with filters applied
   const { data: fetchedPosts, isLoading, error } = useQuery({
     queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
     enabled: !propsPosts, // ESA Framework: Only fetch if posts not provided from parent
@@ -120,7 +120,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
       const result = await response.json();
       const memories = result.data || [];
       
-      // ESA LIFE CEO 61x21 - Process ALL media fields from memories
+      // Mundo Tango ESA LIFE CEO - Process ALL media fields from memories
       return memories.map((memory: any) => {
         // Processing memory media fields
         

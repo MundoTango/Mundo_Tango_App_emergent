@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-// ESA LIFE CEO 56x21 - Memory Optimized Server Startup
+// Mundo Tango ESA LIFE CEO - Memory Optimized Server Startup
 // This script starts the server with increased heap size to prevent crashes
 
 const { spawn } = require('child_process');
 const path = require('path');
 
-console.log('🚀 ESA LIFE CEO 56x21 - Starting server with 8GB heap size...');
+console.log('🚀 Mundo Tango ESA LIFE CEO - Starting server with 8GB heap size...');
 
 // Start the server with increased memory
 const serverProcess = spawn('node', [

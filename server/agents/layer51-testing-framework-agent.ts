@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 51 Agent: Testing Framework
+ * Mundo Tango ESA LIFE CEO - Layer 51 Agent: Testing Framework
  * Expert agent responsible for unit, integration, E2E tests and test automation
  */
 

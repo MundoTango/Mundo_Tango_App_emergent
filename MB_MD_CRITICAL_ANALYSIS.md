@@ -11,7 +11,7 @@
 ```
 [ESA Agent Coordinator] Error registering agents: Error [ERR_MODULE_NOT_FOUND]: 
 Cannot find module '/home/runner/workspace/server/agents/app-leads/index'
-[ESA 56x21] Server exited with code 1
+[Mundo Tango ESA] Server exited with code 1
 ```
 **Status:** Server crashes on startup, preventing ALL functionality
 **Impact:** No preview, no API, no WebSocket, complete platform failure
@@ -478,7 +478,7 @@ time npm run build
 ---
 
 ### **2. Simplify Architecture**
-**Current:** ESA 61x21 + Life CEO + Mr Blue + Journey + Page + Algorithm agents
+**Current:** Mundo Tango ESA LIFE CEO + Life CEO + Mr Blue + Journey + Page + Algorithm agents
 **Problem:** Too many abstraction layers
 **Proposal:**
 - Merge similar agents (e.g., layer 44-50 into "Advanced Features")

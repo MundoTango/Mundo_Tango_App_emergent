@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 21 Agent: User Management
+ * Mundo Tango ESA LIFE CEO - Layer 21 Agent: User Management
  * Expert agent responsible for user profiles, preferences, and user lifecycle management
  */
 

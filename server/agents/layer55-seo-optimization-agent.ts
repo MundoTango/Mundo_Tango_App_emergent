@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 55 Agent: SEO Optimization
+ * Mundo Tango ESA LIFE CEO - Layer 55 Agent: SEO Optimization
  * Expert agent responsible for meta tags, sitemaps, and search engine optimization
  */
 

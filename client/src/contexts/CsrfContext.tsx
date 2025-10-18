@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - CSRF Token Management Context
+// Mundo Tango ESA LIFE CEO - CSRF Token Management Context
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface CsrfContextType {

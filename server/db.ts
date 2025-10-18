@@ -14,7 +14,7 @@ console.log('🎭 [DEMO] Using demo database configuration');
 
 const pool = new Pool({ 
   connectionString: DATABASE_URL,
-  // ESA LIFE CEO 56x21 Optimized Connection Pool Settings
+  // Mundo Tango ESA LIFE CEO Optimized Connection Pool Settings
   max: 100, // Increased for high concurrency uploads
   min: 20, // Higher minimum for better performance
   idleTimeoutMillis: 30000, // 30 seconds for better connection reuse
@@ -95,7 +95,7 @@ export async function resilientQuery<T>(
   return null;
 }
 
-// ESA LIFE CEO 56x21 - Export pool for direct usage and global reference
+// Mundo Tango ESA LIFE CEO - Export pool for direct usage and global reference
 export { pool };
 
 // Extend global type for TypeScript

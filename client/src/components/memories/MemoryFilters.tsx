@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Memory Filters Component
+ * Mundo Tango ESA LIFE CEO - Memory Filters Component
  * Layer 26 (Recommendation Engine) + Layer 36 (Memory Systems)
  * 
  * Provides filtering controls for the Memories Feed Algorithm:

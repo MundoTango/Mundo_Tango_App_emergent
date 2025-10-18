@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 13: Media Processing
+ * Mundo Tango ESA LIFE CEO - Layer 13: Media Processing
  * Extract thumbnail from video file for preview display
  * Returns thumbnail data URL on success, or fallback video URL on failure
  */

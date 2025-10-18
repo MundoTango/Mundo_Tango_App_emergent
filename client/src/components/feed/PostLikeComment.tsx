@@ -35,7 +35,7 @@ interface Post {
   content: string;
   imageUrl?: string;
   videoUrl?: string;
-  mediaEmbeds?: string[]; // ESA LIFE CEO 61x21 - Support for media array
+  mediaEmbeds?: string[]; // Mundo Tango ESA LIFE CEO - Support for media array
   user: {
     id: number;
     name: string;
@@ -253,7 +253,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
         <div className="mb-4">
           <p className="text-gray-900 dark:text-white whitespace-pre-wrap">{localPost.content}</p>
           
-          {/* ESA LIFE CEO 61x21 - Enhanced media display with mediaEmbeds support */}
+          {/* Mundo Tango ESA LIFE CEO - Enhanced media display with mediaEmbeds support */}
           {localPost.mediaEmbeds && localPost.mediaEmbeds.length > 0 ? (
             <div className="mt-3 space-y-2">
               {localPost.mediaEmbeds.map((url: string, index: number) => {

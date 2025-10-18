@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 19: Content Management Service
+ * Mundo Tango ESA LIFE CEO - Layer 19: Content Management Service
  * Rich text, media, moderation, content workflows
  */
 

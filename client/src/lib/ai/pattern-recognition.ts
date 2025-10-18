@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Pattern Recognition System (Layer 47: Advanced AI Features)
+// Mundo Tango ESA LIFE CEO - Pattern Recognition System (Layer 47: Advanced AI Features)
 
 export interface ContentPattern {
   type: 'sentiment' | 'topic' | 'trend' | 'anomaly';

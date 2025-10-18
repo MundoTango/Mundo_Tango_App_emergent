@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Forgot Password Page with MT Ocean Forms
+// Mundo Tango ESA LIFE CEO - Forgot Password Page with MT Ocean Forms
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forgotPasswordSchema } from "@/lib/form-schemas";

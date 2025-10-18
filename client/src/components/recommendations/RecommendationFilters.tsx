@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';;
 import { Filter, ChevronDown, ChevronUp, Users, Globe, MapPin, Star, DollarSign, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-// ESA LIFE CEO 61x21 - Layer 28: Recommendations System
+// Mundo Tango ESA LIFE CEO - Layer 28: Recommendations System
 // Aurora Tide Design System - Glassmorphic Filter Component
 
 interface FilterState {

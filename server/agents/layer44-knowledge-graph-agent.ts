@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 44 Agent: Knowledge Graph
+ * Mundo Tango ESA LIFE CEO - Layer 44 Agent: Knowledge Graph
  * Expert agent responsible for entity relationships, ontologies, and knowledge management
  */
 

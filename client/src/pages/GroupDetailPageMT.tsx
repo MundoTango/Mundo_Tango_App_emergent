@@ -1508,7 +1508,7 @@ function GroupDetailPageMT() {
     return [-34.6037, -58.3816]; // Default to Buenos Aires
   };
 
-  // ESA LIFE CEO 56x21 - Removed duplicate renderMapTab function
+  // Mundo Tango ESA LIFE CEO - Removed duplicate renderMapTab function
   // The CommunityToolbar in renderCommunityHub already provides map functionality
 
   // SEO meta tags (Layer 55: SEO Optimization)

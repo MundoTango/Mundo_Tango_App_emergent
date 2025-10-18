@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 27: Gamification Service
+ * Mundo Tango ESA LIFE CEO - Layer 27: Gamification Service
  * Points, badges, achievements, leaderboards, challenges
  */
 

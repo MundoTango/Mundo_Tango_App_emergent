@@ -41,25 +41,25 @@ import { cacheMiddleware, invalidateCacheAfter } from "./middleware/cacheMiddlew
 import metricsRouter from "./routes/metrics";
 import testspriteIntegration from "./routes/testspriteIntegration";
 import n8nRoutes from "./routes/n8nRoutes";
-import postRoutes from "./routes/postRoutes"; // ESA LIFE CEO 56x21 - Optimized post routes
-import postsRoutes from "./routes/postsRoutes"; // ESA LIFE CEO 61x21 - Main posts GET endpoints
-import chunkedUploadRoutes from "./routes/chunkedUploadRoutes"; // ESA LIFE CEO 56x21 - Chunked upload routes
-import messagesRoutes from "./routes/messagesRoutes"; // ESA LIFE CEO 61x21 - Messages API routes
-import friendsRoutes from "./routes/friendsRoutes"; // ESA LIFE CEO 61x21 - Friends API routes
-import storiesRoutes from "./routes/storiesRoutes"; // ESA LIFE CEO 61x21 - Stories API routes
-import followsRoutes from "./routes/followsRoutes"; // ESA LIFE CEO 61x21 - Follows API routes
-import commentsRoutes from "./routes/commentsRoutes"; // ESA LIFE CEO 61x21 - Comments API routes
-import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
-import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
-import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
+import postRoutes from "./routes/postRoutes"; // Mundo Tango ESA LIFE CEO - Optimized post routes
+import postsRoutes from "./routes/postsRoutes"; // Mundo Tango ESA LIFE CEO - Main posts GET endpoints
+import chunkedUploadRoutes from "./routes/chunkedUploadRoutes"; // Mundo Tango ESA LIFE CEO - Chunked upload routes
+import messagesRoutes from "./routes/messagesRoutes"; // Mundo Tango ESA LIFE CEO - Messages API routes
+import friendsRoutes from "./routes/friendsRoutes"; // Mundo Tango ESA LIFE CEO - Friends API routes
+import storiesRoutes from "./routes/storiesRoutes"; // Mundo Tango ESA LIFE CEO - Stories API routes
+import followsRoutes from "./routes/followsRoutes"; // Mundo Tango ESA LIFE CEO - Follows API routes
+import commentsRoutes from "./routes/commentsRoutes"; // Mundo Tango ESA LIFE CEO - Comments API routes
+import projectRoutes from "./routes/projects"; // Mundo Tango ESA LIFE CEO - Project Tracker routes (Layer 2: API Structure)
+import aiRoutes from "./routes/ai"; // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure routes (Layers 31-46)
+import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Agent System routes (All 61 layers)
 
-// ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
+// Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
-import securityRoutes from "./routes/security"; // ESA LIFE CEO 61x21 - Security routes (CSRF, audit, etc.)
+import securityRoutes from "./routes/security"; // Mundo Tango ESA LIFE CEO - Security routes (CSRF, audit, etc.)
 import publicStatsRoutes from "./routes/publicStatsRoutes"; // J1 - Public stats for visitor landing page
 
 import { getUserId } from "./utils/authHelper";
@@ -81,7 +81,7 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
+  // Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Register domain routes first
   app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1
   app.use(publicStatsRoutes);      // J1 - Public stats API for visitor landing page
   app.use('/api', userRoutes);    // User profile and settings routes
@@ -90,17 +90,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
   
-  // ESA LIFE CEO 56x21 - Register optimized post routes early to reduce memory load
+  // Mundo Tango ESA LIFE CEO - Register optimized post routes early to reduce memory load
   app.use(postRoutes);
-  app.use(postsRoutes); // ESA LIFE CEO 61x21 - Main posts GET endpoints
-  app.use(eventsRoutes); // ESA LIFE CEO 61x21 - Events API routes
-  app.use(messagesRoutes); // ESA LIFE CEO 61x21 - Messages API routes
-  app.use(friendsRoutes); // ESA LIFE CEO 61x21 - Friends API routes
-  app.use(storiesRoutes); // ESA LIFE CEO 61x21 - Stories API routes
-  app.use(followsRoutes); // ESA LIFE CEO 61x21 - Follows API routes
-  app.use(commentsRoutes); // ESA LIFE CEO 61x21 - Comments API routes
+  app.use(postsRoutes); // Mundo Tango ESA LIFE CEO - Main posts GET endpoints
+  app.use(eventsRoutes); // Mundo Tango ESA LIFE CEO - Events API routes
+  app.use(messagesRoutes); // Mundo Tango ESA LIFE CEO - Messages API routes
+  app.use(friendsRoutes); // Mundo Tango ESA LIFE CEO - Friends API routes
+  app.use(storiesRoutes); // Mundo Tango ESA LIFE CEO - Stories API routes
+  app.use(followsRoutes); // Mundo Tango ESA LIFE CEO - Follows API routes
+  app.use(commentsRoutes); // Mundo Tango ESA LIFE CEO - Comments API routes
   
-  // ESA LIFE CEO 61x21 - Layer 57: City Group Creation Automation
+  // Mundo Tango ESA LIFE CEO - Layer 57: City Group Creation Automation
   try {
     const automationRoutes = require('./routes/automationRoutes');
     app.use(automationRoutes);
@@ -108,11 +108,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error: any) {
     console.warn('⚠️ Layer 57: Automation routes not available:', error.message);
   }
-  app.use(chunkedUploadRoutes); // ESA LIFE CEO 56x21 - Register chunked upload routes
-  app.use(cityGroupsStatsRoutes); // ESA LIFE CEO 56x21 - City groups statistics for world map
-  app.use('/api', projectRoutes); // ESA LIFE CEO 56x21 - Project Tracker API routes (Layer 2: API Structure)
-  app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
-  app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
+  app.use(chunkedUploadRoutes); // Mundo Tango ESA LIFE CEO - Register chunked upload routes
+  app.use(cityGroupsStatsRoutes); // Mundo Tango ESA LIFE CEO - City groups statistics for world map
+  app.use('/api', projectRoutes); // Mundo Tango ESA LIFE CEO - Project Tracker API routes (Layer 2: API Structure)
+  app.use('/api', aiRoutes); // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure API routes (Layers 31-46)
+  app.use('/api', agentRoutes); // Mundo Tango ESA LIFE CEO - Agent System API routes (All 61 layers)
   // ESA Layer 58: Cloudinary routes removed per user request
   
   // Import Life CEO learnings routes
@@ -176,13 +176,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(memoryLeakPrevention);
   // CRITICAL: CSP completely disabled for Replit iframe compatibility
   // app.use(contentSecurityPolicy); // DISABLED for preview
-  app.use(sanitizeInput); // ESA LIFE CEO 61x21 - Security restored
+  app.use(sanitizeInput); // Mundo Tango ESA LIFE CEO - Security restored
   
   // Set up Replit Auth middleware
   await setupAuth(app);
   
   // Apply CSRF protection after session is initialized
-  app.use(csrfProtection); // ESA LIFE CEO 61x21 - Security restored
+  app.use(csrfProtection); // Mundo Tango ESA LIFE CEO - Security restored
 
   // Allow public access to non-API routes (for Vite dev server)
   app.use((req, res, next) => {
@@ -578,7 +578,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - @Mention Confirmation & Friendship Algorithm Integration
+  // Mundo Tango ESA LIFE CEO - @Mention Confirmation & Friendship Algorithm Integration
   app.post('/api/mentions/confirm', isAuthenticated, RateLimiterService.mentionConfirmationLimiter, async (req: any, res) => {
     try {
       const { originalMentionerId, responseType } = req.body;
@@ -621,7 +621,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Reports endpoint for post reporting
+  // Mundo Tango ESA LIFE CEO - Reports endpoint for post reporting
   app.post('/api/reports', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -673,7 +673,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Get reports for admin (with filtering)
+  // Mundo Tango ESA LIFE CEO - Get reports for admin (with filtering)
   app.get('/api/reports', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -762,7 +762,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Update report status
+  // Mundo Tango ESA LIFE CEO - Update report status
   app.put('/api/reports/:reportId/status', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -826,7 +826,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Get blocked users for admin
+  // Mundo Tango ESA LIFE CEO - Get blocked users for admin
   app.get('/api/admin/blocked-users', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -893,7 +893,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Block user endpoint
+  // Mundo Tango ESA LIFE CEO - Block user endpoint
   app.post('/api/users/:userId/block', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -939,7 +939,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Unblock user endpoint
+  // Mundo Tango ESA LIFE CEO - Unblock user endpoint
   app.post('/api/users/:userId/unblock', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -995,7 +995,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Saved posts endpoint
+  // Mundo Tango ESA LIFE CEO - Saved posts endpoint
   app.post('/api/saved-posts', setUserContext, async (req: any, res) => {
     try {
       let user: any;
@@ -1044,7 +1044,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create HTTP server
   const server = createServer(app);
   
-  // 🎯 ESA LIFE CEO 61x21 - Initialize real-time notifications for 100/100 score
+  // 🎯 Mundo Tango ESA LIFE CEO - Initialize real-time notifications for 100/100 score
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   

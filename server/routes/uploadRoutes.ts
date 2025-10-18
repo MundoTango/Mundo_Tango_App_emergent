@@ -20,7 +20,7 @@ sharp.concurrency(1);
 sharp.simd(false); // Disable SIMD for lower memory usage
 
 /**
- * ESA LIFE CEO 56x21 - Ultra-optimized post creation with media
+ * Mundo Tango ESA LIFE CEO - Ultra-optimized post creation with media
  * Processes everything in a single stream without loading files into memory
  */
 router.post('/api/posts', async (req: any, res) => {
@@ -63,7 +63,7 @@ router.post('/api/posts', async (req: any, res) => {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
 
-    // ESA LIFE CEO 56x21 - Remove spaces from filename to prevent URL issues
+    // Mundo Tango ESA LIFE CEO - Remove spaces from filename to prevent URL issues
     const sanitizedFilename = filename.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9._-]/g, '');
     const uniqueName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}_${sanitizedFilename}`;
     const filePath = path.join(uploadDir, uniqueName);
@@ -106,7 +106,7 @@ router.post('/api/posts', async (req: any, res) => {
           mediaUrls.push(mediaUrl);
           // Image saved successfully
         } else if (mimeType.startsWith('video/')) {
-          // ESA LIFE CEO 56x21 - Ultra-optimized video streaming
+          // Mundo Tango ESA LIFE CEO - Ultra-optimized video streaming
           await new Promise((resolve, reject) => {
             const writeStream = fs.createWriteStream(filePath, {
               highWaterMark: 64 * 1024 // 64KB chunks for minimal memory
@@ -207,14 +207,14 @@ router.post('/api/posts', async (req: any, res) => {
       console.log(`📸 Media URLs collected: ${mediaUrls.length} files`);
       
       // Create the post with media URLs
-      // ESA LIFE CEO 56x21 - Fix media URL paths
+      // Mundo Tango ESA LIFE CEO - Fix media URL paths
       // Ensure URLs are properly formatted for client access
       const formattedMediaUrls = mediaUrls.map(url => {
         // Remove any leading slashes for consistent formatting
         return url.startsWith('/') ? url : `/${url}`;
       });
       
-      // ESA LIFE CEO 56x21 - Store all media URLs properly
+      // Mundo Tango ESA LIFE CEO - Store all media URLs properly
       const postData = {
         userId,
         content: fields.content || '',
@@ -233,7 +233,7 @@ router.post('/api/posts', async (req: any, res) => {
 
       const post = await storage.createPost(postData);
       
-      // ESA LIFE CEO 56x21 - Trigger city auto-creation from post location
+      // Mundo Tango ESA LIFE CEO - Trigger city auto-creation from post location
       if (fields.location) {
         try {
           const { CityAutoCreationService } = await import('../services/cityAutoCreationService');
@@ -243,7 +243,7 @@ router.post('/api/posts', async (req: any, res) => {
             const city = locationParts[0];
             const country = locationParts[locationParts.length - 1];
             
-            console.log(`🌍 ESA LIFE CEO 56x21 - Auto-creating city group for: ${city}, ${country}`);
+            console.log(`🌍 Mundo Tango ESA LIFE CEO - Auto-creating city group for: ${city}, ${country}`);
             await CityAutoCreationService.handleLocation(city, country, userId);
           }
         } catch (cityError) {
@@ -252,7 +252,7 @@ router.post('/api/posts', async (req: any, res) => {
         }
       }
       
-      // ESA LIFE CEO 56x21 - Add properly formatted media URLs to the created post
+      // Mundo Tango ESA LIFE CEO - Add properly formatted media URLs to the created post
       const postWithMedia = {
         ...post,
         imageUrl: formattedMediaUrls[0] || post.imageUrl,

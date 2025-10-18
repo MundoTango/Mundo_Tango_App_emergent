@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 48 Agent: Performance Monitoring
+ * Mundo Tango ESA LIFE CEO - Layer 48 Agent: Performance Monitoring
  * Expert agent responsible for metrics, profiling, and system optimization
  */
 

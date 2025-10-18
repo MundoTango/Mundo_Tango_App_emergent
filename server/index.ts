@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Server Bootstrap (ESM Compatible)
+ * Mundo Tango ESA LIFE CEO - Server Bootstrap (ESM Compatible)
  * This TypeScript file launches the TypeScript server with ES module support
  */
 
@@ -10,9 +10,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-console.log('[ESA 61x21] Server bootstrap starting...');
-console.log('[ESA 61x21] Memory allocation: 4GB');
-console.log('[ESA 61x21] Environment:', process.env.NODE_ENV || 'development');
+console.log('[Mundo Tango ESA] Server bootstrap starting...');
+console.log('[Mundo Tango ESA] Memory allocation: 4GB');
+console.log('[Mundo Tango ESA] Environment:', process.env.NODE_ENV || 'development');
 
 // Launch the actual TypeScript server using tsx (Vite-free version)
 const serverPath = join(__dirname, 'index-novite.ts');
@@ -29,15 +29,15 @@ const child = spawn('npx', ['tsx', serverPath], {
 });
 
 child.on('error', (err: Error) => {
-  console.error('[ESA 56x21] Failed to start server:', err.message);
+  console.error('[Mundo Tango ESA] Failed to start server:', err.message);
   process.exit(1);
 });
 
 child.on('exit', (code: number | null, signal: NodeJS.Signals | null) => {
   if (signal) {
-    console.log(`[ESA 56x21] Server terminated by signal ${signal}`);
+    console.log(`[Mundo Tango ESA] Server terminated by signal ${signal}`);
   } else if (code !== 0) {
-    console.error(`[ESA 56x21] Server exited with code ${code}`);
+    console.error(`[Mundo Tango ESA] Server exited with code ${code}`);
   }
   process.exit(code || 0);
 });
@@ -45,7 +45,7 @@ child.on('exit', (code: number | null, signal: NodeJS.Signals | null) => {
 // Forward termination signals
 (['SIGTERM', 'SIGINT', 'SIGHUP'] as NodeJS.Signals[]).forEach(signal => {
   process.on(signal, () => {
-    console.log(`[ESA 56x21] Forwarding ${signal} to server...`);
+    console.log(`[Mundo Tango ESA] Forwarding ${signal} to server...`);
     child.kill(signal);
   });
 });

@@ -90,10 +90,10 @@ export const eventCreationLimiter = rateLimit({
   message: 'Too many events created, please try again tomorrow.',
 });
 
-// Comment/post creation rate limiting - ESA LIFE CEO 56x21 FIXED
+// Comment/post creation rate limiting - Mundo Tango ESA LIFE CEO FIXED
 export const contentCreationLimiter = rateLimit({
   ...rateLimitConfig,
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 100, // ESA LIFE CEO 56x21 - Increased to 100 posts/comments per minute for uploads
+  max: 100, // Mundo Tango ESA LIFE CEO - Increased to 100 posts/comments per minute for uploads
   message: 'Too many posts/comments, please slow down.',
 });

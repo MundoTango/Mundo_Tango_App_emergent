@@ -21,7 +21,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
-  // ESA LIFE CEO 61x21 - CRITICAL DEBUG
+  // Mundo Tango ESA LIFE CEO - CRITICAL DEBUG
   React.useEffect(() => {
     // Processing fixed card for post
   }, [post]);
@@ -78,7 +78,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
         <div className="mt-3">
           <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
           
-          {/* ESA LIFE CEO 61x21 - FIXED MEDIA DISPLAY */}
+          {/* Mundo Tango ESA LIFE CEO - FIXED MEDIA DISPLAY */}
           {mediaUrls.length > 0 && (
             <div className="mt-4">
               <div className="bg-yellow-100 p-2 rounded mb-2">

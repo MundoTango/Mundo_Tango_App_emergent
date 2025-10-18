@@ -242,7 +242,7 @@ export const posts = pgTable("posts", {
   plainText: text("plain_text"), // Extracted plain text for search
   imageUrl: text("image_url"),
   videoUrl: text("video_url"),
-  mediaEmbeds: jsonb("media_embeds").default([]), // ESA LIFE CEO 56x21 - Now storing all media URLs here
+  mediaEmbeds: jsonb("media_embeds").default([]), // Mundo Tango ESA LIFE CEO - Now storing all media URLs here
   mentions: text("mentions").array().default([]), // @mentions
   hashtags: text("hashtags").array().default([]),
   location: text("location"),

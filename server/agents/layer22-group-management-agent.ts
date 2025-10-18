@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 22 Agent: Group Management
+ * Mundo Tango ESA LIFE CEO - Layer 22 Agent: Group Management
  * Expert agent responsible for tango community group organization and management
  */
 

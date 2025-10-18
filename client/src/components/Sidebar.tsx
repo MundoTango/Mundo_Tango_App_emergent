@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     {
       icon: <UsersRound className="w-5 h-5" />,
       title: t('navigation.tangoCommunity'), 
-      link: "/community-world-map",  // ESA LIFE CEO 56x21 - Direct to world map
+      link: "/community-world-map",  // Mundo Tango ESA LIFE CEO - Direct to world map
     },
     {
       icon: <UserCheck className="w-5 h-5" />,

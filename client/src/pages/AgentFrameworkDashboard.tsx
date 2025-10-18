@@ -131,7 +131,7 @@ export default function AgentFrameworkDashboard() {
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
-              <p className="text-teal-700">Loading ESA LIFE CEO 61x21 Framework...</p>
+              <p className="text-teal-700">Loading Mundo Tango ESA LIFE CEO Framework...</p>
             </div>
           </div>
         </div>

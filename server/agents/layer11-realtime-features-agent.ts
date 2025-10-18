@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 11 Agent: Real-time Features
+ * Mundo Tango ESA LIFE CEO - Layer 11 Agent: Real-time Features
  * Expert agent responsible for WebSocket, Socket.io, and live updates
  */
 

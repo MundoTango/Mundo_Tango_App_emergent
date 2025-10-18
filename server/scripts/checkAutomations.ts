@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * ESA LIFE CEO 56x21 Platform Automation Health Check
+ * Mundo Tango ESA LIFE CEO Platform Automation Health Check
  * Layer 50: DevOps Automation
  * 
  * This script checks all platform automations and creates Project Tracker entries for any issues

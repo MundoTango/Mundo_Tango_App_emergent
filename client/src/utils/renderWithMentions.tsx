@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { MapPin } from 'lucide-react';
 
 /**
- * ESA LIFE CEO 61x21 - Renders text with @mentions converted to clickable links
+ * Mundo Tango ESA LIFE CEO - Renders text with @mentions converted to clickable links
  * Supports users, events, groups, and cities with multiple legacy formats:
  * - @[Name](user:id) - User mention format
  * - @[Event Name](event:id) - Event mention format

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * ESA LIFE CEO 56x21 - Ultimate Server Launcher
+ * Mundo Tango ESA LIFE CEO - Ultimate Server Launcher
  * This ES module starts the server without workflow errors
  */
 

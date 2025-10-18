@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 45 Agent: Reasoning Engine
+ * Mundo Tango ESA LIFE CEO - Layer 45 Agent: Reasoning Engine
  * Expert agent responsible for logic, inference, and problem-solving intelligence
  */
 

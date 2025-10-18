@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - AI Routes (Intelligence Infrastructure API)
+// Mundo Tango ESA LIFE CEO - AI Routes (Intelligence Infrastructure API)
 import { Router } from 'express';
 import { AgentManager } from '../ai/agent-manager';
 import { db } from '../db';

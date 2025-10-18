@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Agent Manager (Layer 35: Agent Framework Core)
+// Mundo Tango ESA LIFE CEO - Agent Manager (Layer 35: Agent Framework Core)
 import { db } from '../db';
 import { agents, semanticMemories, decisions, intents, contexts } from '@shared/ai-schema';
 import { eq, and, desc } from 'drizzle-orm';

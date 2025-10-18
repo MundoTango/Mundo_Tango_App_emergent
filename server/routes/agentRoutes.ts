@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 Framework - Agent Management API Routes
+ * Mundo Tango ESA LIFE CEO Framework - Agent Management API Routes
  * Comprehensive API for managing and monitoring all 61 layer agents
  */
 
@@ -19,7 +19,7 @@ router.get('/framework-status', async (req, res) => {
     
     const response = {
       framework: {
-        name: 'ESA LIFE CEO 61x21',
+        name: 'Mundo Tango ESA LIFE CEO',
         version: '1.0.0',
         totalLayers: 61,
         implementedAgents: registeredLayers.length,
@@ -138,7 +138,7 @@ router.get('/report', async (req, res) => {
       report,
       metadata: {
         generatedAt: new Date().toISOString(),
-        framework: 'ESA LIFE CEO 61x21',
+        framework: 'Mundo Tango ESA LIFE CEO',
         reportType: 'comprehensive',
         wordCount: report.split(' ').length,
         lineCount: report.split('\n').length

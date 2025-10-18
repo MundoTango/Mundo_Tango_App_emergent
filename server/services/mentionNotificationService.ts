@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - @Mention Notification Service
+ * Mundo Tango ESA LIFE CEO - @Mention Notification Service
  * Facebook-style automation for handling @mentions
  * 
  * When a user is mentioned:
@@ -129,7 +129,7 @@ export class MentionNotificationService {
           })
           .returning();
         
-        // 🎯 ESA LIFE CEO 61x21 - Send real-time notification via WebSocket for 100/100 score
+        // 🎯 Mundo Tango ESA LIFE CEO - Send real-time notification via WebSocket for 100/100 score
         const { RealTimeNotificationService } = await import('./realTimeNotifications');
         await RealTimeNotificationService.sendMentionNotification(
           mentionedUser.id,
@@ -147,7 +147,7 @@ export class MentionNotificationService {
         // Track mention analytics (Facebook-style)
         await this.trackMentionAnalytics(authorId, mentionedUser.id, contentType);
         
-        // ESA LIFE CEO 61x21 - Update friendship algorithm
+        // Mundo Tango ESA LIFE CEO - Update friendship algorithm
         await this.updateFriendshipFromMention(authorId, mentionedUser.id, 'mention_sent');
         
         // Check if email notifications are enabled for this user
@@ -208,7 +208,7 @@ export class MentionNotificationService {
   ) {
     console.log('🔍 Getting mention suggestions for query:', query);
     
-    // 🎯 ESA LIFE CEO 61x21 - Check cache first for 100/100 performance score
+    // 🎯 Mundo Tango ESA LIFE CEO - Check cache first for 100/100 performance score
     const cachedSuggestions = await MentionCacheService.getCachedSuggestions(userId, query, limit);
     if (cachedSuggestions) {
       return cachedSuggestions;
@@ -330,7 +330,7 @@ export class MentionNotificationService {
   }
   
   /**
-   * ESA LIFE CEO 61x21 - Update friendship algorithm from @mentions
+   * Mundo Tango ESA LIFE CEO - Update friendship algorithm from @mentions
    * This is where the magic happens - mentions strengthen social connections!
    */
   private static async updateFriendshipFromMention(
@@ -477,7 +477,7 @@ export class MentionNotificationService {
   }
   
   /**
-   * ESA LIFE CEO 61x21 - Handle mention confirmation/interaction
+   * Mundo Tango ESA LIFE CEO - Handle mention confirmation/interaction
    * Called when mentioned user actually engages with the mention
    */
   static async handleMentionConfirmation(

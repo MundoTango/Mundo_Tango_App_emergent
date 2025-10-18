@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 54 Agent: Accessibility
+ * Mundo Tango ESA LIFE CEO - Layer 54 Agent: Accessibility
  * Expert agent responsible for WCAG compliance, screen readers, and accessibility optimization
  */
 

@@ -157,7 +157,7 @@ export interface IStorage {
   // Posts operations
   createPost(post: InsertPost): Promise<Post>;
   getPostById(id: number | string): Promise<Post | undefined>;
-  deletePost(id: number): Promise<void>; // ESA LIFE CEO 56x21 - Added delete functionality
+  deletePost(id: number): Promise<void>; // Mundo Tango ESA LIFE CEO - Added delete functionality
   getUserPosts(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPhotos(userId: number): Promise<any[]>;
   getUserVideos(userId: number): Promise<any[]>;
@@ -867,7 +867,7 @@ export class DatabaseStorage implements IStorage {
     return result[0];
   }
 
-  // ESA LIFE CEO 56x21 - Update post implementation
+  // Mundo Tango ESA LIFE CEO - Update post implementation
   async updatePost(id: number, updates: Partial<Post>): Promise<Post> {
     const [updatedPost] = await db
       .update(posts)
@@ -877,7 +877,7 @@ export class DatabaseStorage implements IStorage {
     return updatedPost;
   }
   
-  // ESA LIFE CEO 56x21 - Delete post implementation
+  // Mundo Tango ESA LIFE CEO - Delete post implementation
   async deletePost(id: number): Promise<void> {
     await db.delete(posts).where(eq(posts.id, id));
   }
@@ -894,7 +894,7 @@ export class DatabaseStorage implements IStorage {
 
     return result.map(row => ({
       ...row.posts,
-      mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 56x21 - Include mediaEmbeds
+      mediaEmbeds: row.posts?.mediaEmbeds || [], // Mundo Tango ESA LIFE CEO - Include mediaEmbeds
       user: row.users ? {
         id: row.users.id,
         name: row.users.name,
@@ -995,7 +995,7 @@ export class DatabaseStorage implements IStorage {
     
     return result.map(row => ({
       ...row.posts,
-      mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 56x21 - Include mediaEmbeds
+      mediaEmbeds: row.posts?.mediaEmbeds || [], // Mundo Tango ESA LIFE CEO - Include mediaEmbeds
       user: row.users ? {
         id: row.users.id,
         name: row.users.name,
@@ -5311,7 +5311,7 @@ export class DatabaseStorage implements IStorage {
     return updated;
   }
 
-  // ESA LIFE CEO 56x21 - Get group statistics for city groups
+  // Mundo Tango ESA LIFE CEO - Get group statistics for city groups
   async getGroupStatistics(groupId: number): Promise<{ eventCount: number; hostCount: number; recommendationCount: number } | null> {
     try {
       // For now, return demo statistics until database tables are ready
@@ -5323,7 +5323,7 @@ export class DatabaseStorage implements IStorage {
         recommendationCount: baseValue + 5
       };
     } catch (error) {
-      console.error('ESA LIFE CEO 56x21 - Error getting group statistics:', error);
+      console.error('Mundo Tango ESA LIFE CEO - Error getting group statistics:', error);
       return {
         eventCount: 3,
         hostCount: 2,

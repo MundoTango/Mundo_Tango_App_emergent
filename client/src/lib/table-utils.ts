@@ -1,5 +1,5 @@
 // MT Ocean Table & List Utilities
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { MTTableColumn } from '@/components/ui-library/tables/MTTable';
 

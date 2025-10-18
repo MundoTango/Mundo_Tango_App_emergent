@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Knowledge Graph System (Layer 47: Advanced AI Features)
+// Mundo Tango ESA LIFE CEO - Knowledge Graph System (Layer 47: Advanced AI Features)
 import { format, differenceInDays, differenceInHours } from 'date-fns';
 
 export interface GraphNode {

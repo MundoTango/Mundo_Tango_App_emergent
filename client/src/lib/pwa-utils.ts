@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - PWA Utilities (Phase 16)
+ * Mundo Tango ESA LIFE CEO - PWA Utilities (Phase 16)
  * Progressive Web App utilities and helpers
  */
 

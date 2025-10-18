@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 01 Agent: Architecture Foundation
+ * Mundo Tango ESA LIFE CEO - Layer 01 Agent: Architecture Foundation
  * Expert agent responsible for core system architecture and design patterns
  */
 

@@ -1,5 +1,5 @@
 // MT Ocean Modal Base Component
-// ESA LIFE CEO 61x21 - Core Modal Foundation
+// Mundo Tango ESA LIFE CEO - Core Modal Foundation
 
 import React, { useEffect, useRef, ReactNode, CSSProperties } from 'react';
 import { cn } from '@/lib/utils';

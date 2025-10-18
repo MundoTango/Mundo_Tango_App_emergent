@@ -21,15 +21,15 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { initializeLeaflet } from '@/utils/leafletConfig';
 import { GlassCard } from '@/components/ui/glass-card';
 
-// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+// Mundo Tango ESA LIFE CEO - Initialize Leaflet with local icons (no CDN dependency)
 initializeLeaflet();
 
-// ESA LIFE CEO 61x21 - MT Ocean Theme Enhanced Icons with gradient background
+// Mundo Tango ESA LIFE CEO - MT Ocean Theme Enhanced Icons with gradient background
 const createEnhancedIcon = (color: string, icon: string, isCluster?: boolean) => {
   const size = isCluster ? 48 : 42;
   const anchor = size / 2;
   
-  // ESA LIFE CEO 61x21 - Enhanced gradient background for MT Ocean theme
+  // Mundo Tango ESA LIFE CEO - Enhanced gradient background for MT Ocean theme
   const gradientBg = color.includes('gradient') 
     ? color 
     : `linear-gradient(135deg, ${color} 0%, hsl(210, 100%, 56%) 100%)`; // ocean-cyan-400
@@ -77,7 +77,7 @@ const createEnhancedIcon = (color: string, icon: string, isCluster?: boolean) =>
   });
 };
 
-// ESA LIFE CEO 56x21 - MT Ocean Theme Layer Configuration
+// Mundo Tango ESA LIFE CEO - MT Ocean Theme Layer Configuration
 const LAYER_CONFIG = {
   cityGroup: { 
     color: 'linear-gradient(135deg, hsl(177, 72%, 56%) 0%, hsl(210, 100%, 56%) 100%)', // ocean-seafoam-400 to ocean-cyan-400
@@ -221,7 +221,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   centerLat,
   centerLng,
   groupCity,
-  layers = { events: false, housing: false, recommendations: false }, // ESA LIFE CEO 56x21 - All disabled
+  layers = { events: false, housing: false, recommendations: false }, // Mundo Tango ESA LIFE CEO - All disabled
   dateFilter,
   eventFilters,
   friendFilter = 'all',
@@ -238,12 +238,12 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
   
-  // ESA LIFE CEO 56x21 - Force only city groups to be visible
+  // Mundo Tango ESA LIFE CEO - Force only city groups to be visible
   const [layerVisibility, setLayerVisibility] = useState({
     cityGroup: true,
-    event: false,  // ESA LIFE CEO 56x21 - Disabled
-    home: false,   // ESA LIFE CEO 56x21 - Disabled  
-    recommendation: false,  // ESA LIFE CEO 56x21 - Disabled
+    event: false,  // Mundo Tango ESA LIFE CEO - Disabled
+    home: false,   // Mundo Tango ESA LIFE CEO - Disabled  
+    recommendation: false,  // Mundo Tango ESA LIFE CEO - Disabled
   });
   
   // Stats tracking
@@ -259,7 +259,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
     triggerOnce: true,
   });
   
-  // ESA LIFE CEO 56x21 - Fetch all groups including location type (Tirana)
+  // Mundo Tango ESA LIFE CEO - Fetch all groups including location type (Tirana)
   const { data: cityGroupsResponse, isLoading: loadingCities } = useQuery({
     queryKey: ['/api/groups'],
     enabled: mapInView,
@@ -267,7 +267,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
     gcTime: 10 * 60 * 1000, // 10 minutes
   });
   
-  // ESA LIFE CEO 56x21 - Extract data from success wrapper
+  // Mundo Tango ESA LIFE CEO - Extract data from success wrapper
   const cityGroups = React.useMemo(() => {
     // API returns {success: true, data: [...]} structure
     if (!cityGroupsResponse) return [];
@@ -292,7 +292,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   // Fetch events
   const { data: events = [], isLoading: loadingEvents } = useQuery<any[]>({
     queryKey: ['/api/community/events-map', { city, groupSlug, dateFilter, eventFilters }],
-    enabled: false, // ESA LIFE CEO 56x21 - Events disabled
+    enabled: false, // Mundo Tango ESA LIFE CEO - Events disabled
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   });
@@ -300,7 +300,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   // Fetch host homes
   const { data: homes = [], isLoading: loadingHomes } = useQuery<any[]>({
     queryKey: ['/api/community/homes-map', { city, groupSlug, friendFilter }],
-    enabled: false, // ESA LIFE CEO 56x21 - Housing disabled
+    enabled: false, // Mundo Tango ESA LIFE CEO - Housing disabled
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   });
@@ -308,23 +308,23 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   // Fetch recommendations
   const { data: recommendations = [], isLoading: loadingRecs } = useQuery<any[]>({
     queryKey: ['/api/community/recommendations-map', { city, groupSlug, friendFilter, recommendationType }],
-    enabled: false, // ESA LIFE CEO 56x21 - Recommendations disabled
+    enabled: false, // Mundo Tango ESA LIFE CEO - Recommendations disabled
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   });
   
-  // ESA LIFE CEO 56x21 - Optimized processing with memory management
+  // Mundo Tango ESA LIFE CEO - Optimized processing with memory management
   const processedMapItems = useMemo(() => {
     // Early return if no data to prevent unnecessary processing
     if (!mapInView) return [];
     const allItems: EnhancedMapItem[] = [];
     
-    // ESA LIFE CEO 56x21 - Processing map items
+    // Mundo Tango ESA LIFE CEO - Processing map items
     
     // Add city groups
     if (layerVisibility.cityGroup) {
       const validCities = (cityGroups || []).filter((city: any) => {
-        // ESA LIFE CEO 56x21 - Include both city and location types
+        // Mundo Tango ESA LIFE CEO - Include both city and location types
         if (city.type !== 'city' && city.type !== 'location') return false;
         const hasCoords = (city.lat && city.lng) || (city.latitude && city.longitude);
         const lat = parseFloat(city.lat || city.latitude);
@@ -333,7 +333,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
       });
       
       const cityItems = validCities.map((city: any) => {
-        // ESA LIFE CEO 56x21 - Force consistent data for all cities
+        // Mundo Tango ESA LIFE CEO - Force consistent data for all cities
         const eventCount = parseInt(city.eventCount) || 0;
         const hostCount = parseInt(city.hostCount) || 0;  
         const recommendationCount = parseInt(city.recommendationCount) || 0;
@@ -341,7 +341,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         
         return {
           id: `city-${city.id}`,
-          // ESA LIFE CEO 56x21 - Parse coordinates from string or number
+          // Mundo Tango ESA LIFE CEO - Parse coordinates from string or number
           lat: parseFloat(city.lat || city.latitude),
           lng: parseFloat(city.lng || city.longitude),
           title: city.name,
@@ -363,19 +363,19 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
       }
     }
     
-    // ESA LIFE CEO 56x21 - Events disabled for Tango World Map
-    if (false) {  // ESA LIFE CEO 56x21 - Force disabled
+    // Mundo Tango ESA LIFE CEO - Events disabled for Tango World Map
+    if (false) {  // Mundo Tango ESA LIFE CEO - Force disabled
       // Events code removed
     }
     
-    // ESA LIFE CEO 56x21 - Housing disabled for Tango World Map
-    if (false) {  // ESA LIFE CEO 56x21 - Force disabled
+    // Mundo Tango ESA LIFE CEO - Housing disabled for Tango World Map
+    if (false) {  // Mundo Tango ESA LIFE CEO - Force disabled
       // Housing code removed
     }
     
-    // ESA LIFE CEO 56x21 - Recommendations disabled for Tango World Map
+    // Mundo Tango ESA LIFE CEO - Recommendations disabled for Tango World Map
     // Only city groups should be displayed
-    if (false) {  // ESA LIFE CEO 56x21 - Force disabled
+    if (false) {  // Mundo Tango ESA LIFE CEO - Force disabled
       // Recommendations code removed
     }
     
@@ -387,7 +387,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         )
       : allItems;
     
-    // ESA LIFE CEO 56x21 - Progressive loading based on zoom with memory optimization
+    // Mundo Tango ESA LIFE CEO - Progressive loading based on zoom with memory optimization
     const maxMarkersPerZoom = currentZoom < 5 ? 30 : 
                               currentZoom < 8 ? 75 : 
                               currentZoom < 10 ? 150 : 
@@ -407,7 +407,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
     return result;
   }, [cityGroups, events, homes, recommendations, layerVisibility, showClusters, debouncedSearchQuery, currentZoom]);
   
-  // ESA LIFE CEO 56x21 - Fixed infinite loop with proper dependency management
+  // Mundo Tango ESA LIFE CEO - Fixed infinite loop with proper dependency management
   useEffect(() => {
     // Use a stable reference check to prevent unnecessary updates
     const itemCount = processedMapItems.length;
@@ -502,7 +502,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         icon={icon}
         eventHandlers={{
           click: (e) => {
-            // ESA LIFE CEO 56x21 - Prevent map click-through
+            // Mundo Tango ESA LIFE CEO - Prevent map click-through
             e.originalEvent.stopPropagation();
           }
         }}
@@ -554,10 +554,10 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                 {item.description && (
                   <p className="text-sm text-gray-600 mb-3">{item.description}</p>
                 )}
-                {/* ESA LIFE CEO 56x21 - MT Design city group statistics */}
+                {/* Mundo Tango ESA LIFE CEO - MT Design city group statistics */}
                 {item.type === 'cityGroup' && (
                   <>
-                    {/* ESA LIFE CEO 56x21 - Display statistics for all cities */}
+                    {/* Mundo Tango ESA LIFE CEO - Display statistics for all cities */}
                   <div className="space-y-4">
                     {/* Statistics Grid with glassmorphic cards */}
                     <div className="grid grid-cols-2 gap-3">
@@ -622,7 +622,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                     </div>
                     
-                    {/* ESA LIFE CEO 56x21 - Navigation link with mouse event handlers */}
+                    {/* Mundo Tango ESA LIFE CEO - Navigation link with mouse event handlers */}
                     <div
                       onMouseDown={(e) => {
                         e.stopPropagation();
@@ -706,7 +706,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 pt-0 space-y-2">
-            {/* ESA LIFE CEO 56x21 - Only show Cities layer control */}
+            {/* Mundo Tango ESA LIFE CEO - Only show Cities layer control */}
             {Object.entries(LAYER_CONFIG).filter(([key]) => key === 'cityGroup').map(([key, config]) => (
               <button
                 key={key}

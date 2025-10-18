@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 52 Agent: Documentation System
+ * Mundo Tango ESA LIFE CEO - Layer 52 Agent: Documentation System
  * Expert agent responsible for API docs, user guides, and comprehensive documentation
  */
 

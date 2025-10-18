@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Phase 19: User Management Page
+// Mundo Tango ESA LIFE CEO - Phase 19: User Management Page
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';

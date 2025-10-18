@@ -16,7 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { renderWithMentions } from '@/utils/renderWithMentions';
-// ESA LIFE CEO 61x21 - Layer 28: Recommendations System
+// Mundo Tango ESA LIFE CEO - Layer 28: Recommendations System
 import RecommendationBadge from '@/components/recommendations/RecommendationBadge';
 
 interface MemoryCardProps {
@@ -356,7 +356,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
           <div className="mt-3">
             <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{renderWithMentions(post.content)}</p>
             
-            {/* ESA LIFE CEO 61x21 - Layer 28: Recommendation Badge */}
+            {/* Mundo Tango ESA LIFE CEO - Layer 28: Recommendation Badge */}
             {post.recommendation && (
               <RecommendationBadge
                 type={post.recommendation.type}
@@ -375,11 +375,11 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
               </div>
             )}
 
-            {/* ESA LIFE CEO 61x21 - Enhanced Media Display with Video Support */}
+            {/* Mundo Tango ESA LIFE CEO - Enhanced Media Display with Video Support */}
             {(() => {
               // Processing media for post
               
-              // ESA LIFE CEO 61x21 - AGGRESSIVE media collection
+              // Mundo Tango ESA LIFE CEO - AGGRESSIVE media collection
               const allMediaUrls = [];
               
               // Check ALL possible fields where media might be stored

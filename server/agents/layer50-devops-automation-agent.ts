@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 50 Agent: DevOps Automation
+ * Mundo Tango ESA LIFE CEO - Layer 50 Agent: DevOps Automation
  * Expert agent responsible for CI/CD, deployment, and monitoring automation
  */
 

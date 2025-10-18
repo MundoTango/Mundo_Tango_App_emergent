@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - App Shell Component (Phase 16)
+ * Mundo Tango ESA LIFE CEO - App Shell Component (Phase 16)
  * Progressive Web App shell with offline support
  */
 

@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 Form Validation Schemas
+// Mundo Tango ESA LIFE CEO Form Validation Schemas
 // Comprehensive Zod schemas for all platform forms
 
 import { z } from 'zod';

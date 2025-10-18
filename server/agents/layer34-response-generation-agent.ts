@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 34 Agent: Response Generation
+ * Mundo Tango ESA LIFE CEO - Layer 34 Agent: Response Generation
  * Expert agent responsible for natural language processing and AI response generation
  */
 

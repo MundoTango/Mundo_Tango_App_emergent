@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Fast Upload Middleware
+ * Mundo Tango ESA LIFE CEO - Fast Upload Middleware
  * Facebook/Instagram-style instant response upload handler
  * Returns immediately, processes in background
  */

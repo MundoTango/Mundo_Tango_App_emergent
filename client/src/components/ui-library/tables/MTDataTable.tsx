@@ -1,5 +1,5 @@
 // MT Ocean Data Table - Advanced Data Table with Pagination
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Search, Download, Filter, Settings, RefreshCw } from 'lucide-react';

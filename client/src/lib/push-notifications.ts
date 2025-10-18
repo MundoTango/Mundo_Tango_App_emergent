@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Push Notifications System (Phase 16)
+ * Mundo Tango ESA LIFE CEO - Push Notifications System (Phase 16)
  * Web Push Notifications implementation
  */
 

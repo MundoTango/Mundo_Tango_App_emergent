@@ -1,9 +1,9 @@
-// ESA LIFE CEO 56x21 - Video Streaming Optimization Module
+// Mundo Tango ESA LIFE CEO - Video Streaming Optimization Module
 import { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 
-// ESA LIFE CEO 56x21 - Stream video with range request support
+// Mundo Tango ESA LIFE CEO - Stream video with range request support
 export function streamVideo(req: Request, res: Response, videoPath: string) {
   try {
     // Check if file exists
@@ -61,7 +61,7 @@ export function streamVideo(req: Request, res: Response, videoPath: string) {
   }
 }
 
-// ESA LIFE CEO 56x21 - Get proper content type for video
+// Mundo Tango ESA LIFE CEO - Get proper content type for video
 function getVideoContentType(ext: string): string {
   const mimeTypes: Record<string, string> = {
     '.mp4': 'video/mp4',
@@ -76,7 +76,7 @@ function getVideoContentType(ext: string): string {
   return mimeTypes[ext] || 'video/mp4';
 }
 
-// ESA LIFE CEO 56x21 - Optimize video metadata for faster loading
+// Mundo Tango ESA LIFE CEO - Optimize video metadata for faster loading
 export function getVideoMetadata(videoPath: string): Promise<{
   duration?: number;
   width?: number;
@@ -99,7 +99,7 @@ export function getVideoMetadata(videoPath: string): Promise<{
   });
 }
 
-// ESA LIFE CEO 56x21 - Generate thumbnail for video
+// Mundo Tango ESA LIFE CEO - Generate thumbnail for video
 export async function generateVideoThumbnail(videoPath: string): Promise<string | null> {
   try {
     // For now, return null - can be implemented with ffmpeg later
@@ -109,7 +109,7 @@ export async function generateVideoThumbnail(videoPath: string): Promise<string 
   }
 }
 
-// ESA LIFE CEO 56x21 - Check if file is a video
+// Mundo Tango ESA LIFE CEO - Check if file is a video
 export function isVideoFile(filename: string): boolean {
   const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi', '.mkv', '.m4v'];
   const ext = path.extname(filename).toLowerCase();

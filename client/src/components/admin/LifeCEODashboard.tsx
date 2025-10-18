@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Life CEO Agent Dashboard (Layer 35: Agent Framework Core)
+// Mundo Tango ESA LIFE CEO - Life CEO Agent Dashboard (Layer 35: Agent Framework Core)
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -203,7 +203,7 @@ export const LifeCEODashboard: React.FC = () => {
             <p className="text-gray-600">{t('common.16_ai_agents_personalized_life_management_56_layer')}</p>
           </div>
           <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 dark:text-white border-0">
-            ESA LIFE CEO 56x21
+            Mundo Tango ESA LIFE CEO
           </Badge>
         </div>
       </div>

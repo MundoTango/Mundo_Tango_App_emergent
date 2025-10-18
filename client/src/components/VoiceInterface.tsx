@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Voice Interface Component (Layer 47: Advanced AI Features)
+// Mundo Tango ESA LIFE CEO - Voice Interface Component (Layer 47: Advanced AI Features)
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next';;
 import { motion, AnimatePresence } from 'framer-motion';

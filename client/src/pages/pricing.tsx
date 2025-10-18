@@ -12,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
-// ESA LIFE CEO 61x21 - Phase 18: Pricing Page
+// Mundo Tango ESA LIFE CEO - Phase 18: Pricing Page
 
 export default function PricingPage() {
   const { t } = useTranslation();
@@ -101,7 +101,7 @@ export default function PricingPage() {
               Choose Your Plan
             </h1>
             <p className="mt-4 text-lg text-gray-600">
-              Unlock the full potential of ESA LIFE CEO 61x21
+              Unlock the full potential of Mundo Tango ESA LIFE CEO
             </p>
             
             {/* Billing Toggle */}

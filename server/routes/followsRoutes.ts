@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Follows API Routes
+// Mundo Tango ESA LIFE CEO - Follows API Routes
 import { Router, Request, Response } from 'express';
 import { db } from '../db';
 import { follows, users } from '../../shared/schema';

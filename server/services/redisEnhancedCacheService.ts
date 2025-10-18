@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 14: Enhanced Caching Strategy
+ * Mundo Tango ESA LIFE CEO - Layer 14: Enhanced Caching Strategy
  * Redis, in-memory cache, CDN integration, multi-layer caching
  */
 

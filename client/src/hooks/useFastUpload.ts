@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Fast Upload Hook
+ * Mundo Tango ESA LIFE CEO - Fast Upload Hook
  * Facebook/Instagram-style instant posting
  * Returns immediately, processes in background
  */

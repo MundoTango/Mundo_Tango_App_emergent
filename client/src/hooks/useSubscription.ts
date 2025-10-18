@@ -2,7 +2,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useAuth } from './useAuth';
 
-// ESA LIFE CEO 61x21 - Phase 18: Subscription Hook
+// Mundo Tango ESA LIFE CEO - Phase 18: Subscription Hook
 
 export interface SubscriptionData {
   tier: 'free' | 'pro' | 'business' | 'enterprise';

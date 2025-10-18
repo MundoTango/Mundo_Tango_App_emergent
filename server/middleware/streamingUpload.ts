@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Streaming Upload Handler
+ * Mundo Tango ESA LIFE CEO - Streaming Upload Handler
  * Implements busboy for memory-efficient large file uploads
  * Prevents JavaScript heap out of memory errors
  */
@@ -11,9 +11,9 @@ import path from 'path';
 import { randomBytes } from 'crypto';
 import bytes from 'bytes';
 
-// ESA LIFE CEO 56x21 - 5MB limit per user request
+// Mundo Tango ESA LIFE CEO - 5MB limit per user request
 const UPLOAD_CONFIG = {
-  maxFileSize: bytes('5MB'), // ESA LIFE CEO 56x21 - 5MB cap for photos and videos
+  maxFileSize: bytes('5MB'), // Mundo Tango ESA LIFE CEO - 5MB cap for photos and videos
   maxFiles: 3, // Max 3 files at once
   allowedMimeTypes: /^(image\/(jpeg|jpg|png|gif|webp|bmp|svg\+xml|heic|heif)|video\/(mp4|quicktime|x-msvideo|webm|mov))$/i,
   uploadDir: 'uploads',
@@ -46,7 +46,7 @@ export const streamingUpload = (fieldName: string = 'media') => {
     const fields: any = {};
     let filesProcessed = 0;
     let hasError = false;
-    const compressionPromises: Promise<void>[] = []; // ESA LIFE CEO 56x21 - Track compression tasks
+    const compressionPromises: Promise<void>[] = []; // Mundo Tango ESA LIFE CEO - Track compression tasks
 
     // Force garbage collection before processing large uploads
     if (global.gc) {
@@ -128,10 +128,10 @@ export const streamingUpload = (fieldName: string = 'media') => {
         if (!hasError) {
           console.log(`✅ File streamed successfully: ${savedFilename} (${bytes(uploadedBytes)})`);
           
-          // ESA LIFE CEO 56x21 - Videos under 5MB don't need compression
+          // Mundo Tango ESA LIFE CEO - Videos under 5MB don't need compression
           if (mimeType.startsWith('video/') && uploadedBytes > 5 * 1024 * 1024) {
             const compressionPromise = (async () => {
-              console.log(`🎬 ESA LIFE CEO 56x21: Compressing ${filename} (${(uploadedBytes / 1024 / 1024).toFixed(1)}MB)`);
+              console.log(`🎬 Mundo Tango ESA LIFE CEO: Compressing ${filename} (${(uploadedBytes / 1024 / 1024).toFixed(1)}MB)`);
               
               let finalPath = savePath;
               let finalSize = uploadedBytes;
@@ -226,9 +226,9 @@ export const streamingUpload = (fieldName: string = 'media') => {
         });
       }
 
-      // ESA LIFE CEO 56x21 - Wait for all compressions to complete
+      // Mundo Tango ESA LIFE CEO - Wait for all compressions to complete
       if (compressionPromises.length > 0) {
-        console.log(`⏳ ESA LIFE CEO 56x21: Waiting for ${compressionPromises.length} compression(s)...`);
+        console.log(`⏳ Mundo Tango ESA LIFE CEO: Waiting for ${compressionPromises.length} compression(s)...`);
         await Promise.all(compressionPromises);
         console.log(`✅ All compressions complete!`);
       }

@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Comments API Routes
+// Mundo Tango ESA LIFE CEO - Comments API Routes
 import { Router, Request, Response } from 'express';
 import { db } from '../db';
 import { postComments, users } from '../../shared/schema';

@@ -1,5 +1,5 @@
 // MT Ocean Table Header - Sortable Column Headers
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { ChevronUp, ChevronDown, ChevronsUpDown, Filter } from 'lucide-react';
 import { cn } from '@/lib/utils';

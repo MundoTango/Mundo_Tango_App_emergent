@@ -25,7 +25,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 
-// ESA LIFE CEO 61x21 - Phase 18: Billing Dashboard
+// Mundo Tango ESA LIFE CEO - Phase 18: Billing Dashboard
 
 export default function BillingDashboard() {
   const { t } = useTranslation();

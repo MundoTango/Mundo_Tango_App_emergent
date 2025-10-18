@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Voice Commands Parser (Layer 47: Advanced AI Features)
+// Mundo Tango ESA LIFE CEO - Voice Commands Parser (Layer 47: Advanced AI Features)
 
 export interface ParsedCommand {
   intent: string;

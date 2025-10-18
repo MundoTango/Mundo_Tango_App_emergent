@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Chunk Upload Handler
+ * Mundo Tango ESA LIFE CEO - Chunk Upload Handler
  * Facebook/Instagram-style chunked upload processing
  * Assembles chunks without loading entire file in memory
  */

@@ -21,7 +21,7 @@ const SECURITY_LIMITS = {
   MAX_URL_LENGTH: 2048,
   MAX_HEADER_SIZE: 8192,
   REQUEST_TIMEOUT: 30000, // 30 seconds for regular requests
-  UPLOAD_TIMEOUT: 300000, // ESA LIFE CEO 56x21 - 5 minutes for uploads
+  UPLOAD_TIMEOUT: 300000, // Mundo Tango ESA LIFE CEO - 5 minutes for uploads
 };
 
 // RegExp DoS Protection - prevents catastrophic backtracking
@@ -227,7 +227,7 @@ export const enhancedXssProtection = (req: Request, res: Response, next: NextFun
 
 // Request Timeout Protection
 export const requestTimeoutProtection = (req: Request, res: Response, next: NextFunction) => {
-  // ESA LIFE CEO 56x21 - Use longer timeout for upload endpoints
+  // Mundo Tango ESA LIFE CEO - Use longer timeout for upload endpoints
   const isUploadEndpoint = req.path.includes('/upload') || 
                           req.path === '/api/memories' || 
                           req.path.includes('/api/posts');

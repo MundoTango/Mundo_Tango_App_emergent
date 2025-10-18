@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 03 Agent: Server Framework
+ * Mundo Tango ESA LIFE CEO - Layer 03 Agent: Server Framework
  * Expert agent responsible for Node.js, Express, and TypeScript server infrastructure
  */
 

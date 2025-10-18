@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Enhanced Post Feed with Memory Filters Integration
+ * Mundo Tango ESA LIFE CEO - Enhanced Post Feed with Memory Filters Integration
  * Simplified version that works with the new MemoryFilters component
  */
 
@@ -81,7 +81,7 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
   const [shareModalPost, setShareModalPost] = useState<Post | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // ESA LIFE CEO 61x21 - Fetch posts with filters applied (FIXED: was using /api/memories/feed)
+  // Mundo Tango ESA LIFE CEO - Fetch posts with filters applied (FIXED: was using /api/memories/feed)
   const { data: posts, isLoading } = useQuery({
     queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
     queryFn: async () => {

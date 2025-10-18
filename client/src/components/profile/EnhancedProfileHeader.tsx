@@ -267,7 +267,7 @@ export default function EnhancedProfileHeader({
             <div className="flex items-end gap-4 mb-4 md:mb-0">
               <div className="relative">
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-white shadow-xl">
-                  {/* ESA LIFE CEO 56x21 - Fixed profile image with fallback */}
+                  {/* Mundo Tango ESA LIFE CEO - Fixed profile image with fallback */}
                   <AvatarImage src={user.profileImage || `/images/default-avatar.svg`} />
                   <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-turquoise-400 to-cyan-600 text-white">
                     {user.name?.[0] || user.username?.[0]}

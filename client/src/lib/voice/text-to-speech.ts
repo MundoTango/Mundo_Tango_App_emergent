@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Text-to-Speech Service (Layer 47: Advanced AI Features)
+// Mundo Tango ESA LIFE CEO - Text-to-Speech Service (Layer 47: Advanced AI Features)
 import { toast } from "@/hooks/use-toast";
 
 export interface TextToSpeechConfig {

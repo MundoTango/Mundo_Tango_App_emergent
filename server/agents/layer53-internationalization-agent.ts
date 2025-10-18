@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 53 Agent: Internationalization
+ * Mundo Tango ESA LIFE CEO - Layer 53 Agent: Internationalization
  * Expert agent responsible for i18n, localization, and multi-language support
  */
 

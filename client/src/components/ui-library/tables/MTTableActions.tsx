@@ -1,5 +1,5 @@
 // MT Ocean Table Actions - Bulk and Row Actions Component
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { useState } from 'react';
 import { 

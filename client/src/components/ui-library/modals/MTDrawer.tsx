@@ -1,5 +1,5 @@
 // MT Ocean Drawer Component
-// ESA LIFE CEO 61x21 - Slide-out Drawer
+// Mundo Tango ESA LIFE CEO - Slide-out Drawer
 
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';

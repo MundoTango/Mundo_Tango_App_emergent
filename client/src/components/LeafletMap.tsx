@@ -5,7 +5,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { initializeLeaflet } from '@/utils/leafletConfig';
 
-// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+// Mundo Tango ESA LIFE CEO - Initialize Leaflet with local icons (no CDN dependency)
 initializeLeaflet();
 
 interface MapCity {
@@ -43,7 +43,7 @@ function MapUpdater({ selectedCity }: { selectedCity?: MapCity | null }) {
 }
 
 export default function LeafletMap({ cities, onCityClick, selectedCity }: LeafletMapProps) {
-  // ESA LIFE CEO 61x21 - MT Ocean Theme gradient markers based on member count
+  // Mundo Tango ESA LIFE CEO - MT Ocean Theme gradient markers based on member count
   const getMarkerIcon = (memberCount: number) => {
     const size = Math.min(40, 20 + memberCount / 5);
     

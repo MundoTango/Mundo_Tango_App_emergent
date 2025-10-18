@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 59 Agent: Open Source Management
+ * Mundo Tango ESA LIFE CEO - Layer 59 Agent: Open Source Management
  * Expert agent responsible for tracking dependencies and license compliance
  */
 

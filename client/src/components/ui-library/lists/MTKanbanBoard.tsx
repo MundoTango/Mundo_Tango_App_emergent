@@ -1,5 +1,5 @@
 // MT Ocean Kanban Board - Drag & Drop Kanban Component
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { useState, useRef, DragEvent } from 'react';
 import { Plus, MoreHorizontal, Edit, Trash } from 'lucide-react';

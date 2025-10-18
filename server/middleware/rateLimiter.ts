@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Rate Limiting Middleware
+ * Mundo Tango ESA LIFE CEO - Rate Limiting Middleware
  * Prevents mention spam and abuse to achieve 100/100 security score
  */
 

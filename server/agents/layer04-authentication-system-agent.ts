@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 04 Agent: Authentication System
+ * Mundo Tango ESA LIFE CEO - Layer 04 Agent: Authentication System
  * Expert agent responsible for JWT, OAuth, and session management
  */
 

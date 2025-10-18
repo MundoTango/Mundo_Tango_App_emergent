@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Real-Time Notification Service
+ * Mundo Tango ESA LIFE CEO - Real-Time Notification Service
  * WebSocket integration for instant mention delivery to achieve 100/100 score
  */
 

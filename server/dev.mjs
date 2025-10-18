@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * ESA LIFE CEO 56x21 - Development Server Entry Point
+ * Mundo Tango ESA LIFE CEO - Development Server Entry Point
  * Permanent fix for TypeScript execution in ES module environment
  */
 

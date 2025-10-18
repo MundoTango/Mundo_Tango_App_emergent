@@ -1,5 +1,5 @@
 // MT Ocean Grid List - Responsive Grid Layout Component
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { useState, useMemo } from 'react';
 import { Grid, List } from 'lucide-react';

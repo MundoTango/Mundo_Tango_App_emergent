@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Advanced Media Processor
+ * Mundo Tango ESA LIFE CEO - Advanced Media Processor
  * Facebook/Instagram-style universal media handling
  * FIXED: Removed FFmpeg dependency - uses native browser APIs for reliability
  */

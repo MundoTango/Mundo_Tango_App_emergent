@@ -1,5 +1,5 @@
 // MT Ocean List - Base List Component
-// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
+// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
 
 import { useState, useMemo } from 'react';
 import { ChevronRight, Search } from 'lucide-react';

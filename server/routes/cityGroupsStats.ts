@@ -6,12 +6,12 @@ import { eq, sql } from 'drizzle-orm';
 const router = Router();
 
 /**
- * ESA LIFE CEO 56x21 - City Groups Statistics API
+ * Mundo Tango ESA LIFE CEO - City Groups Statistics API
  * Fetches city groups with member counts, event counts, host counts, and recommendation counts
  */
 router.get('/api/community/city-groups-stats', async (req, res) => {
   try {
-    console.log('📊 ESA LIFE CEO 56x21 - Fetching city groups with statistics');
+    console.log('📊 Mundo Tango ESA LIFE CEO - Fetching city groups with statistics');
     
     // First, get basic city groups
     const cityGroups = await db
@@ -26,7 +26,7 @@ router.get('/api/community/city-groups-stats', async (req, res) => {
       .from(groups)
       .where(eq(groups.type, 'city'));
     
-    console.log(`✅ ESA LIFE CEO 56x21 - Found ${cityGroups.length} city groups`);
+    console.log(`✅ Mundo Tango ESA LIFE CEO - Found ${cityGroups.length} city groups`);
     
     // Add statistics for each group
     const cityGroupsWithStats = await Promise.all(
@@ -90,7 +90,7 @@ router.get('/api/community/city-groups-stats', async (req, res) => {
     // Log Tirana specifically if it exists
     const tiranaGroup = cityGroupsWithStats.find(g => g.city?.toLowerCase().includes('tirana'));
     if (tiranaGroup) {
-      console.log('🌍 ESA LIFE CEO 56x21 - Tirana group found:', tiranaGroup);
+      console.log('🌍 Mundo Tango ESA LIFE CEO - Tirana group found:', tiranaGroup);
     }
     
     res.json({
@@ -98,7 +98,7 @@ router.get('/api/community/city-groups-stats', async (req, res) => {
       data: cityGroupsWithStats
     });
   } catch (error) {
-    console.error('❌ ESA LIFE CEO 56x21 - Error fetching city groups stats:', error);
+    console.error('❌ Mundo Tango ESA LIFE CEO - Error fetching city groups stats:', error);
     res.status(500).json({
       success: false,
       error: 'Failed to fetch city groups statistics'

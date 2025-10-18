@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - LAYER 4 & 58: Replit OAuth API Client
+// Mundo Tango ESA LIFE CEO - LAYER 4 & 58: Replit OAuth API Client
 // No CSRF needed with Replit OAuth - uses session cookies
 
 interface ApiOptions extends RequestInit {

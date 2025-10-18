@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Web Vitals Monitoring
+ * Mundo Tango ESA LIFE CEO - Web Vitals Monitoring
  * Phase 14: Performance & User Experience Metrics
  * 
  * Tracks Core Web Vitals and user-centric performance metrics

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 02 Agent: API Structure
+ * Mundo Tango ESA LIFE CEO - Layer 02 Agent: API Structure
  * Expert agent responsible for RESTful endpoints, GraphQL, and API architecture
  */
 

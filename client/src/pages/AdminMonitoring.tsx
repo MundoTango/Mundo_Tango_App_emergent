@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Admin Monitoring Dashboard
+ * Mundo Tango ESA LIFE CEO - Admin Monitoring Dashboard
  * Phase 14: Unified Monitoring Interface
  * 
  * Real-time system monitoring and analytics dashboard

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Client-side Media Compression
+ * Mundo Tango ESA LIFE CEO - Client-side Media Compression
  * Facebook/Instagram-style browser compression before upload
  * Reduces upload time and server processing
  */
@@ -36,7 +36,7 @@ export async function compressImage(file: File): Promise<File> {
 }
 
 /**
- * ESA LIFE CEO 56x21 - Compress video using browser's built-in capabilities
+ * Mundo Tango ESA LIFE CEO - Compress video using browser's built-in capabilities
  * Reduces 443MB videos to manageable sizes
  */
 export async function compressVideo(file: File): Promise<File> {
@@ -106,7 +106,7 @@ export async function compressVideo(file: File): Promise<File> {
  * Compress multiple files in parallel
  */
 export async function compressMediaFiles(files: File[]): Promise<File[]> {
-  // ESA LIFE CEO 56x21: Compress BOTH images and videos
+  // Mundo Tango ESA LIFE CEO: Compress BOTH images and videos
   
   const compressionPromises = files.map(async (file) => {
     if (file.type.startsWith('image/')) {
@@ -144,7 +144,7 @@ export async function fastUpload(
     if (onProgress) onProgress(30);
     
     // Phase 2: Skip chunked upload, go direct for compressed files (30-90% progress)
-    // ESA LIFE CEO 56x21: Compressed files are already small enough
+    // Mundo Tango ESA LIFE CEO: Compressed files are already small enough
     if (onProgress) onProgress(40);
     let currentProgress = 40;
     const progressPerFile = 50 / compressedFiles.length;
@@ -156,7 +156,7 @@ export async function fastUpload(
     // Phase 3: Create post with uploaded files (90-100% progress)
     if (onProgress) onProgress(90);
     
-    // ESA LIFE CEO 56x21 FIX: Use the actual /api/posts endpoint that exists
+    // Mundo Tango ESA LIFE CEO FIX: Use the actual /api/posts endpoint that exists
     const formData = new FormData();
     formData.append('content', postData.content || '');
     formData.append('isPublic', String(postData.isPublic !== false));

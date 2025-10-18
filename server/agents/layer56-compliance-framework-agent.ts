@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 56 Agent: Compliance Framework
+ * Mundo Tango ESA LIFE CEO - Layer 56 Agent: Compliance Framework
  * Expert agent responsible for GDPR, SOC2, regulations, and compliance automation
  */
 

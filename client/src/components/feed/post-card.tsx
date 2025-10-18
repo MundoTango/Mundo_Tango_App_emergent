@@ -20,8 +20,8 @@ interface Post {
   content: string;
   imageUrl?: string;
   videoUrl?: string;
-  mediaUrls?: string[]; // ESA LIFE CEO 61x21 - Support multiple media files
-  mediaEmbeds?: string[]; // ESA LIFE CEO 61x21 - Support embedded media
+  mediaUrls?: string[]; // Mundo Tango ESA LIFE CEO - Support multiple media files
+  mediaEmbeds?: string[]; // Mundo Tango ESA LIFE CEO - Support embedded media
   likesCount: number;
   commentsCount: number;
   sharesCount: number;
@@ -143,7 +143,7 @@ export default function PostCard({ post }: PostCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Avatar className="w-12 h-12 ring-2 ring-turquoise-200">
-              {/* ESA LIFE CEO 61x21 - Fixed profile image with fallback */}
+              {/* Mundo Tango ESA LIFE CEO - Fixed profile image with fallback */}
               <AvatarImage src={post.user?.profileImage || '/images/default-avatar.svg'} alt={post.user?.name} />
               <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
@@ -166,7 +166,7 @@ export default function PostCard({ post }: PostCardProps) {
           <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.content}</p>
         )}
         
-        {/* ESA LIFE CEO 61x21 - Display media files with proper video detection */}
+        {/* Mundo Tango ESA LIFE CEO - Display media files with proper video detection */}
         {(() => {
           // Check if we have any media to display from multiple sources
           const mediaToDisplay = post.mediaUrls || 
@@ -184,7 +184,7 @@ export default function PostCard({ post }: PostCardProps) {
               'grid-cols-2'
             }`}>
               {mediaToDisplay.map((url: string, index: number) => {
-                // ESA LIFE CEO 61x21 - Proper video detection
+                // Mundo Tango ESA LIFE CEO - Proper video detection
                 const isVideo = url.toLowerCase().endsWith('.mp4') || 
                   url.toLowerCase().endsWith('.mov') || 
                   url.toLowerCase().endsWith('.webm') ||

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 61 Agent: Supabase Expertise & Organization
+ * Mundo Tango ESA LIFE CEO - Layer 61 Agent: Supabase Expertise & Organization
  * Expert agent responsible for Backend-as-a-Service platform management
  */
 

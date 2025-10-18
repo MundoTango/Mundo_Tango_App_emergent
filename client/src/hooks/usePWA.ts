@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - PWA Hook (Phase 16)
+ * Mundo Tango ESA LIFE CEO - PWA Hook (Phase 16)
  * React hook for PWA functionality
  */
 

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 32 Agent: Prompt Engineering
+ * Mundo Tango ESA LIFE CEO - Layer 32 Agent: Prompt Engineering
  * Expert agent responsible for template management and prompt optimization
  */
 

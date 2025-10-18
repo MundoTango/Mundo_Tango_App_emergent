@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 49 Agent: Security Hardening
+ * Mundo Tango ESA LIFE CEO - Layer 49 Agent: Security Hardening
  * Expert agent responsible for vulnerability assessment, security fixes, and hardening measures
  */
 

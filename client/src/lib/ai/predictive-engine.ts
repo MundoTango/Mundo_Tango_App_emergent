@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Predictive Engine (Layer 47: Advanced AI Features)
+// Mundo Tango ESA LIFE CEO - Predictive Engine (Layer 47: Advanced AI Features)
 import { format, addDays, addHours, startOfWeek, endOfWeek } from 'date-fns';
 import { es, enUS, ptBR, fr, it, de } from 'date-fns/locale';
 

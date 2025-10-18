@@ -65,7 +65,7 @@ export const EnhancedPostCreator: React.FC<{
         }}
       />
       
-      {/* ESA LIFE CEO 61x21 - Advanced Media Uploader Test 
+      {/* Mundo Tango ESA LIFE CEO - Advanced Media Uploader Test 
           Temporarily disabled until AdvancedMediaUploader is available */}
     </div>
   );

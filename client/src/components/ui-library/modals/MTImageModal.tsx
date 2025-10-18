@@ -1,5 +1,5 @@
 // MT Ocean Image Modal Component  
-// ESA LIFE CEO 61x21 - Lightbox for Images & Galleries
+// Mundo Tango ESA LIFE CEO - Lightbox for Images & Galleries
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { cn } from '@/lib/utils';

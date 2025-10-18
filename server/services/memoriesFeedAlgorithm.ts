@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Memories Feed Algorithm
+ * Mundo Tango ESA LIFE CEO - Memories Feed Algorithm
  * Layer 26 (Recommendation Engine) + Layer 36 (Memory Systems) + Layer 24 (Social Features)
  * 
  * Sophisticated AI-powered memory curation system that surfaces the most meaningful
@@ -25,7 +25,7 @@ interface MemoryScore {
 
 export class MemoriesFeedAlgorithm {
   /**
-   * Generate intelligent memories feed using ESA LIFE CEO 61x21 algorithm with filters
+   * Generate intelligent memories feed using Mundo Tango ESA LIFE CEO algorithm with filters
    */
   static async generateMemoriesFeed(
     userId: number,
@@ -53,7 +53,7 @@ export class MemoriesFeedAlgorithm {
   }> {
     const startTime = Date.now();
     
-    console.log(`🧠 ESA LIFE CEO 61x21 - Generating intelligent memories feed for user ${userId}`);
+    console.log(`🧠 Mundo Tango ESA LIFE CEO - Generating intelligent memories feed for user ${userId}`);
     
     // Set default weights
     const weights = {

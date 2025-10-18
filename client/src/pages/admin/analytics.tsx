@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Phase 19: Analytics Dashboard
+// Mundo Tango ESA LIFE CEO - Phase 19: Analytics Dashboard
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import AdminLayout from '@/components/admin/AdminLayout';

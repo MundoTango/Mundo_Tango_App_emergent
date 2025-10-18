@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Media Processing Service
+ * Mundo Tango ESA LIFE CEO - Media Processing Service
  * Facebook/Instagram-inspired image and video compression
  * Uses Sharp for images and FFmpeg for videos
  */

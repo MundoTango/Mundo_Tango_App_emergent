@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 47 Agent: Mobile Optimization
+ * Mundo Tango ESA LIFE CEO - Layer 47 Agent: Mobile Optimization
  * Expert agent responsible for PWA, responsive design, and touch intelligence
  */
 

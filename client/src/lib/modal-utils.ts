@@ -1,5 +1,5 @@
 // MT Ocean Modal Utilities
-// ESA LIFE CEO 61x21 - Modal Hooks and Helpers
+// Mundo Tango ESA LIFE CEO - Modal Hooks and Helpers
 
 import { useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { useModalStore, modalManager, ModalConfig } from './modal-manager';

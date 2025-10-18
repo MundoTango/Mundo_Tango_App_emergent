@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Stories API Routes
+// Mundo Tango ESA LIFE CEO - Stories API Routes
 import { Router, Request, Response } from 'express';
 import { db } from '../db';
 import { stories, storyViews, users } from '../../shared/schema';

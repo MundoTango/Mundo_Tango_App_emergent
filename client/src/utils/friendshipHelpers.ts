@@ -1,6 +1,6 @@
 /**
  * Friendship Connection Utilities
- * ESA LIFE CEO 61x21 - Unified numeric connection degree system
+ * Mundo Tango ESA LIFE CEO - Unified numeric connection degree system
  * 
  * Single source of truth for friendship connection mappings
  */

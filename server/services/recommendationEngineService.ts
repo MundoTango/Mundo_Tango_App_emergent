@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 26: Recommendation Engine Service
+ * Mundo Tango ESA LIFE CEO - Layer 26: Recommendation Engine Service
  * Personalization, ML suggestions, content discovery
  */
 

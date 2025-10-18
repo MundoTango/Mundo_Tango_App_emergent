@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 33 Agent: Context Management
+ * Mundo Tango ESA LIFE CEO - Layer 33 Agent: Context Management
  * Expert agent responsible for AI memory, conversation history, and context preservation
  */
 

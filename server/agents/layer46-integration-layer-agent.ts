@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 46 Agent: Integration Layer
+ * Mundo Tango ESA LIFE CEO - Layer 46 Agent: Integration Layer
  * Expert agent responsible for AI service orchestration and coordination
  */
 

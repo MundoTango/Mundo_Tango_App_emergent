@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Memory Optimizer for Large File Uploads
+ * Mundo Tango ESA LIFE CEO - Memory Optimizer for Large File Uploads
  * Prevents browser memory crashes during 456MB+ video uploads
  */
 

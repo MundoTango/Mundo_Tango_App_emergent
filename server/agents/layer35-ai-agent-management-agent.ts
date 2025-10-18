@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 35 Agent: AI Agent Management
+ * Mundo Tango ESA LIFE CEO - Layer 35 Agent: AI Agent Management
  * Expert agent responsible for orchestrating 16 Life CEO agents and AI coordination
  */
 

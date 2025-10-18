@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 57 Agent: Automation Management
+ * Mundo Tango ESA LIFE CEO - Layer 57 Agent: Automation Management
  * Expert agent responsible for tracking and managing all platform automations
  */
 

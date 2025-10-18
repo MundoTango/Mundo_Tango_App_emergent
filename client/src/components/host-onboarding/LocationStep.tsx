@@ -10,7 +10,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { initializeLeaflet } from '@/utils/leafletConfig';
 
-// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+// Mundo Tango ESA LIFE CEO - Initialize Leaflet with local icons (no CDN dependency)
 initializeLeaflet();
 
 const defaultCenter = {

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 60 Agent: GitHub Expertise & Organization
+ * Mundo Tango ESA LIFE CEO - Layer 60 Agent: GitHub Expertise & Organization
  * Expert agent responsible for version control and collaboration workflows
  */
 

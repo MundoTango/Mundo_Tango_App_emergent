@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Production Server (No TypeScript/Vite dependencies)
+// Mundo Tango ESA LIFE CEO - Production Server (No TypeScript/Vite dependencies)
 // This runs in production without any build-time issues
 
 const express = require('express');
@@ -18,7 +18,7 @@ app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
 // Log startup
-console.log('🚀 ESA LIFE CEO 56x21 - Starting production server...');
+console.log('🚀 Mundo Tango ESA LIFE CEO - Starting production server...');
 
 // Serve static files from built frontend
 const publicPath = path.join(__dirname, '../dist/public');
@@ -34,7 +34,7 @@ app.use('/images', express.static(imagesPath));
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
-    version: 'ESA LIFE CEO 56x21',
+    version: 'Mundo Tango ESA LIFE CEO',
     commit: '9cab03b0',
     theme: 'glassmorphic MT Ocean',
     timestamp: new Date().toISOString()
@@ -69,7 +69,7 @@ app.get('*', (req, res) => {
 const server = createServer(app);
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log('✅ ESA LIFE CEO 56x21 Production Server');
+  console.log('✅ Mundo Tango ESA LIFE CEO Production Server');
   console.log(`📡 Running on port ${PORT}`);
   console.log('🎨 Glassmorphic MT Ocean Theme preserved');
   console.log('🔒 Locked to commit 9cab03b0');

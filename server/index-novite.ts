@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Production-Ready Server Without Vite
+ * Mundo Tango ESA LIFE CEO - Production-Ready Server Without Vite
  * All core functionality intact: video uploads, memory management, API endpoints
  */
 
@@ -170,11 +170,11 @@ app.use('/api/upload', uploadRoutes);
 app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
 
-// ESA LIFE CEO 56x21 - Add chunked upload routes for large videos
+// Mundo Tango ESA LIFE CEO - Add chunked upload routes for large videos
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';
 app.use(chunkedUploadRoutes);
 
-// ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
+// Mundo Tango ESA LIFE CEO - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
 // Define client path early - PRODUCTION: dist/public (built by vite)
@@ -205,7 +205,7 @@ const startServer = async () => {
         throw error;
       }
       const heapSize = Math.round(process.memoryUsage().heapTotal / 1024 / 1024 / 1024 * 100) / 100;
-      console.log(`✅ ESA LIFE CEO 56x21 Server running on port ${PORT}`);
+      console.log(`✅ Mundo Tango ESA LIFE CEO Server running on port ${PORT}`);
       console.log(`  Heap Limit: ${heapSize} GB`);
       console.log(`  Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`  Video uploads: ✅ Enabled (456MB+ support)`);

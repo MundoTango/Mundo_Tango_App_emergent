@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 AGENTS FRAMEWORK
+ * Mundo Tango ESA LIFE CEO AGENTS FRAMEWORK
  * Route Registry - Type-Safe Route Management System
  * 
  * Purpose: Centralized route configuration with TypeScript enforcement

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Upload Queue Service
+ * Mundo Tango ESA LIFE CEO - Upload Queue Service
  * Facebook/Instagram-style instant response with background processing
  * Returns immediately to user, processes in background
  */

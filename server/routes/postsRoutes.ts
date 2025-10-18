@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Fixed Posts Routes
+ * Mundo Tango ESA LIFE CEO - Fixed Posts Routes
  * Ensures media is properly returned with posts
  */
 
@@ -46,10 +46,10 @@ router.get('/api/posts/feed', async (req: any, res) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
     
-    // ESA LIFE CEO 56x21 - Get posts from database using correct method
+    // Mundo Tango ESA LIFE CEO - Get posts from database using correct method
     const posts = await storage.getFeedPosts(userId, limit, offset);
     
-    // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
+    // Mundo Tango ESA LIFE CEO - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map(post => {
       const formattedPost: any = {
         ...post,
@@ -67,7 +67,7 @@ router.get('/api/posts/feed', async (req: any, res) => {
         }
       };
 
-      // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
+      // Mundo Tango ESA LIFE CEO - Ensure media URLs are properly formatted
       // First check mediaEmbeds (where we store all media URLs)
       if (post.mediaEmbeds && Array.isArray(post.mediaEmbeds) && post.mediaEmbeds.length > 0) {
         // Use mediaEmbeds as the source for all media URLs
@@ -110,7 +110,7 @@ router.get('/api/posts/feed', async (req: any, res) => {
         formattedPost.imageUrl = formattedPost.mediaUrls[0]; // Use first as primary
       }
       
-      // ESA LIFE CEO 56x21 - Ensure mediaUrls is always an array
+      // Mundo Tango ESA LIFE CEO - Ensure mediaUrls is always an array
       if (!formattedPost.mediaUrls) {
         formattedPost.mediaUrls = [];
       }

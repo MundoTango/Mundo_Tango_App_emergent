@@ -60,7 +60,7 @@ export function applyPerformanceFixes(app: Express) {
   runMemoryOptimization();
   console.log('✅ Applied optimization: Memory management');
 
-  // 4. Request timeout - ESA LIFE CEO 56x21
+  // 4. Request timeout - Mundo Tango ESA LIFE CEO
   // REMOVED: Global timeout was interfering with upload endpoints
   // Timeouts are now handled per-route:
   // - Upload endpoints: 5 minutes (set in routes.ts)

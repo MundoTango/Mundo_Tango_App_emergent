@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Optimized Post Routes to reduce memory pressure
+// Mundo Tango ESA LIFE CEO - Optimized Post Routes to reduce memory pressure
 import { Router } from 'express';
 import { isAuthenticated } from '../replitAuth';
 import { storage } from '../storage';
@@ -9,7 +9,7 @@ import { eq, and } from 'drizzle-orm';
 
 const router = Router();
 
-// ESA LIFE CEO 56x21 - Delete post endpoint (missing functionality)
+// Mundo Tango ESA LIFE CEO - Delete post endpoint (missing functionality)
 router.delete('/api/posts/:id', isAuthenticated, async (req: any, res) => {
   // DELETE /api/posts/:id initiated
   
@@ -82,7 +82,7 @@ router.delete('/api/posts/:id', isAuthenticated, async (req: any, res) => {
   }
 });
 
-// ESA LIFE CEO 56x21 - Memory-optimized update post endpoint
+// Mundo Tango ESA LIFE CEO - Memory-optimized update post endpoint
 router.patch('/api/posts/:id', isAuthenticated, async (req: any, res) => {
   // PATCH /api/posts/:id initiated
   

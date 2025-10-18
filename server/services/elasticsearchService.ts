@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 15: Search & Discovery Service
+ * Mundo Tango ESA LIFE CEO - Layer 15: Search & Discovery Service
  * Elasticsearch integration, fuzzy matching, advanced search capabilities
  */
 

@@ -1,5 +1,5 @@
 // MT Ocean Confirmation Modal Component
-// ESA LIFE CEO 61x21 - Confirmation Dialogs
+// Mundo Tango ESA LIFE CEO - Confirmation Dialogs
 
 import React from 'react';
 import { cn } from '@/lib/utils';

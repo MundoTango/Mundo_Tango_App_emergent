@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Performance Monitoring Hook (Phase 12)
+ * Mundo Tango ESA LIFE CEO - Performance Monitoring Hook (Phase 12)
  * Real-time performance monitoring and optimization
  */
 

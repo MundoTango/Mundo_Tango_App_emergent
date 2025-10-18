@@ -1,4 +1,4 @@
-// ESA LIFE CEO 61x21 - Phase 19: Admin Layout Component
+// Mundo Tango ESA LIFE CEO - Phase 19: Admin Layout Component
 import { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { cn } from '@/lib/utils';

@@ -1,5 +1,5 @@
 // MT Ocean Tooltip Component
-// ESA LIFE CEO 61x21 - Hover Tooltips
+// Mundo Tango ESA LIFE CEO - Hover Tooltips
 
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
 import { cn } from '@/lib/utils';

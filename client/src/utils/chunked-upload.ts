@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Chunked upload for large videos
+// Mundo Tango ESA LIFE CEO - Chunked upload for large videos
 // Prevents memory crashes by uploading in small chunks
 
 export class ChunkedUploader {

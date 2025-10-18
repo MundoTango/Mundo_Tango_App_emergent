@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Performance Utilities (Phase 12)
+ * Mundo Tango ESA LIFE CEO - Performance Utilities (Phase 12)
  * Comprehensive performance optimization utilities
  */
 

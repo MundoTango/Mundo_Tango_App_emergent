@@ -1,5 +1,5 @@
 // MT Ocean Form Checkbox Component
-// ESA LIFE CEO 61x21 Checkbox Field
+// Mundo Tango ESA LIFE CEO Checkbox Field
 
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import {

@@ -1,7 +1,7 @@
 import { format, formatDistance, formatRelative, isValid } from 'date-fns';
 import { es, enUS, pt, fr, it } from 'date-fns/locale';
 
-// ESA LIFE CEO 61x21 - Phase 15: Localization Utilities
+// Mundo Tango ESA LIFE CEO - Phase 15: Localization Utilities
 
 // Date locale mapping
 const dateLocales = {

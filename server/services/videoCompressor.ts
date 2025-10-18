@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Server-side video compression service
+ * Mundo Tango ESA LIFE CEO - Server-side video compression service
  * Handles 500MB+ videos by streaming to disk and compressing with FFmpeg
  */
 
@@ -16,7 +16,7 @@ export class VideoCompressor {
    * Target: 443MB -> ~20-30MB
    */
   static async compressVideo(inputPath: string, outputPath: string): Promise<void> {
-    console.log(`🎬 ESA LIFE CEO 56x21: Compressing video from ${inputPath}`);
+    console.log(`🎬 Mundo Tango ESA LIFE CEO: Compressing video from ${inputPath}`);
     
     try {
       // Check if FFmpeg is available

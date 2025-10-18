@@ -1,4 +1,4 @@
-// ESA LIFE CEO 56x21 - Intelligence Infrastructure Schema (Layers 31-46)
+// Mundo Tango ESA LIFE CEO - Intelligence Infrastructure Schema (Layers 31-46)
 import { 
   pgTable, 
   varchar, 

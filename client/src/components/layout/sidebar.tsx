@@ -45,7 +45,7 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-// Organized navigation structure for ESA LIFE CEO 61x21 platform (72 pages)
+// Organized navigation structure for Mundo Tango ESA LIFE CEO platform (72 pages)
 const SIDEBAR_SECTIONS = [
   {
     title: "Main",

@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Post Editing Flow E2E Test
+ * Mundo Tango ESA LIFE CEO - Post Editing Flow E2E Test
  * Tests Layer 7 & 23 unified edit experience across the platform
  */
 

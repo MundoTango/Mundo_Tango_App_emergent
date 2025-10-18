@@ -24,7 +24,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [mediaItems, setMediaItems] = useState<{url: string, isVideo: boolean}[]>([]);
   
-  // ESA LIFE CEO 61x21 - Process media on mount and when post changes
+  // Mundo Tango ESA LIFE CEO - Process media on mount and when post changes
   useEffect(() => {
     // Processing post for video memory card
     
@@ -150,7 +150,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
         <div className="mt-3">
           <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
           
-          {/* Media Display - ESA LIFE CEO 61x21 FIXED */}
+          {/* Media Display - Mundo Tango ESA LIFE CEO FIXED */}
           {mediaItems.length > 0 && (
             <div className="mt-4">
               <div className={`grid gap-2 ${

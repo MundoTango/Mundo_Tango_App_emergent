@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * ESA LIFE CEO 56x21 - CommonJS Launcher for Workflow Compatibility
+ * Mundo Tango ESA LIFE CEO - CommonJS Launcher for Workflow Compatibility
  * This file bypasses the ES module TypeScript loader issue
  */
 

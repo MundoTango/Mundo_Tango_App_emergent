@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 56x21 - Debug Routes
+ * Mundo Tango ESA LIFE CEO - Debug Routes
  * Diagnostic endpoints to verify upload system functionality
  */
 
@@ -10,7 +10,7 @@ import path from 'path';
 const router = Router();
 
 /**
- * ESA LIFE CEO 56x21 - List all uploaded files
+ * Mundo Tango ESA LIFE CEO - List all uploaded files
  * Debug endpoint to verify files are being saved correctly
  */
 router.get('/api/debug/uploads', async (req, res) => {
@@ -76,7 +76,7 @@ router.get('/api/debug/uploads', async (req, res) => {
 });
 
 /**
- * ESA LIFE CEO 56x21 - Test direct file access
+ * Mundo Tango ESA LIFE CEO - Test direct file access
  * Verify that uploaded files can be accessed via URL
  */
 router.get('/api/debug/test-media/:filepath(*)', async (req, res) => {

@@ -88,7 +88,7 @@ export default function CreatePost() {
     };
 
     try {
-      // ESA LIFE CEO 61x21 - Optimized direct upload
+      // Mundo Tango ESA LIFE CEO - Optimized direct upload
       console.log('🚀 Starting optimized upload with', selectedFiles.length, 'files');
       
       await upload(selectedFiles, postData, {

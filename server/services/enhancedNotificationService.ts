@@ -1,5 +1,5 @@
 /**
- * ESA LIFE CEO 61x21 - Layer 16: Enhanced Notification System
+ * Mundo Tango ESA LIFE CEO - Layer 16: Enhanced Notification System
  * Email, push, in-app notifications with advanced delivery and preferences
  */
 

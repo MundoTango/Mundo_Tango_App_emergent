@@ -1,5 +1,5 @@
 // MT Ocean Alert Modal Component
-// ESA LIFE CEO 61x21 - Alert & Notification Modals
+// Mundo Tango ESA LIFE CEO - Alert & Notification Modals
 
 import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';

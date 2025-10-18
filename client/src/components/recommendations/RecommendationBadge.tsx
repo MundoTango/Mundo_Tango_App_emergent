@@ -9,7 +9,7 @@ interface RecommendationBadgeProps {
   country?: string;
 }
 
-// ESA LIFE CEO 61x21 - Layer 28: Recommendations Badge Component
+// Mundo Tango ESA LIFE CEO - Layer 28: Recommendations Badge Component
 // Aurora Tide Design System Compliant
 
 const getCategoryInfo = (type: string) => {
