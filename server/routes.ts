@@ -61,7 +61,7 @@ import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
 import securityRoutes from "./routes/security"; // Mundo Tango ESA LIFE CEO - Security routes (CSRF, audit, etc.)
 // import publicStatsRoutes from "./routes/publicStatsRoutes"; // J1 - Public stats for visitor landing page (TODO: Create this file)
-// import journeyRoutes from "./routes/journeyRoutes"; // Phase 0 Task 0.5 - TODO: File missing, needs restoration
+import journeyRoutes from "./routes/journeyRoutes"; // ✅ RESTORED - Customer journey tracking
 
 import { getUserId } from "./utils/authHelper";
 
@@ -84,11 +84,12 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Phase 11 Parallel: Security headers and performance monitoring
   const { securityHeaders } = await import('./middleware/security');
-  // const { responseTimeLogger } = await import('./middleware/responseTime'); // TODO: Create if needed
+  const { responseTimeLogger } = await import('./middleware/responseTime'); // ✅ RESTORED
+  const { requestValidator } = await import('./middleware/requestValidator'); // ✅ RESTORED
   
-  // app.use(requestId);           // TODO: Create requestId middleware if needed
+  app.use(requestValidator);    // ✅ ENABLED - Request validation for all routes
   app.use(securityHeaders);     // Apply security headers to all responses
-  // app.use(responseTimeLogger);  // TODO: Enable when responseTime middleware exists
+  app.use(responseTimeLogger);  // ✅ ENABLED - Response time logging for performance monitoring
   
   // Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Register domain routes first
   app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1
@@ -98,7 +99,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
-  // app.use('/api/journey', journeyRoutes); // Phase 0 Task 0.5 - TODO: File missing, needs restoration
+  app.use('/api/journey', journeyRoutes); // ✅ ENABLED - Customer journey tracking (J1-J8)
   
   // Mundo Tango ESA LIFE CEO - Register optimized post routes early to reduce memory load
   app.use(postRoutes);
