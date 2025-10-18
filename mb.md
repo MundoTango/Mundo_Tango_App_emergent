@@ -355,6 +355,42 @@ D - Deploy and document thoroughly
 
 ---
 
+## 📚 Methodology Documentation
+
+MB.MD is supported by comprehensive methodology guides in `docs/MrBlue/`:
+
+### Core Methodology Guides
+
+**🧠 Critical Thinking & Problem Solving:**
+- **[CRITICAL_THINKING_METHODOLOGY.md](docs/MrBlue/CRITICAL_THINKING_METHODOLOGY.md)** - How to think critically, avoid superficial fixes, find real root causes using 5 Whys and systematic investigation
+
+**⚡ Parallel Building & Safety:**
+- **[PARALLEL_BUILDING_SAFETY.md](docs/MrBlue/PARALLEL_BUILDING_SAFETY.md)** - Safe parallel workflows, dependency management, testing protocols, integration strategies
+
+**🛡️ Documentation & File Protection:**
+- **[DOCUMENTATION_GUARDRAILS.md](docs/MrBlue/DOCUMENTATION_GUARDRAILS.md)** - What protection actually works in Replit (PostgreSQL backup, manual validation), what doesn't (git hooks)
+- **[FILE_PERSISTENCE_DEEP_DIVE.md](docs/MrBlue/FILE_PERSISTENCE_DEEP_DIVE.md)** - Deep technical analysis of why files vanish in Replit, working directory desync, checkpoint isolation
+
+**📖 Additional Resources:**
+- **[AGENT_LEARNING.md](AGENT_LEARNING.md)** - 8 critical safety rules, file protection protocols, incident lessons
+- **[replit.md](replit.md)** - Platform architecture, user preferences, system design choices
+
+### Quick Navigation
+
+**Need to solve a complex problem?**  
+→ Start with [CRITICAL_THINKING_METHODOLOGY.md](docs/MrBlue/CRITICAL_THINKING_METHODOLOGY.md)
+
+**Planning parallel development?**  
+→ Read [PARALLEL_BUILDING_SAFETY.md](docs/MrBlue/PARALLEL_BUILDING_SAFETY.md)
+
+**Files disappearing or deployment issues?**  
+→ Check [DOCUMENTATION_GUARDRAILS.md](docs/MrBlue/DOCUMENTATION_GUARDRAILS.md)
+
+**Want to understand WHY files vanish?**  
+→ Deep dive: [FILE_PERSISTENCE_DEEP_DIVE.md](docs/MrBlue/FILE_PERSISTENCE_DEEP_DIVE.md)
+
+---
+
 ## 🤖 Mundo Tango Agent Ecosystem
 
 ### Agent Organization Chart (276 Total Agents)
