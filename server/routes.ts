@@ -145,7 +145,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Import security middleware - Life CEO 44x21s Layer 31-40 Replit Fix
   const { 
-    securityHeaders, 
     sanitizeInput,
     csrfProtection 
   } = await import('./middleware/security');
@@ -174,10 +173,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     memoryLeakPrevention
   } = await import('./middleware/securityEnhancements');
   
-  // Apply security middleware - Life CEO 44x21s Layer 44 Critical Fix
-  app.use(securityHeaders);
-  
-  // Apply ESA-44x21s Security Enhancements
+  // Apply ESA-44x21s Security Enhancements (securityHeaders already applied above)
   app.use(regexpProtection);
   app.use(inputLengthValidation);
   app.use(ssrfPrevention);
