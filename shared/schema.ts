@@ -61,6 +61,9 @@ export const users = pgTable("users", {
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),
   subscriptionStatus: varchar("subscription_status", { length: 50 }), // active, canceled, past_due, etc
   subscriptionTier: varchar("subscription_tier", { length: 50 }).default('free'), // free, basic, enthusiast, professional, enterprise
+  // Phase 0 Task 0.5: Customer Journey State (J1-J4)
+  customerJourneyState: varchar("customer_journey_state", { length: 10 }).default('J1').notNull(), // 'J1' = New User, 'J2' = Active, 'J3' = Power User, 'J4' = Super Admin
+  lastJourneyUpdate: timestamp("last_journey_update").defaultNow(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
