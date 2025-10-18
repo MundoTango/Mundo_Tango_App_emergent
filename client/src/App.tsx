@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SocketProvider } from "@/contexts/socket-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TenantProvider } from "@/contexts/TenantContext";
-import { CsrfProvider } from "@/contexts/CsrfContext";
+// import { CsrfProvider } from "@/contexts/CsrfContext"; // Disabled for Phase 1 - will add CSRF endpoint later
 import { OpenReplayProvider } from "@/components/OpenReplayProvider";
 import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
 import { LocationBiasProvider } from "@/contexts/LocationBiasContext";
@@ -257,26 +257,24 @@ function App() {
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <CsrfProvider>
-          <AuthProvider>
-            <TenantProvider>
-              <LocationBiasProvider>
-                <SocketProvider>
-                  <TooltipProvider>
-                    <OpenReplayProvider>
-                      <MonitoringProvider>
-                        <MicroInteractionProvider>
-                          <SessionRecordingNotice />
-                          <AppContent />
-                        </MicroInteractionProvider>
-                      </MonitoringProvider>
-                    </OpenReplayProvider>
-                  </TooltipProvider>
-                </SocketProvider>
-              </LocationBiasProvider>
-            </TenantProvider>
-          </AuthProvider>
-        </CsrfProvider>
+        <AuthProvider>
+          <TenantProvider>
+            <LocationBiasProvider>
+              <SocketProvider>
+                <TooltipProvider>
+                  <OpenReplayProvider>
+                    <MonitoringProvider>
+                      <MicroInteractionProvider>
+                        <SessionRecordingNotice />
+                        <AppContent />
+                      </MicroInteractionProvider>
+                    </MonitoringProvider>
+                  </OpenReplayProvider>
+                </TooltipProvider>
+              </SocketProvider>
+            </LocationBiasProvider>
+          </TenantProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
