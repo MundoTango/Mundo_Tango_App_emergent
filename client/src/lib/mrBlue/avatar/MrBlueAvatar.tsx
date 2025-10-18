@@ -14,12 +14,27 @@ import * as THREE from 'three';
 interface MrBlueAvatarProps {
   onMessage?: (message: string) => void;
   autoSpeak?: boolean;
+  isSpeaking?: boolean;
+  isListening?: boolean;
+  isThinking?: boolean;
+  emotion?: 'neutral' | 'happy' | 'thinking' | 'concerned' | 'excited';
 }
 
-export function MrBlueAvatar({ onMessage, autoSpeak = false }: MrBlueAvatarProps) {
+export function MrBlueAvatar({ 
+  onMessage, 
+  autoSpeak = false,
+  isSpeaking: externalIsSpeaking,
+  isListening: externalIsListening,
+  isThinking,
+  emotion = 'neutral'
+}: MrBlueAvatarProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isListening, setIsListening] = useState(false);
+
+  // Use external states if provided
+  const actualIsSpeaking = externalIsSpeaking ?? isSpeaking;
+  const actualIsListening = externalIsListening ?? isListening;
   const { toast } = useToast();
 
   const handleVoiceInput = async () => {
@@ -77,7 +92,11 @@ export function MrBlueAvatar({ onMessage, autoSpeak = false }: MrBlueAvatarProps
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <AvatarModel isSpeaking={isSpeaking} />
+        <AvatarModel 
+          isSpeaking={actualIsSpeaking} 
+          isThinking={isThinking}
+          emotion={emotion}
+        />
         <OrbitControls 
           enableZoom={false}
           enablePan={false}
@@ -89,13 +108,13 @@ export function MrBlueAvatar({ onMessage, autoSpeak = false }: MrBlueAvatarProps
       {/* Voice Controls */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
         <Button
-          variant={isListening ? "default" : "outline"}
+          variant={actualIsListening ? "default" : "outline"}
           size="icon"
           onClick={handleVoiceInput}
-          className={isListening ? "animate-pulse" : ""}
+          className={actualIsListening ? "animate-pulse" : ""}
           data-testid="button-voice-input"
         >
-          {isListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
+          {actualIsListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
         </Button>
 
         <Button
@@ -109,22 +128,36 @@ export function MrBlueAvatar({ onMessage, autoSpeak = false }: MrBlueAvatarProps
       </div>
 
       {/* Status Indicator */}
-      {isSpeaking && (
+      {actualIsSpeaking && (
         <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm animate-pulse">
           Speaking...
         </div>
       )}
 
-      {isListening && (
+      {actualIsListening && (
         <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm animate-pulse">
           Listening...
+        </div>
+      )}
+      
+      {isThinking && (
+        <div className="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm animate-pulse">
+          Thinking...
         </div>
       )}
     </div>
   );
 }
 
-function AvatarModel({ isSpeaking }: { isSpeaking: boolean }) {
+function AvatarModel({ 
+  isSpeaking, 
+  isThinking, 
+  emotion 
+}: { 
+  isSpeaking?: boolean;
+  isThinking?: boolean;
+  emotion?: 'neutral' | 'happy' | 'thinking' | 'concerned' | 'excited';
+}) {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [avatarExists, setAvatarExists] = useState(false);
@@ -180,7 +213,14 @@ function AvatarModel({ isSpeaking }: { isSpeaking: boolean }) {
           {/* Simple avatar representation (placeholder until Meshy.ai avatar is generated) */}
           <mesh position={[0, 0, 0]}>
             <sphereGeometry args={[0.5, 32, 32]} />
-            <meshStandardMaterial color={hovered ? "#60a5fa" : "#3b82f6"} />
+            <meshStandardMaterial color={
+              hovered ? "#60a5fa" : 
+              emotion === 'happy' ? "#10B981" :
+              emotion === 'thinking' ? "#8B5CF6" :
+              emotion === 'concerned' ? "#F59E0B" :
+              emotion === 'excited' ? "#EC4899" :
+              "#3b82f6"
+            } />
           </mesh>
           
           {/* Eyes */}

@@ -6,9 +6,9 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { useAuth } from '@/hooks/useAuth';
 import { isSuperAdmin } from '@/utils/accessControl';
-import { ScottAvatar } from '@/lib/mrBlue/avatar/ScottAvatar';
+import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
 import { ChatInterface } from '@/lib/mrBlue/chat/ChatInterface';
-import { useScottAI } from '@/lib/mrBlue/ai/ScottAI';
+import { useMrBlueAI } from '@/lib/mrBlue/ai/MrBlueAI';
 import { ESAMindMap } from '@/components/esa/ESAMindMap';
 
 /**
@@ -37,7 +37,7 @@ export function MrBlueComplete() {
     semanticContext,
     sendMessage,
     suggestions,
-  } = useScottAI({
+  } = useMrBlueAI({
     defaultModel: 'gpt-4o',
     language: 'en-US',
   });
@@ -171,7 +171,7 @@ export function MrBlueComplete() {
 
             {/* Main Content: Avatar LEFT + Chat RIGHT */}
             <div className="flex-1 flex overflow-hidden">
-              {/* Scott 3D Avatar - LEFT SIDE */}
+              {/* Mr Blue 3D Avatar - LEFT SIDE */}
               <div className={`
                 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950
                 ${isFullScreen ? 'w-1/3' : 'w-[400px] max-w-[40%]'}
@@ -180,13 +180,13 @@ export function MrBlueComplete() {
                 <Canvas
                   camera={{ position: [0, 0, 3], fov: 50 }}
                   className="w-full h-full"
-                  data-testid="scott-avatar-canvas"
+                  data-testid="mr-blue-avatar-canvas"
                 >
                   <ambientLight intensity={0.6} />
                   <pointLight position={[10, 10, 10]} intensity={0.8} />
                   <pointLight position={[-10, -10, -10]} intensity={0.3} />
                   
-                  <ScottAvatar 
+                  <MrBlueAvatar 
                     isSpeaking={isSpeaking}
                     isListening={false}
                     isThinking={isTyping}
@@ -235,7 +235,7 @@ export function MrBlueComplete() {
                 <ambientLight intensity={0.6} />
                 <pointLight position={[5, 5, 5]} intensity={0.8} />
                 
-                <ScottAvatar 
+                <MrBlueAvatar 
                   isSpeaking={isSpeaking}
                   isListening={false}
                   isThinking={isTyping}
