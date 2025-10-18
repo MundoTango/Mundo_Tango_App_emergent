@@ -13,6 +13,7 @@
     "predeploy": "tsx scripts/pre-deploy-check.ts",
     "integrity-check": "tsx scripts/pre-deploy-check.ts",
     "validate:imports": "tsx scripts/validate-imports.ts",
+    "test:patterns": "tsx test-life-ceo-patterns.ts",
     "backup-docs": "tsx scripts/backup-docs-to-db.ts",
     "restore-drill": "tsx scripts/restore-drill.ts",
     "restore-drill:auto": "tsx scripts/restore-drill.ts --auto",
