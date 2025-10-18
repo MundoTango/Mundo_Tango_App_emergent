@@ -211,18 +211,23 @@ function Router() {
 }
 
 function AppContent() {
-  console.log('🎯 [AppContent] Rendering - BARE MINIMUM FOR DEBUG');
+  console.log('🎯 [AppContent] Rendering - TESTING ESA COMPONENTS');
   
-  // TEMP: Disabled hooks to isolate crash
-  // usePerformanceOptimization(); // ESA Performance Layer 50
-  // useMonitoring(); // ESA Monitoring Layer 51
+  // MB.MD INFRA-5A: Hooks re-enabled - SAFE ✅
+  usePerformanceOptimization(); // ESA Performance Layer 50
+  useMonitoring(); // ESA Monitoring Layer 51
 
-  console.log('🎯 [AppContent] After hooks - about to render');
+  console.log('🎯 [AppContent] Testing VisualEditorWrapper (skipping MrBlue - CRASHES)');
 
   return (
     <>
       <Router />
       <Toaster />
+      <TrialBanner />
+      <SuperAdminToggle />
+      <ESAMindMap />
+      {/* MrBlueFloatingButton - CRASHES - Fix later */}
+      <VisualEditorWrapper />
     </>
   );
 }
