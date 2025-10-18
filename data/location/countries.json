@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Argentina",
+    "code": "AR",
+    "continent": "South America",
+    "timezone": "America/Argentina/Buenos_Aires"
+  },
+  {
+    "id": 2,
+    "name": "United States",
+    "code": "US",
+    "continent": "North America",
+    "timezone": "America/New_York"
+  },
+  {
+    "id": 3,
+    "name": "Spain",
+    "code": "ES",
+    "continent": "Europe",
+    "timezone": "Europe/Madrid"
+  },
+  {
+    "id": 4,
+    "name": "Uruguay",
+    "code": "UY",
+    "continent": "South America",
+    "timezone": "America/Montevideo"
+  },
+  {
+    "id": 5,
+    "name": "France",
+    "code": "FR",
+    "continent": "Europe",
+    "timezone": "Europe/Paris"
+  }
+]
