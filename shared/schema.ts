@@ -67,9 +67,8 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 }, (table) => [
-  // Phase 3: Database Optimization Indexes
+  // Phase 3: Database Optimization Indexes (13 indexes - removed idx_users_email, redundant with UNIQUE constraint)
   index("idx_users_journey_state").on(table.customerJourneyState),
-  index("idx_users_email").on(table.email),
   index("idx_users_city_country").on(table.city, table.country),
   index("idx_users_created_at").on(table.createdAt),
   index("idx_users_subscription_tier").on(table.subscriptionTier),
