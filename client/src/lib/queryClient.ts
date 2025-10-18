@@ -1,4 +1,6 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
+import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
 // Store CSRF token
 let csrfToken: string | null = null;
@@ -131,7 +133,7 @@ export const queryClient = new QueryClient({
       queryFn: getQueryFn({ on401: "throw" }),
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: 0, // Allow immediate updates after mutations (Sept 30, 2025 fix)
+      staleTime: 5 * 60 * 1000, // Phase 14: 5 minutes - use cached data before refetching
       gcTime: 30 * 60 * 1000, // ESA Layer 14: Keep cache for 30min to prevent premature garbage collection
       retry: false,
     },
@@ -140,3 +142,23 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
+// Phase 14 Batch 4: Add localStorage persistence for better cache hit rate
+if (typeof window !== 'undefined') {
+  const persister = createSyncStoragePersister({
+    storage: window.localStorage,
+    key: 'MUNDO_TANGO_QUERY_CACHE',
+  });
+
+  persistQueryClient({
+    queryClient,
+    persister,
+    maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    dehydrateOptions: {
+      shouldDehydrateQuery: (query) => {
+        // Only persist successful queries
+        return query.state.status === 'success';
+      },
+    },
+  });
+}

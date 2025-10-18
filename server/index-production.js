@@ -13,7 +13,32 @@ const PORT = process.env.PORT || 5000;
 
 // Essential middleware
 app.use(compression());
-app.use(cors());
+
+// Phase 14 Batch 5: Restrict CORS to production domains only
+const allowedOrigins = [
+  'https://mundo-tango.replit.dev',
+  'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev',
+  ...(process.env.NODE_ENV === 'development' ? ['http://localhost:5000', 'http://localhost:5173'] : [])
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin matches allowed list or is a Replit subdomain
+    if (allowedOrigins.includes(origin) || origin.endsWith('.replit.dev')) {
+      callback(null, true);
+    } else {
+      console.warn(`⚠️  CORS blocked origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow cookies and authentication
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token']
+}));
+
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 

@@ -54,25 +54,26 @@ import Join from "@/pages/join";
 import MTStatusPreview from "@/pages/MTStatusPreview";
 import TrialBanner from "@/components/TrialBanner";
 
+// Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
-import { ESAMindMap } from "@/components/esa/ESAMindMap";
+const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(m => ({ default: m.ESAMindMap })));
 
 // ESA AI Intelligence Network - User Support Components (Agent #31, #68-71)
-import { AIHelpButton } from "@/components/ai/AIHelpButton";
-import { SmartPageSuggestions } from "@/components/ai/SmartPageSuggestions";
-import { AIContextBar } from "@/components/ai/AIContextBar";
+const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton").then(m => ({ default: m.AIHelpButton })));
+const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions").then(m => ({ default: m.SmartPageSuggestions })));
+const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(m => ({ default: m.AIContextBar })));
 
 // ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)
-import { MrBlueFloatingButton } from "@/components/mrBlue/MrBlueFloatingButton";
+const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(m => ({ default: m.MrBlueFloatingButton })));
 
 // ESA Dev Tools - Super Admin toggle for development testing
-import { SuperAdminToggle } from "@/components/dev/SuperAdminToggle";
+const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(m => ({ default: m.SuperAdminToggle })));
 
 // ESA Visual Editor - Replit-style page editor (Agent #78)
-import VisualEditorWrapper from "@/components/visual-editor/VisualEditorWrapper";
+const VisualEditorWrapper = lazy(() => import("@/components/visual-editor/VisualEditorWrapper"));
 
-// Import EventDiscoveryFeed directly since it's used frequently
-import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
+// EventDiscoveryFeed - Used on multiple pages but deferred to reduce initial bundle
+const EventDiscoveryFeed = lazy(() => import('@/components/events/EventDiscoveryFeed'));
 
 // Mundo Tango ESA Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
@@ -204,10 +205,16 @@ function Router() {
         </Switch>
       </Suspense>
       
-      {/* ESA AI Intelligence Network - No lazy loading */}
-      <AIHelpButton position="bottom-right" offset={6} />
-      <SmartPageSuggestions position="top-center" autoHide={true} />
-      <AIContextBar position="top" collapsible={true} />
+      {/* Phase 14 Batch 1: Lazy load AI components with Suspense */}
+      <Suspense fallback={null}>
+        <AIHelpButton position="bottom-right" offset={6} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <SmartPageSuggestions position="top-center" autoHide={true} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <AIContextBar position="top" collapsible={true} />
+      </Suspense>
     </ErrorBoundary>
   );
 }
@@ -226,10 +233,17 @@ function AppContent() {
       <Router />
       <Toaster />
       <TrialBanner />
-      <SuperAdminToggle />
-      <ESAMindMap />
+      {/* Phase 14 Batch 1: Lazy load dev/admin tools with Suspense */}
+      <Suspense fallback={null}>
+        <SuperAdminToggle />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ESAMindMap />
+      </Suspense>
       {/* MrBlueFloatingButton - CRASHES - Fix later */}
-      <VisualEditorWrapper />
+      <Suspense fallback={null}>
+        <VisualEditorWrapper />
+      </Suspense>
     </>
   );
 }
