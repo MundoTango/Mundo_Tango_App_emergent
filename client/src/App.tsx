@@ -51,6 +51,7 @@ import TestSimple from "@/pages/test-simple"; // TEMP: Minimal test page
 import Discover from "@/pages/discover";
 import About from "@/pages/about";
 import Join from "@/pages/join";
+import MTStatusPreview from "@/pages/MTStatusPreview";
 import TrialBanner from "@/components/TrialBanner";
 
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
