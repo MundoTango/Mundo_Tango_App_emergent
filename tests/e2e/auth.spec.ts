@@ -30,7 +30,7 @@ test.describe('Authentication Flow', () => {
     
     // Now login with same credentials
     await loginUser(page, {
-      username: user.username,
+      email: user.email,
       password: user.password,
     });
     
@@ -42,9 +42,9 @@ test.describe('Authentication Flow', () => {
   test('should fail login with invalid credentials', async ({ page }) => {
     await page.goto('/login');
     
-    await page.fill('[data-testid="input-username"]', testUsers.invalidCredentials.username);
+    await page.fill('[data-testid="input-email"]', testUsers.invalidCredentials.email);
     await page.fill('[data-testid="input-password"]', testUsers.invalidCredentials.password);
-    await page.click('[data-testid="button-login"]');
+    await page.click('[data-testid="button-submit"]');
     
     // Should stay on login page or show error
     await page.waitForTimeout(2000);

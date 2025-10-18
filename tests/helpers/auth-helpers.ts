@@ -19,34 +19,35 @@ export async function registerUser(page: Page, userData: {
   await page.fill('[data-testid="input-username"]', userData.username);
   await page.fill('[data-testid="input-email"]', userData.email);
   await page.fill('[data-testid="input-password"]', userData.password);
+  await page.fill('[data-testid="input-confirm-password"]', userData.password);
   
   if (userData.fullName) {
-    await page.fill('[data-testid="input-fullname"]', userData.fullName);
+    await page.fill('[data-testid="input-name"]', userData.fullName);
   }
   
-  if (userData.city) {
-    await page.fill('[data-testid="input-city"]', userData.city);
-  }
+  // Accept terms and privacy
+  await page.check('[data-testid="checkbox-terms"]');
+  await page.check('[data-testid="checkbox-privacy"]');
   
   // Submit form
-  await page.click('[data-testid="button-register"]');
+  await page.click('[data-testid="button-submit"]');
   
-  // Wait for successful registration
-  await expect(page).toHaveURL(/\/(feed|home|dashboard)/);
+  // Wait for successful registration (redirects to onboarding)
+  await expect(page).toHaveURL(/\/(onboarding|feed|home|dashboard)/);
 }
 
 export async function loginUser(page: Page, credentials: {
-  username: string;
+  email: string;
   password: string;
 }) {
   await page.goto('/login');
   
   // Fill login form
-  await page.fill('[data-testid="input-username"]', credentials.username);
+  await page.fill('[data-testid="input-email"]', credentials.email);
   await page.fill('[data-testid="input-password"]', credentials.password);
   
   // Submit form
-  await page.click('[data-testid="button-login"]');
+  await page.click('[data-testid="button-submit"]');
   
   // Wait for successful login
   await expect(page).toHaveURL(/\/(feed|home|dashboard)/);

@@ -166,6 +166,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                   ? "hover:bg-gray-100"
                   : "hover:bg-slate-800"
               )}
+              data-testid="button-menu"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold text-sm">
                 P
@@ -235,12 +236,15 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                       "my-2 border-t",
                       theme === 'light' ? "border-gray-200" : "border-slate-800"
                     )} />
-                    <button className={cn(
-                      "flex items-center gap-3 w-full px-4 py-2 transition-colors text-left",
-                      theme === 'light'
-                        ? "hover:bg-gray-100 text-gray-700"
-                        : "hover:bg-slate-800 text-slate-300"
-                    )}>
+                    <button 
+                      className={cn(
+                        "flex items-center gap-3 w-full px-4 py-2 transition-colors text-left",
+                        theme === 'light'
+                          ? "hover:bg-gray-100 text-gray-700"
+                          : "hover:bg-slate-800 text-slate-300"
+                      )}
+                      data-testid="button-logout"
+                    >
                       <LogOut className="w-4 h-4" />
                       <span>Sign out</span>
                     </button>
