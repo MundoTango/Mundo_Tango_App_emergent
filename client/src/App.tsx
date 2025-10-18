@@ -247,14 +247,16 @@ function App() {
 
   console.log('🚀 [App] About to return JSX tree');
 
-  // TEMP: Stripped down to bare minimum to isolate crash
+  // MB.MD INFRA-1: Re-enabling providers one by one to isolate crash
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <TooltipProvider>
-            <AppContent />
-          </TooltipProvider>
+          <TenantProvider>
+            <TooltipProvider>
+              <AppContent />
+            </TooltipProvider>
+          </TenantProvider>
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
