@@ -54,7 +54,7 @@ router.post('/memories', isAuthenticated, async (req: any, res: Response, next: 
       throw new AuthenticationError('User not found or inactive');
     }
     
-    const { content, type, tags, privacy, mediaUrls } = req.body;
+    const { content, postType, hashtags, visibility, mediaEmbeds } = req.body;
     
     if (!content || content.trim().length === 0) {
       throw new ValidationError('Memory content is required');
@@ -63,10 +63,10 @@ router.post('/memories', isAuthenticated, async (req: any, res: Response, next: 
     const newMemory = await db.insert(posts).values({
       userId: user[0].id,
       content: content.trim(),
-      type: type || 'memory',
-      tags: tags || [],
-      privacy: privacy || 'public',
-      mediaUrls: mediaUrls || []
+      postType: postType || 'memory',
+      hashtags: hashtags || [],
+      visibility: visibility || 'public',
+      mediaEmbeds: mediaEmbeds || []
     }).returning();
     
     res.json(success(newMemory[0], 'Memory created successfully'));
@@ -112,7 +112,7 @@ router.get('/memories/suggestions', isAuthenticated, async (req: any, res: Respo
     // Return recent public memories as suggestions
     const suggestions = await db.select()
       .from(posts)
-      .where(eq(posts.privacy, 'public'))
+      .where(eq(posts.visibility, 'public'))
       .orderBy(desc(posts.createdAt))
       .limit(10);
     
