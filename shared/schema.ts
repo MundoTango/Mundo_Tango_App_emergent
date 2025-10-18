@@ -1726,6 +1726,22 @@ export const lifeCeoConversations = pgTable("life_ceo_conversations", {
   index("idx_conv_last_message").on(table.lastMessage),
 ]);
 
+export const life_ceo_patterns = pgTable("life_ceo_patterns", {
+  pattern_id: varchar("pattern_id", { length: 100 }).primaryKey(),
+  pattern_text: text("pattern_text").notNull(),
+  solution: text("solution").notNull(),
+  success_rate: real("success_rate").notNull(),
+  category: varchar("category", { length: 20 }).notNull(), // typescript, memory, cache, api, design, mobile
+  last_seen: timestamp("last_seen").notNull(),
+  occurrences: integer("occurrences").default(1).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => [
+  index("idx_patterns_category").on(table.category),
+  index("idx_patterns_last_seen").on(table.last_seen),
+  index("idx_patterns_success_rate").on(table.success_rate),
+]);
+
 // Life CEO Chat System Schemas
 export const insertLifeCeoAgentConfigSchema = createInsertSchema(lifeCeoAgentConfigurations).omit({
   id: true,
