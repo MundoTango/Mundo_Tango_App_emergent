@@ -1,0 +1,71 @@
+{
+  "results": [
+    {
+      "url": "/",
+      "pageName": "home-page",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 2,
+      "timestamp": "2025-10-09T08:10:46.859Z"
+    },
+    {
+      "url": "/memories",
+      "pageName": "memories-feed",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 2,
+      "timestamp": "2025-10-09T08:10:52.087Z"
+    },
+    {
+      "url": "/housing",
+      "pageName": "housing-marketplace",
+      "violations": [
+        {
+          "id": "image-alt",
+          "impact": "serious",
+          "description": "Images must have alternate text",
+          "wcagLevel": "A",
+          "nodes": 3,
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.4/image-alt"
+        }
+      ],
+      "passes": 45,
+      "incomplete": 2,
+      "timestamp": "2025-10-09T08:10:56.240Z"
+    },
+    {
+      "url": "/events",
+      "pageName": "events-page",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 2,
+      "timestamp": "2025-10-09T08:11:01.359Z"
+    },
+    {
+      "url": "/profile",
+      "pageName": "profile-page",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 2,
+      "timestamp": "2025-10-09T08:11:07.721Z"
+    },
+    {
+      "url": "/admin",
+      "pageName": "admin-dashboard",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 2,
+      "timestamp": "2025-10-09T08:11:12.689Z"
+    }
+  ],
+  "summary": {
+    "totalPages": 6,
+    "totalViolations": 1,
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0,
+    "wcagCompliant": false
+  },
+  "timestamp": "2025-10-09T08:11:12.785Z"
+}

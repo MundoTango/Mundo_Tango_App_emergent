@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-10-14T07:04:23.937Z",
+  "totalDuration": 1225,
+  "audits": [
+    {
+      "name": "Translation Audit",
+      "status": "success",
+      "duration": 1223,
+      "findings": {
+        "translationUsages": 1859,
+        "hardcodedStrings": 3368,
+        "translationFiles": 87,
+        "coverage": 36
+      }
+    },
+    {
+      "name": "Dark Mode Audit",
+      "status": "success",
+      "duration": 1217,
+      "findings": {
+        "darkClasses": 3705,
+        "colorClasses": 15138,
+        "themeProviderUsages": 28,
+        "coverage": 24
+      }
+    }
+  ],
+  "summary": {
+    "totalAudits": 2,
+    "successful": 2,
+    "failed": 0
+  }
+}
