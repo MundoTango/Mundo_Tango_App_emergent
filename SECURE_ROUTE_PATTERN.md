@@ -41,6 +41,21 @@ const createTableSchema = insertTableSchema.pick({
 });
 ```
 
+### **2b. Slug Generation Utility (if table has slug column)**
+
+```typescript
+// Slug generation utility
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special chars
+    .replace(/\s+/g, '-')          // Replace spaces with hyphens
+    .replace(/-+/g, '-')           // Remove consecutive hyphens
+    .substring(0, 240);             // Reserve 15 chars for timestamp suffix
+}
+```
+
 ### **3. GET Endpoints (List with Pagination)**
 
 ```typescript
@@ -112,7 +127,7 @@ router.get('/resource/:id', isAuthenticated, async (req: any, res: Response, nex
 });
 ```
 
-### **5. POST Endpoints (Create with Validation)**
+### **5. POST Endpoints (Create with Validation + Slug Generation)**
 
 ```typescript
 router.post('/resource', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
@@ -132,8 +147,18 @@ router.post('/resource', isAuthenticated, async (req: any, res: Response, next: 
     
     const validatedData = validationResult.data;
     
+    // ✅ Generate unique slug if needed
+    let slug = generateSlug(validatedData.name).substring(0, 240);
+    
+    // Check for duplicates and add timestamp suffix
+    const [existing] = await db.select().from(tableName).where(eq(tableName.slug, slug)).limit(1);
+    if (existing) {
+      slug = `${slug}-${Date.now()}`.substring(0, 255); // Ensure total <= 255
+    }
+    
     const [newItem] = await db.insert(tableName).values({
       ...validatedData,
+      slug,
       userId: user[0].id
     }).returning();
     
