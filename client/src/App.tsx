@@ -247,16 +247,24 @@ function App() {
 
   console.log('🚀 [App] About to return JSX tree');
 
-  // MB.MD INFRA-2: Testing LocationBiasProvider (TenantProvider ✅ safe)
+  // MB.MD INFRA-4: Testing monitoring providers (Tenant ✅, LocationBias ✅, Socket ✅)
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TenantProvider>
             <LocationBiasProvider>
-              <TooltipProvider>
-                <AppContent />
-              </TooltipProvider>
+              <SocketProvider>
+                <TooltipProvider>
+                  <OpenReplayProvider>
+                    <MonitoringProvider>
+                      <MicroInteractionProvider>
+                        <AppContent />
+                      </MicroInteractionProvider>
+                    </MonitoringProvider>
+                  </OpenReplayProvider>
+                </TooltipProvider>
+              </SocketProvider>
             </LocationBiasProvider>
           </TenantProvider>
         </AuthProvider>
