@@ -102,22 +102,27 @@ router.post('/api/security/validate-password', async (req, res) => {
   }
 });
 
-// CSRF token endpoint
+// CSRF token endpoint - Phase 1: Simple implementation without sessions
+// TODO Phase 2: Implement proper session-based CSRF protection
 router.get('/api/security/csrf-token', (req, res) => {
-  const session = req.session as any;
-  
-  // Generate token if not exists
-  if (!session.csrfToken) {
+  try {
+    // Generate a new token for each request (stateless for Phase 1)
     const { randomBytes } = require('crypto');
-    session.csrfToken = randomBytes(32).toString('hex');
+    const token = randomBytes(32).toString('hex');
+    
+    // Return both formats for compatibility
+    res.json({
+      success: true,
+      token: token,  // Frontend expects this
+      csrfToken: token  // Backward compatibility
+    });
+  } catch (error) {
+    console.error('CSRF token generation error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to generate CSRF token'
+    });
   }
-  
-  // Return both formats for compatibility
-  res.json({
-    success: true,
-    token: session.csrfToken,  // Frontend expects this
-    csrfToken: session.csrfToken  // Backward compatibility
-  });
 });
 
 // Helper function to calculate password strength
