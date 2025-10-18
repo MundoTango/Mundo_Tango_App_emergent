@@ -66,7 +66,14 @@ export const users = pgTable("users", {
   lastJourneyUpdate: timestamp("last_journey_update").defaultNow(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}, (table) => [
+  // Phase 3: Database Optimization Indexes
+  index("idx_users_journey_state").on(table.customerJourneyState),
+  index("idx_users_email").on(table.email),
+  index("idx_users_city_country").on(table.city, table.country),
+  index("idx_users_created_at").on(table.createdAt),
+  index("idx_users_subscription_tier").on(table.subscriptionTier),
+]);
 
 // Roles table for comprehensive role management
 export const roles = pgTable("roles", {
@@ -349,7 +356,15 @@ export const events = pgTable("events", {
   eventVisualMarker: varchar("event_visual_marker", { length: 20 }).default("default"), // Visual marker/color for event type (milonga=red, practica=blue, workshop=green)
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}, (table) => [
+  // Phase 3: Database Optimization Indexes
+  index("idx_events_start_date").on(table.startDate),
+  index("idx_events_user_id").on(table.userId),
+  index("idx_events_city").on(table.city),
+  index("idx_events_created_at").on(table.createdAt),
+  index("idx_events_status").on(table.status),
+  index("idx_events_event_type").on(table.eventType),
+]);
 
 // Event RSVPs table
 export const eventRsvps = pgTable("event_rsvps", {
@@ -640,7 +655,12 @@ export const follows = pgTable("follows", {
   followingId: integer("following_id").references(() => users.id).notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}, (table) => [
+  // Phase 3: Database Optimization Indexes
+  index("idx_follows_follower_id").on(table.followerId),
+  index("idx_follows_following_id").on(table.followingId),
+  index("idx_follows_composite").on(table.followerId, table.followingId),
+]);
 
 // Post likes table
 export const postLikes = pgTable("post_likes", {
