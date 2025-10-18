@@ -3,3 +3,40 @@
 *.avi filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
 *.MP4 filter=lfs diff=lfs merge=lfs -text
+
+# 🔒 Mundo Tango ESA LIFE CEO - Critical File Protection
+# Date: October 18, 2025
+# Purpose: Protect files from Replit checkpoint deletions
+
+# Critical documentation - prevent merge deletions
+MT_MASTER_REBUILD_PLAN.md merge=ours
+DEPLOYMENT_STABILITY_PLAN.md merge=ours
+WHERE_ARE_WE_NOW.md merge=ours
+MB_MD_*.md merge=ours
+PHASE_*.md merge=ours
+FILE_PROTECTION_IMPLEMENTATION.md merge=ours
+
+# Agent index files - critical for platform operation
+# Note: Cannot use wildcard in gitattributes, must list individually
+server/agents/algorithms/index.ts merge=ours
+server/agents/hire-volunteer/index.ts merge=ours
+server/agents/journey-agents/index.ts merge=ours
+server/agents/leadership/index.ts merge=ours
+server/agents/life-ceo/index.ts merge=ours
+server/agents/marketing/index.ts merge=ours
+server/agents/mr-blue/index.ts merge=ours
+server/agents/operational/index.ts merge=ours
+server/agents/page-agents/index.ts merge=ours
+server/agents/services/index.ts merge=ours
+server/agents/ui-sub-agents/index.ts merge=ours
+server/agents/app-leads/index.ts merge=ours
+
+# Line ending normalization
+* text=auto
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
