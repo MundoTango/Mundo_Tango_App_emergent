@@ -213,24 +213,19 @@ function Router() {
 }
 
 function AppContent() {
-  console.log('🎯 [AppContent] Rendering - ESA components should load');
+  console.log('🎯 [AppContent] Rendering - BARE MINIMUM FOR DEBUG');
   
-  usePerformanceOptimization(); // ESA Performance Layer 50
-  useMonitoring(); // ESA Monitoring Layer 51
+  // TEMP: Disabled hooks to isolate crash
+  // usePerformanceOptimization(); // ESA Performance Layer 50
+  // useMonitoring(); // ESA Monitoring Layer 51
 
   console.log('🎯 [AppContent] After hooks - about to render');
 
   return (
-    <VisualEditorWrapper>
+    <>
       <Router />
-      <ErrorBoundary>
-        <ESAMindMap />
-        <MrBlueFloatingButton />
-        <SuperAdminToggle />
-      </ErrorBoundary>
       <Toaster />
-      <TrialBanner />
-    </VisualEditorWrapper>
+    </>
   );
 }
 
@@ -254,26 +249,14 @@ function App() {
 
   console.log('🚀 [App] About to return JSX tree');
 
+  // TEMP: Stripped down to bare minimum to isolate crash
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <TenantProvider>
-            <LocationBiasProvider>
-              <SocketProvider>
-                <TooltipProvider>
-                  <OpenReplayProvider>
-                    <MonitoringProvider>
-                      <MicroInteractionProvider>
-                        <SessionRecordingNotice />
-                        <AppContent />
-                      </MicroInteractionProvider>
-                    </MonitoringProvider>
-                  </OpenReplayProvider>
-                </TooltipProvider>
-              </SocketProvider>
-            </LocationBiasProvider>
-          </TenantProvider>
+          <TooltipProvider>
+            <AppContent />
+          </TooltipProvider>
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
