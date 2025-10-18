@@ -302,6 +302,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Phase 15 Batch 1: Client-Side Cache Monitoring
+  app.post('/api/monitoring/client-cache', async (req: any, res) => {
+    try {
+      const { hitRate, cacheSize, totalQueries, cachedQueries, staleQueries, timestamp } = req.body;
+      
+      console.log('📊 Client Cache Metrics:', {
+        hitRate: `${hitRate.toFixed(2)}%`,
+        cacheSize: `${(cacheSize / 1024).toFixed(2)}KB`,
+        totalQueries,
+        cachedQueries,
+        staleQueries,
+        timestamp
+      });
+      
+      // Store metrics for intelligent monitoring
+      // (intelligentPerformanceMonitor can consume this data)
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Client cache monitoring error:', error);
+      res.status(500).json({ success: false, error: 'Failed to record client cache metrics' });
+    }
+  });
+
   // Validation API Routes for Life CEO 40x20s Framework
   app.get('/api/validation/status', async (req, res) => {
     try {

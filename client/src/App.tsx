@@ -69,6 +69,9 @@ const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloati
 // ESA Dev Tools - Super Admin toggle for development testing
 const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(m => ({ default: m.SuperAdminToggle })));
 
+// Phase 15 Batch 1: Cache monitor display for development
+const CacheMonitorDisplay = lazy(() => import("@/components/dev/CacheMonitorDisplay").then(m => ({ default: m.CacheMonitorDisplay })));
+
 // ESA Visual Editor - Replit-style page editor (Agent #78)
 const VisualEditorWrapper = lazy(() => import("@/components/visual-editor/VisualEditorWrapper"));
 
@@ -243,6 +246,10 @@ function AppContent() {
       {/* MrBlueFloatingButton - CRASHES - Fix later */}
       <Suspense fallback={null}>
         <VisualEditorWrapper />
+      </Suspense>
+      {/* Phase 15 Batch 1: Cache monitoring display (dev only) */}
+      <Suspense fallback={null}>
+        <CacheMonitorDisplay />
       </Suspense>
     </>
   );
