@@ -115,7 +115,8 @@ class AgentCoordinator extends EventEmitter {
       const { Layer49SecurityHardeningAgent } = await import('./layer49-security-hardening-agent');
       const { Layer50DevOpsAutomationAgent } = await import('./layer50-devops-automation-agent');
       const { Layer51TestingFrameworkAgent } = await import('./layer51-testing-framework-agent');
-      const { Layer52DocumentationSystemAgent } = await import('./layer52-documentation-system-agent');
+      // DISABLED: Layer 52 Documentation System Agent - Was truncating files to 0 bytes during bootstrap
+      // const { Layer52DocumentationSystemAgent } = await import('./layer52-documentation-system-agent');
       const { Layer53InternationalizationAgent } = await import('./layer53-internationalization-agent');
       const { Layer54AccessibilityAgent } = await import('./layer54-accessibility-agent');
       const { Layer55SEOOptimizationAgent } = await import('./layer55-seo-optimization-agent');
@@ -194,7 +195,8 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(49, new Layer49SecurityHardeningAgent() as any);
       this.agents.set(50, new Layer50DevOpsAutomationAgent() as any);
       this.agents.set(51, new Layer51TestingFrameworkAgent() as any);
-      this.agents.set(52, new Layer52DocumentationSystemAgent() as any);
+      // DISABLED: Layer 52 - Was truncating documentation files to 0 bytes
+      // this.agents.set(52, new Layer52DocumentationSystemAgent() as any);
       this.agents.set(53, new Layer53InternationalizationAgent() as any);
       this.agents.set(54, new Layer54AccessibilityAgent() as any);
       this.agents.set(55, new Layer55SEOOptimizationAgent() as any);
@@ -210,7 +212,8 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(49, new Layer49SecurityHardeningAgent() as any);
       this.agents.set(50, new Layer50DevOpsAutomationAgent() as any);
       this.agents.set(51, new Layer51TestingFrameworkAgent() as any);
-      this.agents.set(52, new Layer52DocumentationSystemAgent() as any);
+      // DISABLED: Layer 52 - Was truncating documentation files to 0 bytes
+      // this.agents.set(52, new Layer52DocumentationSystemAgent() as any);
       this.agents.set(53, new Layer53InternationalizationAgent() as any);
       this.agents.set(54, new Layer54AccessibilityAgent() as any);
       this.agents.set(55, new Layer55SEOOptimizationAgent() as any);
