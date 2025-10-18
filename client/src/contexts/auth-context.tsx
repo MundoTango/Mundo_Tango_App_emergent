@@ -3,6 +3,7 @@ import { User } from "@shared/schema";
 
 interface AuthContextType {
   user: User | null;
+  isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (userData: any) => Promise<void>;
   logout: () => void;
@@ -123,8 +124,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
+  const isAuthenticated = user !== null;
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, register, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
