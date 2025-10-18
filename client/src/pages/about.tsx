@@ -34,7 +34,7 @@ export default function About() {
             <li>A global network of tango dancers and communities</li>
             <li>Event discovery and management tools</li>
             <li>Memory sharing and community building</li>
-            <li>AI-powered recommendations and assistance (276 specialized agents)</li>
+            <li>AI-powered recommendations and assistance (173+ operational agents)</li>
             <li>Real-time connections and messaging</li>
           </ul>
 

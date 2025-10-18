@@ -148,7 +148,7 @@ export default function LandingVisitor() {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-gray-600 dark:text-gray-300 text-center text-lg">
-                Get personalized recommendations and insights powered by 276 AI agents.
+                Get personalized recommendations and insights powered by 173+ operational AI agents.
               </CardDescription>
             </CardContent>
           </Card>

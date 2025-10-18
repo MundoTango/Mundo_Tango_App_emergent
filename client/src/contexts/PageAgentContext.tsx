@@ -1,6 +1,6 @@
 /**
  * Page Agent Context
- * Phase 0 Task 0.4: 276-agent context visibility
+ * Phase 13: 173 operational modern agents + 61 legacy ESA agents
  * 
  * Provides page-specific agent context for AI assistance
  */

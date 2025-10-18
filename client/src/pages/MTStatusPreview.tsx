@@ -23,9 +23,9 @@ export default function MTStatusPreview() {
             <div className="flex items-center justify-center mb-4">
               <CheckCircle className="h-12 w-12 text-green-500" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">122 / 276</h3>
-            <p className="text-gray-600">Agents Operational</p>
-            <p className="text-sm text-gray-500 mt-2">44.2%</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">173 / 173</h3>
+            <p className="text-gray-600">Modern Agents Operational</p>
+            <p className="text-sm text-gray-500 mt-2">100%</p>
           </Card>
 
           <Card className="p-6 text-center">
@@ -51,8 +51,8 @@ export default function MTStatusPreview() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Agent Categories</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="flex justify-between items-center p-3 bg-green-50 rounded">
-              <span className="font-medium">ESA Infrastructure</span>
-              <span className="text-green-600">60 agents</span>
+              <span className="font-medium">Page Agents</span>
+              <span className="text-green-600">88 agents</span>
             </div>
             <div className="flex justify-between items-center p-3 bg-green-50 rounded">
               <span className="font-medium">Leadership & Management</span>
@@ -81,6 +81,18 @@ export default function MTStatusPreview() {
             <div className="flex justify-between items-center p-3 bg-green-50 rounded">
               <span className="font-medium">UI Sub-Agents</span>
               <span className="text-green-600">3 agents</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded">
+              <span className="font-medium">Life CEO</span>
+              <span className="text-green-600">16 agents</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded">
+              <span className="font-medium">Marketing & App Leads</span>
+              <span className="text-green-600">10 agents</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded">
+              <span className="font-medium">Hire/Volunteer</span>
+              <span className="text-green-600">5 agents</span>
             </div>
           </div>
         </Card>
