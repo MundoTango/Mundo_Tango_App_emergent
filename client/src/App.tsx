@@ -10,6 +10,7 @@ import { TenantProvider } from "@/contexts/TenantContext";
 import { OpenReplayProvider } from "@/components/OpenReplayProvider";
 import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
 import { LocationBiasProvider } from "@/contexts/LocationBiasContext";
+import { PageAgentProvider } from "@/contexts/PageAgentContext";
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -25,11 +26,11 @@ import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
 import "@/utils/console-cleanup"; // Security: Clean console output
 
-// ESA Life CEO 61x21 - Monitoring Services
+// Mundo Tango ESA - Monitoring Services
 import { MonitoringProvider } from "@/components/MonitoringProvider";
 import { useMonitoring } from "@/hooks/useMonitoring";
 
-// ESA LIFE CEO 61x21 - Route Registry (Layers 21-30)
+// Mundo Tango ESA - Route Registry (Layers 21-30)
 import { productionRoutes, debugRoutes, type RouteConfig } from "@/config/routes";
 
 // Import shared queryClient with ESA Layer 14 cache configuration
@@ -72,7 +73,7 @@ import VisualEditorWrapper from "@/components/visual-editor/VisualEditorWrapper"
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 
-// Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
+// Mundo Tango ESA Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
   <div style={{ 
     minHeight: '100vh', 
@@ -185,7 +186,7 @@ function Router() {
             <Landing />
           </Route>
 
-          {/* ESA LIFE CEO 61x21 - Dynamic Routes from Registry */}
+          {/* Mundo Tango ESA - Dynamic Routes from Registry */}
           {allRoutes.map((route: RouteConfig) => {
             const RouteComponent = route.component;
             return (
@@ -253,23 +254,26 @@ function App() {
   console.log('🚀 [App] About to return JSX tree');
 
   // MB.MD INFRA-4: Testing monitoring providers (Tenant ✅, LocationBias ✅, Socket ✅)
+  // Phase 0 Task 0.4: PageAgentProvider added for 276-agent context visibility
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TenantProvider>
             <LocationBiasProvider>
-              <SocketProvider>
-                <TooltipProvider>
-                  <OpenReplayProvider>
-                    <MonitoringProvider>
-                      <MicroInteractionProvider>
-                        <AppContent />
-                      </MicroInteractionProvider>
-                    </MonitoringProvider>
-                  </OpenReplayProvider>
-                </TooltipProvider>
-              </SocketProvider>
+              <PageAgentProvider>
+                <SocketProvider>
+                  <TooltipProvider>
+                    <OpenReplayProvider>
+                      <MonitoringProvider>
+                        <MicroInteractionProvider>
+                          <AppContent />
+                        </MicroInteractionProvider>
+                      </MonitoringProvider>
+                    </OpenReplayProvider>
+                  </TooltipProvider>
+                </SocketProvider>
+              </PageAgentProvider>
             </LocationBiasProvider>
           </TenantProvider>
         </AuthProvider>
