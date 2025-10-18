@@ -240,8 +240,8 @@ class AgentCoordinator extends EventEmitter {
       let pageAgentCount = 0;
       
       try {
-        const journeyModule = await import('./journey-agents/index');
-        journeyAgentCount = journeyModule.default?.length || 0;
+        const { journeyAgents } = await import('./journey-agents/index');
+        journeyAgentCount = journeyAgents?.length || 0;
         console.log(`✅ [Journey Agents] ${journeyAgentCount} agents loaded`);
       } catch (error) {
         console.warn(`⚠️  [Journey Agents] Failed to load:`, (error as Error).message);
