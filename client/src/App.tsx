@@ -46,6 +46,7 @@ if (typeof window !== 'undefined') {
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import LandingVisitor from "@/pages/landing-visitor";
+import TestSimple from "@/pages/test-simple"; // TEMP: Minimal test page
 import Discover from "@/pages/discover";
 import About from "@/pages/about";
 import Join from "@/pages/join";
@@ -156,13 +157,12 @@ function Router() {
       <Suspense fallback={<LoadingFallback />}>
         <Switch>
           {/* J1 - First-Time Visitor Journey */}
+          {/* TEMP: Using minimal test page for debugging */}
           <Route path="/">
             {isLoading ? (
               <LoadingFallback />
-            ) : isAuthenticated ? (
-              <Redirect to="/memories" />
             ) : (
-              <LandingVisitor />
+              <TestSimple />
             )}
           </Route>
 
