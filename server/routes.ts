@@ -99,6 +99,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
+  app.use('/api', tenantRoutes);  // ✅ FIXED - Tenant and multi-community routes
   app.use('/api/journey', journeyRoutes); // ✅ ENABLED - Customer journey tracking (J1-J8)
   
   // Mundo Tango ESA LIFE CEO - Register optimized post routes early to reduce memory load
