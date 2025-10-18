@@ -23,7 +23,7 @@ export default function LandingVisitor() {
     queryKey: ['/api/stats/public'],
   });
 
-  const { data: featuredEvents, isLoading: eventsLoading } = useQuery({
+  const { data: featuredEvents, isLoading: eventsLoading } = useQuery<any[]>({
     queryKey: ['/api/events', { public: true, limit: 5 }],
   });
 

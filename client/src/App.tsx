@@ -157,12 +157,12 @@ function Router() {
       <Suspense fallback={<LoadingFallback />}>
         <Switch>
           {/* J1 - First-Time Visitor Journey */}
-          {/* TEMP: Using minimal test page for debugging */}
+          {/* LSP errors fixed, testing with real landing page now */}
           <Route path="/">
             {isLoading ? (
               <LoadingFallback />
             ) : (
-              <TestSimple />
+              <LandingVisitor />
             )}
           </Route>
 
