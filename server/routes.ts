@@ -60,8 +60,8 @@ import adminRoutes from "./routes/adminRoutes";
 import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
 import securityRoutes from "./routes/security"; // Mundo Tango ESA LIFE CEO - Security routes (CSRF, audit, etc.)
-import publicStatsRoutes from "./routes/publicStatsRoutes"; // J1 - Public stats for visitor landing page
-import journeyRoutes from "./routes/journeyRoutes"; // Phase 0 Task 0.5 - Journey Orchestration routes (J1-J4)
+// import publicStatsRoutes from "./routes/publicStatsRoutes"; // J1 - Public stats for visitor landing page (TODO: Create this file)
+// import journeyRoutes from "./routes/journeyRoutes"; // Phase 0 Task 0.5 - Journey Orchestration routes (J1-J4) - Temporarily disabled to fix server
 
 import { getUserId } from "./utils/authHelper";
 
@@ -84,13 +84,13 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Register domain routes first
   app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1
-  app.use(publicStatsRoutes);      // J1 - Public stats API for visitor landing page
+  // app.use(publicStatsRoutes);      // J1 - Public stats API for visitor landing page (TODO)
   app.use('/api', userRoutes);    // User profile and settings routes
   app.use('/api', authRoutes);    // Authentication routes
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
-  app.use('/api/journey', journeyRoutes); // Phase 0 Task 0.5 - Journey Orchestration API (J1-J4)
+  // app.use('/api/journey', journeyRoutes); // Phase 0 Task 0.5 - Journey Orchestration API (J1-J4) - Temporarily disabled
   
   // Mundo Tango ESA LIFE CEO - Register optimized post routes early to reduce memory load
   app.use(postRoutes);
