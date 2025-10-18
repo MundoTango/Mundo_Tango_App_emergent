@@ -1,12 +1,19 @@
-import { Router, Request, Response } from 'express';
+/**
+ * Mundo Tango ESA LIFE CEO - Search Routes
+ * Phase 11 Parallel Batch 2: Updated with secure pattern (direct DB + error handling + Zod validation)
+ */
+
+import { Router, Response, NextFunction } from 'express';
 import { SearchService } from '../services/searchService';
+import { ValidationError } from '../middleware/errorHandler';
+import { success } from '../utils/apiResponse';
 import { z } from 'zod';
 
 const router = Router();
 
 // Search query schema
 const searchQuerySchema = z.object({
-  q: z.string().min(2).max(100),
+  q: z.string().min(2, 'Query must be at least 2 characters').max(100, 'Query too long'),
   type: z.array(z.enum(['user', 'post', 'event', 'group', 'memory'])).optional(),
   limit: z.string().transform(Number).pipe(z.number().min(1).max(50)).optional(),
   offset: z.string().transform(Number).pipe(z.number().min(0)).optional(),
@@ -17,32 +24,28 @@ const searchQuerySchema = z.object({
 
 // Suggestions query schema
 const suggestionsSchema = z.object({
-  q: z.string().min(2).max(50),
+  q: z.string().min(2, 'Query must be at least 2 characters').max(50, 'Query too long'),
   limit: z.string().transform(Number).pipe(z.number().min(1).max(20)).optional()
+});
+
+// Track click schema
+const trackClickSchema = z.object({
+  query: z.string().min(1, 'Query is required'),
+  resultId: z.number().int().positive(),
+  resultType: z.enum(['user', 'post', 'event', 'group', 'memory']),
+  position: z.number().int().nonnegative()
 });
 
 /**
  * Universal search endpoint
  * GET /api/search/all?q=query&type[]=user&type[]=post&limit=20&offset=0
  */
-router.get('/all', async (req: Request, res: Response) => {
+router.get('/all', async (req, res, next: NextFunction) => {
   try {
-    console.log('Search route /all called with query:', req.query);
-    
-    const validation = searchQuerySchema.safeParse(req.query);
-    if (!validation.success) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid search parameters',
-        details: validation.error.errors
-      });
-    }
+    const validated = searchQuerySchema.parse(req.query);
+    const { q, type, limit = 20, offset = 0, dateFrom, dateTo, location } = validated;
+    const userId = (req as any).user?.id;
 
-    const { q, type, limit = 20, offset = 0, dateFrom, dateTo, location } = validation.data;
-    const userId = req.user?.id;
-
-    console.log('Calling SearchService.searchAll with:', { q, type, limit, offset, userId });
-    
     const results = await SearchService.searchAll({
       query: q,
       filters: {
@@ -55,34 +58,24 @@ router.get('/all', async (req: Request, res: Response) => {
       offset,
       userId
     });
-    
-    console.log('SearchService returned:', results);
 
-    // Track search query is already handled in searchAll method
-
-    res.json({
-      success: true,
-      results,
+    res.json(success({
+      results: results.results,
+      total: results.total,
       query: q,
-      filters: {
-        type,
-        dateFrom,
-        dateTo,
-        location
-      },
+      filters: { type, dateFrom, dateTo, location },
       pagination: {
         limit,
         offset,
-        hasMore: results.length === limit
+        hasMore: results.results.length === limit
       }
-    });
+    }, 'Search completed successfully'));
   } catch (error) {
-    console.error('Search error:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to search',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
+    if (error instanceof z.ZodError) {
+      next(new ValidationError(error.errors[0].message));
+    } else {
+      next(error);
+    }
   }
 });
 
@@ -90,30 +83,20 @@ router.get('/all', async (req: Request, res: Response) => {
  * Get search suggestions (autocomplete)
  * GET /api/search/suggestions?q=query&limit=10
  */
-router.get('/suggestions', async (req: Request, res: Response) => {
+router.get('/suggestions', async (req, res, next: NextFunction) => {
   try {
-    const validation = suggestionsSchema.safeParse(req.query);
-    if (!validation.success) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid parameters',
-        details: validation.error.errors
-      });
-    }
+    const validated = suggestionsSchema.parse(req.query);
+    const { q, limit = 10 } = validated;
 
-    const { q, limit = 10 } = validation.data;
     const suggestions = await SearchService.getSuggestions(q, limit);
 
-    res.json({
-      success: true,
-      suggestions
-    });
+    res.json(success({ suggestions }, 'Suggestions fetched successfully'));
   } catch (error) {
-    console.error('Suggestions error:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to get suggestions'
-    });
+    if (error instanceof z.ZodError) {
+      next(new ValidationError(error.errors[0].message));
+    } else {
+      next(error);
+    }
   }
 });
 
@@ -121,23 +104,21 @@ router.get('/suggestions', async (req: Request, res: Response) => {
  * Get trending searches
  * GET /api/search/trending?limit=10&category=all
  */
-router.get('/trending', async (req: Request, res: Response) => {
+router.get('/trending', async (req, res, next: NextFunction) => {
   try {
-    const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
-    const category = req.query.category as string || 'all';
+    const limitStr = req.query.limit as string;
+    const limit = limitStr ? parseInt(limitStr, 10) : 10;
+    const category = (req.query.category as string) || 'all';
+
+    if (isNaN(limit) || limit < 1 || limit > 50) {
+      throw new ValidationError('Invalid limit parameter');
+    }
 
     const trending = await SearchService.getTrending(limit, category);
 
-    res.json({
-      success: true,
-      trending
-    });
+    res.json(success({ trending }, 'Trending searches fetched successfully'));
   } catch (error) {
-    console.error('Trending error:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to get trending searches'
-    });
+    next(error);
   }
 });
 
@@ -145,13 +126,13 @@ router.get('/trending', async (req: Request, res: Response) => {
  * Test search endpoints individually
  * GET /api/search/test/:type
  */
-router.get('/test/:type', async (req: Request, res: Response) => {
+router.get('/test/:type', async (req, res, next: NextFunction) => {
   try {
-    const { type } = req.params;
+    const searchType = req.params.type;
     const query = 'tango';
     let results;
 
-    switch (type) {
+    switch (searchType) {
       case 'users':
         results = await SearchService['searchUsers'](query, 5);
         break;
@@ -168,22 +149,15 @@ router.get('/test/:type', async (req: Request, res: Response) => {
         results = await SearchService['searchMemories'](query, 5);
         break;
       default:
-        return res.status(400).json({ error: 'Invalid search type' });
+        throw new ValidationError(`Invalid search type: ${searchType}`);
     }
 
-    res.json({
-      success: true,
-      type,
+    res.json(success({
+      type: searchType,
       results
-    });
+    }, `${searchType} search test completed`));
   } catch (error) {
-    console.error(`Test search error for ${type}:`, error);
-    res.status(500).json({
-      success: false,
-      type,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    });
+    next(error);
   }
 });
 
@@ -191,24 +165,27 @@ router.get('/test/:type', async (req: Request, res: Response) => {
  * Track search click (for analytics and relevance improvement)
  * POST /api/search/track
  */
-router.post('/track', async (req: Request, res: Response) => {
+router.post('/track', async (req, res, next: NextFunction) => {
   try {
-    const { query, resultId, resultType, position } = req.body;
-    const userId = req.user?.id;
+    const validated = trackClickSchema.parse(req.body);
+    const userId = (req as any).user?.id;
 
     // TODO: Implement click tracking for search relevance improvement
-    console.log('Search click tracked:', { query, resultId, resultType, position, userId });
+    console.log('Search click tracked:', {
+      query: validated.query,
+      resultId: validated.resultId,
+      resultType: validated.resultType,
+      position: validated.position,
+      userId
+    });
 
-    res.json({
-      success: true,
-      message: 'Click tracked'
-    });
+    res.json(success({ tracked: true }, 'Click tracked successfully'));
   } catch (error) {
-    console.error('Track click error:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to track click'
-    });
+    if (error instanceof z.ZodError) {
+      next(new ValidationError(error.errors[0].message));
+    } else {
+      next(error);
+    }
   }
 });
 
@@ -216,29 +193,27 @@ router.post('/track', async (req: Request, res: Response) => {
  * Test endpoint to check data
  * GET /api/search/test-data
  */
-router.get('/test-data', async (req: Request, res: Response) => {
+router.get('/test-data', async (req, res, next: NextFunction) => {
   try {
     const { db } = await import('../db');
     const { users, posts, events, groups } = await import('@shared/schema');
     
     // Get sample data
-    const sampleUsers = await db.select().from(users).limit(3);
-    const samplePosts = await db.select().from(posts).limit(3);
-    const sampleEvents = await db.select().from(events).limit(3);
-    const sampleGroups = await db.select().from(groups).limit(3);
+    const [sampleUsers, samplePosts, sampleEvents, sampleGroups] = await Promise.all([
+      db.select().from(users).limit(3),
+      db.select().from(posts).limit(3),
+      db.select().from(events).limit(3),
+      db.select().from(groups).limit(3)
+    ]);
     
-    res.json({
-      success: true,
-      data: {
-        users: sampleUsers,
-        posts: samplePosts,
-        events: sampleEvents,
-        groups: sampleGroups
-      }
-    });
+    res.json(success({
+      users: sampleUsers,
+      posts: samplePosts,
+      events: sampleEvents,
+      groups: sampleGroups
+    }, 'Test data fetched successfully'));
   } catch (error) {
-    console.error('Test data error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get test data' });
+    next(error);
   }
 });
 
