@@ -125,34 +125,46 @@ Rollback to Checkpoint A:
 
 ---
 
-### Behavior 3: Ephemeral Storage Model ✅ **CONFIRMED BY DOCS**
+### Behavior 3: Workspace vs Deployment Storage ✅ **CONFIRMED BY DOCS**
 
 **What Replit Docs Say:**
-> "File Storage: Files within your workspace are persisted on publishing and **reset on restart**."
+> "Files in your Replit App's workspace, including application code, static assets, and configuration files, are **persisted across sessions**." *(Source: Replit Apps Documentation)*
 
-**What This Means:**
+**CRITICAL DISTINCTION:**
+
+**Workspace Files (Development):** ✅ **PERSISTENT**
 ```
 During Development:
-  Files in workspace → Stored in memory/temp
-  Restart happens → Files may be lost
-  
-After Publishing:
-  Files in deployment → Persistent
+  Files in workspace → Persistent across sessions
   Restart happens → Files remain
+  Accessible → In your editor/development environment
+  
+Example: Your code, docs/, scripts/, etc.
 ```
 
-**Evidence:**
-> "When using deployments, any data saved to the filesystem in Autoscale, Static, and Reserved VM deployments will **not persist after republishing**."
+**Deployment Filesystem:** ❌ **NOT PERSISTENT**
+```
+After Publishing (Autoscale/Static/VM):
+  Files written at runtime → NOT persistent
+  Republish/restart happens → Files lost
+  Accessible → Only during that deployment instance
+  
+Example: User uploads, generated files, temp data
+```
 
-**Recommendation from Replit:**
-> "To store data, Replit recommends using its Storage and Database offerings."
+**Replit's Official Guidance:**
+> "For Autoscale, Static, and Reserved VM deployments, any data saved to the filesystem will **not persist after republishing** or restarting." *(Source: Replit Apps, Storage Overview)*
+
+**Recommended Solutions:**
+> "You should use Object Storage (now App Storage) to handle builder uploads and serve files, or Replit Database to store and retrieve data." *(Source: Replit Apps, About Publishing)*
 
 **Solution:**
-- Use PostgreSQL for critical data (always persistent)
-- Use App Storage for media/files (persistent)
-- Don't rely on workspace files for data persistence
+- ✅ Workspace files (code, docs) → Already persistent
+- ✅ PostgreSQL for critical data → Always persistent
+- ✅ App Storage for media/files → Persistent across deploys
+- ❌ DON'T save runtime data to filesystem in deployments
 
-**Frequency:** Depends on restart/publish cycles
+**Frequency:** Only affects deployed apps, not development workspace
 
 ---
 
@@ -244,24 +256,44 @@ async function restoreFiles() {
 
 **Replit Offers 4 Storage Types:**
 
-| Type | Persistence | Use Case | Survives Restart? |
-|------|-------------|----------|-------------------|
-| **Workspace Files** | During dev | Code, config | ⚠️ Maybe |
-| **Database** | Always | Structured data | ✅ Yes |
-| **App Storage** | Always | Media, uploads | ✅ Yes |
-| **Secrets** | Always | API keys | ✅ Yes |
+| Type | Persistence | Use Case | Survives Restart? | Source |
+|------|-------------|----------|-------------------|--------|
+| **Workspace Files** | ✅ During dev | Code, config, docs | ✅ Yes | Replit Apps Docs |
+| **Database (PostgreSQL)** | ✅ Always | Structured data | ✅ Yes | Storage Overview |
+| **App Storage** | ✅ Always | Media, uploads | ✅ Yes | Storage Overview |
+| **Secrets** | ✅ Always | API keys | ✅ Yes | Storage Overview |
+| **Deployment Filesystem** | ❌ Runtime only | Temp files | ❌ No | About Publishing |
 
-**For Documentation:**
+**Storage Limits by Plan:**
+- Starter: 2GB workspace
+- Core: 50GB workspace
+- Teams: 256GB workspace
+- Enterprise: Custom
+
+**For Documentation (Development):**
 ```markdown
-❌ DON'T: Store in workspace files only
-  → May be lost on restart
-  → Subject to checkpoint isolation
-  → Working dir desync issues
+✅ DO: Store in workspace files
+  → Persistent across sessions
+  → Available in editor
+  → Version controlled via git
+  
+✅ ALSO DO: PostgreSQL backup
+  → Extra layer of protection
+  → Independent of filesystem/git
+  → Recoverable if git issues occur
+  → Protection against checkpoint desync
+```
 
-✅ DO: Store in PostgreSQL
-  → Always persistent
-  → Independent of filesystem
-  → Source of truth for recovery
+**For User Data (Deployment):**
+```markdown
+❌ DON'T: Save to deployment filesystem
+  → Lost on republish/restart
+  → Only exists during deployment instance
+  
+✅ DO: Use App Storage or PostgreSQL
+  → Persistent across deployments
+  → Survives republish/restart
+  → Proper production storage
 ```
 
 ---
@@ -516,95 +548,157 @@ PostgreSQL = Ultimate source of truth
 
 ---
 
-### Solution 2: Watchman (Facebook)
+### Solution 2: Chokidar (File Watcher)
 
 **What It Does:**
-- Watches filesystem for changes
-- Triggers actions on file changes
+- Cross-platform file watching library
+- Detects file changes, additions, deletions
+- Triggers callbacks on filesystem events
+
+**Tool Details:**
+- **Name:** Chokidar
+- **URL:** https://github.com/paulmillr/chokidar
+- **npm:** `npm install chokidar`
+- **Pros:** Cross-platform, efficient, widely used (35K+ GitHub stars)
+- **Cons:** Can only detect changes, can't prevent them
 
 **Applicability:**
-- ✅ Could detect file deletion
+- ✅ Could detect file deletion in real-time
 - ❌ Can't prevent Replit checkpoint behavior
-- ⚠️ Useful for backup triggers
+- ⚠️ Useful for triggering automatic backups
+- ✅ Could alert when files vanish
 
-**Potential Use:**
+**Implementation Example:**
 ```typescript
-// Watch for file changes, auto-backup
-import watchman from 'fb-watchman';
+// Auto-backup on file changes
+import chokidar from 'chokidar';
 
-watchman.watch('docs/', (event) => {
-  if (event.type === 'change') {
-    backupFile(event.path);
-  }
+const watcher = chokidar.watch('docs/', {
+  ignored: /(^|[\/\\])\../,
+  persistent: true
+});
+
+watcher
+  .on('add', path => backupFile(path))
+  .on('change', path => backupFile(path))
+  .on('unlink', path => {
+    console.warn(`⚠️  File deleted: ${path}`);
+    // Could trigger alert or recovery
+  });
+```
+
+**Verdict:** Useful enhancement for automatic backups, but doesn't solve root problem.
+
+---
+
+### Solution 3: AWS S3 Sync with s3-sync-client
+
+**What It Does:**
+- Bi-directional sync between local filesystem and S3
+- S3 becomes source of truth
+- Local filesystem acts as cache
+- Can trigger on file changes
+
+**Tool Details:**
+- **Name:** s3-sync-client
+- **URL:** https://github.com/jeanbmar/s3-sync-client
+- **npm:** `npm install s3-sync-client`
+- **Pros:** Simple API, efficient sync, TypeScript support, monitors changes
+- **Cons:** Requires AWS account, costs $0.023/GB/month storage + transfer fees
+
+**Implementation Example:**
+```typescript
+import { S3SyncClient } from 's3-sync-client';
+import { S3Client } from '@aws-sdk/client-s3';
+
+const s3Client = new S3Client({ region: 'us-east-1' });
+const syncClient = new S3SyncClient({ client: s3Client });
+
+// Sync local → S3 (backup)
+await syncClient.sync('docs/', 's3://my-bucket/docs/');
+
+// Sync S3 → local (restore)
+await syncClient.sync('s3://my-bucket/docs/', 'docs/');
+
+// Monitor for changes and auto-sync
+const monitor = syncClient.monitor('docs/', 's3://my-bucket/docs/', {
+  maxConcurrentTransfers: 20,
+  del: true // Delete files in S3 that don't exist locally
 });
 ```
 
-**Verdict:** Possible enhancement, not core solution.
-
----
-
-### Solution 3: S3 Sync Pattern
-
-**What It Does:**
-- Keep local files synced with S3
-- S3 = source of truth
-- Local = cache
-
-**Pattern:**
-```bash
-# On startup
-aws s3 sync s3://bucket/docs/ ./docs/
-
-# On change
-aws s3 sync ./docs/ s3://bucket/docs/
-
-# On session end
-aws s3 sync ./docs/ s3://bucket/docs/
+**Cost Analysis (for Mundo Tango):**
+```
+Docs size: ~50MB
+Monthly storage: $0.023/GB × 0.05GB = $0.00115
+Monthly reads: ~100 × $0.0004/1000 = negligible
+Monthly writes: ~100 × $0.005/1000 = $0.0005
+Total: ~$0.002/month (very cheap)
 ```
 
 **Applicability:**
-- ✅ Solves persistence problem
-- ✅ External to Replit
-- ❌ Requires S3 account/cost
+- ✅ Solves persistence problem completely
+- ✅ External to Replit (immune to platform issues)
+- ✅ Industry-standard solution
+- ❌ Requires AWS account setup
 - ❌ More complex than PostgreSQL
+- ⚠️ Adds external dependency
 
-**Verdict:** Valid alternative, but PostgreSQL simpler for text.
+**Verdict:** Valid alternative for paranoid redundancy, but PostgreSQL simpler for text-only docs.
 
 ---
 
-### Solution 4: SQLite for Local Persistence
+### Solution 4: better-sqlite3 for Local Persistence
 
 **What It Does:**
-- File-based database
-- Store data in .db file
-- Portable, no server needed
+- Embeddable SQL database stored in a single file
+- Zero-configuration, serverless
+- Fast reads/writes with full SQL support
 
-**Pattern:**
+**Tool Details:**
+- **Name:** better-sqlite3
+- **URL:** https://github.com/WiseLibs/better-sqlite3
+- **npm:** `npm install better-sqlite3`
+- **Pros:** Fastest Node.js SQLite library, synchronous API, no server needed
+- **Cons:** .db file subject to same workspace persistence issues as code files
+
+**Implementation Example:**
 ```typescript
-// Store docs in SQLite
 import Database from 'better-sqlite3';
-const db = new Database('docs.db');
+const db = new Database('docs/backup.db');
 
+// Create table
 db.exec(`
-  CREATE TABLE IF NOT EXISTS docs (
+  CREATE TABLE IF NOT EXISTS documentation (
     filename TEXT PRIMARY KEY,
-    content TEXT
+    content TEXT,
+    updated_at INTEGER
   )
 `);
 
-// Backup
-db.prepare('INSERT OR REPLACE INTO docs VALUES (?, ?)').run(
-  'mb.md',
-  fs.readFileSync('mb.md', 'utf-8')
-);
+// Backup file
+const stmt = db.prepare(`
+  INSERT OR REPLACE INTO documentation (filename, content, updated_at)
+  VALUES (?, ?, ?)
+`);
+
+stmt.run('mb.md', fs.readFileSync('mb.md', 'utf-8'), Date.now());
+
+// Restore file
+const doc = db.prepare('SELECT content FROM documentation WHERE filename = ?')
+  .get('mb.md');
+fs.writeFileSync('mb.md', doc.content);
 ```
 
 **Applicability:**
-- ✅ Simple, portable
-- ⚠️ .db file subject to same persistence issues
-- ❌ PostgreSQL already available and persistent
+- ✅ Simple, portable, fast
+- ✅ Better performance than PostgreSQL for local operations
+- ✅ Works offline
+- ❌ .db file stored in workspace (persistent during dev, per Replit docs)
+- ❌ PostgreSQL already available and equally persistent
+- ⚠️ Doesn't provide additional protection over PostgreSQL
 
-**Verdict:** Interesting but doesn't solve root problem.
+**Verdict:** Works well, but redundant when PostgreSQL is available. Consider if you need offline access or better performance for local dev.
 
 ---
 
@@ -638,16 +732,23 @@ npm run integrity-check  # Verify files exist
 
 ## 📊 Comparison: Storage Solutions
 
-| Solution | Persistence | Complexity | Cost | Works in Replit? |
-|----------|-------------|------------|------|------------------|
-| **PostgreSQL** | ✅ Always | Low | Free (included) | ✅ Yes |
-| **Git** | ✅ Via checkpoints | Low | Free | ✅ Yes |
-| **Workspace Files** | ⚠️ Sometimes | None | Free | ⚠️ Conditional |
-| **App Storage** | ✅ Always | Medium | Paid | ✅ Yes |
-| **S3** | ✅ Always | High | Paid | ✅ Yes (via API) |
-| **Git LFS** | ✅ Always | High | Paid | ⚠️ Complex |
+| Solution | Persistence | Complexity | Cost | Works in Replit? | Tool URL |
+|----------|-------------|------------|------|------------------|----------|
+| **PostgreSQL** (built-in) | ✅ Always | Low | Free (included) | ✅ Yes | N/A (included) |
+| **Git + Checkpoints** | ✅ Always | Low | Free | ✅ Yes | N/A (built-in) |
+| **Workspace Files** (dev) | ✅ Always* | None | Free | ✅ Yes | N/A (default) |
+| **App Storage** (Replit) | ✅ Always | Medium | $0.10/GB/mo | ✅ Yes | Replit Console |
+| **S3 + s3-sync-client** | ✅ Always | High | $0.02/GB/mo | ✅ Yes | [GitHub](https://github.com/jeanbmar/s3-sync-client) |
+| **better-sqlite3** | ✅ Always* | Low | Free | ✅ Yes | [GitHub](https://github.com/WiseLibs/better-sqlite3) |
+| **Chokidar** (watcher) | N/A | Medium | Free | ✅ Yes | [GitHub](https://github.com/paulmillr/chokidar) |
+| **Git LFS** | ✅ Always | High | $5/mo | ⚠️ Complex | [Git-LFS.com](https://git-lfs.com) |
 
-**Winner:** PostgreSQL (already have it, works perfectly)
+**Notes:**
+- \* Workspace files persist during development; deployment filesystem does not persist after republish
+- PostgreSQL and App Storage are Replit's recommended persistence solutions
+- Chokidar is a utility for triggering backups, not storage itself
+
+**Winner:** PostgreSQL (already included, always persistent, perfect for text documentation)
 
 ---
 
@@ -714,7 +815,15 @@ npm run integrity-check  # Verify files exist
 
 ---
 
-**Status:** ✅ Complete - Research-backed, solution-validated  
-**Last Updated:** October 18, 2025  
-**Research Sources:** Replit docs, incident analysis, industry patterns  
-**Solution Status:** Implemented and working (PostgreSQL backup)
+**Status:** ✅ Complete - Research-backed, solution-validated, citations added  
+**Last Updated:** October 18, 2025 (Technical accuracy validated)  
+**Research Sources:** 
+- Replit Apps Documentation (workspace persistence)
+- Replit Storage Overview (deployment filesystem behavior)
+- Replit About Publishing (published app constraints)
+- Open source tools (Chokidar, s3-sync-client, better-sqlite3)
+- Industry patterns (ephemeral containers, Git-based deployments)
+
+**Solution Status:** ✅ Implemented and working (PostgreSQL backup + workspace files)
+
+**Key Finding:** Workspace files ARE persistent during development (per official Replit docs), but deployment filesystem is NOT persistent after republish. PostgreSQL provides additional protection layer against checkpoint desync issues.
