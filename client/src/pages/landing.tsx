@@ -4,13 +4,22 @@ import { Music, Users, Calendar, MapPin, Heart, Star } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
+import { usePageAgent } from "@/hooks/usePageAgent"; // Phase 0 Task 0.4
 
 export default function Landing() {
   const { t } = useTranslation();
   const { isAuthenticated, isLoading } = useAuth();
+  const pageAgent = usePageAgent(); // Phase 0 Task 0.4: Page agent context
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  // Phase 0 Task 0.4: Log page agent info in development
+  useEffect(() => {
+    if (import.meta.env.DEV && pageAgent.hasContext) {
+      console.log(`📄 [Landing] Built by: ${pageAgent.agents[0]?.name}`, pageAgent);
+    }
+  }, [pageAgent]);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
     return (savedTheme as 'light' | 'dark') || 'light';
