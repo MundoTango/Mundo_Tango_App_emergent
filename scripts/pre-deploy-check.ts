@@ -207,13 +207,11 @@ async function main() {
   }
 }
 
-// Run if executed directly
-if (require.main === module) {
-  main().catch(error => {
-    log(`\n❌ CRITICAL ERROR: ${error.message}`, 'red');
-    console.error(error);
-    process.exit(1);
-  });
-}
-
 export { validateFileExistence, validateTypeScript, validateImports };
+
+// Run if executed directly
+main().catch(error => {
+  log(`\n❌ CRITICAL ERROR: ${error.message}`, 'red');
+  console.error(error);
+  process.exit(1);
+});

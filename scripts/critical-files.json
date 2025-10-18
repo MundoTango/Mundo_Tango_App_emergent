@@ -9,8 +9,7 @@
         "package.json",
         "tsconfig.json",
         "drizzle.config.ts",
-        "tailwind.config.ts",
-        "vite.config.ts"
+        "tailwind.config.ts"
       ]
     },
     "core_server": {

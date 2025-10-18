@@ -117,7 +117,7 @@ class Layer52DocumentationSystemAgent extends EventEmitter {
   private layerId = 52;
   private layerName = 'Documentation System';
   private status: DocumentationSystemStatus;
-  private fileIntegrityCheckInterval: NodeJS.Timer | null = null;
+  private fileIntegrityCheckInterval: NodeJS.Timeout | null = null;
   private criticalFiles: string[] = [];
 
   constructor() {
