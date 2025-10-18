@@ -52,29 +52,34 @@ router.get('/api/comments', async (req: Request, res: Response, next: NextFuncti
     const { postId } = req.query;
     const { page, pageSize, offset } = parsePagination(req.query);
     
-    let whereCondition = undefined;
+    // Build query conditionally based on whether postId filter is provided
+    let commentsQuery = db.select({
+      comment: postComments,
+      user: users
+    })
+      .from(postComments)
+      .leftJoin(users, eq(postComments.userId, users.id));
+    
+    let countQuery = db.select({ count: sql<number>`count(*)` })
+      .from(postComments);
+    
+    // Apply postId filter if provided
     if (postId) {
       const postIdNum = parseInt(postId as string);
       if (isNaN(postIdNum)) {
         throw new ValidationError('Invalid post ID');
       }
-      whereCondition = eq(postComments.postId, postIdNum);
+      const whereCondition = eq(postComments.postId, postIdNum);
+      commentsQuery = commentsQuery.where(whereCondition);
+      countQuery = countQuery.where(whereCondition);
     }
     
     const [commentsList, [{ count }]] = await Promise.all([
-      db.select({
-        comment: postComments,
-        user: users
-      })
-        .from(postComments)
-        .leftJoin(users, eq(postComments.userId, users.id))
-        .where(whereCondition)
+      commentsQuery
         .orderBy(desc(postComments.createdAt))
         .limit(pageSize)
         .offset(offset),
-      db.select({ count: sql<number>`count(*)` })
-        .from(postComments)
-        .where(whereCondition)
+      countQuery
     ]);
     
     res.json(successWithPagination(commentsList, page, pageSize, Number(count)));
