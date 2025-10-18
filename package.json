@@ -12,7 +12,9 @@
     "db:push": "drizzle-kit push",
     "predeploy": "tsx scripts/pre-deploy-check.ts",
     "integrity-check": "tsx scripts/pre-deploy-check.ts",
-    "validate:imports": "tsx scripts/validate-imports.ts"
+    "validate:imports": "tsx scripts/validate-imports.ts",
+    "backup-docs": "tsx scripts/backup-docs-to-db.ts",
+    "restore-docs": "tsx scripts/restore-docs-from-db.ts"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.2",

@@ -2233,3 +2233,28 @@ export const testResults = pgTable("test_results", {
 
 export type TestResult = typeof testResults.$inferSelect;
 export type InsertTestResult = typeof testResults.$inferInsert;
+
+// 🔒 Documentation Archive - Git-Proof Documentation Storage
+// Purpose: Protect critical documentation from Replit auto-cleanup/git deletions
+// All .md files automatically backed up to database where git can't touch them
+export const documentationArchive = pgTable("documentation_archive", {
+  id: serial("id").primaryKey(),
+  filename: text("filename").notNull().unique(), // e.g., "MT_MASTER_REBUILD_PLAN.md"
+  content: text("content").notNull(), // Full file contents
+  version: integer("version").default(1).notNull(), // Increments on each save
+  fileSize: integer("file_size").notNull(), // Size in bytes
+  lastBackup: timestamp("last_backup").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  metadata: jsonb("metadata"), // Store extra info (author, tags, etc)
+}, (table) => [
+  index("idx_documentation_filename").on(table.filename),
+  index("idx_documentation_last_backup").on(table.lastBackup),
+]);
+
+export const insertDocumentationArchiveSchema = createInsertSchema(documentationArchive).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type DocumentationArchive = typeof documentationArchive.$inferSelect;
+export type InsertDocumentationArchive = z.infer<typeof insertDocumentationArchiveSchema>;
