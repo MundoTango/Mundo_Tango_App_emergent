@@ -30,35 +30,21 @@
     "utilities": {
       "description": "Utility files used across the application",
       "files": [
-        "server/utils/apiResponse.ts",
         "server/utils/authHelper.ts",
-        "server/utils/slugGenerator.ts"
+        "server/utils/rateLimiter.ts"
       ]
     },
-    "routes_batch1_complete": {
-      "description": "Batch 1 routes - fully optimized and production-ready",
+    "routes_core": {
+      "description": "Core route files - production-ready",
       "files": [
         "server/routes/memoryRoutes.ts",
         "server/routes/groupRoutes.ts",
-        "server/routes/profileRoutes.ts",
-        "server/routes/notificationsRoutes.ts"
-      ]
-    },
-    "routes_batch2_complete": {
-      "description": "Batch 2 routes - security hardened and production-ready",
-      "files": [
         "server/routes/messagesRoutes.ts",
         "server/routes/searchRoutes.ts",
         "server/routes/authRoutes.ts",
         "server/routes/userRoutes.ts",
-        "server/routes/eventsRoutes.ts"
-      ]
-    },
-    "routes_remaining": {
-      "description": "Remaining route files - to be optimized in future batches",
-      "files": [
-        "server/routes/dashboardRoutes.ts",
-        "server/routes/followRoutes.ts",
+        "server/routes/eventsRoutes.ts",
+        "server/routes/followsRoutes.ts",
         "server/routes/adminRoutes.ts"
       ]
     },
@@ -71,15 +57,14 @@
     "agents_infrastructure": {
       "description": "ESA Infrastructure Agents (Layers 1-61)",
       "files": [
-        "server/agents/layer1-api-gateway-orchestrator.ts",
+        "server/agents/layer01-architecture-foundation-agent.ts",
         "server/agents/layer52-documentation-system-agent.ts"
       ]
     },
     "documentation": {
       "description": "Critical documentation files",
       "files": [
-        "replit.md",
-        "README.md"
+        "replit.md"
       ]
     },
     "client_core": {
