@@ -7,6 +7,26 @@ import { z } from 'zod';
 import { insertUserSchema } from '../../shared/schema';
 import { authService } from '../services/authService';
 import { randomBytes } from 'crypto';
+import { generateAccessToken, generateRefreshToken, verifyToken } from '../middleware/auth';
+import { InvalidTokenError, ValidationError } from '../middleware/errorHandler';
+import { success } from '../utils/apiResponse';
+import rateLimit from 'express-rate-limit';
+
+// Phase 11 Task 4.3: Rate limiting for auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 requests per window
+  message: { 
+    success: false,
+    error: {
+      code: 'RATE_LIMIT_EXCEEDED',
+      message: 'Too many authentication attempts. Please try again in 15 minutes.',
+      statusCode: 429
+    }
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 const router = Router();
 
@@ -102,6 +122,46 @@ router.post("/auth/reset-password", async (req, res) => {
   } catch (error) {
     console.error("Error resetting password:", error);
     res.status(500).json({ error: "Failed to reset password" });
+  }
+});
+
+// Phase 11 Task 4.2: Token refresh endpoint
+router.post("/auth/refresh", async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      throw new ValidationError('Refresh token is required');
+    }
+
+    // Verify refresh token
+    const decoded = verifyToken(refreshToken, 'refresh');
+    
+    // Get user to ensure they still exist and are active
+    const user = await storage.getUser(decoded.userId);
+    
+    if (!user) {
+      throw new InvalidTokenError('User not found');
+    }
+
+    if (user.isActive === false) {
+      throw new InvalidTokenError('User account is inactive');
+    }
+
+    // Generate new token pair
+    const newAccessToken = generateAccessToken(user.id);
+    const newRefreshToken = generateRefreshToken(user.id);
+
+    // TODO: In production, store refresh tokens in database and invalidate old one
+    // For now, we just generate new tokens
+
+    res.json(success({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+      expiresIn: 15 * 60, // 15 minutes in seconds
+    }, 'Tokens refreshed successfully'));
+  } catch (error) {
+    next(error);
   }
 });
 

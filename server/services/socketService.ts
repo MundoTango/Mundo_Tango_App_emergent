@@ -95,6 +95,7 @@ export class SocketService {
 
     try {
       const message = await storage.createChatMessage({
+        slug: `msg_${Date.now()}_${ws.userId}`, // Generate unique slug
         chatRoomSlug: data.roomSlug,
         userSlug: ws.userId.toString(),
         messageType: 'TEXT',
