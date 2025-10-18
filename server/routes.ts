@@ -1048,27 +1048,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // 🎯 Phase 11: Register error handlers (MUST be AFTER all routes)
-  const { notFoundHandler, errorHandler } = await import('./middleware/errorHandler');
-  app.use(notFoundHandler);  // Catch 404s
-  app.use(errorHandler);     // Catch all errors
-
-  // Create HTTP server
+  // Create HTTP server FIRST (needed for WebSocket)
   const server = createServer(app);
   
   // 🎯 Mundo Tango ESA LIFE CEO - Initialize real-time notifications for 100/100 score
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   
-  // Setup Vite in development ONLY - production serves static files via index-novite.ts
-  if (process.env.NODE_ENV === 'development') {
+  // 🎯 MB.MD FIX: Setup Vite BEFORE error handlers so frontend can be served
+  // Development check: treat undefined NODE_ENV as development (Replit default)
+  const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+  
+  if (isDevelopment) {
     const { setupVite, log } = await import("./vite");
     log('🎨 Starting Vite development server...');
+    log(`NODE_ENV: ${process.env.NODE_ENV || 'undefined (treating as development)'}`);
     await setupVite(app, server);
-    log('✅ Vite development server ready');
+    log('✅ Vite development server ready - frontend accessible at /');
   } else {
     console.log('📦 Production mode: static files served by express.static in index-novite.ts');
   }
+  
+  // 🎯 Phase 11: Register error handlers (MUST be LAST - after Vite setup)
+  const { notFoundHandler, errorHandler } = await import('./middleware/errorHandler');
+  app.use(notFoundHandler);  // Catch 404s for unmatched routes
+  app.use(errorHandler);     // Catch all errors
   
   return server;
 }

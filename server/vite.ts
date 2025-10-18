@@ -31,6 +31,7 @@ export async function setupVite(app: Express, server: Server) {
 
   const vite = await createViteServer({
     configFile: false,
+    root: path.resolve(__dirname, "..", "client"), // 🎯 MB.MD FIX: Set client/ as root directory
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
