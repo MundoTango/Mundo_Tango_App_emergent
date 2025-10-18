@@ -13,9 +13,12 @@ import {
   real,
   numeric
 } from "drizzle-orm/pg-core";
-import { relations, sql } from "drizzle-orm";
+import { relations, sql, eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+
+// Re-export commonly used drizzle-orm functions
+export { eq };
 
 // Users table
 export const users = pgTable("users", {

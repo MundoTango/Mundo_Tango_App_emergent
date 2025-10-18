@@ -19,6 +19,15 @@ export class ValidationError extends Error {
   }
 }
 
+export class InvalidTokenError extends Error {
+  public statusCode: number = 401;
+
+  constructor(message: string = 'Invalid token') {
+    super(message);
+    this.name = 'InvalidTokenError';
+  }
+}
+
 export class AuthenticationError extends Error {
   public statusCode: number = 401;
 
