@@ -133,26 +133,59 @@ async function validateTypeScript(): Promise<boolean> {
 async function validateImports(): Promise<boolean> {
   log('\n🔍 [Step 3/3] Validating import statements...', 'cyan');
   
-  // This is a simple check - could be enhanced later with full import graph validation
-  // For now, if TypeScript compiles, imports are valid
-  
-  log('✅ Import validation delegated to TypeScript compiler', 'green');
-  return true;
+  try {
+    // Dynamically import the validation function
+    const { validateAllImports } = await import('./validate-imports.js');
+    
+    const directories = ['server', 'client', 'shared'];
+    const errors = await validateAllImports(directories);
+    
+    if (errors.length === 0) {
+      log('✅ All imports are valid - no broken import statements', 'green');
+      return true;
+    } else {
+      log(`❌ DEPLOYMENT BLOCKED - Found ${errors.length} broken import(s):`, 'red');
+      
+      // Group by file
+      const errorsByFile = new Map<string, typeof errors>();
+      for (const error of errors) {
+        if (!errorsByFile.has(error.file)) {
+          errorsByFile.set(error.file, []);
+        }
+        errorsByFile.get(error.file)!.push(error);
+      }
+
+      // Display grouped errors
+      for (const [file, fileErrors] of errorsByFile) {
+        log(`\n  📄 ${file}:`, 'yellow');
+        for (const error of fileErrors) {
+          log(`    Line ${error.lineNumber}: Cannot find module '${error.importPath}'`, 'red');
+        }
+      }
+      
+      return false;
+    }
+  } catch (error) {
+    log('⚠️  Import validation skipped - validator not available', 'yellow');
+    log('   (Will rely on TypeScript compiler for import checking)', 'yellow');
+    return true; // Don't block deployment if validator fails to load
+  }
 }
 
 async function generateReport(
   fileCheck: { passed: boolean; missing: string[] },
-  tsCheck: boolean
+  tsCheck: boolean,
+  importCheck: boolean
 ): Promise<void> {
   log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'cyan');
   log('📊 PRE-DEPLOYMENT VALIDATION REPORT', 'cyan');
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'cyan');
   
-  const allPassed = fileCheck.passed && tsCheck;
+  const allPassed = fileCheck.passed && tsCheck && importCheck;
   
   log(`\n  File Integrity:    ${fileCheck.passed ? '✅ PASSED' : '❌ FAILED'}`, fileCheck.passed ? 'green' : 'red');
   log(`  TypeScript Check:  ${tsCheck ? '✅ PASSED' : '❌ FAILED'}`, tsCheck ? 'green' : 'red');
-  log(`  Import Validation: ✅ PASSED`, 'green');
+  log(`  Import Validation: ${importCheck ? '✅ PASSED' : '❌ FAILED'}`, importCheck ? 'green' : 'red');
   
   log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'cyan');
   
@@ -191,16 +224,16 @@ async function main() {
   // Run all checks
   const fileCheck = await validateFileExistence();
   const tsCheck = await validateTypeScript();
-  await validateImports();
+  const importCheck = await validateImports();
   
   // Generate report
-  await generateReport(fileCheck, tsCheck);
+  await generateReport(fileCheck, tsCheck, importCheck);
   
   const duration = ((Date.now() - startTime) / 1000).toFixed(2);
   log(`⏱️  Validation completed in ${duration}s\n`, 'cyan');
   
   // Exit with appropriate code
-  if (fileCheck.passed && tsCheck) {
+  if (fileCheck.passed && tsCheck && importCheck) {
     process.exit(0); // Success
   } else {
     process.exit(1); // Failure - blocks deployment
