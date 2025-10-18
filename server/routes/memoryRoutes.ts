@@ -5,11 +5,12 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
 import { db } from '../db';
-import { posts, users } from '../../shared/schema';
+import { posts, users, insertPostSchema } from '../../shared/schema';
 import { eq, desc, and, sql } from 'drizzle-orm';
 import { isAuthenticated } from '../replitAuth';
 import { success, successWithPagination, parsePagination } from '../utils/apiResponse';
 import { AuthenticationError, ValidationError, NotFoundError } from '../middleware/errorHandler';
+import { z } from 'zod';
 
 const router = Router();
 
@@ -122,7 +123,10 @@ router.get('/memories/suggestions', isAuthenticated, async (req: any, res: Respo
   }
 });
 
-// Update memory (Phase 11: Direct DB update with validation)
+// Update schema: partial of insert schema for validation
+const updatePostSchema = insertPostSchema.partial().omit({ userId: true });
+
+// Update memory (Phase 11: Validated update with explicit field mapping)
 router.patch('/memories/:memoryId', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.claims.sub;
@@ -137,11 +141,28 @@ router.patch('/memories/:memoryId', isAuthenticated, async (req: any, res: Respo
       throw new ValidationError('Invalid memory ID');
     }
     
+    // Validate request body with Zod before processing
+    const validationResult = updatePostSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      throw new ValidationError(`Invalid update data: ${validationResult.error.message}`);
+    }
+    
+    const validatedData = validationResult.data;
+    
+    // Explicitly map only validated fields
+    const allowedUpdates: any = {
+      updatedAt: new Date()
+    };
+    
+    if (validatedData.content !== undefined) allowedUpdates.content = validatedData.content;
+    if (validatedData.postType !== undefined) allowedUpdates.postType = validatedData.postType;
+    if (validatedData.hashtags !== undefined) allowedUpdates.hashtags = validatedData.hashtags;
+    if (validatedData.visibility !== undefined) allowedUpdates.visibility = validatedData.visibility;
+    if (validatedData.mediaEmbeds !== undefined) allowedUpdates.mediaEmbeds = validatedData.mediaEmbeds;
+    if (validatedData.location !== undefined) allowedUpdates.location = validatedData.location;
+    
     const updated = await db.update(posts)
-      .set({
-        ...req.body,
-        updatedAt: new Date()
-      })
+      .set(allowedUpdates)
       .where(and(
         eq(posts.id, memoryId),
         eq(posts.userId, user[0].id)
