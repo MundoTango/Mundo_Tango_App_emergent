@@ -232,19 +232,63 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(60, layer60Agent as any);
       this.agents.set(61, layer61Agent as any);
 
-      // Import new agent categories
-      const { journeyAgents, getAllJourneyAgents } = await import('./journey-agents/index');
-      const { appLeadAgents, getAllAppLeadAgents } = await import('./app-leads/index');
-      const { marketingAgents, getAllMarketingAgents } = await import('./marketing-agents/index');
-      const { hireVolunteerAgents, getAllHireVolunteerAgents } = await import('./hire-volunteer-agents/index');
+      // Import new agent categories with error boundaries
+      let journeyAgentCount = 0;
+      let appLeadAgentCount = 0;
+      let marketingAgentCount = 0;
+      let lifeCeoAgentCount = 0;
+      let pageAgentCount = 0;
       
-      console.log(`[Agent Coordinator] Registered ${this.agents.size} ESA layer agents`);
-      console.log(`[Agent Coordinator] Registered ${getAllJourneyAgents().length} journey agents (J1-J8)`);
-      console.log(`[Agent Coordinator] Registered ${getAllAppLeadAgents().length} app lead agents (3-app architecture)`);
-      console.log(`[Agent Coordinator] Registered ${getAllMarketingAgents().length} marketing agents (MA1-MA5)`);
-      console.log(`[Agent Coordinator] Registered ${getAllHireVolunteerAgents().length} hire/volunteer agents (HV1-HV5)`);
-      console.log(`[Agent Coordinator] Total tracked: ${this.agents.size + 24} / 276 agents`);
-      console.log(`[Agent Coordinator] Status: 245 active, 31 pending (Phase 0)`);
+      try {
+        const journeyModule = await import('./journey-agents/index');
+        journeyAgentCount = journeyModule.default?.length || 0;
+        console.log(`✅ [Journey Agents] ${journeyAgentCount} agents loaded`);
+      } catch (error) {
+        console.warn(`⚠️  [Journey Agents] Failed to load:`, (error as Error).message);
+      }
+      
+      try {
+        const appLeadsModule = await import('./app-leads/index');
+        appLeadAgentCount = appLeadsModule.appLeadsAgents?.length || 0;
+        console.log(`✅ [App Leads] ${appLeadAgentCount} agents loaded`);
+      } catch (error) {
+        console.warn(`⚠️  [App Leads] Failed to load:`, (error as Error).message);
+      }
+      
+      try {
+        const marketingModule = await import('./marketing/index');
+        marketingAgentCount = marketingModule.marketingAgents?.length || 0;
+        console.log(`✅ [Marketing] ${marketingAgentCount} agents loaded`);
+      } catch (error) {
+        console.warn(`⚠️  [Marketing] Failed to load:`, (error as Error).message);
+      }
+      
+      try {
+        const lifeCeoModule = await import('./life-ceo/index');
+        lifeCeoAgentCount = lifeCeoModule.lifeCeoAgents?.length || 0;
+        console.log(`✅ [Life CEO] ${lifeCeoAgentCount} agents loaded`);
+      } catch (error) {
+        console.warn(`⚠️  [Life CEO] Failed to load:`, (error as Error).message);
+      }
+      
+      try {
+        const pageAgentsModule = await import('./page-agents/index');
+        pageAgentCount = pageAgentsModule.pageAgents?.length || 0;
+        console.log(`✅ [Page Agents] ${pageAgentCount} agents loaded`);
+      } catch (error) {
+        console.warn(`⚠️  [Page Agents] Failed to load:`, (error as Error).message);
+      }
+      
+      const totalNewAgents = journeyAgentCount + appLeadAgentCount + marketingAgentCount + lifeCeoAgentCount + pageAgentCount;
+      
+      console.log(`\n[Agent Coordinator] Summary:`);
+      console.log(`  ESA Layers: ${this.agents.size} agents`);
+      console.log(`  Journey Agents: ${journeyAgentCount}`);
+      console.log(`  App Leads: ${appLeadAgentCount}`);
+      console.log(`  Marketing: ${marketingAgentCount}`);
+      console.log(`  Life CEO: ${lifeCeoAgentCount}`);
+      console.log(`  Page Agents: ${pageAgentCount}`);
+      console.log(`  Total: ${this.agents.size + totalNewAgents} / 276 agents`);
       
       // Start monitoring for all registered agents
       this.startMonitoring();
