@@ -111,6 +111,7 @@ import ModernMemoriesPage from '@/pages/_debug/ModernMemoriesPage';
 import AgentLearningDashboard from '@/pages/AgentLearningDashboard';
 import AgentIntelligenceNetwork from '@/pages/AgentIntelligenceNetwork';
 import AgentDetail from '@/pages/AgentDetail';
+import MTStatusPreview from '@/pages/MTStatusPreview';
 
 // Direct imports (critical pages only)
 import Login from '@/pages/auth/login';
@@ -688,6 +689,13 @@ export const productionRoutes: RouteConfig[] = [
     mode: 'production',
     loadingMessage: 'Loading Mr Blue Dashboard...',
     description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
+  },
+  {
+    path: '/mt-status',
+    component: MTStatusPreview,
+    mode: 'production',
+    loadingMessage: 'Loading MT Status Preview...',
+    description: 'Mundo Tango Master Rebuild Plan Status - MB.MD Methodology Dashboard'
   },
   {
     path: '/admin/health-monitor',

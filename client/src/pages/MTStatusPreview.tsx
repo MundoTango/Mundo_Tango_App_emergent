@@ -147,12 +147,12 @@ export default function MTStatusPreview() {
         <Card data-testid="card-agents">
           <CardHeader>
             <CardTitle>AI Agents</CardTitle>
-            <CardDescription>99 / 276 Operational</CardDescription>
+            <CardDescription>119 / 276 Operational</CardDescription>
           </CardHeader>
           <CardContent>
-            <Progress value={(99 / 276) * 100} className="mb-2" data-testid="progress-agents" />
+            <Progress value={(119 / 276) * 100} className="mb-2" data-testid="progress-agents" />
             <p className="text-sm text-muted-foreground">
-              36% agent coverage
+              43% agent coverage
             </p>
           </CardContent>
         </Card>
