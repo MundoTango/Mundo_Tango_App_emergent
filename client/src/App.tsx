@@ -247,15 +247,17 @@ function App() {
 
   console.log('🚀 [App] About to return JSX tree');
 
-  // MB.MD INFRA-1: Re-enabling providers one by one to isolate crash
+  // MB.MD INFRA-2: Testing LocationBiasProvider (TenantProvider ✅ safe)
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TenantProvider>
-            <TooltipProvider>
-              <AppContent />
-            </TooltipProvider>
+            <LocationBiasProvider>
+              <TooltipProvider>
+                <AppContent />
+              </TooltipProvider>
+            </LocationBiasProvider>
           </TenantProvider>
         </AuthProvider>
       </QueryClientProvider>
