@@ -1043,6 +1043,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // 🎯 Phase 11: Register error handlers (MUST be AFTER all routes)
+  const { notFoundHandler, errorHandler } = await import('./middleware/errorHandler');
+  app.use(notFoundHandler);  // Catch 404s
+  app.use(errorHandler);     // Catch all errors
+
   // Create HTTP server
   const server = createServer(app);
   
