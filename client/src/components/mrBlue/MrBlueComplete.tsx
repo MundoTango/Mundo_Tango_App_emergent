@@ -10,17 +10,20 @@ import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
 import { ChatInterface } from '@/lib/mrBlue/chat/ChatInterface';
 import { useMrBlueAI } from '@/lib/mrBlue/ai/MrBlueAI';
 import { ESAMindMap } from '@/components/esa/ESAMindMap';
+import { usePageAgent } from '@/hooks/usePageAgent'; // Phase 0 Task 0.4: Page agent context
 
 /**
  * ESA Mr Blue Complete System
  * Integrates Scott 3D Avatar + Chat + AI (Agents #73-80)
  * 
+ * Phase 0 Task 0.4: Now includes page agent context visibility
  * Layout: Avatar LEFT (400x400px) + Chat RIGHT
  * Mobile: Smaller avatar, same functionality
  */
 
 export function MrBlueComplete() {
   const { user } = useAuth();
+  const pageAgent = usePageAgent(); // Phase 0 Task 0.4: Get current page agent context
   const [isOpen, setIsOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [emotion, setEmotion] = useState<'neutral' | 'happy' | 'thinking' | 'concerned' | 'excited'>('neutral');
@@ -117,6 +120,12 @@ export function MrBlueComplete() {
                   {!isSearchingContext && currentAgent !== 'Mr Blue' && (
                     <p className="text-xs text-muted-foreground">
                       Connected to: {currentAgent}
+                    </p>
+                  )}
+                  {pageAgent.hasContext && (
+                    <p className="text-xs text-purple-600">
+                      📄 Page by: {pageAgent.agents[0]?.name}
+                      {pageAgent.agents.length > 1 && ` +${pageAgent.agents.length - 1}`}
                     </p>
                   )}
                 </div>
