@@ -46,11 +46,7 @@ if (typeof window !== 'undefined') {
 // Critical components that load immediately - minimal initial bundle
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
-import LandingVisitor from "@/pages/landing-visitor";
 import TestSimple from "@/pages/test-simple"; // TEMP: Minimal test page
-import Discover from "@/pages/discover";
-import About from "@/pages/about";
-import Join from "@/pages/join";
 import MTStatusPreview from "@/pages/MTStatusPreview";
 import TrialBanner from "@/components/TrialBanner";
 

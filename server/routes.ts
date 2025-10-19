@@ -89,34 +89,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   await safeLoadRoutes(app, [
     // Core domain routes
-    { path: './routes/security', mountPath: '', description: 'Security (CSRF, audit)' },
-    { path: './routes/userRoutes', mountPath: '/api', description: 'User profiles & settings' },
-    { path: './routes/authRoutes', mountPath: '/api', description: 'Authentication' },
-    { path: './routes/adminRoutes', mountPath: '/api', description: 'Admin management' },
-    { path: './routes/groupRoutes', mountPath: '/api', description: 'Group management' },
-    { path: './routes/memoryRoutes', mountPath: '/api', description: 'Memories/posts' },
-    { path: './routes/tenantRoutes', mountPath: '/api', description: 'Multi-community/tenant' },
-    { path: './routes/journeyRoutes', mountPath: '/api/journey', description: 'Customer journey (J1-J8)' },
+    { path: '../routes/security', mountPath: '', description: 'Security (CSRF, audit)' },
+    { path: '../routes/userRoutes', mountPath: '/api', description: 'User profiles & settings' },
+    { path: '../routes/authRoutes', mountPath: '/api', description: 'Authentication' },
+    { path: '../routes/adminRoutes', mountPath: '/api', description: 'Admin management' },
+    { path: '../routes/groupRoutes', mountPath: '/api', description: 'Group management' },
+    { path: '../routes/memoryRoutes', mountPath: '/api', description: 'Memories/posts' },
+    { path: '../routes/tenantRoutes', mountPath: '/api', description: 'Multi-community/tenant' },
+    { path: '../routes/journeyRoutes', mountPath: '/api/journey', description: 'Customer journey (J1-J8)' },
     
     // Optimized feature routes
-    { path: './routes/postRoutes', mountPath: '', description: 'Posts (optimized)' },
-    { path: './routes/postsRoutes', mountPath: '', description: 'Posts GET endpoints' },
-    { path: './routes/eventsRoutes', mountPath: '', description: 'Events API' },
-    { path: './routes/messagesRoutes', mountPath: '', description: 'Messages API' },
-    { path: './routes/friendsRoutes', mountPath: '', description: 'Friends API' },
-    { path: './routes/storiesRoutes', mountPath: '', description: 'Stories API' },
-    { path: './routes/followsRoutes', mountPath: '', description: 'Follows API' },
-    { path: './routes/commentsRoutes', mountPath: '', description: 'Comments API' },
+    { path: '../routes/postRoutes', mountPath: '', description: 'Posts (optimized)' },
+    { path: '../routes/postsRoutes', mountPath: '', description: 'Posts GET endpoints' },
+    { path: '../routes/eventsRoutes', mountPath: '', description: 'Events API' },
+    { path: '../routes/messagesRoutes', mountPath: '', description: 'Messages API' },
+    { path: '../routes/friendsRoutes', mountPath: '', description: 'Friends API' },
+    { path: '../routes/storiesRoutes', mountPath: '', description: 'Stories API' },
+    { path: '../routes/followsRoutes', mountPath: '', description: 'Follows API' },
+    { path: '../routes/commentsRoutes', mountPath: '', description: 'Comments API' },
     
     // Additional features
-    { path: './routes/automationRoutes', mountPath: '', description: 'City group automation (Layer 57)' },
-    { path: './routes/chunkedUploadRoutes', mountPath: '', description: 'Chunked uploads' },
-    { path: './routes/cityGroupsStats', mountPath: '', description: 'City groups stats (world map)' },
-    { path: './routes/projects', mountPath: '/api', description: 'Project Tracker (Layer 2)' },
-    { path: './routes/ai', mountPath: '/api', description: 'Intelligence Infrastructure (Layers 31-46)' },
-    { path: './routes/agentRoutes', mountPath: '/api', description: 'Agent System (61 layers)' },
-    { path: './routes/lifeCeoLearnings', mountPath: '', description: 'Life CEO learnings' },
-    { path: './routes/subscriptionAdmin', mountPath: '', description: 'Subscription admin' },
+    { path: '../routes/automationRoutes', mountPath: '', description: 'City group automation (Layer 57)' },
+    { path: '../routes/chunkedUploadRoutes', mountPath: '', description: 'Chunked uploads' },
+    { path: '../routes/cityGroupsStats', mountPath: '', description: 'City groups stats (world map)' },
+    { path: '../routes/projects', mountPath: '/api', description: 'Project Tracker (Layer 2)' },
+    { path: '../routes/ai', mountPath: '/api', description: 'Intelligence Infrastructure (Layers 31-46)' },
+    { path: '../routes/agentRoutes', mountPath: '/api', description: 'Agent System (61 layers)' },
+    { path: '../routes/lifeCeoLearnings', mountPath: '', description: 'Life CEO learnings' },
+    { path: '../routes/subscriptionAdmin', mountPath: '', description: 'Subscription admin' },
   ]);
 
   // Add compression middleware for better performance

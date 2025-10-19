@@ -1,47 +1,53 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Activity } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+/**
+ * Phase 15 Batch 1: Cache Monitor Dev Display
+ * Shows cache metrics in development mode
+ */
+
+import { useCacheMonitoring } from '@/hooks/useCacheMonitoring';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export function CacheMonitorDisplay() {
-  const { data: cacheStats } = useQuery({
-    queryKey: ['/api/cache/stats'],
-    refetchInterval: 5000,
-  });
-
-  if (!cacheStats) return null;
+  const metrics = useCacheMonitoring();
+  
+  // Only show in development
+  if (import.meta.env.PROD) {
+    return null;
+  }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-80">
-      <Card className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-turquoise-200 dark:border-cyan-500 shadow-lg">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm flex items-center gap-2 text-gray-900 dark:text-white">
-            <Activity className="h-4 w-4 text-turquoise-500" />
-            Cache Monitor
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-xs">
-          <div className="flex items-center justify-between">
-            <span className="text-gray-600 dark:text-gray-400">Hit Rate</span>
-            <span className="font-mono text-turquoise-600 dark:text-cyan-400">
-              {cacheStats?.hitRate || '0'}%
-            </span>
+    <Card className="fixed bottom-4 right-4 w-80 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-sm flex items-center justify-between">
+          <span>📊 Cache Monitor</span>
+          <Badge variant={metrics.hitRate > 50 ? "default" : "destructive"}>
+            {metrics.hitRate.toFixed(1)}% Hit Rate
+          </Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="text-xs space-y-2">
+        <div className="flex justify-between">
+          <span className="text-gray-600 dark:text-gray-400">Total Queries:</span>
+          <span className="font-mono">{metrics.totalQueries}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600 dark:text-gray-400">Cached:</span>
+          <span className="font-mono text-green-600">{metrics.cachedQueries}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600 dark:text-gray-400">Stale:</span>
+          <span className="font-mono text-yellow-600">{metrics.staleQueries}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600 dark:text-gray-400">Cache Size:</span>
+          <span className="font-mono">{metrics.cacheSizeKB.toFixed(2)} KB</span>
+        </div>
+        {metrics.oldestCacheEntry && (
+          <div className="text-[10px] text-gray-500 pt-2 border-t">
+            Oldest: {metrics.oldestCacheEntry.toLocaleTimeString()}
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-gray-600 dark:text-gray-400">Queries</span>
-            <span className="font-mono text-gray-900 dark:text-white">
-              {cacheStats?.queryCount || 0}
-            </span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-gray-600 dark:text-gray-400">Stale</span>
-            <span className="font-mono text-orange-600">
-              {cacheStats?.staleCount || 0}
-            </span>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
-
-export default CacheMonitorDisplay;

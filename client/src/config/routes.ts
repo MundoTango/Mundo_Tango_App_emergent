@@ -111,7 +111,6 @@ const ModernMemoriesPage = lazy(() => import('@/pages/_debug/ModernMemoriesPage'
 const AgentLearningDashboard = lazy(() => import('@/pages/AgentLearningDashboard'));
 const AgentIntelligenceNetwork = lazy(() => import('@/pages/AgentIntelligenceNetwork'));
 const AgentDetail = lazy(() => import('@/pages/AgentDetail'));
-const MTStatusPreview = lazy(() => import('@/pages/MTStatusPreview'));
 
 // Critical pages only - loaded eagerly for instant navigation
 const Login = lazy(() => import('@/pages/auth/login'));
