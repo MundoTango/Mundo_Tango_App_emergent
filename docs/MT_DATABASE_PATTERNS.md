@@ -697,6 +697,42 @@ async function updateUserWithAudit(userId: number, updates: Partial<User>) {
 
 ---
 
+## Drizzle ORM Advanced Patterns
+
+For comprehensive Drizzle ORM usage patterns including:
+- Type-safe queries (findFirst, findMany, complex filters)
+- Transactions and ACID compliance
+- Relations and joins
+- Aggregations and SQL functions
+- Insert/update/delete patterns
+- Performance optimization
+- Common pitfalls and solutions
+
+**See:** `docs/MT_DRIZZLE_ORM_GUIDE.md` (complete reference with 3,428 usage examples from codebase)
+
+---
+
+## Neon Serverless Optimization
+
+For Neon-specific optimization strategies including:
+- Connection pooling configuration
+- Auto-scaling behavior
+- Query performance benchmarks
+- Serverless best practices
+- Cost optimization patterns
+- Monitoring and troubleshooting
+
+**See:** `docs/MT_DRIZZLE_ORM_GUIDE.md` sections on:
+- "Neon Serverless Optimization" (connection pooling)
+- "Query Performance Tips" (indexed vs non-indexed queries)
+- "Performance Benchmarks" (actual measurements)
+
+---
+
 **Document Owner:** Database Architecture (Layer #1)  
 **Review Cycle:** Monthly or when schema changes  
-**Last Updated:** October 19, 2025
+**Last Updated:** October 19, 2025  
+**Related Documentation:**
+- `docs/MT_DRIZZLE_ORM_GUIDE.md` - Complete Drizzle ORM patterns and Neon optimization
+- `docs/MT_API_CONVENTIONS.md` - API + database integration patterns
+- `shared/schema.ts` - Authoritative schema definition (88 tables)

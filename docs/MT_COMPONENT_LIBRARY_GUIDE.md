@@ -866,6 +866,43 @@ export const PostCard = memo(function PostCard({ post }: PostCardProps) {
 
 ---
 
+## Shadcn UI Detailed Patterns
+
+For comprehensive Shadcn UI component usage including:
+- Form components with React Hook Form + Zod validation
+- Dialog/Modal patterns
+- Select/Dropdown with proper value props
+- Toast notifications (Shadcn + Sonner)
+- Dark mode implementation
+- Accessibility (ARIA labels, keyboard navigation)
+- Responsive design patterns
+- Skeleton loading states
+- Common pitfalls and solutions
+
+**See:** `docs/MT_SHADCN_UI_COMPONENT_GUIDE.md` (complete reference with 1,588 usage examples from codebase)
+
+---
+
+## React Query Integration
+
+For comprehensive React Query patterns including:
+- Default queryFn configuration
+- Query patterns (basic, pagination, dependent queries)
+- Mutation patterns (create/update/delete)
+- Optimistic updates
+- Cache management and invalidation
+- Common pitfalls (no queryFn errors, stale data)
+- Testing patterns
+
+**See:** `docs/MT_REACT_QUERY_V5_GUIDE.md` (complete reference with 1,304 usage examples from codebase)
+
+---
+
 **Document Owner:** UI/UX Division (#5) + Component Library Team  
 **Review Cycle:** Quarterly or when components added  
-**Last Updated:** October 19, 2025
+**Last Updated:** October 19, 2025  
+**Related Documentation:**
+- `docs/MT_SHADCN_UI_COMPONENT_GUIDE.md` - Complete Shadcn UI patterns and dark mode
+- `docs/MT_REACT_QUERY_V5_GUIDE.md` - React Query state management patterns
+- `docs/MT_CODING_STANDARDS.md` - React best practices and hooks rules
+- `client/src/components/ui/*` - All Shadcn component implementations
