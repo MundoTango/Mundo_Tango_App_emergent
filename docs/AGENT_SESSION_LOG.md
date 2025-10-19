@@ -5,6 +5,82 @@
 
 ---
 
+## Session: October 19, 2025 20:48 UTC - allowedHosts Configuration Fix Agent
+
+### Task Worked On
+Fix critical UI blocker (second incident) where Vite blocked Replit's dynamic hostname with "Blocked request. This host is not allowed" error. Port was correctly set to 5000 from previous fix, but missing `allowedHosts` configuration. This is the SECOND configuration failure in same session - demonstrates importance of comprehensive verification.
+
+### Documentation Read
+- [x] vite.config.ts (confirmed port correct but allowedHosts missing)
+- [x] Replit docs on Vite configuration (allowedHosts requirement for dynamic hostnames)
+- [x] MB_MD_DOCUMENTATION_PHASE_MAP.md (updated with two-part config requirement)
+- [x] scripts/agent-verification.sh (enhanced to check both port AND allowedHosts)
+- [x] PREVENTION_GUIDE.md (added allowedHosts blocking pattern)
+
+### What Failed
+1. **Partial configuration fix** - Port was fixed (5000) but allowedHosts still missing
+2. **Documentation specified "allow all hosts"** - But didn't specify EXACT config: `allowedHosts: ['.replit.dev']`
+3. **Verification script only checked port** - Didn't verify allowedHosts presence
+4. **Two-part config treated as single-part** - Both port AND allowedHosts needed, only port was verified
+
+### What I Learned
+1. **Configuration existence ≠ Configuration compliance:**
+   - Port 5000 ✅ but still failed
+   - Need BOTH `port: 5000` AND `allowedHosts: [...]`
+   - Partial fixes create false confidence
+
+2. **Documentation must specify exact implementation:**
+   - "Allow all hosts" is INTENT
+   - `allowedHosts: ['.replit.dev', '.replit.app']` is IMPLEMENTATION
+   - Documentation needs the second, not just the first
+
+3. **Vite DNS rebinding protection:**
+   - Security feature blocks unknown Host headers
+   - Replit uses dynamic: `3059bb1f-f13e-4679-9ae4-c1e95fc9d219-00-893quv9jrlb.kirk.replit.dev`
+   - Without allowedHosts, Vite sees this as potential attack
+   - Leading dot pattern: `.replit.dev` = domain + all subdomains
+
+4. **Zero-trust verification approach needed:**
+   - Don't assume config is complete
+   - Check ALL parts of multi-part configurations
+   - Automate verification for both port AND allowedHosts
+
+5. **Why it failed twice in same day:**
+   - First fix: port 5173 → 5000 (partial)
+   - Second issue: missing allowedHosts (other half)
+   - Root cause: Treated two-part config as one-part
+
+### What Next Agent Should Know
+1. **BOTH configurations are MANDATORY:**
+   ```typescript
+   server: {
+     host: '0.0.0.0',           // Listen on all interfaces
+     port: 5000,                // Replit iframe requirement
+     allowedHosts: ['.replit.dev', '.replit.app'], // Security requirement
+   }
+   ```
+2. **Run agent-verification.sh** - Now checks BOTH port AND allowedHosts
+3. **See vite-config-template.md** - Complete reference configuration
+4. **Two-part config pattern:** Always verify ALL parts, not just one
+
+### Files Modified
+- **Updated:** `vite.config.ts` - Added allowedHosts: ['.replit.dev', '.replit.app'] (line ~22)
+- **Updated:** `vite.config.ts` - Changed host: true to host: '0.0.0.0' for clarity (line ~19)
+- **Updated:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` - Enhanced Frontend Build Configuration with allowedHosts requirement (lines 93-123)
+- **Updated:** `scripts/agent-verification.sh` - Added allowedHosts verification check (lines 68-94)
+- **Updated:** `docs/PREVENTION_GUIDE.md` - Added "Vite allowedHosts Blocking" failure pattern
+- **Updated:** `docs/AGENT_SESSION_LOG.md` (this file) - Documented allowedHosts fix session
+- **Created:** `docs/vite-config-template.md` - Reference template for Replit-compatible Vite config
+
+### Verification Completed
+- [x] allowedHosts added to vite.config.ts
+- [x] Vite server restarted successfully (logs show: "vite.config.ts changed, restarting server...")
+- [x] Screenshot confirmed UI now loads in iframe
+- [x] Documentation updated across 4 layers (phase map, verification script, prevention guide, session log)
+- [x] Template created for future reference
+
+---
+
 ## Session: October 19, 2025 20:35 UTC - UI Port Mismatch Resolution Agent
 
 ### Task Worked On

@@ -106,6 +106,58 @@ Replit iframe preview only works on port 5000. Wrong port = invisible UI to user
 Web dev rules documented port requirement, but wasn't in MB.MD MAPPING phase checklist.
 Documentation must be in the RIGHT PLACE at the RIGHT TIME, not just exist somewhere.
 
+### Vite allowedHosts Blocking (DNS Rebinding Protection) ⚠️ NEW (Oct 19, 2025)
+
+**CRITICAL SYMPTOM:**
+- User reports "Blocked request. This host (xxx.replit.dev) is not allowed"
+- Server running successfully on port 5000 ✅
+- Port configuration correct ✅
+- But Vite blocks requests from Replit's dynamic hostname
+
+**ROOT CAUSE:**
+`vite.config.ts` missing `allowedHosts` configuration for Replit domains
+
+**DETECTION:**
+```bash
+grep "allowedHosts" vite.config.ts
+# If NO results → Vite will block Replit dynamic hostnames
+# Should show: allowedHosts: ['.replit.dev', '.replit.app']
+```
+
+**Browser console shows:**
+```
+Blocked request. This host (3059bb1f-f13e-4679-9ae4-c1e95fc9d219-00-893quv9jrlb.kirk.replit.dev) is not allowed
+To allow this host, add "3059bb1f-..." to server.allowedHosts in vite.config.js
+```
+
+**IMMEDIATE FIX:**
+```typescript
+// vite.config.ts server section
+export default defineConfig({
+  server: { 
+    host: '0.0.0.0',
+    port: 5000,
+    strictPort: false,
+    allowedHosts: ['.replit.dev', '.replit.app'], // ← ADD THIS
+  }
+  // ...
+})
+```
+
+**WHY CRITICAL:**
+- Vite has DNS rebinding protection (security feature)
+- Replit uses dynamic hostnames like `xxx-yyy-zzz.kirk.replit.dev`
+- Without `allowedHosts`, Vite blocks these as potential attacks
+- Leading dot (`.replit.dev`) allows domain + all subdomains
+
+**PREVENTION:**
+- Run `bash scripts/agent-verification.sh` (now checks allowedHosts automatically)
+- Two-part config required: BOTH `port: 5000` AND `allowedHosts: [...]`
+- See `docs/vite-config-template.md` for complete example
+
+**DOCUMENTATION FAILURE LESSON #2:**
+Port was fixed but allowedHosts was missing. Two-part configurations require verifying BOTH parts, not just one. Partial fixes appear to work but fail at runtime.
+
 ---
 
 ## ⚡ Emergency Response Protocol
