@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { sendSuccess, sendError } from '../utils/apiResponse';
-import { requireAuth } from '../middleware/auth';
+import { authMiddleware } from '../middleware/auth';
 
 const router = Router();
 
-router.get('/current', requireAuth, async (req, res) => {
+router.get('/current', authMiddleware, async (req, res) => {
   try {
     const userId = req.user?.id;
     if (!userId) {
@@ -23,7 +23,7 @@ router.get('/current', requireAuth, async (req, res) => {
   }
 });
 
-router.post('/update', requireAuth, async (req, res) => {
+router.post('/update', authMiddleware, async (req, res) => {
   try {
     const { state } = req.body;
     if (!state || !['J1', 'J2', 'J3', 'J4'].includes(state)) {
