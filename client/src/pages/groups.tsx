@@ -156,8 +156,8 @@ export default function GroupsPage() {
           aria-label={t('groups.aria.page_header', 'Groups page header')}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
-          <p className="text-gray-600 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent dark:from-turquoise-400 dark:to-cyan-400 mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
+          <p className="text-gray-700 dark:text-gray-300 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
           <button
             onClick={() => setLocation('/community-world-map')}
             className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
@@ -177,11 +177,11 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_total', `${stats.totalCommunities} total communities`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
+            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
             data-testid="card-stat-total-communities"
           >
             <div 
-              className="flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mx-auto mb-3"
+              className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-turquoise-100 to-cyan-100 text-turquoise-600 rounded-full mx-auto mb-3"
               aria-hidden="true"
             >
               <Users className="h-6 w-6" />
@@ -192,11 +192,11 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_joined', `${stats.joinedCommunities} joined communities`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
+            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
             data-testid="card-stat-joined-communities"
           >
             <div 
-              className="flex items-center justify-center w-12 h-12 bg-pink-100 text-pink-600 rounded-full mx-auto mb-3"
+              className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-turquoise-100 to-cyan-100 text-turquoise-600 rounded-full mx-auto mb-3"
               aria-hidden="true"
             >
               <Heart className="h-6 w-6" />
@@ -207,11 +207,11 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_events', `${stats.totalEvents} total events`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
+            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
             data-testid="card-stat-total-events"
           >
             <div 
-              className="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-3"
+              className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-turquoise-100 to-cyan-100 text-turquoise-600 rounded-full mx-auto mb-3"
               aria-hidden="true"
             >
               <Calendar className="h-6 w-6" />
@@ -222,7 +222,7 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_cities', `${stats.cities} cities`)}
-            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
+            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
             data-testid="card-stat-cities"
           >
             <div 
@@ -269,8 +269,8 @@ export default function GroupsPage() {
                 onClick={() => setActiveFilter(filter.key)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                   activeFilter === filter.key
-                    ? 'bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                    ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white shadow-lg'
+                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-turquoise-50 dark:hover:bg-gray-700 border border-turquoise-200 dark:border-gray-600'
                 }`}
                 data-testid={`button-filter-${filter.key}`}
               >
@@ -299,8 +299,8 @@ export default function GroupsPage() {
             className="text-center py-12" 
             data-testid="loading-communities"
           >
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4" aria-hidden="true"></div>
-            <p className="text-gray-600">{t('groups.loading', 'Loading communities...')}</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-500 mx-auto mb-4" aria-hidden="true"></div>
+            <p className="text-gray-700 dark:text-gray-300">{t('groups.loading', 'Loading communities...')}</p>
           </div>
         ) : displayedGroups.length > 0 ? (
           <section
