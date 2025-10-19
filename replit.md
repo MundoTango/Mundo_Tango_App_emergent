@@ -2,67 +2,7 @@
 
 ## Overview
 
-Mundo Tango is a comprehensive social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with a multi-layered AI agent ecosystem for life management. The platform features **84 agent files implementing 173+ logical agents** plus 61 legacy ESA Infrastructure agents (separate EventEmitter system) across 13 categories for real-time orchestration, multi-model AI routing, and comprehensive testing infrastructure. **System Status: 97 UI pages (85% complete), 84 database tables, 467 components, ~100-150 API endpoints.** 
-
-**Current Status (Oct 19, 2025 - 9:43 AM):** ✅ **SERVER STABLE + DEPLOYMENT BUILD FIXED** 🎉 Production server running index-novite.ts serving pre-built static files. All Life CEO validations passing (0 issues across TypeScript, memory, cache, API, design, mobile). Vite build now works correctly with proper configuration. **MB.MD MASTER REBUILD PLAN ACTIVE:** Comprehensive 6-track parallel execution to 100% production readiness (97-126h remaining = 9-13 days). **System Inventory:** 136 page files, 42 route files, 84 agent files, 84 database tables + 1 NEW COLUMN (documentation_links). **File Integrity System ✅ ACTIVE** - Multi-layer protection operational.
-
-**Deployment Build Fix (Oct 19, 2025 - 9:43 AM - MB.MD Methodology):**
-- ✅ **Vite Build Configuration Fixed** - Created vite.config.ts with root: 'client' directory, build now succeeds
-- ✅ **Build Output Configured** - Builds to dist/public for Replit deployment compatibility
-- ✅ **Favicon 403 Fixed** - Created favicon.png and added HTML link tags, no more 403 errors
-- ✅ **Phantom Imports Resolved (Round 2)** - Created errorHandler.ts and apiResponse.ts that were missing from persistence
-- ✅ **Server Running** - All systems operational on port 5000, Vite dev server ready
-- ✅ **Documentation Complete** - DEPLOYMENT_BUILD_FIX_OCT19.md created with full MB.MD analysis
-
-**Mr Blue + Bidirectional Integration Achievements (Oct 19, 2025 - MB.MD Methodology):**
-- ✅ **Mr Blue Rendering Fixed** - Changed from lazy load → direct import (Vite HMR workaround), now renders successfully
-- ✅ **Bidirectional Doc↔Tracker** - Agent #64 & #65 work bidirectionally via `documentationLinks` array field
-- ✅ **Database Schema Updated** - Added `documentation_links text[]` column to `project_tracker_items` table
-- ✅ **Agent Documentation Updated** - Both Agent #64 and #65 docs now explain bidirectional workflow
-- ✅ **MB.MD Updated** - 467 lines total, new section on bidirectional integration with examples
-- ✅ **API Documentation Updated** - PROJECT_TRACKER_API.md shows new `documentationLinks` field usage
-
-**Phase 16 Batch 1 Achievements (Oct 19, 2025 - MB.MD Methodology):**
-- ✅ **MT Ocean Theme Applied** - 10 high-priority pages themed (messages, groups, teacher, organizer, pricing, invitations, housing-marketplace, tango-communities, timeline-minimal, group)
-- ✅ **Design System Tokens** - Replaced ALL hard-coded hex colors with MT Ocean design tokens (turquoise-400, cyan-500, etc.)
-- ✅ **Dark Mode Support** - Full dark mode variants for all visual elements (backgrounds, text, borders, icons)
-- ✅ **Glassmorphic Design** - Applied backdrop-blur effects and ocean gradients consistently
-- ✅ **Zero LSP Errors** - All theming changes pass TypeScript validation
-- ✅ **Architect Approval** - "MT Ocean palette consistently applied with dark-mode variants, no regressions detected"
-
-**Phantom Import Crisis FINAL RESOLUTION (Oct 19, 2025 - 9:26 AM - MB.MD Complete):**
-- ✅ **Root Cause Diagnosed** - Architect confirmed: NO files were deleted. routes.ts had 114+ imports to files that NEVER EXISTED (created by automation without files)
-- ✅ **Solution Implemented** - Safe route loader (server/utils/safeRouteLoader.ts) with try/catch for graceful failure instead of crashes
-- ✅ **Critical Files Created:** safeRouteLoader.ts (2,988 bytes), apiResponse.ts (823 bytes), errorHandler.ts (912 bytes)
-- ✅ **CSP Security Updated** - Added Plausible, Google Maps, Cloudinary, Replit to Content-Security-Policy
-- ✅ **Server STABLE** - Running continuously with ALL 6 Life CEO validations passing (TypeScript, memory, cache, API, design, mobile = 0 issues)
-- ✅ **Documentation Complete** - PHANTOM_IMPORT_RESOLUTION_OCT19.md created by Agent #64
-- ✅ **Lesson Learned** - Never create imports before files exist, always use safe loading patterns, verify with LSP before committing
-- ✅ **STATUS:** RESOLVED - No more phantom imports, server crash-proof
-
-**Phase 14 Achievements (Oct 18, 2025):**
-- ✅ **LCP Optimization** - 80% improvement (24.6s → 4.9s) via lazy loading 100+ routes + 7 heavy components
-- ✅ **Cache Strategy** - localStorage persistence with 5min staleTime, stale-while-revalidate active
-- ✅ **CORS Security** - Tightened to .replit.dev domains only (server/index-production.js)
-- ✅ **Critical Bug Fix** - SuperAdminToggle hook violation resolved (early return before useEffect)
-
-**Next Steps (Phase 16-20 - UI/UX POLISH TO 100%):**
-1. **Phase 16 Batch 2:** Theme remaining 30+ pages (10 pages per batch, ~8-12h remaining)
-2. **Phase 17:** Route Integration (10-15h) - Register all pages in routing system
-3. **Phase 18:** Mobile Responsiveness (15-20h) - Test/fix all pages on mobile
-4. **Phase 19:** UX Polish & States (15-20h) - Loading/empty/error states everywhere
-5. **Phase 20:** Accessibility & Dark Mode (10-15h) - WCAG 2.1 AA + perfect dark mode
-6. **Phase 15 Remaining:** Image optimization (2-3h), Playwright E2E (3-4h), Mobile testing (3-4h)
-
-**Progress:** Phase 16 Batch 1: 10/40 pages themed (25% complete)
-**Timeline to 100% Production Ready:** 60-85 hours for UI polish (7-10 days) + 10-15 hours E2E testing = **9-13 days total**
-
-**See:** 
-- `DEPLOYMENT_BUILD_FIX_OCT19.md` for deployment build resolution (Oct 19)
-- `PHASE_14_LCP_OPTIMIZATION_COMPLETION_REPORT.md` for Phase 14 details
-- `VERIFIED_SYSTEM_INVENTORY.md` for complete system audit (Oct 18, 11:58 PM)
-- `PHASE_16-20_UI_POLISH_REVISED_PLAN.md` for UI polish roadmap
-- `PLANNING_FAILURE_ROOT_CAUSE_ANALYSIS.md` for lessons learned
+Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features 84 agent files implementing 173+ logical agents, plus 61 legacy ESA Infrastructure agents for real-time orchestration, multi-model AI routing, and comprehensive testing infrastructure. The project currently has 97 UI pages (85% complete), 88 database tables, 467 components, and approximately 100-150 API endpoints. A key ambition is to achieve 100% production readiness through a comprehensive 6-track parallel execution plan, focusing on UI/UX polish, mobile responsiveness, accessibility, and E2E testing.
 
 ## User Preferences
 
@@ -73,122 +13,56 @@ Mundo Tango is a comprehensive social platform for the global tango community, b
 
 ## System Architecture
 
+### Journey Agents System
+
+The platform includes 5 Customer Journey Agents (J1-J5) designed to guide users through progressive experiences, from anonymous registration to super admin access. These agents utilize 13 secure API endpoints, 10 service functions, 4 database tables, 6 reusable UI components, and 9 custom React Query hooks for tracking progress, achievements, and feature unlocks. Security is ensured through `req.user.id` from session, Zod validation, and admin role verification.
+
 ### UI/UX Decisions
 
-The frontend is built with React and TypeScript, utilizing Vite for fast development. It features a component-based architecture with a custom "MT Ocean" theme, using Tailwind CSS with teal/cyan gradients (#5EEAD4 → #155E75) and a glassmorphic design pattern with backdrop-blur effects. The design is mobile-first and responsive.
+The frontend is built with React and TypeScript using Vite. It features a component-based architecture with a custom "MT Ocean" theme, employing Tailwind CSS with teal/cyan gradients and a glassmorphic design pattern with backdrop-blur effects. The design is mobile-first, responsive, and includes full dark mode support.
 
 ### Technical Implementations
 
 **Frontend:**
-- **State Management:** React Query for server state, custom hooks for WebSocket, Context providers for auth, and React hooks for local state.
-- **Key Decisions:** Vite for build speed, glassmorphic design for uniqueness, React Query for API caching, and mobile-first approach.
+- **Technologies:** React, TypeScript, Vite, Tailwind CSS.
+- **State Management:** React Query for server state, custom hooks for WebSocket, Context providers for authentication, and React hooks for local state.
+- **Design:** Glassmorphic design with a mobile-first approach.
 
 **Backend:**
-- **Server:** Node.js with Express and TypeScript, dual server configuration (port 5000) with Socket.io.
+- **Technologies:** Node.js, Express, TypeScript, Socket.io.
 - **Authentication:** JWT-based with Replit OAuth, supporting RBAC and ABAC.
 - **Real-time:** Socket.io for event-driven, room-based communication.
-- **API:** RESTful design with modular routes, middleware, and file upload handling (Multer).
-- **Key Decisions:** Express for ecosystem, Socket.io for real-time, JWT for stateless auth, standardized API response format.
+- **API:** RESTful design with modular routes, middleware, and Multer for file uploads.
 
 **Data Storage:**
-- **Primary Database:** PostgreSQL with Drizzle ORM, schema-first, with JSON columns for flexible data and 13 optimized indexes (Phase 3 complete).
-- **Database Performance:** Sub-millisecond queries (<0.1ms) on users, follows, and events tables. Optimized for scale to millions of rows.
-- **Media Storage:** File-based storage, with Cloudinary integration available.
-- **Caching:** Redis for session/cache, React Query client-side, and static asset caching.
-- **Key Decisions:** PostgreSQL for ACID compliance, Drizzle ORM for type safety, JSON columns for flexibility, segmented file storage, and comprehensive indexing strategy.
+- **Primary Database:** PostgreSQL with Drizzle ORM, schema-first, utilizing JSON columns and 13 optimized indexes for sub-millisecond queries.
+- **Media Storage:** File-based storage with Cloudinary integration.
+- **Caching:** Redis for session/cache, React Query client-side caching, and static asset caching.
 
 ### Feature Specifications
 
-- **Memory/Post System:** Rich text, hashtag indexing, location tagging, privacy controls, AI content enhancement.
-- **Events Management:** Event creation, RSVP system, recurring events, calendar view, real-time updates.
-- **Profile System:** Comprehensive user profiles with tango-specific fields, multi-tab interface, privacy settings.
-- **Groups/Communities:** City-based auto-group creation and assignment.
+- **Memory/Post System:** Supports rich text, hashtag indexing, location tagging, privacy controls, and AI content enhancement.
+- **Events Management:** Includes event creation, RSVP, recurring events, calendar view, and real-time updates.
+- **Profile System:** Comprehensive user profiles with tango-specific fields and privacy settings.
+- **Groups/Communities:** Features city-based auto-group creation and assignment.
 
-### Deployment Stability (UPDATED - Oct 18, 2025)
+### Deployment Stability and Agent Safety
 
-**✅ CRITICAL INCIDENT RESOLVED:** File deletion incident occurred during Phase 11 Parallel (Oct 18, 9:08 AM)
-- **Impact:** 4 utility/middleware files missing, server deployment failed
-- **Root Cause:** Imports created without creating actual files, LSP errors ignored
-- **Resolution:** Files recreated, server restored, incident documented
-- **Status:** ✅ **FILE INTEGRITY SYSTEM FULLY ACTIVE AND WORKING**
-
-**Multi-Layer File Protection System (✅ ACTIVE & TESTED):**
-- **Layer 1:** Critical File Registry (`scripts/critical-files.json`) - ✅ ACTIVE (85 files tracked)
-- **Layer 2:** Pre-Deployment Checks (`scripts/pre-deploy-check.ts`) - ✅ ACTIVE (file existence + TypeScript + import validation)
-- **Layer 3:** File Integrity Monitoring (Documentation Agent Layer 52) - ✅ ACTIVE (60-second monitoring)
-- **Layer 4:** Automated Git Recovery - ✅ Available via git
-- **Layer 5:** Comprehensive Stability Plan (`FILE_DELETION_INCIDENT_REPORT.md`) - ✅ Created & updated
-
-**Current Status:** ✅ **PROTECTED** - All file integrity layers active and tested!  
-**Test Results:** Successfully caught 50+ broken imports and TypeScript errors (blocking deployment as designed)  
-**Usage:** Run `npm run integrity-check` or `npm run predeploy` before any deployment  
-**Full Report:** See `DEPLOYMENT_STABILITY_PLAN.md`
-
-### Agent Safety Protocols (NEW - Oct 18, 2025)
-
-**✅ COMPREHENSIVE GUARDRAILS ACTIVE**  
-Following documentation deletion incident (350+ files lost/recovered), implemented multi-layer protection system:
-
-**Protection Layers:**
-- **Layer 1:** AGENT_LEARNING.md - 8 critical rules for AI agents, mandatory compliance
-- **Layer 2:** Pre-commit hooks - Blocks deletion of docs/, .md files, scripts/, agents/, schema
-- **Layer 3:** Automated tests - `tsx scripts/test-file-protection.ts` validates 28 critical files/folders
-- **Layer 4:** PostgreSQL backup - 394 markdown files backed up, recoverable via `npm run restore-docs`
-- **Layer 5:** File integrity monitoring - Layer 52 agent actively monitoring
-
-**Protected Resources (NEVER DELETE):**
-- ✋ `docs/` folder (350 files - MrBlue, agents, ESA, audits, etc.)
-- ✋ Root `.md` files (platform documentation)
-- ✋ `scripts/` protection system
-- ✋ `server/agents/` 276-agent system
-- ✋ `shared/schema.ts` database schema
-- ✋ `client/src/pages/` UI pages
-
-**Recovery Commands:**
-```bash
-# Test file integrity
-tsx scripts/test-file-protection.ts
-
-# Restore from PostgreSQL
-npm run restore-docs
-
-# Backup documentation
-npm run backup-docs
-```
-
-**Key Rules:**
-1. **Archive, never delete** - Use `docs/archived/` for old docs
-2. **Ask first** - Get user approval before ANY file deletion
-3. **Run tests** - Check integrity before deployment
-4. **Follow AGENT_LEARNING.md** - Mandatory for all AI agents
-
-**See:** `AGENT_LEARNING.md` for complete safety protocols and lessons learned
+The platform incorporates a multi-layer file protection system to ensure deployment stability and prevent data loss. This includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring (Documentation Agent Layer 52), automated Git recovery, and a comprehensive stability plan. Agent safety protocols are also in place, with 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (e.g., `docs/`, `scripts/`, `agents/`, `schema`), automated tests for file protection, and PostgreSQL backups for markdown files.
 
 ### System Design Choices
 
-The platform employs an extensive AI agent ecosystem comprising over 200 agents across multiple categories:
-- **Leadership & Management:** Strategic orchestrators and division chiefs.
-- **ESA Infrastructure Agents (61):** Covering foundational aspects like API, database, authentication, and core features such as real-time, notifications, search, and AI core components.
-- **Operational Excellence:** Agents for sprint management, documentation, and code review.
-- **Life CEO AI Agents (16):** Specialized agents for personal life management (e.g., Health & Wellness, Career Coach), utilizing GPT-4o.
-- **Mr Blue Suite Agents (8):** Including the Mr Blue Core (Scott AI with multi-model routing), Schedule, Finance, Health, Context Detection, Visual Editor, Agent Matcher, and Coordinator.
-- **Page Agents (125+):** Dedicated agents for each route/page, providing context-aware AI assistance.
-- **Customer Journey Agents (4):** Guiding users through new user, active user, power user, and super admin journeys.
-- **UI Sub-Agents:** For dark mode, translation, and component watching.
-- **Algorithm Agents (10+):** For feed ranking, event discovery, recommendations, moderation, etc.
-- **Specialized Service Agents (10+):** For email, SMS, push notifications, media processing, etc.
-
-All core agents are operational and undergo continuous validation.
+Mundo Tango utilizes an extensive AI agent ecosystem with over 200 agents across various categories, including Leadership & Management, ESA Infrastructure (61 agents), Operational Excellence, Life CEO AI Agents (16, utilizing GPT-4o), Mr Blue Suite Agents (8, including multi-model routing), Page Agents (125+ for context-aware assistance), Customer Journey Agents (4), UI Sub-Agents, Algorithm Agents (10+), and Specialized Service Agents (10+). All core agents are operational and continuously validated.
 
 ## External Dependencies
 
--   **OpenAI GPT-4o**: For AI content enhancement and contextual responses.
--   **Replit OAuth**: For authentication and user session management.
+-   **OpenAI GPT-4o**: AI content enhancement and contextual responses.
+-   **Replit OAuth**: Authentication and user session management.
 -   **Cloudinary**: Optional media storage and optimization.
--   **Google Maps API**: (Integration in progress) For location services.
+-   **Google Maps API**: Location services (integration in progress).
 -   **n8n**: Workflow integration hooks.
--   **PostHog**: For analytics.
--   **Playwright**: For end-to-end testing automation.
--   **Docker**: For containerization.
+-   **PostHog**: Analytics.
+-   **Playwright**: End-to-end testing automation.
+-   **Docker**: Containerization.
 -   **Nginx**: Reverse proxy.
 -   **GitHub Actions**: CI/CD workflows.
