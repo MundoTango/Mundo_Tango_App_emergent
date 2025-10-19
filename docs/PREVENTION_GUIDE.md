@@ -64,6 +64,48 @@ If you see **ANY** of these:
 2. 🚨 Alert user about environment corruption
 3. 🔧 Activate Emergency Response Protocol (below)
 
+### Vite Port Mismatch (UI Accessibility Failure) ⚠️ NEW (Oct 19, 2025)
+
+**CRITICAL SYMPTOM:**
+- User reports "UI not loading" or "blank screen"
+- Server running successfully on port 5000
+- Build completes with no errors
+- But user sees nothing in iframe preview
+
+**ROOT CAUSE:**
+`vite.config.ts` has wrong port (e.g., 5173 instead of 5000)
+
+**DETECTION:**
+```bash
+grep "port:" vite.config.ts
+# Should show: server: { port: 5000, host: '0.0.0.0' }
+# If shows 5173 or any other port → USER CAN'T SEE UI
+```
+
+**IMMEDIATE FIX:**
+```typescript
+// vite.config.ts line ~7
+export default defineConfig({
+  server: { 
+    port: 5000,  // ← MUST be 5000, NOT 5173
+    host: '0.0.0.0'
+  }
+  // ...
+})
+```
+
+**WHY CRITICAL:**
+Replit iframe preview only works on port 5000. Wrong port = invisible UI to user.
+
+**PREVENTION:**
+- Run `bash scripts/agent-verification.sh` before ANY UI work (checks port automatically)
+- Read `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` MAPPING phase for Vite config requirements
+- ALWAYS verify port in vite.config.ts BEFORE starting frontend development
+
+**DOCUMENTATION FAILURE LESSON:**
+Web dev rules documented port requirement, but wasn't in MB.MD MAPPING phase checklist.
+Documentation must be in the RIGHT PLACE at the RIGHT TIME, not just exist somewhere.
+
 ---
 
 ## ⚡ Emergency Response Protocol
