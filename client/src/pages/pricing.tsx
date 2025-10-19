@@ -73,7 +73,7 @@ export default function PricingPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8">
         <div className="mx-auto max-w-7xl">
           <div className="animate-pulse space-y-8">
             <div className="h-12 w-96 bg-gray-200 rounded mx-auto" />
@@ -92,15 +92,15 @@ export default function PricingPage() {
   const annualDiscount = 0.20; // 20% off annual
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10">
+    <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-b">
+      <div className="backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border-b border-turquoise-100 dark:border-gray-700">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent dark:from-turquoise-400 dark:to-cyan-400" data-testid="text-page-title">
               Choose Your Plan
             </h1>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
               Unlock the full potential of Mundo Tango ESA LIFE CEO
             </p>
             
@@ -169,12 +169,12 @@ export default function PricingPage() {
 
           {/* Pro Tier */}
           <Card className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 border-turquoise-400 shadow-xl scale-105">
-            <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#5EEAD4] text-white">
+            <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white shadow-lg">
               Most Popular
             </Badge>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-[#5EEAD4]" />
+                <Sparkles className="h-5 w-5 text-turquoise-500 dark:text-turquoise-400" />
                 Pro
               </CardTitle>
               <CardDescription>Perfect for professionals</CardDescription>
@@ -204,12 +204,12 @@ export default function PricingPage() {
             </CardContent>
             <CardFooter>
               {currentSubscription?.tier === 'pro' ? (
-                <Button className="w-full bg-[#5EEAD4] hover:bg-[#5EEAD4]/90" disabled>
+                <Button className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled>
                   Current Plan
                 </Button>
               ) : (
                 <Button 
-                  className="w-full bg-[#5EEAD4] hover:bg-[#5EEAD4]/90 text-white"
+                  className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white shadow-lg"
                   onClick={() => handleSubscribe('pro')}
                   disabled={subscribeMutation.isPending}
                   data-testid="button-subscribe-pro"
@@ -317,7 +317,7 @@ export default function PricingPage() {
                 <tr className="border-b">
                   <th className="text-left p-4">Feature</th>
                   <th className="text-center p-4">Free</th>
-                  <th className="text-center p-4 bg-[#5EEAD4]/10">Pro</th>
+                  <th className="text-center p-4 bg-turquoise-100 dark:bg-turquoise-900/20">Pro</th>
                   <th className="text-center p-4">Business</th>
                   <th className="text-center p-4">Enterprise</th>
                 </tr>
@@ -326,35 +326,35 @@ export default function PricingPage() {
                 <tr className="border-b">
                   <td className="p-4">AI Agents</td>
                   <td className="text-center p-4">3/month</td>
-                  <td className="text-center p-4 bg-[#5EEAD4]/10">Unlimited</td>
+                  <td className="text-center p-4 bg-turquoise-50 dark:bg-turquoise-900/10">Unlimited</td>
                   <td className="text-center p-4">Unlimited</td>
                   <td className="text-center p-4">Unlimited</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4">Storage</td>
                   <td className="text-center p-4">1GB</td>
-                  <td className="text-center p-4 bg-[#5EEAD4]/10">10GB</td>
+                  <td className="text-center p-4 bg-turquoise-50 dark:bg-turquoise-900/10">10GB</td>
                   <td className="text-center p-4">100GB</td>
                   <td className="text-center p-4">Unlimited</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4">API Calls</td>
                   <td className="text-center p-4">100/month</td>
-                  <td className="text-center p-4 bg-[#5EEAD4]/10">10,000/month</td>
+                  <td className="text-center p-4 bg-turquoise-50 dark:bg-turquoise-900/10">10,000/month</td>
                   <td className="text-center p-4">100,000/month</td>
                   <td className="text-center p-4">Unlimited</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4">Support</td>
                   <td className="text-center p-4">Community</td>
-                  <td className="text-center p-4 bg-[#5EEAD4]/10">Priority</td>
+                  <td className="text-center p-4 bg-turquoise-50 dark:bg-turquoise-900/10">Priority</td>
                   <td className="text-center p-4">Dedicated</td>
                   <td className="text-center p-4">24/7 + SLA</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4">Team Members</td>
                   <td className="text-center p-4">-</td>
-                  <td className="text-center p-4 bg-[#5EEAD4]/10">-</td>
+                  <td className="text-center p-4 bg-turquoise-50 dark:bg-turquoise-900/10">-</td>
                   <td className="text-center p-4">10</td>
                   <td className="text-center p-4">Unlimited</td>
                 </tr>

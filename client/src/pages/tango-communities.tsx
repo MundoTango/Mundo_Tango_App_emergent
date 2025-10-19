@@ -188,12 +188,13 @@ export default function TangoCommunities() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Tango Communities</h1>
-              <p className="text-gray-600 mt-2">Connect with tango dancers around the world</p>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent dark:from-turquoise-400 dark:to-cyan-400" data-testid="text-page-title">Tango Communities</h1>
+              <p className="text-gray-700 dark:text-gray-300 mt-2">Connect with tango dancers around the world</p>
             </div>
             <Button
               onClick={() => setShowCreateModal(true)}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white shadow-lg"
+              data-testid="button-create-community"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create Community
@@ -202,45 +203,45 @@ export default function TangoCommunities() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <Card className="p-4 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-turquoise-100 dark:border-gray-700 shadow-lg">
               <div className="flex items-center gap-3">
-                <Users className="w-8 h-8 text-indigo-600" />
+                <Users className="w-8 h-8 text-turquoise-500 dark:text-turquoise-400" />
                 <div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">{mockCommunities.length}</p>
-                  <p className="text-sm text-gray-600">Total Communities</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Communities</p>
                 </div>
               </div>
             </Card>
-            <Card className="p-4 bg-gradient-to-r from-pink-50 to-rose-50">
+            <Card className="p-4 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-turquoise-100 dark:border-gray-700 shadow-lg">
               <div className="flex items-center gap-3">
-                <Heart className="w-8 h-8 text-rose-600" />
+                <Heart className="w-8 h-8 text-turquoise-500 dark:text-turquoise-400" />
                 <div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {mockCommunities.filter(c => c.isJoined).length}
                   </p>
-                  <p className="text-sm text-gray-600">Joined Communities</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Joined Communities</p>
                 </div>
               </div>
             </Card>
-            <Card className="p-4 bg-gradient-to-r from-green-50 to-emerald-50">
+            <Card className="p-4 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-turquoise-100 dark:border-gray-700 shadow-lg">
               <div className="flex items-center gap-3">
-                <Calendar className="w-8 h-8 text-emerald-600" />
+                <Calendar className="w-8 h-8 text-turquoise-500 dark:text-turquoise-400" />
                 <div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {mockCommunities.reduce((sum, c) => sum + c.eventCount, 0)}
                   </p>
-                  <p className="text-sm text-gray-600">Total Events</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Events</p>
                 </div>
               </div>
             </Card>
-            <Card className="p-4 bg-gradient-to-r from-purple-50 to-violet-50">
+            <Card className="p-4 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-turquoise-100 dark:border-gray-700 shadow-lg">
               <div className="flex items-center gap-3">
-                <MapPin className="w-8 h-8 text-violet-600" />
+                <MapPin className="w-8 h-8 text-turquoise-500 dark:text-turquoise-400" />
                 <div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {new Set(mockCommunities.map(c => c.location.split(',')[0])).size}
                   </p>
-                  <p className="text-sm text-gray-600">Cities</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Cities</p>
                 </div>
               </div>
             </Card>
@@ -249,13 +250,14 @@ export default function TangoCommunities() {
           {/* Search and Filters */}
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-turquoise-500 dark:text-turquoise-400 w-5 h-5" />
               <Input
                 type="text"
                 placeholder="Search communities by name, location, or description..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 border-turquoise-200 dark:border-gray-600 focus:border-turquoise-400 focus:ring-turquoise-400"
+                data-testid="input-search-communities"
               />
             </div>
             <div className="flex gap-2 flex-wrap">
@@ -268,8 +270,9 @@ export default function TangoCommunities() {
                     size="sm"
                     onClick={() => setSelectedCategory(category.value)}
                     className={selectedCategory === category.value 
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
-                      : ''}
+                      ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white border-0 shadow-lg' 
+                      : 'border-turquoise-200 dark:border-gray-600 hover:bg-turquoise-50 dark:hover:bg-gray-700'}
+                    data-testid={`button-filter-${category.value}`}
                   >
                     <Icon className="w-4 h-4 mr-1" />
                     {category.label}
@@ -283,9 +286,9 @@ export default function TangoCommunities() {
         {/* Communities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCommunities.map(community => (
-            <Card key={community.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+            <Card key={community.id} className="overflow-hidden hover:shadow-xl transition-shadow backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 border border-turquoise-100 dark:border-gray-700">
               {/* Cover Image */}
-              <div className="h-32 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 relative">
+              <div className="h-32 bg-gradient-to-r from-turquoise-400 via-cyan-400 to-blue-400 relative">
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute bottom-4 left-4 right-4">
                   <h3 className="text-xl font-bold text-white mb-1">{community.name}</h3>
