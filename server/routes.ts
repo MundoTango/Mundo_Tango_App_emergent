@@ -53,15 +53,8 @@ import projectRoutes from "./routes/projects"; // Mundo Tango ESA LIFE CEO - Pro
 import aiRoutes from "./routes/ai"; // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Agent System routes (All 61 layers)
 
-// Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Domain route imports
-import userRoutes from "./routes/userRoutes";
-import authRoutes from "./routes/authRoutes";
-import adminRoutes from "./routes/adminRoutes";
-import groupRoutes from "./routes/groupRoutes";
-import memoryRoutes from "./routes/memoryRoutes";
-import securityRoutes from "./routes/security"; // Mundo Tango ESA LIFE CEO - Security routes (CSRF, audit, etc.)
-// import publicStatsRoutes from "./routes/publicStatsRoutes"; // J1 - Public stats for visitor landing page (TODO: Create this file)
-import journeyRoutes from "./routes/journeyRoutes"; // ✅ RESTORED - Customer journey tracking
+// Mundo Tango ESA LIFE CEO - Safe route loader (prevents phantom import crashes)
+import { safeLoadRoutes } from "./utils/safeRouteLoader";
 
 import { getUserId } from "./utils/authHelper";
 
@@ -91,55 +84,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(securityHeaders);     // Apply security headers to all responses
   app.use(responseTimeLogger);  // ✅ ENABLED - Response time logging for performance monitoring
   
-  // Mundo Tango ESA LIFE CEO EMERGENCY RECOVERY - Register domain routes first
-  app.use(securityRoutes);         // Security routes (CSRF token, audit, etc.) - Phase 1
-  // app.use(publicStatsRoutes);      // J1 - Public stats API for visitor landing page (TODO)
-  app.use('/api', userRoutes);    // User profile and settings routes
-  app.use('/api', authRoutes);    // Authentication routes
-  app.use('/api', adminRoutes);   // Admin management routes
-  app.use('/api', groupRoutes);   // Group management routes
-  app.use('/api', memoryRoutes);  // Memory/memories routes
-  app.use('/api', tenantRoutes);  // ✅ FIXED - Tenant and multi-community routes
-  app.use('/api/journey', journeyRoutes); // ✅ ENABLED - Customer journey tracking (J1-J8)
+  // Mundo Tango ESA LIFE CEO - SAFE ROUTE LOADING (prevents phantom import crashes)
+  console.log('🚀 Loading routes safely with existence checks...');
   
-  // Mundo Tango ESA LIFE CEO - Register optimized post routes early to reduce memory load
-  app.use(postRoutes);
-  app.use(postsRoutes); // Mundo Tango ESA LIFE CEO - Main posts GET endpoints
-  app.use(eventsRoutes); // Mundo Tango ESA LIFE CEO - Events API routes
-  app.use(messagesRoutes); // Mundo Tango ESA LIFE CEO - Messages API routes
-  app.use(friendsRoutes); // Mundo Tango ESA LIFE CEO - Friends API routes
-  app.use(storiesRoutes); // Mundo Tango ESA LIFE CEO - Stories API routes
-  app.use(followsRoutes); // Mundo Tango ESA LIFE CEO - Follows API routes
-  app.use(commentsRoutes); // Mundo Tango ESA LIFE CEO - Comments API routes
-  
-  // Mundo Tango ESA LIFE CEO - Layer 57: City Group Creation Automation
-  try {
-    const automationRoutes = require('./routes/automationRoutes');
-    app.use(automationRoutes);
-    console.log('✅ Layer 57: Automation routes registered');
-  } catch (error: any) {
-    console.warn('⚠️ Layer 57: Automation routes not available:', error.message);
-  }
-  app.use(chunkedUploadRoutes); // Mundo Tango ESA LIFE CEO - Register chunked upload routes
-  app.use(cityGroupsStatsRoutes); // Mundo Tango ESA LIFE CEO - City groups statistics for world map
-  app.use('/api', projectRoutes); // Mundo Tango ESA LIFE CEO - Project Tracker API routes (Layer 2: API Structure)
-  app.use('/api', aiRoutes); // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure API routes (Layers 31-46)
-  app.use('/api', agentRoutes); // Mundo Tango ESA LIFE CEO - Agent System API routes (All 61 layers)
-  // ESA Layer 58: Cloudinary routes removed per user request
-  
-  // Import Life CEO learnings routes
-  import('./routes/lifeCeoLearnings').then(module => {
-    app.use(module.default);
-  }).catch(err => {
-    console.error('Failed to load Life CEO learnings routes:', err);
-  });
-
-  // Import and register subscription admin routes
-  import('./routes/subscriptionAdmin').then(module => {
-    module.registerSubscriptionAdminRoutes(app);
-  }).catch(err => {
-    console.error('Failed to load subscription admin routes:', err);
-  });
+  await safeLoadRoutes(app, [
+    // Core domain routes
+    { path: './routes/security', mountPath: '', description: 'Security (CSRF, audit)' },
+    { path: './routes/userRoutes', mountPath: '/api', description: 'User profiles & settings' },
+    { path: './routes/authRoutes', mountPath: '/api', description: 'Authentication' },
+    { path: './routes/adminRoutes', mountPath: '/api', description: 'Admin management' },
+    { path: './routes/groupRoutes', mountPath: '/api', description: 'Group management' },
+    { path: './routes/memoryRoutes', mountPath: '/api', description: 'Memories/posts' },
+    { path: './routes/tenantRoutes', mountPath: '/api', description: 'Multi-community/tenant' },
+    { path: './routes/journeyRoutes', mountPath: '/api/journey', description: 'Customer journey (J1-J8)' },
+    
+    // Optimized feature routes
+    { path: './routes/postRoutes', mountPath: '', description: 'Posts (optimized)' },
+    { path: './routes/postsRoutes', mountPath: '', description: 'Posts GET endpoints' },
+    { path: './routes/eventsRoutes', mountPath: '', description: 'Events API' },
+    { path: './routes/messagesRoutes', mountPath: '', description: 'Messages API' },
+    { path: './routes/friendsRoutes', mountPath: '', description: 'Friends API' },
+    { path: './routes/storiesRoutes', mountPath: '', description: 'Stories API' },
+    { path: './routes/followsRoutes', mountPath: '', description: 'Follows API' },
+    { path: './routes/commentsRoutes', mountPath: '', description: 'Comments API' },
+    
+    // Additional features
+    { path: './routes/automationRoutes', mountPath: '', description: 'City group automation (Layer 57)' },
+    { path: './routes/chunkedUploadRoutes', mountPath: '', description: 'Chunked uploads' },
+    { path: './routes/cityGroupsStats', mountPath: '', description: 'City groups stats (world map)' },
+    { path: './routes/projects', mountPath: '/api', description: 'Project Tracker (Layer 2)' },
+    { path: './routes/ai', mountPath: '/api', description: 'Intelligence Infrastructure (Layers 31-46)' },
+    { path: './routes/agentRoutes', mountPath: '/api', description: 'Agent System (61 layers)' },
+    { path: './routes/lifeCeoLearnings', mountPath: '', description: 'Life CEO learnings' },
+    { path: './routes/subscriptionAdmin', mountPath: '', description: 'Subscription admin' },
+  ]);
 
   // Add compression middleware for better performance
   const compression = (await import('compression')).default;
