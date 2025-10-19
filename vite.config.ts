@@ -13,9 +13,10 @@ export default defineConfig({
     },
   },
   server: {
-    host: true, // Allow all hosts (fixes preview blocking)
+    host: '0.0.0.0', // Listen on all network interfaces
     port: 5000, // CRITICAL: Must be 5000 (only non-firewalled port in Replit)
     strictPort: false,
+    allowedHosts: ['.replit.dev', '.replit.app'], // Allow Replit dynamic hostnames
   },
   build: {
     outDir: path.resolve(__dirname, 'dist/public'),
