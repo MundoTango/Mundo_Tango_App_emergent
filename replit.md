@@ -50,6 +50,15 @@ The frontend is built with React and TypeScript using Vite. It features a compon
 
 The platform incorporates a multi-layer file protection system to ensure deployment stability and prevent data loss. This includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring (Documentation Agent Layer 52), automated Git recovery, and a comprehensive stability plan. Agent safety protocols are also in place, with 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (e.g., `docs/`, `scripts/`, `agents/`, `schema`), automated tests for file protection, and PostgreSQL backups for markdown files.
 
+**Agent Learning System (Oct 19, 2025):** Following a critical regression where vite.config.ts went missing, we implemented a comprehensive agent learning system documented in `docs/COMMON_FAILURES_DATABASE.md`. This includes:
+- Mandatory pre-work and post-work verification protocols for all agents
+- Historical failure pattern documentation and prevention guides
+- Agent-specific learning protocols embedded in Layer 50 (DevOps) and Layer 52 (Documentation)
+- Automated verification script (`scripts/agent-verification.sh`) for build system health checks
+- Cross-references to `docs/PREVENTION_GUIDE.md` and `docs/CRITICAL_FAILURE_ANALYSIS.md`
+
+All agents must now verify file content (not just existence), test builds before claiming "deployment ready", and take screenshots to confirm preview functionality.
+
 ### System Design Choices
 
 Mundo Tango utilizes an extensive AI agent ecosystem with over 200 agents across various categories, including Leadership & Management, ESA Infrastructure (61 agents), Operational Excellence, Life CEO AI Agents (16, utilizing GPT-4o), Mr Blue Suite Agents (8, including multi-model routing), Page Agents (125+ for context-aware assistance), Customer Journey Agents (4), UI Sub-Agents, Algorithm Agents (10+), and Specialized Service Agents (10+). All core agents are operational and continuously validated.

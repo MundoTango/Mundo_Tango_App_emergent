@@ -254,6 +254,28 @@ curl -I http://localhost:5000/          # Must return 200 OK
 
 ---
 
+## 🛠️ Automated Verification Script
+
+**NEW (Oct 19, 2025):** Use the automated verification script for quick health checks:
+
+```bash
+# Quick verification (no build test)
+./scripts/agent-verification.sh
+
+# Full verification including build test
+./scripts/agent-verification.sh --build-test
+```
+
+This script checks:
+- ✅ Build system health (npm, node, vite, tsx)
+- ✅ Critical files existence and content
+- ✅ Documentation integrity
+- ✅ Build test (optional with --build-test flag)
+
+**Agents #50 and #52 MUST run this before claiming task completion.**
+
+---
+
 ## 🔍 Validation Templates
 
 ### Template 1: File Creation Validation
