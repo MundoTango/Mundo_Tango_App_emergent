@@ -117,7 +117,7 @@ export default function PricingPage() {
               />
               <Label htmlFor="billing-toggle" className={billingCycle === 'annual' ? 'font-semibold' : ''}>
                 Annual
-                <Badge className="ml-2 bg-green-100 text-green-800">Save 20%</Badge>
+                <Badge className="ml-2 bg-turquoise-100 text-turquoise-800 dark:bg-turquoise-900 dark:text-turquoise-100">Save 20%</Badge>
               </Label>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Free Tier */}
-          <Card className="relative border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+          <Card className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 border-turquoise-100 dark:border-gray-700 hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 Free
@@ -168,7 +168,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Pro Tier */}
-          <Card className="relative border-[#5EEAD4] shadow-lg scale-105">
+          <Card className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 border-turquoise-400 shadow-xl scale-105">
             <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#5EEAD4] text-white">
               Most Popular
             </Badge>
@@ -222,7 +222,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Business Tier */}
-          <Card className="relative border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+          <Card className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 border-turquoise-100 dark:border-gray-700 hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-blue-600" />
@@ -260,7 +260,7 @@ export default function PricingPage() {
                 </Button>
               ) : (
                 <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                   onClick={() => handleSubscribe('business')}
                   disabled={subscribeMutation.isPending}
                   data-testid="button-subscribe-business"
@@ -273,7 +273,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Enterprise Tier */}
-          <Card className="relative border-gray-900 hover:shadow-lg transition-shadow">
+          <Card className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 border-turquoise-200 dark:border-gray-600 hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Crown className="h-5 w-5 text-yellow-600" />
