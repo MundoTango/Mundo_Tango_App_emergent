@@ -1,6 +1,6 @@
 /**
  * Response Time Middleware
- * MB.MD Fixed: October 19, 2025
+ * MB.MD Created: October 19, 2025
  */
 
 import type { Request, Response, NextFunction } from 'express';
@@ -8,7 +8,6 @@ import type { Request, Response, NextFunction } from 'express';
 export function responseTimeLogger(req: Request, res: Response, next: NextFunction) {
   const start = Date.now();
   
-  // Set header early, before response is sent
   const originalSend = res.send;
   res.send = function(data: any) {
     const duration = Date.now() - start;

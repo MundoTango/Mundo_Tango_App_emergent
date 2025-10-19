@@ -3,8 +3,6 @@
  * MB.MD Created: October 19, 2025
  */
 
-import type { Response } from 'express';
-
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
@@ -12,17 +10,17 @@ export interface ApiResponse<T = any> {
   message?: string;
 }
 
-export function successResponse<T>(res: Response, data: T, message?: string) {
-  return res.json({
+export function successResponse<T>(data: T, message?: string): ApiResponse<T> {
+  return {
     success: true,
     data,
-    message,
-  });
+    message
+  };
 }
 
-export function errorResponse(res: Response, error: string, statusCode = 400) {
-  return res.status(statusCode).json({
+export function errorResponse(error: string): ApiResponse {
+  return {
     success: false,
-    error,
-  });
+    error
+  };
 }

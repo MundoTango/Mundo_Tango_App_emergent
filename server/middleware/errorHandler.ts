@@ -1,32 +1,38 @@
 /**
  * Error Handler Middleware
- * MB.MD Created: October 19, 2025
+ * MB.MD Fixed: October 19, 2025
  */
 
 import type { Request, Response, NextFunction } from 'express';
 
 /**
- * 404 Not Found handler - catches unmatched routes
+ * 404 Not Found handler
  */
 export function notFoundHandler(req: Request, res: Response, next: NextFunction) {
   res.status(404).json({
     success: false,
-    error: 'Route not found',
-    path: req.path,
+    error: 'Not Found',
+    message: `Cannot ${req.method} ${req.path}`
   });
 }
 
 /**
- * Global error handler - catches all errors
+ * Global error handler
  */
-export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   console.error('❌ Error:', err);
   
-  const isDev = process.env.NODE_ENV === 'development';
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal server error';
   
-  res.status(500).json({
+  res.status(statusCode).json({
     success: false,
-    error: isDev ? err.message : 'Internal server error',
-    stack: isDev ? err.stack : undefined,
+    error: message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
 }

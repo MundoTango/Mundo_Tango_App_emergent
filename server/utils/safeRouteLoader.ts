@@ -1,63 +1,60 @@
 /**
  * Safe Route Loader
- * MB.MD Created: October 19, 2025
- * Prevents server crashes from phantom imports
+ * MB.MD Fixed: October 19, 2025
+ * Prevents server crashes from missing route files
  */
 
-import type { Application } from 'express';
-import { existsSync } from 'fs';
-import { resolve } from 'path';
+import type { Express } from 'express';
+import type { Server } from 'socket.io';
 
-export interface RouteConfig {
+interface RouteConfig {
   path: string;
-  mountPath: string;
-  description: string;
+  mountPath?: string;
+  description?: string;
+  io?: Server;
+}
+
+interface RouteModule {
+  default?: (app: Express, io?: Server) => void;
+  registerRoutes?: (app: Express, io?: Server) => void;
 }
 
 /**
- * Safely load routes with graceful failure handling
- * @param app Express application instance
- * @param routes Array of route configurations to load
+ * Safely loads route modules with graceful failure handling
+ * @param app - Express application instance
+ * @param routeConfigs - Array of route configurations to load
  */
-export async function safeLoadRoutes(app: Application, routes: RouteConfig[]): Promise<void> {
-  let loaded = 0;
-  let skipped = 0;
+export async function safeLoadRoutes(
+  app: Express,
+  routeConfigs: RouteConfig[]
+): Promise<void> {
+  const results = {
+    loaded: 0,
+    skipped: 0,
+    errors: [] as string[]
+  };
 
-  for (const route of routes) {
+  for (const config of routeConfigs) {
     try {
-      // Convert relative path to absolute
-      const routePath = route.path.startsWith('../') 
-        ? resolve(__dirname, route.path)
-        : route.path;
+      const module = await import(config.path) as RouteModule;
       
-      // Check if file exists
-      const tsPath = `${routePath}.ts`;
-      const jsPath = `${routePath}.js`;
-      
-      if (!existsSync(tsPath) && !existsSync(jsPath)) {
-        console.warn(`⚠️  Skipped route: ${route.description} (file not found: ${routePath})`);
-        skipped++;
-        continue;
+      if (module.default) {
+        module.default(app, config.io);
+        console.log(`✅ Loaded route: ${config.description || config.path}`);
+        results.loaded++;
+      } else if (module.registerRoutes) {
+        module.registerRoutes(app, config.io);
+        console.log(`✅ Loaded route: ${config.description || config.path}`);
+        results.loaded++;
+      } else {
+        console.warn(`⚠️  Skipped route: ${config.description || config.path} (no default export)`);
+        results.skipped++;
       }
-
-      // Dynamic import
-      const module = await import(route.path);
-      const router = module.default;
-      
-      if (!router) {
-        console.warn(`⚠️  Skipped route: ${route.description} (no default export)`);
-        skipped++;
-        continue;
-      }
-
-      app.use(route.mountPath || '/api', router);
-      console.log(`✅ Loaded route: ${route.description}`);
-      loaded++;
-    } catch (error: any) {
-      console.error(`❌ Failed to load route: ${route.description}`, error.message);
-      skipped++;
+    } catch (error) {
+      console.warn(`⚠️  Skipped route: ${config.description || config.path} (file not found: ${config.path})`);
+      results.skipped++;
     }
   }
 
-  console.log(`📊 Route loading complete: ${loaded}/${routes.length} loaded, ${skipped} skipped`);
+  console.log(`📊 Route loading complete: ${results.loaded}/${routeConfigs.length} loaded, ${results.skipped} skipped`);
 }
