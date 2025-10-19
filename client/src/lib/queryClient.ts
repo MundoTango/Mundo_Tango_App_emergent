@@ -13,16 +13,27 @@ async function fetchCsrfToken() {
       credentials: 'include'
     });
     if (response.ok) {
-      const data = await response.json();
-      csrfToken = data.csrfToken;
+      // Safely parse JSON - catch parse errors
+      try {
+        const data = await response.json();
+        csrfToken = data.csrfToken;
+      } catch (parseError) {
+        console.warn('CSRF endpoint returned non-JSON response (expected during development)');
+      }
+    } else {
+      // CSRF endpoint not available - silent fail (not critical for app to load)
+      console.warn('CSRF token endpoint not available (expected during development)');
     }
   } catch (error) {
-    console.error('Failed to fetch CSRF token:', error);
+    // Silent fail - don't block app loading
+    console.warn('CSRF token fetch failed (non-critical)');
   }
 }
 
-// Initialize CSRF token on app start
-fetchCsrfToken();
+// Initialize CSRF token on app start (non-blocking, don't await)
+fetchCsrfToken().catch(() => {
+  // Prevent uncaught promise rejection from breaking React render
+});
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
