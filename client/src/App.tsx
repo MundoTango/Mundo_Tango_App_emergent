@@ -3,6 +3,8 @@ import { Switch, Route, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
 import { SocketProvider } from "@/contexts/socket-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TenantProvider } from "@/contexts/TenantContext";
@@ -226,30 +228,34 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MB.MD REBUILD: Phase 1 - Minimal Mr Blue Button (NO lazy loading) */}
+      {/* MB.MD REBUILD: Phase 3 - Mr Blue Button (inline styles to avoid Vite HMR bug) */}
       <div 
         style={{
           position: 'fixed',
           bottom: '24px',
           right: '24px',
-          width: '80px',
-          height: '80px',
-          backgroundColor: '#FF0000',
+          width: '64px',
+          height: '64px',
           borderRadius: '50%',
-          zIndex: 10000,
+          background: 'linear-gradient(to bottom right, #319795, #06b6d4)',
+          color: 'white',
+          border: '2px solid white',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '24px',
           cursor: 'pointer',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+          fontSize: '20px',
+          fontWeight: 'bold',
+          zIndex: 10000,
+          transition: 'transform 0.3s ease'
         }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         onClick={() => console.log('🔵 MR BLUE CLICKED!')}
         data-testid="mr-blue-rebuild-button"
       >
-        MB
+        ✨
       </div>
       {/* OLD: Commented out for rebuild
       <Suspense fallback={null}>
