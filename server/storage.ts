@@ -675,17 +675,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserRoles(userId: number): Promise<any[]> {
-    return await db
-      .select({
-        roleName: userRoles.roleName,
-        description: roles.description,
-        assignedAt: userRoles.createdAt,
-        isPlatformRole: roles.isPlatformRole
-      })
+    // Simplified query without join to avoid Drizzle ORM null handling issues
+    const userRolesList = await db
+      .select()
       .from(userRoles)
-      .leftJoin(roles, eq(userRoles.roleName, roles.name))
       .where(eq(userRoles.userId, userId))
       .orderBy(asc(userRoles.createdAt));
+    
+    return userRolesList.map(ur => ({
+      roleName: ur.roleName,
+      assignedAt: ur.createdAt
+    }));
   }
 
   async assignRoleToUser(userId: number, roleName: string, assignedBy?: number): Promise<any> {
@@ -705,9 +705,7 @@ export class DatabaseStorage implements IStorage {
       .insert(userRoles)
       .values({
         userId,
-        roleName,
-        assignedBy: assignedBy || null,
-        assignedAt: new Date()
+        roleName
       })
       .onConflictDoNothing()
       .returning();

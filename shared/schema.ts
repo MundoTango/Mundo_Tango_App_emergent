@@ -268,15 +268,11 @@ export const userRoles = pgTable("user_roles", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id).notNull(),
   roleName: text("role_name").references(() => roles.name).notNull(),
-  roleId: uuid("role_id").references(() => roles.id), // Added for compatibility
-  isPrimary: boolean("is_primary").default(false), // Added for primary role tracking
-  assignedAt: timestamp("assigned_at").defaultNow(),
-  assignedBy: integer("assigned_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
   unique().on(table.userId, table.roleName),
   index("idx_user_roles_user_id").on(table.userId),
   index("idx_user_roles_role_name").on(table.roleName),
-  index("idx_user_roles_role_id").on(table.roleId),
 ]);
 
 // Code of Conduct Agreements table for legal compliance tracking
