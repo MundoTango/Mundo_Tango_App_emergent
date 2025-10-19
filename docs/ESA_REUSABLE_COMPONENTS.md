@@ -3,8 +3,15 @@
 **Status:** ✅ Active  
 **Referenced by:** 106 agent files across ESA LIFE CEO framework
 
+## Quick Links
+- 📦 **[Complete Component Catalog](./MT_COMPONENT_CATALOG.md)** - Full inventory of 464 components
+- 🔄 **[ESA Protocols Lifecycle](./ESA_PROTOCOLS_LIFECYCLE.md)** - How this protocol integrates with others
+- 📋 **[Certification Rubrics](./ESA_AGENT_CERTIFICATION_RUBRICS.md)** - Component creation assessment
+
 ## Purpose
 The REUSABLE_COMPONENTS protocol promotes code reuse, consistency, and maintainability across the Mundo Tango platform. It defines patterns for creating, documenting, and consuming shared components.
+
+**See `MT_COMPONENT_CATALOG.md` for the complete inventory of all 464 components with ownership, versioning, and usage examples.**
 
 ## Core Principles
 
