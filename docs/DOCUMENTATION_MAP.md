@@ -1,6 +1,6 @@
 # 🗺️ DOCUMENTATION MAP - Complete System Reference
-**Last Updated:** October 19, 2025 (Comprehensive mapping update - all 340 files mapped)  
-**Total Documentation Files:** 340  
+**Last Updated:** October 19, 2025 (Agent documentation audit + 9 new files created)  
+**Total Documentation Files:** 349  
 **Purpose:** Associate all documentation with corresponding system components for agent guidance
 
 ---
@@ -50,6 +50,7 @@
 | Document | Lines | Purpose | When to Read |
 |----------|-------|---------|--------------|
 | `COMPREHENSIVE_AGENT_ONBOARDING_PROTOCOL.md` | 487 | 15-step agent onboarding | Before agent starts any work |
+| `COMPREHENSIVE_AGENT_DOCUMENTATION_AUDIT.md` | 700+ | Complete agent inventory + doc gaps | When auditing agent documentation |
 | `AGENT_COORDINATION_PROTOCOL.md` | 117 | A2A communication patterns | When coordinating with other agents |
 | `PREVENTION_GUIDE.md` | 326 | NPM corruption prevention | BEFORE any dependency changes |
 | `CRITICAL_FAILURE_ANALYSIS.md` | 238+ | Known failure patterns | When debugging recurring issues |
@@ -67,6 +68,9 @@
 #### Deployment & Operations
 | Document | Lines | Purpose | When to Read |
 |----------|-------|---------|--------------|
+| `DEPLOYMENT_TROUBLESHOOTING.md` | 350+ | Fixing deployment failures | When deployment fails |
+| `DEPENDENCY_MANAGEMENT.md` | 380+ | npm corruption + dependency best practices | BEFORE any dependency changes |
+| `REPLIT_DEPLOYMENT_PATTERNS.md` | 330+ | Replit-specific deployment (Autoscale vs VM) | Before deploying to Replit |
 | `DEPLOYMENT_GUIDE.md` | ? | Production deployment | Before deploying |
 | `LAUNCH_CHECKLIST.md` | ? | Pre-launch checklist | Before going live |
 | `40x20s-framework.md` | ? | ESA methodology | Systematic problem solving |
@@ -411,6 +415,19 @@
 ---
 
 ### 4. FEATURE DOCUMENTATION
+
+#### MT Platform Feature Guides (5 Files) ✨ NEW
+
+**Purpose:** Complete implementation guides for Mundo Tango core features  
+**Created:** October 19, 2025
+
+- `docs/EVENTS_FEATURE_GUIDE.md` → Events system (database, API, UI, real-time)
+- `docs/GROUPS_FEATURE_GUIDE.md` → Groups/communities (city-based auto-groups, membership)
+- `docs/PROFILES_FEATURE_GUIDE.md` → User profiles (tango-specific fields, privacy, verification)
+- `docs/MEMORIES_FEATURE_GUIDE.md` → Memories/posts (hashtags, location, AI enhancement, feed algorithms)
+- `docs/SUBSCRIPTIONS_FEATURE_GUIDE.md` → Subscription tiers (Stripe integration, feature gating, usage tracking)
+
+**When to use:** When implementing or debugging these MT platform features. Each guide includes complete database schema, API endpoints, frontend components, and business logic.
 
 #### Page-Specific Docs ("The Pages" Agents - 15 Files)
 - `docs/The Pages/agents/P1_login_page.md` → Login page
