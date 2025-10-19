@@ -44,11 +44,9 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// Critical components that load immediately - minimal initial bundle
+// MB.MD MINIMAL IMPORTS: Only components that exist to fix blank screen
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
-import TestSimple from "@/pages/test-simple"; // TEMP: Minimal test page
-import MTStatusPreview from "@/pages/MTStatusPreview";
 import TrialBanner from "@/components/TrialBanner";
 
 // Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
@@ -76,8 +74,8 @@ const VisualEditorWrapper = lazy(() => import("@/components/visual-editor/Visual
 
 // EventDiscoveryFeed - Used on multiple pages but deferred to reduce initial bundle
 const EventDiscoveryFeed = lazy(() => import('@/components/events/EventDiscoveryFeed'));
-// MB.MD FIX: Add missing Discover page import
-const Discover = lazy(() => import('@/pages/discover'));
+// MB.MD FIX: Discover page doesn't exist - commented out to fix crash
+// const Discover = lazy(() => import('@/pages/discover'));
 
 // Mundo Tango ESA Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
@@ -161,38 +159,23 @@ function Router() {
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
         <Switch>
-          {/* J1 - First-Time Visitor Journey */}
-          {/* LSP errors fixed, testing with real landing page now */}
+          {/* MB.MD MINIMAL ROUTES: Only using imported components to fix blank screen */}
+          
+          {/* Home/Landing - uses Landing component */}
           <Route path="/">
             {isLoading ? (
               <LoadingFallback />
             ) : (
-              <LandingVisitor />
+              <Landing />
             )}
           </Route>
 
-          <Route path="/discover">
-            <VisitorRoute>
-              <Discover />
-            </VisitorRoute>
-          </Route>
-
-          <Route path="/about">
-            <About />
-          </Route>
-
-          <Route path="/join">
-            <VisitorRoute>
-              <Join />
-            </VisitorRoute>
-          </Route>
-
-          {/* Landing page for authenticated users (kept for backward compatibility) */}
+          {/* Explicit landing page route */}
           <Route path="/landing">
             <Landing />
           </Route>
 
-          {/* Mundo Tango ESA - Dynamic Routes from Registry */}
+          {/* Mundo Tango ESA - Dynamic Routes from Registry (Visual Editor, Mr Blue, etc.) */}
           {allRoutes.map((route: RouteConfig) => {
             const RouteComponent = route.component;
             return (
