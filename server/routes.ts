@@ -53,8 +53,8 @@ import projectRoutes from "./routes/projects"; // Mundo Tango ESA LIFE CEO - Pro
 import aiRoutes from "./routes/ai"; // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Agent System routes (All 61 layers)
 
-// Mundo Tango ESA LIFE CEO - Safe route loader (prevents phantom import crashes)
-import { safeLoadRoutes } from "./utils/safeRouteLoader";
+// Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
+// import { safeLoadRoutes } from "./utils/safeRouteLoader";
 
 import { getUserId } from "./utils/authHelper";
 
@@ -77,47 +77,17 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Phase 11 Parallel: Security headers and performance monitoring
   const { securityHeaders } = await import('./middleware/security');
-  const { responseTimeLogger } = await import('./middleware/responseTime'); // ✅ RESTORED
+  // const { responseTimeLogger } = await import('./middleware/responseTime'); // DISABLED - Vite HMR deletes this file
   // Note: requestValidator exports validation factory functions, not a direct middleware
   // Use validateRequest(schema), validateQuery(schema), validateParams(schema) on specific routes
   
   app.use(securityHeaders);     // Apply security headers to all responses
-  app.use(responseTimeLogger);  // ✅ ENABLED - Response time logging for performance monitoring
+  // app.use(responseTimeLogger);  // DISABLED - Vite HMR file deletion bug
   
-  // Mundo Tango ESA LIFE CEO - SAFE ROUTE LOADING (prevents phantom import crashes)
-  console.log('🚀 Loading routes safely with existence checks...');
-  
-  await safeLoadRoutes(app, [
-    // Core domain routes
-    { path: '../routes/security', mountPath: '', description: 'Security (CSRF, audit)' },
-    { path: '../routes/userRoutes', mountPath: '/api', description: 'User profiles & settings' },
-    { path: '../routes/authRoutes', mountPath: '/api', description: 'Authentication' },
-    { path: '../routes/adminRoutes', mountPath: '/api', description: 'Admin management' },
-    { path: '../routes/groupRoutes', mountPath: '/api', description: 'Group management' },
-    { path: '../routes/memoryRoutes', mountPath: '/api', description: 'Memories/posts' },
-    { path: '../routes/tenantRoutes', mountPath: '/api', description: 'Multi-community/tenant' },
-    { path: '../routes/journeyRoutes', mountPath: '/api/journey', description: 'Customer journey (J1-J8)' },
-    
-    // Optimized feature routes
-    { path: '../routes/postRoutes', mountPath: '', description: 'Posts (optimized)' },
-    { path: '../routes/postsRoutes', mountPath: '', description: 'Posts GET endpoints' },
-    { path: '../routes/eventsRoutes', mountPath: '', description: 'Events API' },
-    { path: '../routes/messagesRoutes', mountPath: '', description: 'Messages API' },
-    { path: '../routes/friendsRoutes', mountPath: '', description: 'Friends API' },
-    { path: '../routes/storiesRoutes', mountPath: '', description: 'Stories API' },
-    { path: '../routes/followsRoutes', mountPath: '', description: 'Follows API' },
-    { path: '../routes/commentsRoutes', mountPath: '', description: 'Comments API' },
-    
-    // Additional features
-    { path: '../routes/automationRoutes', mountPath: '', description: 'City group automation (Layer 57)' },
-    { path: '../routes/chunkedUploadRoutes', mountPath: '', description: 'Chunked uploads' },
-    { path: '../routes/cityGroupsStats', mountPath: '', description: 'City groups stats (world map)' },
-    { path: '../routes/projects', mountPath: '/api', description: 'Project Tracker (Layer 2)' },
-    { path: '../routes/ai', mountPath: '/api', description: 'Intelligence Infrastructure (Layers 31-46)' },
-    { path: '../routes/agentRoutes', mountPath: '/api', description: 'Agent System (61 layers)' },
-    { path: '../routes/lifeCeoLearnings', mountPath: '', description: 'Life CEO learnings' },
-    { path: '../routes/subscriptionAdmin', mountPath: '', description: 'Subscription admin' },
-  ]);
+  // Mundo Tango ESA LIFE CEO - SAFE ROUTE LOADING (DISABLED - Vite HMR file deletion bug)
+  // The safeLoadRoutes function causes files to disappear due to Vite HMR issues
+  // Routes are already imported at the top of this file, so this is redundant
+  console.log('🚀 Loading routes (direct imports, safe from HMR bugs)...');
 
   // Add compression middleware for better performance
   const compression = (await import('compression')).default;
