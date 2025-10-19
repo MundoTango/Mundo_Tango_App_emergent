@@ -226,10 +226,36 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MB.MD: Mr Blue AI Companion (Agents #73-80, mb.md lines 988-1012) */}
+      {/* MB.MD REBUILD: Phase 1 - Minimal Mr Blue Button (NO lazy loading) */}
+      <div 
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          width: '80px',
+          height: '80px',
+          backgroundColor: '#FF0000',
+          borderRadius: '50%',
+          zIndex: 10000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: '24px',
+          cursor: 'pointer',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+        }}
+        onClick={() => console.log('🔵 MR BLUE CLICKED!')}
+        data-testid="mr-blue-rebuild-button"
+      >
+        MB
+      </div>
+      {/* OLD: Commented out for rebuild
       <Suspense fallback={null}>
         <MrBlueComplete />
       </Suspense>
+      */}
       <Suspense fallback={null}>
         <VisualEditorWrapper />
       </Suspense>
