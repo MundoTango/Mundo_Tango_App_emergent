@@ -2,8 +2,8 @@
 ## Complete Guide: Which Docs to Read During Each MB.MD Phase
 
 **Created:** October 19, 2025  
-**Updated:** October 19, 2025 (Added 120 Mr Blue docs across all phases)  
-**Purpose:** Associate all 340 documentation files to MB.MD phases (Mapping → Breakdown → Mitigation → Deployment)  
+**Updated:** October 19, 2025 (Added 9 new files: agent audit + deployment + MT feature guides)  
+**Purpose:** Associate all 349 documentation files to MB.MD phases (Mapping → Breakdown → Mitigation → Deployment)  
 **Audience:** All agents, future development sessions
 
 ---
@@ -40,10 +40,16 @@ Each phase requires specific documentation to be read:
 - **Who needs it:** ALL agents without exception
 
 **Documentation Map** - Meta-map of all documentation
-- **File:** `docs/DOCUMENTATION_MAP.md` (500+ lines)
+- **File:** `docs/DOCUMENTATION_MAP.md` (791 lines, 349 files mapped)
 - **Learn:** Where to find docs for each system component
 - **When:** When you don't know which docs to read
 - **Who needs it:** All agents as starting point
+
+**Agent Documentation Audit** - Complete agent inventory
+- **File:** `docs/COMPREHENSIVE_AGENT_DOCUMENTATION_AUDIT.md` (700+ lines)
+- **Learn:** All 287+ agents documented, 122 page agent gaps identified
+- **When:** When auditing agent documentation or identifying doc accountability
+- **Who needs it:** Documentation Agent (#52), Operational #64, all agents creating new agents
 
 ### Architecture Mapping Documents
 
@@ -75,6 +81,34 @@ Each phase requires specific documentation to be read:
 - `PROJECT_TRACKER_API.md` - Project tracking endpoints
 - **When to read:** Before building features that call these APIs
 - **Who needs it:** Backend agents, integration agents, API consumers
+
+### MT Platform Feature Mapping ✨ NEW
+
+**Mundo Tango Core Feature Guides** (Complete implementation reference)
+- **File:** `docs/EVENTS_FEATURE_GUIDE.md` (500+ lines)
+  - **Learn:** Events database schema, API endpoints, RSVP system, recurring events, real-time updates
+  - **When:** Before working on event creation, calendar, or event discovery features
+  - **Who needs it:** Layer #23 (Event Management), Page agents, backend/frontend developers
+
+- **File:** `docs/GROUPS_FEATURE_GUIDE.md` (450+ lines)
+  - **Learn:** Groups/communities system, city-based auto-groups, membership management, moderation
+  - **When:** Before working on group creation, membership, or community features
+  - **Who needs it:** Layer #22 (Group Management), Page agents, backend/frontend developers
+
+- **File:** `docs/PROFILES_FEATURE_GUIDE.md` (500+ lines)
+  - **Learn:** User profiles, tango-specific fields, privacy controls, verification badges
+  - **When:** Before working on user profiles, settings, or profile customization
+  - **Who needs it:** Layer #21 (User Management), Page agents, backend/frontend developers
+
+- **File:** `docs/MEMORIES_FEATURE_GUIDE.md` (550+ lines)
+  - **Learn:** Memories/posts system, hashtag indexing, location tagging, AI enhancement, feed algorithms
+  - **When:** Before working on social feed, post creation, or content management
+  - **Who needs it:** Layer #24 (Social Features), Page agents, AI agents, backend/frontend developers
+
+- **File:** `docs/SUBSCRIPTIONS_FEATURE_GUIDE.md` (520+ lines)
+  - **Learn:** Subscription tiers (Free/Pro/Premium), Stripe integration, feature gating, usage tracking
+  - **When:** Before working on payments, subscriptions, or tier-based features
+  - **Who needs it:** Layer #17 (Payment Processing), Page agents, backend developers
 
 ### Agent Hierarchy Mapping
 
@@ -264,6 +298,29 @@ Each phase requires specific documentation to be read:
 - **Root causes:** Package manager corruption, missing dependencies, build system failure
 - **When:** If you see ANY module errors or build failures
 - **Who needs it:** DevOps agents, infrastructure agents, emergency responders
+
+### Deployment Failure Prevention ✨ NEW
+
+**Deployment Troubleshooting** - Fixing deployment failures
+- **File:** `docs/DEPLOYMENT_TROUBLESHOOTING.md` (350+ lines)
+- **Learn:** react-router-dom resolution errors, npm corruption detection, Autoscale vs Reserved VM issues, vite.config manualChunks failures
+- **Solutions:** Deployment recovery procedures, expected build times, production best practices
+- **When:** When deployment fails or build errors occur
+- **Who needs it:** Layer #50 (DevOps), all agents deploying to production
+
+**Dependency Management** - Preventing npm corruption
+- **File:** `docs/DEPENDENCY_MANAGEMENT.md` (380+ lines)
+- **Learn:** Healthy vs corrupted install (30s vs 10s), package verification, dependency auditing, version specification best practices
+- **Critical Rule:** npm install <15 seconds = corrupted (ALWAYS clear and reinstall)
+- **When:** BEFORE any dependency changes (installing, updating, removing packages)
+- **Who needs it:** ALL agents touching package.json or node_modules
+
+**Replit Deployment Patterns** - Replit-specific deployment
+- **File:** `docs/REPLIT_DEPLOYMENT_PATTERNS.md` (330+ lines)
+- **Learn:** Autoscale vs Reserved VM (when to use each), Mundo Tango requires Reserved VM for WebSocket/complex builds, deployment configuration, rollback procedures
+- **Critical:** Autoscale fails for Mundo Tango - MUST use Reserved VM
+- **When:** Before deploying to Replit production
+- **Who needs it:** Layer #50 (DevOps), deployment agents, production engineers
 
 ### Known Issues Database
 
