@@ -2,7 +2,8 @@
 ## Complete Guide: Which Docs to Read During Each MB.MD Phase
 
 **Created:** October 19, 2025  
-**Purpose:** Associate all 335+ documentation files to MB.MD phases (Mapping → Breakdown → Mitigation → Deployment)  
+**Updated:** October 19, 2025 (Added 120 Mr Blue docs across all phases)  
+**Purpose:** Associate all 340 documentation files to MB.MD phases (Mapping → Breakdown → Mitigation → Deployment)  
 **Audience:** All agents, future development sessions
 
 ---
@@ -86,6 +87,48 @@ Each phase requires specific documentation to be read:
 
 **When to read:** Before coordinating work across agents or understanding agent responsibilities  
 **Who needs it:** Agent coordinators, orchestrators, meta-agents
+
+### Mr Blue AI System Architecture Mapping
+
+**Mr Blue Implementation Specs** (MUST READ before Mr Blue work)
+- `docs/MrBlue/FINAL_MR_BLUE_IMPLEMENTATION.md` (360 lines) - **PRIMARY SPEC** for 927+ agent system
+- `docs/MrBlue/mb.md` - Comprehensive Mr Blue master document
+- `docs/MrBlue/mb-master-plan-v4.md` (404 lines) - Latest master plan
+- `docs/MrBlue/AGENT_HIERARCHY_COMPLETE.md` - Complete agent hierarchy
+- `docs/MrBlue/IMPLEMENTATION_SUMMARY.md` - Implementation overview
+- **Learn:** Mr Blue's role as supreme orchestrator, 927+ agent dependencies, deletion impact
+- **When:** BEFORE modifying Mr Blue, Visual Editor, or agent systems
+- **Who needs it:** Mr Blue agents, orchestrators, AI system developers
+
+**Mr Blue Intelligence Architecture**
+- `docs/MrBlue/TRACK_8_MR_BLUE_INTELLIGENCE_ARCHITECTURE.md` - Intelligence system design
+- `docs/MrBlue/MR_BLUE_INTELLIGENCE_UPDATE.md` - Latest intelligence updates
+- `docs/MrBlue/TRACK_9_VISUAL_TOOL_ARCHITECTURE.md` - Visual Editor architecture
+- `docs/MrBlue/TRACK_10_ESA_MD_INTEGRATION_COMPLETE.md` - ESA integration
+- **Learn:** How Mr Blue's AI intelligence works, context management, multi-model routing
+- **When:** Building AI features, context-aware systems
+- **Who needs it:** AI agents, intelligence system developers
+
+**Mr Blue Agent Sources** (Intelligence Agents #110-116)
+- `docs/MrBlue/agent-sources/AGENT_110_CODE_INTELLIGENCE_SOURCES.md` - Code intelligence
+- `docs/MrBlue/agent-sources/AGENT_111_VISUAL_PREVIEW_SOURCES.md` - Visual preview
+- `docs/MrBlue/agent-sources/AGENT_112_DESIGN_TO_CODE_SOURCES.md` - Design to code
+- `docs/MrBlue/agent-sources/AGENT_113_CROSS_PHASE_SOURCES.md` - Cross-phase coordination
+- `docs/MrBlue/agent-sources/AGENT_114_PREDICTIVE_PLANNER_SOURCES.md` - Predictive planning
+- `docs/MrBlue/agent-sources/AGENT_115_DYNAMIC_PRIORITY_SOURCES.md` - Dynamic priorities
+- `docs/MrBlue/agent-sources/AGENT_116_DEPENDENCY_MAPPER_SOURCES.md` - Dependency mapping
+- **Learn:** Advanced intelligence agent patterns and data sources
+- **When:** Building Intelligence Agents (#110-116)
+- **Who needs it:** Intelligence agent developers
+
+**Mr Blue Research & Context**
+- `docs/MrBlue/COMPREHENSIVE_EXPERT_RESEARCH_PHASE.md` - Expert research methodology
+- `docs/MrBlue/FACEBOOK_DEEP_RESEARCH_REPORT.md` - Facebook/Meta research insights
+- `docs/MrBlue/FACEBOOK_IMPLEMENTATION_ROADMAP.md` - Implementation from research
+- `docs/MrBlue/RESEARCH_PHASE_COMPLETE_SUMMARY.md` - Research phase summary
+- **Learn:** How Mr Blue was researched and designed
+- **When:** Understanding Mr Blue's design decisions
+- **Who needs it:** Architects, researchers, strategic planners
 
 ### Frontend Build Configuration Verification ⚠️ CRITICAL
 
@@ -174,6 +217,27 @@ Each phase requires specific documentation to be read:
 - **When:** Planning new phases or learning from past executions
 - **Who needs it:** Phase planners, learning agents, retrospective reviewers
 
+### Mr Blue AI System Decomposition
+
+**Build Execution Plans** (How to execute Mr Blue work in parallel)
+- `docs/MrBlue/PARALLEL_BUILD_EXECUTION_PLAN.md` - Parallel execution framework
+- `docs/MrBlue/PARALLEL_EXECUTION_MASTER_PLAN.md` - Master parallel plan
+- `docs/MrBlue/MBMD_FULL_EXECUTION_PLAN.md` - Full MB.MD execution
+- `docs/MrBlue/3_LAYER_DEPLOYMENT_PLAN.md` - 3-layer deployment strategy
+- `docs/MrBlue/EXECUTE_NOW.md` - Immediate execution guide
+- **Learn:** How to run multiple Mr Blue tracks in parallel
+- **When:** Building Mr Blue features or Visual Editor
+- **Who needs it:** Mr Blue agents, parallel execution specialists
+
+**Mr Blue Phase Reports** (Learn from past decompositions)
+- `docs/MrBlue/PHASE_9_10_COMPLETE_SUMMARY.md` - Phases 9-10 completion
+- `docs/MrBlue/mb-phase1-complete.md` through `mb-phase9-complete.md` - Individual phase reports
+- `docs/MrBlue/mb-parallel-phase1-2-complete.md` - Parallel execution summary
+- `docs/MrBlue/mb-parallel-tracks-7-12-complete.md` - Tracks 7-12 complete
+- **Learn:** Historical decomposition patterns that worked
+- **When:** Planning new Mr Blue phases
+- **Who needs it:** Mr Blue project managers, phase planners
+
 ---
 
 ## 🛡️ PHASE 3: MITIGATION (Failure Prevention)
@@ -243,6 +307,24 @@ Each phase requires specific documentation to be read:
 - **When:** Encountering similar issues
 - **Who needs it:** Debugging agents, QA agents
 
+### Mr Blue Failure Prevention & Known Issues
+
+**Mr Blue Known Issues**
+- `docs/MrBlue/KNOWN_ISSUE_ROUTE_ERROR.md` - Mr Blue routing bugs and solutions
+- `docs/MrBlue/DB_FIX_COMPLETE.md` - Database fix completed
+- `docs/MrBlue/DB_PERFORMANCE_FIX.md` - Performance optimization fixes
+- `docs/MrBlue/100_PERCENT_FIX_PLAN.md` - Comprehensive fix plan
+- **Learn:** Known Mr Blue issues and how to avoid them
+- **When:** Working on Mr Blue or Visual Editor
+- **Who needs it:** Mr Blue agents, debugging specialists
+
+**Mr Blue Onboarding Protocol** (Prevent onboarding failures)
+- `docs/MrBlue/COMPREHENSIVE_AGENT_ONBOARDING_PROTOCOL.md` (487 lines) - **CRITICAL**
+- **Learn:** 15-step agent onboarding framework, continuous improvement loop
+- **When:** Before ANY agent starts work (mandatory)
+- **Who needs it:** ALL agents without exception
+- **Integration:** Referenced in AGENT_SESSION_LOG.md for knowledge transfer
+
 ---
 
 ## ✅ PHASE 4: DEPLOYMENT (Production Readiness Validation)
@@ -297,6 +379,47 @@ Each phase requires specific documentation to be read:
 - **File:** `docs/VISUAL_REGRESSION_TESTING.md`
 - **Learn:** How to test properly before deployment
 - **When:** Before claiming work complete
+- **Who needs it:** QA agents, testing specialists
+
+**Mr Blue Visual Editor Testing**
+- `docs/MrBlue/visual-editor-testing.md` - Visual Editor test protocol
+- `docs/MrBlue/phase7-integration-tests.md` - Phase 7 integration tests
+- **Learn:** How to test Mr Blue and Visual Editor features
+- **When:** Testing Mr Blue components
+- **Who needs it:** Mr Blue QA, Visual Editor testers
+
+### Mr Blue Deployment & Completion Reports
+
+**Mr Blue Audit & Quality Reports**
+- `docs/MrBlue/COMPREHENSIVE_CODEBASE_AUDIT.md` - Complete codebase audit
+- `docs/MrBlue/COMPREHENSIVE_PLATFORM_AUDIT_COMPLETE.md` - Platform audit
+- `docs/MrBlue/DEPLOYMENT_AUDIT_PLAN.md` - Deployment audit checklist
+- `docs/MrBlue/PARALLEL_AUDIT_RESULTS.md` - Parallel execution audit
+- `docs/MrBlue/TRACK_7_QUALITY_STANDARDS_AUDIT.md` - Quality standards
+- **Learn:** Mr Blue production quality standards
+- **When:** Verifying Mr Blue is deployment-ready
+- **Who needs it:** Mr Blue deployment validators, QA leads
+
+**Mr Blue Completion Reports** (Verify 100% complete)
+- `docs/MrBlue/100_PERCENT_COMPLETE.md` - 100% completion criteria
+- `docs/MrBlue/BUILD_COMPLETE_SUMMARY.md` - Build completion summary
+- `docs/MrBlue/FINAL_PARALLEL_SUMMARY.md` - Parallel execution complete
+- `docs/MrBlue/FINAL_HEALTH_REPORT.md` - Final health check
+- `docs/MrBlue/FINAL-STATUS.md` - Final status report
+- `docs/MrBlue/EXECUTION_STATUS.md` - Current execution status
+- `docs/MrBlue/completion-report.md` - Completion report
+- **Learn:** What "100% complete" means for Mr Blue
+- **When:** Verifying Mr Blue deployment readiness
+- **Who needs it:** Deployment managers, stakeholders
+
+**Mr Blue Execution Summaries**
+- `docs/MrBlue/PARALLEL_EXECUTION_COMPLETE.md` - Parallel execution done
+- `docs/MrBlue/parallel-execution-report.md` - Execution report
+- `docs/MrBlue/mb-parallel-execution-complete.md` - MB.MD parallel complete
+- `docs/MrBlue/mb-execution-summary-oct13.md` - October execution summary
+- **Learn:** How Mr Blue was successfully built
+- **When:** Learning from successful deployments
+- **Who needs it:** Process improvement teams, retrospectives
 - **Who needs it:** Testing agents, QA validators, all developers
 
 ### Launch Checklists
