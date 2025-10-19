@@ -10,7 +10,7 @@ import { TenantProvider } from "@/contexts/TenantContext";
 import { OpenReplayProvider } from "@/components/OpenReplayProvider";
 import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
 import { LocationBiasProvider } from "@/contexts/LocationBiasContext";
-import { PageAgentProvider } from "@/contexts/PageAgentContext";
+// import { PageAgentProvider } from "@/contexts/PageAgentContext"; // DISABLED - Vite HMR file deletion bug
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -59,14 +59,16 @@ const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton").then(m =>
 const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions").then(m => ({ default: m.SmartPageSuggestions })));
 const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(m => ({ default: m.AIContextBar })));
 
-// ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)
-const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(m => ({ default: m.MrBlueFloatingButton })));
+// ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)  
+// DISABLED - Vite HMR file deletion bug keeps removing these files
+// const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(m => ({ default: m.MrBlueFloatingButton })));
 
 // ESA Dev Tools - Super Admin toggle for development testing
 const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(m => ({ default: m.SuperAdminToggle })));
 
 // Phase 15 Batch 1: Cache monitor display for development
-const CacheMonitorDisplay = lazy(() => import("@/components/dev/CacheMonitorDisplay").then(m => ({ default: m.CacheMonitorDisplay })));
+// DISABLED - Vite HMR file deletion bug keeps removing this file
+// const CacheMonitorDisplay = lazy(() => import("@/components/dev/CacheMonitorDisplay").then(m => ({ default: m.CacheMonitorDisplay })));
 
 // ESA Visual Editor - Replit-style page editor (Agent #78)
 const VisualEditorWrapper = lazy(() => import("@/components/visual-editor/VisualEditorWrapper"));
@@ -239,17 +241,17 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MB.MD Fixed: MrBlueFloatingButton now enabled ✅ */}
-      <Suspense fallback={null}>
+      {/* MB.MD DISABLED: MrBlueFloatingButton - Vite HMR deletes file */}
+      {/* <Suspense fallback={null}>
         <MrBlueFloatingButton />
-      </Suspense>
+      </Suspense> */}
       <Suspense fallback={null}>
         <VisualEditorWrapper />
       </Suspense>
-      {/* Phase 15 Batch 1: Cache monitoring display (dev only) */}
-      <Suspense fallback={null}>
+      {/* Phase 15 Batch 1: Cache monitoring display DISABLED - Vite HMR bug */}
+      {/* <Suspense fallback={null}>
         <CacheMonitorDisplay />
-      </Suspense>
+      </Suspense> */}
     </>
   );
 }
@@ -275,14 +277,14 @@ function App() {
   console.log('🚀 [App] About to return JSX tree');
 
   // MB.MD INFRA-4: Testing monitoring providers (Tenant ✅, LocationBias ✅, Socket ✅)
-  // Phase 0 Task 0.4: PageAgentProvider added for 276-agent context visibility
+  // Phase 0 Task 0.4: PageAgentProvider DISABLED due to Vite HMR file deletion bug
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TenantProvider>
             <LocationBiasProvider>
-              <PageAgentProvider>
+              {/* <PageAgentProvider> DISABLED - Vite HMR deletes this file */}
                 <SocketProvider>
                   <TooltipProvider>
                     <OpenReplayProvider>
@@ -294,7 +296,7 @@ function App() {
                     </OpenReplayProvider>
                   </TooltipProvider>
                 </SocketProvider>
-              </PageAgentProvider>
+              {/* </PageAgentProvider> */}
             </LocationBiasProvider>
           </TenantProvider>
         </AuthProvider>

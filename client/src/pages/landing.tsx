@@ -6,20 +6,20 @@ import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
-import { usePageAgent } from "@/hooks/usePageAgent"; // Phase 0 Task 0.4
+// import { usePageAgent } from "@/hooks/usePageAgent"; // DISABLED - Vite HMR file deletion bug
 
 export default function Landing() {
   const { t } = useTranslation();
   const { isAuthenticated, isLoading } = useAuth();
-  const pageAgent = usePageAgent(); // Phase 0 Task 0.4: Page agent context
+  // const pageAgent = usePageAgent(); // DISABLED - Vite HMR file deletion bug
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
-  // Phase 0 Task 0.4: Log page agent info in development
-  useEffect(() => {
-    if (import.meta.env.DEV && pageAgent.hasContext) {
-      console.log(`📄 [Landing] Built by: ${pageAgent.agents[0]?.name}`, pageAgent);
-    }
-  }, [pageAgent]);
+  // Phase 0 Task 0.4: DISABLED - Page agent context (Vite HMR bug)
+  // useEffect(() => {
+  //   if (import.meta.env.DEV && pageAgent.hasContext) {
+  //     console.log(`📄 [Landing] Built by: ${pageAgent.agents[0]?.name}`, pageAgent);
+  //   }
+  // }, [pageAgent]);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
     return (savedTheme as 'light' | 'dark') || 'light';

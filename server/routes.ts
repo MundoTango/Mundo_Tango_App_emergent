@@ -1042,10 +1042,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     console.log('📦 Production mode: static files served by express.static in index-novite.ts');
   }
   
-  // 🎯 Phase 11: Register error handlers (MUST be LAST - after Vite setup)
-  const { notFoundHandler, errorHandler } = await import('./middleware/errorHandler');
-  app.use(notFoundHandler);  // Catch 404s for unmatched routes
-  app.use(errorHandler);     // Catch all errors
+  // 🎯 Phase 11: Register error handlers (DISABLED - Vite HMR file deletion bug)
+  // const { notFoundHandler, errorHandler } = await import('./middleware/errorHandler');
+  // app.use(notFoundHandler);  // Catch 404s for unmatched routes
+  // app.use(errorHandler);     // Catch all errors
+  // Note: Error handling still works via Express default handlers
   
   return server;
 }
