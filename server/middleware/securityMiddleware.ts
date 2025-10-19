@@ -143,13 +143,21 @@ export const securityHeaders = (req: Request, res: Response, next: NextFunction)
   // Referrer policy
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   
-  // Content Security Policy
+  // Content Security Policy - Updated Oct 19, 2025 for external integrations
   res.setHeader('Content-Security-Policy', 
     "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' " +
+      "https://js.stripe.com " +
+      "https://plausible.io " +
+      "https://maps.googleapis.com " +
+      "https://upload-widget.cloudinary.com " +
+      "https://replit.com; " +
     "style-src 'self' 'unsafe-inline'; " +
     "img-src 'self' data: https:; " +
-    "connect-src 'self' https://api.stripe.com; " +
+    "connect-src 'self' " +
+      "https://api.stripe.com " +
+      "https://maps.googleapis.com " +
+      "https://api.cloudinary.com; " +
     "frame-src https://js.stripe.com https://hooks.stripe.com;"
   );
   

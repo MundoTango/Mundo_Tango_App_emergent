@@ -19,6 +19,9 @@ export function successResponse<T>(data: T, message?: string): ApiResponse<T> {
   };
 }
 
+// Alias for backward compatibility
+export const success = successResponse;
+
 export function errorResponse(error: string, errors?: any[]): ApiResponse {
   return {
     success: false,
@@ -26,6 +29,9 @@ export function errorResponse(error: string, errors?: any[]): ApiResponse {
     ...(errors && { errors })
   };
 }
+
+// Alias for backward compatibility  
+export const error = errorResponse;
 
 export function validationErrorResponse(errors: any[]): ApiResponse {
   return {
