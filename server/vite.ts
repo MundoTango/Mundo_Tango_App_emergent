@@ -4,7 +4,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
-// import viteConfig from "../vite.config.js"; // File doesn't exist, using inline config
 import { nanoid } from "nanoid";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,16 +22,10 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
+  // 🎯 MB.MD FIX: Use canonical vite.config.ts instead of inline config
+  // This ensures dev, build, and deployment all use the same configuration
   const vite = await createViteServer({
-    configFile: false,
-    root: path.resolve(__dirname, "..", "client"), // 🎯 MB.MD FIX: Set client/ as root directory
-    resolve: {
-      // 🎯 MB.MD FIX: Manually configure path aliases since configFile is disabled
-      alias: {
-        '@': path.resolve(__dirname, "..", "client", "src"),
-        '@shared': path.resolve(__dirname, "..", "shared"),
-      },
-    },
+    configFile: path.resolve(__dirname, "..", "vite.config.ts"),
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
@@ -49,7 +42,6 @@ export async function setupVite(app: Express, server: Server) {
     server: {
       middlewareMode: true,
       hmr: { server },
-      host: true, // Allow all hosts (was allowedHosts: true)
     },
     appType: "custom",
   });
