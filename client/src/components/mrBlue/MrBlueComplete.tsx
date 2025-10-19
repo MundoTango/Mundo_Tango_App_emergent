@@ -23,8 +23,15 @@ export function MrBlueComplete() {
   const [isOpen, setIsOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
+  console.log('🔵 [MrBlueComplete] Rendering - user:', user?.name || 'No user');
+
   // Only show for logged-in users
-  if (!user) return null;
+  if (!user) {
+    console.log('🔵 [MrBlueComplete] No user - not rendering button');
+    return null;
+  }
+
+  console.log('🔵 [MrBlueComplete] User found - rendering button!');
 
   return (
     <>

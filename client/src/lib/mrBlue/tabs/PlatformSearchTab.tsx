@@ -1,5 +1,5 @@
 /**
- * Platform Search Tab - Cross-platform search
+ * Platform Search Tab
  */
 
 import { useState } from 'react';

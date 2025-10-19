@@ -1,22 +1,11 @@
 /**
  * Mr Blue Tab System with Role-Based Access
  * mb.md lines 1000-1007
- * 
- * Tab 1: Life CEO Agents (all users) - #75
- * Tab 2: Platform Search (all users) - #76
- * Tab 3: AI Chat (all users) - #73
- * Tab 4: Admin Tools (Super Admin only) - #77, #78
  */
 
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Brain, 
-  Search, 
-  MessageSquare, 
-  Shield,
-  Sparkles,
-} from 'lucide-react';
+import { Brain, Search, MessageSquare, Shield } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Badge } from '@/components/ui/badge';
 import { MrBlueChatInterfaceEnhanced } from '../chat/MrBlueChatInterfaceEnhanced';
@@ -31,10 +20,7 @@ export function MrBlueTabSystem() {
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full">
-      {/* Tab Headers */}
-      <TabsList className="grid w-full" style={{ 
-        gridTemplateColumns: isSuperAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' 
-      }}>
+      <TabsList className="grid w-full" style={{ gridTemplateColumns: isSuperAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
         <TabsTrigger value="chat" data-testid="tab-chat">
           <MessageSquare className="h-4 w-4 mr-2" />
           Chat
@@ -60,7 +46,6 @@ export function MrBlueTabSystem() {
         )}
       </TabsList>
 
-      {/* Tab Content */}
       <TabsContent value="chat" className="flex-1 overflow-hidden mt-0">
         <MrBlueChatInterfaceEnhanced />
       </TabsContent>

@@ -1,10 +1,9 @@
 /**
- * Mr Blue Enhanced Chat Interface - Simplified version
- * Voice/text input with backend integration
+ * Mr Blue Enhanced Chat Interface
  */
 
 import { useState } from 'react';
-import { Send, Mic, MicOff, Loader2 } from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
@@ -67,7 +66,6 @@ export function MrBlueChatInterfaceEnhanced() {
 
   return (
     <div className="flex flex-col h-full bg-white dark:bg-gray-900">
-      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.length === 0 && (
           <Card className="p-6 text-center bg-gradient-to-br from-turquoise-50 to-cyan-50 dark:from-turquoise-950 dark:to-cyan-950">
@@ -109,7 +107,6 @@ export function MrBlueChatInterfaceEnhanced() {
         )}
       </div>
 
-      {/* Input */}
       <div className="p-4 border-t dark:border-gray-700">
         <div className="flex gap-2">
           <Textarea

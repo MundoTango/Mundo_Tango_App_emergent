@@ -59,7 +59,7 @@ const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggest
 const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(m => ({ default: m.AIContextBar })));
 
 // ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)  
-const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(m => ({ default: m.MrBlueFloatingButton })));
+const MrBlueComplete = lazy(() => import("@/components/mrBlue/MrBlueComplete").then(m => ({ default: m.MrBlueComplete })));
 
 // ESA Dev Tools - Super Admin toggle for development testing
 const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(m => ({ default: m.SuperAdminToggle })));
@@ -228,7 +228,7 @@ function AppContent() {
       </Suspense>
       {/* MB.MD: Mr Blue AI Companion (Agents #73-80, mb.md lines 988-1012) */}
       <Suspense fallback={null}>
-        <MrBlueFloatingButton />
+        <MrBlueComplete />
       </Suspense>
       <Suspense fallback={null}>
         <VisualEditorWrapper />
