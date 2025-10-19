@@ -77,6 +77,59 @@ export const users = pgTable("users", {
   index("idx_users_subscription_tier").on(table.subscriptionTier),
 ]);
 
+// ========================================
+// JOURNEY AGENT TABLES (J1-J5)
+// MB.MD Phase 4: Deployment - Oct 19, 2025
+// ========================================
+
+// Journey Progress Tracking
+export const userJourneyProgress = pgTable("user_journey_progress", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  journeyId: varchar("journey_id", { length: 10 }).notNull(), // 'J1' through 'J5'
+  currentStep: integer("current_step").default(1),
+  totalSteps: integer("total_steps").notNull(),
+  completedSteps: jsonb("completed_steps").$type<number[]>().default([]),
+  skippedSteps: jsonb("skipped_steps").$type<number[]>().default([]),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  startedAt: timestamp("started_at").defaultNow(),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_user_journey").on(table.userId, table.journeyId),
+  index("idx_journey_incomplete").on(table.journeyId, table.completedAt),
+]);
+
+// User Achievements (badges and milestones)
+export const userAchievements = pgTable("user_achievements", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  achievementId: varchar("achievement_id", { length: 50 }).notNull(), // 'first-post', 'storyteller', etc
+  journeyId: varchar("journey_id", { length: 10 }), // Which journey unlocked it
+  earnedAt: timestamp("earned_at").defaultNow(),
+}, (table) => [
+  index("idx_user_achievements").on(table.userId),
+]);
+
+// Feature Unlocks (progressive discovery)
+export const userFeatureUnlocks = pgTable("user_feature_unlocks", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  featureId: varchar("feature_id", { length: 50 }).notNull(), // 'messaging', 'housing', etc
+  unlockedAt: timestamp("unlocked_at").defaultNow(),
+}, (table) => [
+  index("idx_user_feature_unlocks").on(table.userId, table.featureId),
+]);
+
+// Tooltip Dismissals (localStorage backup)
+export const userTooltipDismissals = pgTable("user_tooltip_dismissals", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  tooltipId: varchar("tooltip_id", { length: 100 }).notNull(),
+  dismissedAt: timestamp("dismissed_at").defaultNow(),
+});
+
 // Roles table for comprehensive role management
 export const roles = pgTable("roles", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -2372,3 +2425,41 @@ export const insertDocumentationArchiveSchema = createInsertSchema(documentation
 
 export type DocumentationArchive = typeof documentationArchive.$inferSelect;
 export type InsertDocumentationArchive = z.infer<typeof insertDocumentationArchiveSchema>;
+
+// ========================================
+// JOURNEY AGENT ZOD SCHEMAS
+// MB.MD Phase 4: Deployment - Oct 19, 2025
+// ========================================
+
+export const insertJourneyProgressSchema = createInsertSchema(userJourneyProgress).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertUserAchievementSchema = createInsertSchema(userAchievements).omit({
+  id: true,
+  earnedAt: true,
+});
+
+export const insertFeatureUnlockSchema = createInsertSchema(userFeatureUnlocks).omit({
+  id: true,
+  unlockedAt: true,
+});
+
+export const insertTooltipDismissalSchema = createInsertSchema(userTooltipDismissals).omit({
+  id: true,
+  dismissedAt: true,
+});
+
+export type JourneyProgress = typeof userJourneyProgress.$inferSelect;
+export type InsertJourneyProgress = z.infer<typeof insertJourneyProgressSchema>;
+
+export type UserAchievement = typeof userAchievements.$inferSelect;
+export type InsertUserAchievement = z.infer<typeof insertUserAchievementSchema>;
+
+export type FeatureUnlock = typeof userFeatureUnlocks.$inferSelect;
+export type InsertFeatureUnlock = z.infer<typeof insertFeatureUnlockSchema>;
+
+export type TooltipDismissal = typeof userTooltipDismissals.$inferSelect;
+export type InsertTooltipDismissal = z.infer<typeof insertTooltipDismissalSchema>;
