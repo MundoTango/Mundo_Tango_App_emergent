@@ -1,0 +1,208 @@
+# npm audit report
+
+@babel/runtime  <7.26.10
+Severity: moderate
+Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups - https://github.com/advisories/GHSA-968p-4wvh-cqc8
+fix available via `npm audit fix`
+node_modules/react-mentions/node_modules/@babel/runtime
+  react-mentions  >=3.1.0
+  Depends on vulnerable versions of @babel/runtime
+  node_modules/react-mentions
+
+esbuild  <=0.24.2
+Severity: moderate
+esbuild enables any website to send any requests to the development server and read the response - https://github.com/advisories/GHSA-67mh-4wv8-2f99
+fix available via `npm audit fix --force`
+Will install drizzle-kit@0.18.1, which is a breaking change
+node_modules/@esbuild-kit/core-utils/node_modules/esbuild
+  @esbuild-kit/core-utils  *
+  Depends on vulnerable versions of esbuild
+  node_modules/@esbuild-kit/core-utils
+    @esbuild-kit/esm-loader  *
+    Depends on vulnerable versions of @esbuild-kit/core-utils
+    node_modules/@esbuild-kit/esm-loader
+      drizzle-kit  0.17.5-6b7793f - 0.17.5-e5944eb || 0.18.1-065de38 - 0.18.1-f3800bf || >=0.19.0-07024c4
+      Depends on vulnerable versions of @esbuild-kit/esm-loader
+      node_modules/drizzle-kit
+
+html-minifier  *
+Severity: high
+kangax html-minifier REDoS vulnerability - https://github.com/advisories/GHSA-pfq8-rq6v-vf5m
+fix available via `npm audit fix`
+node_modules/html-minifier
+  mjml-cli  <=5.0.0-alpha.0
+  Depends on vulnerable versions of html-minifier
+  Depends on vulnerable versions of mjml-core
+  Depends on vulnerable versions of mjml-migrate
+  node_modules/mjml-cli
+    mjml  0.0.1-future || 2.0.0-beta.3 - 5.0.0-alpha.0
+    Depends on vulnerable versions of mjml-cli
+    Depends on vulnerable versions of mjml-core
+    Depends on vulnerable versions of mjml-migrate
+    Depends on vulnerable versions of mjml-preset-core
+    node_modules/mjml
+  mjml-core  <=4.16.1
+  Depends on vulnerable versions of html-minifier
+  Depends on vulnerable versions of mjml-migrate
+  node_modules/mjml-core
+    mjml-accordion  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-accordion
+    mjml-body  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-body
+      mjml-preset-core  <=4.16.1
+      Depends on vulnerable versions of mjml-accordion
+      Depends on vulnerable versions of mjml-body
+      Depends on vulnerable versions of mjml-button
+      Depends on vulnerable versions of mjml-carousel
+      Depends on vulnerable versions of mjml-column
+      Depends on vulnerable versions of mjml-divider
+      Depends on vulnerable versions of mjml-group
+      Depends on vulnerable versions of mjml-head
+      Depends on vulnerable versions of mjml-head-attributes
+      Depends on vulnerable versions of mjml-head-breakpoint
+      Depends on vulnerable versions of mjml-head-font
+      Depends on vulnerable versions of mjml-head-html-attributes
+      Depends on vulnerable versions of mjml-head-preview
+      Depends on vulnerable versions of mjml-head-style
+      Depends on vulnerable versions of mjml-head-title
+      Depends on vulnerable versions of mjml-hero
+      Depends on vulnerable versions of mjml-image
+      Depends on vulnerable versions of mjml-navbar
+      Depends on vulnerable versions of mjml-raw
+      Depends on vulnerable versions of mjml-section
+      Depends on vulnerable versions of mjml-social
+      Depends on vulnerable versions of mjml-spacer
+      Depends on vulnerable versions of mjml-table
+      Depends on vulnerable versions of mjml-text
+      Depends on vulnerable versions of mjml-wrapper
+      node_modules/mjml-preset-core
+    mjml-button  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-button
+    mjml-carousel  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-carousel
+    mjml-column  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-column
+    mjml-divider  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-divider
+    mjml-group  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-group
+    mjml-head  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head
+    mjml-head-attributes  <=2.0.4 || 4.0.0-alpha.1 - 4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-attributes
+    mjml-head-breakpoint  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-breakpoint
+    mjml-head-font  4.0.0-alpha.1 - 4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-font
+    mjml-head-html-attributes  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-html-attributes
+    mjml-head-preview  4.0.0-alpha.3 - 4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-preview
+    mjml-head-style  4.0.0-alpha.1 - 4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-style
+    mjml-head-title  4.0.0-alpha.1 - 4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-head-title
+    mjml-hero  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-hero
+    mjml-image  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-image
+    mjml-migrate  4.0.0-beta.1 - 4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-migrate
+    mjml-navbar  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-navbar
+    mjml-raw  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-raw
+    mjml-section  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-section
+    mjml-social  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-social
+    mjml-spacer  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-spacer
+    mjml-table  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-table
+    mjml-text  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    node_modules/mjml-text
+    mjml-wrapper  <=4.16.1
+    Depends on vulnerable versions of mjml-core
+    Depends on vulnerable versions of mjml-section
+    node_modules/mjml-wrapper
+
+jose  3.0.0 - 4.15.4
+Severity: moderate
+jose vulnerable to resource exhaustion via specifically crafted JWE with compressed plaintext - https://github.com/advisories/GHSA-hhhv-q57g-882q
+fix available via `npm audit fix`
+node_modules/postman-runtime/node_modules/jose
+  postman-runtime  7.31.0 - 7.40.0-beta.1
+  Depends on vulnerable versions of jose
+  node_modules/postman-runtime
+    newman  6.0.0 - 6.1.3 || >=6.2.1
+    Depends on vulnerable versions of postman-runtime
+    node_modules/newman
+
+lodash  <=4.17.20
+Severity: critical
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-fvqr-27wr-82fm
+Command Injection in lodash - https://github.com/advisories/GHSA-35jh-r3h4-6jhm
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-4xc9-xhrj-v574
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-jf85-cpcp-j695
+fix available via `npm audit fix --force`
+Will install react-quill@2.0.0, which is a breaking change
+node_modules/quilljs/node_modules/lodash
+  quilljs  *
+  Depends on vulnerable versions of lodash
+  node_modules/quilljs
+    react-quill  <=0.0.2
+    Depends on vulnerable versions of quilljs
+    node_modules/react-quill
+
+validator  *
+Severity: moderate
+validator.js has a URL validation bypass vulnerability in its isURL function - https://github.com/advisories/GHSA-9965-vmph-33xx
+fix available via `npm audit fix --force`
+Will install swagger-jsdoc@3.7.0, which is a breaking change
+node_modules/validator
+  z-schema  >=3.6.1
+  Depends on vulnerable versions of validator
+  node_modules/z-schema
+    @apidevtools/swagger-parser  <=10.0.3
+    Depends on vulnerable versions of z-schema
+    node_modules/@apidevtools/swagger-parser
+      swagger-parser  >=9.0.0
+      Depends on vulnerable versions of @apidevtools/swagger-parser
+      node_modules/swagger-parser
+        swagger-jsdoc  3.6.0 || >=4.0.0
+        Depends on vulnerable versions of swagger-parser
+        node_modules/swagger-jsdoc
+
+48 vulnerabilities (16 moderate, 31 high, 1 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
