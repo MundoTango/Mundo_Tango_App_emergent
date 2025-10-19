@@ -89,21 +89,35 @@ Each phase requires specific documentation to be read:
 
 ### Frontend Build Configuration Verification ⚠️ CRITICAL
 
-**Vite Port Alignment** - MANDATORY for all UI work
+**Vite Configuration for Replit** - MANDATORY for all UI work
 - **File:** `vite.config.ts`
-- **Requirement:** Port MUST be 5000 (NOT 5173 or any other port)
-- **Check:** Line ~7 should have `server: { port: 5000, host: '0.0.0.0' }`
-- **Why critical:** Port mismatch prevents user from seeing UI in iframe preview
-- **Automated check:** `scripts/agent-verification.sh` checks this automatically
+- **Requirements (BOTH are critical):**
+  1. **Port:** MUST be 5000 (NOT 5173 or any other port)
+  2. **allowedHosts:** MUST include `['.replit.dev', '.replit.app']` OR set to `true`
+- **Correct config:**
+  ```typescript
+  server: {
+    host: '0.0.0.0',
+    port: 5000,
+    strictPort: false,
+    allowedHosts: ['.replit.dev', '.replit.app'],
+  }
+  ```
+- **Why critical:** 
+  - Port mismatch → UI invisible in iframe (backend works, frontend unreachable)
+  - Missing allowedHosts → "Blocked request. This host is not allowed" error (Vite DNS rebinding protection)
+- **Automated check:** `scripts/agent-verification.sh` checks both automatically
 - **When to verify:** BEFORE starting ANY UI/frontend work (MAPPING phase)
 - **Who needs it:** ALL agents doing UI work, Visual Editor users, frontend developers
-- **Related docs:** Web dev rules in system prompt
+- **Related docs:** Web dev rules in system prompt, `docs/vite-config-template.md`
 
-**Failure pattern (Oct 19, 2025):**
-- Port was 5173 instead of 5000 → UI inaccessible to user
+**Failure patterns (Oct 19, 2025):**
+- **Incident 1:** Port was 5173 instead of 5000 → UI inaccessible to user
+- **Incident 2:** Port fixed but missing allowedHosts → Vite blocked Replit's dynamic hostname
 - LSP errors in 2 files prevented compilation  
 - Documentation existed but wasn't in MAPPING phase checklist
 - **Lesson:** Configuration verification MUST be in MAPPING, not just general docs
+- **Lesson 2:** Two-part configs (port + allowedHosts) must BOTH be verified - one without the other fails
 
 ---
 

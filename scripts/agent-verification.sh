@@ -46,25 +46,45 @@ if [ $ERRORS -gt 0 ]; then
   exit 1
 fi
 
-# 1.5. Vite Port Configuration Check (CRITICAL FOR UI WORK)
+# 1.5. Vite Configuration Check (CRITICAL FOR UI WORK)
 echo ""
-echo "⚙️  1.5/5 Checking vite.config.ts port configuration..."
+echo "⚙️  1.5/5 Checking vite.config.ts configuration..."
 
+# Check port
 if ! grep -q "port: 5000" vite.config.ts; then
   echo "   ❌ CRITICAL: vite.config.ts port is NOT set to 5000!"
   echo "      Current setting:"
   grep -n "port:" vite.config.ts || echo "      (port not found in config)"
   echo ""
   echo "   ⚠️  Port mismatch prevents UI from loading in iframe preview"
-  echo "   Fix: Edit vite.config.ts line ~7 to: server: { port: 5000, host: '0.0.0.0' }"
-  echo ""
-  echo "   📚 See: docs/MB_MD_DOCUMENTATION_PHASE_MAP.md (Frontend Build Configuration)"
   ERRORS=$((ERRORS + 1))
 else
   echo "   ✅ Vite port correctly set to 5000"
 fi
 
+# Check allowedHosts
+if ! grep -q "allowedHosts" vite.config.ts; then
+  echo "   ❌ CRITICAL: vite.config.ts missing allowedHosts configuration!"
+  echo "      This causes 'Blocked request. This host is not allowed' errors"
+  echo ""
+  echo "   ⚠️  Replit uses dynamic hostnames - Vite blocks them without allowedHosts"
+  ERRORS=$((ERRORS + 1))
+else
+  echo "   ✅ Vite allowedHosts configured"
+fi
+
 if [ $ERRORS -gt 0 ]; then
+  echo ""
+  echo "   Fix: Edit vite.config.ts server section:"
+  echo "   server: {"
+  echo "     host: '0.0.0.0',"
+  echo "     port: 5000,"
+  echo "     strictPort: false,"
+  echo "     allowedHosts: ['.replit.dev', '.replit.app'],"
+  echo "   }"
+  echo ""
+  echo "   📚 See: docs/MB_MD_DOCUMENTATION_PHASE_MAP.md (Frontend Build Configuration)"
+  echo "   📚 See: docs/vite-config-template.md (Complete example)"
   echo ""
   echo "❌ STOP: Vite configuration error - fix before proceeding"
   exit 1
