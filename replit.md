@@ -50,14 +50,49 @@ The frontend is built with React and TypeScript using Vite. It features a compon
 
 The platform incorporates a multi-layer file protection system to ensure deployment stability and prevent data loss. This includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring (Documentation Agent Layer 52), automated Git recovery, and a comprehensive stability plan. Agent safety protocols are also in place, with 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (e.g., `docs/`, `scripts/`, `agents/`, `schema`), automated tests for file protection, and PostgreSQL backups for markdown files.
 
-**Agent Learning System (Oct 19, 2025):** Following a critical regression where vite.config.ts went missing, we implemented a comprehensive agent learning system documented in `docs/COMMON_FAILURES_DATABASE.md`. This includes:
-- Mandatory pre-work and post-work verification protocols for all agents
-- Historical failure pattern documentation and prevention guides
-- Agent-specific learning protocols embedded in Layer 50 (DevOps) and Layer 52 (Documentation)
-- Automated verification script (`scripts/agent-verification.sh`) for build system health checks
-- Cross-references to `docs/PREVENTION_GUIDE.md` and `docs/CRITICAL_FAILURE_ANALYSIS.md`
+**Agent Learning System (Oct 19, 2025):** Following critical regressions where vite.config.ts, errorHandler.ts, and apiResponse.ts repeatedly went missing, we implemented a comprehensive agent learning and enforcement system:
 
-All agents must now verify file content (not just existence), test builds before claiming "deployment ready", and take screenshots to confirm preview functionality.
+**Documentation Mapping System (335 Files Mapped):**
+- `docs/DOCUMENTATION_MAP.md` - Complete mapping of all 335 documentation files to system components
+- Bidirectional lookups: Component → Docs, Task → Required Reading, Doc → Affected Components
+- 105 agent documentation files, 120 Mr Blue docs, 60 protocol/framework docs
+- Quick reference cards for agents showing exactly what to read before each task type
+
+**Enforcement Mechanisms (Zero-Trust Verification):**
+- `scripts/agent-verification.sh` - Pre-work verification (MUST run before ANY work)
+  - Checks critical files exist and have content (not 0 bytes)
+  - Verifies build system health (vite, tsx, esbuild installed)
+  - Tests server startup before allowing development work
+- `scripts/verify-completion.sh` - Post-work verification (run before claiming "done")
+  - Detects empty files (0 bytes) before they're committed
+  - Verifies critical files still intact
+  - Checks TypeScript compilation
+  - Confirms server still running
+- `scripts/install-git-hooks.sh` - Git pre-commit hooks (blocks bad commits)
+  - Prevents deletion of critical files (errorHandler.ts, apiResponse.ts, vite.config.ts, etc.)
+  - Blocks commits with 0-byte files
+
+**Agent Session Logging:**
+- `docs/AGENT_SESSION_LOG.md` - Mandatory logging system for knowledge transfer
+- Each agent must log: task, docs read, failures, learnings, files modified, verification completed
+- Next agent reads previous session logs to avoid repeating failures
+- Implements continuous improvement loop from COMPREHENSIVE_AGENT_ONBOARDING_PROTOCOL.md
+
+**Critical File Recovery:**
+- errorHandler.ts (125 lines) - Restore from: `git show a22010c:server/middleware/errorHandler.ts`
+- apiResponse.ts (132 lines) - Restore from: `git show a22010c:server/utils/apiResponse.ts`
+- vite.config.ts (32 lines) - Restore from: `git show 927e915:vite.config.ts`
+
+**Agent Workflow (Mandatory):**
+1. Run `bash scripts/agent-verification.sh` before starting ANY work
+2. Read `docs/DOCUMENTATION_MAP.md` to find task-specific docs
+3. Read required docs before touching code
+4. Do the work following MB.MD methodology
+5. Run `bash scripts/verify-completion.sh` before claiming done
+6. Update `docs/AGENT_SESSION_LOG.md` with learnings
+7. Take screenshot if UI work, test routes if backend work
+
+All agents must now verify file content (not just existence), test builds before claiming "deployment ready", and take screenshots to confirm preview functionality. The system uses a zero-trust verification model: documentation exists, but compliance is enforced through automation.
 
 ### System Design Choices
 

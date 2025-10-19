@@ -1,0 +1,133 @@
+#!/bin/bash
+# MB.MD Agent Pre-Work Verification Script
+# Run this BEFORE starting ANY development work
+# Implements PREVENTION_GUIDE.md lines 14-47
+
+set -e  # Exit on any error
+
+echo "=========================================="
+echo "  MB.MD PRE-WORK VERIFICATION"
+echo "  Implementing PREVENTION_GUIDE.md"
+echo "=========================================="
+echo ""
+
+ERRORS=0
+
+# 1. Critical Files Check
+echo "📁 1/4 Checking critical files..."
+CRITICAL_FILES=(
+  "server/middleware/errorHandler.ts"
+  "server/utils/apiResponse.ts"
+  "vite.config.ts"
+  "shared/schema.ts"
+  "server/storage.ts"
+  "server/routes.ts"
+)
+
+for file in "${CRITICAL_FILES[@]}"; do
+  if [ ! -f "$file" ]; then
+    echo "   ❌ CRITICAL: $file is MISSING!"
+    echo "      Restore from git: git show a22010c:$file > $file"
+    ERRORS=$((ERRORS + 1))
+  elif [ ! -s "$file" ]; then
+    echo "   ❌ CRITICAL: $file is EMPTY (0 bytes)!"
+    echo "      Restore from git: git show a22010c:$file > $file"
+    ERRORS=$((ERRORS + 1))
+  else
+    SIZE=$(wc -l < "$file")
+    echo "   ✅ $file ($SIZE lines)"
+  fi
+done
+
+if [ $ERRORS -gt 0 ]; then
+  echo ""
+  echo "❌ STOP: $ERRORS critical file(s) missing or empty"
+  echo "   Fix files before proceeding"
+  exit 1
+fi
+
+# 2. Build System Health
+echo ""
+echo "🔨 2/4 Checking build system..."
+
+# Check node_modules exists
+if [ ! -d "node_modules" ]; then
+  echo "   ❌ node_modules missing - run npm install first"
+  exit 1
+fi
+
+# Check critical build tools
+if [ ! -f "node_modules/.bin/vite" ]; then
+  echo "   ❌ Vite not installed"
+  ERRORS=$((ERRORS + 1))
+fi
+
+if [ ! -f "node_modules/.bin/tsx" ]; then
+  echo "   ❌ tsx not installed"
+  ERRORS=$((ERRORS + 1))
+fi
+
+if [ $ERRORS -gt 0 ]; then
+  echo "   ❌ Build tools missing - run: npm install"
+  exit 1
+fi
+
+echo "   ✅ Build system OK"
+
+# 3. Package Verification
+echo ""
+echo "📦 3/4 Verifying critical packages..."
+PACKAGES="vite tsx esbuild typescript drizzle-orm"
+
+npm list $PACKAGES --depth=0 2>&1 | grep -q "UNMET" && {
+  echo "   ❌ Missing dependencies detected"
+  echo "   Run: npm install"
+  exit 1
+}
+
+echo "   ✅ Packages OK"
+
+# 4. Server Test
+echo ""
+echo "🚀 4/4 Testing server startup..."
+
+# Start server in background and capture output
+timeout 15 npm run dev > /tmp/server-test.log 2>&1 &
+SERVER_PID=$!
+
+# Wait for server to start
+sleep 8
+
+# Check if process still running
+if ! kill -0 $SERVER_PID 2>/dev/null; then
+  echo "   ❌ Server exited early - check logs:"
+  tail -20 /tmp/server-test.log
+  exit 1
+fi
+
+# Check for successful startup message
+if grep -q "running on port 5000\|Server running" /tmp/server-test.log; then
+  echo "   ✅ Server starts successfully"
+  kill $SERVER_PID 2>/dev/null || true
+else
+  echo "   ❌ Server started but no success message found"
+  echo "   Last 10 lines of log:"
+  tail -10 /tmp/server-test.log
+  kill $SERVER_PID 2>/dev/null || true
+  exit 1
+fi
+
+# Cleanup
+rm -f /tmp/server-test.log
+
+echo ""
+echo "=========================================="
+echo "  ✅ ALL PRE-WORK CHECKS PASSED"
+echo "  Safe to proceed with development"
+echo "=========================================="
+echo ""
+echo "📚 Required Reading:"
+echo "   1. docs/PREVENTION_GUIDE.md (lines 14-47)"
+echo "   2. replit.md (current project state)"
+echo "   3. docs/DOCUMENTATION_MAP.md (task-specific docs)"
+echo ""
