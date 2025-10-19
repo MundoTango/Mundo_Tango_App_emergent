@@ -52,9 +52,9 @@ import commentsRoutes from "./routes/commentsRoutes"; // Mundo Tango ESA LIFE CE
 import projectRoutes from "./routes/projects"; // Mundo Tango ESA LIFE CEO - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Agent System routes (All 61 layers)
-// MB.MD BUILD: Temporarily disabled due to Vite HMR file deletion bug
-// import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md lines 1030-1051) - Agents #73-80
-// import visualEditorRoutes from "./routes/visualEditorRoutes"; // Visual Editor (mb.md lines 1038-1042) - Agent #78
+// MB.MD BUILD: Routes now active - backend storage layer complete
+import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md lines 1030-1051) - Agents #73-80
+// import visualEditorRoutes from "./routes/visualEditorRoutes"; // Visual Editor (mb.md lines 1038-1042) - Agent #78 (coming in Phase 2)
 import authRoutes from "./routes/authRoutes"; // Authentication routes - /api/auth/*
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
@@ -1083,11 +1083,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
-  // NOTE: Commented out imports restored - files DO exist (Vite HMR deletion was FALSE ALARM)
-  // app.use('/api/mr-blue', mrBlueRoutes);
-  // app.use('/api/visual-editor', visualEditorRoutes);
+  app.use('/api/mrblue', mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
+  // app.use('/api/visual-editor', visualEditorRoutes); // Visual Editor coming in Phase 2
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');
+  console.log('✅ Mr Blue APIs registered at /api/mrblue');
 
   // Create HTTP server FIRST (needed for WebSocket)
   const server = createServer(app);

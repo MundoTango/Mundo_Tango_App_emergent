@@ -54,6 +54,9 @@ import {
   payments,
   subscriptionFeatures,
   webhookEvents,
+  mrBlueConversations,
+  mrBlueMessages,
+  breadcrumbs,
   type User,
   type InsertUser,
   type UpsertUser,
@@ -132,7 +135,13 @@ import {
   type EventPageAdmin,
   type InsertEventPageAdmin,
   type EventPagePost,
-  type InsertEventPagePost
+  type InsertEventPagePost,
+  type MrBlueConversation,
+  type InsertMrBlueConversation,
+  type MrBlueMessage,
+  type InsertMrBlueMessage,
+  type Breadcrumb,
+  type InsertBreadcrumb
 } from '../shared/schema';
 import { db, pool } from './db';
 import { eq, desc, asc, sql, and, or, gte, lte, count, ilike, inArray } from 'drizzle-orm';
@@ -558,6 +567,25 @@ export interface IStorage {
   
   updateUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User>;
   updateUserSubscriptionInfo(userId: number, subscriptionId: string, status: string, tier: string): Promise<User>;
+
+  // Mr Blue Conversation operations
+  createMrBlueConversation(conversation: InsertMrBlueConversation): Promise<MrBlueConversation>;
+  getMrBlueConversation(id: number): Promise<MrBlueConversation | undefined>;
+  getUserMrBlueConversations(userId: number, limit?: number): Promise<MrBlueConversation[]>;
+  updateMrBlueConversation(id: number, updates: Partial<MrBlueConversation>): Promise<MrBlueConversation>;
+  deleteMrBlueConversation(id: number): Promise<void>;
+
+  // Mr Blue Message operations
+  createMrBlueMessage(message: InsertMrBlueMessage): Promise<MrBlueMessage>;
+  getMrBlueMessagesByConversation(conversationId: number, limit?: number): Promise<MrBlueMessage[]>;
+  updateMrBlueMessage(id: number, updates: Partial<MrBlueMessage>): Promise<MrBlueMessage>;
+  deleteMrBlueMessage(id: number): Promise<void>;
+
+  // Breadcrumb operations (TRACK_8 ML tracking)
+  createBreadcrumb(breadcrumb: InsertBreadcrumb): Promise<Breadcrumb>;
+  getUserBreadcrumbs(userId: number, sessionId?: string, limit?: number): Promise<Breadcrumb[]>;
+  getSessionBreadcrumbs(sessionId: string): Promise<Breadcrumb[]>;
+  getBreadcrumbsByAction(userId: number, action: string, limit?: number): Promise<Breadcrumb[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -5332,6 +5360,130 @@ export class DatabaseStorage implements IStorage {
         recommendationCount: 7
       };
     }
+  }
+
+  // Mr Blue Conversation operations
+  async createMrBlueConversation(conversation: InsertMrBlueConversation): Promise<MrBlueConversation> {
+    const [newConversation] = await db
+      .insert(mrBlueConversations)
+      .values(conversation)
+      .returning();
+    return newConversation;
+  }
+
+  async getMrBlueConversation(id: number): Promise<MrBlueConversation | undefined> {
+    const [conversation] = await db
+      .select()
+      .from(mrBlueConversations)
+      .where(eq(mrBlueConversations.id, id))
+      .limit(1);
+    return conversation;
+  }
+
+  async getUserMrBlueConversations(userId: number, limit: number = 50): Promise<MrBlueConversation[]> {
+    return await db
+      .select()
+      .from(mrBlueConversations)
+      .where(eq(mrBlueConversations.userId, userId))
+      .orderBy(desc(mrBlueConversations.updatedAt))
+      .limit(limit);
+  }
+
+  async updateMrBlueConversation(id: number, updates: Partial<MrBlueConversation>): Promise<MrBlueConversation> {
+    const [updated] = await db
+      .update(mrBlueConversations)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(mrBlueConversations.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteMrBlueConversation(id: number): Promise<void> {
+    await db
+      .delete(mrBlueConversations)
+      .where(eq(mrBlueConversations.id, id));
+  }
+
+  // Mr Blue Message operations
+  async createMrBlueMessage(message: InsertMrBlueMessage): Promise<MrBlueMessage> {
+    const [newMessage] = await db
+      .insert(mrBlueMessages)
+      .values(message)
+      .returning();
+    return newMessage;
+  }
+
+  async getMrBlueMessagesByConversation(conversationId: number, limit: number = 100): Promise<MrBlueMessage[]> {
+    return await db
+      .select()
+      .from(mrBlueMessages)
+      .where(eq(mrBlueMessages.conversationId, conversationId))
+      .orderBy(asc(mrBlueMessages.createdAt))
+      .limit(limit);
+  }
+
+  async updateMrBlueMessage(id: number, updates: Partial<MrBlueMessage>): Promise<MrBlueMessage> {
+    const [updated] = await db
+      .update(mrBlueMessages)
+      .set(updates)
+      .where(eq(mrBlueMessages.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteMrBlueMessage(id: number): Promise<void> {
+    await db
+      .delete(mrBlueMessages)
+      .where(eq(mrBlueMessages.id, id));
+  }
+
+  // Breadcrumb operations (TRACK_8 ML tracking)
+  async createBreadcrumb(breadcrumb: InsertBreadcrumb): Promise<Breadcrumb> {
+    const [newBreadcrumb] = await db
+      .insert(breadcrumbs)
+      .values(breadcrumb)
+      .returning();
+    return newBreadcrumb;
+  }
+
+  async getUserBreadcrumbs(userId: number, sessionId?: string, limit: number = 100): Promise<Breadcrumb[]> {
+    if (sessionId) {
+      return await db
+        .select()
+        .from(breadcrumbs)
+        .where(and(
+          eq(breadcrumbs.userId, userId),
+          eq(breadcrumbs.sessionId, sessionId)
+        ))
+        .orderBy(desc(breadcrumbs.timestamp))
+        .limit(limit);
+    }
+    return await db
+      .select()
+      .from(breadcrumbs)
+      .where(eq(breadcrumbs.userId, userId))
+      .orderBy(desc(breadcrumbs.timestamp))
+      .limit(limit);
+  }
+
+  async getSessionBreadcrumbs(sessionId: string): Promise<Breadcrumb[]> {
+    return await db
+      .select()
+      .from(breadcrumbs)
+      .where(eq(breadcrumbs.sessionId, sessionId))
+      .orderBy(asc(breadcrumbs.timestamp));
+  }
+
+  async getBreadcrumbsByAction(userId: number, action: string, limit: number = 50): Promise<Breadcrumb[]> {
+    return await db
+      .select()
+      .from(breadcrumbs)
+      .where(and(
+        eq(breadcrumbs.userId, userId),
+        eq(breadcrumbs.action, action)
+      ))
+      .orderBy(desc(breadcrumbs.timestamp))
+      .limit(limit);
   }
 }
 
