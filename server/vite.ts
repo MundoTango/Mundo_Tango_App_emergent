@@ -23,12 +23,6 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
-  const serverOptions = {
-    middlewareMode: true,
-    hmr: { server },
-    allowedHosts: true,
-  };
-
   const vite = await createViteServer({
     configFile: false,
     root: path.resolve(__dirname, "..", "client"), // 🎯 MB.MD FIX: Set client/ as root directory
@@ -52,7 +46,11 @@ export async function setupVite(app: Express, server: Server) {
         }
       },
     },
-    server: serverOptions,
+    server: {
+      middlewareMode: true,
+      hmr: { server },
+      host: true, // Allow all hosts (was allowedHosts: true)
+    },
     appType: "custom",
   });
 

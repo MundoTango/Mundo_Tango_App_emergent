@@ -650,6 +650,75 @@ export const chatRoomUsers = pgTable("chat_room_users", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// 🔵 Mr Blue AI Conversations table
+export const mrBlueConversations = pgTable("mr_blue_conversations", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  title: varchar("title", { length: 255 }).notNull().default("New Conversation"),
+  context: jsonb("context"), // Recent pages, actions, user journey state
+  agentMode: varchar("agent_mode", { length: 50 }).default("chat"), // chat, visual-editor, algorithm
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_mr_blue_conversations_user_id").on(table.userId),
+  index("idx_mr_blue_conversations_updated_at").on(table.updatedAt),
+]);
+
+// 🔵 Mr Blue AI Messages table
+export const mrBlueMessages = pgTable("mr_blue_messages", {
+  id: serial("id").primaryKey(),
+  conversationId: integer("conversation_id").references(() => mrBlueConversations.id).notNull(),
+  role: varchar("role", { length: 20 }).notNull(), // user, assistant, system
+  content: text("content").notNull(),
+  streaming: boolean("streaming").default(false), // True while AI is generating response
+  metadata: jsonb("metadata"), // Model used, tokens, agent triggers, etc
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_mr_blue_messages_conversation_id").on(table.conversationId),
+  index("idx_mr_blue_messages_created_at").on(table.createdAt),
+]);
+
+// 📊 Breadcrumb Tracking table (per TRACK_8 specs)
+export const breadcrumbs = pgTable("breadcrumbs", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  
+  // Page Context
+  page: varchar("page", { length: 500 }).notNull(),
+  pageTitle: varchar("page_title", { length: 255 }),
+  referrer: varchar("referrer", { length: 500 }),
+  
+  // Action Context
+  action: varchar("action", { length: 50 }).notNull(), // click, view, input, submit, error, navigation
+  target: varchar("target", { length: 500 }),
+  targetId: varchar("target_id", { length: 255 }),
+  value: jsonb("value"),
+  
+  // User Context
+  userJourney: varchar("user_journey", { length: 50 }),
+  userRole: varchar("user_role", { length: 50 }),
+  userIntent: varchar("user_intent", { length: 255 }),
+  
+  // Outcome
+  success: boolean("success").default(true),
+  error: text("error"),
+  duration: integer("duration"), // milliseconds
+  
+  // ML predictions
+  prediction: varchar("prediction", { length: 255 }),
+  confidence: real("confidence"),
+  patternId: varchar("pattern_id", { length: 100 }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow()
+}, (table) => [
+  index("idx_breadcrumbs_user").on(table.userId),
+  index("idx_breadcrumbs_session").on(table.sessionId),
+  index("idx_breadcrumbs_timestamp").on(table.timestamp),
+  index("idx_breadcrumbs_action").on(table.action),
+]);
+
 // Follows table
 export const follows = pgTable("follows", {
   id: serial("id").primaryKey(),
@@ -1095,6 +1164,23 @@ export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
   updatedAt: true,
 });
 
+// 🔵 Mr Blue AI insert schemas
+export const insertMrBlueConversationSchema = createInsertSchema(mrBlueConversations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMrBlueMessageSchema = createInsertSchema(mrBlueMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertBreadcrumbSchema = createInsertSchema(breadcrumbs).omit({
+  id: true,
+  createdAt: true,
+});
+
 export const insertMediaAssetSchema = createInsertSchema(mediaAssets).omit({
   createdAt: true,
   updatedAt: true,
@@ -1479,6 +1565,14 @@ export type ChatRoom = typeof chatRooms.$inferSelect;
 export type InsertChatRoom = z.infer<typeof insertChatRoomSchema>;
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+
+// 🔵 Mr Blue AI types
+export type MrBlueConversation = typeof mrBlueConversations.$inferSelect;
+export type InsertMrBlueConversation = z.infer<typeof insertMrBlueConversationSchema>;
+export type MrBlueMessage = typeof mrBlueMessages.$inferSelect;
+export type InsertMrBlueMessage = z.infer<typeof insertMrBlueMessageSchema>;
+export type Breadcrumb = typeof breadcrumbs.$inferSelect;
+export type InsertBreadcrumb = z.infer<typeof insertBreadcrumbSchema>;
 export type EventRsvp = typeof eventRsvps.$inferSelect;
 export type PostLike = typeof postLikes.$inferSelect;
 export type PostComment = typeof postComments.$inferSelect;
