@@ -1,9 +1,10 @@
 /**
- * ESA Mr Blue Complete System - ALL-IN-ONE to avoid Vite HMR deletion bug
+ * ESA Mr Blue Complete System - ALL-IN-ONE with backend integration
  * mb.md lines 988-1012
+ * Connected to /api/mrblue/* endpoints with SSE streaming
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sparkles, X, Maximize2, Minimize2, Brain, Search, MessageSquare, Shield, Send, Loader2, Wand2, Code, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,69 +20,193 @@ import { isSuperAdmin } from '@/utils/accessControl';
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<Array<{id: string; role: 'user'|'assistant'; content: string; agent?: string}>>([]);
+  const [conversationId, setConversationId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Load conversations
+  const { data: conversationsData } = useQuery<any[]>({
+    queryKey: ['/api/mrblue/conversations'],
+  });
+
+  // Load messages for current conversation
+  const { data: messages, refetch: refetchMessages } = useQuery<any[]>({
+    queryKey: ['/api/mrblue/conversations', conversationId, 'messages'],
+    enabled: !!conversationId,
+  });
+
+  // Create initial conversation if none exists
+  useEffect(() => {
+    if (conversationsData && conversationsData.length > 0 && !conversationId) {
+      setConversationId(conversationsData[0].id);
+    }
+  }, [conversationsData, conversationId]);
+
+  const createNewConversation = async () => {
+    try {
+      const res = await fetch('/api/mrblue/conversations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'New Chat', agentMode: 'chat' }),
+      });
+      const newConv = await res.json();
+      setConversationId(newConv.id);
+    } catch (error) {
+      console.error('Error creating conversation:', error);
+    }
+  };
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMsg = { id: Date.now().toString(), role: 'user' as const, content: input.trim() };
-    setMessages(prev => [...prev, userMsg]);
+    // Create conversation if none exists
+    if (!conversationId) {
+      await createNewConversation();
+      setTimeout(() => handleSend(), 100); // Retry after conversation created
+      return;
+    }
+
+    const messageContent = input.trim();
     setInput('');
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/mr-blue/chat', {
+      // Use SSE streaming for real-time AI responses
+      const response = await fetch('/api/mrblue/stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg.content, personality: 'You are Mr. Blue, a friendly AI assistant.' }),
+        body: JSON.stringify({
+          conversationId,
+          message: messageContent,
+          model: 'gpt-4o'
+        }),
       });
-      const data = await res.json();
-      setMessages(prev => [...prev, {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: data.response,
-        agent: data.agent || 'Mr Blue',
-      }]);
+
+      if (!response.ok) {
+        throw new Error('Stream failed');
+      }
+
+      // Handle SSE streaming
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let assistantMessage = '';
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n').filter(line => line.trim());
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              try {
+                const parsed = JSON.parse(data);
+                if (parsed.content) {
+                  assistantMessage += parsed.content;
+                }
+                if (parsed.done) {
+                  break;
+                }
+              } catch (e) {
+                // Ignore parse errors for keep-alive messages
+              }
+            }
+          }
+        }
+      }
+
+      // Refresh messages to get the persisted conversation
+      await refetchMessages();
     } catch (error) {
-      console.error('Chat error:', error);
+      console.error('Streaming error:', error);
+      // Fallback to non-streaming endpoint
+      try {
+        const res = await fetch(`/api/mrblue/conversations/${conversationId}/messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: messageContent }),
+        });
+        if (res.ok) {
+          await refetchMessages();
+        }
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-gray-900">
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        {messages.length === 0 && (
-          <Card className="p-6 text-center bg-gradient-to-br from-turquoise-50 to-cyan-50 dark:from-turquoise-950 dark:to-cyan-950">
-            <h3 className="font-semibold text-lg mb-2">Welcome to Mr Blue!</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">I'm your AI companion. Ask me anything!</p>
-          </Card>
-        )}
-        {messages.map((msg) => (
+    <div className="flex h-full bg-white dark:bg-gray-900">
+      {/* Conversation Sidebar */}
+      <div className="w-64 border-r dark:border-gray-700 flex flex-col bg-gray-50 dark:bg-gray-950">
+        <div className="p-3 border-b dark:border-gray-700">
+          <Button onClick={createNewConversation} className="w-full" size="sm" variant="default">
+            <MessageSquare className="h-4 w-4 mr-2" />
+            New Chat
+          </Button>
+        </div>
+        <div className="flex-1 overflow-y-auto p-2 space-y-1">
+          {conversationsData && conversationsData.length > 0 ? (
+            conversationsData.map((conv: any) => (
+              <button
+                key={conv.id}
+                onClick={() => setConversationId(conv.id)}
+                className={`w-full text-left p-3 rounded-lg transition-colors ${
+                  conversationId === conv.id
+                    ? 'bg-gradient-to-r from-turquoise-100 to-cyan-100 dark:from-turquoise-900 dark:to-cyan-900 text-gray-900 dark:text-white'
+                    : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                <div className="font-medium text-sm truncate">{conv.title || 'Untitled Chat'}</div>
+                <div className="text-xs opacity-70 mt-1">{new Date(conv.updatedAt).toLocaleDateString()}</div>
+              </button>
+            ))
+          ) : (
+            <div className="text-center text-sm text-gray-500 dark:text-gray-400 py-8">
+              No conversations yet
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Chat Area */}
+      <div className="flex-1 flex flex-col">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {(!messages || messages.length === 0) && (
+            <Card className="p-6 text-center bg-gradient-to-br from-turquoise-50 to-cyan-50 dark:from-turquoise-950 dark:to-cyan-950">
+              <h3 className="font-semibold text-lg mb-2">Welcome to Mr Blue!</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">I'm your AI companion. Ask me anything!</p>
+            </Card>
+          )}
+        {messages && messages.map((msg: any) => (
           <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] rounded-lg p-3 ${msg.role === 'user' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white' : 'bg-gray-100 dark:bg-gray-800'}`}>
-              {msg.agent && msg.role === 'assistant' && <Badge variant="secondary" className="text-xs mb-1">{msg.agent}</Badge>}
-              <div className="text-sm">{msg.content}</div>
+              {msg.metadata && msg.role === 'assistant' && <Badge variant="secondary" className="text-xs mb-1">AI Agent</Badge>}
+              <div className="text-sm whitespace-pre-wrap">{msg.content}</div>
+              <div className="text-xs opacity-70 mt-1">{new Date(msg.createdAt).toLocaleTimeString()}</div>
             </div>
           </div>
         ))}
-        {isLoading && <div className="flex items-start"><div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3"><Loader2 className="h-4 w-4 animate-spin" /></div></div>}
-      </div>
-      <div className="p-4 border-t dark:border-gray-700">
-        <div className="flex gap-2">
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-            placeholder="Ask Mr Blue anything..."
-            className="flex-1 min-h-[60px] max-h-[120px]"
-            disabled={isLoading}
-          />
-          <Button onClick={handleSend} disabled={!input.trim() || isLoading}>
-            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          </Button>
+          {isLoading && <div className="flex items-start"><div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3"><Loader2 className="h-4 w-4 animate-spin" /></div></div>}
+        </div>
+        <div className="p-4 border-t dark:border-gray-700">
+          <div className="flex gap-2">
+            <Textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+              placeholder="Ask Mr Blue anything..."
+              className="flex-1 min-h-[60px] max-h-[120px]"
+              disabled={isLoading}
+            />
+            <Button onClick={handleSend} disabled={!input.trim() || isLoading}>
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -92,7 +217,7 @@ function MrBlueChatInterface() {
 function LifeCEOAgentsTab() {
   const [searchQuery, setSearchQuery] = useState('');
   const { data, isLoading } = useQuery<{ success: boolean; agents: any[]; count: number }>({
-    queryKey: ['/api/mr-blue/agents'],
+    queryKey: ['/api/mrblue/agents'],
   });
 
   const agents = data?.agents || [];
