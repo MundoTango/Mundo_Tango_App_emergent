@@ -2,7 +2,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App"; 
 import "./index.css";
 // Initialize console security - hides framework references
-import "./utils/console-cleanup";
+// TEMPORARILY DISABLED - MB.MD investigation: May break React error handling
+// import "./utils/console-cleanup";
 // ESA Life CEO 61x21 - Monitoring is managed by MonitoringProvider
 // Users can enable analytics via Settings → Privacy tab
 // No automatic initialization to respect user privacy

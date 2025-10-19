@@ -24,7 +24,8 @@ import BuildOptimizer from "@/lib/build-optimizations";
 import * as Sentry from "@sentry/react";
 import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
-import "@/utils/console-cleanup"; // Security: Clean console output
+// MB.MD DISABLED - Breaks React error handling by overwriting Error constructor
+// import "@/utils/console-cleanup"; // Security: Clean console output
 
 // Mundo Tango ESA - Monitoring Services
 import { MonitoringProvider } from "@/components/MonitoringProvider";
@@ -75,6 +76,8 @@ const VisualEditorWrapper = lazy(() => import("@/components/visual-editor/Visual
 
 // EventDiscoveryFeed - Used on multiple pages but deferred to reduce initial bundle
 const EventDiscoveryFeed = lazy(() => import('@/components/events/EventDiscoveryFeed'));
+// MB.MD FIX: Add missing Discover page import
+const Discover = lazy(() => import('@/pages/discover'));
 
 // Mundo Tango ESA Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (

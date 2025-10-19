@@ -11,6 +11,7 @@
 
 import { ComponentType, lazy } from 'react';
 // Phase 14 Batch 3: Lazy load ALL routes for massive LCP improvement (17s → 8-10s target)
+// MB.MD FIX: MTStatusPreview removed - file doesn't exist (was breaking server startup)
 const Forgotpassword = lazy(() => import('@/pages/auth/forgot-password'));
 const Resetpassword = lazy(() => import('@/pages/auth/reset-password'));
 const Profile = lazy(() => import('@/pages/profile'));
@@ -689,13 +690,14 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading Mr Blue Dashboard...',
     description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
   },
-  {
-    path: '/mt-status',
-    component: MTStatusPreview,
-    mode: 'production',
-    loadingMessage: 'Loading MT Status Preview...',
-    description: 'Mundo Tango Master Rebuild Plan Status - MB.MD Methodology Dashboard'
-  },
+  // MB.MD FIX: Temporarily disabled - MTStatusPreview file doesn't exist
+  // {
+  //   path: '/mt-status',
+  //   component: MTStatusPreview,
+  //   mode: 'production',
+  //   loadingMessage: 'Loading MT Status Preview...',
+  //   description: 'Mundo Tango Master Rebuild Plan Status - MB.MD Methodology Dashboard'
+  // },
   {
     path: '/admin/health-monitor',
     component: HealthMonitor,
