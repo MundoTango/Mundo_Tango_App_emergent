@@ -1489,7 +1489,7 @@ export const insertRoleSchema = createInsertSchema(roles).omit({
 
 export const insertUserRoleSchema = createInsertSchema(userRoles).omit({
   id: true,
-  assignedAt: true,
+  createdAt: true,
 });
 
 export const insertCustomRoleRequestSchema = createInsertSchema(customRoleRequests).omit({
