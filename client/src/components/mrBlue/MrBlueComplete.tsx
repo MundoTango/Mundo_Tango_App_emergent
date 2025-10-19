@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
+import { isSuperAdmin } from '@/utils/accessControl';
 
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
@@ -183,12 +184,12 @@ function AdminToolsTab() {
 // ============ TAB SYSTEM ============
 function MrBlueTabSystem() {
   const { user } = useAuth();
-  const isSuperAdmin = user?.role === 'super_admin';
+  const isAdmin = isSuperAdmin(user);
   const [activeTab, setActiveTab] = useState('chat');
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full">
-      <TabsList className="grid w-full" style={{ gridTemplateColumns: isSuperAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
+      <TabsList className="grid w-full" style={{ gridTemplateColumns: isAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
         <TabsTrigger value="chat" data-testid="tab-chat">
           <MessageSquare className="h-4 w-4 mr-2" />Chat
         </TabsTrigger>
@@ -198,7 +199,7 @@ function MrBlueTabSystem() {
         <TabsTrigger value="search" data-testid="tab-search">
           <Search className="h-4 w-4 mr-2" />Search
         </TabsTrigger>
-        {isSuperAdmin && (
+        {isAdmin && (
           <TabsTrigger value="admin" data-testid="tab-admin">
             <Shield className="h-4 w-4 mr-2" />Admin<Badge variant="destructive" className="ml-2 text-xs">SA</Badge>
           </TabsTrigger>
@@ -207,7 +208,7 @@ function MrBlueTabSystem() {
       <TabsContent value="chat" className="flex-1 overflow-hidden mt-0"><MrBlueChatInterface /></TabsContent>
       <TabsContent value="lifeceo" className="flex-1 overflow-hidden mt-0"><LifeCEOAgentsTab /></TabsContent>
       <TabsContent value="search" className="flex-1 overflow-hidden mt-0"><PlatformSearchTab /></TabsContent>
-      {isSuperAdmin && <TabsContent value="admin" className="flex-1 overflow-hidden mt-0"><AdminToolsTab /></TabsContent>}
+      {isAdmin && <TabsContent value="admin" className="flex-1 overflow-hidden mt-0"><AdminToolsTab /></TabsContent>}
     </Tabs>
   );
 }
@@ -224,10 +225,11 @@ export function MrBlueComplete() {
     return null;
   }
   console.log('🔵 [MrBlueComplete] User found - rendering button!');
+  console.log('🔵 [MrBlueComplete] About to return JSX with fixed positioning');
 
-  return (
+  const buttonJSX = (
     <>
-      <div className="fixed bottom-6 right-6 z-[9999]" data-testid="mr-blue-complete-button">
+      <div className="fixed bottom-6 right-6 z-[9999]" data-testid="mr-blue-complete-button" style={{ backgroundColor: 'red', width: '64px', height: '64px' }}>
         <Button
           onClick={() => setIsOpen(!isOpen)}
           size="lg"
@@ -268,4 +270,7 @@ export function MrBlueComplete() {
       )}
     </>
   );
+  
+  console.log('🔵 [MrBlueComplete] Returning JSX now!');
+  return buttonJSX;
 }
