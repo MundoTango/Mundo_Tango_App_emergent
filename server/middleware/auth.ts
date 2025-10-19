@@ -27,29 +27,33 @@ interface JWTPayload {
   type?: 'access' | 'refresh';
 }
 
+// Extend Express Request type to include authenticated user
+export interface AuthenticatedUser {
+  id: number;
+  email: string;
+  username: string;
+  name: string;
+  role?: string;
+  bio?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  mobileNo?: string | null;
+  profileImage?: string | null;
+  backgroundImage?: string | null;
+  country?: string | null;
+  city?: string | null;
+  facebookUrl?: string | null;
+  isVerified?: boolean | null;
+  isActive?: boolean | null;
+  apiToken?: string | null;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
+}
+
 declare global {
   namespace Express {
     interface Request {
-      user?: {
-        id: number;
-        email: string;
-        username: string;
-        name: string;
-        bio?: string | null;
-        firstName?: string | null;
-        lastName?: string | null;
-        mobileNo?: string | null;
-        profileImage?: string | null;
-        backgroundImage?: string | null;
-        country?: string | null;
-        city?: string | null;
-        facebookUrl?: string | null;
-        isVerified?: boolean | null;
-        isActive?: boolean | null;
-        apiToken?: string | null;
-        createdAt?: Date | null;
-        updatedAt?: Date | null;
-      };
+      user?: AuthenticatedUser;
     }
   }
 }
@@ -61,7 +65,7 @@ declare global {
  */
 export function generateAccessToken(userId: number, expiresIn: string = '15m'): string {
   const payload: JWTPayload = { userId, type: 'access' };
-  return jwt.sign(payload, JWT_SECRET!, { expiresIn });
+  return jwt.sign(payload, JWT_SECRET as string, { expiresIn });
 }
 
 /**
@@ -70,7 +74,7 @@ export function generateAccessToken(userId: number, expiresIn: string = '15m'): 
  * @param expiresIn - Token expiration (default: 7 days)
  */
 export function generateRefreshToken(userId: number, expiresIn: string = '7d'): string {
-  const secret = JWT_REFRESH_SECRET || JWT_SECRET!;
+  const secret = (JWT_REFRESH_SECRET || JWT_SECRET) as string;
   const payload: JWTPayload = { userId, type: 'refresh' };
   return jwt.sign(payload, secret, { expiresIn });
 }
