@@ -322,4 +322,88 @@ curl http://localhost:5000/memories
 
 ---
 
+## 📘 MB.MD Phase Checklist
+
+Before starting work, identify your MB.MD phase and follow the appropriate checklist:
+
+### ☐ MAPPING Phase (Understanding)
+**Purpose:** Understand system/dependencies BEFORE starting work
+
+- [ ] Read `docs/ESA_QUALITY_GATES.md` (Gates 1-2: Specification + Discovery)
+- [ ] Read `docs/DOCUMENTATION_MAP.md` to find component-specific docs
+- [ ] Read `replit.md` for current system state
+- [ ] For UI work: Read H2AC pattern + page agent docs
+- [ ] For API work: Read layer-2-api-structure.md + API contracts
+- [ ] For payment work: Read layer-17 + payment-endpoints.yaml
+- [ ] For agent work: Read agent layer docs + hierarchy
+
+**Doc Reference:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` (MAPPING section)
+
+---
+
+### ☐ BREAKDOWN Phase (Decomposition)
+**Purpose:** Learn HOW to decompose work into executable tasks
+
+- [ ] Choose methodology based on work type:
+  - UI work → `docs/The Pages/H2AC_EXECUTIVE_SUMMARY.md`
+  - Backend work → `docs/40x20s-framework.md`
+  - Algorithm work → `docs/MrBlue/ALGORITHM_AGENTS_MBMD_PLAN.md`
+  - Parallel work → `docs/MrBlue/mb-master-plan-v4.md`
+- [ ] Create task list with clear dependencies
+- [ ] Identify which tasks can run in parallel
+- [ ] Define success criteria for each task
+
+**Doc Reference:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` (BREAKDOWN section)
+
+---
+
+### ☐ MITIGATION Phase (Prevention)
+**Purpose:** Prevent known failures during implementation
+
+- [ ] Run `bash scripts/agent-verification.sh` (MANDATORY)
+- [ ] Read `docs/PREVENTION_GUIDE.md` lines 14-47 (pre-work checklist)
+- [ ] Read `docs/AGENT_SESSION_LOG.md` (what previous agents learned)
+- [ ] Check `docs/CRITICAL_FAILURE_ANALYSIS.md` if you see ANY errors
+- [ ] For UI work: Check dark-mode-fixes.md, translation-fixes.md
+- [ ] For routing work: Check mb-routing-fix-summary.md
+- [ ] For database work: Check DB_FIX_COMPLETE.md
+
+**Doc Reference:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` (MITIGATION section)
+
+---
+
+### ☐ DEPLOYMENT Phase (Validation)
+**Purpose:** Verify production readiness before claiming "done"
+
+- [ ] Run `bash scripts/verify-completion.sh` (MANDATORY)
+- [ ] Read `docs/ESA_QUALITY_GATES.md` (Gates 3-4: Testing + Validation)
+- [ ] Read `docs/LAUNCH_CHECKLIST.md`
+- [ ] For UI work: Check VISUAL_QUALITY_SCORECARD + visual testing
+- [ ] For API work: Check API audit reports + integration tests
+- [ ] For full features: Check component-specific audit reports
+- [ ] Update `docs/AGENT_SESSION_LOG.md` with what you learned
+- [ ] Take screenshot if UI work (proof of functionality)
+
+**Doc Reference:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` (DEPLOYMENT section)
+
+---
+
+## 🔗 Quick Reference Links
+
+**Phase-Based Routing:**
+- `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` - Complete MB.MD documentation guide
+
+**Component-Based Routing:**
+- `docs/DOCUMENTATION_MAP.md` - Find docs by component/layer/page
+
+**Verification Scripts:**
+- `scripts/agent-verification.sh` - Run BEFORE work (has MB.MD phase detection)
+- `scripts/verify-completion.sh` - Run BEFORE claiming "done"
+
+**Learning & Prevention:**
+- `docs/AGENT_SESSION_LOG.md` - Knowledge transfer between sessions
+- `docs/CRITICAL_FAILURE_ANALYSIS.md` - Historical incident analysis
+
+---
+
 **Remember:** The goal is user access to features, not just a running server. Always verify from the user's perspective!

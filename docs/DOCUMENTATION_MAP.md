@@ -5,6 +5,22 @@
 
 ---
 
+## 🔗 MB.MD PHASE-BASED ROUTING
+
+**NEW:** For MB.MD methodology (Mapping → Breakdown → Mitigation → Deployment) phase-based document routing, see:
+
+**📘 [`docs/MB_MD_DOCUMENTATION_PHASE_MAP.md`](./MB_MD_DOCUMENTATION_PHASE_MAP.md)** (650+ lines)
+- **MAPPING Phase:** What to read BEFORE starting work (architecture, dependencies, context)
+- **BREAKDOWN Phase:** How to decompose work (40x20s, H2AC, Algorithm patterns)
+- **MITIGATION Phase:** What to prevent (failure patterns, known issues, session learnings)
+- **DEPLOYMENT Phase:** How to validate production readiness (quality gates, audits, testing)
+- **Agent-Type Routing:** Specific docs for Layer/Page/Algorithm/Mr Blue agents
+- **Task-Type Routing:** Required docs by task (Payment/UI/API/Coordination)
+
+**When to use:** If you're following MB.MD methodology, start with the phase map. If you're looking for component-specific docs, use this map.
+
+---
+
 ## 🎯 Quick Start: What to Read BEFORE You Work
 
 ### Critical Pre-Work Documents (MUST READ)
