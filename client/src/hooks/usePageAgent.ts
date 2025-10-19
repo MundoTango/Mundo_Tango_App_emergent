@@ -1,6 +1,5 @@
-/**
- * usePageAgent Hook
- * Re-exports from PageAgentContext for cleaner imports
- */
+import { usePageAgentContext } from "@/contexts/PageAgentContext";
 
-export { usePageAgent } from '@/contexts/PageAgentContext';
+export function usePageAgent() {
+  return usePageAgentContext();
+}

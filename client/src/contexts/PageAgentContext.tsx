@@ -1,92 +1,25 @@
-/**
- * Page Agent Context
- * Phase 13: 173 operational modern agents + 61 legacy ESA agents
- * 
- * Provides page-specific agent context for AI assistance
- */
+import { createContext, useContext, useState, ReactNode } from "react";
 
-import { createContext, useContext, ReactNode } from 'react';
-
-interface PageAgent {
-  id: string;
-  name: string;
-  category: string;
-  purpose: string;
+interface PageAgentContextType {
+  currentPageAgent: string | null;
+  setCurrentPageAgent: (agent: string | null) => void;
+  agentResponse: string | null;
+  setAgentResponse: (response: string | null) => void;
 }
 
-interface PageAgentContextValue {
-  agents: PageAgent[];
-  hasContext: boolean;
-  currentPage: string;
-}
-
-const PageAgentContext = createContext<PageAgentContextValue>({
-  agents: [],
-  hasContext: false,
-  currentPage: '/',
-});
+export const PageAgentContext = createContext<PageAgentContextType | undefined>(undefined);
 
 export function PageAgentProvider({ children }: { children: ReactNode }) {
-  // Get current page from URL
-  const currentPage = window.location.pathname;
-
-  // Map pages to their agents
-  const getPageAgents = (page: string): PageAgent[] => {
-    // Map route to agent
-    const pageAgentMap: Record<string, PageAgent[]> = {
-      '/': [
-        {
-          id: 'page-agent-home',
-          name: 'Home Page Agent',
-          category: 'Page Agents',
-          purpose: 'Provide context-aware assistance on home page',
-        },
-      ],
-      '/discover': [
-        {
-          id: 'page-agent-discover',
-          name: 'Discover Page Agent',
-          category: 'Page Agents',
-          purpose: 'Help users discover events and communities',
-        },
-      ],
-      '/events': [
-        {
-          id: 'page-agent-events',
-          name: 'Events Page Agent',
-          category: 'Page Agents',
-          purpose: 'Assist with event browsing and management',
-        },
-      ],
-      '/memories': [
-        {
-          id: 'page-agent-memories',
-          name: 'Memories Page Agent',
-          category: 'Page Agents',
-          purpose: 'Help users create and share memories',
-        },
-      ],
-      '/community': [
-        {
-          id: 'page-agent-community',
-          name: 'Community Page Agent',
-          category: 'Page Agents',
-          purpose: 'Guide community exploration and participation',
-        },
-      ],
-    };
-
-    return pageAgentMap[page] || [];
-  };
-
-  const agents = getPageAgents(currentPage);
+  const [currentPageAgent, setCurrentPageAgent] = useState<string | null>(null);
+  const [agentResponse, setAgentResponse] = useState<string | null>(null);
 
   return (
     <PageAgentContext.Provider
       value={{
-        agents,
-        hasContext: agents.length > 0,
-        currentPage,
+        currentPageAgent,
+        setCurrentPageAgent,
+        agentResponse,
+        setAgentResponse,
       }}
     >
       {children}
@@ -94,10 +27,10 @@ export function PageAgentProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function usePageAgent() {
+export function usePageAgentContext() {
   const context = useContext(PageAgentContext);
-  if (!context) {
-    throw new Error('usePageAgent must be used within PageAgentProvider');
+  if (context === undefined) {
+    throw new Error("usePageAgentContext must be used within a PageAgentProvider");
   }
   return context;
 }
