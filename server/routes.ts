@@ -975,6 +975,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // MB.MD - Visual Editor & Mr Blue Health Diagnostics
+  app.get('/api/admin/ve-mb-health', async (req, res) => {
+    try {
+      const checks: any[] = [];
+
+      // CHECK 1: Database Connection
+      const dbStart = Date.now();
+      try {
+        const result = await db.select().from(users).limit(1);
+        const dbTime = Date.now() - dbStart;
+        checks.push({
+          name: 'Database Connection',
+          status: 'pass',
+          message: `Database query successful`,
+          details: `Query time: ${dbTime}ms`,
+          responseTime: dbTime
+        });
+      } catch (error) {
+        checks.push({
+          name: 'Database Connection',
+          status: 'fail',
+          message: 'Database query failed',
+          details: String(error)
+        });
+      }
+
+      // CHECK 2: Server Memory Status
+      const memUsage = process.memoryUsage();
+      const memUsedMB = Math.round(memUsage.heapUsed / 1024 / 1024);
+      const memTotalMB = Math.round(memUsage.heapTotal / 1024 / 1024);
+      const memPercent = Math.round((memUsage.heapUsed / memUsage.heapTotal) * 100);
+      
+      checks.push({
+        name: 'Server Memory',
+        status: memPercent > 90 ? 'warn' : 'pass',
+        message: `${memUsedMB}MB / ${memTotalMB}MB (${memPercent}%)`,
+        details: `Heap: ${memUsedMB}MB, RSS: ${Math.round(memUsage.rss / 1024 / 1024)}MB`
+      });
+
+      // Overall status
+      const overallStatus = checks.every(c => c.status === 'pass') ? 'healthy' :
+                            checks.some(c => c.status === 'fail') ? 'degraded' : 'warning';
+
+      res.json({
+        status: overallStatus,
+        timestamp: new Date().toISOString(),
+        checks
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+        message: 'Health check failed',
+        error: String(error)
+      });
+    }
+  });
+
   // Mundo Tango ESA LIFE CEO - Saved posts endpoint
   app.post('/api/saved-posts', setUserContext, async (req: any, res) => {
     try {

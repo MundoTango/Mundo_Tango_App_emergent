@@ -35,7 +35,6 @@ export default function VEMBStatusDashboard() {
   const [healthChecks, setHealthChecks] = useState<HealthCheck[]>([]);
   const [visualEditorDeps, setVisualEditorDeps] = useState<ComponentDependency[]>([]);
   const [cspErrors, setCSPErrors] = useState<number>(0);
-  const [isFixingCSP, setIsFixingCSP] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Run health checks on mount
@@ -47,119 +46,54 @@ export default function VEMBStatusDashboard() {
 
   const runHealthChecks = async () => {
     setLoading(true);
-    const checks: HealthCheck[] = [];
-
-    // Check 1: Server Status
-    checks.push({
-      name: 'Server Running',
-      status: 'checking',
-      message: 'Checking server connectivity...'
-    });
-
+    
     try {
-      const serverStart = Date.now();
-      const response = await fetch('/api/health', { method: 'GET' });
-      const responseTime = Date.now() - serverStart;
+      // Use real API-backed diagnostics endpoint (per architect feedback)
+      const response = await fetch('/api/admin/ve-mb-health');
       
-      checks[0] = {
-        name: 'Server Running',
-        status: response.ok ? 'pass' : 'fail',
-        message: response.ok 
-          ? `Server responsive (${responseTime}ms)` 
-          : `Server returned ${response.status}`,
-        details: `Response time: ${responseTime}ms`
-      };
+      if (response.ok) {
+        const data = await response.json();
+        setHealthChecks(data.checks || []);
+      } else {
+        // Fallback if API fails
+        setHealthChecks([{
+          name: 'API Health Check',
+          status: 'fail',
+          message: `Health API returned ${response.status}`,
+          details: 'Could not fetch system diagnostics'
+        }]);
+      }
     } catch (error) {
-      checks[0] = {
-        name: 'Server Running',
+      setHealthChecks([{
+        name: 'API Health Check',
         status: 'fail',
-        message: 'Server unreachable',
+        message: 'Failed to connect to health API',
         details: String(error)
-      };
+      }]);
+    } finally {
+      setLoading(false);
     }
-
-    // Check 2: Visual Editor Route
-    try {
-      const veResponse = await fetch('/admin/visual-editor', { method: 'HEAD' });
-      checks.push({
-        name: 'Visual Editor Route',
-        status: veResponse.ok ? 'pass' : 'fail',
-        message: veResponse.ok 
-          ? 'Route accessible' 
-          : 'Route not found or error',
-        details: `Status: ${veResponse.status}`
-      });
-    } catch (error) {
-      checks.push({
-        name: 'Visual Editor Route',
-        status: 'fail',
-        message: 'Route check failed',
-        details: String(error)
-      });
-    }
-
-    // Check 3: Mr Blue Route
-    try {
-      const mbResponse = await fetch('/mr-blue', { method: 'HEAD' });
-      checks.push({
-        name: 'Mr Blue AI Route',
-        status: mbResponse.ok ? 'pass' : 'fail',
-        message: mbResponse.ok 
-          ? 'Route accessible ✅' 
-          : 'Route not found',
-        details: `Status: ${mbResponse.status}`
-      });
-    } catch (error) {
-      checks.push({
-        name: 'Mr Blue AI Route',
-        status: 'fail',
-        message: 'Route check failed',
-        details: String(error)
-      });
-    }
-
-    // Check 4: Database Connection
-    try {
-      const dbResponse = await fetch('/api/users/profile', { method: 'HEAD' });
-      checks.push({
-        name: 'Database Connection',
-        status: dbResponse.status < 500 ? 'pass' : 'fail',
-        message: dbResponse.status < 500 
-          ? 'Database queries working' 
-          : 'Database error detected',
-        details: `Status: ${dbResponse.status}`
-      });
-    } catch (error) {
-      checks.push({
-        name: 'Database Connection',
-        status: 'warn',
-        message: 'Could not verify database',
-        details: String(error)
-      });
-    }
-
-    setHealthChecks(checks);
-    setLoading(false);
   };
 
   const checkDependencies = () => {
-    // Visual Editor component dependencies (from VisualEditorPage.tsx)
+    // Note: Real dependency analysis requires build-time or server-side checks
+    // This is a known list from VisualEditorPage.tsx for reference
     const deps: ComponentDependency[] = [
-      { name: 'TabSystem', path: '@/components/visual-editor/TabSystem', status: 'found' },
-      { name: 'PreviewTab', path: '@/components/visual-editor/PreviewTab', status: 'found' },
-      { name: 'DeployTab', path: '@/components/visual-editor/DeployTab', status: 'found' },
-      { name: 'GitTab', path: '@/components/visual-editor/GitTab', status: 'found' },
-      { name: 'PagesTab', path: '@/components/visual-editor/PagesTab', status: 'found' },
-      { name: 'ShellTab', path: '@/components/visual-editor/ShellTab', status: 'found' },
-      { name: 'FilesTabConnected', path: '@/components/visual-editor/FilesTabConnected', status: 'found' },
-      { name: 'MrBlueAITab', path: '@/components/visual-editor/MrBlueAITab', status: 'found' },
-      { name: 'ConsoleTab', path: '@/components/visual-editor/ConsoleTab', status: 'found' },
-      { name: 'SecretsTab', path: '@/components/visual-editor/SecretsTab', status: 'found' },
-      { name: 'CommandPalette', path: '@/components/visual-editor/CommandPalette', status: 'found' },
-      { name: 'MultiplayerPresence', path: '@/components/visual-editor/MultiplayerPresence', status: 'found' },
-      { name: 'RemoteCursors', path: '@/components/visual-editor/RemoteCursors', status: 'found' },
-      { name: 'useKeyboardShortcuts', path: '@/hooks/useKeyboardShortcuts', status: 'found' },
-      { name: 'useMultiplayer', path: '@/hooks/useMultiplayer', status: 'found' },
+      { name: 'TabSystem', path: '@/components/visual-editor/TabSystem', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'PreviewTab', path: '@/components/visual-editor/PreviewTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'DeployTab', path: '@/components/visual-editor/DeployTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'GitTab', path: '@/components/visual-editor/GitTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'PagesTab', path: '@/components/visual-editor/PagesTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'ShellTab', path: '@/components/visual-editor/ShellTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'FilesTabConnected', path: '@/components/visual-editor/FilesTabConnected', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'MrBlueAITab', path: '@/components/visual-editor/MrBlueAITab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'ConsoleTab', path: '@/components/visual-editor/ConsoleTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'SecretsTab', path: '@/components/visual-editor/SecretsTab', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'CommandPalette', path: '@/components/visual-editor/CommandPalette', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'MultiplayerPresence', path: '@/components/visual-editor/MultiplayerPresence', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'RemoteCursors', path: '@/components/visual-editor/RemoteCursors', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'useKeyboardShortcuts', path: '@/hooks/useKeyboardShortcuts', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
+      { name: 'useMultiplayer', path: '@/hooks/useMultiplayer', status: 'found', error: 'Client-side check not available - see LSP diagnostics' },
     ];
     
     setVisualEditorDeps(deps);
@@ -167,35 +101,8 @@ export default function VEMBStatusDashboard() {
 
   const checkCSPErrors = () => {
     // Count CSP errors from browser console
-    // This is a simplified check - in production, we'd use CSP reporting endpoint
-    setCSPErrors(0); // Will be populated from real CSP reports
-  };
-
-  const fixCSP = async () => {
-    setIsFixingCSP(true);
-    try {
-      const response = await fetch('/api/admin/fix-csp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-
-      if (response.ok) {
-        toast({
-          title: 'CSP Fixed!',
-          description: 'Content Security Policy has been updated. Reload the page to see changes.',
-        });
-      } else {
-        throw new Error('Failed to update CSP');
-      }
-    } catch (error) {
-      toast({
-        title: 'CSP Fix Failed',
-        description: String(error),
-        variant: 'destructive'
-      });
-    } finally {
-      setIsFixingCSP(false);
-    }
+    // Note: Real CSP monitoring requires report-uri endpoint (per architect feedback)
+    setCSPErrors(0); // Placeholder - implement CSP report-uri for real data
   };
 
   const getStatusIcon = (status: HealthCheck['status']) => {
@@ -380,19 +287,15 @@ export default function VEMBStatusDashboard() {
                 </ul>
               </div>
 
-              <Button 
-                onClick={fixCSP} 
-                disabled={isFixingCSP}
-                variant="default"
-                className="w-full"
-                data-testid="button-fix-csp"
-              >
-                {isFixingCSP ? (
-                  <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Fixing CSP...</>
-                ) : (
-                  <><Wrench className="h-4 w-4 mr-2" /> Fix CSP Configuration</>
-                )}
-              </Button>
+              <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                  Manual Fix Required
+                </h4>
+                <p className="text-sm text-blue-700 dark:text-blue-300">
+                  CSP configuration must be manually updated in <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">server/middleware/securityMiddleware.ts</code>.
+                  Add missing domains to script-src directive.
+                </p>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
