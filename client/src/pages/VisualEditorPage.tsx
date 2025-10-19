@@ -272,7 +272,7 @@ export default function VisualEditorPage() {
       <CommandPalette
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}
-        onTabChange={setActiveTab}
+        onTabChange={(tab) => setActiveTab(tab as EditorTab)}
       />
     </div>
   );
