@@ -87,6 +87,24 @@ Each phase requires specific documentation to be read:
 **When to read:** Before coordinating work across agents or understanding agent responsibilities  
 **Who needs it:** Agent coordinators, orchestrators, meta-agents
 
+### Frontend Build Configuration Verification ⚠️ CRITICAL
+
+**Vite Port Alignment** - MANDATORY for all UI work
+- **File:** `vite.config.ts`
+- **Requirement:** Port MUST be 5000 (NOT 5173 or any other port)
+- **Check:** Line ~7 should have `server: { port: 5000, host: '0.0.0.0' }`
+- **Why critical:** Port mismatch prevents user from seeing UI in iframe preview
+- **Automated check:** `scripts/agent-verification.sh` checks this automatically
+- **When to verify:** BEFORE starting ANY UI/frontend work (MAPPING phase)
+- **Who needs it:** ALL agents doing UI work, Visual Editor users, frontend developers
+- **Related docs:** Web dev rules in system prompt
+
+**Failure pattern (Oct 19, 2025):**
+- Port was 5173 instead of 5000 → UI inaccessible to user
+- LSP errors in 2 files prevented compilation  
+- Documentation existed but wasn't in MAPPING phase checklist
+- **Lesson:** Configuration verification MUST be in MAPPING, not just general docs
+
 ---
 
 ## 🔨 PHASE 2: BREAKDOWN (Work Decomposition Methods)

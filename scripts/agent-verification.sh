@@ -14,7 +14,7 @@ echo ""
 ERRORS=0
 
 # 1. Critical Files Check
-echo "📁 1/4 Checking critical files..."
+echo "📁 1/5 Checking critical files..."
 CRITICAL_FILES=(
   "server/middleware/errorHandler.ts"
   "server/utils/apiResponse.ts"
@@ -46,9 +46,33 @@ if [ $ERRORS -gt 0 ]; then
   exit 1
 fi
 
+# 1.5. Vite Port Configuration Check (CRITICAL FOR UI WORK)
+echo ""
+echo "⚙️  1.5/5 Checking vite.config.ts port configuration..."
+
+if ! grep -q "port: 5000" vite.config.ts; then
+  echo "   ❌ CRITICAL: vite.config.ts port is NOT set to 5000!"
+  echo "      Current setting:"
+  grep -n "port:" vite.config.ts || echo "      (port not found in config)"
+  echo ""
+  echo "   ⚠️  Port mismatch prevents UI from loading in iframe preview"
+  echo "   Fix: Edit vite.config.ts line ~7 to: server: { port: 5000, host: '0.0.0.0' }"
+  echo ""
+  echo "   📚 See: docs/MB_MD_DOCUMENTATION_PHASE_MAP.md (Frontend Build Configuration)"
+  ERRORS=$((ERRORS + 1))
+else
+  echo "   ✅ Vite port correctly set to 5000"
+fi
+
+if [ $ERRORS -gt 0 ]; then
+  echo ""
+  echo "❌ STOP: Vite configuration error - fix before proceeding"
+  exit 1
+fi
+
 # 2. Build System Health
 echo ""
-echo "🔨 2/4 Checking build system..."
+echo "🔨 2/5 Checking build system..."
 
 # Check node_modules exists
 if [ ! -d "node_modules" ]; then
@@ -76,7 +100,7 @@ echo "   ✅ Build system OK"
 
 # 3. Package Verification
 echo ""
-echo "📦 3/4 Verifying critical packages..."
+echo "📦 3/5 Verifying critical packages..."
 PACKAGES="vite tsx esbuild typescript drizzle-orm"
 
 npm list $PACKAGES --depth=0 2>&1 | grep -q "UNMET" && {
@@ -89,7 +113,7 @@ echo "   ✅ Packages OK"
 
 # 4. Server Test
 echo ""
-echo "🚀 4/4 Testing server startup..."
+echo "🚀 4/5 Testing server startup..."
 
 # Start server in background and capture output
 timeout 15 npm run dev > /tmp/server-test.log 2>&1 &
