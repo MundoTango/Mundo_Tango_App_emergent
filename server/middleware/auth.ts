@@ -34,6 +34,7 @@ export interface AuthenticatedUser {
   username: string;
   name: string;
   role?: string;
+  isSuperAdmin?: boolean;
   bio?: string | null;
   firstName?: string | null;
   lastName?: string | null;
@@ -130,12 +131,17 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       throw new AuthenticationError('User account is inactive');
     }
 
+    // Load user roles to check for super admin
+    const userRoles = await storage.getUserRoles(decoded.userId);
+    const isSuperAdmin = userRoles?.some(role => role.roleName === 'super_admin') ?? false;
+
     // Attach user to request (convert null to undefined for type compatibility)
     req.user = {
       id: user.id,
       email: user.email,
       username: user.username,
       name: user.name,
+      isSuperAdmin,
       bio: user.bio ?? undefined,
       firstName: user.firstName ?? undefined,
       lastName: user.lastName ?? undefined,

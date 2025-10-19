@@ -194,12 +194,20 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
     
     console.log('🔧 Auth bypass - using default user for Life CEO testing');
     
-    // Set default user for development - CRITICAL FIX: Use Scott's actual Replit ID
+    // Load user roles to check for super admin
+    const { storage } = await import('./storage.js');
+    const userRoles = await storage.getUserRoles(1); // Elena Rodriguez (user_id=1)
+    const isSuperAdmin = userRoles?.some((role: any) => role.roleName === 'super_admin') ?? false;
+    
+    console.log(`🔑 Dev user super admin status: ${isSuperAdmin}`);
+    
+    // Set default user for development - CRITICAL FIX: Use Scott's actual Replit ID + super admin flag
     req.user = {
       claims: {
         sub: "44164221" // Scott Boddye's actual Replit ID
       },
-      expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour from now
+      expires_at: Math.floor(Date.now() / 1000) + 3600, // 1 hour from now
+      isSuperAdmin // Add super admin flag from database
     } as any;
     
     return next();

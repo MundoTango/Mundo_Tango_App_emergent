@@ -679,13 +679,13 @@ export class DatabaseStorage implements IStorage {
       .select({
         roleName: userRoles.roleName,
         description: roles.description,
-        assignedAt: userRoles.assignedAt,
+        assignedAt: userRoles.createdAt,
         isPlatformRole: roles.isPlatformRole
       })
       .from(userRoles)
       .leftJoin(roles, eq(userRoles.roleName, roles.name))
       .where(eq(userRoles.userId, userId))
-      .orderBy(asc(userRoles.assignedAt));
+      .orderBy(asc(userRoles.createdAt));
   }
 
   async assignRoleToUser(userId: number, roleName: string, assignedBy?: number): Promise<any> {
