@@ -36,6 +36,17 @@ export class ForbiddenError extends Error {
   }
 }
 
+export function notFoundHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  res.status(404).json({
+    success: false,
+    error: 'Not found'
+  });
+}
+
 export function errorHandler(
   err: Error,
   req: Request,

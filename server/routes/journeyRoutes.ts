@@ -7,7 +7,7 @@ const router = Router();
 router.get('/api/journey/state', async (req, res, next) => {
   try {
     res.json(success({
-      state: 'J1', // New user journey state
+      state: 'J1',
       lastUpdate: new Date()
     }));
   } catch (error) {
