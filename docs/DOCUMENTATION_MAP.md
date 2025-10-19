@@ -1,6 +1,6 @@
 # 🗺️ DOCUMENTATION MAP - Complete System Reference
-**Last Updated:** October 19, 2025  
-**Total Documentation Files:** 335  
+**Last Updated:** October 19, 2025 (Comprehensive mapping update - all 340 files mapped)  
+**Total Documentation Files:** 340  
 **Purpose:** Associate all documentation with corresponding system components for agent guidance
 
 ---
@@ -137,7 +137,8 @@
 - `docs/agents/layers/platform/layer-49-security-hardening.md` → Security measures
 - `docs/agents/layers/platform/layer-50-devops-automation.md` → CI/CD, DevOps
 - `docs/agents/layers/platform/layer-51-testing-framework.md` → Testing infrastructure
-- `docs/agents/layers/platform/layer-52-documentation-system.md` → Documentation management
+- `docs/agents/layers/platform/layer-52-documentation-agent.md` → Documentation Agent (#52) - Automated discovery & mapping
+- `docs/agents/layers/platform/layer-52-documentation-system.md` → Documentation system (legacy - see layer-52-documentation-agent.md)
 - `docs/agents/layers/platform/layer-53-internationalization.md` → i18n, translations
 - `docs/agents/layers/platform/layer-54-accessibility.md` → A11y compliance
 - `docs/agents/layers/platform/layer-55-seo-optimization.md` → SEO
@@ -200,6 +201,69 @@
 - `docs/agents/operational/operational-65-project-tracker-manager.md` → Project tracking
 - `docs/agents/operational/operational-66-code-review-expert.md` → Code review
 - `docs/agents/operational/operational-67-community-relations-manager.md` → Community
+
+#### ESA Legacy Agents (13 Files in `docs/ESA_Agents/`)
+**Purpose:** Original ESA agent framework documentation  
+**Status:** Legacy documentation - superseded by 61 layer agents above
+
+- `docs/ESA_Agents/ESA_AGENT_TEMPLATE.md` → Agent template
+- `docs/ESA_Agents/agents/ESA1_Project_Orchestrator.md` → Project orchestrator
+- `docs/ESA_Agents/agents/ESA6_State_Management_Agent.md` → State management
+- `docs/ESA_Agents/agents/ESA11_UI_UX_Agent.md` → UI/UX agent
+- `docs/ESA_Agents/agents/ESA13_Content_Management.md` → Content management
+- `docs/ESA_Agents/agents/ESA31_AI_Intelligence.md` → AI intelligence
+- `docs/ESA_Agents/agents/ESA48_Dark_Mode_Agent.md` → Dark mode
+- `docs/ESA_Agents/agents/ESA53_Translation_Agent.md` → Translation
+- `docs/ESA_Agents/agents/ESA55_SEO_Agent.md` → SEO
+- `docs/ESA_Agents/agents/ESA65_The_Plan_Agent.md` → The Plan Agent
+- `docs/ESA_Agents/agents/ESA73_MrBlue_Core.md` → Mr Blue core
+- `docs/ESA_Agents/agents/ESA79_Quality_Validator.md` → Quality validator
+- `docs/ESA_Agents/agents/ESA80_Learning_Coordinator.md` → Learning coordinator
+
+#### Root-Level Platform Documentation (30 Files)
+**Purpose:** Platform-wide framework, methodology, and system-level documentation  
+**Location:** `docs/` (root directory)
+
+**ESA Framework & Methodologies:**
+- `docs/40x20s-framework.md` → 40x20s framework
+- `docs/40x20s-plan-integration-analysis.md` → 40x20s plan integration
+- `docs/ESA_ENHANCED_METHODOLOGY_CHECKLIST.md` → ESA methodology checklist
+- `docs/AGENT_FRAMEWORK_COMPLETE.md` → Agent framework complete
+- `docs/MULTI_AGENT_FRAMEWORK_SUMMARY.md` → Multi-agent framework
+
+**Agent Coordination & Intelligence:**
+- `docs/AGENT_COORDINATION_SESSION_COMPLETE.md` → Agent coordination session
+- `docs/AGENT_EXPERT_RESEARCH_COMPLETE.md` → Agent expert research
+- `docs/agent-intelligence-network-architecture.md` → Intelligence network architecture
+- `docs/AI_INTEGRATION_UNIVERSAL_PATTERN.md` → AI integration patterns
+
+**Phase & Integration Reports:**
+- `docs/PHASE_2_EXPERT_ANALYSIS.md` → Phase 2 expert analysis
+- `docs/PHASE_2_VALIDATION_REPORT.md` → Phase 2 validation
+- `docs/PHASE_3_PERFORMANCE_OPTIMIZATIONS_SUMMARY.md` → Phase 3 performance
+- `docs/PHASE_3_RETEST_ANALYSIS_40X20S.md` → Phase 3 retest analysis
+- `docs/PHASE4_COMPLETION_REPORT.md` → Phase 4 completion
+- `docs/PHASE5_INTEGRATION_COMPLETE.md` → Phase 5 integration
+- `docs/PHASE_12_COMPLETE_INTEGRATION.md` → Phase 12 integration
+- `docs/PHASE12_ROLLOUT.md` → Phase 12 rollout
+
+**Platform Audits & Status:**
+- `docs/BEAUTIFUL_POST_AUDIT_REPORT.md` → Beautiful post audit
+- `docs/BEAUTIFUL_POST_AUDIT_SUMMARY.md` → Post audit summary
+- `docs/ESA_ADMIN_CENTER_CLEANUP_REPORT.md` → Admin center cleanup
+- `docs/ESA_ADMIN_CENTER_COMPREHENSIVE_AUDIT.md` → Admin center audit
+- `docs/FULL_SITE_AUDIT_PLAN.md` → Full site audit plan
+- `docs/LOCATION_INPUT_CONSOLIDATION_AUDIT.md` → Location input audit
+- `docs/CURRENT_STATUS_OCT_15.md` → Current status October 15
+- `docs/STATUS-REPORT-2025-10-09.md` → Status report October 9
+
+**Feature Integration & Sessions:**
+- `docs/FEATURES_INTEGRATION_SUMMARY.md` → Features integration summary
+- `docs/SESSION_SUMMARY_BOOKING_SYSTEM.md` → Booking system session
+- `docs/ESA_SUBSCRIPTION_STRATEGY.md` → Subscription strategy
+- `docs/EXPERT_SOLUTION_SUMMARY.md` → Expert solution summary
+- `docs/MB-MD-VISUAL-EDITOR-COMPLETE.md` → Visual Editor MB.MD complete
+- `docs/WHATS_NEXT.md` → What's next planning
 
 ---
 
@@ -270,6 +334,7 @@
 - `docs/MrBlue/mb-phase9-expert-research.md` → Phase 9 research
 - `docs/MrBlue/mb-phase9-progress-report.md` → Phase 9 progress
 - `docs/MrBlue/mb-phase9-ultra-detailed-plan.md` → Phase 9 detailed plan
+- `docs/MrBlue/MB_PHASE_9_FINAL_SUMMARY.md` → Phase 9 final summary
 - `docs/MrBlue/PHASE10-COMPLETION-REPORT.md` → Phase 10 complete
 - `docs/MrBlue/PHASE_10_IMPLEMENTATION_COMPLETE.md` → Phase 10 implementation
 - `docs/MrBlue/PHASE10-PLAN.md` → Phase 10 plan
@@ -347,20 +412,36 @@
 
 ### 4. FEATURE DOCUMENTATION
 
-#### Page-Specific Docs ("The Pages" Agents)
+#### Page-Specific Docs ("The Pages" Agents - 15 Files)
 - `docs/The Pages/agents/P1_login_page.md` → Login page
 - `docs/The Pages/agents/P2_register_page.md` → Register page
 - `docs/The Pages/agents/P10_home_feed.md` → Home feed
 - `docs/The Pages/agents/P34_admin_projects.md` → Admin projects
 - `docs/The Pages/H2AC_BUILD_SUMMARY.md` → H2AC (Human-to-Agent Communication)
+- `docs/The Pages/COMPREHENSIVE_AUDIT_PLAN.md` → Comprehensive audit plan
+- `docs/The Pages/route-extraction.md` → Route extraction methodology
+- `docs/The Pages/the-plan-agent.md` → The Plan Agent documentation
 
-#### Audit Reports (20+ Files in `docs/audit-reports/`)
+#### Audit Reports (23 Files in `docs/audit-reports/`)
 - `COMPREHENSIVE-AUDIT-MEMORIES-FEED-2025-10-09.md` → Memories feed audit
 - `AUTH-PAGES-AUDIT-2025-10-10.md` → Auth pages audit
 - `GROUPS-PAGE-AUDIT-2025-10-10.md` → Groups page audit
 - `HOME-PAGE-AUDIT-2025-10-10.md` → Home page audit
 - `PROFILE-PAGE-AUDIT-2025-10-10.md` → Profile page audit
 - `SYSTEMATIC-PLATFORM-AUDIT-2025-10-10.md` → Full platform audit
+- `AUDIT_EXECUTION_SUMMARY.md` → Audit execution summary
+- `AUDIT-TIMELINE-ANALYSIS-2025-10-09.md` → Audit timeline analysis
+- `ESAMemoryFeed-Audit-Summary.md` → ESA Memory Feed audit summary
+- `ESAMemoryFeed-Code-Quality-Audit-2025-10-09.md` → Memory feed code quality
+- `ESA-PARALLEL-FIX-PLAN-2025-10-10.md` → ESA parallel fix plan
+- `FINAL-VALIDATION-REPORT-2025-10-09.md` → Final validation report
+- `FULL-ESA-61x21-AUDIT-MEMORIES-2025-10-09.md` → Full ESA 61x21 audit
+- `JOURNEY_AUDIT_IMPLEMENTATION_COMPLETE.md` → Customer journey audit complete
+- `MT_PLATFORM_COMPLETE_AUDIT_PLAN.md` → Platform complete audit plan
+- `PLATFORM-AUDIT-SUMMARY-2025-10-10.md` → Platform audit summary
+- `REMEDIATION-COMPLETE-2025-10-10.md` → Remediation complete
+- `UI-TESTING-AUDIT-2025-10-09.md` → UI testing audit
+- `VISUAL-QUALITY-SCORECARD-2025-10-13.md` → Visual quality scorecard
 
 ---
 
