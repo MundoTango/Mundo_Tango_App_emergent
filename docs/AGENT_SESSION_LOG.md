@@ -5,6 +5,112 @@
 
 ---
 
+## Session: October 19, 2025 21:30 UTC - MB.MD Documentation Deep-Dive Agent
+
+### Task Worked On
+Build comprehensive MB.MD phase-based documentation routing system to ensure agents know WHICH docs to read DURING WHICH MB.MD phase for WHICH task type. User demanded agents understand phase-specific learning requirements.
+
+### Documentation Read
+- [x] PREVENTION_GUIDE.md
+- [x] DOCUMENTATION_MAP.md (all 595 lines)
+- [x] MB_MD_DOCUMENTATION_PHASE_MAP.md (created during this session)
+- [x] COMPREHENSIVE_AGENT_ONBOARDING_PROTOCOL.md
+- [x] replit.md
+- [x] 40x20s-framework.md
+- [x] Various layer docs for categorization validation
+
+### What Failed
+1. **Initial blocking issue was false alarm** - Preview appeared broken in IDE view but app was actually running perfectly on port 5000
+2. **No actual failures during implementation** - All tasks completed successfully on first attempt
+3. **LSP warnings in server/index-novite.ts** - 3 diagnostics persist but don't affect functionality
+
+### What I Learned
+1. **Documentation Size Reality:** 335+ documentation files categorized across:
+   - 105 agent documentation files (ESA Infrastructure Layers 1-61)
+   - 120 Mr Blue documentation files (AI system, algorithms, master plans)
+   - 60 root-level protocol docs (quality gates, testing, deployment)
+   - 50+ bug fix/incident reports (dark-mode-fixes, routing fixes, DB fixes)
+
+2. **MB.MD Phases Need Different Documentation:**
+   - **MAPPING:** Architecture, dependencies, context understanding docs
+   - **BREAKDOWN:** Work decomposition methodologies (40x20s, H2AC, algorithms)
+   - **MITIGATION:** Failure prevention (PREVENTION_GUIDE, session logs, incident reports)
+   - **DEPLOYMENT:** Production validation (quality gates, audits, testing protocols)
+
+3. **Agent-Type Documentation Requirements Vary:**
+   - **Layer Agents:** Must read their layer doc + dependent layers + audit reports
+   - **Page Agents:** Need H2AC pattern + page doc + component library
+   - **Algorithm Agents:** Require algorithm pattern + mathematical foundations
+   - **Life CEO Agents:** Need context management + orchestration + multi-model routing
+   - **Mr Blue Agents:** Require streaming architecture + chat patterns + 3D avatar docs
+
+4. **Task-Type Documentation Routing:**
+   - **Payment tasks:** Layer-17 + payment-endpoints.yaml + Stripe integration
+   - **UI tasks:** H2AC pattern + page agent docs + component library + dark mode
+   - **API tasks:** Layer-2 + API contracts + authentication patterns
+   - **Coordination tasks:** Agent coordination protocol + hierarchy + communication patterns
+
+5. **Enforcement Through Automation:**
+   - Interactive phase detection in agent-verification.sh (10s timeout)
+   - Phase-specific doc recommendations based on user input
+   - Graceful fallback to mandatory reading when automated
+   - Cross-references between DOCUMENTATION_MAP and phase map
+
+### What Next Agent Should Know
+1. **Use MB_MD_DOCUMENTATION_PHASE_MAP.md** - Start here for phase-based routing (650+ lines)
+2. **agent-verification.sh now has phase detection** - Answer the prompt to get tailored doc recommendations
+3. **PREVENTION_GUIDE.md now has MB.MD checklists** - Lines 328-412 show phase-specific requirements
+4. **Three-layer routing system:**
+   - Phase-based (MB.MD methodology)
+   - Agent-type (Layer/Page/Algorithm/Life CEO/Mr Blue)
+   - Task-type (Payment/UI/API/Coordination)
+5. **All 335+ docs are categorized** - No need to search blindly, routing is automated
+
+### Files Modified
+- **Created:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` (650+ lines) - Complete phase-based documentation guide
+- **Updated:** `docs/DOCUMENTATION_MAP.md` - Added MB.MD phase routing section at top
+- **Updated:** `scripts/agent-verification.sh` - Added interactive MB.MD phase detection (step 5/5)
+- **Updated:** `docs/PREVENTION_GUIDE.md` - Added MB.MD phase checklists (lines 328-412)
+- **Updated:** `docs/AGENT_SESSION_LOG.md` (this file) - Documented MB.MD deep-dive session
+
+### Verification Completed
+- [x] Pre-work verification run (bash scripts/agent-verification.sh)
+- [x] All critical files verified present and non-empty
+- [x] Server running successfully on port 5000
+- [x] Architect review completed (PASS verdict)
+- [x] Phase map cross-referenced in DOCUMENTATION_MAP
+- [x] Prevention guide updated with phase checklists
+- [x] Agent-verification.sh enhanced with phase detection
+- [x] Session logged in AGENT_SESSION_LOG.md
+- [ ] Screenshot not needed (documentation-only work)
+
+### Critical Learnings for System
+**Pattern:** MB.MD methodology requires phase-aware documentation routing:
+1. **MAPPING = Pre-Work Understanding** - Read architecture/context docs BEFORE coding
+2. **BREAKDOWN = Decomposition Methods** - Learn HOW to break down work
+3. **MITIGATION = Failure Prevention** - Check what went wrong before + prevention protocols
+4. **DEPLOYMENT = Production Validation** - Verify quality gates before claiming "done"
+
+**Three-Layer Routing Solves "What to Read" Problem:**
+1. **Phase-based:** When in MB.MD cycle to read
+2. **Agent-type:** Which docs match your agent category
+3. **Task-type:** What docs are required for your specific task
+
+**Enforcement Evolution:**
+- Documentation alone doesn't prevent failures
+- Interactive prompts guide without blocking automation
+- Cross-references ensure discoverability from multiple entry points
+- Architect approval validates comprehensive coverage
+
+### Advice for Next Agent
+1. **Before starting ANY work:** Run `bash scripts/agent-verification.sh` and answer the phase prompt
+2. **Read MB_MD_DOCUMENTATION_PHASE_MAP.md first** if following MB.MD methodology
+3. **Use DOCUMENTATION_MAP.md** if you need component-specific docs
+4. **Check PREVENTION_GUIDE.md lines 328-412** for phase-specific checklists
+5. **Update this log** when you discover new documentation patterns or routing needs
+
+---
+
 ## Session: October 19, 2025 19:40 UTC - Documentation Mapping Agent
 
 ### Task Worked On

@@ -54,8 +54,13 @@ The platform incorporates a multi-layer file protection system to ensure deploym
 
 **Documentation Mapping System (335 Files Mapped):**
 - `docs/DOCUMENTATION_MAP.md` - Complete mapping of all 335 documentation files to system components
-- Bidirectional lookups: Component → Docs, Task → Required Reading, Doc → Affected Components
-- 105 agent documentation files, 120 Mr Blue docs, 60 protocol/framework docs
+- `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` - MB.MD phase-based documentation routing (650+ lines)
+  - Associates all docs to MB.MD phases (Mapping/Breakdown/Mitigation/Deployment)
+  - Agent-type routing (Layer/Page/Algorithm/Life CEO/Mr Blue agents)
+  - Task-type routing (Payment/UI/API/Coordination tasks)
+  - Three-layer routing system for precise documentation discovery
+- Bidirectional lookups: Component → Docs, Task → Required Reading, Doc → Affected Components, Phase → Required Reading
+- 105 agent documentation files, 120 Mr Blue docs, 60 protocol/framework docs, 50+ incident reports
 - Quick reference cards for agents showing exactly what to read before each task type
 
 **Enforcement Mechanisms (Zero-Trust Verification):**
@@ -63,6 +68,8 @@ The platform incorporates a multi-layer file protection system to ensure deploym
   - Checks critical files exist and have content (not 0 bytes)
   - Verifies build system health (vite, tsx, esbuild installed)
   - Tests server startup before allowing development work
+  - Interactive MB.MD phase detection (step 5/5) with phase-specific doc recommendations
+  - 10-second timeout for automated runs with graceful fallback to mandatory reading
 - `scripts/verify-completion.sh` - Post-work verification (run before claiming "done")
   - Detects empty files (0 bytes) before they're committed
   - Verifies critical files still intact
@@ -84,9 +91,13 @@ The platform incorporates a multi-layer file protection system to ensure deploym
 - vite.config.ts (32 lines) - Restore from: `git show 927e915:vite.config.ts`
 
 **Agent Workflow (Mandatory):**
-1. Run `bash scripts/agent-verification.sh` before starting ANY work
-2. Read `docs/DOCUMENTATION_MAP.md` to find task-specific docs
-3. Read required docs before touching code
+1. Run `bash scripts/agent-verification.sh` before starting ANY work (answer MB.MD phase prompt for tailored doc recommendations)
+2. Read phase-specific docs based on MB.MD methodology:
+   - **MAPPING:** `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` MAPPING section + component docs
+   - **BREAKDOWN:** Decomposition methodologies (40x20s, H2AC, algorithm patterns)
+   - **MITIGATION:** `docs/PREVENTION_GUIDE.md` + session logs + incident reports
+   - **DEPLOYMENT:** Quality gates + audits + testing protocols
+3. Read required docs before touching code (use three-layer routing: phase/agent-type/task-type)
 4. Do the work following MB.MD methodology
 5. Run `bash scripts/verify-completion.sh` before claiming done
 6. Update `docs/AGENT_SESSION_LOG.md` with learnings
