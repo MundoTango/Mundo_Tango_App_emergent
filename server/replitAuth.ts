@@ -59,32 +59,46 @@ function updateUserSession(
 async function upsertUser(
   claims: any,
 ) {
-  // MB.MD FIX: Generate unique username with retry logic if conflict occurs
+  // MB.MD FIX: Check if user already exists by replitId first
+  const existingUser = await storage.getUserByReplitId(claims["sub"]);
+  
+  if (existingUser) {
+    // Returning user - just update their profile info (no username change)
+    console.log(`✅ Returning user found: ${existingUser.username}`);
+    return;
+  }
+  
+  // New user - generate unique username with retry logic
   const baseUsername = claims["email"]?.split('@')[0] || `user`;
-  let username = baseUsername;
   let attempt = 0;
   
   while (attempt < 10) {
+    const username = attempt === 0 
+      ? baseUsername 
+      : `${baseUsername}_${Math.random().toString(36).substring(2, 8)}`;
+    
     try {
-      await storage.upsertUser({
+      await storage.createUser({
         replitId: claims["sub"],
         name: `${claims["first_name"] || ''} ${claims["last_name"] || ''}`.trim() || 'User',
-        username: attempt === 0 ? username : `${baseUsername}_${Math.random().toString(36).substring(2, 8)}`,
+        username,
         email: claims["email"] || '',
         password: '', // No password needed for Replit Auth
         firstName: claims["first_name"],
         lastName: claims["last_name"],
         profileImage: claims["profile_image_url"],
       });
+      console.log(`✅ New user created: ${username}`);
       return; // Success!
     } catch (error: any) {
       // Check if it's a username uniqueness error
       if (error?.message?.includes('users_username_key') || error?.code === '23505') {
-        console.log(`⚠️  Username "${username}" taken, retrying with suffix...`);
+        console.log(`⚠️  Username "${username}" taken, retrying with suffix (attempt ${attempt + 1}/10)...`);
         attempt++;
         continue; // Try again with modified username
       }
       // Other error - throw it
+      console.error('❌ Failed to create user:', error);
       throw error;
     }
   }
