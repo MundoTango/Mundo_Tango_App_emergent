@@ -225,7 +225,7 @@ function AppContent() {
   usePerformanceOptimization(); // ESA Performance Layer 50
   useMonitoring(); // ESA Monitoring Layer 51
 
-  console.log('🎯 [AppContent] Testing VisualEditorWrapper (skipping MrBlue - CRASHES)');
+  console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
   return (
     <>
@@ -239,7 +239,10 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MrBlueFloatingButton - CRASHES - Fix later */}
+      {/* MB.MD Fixed: MrBlueFloatingButton now enabled ✅ */}
+      <Suspense fallback={null}>
+        <MrBlueFloatingButton />
+      </Suspense>
       <Suspense fallback={null}>
         <VisualEditorWrapper />
       </Suspense>
