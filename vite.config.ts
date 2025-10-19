@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path, { dirname } from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { fileURLToPath } from "url";
@@ -13,7 +12,7 @@ export default defineConfig({
   // 🎯 CRITICAL: Set client/ as root so Vite can find index.html
   root: path.resolve(__dirname, "client"),
   
-  plugins: [react(), themePlugin(), runtimeErrorOverlay()],
+  plugins: [react(), runtimeErrorOverlay()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client", "src"),

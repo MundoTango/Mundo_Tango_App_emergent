@@ -1,0 +1,2 @@
+import{t as c}from"./constructFrom-rJN6zrQ_.js";import{g as m,c as r,d as O}from"./en-US-Zsd20cAv.js";import{s as f}from"./startOfDay-BKq3QRE6.js";function p(o,a){const e=m(),s=a?.weekStartsOn??a?.locale?.options?.weekStartsOn??e.weekStartsOn??e.locale?.options?.weekStartsOn??0,t=c(o),n=t.getDay(),i=(n<s?7:0)+n-s;return t.setDate(t.getDate()-i),t.setHours(0,0,0,0),t}function u(o,a){const e=f(o),s=f(a),t=+e-r(e),n=+s-r(s);return Math.round((t-n)/O)}export{u as d,p as s};
+//# sourceMappingURL=differenceInCalendarDays-Cw1UsiyJ.js.map
