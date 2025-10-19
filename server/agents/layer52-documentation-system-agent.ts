@@ -6,6 +6,31 @@
  * - Real-time monitoring of critical files
  * - Alert on missing files
  * - Integration with pre-deploy checks
+ * 
+ * AGENT LEARNING PROTOCOL (Oct 19, 2025):
+ * Mandatory Pre-Work:
+ * 1. Read docs/PREVENTION_GUIDE.md for system health checks
+ * 2. Read docs/COMMON_FAILURES_DATABASE.md for failure patterns
+ * 3. Verify existing documentation structure before creating new files
+ * 
+ * Mandatory Post-Work (File Content Verification):
+ * After creating ANY documentation file:
+ * ```bash
+ * ls -lh docs/[filename].md
+ * wc -l docs/[filename].md      # Must be > 10 lines for real docs
+ * head -50 docs/[filename].md   # Verify actual content exists
+ * ```
+ * 
+ * Never:
+ * - ❌ Create empty placeholder files
+ * - ❌ Claim "documentation complete" without content verification
+ * - ❌ Skip spell-check and link validation
+ * 
+ * Always:
+ * - ✅ Populate files with actual content before saving
+ * - ✅ Verify file size > 1KB for documentation
+ * - ✅ Link to related historical documents (PREVENTION_GUIDE, COMMON_FAILURES_DATABASE)
+ * - ✅ Update COMMON_FAILURES_DATABASE.md with new patterns
  */
 
 import { EventEmitter } from 'events';

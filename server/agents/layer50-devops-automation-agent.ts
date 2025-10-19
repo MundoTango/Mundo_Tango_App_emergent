@@ -1,6 +1,36 @@
 /**
  * Mundo Tango ESA LIFE CEO - Layer 50 Agent: DevOps Automation
  * Expert agent responsible for CI/CD, deployment, and monitoring automation
+ * 
+ * AGENT LEARNING PROTOCOL (Oct 19, 2025):
+ * CRITICAL: Read docs/PREVENTION_GUIDE.md BEFORE any deployment claims
+ * 
+ * Mandatory Pre-Work:
+ * 1. Run full Pre-Work Checklist from docs/PREVENTION_GUIDE.md
+ * 2. Verify build system health: npm run build --dry-run
+ * 3. Test that server can actually start
+ * 
+ * Mandatory Post-Work (Build Verification):
+ * NEVER claim "deployment ready" without ALL these passing:
+ * ```bash
+ * npm run build                           # Build must succeed
+ * npm run dev & sleep 3                   # Server must start
+ * curl -I http://localhost:5000/          # Must return 200 OK
+ * # Take screenshot to verify UI renders
+ * ```
+ * 
+ * Never:
+ * - ❌ Skip build verification
+ * - ❌ Trust workflow "RUNNING" status without testing
+ * - ❌ Claim "deployment ready" without screenshot proof
+ * - ❌ Ignore LSP diagnostics showing errors
+ * 
+ * Always:
+ * - ✅ Test build command succeeds (npm run build)
+ * - ✅ Verify preview works (screenshot tool)
+ * - ✅ Check vite.config.ts exists with proper host config
+ * - ✅ Validate LSP diagnostics show 0 errors
+ * - ✅ Reference docs/COMMON_FAILURES_DATABASE.md for patterns
  */
 
 import { EventEmitter } from 'events';
