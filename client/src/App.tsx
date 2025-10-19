@@ -217,9 +217,6 @@ function AppContent() {
 
   console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
-  // MB.MD REBUILD: Phase 4 - State management for Mr Blue modal
-  const [mrBlueOpen, setMrBlueOpen] = useState(false);
-
   return (
     <>
       <Router />
@@ -232,97 +229,7 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MB.MD REBUILD: Phase 4 - Mr Blue Button with state toggle */}
-      <div 
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          width: '64px',
-          height: '64px',
-          borderRadius: '50%',
-          background: 'linear-gradient(to bottom right, #319795, #06b6d4)',
-          color: 'white',
-          border: '2px solid white',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          fontSize: '24px',
-          fontWeight: 'bold',
-          zIndex: 10000,
-          transition: 'transform 0.3s ease'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        onClick={() => {
-          console.log('🔵 MR BLUE CLICKED! Opening modal...');
-          setMrBlueOpen(!mrBlueOpen);
-        }}
-        data-testid="mr-blue-rebuild-button"
-      >
-        ✨
-      </div>
-      
-      {/* MB.MD REBUILD: Phase 5 - Conditional Modal Panel */}
-      {mrBlueOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: '100px',
-            right: '24px',
-            width: '400px',
-            height: '500px',
-            background: 'white',
-            borderRadius: '16px',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-            zIndex: 9999,
-            padding: '20px',
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-          data-testid="mr-blue-modal"
-        >
-          {/* Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'linear-gradient(to bottom right, #319795, #06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
-                ✨
-              </div>
-              <div>
-                <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: '#111827' }}>Mr Blue AI</h3>
-                <p style={{ margin: 0, fontSize: '12px', color: '#6b7280' }}>Your intelligent companion</p>
-              </div>
-            </div>
-            <button
-              onClick={() => setMrBlueOpen(false)}
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '6px',
-                border: 'none',
-                background: '#f3f4f6',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '18px',
-                color: '#6b7280'
-              }}
-              data-testid="button-close-mr-blue"
-            >
-              ✕
-            </button>
-          </div>
-          
-          {/* Body */}
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b7280' }}>
-            <p>Mr Blue AI features loading...</p>
-          </div>
-        </div>
-      )}
-      {/* MB.MD FIX: Uncommented - now uses direct import, safe from Vite HMR bug */}
+      {/* MB.MD FIX: Placeholder modal REMOVED - MrBlueComplete component handles all UI */}
       <MrBlueComplete />
       <Suspense fallback={null}>
         <VisualEditorWrapper children={null} />
