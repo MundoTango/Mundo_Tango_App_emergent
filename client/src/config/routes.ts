@@ -85,7 +85,8 @@ const PageStateMonitor = lazy(() => import('@/pages/admin/PageStateMonitor')); /
 const AutoFixDashboard = lazy(() => import('@/pages/admin/AutoFixDashboard')); // MB.MD Track 4: Auto-Fix Proposals
 const PerformanceDashboard = lazy(() => import('@/pages/admin/PerformanceDashboard')); // MB.MD Track 6: Performance Monitor
 const AgentCoordination = lazy(() => import('@/pages/admin/AgentCoordination')); // MB.MD Track 8: Agent Coordination
-const VEMBStatusDashboard = lazy(() => import('@/pages/admin/VEMBStatusDashboard')); // MB.MD: Visual Editor & Mr Blue Status Monitor
+// VEMBStatusDashboard disabled - page doesn't exist yet
+// const VEMBStatusDashboard = lazy(() => import('@/pages/admin/VEMBStatusDashboard')); // MB.MD: Visual Editor & Mr Blue Status Monitor
 const FinOpsDashboard = lazy(() => import('@/pages/FinOpsDashboard'));
 const AnalyticsDashboard = lazy(() => import('@/pages/AnalyticsDashboard'));
 const AgentFrameworkDashboard = lazy(() => import('@/pages/AgentFrameworkDashboard'));
@@ -734,13 +735,14 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading Agent Coordination...',
     description: 'MB.MD Track 8: Agent Registry, Learning Systems & Collaboration'
   },
-  {
-    path: '/admin/ve-mb-status',
-    component: VEMBStatusDashboard,
-    mode: 'production',
-    loadingMessage: 'Loading VE/MB Status Dashboard...',
-    description: 'MB.MD: Visual Editor & Mr Blue AI System Health Monitor - Real-time diagnostics, dependency checks, and quick fixes'
-  },
+  // VE/MB Status Dashboard disabled - page doesn't exist yet
+  // {
+  //   path: '/admin/ve-mb-status',
+  //   component: VEMBStatusDashboard,
+  //   mode: 'production',
+  //   loadingMessage: 'Loading VE/MB Status Dashboard...',
+  //   description: 'MB.MD: Visual Editor & Mr Blue AI System Health Monitor - Real-time diagnostics, dependency checks, and quick fixes'
+  // },
   {
     path: '/admin/tenants',
     component: TenantManagement,

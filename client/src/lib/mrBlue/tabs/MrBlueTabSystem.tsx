@@ -16,8 +16,6 @@ import {
   MessageSquare, 
   Shield,
   Sparkles,
-  Code,
-  Wand2
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Badge } from '@/components/ui/badge';

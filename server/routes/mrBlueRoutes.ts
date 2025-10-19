@@ -1,24 +1,18 @@
 /**
  * Mr Blue API Routes
- * Per mb.md lines 1030-1051
- * Main chat endpoint + conversation management
+ * mb.md lines 1030-1051
+ * Main chat endpoint + conversation management + Life CEO agents
  */
 
 import { Router } from 'express';
 import { aiModelService } from '../services/aiModelService';
-import { routeToLifeCEOAgent, getAgentByName } from '../services/lifeCEORouter';
+import { routeToLifeCEOAgent, getAgentByName, getAllAgents } from '../services/lifeCEORouter';
 
 const router = Router();
 
 /**
  * POST /api/mr-blue/chat
- * Main chat endpoint (mb.md lines 1034-1036)
- * 
- * Handles:
- * - Multi-model AI routing (GPT-4o, Claude, Gemini)
- * - Life CEO agent routing (16 agents)
- * - Page context awareness
- * - Semantic search integration
+ * Main chat endpoint with Life CEO routing
  */
 router.post('/chat', async (req, res) => {
   try {
@@ -45,42 +39,25 @@ router.post('/chat', async (req, res) => {
     const messages = [
       {
         role: 'system' as const,
-        content: personality || 'You are Mr. Blue, a friendly and helpful AI assistant for the Mundo Tango platform. You help users with tango events, communities, and life management through specialized Life CEO agents.',
+        content: personality || 'You are Mr. Blue, a friendly and helpful AI assistant for Mundo Tango.',
       },
+      ...conversationHistory.slice(-10),
       {
-        role: 'system' as const,
-        content: `Current Context:
-- Page: ${context.page || 'unknown'}
-- User Journey: ${context.userJourney || 'unknown'}
-- Assigned Agent: ${targetAgent}
-${agentDetails ? `- Agent Purpose: ${agentDetails.description}` : ''}`,
+        role: 'user' as const,
+        content: message,
       },
     ];
 
-    // Add conversation history (last 10 messages)
-    const recentHistory = conversationHistory.slice(-10);
-    messages.push(...recentHistory);
+    // Step 3: Call AI model
+    const response = await aiModelService.callAI(messages, model);
 
-    // Add current user message
-    messages.push({
-      role: 'user' as const,
-      content: message,
-    });
-
-    // Step 3: Call AI model with intelligent routing
-    const aiResponse = await aiModelService.route(model, messages);
-
-    // Step 4: Return response with metadata
     res.json({
       success: true,
-      response: aiResponse.content,
-      model: aiResponse.model,
+      response: response.content,
+      model: response.model,
       agent: targetAgent,
-      agentDetails: agentDetails ? {
-        name: agentDetails.name,
-        description: agentDetails.description,
-      } : null,
-      usage: aiResponse.usage,
+      agentDetails,
+      usage: response.usage,
       timestamp: new Date().toISOString(),
     });
 
@@ -89,80 +66,58 @@ ${agentDetails ? `- Agent Purpose: ${agentDetails.description}` : ''}`,
     
     res.status(500).json({
       success: false,
-      error: 'AI chat failed',
+      error: 'Failed to get AI response',
       message: error.message,
-      response: "No worries—hit a quick snag. Let's try that again.",
-      timestamp: new Date().toISOString(),
+    });
+  }
+});
+
+/**
+ * GET /api/mr-blue/agents
+ * Get all Life CEO agents
+ */
+router.get('/agents', async (req, res) => {
+  try {
+    const agents = getAllAgents();
+
+    res.json({
+      success: true,
+      agents,
+      count: agents.length,
+    });
+
+  } catch (error: any) {
+    console.error('❌ Get Agents Error:', error);
+    
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get agents',
+      message: error.message,
     });
   }
 });
 
 /**
  * GET /api/mr-blue/conversation
- * Retrieve conversation history (mb.md lines 1035)
- * Note: Conversations stored in localStorage (privacy-first)
- * This endpoint is for server-side backups only
+ * Get conversation history (placeholder - client-side localStorage is primary)
  */
 router.get('/conversation', async (req, res) => {
-  // Conversations are client-side only (localStorage)
-  // This endpoint exists for compatibility but returns empty
-  res.json({
-    success: true,
-    messages: [],
-    note: 'Conversations are stored client-side in localStorage for privacy',
-  });
-});
-
-/**
- * DELETE /api/mr-blue/conversation
- * Clear conversation history (mb.md lines 1036)
- * Note: Actual deletion happens client-side
- */
-router.delete('/conversation', async (req, res) => {
-  // Client-side deletion via localStorage
-  res.json({
-    success: true,
-    message: 'Conversation cleared (client-side localStorage)',
-  });
-});
-
-/**
- * GET /api/mr-blue/agents
- * Get all Life CEO agents (for UI display)
- */
-router.get('/agents', async (req, res) => {
-  const { getAllLifeCEOAgents } = await import('../services/lifeCEORouter');
-  
-  res.json({
-    success: true,
-    agents: getAllLifeCEOAgents(),
-    count: 16,
-  });
-});
-
-/**
- * POST /api/mr-blue/test-simple
- * Diagnostic endpoint for testing (mb.md debugging)
- */
-router.post('/test-simple', async (req, res) => {
   try {
-    const { message } = req.body;
-    
-    const response = await aiModelService.callGPT4o([
-      { role: 'system', content: 'You are a test AI assistant.' },
-      { role: 'user', content: message || 'Hello, this is a test.' },
-    ]);
-
+    // In this implementation, conversations are stored client-side
+    // This endpoint is for future server-side conversation storage
     res.json({
       success: true,
-      response: response.content,
-      model: response.model,
-      message: 'Test endpoint working!',
+      message: 'Conversations are stored client-side in localStorage for privacy',
+      messages: [],
     });
+
   } catch (error: any) {
+    console.error('❌ Get Conversation Error:', error);
+    
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: 'Failed to get conversation',
+      message: error.message,
     });
   }
 });

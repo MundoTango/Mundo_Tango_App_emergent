@@ -1,18 +1,18 @@
 /**
  * Life CEO Agent Router
- * Per mb.md - Routes user messages to appropriate Life CEO agent (#84-99)
- * 16 specialized agents for life management
+ * Routes user queries to appropriate specialized agents
+ * mb.md lines 84-99 (16 agents)
  */
 
-export interface LifeCEOAgent {
+interface LifeCEOAgent {
   id: number;
   name: string;
   keywords: string[];
   description: string;
 }
 
-// 16 Life CEO Agents (mb.md references)
-export const lifeCEOAgents: LifeCEOAgent[] = [
+// All 16 Life CEO agents with keywords
+export const LIFE_CEO_AGENTS: LifeCEOAgent[] = [
   {
     id: 84,
     name: 'Schedule Agent',
@@ -112,35 +112,35 @@ export const lifeCEOAgents: LifeCEOAgent[] = [
 ];
 
 /**
- * Route user message to appropriate Life CEO agent
- * Returns agent name or 'Mr Blue Core' if no specific match
+ * Route message to appropriate Life CEO agent based on keywords
+ * Returns agent name (or 'Mr Blue Core' if no match)
  */
 export function routeToLifeCEOAgent(message: string): string {
   const lowerMessage = message.toLowerCase();
 
-  // Check each agent's keywords
-  for (const agent of lifeCEOAgents) {
-    const hasMatch = agent.keywords.some(keyword => lowerMessage.includes(keyword));
-    
-    if (hasMatch) {
-      return agent.name;
+  for (const agent of LIFE_CEO_AGENTS) {
+    for (const keyword of agent.keywords) {
+      if (lowerMessage.includes(keyword)) {
+        console.log(`🎯 Routed to ${agent.name} (keyword: "${keyword}")`);
+        return agent.name;
+      }
     }
   }
 
-  // Default to Mr Blue Core if no specific agent matches
+  console.log('🎯 No specialized agent matched, using Mr Blue Core');
   return 'Mr Blue Core';
 }
 
 /**
  * Get agent details by name
  */
-export function getAgentByName(name: string): LifeCEOAgent | null {
-  return lifeCEOAgents.find(agent => agent.name === name) || null;
+export function getAgentByName(agentName: string): LifeCEOAgent | null {
+  return LIFE_CEO_AGENTS.find(a => a.name === agentName) || null;
 }
 
 /**
- * Get all Life CEO agents (for UI display)
+ * Get all Life CEO agents (for frontend display)
  */
-export function getAllLifeCEOAgents(): LifeCEOAgent[] {
-  return lifeCEOAgents;
+export function getAllAgents(): LifeCEOAgent[] {
+  return LIFE_CEO_AGENTS;
 }

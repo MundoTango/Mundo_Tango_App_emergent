@@ -59,8 +59,7 @@ const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggest
 const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(m => ({ default: m.AIContextBar })));
 
 // ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)  
-// DISABLED - Vite HMR file deletion bug keeps removing these files
-// const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(m => ({ default: m.MrBlueFloatingButton })));
+const MrBlueFloatingButton = lazy(() => import("@/components/mrBlue/MrBlueFloatingButton").then(m => ({ default: m.MrBlueFloatingButton })));
 
 // ESA Dev Tools - Super Admin toggle for development testing
 const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(m => ({ default: m.SuperAdminToggle })));
@@ -227,10 +226,10 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MB.MD DISABLED: MrBlueFloatingButton - Vite HMR deletes file */}
-      {/* <Suspense fallback={null}>
+      {/* MB.MD: Mr Blue AI Companion (Agents #73-80, mb.md lines 988-1012) */}
+      <Suspense fallback={null}>
         <MrBlueFloatingButton />
-      </Suspense> */}
+      </Suspense>
       <Suspense fallback={null}>
         <VisualEditorWrapper />
       </Suspense>
