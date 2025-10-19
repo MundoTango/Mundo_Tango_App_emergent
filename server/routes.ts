@@ -52,6 +52,8 @@ import commentsRoutes from "./routes/commentsRoutes"; // Mundo Tango ESA LIFE CE
 import projectRoutes from "./routes/projects"; // Mundo Tango ESA LIFE CEO - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // Mundo Tango ESA LIFE CEO - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Agent System routes (All 61 layers)
+import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md lines 1030-1051) - Agents #73-80
+import visualEditorRoutes from "./routes/visualEditorRoutes"; // Visual Editor (mb.md lines 1038-1042) - Agent #78
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1077,6 +1079,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
+  app.use('/api/mr-blue', mrBlueRoutes);
+  app.use('/api/visual-editor', visualEditorRoutes);
+  console.log('✅ Mr Blue & Visual Editor APIs registered');
 
   // Create HTTP server FIRST (needed for WebSocket)
   const server = createServer(app);
