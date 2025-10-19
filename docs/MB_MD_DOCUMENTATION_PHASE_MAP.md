@@ -212,6 +212,7 @@ Each phase requires specific documentation to be read:
 **Phase Execution Reports**
 - `docs/MrBlue/PHASE9-COMPLETION-REPORT.md` through `PHASE11-COMPLETION-REPORT.md`
 - `docs/MrBlue/PHASE_9_10_COMPLETE_SUMMARY.md`
+- `docs/MrBlue/MB_PHASE_9_FINAL_SUMMARY.md`
 - `docs/MrBlue/mb-phase1-COMPLETE.md` through `mb-phase9-complete-implementation.md`
 - **Learn:** How previous phases decomposed their work successfully
 - **When:** Planning new phases or learning from past executions
