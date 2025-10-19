@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { useEffect, Suspense, lazy, useState } from "react";
 import { Switch, Route, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -216,6 +216,9 @@ function AppContent() {
 
   console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
+  // MB.MD REBUILD: Phase 4 - State management for Mr Blue modal
+  const [mrBlueOpen, setMrBlueOpen] = useState(false);
+
   return (
     <>
       <Router />
@@ -228,7 +231,7 @@ function AppContent() {
       <Suspense fallback={null}>
         <ESAMindMap />
       </Suspense>
-      {/* MB.MD REBUILD: Phase 3 - Mr Blue Button (inline styles to avoid Vite HMR bug) */}
+      {/* MB.MD REBUILD: Phase 4 - Mr Blue Button with state toggle */}
       <div 
         style={{
           position: 'fixed',
@@ -245,18 +248,79 @@ function AppContent() {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          fontSize: '20px',
+          fontSize: '24px',
           fontWeight: 'bold',
           zIndex: 10000,
           transition: 'transform 0.3s ease'
         }}
         onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        onClick={() => console.log('🔵 MR BLUE CLICKED!')}
+        onClick={() => {
+          console.log('🔵 MR BLUE CLICKED! Opening modal...');
+          setMrBlueOpen(!mrBlueOpen);
+        }}
         data-testid="mr-blue-rebuild-button"
       >
         ✨
       </div>
+      
+      {/* MB.MD REBUILD: Phase 5 - Conditional Modal Panel */}
+      {mrBlueOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '100px',
+            right: '24px',
+            width: '400px',
+            height: '500px',
+            background: 'white',
+            borderRadius: '16px',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            zIndex: 9999,
+            padding: '20px',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+          data-testid="mr-blue-modal"
+        >
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'linear-gradient(to bottom right, #319795, #06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
+                ✨
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: '#111827' }}>Mr Blue AI</h3>
+                <p style={{ margin: 0, fontSize: '12px', color: '#6b7280' }}>Your intelligent companion</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setMrBlueOpen(false)}
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '6px',
+                border: 'none',
+                background: '#f3f4f6',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '18px',
+                color: '#6b7280'
+              }}
+              data-testid="button-close-mr-blue"
+            >
+              ✕
+            </button>
+          </div>
+          
+          {/* Body */}
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b7280' }}>
+            <p>Mr Blue AI features loading...</p>
+          </div>
+        </div>
+      )}
       {/* OLD: Commented out for rebuild
       <Suspense fallback={null}>
         <MrBlueComplete />
