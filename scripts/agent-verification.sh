@@ -106,18 +106,20 @@ fi
 
 echo ""
 
-# 4. Empty File Detection (NEW - Oct 19, 2025)
-echo "4️⃣  Empty File Detection"
-echo "------------------------"
+# 4. Empty File Detection (UPDATED - Oct 19, 2025 - Recursive scan)
+echo "4️⃣  Empty File Detection (Recursive)"
+echo "-------------------------------------"
 
-# Check for empty markdown files in docs/ and root
-EMPTY_FILES=$(find docs . -maxdepth 1 -type f -name "*.md" -size 0 2>/dev/null)
+# Check for empty markdown files recursively in docs/, agents/, and root
+EMPTY_FILES=$(find docs agents . -maxdepth 1 -name "*.md" -size 0 -type f 2>/dev/null; find docs -type f -name "*.md" -size 0 2>/dev/null)
 
 if [ -z "$EMPTY_FILES" ]; then
-  check_result "No empty documentation files found"
+  check_result "No empty documentation files found (recursive scan)"
 else
   echo "❌ Empty documentation files detected:"
-  echo "$EMPTY_FILES"
+  echo "$EMPTY_FILES" | while read -r file; do
+    echo "   - $file"
+  done
   FAILED=$((FAILED + 1))
 fi
 

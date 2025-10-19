@@ -66,8 +66,9 @@ This database tracks critical failures that have occurred in the Mundo Tango pla
 **Prevention Protocol:**
 1. ✅ **Content Verification:** Always verify file has content (> 5 lines minimum)
 2. ✅ **Build Mode Only:** Create documentation files in Build mode only
-3. ✅ **Automated Detection:** Run `scripts/agent-verification.sh` to detect empty files
+3. ✅ **Automated Detection:** Run `scripts/agent-verification.sh` to detect empty files (recursive scan of all docs/*, agents/*, and root)
 4. ✅ **Pre-commit Hook:** Install hook via `scripts/install-pre-commit-hook.sh`
+5. ✅ **Recursive Scanning:** Verification script scans ALL nested documentation folders, not just top-level
 
 **Resolution:**
 - Updated verification script with empty file detection (Section 4)
