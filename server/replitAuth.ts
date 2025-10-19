@@ -59,51 +59,37 @@ function updateUserSession(
 async function upsertUser(
   claims: any,
 ) {
-  // MB.MD FIX: Check if user already exists by replitId first
+  // MB.MD FIX: Use the pattern from authRoutes.ts (line 76-77)
+  // Generate unique username from replitId to avoid conflicts
+  const username = claims["username"] || `user_${claims["sub"].substring(0, 8)}`;
+  const email = claims["email"] || `${claims["sub"]}@replit.user`;
+  const name = `${claims["first_name"] || ''} ${claims["last_name"] || ''}`.trim() || 'Tango Dancer';
+  
+  // Check if user already exists
   const existingUser = await storage.getUserByReplitId(claims["sub"]);
   
   if (existingUser) {
-    // Returning user - just update their profile info (no username change)
-    console.log(`✅ Returning user found: ${existingUser.username}`);
+    console.log(`✅ Returning user: ${existingUser.username}`);
     return;
   }
   
-  // New user - generate unique username with retry logic
-  const baseUsername = claims["email"]?.split('@')[0] || `user`;
-  let attempt = 0;
-  
-  while (attempt < 10) {
-    const username = attempt === 0 
-      ? baseUsername 
-      : `${baseUsername}_${Math.random().toString(36).substring(2, 8)}`;
-    
-    try {
-      await storage.createUser({
-        replitId: claims["sub"],
-        name: `${claims["first_name"] || ''} ${claims["last_name"] || ''}`.trim() || 'User',
-        username,
-        email: claims["email"] || '',
-        password: '', // No password needed for Replit Auth
-        firstName: claims["first_name"],
-        lastName: claims["last_name"],
-        profileImage: claims["profile_image_url"],
-      });
-      console.log(`✅ New user created: ${username}`);
-      return; // Success!
-    } catch (error: any) {
-      // Check if it's a username uniqueness error
-      if (error?.message?.includes('users_username_key') || error?.code === '23505') {
-        console.log(`⚠️  Username "${username}" taken, retrying with suffix (attempt ${attempt + 1}/10)...`);
-        attempt++;
-        continue; // Try again with modified username
-      }
-      // Other error - throw it
-      console.error('❌ Failed to create user:', error);
-      throw error;
-    }
+  // Create new user (username is unique because it's based on unique replitId)
+  try {
+    await storage.createUser({
+      replitId: claims["sub"],
+      username,
+      email,
+      name,
+      password: '', // No password for OAuth users
+      firstName: claims["first_name"],
+      lastName: claims["last_name"],
+      profileImage: claims["profile_image_url"],
+    });
+    console.log(`✅ New user created: ${username}`);
+  } catch (error: any) {
+    console.error('❌ Failed to create user:', error);
+    throw error;
   }
-  
-  throw new Error(`Failed to create user after 10 username attempts`);
 }
 
 export async function setupAuth(app: Express) {
