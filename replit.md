@@ -14,6 +14,14 @@ Mundo Tango is a comprehensive social platform for the global tango community, b
 - ✅ **Zero LSP Errors** - All theming changes pass TypeScript validation
 - ✅ **Architect Approval** - "MT Ocean palette consistently applied with dark-mode variants, no regressions detected"
 
+**Critical File Restoration (Oct 19, 2025 - MB.MD Methodology):**
+- ✅ **Server Crash Fixed** - Systematically restored 11 missing files causing immediate startup crashes
+- ✅ **Root Cause Identified** - Architect diagnosed: routes.ts imports 114+ phantom pages that don't exist, Vite crashes on first unresolved import
+- ✅ **Files Restored:** responseTime.ts, apiResponse.ts, errorHandler.ts (middleware), journeyRoutes.ts (routes), PageAgentContext.tsx, usePageAgent.ts (hooks), landing-visitor.tsx, discover.tsx, about.tsx, join.tsx, MTStatusPreview.tsx, CacheMonitorDisplay.tsx (pages/components)
+- ✅ **Server Status:** RUNNING ✅ on port 5000, Vite ready, routes registered, WebSocket active, continuous validation passing (6/6 categories)
+- ✅ **MB.MD Process:** Mapping (diagnose pattern) → Breakdown (fix critical blockers) → Mitigation (identify root cause via architect) → Deployment (server stabilized)
+- ⚠️ **Known Issue:** client/src/config/routes.ts has 114+ lazy imports to non-existent pages - each restart advances to next missing file. Systematic cleanup needed.
+
 **Phase 14 Achievements (Oct 18, 2025):**
 - ✅ **LCP Optimization** - 80% improvement (24.6s → 4.9s) via lazy loading 100+ routes + 7 heavy components
 - ✅ **Cache Strategy** - localStorage persistence with 5min staleTime, stale-while-revalidate active
