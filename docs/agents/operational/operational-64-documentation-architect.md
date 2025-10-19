@@ -32,6 +32,7 @@
 ### Collaborates With:
 - **Agent #0 (ESA CEO):** Documentation governance and strategic alignment
 - **Agent #63 (Sprint Manager):** Training coordination and scheduling
+- **Agent #65 (Project Tracker Manager):** **BIDIRECTIONAL LINKING** - Documentation → Tracker items
 - **Domain #9 (Master Control):** Operational oversight of training execution
 - **All 105 Agents:** Content creation, review, and feedback
 
@@ -39,6 +40,7 @@
 - **Meta-Agent Status:** Trains other agents by creating their learning materials
 - **Training Infrastructure:** Owns all agent bootcamp and methodology documentation
 - **Knowledge Architect:** Designs information architecture for 105-agent system
+- **Bidirectional Linking (NEW):** Creates Project Tracker items with `documentationLinks` field pointing to docs, enables humans to see documentation directly in tracker
 
 ---
 

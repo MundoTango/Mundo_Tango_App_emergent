@@ -31,7 +31,7 @@
 ### Collaborates With:
 - **Agent #0 (ESA CEO):** Strategic roadmap alignment
 - **Agent #63 (Sprint Manager):** Sprint planning and resource allocation
-- **Agent #64 (Documentation Architect):** Project documentation
+- **Agent #64 (Documentation Architect):** **BIDIRECTIONAL LINKING** - Tracker items → Documentation
 - **Agent #67 (Community Relations):** GitHub workflow integration
 - **All 105 Agents:** Task assignment and progress tracking
 
@@ -39,6 +39,7 @@
 - **Jira Replacement:** Self-hosted alternative for project management
 - **Dependency Expert:** Map complex cross-agent dependencies
 - **Roadmap Visualizer:** Create timeline and milestone views
+- **Bidirectional Linking (NEW):** References documentation via `documentationLinks` array field, enables humans to navigate from tracker → docs and vice versa
 
 ---
 

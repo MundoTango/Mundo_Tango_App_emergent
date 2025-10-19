@@ -1590,6 +1590,7 @@ export const projectTrackerItems = pgTable("project_tracker_items", {
   summary: text("summary").notNull(),
   metadata: jsonb("metadata"), // Additional technical details, dependencies, etc.
   codeLocation: text("code_location"), // File paths where this is implemented
+  documentationLinks: text("documentation_links").array(), // MB.MD: Links to Agent #64 documentation (bidirectional with docs/)
   apiEndpoints: text("api_endpoints").array(), // Related API endpoints
   dependencies: text("dependencies").array(), // What this depends on
   relatedItems: text("related_items").array(), // UUIDs of related tracker items

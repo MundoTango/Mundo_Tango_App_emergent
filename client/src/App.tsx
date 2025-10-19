@@ -60,8 +60,9 @@ const AIHelpButton = lazy(() => import("@/components/ai/AIHelpButton").then(m =>
 const SmartPageSuggestions = lazy(() => import("@/components/ai/SmartPageSuggestions").then(m => ({ default: m.SmartPageSuggestions })));
 const AIContextBar = lazy(() => import("@/components/ai/AIContextBar").then(m => ({ default: m.AIContextBar })));
 
-// ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)  
-const MrBlueComplete = lazy(() => import("@/components/mrBlue/MrBlueComplete").then(m => ({ default: m.MrBlueComplete })));
+// ESA Mr Blue - AI Companion for Universal Access (Agents #73-80)
+// MB.MD FIX: Direct import instead of lazy to avoid Vite HMR file deletion bug
+import { MrBlueComplete } from "@/components/mrBlue/MrBlueComplete";
 
 // ESA Dev Tools - Super Admin toggle for development testing
 const SuperAdminToggle = lazy(() => import("@/components/dev/SuperAdminToggle").then(m => ({ default: m.SuperAdminToggle })));
@@ -321,13 +322,10 @@ function AppContent() {
           </div>
         </div>
       )}
-      {/* OLD: Commented out for rebuild
+      {/* MB.MD FIX: Uncommented - now uses direct import, safe from Vite HMR bug */}
+      <MrBlueComplete />
       <Suspense fallback={null}>
-        <MrBlueComplete />
-      </Suspense>
-      */}
-      <Suspense fallback={null}>
-        <VisualEditorWrapper />
+        <VisualEditorWrapper children={null} />
       </Suspense>
       {/* Phase 15 Batch 1: Cache monitoring display DISABLED - Vite HMR bug */}
       {/* <Suspense fallback={null}>
