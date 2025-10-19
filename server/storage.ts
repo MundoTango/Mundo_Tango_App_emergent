@@ -1250,6 +1250,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   async upsertUser(userData: UpsertUser): Promise<User> {
+    // MB.MD FIX: Don't update username on conflict - it has unique constraint
+    // Only update safe fields that won't cause constraint violations
     const [user] = await db
       .insert(users)
       .values({
@@ -1260,7 +1262,7 @@ export class DatabaseStorage implements IStorage {
         target: users.replitId,
         set: {
           name: userData.name,
-          username: userData.username,
+          // username removed - can't update due to unique constraint
           profileImage: userData.profileImage,
           email: userData.email,
           updatedAt: sql`NOW()`
