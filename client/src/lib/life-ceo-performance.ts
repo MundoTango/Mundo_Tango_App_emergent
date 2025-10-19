@@ -28,10 +28,22 @@ class LifeCeoPerformanceOptimizer {
   private performanceMarks = new Map<string, number>();
   
   constructor() {
-    this.initialize();
+    // Defer initialization until DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.initialize());
+    } else {
+      // DOM already loaded
+      this.initialize();
+    }
   }
   
   private initialize() {
+    // Safety check: ensure document.body exists
+    if (!document.body) {
+      console.warn('⚠️ Life CEO Performance Optimizer: document.body not ready, skipping initialization');
+      return;
+    }
+    
     // Initialize intersection observer for lazy loading
     this.initializeLazyLoading();
     
@@ -53,13 +65,17 @@ class LifeCeoPerformanceOptimizer {
     
     this.observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target as HTMLImageElement;
-            this.loadImage(img);
-            this.observer?.unobserve(img);
-          }
-        });
+        try {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target as HTMLImageElement;
+              this.loadImage(img);
+              this.observer?.unobserve(img);
+            }
+          });
+        } catch (error) {
+          console.error('Error in IntersectionObserver callback:', error);
+        }
       },
       {
         rootMargin: '50px 0px', // Start loading 50px before visible
@@ -95,21 +111,31 @@ class LifeCeoPerformanceOptimizer {
   }
   
   private watchForNewImages() {
+    // Safety check: ensure document.body exists
+    if (!document.body) {
+      console.warn('⚠️ Cannot watch for new images: document.body not ready');
+      return;
+    }
+    
     const mutationObserver = new MutationObserver((mutations) => {
-      mutations.forEach(mutation => {
-        mutation.addedNodes.forEach(node => {
-          if (node instanceof HTMLElement) {
-            // Check if it's an image
-            if (node.tagName === 'IMG' && node.hasAttribute('data-src')) {
-              this.observer?.observe(node);
+      try {
+        mutations.forEach(mutation => {
+          mutation.addedNodes.forEach(node => {
+            if (node instanceof HTMLElement) {
+              // Check if it's an image
+              if (node.tagName === 'IMG' && node.hasAttribute('data-src')) {
+                this.observer?.observe(node);
+              }
+              // Check for images in children
+              node.querySelectorAll('img[data-src]').forEach(img => {
+                this.observer?.observe(img);
+              });
             }
-            // Check for images in children
-            node.querySelectorAll('img[data-src]').forEach(img => {
-              this.observer?.observe(img);
-            });
-          }
+          });
         });
-      });
+      } catch (error) {
+        console.error('Error in MutationObserver callback:', error);
+      }
     });
     
     mutationObserver.observe(document.body, {
@@ -124,10 +150,14 @@ class LifeCeoPerformanceOptimizer {
     
     // Listen for link hovers
     document.addEventListener('mouseover', (e) => {
-      const link = (e.target as HTMLElement).closest('a');
-      if (link && link.href && link.href.startsWith(window.location.origin)) {
-        const path = new URL(link.href).pathname;
-        this.prefetchRoute(path);
+      try {
+        const link = (e.target as HTMLElement).closest('a');
+        if (link && link.href && link.href.startsWith(window.location.origin)) {
+          const path = new URL(link.href).pathname;
+          this.prefetchRoute(path);
+        }
+      } catch (error) {
+        console.error('Error in mouseover handler:', error);
       }
     });
     
@@ -173,28 +203,36 @@ class LifeCeoPerformanceOptimizer {
       try {
         // Navigation timing
         const navigationObserver = new PerformanceObserver((list) => {
-          const entries = list.getEntries();
-          entries.forEach((entry: any) => {
-            const navEntry = entry as PerformanceNavigationTiming;
-            this.reportPerformanceMetrics({
-              pageLoadTime: navEntry.loadEventEnd - navEntry.fetchStart,
-              connectTime: navEntry.connectEnd - navEntry.connectStart,
-              renderTime: navEntry.domComplete - navEntry.domInteractive,
-              url: navEntry.name,
-              timestamp: Date.now()
+          try {
+            const entries = list.getEntries();
+            entries.forEach((entry: any) => {
+              const navEntry = entry as PerformanceNavigationTiming;
+              this.reportPerformanceMetrics({
+                pageLoadTime: navEntry.loadEventEnd - navEntry.fetchStart,
+                connectTime: navEntry.connectEnd - navEntry.connectStart,
+                renderTime: navEntry.domComplete - navEntry.domInteractive,
+                url: navEntry.name,
+                timestamp: Date.now()
+              });
             });
-          });
+          } catch (error) {
+            console.error('Error in PerformanceObserver (navigation):', error);
+          }
         });
         navigationObserver.observe({ entryTypes: ['navigation'] });
         
         // Long tasks monitoring
         const longTaskObserver = new PerformanceObserver((list) => {
-          const entries = list.getEntries();
-          entries.forEach((entry) => {
-            if (entry.duration > 50) {
-              console.warn(`Long task detected: ${entry.duration}ms`);
-            }
-          });
+          try {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+              if (entry.duration > 50) {
+                console.warn(`Long task detected: ${entry.duration}ms`);
+              }
+            });
+          } catch (error) {
+            console.error('Error in PerformanceObserver (longtask):', error);
+          }
         });
         longTaskObserver.observe({ entryTypes: ['longtask'] });
       } catch (e) {
