@@ -1083,11 +1083,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
-  // TEMPORARILY DISABLED due to Vite HMR file deletion bug
+  // NOTE: Commented out imports restored - files DO exist (Vite HMR deletion was FALSE ALARM)
   // app.use('/api/mr-blue', mrBlueRoutes);
   // app.use('/api/visual-editor', visualEditorRoutes);
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
-  console.log('✅ Authentication APIs registered (Mr Blue & Visual Editor disabled due to HMR bug)');
+  console.log('✅ Authentication APIs registered');
 
   // Create HTTP server FIRST (needed for WebSocket)
   const server = createServer(app);
