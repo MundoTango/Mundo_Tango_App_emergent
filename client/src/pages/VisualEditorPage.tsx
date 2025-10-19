@@ -24,7 +24,6 @@ import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
 import { GripVertical } from 'lucide-react';
-import { useKeyboardShortcuts, ShortcutAction } from '@/hooks/useKeyboardShortcuts';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
 
 interface SelectedElement {
@@ -46,28 +45,6 @@ export default function VisualEditorPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
-  // Keyboard shortcuts
-  const handleShortcut = (action: ShortcutAction) => {
-    const tabMap: Record<string, EditorTab> = {
-      'tab-1': 'preview',
-      'tab-2': 'console',
-      'tab-3': 'deploy',
-      'tab-4': 'git',
-      'tab-5': 'shell',
-      'tab-6': 'files',
-      'tab-7': 'secrets',
-      'tab-8': 'ai'
-    };
-
-    if (action in tabMap) {
-      setActiveTab(tabMap[action]);
-    } else if (action === 'close') {
-      navigate('/');
-    } else if (action === 'refresh') {
-      setPreviewUrl(prev => prev + '?t=' + Date.now());
-    }
-  };
-
   // Cmd+K for Command Palette
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -79,11 +56,6 @@ export default function VisualEditorPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
-  useKeyboardShortcuts({
-    onShortcut: handleShortcut,
-    enabled: true
-  });
 
   // Multiplayer collaboration - ACTIVATED!
   const { broadcastCursor, broadcastSelection, broadcastPageChange } = useMultiplayer({

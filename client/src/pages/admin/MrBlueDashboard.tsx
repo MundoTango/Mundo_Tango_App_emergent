@@ -13,6 +13,7 @@ import { startTour, TourType } from '@/lib/mrBlue/tours/InteractiveTour';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { isSuperAdmin as checkSuperAdmin } from '@/utils/accessControl';
 
 /**
  * ESA Mr Blue Dashboard - Super Admin Control Center
@@ -21,10 +22,11 @@ import { useTranslation } from 'react-i18next';
 
 export default function MrBlueDashboard() {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [visualEditMode, setVisualEditMode] = useState(false);
 
-  const isSuperAdmin = user?.profile?.role === 'super_admin' || 
-                       user?.profile?.primary_role === 'super_admin';
+  // Use centralized access control
+  const isSuperAdmin = checkSuperAdmin(user);
 
   if (!isSuperAdmin) {
     return (

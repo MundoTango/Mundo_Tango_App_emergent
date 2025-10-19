@@ -14,7 +14,7 @@ export default defineConfig({
   },
   server: {
     host: true, // Allow all hosts (fixes preview blocking)
-    port: 5173,
+    port: 5000, // CRITICAL: Must be 5000 (only non-firewalled port in Replit)
     strictPort: false,
   },
   build: {
