@@ -1,36 +1,35 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+/**
+ * Page Agent Context
+ * MB.MD Created: October 19, 2025
+ * Provides AI page agent functionality
+ */
+
+import { createContext, useContext, ReactNode } from 'react';
 
 interface PageAgentContextType {
-  currentPageAgent: string | null;
-  setCurrentPageAgent: (agent: string | null) => void;
-  agentResponse: string | null;
-  setAgentResponse: (response: string | null) => void;
+  currentPage: string;
+  agentReady: boolean;
 }
 
-export const PageAgentContext = createContext<PageAgentContextType | undefined>(undefined);
+const PageAgentContext = createContext<PageAgentContextType | undefined>(undefined);
 
 export function PageAgentProvider({ children }: { children: ReactNode }) {
-  const [currentPageAgent, setCurrentPageAgent] = useState<string | null>(null);
-  const [agentResponse, setAgentResponse] = useState<string | null>(null);
+  const value = {
+    currentPage: 'default',
+    agentReady: false,
+  };
 
   return (
-    <PageAgentContext.Provider
-      value={{
-        currentPageAgent,
-        setCurrentPageAgent,
-        agentResponse,
-        setAgentResponse,
-      }}
-    >
+    <PageAgentContext.Provider value={value}>
       {children}
     </PageAgentContext.Provider>
   );
 }
 
-export function usePageAgentContext() {
+export function usePageAgent() {
   const context = useContext(PageAgentContext);
-  if (context === undefined) {
-    throw new Error("usePageAgentContext must be used within a PageAgentProvider");
+  if (!context) {
+    throw new Error('usePageAgent must be used within PageAgentProvider');
   }
   return context;
 }
