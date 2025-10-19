@@ -59,16 +59,37 @@ function updateUserSession(
 async function upsertUser(
   claims: any,
 ) {
-  await storage.upsertUser({
-    replitId: claims["sub"],
-    name: `${claims["first_name"] || ''} ${claims["last_name"] || ''}`.trim() || 'User',
-    username: claims["email"]?.split('@')[0] || `user_${Date.now()}`,
-    email: claims["email"] || '',
-    password: '', // No password needed for Replit Auth
-    firstName: claims["first_name"],
-    lastName: claims["last_name"],
-    profileImage: claims["profile_image_url"],
-  });
+  // MB.MD FIX: Generate unique username with retry logic if conflict occurs
+  const baseUsername = claims["email"]?.split('@')[0] || `user`;
+  let username = baseUsername;
+  let attempt = 0;
+  
+  while (attempt < 10) {
+    try {
+      await storage.upsertUser({
+        replitId: claims["sub"],
+        name: `${claims["first_name"] || ''} ${claims["last_name"] || ''}`.trim() || 'User',
+        username: attempt === 0 ? username : `${baseUsername}_${Math.random().toString(36).substring(2, 8)}`,
+        email: claims["email"] || '',
+        password: '', // No password needed for Replit Auth
+        firstName: claims["first_name"],
+        lastName: claims["last_name"],
+        profileImage: claims["profile_image_url"],
+      });
+      return; // Success!
+    } catch (error: any) {
+      // Check if it's a username uniqueness error
+      if (error?.message?.includes('users_username_key') || error?.code === '23505') {
+        console.log(`⚠️  Username "${username}" taken, retrying with suffix...`);
+        attempt++;
+        continue; // Try again with modified username
+      }
+      // Other error - throw it
+      throw error;
+    }
+  }
+  
+  throw new Error(`Failed to create user after 10 username attempts`);
 }
 
 export async function setupAuth(app: Express) {
