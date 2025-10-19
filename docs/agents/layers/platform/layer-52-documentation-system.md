@@ -172,6 +172,58 @@ Responsible for documentation system excellence, ensuring API documentation and 
 
 ---
 
+### Agent Documentation Accountability Framework 🆕 (October 19, 2025)
+
+**Purpose:** Enforce documentation requirements per agent type across 927+ agent ecosystem
+
+**Comprehensive Agent Audit Complete:**
+- **Total agents mapped:** 287+ documented across 9 categories
+- **Documentation files:** 349 total documentation files
+- **Validation pass rate:** 97.4% (Oct 19, 2025)
+- **Gaps identified:** 122 Page agents, 30 Algorithm agents need individual docs
+
+**Documentation Requirements by Agent Type:**
+
+**Layer Agents (61 total):** ✅ 100% complete
+- Layer definition (mandatory) - [docs/agents/layers/](../../../agents/layers/)
+- Feature guide (for main features) - [EVENTS_FEATURE_GUIDE.md](../../../EVENTS_FEATURE_GUIDE.md), [GROUPS_FEATURE_GUIDE.md](../../../GROUPS_FEATURE_GUIDE.md), [PROFILES_FEATURE_GUIDE.md](../../../PROFILES_FEATURE_GUIDE.md), [MEMORIES_FEATURE_GUIDE.md](../../../MEMORIES_FEATURE_GUIDE.md), [SUBSCRIPTIONS_FEATURE_GUIDE.md](../../../SUBSCRIPTIONS_FEATURE_GUIDE.md)
+- Troubleshooting guide (deployment-critical) - [DEPLOYMENT_TROUBLESHOOTING.md](../../../DEPLOYMENT_TROUBLESHOOTING.md), [DEPENDENCY_MANAGEMENT.md](../../../DEPENDENCY_MANAGEMENT.md), [REPLIT_DEPLOYMENT_PATTERNS.md](../../../REPLIT_DEPLOYMENT_PATTERNS.md)
+- API reference (in progress)
+
+**Page Agents (125 total):** 🟡 4/125 documented
+- User journey documentation
+- Component specifications
+- **Gap:** 121 page agents need documentation (P1-P125)
+
+**Algorithm Agents (30 total):** 🟡 Collectively documented
+- Logic documentation
+- Performance benchmarks
+- **Gap:** Need individual specs (A1-A30)
+
+**Mr Blue Core Agents (8 total):** ✅ Complete
+- Implementation status
+- Integration points
+- [docs/MrBlue/](../../../MrBlue/)
+
+**Automated Validation:**
+```bash
+# Run before deployment
+bash scripts/validate-agent-docs.sh
+```
+
+**Continuous Documentation Scanning:**
+1. **Proactive Discovery:** Scan docs/ directory for new files
+2. **Quality Checks:** Validate file structure, completeness, accuracy
+3. **Accountability Enforcement:** Each agent type must maintain required docs
+4. **Integration:** Auto-update DOCUMENTATION_MAP.md and MB_MD_DOCUMENTATION_PHASE_MAP.md
+
+**Reference Documentation:**
+- [COMPREHENSIVE_AGENT_DOCUMENTATION_AUDIT.md](../../../COMPREHENSIVE_AGENT_DOCUMENTATION_AUDIT.md) - Complete agent inventory
+- [DOCUMENTATION_MAP.md](../../../DOCUMENTATION_MAP.md) - All 349 files mapped
+- [MB_MD_DOCUMENTATION_PHASE_MAP.md](../../../MB_MD_DOCUMENTATION_PHASE_MAP.md) - MB.MD phase routing
+
+---
+
 ## Success Metrics
 - API documentation coverage 100%
 - Documentation accuracy > 98%
