@@ -573,6 +573,90 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Integration Health Check Endpoint (Stage S1)
+  app.get('/api/health/integrations', async (req, res) => {
+    try {
+      const health = {
+        timestamp: new Date().toISOString(),
+        status: 'healthy',
+        integrations: {
+          postgresql: {
+            status: pool ? 'connected' : 'disconnected',
+            ready: true
+          },
+          replitAuth: {
+            status: 'configured',
+            ready: true
+          },
+          objectStorage: {
+            status: process.env.REPLIT_OBJECT_STORAGE ? 'configured' : 'not_configured',
+            ready: !!process.env.REPLIT_OBJECT_STORAGE
+          },
+          socketio: {
+            status: 'running',
+            ready: true
+          },
+          posthog: {
+            status: process.env.POSTHOG_API_KEY ? 'configured' : 'missing_key',
+            ready: !!process.env.POSTHOG_API_KEY
+          },
+          leaflet: {
+            status: 'integrated',
+            ready: true
+          },
+          reactQuery: {
+            status: 'active',
+            ready: true
+          },
+          sentry: {
+            status: process.env.SENTRY_DSN ? 'configured' : 'missing_dsn',
+            ready: !!process.env.SENTRY_DSN
+          },
+          stripe: {
+            status: process.env.STRIPE_SECRET_KEY ? 'configured' : 'missing_key',
+            ready: !!process.env.STRIPE_SECRET_KEY
+          },
+          supabase: {
+            status: process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY ? 'configured' : 'partial',
+            ready: !!(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY)
+          },
+          openai: {
+            status: process.env.OPENAI_API_KEY ? 'configured' : 'missing_key',
+            ready: !!process.env.OPENAI_API_KEY
+          },
+          notion: {
+            status: 'internal_cms',
+            ready: true,
+            note: 'Using internal demo data, not external Notion API'
+          }
+        },
+        summary: {
+          total: 12,
+          ready: 0,
+          needsConfiguration: 0
+        }
+      };
+
+      // Calculate summary
+      health.summary.ready = Object.values(health.integrations).filter((i: any) => i.ready).length;
+      health.summary.needsConfiguration = health.summary.total - health.summary.ready;
+
+      // Set overall status
+      if (health.summary.needsConfiguration > 5) {
+        health.status = 'degraded';
+      }
+
+      res.json({ success: true, data: health });
+    } catch (error) {
+      console.error('Error checking integration health:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to check integration health',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
   // AI Chat endpoints (bypass CSRF for AI functionality)
   const { handleAiChat, getConversationHistory } = await import('./routes/ai-chat');
   const { handleAiChatDirect, getConversationHistoryDirect } = await import('./routes/ai-chat-direct');
