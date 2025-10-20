@@ -41,18 +41,9 @@ export function RecommendationWidget({
   className 
 }: RecommendationWidgetProps) {
   
-  // Fetch recommendations from ML engine
-  const { data, isLoading } = useQuery({
-    queryKey: ['/api/recommendations', context],
-    queryFn: async () => {
-      const response = await fetch(`/api/recommendations/${context}?limit=${limit}`);
-      if (!response.ok) {
-        if (response.status === 401) return { recommendations: [] };
-        throw new Error('Failed to fetch recommendations');
-      }
-      const result = await response.json();
-      return result.data || result;
-    },
+  // Fetch recommendations from ML engine (using standard query client pattern)
+  const { data, isLoading, error } = useQuery({
+    queryKey: [`/api/recommendations/${context}`, { limit }],
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 
@@ -107,6 +98,11 @@ export function RecommendationWidget({
         </CardContent>
       </Card>
     );
+  }
+
+  // Error state
+  if (error) {
+    return null; // Fail silently for recommendations (non-critical feature)
   }
 
   if (!recommendations.length) {
