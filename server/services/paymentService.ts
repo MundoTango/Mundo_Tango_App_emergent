@@ -78,8 +78,8 @@ export class PaymentService {
       userId: user.id,
       planId: tierConfig.priceId,
       status: stripeSubscription.status,
-      currentPeriodStart: new Date(stripeSubscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(stripeSubscription.current_period_end * 1000),
+      currentPeriodStart: new Date((stripeSubscription as any).current_period_start * 1000),
+      currentPeriodEnd: new Date((stripeSubscription as any).current_period_end * 1000),
       paymentProvider: 'stripe',
       providerSubscriptionId: stripeSubscription.id,
       metadata: {
@@ -299,7 +299,7 @@ export class PaymentService {
 
   // Handle subscription update
   private async handleSubscriptionUpdate(subscription: Stripe.Subscription): Promise<void> {
-    const customer = await stripe.customers.retrieve(subscription.customer as string);
+    const customer = await getStripe().customers.retrieve(subscription.customer as string);
     if (typeof customer === 'string' || customer.deleted) return;
 
     const userId = parseInt(customer.metadata.userId);
@@ -308,10 +308,10 @@ export class PaymentService {
     // Update subscription in database
     const dbSubscription = await storage.getSubscriptionByProviderSubscriptionId(subscription.id);
     if (dbSubscription) {
-      await storage.updateSubscription(dbSubscription.id, {
+      await storage.updateSubscription(dbSubscription.id.toString(), {
         status: subscription.status,
-        currentPeriodStart: new Date(subscription.current_period_start * 1000),
-        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+        currentPeriodStart: new Date((subscription as any).current_period_start * 1000),
+        currentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
         cancelAtPeriodEnd: subscription.cancel_at_period_end
       });
     }
@@ -323,7 +323,7 @@ export class PaymentService {
 
   // Handle subscription deleted
   private async handleSubscriptionDeleted(subscription: Stripe.Subscription): Promise<void> {
-    const customer = await stripe.customers.retrieve(subscription.customer as string);
+    const customer = await getStripe().customers.retrieve(subscription.customer as string);
     if (typeof customer === 'string' || customer.deleted) return;
 
     const userId = parseInt(customer.metadata.userId);
@@ -334,22 +334,24 @@ export class PaymentService {
 
   // Handle payment succeeded
   private async handlePaymentSucceeded(invoice: Stripe.Invoice): Promise<void> {
-    if (!invoice.payment_intent) return;
+    const paymentIntent = (invoice as any).payment_intent;
+    if (!paymentIntent) return;
 
-    const paymentIntentId = typeof invoice.payment_intent === 'string' 
-      ? invoice.payment_intent 
-      : invoice.payment_intent.id;
+    const paymentIntentId = typeof paymentIntent === 'string' 
+      ? paymentIntent 
+      : paymentIntent.id;
 
     await storage.updatePaymentStatus(paymentIntentId, 'succeeded');
   }
 
   // Handle payment failed
   private async handlePaymentFailed(invoice: Stripe.Invoice): Promise<void> {
-    if (!invoice.payment_intent) return;
+    const paymentIntent = (invoice as any).payment_intent;
+    if (!paymentIntent) return;
 
-    const paymentIntentId = typeof invoice.payment_intent === 'string' 
-      ? invoice.payment_intent 
-      : invoice.payment_intent.id;
+    const paymentIntentId = typeof paymentIntent === 'string' 
+      ? paymentIntent 
+      : paymentIntent.id;
 
     await storage.updatePaymentStatus(paymentIntentId, 'failed');
   }

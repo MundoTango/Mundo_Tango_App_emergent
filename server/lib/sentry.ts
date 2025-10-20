@@ -9,8 +9,8 @@ export function initSentry(app: Express) {
       dsn: process.env.SENTRY_DSN,
       integrations: [
         // Express integration
-        Sentry.httpIntegration({ tracing: true }),
-        Sentry.expressIntegration({ app }),
+        Sentry.httpIntegration(),
+        Sentry.expressIntegration(),
         // Profiling
         nodeProfilingIntegration(),
       ],
@@ -34,11 +34,8 @@ export function initSentry(app: Express) {
       },
     });
 
-    // Request handler must be first
-    app.use(Sentry.expressRequestHandler());
-    
-    // Tracing handler
-    app.use(Sentry.expressTracingHandler());
+    // Sentry handlers - deprecated in v9, integrated via expressIntegration
+    // No need for separate request/tracing handlers
 
     console.log('🛡️ Life CEO: Sentry server monitoring initialized');
   }
@@ -98,10 +95,8 @@ export const monitorQuery = async <T>(
 export const monitorRoute = (routeName: string) => {
   return (req: any, res: any, next: any) => {
     const scope = Sentry.getCurrentScope();
-    const transaction = scope.getTransaction();
-    if (transaction) {
-      transaction.setName(`${req.method} ${routeName}`);
-    }
+    // Set transaction name via scope in Sentry v9
+    scope.setTransactionName(`${req.method} ${routeName}`);
     next();
   };
 };
