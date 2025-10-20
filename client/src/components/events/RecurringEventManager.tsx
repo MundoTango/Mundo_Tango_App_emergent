@@ -57,10 +57,10 @@ export default function RecurringEventManager() {
 
   const createRecurringEventsMutation = useMutation({
     mutationFn: async (data: RecurringEventFormData) => {
-      const response = await apiRequest('POST', '/api/events/recurring', JSON.stringify(data), {
-        headers: { 'Content-Type': 'application/json' }
+      return await apiRequest('/api/events/recurring', {
+        method: 'POST',
+        body: data
       });
-      return response.json();
     },
     onSuccess: () => {
       toast({
