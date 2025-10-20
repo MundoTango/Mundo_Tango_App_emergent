@@ -36,6 +36,7 @@ if (global.gc) {
 import uploadRoutes from "./routes/uploadRoutes";
 import debugRoutes from "./routes/debugRoutes";
 import internalUploadRoutes from "./routes/upload";
+import cspReportsRouter from "./routes/csp-reports";
 import { registerRoutes } from "./routes";
 import { streamVideo, isVideoFile } from './videoStreaming';
 import { register } from "./lib/prometheus-metrics";
@@ -49,6 +50,7 @@ import {
   csrfProtection,
   sessionSecurityConfig 
 } from "./middleware/security";
+import { requestLogger } from "./middleware/requestLogger";
 
 const app = express();
 
@@ -112,6 +114,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Apply security headers
+// MB.MD Phase 5: Request logging middleware (before routes)
+app.use(requestLogger);
+
 app.use(securityHeaders);
 app.use(sanitizeInput);
 
@@ -172,6 +177,9 @@ app.get('/api/videos/:filename', (req: Request, res: Response) => {
 app.use('/api/upload', uploadRoutes);
 app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
+
+// MB.MD Phase 5: CSP violation reporting
+app.use(cspReportsRouter);
 
 // Mundo Tango ESA LIFE CEO - Add chunked upload routes for large videos
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';

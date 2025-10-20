@@ -3,7 +3,6 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { processMultipleMedia } from '@/utils/advancedMediaProcessor';
 import { extractVideoThumbnail } from '@/utils/videoThumbnail';
 import {
   Upload,
@@ -195,6 +194,9 @@ export default function MediaUploader({
     setUploadProgress(0);
 
     try {
+      // Lazy load advanced media processor (1.4MB chunk)
+      const { processMultipleMedia } = await import('@/utils/advancedMediaProcessor');
+      
       // Process files for optimization
       const processedFiles = await processMultipleMedia(
         files,

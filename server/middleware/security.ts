@@ -54,7 +54,8 @@ export const contentSecurityPolicy = helmet.contentSecurityPolicy({
     frameAncestors: ["'self'", "https://*.replit.dev", "https://*.replit.com", "https://replit.com"],
     formAction: ["'self'"],
     baseUri: ["'self'"],
-    upgradeInsecureRequests: [] // Force HTTPS for all assets (security requirement)
+    upgradeInsecureRequests: [], // Force HTTPS for all assets (security requirement)
+    reportUri: ['/api/csp-report'] // MB.MD Phase 5: CSP violation reporting for monitoring
   },
   reportOnly: process.env.NODE_ENV !== 'production' // ENFORCE in production, report-only in dev
 });

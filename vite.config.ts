@@ -26,6 +26,9 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
+          leaflet: ['leaflet'],
+          charts: ['recharts'],
+          media: ['html2canvas', 'heic2any'],
         },
       },
     },

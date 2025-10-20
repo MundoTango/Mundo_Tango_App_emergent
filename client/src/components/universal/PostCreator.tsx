@@ -5,8 +5,7 @@ import UnifiedLocationPicker from './UnifiedLocationPicker';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
 import { useTranslation } from 'react-i18next';
-// ESA Layer 13: Advanced media processing with universal format support
-import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
+// ESA Layer 13: Advanced media processing - lazy loaded for performance
 import { extractVideoThumbnail } from '@/utils/videoThumbnail';
 import { extractMentions } from '@/utils/mentionUtils';
 import SimpleMentionsInput from '../memory/SimpleMentionsInput';
@@ -878,6 +877,9 @@ export default function PostCreator({
     try {
       console.log(`🚀 [PostCreator] Starting media processing for ${files.length} files`);
       console.log(`📊 [PostCreator] File details:`, files.map(f => ({ name: f.name, type: f.type, size: `${(f.size/1024/1024).toFixed(2)}MB` })));
+      
+      // Lazy load advanced media processor (1.4MB chunk)
+      const { processMultipleMedia, getUploadStrategy } = await import('@/utils/advancedMediaProcessor');
       
       // Process all files with the advanced processor
       const processedFiles = await processMultipleMedia(
