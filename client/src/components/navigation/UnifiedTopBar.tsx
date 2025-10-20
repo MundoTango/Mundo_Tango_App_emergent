@@ -480,7 +480,7 @@ export default function UnifiedTopBar({
                 )}
               >
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={user?.profileImage} className="object-cover" />
+                  <AvatarImage src={user?.profileImage || undefined} className="object-cover" />
                   <AvatarFallback className={cn(
                     "font-medium",
                     theme === 'light' ? "bg-avatar-light" : "bg-avatar-dark"
@@ -521,7 +521,7 @@ export default function UnifiedTopBar({
                 )}>
                   @{user?.username || 'guest'}
                 </p>
-                {user?.roles?.includes('admin') && (
+                {((user?.tangoRoles as string[])?.includes('admin') || (user?.tangoRoles as string[])?.includes('super_admin')) && (
                   <Badge className="mt-1 bg-emerald-500/20 text-emerald-600">
                     {t('common.admin')}
                   </Badge>
@@ -545,7 +545,7 @@ export default function UnifiedTopBar({
                   <span>{t('navigation.billing')}</span>
                 </DropdownMenuItem>
 
-                {user?.roles?.includes('admin') && (
+                {((user?.tangoRoles as string[])?.includes('admin') || (user?.tangoRoles as string[])?.includes('super_admin')) && (
                   <DropdownMenuItem onClick={() => setLocation('/admin')}>
                     <Shield className="mr-3 h-4 w-4" />
                     <span>{t('navigation.adminAccess')}</span>
