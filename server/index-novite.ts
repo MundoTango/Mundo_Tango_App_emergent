@@ -117,7 +117,7 @@ app.use(sanitizeInput);
 
 // Initialize feature flags
 initializeFeatureFlags().catch(error => {
-  logger.error('Failed to initialize feature flags:', error);
+  logger.error({ error }, 'Failed to initialize feature flags');
 });
 
 // Health check endpoints
@@ -136,7 +136,7 @@ app.get('/ready', async (req: Request, res: Response) => {
     await db.execute('SELECT 1');
     res.json({ status: 'ready', database: 'connected' });
   } catch (error) {
-    logger.error('Readiness check failed:', error);
+    logger.error({ error }, 'Readiness check failed');
     res.status(503).json({ status: 'not ready', error: 'Database connection failed' });
   }
 });
@@ -148,7 +148,7 @@ app.get('/metrics', async (req: Request, res: Response) => {
     res.set('Content-Type', register.contentType);
     res.end(metrics);
   } catch (error) {
-    logger.error('Error generating metrics:', error);
+    logger.error({ error }, 'Error generating metrics');
     res.status(500).end();
   }
 });
@@ -226,7 +226,7 @@ const startServer = async () => {
 
   } catch (error) {
     console.error('❌ Server startup error:', error);
-    logger.fatal('Failed to start server:', error);
+    logger.fatal({ error }, 'Failed to start server');
     process.exit(1);
   }
 };

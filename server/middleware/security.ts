@@ -4,38 +4,47 @@ import { randomBytes } from 'crypto';
 import DOMPurify from 'isomorphic-dompurify';
 import rateLimit from 'express-rate-limit';
 
-// Content Security Policy configuration - Life CEO 44x21s Layer 1-5 Foundation Security
+// Content Security Policy configuration - MB.MD S5: Production-Ready (Oct 20, 2025)
+// Removed: Google Maps API, Cloudinary (replaced by Leaflet, Replit Object Storage)
+// Added: Proper Plausible Analytics, OpenStreetMap tiles, Sentry
 export const contentSecurityPolicy = helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     scriptSrc: [
       "'self'",
-      "'unsafe-inline'",
-      "'unsafe-eval'",
-      "https://maps.googleapis.com",
-      "https://cdn.plausible.io",
-      "https://unpkg.com",
-      "https://cdnjs.cloudflare.com",
-      "https://replit.com",
-      "https://*.replit.dev",
-      "https://*.replit.com"
+      "'unsafe-inline'", // Required for React inline styles
+      "'unsafe-eval'", // Required for Vite HMR in dev
+      "https://cdn.plausible.io", // Analytics
+      "https://unpkg.com", // Leaflet CDN
+      "https://cdnjs.cloudflare.com", // UI libraries
+      "https://replit.com", // Replit integration
+      "https://*.replit.dev", // Replit preview
+      "https://*.replit.com" // Replit infrastructure
     ],
     styleSrc: [
       "'self'",
-      "'unsafe-inline'",
-      "https://fonts.googleapis.com",
-      "https://cdnjs.cloudflare.com"
+      "'unsafe-inline'", // Required for React/Tailwind
+      "https://fonts.googleapis.com", // Google Fonts
+      "https://cdnjs.cloudflare.com", // UI libraries
+      "https://unpkg.com" // Leaflet styles
     ],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-    imgSrc: ["'self'", "data:", "https:", "blob:"],
+    imgSrc: [
+      "'self'", 
+      "data:", 
+      "blob:",
+      "https:", // Allow all HTTPS images (for user uploads, OpenStreetMap tiles)
+      "https://tile.openstreetmap.org", // OSM tiles
+      "https://*.tile.openstreetmap.org" // OSM tile servers
+    ],
     connectSrc: [
       "'self'",
-      "https://api.pexels.com",
-      "https://nominatim.openstreetmap.org",
-      "https://plausible.io",
-      "wss://18b562b7-65d8-4db8-8480-61e8ab9b1db1-00-145w1q6sp1kov.kirk.replit.dev",
-      "https://*.replit.dev",
-      "https://*.replit.com"
+      "https://nominatim.openstreetmap.org", // Geocoding
+      "https://plausible.io", // Analytics
+      "https://*.ingest.us.sentry.io", // Error tracking
+      "wss://*.replit.dev", // WebSocket for real-time features
+      "https://*.replit.dev", // Replit preview
+      "https://*.replit.com" // Replit infrastructure
     ],
     mediaSrc: ["'self'", "https:", "blob:"],
     objectSrc: ["'none'"],
@@ -43,8 +52,11 @@ export const contentSecurityPolicy = helmet.contentSecurityPolicy({
     workerSrc: ["'self'", "blob:"],
     manifestSrc: ["'self'"],
     frameAncestors: ["'self'", "https://*.replit.dev", "https://*.replit.com", "https://replit.com"],
-    upgradeInsecureRequests: []
-  }
+    formAction: ["'self'"],
+    baseUri: ["'self'"],
+    upgradeInsecureRequests: [] // Force HTTPS for all assets (security requirement)
+  },
+  reportOnly: process.env.NODE_ENV !== 'production' // ENFORCE in production, report-only in dev
 });
 
 // CSRF Protection middleware
