@@ -40,6 +40,6 @@ outputType = "webview"
 channel = "stable-25_05"
 
 [deployment]
-deploymentTarget = "vm"
-run = ["npm", "start"]
+deploymentTarget = "autoscale"
+run = ["npm", "run", "start"]
 build = ["npm", "run", "build"]
