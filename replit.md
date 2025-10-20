@@ -13,6 +13,11 @@ Mundo Tango is a social platform for the global tango community, built on the ES
 
 - **Communication style:** Simple, everyday language
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work
+- **MB.MD Protocol v2.0 (Oct 20, 2025):** Code + Screenshot + Visual Verification = Done
+  - All agents MUST screenshot actual render after code changes
+  - Compare screenshot to Aurora Tide design spec (cyan/turquoise gradients)
+  - Detect duplicate components, verify canonical imports before committing
+  - Re-verify after changes to ensure user sees correct implementation
 - **Priority:** Deployment stability - Files must never be deleted without safeguards
 - **Documentation Agent:** Must monitor file integrity and prevent build failures
 
