@@ -51,6 +51,14 @@ router.get('/api/posts/feed', async (req: any, res) => {
     // Mundo Tango ESA LIFE CEO - Get posts from database using correct method
     const posts = await storage.getFeedPosts(userId, limit, offset);
     
+    // Mundo Tango ESA LIFE CEO - Null safety: ensure posts is always an array
+    if (!posts || !Array.isArray(posts)) {
+      return res.json({
+        success: true,
+        posts: []
+      });
+    }
+    
     // Mundo Tango ESA LIFE CEO - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map((post: any) => {
       const formattedPost: any = {
@@ -181,7 +189,8 @@ router.get('/api/posts/:id', async (req: any, res) => {
  */
 router.post('/api/posts', async (req: any, res) => {
   try {
-    const userId = await getUserId(req) || 7;
+    const userIdRaw = await getUserId(req) || 7;
+    const userId = typeof userIdRaw === 'string' ? parseInt(userIdRaw) : userIdRaw;
     
     const postData = {
       ...req.body,
@@ -214,7 +223,8 @@ router.post('/api/posts', async (req: any, res) => {
 router.put('/api/posts/:id', async (req: any, res) => {
   try {
     const postId = req.params.id;
-    const userId = await getUserId(req) || 7;
+    const userIdRaw = await getUserId(req) || 7;
+    const userId = typeof userIdRaw === 'string' ? parseInt(userIdRaw) : userIdRaw;
     
     // Verify ownership
     const post = await storage.getPostById(postId);
@@ -247,7 +257,8 @@ router.put('/api/posts/:id', async (req: any, res) => {
 router.delete('/api/posts/:id', async (req: any, res) => {
   try {
     const postId = req.params.id;
-    const userId = await getUserId(req) || 7;
+    const userIdRaw = await getUserId(req) || 7;
+    const userId = typeof userIdRaw === 'string' ? parseInt(userIdRaw) : userIdRaw;
     
     // Verify ownership
     const post = await storage.getPostById(postId);

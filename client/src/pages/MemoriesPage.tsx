@@ -54,7 +54,7 @@ const MemoryCard = ({ memory }: { memory: any }) => (
       <div className="flex items-start gap-4">
         <Avatar className="h-10 w-10 border-2 border-cyan-400">
           <AvatarImage src={memory.user?.profileImage || undefined} />
-          <AvatarFallback className="bg-gradient-to-br from-cyan-400 to-turquoise-500 text-white">
+          <AvatarFallback className="bg-gradient-to-br from-cyan-400 to-cyan-600 text-white">
             {memory.user?.name?.charAt(0) || 'U'}
           </AvatarFallback>
         </Avatar>
@@ -142,7 +142,7 @@ const MemoriesPage = () => {
       }}
       className={`p-2.5 min-h-[44px] min-w-[44px] rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 ${
         active 
-          ? 'bg-gradient-to-r from-cyan-400 to-turquoise-500 text-white border-transparent shadow-md' 
+          ? 'bg-gradient-to-r from-cyan-400 to-cyan-600 text-white border-transparent shadow-md' 
           : 'bg-white/70 dark:bg-gray-800/70 hover:bg-white dark:hover:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-cyan-400'
       }`}
       aria-label={`${active ? 'Remove' : 'Add'} ${label} tag`}
@@ -171,16 +171,16 @@ const MemoriesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-turquoise-50 to-cyan-100 dark:from-gray-900 dark:via-cyan-900/20 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-cyan-100 to-cyan-200 dark:from-gray-900 dark:via-cyan-900/20 dark:to-gray-900">
       {/* Header with Aurora Tide branding */}
       <header className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-cyan-200/30 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-cyan-400 to-turquoise-500 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-xl shadow-lg">
               <Sparkles className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-turquoise-600 dark:from-cyan-400 dark:to-turquoise-400 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-cyan-800 dark:from-cyan-400 dark:to-cyan-600 bg-clip-text text-transparent">
                 Memories
               </h1>
               <p className="text-gray-600 dark:text-gray-400 mt-1">
@@ -240,7 +240,7 @@ const MemoriesPage = () => {
                 <div className="flex items-center gap-4 mb-4">
                   <Avatar className="h-12 w-12 border-2 border-cyan-400">
                     <AvatarImage src={user?.profileImage || undefined} />
-                    <AvatarFallback className="bg-gradient-to-br from-cyan-400 to-turquoise-500 text-white">
+                    <AvatarFallback className="bg-gradient-to-br from-cyan-400 to-cyan-600 text-white">
                       {user?.name?.charAt(0) || 'U'}
                     </AvatarFallback>
                   </Avatar>
@@ -306,7 +306,7 @@ const MemoriesPage = () => {
                   <Button
                     onClick={handlePostMemory}
                     disabled={!content.trim() || isPending}
-                    className="bg-gradient-to-r from-cyan-500 to-turquoise-500 text-white hover:from-cyan-600 hover:to-turquoise-600 disabled:opacity-50 min-h-[44px]"
+                    className="bg-gradient-to-r from-cyan-500 to-cyan-700 text-white hover:from-cyan-600 hover:to-cyan-800 disabled:opacity-50 min-h-[44px]"
                     aria-label={isPending ? 'Posting memory...' : 'Post memory'}
                     data-testid="button-post-memory"
                   >
