@@ -5,6 +5,7 @@
 Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation (268 files), PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication.
 
 **Current Status:** 38% production ready (+5% today! - Oct 20, 2025)  
+**Critical Fix (Oct 20):** Missing `postcss.config.js` prevented Tailwind compilation - created config, Aurora Tide CSS now renders  
 **Master Plan:** 6-stage MB.MD roadmap to 100% (11-16 weeks with 8 parallel tracks)  
 **See:** `docs/PARALLEL_ACCELERATION_PLAN.md` for acceleration strategy  
 **Original Plan:** `docs/MT_MASTER_PLAN_100PCT.md` for complete breakdown
