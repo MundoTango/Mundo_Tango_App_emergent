@@ -58,7 +58,7 @@ const updateProfileSchema = z.object({
  */
 router.get('/:context', isAuthenticated, async (req, res) => {
   try {
-    const userId = String(req.user!.id);
+    const userId = String((req as any).user.id);
     const { context } = req.params;
     
     // Validate context
@@ -113,7 +113,7 @@ router.get('/:context', isAuthenticated, async (req, res) => {
  */
 router.post('/track', isAuthenticated, async (req, res) => {
   try {
-    const userId = String(req.user!.id);
+    const userId = String((req as any).user.id);
     
     const { action, targetId, targetType } = trackActionSchema.parse(req.body);
     
@@ -150,7 +150,7 @@ router.post('/track', isAuthenticated, async (req, res) => {
  */
 router.get('/profile', isAuthenticated, async (req, res) => {
   try {
-    const userId = String(req.user!.id);
+    const userId = String((req as any).user.id);
     
     // Get historical recommendations for this user
     const history = recommendationEngineService.getUserRecommendations(userId);
@@ -179,7 +179,7 @@ router.get('/profile', isAuthenticated, async (req, res) => {
  */
 router.put('/profile', isAuthenticated, async (req, res) => {
   try {
-    const userId = String(req.user!.id);
+    const userId = String((req as any).user.id);
     
     const updates = updateProfileSchema.parse(req.body);
     

@@ -53,7 +53,7 @@ const feedQuerySchema = z.object({
  */
 router.get('/feed', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user!.id;
+    const userId = (req as any).user.id;
     
     // Validate and parse query parameters
     const params = feedQuerySchema.parse(req.query);
@@ -116,7 +116,7 @@ router.get('/feed', isAuthenticated, async (req, res) => {
  */
 router.get('/preferences', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user!.id;
+    const userId = (req as any).user.id;
     
     const preferences = await MemoriesFeedAlgorithm.getUserMemoryPreferences(userId);
     
@@ -140,7 +140,7 @@ router.get('/preferences', isAuthenticated, async (req, res) => {
  */
 router.put('/preferences', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user!.id;
+    const userId = (req as any).user.id;
     
     const preferencesSchema = z.object({
       temporalWeight: z.number().min(0).max(2).optional(),
