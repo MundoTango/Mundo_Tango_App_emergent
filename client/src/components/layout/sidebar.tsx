@@ -259,8 +259,11 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
     };
   }, [setIsOpen]);
 
-  // Check if user is admin (simplified check - replace with actual admin check)
-  const isAdmin = user?.roles?.includes('admin') || user?.roles?.includes('super_admin') || false;
+  // Check if user is admin (uses customerJourneyState J4 = Super Admin or tangoRoles)
+  const isAdmin = user?.customerJourneyState === 'J4' || 
+                  (user?.tangoRoles as string[])?.includes('admin') || 
+                  (user?.tangoRoles as string[])?.includes('super_admin') || 
+                  false;
 
   // Auto-expand sections with active routes
   useEffect(() => {

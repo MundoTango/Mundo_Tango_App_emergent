@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import Sidebar from '@/components/Sidebar';
 import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
+import MobileNav from '@/components/layout/mobile-nav';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -52,7 +53,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
         {/* Main Content Area - Full width with sidebar offset */}
-        <main className="flex-1 bg-gray-50 dark:bg-gray-800 transition-all duration-300">
+        <main className="flex-1 bg-gray-50 dark:bg-gray-800 transition-all duration-300 pb-16 lg:pb-0">
           <div className={cn(
             "transition-all duration-300",
             sidebarOpen ? "lg:pl-64" : "lg:pl-0"
@@ -61,6 +62,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation - Shows on mobile only (hidden on lg+) */}
+      <MobileNav onOpenChat={() => {
+        // TODO: Implement chat drawer toggle
+        console.log('Open chat drawer');
+      }} />
     </div>
   );
 }
