@@ -481,13 +481,14 @@ class AdvancedAIService extends EventEmitter {
     }, {} as Record<string, number>);
     
     Object.entries(typeCounts).forEach(([type, count]) => {
-      if (count >= eventTypes.length * 0.4) {
+      const countNum = count as number;
+      if (countNum >= eventTypes.length * 0.4) {
         patterns.push({
           id: `pattern-${Date.now()}-pref-${type}`,
           userId,
           pattern: `prefers_${type}_events`,
           category: 'preference',
-          strength: Math.min(1, count / eventTypes.length),
+          strength: Math.min(1, countNum / eventTypes.length),
           examples: data.filter(d => d.eventType === type).slice(0, 3),
           lastReinforced: new Date(),
           predictiveValue: 0.9

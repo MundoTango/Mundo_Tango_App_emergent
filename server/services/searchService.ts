@@ -10,7 +10,7 @@ export interface SearchResult {
   imageUrl?: string;
   metadata?: any;
   score?: number;
-  createdAt?: Date;
+  createdAt?: Date | null;
 }
 
 export interface SearchFilters {
@@ -189,7 +189,7 @@ export class SearchService {
         description: events.description,
         location: events.location,
         startDate: events.startDate,
-        coverImage: events.coverImage,
+        imageUrl: events.imageUrl,
         createdAt: events.createdAt
       })
       .from(events)
@@ -202,7 +202,7 @@ export class SearchService {
       type: 'event' as const,
       title: event.title,
       description: `${event.location} • ${new Date(event.startDate).toLocaleDateString()}`,
-      imageUrl: event.coverImage || undefined,
+      imageUrl: event.imageUrl || undefined,
       metadata: { 
         location: event.location,
         startDate: event.startDate
