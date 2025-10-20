@@ -1310,7 +1310,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', eventRoutes); // Event CRUD API: GET/POST/PATCH/DELETE /api/events
   app.use('/api', profileRoutes); // Profile API: GET/PATCH /api/profile, follow/unfollow
   app.use('/api', groupRoutes); // Group API: GET/POST/PATCH /api/groups, join/leave
-  console.log('✅ MB.MD APIs registered: Events (7), Profiles (6), Groups (8) = 21 new endpoints!');
+  app.use(postsRoutes); // Posts API: GET/POST/PUT/DELETE /api/posts (registered Oct 20, 2025)
+  console.log('✅ MB.MD APIs registered: Events (7), Profiles (6), Groups (8), Posts (4) = 25 endpoints!');
   console.log('✅ Integration health API registered at /api/integrations/status');
   console.log('✅ Stripe webhook registered at /api/stripe/webhook');
 

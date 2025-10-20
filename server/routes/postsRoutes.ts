@@ -14,7 +14,8 @@ const router = Router();
  */
 router.get('/api/posts', async (req: any, res) => {
   try {
-    const userId = await getUserId(req) || 7;
+    const userIdRaw = await getUserId(req) || 7;
+    const userId = typeof userIdRaw === 'string' ? parseInt(userIdRaw) : userIdRaw;
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
     
@@ -41,7 +42,8 @@ router.get('/api/posts/feed', async (req: any, res) => {
     // Posts feed requested
     
     // Get user from session or use test user
-    const userId = await getUserId(req) || 7; // Default to Scott's user ID for testing
+    const userIdRaw = await getUserId(req) || 7; // Default to Scott's user ID for testing
+    const userId = typeof userIdRaw === 'string' ? parseInt(userIdRaw) : userIdRaw;
     
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
@@ -50,7 +52,7 @@ router.get('/api/posts/feed', async (req: any, res) => {
     const posts = await storage.getFeedPosts(userId, limit, offset);
     
     // Mundo Tango ESA LIFE CEO - Ensure media URLs are properly formatted
-    const postsWithMedia = posts.map(post => {
+    const postsWithMedia = posts.map((post: any) => {
       const formattedPost: any = {
         ...post,
         id: post.id || post.memoryId,

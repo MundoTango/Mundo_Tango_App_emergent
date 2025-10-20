@@ -64,6 +64,9 @@ const CalendarPage = lazy(() => import("@/pages/calendar"));
 const ProfileMobile = lazy(() => import("@/pages/profile-mobile"));
 const GroupsMobile = lazy(() => import("@/pages/groups-mobile"));
 
+// Mundo Tango Core Pages - Social Features (Phase 1A: Oct 20, 2025)
+const MemoriesPage = lazy(() => import("@/pages/MemoriesPage"));
+
 // Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
 const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(m => ({ default: m.ESAMindMap })));
@@ -210,6 +213,11 @@ function Router() {
           </Route>
           <Route path="/groups-mobile">
             <GroupsMobile />
+          </Route>
+
+          {/* Mundo Tango Core Social Features - Phase 1A (Oct 20, 2025) */}
+          <Route path="/memories">
+            <MemoriesPage />
           </Route>
 
           <Route path="/:slug">
