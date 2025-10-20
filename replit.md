@@ -111,14 +111,38 @@ Mundo Tango employs a comprehensive agent documentation system covering Foundati
 
 ## External Dependencies
 
--   **OpenAI GPT-4o**: AI content enhancement and contextual responses.
--   **Replit OAuth**: Authentication and user session management.
--   **Replit Object Storage**: Native file storage with ACL support (implemented).
--   **Leaflet**: Open-source mapping library for location services (implemented).
--   **PostHog**: Analytics platform with client/server tracking (implemented).
--   **Socket.io**: Real-time WebSocket communication (implemented).
--   **n8n**: Workflow integration hooks (planned).
--   **Playwright**: End-to-end testing automation (planned).
--   **Docker**: Containerization (planned).
--   **Nginx**: Reverse proxy (planned).
--   **GitHub Actions**: CI/CD workflows (planned).
+**✅ Fully Implemented (Production Ready):**
+-   **PostgreSQL + Drizzle ORM**: Primary database with 88 tables, schema-first design
+-   **Replit OAuth**: Authentication and user session management (JWT-based, RBAC/ABAC)
+-   **Replit Object Storage**: Native file storage with ACL support, ObjectUploader component
+-   **Socket.io**: Real-time WebSocket communication (event-driven, room-based)
+-   **PostHog**: Analytics platform with client/server tracking (active)
+-   **Leaflet**: Open-source mapping library for location services (144+ refs)
+-   **React Query (TanStack)**: Server state management and caching (v5)
+
+**🟡 Partially Implemented (Needs Completion):**
+-   **Sentry**: Error tracking (v9 API, LSP errors fixed, needs env vars + testing)
+-   **OpenReplay**: Session replay (320-line service, needs API key + initialization)
+-   **Plausible Analytics**: Privacy-first web analytics (implemented, needs verification)
+-   **Stripe**: Payment processing (v18, 380-line service, LSP errors fixed, needs webhook setup)
+-   **Supabase**: Alternative database layer (349-line service, active test routes, alongside Drizzle)
+-   **OpenAI GPT-4o**: AI content enhancement (service exists, needs complete integration)
+-   **Notion CMS**: Content management (188-line client, orphaned pages need routing)
+-   **n8n**: Workflow automation (203-line connector, needs workflow setup)
+
+**🗑️ Removed (Oct 20, 2025):**
+-   **Cloudinary**: Replaced by Replit Object Storage (10 packages uninstalled)
+-   **Google Maps API**: Replaced by Leaflet (open-source, no API key needed)
+-   **Redis**: Replaced by React Query + in-memory cache
+-   **ws library**: Replaced by Socket.io (dead code removed)
+
+**🚧 Planned (Future Stages):**
+-   **Playwright**: End-to-end testing automation (S4 - Testing & QA)
+-   **Docker**: Containerization (S5 - Deployment Readiness)
+-   **Nginx**: Reverse proxy (S5 - Deployment Readiness)
+-   **GitHub Actions**: CI/CD workflows (S5 - Deployment Readiness)
+
+**📊 Integration Status:**
+- See `docs/INTEGRATION_STATUS.md` (477 lines) for complete integration documentation
+- See `docs/MT_RESTORATION_ROADMAP.md` (532 lines) for 6-stage production roadmap
+- See `.env.example` (116 lines) for all required environment variables

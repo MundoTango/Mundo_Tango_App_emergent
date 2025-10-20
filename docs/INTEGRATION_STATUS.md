@@ -183,20 +183,26 @@
   - [ ] Configure product/price IDs
 
 ### 12. Supabase
-- **Status:** 🟡 PARTIALLY IMPLEMENTED
-- **Purpose:** Alternative auth and database (potentially redundant)
+- **Status:** ✅ ACTIVELY IMPLEMENTED (Oct 20, 2025)
+- **Purpose:** Alternative database access layer (alongside Drizzle ORM)
 - **Files:**
   - `server/supabaseClient.ts` - Client initialization
-  - References in `server/routes.ts`, `shared/schema.ts`
-- **Clients:**
-  - Service client (admin operations)
-  - Auth client (user authentication)
+  - `server/services/supabaseService.ts` - Full service (349 lines)
+  - `server/routes/supabase-test.ts` - Test routes
+  - `server/services/databaseAdapter.ts` - Database abstraction
+  - Client services: `client/src/services/supabaseClient.ts`, `client/src/services/supabase.ts`
+- **API Routes:**
+  - `GET /api/supabase/test-connection` - Connection test
+  - `POST /api/supabase/test-large-body` - Large body handling test
+  - `GET /api/supabase/test-realtime` - Realtime test
+- **Features:**
+  - User operations (CRUD)
+  - Post operations (create, feed, search)
+  - Event operations
+  - Real-time subscriptions
 - **Environment Variables:** `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_ANON_KEY`
-- **Packages:** `@supabase/supabase-js`
-- **TODO:**
-  - [ ] Verify if actually used (may be redundant with Replit OAuth + PostgreSQL)
-  - [ ] Remove if unused OR complete integration
-  - [ ] Document usage if keeping
+- **Packages:** `@supabase/supabase-js` (v2.75.0)
+- **Usage:** Provides alternative to Drizzle ORM for specific use cases requiring Supabase features (realtime, auth)
 
 ### 13. OpenAI GPT-4o
 - **Status:** 🟡 PARTIALLY IMPLEMENTED
@@ -221,22 +227,25 @@
   - [ ] Implement content moderation
 
 ### 14. Notion (CMS)
-- **Status:** 🟡 PARTIALLY IMPLEMENTED
+- **Status:** 🟡 PARTIALLY IMPLEMENTED (Pages orphaned - Oct 20, 2025)
 - **Purpose:** Content management system for tango stories/memories
 - **Files:**
   - `server/notion.ts` (188 lines) - Full Notion API client
+  - `client/src/pages/NotionHomePage.tsx` - Home page component (exists but not routed)
+  - `client/src/pages/NotionEntryPage.tsx` - Entry detail page (exists but not routed)
   - Demo data for testing (5 entries)
 - **Features:**
-  - Entry fetching
+  - Entry fetching (`getNotionEntries`, `getNotionEntryBySlug`, `getNotionFilterOptions`)
   - Type filtering (Memory, Event, Reflection, Note)
   - Rich text extraction
   - Multi-select tags
 - **Environment Variables:** `NOTION_API_KEY`, `NOTION_DATABASE_ID`
-- **Packages:** `@notionhq/client`
+- **Packages:** `@notionhq/client` (v3.1.3)
+- **Issue:** Page components exist but not registered in App.tsx router
 - **TODO:**
-  - [ ] Verify if actively used
-  - [ ] Complete integration OR remove
-  - [ ] Switch from demo data to live Notion database
+  - [ ] Add Notion routes to client router OR remove orphaned pages
+  - [ ] Connect to live Notion database OR keep demo data
+  - [ ] Verify if this feature is still needed
 
 ### 15. n8n (Workflow Automation)
 - **Status:** 🟡 PARTIALLY IMPLEMENTED
@@ -297,18 +306,18 @@
 ## 🗑️ DEPRECATED/REMOVED Integrations
 
 ### 20. Cloudinary
-- **Status:** 🗑️ REPLACED (Oct 20, 2025)
+- **Status:** 🗑️ REMOVED (Oct 20, 2025)
 - **Replacement:** Replit Object Storage (native integration)
 - **Reason:** Better native integration, simpler deployment
-- **Packages:** `cloudinary` (still in package.json but not used)
-- **Action:** Can be removed from package.json
+- **Packages:** Uninstalled (was `cloudinary@2.7.0`)
+- **Action:** ✅ Removed from package.json
 
 ### 21. Google Maps API
-- **Status:** 🗑️ REPLACED
+- **Status:** 🗑️ REMOVED (Oct 20, 2025)
 - **Replacement:** Leaflet (open-source)
 - **Reason:** No API key needed, fully implemented
-- **Packages:** `@googlemaps/js-api-loader`, `@react-google-maps/api` (installed but not actively used)
-- **Note:** Some components may still have Google Maps references
+- **Packages:** Uninstalled (was `@googlemaps/js-api-loader@1.16.10`, `@react-google-maps/api@2.20.7`)
+- **Action:** ✅ Removed from package.json (10 packages total removed)
 
 ### 22. Redis
 - **Status:** 🗑️ REMOVED

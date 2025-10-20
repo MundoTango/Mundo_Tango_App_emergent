@@ -268,7 +268,7 @@ export class SupabaseService {
     
     if (!data) return '';
     
-    const friendIds = data.map(friend => 
+    const friendIds = data.map((friend: { requester_id: string; addressee_id: string }) => 
       friend.requester_id === userId ? friend.addressee_id : friend.requester_id
     );
     
