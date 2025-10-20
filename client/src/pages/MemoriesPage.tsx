@@ -112,10 +112,15 @@ const MemoriesPage = () => {
   const { user } = useAuth();
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [filterType, setFilterType] = useState<'all' | 'following' | 'nearby'>('all');
+  const [algorithmMode, setAlgorithmMode] = useState<'hybrid' | 'chronological'>('hybrid');
 
   // Smart/Presentational pattern - hooks manage state and API
   const { mutate: createMemory, isPending } = useCreateMemory();
-  const { memories, isLoading, connectionStatus } = useMemoriesFeed();
+  const { memories, isLoading, connectionStatus } = useMemoriesFeed({ 
+    filterType, 
+    algorithmMode 
+  });
 
   const handlePostMemory = () => {
     if (!content.trim()) return;
@@ -174,8 +179,9 @@ const MemoriesPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-cyan-100 to-cyan-200 dark:from-gray-900 dark:via-cyan-900/20 dark:to-gray-900">
       {/* Header with Aurora Tide branding */}
       <header className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-cyan-200/30 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          {/* Title */}
+          <div className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-xl shadow-lg">
               <Sparkles className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
@@ -193,6 +199,86 @@ const MemoriesPage = () => {
                 <span className="sr-only">Connected</span>
               </div>
             )}
+          </div>
+
+          {/* MB.MD TRACK 3: Feed Algorithm Controls - Oct 20, 2025 */}
+          <div className="flex flex-wrap gap-4 items-center">
+            {/* Filter Type Toggle */}
+            <div className="flex gap-2 items-center">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Show:</span>
+              <div className="flex gap-1 bg-white/70 dark:bg-gray-800/70 p-1 rounded-lg border border-cyan-200/30">
+                <button
+                  onClick={() => setFilterType('all')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    filterType === 'all'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-600 text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-cyan-600'
+                  }`}
+                  data-testid="filter-all"
+                  aria-pressed={filterType === 'all'}
+                >
+                  All Memories
+                </button>
+                <button
+                  onClick={() => setFilterType('following')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    filterType === 'following'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-600 text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-cyan-600'
+                  }`}
+                  data-testid="filter-following"
+                  aria-pressed={filterType === 'following'}
+                >
+                  Following
+                </button>
+                <button
+                  onClick={() => setFilterType('nearby')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    filterType === 'nearby'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-600 text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-cyan-600'
+                  }`}
+                  data-testid="filter-nearby"
+                  aria-pressed={filterType === 'nearby'}
+                >
+                  Nearby
+                </button>
+              </div>
+            </div>
+
+            {/* Algorithm Mode Toggle */}
+            <div className="flex gap-2 items-center">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Algorithm:</span>
+              <div className="flex gap-1 bg-white/70 dark:bg-gray-800/70 p-1 rounded-lg border border-cyan-200/30">
+                <button
+                  onClick={() => setAlgorithmMode('hybrid')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all flex items-center gap-2 ${
+                    algorithmMode === 'hybrid'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-600 text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-cyan-600'
+                  }`}
+                  data-testid="algorithm-hybrid"
+                  aria-pressed={algorithmMode === 'hybrid'}
+                  title="AI-powered feed with temporal, social, emotional, and content scoring"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Hybrid (AI)
+                </button>
+                <button
+                  onClick={() => setAlgorithmMode('chronological')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    algorithmMode === 'chronological'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-600 text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-cyan-600'
+                  }`}
+                  data-testid="algorithm-chronological"
+                  aria-pressed={algorithmMode === 'chronological'}
+                  title="Simple chronological feed (newest first)"
+                >
+                  Chronological
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </header>

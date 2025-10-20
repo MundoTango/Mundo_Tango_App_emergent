@@ -20,15 +20,32 @@ const getSocket = () => {
   return socket;
 };
 
-export const useMemoriesFeed = () => {
+interface FeedFilters {
+  filterType?: 'all' | 'following' | 'nearby';
+  algorithmMode?: 'hybrid' | 'chronological';
+  limit?: number;
+}
+
+export const useMemoriesFeed = (filters: FeedFilters = {}) => {
   const queryClient = useQueryClient();
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'connecting'>('connecting');
   
-  // MB.MD TRACK 3: Use new intelligent feed algorithm API (Oct 20, 2025)
+  const {
+    filterType = 'all',
+    algorithmMode = 'hybrid',
+    limit = 20
+  } = filters;
+  
+  // MB.MD TRACK 3: Use new intelligent feed algorithm API with filters (Oct 20, 2025)
   const { data: memories = [], isLoading } = useQuery({
-    queryKey: ['/api/memories/feed'],
+    queryKey: ['/api/memories/feed', filterType, algorithmMode, limit],
     queryFn: async () => {
-      const response = await fetch('/api/memories/feed?limit=20&filterType=all');
+      const params = new URLSearchParams({
+        limit: limit.toString(),
+        filterType,
+        ...(algorithmMode === 'chronological' ? { temporalWeight: '0', socialWeight: '0', emotionalWeight: '0', contentWeight: '0' } : {})
+      });
+      const response = await fetch(`/api/memories/feed?${params}`);
       if (!response.ok) {
         // If unauthorized, return empty array instead of error
         if (response.status === 401) return [];
