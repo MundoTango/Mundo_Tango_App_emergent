@@ -32,11 +32,11 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
         {/* Left Section - Mundo Tango Brand */}
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-shadow">
-                MT
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center text-white font-bold text-base shadow-lg group-hover:shadow-xl transition-shadow">
+                🌊
               </div>
               <span className={cn(
-                "hidden sm:block text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"
+                "hidden sm:block text-xl font-bold bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent"
               )}>
                 Mundo Tango
               </span>

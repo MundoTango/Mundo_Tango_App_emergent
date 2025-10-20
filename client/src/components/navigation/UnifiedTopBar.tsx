@@ -210,8 +210,8 @@ export default function UnifiedTopBar({
           )}
           
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg group-hover:shadow-xl transition-all bg-brand-icon">
-              MT
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shadow-lg group-hover:shadow-xl transition-all bg-brand-icon">
+              🌊
             </div>
             <span className="hidden sm:block text-xl font-bold text-brand-gradient">
               Mundo Tango
