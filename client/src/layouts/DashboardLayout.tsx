@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import Sidebar from '@/components/Sidebar';
 import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
 import MobileNav from '@/components/layout/mobile-nav';
+import BottomNav from '@/components/layout/BottomNav';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -63,11 +64,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </main>
       </div>
 
-      {/* Mobile Bottom Navigation - Shows on mobile only (hidden on lg+) */}
+      {/* MB.MD TRACK A: Mobile Navigation - Shows on mobile only (hidden on md+) */}
       <MobileNav onOpenChat={() => {
         // TODO: Implement chat drawer toggle
         console.log('Open chat drawer');
       }} />
+      
+      {/* MB.MD TRACK A: Bottom Navigation - Primary actions for mobile */}
+      <BottomNav onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
     </div>
   );
 }

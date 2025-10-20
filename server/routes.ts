@@ -4,6 +4,7 @@ import { ParsedQs } from "qs";
 import eventsRoutes from './routes/eventsRoutes';
 import eventRoutes from './routes/eventRoutes'; // MB.MD TRACK B: Event CRUD API (7 endpoints) - Oct 20, 2025
 import profileRoutes from './routes/profileRoutes'; // MB.MD TRACK B: Profile API (6 endpoints) - Oct 20, 2025
+import groupRoutes from './routes/groupRoutes'; // MB.MD TRACK B: Group API (8 endpoints) - Oct 20, 2025
 import * as path from 'path';
 import * as fs from 'fs';
 // Vite utilities imported dynamically in development only to avoid bundling vite.config
@@ -1308,6 +1309,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD TRACK B (S3): Core Features API - Oct 20, 2025
   app.use('/api', eventRoutes); // Event CRUD API: GET/POST/PATCH/DELETE /api/events
   app.use('/api', profileRoutes); // Profile API: GET/PATCH /api/profile, follow/unfollow
+  app.use('/api', groupRoutes); // Group API: GET/POST/PATCH /api/groups, join/leave
+  console.log('✅ MB.MD APIs registered: Events (7), Profiles (6), Groups (8) = 21 new endpoints!');
   console.log('✅ Integration health API registered at /api/integrations/status');
   console.log('✅ Stripe webhook registered at /api/stripe/webhook');
 
