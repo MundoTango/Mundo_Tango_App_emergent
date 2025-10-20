@@ -52,6 +52,9 @@ import {
 
 const app = express();
 
+// Disable X-Powered-By header for security (Architect recommendation: Oct 20, 2025)
+app.disable('x-powered-by');
+
 // Process-level error handlers
 process.on('uncaughtException', (error) => {
   logger.fatal({ error, stack: error.stack }, 'Uncaught Exception');

@@ -148,11 +148,16 @@ function sanitizeObject(obj: any): void {
 
 // Security headers middleware - Life CEO 44x21s Layer 44 Production-Ready Security
 export const securityHeaders = (req: Request, res: Response, next: NextFunction) => {
-  // MB.MD S5: Production security headers (Oct 20, 2025)
+  // MB.MD S5: Environment-aware security headers (Oct 20, 2025)
   res.setHeader('X-Content-Type-Options', 'nosniff');
   
-  // S5 FIX: SAMEORIGIN prevents clickjacking while allowing Replit preview
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  // Environment-aware X-Frame-Options (Architect review: Oct 20, 2025)
+  // DEV: Allow Replit preview iframe (*.replit.dev, replit.com)
+  // PROD: SAMEORIGIN prevents clickjacking attacks
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  }
+  // In dev, omit X-Frame-Options to allow Replit preview, rely on CSP frame-ancestors instead
   
   // XSS Protection (deprecated but harmless)
   res.setHeader('X-XSS-Protection', '1; mode=block');
