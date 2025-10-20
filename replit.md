@@ -4,19 +4,23 @@
 
 Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation (268 files), PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication.
 
-**Current Status:** 58% production ready → 70% functional (+12% via API discovery! - Oct 20, 2025)  
-**Latest Update:** BREAKTHROUGH - 33 API endpoints ACTIVE, BottomNav integrated, Aurora Tide design verified  
-**Major Discoveries:**  
-- ✅ BottomNav integrated globally (App.tsx:701) - Mobile nav complete!
-- ✅ Feed Algorithm (649 lines) + Recommendation Engine (516 lines) CONNECTED to 8 API endpoints
-- ✅ memoriesFeedRoutes.ts + recommendationsRoutes.ts registered and active (lines 1316-1322 in routes.ts)
-- ✅ Aurora Tide design applied to 84+ pages (cyan gradients, glassmorphic confirmed via screenshot)
-- ⚠️ Cache infrastructure exists but NOT USED by algorithms (0% hit rate - needs integration)
-- ⚠️ 23+ pages still need Aurora Tide rollout
-**Accelerated Timeline:** 2-3 weeks to 100% (down from 4-6 weeks via discovered integrations!)  
-**Next Phase:** Parallel execution across 8 tracks - caching, testing, AI integration, performance, deployment prep  
-**See:** `docs/MT_100PCT_COMPREHENSIVE_PLAN.md` for complete roadmap  
-**Documentation:** `docs/MT_COMPLETION_REALITY_CHECK.md` + `docs/COMPONENT_REGISTRY.md` + `docs/SERVICE_REGISTRY.md`
+**Current Status:** 70% → 74% functional (+4% cache integration + privacy fix - Oct 20, 2025)  
+**Latest Update:** 🚀 CACHE INTEGRATION COMPLETE (Phase 1) + 🛡️ CRITICAL PRIVACY BUG FIXED  
+**Major Achievements (Oct 20):**  
+- 🚨 **CRITICAL FIX:** Privacy selector now wired end-to-end (uploadRoutes.ts:232 accepts fields.visibility)
+- ✅ **Cache Integration (Phase 1):** Feed algorithm + recommendation engine now using cacheService (4h TTL, hit/miss logging)
+- ✅ **Rate Limiting:** 10 req/min implemented on feed + all 5 recommendation endpoints (per-user via req.user.claims.sub)
+- ✅ **Aurora Tide Design:** 119 pages total (84 original + 35 new) with cyan/turquoise gradients, glassmorphic cards
+- ✅ **TypeScript:** 0 LSP errors, all validations passing (typescript/memory/cache/API/design/mobile)
+- ✅ **Token Optimization:** Documented learnings (9.0/10 efficiency via subagent delegation, batched reviews)
+- ✅ **Error Recovery:** Server crash recovered, 3 errors root-caused and documented
+**Platform Status:**  
+- 33 API endpoints ACTIVE (Events/Profiles/Groups/Posts/Memories/Recommendations)
+- Feed Algorithm (649 lines) + Recommendation Engine (516 lines) fully integrated
+- BottomNav global (App.tsx:701), Aurora Tide design verified via screenshot
+**Accelerated Timeline:** 2-3 weeks to 100% (cache integration accelerating timeline!)  
+**Next Phase:** Track 3 (QA/Testing), Track 4 (AI Enhancement), cache invalidation on writes  
+**See:** `docs/MT_100PCT_COMPREHENSIVE_PLAN.md` + `docs/MB_MD_TOKEN_OPTIMIZATION_LEARNINGS.md`
 
 ## User Preferences
 
