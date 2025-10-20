@@ -151,9 +151,9 @@ function MrBlueChatInterface() {
   };
 
   return (
-    <div className="flex h-full bg-white dark:bg-gray-900">
+    <div className="flex h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Conversation Sidebar */}
-      <div className="w-64 border-r dark:border-gray-700 flex flex-col bg-gray-50 dark:bg-gray-950">
+      <div className="w-64 border-r dark:border-gray-700 flex flex-col bg-gray-50 dark:bg-gray-800">
         <div className="p-3 border-b dark:border-gray-700">
           <Button onClick={createNewConversation} className="w-full" size="sm" variant="default">
             <MessageSquare className="h-4 w-4 mr-2" />
