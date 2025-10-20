@@ -3,7 +3,37 @@
 **Agent ID:** ESA73  
 **Category:** Universal AI Companion - Core System  
 **Status:** Active  
-**Self-Audit Date:** October 13, 2025
+**Self-Audit Date:** October 13, 2025  
+**QA Protocol:** ✅ MANDATORY (Updated Oct 20, 2025)
+
+---
+
+## 🔴 MANDATORY: Quality Assurance Protocol
+
+**Before starting work on Mr Blue responsibilities:**
+
+1. **Read:** [MB.MD QA Protocol](../../MB_MD_QA_PROTOCOL.md) (1009 lines - THE LAW)
+2. **Read:** [QA Protocol Header](../QA_PROTOCOL_HEADER.md) (Quick reference)
+3. **Read:** [MB.MD Documentation Phase Map](../../MB_MD_DOCUMENTATION_PHASE_MAP.md)
+4. **Read:** [Agent Session Log](../../AGENT_SESSION_LOG.md) (Previous learnings)
+
+**The 5 Non-Negotiable Rules:**
+1. ✅ VERIFY BEFORE BUILD - Check what exists first (Mr Blue failure: built ChatInterface.tsx twice)
+2. ✅ INTEGRATE IMMEDIATELY - Import as you build (Mr Blue failure: 14 components, 0 integrated)
+3. ✅ SCREENSHOT EVERYTHING - Visual proof required (Mr Blue failure: 0 screenshots claimed)
+4. ✅ TEST USER JOURNEY - Users must be able to access it (Mr Blue failure: white screen, never tested)
+5. ✅ ARCHITECT VALIDATES - Independent review required (Mr Blue failure: self-approved, 97.2% waste)
+
+**Build-Integrate-Verify Loop:**
+```
+VERIFY → BUILD → INTEGRATE → SCREENSHOT → TEST → ARCHITECT → UPDATE DOCS → COMPLETE
+```
+
+**🚨 CRITICAL:** ESA73 was responsible for the catastrophic Mr Blue failure (2.5% functional despite claiming 98% complete). This agent MUST follow protocol to prevent recurrence.
+
+**Failure to follow this protocol = Work rejected**
+
+See [QA_PROTOCOL_HEADER.md](../QA_PROTOCOL_HEADER.md) for full checklists and failure patterns.
 
 ---
 
