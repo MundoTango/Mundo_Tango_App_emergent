@@ -2,7 +2,7 @@
 
 ## Overview
 
-Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features 84 agent files implementing 173+ logical agents, plus 61 legacy ESA Infrastructure agents for real-time orchestration, multi-model AI routing, and comprehensive testing infrastructure. The project currently has 97 UI pages (85% complete), 88 database tables, 467 components, and approximately 100-150 API endpoints. A key ambition is to achieve 100% production readiness through a comprehensive 6-track parallel execution plan, focusing on UI/UX polish, mobile responsiveness, accessibility, and E2E testing.
+Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation (268 files), PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication. A key ambition is to achieve 100% production readiness through MB.MD (Mapping-Breakdown-Mitigation-Deployment) methodology, focusing on UI/UX polish, mobile responsiveness, accessibility, and E2E testing.
 
 ## User Preferences
 
@@ -35,9 +35,9 @@ The frontend is built with React and TypeScript using Vite. It features a compon
 - **API:** RESTful design with modular routes, middleware, and Multer for file uploads.
 
 **Data Storage:**
-- **Primary Database:** PostgreSQL with Drizzle ORM, schema-first, utilizing JSON columns and 13 optimized indexes for sub-millisecond queries.
-- **Media Storage:** File-based storage with Cloudinary integration.
-- **Caching:** Redis for session/cache, React Query client-side caching, and static asset caching.
+- **Primary Database:** PostgreSQL with Drizzle ORM, schema-first, utilizing JSON columns and optimized indexes.
+- **Media Storage:** Replit Object Storage (native integration) with ACL support for public/private file uploads.
+- **Caching:** React Query client-side caching and static asset caching.
 
 ### Feature Specifications
 
@@ -107,17 +107,18 @@ All agents must now verify file content (not just existence), test builds before
 
 ### System Design Choices
 
-Mundo Tango utilizes an extensive AI agent ecosystem with over 200 agents across various categories, including Leadership & Management, ESA Infrastructure (61 agents), Operational Excellence, Life CEO AI Agents (16, utilizing GPT-4o), Mr Blue Suite Agents (8, including multi-model routing), Page Agents (125+ for context-aware assistance), Customer Journey Agents (4), UI Sub-Agents, Algorithm Agents (10+), and Specialized Service Agents (10+). All core agents are operational and continuously validated.
+Mundo Tango employs a comprehensive agent documentation system covering Foundation agents (L1-L15), Core agents (L16-L30), Business agents (L31-L46), Intelligence agents (L47-L61), Page Agents (PA-001 to PA-125), Algorithm Agents (AA-01 to AA-30), Life CEO Agents (LC-01 to LC-16), Mr Blue Agents (MB-01 to MB-08), and Leadership agents (DC-01 to DC-06, CD-01 to CD-09). All documentation follows the MB.MD methodology with phase-based routing for efficient agent coordination.
 
 ## External Dependencies
 
 -   **OpenAI GPT-4o**: AI content enhancement and contextual responses.
 -   **Replit OAuth**: Authentication and user session management.
--   **Cloudinary**: Optional media storage and optimization.
--   **Google Maps API**: Location services (integration in progress).
--   **n8n**: Workflow integration hooks.
--   **PostHog**: Analytics.
--   **Playwright**: End-to-end testing automation.
--   **Docker**: Containerization.
--   **Nginx**: Reverse proxy.
--   **GitHub Actions**: CI/CD workflows.
+-   **Replit Object Storage**: Native file storage with ACL support (implemented).
+-   **Leaflet**: Open-source mapping library for location services (implemented).
+-   **PostHog**: Analytics platform with client/server tracking (implemented).
+-   **Socket.io**: Real-time WebSocket communication (implemented).
+-   **n8n**: Workflow integration hooks (planned).
+-   **Playwright**: End-to-end testing automation (planned).
+-   **Docker**: Containerization (planned).
+-   **Nginx**: Reverse proxy (planned).
+-   **GitHub Actions**: CI/CD workflows (planned).

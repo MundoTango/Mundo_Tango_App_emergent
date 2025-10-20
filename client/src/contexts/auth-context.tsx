@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { User } from "@shared/schema";
+import { identifyUser, resetPostHog } from "@/lib/posthog";
 
 interface AuthContextType {
   user: User | null;
@@ -98,6 +99,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await response.json();
     localStorage.setItem('auth_token', data.data.api_token);
     setUser(data.data.user);
+    
+    // Identify user in PostHog
+    if (data.data.user) {
+      identifyUser(data.data.user);
+    }
   };
 
   const register = async (userData: any) => {
@@ -117,11 +123,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await response.json();
     localStorage.setItem('auth_token', data.data.api_token);
     setUser(data.data.user);
+    
+    // Identify user in PostHog
+    if (data.data.user) {
+      identifyUser(data.data.user);
+    }
   };
 
   const logout = () => {
     localStorage.removeItem('auth_token');
     setUser(null);
+    
+    // Reset PostHog analytics
+    resetPostHog();
   };
 
   const isAuthenticated = user !== null;

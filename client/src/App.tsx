@@ -15,6 +15,8 @@ import { LocationBiasProvider } from "@/contexts/LocationBiasContext";
 // import { PageAgentProvider } from "@/contexts/PageAgentContext"; // DISABLED - Vite HMR file deletion bug
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
+import { initPostHog } from "@/lib/posthog";
+import { usePageTracking } from "@/hooks/use-posthog";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
 import ThemeManager from "@/components/theme/ThemeManager";
 import { performanceOptimizations } from "@/lib/performance-optimizations";
@@ -214,6 +216,7 @@ function AppContent() {
   // MB.MD INFRA-5A: Hooks re-enabled - SAFE ✅
   usePerformanceOptimization(); // ESA Performance Layer 50
   useMonitoring(); // ESA Monitoring Layer 51
+  usePageTracking(); // PostHog page view tracking
 
   console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
@@ -253,6 +256,9 @@ function App() {
     
     // Initialize analytics
     initAnalytics();
+    
+    // Initialize PostHog analytics
+    initPostHog();
 
     // Life CEO Performance Optimization
     lifeCeoPerformance.init();
