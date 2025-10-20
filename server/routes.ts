@@ -36,6 +36,7 @@ import searchRouter from "./routes/searchRoutes";
 import { CityAutoCreationService } from './services/cityAutoCreationService';
 import cityGroupsStatsRoutes from "./routes/cityGroupsStats";
 import { cacheMiddleware, invalidateCacheAfter } from "./middleware/cacheMiddleware";
+import { RateLimiterService } from "./middleware/rateLimiter";
 import metricsRouter from "./routes/metrics";
 import testspriteIntegration from "./routes/testspriteIntegration";
 import n8nRoutes from "./routes/n8nRoutes";
@@ -575,9 +576,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // S1 Integration Testing Endpoint (ADMIN ONLY - Dev/Test environments)
   // Rate limited: 5 requests per hour per admin to prevent abuse
-  app.post('/api/test/integrations', isAuthenticated, RateLimiterService.createCustomLimiter({
+  app.post('/api/test/integrations', isAuthenticated, RateLimiterService.createLimiter({
     windowMs: 60 * 60 * 1000, // 1 hour
-    max: 5, // 5 requests per hour
+    maxRequests: 5, // 5 requests per hour
     message: 'Too many integration tests from this admin. Please wait before retrying.'
   }), async (req: any, res) => {
     try {
@@ -621,9 +622,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // S1 Transform Events to Notion Entries (ADMIN ONLY - AI-Enhanced)
   // Rate limited: 10 requests per hour per admin to prevent OpenAI credit abuse
-  app.post('/api/transform/events-to-notion', isAuthenticated, RateLimiterService.createCustomLimiter({
+  app.post('/api/transform/events-to-notion', isAuthenticated, RateLimiterService.createLimiter({
     windowMs: 60 * 60 * 1000, // 1 hour
-    max: 10, // 10 requests per hour
+    maxRequests: 10, // 10 requests per hour
     message: 'Too many AI transformation requests from this admin. Please wait before retrying.'
   }), async (req: any, res) => {
     try {
@@ -797,8 +798,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get('/api/ai/conversation/:conversationId', getConversationHistoryDirect);
 
-  // 🎯 Import rate limiter for 100/100 security score
-  const { RateLimiterService } = await import('./middleware/rateLimiter');
+  // 🎯 Rate limiter already imported at top of file (line 42)
+  // const { RateLimiterService } = await import('./middleware/rateLimiter'); // REMOVED - causes circular dependency
   
   // @Mentions API endpoints (Facebook-style)
   app.get('/api/mentions/suggestions', isAuthenticated, RateLimiterService.mentionSuggestionsLimiter, async (req: any, res) => {

@@ -3,9 +3,9 @@
 
 import OpenAI from "openai";
 
+// Use direct OpenAI API (your key) instead of AI Integrations endpoint
 const openai = new OpenAI({
-  baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
-  apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 interface RealEvent {
@@ -92,9 +92,9 @@ const realEvents: RealEvent[] = [
 ];
 
 async function generateStoryContent(event: RealEvent): Promise<string> {
-  // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+  // Using GPT-4o (production-ready model)
   const completion = await openai.chat.completions.create({
-    model: "gpt-5",
+    model: "gpt-4o",
     messages: [
       {
         role: "system",
@@ -122,7 +122,7 @@ Write a compelling 300-500 word narrative that would inspire dancers to attend. 
 
 async function generateSummary(content: string): Promise<string> {
   const completion = await openai.chat.completions.create({
-    model: "gpt-5",
+    model: "gpt-4o",
     messages: [
       {
         role: "system",
@@ -141,7 +141,7 @@ async function generateSummary(content: string): Promise<string> {
 
 async function determineEmotionalTone(content: string): Promise<string> {
   const completion = await openai.chat.completions.create({
-    model: "gpt-5",
+    model: "gpt-4o",
     messages: [
       {
         role: "system",
