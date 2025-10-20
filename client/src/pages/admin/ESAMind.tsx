@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/layout/sidebar';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { ESAVisualization } from '@/components/esa/ESAVisualizations';

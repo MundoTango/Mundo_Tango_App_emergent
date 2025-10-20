@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/layout/sidebar';
 import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
 import MobileNav from '@/components/layout/mobile-nav';
 import BottomNav from '@/components/layout/BottomNav';

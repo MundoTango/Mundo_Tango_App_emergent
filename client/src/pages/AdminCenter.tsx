@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { toast } from 'react-hot-toast';
 import { useToast } from '@/hooks/use-toast';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/layout/sidebar';
 import ProjectTrackerDashboard from '@/components/admin/ProjectTrackerDashboard';
 import EnhancedHierarchicalTreeView from '@/components/admin/EnhancedHierarchicalTreeView';
 import { PlatformFeatureDeepDive } from '@/components/admin/PlatformFeatureDeepDive';
