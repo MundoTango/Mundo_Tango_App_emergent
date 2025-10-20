@@ -5,6 +5,8 @@ import { Users, Calendar, MessageCircle, Sparkles, Heart, Globe, MapPin } from '
 import { useTranslation } from 'react-i18next';
 
 export default function CommunityPage() {
+  const { t } = useTranslation();
+  
   return (
     <DashboardLayout>
       {/* Enhanced gradient background matching Moments page */}
