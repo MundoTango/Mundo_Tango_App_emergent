@@ -120,6 +120,9 @@ Mundo Tango employs a comprehensive agent documentation system covering Foundati
 -   **Leaflet**: Open-source mapping library for location services (144+ refs)
 -   **React Query (TanStack)**: Server state management and caching (v5)
 
+**✅ Recently Completed (Oct 20, 2025):**
+-   **Notion CMS**: Internal content management system (COMPLETE - 5 demo tango stories, /notion route, 3 API endpoints, beautiful UI)
+
 **🟡 Partially Implemented (Needs Completion):**
 -   **Sentry**: Error tracking (v9 API, LSP errors fixed, needs env vars + testing)
 -   **OpenReplay**: Session replay (320-line service, needs API key + initialization)
@@ -127,7 +130,6 @@ Mundo Tango employs a comprehensive agent documentation system covering Foundati
 -   **Stripe**: Payment processing (v18, 380-line service, LSP errors fixed, needs webhook setup)
 -   **Supabase**: Alternative database layer (349-line service, active test routes, alongside Drizzle)
 -   **OpenAI GPT-4o**: AI content enhancement (service exists, needs complete integration)
--   **Notion CMS**: Content management (188-line client, orphaned pages need routing)
 -   **n8n**: Workflow automation (203-line connector, needs workflow setup)
 
 **🗑️ Removed (Oct 20, 2025):**
