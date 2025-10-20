@@ -67,6 +67,39 @@ const GroupsMobile = lazy(() => import("@/pages/groups-mobile"));
 // Mundo Tango Core Pages - Social Features (Phase 1A: Oct 20, 2025)
 const MemoriesPage = lazy(() => import("@/pages/MemoriesPage"));
 
+// MB.MD BATCH 1: 30 High-Value Pages (Oct 20, 2025) - Social, Events, Admin
+const EventsPage = lazy(() => import("@/pages/events"));
+const EventDetail = lazy(() => import("@/pages/event-detail"));
+const ProfilePage = lazy(() => import("@/pages/profile"));
+const GroupPage = lazy(() => import("@/pages/group"));
+const HomePage = lazy(() => import("@/pages/home"));
+const SearchPage = lazy(() => import("@/pages/search"));
+
+// Admin Pages
+const AdminCenter = lazy(() => import("@/pages/AdminCenter"));
+const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
+const ESAMindPage = lazy(() => import("@/pages/admin/ESAMind"));
+const AgentMetrics = lazy(() => import("@/pages/admin/AgentMetrics"));
+const PlatformHealth = lazy(() => import("@/pages/admin/PlatformHealth"));
+
+// Billing & Payments
+const BillingDashboard = lazy(() => import("@/pages/BillingDashboard"));
+const Subscribe = lazy(() => import("@/pages/Subscribe"));
+const Checkout = lazy(() => import("@/pages/Checkout"));
+const PaymentMethods = lazy(() => import("@/pages/PaymentMethods"));
+
+// Enhanced Features
+const EnhancedEvents = lazy(() => import("@/pages/EnhancedEvents"));
+const Community = lazy(() => import("@/pages/community"));
+
+// Auth Pages
+const Login = lazy(() => import("@/pages/auth/login"));
+const ForgotPassword = lazy(() => import("@/pages/auth/forgot-password"));
+const Register = lazy(() => import("@/pages/auth/register"));
+const ResetPassword = lazy(() => import("@/pages/auth/reset-password"));
+
+// MB.MD Note: AccountSettings, Privacy, PhotoGallery, VideoGallery, marketplace, discover, settings, friends pages need to be created
+
 // Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
 const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(m => ({ default: m.ESAMindMap })));
@@ -218,6 +251,79 @@ function Router() {
           {/* Mundo Tango Core Social Features - Phase 1A (Oct 20, 2025) */}
           <Route path="/memories">
             <MemoriesPage />
+          </Route>
+
+          {/* MB.MD BATCH 1: 30 High-Value Routes - Social, Events, Admin */}
+          <Route path="/events">
+            <EventsPage />
+          </Route>
+          <Route path="/event/:id">
+            <EventDetail />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
+          </Route>
+          <Route path="/group/:id">
+            <GroupPage />
+          </Route>
+          <Route path="/home">
+            <HomePage />
+          </Route>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+
+          {/* Admin Routes */}
+          <Route path="/admin">
+            <AdminCenter />
+          </Route>
+          <Route path="/admin/dashboard">
+            <AdminDashboard />
+          </Route>
+          <Route path="/admin/esa-mind">
+            <ESAMindPage />
+          </Route>
+          <Route path="/admin/agent-metrics">
+            <AgentMetrics />
+          </Route>
+          <Route path="/admin/platform-health">
+            <PlatformHealth />
+          </Route>
+
+          {/* Billing & Payments */}
+          <Route path="/billing">
+            <BillingDashboard />
+          </Route>
+          <Route path="/subscribe">
+            <Subscribe />
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+          <Route path="/payment-methods">
+            <PaymentMethods />
+          </Route>
+
+          {/* Enhanced Features */}
+          <Route path="/enhanced-events">
+            <EnhancedEvents />
+          </Route>
+          <Route path="/community">
+            <Community />
+          </Route>
+
+          {/* Auth Routes */}
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/reset-password">
+            <ResetPassword />
           </Route>
 
           <Route path="/:slug">
