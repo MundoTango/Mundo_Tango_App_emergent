@@ -1,3 +1,17 @@
+/**
+ * @deprecated This Sidebar is DEPRECATED - Use @/components/layout/sidebar instead
+ * 
+ * MIGRATION GUIDE:
+ * 1. Change import from '@/components/Sidebar' to '@/components/layout/sidebar'
+ * 2. Update props: Replace `onToggle={() => ...}` with `setIsOpen={setState}`
+ * 3. Aurora Tide design: New sidebar has cyan/turquoise gradients
+ * 
+ * WHY DEPRECATED: This component uses old deep blue design, not Aurora Tide
+ * CANONICAL COMPONENT: client/src/components/layout/sidebar.tsx
+ * 
+ * See docs/COMPONENT_REGISTRY.json for details
+ */
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation, Link } from 'wouter';
