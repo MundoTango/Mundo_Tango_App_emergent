@@ -2,7 +2,11 @@
 
 ## Overview
 
-Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation (268 files), PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication. A key ambition is to achieve 100% production readiness through MB.MD (Mapping-Breakdown-Mitigation-Deployment) methodology, focusing on UI/UX polish, mobile responsiveness, accessibility, and E2E testing.
+Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation (268 files), PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication.
+
+**Current Status:** 33% production ready (S1 complete)  
+**Master Plan:** 6-stage MB.MD roadmap to 100% (13-18 weeks with parallel execution)  
+**See:** `docs/MT_MASTER_PLAN_100PCT.md` for complete breakdown
 
 ## User Preferences
 
@@ -141,10 +145,11 @@ Mundo Tango employs a comprehensive agent documentation system covering Foundati
 **🚧 Planned (Future Stages):**
 -   **Playwright**: End-to-end testing automation (S4 - Testing & QA)
 -   **Docker**: Containerization (S5 - Deployment Readiness)
--   **Nginx**: Reverse proxy (S5 - Deployment Readiness)
 -   **GitHub Actions**: CI/CD workflows (S5 - Deployment Readiness)
 
-**📊 Integration Status:**
-- See `docs/INTEGRATION_STATUS.md` (477 lines) for complete integration documentation
-- See `docs/MT_RESTORATION_ROADMAP.md` (532 lines) for 6-stage production roadmap
-- See `.env.example` (116 lines) for all required environment variables
+**📊 Key Documentation:**
+- **Master Plan:** `docs/MT_MASTER_PLAN_100PCT.md` - Complete 6-stage roadmap to 100%
+- **S1 Summary:** `docs/S1_COMPREHENSIVE_SUMMARY.md` - Integration cleanup results
+- **Roadmap:** `docs/MT_RESTORATION_ROADMAP.md` (559 lines) - Original restoration plan
+- **Integration Status:** `docs/INTEGRATION_STATUS.md` (477 lines) - All integrations
+- **Environment:** `.env.example` (90 lines) - Required variables (updated Oct 20)
