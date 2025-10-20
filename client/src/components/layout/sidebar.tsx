@@ -45,6 +45,20 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
+// TRACK A: Hamburger menu toggle for mobile
+function MobileHamburgerToggle({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700"
+      data-testid="button-mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <Menu className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+    </button>
+  );
+}
+
 // Organized navigation structure for Mundo Tango ESA LIFE CEO platform (72 pages)
 const SIDEBAR_SECTIONS = [
   {
@@ -393,6 +407,10 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           </div>
         </nav>
       </div>
+      
+      {/* TRACK A: Hamburger menu toggle for mobile (shows when sidebar closed) */}
+      {!isOpen && <MobileHamburgerToggle onClick={() => setIsOpen(true)} />}
+      
       {isOpen && <div className="lg:w-64" />}
     </div>
   );

@@ -2,6 +2,8 @@ import express, { Express } from "express";
 import { createServer, type Server } from "http";
 import { ParsedQs } from "qs";
 import eventsRoutes from './routes/eventsRoutes';
+import eventRoutes from './routes/eventRoutes'; // MB.MD TRACK B: Event CRUD API (7 endpoints) - Oct 20, 2025
+import profileRoutes from './routes/profileRoutes'; // MB.MD TRACK B: Profile API (6 endpoints) - Oct 20, 2025
 import * as path from 'path';
 import * as fs from 'fs';
 // Vite utilities imported dynamically in development only to avoid bundling vite.config
@@ -1302,6 +1304,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const stripeWebhook = (await import('./routes/stripeWebhook')).default;
   app.use('/api/integrations', integrationsRoutes); // Integration health checks
   app.use('/api/stripe', stripeWebhook); // Stripe webhook endpoint
+  
+  // MB.MD TRACK B (S3): Core Features API - Oct 20, 2025
+  app.use('/api', eventRoutes); // Event CRUD API: GET/POST/PATCH/DELETE /api/events
+  app.use('/api', profileRoutes); // Profile API: GET/PATCH /api/profile, follow/unfollow
   console.log('✅ Integration health API registered at /api/integrations/status');
   console.log('✅ Stripe webhook registered at /api/stripe/webhook');
 
