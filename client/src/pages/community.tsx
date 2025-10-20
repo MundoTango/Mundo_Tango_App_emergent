@@ -3,6 +3,7 @@ import DashboardLayout from '@/layouts/DashboardLayout';
 import { Link } from 'wouter';
 import { Users, Calendar, MessageCircle, Sparkles, Heart, Globe, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { RecommendationWidget } from '@/components/recommendations/RecommendationWidget';
 
 export default function CommunityPage() {
   const { t } = useTranslation();
@@ -114,6 +115,15 @@ export default function CommunityPage() {
                 </div>
               </div>
             </Link>
+          </div>
+
+          {/* MB.MD TRACK 2 TASK 4: Recommended Groups Section */}
+          <div className="mb-12">
+            <RecommendationWidget 
+              context="groups" 
+              limit={6} 
+              className="shadow-2xl"
+            />
           </div>
 
           {/* Enhanced features section */}

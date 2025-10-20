@@ -42,7 +42,7 @@ export function RecommendationWidget({
 }: RecommendationWidgetProps) {
   
   // Fetch recommendations from ML engine (using standard query client pattern)
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<{ recommendations: Recommendation[] }>({
     queryKey: [`/api/recommendations/${context}`, { limit }],
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });

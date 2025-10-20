@@ -108,6 +108,7 @@ const AgentCoordination = lazy(() => import("@/pages/admin/AgentCoordination"));
 
 // Social Pages
 const Groups = lazy(() => import("@/pages/groups"));
+const GroupsDiscoveryPage = lazy(() => import("@/pages/groups/discover"));
 const FriendsPage = lazy(() => import("@/pages/Friends"));
 const TimelineMinimal = lazy(() => import("@/pages/timeline-minimal"));
 const TimelineDebug = lazy(() => import("@/pages/timeline-debug"));
@@ -493,6 +494,9 @@ function Router() {
           </Route>
 
           {/* Social Pages */}
+          <Route path="/groups/discover">
+            <GroupsDiscoveryPage />
+          </Route>
           <Route path="/groups">
             <Groups />
           </Route>

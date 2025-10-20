@@ -176,7 +176,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   const messageGroups = groupMessagesByDate(messages);
 
   return (
-    <Card className="card-shadow h-full flex flex-col">
+    <Card className="card-shadow h-full flex flex-col" data-testid="chat-room">
       {/* Header */}
       <CardHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
@@ -186,6 +186,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               size="sm"
               onClick={onBack}
               className="lg:hidden p-1"
+              data-testid="button-back-to-list"
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
@@ -286,9 +287,9 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       </CardContent>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700" data-testid="message-input-area">
         <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" type="button" className="text-gray-600">
+          <Button variant="ghost" size="sm" type="button" className="text-gray-600" data-testid="button-attach-file">
             <Paperclip className="h-5 w-5" />
           </Button>
           
@@ -298,12 +299,14 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               className="pr-10"
+              data-testid="input-message"
             />
             <Button 
               variant="ghost" 
               size="sm" 
               type="button"
               className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600"
+              data-testid="button-emoji"
             >
               <Smile className="h-4 w-4" />
             </Button>
@@ -313,6 +316,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             type="submit"
             disabled={!newMessage.trim() || sendMessageMutation.isPending}
             className="bg-tango-red hover:bg-tango-red/90"
+            data-testid="button-send-message"
           >
             <Send className="h-4 w-4" />
           </Button>

@@ -8,12 +8,22 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useFastUpload } from "@/hooks/useFastUpload";
 import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { 
   Image as ImageIcon, 
   Video, 
   Calendar, 
   X,
   Clock,
-  Upload
+  Upload,
+  Globe,
+  Users,
+  Lock
 } from "lucide-react";
 import Confetti from "react-confetti";
 
@@ -25,6 +35,7 @@ export default function CreatePost() {
   const [processingTime, setProcessingTime] = useState<number>(0);
   const [uploadStartTime, setUploadStartTime] = useState<number>(0);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [visibility, setVisibility] = useState<"public" | "friends" | "private">("public");
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -83,7 +94,8 @@ export default function CreatePost() {
     
     const postData = {
       content,
-      isPublic: true,
+      isPublic: visibility === "public",
+      visibility,
       location: null
     };
 
@@ -118,6 +130,7 @@ export default function CreatePost() {
           setIsExpanded(false);
           setProcessingTime(0);
           setUploadStartTime(0);
+          setVisibility("public");
           reset();
         },
         onError: (error) => {
@@ -234,9 +247,52 @@ export default function CreatePost() {
           </div>
         )}
 
+        {/* Privacy Selector - MB.MD TRACK 2: TASK 2 */}
+        {isExpanded && (
+          <div className="mb-4 p-3 bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-lg">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">
+              Who can see this post?
+            </label>
+            <Select value={visibility} onValueChange={(value: any) => setVisibility(value)}>
+              <SelectTrigger className="w-full bg-white" data-testid="select-privacy">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="public" data-testid="option-privacy-public">
+                  <div className="flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-cyan-600" />
+                    <div>
+                      <div className="font-medium">Public</div>
+                      <div className="text-xs text-gray-500">Anyone can see this post</div>
+                    </div>
+                  </div>
+                </SelectItem>
+                <SelectItem value="friends" data-testid="option-privacy-friends">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-cyan-600" />
+                    <div>
+                      <div className="font-medium">Friends Only</div>
+                      <div className="text-xs text-gray-500">Only your friends can see</div>
+                    </div>
+                  </div>
+                </SelectItem>
+                <SelectItem value="private" data-testid="option-privacy-private">
+                  <div className="flex items-center gap-2">
+                    <Lock className="h-4 w-4 text-cyan-600" />
+                    <div>
+                      <div className="font-medium">Private</div>
+                      <div className="text-xs text-gray-500">Only you can see this</div>
+                    </div>
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
         <div className="flex items-center justify-between">
           <div className="flex space-x-4">
-            <label className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 cursor-pointer transition-colors">
+            <label className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 cursor-pointer transition-colors" data-testid="button-add-photo">
               <input
                 type="file"
                 accept="image/*,video/*"
@@ -244,12 +300,13 @@ export default function CreatePost() {
                 onChange={handleFileSelect}
                 className="hidden"
                 disabled={isUploading}
+                data-testid="input-file-upload"
               />
               <ImageIcon className="h-5 w-5" />
               <span className="text-sm">Photo/Video</span>
             </label>
             
-            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors">
+            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors" data-testid="button-add-event">
               <Calendar className="h-5 w-5 mr-2" />
               <span className="text-sm">Event</span>
             </Button>

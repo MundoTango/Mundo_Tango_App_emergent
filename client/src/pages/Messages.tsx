@@ -79,7 +79,7 @@ export default function Messages() {
   );
 
   return (
-    <div className="min-h-screen bg-tango-gray">
+    <div className="min-h-screen bg-tango-gray" data-testid="page-messages">
       <UnifiedTopBar 
         theme={theme}
         onThemeToggle={toggleTheme}
@@ -112,6 +112,7 @@ export default function Messages() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="pl-9"
+                        data-testid="input-search-conversations"
                       />
                     </div>
                   </div>

@@ -226,7 +226,7 @@ router.post('/api/posts', async (req: any, res) => {
           url.toLowerCase().endsWith('.avi')
         ) || null, // Find first video URL if any
         mediaEmbeds: formattedMediaUrls, // Store ALL media URLs in mediaEmbeds field
-        visibility: fields.isPublic === 'true' ? 'public' : 'private',
+        visibility: fields.visibility || (fields.isPublic === 'true' ? 'public' : 'private'),
         location: fields.location || null,
         postType: formattedMediaUrls.length > 0 ? 'media' : 'text'
       } as any;
