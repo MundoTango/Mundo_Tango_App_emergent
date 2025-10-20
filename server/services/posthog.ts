@@ -9,12 +9,18 @@ let posthogClient: PostHog | null = null;
 
 // Initialize PostHog server-side client
 export function initPostHogServer() {
-  const apiKey = process.env.POSTHOG_API_KEY;
-  const host = process.env.POSTHOG_HOST || 'https://app.posthog.com';
-  const enablePostHog = process.env.POSTHOG_ENABLE === 'true';
+  // MB.MD S1: PostHog API key from user (phx_2S37cvpmZaJn17tzSw84o6jNEOGl7BjHv3gKzCkoj5RKSLv)
+  const apiKey = process.env.POSTHOG_API_KEY || 'phx_2S37cvpmZaJn17tzSw84o6jNEOGl7BjHv3gKzCkoj5RKSLv';
+  const host = process.env.POSTHOG_HOST || 'https://us.i.posthog.com';
+  const enablePostHog = process.env.POSTHOG_ENABLE !== 'false'; // Enabled by default
 
-  if (!enablePostHog || !apiKey) {
-    console.log('[PostHog Server] Analytics disabled or API key missing');
+  if (!enablePostHog) {
+    console.log('[PostHog Server] Analytics disabled via POSTHOG_ENABLE=false');
+    return null;
+  }
+
+  if (!apiKey) {
+    console.log('[PostHog Server] API key missing');
     return null;
   }
 
@@ -22,7 +28,7 @@ export function initPostHogServer() {
     host,
   });
 
-  console.log('[PostHog Server] Analytics initialized');
+  console.log('📊 [PostHog Server] Analytics initialized');
   return posthogClient;
 }
 

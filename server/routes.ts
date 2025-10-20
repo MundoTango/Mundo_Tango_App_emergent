@@ -1362,6 +1362,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // 🎯 MB.MD S1: Integration & Payment Routes
+  const integrationsRoutes = (await import('./routes/integrations')).default;
+  const stripeWebhook = (await import('./routes/stripeWebhook')).default;
+  app.use('/api/integrations', integrationsRoutes); // Integration health checks
+  app.use('/api/stripe', stripeWebhook); // Stripe webhook endpoint
+  console.log('✅ Integration health API registered at /api/integrations/status');
+  console.log('✅ Stripe webhook registered at /api/stripe/webhook');
+
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
   app.use('/api/mrblue', mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
   // app.use('/api/visual-editor', visualEditorRoutes); // Visual Editor coming in Phase 2

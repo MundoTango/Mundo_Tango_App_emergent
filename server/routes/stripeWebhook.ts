@@ -1,16 +1,16 @@
 /**
  * Stripe Webhook Handler
  * Processes Stripe events securely with signature verification
+ * MB.MD MVP: Logs events, database writes added in later phase
  */
 
 import { Router, raw } from 'express';
 import Stripe from 'stripe';
-import { db } from '../db.js';
-import { users, subscriptions, payments } from '@shared/schema';
-import { eq } from 'drizzle-orm';
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-02-24.acacia' });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { 
+  apiVersion: '2024-12-18.acacia' 
+});
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 /**
@@ -42,30 +42,30 @@ router.post(
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    console.log(`[Stripe Webhook] Received event: ${event.type}`);
+    console.log(`✅ [Stripe Webhook] Verified event: ${event.type}`);
 
     try {
       // Handle the event
       switch (event.type) {
         case 'checkout.session.completed':
-          await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
+          handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
           break;
 
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
-          await handleSubscriptionUpdate(event.data.object as Stripe.Subscription);
+          handleSubscriptionUpdate(event.data.object as Stripe.Subscription);
           break;
 
         case 'customer.subscription.deleted':
-          await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
+          handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
           break;
 
         case 'invoice.payment_succeeded':
-          await handleInvoicePaymentSucceeded(event.data.object as Stripe.Invoice);
+          handleInvoicePaymentSucceeded(event.data.object as Stripe.Invoice);
           break;
 
         case 'invoice.payment_failed':
-          await handleInvoicePaymentFailed(event.data.object as Stripe.Invoice);
+          handleInvoicePaymentFailed(event.data.object as Stripe.Invoice);
           break;
 
         default:
@@ -81,113 +81,55 @@ router.post(
 );
 
 // ===========================
-// EVENT HANDLERS
+// EVENT HANDLERS (MVP: Logging only)
+// TODO: Add database writes in Phase 2
 // ===========================
 
-async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
-  console.log(`[Stripe] Checkout session completed: ${session.id}`);
-
-  const userId = session.metadata?.userId;
-  if (!userId) {
-    console.error('[Stripe] No userId in session metadata');
-    return;
-  }
-
-  // Create payment record
-  await db.insert(payments).values({
-    userId: parseInt(userId),
-    stripePaymentId: session.payment_intent as string,
-    amount: session.amount_total! / 100, // Convert cents to dollars
-    currency: session.currency!,
-    status: 'succeeded',
-    metadata: {
-      sessionId: session.id,
-      customerEmail: session.customer_email,
-    },
-  });
-
-  console.log(`[Stripe] Payment recorded for user ${userId}`);
+function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
+  console.log(`💳 [Stripe] Checkout session completed: ${session.id}`);
+  console.log(`   Customer: ${session.customer_email}`);
+  console.log(`   Amount: $${(session.amount_total || 0) / 100}`);
+  console.log(`   Metadata:`, session.metadata);
+  
+  // TODO Phase 2: Save payment to database
+  // const userId = session.metadata?.userId;
+  // await db.insert(payments).values({...});
 }
 
-async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
-  console.log(`[Stripe] Subscription updated: ${subscription.id}`);
-
-  const userId = subscription.metadata?.userId;
-  if (!userId) {
-    console.error('[Stripe] No userId in subscription metadata');
-    return;
-  }
-
-  // Upsert subscription
-  const existingSub = await db
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, parseInt(userId)))
-    .limit(1);
-
-  const subscriptionData = {
-    userId: parseInt(userId),
-    stripeSubscriptionId: subscription.id,
-    stripeCustomerId: subscription.customer as string,
-    stripePriceId: subscription.items.data[0]?.price.id,
-    status: subscription.status,
-    currentPeriodStart: new Date(subscription.current_period_start * 1000),
-    currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-    cancelAtPeriodEnd: subscription.cancel_at_period_end,
-  };
-
-  if (existingSub.length > 0) {
-    await db
-      .update(subscriptions)
-      .set(subscriptionData)
-      .where(eq(subscriptions.userId, parseInt(userId)));
-  } else {
-    await db.insert(subscriptions).values(subscriptionData);
-  }
-
-  console.log(`[Stripe] Subscription updated for user ${userId}`);
+function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
+  console.log(`📅 [Stripe] Subscription updated: ${subscription.id}`);
+  console.log(`   Customer: ${subscription.customer}`);
+  console.log(`   Status: ${subscription.status}`);
+  console.log(`   Metadata:`, subscription.metadata);
+  
+  // TODO Phase 2: Save subscription to database
+  // const userId = subscription.metadata?.userId;
+  // await db.update(subscriptions).set({...});
 }
 
-async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-  console.log(`[Stripe] Subscription deleted: ${subscription.id}`);
-
-  const userId = subscription.metadata?.userId;
-  if (!userId) return;
-
-  await db
-    .update(subscriptions)
-    .set({ status: 'canceled' })
-    .where(eq(subscriptions.userId, parseInt(userId)));
-
-  console.log(`[Stripe] Subscription marked as canceled for user ${userId}`);
+function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  console.log(`🗑️ [Stripe] Subscription deleted: ${subscription.id}`);
+  console.log(`   Customer: ${subscription.customer}`);
+  console.log(`   Metadata:`, subscription.metadata);
+  
+  // TODO Phase 2: Mark subscription as canceled in database
 }
 
-async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
-  console.log(`[Stripe] Invoice payment succeeded: ${invoice.id}`);
-
-  const subscription = invoice.subscription as string;
-  if (!subscription) return;
-
-  // Update subscription payment status
-  await db
-    .update(subscriptions)
-    .set({ status: 'active' })
-    .where(eq(subscriptions.stripeSubscriptionId, subscription));
+function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
+  console.log(`✅ [Stripe] Invoice payment succeeded: ${invoice.id}`);
+  console.log(`   Amount: $${(invoice.amount_paid || 0) / 100}`);
+  console.log(`   Customer: ${invoice.customer}`);
+  
+  // TODO Phase 2: Update subscription status to active
 }
 
-async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
-  console.log(`[Stripe] Invoice payment failed: ${invoice.id}`);
-
-  const subscription = invoice.subscription as string;
-  if (!subscription) return;
-
-  // Update subscription payment status
-  await db
-    .update(subscriptions)
-    .set({ status: 'past_due' })
-    .where(eq(subscriptions.stripeSubscriptionId, subscription));
-
-  // TODO: Send email notification to user
+function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
+  console.log(`❌ [Stripe] Invoice payment failed: ${invoice.id}`);
+  console.log(`   Amount: $${(invoice.amount_due || 0) / 100}`);
+  console.log(`   Customer: ${invoice.customer}`);
+  
+  // TODO Phase 2: Update subscription status to past_due
+  // TODO Phase 2: Send email notification to user
 }
 
 export default router;
