@@ -146,18 +146,26 @@ function sanitizeObject(obj: any): void {
   }
 }
 
-// Security headers middleware - Life CEO 44x21s Layer 44 Critical Replit Preview Fix
+// Security headers middleware - Life CEO 44x21s Layer 44 Production-Ready Security
 export const securityHeaders = (req: Request, res: Response, next: NextFunction) => {
-  // Layer 44 Critical: MINIMAL security headers for Replit preview compatibility
+  // MB.MD S5: Production security headers (Oct 20, 2025)
   res.setHeader('X-Content-Type-Options', 'nosniff');
   
-  // CRITICAL: Allow ALL frame ancestors for Replit preview
-  res.setHeader('X-Frame-Options', 'ALLOWALL');
+  // S5 FIX: SAMEORIGIN prevents clickjacking while allowing Replit preview
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   
-  // CORS headers for Replit preview
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  // XSS Protection (deprecated but harmless)
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  
+  // Remove Express fingerprinting
+  res.removeHeader('X-Powered-By');
+  
+  // CORS headers for Replit preview (dev mode) - restrict in production
+  if (process.env.NODE_ENV !== 'production') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, X-CSRF-Token');
+  }
   
   next();
 };
