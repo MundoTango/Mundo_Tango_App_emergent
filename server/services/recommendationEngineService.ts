@@ -421,7 +421,8 @@ class RecommendationEngineService extends EventEmitter {
           joinedGroups: []
         },
         demographics: {
-          location: 'Unknown'
+          location: 'Unknown',
+          experience: 0
         },
         ...updates
       };
