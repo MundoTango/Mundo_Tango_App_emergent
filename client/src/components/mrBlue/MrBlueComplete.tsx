@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { Sparkles, X, Maximize2, Minimize2, Brain, Search, MessageSquare, Shield, Send, Loader2, Wand2, Code, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -388,15 +390,20 @@ export function MrBlueComplete() {
 
   const buttonJSX = (
     <>
-      <div className="fixed bottom-6 right-6 z-[9999]" data-testid="mr-blue-complete-button" style={{ backgroundColor: 'red', width: '64px', height: '64px' }}>
-        <Button
+      <div className="fixed bottom-6 right-6 z-[9999]" data-testid="mr-blue-complete-button">
+        <MagneticButton
           onClick={() => setIsOpen(!isOpen)}
-          size="lg"
-          className="h-16 w-16 rounded-full shadow-2xl bg-gradient-to-br from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white border-2 border-white dark:border-gray-800 transition-all duration-300 hover:scale-110"
+          className={`w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
+            isOpen ? 'scale-110 rotate-12' : 'hover:scale-110'
+          }`}
           data-testid="button-toggle-mr-blue"
         >
-          <Sparkles className="h-7 w-7 animate-pulse" />
-        </Button>
+          {isOpen ? (
+            <X className="w-8 h-8 text-white" />
+          ) : (
+            <Sparkles className="w-8 h-8 text-white animate-pulse" />
+          )}
+        </MagneticButton>
       </div>
 
       {isOpen && (
