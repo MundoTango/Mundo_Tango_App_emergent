@@ -573,6 +573,124 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // S1 Integration Testing Endpoint (ADMIN ONLY - Dev/Test environments)
+  app.post('/api/test/integrations', isAuthenticated, async (req: any, res) => {
+    try {
+      // Only allow in development or for super admins
+      const userId = req.user.claims.sub;
+      const user = await storage.getUserByReplitId(userId);
+      
+      if (!user) {
+        return res.status(401).json({ 
+          success: false,
+          message: 'User not found'
+        });
+      }
+
+      // Check if user is super admin or in dev mode
+      const isSuperAdmin = user.email === 'admin@mundotango.life' || user.id === 1;
+      const isDev = process.env.NODE_ENV === 'development';
+      
+      if (!isDev && !isSuperAdmin) {
+        return res.status(403).json({ 
+          success: false,
+          message: 'Unauthorized - Admin access required'
+        });
+      }
+
+      console.log(`🔒 Integration test initiated by admin user ${user.email}`);
+      
+      const { runIntegrationTests } = await import('./test-integrations');
+      const results = await runIntegrationTests();
+      
+      res.json({ success: true, data: results });
+    } catch (error) {
+      console.error('Integration test error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Integration test failed',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  // S1 Transform Events to Notion Entries (ADMIN ONLY - AI-Enhanced)
+  app.post('/api/transform/events-to-notion', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUserByReplitId(userId);
+      
+      if (!user) {
+        return res.status(401).json({ 
+          success: false,
+          message: 'User not found'
+        });
+      }
+
+      // Only allow super admins
+      const isSuperAdmin = user.email === 'admin@mundotango.life' || user.id === 1;
+      
+      if (!isSuperAdmin) {
+        return res.status(403).json({ 
+          success: false,
+          message: 'Unauthorized - Admin access required for AI transformations'
+        });
+      }
+
+      const { events } = req.body;
+      
+      if (!Array.isArray(events)) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'events must be an array' 
+        });
+      }
+
+      // Limit to prevent abuse
+      if (events.length > 10) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'Maximum 10 events per request to prevent API abuse' 
+        });
+      }
+
+      console.log(`🔒 AI transformation initiated by admin ${user.email} for ${events.length} events`);
+
+      const { transformEventToNotionEntry } = await import('./test-integrations');
+      const transformedEntries = [];
+      const errors = [];
+
+      for (const event of events) {
+        try {
+          const entry = await transformEventToNotionEntry(event);
+          transformedEntries.push(entry);
+        } catch (error) {
+          const errorMsg = error instanceof Error ? error.message : String(error);
+          console.error(`Failed to transform event ${event.id}:`, errorMsg);
+          errors.push({ eventId: event.id, error: errorMsg });
+        }
+      }
+
+      res.json({ 
+        success: true, 
+        data: {
+          total: events.length,
+          transformed: transformedEntries.length,
+          failed: errors.length,
+          entries: transformedEntries,
+          errors
+        }
+      });
+    } catch (error) {
+      console.error('Event transformation error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to transform events',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
   // Integration Health Check Endpoint (Stage S1)
   app.get('/api/health/integrations', async (req, res) => {
     try {
