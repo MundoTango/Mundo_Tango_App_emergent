@@ -175,8 +175,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         {/* Ocean Header - Simplified */}
         <div className="h-16 flex justify-between items-center px-4 border-b border-ocean-divider">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shadow-lg bg-gradient-to-br from-teal-400 to-cyan-500 text-white">
-              🌊
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg bg-gradient-to-br from-teal-400 to-cyan-500 text-white">
+              MT
             </div>
             <div className="text-lg font-bold tracking-wide text-ocean">
               Mundo Tango
