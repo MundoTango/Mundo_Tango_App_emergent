@@ -15,17 +15,17 @@ const router = express.Router();
 
 // Validation schemas
 const feedQuerySchema = z.object({
-  limit: z.string().optional().transform(val => val ? parseInt(val) : 20),
+  limit: z.string().optional().transform(val => val ? parseInt(val) : 20).refine(n => !isNaN(n) && n >= 1, 'limit must be a positive number'),
   filterType: z.enum(['all', 'following', 'nearby']).optional().default('all'),
   tags: z.string().optional().transform(val => val ? val.split(',') : []),
   visibility: z.enum(['all', 'public', 'friends', 'private']).optional().default('all'),
-  lat: z.string().optional().transform(val => val ? parseFloat(val) : undefined),
-  lng: z.string().optional().transform(val => val ? parseFloat(val) : undefined),
-  radius: z.string().optional().transform(val => val ? parseFloat(val) : 10), // 10km default
-  temporalWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0),
-  socialWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0),
-  emotionalWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0),
-  contentWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0),
+  lat: z.string().optional().transform(val => val ? parseFloat(val) : undefined).refine(n => n === undefined || !isNaN(n), 'lat must be a valid number'),
+  lng: z.string().optional().transform(val => val ? parseFloat(val) : undefined).refine(n => n === undefined || !isNaN(n), 'lng must be a valid number'),
+  radius: z.string().optional().transform(val => val ? parseFloat(val) : 10).refine(n => !isNaN(n) && n > 0, 'radius must be a positive number'),
+  temporalWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0).refine(n => !isNaN(n) && n >= 0, 'temporalWeight must be a non-negative number'),
+  socialWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0).refine(n => !isNaN(n) && n >= 0, 'socialWeight must be a non-negative number'),
+  emotionalWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0).refine(n => !isNaN(n) && n >= 0, 'emotionalWeight must be a non-negative number'),
+  contentWeight: z.string().optional().transform(val => val ? parseFloat(val) : 1.0).refine(n => !isNaN(n) && n >= 0, 'contentWeight must be a non-negative number'),
 });
 
 /**
@@ -53,7 +53,7 @@ const feedQuerySchema = z.object({
  */
 router.get('/feed', isAuthenticated, async (req, res) => {
   try {
-    const userId = (req as any).user.id;
+    const userId = (req as any).user.claims.sub;
     
     // Validate and parse query parameters
     const params = feedQuerySchema.parse(req.query);
@@ -116,7 +116,7 @@ router.get('/feed', isAuthenticated, async (req, res) => {
  */
 router.get('/preferences', isAuthenticated, async (req, res) => {
   try {
-    const userId = (req as any).user.id;
+    const userId = (req as any).user.claims.sub;
     
     const preferences = await MemoriesFeedAlgorithm.getUserMemoryPreferences(userId);
     
@@ -140,7 +140,7 @@ router.get('/preferences', isAuthenticated, async (req, res) => {
  */
 router.put('/preferences', isAuthenticated, async (req, res) => {
   try {
-    const userId = (req as any).user.id;
+    const userId = (req as any).user.claims.sub;
     
     const preferencesSchema = z.object({
       temporalWeight: z.number().min(0).max(2).optional(),

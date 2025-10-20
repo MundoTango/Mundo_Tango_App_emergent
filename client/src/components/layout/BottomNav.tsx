@@ -57,9 +57,9 @@ export default function BottomNav({ onMenuClick }: BottomNavProps) {
 
             return (
               <Link href={item.path} key={item.path}>
-                <a
+                <div
                   className={cn(
-                    "flex flex-col items-center justify-center w-full h-full min-w-[56px] min-h-[56px] rounded-xl transition-all duration-200",
+                    "flex flex-col items-center justify-center w-full h-full min-w-[56px] min-h-[56px] rounded-xl transition-all duration-200 cursor-pointer",
                     "active:scale-95 touch-manipulation backdrop-blur-sm",
                     isActive
                       ? "text-white bg-gradient-to-br from-cyan-500 to-turquoise-600 shadow-lg font-bold"
@@ -68,10 +68,11 @@ export default function BottomNav({ onMenuClick }: BottomNavProps) {
                   data-testid={`nav-${item.label.toLowerCase()}`}
                   aria-label={item.label}
                   aria-current={isActive ? "page" : undefined}
+                  role="link"
                 >
                   <Icon className="w-6 h-6 mb-1" />
                   <span className="text-xs font-medium">{item.label}</span>
-                </a>
+                </div>
               </Link>
             );
           })}
