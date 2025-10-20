@@ -294,17 +294,19 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
     <div onClick={onClose}>
       <div
         className={cn(
-          "fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-white w-64 text-gray-800 z-20 border-r-2 border-gray-200 overflow-y-auto",
+          "fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-gradient-to-br from-cyan-50/95 via-turquoise-50/95 to-cyan-100/95 dark:from-gray-900/95 dark:via-cyan-900/30 dark:to-gray-900/95 backdrop-blur-xl w-64 text-gray-800 dark:text-white z-20 border-r-2 border-cyan-200/50 dark:border-cyan-800/50 overflow-y-auto shadow-2xl",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 dark:border-gray-700 text-red-600 font-bold text-xl gap-6">
+        <div className="h-16 flex justify-center items-center border-b-2 border-cyan-200/50 dark:border-cyan-800/50 bg-gradient-to-r from-cyan-400 to-turquoise-500 text-white font-bold text-xl gap-6 shadow-lg">
           <div>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
-              className="lg:hidden"
+              className="lg:hidden text-white hover:bg-white/20 min-h-[44px] min-w-[44px]"
+              data-testid="button-close-sidebar"
+              aria-label="Close sidebar"
             >
               <Menu className="h-5 w-5" />
             </Button>
@@ -313,22 +315,26 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
         </div>
 
         <nav className="mt-4">
-          {/* User Profile Section */}
+          {/* User Profile Section - Aurora Tide Design */}
           <div className="px-4 mb-6">
             <Link href="/profile?tab=memories">
-              <div className="text-black dark:text-white flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:bg-gray-800 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
-                <Avatar className="h-10 w-10">
+              <div 
+                className="text-gray-900 dark:text-white flex items-center gap-4 cursor-pointer hover:bg-white/40 dark:hover:bg-cyan-800/30 rounded-xl p-3 transition-all duration-200 backdrop-blur-sm border border-transparent hover:border-cyan-300/50 hover:shadow-lg min-h-[44px]" 
+                onClick={handleLinkClick}
+                data-testid="link-user-profile"
+              >
+                <Avatar className="h-10 w-10 border-2 border-cyan-400 shadow-md">
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
                     className="object-cover"
                   />
-                  <AvatarFallback className="bg-red-600 text-white">
+                  <AvatarFallback className="bg-gradient-to-br from-cyan-500 to-turquoise-600 text-white font-semibold">
                     {user?.name?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <div className="text-sm font-semibold">{user?.name || "User"}</div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm font-bold text-gray-900 dark:text-white">{user?.name || "User"}</div>
+                  <div className="text-sm text-cyan-600 dark:text-cyan-400 font-medium">
                     {user?.username ? `@${user.username}` : "@user"}
                   </div>
                   {/* User role emojis */}
@@ -358,11 +364,12 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             return (
               <div key={sectionIndex} className="mb-4">
                 <div 
-                  className="px-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600"
+                  className="px-6 mb-2 text-xs font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors min-h-[44px] items-center"
                   onClick={() => toggleSection(section.title)}
+                  data-testid={`section-toggle-${section.title.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <span className={cn(hasActiveRoute && "text-red-600")}>{section.title}</span>
-                  <span className="text-xs">{isExpanded ? '−' : '+'}</span>
+                  <span className={cn(hasActiveRoute && "text-turquoise-600 dark:text-turquoise-400")}>{section.title}</span>
+                  <span className="text-sm font-bold">{isExpanded ? '−' : '+'}</span>
                 </div>
                 {isExpanded && section.routes.map(({ icon, title, link }, index) => (
                   <Link href={link} key={index}>
@@ -370,14 +377,15 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                       <div
                         onClick={handleLinkClick}
                         className={cn(
-                          "group flex gap-3 items-center py-2 px-6 transition duration-200 hover:bg-blue-50 hover:text-red-600",
+                          "group flex gap-3 items-center py-2 px-6 transition-all duration-200 hover:bg-gradient-to-r hover:from-cyan-100/60 hover:to-turquoise-100/60 dark:hover:from-cyan-800/40 dark:hover:to-turquoise-800/40 hover:text-cyan-700 dark:hover:text-cyan-300 rounded-lg mx-2 backdrop-blur-sm min-h-[44px]",
                           isActive(link)
-                            ? "text-red-600 bg-blue-50 font-semibold border-r-4 border-red-600"
-                            : "text-gray-600"
+                            ? "text-white bg-gradient-to-r from-cyan-500 to-turquoise-600 font-bold shadow-lg border-r-4 border-turquoise-400"
+                            : "text-gray-700 dark:text-gray-300"
                         )}
+                        data-testid={`link-${link.replace(/\//g, '-')}`}
                       >
-                        <div className="group-hover:text-red-600 w-6">{icon}</div>
-                        <div className="group-hover:text-red-600 text-sm">{title}</div>
+                        <div className="group-hover:scale-110 transition-transform w-6">{icon}</div>
+                        <div className="text-sm font-medium">{title}</div>
                       </div>
                     </div>
                   </Link>
@@ -386,22 +394,23 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             );
           })}
 
-          {/* Mundo Tango Statistics */}
-          <div className="px-6 my-6 text-black dark:text-white space-y-4">
-            <div className="uppercase text-gray-400 font-bold text-xs">
-              Mundo Tango Details
+          {/* Mundo Tango Statistics - Aurora Tide */}
+          <div className="px-6 my-6 text-gray-900 dark:text-white space-y-4">
+            <div className="uppercase text-cyan-700 dark:text-cyan-400 font-bold text-xs tracking-wider">
+              Global Statistics
             </div>
             {GROUPS.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 cursor-pointer select-none"
+                className="flex items-center gap-3 cursor-pointer select-none hover:bg-white/30 dark:hover:bg-cyan-800/20 p-2 rounded-lg transition-all duration-200 backdrop-blur-sm group"
+                data-testid={`stat-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <div className="bg-gray-500 text-white rounded-lg">
-                  <div className="w-12 h-10 flex items-center justify-center text-sm font-medium">
+                <div className="bg-gradient-to-br from-cyan-500 to-turquoise-600 text-white rounded-xl shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all">
+                  <div className="w-14 h-11 flex items-center justify-center text-sm font-bold">
                     {item.count}
                   </div>
                 </div>
-                <div className="text-sm font-medium">{item.title}</div>
+                <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">{item.title}</div>
               </div>
             ))}
           </div>
