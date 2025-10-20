@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { MessageCircle, Search, Plus, MoreVertical, Check, CheckCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ interface Conversation {
 
 export default function MessagesPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [, setLocation] = useLocation();
 
   // Fetch conversations from API
   const { data: conversations, isLoading } = useQuery<Conversation[]>({
@@ -66,15 +67,14 @@ export default function MessagesPage() {
                   Stay connected with your tango community
                 </p>
               </div>
-              <Link href="/messages/new">
-                <Button
-                  className="bg-white text-turquoise-600 hover:bg-turquoise-50 whitespace-nowrap w-full sm:w-auto min-h-[44px]"
-                  data-testid="button-new-message"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  New Message
-                </Button>
-              </Link>
+              <Button
+                onClick={() => setLocation("/messages/new")}
+                className="bg-white text-turquoise-600 hover:bg-turquoise-50 whitespace-nowrap w-full sm:w-auto min-h-[44px]"
+                data-testid="button-new-message"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                New Message
+              </Button>
             </div>
           </div>
         </div>
@@ -121,15 +121,14 @@ export default function MessagesPage() {
                   ? "Try adjusting your search"
                   : "Start a conversation with someone in the community"}
               </p>
-              <Link href="/messages/new">
-                <Button
-                  data-testid="button-start-conversation"
-                  className="min-h-[44px]"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Start Conversation
-                </Button>
-              </Link>
+              <Button
+                onClick={() => setLocation("/messages/new")}
+                data-testid="button-start-conversation"
+                className="min-h-[44px]"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Start Conversation
+              </Button>
             </div>
           ) : (
             <div className="space-y-2">

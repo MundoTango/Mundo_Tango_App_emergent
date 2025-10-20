@@ -112,7 +112,11 @@ if [ $FILES_WITH_ISSUES -eq 0 ]; then
   echo -e "${GREEN}🎉 All pages pass touch target audit!${NC}"
   exit 0
 else
-  PERCENTAGE=$((100 * (TOTAL_FILES - FILES_WITH_ISSUES) / TOTAL_FILES))
+  if [ $TOTAL_FILES -gt 0 ]; then
+    PERCENTAGE=$((100 * (TOTAL_FILES - FILES_WITH_ISSUES) / TOTAL_FILES))
+  else
+    PERCENTAGE=0
+  fi
   echo -e "${YELLOW}📈 Current compliance: ${PERCENTAGE}%${NC}"
   echo ""
   echo "💡 RECOMMENDED FIXES:"
