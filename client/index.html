@@ -36,7 +36,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://plausible.io">
-    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+    <link rel="dns-prefetch" href="https://nominatim.openstreetmap.org">
+    <link rel="dns-prefetch" href="https://unpkg.com">
     
     <script>
       const domain = window.location.hostname.includes('replit.dev')
@@ -53,19 +54,9 @@
       }
     </script>
     
-    <!-- Google Maps API for Community World Map -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places"></script>
+    <!-- Removed Google Maps API - now using Leaflet + OpenStreetMap + LocationIQ (see docs/INTEGRATION_STATUS.md) -->
     
-    <!-- ESA LIFE CEO 56x21: Cloudinary Upload Widget for 500MB+ videos -->
-    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-    <script>
-      // ESA LIFE CEO 61x21 - Layer 58: Use Server-Side Upload Instead of Widget
-      window.CLOUDINARY_CONFIG = {
-        cloudName: 'dwlfq9gec',
-        useServerUpload: true, // Flag to use server-side upload
-        apiKey: '216213869359644' // For signed uploads
-      };
-    </script>
+    <!-- Removed Cloudinary Upload Widget - now using Replit Object Storage (native integration) -->
   </head>
   <body>
     <!-- Life CEO 44x21s diagnostic removed - X-Frame-Options fix successful -->
