@@ -10,6 +10,7 @@ import { db } from '../db';
 import { posts, users, friends, friendshipActivities, reactions } from '../../shared/schema';
 import { eq, and, sql, gte, lte, desc, asc, or, inArray } from 'drizzle-orm';
 import { MentionCacheService } from './mentionCache';
+import { cacheService } from './cacheService';
 
 interface MemoryScore {
   postId: number;
@@ -53,8 +54,6 @@ export class MemoriesFeedAlgorithm {
   }> {
     const startTime = Date.now();
     
-    console.log(`🧠 Mundo Tango ESA LIFE CEO - Generating intelligent memories feed for user ${userId}`);
-    
     // Set default weights
     const weights = {
       temporalWeight: preferences.temporalWeight || 1.0,
@@ -62,6 +61,16 @@ export class MemoriesFeedAlgorithm {
       emotionalWeight: preferences.emotionalWeight || 1.0,
       contentWeight: preferences.contentWeight || 1.0
     };
+
+    // MB.MD PHASE 1: Cache integration - 4h TTL (14400s)
+    const cacheKey = `feed:${userId}:${limit}:${JSON.stringify(filters)}:${JSON.stringify(weights)}`;
+    const cached = await cacheService.get(cacheKey);
+    if (cached) {
+      console.log(`💾 Cache HIT for user ${userId} feed (${Date.now() - startTime}ms)`);
+      return cached;
+    }
+    
+    console.log(`🧠 Mundo Tango ESA LIFE CEO - Generating intelligent memories feed for user ${userId}`);
 
     // Step 1: Get candidate posts with filters applied
     const twoYearsAgo = new Date();
@@ -95,7 +104,7 @@ export class MemoriesFeedAlgorithm {
     const processingTime = Date.now() - startTime;
     console.log(`🎯 Generated ${memories.length} memories in ${processingTime}ms`);
     
-    return {
+    const result = {
       memories,
       algorithm: {
         processed: candidatePosts.length,
@@ -104,6 +113,12 @@ export class MemoriesFeedAlgorithm {
         filtersApplied: filters
       }
     };
+
+    // MB.MD PHASE 1: Cache result for 4 hours (14400s)
+    await cacheService.set(cacheKey, result, 14400);
+    console.log(`💾 Cache SET for user ${userId} feed (4h TTL)`);
+    
+    return result;
   }
 
   /**

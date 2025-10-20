@@ -4,6 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { cacheService } from './cacheService';
 
 export interface UserProfile {
   userId: string;
@@ -92,6 +93,14 @@ class RecommendationEngineService extends EventEmitter {
     context: 'home_feed' | 'events' | 'users' | 'groups' | 'discover',
     limit = 10
   ): Promise<RecommendationItem[]> {
+    // MB.MD PHASE 1: Cache check - 4h TTL
+    const cacheKey = `recommendations:${userId}:${context}:${limit}`;
+    const cached = await cacheService.get<RecommendationItem[]>(cacheKey);
+    if (cached) {
+      console.log(`💾 Cache HIT for user ${userId} recommendations (${context})`);
+      return cached;
+    }
+
     const userProfile = this.userProfiles.get(userId);
     if (!userProfile) {
       return this.getFallbackRecommendations(context, limit);
@@ -132,6 +141,10 @@ class RecommendationEngineService extends EventEmitter {
 
     console.log(`[ESA Layer 26] Generated ${recommendations.length} recommendations for user ${userId} in context ${context}`);
     this.emit('recommendationsGenerated', recommendationSet);
+
+    // MB.MD PHASE 1: Cache recommendations for 4 hours (14400s)
+    await cacheService.set(cacheKey, recommendations, 14400);
+    console.log(`💾 Cache SET for user ${userId} recommendations (${context}, 4h TTL)`);
 
     return recommendations;
   }
