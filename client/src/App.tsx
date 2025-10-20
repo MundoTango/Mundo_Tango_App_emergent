@@ -132,6 +132,9 @@ const SubscriptionAnalytics = lazy(() => import("@/pages/SubscriptionAnalytics")
 
 // Agent Intelligence
 const AgentIntelligenceNetwork = lazy(() => import("@/pages/AgentIntelligenceNetwork"));
+
+// Mr Blue AI Companion (Full Page)
+const MrBluePage = lazy(() => import("@/pages/MrBluePage"));
 const AgentDetail = lazy(() => import("@/pages/AgentDetail"));
 
 // MB.MD BATCH 3: 25 Additional Routes (Travel, Media, User Management, Testing, Stories)
@@ -361,6 +364,9 @@ function Router() {
           </Route>
           <Route path="/home">
             <HomePage />
+          </Route>
+          <Route path="/mr-blue">
+            <MrBluePage />
           </Route>
           <Route path="/search">
             <SearchPage />
