@@ -329,8 +329,8 @@ function MrBlueTabSystem() {
   const [activeTab, setActiveTab] = useState('chat');
 
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full">
-      <TabsList className="grid w-full" style={{ gridTemplateColumns: isAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full w-full">
+      <TabsList className="grid w-full shrink-0" style={{ gridTemplateColumns: isAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
         <TabsTrigger value="chat" data-testid="tab-chat">
           <MessageSquare className="h-4 w-4 mr-2" />Chat
         </TabsTrigger>
@@ -346,10 +346,10 @@ function MrBlueTabSystem() {
           </TabsTrigger>
         )}
       </TabsList>
-      <TabsContent value="chat" className="flex-1 overflow-hidden mt-0"><MrBlueChatInterface /></TabsContent>
-      <TabsContent value="lifeceo" className="flex-1 overflow-hidden mt-0"><LifeCEOAgentsTab /></TabsContent>
-      <TabsContent value="search" className="flex-1 overflow-hidden mt-0"><PlatformSearchTab /></TabsContent>
-      {isAdmin && <TabsContent value="admin" className="flex-1 overflow-hidden mt-0"><AdminToolsTab /></TabsContent>}
+      <TabsContent value="chat" className="flex-1 overflow-auto mt-0 h-full w-full"><MrBlueChatInterface /></TabsContent>
+      <TabsContent value="lifeceo" className="flex-1 overflow-auto mt-0 h-full w-full"><LifeCEOAgentsTab /></TabsContent>
+      <TabsContent value="search" className="flex-1 overflow-auto mt-0 h-full w-full"><PlatformSearchTab /></TabsContent>
+      {isAdmin && <TabsContent value="admin" className="flex-1 overflow-auto mt-0 h-full w-full"><AdminToolsTab /></TabsContent>}
     </Tabs>
   );
 }

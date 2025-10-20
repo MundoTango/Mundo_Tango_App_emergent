@@ -32,7 +32,9 @@ import {
   Send,
   Heart,
   Hash,
-  Music
+  Music,
+  Lock,
+  UserCheck
 } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { useCreateMemory } from '@/hooks/useCreateMemory';
@@ -114,6 +116,7 @@ const MemoriesPage = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [filterType, setFilterType] = useState<'all' | 'following' | 'nearby'>('all');
   const [algorithmMode, setAlgorithmMode] = useState<'hybrid' | 'chronological'>('hybrid');
+  const [visibility, setVisibility] = useState<'public' | 'friends' | 'private'>('public');
 
   // Smart/Presentational pattern - hooks manage state and API
   const { mutate: createMemory, isPending } = useCreateMemory();
@@ -127,14 +130,18 @@ const MemoriesPage = () => {
   const handlePostMemory = () => {
     if (!content.trim()) return;
     
+    // MB.MD TRACK 3: Map visibility state to backend isPublic field
+    // 'public' → isPublic: true
+    // 'friends'/'private' → isPublic: false (backend privacy layer handles friends vs private)
     createMemory({
       content: content.trim(),
       hashtags: tags,
-      isPublic: true,
+      isPublic: visibility === 'public',
       location: null,
     });
     setContent('');
     setTags([]);
+    setVisibility('public'); // Reset to default after posting
   };
 
   // Tag button with keyboard navigation and WCAG compliance
@@ -363,6 +370,55 @@ const MemoriesPage = () => {
                         onClick={() => toggleTag(tag.id)}
                       />
                     ))}
+                  </div>
+                </div>
+
+                {/* MB.MD TRACK 3: Privacy Selector - Oct 20, 2025 */}
+                <div className="mt-4">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2 mb-3">
+                    <Globe2 className="h-4 w-4" aria-hidden="true" />
+                    Who can see this?
+                  </label>
+                  <div className="flex gap-2" role="group" aria-label="Privacy settings">
+                    <button
+                      onClick={() => setVisibility('public')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+                        visibility === 'public'
+                          ? 'bg-gradient-to-r from-green-500 to-green-600 text-white border-transparent shadow-md'
+                          : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-green-500'
+                      }`}
+                      aria-pressed={visibility === 'public'}
+                      data-testid="privacy-public"
+                    >
+                      <Globe2 className="h-4 w-4" />
+                      Public
+                    </button>
+                    <button
+                      onClick={() => setVisibility('friends')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+                        visibility === 'friends'
+                          ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white border-transparent shadow-md'
+                          : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-500'
+                      }`}
+                      aria-pressed={visibility === 'friends'}
+                      data-testid="privacy-friends"
+                    >
+                      <UserCheck className="h-4 w-4" />
+                      Friends Only
+                    </button>
+                    <button
+                      onClick={() => setVisibility('private')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+                        visibility === 'private'
+                          ? 'bg-gradient-to-r from-red-500 to-red-600 text-white border-transparent shadow-md'
+                          : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-red-500'
+                      }`}
+                      aria-pressed={visibility === 'private'}
+                      data-testid="privacy-private"
+                    >
+                      <Lock className="h-4 w-4" />
+                      Private
+                    </button>
                   </div>
                 </div>
 
