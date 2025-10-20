@@ -15,8 +15,10 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Build TypeScript (if needed)
-RUN npm run build || echo "No build script found"
+# Build backend (esbuild compiles server code)
+ENV NODE_OPTIONS="--max-old-space-size=1024"
+RUN npx esbuild server/index-novite.ts --platform=node --packages=external --external:vite --external:./vite --external:../vite.config --bundle --format=esm --outfile=dist/index.js
+RUN cp vite.config.ts dist/vite.config.ts 2>/dev/null || true
 
 # Stage 2: Production
 FROM node:20-alpine
@@ -27,9 +29,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Copy built files from builder
+# Copy built backend and dependencies
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/server ./server
+# Copy shared types (needed for runtime)
 COPY --from=builder /app/shared ./shared
 
 # Expose port 5000

@@ -15,8 +15,9 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Build frontend (Vite)
-RUN npm run build
+# Build frontend (Vite) - frontend only
+ENV NODE_OPTIONS="--max-old-space-size=2048"
+RUN npx vite build
 
 # Stage 2: Production
 FROM nginx:alpine
