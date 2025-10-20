@@ -130,3 +130,70 @@ export function forbiddenResponse(res: Response, message: string = 'Forbidden') 
 export function validationErrorResponse(res: Response, message: string = 'Validation failed') {
   return errorResponse(res, 400, 'Validation Error', message);
 }
+
+/**
+ * Paginated API response structure
+ */
+export interface PaginatedApiResponse<T = any> extends ApiResponse<T> {
+  pagination: {
+    page: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+  };
+}
+
+/**
+ * Create a paginated success response
+ * 
+ * @param data - The data array to include in the response
+ * @param page - Current page number
+ * @param pageSize - Number of items per page
+ * @param totalCount - Total number of items
+ * @param message - Optional success message
+ * @returns PaginatedApiResponse object
+ */
+export function successWithPagination<T>(
+  data: T,
+  page: number,
+  pageSize: number,
+  totalCount: number,
+  message?: string
+): PaginatedApiResponse<T> {
+  const totalPages = Math.ceil(totalCount / pageSize);
+  
+  const response: PaginatedApiResponse<T> = {
+    success: true,
+    data,
+    pagination: {
+      page,
+      pageSize,
+      totalCount,
+      totalPages,
+    },
+  };
+  
+  if (message) {
+    response.message = message;
+  }
+  
+  return response;
+}
+
+/**
+ * Parse pagination parameters from query string
+ * 
+ * @param query - Express request query object
+ * @returns Pagination parameters
+ */
+export function parsePagination(query: any): {
+  page: number;
+  pageSize: number;
+  offset: number;
+} {
+  const page = Math.max(1, parseInt(query.page as string) || 1);
+  const pageSize = Math.min(100, Math.max(1, parseInt(query.pageSize as string) || 20));
+  const offset = (page - 1) * pageSize;
+  
+  return { page, pageSize, offset };
+}
