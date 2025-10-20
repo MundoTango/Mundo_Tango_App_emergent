@@ -120,7 +120,7 @@ initializeFeatureFlags().catch(error => {
   logger.error({ error }, 'Failed to initialize feature flags');
 });
 
-// Health check endpoints
+// Comprehensive health check endpoints - MB.MD S5: Production Ready
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });

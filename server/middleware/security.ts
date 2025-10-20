@@ -160,6 +160,14 @@ function sanitizeObject(obj: any): void {
 
 // Security headers middleware - Life CEO 44x21s Layer 44 Production-Ready Security
 export const securityHeaders = (req: Request, res: Response, next: NextFunction) => {
+  // MB.MD S5: HSTS Header - Force HTTPS (Production Readiness Requirement)
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  } else {
+    // Shorter HSTS for development
+    res.setHeader('Strict-Transport-Security', 'max-age=300');
+  }
+  
   // MB.MD S5: Environment-aware security headers (Oct 20, 2025)
   res.setHeader('X-Content-Type-Options', 'nosniff');
   

@@ -138,8 +138,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(enhancedXssProtection);
   app.use(requestTimeoutProtection);
   app.use(memoryLeakPrevention);
-  // CRITICAL: CSP completely disabled for Replit iframe compatibility
-  // app.use(contentSecurityPolicy); // DISABLED for preview
+  // MB.MD S5: CSP enabled for production readiness (Replit iframe compatible)
+  const { contentSecurityPolicy } = await import('./middleware/security');
+  app.use(contentSecurityPolicy); // ENABLED - frame-ancestors configured for Replit
   app.use(sanitizeInput); // Mundo Tango ESA LIFE CEO - Security restored
   
   // Set up Replit Auth middleware
