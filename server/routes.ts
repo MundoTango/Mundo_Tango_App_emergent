@@ -39,7 +39,7 @@ import { cacheMiddleware, invalidateCacheAfter } from "./middleware/cacheMiddlew
 import { RateLimiterService } from "./middleware/rateLimiter";
 import metricsRouter from "./routes/metrics";
 import testspriteIntegration from "./routes/testspriteIntegration";
-import n8nRoutes from "./routes/n8nRoutes";
+// Removed n8nRoutes - n8n integration removed in MB.MD cleanup
 import postRoutes from "./routes/postRoutes"; // Mundo Tango ESA LIFE CEO - Optimized post routes
 import postsRoutes from "./routes/postsRoutes"; // Mundo Tango ESA LIFE CEO - Main posts GET endpoints
 import chunkedUploadRoutes from "./routes/chunkedUploadRoutes"; // Mundo Tango ESA LIFE CEO - Chunked upload routes

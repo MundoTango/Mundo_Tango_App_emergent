@@ -35,24 +35,10 @@
     <!-- ESA Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://plausible.io">
     <link rel="dns-prefetch" href="https://nominatim.openstreetmap.org">
     <link rel="dns-prefetch" href="https://unpkg.com">
     
-    <script>
-      const domain = window.location.hostname.includes('replit.dev')
-        ? 'mundo-tango.replit.dev'
-        : 'mundotango.life';
-      const script = document.createElement('script');
-      script.setAttribute('defer', '');
-      script.setAttribute('data-domain', domain);
-      script.src = 'https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js';
-      document.head.appendChild(script);
-
-      window.plausible = window.plausible || function () {
-        (window.plausible.q = window.plausible.q || []).push(arguments)
-      }
-    </script>
+    <!-- Removed Plausible - using PostHog instead (more features, same privacy) -->
     
     <!-- Removed Google Maps API - now using Leaflet + OpenStreetMap + LocationIQ (see docs/INTEGRATION_STATUS.md) -->
     
