@@ -233,6 +233,17 @@ router.post('/api/posts', async (req: any, res) => {
 
       const post = await storage.createPost(postData);
       
+      // Invalidate feed and recommendation caches after post creation
+      try {
+        const { cacheService } = await import('../services/cacheService');
+        await cacheService.clearPattern('feed:*');
+        await cacheService.clearPattern('recommendations:*');
+        console.log('✅ Cache invalidated after post creation');
+      } catch (cacheError) {
+        console.error('⚠️  Cache invalidation failed:', cacheError);
+        // Continue even if cache invalidation fails
+      }
+      
       // Mundo Tango ESA LIFE CEO - Trigger city auto-creation from post location
       if (fields.location) {
         try {
@@ -244,7 +255,8 @@ router.post('/api/posts', async (req: any, res) => {
             const country = locationParts[locationParts.length - 1];
             
             console.log(`🌍 Mundo Tango ESA LIFE CEO - Auto-creating city group for: ${city}, ${country}`);
-            await CityAutoCreationService.handleLocation(city, country, userId);
+            const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
+            await CityAutoCreationService.handleLocation(city, country, userIdNum);
           }
         } catch (cityError) {
           console.error('❌ City auto-creation failed:', cityError);

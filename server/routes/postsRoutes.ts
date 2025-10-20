@@ -203,6 +203,16 @@ router.post('/api/posts', async (req: any, res) => {
     
     const newPost = await storage.createPost(postData);
     
+    // Invalidate feed and recommendation caches after post creation
+    try {
+      const { cacheService } = await import('../services/cacheService');
+      await cacheService.clearPattern('feed:*');
+      await cacheService.clearPattern('recommendations:*');
+      console.log('✅ Cache invalidated after post creation');
+    } catch (cacheError) {
+      console.error('⚠️  Cache invalidation failed:', cacheError);
+    }
+    
     res.json({
       success: true,
       data: newPost
@@ -237,6 +247,16 @@ router.put('/api/posts/:id', async (req: any, res) => {
     
     const updatedPost = await storage.updatePost(postId, req.body);
     
+    // Invalidate feed and recommendation caches after post update
+    try {
+      const { cacheService } = await import('../services/cacheService');
+      await cacheService.clearPattern('feed:*');
+      await cacheService.clearPattern('recommendations:*');
+      console.log('✅ Cache invalidated after post update');
+    } catch (cacheError) {
+      console.error('⚠️  Cache invalidation failed:', cacheError);
+    }
+    
     res.json({
       success: true,
       data: updatedPost
@@ -270,6 +290,16 @@ router.delete('/api/posts/:id', async (req: any, res) => {
     }
     
     await storage.deletePost(postId);
+    
+    // Invalidate feed and recommendation caches after post deletion
+    try {
+      const { cacheService } = await import('../services/cacheService');
+      await cacheService.clearPattern('feed:*');
+      await cacheService.clearPattern('recommendations:*');
+      console.log('✅ Cache invalidated after post deletion');
+    } catch (cacheError) {
+      console.error('⚠️  Cache invalidation failed:', cacheError);
+    }
     
     res.json({
       success: true,
