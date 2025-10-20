@@ -574,7 +574,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // S1 Integration Testing Endpoint (ADMIN ONLY - Dev/Test environments)
-  app.post('/api/test/integrations', isAuthenticated, async (req: any, res) => {
+  // Rate limited: 5 requests per hour per admin to prevent abuse
+  app.post('/api/test/integrations', isAuthenticated, RateLimiterService.createCustomLimiter({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 5, // 5 requests per hour
+    message: 'Too many integration tests from this admin. Please wait before retrying.'
+  }), async (req: any, res) => {
     try {
       // Only allow in development or for super admins
       const userId = req.user.claims.sub;
@@ -615,7 +620,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // S1 Transform Events to Notion Entries (ADMIN ONLY - AI-Enhanced)
-  app.post('/api/transform/events-to-notion', isAuthenticated, async (req: any, res) => {
+  // Rate limited: 10 requests per hour per admin to prevent OpenAI credit abuse
+  app.post('/api/transform/events-to-notion', isAuthenticated, RateLimiterService.createCustomLimiter({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 10, // 10 requests per hour
+    message: 'Too many AI transformation requests from this admin. Please wait before retrying.'
+  }), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUserByReplitId(userId);
