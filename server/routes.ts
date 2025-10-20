@@ -78,6 +78,10 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize PostHog server-side analytics
+  const { initPostHogServer } = await import('./services/posthog');
+  initPostHogServer();
+  
   // Phase 11 Parallel: Security headers and performance monitoring
   const { securityHeaders } = await import('./middleware/security');
   // const { responseTimeLogger } = await import('./middleware/responseTime'); // DISABLED - Vite HMR deletes this file
