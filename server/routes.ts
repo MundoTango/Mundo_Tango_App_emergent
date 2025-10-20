@@ -13,8 +13,6 @@ import { storage } from "./storage";
 import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, recommendations, notifications } from "../shared/schema";
 import { homeAmenities, homePhotos } from "../shared/schema/hostHomes";
 import { z } from "zod";
-import { SocketService } from "./services/socketService";
-import { WebSocketServer } from "ws";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
