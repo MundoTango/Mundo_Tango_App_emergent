@@ -13,12 +13,14 @@ export function initPostHog() {
     return;
   }
 
+  // MB.MD S1: PostHog requires VITE_POSTHOG_API_KEY environment variable
+  // User's key: phx_2S37cvpmZaJn17tzSw84o6jNEOGl7BjHv3gKzCkoj5RKSLv
   const apiKey = import.meta.env.VITE_POSTHOG_API_KEY;
-  const host = import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com';
-  const enablePostHog = import.meta.env.VITE_POSTHOG_ENABLE === 'true';
+  const host = import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com';
 
-  if (!enablePostHog || !apiKey) {
-    console.log('[PostHog] Analytics disabled or API key missing');
+  if (!apiKey) {
+    console.log('[PostHog] Analytics disabled - VITE_POSTHOG_API_KEY not set');
+    console.log('[PostHog] To enable: Add VITE_POSTHOG_API_KEY to Secrets');
     return;
   }
 

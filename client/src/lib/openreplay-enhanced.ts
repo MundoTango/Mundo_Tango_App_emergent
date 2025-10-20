@@ -30,12 +30,14 @@ class OpenReplayEnhanced {
       return;
     }
     
-    // MB.MD S1: OpenReplay project key from user (qg8b1hxtZt5NcJyJ4MZV)
-    const projectKey = config.projectKey || import.meta.env.VITE_OPENREPLAY_PROJECT_KEY || 'qg8b1hxtZt5NcJyJ4MZV';
+    // MB.MD S1: OpenReplay requires VITE_OPENREPLAY_PROJECT_KEY environment variable
+    // User's key: qg8b1hxtZt5NcJyJ4MZV
+    const projectKey = config.projectKey || import.meta.env.VITE_OPENREPLAY_PROJECT_KEY;
     const ingestPoint = config.ingestPoint || import.meta.env.VITE_OPENREPLAY_INGEST_POINT;
     
     if (!projectKey) {
-      console.log('🎥 OpenReplay: Missing project key');
+      console.log('🎥 OpenReplay: Analytics disabled - VITE_OPENREPLAY_PROJECT_KEY not set');
+      console.log('🎥 OpenReplay: To enable: Add VITE_OPENREPLAY_PROJECT_KEY to Secrets + set VITE_ENABLE_OPENREPLAY=true');
       this.enabled = false;
       return;
     }
