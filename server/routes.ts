@@ -79,6 +79,10 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // MB.MD S5: Register production health endpoints FIRST (before any middleware)
+  const { registerHealthEndpoints } = await import('./routes/health');
+  await registerHealthEndpoints(app);
+  
   // Initialize PostHog server-side analytics
   const { initPostHogServer } = await import('./services/posthog');
   initPostHogServer();
