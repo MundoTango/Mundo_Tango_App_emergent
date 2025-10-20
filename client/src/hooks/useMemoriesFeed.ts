@@ -23,6 +23,8 @@ const getSocket = () => {
 interface FeedFilters {
   filterType?: 'all' | 'following' | 'nearby';
   algorithmMode?: 'hybrid' | 'chronological';
+  tags?: string[];
+  location?: { lat: number; lng: number; radius: number };
   limit?: number;
 }
 
@@ -33,17 +35,21 @@ export const useMemoriesFeed = (filters: FeedFilters = {}) => {
   const {
     filterType = 'all',
     algorithmMode = 'hybrid',
+    tags,
+    location,
     limit = 20
   } = filters;
   
-  // MB.MD TRACK 3: Use new intelligent feed algorithm API with filters (Oct 20, 2025)
+  // MB.MD TRACK 3: Use new intelligent feed algorithm API with ALL filters (Oct 20, 2025)
   const { data: memories = [], isLoading } = useQuery({
-    queryKey: ['/api/memories/feed', filterType, algorithmMode, limit],
+    queryKey: ['/api/memories/feed', filterType, algorithmMode, tags, location, limit],
     queryFn: async () => {
       const params = new URLSearchParams({
         limit: limit.toString(),
         filterType,
-        ...(algorithmMode === 'chronological' ? { temporalWeight: '0', socialWeight: '0', emotionalWeight: '0', contentWeight: '0' } : {})
+        ...(algorithmMode === 'chronological' ? { temporalWeight: '0', socialWeight: '0', emotionalWeight: '0', contentWeight: '0' } : {}),
+        ...(tags && tags.length > 0 ? { tags: tags.join(',') } : {}),
+        ...(location ? { lat: location.lat.toString(), lng: location.lng.toString(), radius: location.radius.toString() } : {})
       });
       const response = await fetch(`/api/memories/feed?${params}`);
       if (!response.ok) {
@@ -82,13 +88,15 @@ export const useMemoriesFeed = (filters: FeedFilters = {}) => {
       setConnectionStatus('disconnected');
     };
 
-    // Real-time feed update handler
+    // Real-time feed update handler - respects active filters
     const handleNewMemory = (memory: any) => {
       console.log('🆕 New memory received:', memory);
       
-      // Optimistically update the cache (new feed API)
-      queryClient.setQueryData(['/api/memories/feed'], (old: any[] = []) => {
-        return [memory, ...old];
+      // Invalidate all feed queries to let React Query refetch with current filters
+      // This ensures real-time updates respect active filter state
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/memories/feed'],
+        exact: false // Invalidate all variants of the feed query
       });
     };
 

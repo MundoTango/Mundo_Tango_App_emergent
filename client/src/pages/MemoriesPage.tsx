@@ -119,7 +119,9 @@ const MemoriesPage = () => {
   const { mutate: createMemory, isPending } = useCreateMemory();
   const { memories, isLoading, connectionStatus } = useMemoriesFeed({ 
     filterType, 
-    algorithmMode 
+    algorithmMode,
+    tags: tags.length > 0 ? tags : undefined,
+    location: undefined // TODO: Add geolocation support for 'nearby' filter
   });
 
   const handlePostMemory = () => {
