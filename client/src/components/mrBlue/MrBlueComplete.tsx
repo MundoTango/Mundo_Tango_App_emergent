@@ -227,17 +227,33 @@ function MrBlueChatInterface() {
 // ============ LIFE CEO AGENTS TAB ============
 function LifeCEOAgentsTab() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data, isLoading} = useQuery<{ success: boolean; agents: any[]; count: number }>({
+  const { data, isLoading, error} = useQuery<{ success: boolean; agents: any[]; count: number }>({
     queryKey: ['/api/mrblue/agents'],
     queryFn: async () => {
+      console.log('🔵 [LifeCEO Tab] Fetching agents...');
       const res = await fetch('/api/mrblue/agents', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch agents');
-      return res.json();
+      if (!res.ok) {
+        console.error('🔵 [LifeCEO Tab] Fetch failed:', res.status);
+        throw new Error('Failed to fetch agents');
+      }
+      const json = await res.json();
+      console.log('🔵 [LifeCEO Tab] Data received:', json);
+      return json;
     },
   });
 
   const agents = data?.agents || [];
   const filteredAgents = agents.filter(agent => agent.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  
+  console.log('🔵 [LifeCEO Tab] Rendering', { isLoading, hasData: !!data, agentsCount: agents.length, error });
+
+  if (error) {
+    return (
+      <div className="flex flex-col h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4">
+        <div className="text-center py-12 text-red-500">Error loading agents: {error.message}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4">
@@ -327,9 +343,11 @@ function MrBlueTabSystem() {
   const { user } = useAuth();
   const isAdmin = isSuperAdmin(user);
   const [activeTab, setActiveTab] = useState('chat');
+  
+  console.log('🔵 [TabSystem] Rendering', { activeTab, isAdmin, userName: user?.name });
 
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full w-full">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full w-full min-h-0">
       <TabsList className="grid w-full shrink-0" style={{ gridTemplateColumns: isAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
         <TabsTrigger value="chat" data-testid="tab-chat">
           <MessageSquare className="h-4 w-4 mr-2" />Chat
@@ -346,10 +364,10 @@ function MrBlueTabSystem() {
           </TabsTrigger>
         )}
       </TabsList>
-      <TabsContent value="chat" className="flex-1 overflow-auto mt-0 h-full w-full"><MrBlueChatInterface /></TabsContent>
-      <TabsContent value="lifeceo" className="flex-1 overflow-auto mt-0 h-full w-full"><LifeCEOAgentsTab /></TabsContent>
-      <TabsContent value="search" className="flex-1 overflow-auto mt-0 h-full w-full"><PlatformSearchTab /></TabsContent>
-      {isAdmin && <TabsContent value="admin" className="flex-1 overflow-auto mt-0 h-full w-full"><AdminToolsTab /></TabsContent>}
+      <TabsContent value="chat" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><MrBlueChatInterface /></TabsContent>
+      <TabsContent value="lifeceo" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><LifeCEOAgentsTab /></TabsContent>
+      <TabsContent value="search" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><PlatformSearchTab /></TabsContent>
+      {isAdmin && <TabsContent value="admin" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><AdminToolsTab /></TabsContent>}
     </Tabs>
   );
 }
@@ -403,7 +421,7 @@ export function MrBlueComplete() {
                 </Button>
               </div>
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 flex flex-col min-h-0">
               <MrBlueTabSystem />
             </div>
           </div>
