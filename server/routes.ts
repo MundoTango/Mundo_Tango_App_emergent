@@ -25,8 +25,8 @@ import { setUserContext } from "./middleware/tenantMiddleware";
 import { authService, UserRole } from "./services/authService";
 import { enhancedRoleService, AllRoles } from "./services/enhancedRoleService";
 import { requireRole, requireAdmin, ensureUserProfile, auditRoleAction } from "./middleware/roleAuth";
-import { supabase } from "./supabaseClient";
-import { getNotionEntries, getNotionEntryBySlug, getNotionFilterOptions } from "./notion";
+// Removed: supabaseClient (redundant with Drizzle), notion (using static content)
+// See docs/S1_REMOVED_INTEGRATIONS.md for details
 import { CityPhotoService } from "./services/cityPhotoService";
 import rbacRoutes from "./rbacRoutes";
 import tenantRoutes from "./routes/tenantRoutes";
@@ -509,75 +509,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Supabase integration test endpoints (bypass CSRF for testing)
-  const { testSupabaseConnection, testLargeBodyHandling, testSupabaseRealtime } = await import('./routes/supabase-test');
-  
-  app.get('/api/supabase/test-connection', testSupabaseConnection);
-  app.post('/api/supabase/test-large-body', (req, res, next) => {
-    // Bypass CSRF for this test endpoint
-    (req as any).skipCsrf = true;
-    next();
-  }, testLargeBodyHandling);
-  app.get('/api/supabase/test-realtime', testSupabaseRealtime);
-
-  // Mundo Tango Internal CMS (Notion-style tango stories/memories)
-  app.get('/api/notion/entries', async (req, res) => {
-    try {
-      const filters = {
-        visibility: req.query.visibility as string,
-        type: req.query.type as string,
-        emotionalTone: req.query.emotionalTone as string,
-        tags: req.query.tags ? (req.query.tags as string).split(',') : undefined
-      };
-      
-      const entries = await getNotionEntries(filters);
-      res.json({ success: true, data: entries });
-    } catch (error) {
-      console.error('Error fetching notion entries:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: 'Failed to fetch stories',
-        error: error instanceof Error ? error.message : String(error)
-      });
-    }
-  });
-
-  app.get('/api/notion/entries/:slug', async (req, res) => {
-    try {
-      const { slug } = req.params;
-      const entry = await getNotionEntryBySlug(slug);
-      
-      if (!entry) {
-        return res.status(404).json({ 
-          success: false, 
-          message: 'Story not found' 
-        });
-      }
-      
-      res.json({ success: true, data: entry });
-    } catch (error) {
-      console.error('Error fetching notion entry:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: 'Failed to fetch story',
-        error: error instanceof Error ? error.message : String(error)
-      });
-    }
-  });
-
-  app.get('/api/notion/filters', async (req, res) => {
-    try {
-      const filterOptions = await getNotionFilterOptions();
-      res.json({ success: true, data: filterOptions });
-    } catch (error) {
-      console.error('Error fetching notion filters:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: 'Failed to fetch filter options',
-        error: error instanceof Error ? error.message : String(error)
-      });
-    }
-  });
+  // MB.MD S1: Removed Supabase and Notion test endpoints
+  // These integrations were removed in S1 cleanup (see docs/S1_REMOVED_INTEGRATIONS.md)
+  // - Supabase: Redundant with PostgreSQL + Drizzle
+  // - Notion: Using static content instead of CMS
 
   // S1 Integration Testing Endpoint (ADMIN ONLY - Dev/Test environments)
   // Rate limited: 5 requests per hour per admin to prevent abuse

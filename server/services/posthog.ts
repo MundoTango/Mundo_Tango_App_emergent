@@ -10,7 +10,6 @@ let posthogClient: PostHog | null = null;
 // Initialize PostHog server-side client
 export function initPostHogServer() {
   // MB.MD S1: PostHog requires POSTHOG_API_KEY environment variable
-  // User's key: phx_2S37cvpmZaJn17tzSw84o6jNEOGl7BjHv3gKzCkoj5RKSLv
   const apiKey = process.env.POSTHOG_API_KEY;
   const host = process.env.POSTHOG_HOST || 'https://us.i.posthog.com';
 

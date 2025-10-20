@@ -1,15 +1,53 @@
 // S1: Integration Health Checks API
+// MB.MD Cleanup: Removed Plausible, Notion, Supabase, n8n (see docs/S1_REMOVED_INTEGRATIONS.md)
 import { Router } from 'express';
 
 const router = Router();
 
 /**
  * GET /api/integrations/status
- * Returns health status of all integrations
+ * Returns health status of all core integrations
+ * REMOVED: Plausible, Notion, Supabase, n8n (see S1_REMOVED_INTEGRATIONS.md)
  */
 router.get('/status', async (req, res) => {
   const integrations = {
-    // ✅ WORKING INTEGRATIONS
+    // Core infrastructure (always needed)
+    database: !!process.env.DATABASE_URL,
+    
+    // Payment processing
+    stripe: !!process.env.STRIPE_SECRET_KEY,
+    
+    // AI & Content
+    anthropic: !!process.env.ANTHROPIC_API_KEY,
+    
+    // Storage
+    objectStorage: !!process.env.REPLIT_OBJECT_STORAGE,
+    
+    // Monitoring & Analytics
+    sentry: !!process.env.SENTRY_DSN,
+    posthog: !!process.env.POSTHOG_API_KEY,
+  };
+
+  const summary = {
+    configured: Object.values(integrations).filter(Boolean).length,
+    total: Object.keys(integrations).length,
+    percentage: Math.round((Object.values(integrations).filter(Boolean).length / Object.keys(integrations).length) * 100),
+  };
+
+  res.json({
+    integrations,
+    summary,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+/**
+ * GET /api/integrations/detailed
+ * Detailed health checks with async database validation
+ */
+router.get('/detailed', async (req, res) => {
+  const integrations = {
+    // ✅ CORE INTEGRATIONS
     postgresql: await checkPostgreSQL(),
     objectStorage: await checkObjectStorage(),
     socketio: checkSocketIO(),
@@ -17,15 +55,11 @@ router.get('/status', async (req, res) => {
     leaflet: checkLeaflet(),
     reactQuery: checkReactQuery(),
     
-    // 🟡 PARTIAL INTEGRATIONS
+    // 🟡 OPTIONAL INTEGRATIONS
     sentry: checkSentry(),
     stripe: checkStripe(),
     openai: checkOpenAI(),
     openreplay: checkOpenReplay(),
-    plausible: checkPlausible(),
-    notion: checkNotion(),
-    supabase: checkSupabase(),
-    n8n: checkN8N(),
   };
 
   const summary = {
@@ -70,12 +104,11 @@ router.get('/:name/health', async (req, res) => {
 async function checkPostgreSQL() {
   try {
     const { db } = await import('../db.js');
-    const result = await db.execute('SELECT 1 as health');
+    await db.execute('SELECT 1 as health');
     return {
       name: 'PostgreSQL',
       status: 'healthy',
-      latency: 0, // Could measure actual latency
-      details: 'Connected',
+      details: 'Connected via Drizzle ORM',
     };
   } catch (error: any) {
     return {
@@ -104,7 +137,6 @@ async function checkObjectStorage() {
 }
 
 function checkSocketIO() {
-  // Socket.io is initialized in server, assume healthy if server is running
   return {
     name: 'Socket.io',
     status: 'healthy',
@@ -115,9 +147,9 @@ function checkSocketIO() {
 function checkPostHog() {
   const apiKey = process.env.POSTHOG_API_KEY;
   return {
-    name: 'PostHog',
+    name: 'PostHog Analytics',
     status: apiKey ? 'healthy' : 'degraded',
-    details: apiKey ? 'API key configured' : 'API key missing',
+    details: apiKey ? 'Server + Client analytics active' : 'API key missing (add POSTHOG_API_KEY)',
     configured: !!apiKey,
   };
 }
@@ -125,9 +157,9 @@ function checkPostHog() {
 function checkLeaflet() {
   const apiKey = process.env.LOCATIONIQ_API_KEY;
   return {
-    name: 'Leaflet/LocationIQ',
+    name: 'Leaflet/LocationIQ Maps',
     status: apiKey ? 'healthy' : 'degraded',
-    details: apiKey ? 'LocationIQ API configured' : 'Using OpenStreetMap (no geocoding)',
+    details: apiKey ? 'Full geocoding enabled' : 'OpenStreetMap only (no geocoding)',
     configured: !!apiKey,
   };
 }
@@ -143,11 +175,10 @@ function checkReactQuery() {
 function checkSentry() {
   const dsn = process.env.SENTRY_DSN;
   return {
-    name: 'Sentry',
-    status: dsn ? 'healthy' : 'down',
-    details: dsn ? 'Error tracking enabled' : 'DSN not configured',
+    name: 'Sentry Error Tracking',
+    status: dsn ? 'healthy' : 'degraded',
+    details: dsn ? 'Server + Client monitoring active' : 'DSN not configured (add SENTRY_DSN)',
     configured: !!dsn,
-    required: true,
   };
 }
 
@@ -160,81 +191,31 @@ function checkStripe() {
   else if (secretKey) status = 'degraded';
   
   return {
-    name: 'Stripe',
+    name: 'Stripe Payments',
     status,
-    details: secretKey ? (webhookSecret ? 'Fully configured' : 'Webhook missing') : 'Not configured',
+    details: secretKey ? (webhookSecret ? 'Fully configured' : 'Missing STRIPE_WEBHOOK_SECRET') : 'Not configured',
     configured: !!secretKey,
     webhookConfigured: !!webhookSecret,
-    required: true,
   };
 }
 
 function checkOpenAI() {
   const apiKey = process.env.OPENAI_API_KEY;
   return {
-    name: 'OpenAI',
+    name: 'OpenAI GPT-4',
     status: apiKey ? 'healthy' : 'degraded',
-    details: apiKey ? 'AI features enabled' : 'API key missing',
+    details: apiKey ? 'AI content generation enabled' : 'API key missing (optional)',
     configured: !!apiKey,
-    required: false,
   };
 }
 
 function checkOpenReplay() {
   const projectKey = process.env.VITE_OPENREPLAY_PROJECT_KEY;
   return {
-    name: 'OpenReplay',
-    status: projectKey ? 'healthy' : 'down',
-    details: projectKey ? 'Session replay enabled' : 'Not configured',
+    name: 'OpenReplay Session Replay',
+    status: projectKey ? 'healthy' : 'degraded',
+    details: projectKey ? 'Session recording enabled' : 'Project key missing (optional)',
     configured: !!projectKey,
-    required: false,
-  };
-}
-
-function checkPlausible() {
-  // Plausible uses script tag, no API key needed
-  return {
-    name: 'Plausible',
-    status: 'healthy',
-    details: 'Privacy-first analytics via script tag',
-    configured: true,
-    required: false,
-  };
-}
-
-function checkNotion() {
-  const apiKey = process.env.NOTION_API_KEY;
-  return {
-    name: 'Notion CMS',
-    status: apiKey ? 'healthy' : 'down',
-    details: apiKey ? 'CMS integration active' : 'Not configured',
-    configured: !!apiKey,
-    required: false,
-    note: 'Decision needed: Keep or remove?',
-  };
-}
-
-function checkSupabase() {
-  const url = process.env.SUPABASE_URL;
-  return {
-    name: 'Supabase',
-    status: url ? 'degraded' : 'down',
-    details: url ? 'Configured but redundant with Drizzle?' : 'Not configured',
-    configured: !!url,
-    required: false,
-    note: 'Decision needed: May be redundant with PostgreSQL/Drizzle',
-  };
-}
-
-function checkN8N() {
-  const apiKey = process.env.N8N_API_KEY;
-  return {
-    name: 'n8n',
-    status: apiKey ? 'healthy' : 'down',
-    details: apiKey ? 'Workflow automation enabled' : 'Not configured',
-    configured: !!apiKey,
-    required: false,
-    note: 'Decision needed: Set up workflows or defer?',
   };
 }
 

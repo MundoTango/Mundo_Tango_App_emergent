@@ -31,7 +31,6 @@ class OpenReplayEnhanced {
     }
     
     // MB.MD S1: OpenReplay requires VITE_OPENREPLAY_PROJECT_KEY environment variable
-    // User's key: qg8b1hxtZt5NcJyJ4MZV
     const projectKey = config.projectKey || import.meta.env.VITE_OPENREPLAY_PROJECT_KEY;
     const ingestPoint = config.ingestPoint || import.meta.env.VITE_OPENREPLAY_INGEST_POINT;
     

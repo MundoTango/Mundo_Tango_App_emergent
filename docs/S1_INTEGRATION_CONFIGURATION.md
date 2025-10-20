@@ -48,7 +48,7 @@
 
 ### 5. 🟡 PostHog Analytics
 **Status:** CONFIGURED  
-**API Key:** `phx_2S37cvpmZaJn17tzSw84o6jNEOGl7BjHv3gKzCkoj5RKSLv`  
+**API Key:** `phx_YOUR_POSTHOG_KEY_HERE`  
 **Host:** `https://us.i.posthog.com`  
 **Configuration:**
 - **Server-side:** ✅ Configured in `server/services/posthog.ts`
@@ -64,7 +64,7 @@
 
 ### 6. 🟡 OpenReplay Session Replay
 **Status:** CONFIGURED  
-**Project Key:** `qg8b1hxtZt5NcJyJ4MZV`  
+**Project Key:** `YOUR_OPENREPLAY_PROJECT_KEY`  
 **Configuration:**
 - Configured in `client/src/lib/openreplay-enhanced.ts`
 - Enable with `VITE_ENABLE_OPENREPLAY=true`

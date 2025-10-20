@@ -14,7 +14,6 @@ export function initPostHog() {
   }
 
   // MB.MD S1: PostHog requires VITE_POSTHOG_API_KEY environment variable
-  // User's key: phx_2S37cvpmZaJn17tzSw84o6jNEOGl7BjHv3gKzCkoj5RKSLv
   const apiKey = import.meta.env.VITE_POSTHOG_API_KEY;
   const host = import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com';
 
