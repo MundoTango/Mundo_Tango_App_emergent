@@ -19,6 +19,12 @@ Mundo Tango is a social platform for the global tango community, built on the ES
   - Compare screenshot to Aurora Tide design spec (cyan/turquoise gradients)
   - Detect duplicate components, verify canonical imports before committing
   - Re-verify after changes to ensure user sees correct implementation
+- **Expert Round Table Protocol (ERT) v1.0 (Oct 20, 2025):** 10-expert collaborative analysis
+  - Extension of MB.MD for complex design decisions requiring diverse perspectives
+  - Each agent researches 10 domain experts individually (existing methodology)
+  - NEW: Experts engage in round table debate to challenge assumptions and reach consensus
+  - Mandatory for high-stakes decisions (>100 hours dev, >50% user impact)
+  - Full methodology: `docs/MB_MD_EXPERT_ROUNDTABLE_PROTOCOL.md`
 - **Priority:** Deployment stability - Files must never be deleted without safeguards
 - **Documentation Agent:** Must monitor file integrity and prevent build failures
 
