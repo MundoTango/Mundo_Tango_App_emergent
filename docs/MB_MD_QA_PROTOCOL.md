@@ -34,8 +34,9 @@ Result: 14 components built, 0 integrated = 100% waste
 4. SCREENSHOT actual render
 5. TEST user can access
 6. ARCHITECT validates
+7. UPDATE DOCS with evidence
 
-Result: Every component proven working
+Result: Every component proven working + documented
 ```
 
 ---
@@ -253,6 +254,14 @@ Every feature must complete this loop:
 │ ✅ Get approval before proceeding                       │
 └─────────────────────────────────────────────────────────┘
                          ↓
+┌─────────────────────────────────────────────────────────┐
+│ STEP 7: UPDATE DOCS WITH EVIDENCE                       │
+│ ✅ Update replit.md with changes                        │
+│ ✅ Link to screenshots                                  │
+│ ✅ Update feature status                                │
+│ ✅ Log in AGENT_SESSION_LOG.md                          │
+└─────────────────────────────────────────────────────────┘
+                         ↓
                     ✅ COMPLETE
 ```
 
@@ -293,7 +302,7 @@ Before marking any component "complete":
 - [ ] Logged for debugging
 - [ ] Architect reviewed
 
-### Database Tables:
+### Database Tables (if applicable - use in-memory storage when possible):
 - [ ] Schema defined in shared/schema.ts
 - [ ] Insert schema created (Zod)
 - [ ] Select type exported
@@ -301,10 +310,12 @@ Before marking any component "complete":
 - [ ] CRUD operations implemented
 - [ ] Indexes added for performance
 - [ ] Foreign keys defined
-- [ ] `npm run db:push` executed
+- [ ] `npm run db:push` executed (or `--force` if needed)
 - [ ] Data actually inserted (tested)
 - [ ] Queries return expected data
 - [ ] Architect reviewed
+
+**Note:** Per fullstack_js guidelines, prefer in-memory storage (MemStorage) unless database persistence is explicitly required.
 
 ---
 
@@ -345,6 +356,19 @@ docs/screenshots/
 │   ├── feature-name-mobile.png
 │   └── feature-name-error.png
 ```
+
+### 🔒 Sensitive Data Policy:
+**CRITICAL:** Screenshots can leak secrets and PII. Always:
+- ✅ Use test accounts only (test@example.com, not real users)
+- ✅ Use fake/dummy data (John Doe, 555-0100, etc.)
+- ✅ Redact/blur any visible secrets, tokens, API keys
+- ✅ Never capture environment variables or .env contents
+- ✅ Scrub sensitive info before commit (use git diff to verify)
+- ❌ NEVER screenshot production data
+- ❌ NEVER screenshot real user emails/names/addresses
+- ❌ NEVER show real payment info or credentials
+
+**Violation = Security incident requiring immediate disclosure**
 
 ### Screenshot Anti-Patterns (Mr Blue):
 ❌ "Feature is complete" (no screenshot)  
@@ -688,6 +712,288 @@ Every agent is responsible for delivering features that:
 **Version:** 1.0  
 **Status:** 🔴 MANDATORY  
 **Next Review:** Weekly until zero violations for 30 days
+
+---
+
+## 📘 IMPLEMENTATION ANNEX
+
+### How to Actually Implement This Protocol
+
+This annex maps abstract protocol requirements to concrete tooling and workflows.
+
+#### 1. "Architect" Tool → PR Review Process
+
+**What:** The `architect` tool call maps to structured code review  
+**How:**
+```typescript
+// In your code:
+architect({
+  task: "Review feature X implementation",
+  relevant_files: ["file1.tsx", "file2.ts"],
+  include_git_diff: true,
+  responsibility: "evaluate_task"
+})
+```
+
+**Outputs:** Architect agent reviews your code and provides:
+- ✅ PASS verdict (proceed) or ❌ FAIL verdict (fix issues)
+- Specific feedback on code quality, integration, UX
+- Security vulnerabilities found
+- Performance concerns
+- Required changes before approval
+
+**When to call:**
+- After completing any task with code changes
+- Before marking task as "completed"
+- After batch of 5 pages (Track 2)
+- After each test suite (Track 3)
+
+**Enforcement:** Tasks cannot be marked `completed` without architect approval. System will reject `completed` status if `architect_reviewed: "yes"` is not set.
+
+---
+
+#### 2. "Screenshot" Tool → Visual Verification Workflow
+
+**Tool:** `screenshot(path: string)`  
+
+**How:**
+```typescript
+// Take screenshot of route
+screenshot("/mrblue")
+
+// Screenshot with query params (specific state)
+screenshot("/profile?userId=123")
+
+// For modals, temporarily set open state
+// 1. Edit component: const [open, setOpen] = useState(true)
+// 2. screenshot("/page-with-modal")
+// 3. Revert: useState(false)
+```
+
+**Storage:**
+Screenshots are automatically saved and displayed in the tool response. For documentation, manually organize into:
+```
+docs/screenshots/2025-10-20/
+├── mrblue-chat-light.png
+├── mrblue-chat-dark.png
+├── mrblue-chat-mobile.png
+```
+
+**Playwright Alternative:**
+For automated visual regression:
+```typescript
+// tests/visual.spec.ts
+test('Mr Blue chat interface', async ({ page }) => {
+  await page.goto('/mrblue');
+  await expect(page).toHaveScreenshot('mrblue-chat.png');
+});
+```
+
+---
+
+#### 3. Database Checklist → When It's "Applicable"
+
+**When to use database:**
+- ✅ User data must persist across sessions
+- ✅ Multi-user collaboration required
+- ✅ Complex queries needed (joins, aggregations)
+- ✅ Data too large for memory
+- ✅ User explicitly requests database
+
+**When NOT to use database:**
+- ❌ Single-session tools (calculators, converters)
+- ❌ Static data that doesn't change
+- ❌ Proof-of-concept/MVP development
+- ❌ Data fits comfortably in memory (<1000 items)
+
+**Per fullstack_js guidelines:**
+> "Always prefer using in-memory storage (MemStorage) unless you are asked to use a database."
+
+**If you do use database:**
+All checklist items apply. Follow the checklist exactly, including:
+- Schema in `shared/schema.ts`
+- Zod insert/select schemas
+- `npm run db:push` (or `--force` if data-loss warning)
+- Never manually write SQL migrations
+
+---
+
+#### 4. Enforcement Scripts → Automated Verification
+
+**Pre-Commit Hooks:**
+```bash
+# Run before every commit (automatically)
+# File: .husky/pre-commit or scripts/pre-commit-qa-check.sh
+
+# Check 1: No TODO/FIXME
+if git diff --cached | grep -i "TODO\|FIXME"; then
+  echo "❌ Remove TODO/FIXME before commit"
+  exit 1
+fi
+
+# Check 2: TypeScript compiles
+npm run typecheck || exit 1
+
+# Check 3: No console.log
+if git diff --cached | grep "console\.log"; then
+  echo "❌ Remove console.log statements"
+  exit 1
+fi
+
+# Check 4: All data-testid present (for new components)
+# ...additional checks
+```
+
+**Pre-Merge Checks (CI/CD):**
+```yaml
+# File: .github/workflows/qa-protocol.yml
+name: MB.MD QA Protocol
+
+on: [pull_request]
+
+jobs:
+  qa-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify screenshot attached
+        run: |
+          # Check PR description contains image link
+          
+      - name: Run Playwright tests
+        run: npx playwright test
+        
+      - name: Check architect approval
+        run: |
+          # Verify PR has "architect-approved" label
+          
+      - name: Lighthouse audit
+        run: |
+          # Ensure no performance regression
+```
+
+**Current Status:**
+- ✅ Protocol documented
+- 🚧 Scripts in development (see task PROTOCOL-ENFORCEMENT)
+- 📋 Will be linked here when complete
+
+**Temporary Manual Process:**
+Until automation complete, manually:
+1. Run `npm run typecheck` before commit
+2. Grep for console.log: `grep -r "console\.log" client/src`
+3. Request architect review explicitly
+4. Take screenshots manually with `screenshot` tool
+
+---
+
+#### 5. Cross-Reference Resolution
+
+**Status of Referenced Files:**
+
+| File | Status | Notes |
+|------|--------|-------|
+| `docs/incidents/MRBLUE_BLACK_SCREEN_INCIDENT_OCT2025.md` | ✅ EXISTS | Full failure analysis |
+| `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` | ✅ EXISTS | Phase-based doc routing (650+ lines) |
+| `docs/PREVENTION_GUIDE.md` | ✅ EXISTS | Common mistake prevention |
+| `docs/AGENT_SESSION_LOG.md` | ✅ EXISTS | Session-to-session logging |
+| `scripts/agent-verification.sh` | ✅ EXISTS | Pre-work verification |
+| `scripts/verify-completion.sh` | ✅ EXISTS | Post-work validation |
+| `scripts/pre-commit-qa-check.sh` | 🚧 TBD | To be created (task PROTOCOL-ENFORCEMENT) |
+| `scripts/pre-merge-validation.sh` | 🚧 TBD | To be created (task PROTOCOL-ENFORCEMENT) |
+| `.github/workflows/qa-protocol.yml` | 🚧 TBD | To be created (task PROTOCOL-ENFORCEMENT) |
+
+**For TBD items:** Protocol is still enforceable via manual verification until automation complete.
+
+---
+
+#### 6. Protocol Adoption Workflow
+
+**For agents starting new work:**
+
+```
+START
+  ↓
+1. Read MB_MD_QA_PROTOCOL.md (this file)
+  ↓
+2. Read MB_MD_DOCUMENTATION_PHASE_MAP.md
+   → Identify which phase you're in (Mapping/Breakdown/Mitigation/Deployment)
+   → Read phase-specific documentation
+  ↓
+3. Run scripts/agent-verification.sh
+   → Verifies system health before you start
+   → Checks critical files exist
+   → Tests server runs
+  ↓
+4. Do your work following Build-Integrate-Verify Loop
+  ↓
+5. Run scripts/verify-completion.sh
+   → Detects 0-byte files
+   → Verifies TypeScript compiles
+   → Confirms server still running
+  ↓
+6. Call architect tool for review
+  ↓
+7. Mark task completed (only if architect approved)
+  ↓
+8. Update AGENT_SESSION_LOG.md with learnings
+  ↓
+DONE
+```
+
+**First-Time Agent Setup:**
+```bash
+# Install git hooks (one-time)
+bash scripts/install-git-hooks.sh
+
+# Verify system health
+bash scripts/agent-verification.sh
+
+# You're ready to work!
+```
+
+---
+
+#### 7. Emergency Recovery Procedures
+
+**If you accidentally violate the protocol:**
+
+1. **Deleted critical file?**
+   ```bash
+   # Restore from git
+   git show a22010c:path/to/file.ts > path/to/file.ts
+   ```
+
+2. **Committed without screenshot?**
+   ```bash
+   # Take screenshot now
+   screenshot("/feature")
+   # Amend commit with screenshot link
+   git commit --amend
+   ```
+
+3. **Skipped architect review?**
+   ```bash
+   # Call architect now
+   architect({...})
+   # Do NOT proceed until approved
+   ```
+
+4. **Component not integrated?**
+   ```bash
+   # Import it immediately
+   # File: parent-component.tsx
+   import { MyComponent } from './MyComponent';
+   // Add to JSX
+   <MyComponent />
+   ```
+
+5. **Documentation lies detected?**
+   ```bash
+   # Update docs to match reality
+   # Admit the gap honestly
+   # Create fix plan
+   ```
+
+**No hiding violations. Transparency is mandatory.**
 
 ---
 
