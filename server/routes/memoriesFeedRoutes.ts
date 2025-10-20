@@ -7,11 +7,26 @@
  */
 
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import { isAuthenticated } from '../replitAuth';
 import { MemoriesFeedAlgorithm } from '../services/memoriesFeedAlgorithm';
 import { z } from 'zod';
 
 const router = express.Router();
+
+// MB.MD MITIGATION: Rate limiting to prevent API abuse
+// 10 requests per minute per user for feed generation
+const feedRateLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 10, // 10 requests per window
+  message: 'Too many feed requests. Please wait a minute before trying again.',
+  standardHeaders: true, // Return rate limit info in `RateLimit-*` headers
+  legacyHeaders: false, // Disable `X-RateLimit-*` headers
+  keyGenerator: (req) => {
+    // Rate limit per authenticated user
+    return String((req as any).user?.claims?.sub || req.ip);
+  },
+});
 
 // Validation schemas
 const feedQuerySchema = z.object({
@@ -51,7 +66,7 @@ const feedQuerySchema = z.object({
  *   }
  * }
  */
-router.get('/feed', isAuthenticated, async (req, res) => {
+router.get('/feed', isAuthenticated, feedRateLimiter, async (req, res) => {
   try {
     const userId = (req as any).user.claims.sub;
     

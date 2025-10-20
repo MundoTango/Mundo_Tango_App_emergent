@@ -71,7 +71,7 @@ export default function AgentDetail() {
 
   if (agentLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 p-8">
         <div className="text-center text-white py-20">
           <Activity className="w-12 h-12 animate-spin mx-auto mb-4" />
           <p>Loading agent details...</p>
@@ -82,7 +82,7 @@ export default function AgentDetail() {
 
   if (!agent?.agent) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 p-8">
         <div className="text-center text-white py-20">
           <AlertCircle className="w-12 h-12 mx-auto mb-4 text-red-400" />
           <p>Agent not found</p>
@@ -99,7 +99,7 @@ export default function AgentDetail() {
   const agentData = agent.agent;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">

@@ -196,7 +196,8 @@ export default function AgentMetrics() {
   // Loading state
   if (healthLoading || analyticsLoading) {
     return (
-      <div className="container mx-auto p-6">
+      <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
+        <div className="container mx-auto p-6">
         <div className="space-y-6">
           <Skeleton className="h-12 w-1/3" />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -206,6 +207,7 @@ export default function AgentMetrics() {
           </div>
           <Skeleton className="h-96" />
         </div>
+      </div>
       </div>
     );
   }
@@ -246,7 +248,8 @@ export default function AgentMetrics() {
   const StatusIcon = statusIcon;
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
+      <div className="container mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex justify-between items-center">
@@ -638,6 +641,7 @@ export default function AgentMetrics() {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }

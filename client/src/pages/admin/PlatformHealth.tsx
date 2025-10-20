@@ -59,7 +59,8 @@ export default function PlatformHealthDashboard() {
   };
   
   return (
-    <div className="p-6 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
+      <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Platform Health</h1>
         <Badge variant={health?.overall && health.overall >= 95 ? 'default' : 'secondary'}>
@@ -162,6 +163,7 @@ export default function PlatformHealthDashboard() {
           </CardContent>
         </Card>
       )}
+      </div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function CommunityPage() {
   return (
     <DashboardLayout>
       {/* Enhanced gradient background matching Moments page */}
-      <div className="min-h-screen bg-gradient-to-br from-blue-50/60 via-yellow-50/40 to-orange-50/30 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 relative overflow-hidden">
         {/* Floating background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-turquoise-200/20 to-cyan-200/20 rounded-full blur-3xl"></div>

@@ -7,11 +7,26 @@
  */
 
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import { isAuthenticated } from '../replitAuth';
 import { recommendationEngineService } from '../services/recommendationEngineService';
 import { z } from 'zod';
 
 const router = express.Router();
+
+// MB.MD MITIGATION: Rate limiting to prevent API abuse
+// 10 requests per minute per user for recommendations
+const recommendationsRateLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 10, // 10 requests per window
+  message: 'Too many recommendation requests. Please wait a minute before trying again.',
+  standardHeaders: true, // Return rate limit info in `RateLimit-*` headers
+  legacyHeaders: false, // Disable `X-RateLimit-*` headers
+  keyGenerator: (req) => {
+    // Rate limit per authenticated user
+    return String((req as any).user?.claims?.sub || req.ip);
+  },
+});
 
 // Validation schemas
 const recommendationQuerySchema = z.object({
@@ -56,7 +71,7 @@ const updateProfileSchema = z.object({
  *   meta: { context, timestamp, algorithmVersion }
  * }
  */
-router.get('/:context', isAuthenticated, async (req, res) => {
+router.get('/:context', isAuthenticated, recommendationsRateLimiter, async (req, res) => {
   try {
     const userId = String((req as any).user.claims.sub);
     const { context } = req.params;
@@ -111,7 +126,7 @@ router.get('/:context', isAuthenticated, async (req, res) => {
  *   targetType: 'event' | 'user' | 'group' | 'post'
  * }
  */
-router.post('/track', isAuthenticated, async (req, res) => {
+router.post('/track', isAuthenticated, recommendationsRateLimiter, async (req, res) => {
   try {
     const userId = String((req as any).user.claims.sub);
     
@@ -148,7 +163,7 @@ router.post('/track', isAuthenticated, async (req, res) => {
  * GET /api/recommendations/profile
  * Get user's recommendation profile
  */
-router.get('/profile', isAuthenticated, async (req, res) => {
+router.get('/profile', isAuthenticated, recommendationsRateLimiter, async (req, res) => {
   try {
     const userId = String((req as any).user.claims.sub);
     
@@ -177,7 +192,7 @@ router.get('/profile', isAuthenticated, async (req, res) => {
  * PUT /api/recommendations/profile
  * Update user's recommendation profile
  */
-router.put('/profile', isAuthenticated, async (req, res) => {
+router.put('/profile', isAuthenticated, recommendationsRateLimiter, async (req, res) => {
   try {
     const userId = String((req as any).user.claims.sub);
     
@@ -207,7 +222,7 @@ router.put('/profile', isAuthenticated, async (req, res) => {
  * GET /api/recommendations/metrics
  * Get recommendation engine system metrics (admin only)
  */
-router.get('/system/metrics', isAuthenticated, async (req, res) => {
+router.get('/system/metrics', isAuthenticated, recommendationsRateLimiter, async (req, res) => {
   try {
     // TODO: Add admin check here
     // if (!req.user!.isAdmin) {

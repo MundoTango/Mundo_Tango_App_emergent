@@ -72,7 +72,8 @@ export default function AgentCoordination() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-6" data-testid="agent-coordination">
+    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
+      <div className="container mx-auto py-8 space-y-6" data-testid="agent-coordination">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="page-title">Agent Coordination</h1>
@@ -216,6 +217,7 @@ export default function AgentCoordination() {
           )}
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

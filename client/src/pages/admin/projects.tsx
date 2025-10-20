@@ -161,7 +161,7 @@ export default function ProjectTrackerAdmin() {
 
   return (
     <div 
-      className="min-h-screen bg-gradient-to-br from-turquoise-500/10 via-ocean-500/10 to-blue-600/10 dark:from-turquoise-900/20 dark:via-ocean-900/20 dark:to-blue-900/20 py-6" 
+      className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 py-6" 
       data-testid="page-admin-projects"
     >
       <div className="container mx-auto space-y-6">

@@ -129,7 +129,7 @@ export default function BillingDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10">
+    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
       <div className="max-w-7xl mx-auto p-8">
         {/* Header */}
         <div className="mb-8">
