@@ -24,19 +24,19 @@ export const useMemoriesFeed = () => {
   const queryClient = useQueryClient();
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'connecting'>('connecting');
   
-  // Fetch initial data using React Query
+  // MB.MD TRACK 3: Use new intelligent feed algorithm API (Oct 20, 2025)
   const { data: memories = [], isLoading } = useQuery({
-    queryKey: ['/api/posts'],
+    queryKey: ['/api/memories/feed'],
     queryFn: async () => {
-      const response = await fetch('/api/posts');
+      const response = await fetch('/api/memories/feed?limit=20&filterType=all');
       if (!response.ok) {
         // If unauthorized, return empty array instead of error
         if (response.status === 401) return [];
-        throw new Error('Failed to fetch posts');
+        throw new Error('Failed to fetch memories feed');
       }
       const result = await response.json();
-      // Handle both response formats: { posts } and { data } and { success, data }
-      return result.posts || result.data || result || [];
+      // New API returns { success, data: { memories, meta } }
+      return result.data?.memories || result.memories || result.data || result || [];
     },
   });
 
@@ -69,8 +69,8 @@ export const useMemoriesFeed = () => {
     const handleNewMemory = (memory: any) => {
       console.log('🆕 New memory received:', memory);
       
-      // Optimistically update the cache
-      queryClient.setQueryData(['/api/posts'], (old: any[] = []) => {
+      // Optimistically update the cache (new feed API)
+      queryClient.setQueryData(['/api/memories/feed'], (old: any[] = []) => {
         return [memory, ...old];
       });
     };

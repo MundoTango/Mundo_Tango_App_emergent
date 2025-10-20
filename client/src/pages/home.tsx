@@ -9,6 +9,7 @@ import PostFeed from "@/components/moments/PostFeed";
 import { GlassCard } from "@/components/glass/GlassComponents";
 import { FadeIn } from "@/components/animations/FramerMotionWrappers";
 import { HomeErrorBoundary } from "@/components/errors/HomeErrorBoundary";
+import { RecommendationWidget } from "@/components/recommendations/RecommendationWidget";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -143,12 +144,21 @@ export default function Home() {
               </FadeIn>
             </div>
 
-            {/* RIGHT COLUMN - Upcoming Events */}
+            {/* RIGHT COLUMN - Recommendations & Upcoming Events */}
             <aside 
               className="hidden xl:block w-80 border-l border-gray-200 dark:border-gray-700 p-4 space-y-4"
               data-testid="sidebar-events"
-              aria-label={t('home.aria.upcoming_events', 'Upcoming events')}
+              aria-label={t('home.aria.upcoming_events', 'Upcoming events and recommendations')}
             >
+              {/* MB.MD TRACK 4: AI Recommendations Widget */}
+              <FadeIn delay={0.1}>
+                <RecommendationWidget 
+                  context="home_feed" 
+                  limit={5} 
+                  data-testid="widget-home-recommendations"
+                />
+              </FadeIn>
+
               <GlassCard depth={1} className="p-4" data-testid="card-upcoming-events">
                 <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-teal-100">
                   {t('home.events.title', 'Upcoming Events')}
