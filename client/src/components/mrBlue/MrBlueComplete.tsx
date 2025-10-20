@@ -227,7 +227,7 @@ function MrBlueChatInterface() {
 // ============ LIFE CEO AGENTS TAB ============
 function LifeCEOAgentsTab() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data, isLoading } = useQuery<{ success: boolean; agents: any[]; count: number }>({
+  const { data, isLoading} = useQuery<{ success: boolean; agents: any[]; count: number }>({
     queryKey: ['/api/mrblue/agents'],
     queryFn: async () => {
       const res = await fetch('/api/mrblue/agents', { credentials: 'include' });
@@ -240,12 +240,12 @@ function LifeCEOAgentsTab() {
   const filteredAgents = agents.filter(agent => agent.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-950 p-4">
+    <div className="flex flex-col h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4">
       <div className="mb-4">
         <Input placeholder="Search agents..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
       </div>
       {isLoading ? (
-        <div className="text-center py-12">Loading agents...</div>
+        <div className="text-center py-12 text-gray-700 dark:text-gray-300">Loading agents...</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredAgents.map((agent) => (
@@ -276,12 +276,12 @@ function LifeCEOAgentsTab() {
 function PlatformSearchTab() {
   const [query, setQuery] = useState('');
   return (
-    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-950 p-4">
+    <div className="flex flex-col h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4">
       <div className="relative mb-4">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
         <Input placeholder="Search Mundo Tango..." value={query} onChange={(e) => setQuery(e.target.value)} className="pl-10" />
       </div>
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-gray-500 dark:text-gray-400">
         {query ? `No results found for "${query}"` : 'Start typing to search...'}
       </div>
     </div>
@@ -298,7 +298,7 @@ function AdminToolsTab() {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-950 p-4">
+    <div className="flex flex-col h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {tools.map((tool) => {
           const Icon = tool.icon;
