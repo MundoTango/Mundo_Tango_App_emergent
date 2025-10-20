@@ -329,7 +329,7 @@ export interface IStorage {
   // Chat message operations for AI functionality
   createMessage(message: InsertChatMessage): Promise<ChatMessage>;
   getMessagesByRoom(roomSlug: string): Promise<ChatMessage[]>;
-  createOrGetChatRoom(slug: string, name: string, type: string): Promise<ChatRoom>;
+  createOrGetGroupChatRoom(slug: string, name: string, type: string): Promise<ChatRoom>;
 
   // Enhanced post features for rich content support
   createCommentWithMentions(comment: InsertComment & { mentions?: string[] }): Promise<PostComment>;
@@ -1819,22 +1819,7 @@ export class DatabaseStorage implements IStorage {
     return -1;
   }
 
-  async getMutualFriends(userId1: number, userId2: number): Promise<User[]> {
-    const user1Friends = await this.getUserFriends(userId1);
-    const user2Friends = await this.getUserFriends(userId2);
-    
-    const user1FriendIds = user1Friends.map(f => f.id);
-    const user2FriendIds = user2Friends.map(f => f.id);
-    
-    const mutualIds = user1FriendIds.filter(id => user2FriendIds.includes(id));
-    
-    if (mutualIds.length === 0) return [];
-    
-    return await db
-      .select()
-      .from(users)
-      .where(inArray(users.id, mutualIds));
-  }
+  // Removed duplicate getMutualFriends - using SQL-based version at line 3919 instead
 
   async getCommonEvents(userId1: number, userId2: number): Promise<Event[]> {
     const user1Events = await db
@@ -4587,7 +4572,7 @@ export class DatabaseStorage implements IStorage {
       .limit(50);
   }
 
-  async createOrGetChatRoom(slug: string, name: string, type: string): Promise<ChatRoom> {
+  async createOrGetGroupChatRoom(slug: string, name: string, type: string): Promise<ChatRoom> {
     try {
       // Try to get existing room first
       const existing = await db.select()

@@ -15,7 +15,7 @@ export const handleAiChatDirect = async (req: Request, res: Response) => {
     const aiSlug = `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     
     // Ensure chat room exists first
-    await storage.createOrGetChatRoom(roomSlug, `AI Chat Room for User ${userId}`, 'direct');
+    await storage.createOrGetGroupChatRoom(roomSlug, `AI Chat Room for User ${userId}`, 'direct');
     
     // Insert user message using Drizzle ORM
     const userMessage = await storage.createMessage({
