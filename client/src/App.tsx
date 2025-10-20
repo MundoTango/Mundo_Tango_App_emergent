@@ -53,6 +53,9 @@ import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
+// MB.MD TRACK 1: Global Navigation Components (Week 1 - Oct 20, 2025)
+import BottomNav from "@/components/layout/BottomNav";
+
 // Mundo Tango Internal CMS (Notion-style tango stories/memories)
 import { NotionHomePage } from "@/pages/NotionHomePage";
 import { NotionEntryPage } from "@/pages/NotionEntryPage";
@@ -682,6 +685,9 @@ function AppContent() {
   useMonitoring(); // ESA Monitoring Layer 51
   usePageTracking(); // PostHog page view tracking
 
+  // MB.MD TRACK 1: Sidebar state for mobile BottomNav integration
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
   return (
@@ -689,6 +695,11 @@ function AppContent() {
       <Router />
       <Toaster />
       <TrialBanner />
+      
+      {/* MB.MD TRACK 1: Global BottomNav (Mobile <768px) - Oct 20, 2025 */}
+      {/* Production-ready: 95 lines, Aurora Tide, 56px touch targets */}
+      <BottomNav onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      
       {/* Phase 14 Batch 1: Lazy load dev/admin tools with Suspense */}
       <Suspense fallback={null}>
         <SuperAdminToggle />

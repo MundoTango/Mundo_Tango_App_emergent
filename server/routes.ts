@@ -1311,7 +1311,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', profileRoutes); // Profile API: GET/PATCH /api/profile, follow/unfollow
   app.use('/api', groupRoutes); // Group API: GET/POST/PATCH /api/groups, join/leave
   app.use(postsRoutes); // Posts API: GET/POST/PUT/DELETE /api/posts (registered Oct 20, 2025)
-  console.log('✅ MB.MD APIs registered: Events (7), Profiles (6), Groups (8), Posts (4) = 25 endpoints!');
+  
+  // MB.MD TRACK 1: AI Services Integration - Oct 20, 2025 (58% → 100%)
+  const memoriesFeedRoutes = (await import('./routes/memoriesFeedRoutes')).default;
+  const recommendationsRoutes = (await import('./routes/recommendationsRoutes')).default;
+  app.use('/api/memories', memoriesFeedRoutes); // Memories Feed: GET /api/memories/feed (AI-powered)
+  app.use('/api/recommendations', recommendationsRoutes); // Recommendations: GET /api/recommendations/:context
+  
+  console.log('✅ MB.MD APIs registered: Events (7), Profiles (6), Groups (8), Posts (4), Memories (3), Recommendations (5) = 33 endpoints!');
   console.log('✅ Integration health API registered at /api/integrations/status');
   console.log('✅ Stripe webhook registered at /api/stripe/webhook');
 
