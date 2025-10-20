@@ -184,13 +184,13 @@ export default function UnifiedTopBar({
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full border-b backdrop-blur-xl",
+      "sticky top-0 z-50 w-full border-b backdrop-blur-xl shadow-lg",
       theme === 'light' 
-        ? "bg-white/95 border-gray-200" 
-        : "bg-slate-900/95 border-slate-800"
+        ? "bg-gradient-to-r from-cyan-50/95 via-turquoise-50/95 to-cyan-100/95 border-cyan-200/50" 
+        : "bg-gradient-to-r from-gray-900/95 via-cyan-900/30 to-gray-900/95 border-cyan-800/50"
     )}>
-      {/* MT Ocean Theme Gradient Overlay */}
-      <div className="absolute inset-0 overlay-ocean pointer-events-none" />
+      {/* Aurora Tide Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 via-turquoise-400/5 to-blue-400/5 pointer-events-none" />
       
       <div className="relative flex items-center justify-between h-16 px-4 lg:px-8">
         {/* Left Section - Menu & Brand */}
@@ -201,19 +201,21 @@ export default function UnifiedTopBar({
               size="icon"
               onClick={onMenuToggle}
               className={cn(
-                "hover:bg-gray-100 dark:hover:bg-slate-800",
-                theme === 'light' ? "text-gray-600" : "text-slate-400"
+                "hover:bg-cyan-100/50 dark:hover:bg-cyan-800/30 min-h-[44px] min-w-[44px]",
+                theme === 'light' ? "text-cyan-700" : "text-cyan-400"
               )}
+              data-testid="button-menu-toggle"
+              aria-label="Toggle navigation menu"
             >
               <Menu className="h-5 w-5" />
             </Button>
           )}
           
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg group-hover:shadow-xl transition-all bg-brand-icon">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg group-hover:shadow-xl transition-all bg-gradient-to-br from-cyan-500 to-turquoise-600 text-white">
               MT
             </div>
-            <span className="hidden sm:block text-xl font-bold text-brand-gradient">
+            <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-cyan-600 via-turquoise-600 to-blue-600 bg-clip-text text-transparent">
               Mundo Tango
             </span>
           </Link>

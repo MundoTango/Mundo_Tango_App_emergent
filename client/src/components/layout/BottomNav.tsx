@@ -45,9 +45,9 @@ export default function BottomNav({ onMenuClick }: BottomNavProps) {
 
   return (
     <>
-      {/* Fixed Bottom Navigation - Mobile Only */}
+      {/* Fixed Bottom Navigation - Mobile Only - Aurora Tide Design */}
       <nav
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 safe-area-inset-bottom"
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-gradient-to-r from-cyan-50/95 via-turquoise-50/95 to-cyan-100/95 dark:from-gray-900/95 dark:via-cyan-900/30 dark:to-gray-900/95 backdrop-blur-xl border-t border-cyan-200/50 dark:border-cyan-800/50 shadow-2xl safe-area-inset-bottom"
         data-testid="bottom-nav"
       >
         <div className="flex items-center justify-around h-16 px-2">
@@ -59,11 +59,11 @@ export default function BottomNav({ onMenuClick }: BottomNavProps) {
               <Link href={item.path} key={item.path}>
                 <a
                   className={cn(
-                    "flex flex-col items-center justify-center w-full h-full min-w-[56px] min-h-[56px] rounded-lg transition-colors",
-                    "active:scale-95 touch-manipulation",
+                    "flex flex-col items-center justify-center w-full h-full min-w-[56px] min-h-[56px] rounded-xl transition-all duration-200",
+                    "active:scale-95 touch-manipulation backdrop-blur-sm",
                     isActive
-                      ? "text-red-600 bg-blue-50 dark:bg-gray-800"
-                      : "text-gray-600 dark:text-gray-400 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      ? "text-white bg-gradient-to-br from-cyan-500 to-turquoise-600 shadow-lg font-bold"
+                      : "text-gray-700 dark:text-gray-300 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-100/40 dark:hover:bg-cyan-800/30"
                   )}
                   data-testid={`nav-${item.label.toLowerCase()}`}
                   aria-label={item.label}
@@ -80,8 +80,8 @@ export default function BottomNav({ onMenuClick }: BottomNavProps) {
           <button
             onClick={onMenuClick}
             className={cn(
-              "flex flex-col items-center justify-center w-full h-full min-w-[56px] min-h-[56px] rounded-lg transition-colors",
-              "text-gray-600 dark:text-gray-400 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-800",
+              "flex flex-col items-center justify-center w-full h-full min-w-[56px] min-h-[56px] rounded-xl transition-all duration-200 backdrop-blur-sm",
+              "text-gray-700 dark:text-gray-300 hover:text-cyan-700 dark:hover:text-cyan-300 hover:bg-cyan-100/40 dark:hover:bg-cyan-800/30",
               "active:scale-95 touch-manipulation"
             )}
             data-testid="nav-menu"
@@ -92,8 +92,8 @@ export default function BottomNav({ onMenuClick }: BottomNavProps) {
           </button>
         </div>
 
-        {/* Safe Area Bottom Padding (for iOS notch) */}
-        <div className="h-[env(safe-area-inset-bottom)] bg-white dark:bg-gray-900" />
+        {/* Safe Area Bottom Padding (for iOS notch) - Aurora Tide */}
+        <div className="h-[env(safe-area-inset-bottom)] bg-gradient-to-r from-cyan-50/95 via-turquoise-50/95 to-cyan-100/95 dark:from-gray-900/95 dark:via-cyan-900/30 dark:to-gray-900/95" />
       </nav>
 
       {/* Spacer to prevent content from being hidden behind bottom nav */}
