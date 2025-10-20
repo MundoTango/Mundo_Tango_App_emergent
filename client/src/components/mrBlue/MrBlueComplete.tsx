@@ -26,12 +26,23 @@ function MrBlueChatInterface() {
   // Load conversations
   const { data: conversationsData } = useQuery<any[]>({
     queryKey: ['/api/mrblue/conversations'],
+    queryFn: async () => {
+      const res = await fetch('/api/mrblue/conversations', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch conversations');
+      return res.json();
+    },
   });
 
   // Load messages for current conversation
   const { data: messages, refetch: refetchMessages } = useQuery<any[]>({
     queryKey: ['/api/mrblue/conversations', conversationId, 'messages'],
     enabled: !!conversationId,
+    queryFn: async () => {
+      if (!conversationId) return [];
+      const res = await fetch(`/api/mrblue/conversations/${conversationId}/messages`, { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch messages');
+      return res.json();
+    },
   });
 
   // Create initial conversation if none exists
@@ -218,6 +229,11 @@ function LifeCEOAgentsTab() {
   const [searchQuery, setSearchQuery] = useState('');
   const { data, isLoading } = useQuery<{ success: boolean; agents: any[]; count: number }>({
     queryKey: ['/api/mrblue/agents'],
+    queryFn: async () => {
+      const res = await fetch('/api/mrblue/agents', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch agents');
+      return res.json();
+    },
   });
 
   const agents = data?.agents || [];
