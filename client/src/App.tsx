@@ -57,6 +57,10 @@ import TrialBanner from "@/components/TrialBanner";
 import { NotionHomePage } from "@/pages/NotionHomePage";
 import { NotionEntryPage } from "@/pages/NotionEntryPage";
 
+// Mundo Tango Mobile Pages (mobile-optimized for 38% → 100% production readiness)
+const MessagesMobile = lazy(() => import("@/pages/messages-mobile"));
+const NotificationsMobile = lazy(() => import("@/pages/notifications-mobile"));
+
 // Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
 const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(m => ({ default: m.ESAMindMap })));
@@ -187,6 +191,15 @@ function Router() {
           <Route path="/notion">
             <NotionHomePage />
           </Route>
+
+          {/* Mundo Tango Mobile Pages - 38% → 100% Production Readiness */}
+          <Route path="/messages">
+            <MessagesMobile />
+          </Route>
+          <Route path="/notifications">
+            <NotificationsMobile />
+          </Route>
+
           <Route path="/:slug">
             <NotionEntryPage />
           </Route>

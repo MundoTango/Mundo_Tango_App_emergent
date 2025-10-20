@@ -76,9 +76,9 @@ for FILE in $FILES; do
     
     if [ "$HAS_PROPER_SIZING" = false ]; then
       # Count interactive elements without proper sizing
-      BUTTON_COUNT=$(grep -c "button\|Button" "$FILE" 2>/dev/null || echo "0")
-      LINK_COUNT=$(grep -c "Link\|href=" "$FILE" 2>/dev/null || echo "0")
-      INPUT_COUNT=$(grep -c "input\|Input\|select\|textarea" "$FILE" 2>/dev/null || echo "0")
+      BUTTON_COUNT=$(grep -c "button\|Button" "$FILE" 2>/dev/null || echo 0)
+      LINK_COUNT=$(grep -c "Link\|href=" "$FILE" 2>/dev/null || echo 0)
+      INPUT_COUNT=$(grep -c "input\|Input\|select\|textarea" "$FILE" 2>/dev/null || echo 0)
       
       FILE_ISSUES=$((BUTTON_COUNT + LINK_COUNT + INPUT_COUNT))
       
