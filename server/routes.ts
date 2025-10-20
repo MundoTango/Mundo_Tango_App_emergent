@@ -514,6 +514,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }, testLargeBodyHandling);
   app.get('/api/supabase/test-realtime', testSupabaseRealtime);
 
+  // Mundo Tango Internal CMS (Notion-style tango stories/memories)
+  app.get('/api/notion/entries', async (req, res) => {
+    try {
+      const filters = {
+        visibility: req.query.visibility as string,
+        type: req.query.type as string,
+        emotionalTone: req.query.emotionalTone as string,
+        tags: req.query.tags ? (req.query.tags as string).split(',') : undefined
+      };
+      
+      const entries = await getNotionEntries(filters);
+      res.json({ success: true, data: entries });
+    } catch (error) {
+      console.error('Error fetching notion entries:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch stories',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  app.get('/api/notion/entries/:slug', async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const entry = await getNotionEntryBySlug(slug);
+      
+      if (!entry) {
+        return res.status(404).json({ 
+          success: false, 
+          message: 'Story not found' 
+        });
+      }
+      
+      res.json({ success: true, data: entry });
+    } catch (error) {
+      console.error('Error fetching notion entry:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch story',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
+  app.get('/api/notion/filters', async (req, res) => {
+    try {
+      const filterOptions = await getNotionFilterOptions();
+      res.json({ success: true, data: filterOptions });
+    } catch (error) {
+      console.error('Error fetching notion filters:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch filter options',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
   // AI Chat endpoints (bypass CSRF for AI functionality)
   const { handleAiChat, getConversationHistory } = await import('./routes/ai-chat');
   const { handleAiChatDirect, getConversationHistoryDirect } = await import('./routes/ai-chat-direct');

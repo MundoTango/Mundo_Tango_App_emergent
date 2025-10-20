@@ -53,6 +53,10 @@ import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
+// Mundo Tango Internal CMS (Notion-style tango stories/memories)
+import { NotionHomePage } from "@/pages/NotionHomePage";
+import { NotionEntryPage } from "@/pages/NotionEntryPage";
+
 // Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
 const ESAMindMap = lazy(() => import("@/components/esa/ESAMindMap").then(m => ({ default: m.ESAMindMap })));
@@ -177,6 +181,14 @@ function Router() {
           {/* Explicit landing page route */}
           <Route path="/landing">
             <Landing />
+          </Route>
+
+          {/* Mundo Tango Internal CMS - Notion-style tango stories */}
+          <Route path="/notion">
+            <NotionHomePage />
+          </Route>
+          <Route path="/:slug">
+            <NotionEntryPage />
           </Route>
 
           {/* Mundo Tango ESA - Dynamic Routes from Registry (Visual Editor, Mr Blue, etc.) */}
