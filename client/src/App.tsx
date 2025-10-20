@@ -637,11 +637,8 @@ function Router() {
             <TangoStories />
           </Route>
 
-          <Route path="/:slug">
-            <NotionEntryPage />
-          </Route>
-
           {/* Mundo Tango ESA - Dynamic Routes from Registry (Visual Editor, Mr Blue, etc.) */}
+          {/* CRITICAL: Registry routes MUST come before /:slug to prevent greedy matching */}
           {allRoutes.map((route: RouteConfig) => {
             const RouteComponent = route.component;
             return (
@@ -650,6 +647,11 @@ function Router() {
               </Route>
             );
           })}
+
+          {/* Notion CMS Catch-All - MUST be AFTER registry routes */}
+          <Route path="/:slug">
+            <NotionEntryPage />
+          </Route>
 
           {/* Fallback: 404 Not Found */}
           <Route>
