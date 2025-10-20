@@ -61,6 +61,8 @@ import { NotionEntryPage } from "@/pages/NotionEntryPage";
 const MessagesMobile = lazy(() => import("@/pages/messages-mobile"));
 const NotificationsMobile = lazy(() => import("@/pages/notifications-mobile"));
 const CalendarPage = lazy(() => import("@/pages/calendar"));
+const ProfileMobile = lazy(() => import("@/pages/profile-mobile"));
+const GroupsMobile = lazy(() => import("@/pages/groups-mobile"));
 
 // Phase 14 Batch 1: Lazy load heavy components to improve LCP (24.6s → 15-18s target)
 // ESA MindMap - Global AI agent navigator for Super Admins (Section 10.11)
@@ -202,6 +204,12 @@ function Router() {
           </Route>
           <Route path="/calendar">
             <CalendarPage />
+          </Route>
+          <Route path="/profile-mobile">
+            <ProfileMobile />
+          </Route>
+          <Route path="/groups-mobile">
+            <GroupsMobile />
           </Route>
 
           <Route path="/:slug">
