@@ -6,6 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { queryClient } from '@/lib/queryClient';
 import { ProjectSelector } from './ProjectSelector';
 import { ModelSelector } from './ModelSelector';
 import VoiceControls from './VoiceControls';
@@ -32,14 +33,18 @@ export function ChatInterface() {
   const { toast } = useToast();
 
   // Auto-select first project when projects load
-  const { data: projects } = useQuery<{ id: number; name: string }[]>({
+  const { data: projects, refetch } = useQuery<{ id: number; name: string }[]>({
     queryKey: ['/api/chat/projects'],
   });
+  
+  // Guard to prevent duplicate project creation
+  const [hasCreatedDefault, setHasCreatedDefault] = useState(false);
 
   // Auto-create default project if none exist
   useEffect(() => {
     const createDefaultProject = async () => {
-      if (projects && projects.length === 0) {
+      if (projects && projects.length === 0 && !hasCreatedDefault) {
+        setHasCreatedDefault(true);
         try {
           const response = await fetch('/api/chat/projects', {
             method: 'POST',
@@ -54,13 +59,20 @@ export function ChatInterface() {
           if (response.ok) {
             const newProject = await response.json();
             setProjectId(newProject.id);
+            await queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+            await refetch();
             toast({
               title: 'Project Created',
               description: 'Created your first project!',
             });
           }
-        } catch (error) {
-          console.error('[Chat] Failed to create default project:', error);
+        } catch (error: unknown) {
+          setHasCreatedDefault(false);
+          toast({
+            title: 'Project Creation Failed',
+            description: error instanceof Error ? error.message : 'Unknown error',
+            variant: 'destructive',
+          });
         }
       } else if (projects && projects.length > 0 && !projectId) {
         setProjectId(projects[0].id);
@@ -68,9 +80,9 @@ export function ChatInterface() {
     };
     
     createDefaultProject();
-  }, [projects, projectId, toast]);
+  }, [projects, projectId, toast, hasCreatedDefault, refetch]);
 
-  const { data: messages, refetch } = useQuery<Message[]>({
+  const { data: messages, refetch: refetchMessages } = useQuery<Message[]>({
     queryKey: ['/api/chat/projects', projectId, 'messages'],
     enabled: !!projectId,
   });
@@ -112,19 +124,17 @@ export function ChatInterface() {
           if (line.startsWith('data: ')) {
             const data = JSON.parse(line.slice(6));
             if (data.chunk) {
-              // Update UI with streaming chunk
-              console.log('[Streaming]', data.chunk);
+              // Streaming chunk received - UI updates handled by refetch
             }
           }
         }
       }
 
-      refetch();
-    } catch (error) {
-      console.error('[Chat] Send error:', error);
+      refetchMessages();
+    } catch (error: unknown) {
       toast({
         title: 'Send Failed',
-        description: 'Could not send message',
+        description: error instanceof Error ? error.message : 'Could not send message',
         variant: 'destructive',
       });
     } finally {

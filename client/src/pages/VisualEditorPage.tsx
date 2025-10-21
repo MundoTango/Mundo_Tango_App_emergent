@@ -140,7 +140,7 @@ export default function VisualEditorPage() {
         duration: 3000
       });
 
-      console.log('Generated code:', response);
+      // Code generated successfully - response handled by toast
     } catch (error) {
       toast({
         title: "Generation Failed",
