@@ -17,6 +17,9 @@ import { relations, sql, eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// MB.MD Phase 3 REAL: Multi-Agent System Schemas
+export * from './multiAgentSchemas';
+
 // Re-export commonly used drizzle-orm functions
 export { eq };
 
