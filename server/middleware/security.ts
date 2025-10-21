@@ -40,6 +40,7 @@ export const contentSecurityPolicy = helmet.contentSecurityPolicy({
     connectSrc: [
       "'self'",
       "https://nominatim.openstreetmap.org", // Geocoding
+      "https://ipapi.co", // IP-based geolocation fallback
       "https://plausible.io", // Analytics
       "https://*.ingest.us.sentry.io", // Error tracking
       "wss://*.replit.dev", // WebSocket for real-time features
