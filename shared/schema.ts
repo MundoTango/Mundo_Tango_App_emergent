@@ -2488,3 +2488,98 @@ export const insertLumaGenerationSchema = createInsertSchema(lumaGenerations).om
 
 export type LumaGeneration = typeof lumaGenerations.$inferSelect;
 export type InsertLumaGeneration = z.infer<typeof insertLumaGenerationSchema>;
+
+// ========================================
+// RECURSIVE TESTING & PROACTIVE MONITORING TABLES
+// MB.MD Option A: Build Missing 60% - Oct 21, 2025
+// ========================================
+
+// Component History - Visual Editor Learning System
+export const componentHistory = pgTable("component_history", {
+  id: serial("id").primaryKey(),
+  componentPath: varchar("component_path", { length: 500 }).notNull(), // e.g., "client/src/components/auth/LoginButton.tsx"
+  componentId: varchar("component_id", { length: 200 }).notNull(), // e.g., "BUTTON_LOGIN"
+  agentId: varchar("agent_id", { length: 50 }), // Which agent made the change (e.g., "Agent #11.1")
+  changeType: varchar("change_type", { length: 50 }).notNull(), // created, modified, deleted, visual_edit, style_change, text_change
+  changeDescription: text("change_description"), // Human-readable description
+  changedBy: varchar("changed_by", { length: 50 }), // user_id or agent_id
+  beforeSnapshot: jsonb("before_snapshot").$type<Record<string, any>>(), // State before change
+  afterSnapshot: jsonb("after_snapshot").$type<Record<string, any>>(), // State after change
+  learnedPatterns: jsonb("learned_patterns").$type<string[]>(), // What the component learned
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+}, (table) => [
+  index("idx_component_path").on(table.componentPath),
+  index("idx_component_id").on(table.componentId),
+  index("idx_change_type").on(table.changeType),
+  index("idx_timestamp").on(table.timestamp),
+]);
+
+// Agent Schedules - Autonomous Agent Scheduling
+export const agentSchedules = pgTable("agent_schedules", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 50 }).notNull().unique(), // e.g., "Agent #11.1", "J1", "J2"
+  agentName: varchar("agent_name", { length: 200 }).notNull(), // e.g., "Dark Mode Fixer", "Welcome Guide Tester"
+  schedule: varchar("schedule", { length: 100 }), // Cron format: "0 2 * * *" or null for event-driven
+  triggerType: varchar("trigger_type", { length: 50 }).notNull(), // cron, file_change, user_action, manual
+  lastRun: timestamp("last_run"),
+  nextRun: timestamp("next_run"),
+  status: varchar("status", { length: 20 }).notNull().default('active'), // active, paused, failed, disabled
+  runCount: integer("run_count").default(0),
+  successCount: integer("success_count").default(0),
+  failureCount: integer("failure_count").default(0),
+  lastError: text("last_error"),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_agent_schedule_status").on(table.status),
+  index("idx_next_run").on(table.nextRun),
+]);
+
+// Intent Detections - Predict User Actions (Uses existing breadcrumbs table from TRACK_8)
+export const intentDetections = pgTable("intent_detections", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  sessionId: varchar("session_id", { length: 100 }),
+  predictedAction: varchar("predicted_action", { length: 100 }).notNull(), // navigate_to_events, create_post, etc.
+  predictedTarget: text("predicted_target"), // URL or component ID
+  confidence: real("confidence").notNull(), // 0.0 to 1.0
+  basedOnBreadcrumbs: jsonb("based_on_breadcrumbs").$type<number[]>(), // Array of breadcrumb IDs
+  patternMatched: varchar("pattern_matched", { length: 100 }), // hover_then_click, sequential_navigation, etc.
+  wasCorrect: boolean("was_correct"), // Did user actually do this?
+  actualAction: varchar("actual_action", { length: 100 }), // What they actually did
+  testedProactively: boolean("tested_proactively").default(false), // Did we test the feature before they clicked?
+  testResult: varchar("test_result", { length: 50 }), // passed, failed, fixed, skipped
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+}, (table) => [
+  index("idx_intent_user").on(table.userId),
+  index("idx_intent_session").on(table.sessionId),
+  index("idx_intent_confidence").on(table.confidence),
+  index("idx_intent_timestamp").on(table.timestamp),
+]);
+
+// Zod Schemas & Types
+export const insertComponentHistorySchema = createInsertSchema(componentHistory).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertAgentScheduleSchema = createInsertSchema(agentSchedules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertIntentDetectionSchema = createInsertSchema(intentDetections).omit({
+  id: true,
+  timestamp: true,
+});
+
+export type ComponentHistory = typeof componentHistory.$inferSelect;
+export type InsertComponentHistory = z.infer<typeof insertComponentHistorySchema>;
+
+export type AgentSchedule = typeof agentSchedules.$inferSelect;
+export type InsertAgentSchedule = z.infer<typeof insertAgentScheduleSchema>;
+
+export type IntentDetection = typeof intentDetections.$inferSelect;
+export type InsertIntentDetection = z.infer<typeof insertIntentDetectionSchema>;

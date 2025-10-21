@@ -166,6 +166,12 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 };
 
 /**
+ * Require authentication middleware (alias for authMiddleware)
+ * Use this for protected routes that require authentication
+ */
+export const requireAuth = authMiddleware;
+
+/**
  * Optional authentication middleware - doesn't fail if no token
  * Useful for endpoints that work for both authenticated and anonymous users
  */

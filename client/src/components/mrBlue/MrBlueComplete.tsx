@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Sparkles, X, Maximize2, Minimize2, Brain, Search, MessageSquare, Shield, Send, Loader2, Wand2, Code, Map } from 'lucide-react';
+import { Sparkles, X, Maximize2, Minimize2, Brain, Search, MessageSquare, Shield, Send, Loader2, Wand2, Code, Map, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlassCard } from '@/components/glass/GlassComponents';
@@ -18,12 +18,16 @@ import { useAuth } from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { isSuperAdmin } from '@/utils/accessControl';
+import { useBreadcrumbTracker } from '@/lib/tracking/BreadcrumbTracker';
+import { useIntentDetection } from '@/hooks/useIntentDetection';
+import { useToast } from '@/hooks/use-toast';
 
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
   const [input, setInput] = useState('');
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { updateActualAction } = useIntentDetection();
 
   // Load conversations
   const { data: conversationsData } = useQuery<any[]>({
@@ -81,6 +85,9 @@ function MrBlueChatInterface() {
     const messageContent = input.trim();
     setInput('');
     setIsLoading(true);
+
+    // Track actual action for intent detection accuracy
+    updateActualAction('send_message', 'mr-blue-chat');
 
     try {
       // Use SSE streaming for real-time AI responses
@@ -379,6 +386,23 @@ export function MrBlueComplete() {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const { toast } = useToast();
+  
+  // Initialize tracking systems
+  useBreadcrumbTracker();
+  const { prediction, isAnalyzing } = useIntentDetection();
+
+  // Show proactive notification when high-confidence prediction is detected
+  useEffect(() => {
+    if (prediction && prediction.confidence > 70) {
+      toast({
+        title: `⚡ Feature Tested & Ready!`,
+        description: `Mr Blue predicts you'll ${prediction.action} - Feature already tested with ${prediction.confidence}% confidence`,
+        duration: 5000,
+      });
+      console.log('[Mr Blue] Proactive notification shown:', prediction);
+    }
+  }, [prediction, toast]);
 
   console.log('🔵 [MrBlueComplete] Rendering - user:', user?.name || 'No user');
   if (!user) {
@@ -414,9 +438,22 @@ export function MrBlueComplete() {
                 <div className="p-2 bg-gradient-to-br from-turquoise-500 to-cyan-600 rounded-lg">
                   <Sparkles className="h-5 w-5 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-gray-900 dark:text-white">Mr Blue AI Companion</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Your intelligent assistant + 16 Life CEO agents</p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-lg text-gray-900 dark:text-white">Mr Blue AI Companion</h3>
+                    {prediction && prediction.confidence > 70 && (
+                      <Badge variant="default" className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white animate-pulse" data-testid="badge-intent-prediction">
+                        <Zap className="h-3 w-3 mr-1" />
+                        {prediction.confidence}% confident
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {prediction && prediction.confidence > 70 
+                      ? `Predicting: ${prediction.action} (tested proactively!)`
+                      : 'Your intelligent assistant + 16 Life CEO agents'
+                    }
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">

@@ -60,6 +60,10 @@ import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md line
 import authRoutes from "./routes/authRoutes"; // Authentication routes - /api/auth/*
 import lumaRoutes from "./routes/lumaRoutes"; // Luma Labs 3D Avatar Generation - MB.MD Track 1 - Oct 21, 2025
 import journeyRoutes from "./routes/journeyRoutes"; // Journey Agents J1-J5 Backend API - MB.MD Track 4A - Oct 21, 2025
+import visualEditorConfirmationRoutes from "./routes/visualEditorConfirmationRoutes"; // Visual Editor Learning Loop - MB.MD Option A - Oct 21, 2025
+import breadcrumbRoutes from "./routes/breadcrumbRoutes"; // Breadcrumb Tracking - MB.MD Option A - Oct 21, 2025
+import intentRoutes from "./routes/intentRoutes"; // Intent Detection - MB.MD Option A - Oct 21, 2025
+import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing - MB.MD Option A - Oct 21, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1327,10 +1331,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/mrblue', mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
   app.use('/api/luma', lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
   app.use('/api/journeys', journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
-  // app.use('/api/visual-editor', visualEditorRoutes); // Visual Editor coming in Phase 2
+  
+  // 🔄 MB.MD Option A: Recursive Testing & Proactive Monitoring Routes (Oct 21, 2025)
+  app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor Learning Loop
+  app.use('/api/breadcrumbs', breadcrumbRoutes); // User Interaction Tracking
+  app.use('/api/intent', intentRoutes); // Intent Detection & Proactive Testing
+  app.use('/api/journey', journeyTestRoutes); // Journey Recursive Testing (J1-J5)
+  
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');
   console.log('✅ Mr Blue APIs registered at /api/mrblue');
+  console.log('✅ Recursive Testing System registered (Visual Editor, Breadcrumbs, Intent, Journey Tests)');
   console.log('✅ Luma Labs 3D APIs registered at /api/luma');
   console.log('✅ Journey Agent APIs registered at /api/journeys');
 
