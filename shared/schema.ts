@@ -2659,6 +2659,144 @@ export const evoPatterns = pgTable("evo_patterns", {
   index("idx_evo_pattern_type").on(table.patternType),
 ]);
 
+// ========================================
+// AGENT #80: LEARNING COORDINATOR SYSTEM
+// MB.MD Phase 1B - Oct 21, 2025
+// Captures, distributes, and enforces learnings
+// ========================================
+
+// Learning Sessions (captures what happened in each work session)
+export const learningSessions = pgTable("learning_sessions", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 50 }).notNull(), // e.g. "Agent #73", "Agent #80", "PA-052"
+  agentName: varchar("agent_name", { length: 255 }).notNull(),
+  taskDescription: text("task_description").notNull(),
+  
+  // What was done
+  filesModified: text("files_modified").array(),
+  linesChanged: integer("lines_changed"),
+  
+  // What failed
+  failures: jsonb("failures").$type<Array<{
+    type: string;
+    description: string;
+    rootCause: string;
+  }>>(),
+  
+  // What was learned
+  learnings: jsonb("learnings").$type<Array<{
+    category: string; // "process", "technical", "quality", "integration"
+    insight: string;
+    preventionStrategy: string;
+  }>>(),
+  
+  // MB.MD compliance
+  mbmdPhase: varchar("mbmd_phase", { length: 50 }), // MAPPING, BREAKDOWN, MITIGATION, DEPLOYMENT
+  screenshotsTaken: integer("screenshots_taken").default(0),
+  architectReviewed: boolean("architect_reviewed").default(false),
+  
+  startedAt: timestamp("started_at").notNull(),
+  completedAt: timestamp("completed_at"),
+  duration: integer("duration"), // in seconds
+  
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_learning_sessions_agent").on(table.agentId),
+  index("idx_learning_sessions_phase").on(table.mbmdPhase),
+  index("idx_learning_sessions_date").on(table.startedAt),
+]);
+
+// Learnings Library (distributed knowledge base)
+export const learnings = pgTable("learnings", {
+  id: serial("id").primaryKey(),
+  sessionId: integer("session_id").references(() => learningSessions.id),
+  
+  // Learning details
+  title: varchar("title", { length: 255 }).notNull(),
+  category: varchar("category", { length: 50 }).notNull(), // process, technical, quality, integration
+  severity: varchar("severity", { length: 20 }).notNull(), // critical, high, medium, low
+  
+  // The actual learning
+  problem: text("problem").notNull(),
+  rootCause: text("root_cause").notNull(),
+  solution: text("solution").notNull(),
+  preventionStrategy: text("prevention_strategy").notNull(),
+  
+  // Distribution tracking
+  agentsNotified: text("agents_notified").array(), // Which agents have been informed
+  applicationCount: integer("application_count").default(0), // How many times successfully applied
+  
+  // Related documentation
+  relatedDocs: text("related_docs").array(), // Paths to docs (MB_MD_QA_PROTOCOL.md, etc)
+  relatedIncidents: text("related_incidents").array(), // Incident IDs
+  
+  isActive: boolean("is_active").default(true), // Can be archived if superseded
+  supersededBy: integer("superseded_by").references(() => learnings.id),
+  
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_learnings_category").on(table.category),
+  index("idx_learnings_severity").on(table.severity),
+  index("idx_learnings_active").on(table.isActive),
+]);
+
+// Agent Training Certifications
+export const agentCertifications = pgTable("agent_certifications", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 50 }).notNull().unique(), // e.g. "Agent #73"
+  agentName: varchar("agent_name", { length: 255 }).notNull(),
+  agentType: varchar("agent_type", { length: 50 }).notNull(), // core, intelligence, page, layer, algorithm
+  
+  // Training completion
+  trainingCompleted: boolean("training_completed").default(false),
+  certifiedAt: timestamp("certified_at"),
+  
+  // Required reading completed
+  mbmdProtocolRead: boolean("mbmd_protocol_read").default(false),
+  sessionLogRead: boolean("session_log_read").default(false),
+  mbSpecRead: boolean("mb_spec_read").default(false), // docs/MrBlue/mb.md
+  
+  // Quiz scores (understanding verification)
+  quizScore: integer("quiz_score"), // Out of 100
+  quizAttempts: integer("quiz_attempts").default(0),
+  
+  // Learnings acknowledged
+  learningsReviewed: text("learnings_reviewed").array(), // Learning IDs reviewed
+  learningsApplied: text("learnings_applied").array(), // Learning IDs successfully applied
+  
+  // Performance metrics
+  tasksCompleted: integer("tasks_completed").default(0),
+  tasksWithArchitectApproval: integer("tasks_with_architect_approval").default(0),
+  screenshotComplianceRate: integer("screenshot_compliance_rate"), // Percentage
+  
+  // Status
+  status: varchar("status", { length: 50 }).default("pending"), // pending, certified, recertification_needed
+  lastActivityAt: timestamp("last_activity_at").defaultNow(),
+  
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_certifications_agent").on(table.agentId),
+  index("idx_certifications_type").on(table.agentType),
+  index("idx_certifications_status").on(table.status),
+  index("idx_certifications_certified").on(table.trainingCompleted),
+]);
+
+// Agent Training Checklist Progress
+export const agentTrainingProgress = pgTable("agent_training_progress", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 50 }).notNull(),
+  checklistItem: varchar("checklist_item", { length: 255 }).notNull(),
+  completed: boolean("completed").default(false),
+  completedAt: timestamp("completed_at"),
+  evidence: text("evidence"), // URL to screenshot, log entry, etc
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_training_progress_agent").on(table.agentId),
+  unique("unique_agent_checklist").on(table.agentId, table.checklistItem),
+]);
+
 // Zod Schemas
 export const insertChatProjectSchema = createInsertSchema(chatProjects).omit({
   id: true,
@@ -2701,3 +2839,38 @@ export type InsertEmbedding = z.infer<typeof insertEmbeddingSchema>;
 
 export type EvoPattern = typeof evoPatterns.$inferSelect;
 export type InsertEvoPattern = z.infer<typeof insertEvoPatternSchema>;
+
+// Agent #80 Learning Coordinator Schemas
+export const insertLearningSessionSchema = createInsertSchema(learningSessions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertLearningSchema = createInsertSchema(learnings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentCertificationSchema = createInsertSchema(agentCertifications).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentTrainingProgressSchema = createInsertSchema(agentTrainingProgress).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type LearningSession = typeof learningSessions.$inferSelect;
+export type InsertLearningSession = z.infer<typeof insertLearningSessionSchema>;
+
+export type Learning = typeof learnings.$inferSelect;
+export type InsertLearning = z.infer<typeof insertLearningSchema>;
+
+export type AgentCertification = typeof agentCertifications.$inferSelect;
+export type InsertAgentCertification = z.infer<typeof insertAgentCertificationSchema>;
+
+export type AgentTrainingProgress = typeof agentTrainingProgress.$inferSelect;
+export type InsertAgentTrainingProgress = z.infer<typeof insertAgentTrainingProgressSchema>;

@@ -105,6 +105,7 @@ const HealthMonitor = lazy(() => import("@/pages/admin/HealthMonitor"));
 const ComponentHealthDashboard = lazy(() => import("@/pages/admin/ComponentHealthDashboard"));
 const AutoFixDashboard = lazy(() => import("@/pages/admin/AutoFixDashboard"));
 const AgentCoordination = lazy(() => import("@/pages/admin/AgentCoordination"));
+const AgentTrainingPage = lazy(() => import("@/pages/AgentTrainingPage"));
 
 // Social Pages
 const Groups = lazy(() => import("@/pages/groups"));
@@ -510,6 +511,9 @@ function Router() {
           </Route>
           <Route path="/admin/agent-coordination">
             <AgentCoordination />
+          </Route>
+          <Route path="/admin/agent-training">
+            <AgentTrainingPage />
           </Route>
 
           {/* Social Pages */}

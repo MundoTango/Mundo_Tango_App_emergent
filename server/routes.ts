@@ -64,6 +64,7 @@ import visualEditorConfirmationRoutes from "./routes/visualEditorConfirmationRou
 import breadcrumbRoutes from "./routes/breadcrumbRoutes"; // Breadcrumb Tracking - MB.MD Option A - Oct 21, 2025
 import intentRoutes from "./routes/intentRoutes"; // Intent Detection - MB.MD Option A - Oct 21, 2025
 import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing - MB.MD Option A - Oct 21, 2025
+import learningRoutes from "./routes/learningRoutes"; // Agent #80 Learning Coordinator API - MB.MD Phase 1B - Oct 21, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1345,6 +1346,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/breadcrumbs', breadcrumbRoutes); // User Interaction Tracking
   app.use('/api/intent', intentRoutes); // Intent Detection & Proactive Testing
   app.use('/api/journey', journeyTestRoutes); // Journey Recursive Testing (J1-J5)
+  
+  // 🎓 MB.MD Phase 1B: Agent #80 Learning Coordinator & Training Certification (Oct 21, 2025)
+  app.use('/api/learning', learningRoutes); // Learning sessions, distributed knowledge, agent certifications
+  console.log('✅ Agent Learning & Training APIs registered');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');
