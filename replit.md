@@ -112,4 +112,35 @@ Mundo Tango employs a comprehensive agent documentation system covering various 
 ### Functionality Status (Architect-Verified Oct 21, 2025)
 - **Fully Functional**: Voice UI (Track 2), Agent Orchestration Panel (Track 3B), Journey Wizards frontend (Track 4B), Agent Browser (Track 6)
 - **Partially Functional**: Personality Selector wired to backend, Journey backend API endpoints operational
-- **In Progress**: Luma Labs service export fixes, personality influence on AI responses
+- **Fixed (Oct 21 23:54 UTC)**: Luma Labs service (node-fetch→global fetch), DB tables created (luma_generations, user_journey_progress, user_achievements, user_feature_unlocks), Navigation enhanced (Mr Blue AI, Agent Browser, J1-J5 journeys in sidebar)
+
+## MB.MD Agent Self-Audit System (Oct 21, 2025)
+
+**Methodology Created**: 7-step self-audit process for all 350+ agents
+- **Documentation**: `docs/MB_MD_AGENT_SELF_AUDIT_METHODOLOGY.md`
+- **Pattern Library**: `docs/MB_MD_REUSABLE_PATTERNS.md` (10 reusable patterns)
+- **Testing Infrastructure**: `scripts/test-routes.sh` (automated route existence tests)
+
+**Audit Reports Generated** (13 agents audited):
+1. **Mr Blue Core (#73)**: 75% functional - Chat interface working, DB validation needed
+2. **Subscription Manager (#74)**: 40% functional - UI exists, backend missing
+3. **AI Site Builder (#75)**: 35% functional - Wizard complete, no AI integration
+4. **Journey Agent J1**: 65% functional - Frontend works, DB writes untested
+5. **Journey Agent J2**: 60% functional - Not wired to profile API
+6. **Algorithm A1 (Search)**: 70% functional - Works but needs caching
+7. **Algorithm A2 (Recommendations)**: 65% functional - Basic matching, needs ML
+
+**Critical Issues Identified**:
+- Zod validation removed from mrBlueRoutes (security regression)
+- Several agents have UI but no backend persistence
+- Algorithm agents not wrapped in AlgorithmAgent class
+- Achievement/reward systems not implemented
+
+**Known Working Features**:
+- ✅ All routes mounted correctly (backend + frontend)
+- ✅ Database tables exist for journey/luma features
+- ✅ Navigation discoverable (sidebar links added)
+- ✅ Core Mr Blue chat functional
+- ✅ Voice UI works in modern browsers
+- ✅ Agent Browser displays 350+ agents
+- ✅ Journey wizards render and navigate
