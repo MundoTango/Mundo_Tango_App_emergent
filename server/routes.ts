@@ -1332,6 +1332,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/luma', lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
   app.use('/api/journeys', journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
   
+  // 🚀 MB.MD Parallel Build: Multi-AI Platform Extensions (Oct 21, 2025)
+  const { default: chatProjectsRoutes } = await import('./routes/chatProjectsRoutes');
+  const { default: mediaUploadRoutes } = await import('./routes/mediaUploadRoutes');
+  app.use('/api/chat', chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
+  app.use('/api/media', mediaUploadRoutes); // Media upload with AI analysis
+  
   // 🔄 MB.MD Option A: Recursive Testing & Proactive Monitoring Routes (Oct 21, 2025)
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor Learning Loop
   app.use('/api/breadcrumbs', breadcrumbRoutes); // User Interaction Tracking

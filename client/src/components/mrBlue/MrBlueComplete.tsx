@@ -21,6 +21,7 @@ import { isSuperAdmin } from '@/utils/accessControl';
 import { useBreadcrumbTracker } from '@/lib/tracking/BreadcrumbTracker';
 import { useIntentDetection } from '@/hooks/useIntentDetection';
 import { useToast } from '@/hooks/use-toast';
+import { ChatInterface } from './ChatInterface'; // MB.MD: New multi-model chat
 
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
