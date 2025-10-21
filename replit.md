@@ -149,7 +149,7 @@ Mundo Tango employs a comprehensive agent documentation system covering various 
 - ✅ Agent Browser displays agents (data source TBD)
 - ✅ Journey wizards render and navigate
 
-**Honest Coverage Assessment**:
-- Routes Tested: 18/72 pages (25% coverage)
-- Agents Audited: 11/350+ (3.1% coverage)
+**Honest Coverage Assessment** (Updated Oct 21, 2025):
+- Routes Tested: 18/109 routes (**16.5% coverage**) - Full inventory: docs/ROUTE_INVENTORY.md
+- Agents Audited: 18/350+ (**5.1% coverage**) - Latest wave: #76-77, A4-A10
 - Overall Platform Functionality: ~60% end-to-end

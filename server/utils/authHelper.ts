@@ -31,9 +31,17 @@ export const getUserId = (req: any): number | string | null => {
   }
   
   // Development fallback with enhanced logging
+  // ⚠️ SECURITY: This bypass MUST NEVER run in production
+  // It is gated by NODE_ENV and AUTH_BYPASS env vars
   if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
-    console.log('🔧 ESA Layer 13: Auth bypass - using default admin user');
-    return 7; // Scott Boddye's admin user ID
+    // Triple-check we're not in production
+    if (process.env.NODE_ENV === 'production') {
+      console.error('🚨 CRITICAL: Auth bypass attempted in production - BLOCKED');
+      return null;
+    }
+    console.warn('⚠️  Development Mode: Auth bypass active - using default admin user');
+    console.warn('⚠️  This MUST be disabled in production (set NODE_ENV=production)');
+    return 7; // Scott Boddye's admin user ID (dev/test only)
   }
   
   console.log('❌ ESA Layer 13: No valid authentication found');
