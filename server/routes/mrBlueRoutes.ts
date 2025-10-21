@@ -16,6 +16,10 @@ let routeToLifeCEOAgent: any;
 let getAgentByName: any;
 let getAllAgents: any;
 
+// MB.MD Phase 3C + 3F: Agent CEO Orchestrator + Self-Awareness
+import { agentCeo } from '../services/agentCeoOrchestrator';
+import { selfAwarenessSystem } from '../services/selfAwarenessSystem';
+
 try {
   aiModelService = require('../services/aiModelService').aiModelService;
   const lifeCEORouter = require('../services/lifeCEORouter');
@@ -421,7 +425,46 @@ router.post('/chat', async (req, res) => {
       });
     }
 
-    // Route to Life CEO agent if needed
+    const userId = getUserId(req);
+    const userIdNum = userId ? (typeof userId === 'string' ? parseInt(userId) : userId) : 0;
+
+    // MB.MD Phase 3F: Check for self-awareness queries first
+    if (selfAwarenessSystem.isSelfAwareQuery(message)) {
+      console.log('🧠 [Mr Blue] Self-awareness query detected');
+      const selfAwareResponse = await selfAwarenessSystem.answerSelfAwareQuery(message);
+      
+      return res.json({
+        success: true,
+        response: selfAwareResponse,
+        model: 'self-awareness-system',
+        agent: 'Agent #0',
+        agentDetails: { name: 'CEO (Self-Awareness)', description: 'Platform knowledge system' },
+        usage: { totalTokens: 0 },
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // MB.MD Phase 3C: Use Agent CEO Orchestrator for intent detection
+    const intent = agentCeo.detectIntent(message);
+    console.log(`🎯 [Mr Blue] Intent detected:`, intent);
+
+    // Route to specialized agent if high confidence
+    if (intent.confidence > 0.7) {
+      const agentResponse = await agentCeo.routeToAgent(intent, message, userIdNum);
+      
+      return res.json({
+        success: true,
+        response: agentResponse,
+        model: 'agent-orchestration',
+        agent: intent.targetAgent,
+        agentDetails: { name: intent.targetAgent, description: intent.reasoning },
+        intent: intent.intent,
+        usage: { totalTokens: 0 },
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // Fallback to AI model for general conversation
     const targetAgent = agent || routeToLifeCEOAgent(message);
     const agentDetails = getAgentByName(targetAgent);
 

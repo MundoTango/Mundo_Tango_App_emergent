@@ -235,12 +235,27 @@ function ChatInterface() {
   // Load conversations
   const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
     queryKey: ['/api/mrblue/conversations'],
+    queryFn: async () => {
+      const response = await fetch('/api/mrblue/conversations', {
+        credentials: 'include',
+      });
+      if (!response.ok) throw new Error('Failed to fetch conversations');
+      return response.json();
+    },
   });
 
   // Load messages for active conversation
   const { data: messages, isLoading: loadingMessages } = useQuery<Message[]>({
     queryKey: ['/api/mrblue/conversations', conversationId, 'messages'],
     enabled: !!conversationId,
+    queryFn: async () => {
+      if (!conversationId) return [];
+      const response = await fetch(`/api/mrblue/conversations/${conversationId}/messages`, {
+        credentials: 'include',
+      });
+      if (!response.ok) throw new Error('Failed to fetch messages');
+      return response.json();
+    },
   });
 
   // Create new conversation mutation

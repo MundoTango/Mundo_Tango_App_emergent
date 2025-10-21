@@ -28,6 +28,7 @@ import BuildOptimizer from "@/lib/build-optimizations";
 import * as Sentry from "@sentry/react";
 import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
+import { useBreadcrumbTracking } from "@/hooks/useBreadcrumbTracking"; // MB.MD Phase 3E - Breadcrumb Tracking
 // MB.MD DISABLED - Breaks React error handling by overwriting Error constructor
 // import "@/utils/console-cleanup"; // Security: Clean console output
 

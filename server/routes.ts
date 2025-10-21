@@ -103,6 +103,14 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // MB.MD Phase 2A: Initialize Agent #80 Learning System
+  try {
+    const { initializeLearningSystem } = await import('./init/seedLearnings');
+    await initializeLearningSystem();
+  } catch (error) {
+    console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
+  }
+
   // MB.MD S5: Register production health endpoints FIRST (before any middleware)
   // TODO: Fix health route import - temporarily disabled to get server running
   // const healthModule = await import('./routes/health');
