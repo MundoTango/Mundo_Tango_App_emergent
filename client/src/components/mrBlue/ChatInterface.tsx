@@ -36,11 +36,39 @@ export function ChatInterface() {
     queryKey: ['/api/chat/projects'],
   });
 
+  // Auto-create default project if none exist
   useEffect(() => {
-    if (projects && projects.length > 0 && !projectId) {
-      setProjectId(projects[0].id);
-    }
-  }, [projects, projectId]);
+    const createDefaultProject = async () => {
+      if (projects && projects.length === 0) {
+        try {
+          const response = await fetch('/api/chat/projects', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+              name: 'My First Project',
+              description: 'Default project for chatting with Mr Blue',
+            }),
+          });
+          
+          if (response.ok) {
+            const newProject = await response.json();
+            setProjectId(newProject.id);
+            toast({
+              title: 'Project Created',
+              description: 'Created your first project!',
+            });
+          }
+        } catch (error) {
+          console.error('[Chat] Failed to create default project:', error);
+        }
+      } else if (projects && projects.length > 0 && !projectId) {
+        setProjectId(projects[0].id);
+      }
+    };
+    
+    createDefaultProject();
+  }, [projects, projectId, toast]);
 
   const { data: messages, refetch } = useQuery<Message[]>({
     queryKey: ['/api/chat/projects', projectId, 'messages'],

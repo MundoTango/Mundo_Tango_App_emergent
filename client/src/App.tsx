@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy, useState } from "react";
-import { Switch, Route, Redirect } from "wouter";
+import { Switch, Route, Redirect, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -715,6 +715,17 @@ function AppContent() {
 
   // MB.MD TRACK 1: Sidebar state for mobile BottomNav integration
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // MB.MD FIX: Visual Editor must render OUTSIDE main app layout (no sidebar/nav)
+  const [location] = useLocation();
+  if (location === '/admin/visual-editor') {
+    const VisualEditorPage = lazy(() => import('@/pages/VisualEditorPage'));
+    return (
+      <Suspense fallback={<div className="flex items-center justify-center h-screen"><div className="text-lg">Loading Visual Editor...</div></div>}>
+        <VisualEditorPage />
+      </Suspense>
+    );
+  }
 
   console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
