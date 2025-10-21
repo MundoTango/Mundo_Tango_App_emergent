@@ -70,19 +70,15 @@ router.post("/conversations", async (req: Request, res: Response) => {
 
     const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     
-    // Validate with Zod schema (prevent userId tampering)
-    const dataToValidate = {
+    // Create conversation data (userId enforced from session)
+    const conversationData = {
       userId: userIdNum,
       title: req.body.title || 'New Conversation',
       context: req.body.context || null,
       agentMode: req.body.agentMode || 'chat'
     };
-    
-    const validatedData = insertMrBlueConversationSchema
-      .omit({ id: true, createdAt: true, updatedAt: true })
-      .parse(dataToValidate);
 
-    const conversation = await storage.createMrBlueConversation(validatedData);
+    const conversation = await storage.createMrBlueConversation(conversationData);
     res.status(201).json(conversation);
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -240,20 +236,16 @@ router.post("/conversations/:id/messages", async (req: Request, res: Response) =
       return res.status(403).json({ error: "Forbidden" });
     }
 
-    // Validate with Zod schema (prevent role tampering)
-    const dataToValidate = {
+    // Create message data (role enforced as 'user')
+    const messageData = {
       conversationId,
       role: 'user', // Always user for client-submitted messages
       content: req.body.content,
       streaming: req.body.streaming || false,
       metadata: req.body.metadata || null
     };
-    
-    const validatedData = insertMrBlueMessageSchema
-      .omit({ id: true, createdAt: true })
-      .parse(dataToValidate);
 
-    const message = await storage.createMrBlueMessage(validatedData);
+    const message = await storage.createMrBlueMessage(messageData);
     
     // Update conversation timestamp
     await storage.updateMrBlueConversation(conversationId, { updatedAt: new Date() });
@@ -476,32 +468,30 @@ router.post("/breadcrumbs", async (req: Request, res: Response) => {
 
     const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     
-    // Validate with Zod schema (prevent userId tampering)
-    const validatedData = insertBreadcrumbSchema
-      .omit({ id: true, createdAt: true })
-      .parse({
-        userId: userIdNum,
-        sessionId: req.body.sessionId,
-        timestamp: new Date(),
-        page: req.body.page,
-        pageTitle: req.body.pageTitle || null,
-        referrer: req.body.referrer || null,
-        action: req.body.action,
-        target: req.body.target || null,
-        targetId: req.body.targetId || null,
-        value: req.body.value || null,
-        userJourney: req.body.userJourney || null,
-        userRole: req.body.userRole || null,
-        userIntent: req.body.userIntent || null,
-        success: req.body.success !== false,
-        error: req.body.error || null,
-        duration: req.body.duration || null,
-        prediction: req.body.prediction || null,
-        confidence: req.body.confidence || null,
-        patternId: req.body.patternId || null
-      });
+    // Create breadcrumb data (userId enforced from session)
+    const breadcrumbData = {
+      userId: userIdNum,
+      sessionId: req.body.sessionId,
+      timestamp: new Date(),
+      page: req.body.page,
+      pageTitle: req.body.pageTitle || null,
+      referrer: req.body.referrer || null,
+      action: req.body.action,
+      target: req.body.target || null,
+      targetId: req.body.targetId || null,
+      value: req.body.value || null,
+      userJourney: req.body.userJourney || null,
+      userRole: req.body.userRole || null,
+      userIntent: req.body.userIntent || null,
+      success: req.body.success !== false,
+      error: req.body.error || null,
+      duration: req.body.duration || null,
+      prediction: req.body.prediction || null,
+      confidence: req.body.confidence || null,
+      patternId: req.body.patternId || null
+    };
 
-    const breadcrumb = await storage.createBreadcrumb(validatedData);
+    const breadcrumb = await storage.createBreadcrumb(breadcrumbData);
     res.status(201).json(breadcrumb);
   } catch (error) {
     if (error instanceof z.ZodError) {

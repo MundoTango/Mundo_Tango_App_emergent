@@ -137,6 +137,10 @@ const AgentIntelligenceNetwork = lazy(() => import("@/pages/AgentIntelligenceNet
 const MrBluePage = lazy(() => import("@/pages/MrBluePage"));
 const AgentDetail = lazy(() => import("@/pages/AgentDetail"));
 
+// MB.MD TRACK 4B & 6: Journey Wizards + Agent Browser (Oct 21, 2025)
+const JourneyPage = lazy(() => import("@/pages/JourneyPage"));
+const AgentBrowserPage = lazy(() => import("@/components/agents/AgentBrowser"));
+
 // MB.MD BATCH 3: 25 Additional Routes (Travel, Media, User Management, Testing, Stories)
 // Travel & Planning
 const TravelPlanner = lazy(() => import("@/pages/TravelPlanner"));
