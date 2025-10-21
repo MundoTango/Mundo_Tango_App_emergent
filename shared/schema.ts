@@ -2459,3 +2459,32 @@ export type InsertFeatureUnlock = z.infer<typeof insertFeatureUnlockSchema>;
 
 export type TooltipDismissal = typeof userTooltipDismissals.$inferSelect;
 export type InsertTooltipDismissal = z.infer<typeof insertTooltipDismissalSchema>;
+
+// ========================================
+// LUMA LABS 3D GENERATION TABLES
+// MB.MD Track 1: Luma Labs Avatar - Oct 21, 2025
+// ========================================
+
+export const lumaGenerations = pgTable("luma_generations", {
+  id: varchar("id").primaryKey(), // Luma generation ID
+  userId: integer("user_id").references(() => users.id).notNull(),
+  prompt: text("prompt").notNull(),
+  status: varchar("status").notNull(), // queued, dreaming, completed, failed
+  glbUrl: text("glb_url"),
+  previewUrl: text("preview_url"),
+  quality: varchar("quality").default('high'), // high, medium, low
+  cost: integer("cost"), // Credits used
+  errorMessage: text("error_message"),
+  createdAt: timestamp("created_at").defaultNow(),
+  completedAt: timestamp("completed_at"),
+}, (table) => [
+  index("idx_luma_user").on(table.userId),
+  index("idx_luma_status").on(table.status),
+]);
+
+export const insertLumaGenerationSchema = createInsertSchema(lumaGenerations).omit({
+  createdAt: true,
+});
+
+export type LumaGeneration = typeof lumaGenerations.$inferSelect;
+export type InsertLumaGeneration = z.infer<typeof insertLumaGenerationSchema>;

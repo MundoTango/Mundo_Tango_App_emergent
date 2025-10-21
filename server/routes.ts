@@ -58,6 +58,7 @@ import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Ag
 import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md lines 1030-1051) - Agents #73-80
 // import visualEditorRoutes from "./routes/visualEditorRoutes"; // Visual Editor (mb.md lines 1038-1042) - Agent #78 (coming in Phase 2)
 import authRoutes from "./routes/authRoutes"; // Authentication routes - /api/auth/*
+import lumaRoutes from "./routes/lumaRoutes"; // Luma Labs 3D Avatar Generation - MB.MD Track 1 - Oct 21, 2025
 // import journeyRoutes from "./routes/journeyRoutes"; // Journey Agents J1-J5 (MB.MD Phase 4: Deployment) - Oct 19, 2025 - TEMP DISABLED
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
