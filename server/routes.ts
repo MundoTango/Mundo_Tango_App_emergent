@@ -236,7 +236,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { pageLoadTime, connectTime, renderTime, url, timestamp } = req.body;
       
       // Track performance metrics
-      const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService');
+      const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService.js');
       lifeCeoPerformance.trackResponseTime(url, pageLoadTime);
       
       console.log('📊 Life CEO Performance Metrics:', {
@@ -256,7 +256,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Life CEO Performance Report endpoint
   app.get('/api/performance/report', setUserContext, async (req: any, res) => {
     try {
-      const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService');
+      const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService.js');
       const report = await lifeCeoPerformance.getPerformanceReport();
       
       res.json({
@@ -440,7 +440,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Initialize Life CEO Performance Service for advanced optimization
   try {
-    const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService');
+    const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService.js');
     await lifeCeoPerformance.initialize();
     console.log('⚡ Life CEO Performance Service initialized - site speed improvements active');
   } catch (error) {
@@ -449,7 +449,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Initialize Phase 4: Intelligent Performance Monitor
   try {
-    const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor');
+    const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor.js');
     await intelligentMonitor.startMonitoring();
     console.log('🧠 Life CEO Intelligent Performance Monitor active - Phase 4 optimization enabled');
   } catch (error) {
@@ -458,7 +458,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Initialize Enhanced Life CEO Service with 41x21s framework
   try {
-    const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService');
+    const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
     await lifeCeoEnhanced.continuousValidation();
     console.log('🧠 Life CEO Enhanced Service initialized - 41x21s framework active');
   } catch (error) {
@@ -468,7 +468,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Life CEO Enhanced API endpoints
   app.get('/api/life-ceo/pre-development-checklist', setUserContext, async (req: any, res) => {
     try {
-      const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService');
+      const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
       const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
       res.json(result);
     } catch (error) {
@@ -502,7 +502,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/life-ceo/mobile-readiness', setUserContext, async (req: any, res) => {
     try {
-      const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService');
+      const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
       const result = await lifeCeoEnhanced.checkMobileReadiness();
       res.json(result);
     } catch (error) {

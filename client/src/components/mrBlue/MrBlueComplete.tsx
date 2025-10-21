@@ -181,40 +181,38 @@ export function MrBlueComplete() {
               </TabsList>
 
               {/* Tab Content */}
-              <div className="flex-1 overflow-hidden">
-                <TabsContent value="chat" className="h-full m-0">
-                  <ChatInterface />
+              <TabsContent value="chat" className="flex-1 m-0 data-[state=active]:flex data-[state=active]:flex-col overflow-hidden">
+                <ChatInterface />
+              </TabsContent>
+              <TabsContent value="tours" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <ToursTab />
+              </TabsContent>
+              <TabsContent value="subscriptions" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <SubscriptionsTab />
+              </TabsContent>
+              <TabsContent value="search" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <SearchTab />
+              </TabsContent>
+              <TabsContent value="site-builder" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <SiteBuilderTab />
+              </TabsContent>
+              <TabsContent value="visual-editor" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <VisualEditorTab />
+              </TabsContent>
+              <TabsContent value="avatar-ai" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <AvatarAITab />
+              </TabsContent>
+              <TabsContent value="quality" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <QualityTab />
+              </TabsContent>
+              <TabsContent value="life-ceo" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <LifeCEOTab />
+              </TabsContent>
+              {isAdmin && (
+                <TabsContent value="admin" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                  <AdminTab />
                 </TabsContent>
-                <TabsContent value="tours" className="h-full m-0 p-4 overflow-auto">
-                  <ToursTab />
-                </TabsContent>
-                <TabsContent value="subscriptions" className="h-full m-0 p-4 overflow-auto">
-                  <SubscriptionsTab />
-                </TabsContent>
-                <TabsContent value="search" className="h-full m-0 p-4 overflow-auto">
-                  <SearchTab />
-                </TabsContent>
-                <TabsContent value="site-builder" className="h-full m-0 p-4 overflow-auto">
-                  <SiteBuilderTab />
-                </TabsContent>
-                <TabsContent value="visual-editor" className="h-full m-0 p-4 overflow-auto">
-                  <VisualEditorTab />
-                </TabsContent>
-                <TabsContent value="avatar-ai" className="h-full m-0 p-4 overflow-auto">
-                  <AvatarAITab />
-                </TabsContent>
-                <TabsContent value="quality" className="h-full m-0 p-4 overflow-auto">
-                  <QualityTab />
-                </TabsContent>
-                <TabsContent value="life-ceo" className="h-full m-0 p-4 overflow-auto">
-                  <LifeCEOTab />
-                </TabsContent>
-                {isAdmin && (
-                  <TabsContent value="admin" className="h-full m-0 p-4 overflow-auto">
-                    <AdminTab />
-                  </TabsContent>
-                )}
-              </div>
+              )}
             </Tabs>
           </div>
         </DialogContent>
