@@ -1,9 +1,49 @@
-import { CreditCard, Zap } from 'lucide-react';
+import { CreditCard, Zap, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { apiRequest, queryClient } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 export default function SubscriptionsTab() {
+  const { toast } = useToast();
+
+  // REAL API: Fetch subscription status and usage
+  const { data: subscription, isLoading: subLoading } = useQuery({
+    queryKey: ['/api/subscriptions/status']
+  });
+
+  const { data: usage, isLoading: usageLoading } = useQuery({
+    queryKey: ['/api/subscriptions/usage']
+  });
+
+  // REAL API: Create Stripe checkout session
+  const upgradeMutation = useMutation({
+    mutationFn: async (tier: string) => {
+      const response = await apiRequest('/api/subscriptions/create-checkout', {
+        method: 'POST',
+        body: { tier }
+      });
+      return response;
+    },
+    onSuccess: (data: any) => {
+      // Redirect to Stripe checkout
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    },
+    onError: (error: any) => {
+      toast({
+        title: 'Upgrade failed',
+        description: error.message,
+        variant: 'destructive'
+      });
+    }
+  });
+
+  const currentTier = subscription?.tier || 'free';
+  const isLoading = subLoading || usageLoading;
   return (
     <div className="flex flex-col h-full bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-900 dark:to-purple-900/10 p-6 overflow-auto">
       <div className="mb-6">
@@ -84,8 +124,19 @@ export default function SubscriptionsTab() {
                   <span className="font-medium text-gray-900 dark:text-white">10,000/month</span>
                 </div>
               </div>
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" data-testid="button-upgrade-pro">
-                Upgrade to Pro
+              <Button 
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" 
+                onClick={() => upgradeMutation.mutate('basic')}
+                disabled={upgradeMutation.isPending || currentTier !== 'free'}
+                data-testid="button-upgrade-pro"
+              >
+                {upgradeMutation.isPending ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Processing...</>
+                ) : currentTier !== 'free' ? (
+                  'Current Plan'
+                ) : (
+                  'Upgrade to Pro'
+                )}
               </Button>
             </div>
           </CardContent>

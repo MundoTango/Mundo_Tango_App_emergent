@@ -66,6 +66,12 @@ import intentRoutes from "./routes/intentRoutes"; // Intent Detection - MB.MD Op
 import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing - MB.MD Option A - Oct 21, 2025
 import learningRoutes from "./routes/learningRoutes"; // Agent #80 Learning Coordinator API - MB.MD Phase 1B - Oct 21, 2025
 import multiAgentRoutes from "./routes/multiAgentRoutes"; // Multi-Agent Orchestration API - MB.MD Phase 3R-T - Oct 21, 2025
+import gitRoutes from "./routes/gitRoutes"; // Git Integration API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import filesRoutes from "./routes/filesRoutes"; // Filesystem Browser API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import deployRoutes from "./routes/deployRoutes"; // Deployment API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1367,6 +1373,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🤖 MB.MD Phase 3R-T: Multi-Agent Orchestration, ML Prediction, Failed Action Monitor (Oct 21, 2025)
   app.use('/api/multiagent', multiAgentRoutes); // Multi-agent build, ML predictions, failure monitoring
   console.log('✅ Multi-Agent Orchestration APIs registered (17 endpoints)');
+  
+  // 🔧 MB.MD Maximum Parallel Build: Visual Editor Backend Infrastructure (Oct 21, 2025)
+  app.use('/api/git', gitRoutes); // Git status, commit, log, diff
+  app.use('/api/files', filesRoutes); // Filesystem browser, read, write
+  app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
+  app.use('/api/pages', pagesRoutes); // Dynamic page discovery
+  app.use('/api/deploy', deployRoutes); // Staging & production deployment
+  app.use('/api/subscriptions', subscriptionRoutes); // Stripe subscription management
+  console.log('✅ Visual Editor Infrastructure APIs registered (6 new APIs, 24 endpoints)');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');

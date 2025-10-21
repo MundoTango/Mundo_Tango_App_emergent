@@ -6,26 +6,60 @@
  */
 
 import { useState } from 'react';
-import { GitBranch, GitCommit, RefreshCw } from 'lucide-react';
+import { GitBranch, GitCommit, RefreshCw, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { apiRequest, queryClient } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 export default function GitTab() {
   const [commitMessage, setCommitMessage] = useState('');
-  const [branch, setBranch] = useState('main');
+  const { toast } = useToast();
   
-  // Mock data - in production, fetch from git API
-  const modifiedFiles = [
-    'client/src/components/visual-editor/TabSystem.tsx',
-    'client/src/components/visual-editor/PreviewTab.tsx'
-  ];
+  // REAL API: Fetch git status
+  const { data: gitStatus, isLoading, refetch } = useQuery({
+    queryKey: ['/api/git/status'],
+    refetchInterval: 10000 // Auto-refresh every 10 seconds
+  });
+
+  const branch = gitStatus?.branch || 'main';
+  const modifiedFiles = gitStatus?.modifiedFiles || [];
+
+  // REAL API: Commit mutation
+  const commitMutation = useMutation({
+    mutationFn: async () => {
+      return await apiRequest('/api/git/commit', {
+        method: 'POST',
+        body: { message: commitMessage }
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/git/status'] });
+      setCommitMessage('');
+      toast({ title: 'Changes committed successfully' });
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: 'Commit failed', 
+        description: error.message,
+        variant: 'destructive' 
+      });
+    }
+  });
 
   return (
     <div className="p-4 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Git Status</h3>
-        <Button variant="outline" size="sm" data-testid="button-git-refresh">
-          <RefreshCw className="w-4 h-4" />
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => refetch()}
+          disabled={isLoading}
+          data-testid="button-git-refresh"
+        >
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
         </Button>
       </div>
 
@@ -69,12 +103,16 @@ export default function GitTab() {
         </div>
 
         <Button
-          disabled={!commitMessage.trim()}
+          disabled={!commitMessage.trim() || commitMutation.isPending || modifiedFiles.length === 0}
           className="w-full"
+          onClick={() => commitMutation.mutate()}
           data-testid="button-commit"
         >
-          <GitCommit className="w-4 h-4 mr-2" />
-          Commit Changes
+          {commitMutation.isPending ? (
+            <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Committing...</>
+          ) : (
+            <><GitCommit className="w-4 h-4 mr-2" />Commit Changes</>
+          )}
         </Button>
       </div>
 
