@@ -193,39 +193,39 @@ export function MrBlueComplete() {
               </TabsList>
 
               {/* Tab Content */}
-              <TabsContent value="chat" className="flex-1 m-0 data-[state=active]:flex data-[state=active]:flex-col overflow-hidden">
+              <TabsContent value="chat" className="flex-1 m-0 h-full data-[state=active]:flex data-[state=active]:flex-col overflow-hidden">
                 <ChatInterface />
               </TabsContent>
-              <TabsContent value="tours" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+              <TabsContent value="tours" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                 <ToursTab />
               </TabsContent>
-              <TabsContent value="subscriptions" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+              <TabsContent value="subscriptions" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                 <SubscriptionsTab />
               </TabsContent>
-              <TabsContent value="search" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+              <TabsContent value="search" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                 <SearchTab />
               </TabsContent>
-              <TabsContent value="life-ceo" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+              <TabsContent value="life-ceo" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                 <LifeCEOTab />
               </TabsContent>
               {isAdmin && (
                 <>
-                  <TabsContent value="site-builder" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                  <TabsContent value="site-builder" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                     <SiteBuilderTab />
                   </TabsContent>
-                  <TabsContent value="visual-editor" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                  <TabsContent value="visual-editor" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                     <VisualEditorTab />
                   </TabsContent>
-                  <TabsContent value="avatar-ai" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                  <TabsContent value="avatar-ai" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                     <AvatarAITab />
                   </TabsContent>
-                  <TabsContent value="quality" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                  <TabsContent value="quality" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                     <QualityTab />
                   </TabsContent>
                 </>
               )}
               {isAdmin && (
-                <TabsContent value="admin" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                <TabsContent value="admin" className="flex-1 m-0 h-full p-4 overflow-auto data-[state=active]:block">
                   <AdminTab />
                 </TabsContent>
               )}
