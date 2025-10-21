@@ -2602,8 +2602,8 @@ export const chatProjects = pgTable("chat_projects", {
   index("idx_chat_projects_user").on(table.userId),
 ]);
 
-// Chat Messages (all AI conversations)
-export const chatMessages = pgTable("chat_messages", {
+// AI Chat Messages (Mr Blue multi-model conversations)
+export const aiChatMessages = pgTable("ai_chat_messages", {
   id: serial("id").primaryKey(),
   projectId: integer("project_id").references(() => chatProjects.id).notNull(),
   userId: integer("user_id").references(() => users.id).notNull(),
@@ -2614,8 +2614,8 @@ export const chatMessages = pgTable("chat_messages", {
   metadata: jsonb("metadata").$type<Record<string, any>>().default({}), // Media uploads, code snippets, etc
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
-  index("idx_chat_messages_project").on(table.projectId),
-  index("idx_chat_messages_user").on(table.userId),
+  index("idx_ai_chat_messages_project").on(table.projectId),
+  index("idx_ai_chat_messages_user").on(table.userId),
 ]);
 
 // Model Usage Tracking (cost/performance analytics)
@@ -2666,7 +2666,7 @@ export const insertChatProjectSchema = createInsertSchema(chatProjects).omit({
   updatedAt: true,
 });
 
-export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
+export const insertAIChatMessageSchema = createInsertSchema(aiChatMessages).omit({
   id: true,
   createdAt: true,
 });
@@ -2690,8 +2690,8 @@ export const insertEvoPatternSchema = createInsertSchema(evoPatterns).omit({
 export type ChatProject = typeof chatProjects.$inferSelect;
 export type InsertChatProject = z.infer<typeof insertChatProjectSchema>;
 
-export type ChatMessage = typeof chatMessages.$inferSelect;
-export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+export type AIChatMessage = typeof aiChatMessages.$inferSelect;
+export type InsertAIChatMessage = z.infer<typeof insertAIChatMessageSchema>;
 
 export type ModelUsage = typeof modelUsage.$inferSelect;
 export type InsertModelUsage = z.infer<typeof insertModelUsageSchema>;
