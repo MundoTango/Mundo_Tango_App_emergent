@@ -16,13 +16,17 @@ console.log('[Mundo Tango ESA] Environment:', process.env.NODE_ENV || 'developme
 
 // Launch the actual TypeScript server using tsx (Vite-free version)
 const serverPath = join(__dirname, 'index-novite.ts');
-const child = spawn('npx', ['tsx', serverPath], {
+const child = spawn('node', [
+  '--max-old-space-size=4096',
+  '--expose-gc',
+  '-r', 'tsx/cjs',
+  serverPath
+], {
   stdio: 'inherit',
   cwd: process.cwd(),
   env: {
     ...process.env,
     NODE_ENV: process.env.NODE_ENV || 'development',
-    NODE_OPTIONS: '--max-old-space-size=4096 --expose-gc',
     PORT: process.env.PORT || '5000',
     DISABLE_REDIS: 'true'
   }
