@@ -89,9 +89,9 @@ export const userJourneyProgress = pgTable("user_journey_progress", {
   journeyId: varchar("journey_id", { length: 10 }).notNull(), // 'J1' through 'J5'
   currentStep: integer("current_step").default(1),
   totalSteps: integer("total_steps").notNull(),
-  completedSteps: jsonb("completed_steps").$type<number[]>().default([]),
-  skippedSteps: jsonb("skipped_steps").$type<number[]>().default([]),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  completedSteps: jsonb("completed_steps").$type<number[]>(),
+  skippedSteps: jsonb("skipped_steps").$type<number[]>(),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
   startedAt: timestamp("started_at").defaultNow(),
   completedAt: timestamp("completed_at"),
   createdAt: timestamp("created_at").defaultNow(),
@@ -137,7 +137,7 @@ export const roles = pgTable("roles", {
   description: text("description").notNull(),
   isPlatformRole: boolean("is_platform_role").default(false),
   // Permission fields
-  permissions: jsonb("permissions").default({}).notNull(),
+  permissions: jsonb("permissions").notNull(),
   memoryAccessLevel: text("memory_access_level").default("basic"),
   emotionalTagAccess: boolean("emotional_tag_access").default(false),
   // Custom role fields
@@ -184,7 +184,7 @@ export const projects = pgTable("projects", {
   completion: integer("completion").default(0),
   mobileCompletion: integer("mobile_completion").default(0),
   priority: varchar("priority", { length: 20 }), // Critical, High, Medium, Low
-  team: jsonb("team").default([]), // Array of team member IDs or names
+  team: jsonb("team"), // Array of team member IDs or names
   parentId: varchar("parent_id", { length: 255 }), // Reference to parent project
   estimatedHours: integer("estimated_hours"),
   actualHours: integer("actual_hours"),
@@ -193,12 +193,12 @@ export const projects = pgTable("projects", {
   assignedTo: integer("assigned_to").references(() => users.id),
   createdBy: integer("created_by").references(() => users.id),
   updatedBy: integer("updated_by").references(() => users.id),
-  metadata: jsonb("metadata").default({}), // Additional flexible data
+  metadata: jsonb("metadata"), // Additional flexible data
   tags: text("tags").array(),
   blockers: text("blockers").array(),
   notes: text("notes"),
-  gitCommits: jsonb("git_commits").default([]), // Auto-captured commits
-  attachments: jsonb("attachments").default([]), // File attachments
+  gitCommits: jsonb("git_commits"), // Auto-captured commits
+  attachments: jsonb("attachments"), // File attachments
   dependencies: varchar("dependencies", { length: 255 }).array(), // Other project IDs
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -221,7 +221,7 @@ export const projectActivity = pgTable("project_activity", {
   oldValue: jsonb("old_value"),
   newValue: jsonb("new_value"),
   description: text("description"),
-  metadata: jsonb("metadata").default({}),
+  metadata: jsonb("metadata"),
   timestamp: timestamp("timestamp").defaultNow(),
 }, (table) => [
   index("idx_project_activity_project_id").on(table.projectId),
@@ -253,7 +253,7 @@ export const userProfiles = pgTable("user_profiles", {
   primaryRole: text("primary_role").default("guest"),
   displayName: text("display_name"),
   avatarUrl: text("avatar_url"),
-  permissions: jsonb("permissions").default({}),
+  permissions: jsonb("permissions"),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -303,9 +303,9 @@ export const posts = pgTable("posts", {
   plainText: text("plain_text"), // Extracted plain text for search
   imageUrl: text("image_url"),
   videoUrl: text("video_url"),
-  mediaEmbeds: jsonb("media_embeds").default([]), // Mundo Tango ESA LIFE CEO - Now storing all media URLs here
-  mentions: text("mentions").array().default([]), // @mentions
-  hashtags: text("hashtags").array().default([]),
+  mediaEmbeds: jsonb("media_embeds"), // Mundo Tango ESA LIFE CEO - Now storing all media URLs here
+  mentions: text("mentions").array(), // @mentions
+  hashtags: text("hashtags").array(),
   location: text("location"),
   coordinates: jsonb("coordinates"), // GPS coordinates from Google Maps
   placeId: text("place_id"), // Google Maps Place ID
@@ -483,7 +483,7 @@ export const eventPagePosts = pgTable("event_page_posts", {
   postType: varchar("post_type", { length: 50 }).default("discussion"), // discussion, announcement, photo, question, poll
   title: varchar("title", { length: 255 }),
   content: text("content").notNull(),
-  mediaUrls: text("media_urls").array().default([]),
+  mediaUrls: text("media_urls").array(),
   isApproved: boolean("is_approved").default(true), // Auto-approved unless event requires approval
   approvedBy: integer("approved_by").references(() => users.id),
   approvedAt: timestamp("approved_at"),
@@ -617,7 +617,7 @@ export const eventAdmins = pgTable("event_admins", {
   eventId: integer("event_id").references(() => events.id, { onDelete: "cascade" }).notNull(),
   userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
   role: varchar("role", { length: 20 }).notNull(), // owner, admin, moderator
-  permissions: jsonb("permissions").default({}).notNull(),
+  permissions: jsonb("permissions").notNull(),
   addedAt: timestamp("added_at").defaultNow(),
 }, (table) => [
   unique().on(table.eventId, table.userId),
@@ -797,7 +797,7 @@ export const postComments = pgTable("post_comments", {
   userId: integer("user_id").references(() => users.id).notNull(),
   content: text("content").notNull(),
   parentId: integer("parent_id"),
-  mentions: text("mentions").array().default([]),
+  mentions: text("mentions").array(),
   gifUrl: text("gif_url"),
   imageUrl: text("image_url"),
   likes: integer("likes").default(0),
@@ -1023,7 +1023,7 @@ export const friendRequests = pgTable("friend_requests", {
   danceEventId: integer("dance_event_id").references(() => events.id),
   danceStory: text("dance_story"),
   // Media attachments
-  mediaUrls: text("media_urls").array().default([]),
+  mediaUrls: text("media_urls").array(),
   // Private notes (not visible to other party)
   senderPrivateNote: text("sender_private_note"),
   receiverPrivateNote: text("receiver_private_note"),
@@ -1051,7 +1051,7 @@ export const friendshipActivities = pgTable("friendship_activities", {
   id: serial("id").primaryKey(),
   friendshipId: integer("friendship_id").notNull().references(() => friends.id, { onDelete: "cascade" }),
   activityType: text("activity_type").notNull(), // 'post_tag', 'comment', 'like', 'event_together', 'message'
-  activityData: jsonb("activity_data").default({}), // Store relevant data for each activity type
+  activityData: jsonb("activity_data"), // Store relevant data for each activity type
   points: integer("points").default(1), // Weight for closeness calculation
   createdAt: timestamp("created_at").defaultNow().notNull(),
 }, (table) => ({
@@ -1323,7 +1323,7 @@ export const notifications = pgTable("notifications", {
   type: varchar("type", { length: 50 }).notNull(), // comment, like, mention, follow, event_invite
   title: varchar("title", { length: 255 }).notNull(),
   message: text("message").notNull(),
-  data: jsonb("data").default({}), // Additional data for the notification
+  data: jsonb("data"), // Additional data for the notification
   isRead: boolean("is_read").default(false),
   actionUrl: text("action_url"), // URL to navigate when clicked
   createdAt: timestamp("created_at").defaultNow(),
@@ -1416,7 +1416,7 @@ export const hostHomes = pgTable("host_homes", {
   amenities: text("amenities").array().default(sql`ARRAY[]::text[]`),
   maxGuests: integer("max_guests").default(1),
   pricePerNight: integer("price_per_night"), // in cents
-  availability: jsonb("availability").default({}), // dates available
+  availability: jsonb("availability"), // dates available
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -1816,7 +1816,7 @@ export const insertLiveAgentActionSchema = createInsertSchema(liveAgentActions).
 export const lifeCeoAgentConfigurations = pgTable("life_ceo_agent_configurations", {
   id: uuid("id").primaryKey().defaultRandom(),
   agentId: varchar("agent_id", { length: 100 }).notNull().unique(),
-  configurationData: jsonb("configuration_data").notNull().default({}),
+  configurationData: jsonb("configuration_data").notNull(),
   lastUpdated: timestamp("last_updated").defaultNow().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 }, (table) => [
@@ -1831,7 +1831,7 @@ export const life_ceo_agent_memories = pgTable("life_ceo_agent_memories", {
   userId: varchar("user_id", { length: 255 }).notNull(),
   content: jsonb("content").notNull(),
   importance: real("importance").default(0.5),
-  tags: text("tags").array().default([]),
+  tags: text("tags").array(),
   embedding: jsonb("embedding"), // Store as JSONB for now, can be migrated to vector later
   createdAt: timestamp("created_at").defaultNow(),
   expiresAt: timestamp("expires_at"),
@@ -1847,7 +1847,7 @@ export const lifeCeoChatMessages = pgTable("life_ceo_chat_messages", {
   agentId: varchar("agent_id", { length: 100 }).notNull(),
   role: varchar("role", { length: 20 }).notNull(), // 'user', 'assistant', 'system'
   content: text("content").notNull(),
-  metadata: jsonb("metadata").default({}),
+  metadata: jsonb("metadata"),
   timestamp: timestamp("timestamp").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 }, (table) => [
@@ -1861,7 +1861,7 @@ export const lifeCeoConversations = pgTable("life_ceo_conversations", {
   userId: integer("user_id").notNull().references(() => users.id),
   agentId: varchar("agent_id", { length: 100 }).notNull(),
   title: varchar("title", { length: 255 }).notNull(),
-  metadata: jsonb("metadata").default({}),
+  metadata: jsonb("metadata"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   lastMessage: timestamp("last_message").defaultNow().notNull(),
 }, (table) => [
@@ -1929,7 +1929,7 @@ export const tenants = pgTable("tenants", {
   secondary_color: text("secondary_color").default('#3F51B5'),
   domain: text("domain").unique(),
   is_active: boolean("is_active").default(true),
-  settings: jsonb("settings").default({}).notNull(),
+  settings: jsonb("settings").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -1946,7 +1946,7 @@ export const tenantUsers = pgTable("tenant_users", {
   display_in_feed: boolean("display_in_feed").default(true),
   notification_preferences: jsonb("notification_preferences").default({email: true, push: true}).notNull(),
   expertise_level: text("expertise_level").default('beginner'),
-  interests: text("interests").array().default([]),
+  interests: text("interests").array(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -1960,8 +1960,8 @@ export const userViewPreferences = pgTable("user_view_preferences", {
   user_id: integer("user_id").references(() => users.id).notNull(),
   view_mode: text("view_mode").notNull().default('single_community'),
   selected_tenant_id: uuid("selected_tenant_id").references(() => tenants.id),
-  selected_tenant_ids: uuid("selected_tenant_ids").array().default([]),
-  custom_filters: jsonb("custom_filters").default({}).notNull(),
+  selected_tenant_ids: uuid("selected_tenant_ids").array(),
+  custom_filters: jsonb("custom_filters").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -1992,7 +1992,7 @@ export const communityConnections = pgTable("community_connections", {
   tenant_id_2: uuid("tenant_id_2").references(() => tenants.id).notNull(),
   relationship_type: text("relationship_type").notNull(),
   is_bidirectional: boolean("is_bidirectional").default(true),
-  settings: jsonb("settings").default({}).notNull(),
+  settings: jsonb("settings").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -2006,12 +2006,12 @@ export const userJourneys = pgTable("user_journeys", {
   description: text("description"),
   start_date: timestamp("start_date"),
   end_date: timestamp("end_date"),
-  locations: jsonb("locations").array().default([]),
-  tenant_ids: uuid("tenant_ids").array().default([]),
+  locations: jsonb("locations").array(),
+  tenant_ids: uuid("tenant_ids").array(),
   journey_type: text("journey_type").default('travel'),
   status: text("status").default('planning'),
   is_public: boolean("is_public").default(false),
-  settings: jsonb("settings").default({}).notNull(),
+  settings: jsonb("settings").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -2032,7 +2032,7 @@ export const journeyActivities = pgTable("journey_activities", {
   external_url: text("external_url"),
   content_reference_id: uuid("content_reference_id"),
   content_reference_type: text("content_reference_type"),
-  settings: jsonb("settings").default({}).notNull(),
+  settings: jsonb("settings").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -2107,13 +2107,13 @@ export const dailyActivities = pgTable("daily_activities", {
   project_title: text("project_title").notNull(),
   activity_type: text("activity_type").notNull(), // created, updated, completed, reviewed, blocked
   description: text("description").notNull(),
-  changes: jsonb("changes").array().default([]), // Array of change descriptions
-  team: text("team").array().default([]),
-  tags: text("tags").array().default([]),
+  changes: jsonb("changes").array(), // Array of change descriptions
+  team: text("team").array(),
+  tags: text("tags").array(),
   completion_before: integer("completion_before"),
   completion_after: integer("completion_after"),
   timestamp: timestamp("timestamp").defaultNow(),
-  metadata: jsonb("metadata").default({}).notNull(),
+  metadata: jsonb("metadata").notNull(),
 }, (table) => [
   index("idx_daily_activities_user_id").on(table.user_id),
   index("idx_daily_activities_timestamp").on(table.timestamp),
@@ -2144,14 +2144,14 @@ export const hostReviews = pgTable("host_reviews", {
 export const guestProfiles = pgTable("guest_profiles", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-  accommodationPreferences: jsonb("accommodation_preferences").default({}),
-  dietaryRestrictions: text("dietary_restrictions").array().default([]),
-  languagesSpoken: text("languages_spoken").array().default([]),
-  travelInterests: text("travel_interests").array().default([]),
-  emergencyContact: jsonb("emergency_contact").default({}),
+  accommodationPreferences: jsonb("accommodation_preferences"),
+  dietaryRestrictions: text("dietary_restrictions").array(),
+  languagesSpoken: text("languages_spoken").array(),
+  travelInterests: text("travel_interests").array(),
+  emergencyContact: jsonb("emergency_contact"),
   specialNeeds: text("special_needs"),
-  preferredNeighborhoods: text("preferred_neighborhoods").array().default([]),
-  budgetRange: jsonb("budget_range").default({}),
+  preferredNeighborhoods: text("preferred_neighborhoods").array(),
+  budgetRange: jsonb("budget_range"),
   stayDurationPreference: varchar("stay_duration_preference", { length: 50 }),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -2595,7 +2595,7 @@ export const chatProjects = pgTable("chat_projects", {
   userId: integer("user_id").references(() => users.id).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   description: text("description"),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -2611,7 +2611,7 @@ export const aiChatMessages = pgTable("ai_chat_messages", {
   content: text("content").notNull(),
   model: varchar("model", { length: 100 }), // gpt-4o, claude-3-opus, gemini-pro, evo, etc
   tokens: integer("tokens"),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}), // Media uploads, code snippets, etc
+  metadata: jsonb("metadata").$type<Record<string, any>>(), // Media uploads, code snippets, etc
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
   index("idx_ai_chat_messages_project").on(table.projectId),
@@ -2638,7 +2638,7 @@ export const embeddings = pgTable("embeddings", {
   id: serial("id").primaryKey(),
   content: text("content").notNull(),
   vector: text("vector").notNull(), // JSON-serialized vector
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
   userId: integer("user_id").references(() => users.id),
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
@@ -2652,7 +2652,7 @@ export const evoPatterns = pgTable("evo_patterns", {
   patternType: varchar("pattern_type", { length: 100 }).notNull(), // social_connection, event_recommendation, content_affinity
   data: jsonb("data").$type<Record<string, any>>().notNull(), // DNA-like sequence data
   confidence: real("confidence").notNull(), // 0.0 to 1.0
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
   createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
   index("idx_evo_user").on(table.userId),

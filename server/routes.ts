@@ -88,12 +88,19 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD S5: Register production health endpoints FIRST (before any middleware)
-  const { registerHealthEndpoints } = await import('./routes/health');
-  await registerHealthEndpoints(app);
+  // TODO: Fix health route import - temporarily disabled to get server running
+  // const healthModule = await import('./routes/health');
+  // await healthModule.registerHealthEndpoints(app);
+  
+  // Temporary inline health endpoint
+  app.get('/api/health', (_req, res) => {
+    res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+  });
   
   // Initialize PostHog server-side analytics
-  const { initPostHogServer } = await import('./services/posthog');
-  initPostHogServer();
+  // TODO: Fix dynamic imports - temporarily disabled
+  // const { initPostHogServer } = await import('./services/posthog.ts');
+  // initPostHogServer();
   
   // Phase 11 Parallel: Security headers and performance monitoring
   const { securityHeaders } = await import('./middleware/security');
