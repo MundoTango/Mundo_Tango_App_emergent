@@ -31,6 +31,17 @@ export function ChatInterface() {
   const [isStreaming, setIsStreaming] = useState(false);
   const { toast } = useToast();
 
+  // Auto-select first project when projects load
+  const { data: projects } = useQuery<{ id: number; name: string }[]>({
+    queryKey: ['/api/chat/projects'],
+  });
+
+  useEffect(() => {
+    if (projects && projects.length > 0 && !projectId) {
+      setProjectId(projects[0].id);
+    }
+  }, [projects, projectId]);
+
   const { data: messages, refetch } = useQuery<Message[]>({
     queryKey: ['/api/chat/projects', projectId, 'messages'],
     enabled: !!projectId,
