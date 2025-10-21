@@ -368,6 +368,15 @@ function Router() {
           <Route path="/mr-blue">
             <MrBluePage />
           </Route>
+          
+          {/* MB.MD TRACK 4B & 6: Journey Wizards + Agent Browser (Oct 21, 2025) */}
+          <Route path="/journey/:journeyId">
+            <JourneyPage />
+          </Route>
+          <Route path="/agents">
+            <AgentBrowserPage />
+          </Route>
+          
           <Route path="/search">
             <SearchPage />
           </Route>

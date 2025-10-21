@@ -245,5 +245,6 @@ suitable for AI assistant interface
   }
 }
 
-// Export singleton instance
+// Export both class and singleton instance
+export default LumaLabsService;
 export const lumaLabsService = new LumaLabsService();

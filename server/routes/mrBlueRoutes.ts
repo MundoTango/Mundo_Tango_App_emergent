@@ -71,14 +71,16 @@ router.post("/conversations", async (req: Request, res: Response) => {
     const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     
     // Validate with Zod schema (prevent userId tampering)
+    const dataToValidate = {
+      userId: userIdNum,
+      title: req.body.title || 'New Conversation',
+      context: req.body.context || null,
+      agentMode: req.body.agentMode || 'chat'
+    };
+    
     const validatedData = insertMrBlueConversationSchema
       .omit({ id: true, createdAt: true, updatedAt: true })
-      .parse({
-        userId: userIdNum,
-        title: req.body.title || 'New Conversation',
-        context: req.body.context || null,
-        agentMode: req.body.agentMode || 'chat'
-      });
+      .parse(dataToValidate);
 
     const conversation = await storage.createMrBlueConversation(validatedData);
     res.status(201).json(conversation);
@@ -239,15 +241,17 @@ router.post("/conversations/:id/messages", async (req: Request, res: Response) =
     }
 
     // Validate with Zod schema (prevent role tampering)
+    const dataToValidate = {
+      conversationId,
+      role: 'user', // Always user for client-submitted messages
+      content: req.body.content,
+      streaming: req.body.streaming || false,
+      metadata: req.body.metadata || null
+    };
+    
     const validatedData = insertMrBlueMessageSchema
       .omit({ id: true, createdAt: true })
-      .parse({
-        conversationId,
-        role: 'user', // Always user for client-submitted messages
-        content: req.body.content,
-        streaming: req.body.streaming || false,
-        metadata: req.body.metadata || null
-      });
+      .parse(dataToValidate);
 
     const message = await storage.createMrBlueMessage(validatedData);
     

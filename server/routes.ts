@@ -59,7 +59,7 @@ import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md line
 // import visualEditorRoutes from "./routes/visualEditorRoutes"; // Visual Editor (mb.md lines 1038-1042) - Agent #78 (coming in Phase 2)
 import authRoutes from "./routes/authRoutes"; // Authentication routes - /api/auth/*
 import lumaRoutes from "./routes/lumaRoutes"; // Luma Labs 3D Avatar Generation - MB.MD Track 1 - Oct 21, 2025
-// import journeyRoutes from "./routes/journeyRoutes"; // Journey Agents J1-J5 (MB.MD Phase 4: Deployment) - Oct 19, 2025 - TEMP DISABLED
+import journeyRoutes from "./routes/journeyRoutes"; // Journey Agents J1-J5 Backend API - MB.MD Track 4A - Oct 21, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1325,12 +1325,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
   app.use('/api/mrblue', mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
+  app.use('/api/luma', lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
+  app.use('/api/journeys', journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
   // app.use('/api/visual-editor', visualEditorRoutes); // Visual Editor coming in Phase 2
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
-  // app.use('/api/journeys', authMiddleware, journeyRoutes); // Journey Agents J1-J5 (MB.MD Phase 4) - TEMP DISABLED
   console.log('✅ Authentication APIs registered');
   console.log('✅ Mr Blue APIs registered at /api/mrblue');
-  // console.log('✅ Journey Agent APIs registered at /api/journeys');
+  console.log('✅ Luma Labs 3D APIs registered at /api/luma');
+  console.log('✅ Journey Agent APIs registered at /api/journeys');
 
   // Create HTTP server FIRST (needed for WebSocket)
   const server = createServer(app);

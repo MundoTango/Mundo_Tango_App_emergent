@@ -25,11 +25,18 @@ import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 import QualityValidator from '@/lib/mrBlue/qualityValidator/QualityValidator';
 import LearningCoordinator from '@/lib/mrBlue/learningCoordinator/LearningCoordinator';
 
+// MB.MD TRACK 1-3: New Components (Oct 21, 2025)
+import LumaAvatarGenerator from '@/components/mrBlue/LumaAvatarGenerator';
+import VoiceControls from '@/components/mrBlue/VoiceControls';
+import PersonalitySelector, { PersonalityMode } from '@/components/mrBlue/PersonalitySelector';
+import AgentOrchestrationPanel from '@/components/mrBlue/AgentOrchestrationPanel';
+
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
   const [input, setInput] = useState('');
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [personality, setPersonality] = useState<PersonalityMode>('friendly');
 
   // Load conversations
   const { data: conversationsData } = useQuery<any[]>({
@@ -88,7 +95,8 @@ function MrBlueChatInterface() {
         body: JSON.stringify({
           conversationId,
           message: messageContent,
-          model: 'gpt-4o'
+          model: 'gpt-4o',
+          personality: personality // MB.MD TRACK 3A: Wire personality to chat request
         }),
         credentials: 'include',
       });
@@ -164,7 +172,13 @@ function MrBlueChatInterface() {
             </div>
           )}
         </div>
-        <div className="p-4 border-t dark:border-gray-700">
+        <div className="p-4 border-t dark:border-gray-700 space-y-3">
+          {/* MB.MD TRACK 3B: Agent Orchestration Panel */}
+          <AgentOrchestrationPanel />
+          
+          {/* MB.MD TRACK 3A: Personality Selector */}
+          <PersonalitySelector value={personality} onChange={setPersonality} />
+          
           <div className="flex gap-2">
             <Textarea
               value={input}
@@ -175,9 +189,16 @@ function MrBlueChatInterface() {
               disabled={isLoading}
               data-testid="input-message"
             />
-            <Button onClick={handleSend} disabled={!input.trim() || isLoading} data-testid="button-send">
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            </Button>
+            <div className="flex flex-col gap-2">
+              {/* MB.MD TRACK 2: Voice Controls */}
+              <VoiceControls 
+                onTranscript={(text) => setInput(prev => prev + ' ' + text)}
+                lastMessage={messages && messages.length > 0 ? messages[messages.length - 1]?.content : ''}
+              />
+              <Button onClick={handleSend} disabled={!input.trim() || isLoading} data-testid="button-send">
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -234,6 +255,29 @@ function VisualEditorTab() {
   return (
     <div className="flex-1 overflow-hidden">
       <VisualPageEditor enabled={enabled} onToggle={setEnabled} />
+    </div>
+  );
+}
+
+// ============ AVATAR GENERATION TAB ============
+function AvatarTab() {
+  const { toast } = useToast();
+  
+  const handleAvatarReady = (glbUrl: string) => {
+    toast({
+      title: 'Avatar Ready!',
+      description: `Scott's 3D avatar has been generated: ${glbUrl}`,
+    });
+  };
+  
+  return (
+    <div className="flex-1 p-6 overflow-y-auto bg-white dark:bg-gray-900">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">3D Avatar Generation</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">Professional AI-powered avatar creation with Luma Labs</p>
+        
+        <LumaAvatarGenerator onAvatarReady={handleAvatarReady} />
+      </div>
     </div>
   );
 }
@@ -357,6 +401,9 @@ export default function MrBluePage() {
             <TabsTrigger value="visualeditor" data-testid="tab-visualeditor" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-100 data-[state=active]:to-blue-100 dark:data-[state=active]:from-cyan-900 dark:data-[state=active]:to-blue-900">
               <Edit3 className="h-4 w-4 mr-2" />Visual Editor
             </TabsTrigger>
+            <TabsTrigger value="avatar" data-testid="tab-avatar" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-100 data-[state=active]:to-blue-100 dark:data-[state=active]:from-cyan-900 dark:data-[state=active]:to-blue-900">
+              <Sparkles className="h-4 w-4 mr-2" />Avatar AI
+            </TabsTrigger>
             <TabsTrigger value="quality" data-testid="tab-quality" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-100 data-[state=active]:to-blue-100 dark:data-[state=active]:from-cyan-900 dark:data-[state=active]:to-blue-900">
               <CheckCircle className="h-4 w-4 mr-2" />Quality & Learning
             </TabsTrigger>
@@ -378,6 +425,9 @@ export default function MrBluePage() {
           </TabsContent>
           <TabsContent value="visualeditor" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
             <VisualEditorTab />
+          </TabsContent>
+          <TabsContent value="avatar" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
+            <AvatarTab />
           </TabsContent>
           <TabsContent value="quality" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
             <QualityLearningTab />
