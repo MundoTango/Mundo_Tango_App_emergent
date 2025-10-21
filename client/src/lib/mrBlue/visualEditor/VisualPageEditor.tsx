@@ -19,8 +19,12 @@ interface VisualPageEditorProps {
 }
 
 export default function VisualPageEditor({ enabled: externalEnabled, onToggle }: VisualPageEditorProps = {}) {
-  const [internalEnabled, setInternalEnabled] = useState(externalEnabled ?? true);
-  const enabled = externalEnabled ?? internalEnabled;
+  const [internalEnabled, setInternalEnabled] = useState(false);
+  
+  // Controlled mode: external prop + callback provided
+  // Uncontrolled mode: use internal state
+  const isControlled = externalEnabled !== undefined;
+  const enabled = isControlled ? externalEnabled : internalEnabled;
   
   const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null);
   const [changes, setChanges] = useState<any[]>([]);

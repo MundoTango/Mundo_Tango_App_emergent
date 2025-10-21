@@ -201,6 +201,35 @@ architect({
 
 ---
 
+## 🪟 SPECIAL CASE: MODAL/DIALOG TESTING
+
+**Why Modals Are Different:** Modals/dialogs have unique failure modes that require additional testing beyond the 5 rules above.
+
+### Critical Modal Issues (Mr Blue Case Study):
+1. **Hidden by default** - Modal exists but never opened during testing
+2. **Blank content area** - Tabs render but content area collapsed to 0px
+3. **Props not passed** - Component requires props but called without them
+4. **Layout collapse** - Radix TabsContent defaults to `display: none`
+
+### Mandatory Modal Tests:
+Before marking ANY modal/dialog task complete:
+
+1. **TRIGGER TEST** - Actually open the modal (don't just check button exists)
+2. **CONTENT VISIBILITY TEST** - Verify content is VISIBLE, not just in DOM
+3. **TAB SWITCHING TEST** - Click every tab and verify content changes
+4. **LAYOUT VERIFICATION TEST** - Check content area has height > 200px
+5. **INTERACTION TEST** - Actually use at least one feature in the modal
+6. **SCREENSHOT TEST** - Capture modal open with visible content (MANDATORY)
+
+**Full Protocol:** See `docs/MB_MD_MODAL_TESTING_PROTOCOL.md` for complete testing checklist, common pitfalls, and Playwright examples.
+
+**Enforcement:** Cannot mark modal tasks `completed` without:
+- ✅ Screenshot showing modal open with content visible
+- ✅ Playwright test that opens modal and verifies content
+- ✅ Architect review with modal screenshots attached
+
+---
+
 ## 🔄 THE BUILD-INTEGRATE-VERIFY LOOP
 
 Every feature must complete this loop:
