@@ -41,6 +41,7 @@ function MrBlueChatInterface() {
   const [personality, setPersonality] = useState<PersonalityMode>('friendly');
   const [selectedModel, setSelectedModel] = useState<'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro'>('gpt-4o');
   const [lastAssistantMessage, setLastAssistantMessage] = useState<string>('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // TRACK H: Mobile sidebar toggle
   const { updateActualAction } = useIntentDetection();
 
   // Load conversations
@@ -178,10 +179,29 @@ function MrBlueChatInterface() {
     }
   };
 
+  // TRACK G: Keyboard shortcuts (Ctrl+K to focus input, Esc to blur)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.querySelector<HTMLTextAreaElement>('[aria-label="Chat input"]')?.focus();
+      }
+      if (e.key === 'Escape') {
+        document.querySelector<HTMLTextAreaElement>('[aria-label="Chat input"]')?.blur();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
-    <div className="flex h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Conversation Sidebar */}
-      <div className="w-64 border-r dark:border-gray-700 flex flex-col bg-gray-50 dark:bg-gray-800">
+    <div className="flex flex-col md:flex-row h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100" role="main" aria-label="Mr Blue AI Chat">
+      {/* TRACK H FIX: Mobile sidebar with toggle */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setIsSidebarOpen(false)} aria-label="Close sidebar overlay" />
+      )}
+      {/* Conversation Sidebar - TRACK H: Mobile responsive with drawer */}
+      <div className={`${isSidebarOpen ? 'fixed inset-y-0 left-0 z-50' : 'hidden'} md:relative md:flex md:w-64 w-64 border-r dark:border-gray-700 flex-col bg-gray-50 dark:bg-gray-800`} role="complementary" aria-label="Conversation history">
         <div className="p-3 border-b dark:border-gray-700 space-y-3">
           {/* TEMPORARILY DISABLED: 3D Avatar causes React Three Fiber crash - fixing separately */}
           {/* <div className="h-48 bg-white/90 dark:bg-black/40 rounded-lg overflow-hidden">
@@ -201,8 +221,15 @@ function MrBlueChatInterface() {
               <p className="text-xs opacity-75">3D Avatar Loading...</p>
             </div>
           </div>
-          <Button onClick={createNewConversation} className="w-full" size="sm" variant="default">
-            <MessageSquare className="h-4 w-4 mr-2" />
+          <Button 
+            onClick={createNewConversation} 
+            className="w-full min-h-[44px]" 
+            size="sm" 
+            variant="default"
+            aria-label="Create new conversation"
+            data-testid="button-new-chat"
+          >
+            <MessageSquare className="h-4 w-4 mr-2" aria-hidden="true" />
             New Chat
           </Button>
         </div>
@@ -212,11 +239,14 @@ function MrBlueChatInterface() {
               <button
                 key={conv.id}
                 onClick={() => setConversationId(conv.id)}
-                className={`w-full text-left p-3 rounded-lg transition-colors ${
+                className={`w-full text-left p-3 min-h-[44px] rounded-lg transition-colors focus:ring-2 focus:ring-cyan-500 focus:outline-none ${
                   conversationId === conv.id
                     ? 'bg-gradient-to-r from-turquoise-100 to-cyan-100 dark:from-turquoise-900 dark:to-cyan-900 text-gray-900 dark:text-white'
                     : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
                 }`}
+                aria-label={`Select conversation: ${conv.title || 'Untitled Chat'}`}
+                aria-current={conversationId === conv.id ? 'page' : undefined}
+                data-testid={`button-conversation-${conv.id}`}
               >
                 <div className="font-medium text-sm truncate">{conv.title || 'Untitled Chat'}</div>
                 <div className="text-xs opacity-70 mt-1">{new Date(conv.updatedAt).toLocaleDateString()}</div>
@@ -231,20 +261,35 @@ function MrBlueChatInterface() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 flex flex-col">
-        {/* Model Selector Header */}
-        <div className="p-3 border-b dark:border-gray-700 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-950/30 dark:to-blue-950/30">
+      <div className="flex-1 flex flex-col" role="region" aria-label="Chat conversation">
+        {/* Model Selector Header with Mobile Menu Button */}
+        <div className="p-3 border-b dark:border-gray-700 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-950/30 dark:to-blue-950/30" role="toolbar" aria-label="AI model selector">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">AI Model:</span>
-            <div className="flex gap-1">
+            {/* TRACK H FIX: Mobile menu toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="md:hidden min-h-[44px] min-w-[44px] p-0"
+              aria-label="Toggle conversation list"
+              data-testid="button-toggle-sidebar"
+            >
+              <MessageSquare className="h-5 w-5" aria-hidden="true" />
+            </Button>
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-400" id="model-selector-label">AI Model:</span>
+            <div className="flex gap-1" role="radiogroup" aria-labelledby="model-selector-label">
+              {/* TRACK H FIX: Touch-friendly button sizes (44px minimum) */}
               {(['gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as const).map((model) => (
                 <Button
                   key={model}
                   variant={selectedModel === model ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setSelectedModel(model)}
-                  className="text-xs h-7"
+                  className="text-xs min-h-[44px] px-3 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
                   data-testid={`button-model-${model}`}
+                  role="radio"
+                  aria-checked={selectedModel === model}
+                  aria-label={`Select ${model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude Sonnet' : 'Gemini Pro'} model`}
                 >
                   {model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude' : 'Gemini'}
                 </Button>
@@ -252,9 +297,9 @@ function MrBlueChatInterface() {
             </div>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3" role="log" aria-live="polite" aria-label="Chat messages">
           {(!messages || messages.length === 0) && (
-            <Card className="p-6 text-center bg-gradient-to-br from-turquoise-50 to-cyan-50 dark:from-turquoise-950 dark:to-cyan-950">
+            <Card className="p-6 text-center bg-gradient-to-br from-turquoise-50 to-cyan-50 dark:from-turquoise-950 dark:to-cyan-950" role="status">
               <h3 className="font-semibold text-lg mb-2">Welcome to Mr Blue!</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">I'm your AI companion. Ask me anything!</p>
             </Card>
@@ -290,12 +335,22 @@ function MrBlueChatInterface() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-              placeholder="Ask Mr Blue anything..."
-              className="flex-1 min-h-[60px] max-h-[120px]"
+              placeholder="Ask Mr Blue anything... (Ctrl+K to focus)"
+              className="flex-1 min-h-[60px] max-h-[120px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"
               disabled={isLoading}
+              aria-label="Chat input"
+              aria-describedby="keyboard-hint"
+              data-testid="input-chat"
             />
-            <Button onClick={handleSend} disabled={!input.trim() || isLoading}>
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+            <span id="keyboard-hint" className="sr-only">Press Ctrl+K to focus this input, Enter to send, Shift+Enter for new line</span>
+            <Button 
+              onClick={handleSend} 
+              disabled={!input.trim() || isLoading}
+              aria-label={isLoading ? 'Sending message...' : 'Send message'}
+              className="focus:ring-2 focus:ring-cyan-500 focus:outline-none min-h-[44px] min-w-[44px]"
+              data-testid="button-send"
+            >
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Send className="h-4 w-4" aria-hidden="true" />}
             </Button>
           </div>
         </div>
