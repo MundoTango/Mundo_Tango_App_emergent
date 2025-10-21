@@ -82,7 +82,13 @@ router.get("/auth/user", authLimiter, isAuthenticated, async (req: any, res, nex
         })
         .returning();
       
-      return res.json(success(newUser[0], 'User created and authenticated'));
+      // MB.MD Oct 21: Include isSuperAdmin flag for new users too
+      const newUserWithAdminFlag = {
+        ...newUser[0],
+        isSuperAdmin: (req.user as any).isSuperAdmin || false
+      };
+      
+      return res.json(success(newUserWithAdminFlag, 'User created and authenticated'));
     }
     
     // Check if user is active
@@ -90,7 +96,13 @@ router.get("/auth/user", authLimiter, isAuthenticated, async (req: any, res, nex
       throw new AuthenticationError('User account is inactive');
     }
     
-    res.json(success(userResult[0], 'User authenticated'));
+    // MB.MD Oct 21: Include isSuperAdmin flag from middleware for frontend access control
+    const userWithAdminFlag = {
+      ...userResult[0],
+      isSuperAdmin: (req.user as any).isSuperAdmin || false
+    };
+    
+    res.json(success(userWithAdminFlag, 'User authenticated'));
   } catch (error) {
     next(error);
   }
