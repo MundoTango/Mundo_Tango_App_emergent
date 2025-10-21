@@ -4,6 +4,17 @@
 Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation, a PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication. The project aims for 100% functionality and stability, with a strong focus on quality assurance and an accelerated timeline, with a clear business vision for market potential and project ambitions within the tango community.
 
 ### Recent Critical Updates (Oct 21, 2025)
+- **🎉 Visual Editor Fixed + Modal Testing Protocol Created (Oct 21, 2025 PM):** Fixed Mr Blue Visual Editor tab rendering and created comprehensive modal testing documentation
+  - **Root Cause:** VisualPageEditor required props but VisualEditorTab called it without any, causing immediate null return
+  - **Fix #1:** Made `enabled`/`onToggle` props optional with proper controlled/uncontrolled mode pattern
+  - **Fix #2:** Added `isControlled` flag to distinguish external control from internal state management
+  - **Result:** Visual Editor tab now shows activation button, toggles properly in both standalone and controlled modes
+  - **Architect Review:** 3 iterations, final PASS verdict after fixing controlled mode logic
+  - **Documentation:** Created `docs/MB_MD_MODAL_TESTING_PROTOCOL.md` (230 lines, 6 mandatory tests)
+  - **QA Protocol Update:** Added Modal/Dialog Testing section to `MB_MD_QA_PROTOCOL.md` with enforcement rules
+  - **Key Learnings:** Modals require special testing (trigger, content visibility, tab switching, layout verification, interaction, screenshot)
+  - **Files Modified:** `VisualPageEditor.tsx`, `VisualEditorTab.tsx`, MB.MD protocol docs
+  - **MB.MD Success:** Parallel execution, architect validation, immediate iteration on feedback
 - **🎉 Mr Blue AI Unified Button FIXED - Option D Complete:** Single button for all users, proper access control implemented
   - **ESA Button Removed:** Pink floating button removed from ESAMindMap component (line 93-96), features merged into Mr Blue Admin tab
   - **Access Control Fixed:** localStorage dev mode override disabled in `client/src/utils/accessControl.ts` (lines 42-55 commented out)
