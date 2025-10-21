@@ -65,6 +65,7 @@ import breadcrumbRoutes from "./routes/breadcrumbRoutes"; // Breadcrumb Tracking
 import intentRoutes from "./routes/intentRoutes"; // Intent Detection - MB.MD Option A - Oct 21, 2025
 import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing - MB.MD Option A - Oct 21, 2025
 import learningRoutes from "./routes/learningRoutes"; // Agent #80 Learning Coordinator API - MB.MD Phase 1B - Oct 21, 2025
+import multiAgentRoutes from "./routes/multiAgentRoutes"; // Multi-Agent Orchestration API - MB.MD Phase 3R-T - Oct 21, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -105,7 +106,7 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD Phase 2A: Initialize Agent #80 Learning System
   try {
-    const { initializeLearningSystem } = await import('./init/seedLearnings');
+    const { initializeLearningSystem } = await import('./init/seedLearnings.js');
     await initializeLearningSystem();
   } catch (error) {
     console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
@@ -1358,6 +1359,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🎓 MB.MD Phase 1B: Agent #80 Learning Coordinator & Training Certification (Oct 21, 2025)
   app.use('/api/learning', learningRoutes); // Learning sessions, distributed knowledge, agent certifications
   console.log('✅ Agent Learning & Training APIs registered');
+  
+  // 🤖 MB.MD Phase 3R-T: Multi-Agent Orchestration, ML Prediction, Failed Action Monitor (Oct 21, 2025)
+  app.use('/api/multiagent', multiAgentRoutes); // Multi-agent build, ML predictions, failure monitoring
+  console.log('✅ Multi-Agent Orchestration APIs registered (17 endpoints)');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');
