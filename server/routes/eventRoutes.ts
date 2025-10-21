@@ -317,16 +317,16 @@ router.get('/events/by-country', async (req: Request, res: Response, next: NextF
       throw new ValidationError('Country parameter is required');
     }
     
-    // Note: events table doesn't have country field, using city for now
-    // TODO: Add country field to events schema
     const [eventsList, [{ count: totalCount }]] = await Promise.all([
       db.select()
         .from(events)
+        .where(eq(events.country, country))
         .orderBy(desc(events.startDate))
         .limit(pageSize)
         .offset(offset),
       db.select({ count: sql<number>`count(*)` })
         .from(events)
+        .where(eq(events.country, country))
     ]);
     
     res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
