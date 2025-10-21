@@ -78,6 +78,9 @@ router.post("/conversations", async (req: Request, res: Response) => {
       agentMode: req.body.agentMode || 'chat'
     };
 
+    // Validate with Zod schema (Pattern 2: no .omit() in route)
+    insertMrBlueConversationSchema.parse(conversationData);
+
     const conversation = await storage.createMrBlueConversation(conversationData);
     res.status(201).json(conversation);
   } catch (error) {
@@ -239,11 +242,14 @@ router.post("/conversations/:id/messages", async (req: Request, res: Response) =
     // Create message data (role enforced as 'user')
     const messageData = {
       conversationId,
-      role: 'user', // Always user for client-submitted messages
+      role: 'user' as const, // Always user for client-submitted messages
       content: req.body.content,
       streaming: req.body.streaming || false,
       metadata: req.body.metadata || null
     };
+
+    // Validate with Zod schema (Pattern 2: validation in route)
+    insertMrBlueMessageSchema.parse(messageData);
 
     const message = await storage.createMrBlueMessage(messageData);
     
