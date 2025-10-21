@@ -65,10 +65,12 @@
 - **Impact**: Backend API may fail if tables don't exist
 - **Workaround**: Use direct PostgreSQL or MemStorage fallback
 
-### Zod Validation Removed
-- **Issue**: `.omit()` fix removed input validation
-- **Impact**: Security regression, user input not validated
-- **Fix Needed**: Re-implement validation without .omit()
+### ~~Zod Validation Removed~~ **FIXED Oct 21 23:59 UTC**
+- **Issue**: Input validation was missing (security regression)
+- **Impact**: User input not validated before DB write
+- **Fix Applied**: Re-implemented validation using Pattern 2 (validate data object, not use .omit() in routes)
+- **Endpoints Fixed**: POST /conversations, POST /messages, POST /breadcrumbs
+- **Status**: ✅ Security restored
 
 ### Personality Selector Not Wired
 - **Issue**: UI component exists but backend integration unclear

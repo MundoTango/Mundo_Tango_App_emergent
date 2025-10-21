@@ -497,6 +497,9 @@ router.post("/breadcrumbs", async (req: Request, res: Response) => {
       patternId: req.body.patternId || null
     };
 
+    // Validate with Zod schema (Pattern 2: secure input validation)
+    insertBreadcrumbSchema.parse(breadcrumbData);
+
     const breadcrumb = await storage.createBreadcrumb(breadcrumbData);
     res.status(201).json(breadcrumb);
   } catch (error) {
