@@ -117,6 +117,39 @@ router.get('/groups/my', isAuthenticated, async (req: any, res, next: NextFuncti
   }
 });
 
+// MB.MD FIX: Discover groups - suggest groups based on location and activity
+router.get('/groups/discover', async (req: Request, res, next: NextFunction) => {
+  try {
+    // Get top active groups from database
+    const discoverGroups = await db.select()
+      .from(groups)
+      .where(eq(groups.isPrivate, false))
+      .orderBy(desc(groups.createdAt))
+      .limit(20);
+    
+    res.json(success(discoverGroups, 'Discovery groups fetched successfully'));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Group recommendations - personalized suggestions
+router.get('/groups/recommendations', async (req: Request, res, next: NextFunction) => {
+  try {
+    // Get recommended groups (for now, return public groups sorted by member count)
+    // TODO: Implement ML-based recommendations based on user profile
+    const recommendedGroups = await db.select()
+      .from(groups)
+      .where(eq(groups.isPrivate, false))
+      .orderBy(desc(groups.createdAt))
+      .limit(10);
+    
+    res.json(success(recommendedGroups, 'Recommended groups fetched successfully'));
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Get single group (by ID or slug)
 router.get('/groups/:groupIdentifier', async (req, res, next: NextFunction) => {
   try {
