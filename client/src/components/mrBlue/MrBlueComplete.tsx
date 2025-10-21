@@ -90,7 +90,7 @@ export function MrBlueComplete() {
       {/* Modal Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className={`p-0 gap-0 border-0 bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 dark:from-gray-900 dark:via-blue-950 dark:to-cyan-950 ${
+          className={`p-0 gap-0 border-0 flex flex-col bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 dark:from-gray-900 dark:via-blue-950 dark:to-cyan-950 ${
             isMaximized ? 'w-screen h-screen max-w-none' : 'w-[95vw] h-[85vh] max-w-6xl'
           }`}
           data-testid="dialog-mrblue"
