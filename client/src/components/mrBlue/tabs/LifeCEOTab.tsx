@@ -1,16 +1,39 @@
 /**
  * Life CEO Tab - Journey state and agent assignments
  * MB.MD Phase 3P - Oct 21, 2025
+ * REAL API INTEGRATION with Multi-Agent Orchestrator
  */
 
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Brain, Target, Users, TrendingUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Brain, Target, Users, TrendingUp, Loader2, Activity } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+
+interface AgentStatus {
+  agentId: string;
+  name: string;
+  specialties: string[];
+  currentLoad: number;
+  maxLoad: number;
+  successRate: number;
+  isActive: boolean;
+}
 
 export default function LifeCEOTab() {
   const { user } = useAuth();
+  
+  // Fetch real agent status from multi-agent API
+  const { data: agents, isLoading: agentsLoading } = useQuery<AgentStatus[]>({
+    queryKey: ['/api/multiagent/orchestrate/agents'],
+  });
+
+  // Fetch ML stats
+  const { data: mlStats } = useQuery({
+    queryKey: ['/api/multiagent/ml/stats'],
+  });
   
   const journeyStates = [
     { id: 'J1', name: 'Discovery', description: 'Exploring the platform', color: 'bg-blue-500' },
@@ -23,13 +46,6 @@ export default function LifeCEOTab() {
   const currentJourney = user?.customerJourneyState || 'J1';
   const currentIndex = journeyStates.findIndex(j => j.id === currentJourney);
 
-  const assignedAgents = [
-    { id: 'Agent #73', name: 'Tour Guide', status: 'active' },
-    { id: 'Agent #74', name: 'Subscription Manager', status: 'standby' },
-    { id: 'Agent #79', name: 'Quality Validator', status: 'active' },
-    { id: 'Agent #80', name: 'Learning Coordinator', status: 'active' },
-  ];
-
   return (
     <div className="space-y-6">
       <div>
@@ -37,7 +53,7 @@ export default function LifeCEOTab() {
           Life CEO Dashboard
         </h3>
         <p className="text-gray-600 dark:text-gray-400">
-          Your personal journey through Mundo Tango
+          Your personal journey through Mundo Tango with AI agent support
         </p>
       </div>
 
@@ -88,33 +104,95 @@ export default function LifeCEOTab() {
         </div>
       </Card>
 
-      {/* Assigned Agents */}
+      {/* ML Prediction Stats */}
+      {mlStats && (
+        <Card className="p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <Activity className="h-6 w-6 text-cyan-500" />
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">AI Insights</h4>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Predictions</p>
+              <p className="text-2xl font-bold text-cyan-500">{mlStats.data?.totalPredictions || 0}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Accuracy</p>
+              <p className="text-2xl font-bold text-green-500">{mlStats.data?.averageAccuracy || 0}%</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Today</p>
+              <p className="text-2xl font-bold text-blue-500">{mlStats.data?.predictionsToday || 0}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Model Version</p>
+              <p className="text-sm font-mono text-gray-900 dark:text-white">{mlStats.data?.modelVersion || 'N/A'}</p>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {/* Active Agents */}
       <Card className="p-6">
         <div className="flex items-center gap-3 mb-4">
           <Users className="h-6 w-6 text-cyan-500" />
-          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Assigned Agents</h4>
+          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Active Agents {agents && `(${agents.length})`}
+          </h4>
         </div>
         
-        <div className="space-y-3">
-          {assignedAgents.map((agent) => (
-            <div
-              key={agent.id}
-              className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
-              data-testid={`agent-${agent.id}`}
-            >
-              <div className="flex items-center gap-3">
-                <Brain className="h-5 w-5 text-cyan-500" />
-                <div>
-                  <p className="font-semibold text-gray-900 dark:text-white">{agent.id}</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{agent.name}</p>
+        {agentsLoading && (
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-cyan-500" />
+          </div>
+        )}
+
+        {agents && agents.length === 0 && (
+          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <p>No agents currently active</p>
+            <p className="text-sm mt-2">Agents will be assigned as you use the platform</p>
+          </div>
+        )}
+
+        {agents && agents.length > 0 && (
+          <div className="space-y-3">
+            {agents.slice(0, 6).map((agent) => (
+              <div
+                key={agent.agentId}
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
+                data-testid={`agent-${agent.agentId}`}
+              >
+                <div className="flex items-center gap-3">
+                  <Brain className="h-5 w-5 text-cyan-500" />
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">{agent.agentId}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{agent.name}</p>
+                    {agent.specialties && agent.specialties.length > 0 && (
+                      <div className="flex gap-1 mt-1">
+                        {agent.specialties.slice(0, 2).map((specialty, i) => (
+                          <Badge key={i} variant="outline" className="text-xs">
+                            {specialty}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <Badge variant={agent.isActive ? 'default' : 'outline'}>
+                    {agent.isActive ? 'Active' : 'Standby'}
+                  </Badge>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {agent.currentLoad}/{agent.maxLoad} load
+                  </p>
+                  <p className="text-xs text-green-600 dark:text-green-400">
+                    {agent.successRate}% success
+                  </p>
                 </div>
               </div>
-              <Badge variant={agent.status === 'active' ? 'default' : 'outline'}>
-                {agent.status}
-              </Badge>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </Card>
 
       {/* Next Steps */}
@@ -124,24 +202,58 @@ export default function LifeCEOTab() {
           <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Recommended Next Steps</h4>
         </div>
         
-        <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-          <li className="flex items-start gap-2">
-            <span className="text-cyan-500">•</span>
-            <span>Complete your profile to increase visibility</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-cyan-500">•</span>
-            <span>Join your local tango group</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-cyan-500">•</span>
-            <span>Share your first tango memory</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-cyan-500">•</span>
-            <span>RSVP to an upcoming event</span>
-          </li>
-        </ul>
+        <div className="space-y-3">
+          {currentJourney === 'J1' && (
+            <>
+              <div className="p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                  Complete your profile
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Add your tango experience and interests
+                </p>
+              </div>
+              <div className="p-3 bg-cyan-50 dark:bg-cyan-950/20 rounded-lg">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                  Find events near you
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Discover milongas and workshops in your city
+                </p>
+              </div>
+            </>
+          )}
+          {currentJourney === 'J2' && (
+            <>
+              <div className="p-3 bg-cyan-50 dark:bg-cyan-950/20 rounded-lg">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                  Join a community group
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Connect with dancers in your area
+                </p>
+              </div>
+              <div className="p-3 bg-teal-50 dark:bg-teal-950/20 rounded-lg">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                  RSVP to an event
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Start attending local milongas
+                </p>
+              </div>
+            </>
+          )}
+          {['J3', 'J4', 'J5'].includes(currentJourney) && (
+            <div className="p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
+              <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                Share your journey
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Post memories and inspire others in the community
+              </p>
+            </div>
+          )}
+        </div>
       </Card>
     </div>
   );

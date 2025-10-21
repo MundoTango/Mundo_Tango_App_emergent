@@ -89,13 +89,14 @@ export function ESAMindMap() {
 
   return (
     <>
-      {/* Floating Button - Stacked above Mr Blue when both visible */}
+      {/* Floating Button - Stacked above Mr Blue when both visible - PINK/ROSE for distinction */}
       <div className="fixed bottom-24 right-6 z-[9998]" data-testid="floating-esa-button">
         <MagneticButton
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
+          className={`w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
             isOpen ? 'scale-110 rotate-180' : 'hover:scale-110'
           }`}
+          aria-label="Open ESA Agent Navigator"
         >
           {isOpen ? (
             <X className="w-8 h-8 text-white" />

@@ -11,7 +11,7 @@ import {
   CheckCircle2, Brain, Shield
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
@@ -94,7 +94,12 @@ export function MrBlueComplete() {
             isMaximized ? 'w-screen h-screen max-w-none' : 'w-[95vw] h-[85vh] max-w-6xl'
           }`}
           data-testid="dialog-mrblue"
+          aria-describedby="mrblue-description"
         >
+          <DialogTitle className="sr-only">Mr Blue AI Companion</DialogTitle>
+          <DialogDescription id="mrblue-description" className="sr-only">
+            Your intelligent AI assistant with 16 Life CEO agents, featuring chat, tours, subscriptions, search, site builder, visual editor, avatar AI, quality controls, and admin tools.
+          </DialogDescription>
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-cyan-200 dark:border-cyan-800/50 bg-white/50 dark:bg-black/20 backdrop-blur-sm">
             <div className="flex items-center gap-3">
