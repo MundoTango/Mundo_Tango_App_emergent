@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Sparkles, X, Maximize2, Minimize2, Brain, Search, MessageSquare, Shield, Send, Loader2, Wand2, Code, Map, Zap } from 'lucide-react';
+import { Sparkles, X, Maximize2, Minimize2, Brain, Search, MessageSquare, Shield, Send, Loader2, Wand2, Code, Map, Zap, Compass, CreditCard, Palette, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlassCard } from '@/components/glass/GlassComponents';
@@ -22,6 +22,12 @@ import { useBreadcrumbTracker } from '@/lib/tracking/BreadcrumbTracker';
 import { useIntentDetection } from '@/hooks/useIntentDetection';
 import { useToast } from '@/hooks/use-toast';
 import { ChatInterface } from './ChatInterface'; // MB.MD: New multi-model chat
+import ToursTab from './tabs/ToursTab';
+import SubscriptionsTab from './tabs/SubscriptionsTab';
+import SiteBuilderTab from './tabs/SiteBuilderTab';
+import VisualEditorTab from './tabs/VisualEditorTab';
+import AvatarAITab from './tabs/AvatarAITab';
+import QualityTab from './tabs/QualityTab';
 
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
@@ -358,15 +364,33 @@ function MrBlueTabSystem() {
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full w-full min-h-0">
-      <TabsList className="grid w-full shrink-0" style={{ gridTemplateColumns: isAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
+      <TabsList className="grid w-full shrink-0 overflow-x-auto" style={{ gridTemplateColumns: isAdmin ? 'repeat(10, 1fr)' : 'repeat(9, 1fr)' }}>
         <TabsTrigger value="chat" data-testid="tab-chat">
           <MessageSquare className="h-4 w-4 mr-2" />Chat
         </TabsTrigger>
-        <TabsTrigger value="lifeceo" data-testid="tab-lifeceo">
-          <Brain className="h-4 w-4 mr-2" />Life CEO<Badge variant="secondary" className="ml-2 text-xs">16</Badge>
+        <TabsTrigger value="tours" data-testid="tab-tours">
+          <Compass className="h-4 w-4 mr-2" />Tours
+        </TabsTrigger>
+        <TabsTrigger value="subscriptions" data-testid="tab-subscriptions">
+          <CreditCard className="h-4 w-4 mr-2" />Subscriptions
         </TabsTrigger>
         <TabsTrigger value="search" data-testid="tab-search">
           <Search className="h-4 w-4 mr-2" />Search
+        </TabsTrigger>
+        <TabsTrigger value="sitebuilder" data-testid="tab-sitebuilder">
+          <Wand2 className="h-4 w-4 mr-2" />Site Builder
+        </TabsTrigger>
+        <TabsTrigger value="visualeditor" data-testid="tab-visualeditor">
+          <Palette className="h-4 w-4 mr-2" />Visual Editor
+        </TabsTrigger>
+        <TabsTrigger value="avatar" data-testid="tab-avatar">
+          <Sparkles className="h-4 w-4 mr-2" />Avatar AI
+        </TabsTrigger>
+        <TabsTrigger value="quality" data-testid="tab-quality">
+          <CheckCircle2 className="h-4 w-4 mr-2" />Quality
+        </TabsTrigger>
+        <TabsTrigger value="lifeceo" data-testid="tab-lifeceo">
+          <Brain className="h-4 w-4 mr-2" />Life CEO<Badge variant="secondary" className="ml-2 text-xs">16</Badge>
         </TabsTrigger>
         {isAdmin && (
           <TabsTrigger value="admin" data-testid="tab-admin">
@@ -375,8 +399,14 @@ function MrBlueTabSystem() {
         )}
       </TabsList>
       <TabsContent value="chat" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><MrBlueChatInterface /></TabsContent>
-      <TabsContent value="lifeceo" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><LifeCEOAgentsTab /></TabsContent>
+      <TabsContent value="tours" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><ToursTab /></TabsContent>
+      <TabsContent value="subscriptions" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><SubscriptionsTab /></TabsContent>
       <TabsContent value="search" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><PlatformSearchTab /></TabsContent>
+      <TabsContent value="sitebuilder" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><SiteBuilderTab /></TabsContent>
+      <TabsContent value="visualeditor" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><VisualEditorTab /></TabsContent>
+      <TabsContent value="avatar" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><AvatarAITab /></TabsContent>
+      <TabsContent value="quality" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><QualityTab /></TabsContent>
+      <TabsContent value="lifeceo" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><LifeCEOAgentsTab /></TabsContent>
       {isAdmin && <TabsContent value="admin" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex"><AdminToolsTab /></TabsContent>}
     </Tabs>
   );
