@@ -158,6 +158,8 @@ const SIDEBAR_SECTIONS = [
   {
     title: "Platform",
     routes: [
+      { title: "Mr Blue AI", icon: <Brain className="w-5 h-5" />, link: "/mr-blue" },
+      { title: "Agent Browser", icon: <Users className="w-5 h-5" />, link: "/agents" },
       { title: "Life CEO", icon: <Brain className="w-5 h-5" />, link: "/life-ceo" },
       { title: "Life CEO Agents", icon: <Brain className="w-5 h-5" />, link: "/lifeceo/agents" },
       { title: "Life CEO Insights", icon: <Brain className="w-5 h-5" />, link: "/lifeceo/insights" },
@@ -167,6 +169,16 @@ const SIDEBAR_SECTIONS = [
       { title: "Mobile App", icon: <Trophy className="w-5 h-5" />, link: "/mobile-dashboard" },
       { title: "Integrations", icon: <Key className="w-5 h-5" />, link: "/integrations" },
       { title: "API Settings", icon: <Key className="w-5 h-5" />, link: "/settings/api" },
+    ]
+  },
+  {
+    title: "Getting Started",
+    routes: [
+      { title: "Welcome Guide", icon: <HelpCircle className="w-5 h-5" />, link: "/journey/J1" },
+      { title: "Profile Setup", icon: <User className="w-5 h-5" />, link: "/journey/J2" },
+      { title: "Connect Friends", icon: <Users className="w-5 h-5" />, link: "/journey/J3" },
+      { title: "Join Events", icon: <Calendar className="w-5 h-5" />, link: "/journey/J4" },
+      { title: "Explore Platform", icon: <Compass className="w-5 h-5" />, link: "/journey/J5" },
     ]
   },
   {

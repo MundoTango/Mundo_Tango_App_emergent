@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// Node 18+ has native fetch, no need for node-fetch
 import fs from 'fs';
 import path from 'path';
 
