@@ -4,7 +4,7 @@
  * MB.MD QA Protocol: T1-MRBLUE-PAGE
  */
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { Sparkles, MessageSquare, Search, Maximize2, Minimize2, MapPin, CreditCard, Wand2, Edit3, CheckCircle, GraduationCap, Brain } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,26 +17,36 @@ import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-// Mr Blue 7 Specialist Components (ESA #74-80)
+// Mr Blue 7 Specialist Components (ESA #74-80) - LAZY LOADED FOR PERFORMANCE
 import { useInteractiveTour, startTour } from '@/lib/mrBlue/tours/InteractiveTour';
 import { SubscriptionManager } from '@/lib/mrBlue/subscriptions/SubscriptionManager';
-import AISiteBuilderEnhanced from '@/lib/mrBlue/siteBuilder/AISiteBuilderEnhanced';
-import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
-import QualityValidator from '@/lib/mrBlue/qualityValidator/QualityValidator';
-import LearningCoordinator from '@/lib/mrBlue/learningCoordinator/LearningCoordinator';
+const AISiteBuilderEnhanced = lazy(() => import('@/lib/mrBlue/siteBuilder/AISiteBuilderEnhanced'));
+const VisualPageEditor = lazy(() => import('@/lib/mrBlue/visualEditor/VisualPageEditor').then(m => ({ default: m.VisualPageEditor })));
+const QualityValidator = lazy(() => import('@/lib/mrBlue/qualityValidator/QualityValidator'));
+const LearningCoordinator = lazy(() => import('@/lib/mrBlue/learningCoordinator/LearningCoordinator'));
 
-// MB.MD TRACK 1-3: New Components (Oct 21, 2025)
-import LumaAvatarGenerator from '@/components/mrBlue/LumaAvatarGenerator';
+// MB.MD TRACK 1-3: New Components (Oct 21, 2025) - LAZY LOADED
+const LumaAvatarGenerator = lazy(() => import('@/components/mrBlue/LumaAvatarGenerator'));
+const LifeCEOAgentsGrid = lazy(() => import('@/components/mrBlue/LifeCEOAgentsGrid'));
+
+// MB.MD MEGA-WAVE 12-16: Enhanced UI Components (Oct 21, 2025) - KEEP LOADED (lightweight)
 import VoiceControls from '@/components/mrBlue/VoiceControls';
 import PersonalitySelector, { PersonalityMode } from '@/components/mrBlue/PersonalitySelector';
 import AgentOrchestrationPanel from '@/components/mrBlue/AgentOrchestrationPanel';
-
-// MB.MD MEGA-WAVE 12-16: Enhanced UI Components (Oct 21, 2025)
 import EnhancedMessageBubble from '@/components/mrBlue/EnhancedMessageBubble';
 import { StreamingIndicator, TypewriterText } from '@/components/mrBlue/StreamingIndicator';
 import AudioWaveVisualization from '@/components/mrBlue/AudioWaveVisualization';
 import BreadcrumbTrail, { BreadcrumbStep } from '@/components/mrBlue/BreadcrumbTrail';
-import LifeCEOAgentsGrid from '@/components/mrBlue/LifeCEOAgentsGrid';
+
+// Loading Component for Suspense
+const TabLoadingFallback = ({ tabName }: { tabName: string }) => (
+  <div className="flex-1 flex items-center justify-center bg-white dark:bg-gray-900">
+    <div className="text-center">
+      <Loader2 className="h-8 w-8 animate-spin text-cyan-500 mx-auto mb-3" />
+      <p className="text-sm text-gray-600 dark:text-gray-400">Loading {tabName}...</p>
+    </div>
+  </div>
+);
 
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
@@ -99,9 +109,9 @@ function MrBlueChatInterface() {
     setInput('');
     setIsLoading(true);
     
-    // Update breadcrumb trail
-    setBreadcrumbSteps([
-      ...breadcrumbSteps,
+    // Update breadcrumb trail (functional update to avoid stale state)
+    setBreadcrumbSteps(prev => [
+      ...prev,
       { id: `msg-${Date.now()}`, label: 'Processing...', status: 'current' }
     ]);
 
@@ -196,20 +206,31 @@ function MrBlueChatInterface() {
               <p className="text-sm text-gray-600 dark:text-gray-400">I'm your AI companion. Ask me anything!</p>
             </Card>
           )}
-          {messages && messages.map((msg: any) => (
-            <EnhancedMessageBubble
-              key={msg.id}
-              role={msg.role}
-              content={msg.content}
-              timestamp={new Date(msg.createdAt).toLocaleTimeString()}
-              metadata={msg.metadata}
-              onCopy={() => console.log('Message copied')}
-              onRegenerate={msg.role === 'assistant' ? async () => {
-                await refetchMessages();
-              } : undefined}
-              onRate={(rating) => console.log('Message rated:', rating)}
-            />
-          ))}
+          {messages && messages.map((msg: any, idx: number) => {
+            const isLastAssistantMessage = msg.role === 'assistant' && idx === messages.length - 1;
+            const shouldTypewrite = isLastAssistantMessage && isLoading;
+            
+            return (
+              <EnhancedMessageBubble
+                key={msg.id}
+                role={msg.role}
+                content={
+                  shouldTypewrite ? (
+                    <TypewriterText text={msg.content} speed={20} />
+                  ) : (
+                    msg.content
+                  )
+                }
+                timestamp={new Date(msg.createdAt).toLocaleTimeString()}
+                metadata={msg.metadata}
+                onCopy={() => console.log('Message copied')}
+                onRegenerate={msg.role === 'assistant' ? async () => {
+                  await refetchMessages();
+                } : undefined}
+                onRate={(rating) => console.log('Message rated:', rating)}
+              />
+            );
+          })}
           {isLoading && (
             <StreamingIndicator variant="dots" text="Mr Blue is thinking..." />
           )}
@@ -239,8 +260,8 @@ function MrBlueChatInterface() {
               <VoiceControls 
                 onTranscript={(text) => {
                   setInput(prev => prev + ' ' + text);
-                  setIsRecording(false);
                 }}
+                onRecordingChange={setIsRecording}
                 lastMessage={messages && messages.length > 0 ? messages[messages.length - 1]?.content : ''}
               />
               <Button onClick={handleSend} disabled={!input.trim() || isLoading} data-testid="button-send">
@@ -492,19 +513,29 @@ export default function MrBluePage() {
             <PlatformSearchTab />
           </TabsContent>
           <TabsContent value="sitebuilder" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
-            <AISiteBuilderEnhanced />
+            <Suspense fallback={<TabLoadingFallback tabName="Site Builder" />}>
+              <AISiteBuilderEnhanced />
+            </Suspense>
           </TabsContent>
           <TabsContent value="visualeditor" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
-            <VisualEditorTab />
+            <Suspense fallback={<TabLoadingFallback tabName="Visual Editor" />}>
+              <VisualEditorTab />
+            </Suspense>
           </TabsContent>
           <TabsContent value="avatar" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
-            <AvatarTab />
+            <Suspense fallback={<TabLoadingFallback tabName="Avatar Generator" />}>
+              <AvatarTab />
+            </Suspense>
           </TabsContent>
           <TabsContent value="quality" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
-            <QualityLearningTab />
+            <Suspense fallback={<TabLoadingFallback tabName="Quality & Learning" />}>
+              <QualityLearningTab />
+            </Suspense>
           </TabsContent>
           <TabsContent value="lifeceo" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
-            <LifeCEOTab />
+            <Suspense fallback={<TabLoadingFallback tabName="Life CEO Agents" />}>
+              <LifeCEOTab />
+            </Suspense>
           </TabsContent>
         </Tabs>
       </div>

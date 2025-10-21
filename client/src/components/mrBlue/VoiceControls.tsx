@@ -10,9 +10,10 @@ interface VoiceControlsProps {
   onTranscript?: (text: string) => void;
   lastMessage?: string;
   autoSpeak?: boolean;
+  onRecordingChange?: (isRecording: boolean) => void;
 }
 
-export default function VoiceControls({ onTranscript, lastMessage, autoSpeak = false }: VoiceControlsProps) {
+export default function VoiceControls({ onTranscript, lastMessage, autoSpeak = false, onRecordingChange }: VoiceControlsProps) {
   const { toast } = useToast();
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -32,7 +33,8 @@ export default function VoiceControls({ onTranscript, lastMessage, autoSpeak = f
   
   useEffect(() => {
     setIsListening(recognitionActive);
-  }, [recognitionActive]);
+    onRecordingChange?.(recognitionActive);
+  }, [recognitionActive, onRecordingChange]);
   
   useEffect(() => {
     setIsSpeaking(voiceActive);
