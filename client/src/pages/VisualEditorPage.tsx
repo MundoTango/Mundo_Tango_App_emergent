@@ -6,7 +6,7 @@
  * - Right: Editor tabs (Preview, Deploy, Git, Pages, Shell, Files, AI)
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -23,8 +23,13 @@ import SecretsTab from '@/components/visual-editor/SecretsTab';
 import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
-import { GripVertical } from 'lucide-react';
+import { ElementInspector } from '@/components/visual-editor/ElementInspector';
+import { StyleEditor } from '@/components/visual-editor/StyleEditor';
+import { GripVertical, Save } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
+import { injectOverlayScript } from '@/lib/visual-editor/iframeOverlay';
+import { listenToIframe, sendToIframe, type ElementSelection, type StyleMutation } from '@/lib/visual-editor/iframeMessaging';
 
 interface SelectedElement {
   tag: string;
@@ -38,12 +43,14 @@ interface SelectedElement {
 export default function VisualEditorPage() {
   const [location, navigate] = useLocation();
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState<EditorTab>('ai');
-  const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
+  const [activeTab, setActiveTab] = useState<EditorTab>('inspector');
+  const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
+  const [pendingStyles, setPendingStyles] = useState<StyleMutation[]>([]);
   const [previewUrl, setPreviewUrl] = useState('/');
   const [leftWidth, setLeftWidth] = useState(60); // percentage
   const [isDragging, setIsDragging] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Cmd+K for Command Palette
   useEffect(() => {
@@ -167,16 +174,61 @@ export default function VisualEditorPage() {
 
   // Listen for messages from preview iframe
   useEffect(() => {
-    const handleMessage = (e: MessageEvent) => {
-      if (e.data.type === 'ELEMENT_SELECTED') {
-        setSelectedElement(e.data.element);
-        setActiveTab('ai');
+    return listenToIframe((message) => {
+      if (message.type === 'ELEMENT_SELECTED') {
+        setSelectedElement(message.element);
+        setActiveTab('inspector');
+      } else if (message.type === 'READY' && iframeRef.current) {
+        // Iframe is ready - inject overlay script
+        const iframe = iframeRef.current;
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (doc) {
+          const script = doc.createElement('script');
+          script.textContent = injectOverlayScript();
+          doc.head.appendChild(script);
+        }
       }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
+    });
   }, []);
+
+  // Apply style mutation
+  const handleApplyStyle = (mutation: StyleMutation) => {
+    if (iframeRef.current) {
+      sendToIframe(iframeRef.current, { type: 'APPLY_STYLE', mutation });
+      setPendingStyles(prev => [...prev, mutation]);
+      toast({
+        title: 'Style Applied',
+        description: `${mutation.property}: ${mutation.value}`,
+      });
+    }
+  };
+
+  // Save all changes
+  const handleSave = async () => {
+    if (pendingStyles.length === 0) {
+      toast({
+        title: 'No Changes',
+        description: 'Make some style changes first',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      await handleGenerateCode(`Apply these style changes: ${JSON.stringify(pendingStyles)}`);
+      setPendingStyles([]);
+      toast({
+        title: 'Changes Saved',
+        description: `${pendingStyles.length} style changes generated to code`,
+      });
+    } catch (error) {
+      toast({
+        title: 'Save Failed',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive',
+      });
+    }
+  };
 
   return (
     <div className="h-screen flex flex-col bg-gray-900">
@@ -190,11 +242,20 @@ export default function VisualEditorPage() {
           </div>
           <div>
             <h1 className="text-white font-semibold">Visual Editor</h1>
-            <p className="text-xs text-gray-400">AI-Powered Development Environment</p>
+            <p className="text-xs text-gray-400">Figma-Like Page Editor • Cmd+Click to Select</p>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
+          <Button
+            onClick={handleSave}
+            disabled={pendingStyles.length === 0}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+            data-testid="button-save-changes"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            Save {pendingStyles.length > 0 && `(${pendingStyles.length})`}
+          </Button>
           <MultiplayerPresence page={previewUrl} />
           <div className="text-sm text-gray-400">
             Preview: <span className="text-white font-mono">{previewUrl}</span>
@@ -210,6 +271,7 @@ export default function VisualEditorPage() {
           style={{ width: `${leftWidth}%` }}
         >
           <iframe
+            ref={iframeRef}
             src={previewUrl}
             title="Live Preview"
             className="w-full h-full border-none"
@@ -240,7 +302,15 @@ export default function VisualEditorPage() {
           />
 
           {/* Tab Content */}
-          <div className="flex-1 overflow-auto">
+          <div className="flex-1 overflow-auto p-4">
+            {activeTab === 'inspector' && <ElementInspector selectedElement={selectedElement} />}
+            {activeTab === 'styles' && (
+              <StyleEditor
+                selectedElement={selectedElement}
+                onApplyStyle={handleApplyStyle}
+                pendingStyles={pendingStyles}
+              />
+            )}
             {activeTab === 'preview' && <PreviewTab currentPath={previewUrl} />}
             {activeTab === 'console' && <ConsoleTab />}
             {activeTab === 'deploy' && <DeployTab />}

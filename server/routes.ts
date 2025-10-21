@@ -85,6 +85,7 @@ import recommendationsRoutes from "./routes/recommendationsRoutes";
 import chatProjectsRoutes from "./routes/chatProjectsRoutes";
 import mediaUploadRoutes from "./routes/mediaUploadRoutes";
 import { RealTimeNotificationService } from "./services/realTimeNotifications";
+import { lifeCeoPerformance } from "./services/lifeCeoPerformanceService";
 import { setupVite, log as viteLog } from "./vite";
 
 // Utility functions to safely parse query parameters from Express ParsedQs
@@ -246,7 +247,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { pageLoadTime, connectTime, renderTime, url, timestamp } = req.body;
       
       // Track performance metrics
-      const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService.js');
       lifeCeoPerformance.trackResponseTime(url, pageLoadTime);
       
       console.log('📊 Life CEO Performance Metrics:', {
@@ -266,7 +266,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Life CEO Performance Report endpoint
   app.get('/api/performance/report', setUserContext, async (req: any, res) => {
     try {
-      const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService.js');
       const report = await lifeCeoPerformance.getPerformanceReport();
       
       res.json({
@@ -450,7 +449,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Initialize Life CEO Performance Service for advanced optimization
   try {
-    const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService.js');
     await lifeCeoPerformance.initialize();
     console.log('⚡ Life CEO Performance Service initialized - site speed improvements active');
   } catch (error) {

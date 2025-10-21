@@ -97,7 +97,9 @@ export function ChatInterface() {
     try {
       const response = await fetch('/api/chat/stream', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+        },
         credentials: 'include',
         body: JSON.stringify({
           projectId,
@@ -107,7 +109,15 @@ export function ChatInterface() {
         }),
       });
 
-      if (!response.ok) throw new Error('Stream failed');
+      if (!response.ok) {
+        const errorText = await response.text();
+        toast({
+          title: 'Stream Failed',
+          description: `Server error: ${response.status} - ${errorText.slice(0, 100)}`,
+          variant: 'destructive',
+        });
+        throw new Error(`Stream failed: ${response.status}`);
+      }
 
       // Handle streaming response
       const reader = response.body?.getReader();

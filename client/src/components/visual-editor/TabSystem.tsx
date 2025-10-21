@@ -16,10 +16,12 @@ import {
   Wand2,
   ScrollText,
   Key,
-  X
+  X,
+  Inspect,
+  Palette
 } from 'lucide-react';
 
-export type EditorTab = 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets';
+export type EditorTab = 'inspector' | 'styles' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets';
 
 interface TabSystemProps {
   activeTab: EditorTab;
@@ -28,6 +30,9 @@ interface TabSystemProps {
 }
 
 const TABS = [
+  { id: 'inspector' as const, label: 'Inspector', icon: Inspect },
+  { id: 'styles' as const, label: 'Styles', icon: Palette },
+  { id: 'ai' as const, label: 'AI', icon: Wand2 },
   { id: 'preview' as const, label: 'Preview', icon: Eye },
   { id: 'console' as const, label: 'Console', icon: ScrollText },
   { id: 'deploy' as const, label: 'Deploy', icon: Rocket },
@@ -35,8 +40,7 @@ const TABS = [
   { id: 'pages' as const, label: 'Pages', icon: FileText },
   { id: 'shell' as const, label: 'Shell', icon: Terminal },
   { id: 'files' as const, label: 'Files', icon: Folder },
-  { id: 'secrets' as const, label: 'Secrets', icon: Key },
-  { id: 'ai' as const, label: 'AI', icon: Wand2 }
+  { id: 'secrets' as const, label: 'Secrets', icon: Key }
 ];
 
 export default function TabSystem({ activeTab, onTabChange, onClose }: TabSystemProps) {
