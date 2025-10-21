@@ -269,10 +269,11 @@ function ChatInterface() {
   // Create new conversation mutation
   const createConversation = useMutation({
     mutationFn: async () => {
-      return await apiRequest('/api/mrblue/conversations', {
+      const res = await apiRequest('/api/mrblue/conversations', {
         method: 'POST',
-        body: JSON.stringify({ title: 'New Conversation' }),
+        body: { title: 'New Conversation' },
       });
+      return await res.json();
     },
     onSuccess: (data: any) => {
       queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations'] });
@@ -292,11 +293,11 @@ function ChatInterface() {
     try {
       await apiRequest(`/api/mrblue/conversations/${convId}/messages`, {
         method: 'POST',
-        body: JSON.stringify({ 
+        body: { 
           content, 
           model: selectedModel,
           personality 
-        }),
+        },
       });
       queryClient.invalidateQueries({ 
         queryKey: ['/api/mrblue/conversations', convId, 'messages'] 
@@ -316,11 +317,11 @@ function ChatInterface() {
       if (!conversationId) throw new Error('No active conversation');
       return await apiRequest(`/api/mrblue/conversations/${conversationId}/messages`, {
         method: 'POST',
-        body: JSON.stringify({ 
+        body: { 
           content, 
           model: selectedModel,
           personality 
-        }),
+        },
       });
     },
     onSuccess: () => {

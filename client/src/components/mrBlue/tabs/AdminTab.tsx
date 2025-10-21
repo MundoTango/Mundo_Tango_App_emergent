@@ -62,7 +62,10 @@ export default function AdminTab() {
   ];
 
   const handleRefresh = () => {
-    queryClient.invalidateQueries({ queryKey: ['/api/multiagent'] });
+    queryClient.invalidateQueries({ queryKey: ['/api/multiagent/health'] });
+    queryClient.invalidateQueries({ queryKey: ['/api/multiagent/ml/stats'] });
+    queryClient.invalidateQueries({ queryKey: ['/api/multiagent/monitor/patterns'] });
+    queryClient.invalidateQueries({ queryKey: ['/api/multiagent/orchestrate/agents'] });
   };
 
   return (
