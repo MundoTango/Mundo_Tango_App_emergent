@@ -3,117 +3,31 @@
 ### Overview
 Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform features comprehensive agent documentation, a PostgreSQL database with Drizzle ORM, and a React/TypeScript frontend with Socket.io real-time communication. The project aims for 100% functionality and stability, with a strong focus on quality assurance and an accelerated timeline, with a clear business vision for market potential and project ambitions within the tango community.
 
-### Recent Critical Updates (Oct 21, 2025)
-- **🎉 Mr Blue Modal Content Rendering FIXED (Oct 21, 2025 Late PM):** Fixed tab content not showing despite tabs being visible
-  - **Root Cause #1:** shadcn DialogContent uses CSS Grid by default, causing nested Flexbox children to collapse
-  - **Root Cause #2:** TabsContent with `flex-1` and `h-full` created height conflicts with Radix UI's `display: none` default
-  - **Fix #1:** Added `flex flex-col` to DialogContent to override Grid layout (line 146 of MrBlueComplete.tsx)
-  - **Fix #2:** Replaced `h-full` with `min-h-[500px]` on all TabsContent elements - forces visible height
-  - **Fix #3:** Removed conflicting `data-[state=active]` display utilities - let Radix UI handle state
-  - **Result:** ALL 10 tabs now render content properly (Chat, Tours, Subscriptions, Search, Life CEO, Site Builder, Visual Editor, Avatar AI, Quality, Admin)
-  - **Key Learning:** When using shadcn Dialog with Tabs, explicit `min-height` is required because Radix UI hides inactive tabs with `display: none`
-  - **Files Modified:** `MrBlueComplete.tsx` (DialogContent layout + all TabsContent height)
-  - **MB.MD Success:** Iterative debugging, parallel height strategies, visual verification via screenshot
-- **🎉 Visual Editor Fixed + Modal Testing Protocol Created (Oct 21, 2025 PM):** Fixed Mr Blue Visual Editor tab rendering and created comprehensive modal testing documentation
-  - **Root Cause:** VisualPageEditor required props but VisualEditorTab called it without any, causing immediate null return
-  - **Fix #1:** Made `enabled`/`onToggle` props optional with proper controlled/uncontrolled mode pattern
-  - **Fix #2:** Added `isControlled` flag to distinguish external control from internal state management
-  - **Result:** Visual Editor tab now shows activation button, toggles properly in both standalone and controlled modes
-  - **Architect Review:** 3 iterations, final PASS verdict after fixing controlled mode logic
-  - **Documentation:** Created `docs/MB_MD_MODAL_TESTING_PROTOCOL.md` (230 lines, 6 mandatory tests)
-  - **QA Protocol Update:** Added Modal/Dialog Testing section to `MB_MD_QA_PROTOCOL.md` with enforcement rules
-  - **Key Learnings:** Modals require special testing (trigger, content visibility, tab switching, layout verification, interaction, screenshot)
-  - **Files Modified:** `VisualPageEditor.tsx`, `VisualEditorTab.tsx`, MB.MD protocol docs
-  - **MB.MD Success:** Parallel execution, architect validation, immediate iteration on feedback
-- **🎉 Mr Blue AI Unified Button FIXED - Option D Complete:** Single button for all users, proper access control implemented
-  - **ESA Button Removed:** Pink floating button removed from ESAMindMap component (line 93-96), features merged into Mr Blue Admin tab
-  - **Access Control Fixed:** localStorage dev mode override disabled in `client/src/utils/accessControl.ts` (lines 42-55 commented out)
-  - **Tab Visibility:** Regular users see 5 tabs (Chat, Tours, Subscriptions, Search, Life CEO), Super admins see 10 tabs (+Site Builder, Visual Editor, Avatar AI, Quality, Admin)
-  - **Luma Avatar Fixed:** Changed from "Scott" to "Mr Blue" with cyan hair in `LumaAvatarGenerator.tsx`
-  - **Visual Confirmation:** Screenshot shows only ONE blue button, NO pink ESA button, browser logs show NO dev mode override
-  - **Architect Review:** Pending final validation after localStorage fix
-- **🎉 Week 1 COMPLETE - 100% API Health Score:** All 14 broken endpoints fixed using MB.MD parallel execution strategy
-  - **Events API:** 11/11 routes working (upcoming, past, my-events, attending, hosting, search, nearby, by-city, by-country, calendar, export)
-  - **Groups API:** 3/3 routes working (discover, recommendations, my)
-  - **Efficiency Gain:** 89% faster via batch operations vs sequential (20 min vs 3 hours)
-  - **Critical Fix:** `/events/by-country` uses `eq(events.country, country)` for real filtering (caught by architect after false 501 attempt)
-  - **Test Suite:** `scripts/test-all-apis.sh` validates all 19 endpoints, accounts for dev mode auth bypass
-  - **Architect Verdict:** PASS - All functionality verified, security cleared, ready for Week 2
-- **MB.MD Parallel Execution:** Completed Phase 1 (MAPPING) and Phase 2 (BREAKDOWN) with architect oversight
-- **Groups Page Fixed:** TypeError resolved with full TypeScript types (`ApiResponse<Group[]>`), all `any` types removed
-- **Authentication:** Working correctly with test user Elena Rodriguez
-
 ### User Preferences
-
-### **⚠️ THE 5 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
-**Every agent MUST follow these before marking ANY task complete:**
+**⚠️ THE 5 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
+Every agent MUST follow these before marking ANY task complete:
 1. **VERIFY BEFORE BUILD** - Check what exists first (search codebase, read files, grep patterns) - prevents duplicate work
 2. **INTEGRATE IMMEDIATELY** - Import components as you build them, test imports work - prevents "component exists" fallacy
 3. **SCREENSHOT EVERYTHING** - Visual proof required AFTER opening modals/clicking buttons - prevents "code compiles" fallacy
-4. **TEST USER JOURNEY** - Test as regular user AND super admin, verify access controls - prevents "button exists" fallacy  
+4. **TEST USER JOURNEY** - Test as regular user AND super admin, verify access controls - prevents "button exists" fallacy
 5. **ARCHITECT VALIDATES** - Independent review mandatory, no self-approval - prevents shipping broken features
 
-**Failure at ANY step = DO NOT PROCEED. Fix the issue first.**
-**Full protocol:** `docs/MB_MD_QA_PROTOCOL.md` (1009 lines)
-
----
+Failure at ANY step = DO NOT PROCEED. Fix the issue first.
+Full protocol: `docs/MB_MD_QA_PROTOCOL.md` (1009 lines)
 
 - **Communication style:** Simple, everyday language
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work
-- **MB.MD QA Protocol v1.0 (Oct 20, 2025):** Response to Mr Blue catastrophic failure (2.5% functional despite claiming 98%)
-  - **PRIMARY REFERENCE:** `docs/MB_MD_QA_PROTOCOL.md` (1009 lines, 3x architect PASS verdicts)
-  - **The 5 Non-Negotiable Rules:** (See above - prominently displayed)
-    1. VERIFY BEFORE BUILD - Check what exists first (prevents duplicate work)
-    2. INTEGRATE IMMEDIATELY - Import as you build (prevents "component exists" fallacy)
-    3. SCREENSHOT EVERYTHING - Visual proof required (prevents "code compiles" fallacy)
-    4. TEST USER JOURNEY - Users must access it (prevents "button exists" fallacy)
-    5. ARCHITECT VALIDATES - Independent review (prevents self-approval waste)
-  - **Build-Integrate-Verify Loop:** 7 mandatory steps, failure at ANY step = DO NOT PROCEED
-  - **Agent Integration:** Template updated, ESA73 example, rollout guide for 234 agents
-  - **Enforcement:** Tasks cannot mark `completed` without `architect_reviewed: "yes"`
-  - **Implementation Annex:** Maps abstract requirements to concrete tooling (280 lines)
-  - **Sensitive Data Policy:** Test accounts only, redact secrets/PII, never screenshot production
-- **Expert Round Table Protocol (ERT) v1.0 (Oct 20, 2025):** 10-expert collaborative analysis
-  - Extension of MB.MD for complex design decisions requiring diverse perspectives
-  - Each agent researches 10 domain experts individually (existing methodology)
-  - NEW: Experts engage in round table debate to challenge assumptions and reach consensus
-  - Mandatory for high-stakes decisions (>100 hours dev, >50% user impact)
-  - Full methodology: `docs/MB_MD_EXPERT_ROUNDTABLE_PROTOCOL.md`
 - **Priority:** Deployment stability - Files must never be deleted without safeguards
 - **Documentation Agent:** Must monitor file integrity and prevent build failures
-- **Replit Workflow Best Practices (Oct 21, 2025):** Platform-specific git and branch management
-  - **Branch Creation:** Use Replit's UI to create branches from GitHub (avoids auth issues)
-    - Click Version Control icon → "Create new branch from..." → Select GitHub branch → Pull latest code
-    - ✅ Automatically pulls latest commits without git authentication errors
-    - ✅ Creates clean environment for recovery scenarios
-    - ✅ Faster and more reliable than `git pull` in Replit environment
-  - **When to Use Replit UI vs Git Commands:**
-    - ❌ Git authentication errors (401, redirect to login) → Use Replit branch UI
-    - ❌ Fresh repl import from GitHub → Use Replit branch UI to pull code
-    - ✅ Simple commits and status checks → Use git commands
-    - ✅ Working in established repl with configured credentials → Use git commands
-  - **Recovery Best Practice:** After storage corruption, create fresh branch via Replit UI instead of fighting `git pull` auth issues
-- **ESM Module Resolution Fix (Oct 21, 2025):** Critical tsx/ESM compatibility discovery
-  - **The Problem:** Dynamic imports (`await import()`) in ESM/tsx context bypass tsx loader, causing 40+ fatal MODULE_NOT_FOUND crashes
-  - **The Solution:** Convert ALL critical imports to static imports at top of file
-  - **Pattern that FAILS:** `const { x } = await import('./module');` ❌ Fatal in ESM/tsx
-  - **Pattern that WORKS:** `import { x } from "./module";` ✅ 100% success rate
-  - **Implementation #1:** Converted 10+ critical imports in `server/routes.ts` (security middleware, route modules, services)
-  - **Implementation #2:** Fixed auth timeout in `server/replitAuth.ts` - removed redundant dynamic storage import on line 198 (already statically imported at line 9)
-  - **Result:** Server boots in ~10 seconds vs infinite crashes, all 33 API endpoints operational, /auth/user endpoint returns 200 OK (was 408 timeout)
-  - **Frontend Impact:** User authentication now works, app fully loads with authenticated user, WebSocket connected, all TypeScript LSP errors cleared
-  - **Missing Dependencies:** Installed `@anthropic-ai/sdk`, `@google/generative-ai`, `@huggingface/inference`
-  - **Path Alias Fix:** Changed `@db` to relative import `'../db'` (tsconfig alias not configured)
-  - **Architect Approval:** ESM fix follows best practices, production ready with monitoring recommendations
 
 ### System Architecture
 
 **UI/UX Decisions:**
-The frontend uses React, TypeScript, and Vite, featuring a component-based architecture with a custom "MT Ocean" theme. It employs Tailwind CSS with teal/cyan gradients and a glassmorphic design pattern with backdrop-blur effects. The design is mobile-first, responsive, and includes full dark mode support.
+The frontend uses React, TypeScript, and Vite, featuring a component-based architecture with a custom "MT Ocean" theme. It employs Tailwind CSS with teal/cyan gradients and a glassmorphic design pattern with backdrop-blur effects. The design is mobile-first, responsive, and includes full dark mode support. A Figma-like visual editor allows for click-to-select elements, an inspector panel for attributes, and a styles panel for layout/colors, with changes saved to generate code.
 
 **Technical Implementations:**
 -   **Frontend:** React, TypeScript, Vite, Tailwind CSS for styling. State management uses React Query for server state, custom hooks for WebSocket, Context providers for authentication, and React hooks for local state.
--   **Backend:** Node.js, Express, TypeScript, and Socket.io for real-time communication. Authentication is JWT-based with Replit OAuth, supporting RBAC and ABAC. The API is RESTful with modular routes, middleware, and Multer for file uploads.
+-   **Backend:** Node.js, Express, TypeScript, and Socket.io for real-time communication. Authentication is JWT-based with Replit OAuth, supporting RBAC and ABAC. The API is RESTful with modular routes, middleware, and Multer for file uploads. ESM static imports are prioritized over dynamic imports to ensure stability.
 -   **Data Storage:** PostgreSQL with Drizzle ORM is the primary database, utilizing JSON columns and optimized indexes. Media storage uses Replit Object Storage with ACL support. React Query handles client-side caching.
 
 **Feature Specifications:**
@@ -121,11 +35,10 @@ The frontend uses React, TypeScript, and Vite, featuring a component-based archi
 -   **Events Management:** Includes event creation, RSVP, recurring events, calendar view, and real-time updates.
 -   **Profile System:** Comprehensive user profiles with tango-specific fields and privacy settings.
 -   **Groups/Communities:** Features city-based auto-group creation and assignment.
+-   **Unified AI Access:** A single "Mr Blue" button provides access to AI features, with tab visibility controlled by user roles (regular users see 5 tabs, super admins see 10).
 
 **System Design Choices:**
-Mundo Tango employs a comprehensive agent documentation system covering various agent types (Foundation, Core, Business, Intelligence, Page, Algorithm, Life CEO, Mr Blue, Leadership). All documentation follows the MB.MD methodology with phase-based routing for efficient agent coordination and knowledge discovery.
-The platform includes 5 Customer Journey Agents (J1-J5) guiding users through progressive experiences, utilizing secure API endpoints, service functions, database tables, reusable UI components, and custom React Query hooks. Security relies on `req.user.id` from session, Zod validation, and admin role verification.
-A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (`docs/`, `scripts/`, `agents/`, `schema`), and automated tests for file protection.
+Mundo Tango employs a comprehensive agent documentation system covering various agent types (Foundation, Core, Business, Intelligence, Page, Algorithm, Life CEO, Mr Blue, Leadership). All documentation follows the MB.MD methodology with phase-based routing for efficient agent coordination and knowledge discovery. The platform includes 5 Customer Journey Agents (J1-J5) guiding users through progressive experiences, utilizing secure API endpoints, service functions, database tables, reusable UI components, and custom React Query hooks. Security relies on `req.user.id` from session, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (`docs/`, `scripts/`, `agents/`, `schema`), and automated tests for file protection.
 
 ### External Dependencies
 -   **PostgreSQL + Drizzle ORM**: Primary database.
@@ -144,3 +57,6 @@ A multi-layer file protection system includes a Critical File Registry, pre-depl
 -   **Supabase**: Alternative database layer.
 -   **OpenAI GPT-4o**: AI content enhancement.
 -   **n8n**: Workflow automation.
+-   **@anthropic-ai/sdk**: AI integration.
+-   **@google/generative-ai**: AI integration.
+-   **@huggingface/inference**: AI integration.
