@@ -170,3 +170,11 @@ Mundo Tango employs a comprehensive agent documentation system covering various 
 - ✅ Expanded route tests: 18→38 passing, 2 expected failures (parameterized :id routes)
 - ✅ Documentation updated: Full P1-P20 audit coverage + index (docs/audits/README.md)
 - ✅ Test execution verified: `/tmp/wave11-route-test-results.log` (exit code 0)
+
+**Wave 12 Progress** (3 Parallel Track Fixes - Oct 21, 2025):
+- ✅ **CSP Geolocation Fix**: Added `https://ipapi.co` to `connectSrc` in `server/middleware/security.ts` - IP geolocation now working without CSP violations
+- ✅ **Journey Routing Fix**: Modified `client/src/pages/JourneyPage.tsx` to map /journey/1-5 → J1-J5 journeys (J2 Profile Setup, J3 Community Connection verified)
+- ✅ **Dev Auto-Login**: Created `.env.local` with `VITE_DEV_AUTO_LOGIN=true` for development testing, gated by environment flag
+- ✅ **Visual Editor**: Confirmed working at `/admin/visual-editor` (admin-only route) with Mr Blue AI chat integration + split-pane layout
+- ✅ **Architect Review**: All fixes PASS - Production-ready with security noted (ensure VITE_DEV_AUTO_LOGIN disabled in production)
+- 📝 **Known Issue**: `/home` page stuck on "Loading..." spinner (separate investigation needed)
