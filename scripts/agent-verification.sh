@@ -13,6 +13,51 @@ echo ""
 
 ERRORS=0
 
+# 0. Corruption Detection (Oct 21, 2025 - Post-Incident)
+echo "🔍 0/5 Checking for environment corruption..."
+
+# Check npm logs for ENOTEMPTY errors
+shopt -s nullglob  # Enable glob expansion
+NPM_LOGS=($HOME/.npm/_logs/*-debug-*.log)
+if [ ${#NPM_LOGS[@]} -gt 0 ]; then
+  if grep -q "ENOTEMPTY" "${NPM_LOGS[@]}" 2>/dev/null; then
+    echo "   🚨 CORRUPTION DETECTED: npm ENOTEMPTY errors found"
+    echo ""
+    echo "   This indicates Replit storage corruption."
+    echo "   DO NOT attempt manual fixes - they will fail."
+    echo ""
+    echo "   SOLUTION:"
+    echo "   1. Run: ./scripts/bootstrap-env.sh"
+    echo "   2. If bootstrap fails with ENOTEMPTY:"
+    echo "      → Fork this repl to get clean storage"
+    echo "      → See: docs/RECOVERY_PLAYBOOK.md"
+    echo ""
+    read -p "   Continue anyway? (y/N) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      exit 1
+    fi
+  fi
+fi
+
+# Check for esbuild corruption
+if [ -f "node_modules/.bin/esbuild" ]; then
+  if ! node_modules/.bin/esbuild --version >/dev/null 2>&1; then
+    echo "   ⚠️  WARNING: esbuild binary corrupted"
+    echo "      Run: ./scripts/bootstrap-env.sh"
+  fi
+fi
+
+# Check load average (high = VM overloaded)
+LOAD_AVG=$(uptime | awk -F'load average:' '{print $2}' | awk '{print $1}' | cut -d',' -f1)
+if (( $(echo "$LOAD_AVG > 10" | bc -l 2>/dev/null || echo "0") )); then
+  echo "   ⚠️  WARNING: High load average ($LOAD_AVG)"
+  echo "      VM may be overloaded - consider forking repl"
+fi
+
+echo "   ✅ No critical corruption detected"
+echo ""
+
 # 1. Critical Files Check
 echo "📁 1/5 Checking critical files..."
 CRITICAL_FILES=(
