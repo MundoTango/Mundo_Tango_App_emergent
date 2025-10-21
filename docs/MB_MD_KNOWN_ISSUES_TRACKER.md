@@ -90,13 +90,14 @@
 
 ## 📊 STATISTICS (Updated Oct 21, 2025)
 
-**Total Agents Audited**: 18 / 350+ (5.1%)
-- **Wave 1**: Mr Blue #73-75 (3 agents)
-- **Wave 2**: Journey J1-J5 (5 agents)
-- **Wave 3**: Algorithm A1-A10 (10 agents)
+**Total Agents Audited**: 38 / 350+ (10.9%)
+- **Wave 1-2**: Mr Blue #73-80 (8 agents)
+- **Wave 3**: Journey J1-J5 (5 agents)
+- **Wave 4**: Algorithm A1-A10 (10 agents)
+- **Wave 11**: Page Agents P1-P20 (20 agents) - **NEW**
 
 **Total Routes Mapped**: 109 (8 backend API + 101 frontend pages)
-**Routes Tested**: 18 / 109 (16.5% coverage)
+**Routes Tested**: 38 / 109 (**34.9% coverage**) - **Expanded in Wave 11** (2 failed: parameterized routes)
 
 **Critical Issues**: 1 (P0 Zod validation FIXED, A3 moderation remains)
 **High Priority**: 5
