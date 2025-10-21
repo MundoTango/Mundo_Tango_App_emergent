@@ -17,11 +17,25 @@ Mundo Tango is a social platform for the global tango community, built on the ES
 - **Authentication:** Working correctly with test user Elena Rodriguez
 
 ### User Preferences
+
+### **⚠️ THE 5 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
+**Every agent MUST follow these before marking ANY task complete:**
+1. **VERIFY BEFORE BUILD** - Check what exists first (search codebase, read files, grep patterns) - prevents duplicate work
+2. **INTEGRATE IMMEDIATELY** - Import components as you build them, test imports work - prevents "component exists" fallacy
+3. **SCREENSHOT EVERYTHING** - Visual proof required AFTER opening modals/clicking buttons - prevents "code compiles" fallacy
+4. **TEST USER JOURNEY** - Test as regular user AND super admin, verify access controls - prevents "button exists" fallacy  
+5. **ARCHITECT VALIDATES** - Independent review mandatory, no self-approval - prevents shipping broken features
+
+**Failure at ANY step = DO NOT PROCEED. Fix the issue first.**
+**Full protocol:** `docs/MB_MD_QA_PROTOCOL.md` (1009 lines)
+
+---
+
 - **Communication style:** Simple, everyday language
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work
 - **MB.MD QA Protocol v1.0 (Oct 20, 2025):** Response to Mr Blue catastrophic failure (2.5% functional despite claiming 98%)
   - **PRIMARY REFERENCE:** `docs/MB_MD_QA_PROTOCOL.md` (1009 lines, 3x architect PASS verdicts)
-  - **The 5 Non-Negotiable Rules:**
+  - **The 5 Non-Negotiable Rules:** (See above - prominently displayed)
     1. VERIFY BEFORE BUILD - Check what exists first (prevents duplicate work)
     2. INTEGRATE IMMEDIATELY - Import as you build (prevents "component exists" fallacy)
     3. SCREENSHOT EVERYTHING - Visual proof required (prevents "code compiles" fallacy)

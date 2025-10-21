@@ -732,9 +732,7 @@ function AppContent() {
       <Suspense fallback={null}>
         <SuperAdminToggle />
       </Suspense>
-      <Suspense fallback={null}>
-        <ESAMindMap />
-      </Suspense>
+      {/* MB.MD Oct 21, 2025: ESAMindMap button REMOVED - features merged into MrBlueComplete Admin tab */}
       {/* MB.MD FIX: Placeholder modal REMOVED - MrBlueComplete component handles all UI */}
       <MrBlueComplete />
       <Suspense fallback={null}>

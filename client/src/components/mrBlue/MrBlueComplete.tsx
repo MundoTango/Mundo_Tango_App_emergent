@@ -160,26 +160,30 @@ export function MrBlueComplete() {
                   <Search className="h-4 w-4" />
                   <span className="hidden sm:inline">Search</span>
                 </TabsTrigger>
-                <TabsTrigger value="site-builder" className="gap-2" data-testid="tab-sitebuilder">
-                  <Code className="h-4 w-4" />
-                  <span className="hidden sm:inline">Site Builder</span>
-                </TabsTrigger>
-                <TabsTrigger value="visual-editor" className="gap-2" data-testid="tab-visualeditor">
-                  <Palette className="h-4 w-4" />
-                  <span className="hidden sm:inline">Visual Editor</span>
-                </TabsTrigger>
-                <TabsTrigger value="avatar-ai" className="gap-2" data-testid="tab-avatar">
-                  <Wand2 className="h-4 w-4" />
-                  <span className="hidden sm:inline">Avatar AI</span>
-                </TabsTrigger>
-                <TabsTrigger value="quality" className="gap-2" data-testid="tab-quality">
-                  <CheckCircle2 className="h-4 w-4" />
-                  <span className="hidden sm:inline">Quality</span>
-                </TabsTrigger>
                 <TabsTrigger value="life-ceo" className="gap-2" data-testid="tab-lifeceo">
                   <Brain className="h-4 w-4" />
                   <span className="hidden sm:inline">Life CEO</span>
                 </TabsTrigger>
+                {isAdmin && (
+                  <>
+                    <TabsTrigger value="site-builder" className="gap-2" data-testid="tab-sitebuilder">
+                      <Code className="h-4 w-4" />
+                      <span className="hidden sm:inline">Site Builder</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="visual-editor" className="gap-2" data-testid="tab-visualeditor">
+                      <Palette className="h-4 w-4" />
+                      <span className="hidden sm:inline">Visual Editor</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="avatar-ai" className="gap-2" data-testid="tab-avatar">
+                      <Wand2 className="h-4 w-4" />
+                      <span className="hidden sm:inline">Avatar AI</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="quality" className="gap-2" data-testid="tab-quality">
+                      <CheckCircle2 className="h-4 w-4" />
+                      <span className="hidden sm:inline">Quality</span>
+                    </TabsTrigger>
+                  </>
+                )}
                 {isAdmin && (
                   <TabsTrigger value="admin" className="gap-2" data-testid="tab-admin">
                     <Shield className="h-4 w-4" />
@@ -201,21 +205,25 @@ export function MrBlueComplete() {
               <TabsContent value="search" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
                 <SearchTab />
               </TabsContent>
-              <TabsContent value="site-builder" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
-                <SiteBuilderTab />
-              </TabsContent>
-              <TabsContent value="visual-editor" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
-                <VisualEditorTab />
-              </TabsContent>
-              <TabsContent value="avatar-ai" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
-                <AvatarAITab />
-              </TabsContent>
-              <TabsContent value="quality" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
-                <QualityTab />
-              </TabsContent>
               <TabsContent value="life-ceo" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
                 <LifeCEOTab />
               </TabsContent>
+              {isAdmin && (
+                <>
+                  <TabsContent value="site-builder" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                    <SiteBuilderTab />
+                  </TabsContent>
+                  <TabsContent value="visual-editor" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                    <VisualEditorTab />
+                  </TabsContent>
+                  <TabsContent value="avatar-ai" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                    <AvatarAITab />
+                  </TabsContent>
+                  <TabsContent value="quality" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
+                    <QualityTab />
+                  </TabsContent>
+                </>
+              )}
               {isAdmin && (
                 <TabsContent value="admin" className="flex-1 m-0 p-4 overflow-auto data-[state=active]:block">
                   <AdminTab />

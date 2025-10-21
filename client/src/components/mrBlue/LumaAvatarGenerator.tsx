@@ -31,8 +31,8 @@ export default function LumaAvatarGenerator({ onAvatarReady }: LumaAvatarGenerat
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          characterName: 'Scott',
-          hairColor: 'blue',
+          characterName: 'Mr Blue',
+          hairColor: 'cyan',
           quality: 'high',
           style: 'stylized'
         })
@@ -43,7 +43,7 @@ export default function LumaAvatarGenerator({ onAvatarReady }: LumaAvatarGenerat
         setCurrentGenerationId(data.generationId);
         toast({
           title: 'Generation Started',
-          description: 'Scott avatar is being created. This takes 5-10 minutes.',
+          description: 'Mr Blue avatar is being created. This takes 5-10 minutes.',
         });
       }
     },
