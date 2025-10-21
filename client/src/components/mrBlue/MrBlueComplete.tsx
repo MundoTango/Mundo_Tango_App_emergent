@@ -39,7 +39,7 @@ function MrBlueChatInterface() {
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [personality, setPersonality] = useState<PersonalityMode>('friendly');
-  const [selectedModel, setSelectedModel] = useState<'gpt-4o' | 'claude-3.5-sonnet' | 'gemini-pro'>('gpt-4o');
+  const [selectedModel, setSelectedModel] = useState<'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro'>('gpt-4o');
   const [lastAssistantMessage, setLastAssistantMessage] = useState<string>('');
   const { updateActualAction } = useIntentDetection();
 
@@ -237,7 +237,7 @@ function MrBlueChatInterface() {
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-gray-600 dark:text-gray-400">AI Model:</span>
             <div className="flex gap-1">
-              {(['gpt-4o', 'claude-3.5-sonnet', 'gemini-pro'] as const).map((model) => (
+              {(['gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as const).map((model) => (
                 <Button
                   key={model}
                   variant={selectedModel === model ? 'default' : 'ghost'}
@@ -246,7 +246,7 @@ function MrBlueChatInterface() {
                   className="text-xs h-7"
                   data-testid={`button-model-${model}`}
                 >
-                  {model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3.5-sonnet' ? 'Claude' : 'Gemini'}
+                  {model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude' : 'Gemini'}
                 </Button>
               ))}
             </div>
