@@ -140,8 +140,8 @@ export function MrBlueComplete() {
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-hidden">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
+          <div className="flex-1 overflow-hidden flex flex-col">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full w-full flex flex-col">
               {/* Tab Navigation */}
               <TabsList className="w-full justify-start rounded-none border-b border-cyan-200 dark:border-cyan-800/50 bg-white/30 dark:bg-black/10 p-2 overflow-x-auto flex-shrink-0">
                 <TabsTrigger value="chat" className="gap-2" data-testid="tab-chat">
