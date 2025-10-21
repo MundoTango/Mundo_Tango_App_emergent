@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { Sparkles, MessageSquare, Search, Maximize2, Minimize2, MapPin, CreditCard, Wand2, Edit3, CheckCircle, GraduationCap } from 'lucide-react';
+import { Sparkles, MessageSquare, Search, Maximize2, Minimize2, MapPin, CreditCard, Wand2, Edit3, CheckCircle, GraduationCap, Brain } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -31,12 +31,23 @@ import VoiceControls from '@/components/mrBlue/VoiceControls';
 import PersonalitySelector, { PersonalityMode } from '@/components/mrBlue/PersonalitySelector';
 import AgentOrchestrationPanel from '@/components/mrBlue/AgentOrchestrationPanel';
 
+// MB.MD MEGA-WAVE 12-16: Enhanced UI Components (Oct 21, 2025)
+import EnhancedMessageBubble from '@/components/mrBlue/EnhancedMessageBubble';
+import { StreamingIndicator, TypewriterText } from '@/components/mrBlue/StreamingIndicator';
+import AudioWaveVisualization from '@/components/mrBlue/AudioWaveVisualization';
+import BreadcrumbTrail, { BreadcrumbStep } from '@/components/mrBlue/BreadcrumbTrail';
+import LifeCEOAgentsGrid from '@/components/mrBlue/LifeCEOAgentsGrid';
+
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
   const [input, setInput] = useState('');
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [personality, setPersonality] = useState<PersonalityMode>('friendly');
+  const [isRecording, setIsRecording] = useState(false);
+  const [breadcrumbSteps, setBreadcrumbSteps] = useState<BreadcrumbStep[]>([
+    { id: 'start', label: 'New Chat', status: 'completed', timestamp: new Date().toLocaleTimeString() }
+  ]);
 
   // Load conversations
   const { data: conversationsData } = useQuery<any[]>({
@@ -87,6 +98,12 @@ function MrBlueChatInterface() {
     const messageContent = input.trim();
     setInput('');
     setIsLoading(true);
+    
+    // Update breadcrumb trail
+    setBreadcrumbSteps([
+      ...breadcrumbSteps,
+      { id: `msg-${Date.now()}`, label: 'Processing...', status: 'current' }
+    ]);
 
     try {
       const response = await fetch('/api/mrblue/stream', {
@@ -104,8 +121,25 @@ function MrBlueChatInterface() {
       if (!response.ok) throw new Error('Stream failed');
 
       await refetchMessages();
+      
+      // Update breadcrumb: mark as completed
+      setBreadcrumbSteps(prev => 
+        prev.map((step, idx) => 
+          idx === prev.length - 1 
+            ? { ...step, status: 'completed', label: 'Response received', timestamp: new Date().toLocaleTimeString() }
+            : step
+        )
+      );
     } catch (error) {
       console.error('Streaming error:', error);
+      // Mark breadcrumb as error
+      setBreadcrumbSteps(prev => 
+        prev.map((step, idx) => 
+          idx === prev.length - 1 
+            ? { ...step, status: 'completed', label: 'Error occurred' }
+            : step
+        )
+      );
     } finally {
       setIsLoading(false);
     }
@@ -148,6 +182,13 @@ function MrBlueChatInterface() {
 
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
+        {/* Breadcrumb Trail */}
+        {conversationId && messages && messages.length > 0 && (
+          <div className="p-3 border-b dark:border-gray-700">
+            <BreadcrumbTrail steps={breadcrumbSteps} onStepClick={(id) => console.log('Navigate to:', id)} />
+          </div>
+        )}
+        
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {(!messages || messages.length === 0) && (
             <Card className="p-6 text-center bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950 dark:to-blue-950 border-cyan-200 dark:border-cyan-800">
@@ -156,20 +197,21 @@ function MrBlueChatInterface() {
             </Card>
           )}
           {messages && messages.map((msg: any) => (
-            <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[80%] rounded-lg p-3 ${msg.role === 'user' ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'}`} data-testid={`message-${msg.id}`}>
-                {msg.metadata && msg.role === 'assistant' && <Badge variant="secondary" className="text-xs mb-1">AI Agent</Badge>}
-                <div className="text-sm whitespace-pre-wrap">{msg.content}</div>
-                <div className="text-xs opacity-70 mt-1">{new Date(msg.createdAt).toLocaleTimeString()}</div>
-              </div>
-            </div>
+            <EnhancedMessageBubble
+              key={msg.id}
+              role={msg.role}
+              content={msg.content}
+              timestamp={new Date(msg.createdAt).toLocaleTimeString()}
+              metadata={msg.metadata}
+              onCopy={() => console.log('Message copied')}
+              onRegenerate={msg.role === 'assistant' ? async () => {
+                await refetchMessages();
+              } : undefined}
+              onRate={(rating) => console.log('Message rated:', rating)}
+            />
           ))}
           {isLoading && (
-            <div className="flex items-start">
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-                <Loader2 className="h-4 w-4 animate-spin" data-testid="loading-indicator" />
-              </div>
-            </div>
+            <StreamingIndicator variant="dots" text="Mr Blue is thinking..." />
           )}
         </div>
         <div className="p-4 border-t dark:border-gray-700 space-y-3">
@@ -178,6 +220,9 @@ function MrBlueChatInterface() {
           
           {/* MB.MD TRACK 3A: Personality Selector */}
           <PersonalitySelector value={personality} onChange={setPersonality} />
+          
+          {/* Audio Visualization for Voice Input */}
+          <AudioWaveVisualization isActive={isRecording} type="input" />
           
           <div className="flex gap-2">
             <Textarea
@@ -192,7 +237,10 @@ function MrBlueChatInterface() {
             <div className="flex flex-col gap-2">
               {/* MB.MD TRACK 2: Voice Controls */}
               <VoiceControls 
-                onTranscript={(text) => setInput(prev => prev + ' ' + text)}
+                onTranscript={(text) => {
+                  setInput(prev => prev + ' ' + text);
+                  setIsRecording(false);
+                }}
                 lastMessage={messages && messages.length > 0 ? messages[messages.length - 1]?.content : ''}
               />
               <Button onClick={handleSend} disabled={!input.trim() || isLoading} data-testid="button-send">
@@ -306,6 +354,26 @@ function QualityLearningTab() {
   );
 }
 
+// ============ LIFE CEO AGENTS TAB ============
+function LifeCEOTab() {
+  const { toast } = useToast();
+  
+  const handleAgentClick = (agent: any) => {
+    toast({
+      title: `${agent.name} Selected`,
+      description: `Launching ${agent.name}...`,
+    });
+  };
+  
+  return (
+    <div className="flex-1 overflow-y-auto bg-gradient-to-br from-cyan-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-7xl mx-auto">
+        <LifeCEOAgentsGrid onAgentClick={handleAgentClick} />
+      </div>
+    </div>
+  );
+}
+
 // ============ PLATFORM SEARCH TAB ============
 function PlatformSearchTab() {
   const [query, setQuery] = useState('');
@@ -407,6 +475,9 @@ export default function MrBluePage() {
             <TabsTrigger value="quality" data-testid="tab-quality" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-100 data-[state=active]:to-blue-100 dark:data-[state=active]:from-cyan-900 dark:data-[state=active]:to-blue-900">
               <CheckCircle className="h-4 w-4 mr-2" />Quality & Learning
             </TabsTrigger>
+            <TabsTrigger value="lifeceo" data-testid="tab-lifeceo" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-100 data-[state=active]:to-blue-100 dark:data-[state=active]:from-cyan-900 dark:data-[state=active]:to-blue-900">
+              <Brain className="h-4 w-4 mr-2" />Life CEO Agents
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="chat" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
             <MrBlueChatInterface />
@@ -431,6 +502,9 @@ export default function MrBluePage() {
           </TabsContent>
           <TabsContent value="quality" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
             <QualityLearningTab />
+          </TabsContent>
+          <TabsContent value="lifeceo" className="flex-1 flex flex-col overflow-auto mt-0 min-h-0 data-[state=active]:flex">
+            <LifeCEOTab />
           </TabsContent>
         </Tabs>
       </div>
