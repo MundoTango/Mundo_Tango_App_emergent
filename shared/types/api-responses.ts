@@ -6,22 +6,23 @@ export interface ApiResponse<T> {
   data: T;
 }
 
+// MB.MD FIX: Interface matches actual API response (all camelCase)
 export interface Group {
   id: number;
   name: string;
   slug: string;
   type: 'city' | 'role' | 'practice' | 'festival' | 'topic';
-  roleType?: string | null;  // MB.MD FIX: Changed from role_type to match API
+  roleType?: string | null;
   emoji?: string;
   imageUrl?: string | null;
   coverImage?: string | null;
-  description: string;
+  description?: string;  // MB.MD FIX: Made optional to match actual usage
   isPrivate: boolean;
-  visibility?: string;  // MB.MD FIX: Added missing field from API
-  city: string;
-  country: string;
-  latitude?: string | null;  // MB.MD FIX: Added missing field from API
-  longitude?: string | null;  // MB.MD FIX: Added missing field from API
+  visibility?: string;
+  city?: string;  // MB.MD FIX: Made optional (some groups may not have city)
+  country?: string;  // MB.MD FIX: Made optional
+  latitude?: string | null;
+  longitude?: string | null;
   memberCount: number;
   createdBy: number;
   createdAt: string;

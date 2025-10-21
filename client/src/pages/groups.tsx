@@ -321,7 +321,7 @@ export default function GroupsPage() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
                 data-testid="list-communities"
               >
-              {displayedGroups.map((group: any) => {
+              {displayedGroups.map((group: Group) => {
                 // Use EnhancedCityGroupCard for city groups
                 if (group.type === 'city') {
                   return (
@@ -338,10 +338,10 @@ export default function GroupsPage() {
                           name: group.name,
                           slug: group.slug,
                           description: group.description,
-                          imageUrl: group.image_url || group.imageUrl,
+                          imageUrl: group.imageUrl || undefined,
                           city: group.city,
                           country: group.country,
-                          memberCount: group.member_count || group.memberCount || 0,
+                          memberCount: group.memberCount,
                           eventCount: getEventCount(group.id),
                           isJoined: group.membershipStatus === 'member',
                           type: group.type
@@ -368,9 +368,9 @@ export default function GroupsPage() {
                         id: group.id,
                         name: group.name,
                         description: group.description || t('groups.default_description', 'Connect with fellow tango enthusiasts and share your passion.'),
-                        imageUrl: group.image_url,
+                        imageUrl: group.imageUrl || undefined,
                         location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || t('groups.location_global', 'Global')),
-                        memberCount: group.member_count || 0,
+                        memberCount: group.memberCount,
                         eventCount: getEventCount(group.id),
                         isJoined: group.membershipStatus === 'member'
                       }}
