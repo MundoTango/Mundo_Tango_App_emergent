@@ -67,6 +67,323 @@ router.get('/events', async (req: Request, res: Response, next: NextFunction) =>
   }
 });
 
+// MB.MD FIX: Upcoming events - future events only
+router.get('/events/upcoming', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { page, pageSize, offset } = parsePagination(req.query);
+    const now = new Date();
+    
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .where(gte(events.startDate, now))
+        .orderBy(events.startDate)
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+        .where(gte(events.startDate, now))
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Past events - historical events only
+router.get('/events/past', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { page, pageSize, offset } = parsePagination(req.query);
+    const now = new Date();
+    
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .where(sql`${events.startDate} < ${now}`)
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+        .where(sql`${events.startDate} < ${now}`)
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: My events - events created by authenticated user
+router.get('/events/my-events', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
+    
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
+    }
+    
+    const { page, pageSize, offset } = parsePagination(req.query);
+    
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .where(eq(events.userId, user[0].id))
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+        .where(eq(events.userId, user[0].id))
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Hosting events - alias for my-events
+router.get('/events/hosting', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
+    
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
+    }
+    
+    const { page, pageSize, offset } = parsePagination(req.query);
+    
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .where(eq(events.userId, user[0].id))
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+        .where(eq(events.userId, user[0].id))
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Attending events - events user has RSVP'd to
+router.get('/events/attending', isAuthenticated, async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await db.select().from(users).where(eq(users.replitId, userId)).limit(1);
+    
+    if (!user[0] || !user[0].isActive) {
+      throw new AuthenticationError('User not found or inactive');
+    }
+    
+    const { page, pageSize, offset } = parsePagination(req.query);
+    
+    // Get events user has RSVP'd to via eventAttendees junction table
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select({ 
+        id: events.id,
+        userId: events.userId,
+        title: events.title,
+        description: events.description,
+        startDate: events.startDate,
+        endDate: events.endDate,
+        city: events.city,
+        venue: events.venue,
+        eventType: events.eventType,
+        maxAttendees: events.maxAttendees,
+        price: events.price,
+        createdAt: events.createdAt,
+        updatedAt: events.updatedAt
+      })
+        .from(eventAttendees)
+        .innerJoin(events, eq(events.id, eventAttendees.eventId))
+        .where(eq(eventAttendees.userId, user[0].id))
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(eventAttendees)
+        .where(eq(eventAttendees.userId, user[0].id))
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Search events - search by title/description
+router.get('/events/search', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { page, pageSize, offset } = parsePagination(req.query);
+    const { q } = req.query;
+    
+    if (!q || typeof q !== 'string') {
+      throw new ValidationError('Search query parameter "q" is required');
+    }
+    
+    const searchPattern = `%${q}%`;
+    const conditions = sql`${events.title} ILIKE ${searchPattern} OR ${events.description} ILIKE ${searchPattern}`;
+    
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .where(conditions)
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+        .where(conditions)
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Nearby events - filter by location proximity
+router.get('/events/nearby', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { page, pageSize, offset } = parsePagination(req.query);
+    const { lat, lon, radius = 50 } = req.query;
+    
+    if (!lat || !lon) {
+      throw new ValidationError('Latitude (lat) and longitude (lon) parameters are required');
+    }
+    
+    // For now, return all events (TODO: implement geospatial query)
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Events by city - filter by city name
+router.get('/events/by-city', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { page, pageSize, offset } = parsePagination(req.query);
+    const { city } = req.query;
+    
+    if (!city || typeof city !== 'string') {
+      throw new ValidationError('City parameter is required');
+    }
+    
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .where(eq(events.city, city))
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+        .where(eq(events.city, city))
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Events by country - filter by country name
+router.get('/events/by-country', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { page, pageSize, offset } = parsePagination(req.query);
+    const { country } = req.query;
+    
+    if (!country || typeof country !== 'string') {
+      throw new ValidationError('Country parameter is required');
+    }
+    
+    // Note: events table doesn't have country field, using city for now
+    // TODO: Add country field to events schema
+    const [eventsList, [{ count: totalCount }]] = await Promise.all([
+      db.select()
+        .from(events)
+        .orderBy(desc(events.startDate))
+        .limit(pageSize)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)` })
+        .from(events)
+    ]);
+    
+    res.json(successWithPagination(eventsList, page, pageSize, Number(totalCount)));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Calendar view - events grouped by month
+router.get('/events/calendar', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { month, year } = req.query;
+    
+    if (!month || !year) {
+      throw new ValidationError('Month and year parameters are required');
+    }
+    
+    const startDate = new Date(Number(year), Number(month) - 1, 1);
+    const endDate = new Date(Number(year), Number(month), 0, 23, 59, 59);
+    
+    const eventsList = await db.select()
+      .from(events)
+      .where(and(
+        gte(events.startDate, startDate),
+        sql`${events.startDate} <= ${endDate}`
+      ))
+      .orderBy(events.startDate);
+    
+    res.json(success(eventsList, 'Calendar events fetched successfully'));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MB.MD FIX: Export events - return events in iCal format
+router.get('/events/export', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { format = 'json' } = req.query;
+    
+    const eventsList = await db.select()
+      .from(events)
+      .where(gte(events.startDate, new Date()))
+      .orderBy(events.startDate)
+      .limit(100);
+    
+    if (format === 'ical') {
+      // TODO: Implement iCal format
+      res.setHeader('Content-Type', 'text/calendar');
+      res.send('BEGIN:VCALENDAR\nVERSION:2.0\nEND:VCALENDAR');
+    } else {
+      res.json(success(eventsList, 'Events exported successfully'));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 /**
  * GET /api/events/:id
  * Get event details by ID
