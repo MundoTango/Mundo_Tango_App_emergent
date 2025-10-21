@@ -10,12 +10,13 @@ import EnhancedCityGroupCard from '@/components/Community/EnhancedCityGroupCard'
 import GroupSearch from '@/components/groups/GroupSearch';
 import RecommendedGroups from '@/components/groups/RecommendedGroups';
 import { useTranslation } from 'react-i18next';
+import type { ApiResponse, Group } from '@shared/types/api-responses';
 
 export default function GroupsPage() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
-  const [searchResults, setSearchResults] = useState<any[] | null>(null);
+  const [searchResults, setSearchResults] = useState<Group[] | null>(null);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -31,7 +32,7 @@ export default function GroupsPage() {
     }
   );
   
-  const handleSearchResults = (results: any[]) => {
+  const handleSearchResults = (results: Group[]) => {
     setSearchResults(results);
   };
   
@@ -39,8 +40,8 @@ export default function GroupsPage() {
     setSearchResults(null);
   };
 
-  // Fetch groups data with membership status
-  const { data: groupsData, isLoading } = useQuery({
+  // MB.MD FIX: Properly typed groups API response
+  const { data: groupsData, isLoading } = useQuery<ApiResponse<Group[]>>({
     queryKey: ['/api/groups'],
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
@@ -49,7 +50,10 @@ export default function GroupsPage() {
       const response = await fetch('/api/groups', {
         credentials: 'include'
       });
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: Failed to fetch groups`);
+      }
+      const data: ApiResponse<Group[]> = await response.json();
       return data;
     }
   });
@@ -94,21 +98,24 @@ export default function GroupsPage() {
     }
   });
 
-  // Get statistics based on groups data
+  // MB.MD FIX: Extract typed data array from API response
+  const groupsList: Group[] = groupsData?.data || [];
+
+  // Get statistics based on groups data (fully typed)
   const stats = {
-    totalCommunities: groupsData?.length || 6,
-    joinedCommunities: groupsData?.filter((g: any) => g.isMember || g.membershipStatus === 'member').length || 2,
+    totalCommunities: groupsList.length || 6,
+    joinedCommunities: groupsList.filter((g) => g.isJoined || g.membershipStatus === 'member').length || 2,
     totalEvents: 132, // This would come from a separate API
-    cities: new Set(groupsData?.map((g: any) => g.city).filter(Boolean)).size || 4
+    cities: new Set(groupsList.map((g) => g.city).filter(Boolean)).size || 4
   };
 
   // Get event counts per group (will be replaced with real API data)
-  const getEventCount = (groupId: number) => {
+  const getEventCount = (groupId: number): number => {
     return 0;
   };
 
-  // Filter groups based on active filter and search
-  const filteredGroups = groupsData?.filter((group: any) => {
+  // Filter groups based on active filter and search (fully typed)
+  const filteredGroups: Group[] = groupsList.filter((group) => {
     const matchesSearch = searchQuery === '' || 
       group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       group.description?.toLowerCase().includes(searchQuery.toLowerCase());
@@ -119,9 +126,9 @@ export default function GroupsPage() {
       case 'city':
         return group.type === 'city';
       case 'professional':
-        return group.role_type && ['teacher', 'performer', 'organizer'].includes(group.role_type);
+        return group.roleType && ['teacher', 'performer', 'organizer'].includes(group.roleType);
       case 'music':
-        return group.role_type && ['musician', 'dj'].includes(group.role_type);
+        return group.roleType && ['musician', 'dj'].includes(group.roleType);
       case 'practice':
         return group.type === 'practice';
       case 'festivals':
@@ -129,9 +136,9 @@ export default function GroupsPage() {
       default:
         return true;
     }
-  }) || [];
+  });
   
-  const displayedGroups = searchResults !== null ? searchResults : filteredGroups;
+  const displayedGroups: Group[] = searchResults !== null ? searchResults : filteredGroups;
 
   const filterButtons = [
     { key: 'all', label: t('groups.filter.all', 'All Communities'), icon: Globe },
