@@ -28,12 +28,19 @@ import SiteBuilderTab from './tabs/SiteBuilderTab';
 import VisualEditorTab from './tabs/VisualEditorTab';
 import AvatarAITab from './tabs/AvatarAITab';
 import QualityTab from './tabs/QualityTab';
+import EnhancedMessageBubble from './EnhancedMessageBubble';
+import VoiceControls from './VoiceControls';
+import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
+import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
 
 // ============ CHAT INTERFACE ============
 function MrBlueChatInterface() {
   const [input, setInput] = useState('');
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [personality, setPersonality] = useState<PersonalityMode>('friendly');
+  const [selectedModel, setSelectedModel] = useState<'gpt-4o' | 'claude-3.5-sonnet' | 'gemini-pro'>('gpt-4o');
+  const [lastAssistantMessage, setLastAssistantMessage] = useState<string>('');
   const { updateActualAction } = useIntentDetection();
 
   // Load conversations
@@ -104,7 +111,7 @@ function MrBlueChatInterface() {
         body: JSON.stringify({
           conversationId,
           message: messageContent,
-          model: 'gpt-4o'
+          model: selectedModel  // ✅ FIX: Use user-selected model instead of hard-coded gpt-4o
         }),
       });
 
@@ -144,6 +151,11 @@ function MrBlueChatInterface() {
         }
       }
 
+      // Store last assistant message for voice playback
+      if (assistantMessage) {
+        setLastAssistantMessage(assistantMessage);
+      }
+
       // Refresh messages to get the persisted conversation
       await refetchMessages();
     } catch (error) {
@@ -170,7 +182,25 @@ function MrBlueChatInterface() {
     <div className="flex h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Conversation Sidebar */}
       <div className="w-64 border-r dark:border-gray-700 flex flex-col bg-gray-50 dark:bg-gray-800">
-        <div className="p-3 border-b dark:border-gray-700">
+        <div className="p-3 border-b dark:border-gray-700 space-y-3">
+          {/* TEMPORARILY DISABLED: 3D Avatar causes React Three Fiber crash - fixing separately */}
+          {/* <div className="h-48 bg-white/90 dark:bg-black/40 rounded-lg overflow-hidden">
+            <MrBlueAvatar 
+              onMessage={(msg) => {
+                setInput(msg);
+                setTimeout(() => handleSend(), 100);
+              }}
+              isSpeaking={isLoading}
+              emotion={isLoading ? 'thinking' : 'neutral'}
+            />
+          </div> */}
+          <div className="h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg overflow-hidden flex items-center justify-center">
+            <div className="text-center text-white">
+              <Sparkles className="h-12 w-12 mx-auto mb-2 animate-pulse" />
+              <p className="text-sm font-medium">Mr Blue AI</p>
+              <p className="text-xs opacity-75">3D Avatar Loading...</p>
+            </div>
+          </div>
           <Button onClick={createNewConversation} className="w-full" size="sm" variant="default">
             <MessageSquare className="h-4 w-4 mr-2" />
             New Chat
@@ -202,6 +232,26 @@ function MrBlueChatInterface() {
 
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
+        {/* Model Selector Header */}
+        <div className="p-3 border-b dark:border-gray-700 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-950/30 dark:to-blue-950/30">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">AI Model:</span>
+            <div className="flex gap-1">
+              {(['gpt-4o', 'claude-3.5-sonnet', 'gemini-pro'] as const).map((model) => (
+                <Button
+                  key={model}
+                  variant={selectedModel === model ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setSelectedModel(model)}
+                  className="text-xs h-7"
+                  data-testid={`button-model-${model}`}
+                >
+                  {model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3.5-sonnet' ? 'Claude' : 'Gemini'}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {(!messages || messages.length === 0) && (
             <Card className="p-6 text-center bg-gradient-to-br from-turquoise-50 to-cyan-50 dark:from-turquoise-950 dark:to-cyan-950">
@@ -210,17 +260,31 @@ function MrBlueChatInterface() {
             </Card>
           )}
         {messages && messages.map((msg: any) => (
-          <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] rounded-lg p-3 ${msg.role === 'user' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white' : 'bg-gray-100 dark:bg-gray-800'}`}>
-              {msg.metadata && msg.role === 'assistant' && <Badge variant="secondary" className="text-xs mb-1">AI Agent</Badge>}
-              <div className="text-sm whitespace-pre-wrap">{msg.content}</div>
-              <div className="text-xs opacity-70 mt-1">{new Date(msg.createdAt).toLocaleTimeString()}</div>
-            </div>
-          </div>
+          <EnhancedMessageBubble
+            key={msg.id}
+            role={msg.role}
+            content={msg.content}
+            timestamp={new Date(msg.createdAt).toLocaleTimeString()}
+            metadata={msg.metadata}
+            onCopy={() => navigator.clipboard.writeText(msg.content)}
+            onRegenerate={msg.role === 'assistant' ? () => console.log('Regenerate:', msg.id) : undefined}
+            onRate={msg.role === 'assistant' ? (rating) => console.log('Rate:', msg.id, rating) : undefined}
+          />
         ))}
           {isLoading && <div className="flex items-start"><div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3"><Loader2 className="h-4 w-4 animate-spin" /></div></div>}
         </div>
-        <div className="p-4 border-t dark:border-gray-700">
+        <div className="p-4 border-t dark:border-gray-700 space-y-3">
+          <div className="flex gap-2">
+            <VoiceControls 
+              onTranscript={(text) => {
+                setInput(text);
+                setTimeout(() => handleSend(), 100);
+              }}
+              lastMessage={lastAssistantMessage}
+              autoSpeak={false}
+            />
+            <PersonalitySelector value={personality} onChange={setPersonality} />
+          </div>
           <div className="flex gap-2">
             <Textarea
               value={input}
