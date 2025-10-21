@@ -156,6 +156,7 @@ export const securityHeaders = (req: Request, res: Response, next: NextFunction)
       "https://api.stripe.com " +
       "https://nominatim.openstreetmap.org " +
       "https://tile.openstreetmap.org " +
+      "https://ipapi.co " +
       "wss://*.replit.dev; " +
     "frame-src https://js.stripe.com https://hooks.stripe.com;"
   );

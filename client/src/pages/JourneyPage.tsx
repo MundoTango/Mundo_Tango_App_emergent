@@ -5,7 +5,9 @@ import JourneyWizard from '@/components/journeys/JourneyWizard';
 
 export default function JourneyPage() {
   const params = useParams<{ journeyId: string }>();
-  const journeyId = params.journeyId as 'J1' | 'J2' | 'J3' | 'J4' | 'J5';
+  // Support both numeric (1-5) and letter (J1-J5) journey IDs
+  const rawId = params.journeyId;
+  const journeyId = (rawId?.match(/^\d$/) ? `J${rawId}` : rawId) as 'J1' | 'J2' | 'J3' | 'J4' | 'J5';
   
   const journeys = {
     J1: {
