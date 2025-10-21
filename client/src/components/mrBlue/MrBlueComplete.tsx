@@ -29,6 +29,9 @@ import SiteBuilderTab from './tabs/SiteBuilderTab';
 import VisualEditorTab from './tabs/VisualEditorTab';
 import AvatarAITab from './tabs/AvatarAITab';
 import QualityTab from './tabs/QualityTab';
+import SearchTab from './tabs/SearchTab';
+import LifeCEOTab from './tabs/LifeCEOTab';
+import AdminTab from './tabs/AdminTab';
 
 // ============ TYPES ============
 interface Conversation {
@@ -522,79 +525,6 @@ function ChatInterface() {
               <Send className="h-5 w-5" />
             </Button>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============ TAB COMPONENTS ============
-
-function SearchTab() {
-  return (
-    <div className="space-y-4">
-      <h3 className="text-2xl font-bold">Search Platform</h3>
-      <p className="text-gray-600 dark:text-gray-400">
-        Search across all platform content, users, events, and groups.
-      </p>
-      <div className="bg-white/50 dark:bg-black/20 rounded-lg p-6 text-center">
-        <Search className="h-12 w-12 mx-auto mb-4 text-cyan-500" />
-        <p className="text-sm text-gray-500">Search functionality coming soon...</p>
-      </div>
-    </div>
-  );
-}
-
-function LifeCEOTab() {
-  return (
-    <div className="space-y-4">
-      <h3 className="text-2xl font-bold">Life CEO Agents</h3>
-      <p className="text-gray-600 dark:text-gray-400">
-        Your personal AI agents for life management across 16 domains.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[
-          { name: 'Health CEO', icon: '💊', description: 'Health & wellness management' },
-          { name: 'Finance CEO', icon: '💰', description: 'Financial planning & budgeting' },
-          { name: 'Career CEO', icon: '💼', description: 'Career development & networking' },
-          { name: 'Learning CEO', icon: '📚', description: 'Education & skill development' },
-        ].map((agent) => (
-          <div 
-            key={agent.name}
-            className="bg-white/50 dark:bg-black/20 rounded-lg p-4 hover:bg-white/70 dark:hover:bg-black/30 transition-colors"
-          >
-            <div className="text-3xl mb-2">{agent.icon}</div>
-            <h4 className="font-bold">{agent.name}</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{agent.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AdminTab() {
-  return (
-    <div className="space-y-4">
-      <h3 className="text-2xl font-bold">Admin Controls</h3>
-      <p className="text-gray-600 dark:text-gray-400">
-        Platform administration and system monitoring.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white/50 dark:bg-black/20 rounded-lg p-4">
-          <Shield className="h-8 w-8 mb-2 text-cyan-500" />
-          <h4 className="font-bold mb-1">User Management</h4>
-          <p className="text-sm text-gray-600 dark:text-gray-400">Manage user roles and permissions</p>
-        </div>
-        <div className="bg-white/50 dark:bg-black/20 rounded-lg p-4">
-          <Brain className="h-8 w-8 mb-2 text-cyan-500" />
-          <h4 className="font-bold mb-1">Agent Dashboard</h4>
-          <p className="text-sm text-gray-600 dark:text-gray-400">Monitor 350+ AI agents</p>
-        </div>
-        <div className="bg-white/50 dark:bg-black/20 rounded-lg p-4">
-          <CheckCircle2 className="h-8 w-8 mb-2 text-cyan-500" />
-          <h4 className="font-bold mb-1">System Health</h4>
-          <p className="text-sm text-gray-600 dark:text-gray-400">Platform health monitoring</p>
         </div>
       </div>
     </div>
