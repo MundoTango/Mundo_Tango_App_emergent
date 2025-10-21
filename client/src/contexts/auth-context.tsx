@@ -48,10 +48,46 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (token) {
         await validateToken(token);
       } else {
+        // DEV AUTO-LOGIN: If no user and VITE_DEV_AUTO_LOGIN=true, create mock dev user
+        if (import.meta.env.VITE_DEV_AUTO_LOGIN === 'true') {
+          const devUser = localStorage.getItem('dev_user');
+          if (devUser) {
+            const userData = JSON.parse(devUser);
+            setUser(userData);
+            console.log('🔧 DEV AUTO-LOGIN: Mock user loaded from localStorage', userData);
+          } else {
+            // Create stable mock dev user
+            const mockDevUser = {
+              id: 999,
+              replitUserId: 'dev-user-999',
+              email: 'dev@mundotango.local',
+              displayName: 'Dev User',
+              bio: 'Development test user',
+              city: 'Buenos Aires',
+              countryCode: 'AR',
+              isAdmin: true,
+              isSuperAdmin: true,
+              customerJourneyState: 'J5_COMPLETE' as const,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem('dev_user', JSON.stringify(mockDevUser));
+            setUser(mockDevUser as any);
+            console.log('🔧 DEV AUTO-LOGIN: Mock dev user created', mockDevUser);
+          }
+        }
         setIsLoading(false);
       }
     } catch (error) {
       console.error('Authentication check failed:', error);
+      // DEV AUTO-LOGIN fallback on error
+      if (import.meta.env.VITE_DEV_AUTO_LOGIN === 'true') {
+        const devUser = localStorage.getItem('dev_user');
+        if (devUser) {
+          setUser(JSON.parse(devUser));
+          console.log('🔧 DEV AUTO-LOGIN: Fallback to mock user after error');
+        }
+      }
       setIsLoading(false);
     }
   };
