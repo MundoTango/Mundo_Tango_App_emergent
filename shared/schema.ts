@@ -2583,3 +2583,121 @@ export type InsertAgentSchedule = z.infer<typeof insertAgentScheduleSchema>;
 
 export type IntentDetection = typeof intentDetections.$inferSelect;
 export type InsertIntentDetection = z.infer<typeof insertIntentDetectionSchema>;
+
+// ========================================
+// MR BLUE CHAT & PROJECTS SYSTEM
+// MB.MD Multi-Model Orchestration - Oct 21, 2025
+// ========================================
+
+// Chat Projects (ChatGPT-style project folders)
+export const chatProjects = pgTable("chat_projects", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_chat_projects_user").on(table.userId),
+]);
+
+// Chat Messages (all AI conversations)
+export const chatMessages = pgTable("chat_messages", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => chatProjects.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  role: varchar("role", { length: 20 }).notNull(), // user, assistant, system
+  content: text("content").notNull(),
+  model: varchar("model", { length: 100 }), // gpt-4o, claude-3-opus, gemini-pro, evo, etc
+  tokens: integer("tokens"),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}), // Media uploads, code snippets, etc
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_chat_messages_project").on(table.projectId),
+  index("idx_chat_messages_user").on(table.userId),
+]);
+
+// Model Usage Tracking (cost/performance analytics)
+export const modelUsage = pgTable("model_usage", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  model: varchar("model", { length: 100 }).notNull(),
+  tokens: integer("tokens").notNull(),
+  cost: numeric("cost", { precision: 10, scale: 4 }), // In dollars
+  latency: integer("latency"), // Response time in ms
+  timestamp: timestamp("timestamp").defaultNow(),
+}, (table) => [
+  index("idx_model_usage_user").on(table.userId),
+  index("idx_model_usage_model").on(table.model),
+  index("idx_model_usage_timestamp").on(table.timestamp),
+]);
+
+// Embeddings (semantic search via HuggingFace/OpenAI)
+export const embeddings = pgTable("embeddings", {
+  id: serial("id").primaryKey(),
+  content: text("content").notNull(),
+  vector: text("vector").notNull(), // JSON-serialized vector
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  userId: integer("user_id").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_embeddings_user").on(table.userId),
+]);
+
+// EVO Patterns (bio-inspired intelligence)
+export const evoPatterns = pgTable("evo_patterns", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  patternType: varchar("pattern_type", { length: 100 }).notNull(), // social_connection, event_recommendation, content_affinity
+  data: jsonb("data").$type<Record<string, any>>().notNull(), // DNA-like sequence data
+  confidence: real("confidence").notNull(), // 0.0 to 1.0
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_evo_user").on(table.userId),
+  index("idx_evo_pattern_type").on(table.patternType),
+]);
+
+// Zod Schemas
+export const insertChatProjectSchema = createInsertSchema(chatProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertModelUsageSchema = createInsertSchema(modelUsage).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertEmbeddingSchema = createInsertSchema(embeddings).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEvoPatternSchema = createInsertSchema(evoPatterns).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types
+export type ChatProject = typeof chatProjects.$inferSelect;
+export type InsertChatProject = z.infer<typeof insertChatProjectSchema>;
+
+export type ChatMessage = typeof chatMessages.$inferSelect;
+export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+
+export type ModelUsage = typeof modelUsage.$inferSelect;
+export type InsertModelUsage = z.infer<typeof insertModelUsageSchema>;
+
+export type Embedding = typeof embeddings.$inferSelect;
+export type InsertEmbedding = z.infer<typeof insertEmbeddingSchema>;
+
+export type EvoPattern = typeof evoPatterns.$inferSelect;
+export type InsertEvoPattern = z.infer<typeof insertEvoPatternSchema>;

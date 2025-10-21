@@ -317,7 +317,7 @@ function PlatformSearchTab() {
 function AdminToolsTab() {
   const [, navigate] = useLocation();
   const tools = [
-    { id: 'visual-editor', name: 'Visual Page Editor', description: 'Click-to-edit any page element with AI', icon: Wand2, action: () => navigate('/visual-editor') },
+    { id: 'visual-editor', name: 'Visual Page Editor', description: 'Click-to-edit any page element with AI', icon: Wand2, action: () => navigate('/admin/visual-editor') },
     { id: 'site-builder', name: 'AI Site Builder', description: 'Generate pages from text descriptions', icon: Code, action: () => navigate('/admin/site-builder') },
     { id: 'esa-mindmap', name: 'ESA MindMap', description: 'Visualize all 276 agents', icon: Map, action: () => navigate('/admin/esa-mind') },
   ];
@@ -417,15 +417,21 @@ export function MrBlueComplete() {
       <div className="fixed bottom-6 right-6 z-[9999]" data-testid="mr-blue-complete-button">
         <MagneticButton
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
+          className={`w-16 h-16 rounded-full shadow-2xl border-4 border-cyan-400 overflow-hidden transition-all duration-300 ${
             isOpen ? 'scale-110 rotate-12' : 'hover:scale-110'
           }`}
           data-testid="button-toggle-mr-blue"
         >
-          {isOpen ? (
-            <X className="w-8 h-8 text-white" />
+          {user.profileImage ? (
+            <img 
+              src={user.profileImage} 
+              alt="Mr Blue Avatar" 
+              className="w-full h-full object-cover"
+            />
           ) : (
-            <Sparkles className="w-8 h-8 text-white animate-pulse" />
+            <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-turquoise-600 flex items-center justify-center">
+              <Sparkles className="w-8 h-8 text-white animate-pulse" />
+            </div>
           )}
         </MagneticButton>
       </div>
