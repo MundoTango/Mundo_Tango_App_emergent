@@ -195,7 +195,7 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
     console.log('🔧 Auth bypass - using default user for Life CEO testing');
     
     // Load user roles to check for super admin
-    const { storage } = await import('./storage.js');
+    // MB.MD Oct 21: storage already imported at top (line 9) - no need for dynamic import
     const userRoles = await storage.getUserRoles(1); // Elena Rodriguez (user_id=1)
     const isSuperAdmin = userRoles?.some((role: any) => role.roleName === 'super_admin') ?? false;
     
