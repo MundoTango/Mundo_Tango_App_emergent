@@ -27,6 +27,18 @@ Mundo Tango is a social platform for the global tango community, built on the ES
   - Full methodology: `docs/MB_MD_EXPERT_ROUNDTABLE_PROTOCOL.md`
 - **Priority:** Deployment stability - Files must never be deleted without safeguards
 - **Documentation Agent:** Must monitor file integrity and prevent build failures
+- **Replit Workflow Best Practices (Oct 21, 2025):** Platform-specific git and branch management
+  - **Branch Creation:** Use Replit's UI to create branches from GitHub (avoids auth issues)
+    - Click Version Control icon → "Create new branch from..." → Select GitHub branch → Pull latest code
+    - ✅ Automatically pulls latest commits without git authentication errors
+    - ✅ Creates clean environment for recovery scenarios
+    - ✅ Faster and more reliable than `git pull` in Replit environment
+  - **When to Use Replit UI vs Git Commands:**
+    - ❌ Git authentication errors (401, redirect to login) → Use Replit branch UI
+    - ❌ Fresh repl import from GitHub → Use Replit branch UI to pull code
+    - ✅ Simple commits and status checks → Use git commands
+    - ✅ Working in established repl with configured credentials → Use git commands
+  - **Recovery Best Practice:** After storage corruption, create fresh branch via Replit UI instead of fighting `git pull` auth issues
 
 ### System Architecture
 

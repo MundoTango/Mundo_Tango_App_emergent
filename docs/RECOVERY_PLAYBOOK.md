@@ -12,7 +12,7 @@ Is your workspace broken?
 │
 ├─ YES → Storage corruption (ENOTEMPTY, build fails, server won't start)
 │   ├─ Try: kill 1 (VM reboot) → Still broken?
-│   └─ → Use Method 1: Fresh Fork (guaranteed fix, 20 min)
+│   └─ → Use Method 1A: Fresh Branch via Replit UI (RECOMMENDED, 3-5 min)
 │
 └─ NO → Just need to rebuild packages?
     └─ Use Method 2: Bootstrap In-Place (5 min)
@@ -20,8 +20,65 @@ Is your workspace broken?
 
 ---
 
-## Method 1: Fresh Fork (Guaranteed Fix)
-**Use when**: Storage corruption persists after `kill 1`, or ENOTEMPTY loops
+## Method 1A: Fresh Branch via Replit UI (RECOMMENDED)
+**Use when**: Storage corruption, git authentication errors, or need clean environment
+**Time**: 3-5 minutes
+**Advantage**: No git auth issues, automatic code pull, cleanest recovery
+
+### Steps
+
+#### 1. Ensure Code is Committed (in old corrupted repl)
+```bash
+# Check you have no uncommitted changes
+git status
+
+# If you have changes, commit them
+git add .
+git commit -m "Save work before creating fresh branch"
+git push origin <your-branch>
+```
+
+#### 2. Create Fresh Branch via Replit UI
+1. Click the **Version Control** icon (left sidebar)
+2. Click **"Create new branch from..."** dropdown
+3. Select your GitHub branch (e.g., `fresh-mundo-tango`)
+4. Replit automatically:
+   - ✅ Pulls latest code from GitHub
+   - ✅ Creates clean VM and storage
+   - ✅ Avoids all git authentication issues
+
+#### 3. Run Bootstrap Script
+In the new branch's shell:
+```bash
+./scripts/bootstrap-env.sh
+```
+
+**Expected output**:
+```
+✅ BOOTSTRAP COMPLETE
+Time: 180-240s
+Environment ready for development! 🚀
+```
+
+#### 4. Verify Everything Works
+```bash
+./scripts/health-check.sh
+```
+
+**Expected**: All 7 checks pass ✅
+
+#### 5. Resume Development
+```bash
+npm run dev
+```
+
+Visit preview URL → You're back to coding!
+
+---
+
+## Method 1B: Fresh Fork (Alternative)
+**Use when**: Branch creation UI unavailable or prefer forking
+**Time**: 5-10 minutes
 
 ### What Gets Preserved ✅
 - ✅ All git commits and branches
@@ -56,7 +113,6 @@ git push origin <your-branch>
 #### 3. Run Bootstrap Script
 In the new repl's shell:
 ```bash
-chmod +x scripts/bootstrap-env.sh
 ./scripts/bootstrap-env.sh
 ```
 
@@ -124,7 +180,7 @@ chmod +x scripts/bootstrap-env.sh
 #### Phase 3: Dependency Installation
 - 📦 Fresh `npm install` (~1345 packages)
 - 📦 Verifies critical packages (Express, Vite, React, etc.)
-- 📦 Detects ENOTEMPTY errors → suggests fork
+- 📦 Detects ENOTEMPTY errors → recommends fresh branch via Replit UI (Method 1A)
 
 #### Phase 4: Database Setup
 - 🗄️ Syncs Drizzle schema to PostgreSQL
@@ -148,7 +204,7 @@ kill 1
 # Wait 30 seconds, then try
 npm install
 
-# Still broken? → Fork repl (Method 1)
+# Still broken? → Create fresh branch via Replit UI (Method 1A)
 ```
 
 ### Scenario 2: "Server won't start - Cannot find module 'finalhandler'"
@@ -173,14 +229,14 @@ npm cache clean --force
 ### Scenario 4: "Everything was working yesterday, now nothing works"
 **Likely cause**: Replit storage corruption incident
 
-**Fix**: Fork to fresh repl (Method 1)
+**Fix**: Create fresh branch via Replit UI (Method 1A - RECOMMENDED) or fork repl (Method 1B)
 
 ### Scenario 5: "I just want to start fresh but keep my code"
 **Fix**: 
 ```bash
 git commit -am "Save current state"
 git push
-# Then fork repl
+# Then create fresh branch via Replit UI (Method 1A)
 ```
 
 ---
@@ -200,16 +256,17 @@ git push
 - 🚩 Server starts but immediately crashes
 - 🚩 Build succeeds but `dist/` is empty
 
-### When to Fork vs Bootstrap
+### When to Use Each Recovery Method
 
 | Symptom | Action |
 |---------|--------|
-| npm install fails once | Bootstrap in-place |
-| npm install fails 3+ times | Fork repl |
-| ENOTEMPTY after `kill 1` | Fork repl |
-| esbuild EPIPE errors | Bootstrap first, then fork if persists |
-| Load average >10 | Fork repl (VM overloaded) |
-| "Cannot find module" for core packages | Bootstrap in-place |
+| npm install fails once | Bootstrap in-place (Method 2) |
+| npm install fails 3+ times | Fresh branch via Replit UI (Method 1A) |
+| ENOTEMPTY after `kill 1` | Fresh branch via Replit UI (Method 1A) |
+| Git authentication errors | Fresh branch via Replit UI (Method 1A) |
+| esbuild EPIPE errors | Bootstrap first (Method 2), then Method 1A if persists |
+| Load average >10 | Fresh branch via Replit UI (Method 1A - VM overloaded) |
+| "Cannot find module" for core packages | Bootstrap in-place (Method 2) |
 
 ---
 
@@ -221,7 +278,7 @@ git push
 cat /tmp/bootstrap-npm-install.log | grep -i "error"
 ```
 
-**If ENOTEMPTY**: Fork repl (storage corruption)  
+**If ENOTEMPTY**: Create fresh branch via Replit UI (Method 1A - storage corruption)  
 **If timeout**: Increase timeout in script or retry  
 **If "no space"**: Contact Replit support
 
@@ -319,8 +376,8 @@ git commit -am "Implemented feature X"
 
 ### What We Learned
 1. **Storage corruption survives VM reboots** - it's in Replit's persistent layer
-2. **ENOTEMPTY after reboot = fork immediately** - don't waste time
-3. **High load average = overloaded VM** - fork for fresh resources
+2. **ENOTEMPTY after reboot = create fresh branch via Replit UI (Method 1A)** - don't waste time
+3. **High load average = overloaded VM** - use Method 1A for fresh resources
 4. **Corruption spreads** - esbuild EPIPE started after npm ENOTEMPTY
 5. **Manual package reinstalls make it worse** - use bootstrap instead
 
@@ -328,7 +385,7 @@ git commit -am "Implemented feature X"
 - ✅ **Never** delete package-lock.json then run `npm ci` (requires lock file)
 - ✅ **Always** use `npm install` for fresh installs (generates new lock)
 - ✅ **Check** for ENOTEMPTY in logs before wasting time
-- ✅ **Fork** on first sign of persistent corruption
+- ✅ **Create fresh branch via Replit UI (Method 1A)** on first sign of persistent corruption
 - ✅ **Bootstrap** instead of manual fixes (automated is better)
 
 ---
@@ -347,9 +404,9 @@ git commit -am "Implemented feature X"
 - `replit.md` - Current platform state
 
 ### Replit Platform Issues
-- Storage corruption after Sept 2024: Fork to fresh repl
+- Storage corruption after Sept 2024: Create fresh branch via Replit UI (Method 1A)
 - Read-only filesystem: https://report-read-only-repls.replit.app/
-- Load average >20: VM overloaded, fork repl
+- Load average >20: VM overloaded, create fresh branch (Method 1A)
 - Contact support: https://replit.com/support
 
 ---
@@ -382,11 +439,11 @@ cat ~/.npm/_logs/*-debug-*.log | grep ENOTEMPTY
 ### 🎯 Decision Matrix
 | Problem | Quick Fix | If Fails |
 |---------|-----------|----------|
-| Build error | `npm run build` | Bootstrap |
-| Server crash | Restart workflow | Bootstrap |
+| Build error | `npm run build` | Bootstrap (Method 2) |
+| Server crash | Restart workflow | Bootstrap (Method 2) |
 | npm warning | Ignore | N/A |
-| ENOTEMPTY | `kill 1` | Fork repl |
-| Multiple errors | Bootstrap | Fork repl |
+| ENOTEMPTY | `kill 1` | Fresh branch via Replit UI (Method 1A) |
+| Multiple errors | Bootstrap (Method 2) | Fresh branch via Replit UI (Method 1A) |
 
 ---
 
