@@ -17,7 +17,7 @@ import GitTab from '@/components/visual-editor/GitTab';
 import PagesTab from '@/components/visual-editor/PagesTab';
 import ShellTab from '@/components/visual-editor/ShellTab';
 import FilesTabConnected from '@/components/visual-editor/FilesTabConnected';
-import MrBlueAITab from '@/components/visual-editor/MrBlueAITab';
+import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import ConsoleTab from '@/components/visual-editor/ConsoleTab';
 import SecretsTab from '@/components/visual-editor/SecretsTab';
 import CommandPalette from '@/components/visual-editor/CommandPalette';
@@ -171,6 +171,66 @@ export default function VisualEditorPage() {
     return routeMap[urlPath] || 'client/src/pages/HomePage.tsx';
   };
 
+  // Inject overlay script when iframe loads
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) {
+      console.log('⏳ Iframe ref not yet available');
+      return;
+    }
+
+    const injectScript = () => {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!doc || !doc.body) {
+          console.warn('⏳ Iframe document not ready yet');
+          return false;
+        }
+
+        // Check if script already injected
+        const existing = doc.getElementById('visual-editor-overlay');
+        if (existing) {
+          console.log('✅ Visual Editor overlay already injected');
+          return true;
+        }
+
+        const script = doc.createElement('script');
+        script.id = 'visual-editor-overlay';
+        script.textContent = injectOverlayScript();
+        doc.head.appendChild(script);
+        console.log('🎨 Visual Editor overlay script injected successfully');
+        return true;
+      } catch (error) {
+        console.error('❌ Failed to inject overlay script:', error);
+        return false;
+      }
+    };
+
+    // Try immediate injection with delay to ensure iframe is ready
+    const attemptInjection = () => {
+      const success = injectScript();
+      if (!success) {
+        // Retry after a short delay
+        setTimeout(injectScript, 100);
+      }
+    };
+
+    // Try now
+    attemptInjection();
+    
+    // Also listen for load event
+    const handleLoad = () => {
+      console.log('📍 Iframe load event fired');
+      injectScript();
+    };
+
+    iframe.addEventListener('load', handleLoad);
+
+    return () => {
+      iframe.removeEventListener('load', handleLoad);
+    };
+  }, [previewUrl]); // Don't include iframeRef.current - refs don't trigger re-renders!
+
   // Listen for messages from preview iframe
   useEffect(() => {
     return listenToIframe((message) => {
@@ -200,15 +260,13 @@ export default function VisualEditorPage() {
             });
           }
         }
-      } else if (message.type === 'READY' && iframeRef.current) {
-        // Iframe is ready - inject overlay script
-        const iframe = iframeRef.current;
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (doc) {
-          const script = doc.createElement('script');
-          script.textContent = injectOverlayScript();
-          doc.head.appendChild(script);
-        }
+      } else if (message.type === 'READY') {
+        console.log('✅ Visual Editor iframe ready and interactive');
+        toast({
+          title: 'Visual Editor Ready',
+          description: 'Click any element to select it',
+          duration: 2000
+        });
       }
     });
   }, [toast]);
@@ -335,11 +393,9 @@ export default function VisualEditorPage() {
             {activeTab === 'files' && <FilesTabConnected />}
             {activeTab === 'secrets' && <SecretsTab />}
             {activeTab === 'ai' && (
-              <MrBlueAITab
-                selectedElement={selectedElement}
-                currentPage={previewUrl}
-                onGenerateCode={handleGenerateCode}
-              />
+              <div className="h-full">
+                <ChatInterface />
+              </div>
             )}
           </div>
 

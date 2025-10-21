@@ -1,277 +1,347 @@
 /**
- * Chat Interface with Projects, Models, Media
- * Complete Mr Blue chat experience
- * MB.MD Parallel Build Integration - Oct 21, 2025
+ * MR BLUE CHAT INTERFACE - Standalone Reusable Component
+ * Extracted from MrBlueComplete.tsx (lines 241-546) for reuse
+ * Uses /api/mrblue/conversations (correct API endpoint)
  */
 
-import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { queryClient } from '@/lib/queryClient';
-import { ProjectSelector } from './ProjectSelector';
-import { ModelSelector } from './ModelSelector';
-import VoiceControls from './VoiceControls';
-import { MediaUploader } from './MediaUploader';
+import { useState, useEffect, useRef } from 'react';
+import { 
+  Sparkles, Plus, Send, Loader2, Menu
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send, Paperclip, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { apiRequest, queryClient } from '@/lib/queryClient';
+import EnhancedMessageBubble from './EnhancedMessageBubble';
+import VoiceControls from './VoiceControls';
+import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
+
+// ============ TYPES ============
+interface Conversation {
+  id: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface Message {
   id: number;
   role: 'user' | 'assistant';
   content: string;
-  model?: string;
   createdAt: string;
+  model?: string;
 }
 
+type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro';
+
+// ============ CHAT INTERFACE ============
 export function ChatInterface() {
-  const [projectId, setProjectId] = useState<number | null>(null);
-  const [selectedModel, setSelectedModel] = useState('auto');
-  const [message, setMessage] = useState('');
-  const [showMediaUpload, setShowMediaUpload] = useState(false);
-  const [isStreaming, setIsStreaming] = useState(false);
+  const [conversationId, setConversationId] = useState<number | null>(null);
+  const [input, setInput] = useState('');
+  const [selectedModel, setSelectedModel] = useState<ModelType>('gpt-4o');
+  const [personality, setPersonality] = useState<PersonalityMode>('friendly');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  // Auto-select first project when projects load
-  const { data: projects, refetch } = useQuery<{ id: number; name: string }[]>({
+  // Load conversations (projects)
+  const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
     queryKey: ['/api/chat/projects'],
   });
-  
-  // Guard to prevent duplicate project creation
-  const [hasCreatedDefault, setHasCreatedDefault] = useState(false);
 
-  // Auto-create default project if none exist
-  useEffect(() => {
-    const createDefaultProject = async () => {
-      if (projects && projects.length === 0 && !hasCreatedDefault) {
-        setHasCreatedDefault(true);
-        try {
-          const response = await fetch('/api/chat/projects', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({
-              name: 'My First Project',
-              description: 'Default project for chatting with Mr Blue',
-            }),
-          });
-          
-          if (response.ok) {
-            const newProject = await response.json();
-            setProjectId(newProject.id);
-            await queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
-            await refetch();
-            toast({
-              title: 'Project Created',
-              description: 'Created your first project!',
-            });
-          }
-        } catch (error: unknown) {
-          setHasCreatedDefault(false);
-          toast({
-            title: 'Project Creation Failed',
-            description: error instanceof Error ? error.message : 'Unknown error',
-            variant: 'destructive',
-          });
-        }
-      } else if (projects && projects.length > 0 && !projectId) {
-        setProjectId(projects[0].id);
-      }
-    };
-    
-    createDefaultProject();
-  }, [projects, projectId, toast, hasCreatedDefault, refetch]);
-
-  const { data: messages, refetch: refetchMessages } = useQuery<Message[]>({
-    queryKey: ['/api/chat/projects', projectId, 'messages'],
-    enabled: !!projectId,
+  // Load messages for active conversation
+  const { data: messages, isLoading: loadingMessages } = useQuery<Message[]>({
+    queryKey: ['/api/chat/projects', conversationId, 'messages'],
+    enabled: !!conversationId,
   });
 
-  const handleSend = async () => {
-    if (!message.trim() || !projectId || isStreaming) return;
+  // Create new conversation mutation
+  const createConversation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest('/api/chat/projects', {
+        method: 'POST',
+        body: { 
+          name: 'New Conversation',
+          description: 'Chat with Mr Blue'
+        },
+      });
+      return await res.json();
+    },
+    onSuccess: (data: any) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      setConversationId(data.id);
+      toast({ title: 'New conversation started' });
+      
+      // Send pending message if exists
+      if (pendingMessage) {
+        sendMessageToConversation(data.id, pendingMessage);
+        setPendingMessage(null);
+      }
+    },
+  });
 
-    const userMessage = message;
-    setMessage('');
-    setIsStreaming(true);
-
+  // Helper function to send message using streaming API
+  const sendMessageToConversation = async (projId: number, content: string) => {
     try {
       const response = await fetch('/api/chat/stream', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
-          projectId,
-          message: userMessage,
+          projectId: projId,
+          message: content,
           model: selectedModel,
-          personality: 'friendly',
+          personality
         }),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        toast({
-          title: 'Stream Failed',
-          description: `Server error: ${response.status} - ${errorText.slice(0, 100)}`,
-          variant: 'destructive',
-        });
-        throw new Error(`Stream failed: ${response.status}`);
-      }
+      if (!response.ok) throw new Error('Stream failed');
 
-      // Handle streaming response
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error('No reader');
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const text = new TextDecoder().decode(value);
-        const lines = text.split('\n\n');
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = JSON.parse(line.slice(6));
-            if (data.chunk) {
-              // Streaming chunk received - UI updates handled by refetch
-            }
-          }
-        }
-      }
-
-      refetchMessages();
-    } catch (error: unknown) {
-      toast({
-        title: 'Send Failed',
-        description: error instanceof Error ? error.message : 'Could not send message',
-        variant: 'destructive',
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/chat/projects', projId, 'messages'] 
       });
-    } finally {
-      setIsStreaming(false);
+      setInput('');
+    } catch (error) {
+      toast({ 
+        title: 'Failed to send message', 
+        variant: 'destructive' 
+      });
     }
   };
 
-  const handleMediaUpload = (result: { url: string; analysis: any }) => {
-    const mediaText = `[Uploaded media: ${result.analysis.type}]\n${JSON.stringify(result.analysis, null, 2)}`;
-    setMessage((prev) => prev + '\n' + mediaText);
-    setShowMediaUpload(false);
-    toast({
-      title: 'Media Added',
-      description: 'Media analysis attached to message',
-    });
+  // Send message mutation
+  const sendMessage = useMutation({
+    mutationFn: async (content: string) => {
+      if (!conversationId) throw new Error('No active conversation');
+      
+      const response = await fetch('/api/chat/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          projectId: conversationId,
+          message: content,
+          model: selectedModel,
+          personality
+        }),
+      });
+
+      if (!response.ok) throw new Error('Stream failed');
+      return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/chat/projects', conversationId, 'messages'] 
+      });
+      setInput('');
+    },
+    onError: () => {
+      toast({ 
+        title: 'Failed to send message', 
+        variant: 'destructive' 
+      });
+    },
+  });
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Select first conversation on load
+  useEffect(() => {
+    if (conversations && conversations.length > 0 && !conversationId) {
+      setConversationId(conversations[0].id);
+    }
+  }, [conversations, conversationId]);
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+    if (!conversationId) {
+      // Store message to send after conversation creation
+      setPendingMessage(input);
+      createConversation.mutate();
+    } else {
+      sendMessage.mutate(input);
+    }
   };
 
-  const lastAssistantMessage = messages?.filter(m => m.role === 'assistant').pop();
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Header Controls */}
-      <div className="p-4 border-b border-cyan-500/30 space-y-3">
-        <ProjectSelector
-          currentProjectId={projectId}
-          onProjectChange={setProjectId}
-        />
-        
-        {projectId && (
-          <div className="flex items-center gap-2 flex-wrap">
-            <ModelSelector value={selectedModel} onChange={setSelectedModel} />
-            <VoiceControls
-              onTranscript={setMessage}
-              lastMessage={lastAssistantMessage?.content}
-            />
+    <div className="flex h-full">
+      {/* Sidebar - Conversations */}
+      <div 
+        className={`${
+          isSidebarOpen ? 'w-60' : 'w-0'
+        } md:w-60 flex-shrink-0 border-r border-cyan-200 dark:border-cyan-800/50 bg-white/30 dark:bg-black/10 transition-all duration-300 overflow-hidden`}
+      >
+        <div className="p-4 space-y-4 h-full flex flex-col">
+          {/* 3D Avatar Placeholder */}
+          <div className="aspect-square w-full rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+            <Sparkles className="h-12 w-12 text-white" />
           </div>
-        )}
-      </div>
 
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {!projectId ? (
-          <div className="text-center text-muted-foreground py-12">
-            Select or create a project to start chatting
-          </div>
-        ) : messages?.length === 0 ? (
-          <div className="text-center text-muted-foreground py-12">
-            Start a conversation with Mr Blue
-          </div>
-        ) : (
-          messages?.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              data-testid={`message-${msg.id}`}
-            >
-              <div
-                className={`max-w-[80%] rounded-lg p-3 ${
-                  msg.role === 'user'
-                    ? 'bg-cyan-500/20 border border-cyan-500/30'
-                    : 'bg-gray-800/50 border border-gray-700'
+          {/* New Chat Button */}
+          <Button
+            onClick={() => createConversation.mutate()}
+            className="w-full gap-2 min-h-[44px] bg-cyan-500 hover:bg-cyan-600"
+            data-testid="button-new-chat"
+            aria-label="Start new chat"
+          >
+            <Plus className="h-4 w-4" />
+            New Chat
+          </Button>
+
+          {/* Conversations List */}
+          <div className="flex-1 overflow-y-auto space-y-2">
+            {loadingConversations && (
+              <div className="text-center text-sm text-gray-500">Loading...</div>
+            )}
+            {conversations?.map((conv) => (
+              <button
+                key={conv.id}
+                onClick={() => setConversationId(conv.id)}
+                className={`w-full text-left p-3 rounded-lg transition-colors min-h-[44px] ${
+                  conversationId === conv.id
+                    ? 'bg-cyan-100 dark:bg-cyan-900/50 border-2 border-cyan-500'
+                    : 'bg-white/50 dark:bg-black/20 hover:bg-cyan-50 dark:hover:bg-cyan-900/30'
                 }`}
+                data-testid={`button-conversation-${conv.id}`}
+                aria-label={`Select conversation: ${conv.title}`}
               >
-                <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                {msg.model && msg.role === 'assistant' && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    via {msg.model}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))
-        )}
+                <div className="font-medium text-sm truncate">{conv.title}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  {new Date(conv.updatedAt).toLocaleDateString()}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Input Area */}
-      {projectId && (
-        <div className="p-4 border-t border-cyan-500/30">
-          {showMediaUpload && (
-            <div className="mb-3 p-3 bg-gray-800/50 rounded-lg relative">
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setShowMediaUpload(false)}
-                className="absolute top-2 right-2"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-              <MediaUploader onUploadComplete={handleMediaUpload} />
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Mobile Sidebar Toggle */}
+        <div className="md:hidden p-2 border-b border-cyan-200 dark:border-cyan-800/50">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            data-testid="button-toggle-sidebar"
+            aria-label="Toggle sidebar"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+        </div>
+
+        {/* Model Selector */}
+        <div className="flex items-center gap-2 p-3 border-b border-cyan-200 dark:border-cyan-800/50 bg-white/20 dark:bg-black/10 flex-wrap">
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Model:</span>
+          {(['gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as ModelType[]).map((model) => (
+            <Button
+              key={model}
+              variant={selectedModel === model ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setSelectedModel(model)}
+              className={`h-11 ${
+                selectedModel === model
+                  ? 'bg-cyan-500 hover:bg-cyan-600 text-white'
+                  : 'border-cyan-300 dark:border-cyan-700'
+              }`}
+              data-testid={`button-model-${model}`}
+              aria-label={`Select ${model} model`}
+            >
+              {model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude' : 'Gemini'}
+            </Button>
+          ))}
+        </div>
+
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {!conversationId && (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center max-w-md">
+                <div className="h-20 w-20 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center mb-4">
+                  <Sparkles className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Welcome to Mr Blue</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Start a new conversation to begin chatting with your AI assistant
+                </p>
+              </div>
             </div>
           )}
 
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setShowMediaUpload(!showMediaUpload)}
-              data-testid="button-toggle-media"
-            >
-              <Paperclip className="h-4 w-4" />
-            </Button>
+          {loadingMessages && (
+            <div className="flex items-center justify-center h-full">
+              <Loader2 className="h-8 w-8 animate-spin text-cyan-500" />
+            </div>
+          )}
 
-            <Textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend();
-                }
-              }}
-              placeholder="Message Mr Blue..."
-              className="flex-1 min-h-[60px] resize-none"
-              disabled={isStreaming}
-              data-testid="input-chat-message"
+          {messages?.map((message) => (
+            <EnhancedMessageBubble
+              key={message.id}
+              role={message.role}
+              content={message.content}
+              timestamp={new Date(message.createdAt).toLocaleTimeString()}
+              metadata={{ agentMode: message.model }}
             />
+          ))}
 
+          {sendMessage.isPending && (
+            <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span className="text-sm">Mr Blue is thinking...</span>
+            </div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input Area */}
+        <div className="border-t border-cyan-200 dark:border-cyan-800/50 bg-white/20 dark:bg-black/10 p-4 space-y-3">
+          <div className="flex gap-3">
+            <VoiceControls 
+              onTranscript={setInput}
+              lastMessage={messages?.[messages.length - 1]?.content}
+            />
+            <div className="flex-1">
+              <PersonalitySelector value={personality} onChange={setPersonality} />
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <Textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type your message... (Shift+Enter for new line)"
+              className="flex-1 min-h-[44px] max-h-32 resize-none bg-white dark:bg-black/30"
+              data-testid="input-message"
+              aria-label="Message input"
+            />
             <Button
               onClick={handleSend}
-              disabled={!message.trim() || isStreaming}
+              disabled={!input.trim() || sendMessage.isPending || createConversation.isPending}
+              className="min-w-[44px] h-11 bg-cyan-500 hover:bg-cyan-600"
               data-testid="button-send-message"
+              aria-label="Send message"
             >
-              <Send className="h-4 w-4" />
+              <Send className="h-5 w-5" />
             </Button>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
+
+export default ChatInterface;
