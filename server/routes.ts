@@ -1345,8 +1345,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD Oct 21: Now using static imports (see top of file)
   // const { default: chatProjectsRoutes } = await import('./routes/chatProjectsRoutes');
   // const { default: mediaUploadRoutes } = await import('./routes/mediaUploadRoutes');
+  const { default: consensusRoutes } = await import('./routes/consensusRoutes');
   app.use('/api/chat', chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
   app.use('/api/media', mediaUploadRoutes); // Media upload with AI analysis
+  app.use('/api/consensus', consensusRoutes); // Multi-AI consensus engine
   
   // 🔄 MB.MD Option A: Recursive Testing & Proactive Monitoring Routes (Oct 21, 2025)
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor Learning Loop

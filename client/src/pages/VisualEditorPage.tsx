@@ -24,6 +24,9 @@ import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
 import { ElementInspector } from '@/components/visual-editor/ElementInspector';
+import { AgentAttributionPanel } from '@/components/visual-editor/AgentAttributionPanel';
+import { ActivityLogPanel, logActivity } from '@/components/visual-editor/ActivityLogPanel';
+import { saveOrchestrator } from '@/services/SaveOrchestrator';
 import { GripVertical, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
@@ -237,7 +240,15 @@ export default function VisualEditorPage() {
       if (message.type === 'ELEMENT_SELECTED') {
         setSelectedElement(message.element);
         setActiveTab('inspector');
+        logActivity({
+          type: 'selection',
+          description: `Selected ${message.element.tagName}${message.element.id ? '#' + message.element.id : ''}`
+        });
       } else if (message.type === 'ELEMENT_TEXT_CHANGED') {
+        logActivity({
+          type: 'edit',
+          description: `Edited text in ${message.element.tagName}`
+        });
         // Text was edited inline
         toast({
           title: 'Text Updated',
@@ -276,6 +287,19 @@ export default function VisualEditorPage() {
     if (iframeRef.current) {
       sendToIframe(iframeRef.current, { type: 'APPLY_STYLE', mutation });
       setPendingStyles(prev => [...prev, mutation]);
+      
+      // Add to SaveOrchestrator
+      saveOrchestrator.addChange({
+        type: 'style',
+        description: `${mutation.property}: ${mutation.value}`,
+        data: mutation
+      });
+      
+      logActivity({
+        type: 'style',
+        description: `Applied style: ${mutation.property}`
+      });
+      
       toast({
         title: 'Style Applied',
         description: `${mutation.property}: ${mutation.value}`,
@@ -283,24 +307,40 @@ export default function VisualEditorPage() {
     }
   };
 
-  // Save all changes
+  // Save all changes via SaveOrchestrator
   const handleSave = async () => {
-    if (pendingStyles.length === 0) {
+    const pendingChanges = saveOrchestrator.getPendingChanges();
+    
+    if (pendingChanges.length === 0) {
       toast({
         title: 'No Changes',
-        description: 'Make some style changes first',
+        description: 'Make some changes first',
         variant: 'destructive',
       });
       return;
     }
 
     try {
-      await handleGenerateCode(`Apply these style changes: ${JSON.stringify(pendingStyles)}`);
-      setPendingStyles([]);
       toast({
-        title: 'Changes Saved',
-        description: `${pendingStyles.length} style changes generated to code`,
+        title: 'Saving Changes...',
+        description: `Saving ${pendingChanges.length} changes`,
       });
+      
+      const result = await saveOrchestrator.saveAll();
+      
+      if (result.success) {
+        setPendingStyles([]);
+        logActivity({
+          type: 'style',
+          description: result.message
+        });
+        toast({
+          title: 'Changes Saved',
+          description: result.message,
+        });
+      } else {
+        throw new Error(result.message);
+      }
     } catch (error) {
       toast({
         title: 'Save Failed',
@@ -329,12 +369,12 @@ export default function VisualEditorPage() {
         <div className="flex items-center gap-4">
           <Button
             onClick={handleSave}
-            disabled={pendingStyles.length === 0}
+            disabled={saveOrchestrator.getPendingChanges().length === 0}
             className="bg-blue-600 hover:bg-blue-700 text-white"
             data-testid="button-save-changes"
           >
             <Save className="w-4 h-4 mr-2" />
-            Save {pendingStyles.length > 0 && `(${pendingStyles.length})`}
+            Save {saveOrchestrator.getPendingChanges().length > 0 && `(${saveOrchestrator.getPendingChanges().length})`}
           </Button>
           <MultiplayerPresence page={previewUrl} />
           <div className="text-sm text-gray-400">
@@ -382,8 +422,14 @@ export default function VisualEditorPage() {
           />
 
           {/* Tab Content */}
-          <div className="flex-1 overflow-auto p-4">
-            {activeTab === 'inspector' && <ElementInspector selectedElement={selectedElement} />}
+          <div className="flex-1 overflow-auto p-4 space-y-4">
+            {activeTab === 'inspector' && (
+              <>
+                <ElementInspector selectedElement={selectedElement} />
+                <AgentAttributionPanel selectedElement={selectedElement} />
+                <ActivityLogPanel />
+              </>
+            )}
             {activeTab === 'preview' && <PreviewTab currentPath={previewUrl} />}
             {activeTab === 'console' && <ConsoleTab />}
             {activeTab === 'deploy' && <DeployTab />}

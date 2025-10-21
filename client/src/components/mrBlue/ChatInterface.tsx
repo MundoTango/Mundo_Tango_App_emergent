@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -33,7 +33,7 @@ interface Message {
   model?: string;
 }
 
-type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro';
+type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro' | 'all-models';
 
 // ============ CHAT INTERFACE ============
 export function ChatInterface() {
@@ -42,6 +42,7 @@ export function ChatInterface() {
   const [selectedModel, setSelectedModel] = useState<ModelType>('gpt-4o');
   const [personality, setPersonality] = useState<PersonalityMode>('friendly');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -229,23 +230,38 @@ export function ChatInterface() {
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile Sidebar Toggle */}
-        <div className="md:hidden p-2 border-b border-cyan-200 dark:border-cyan-800/50">
+        {/* Header with Controls */}
+        <div className="flex items-center justify-between p-2 border-b border-cyan-200 dark:border-cyan-800/50">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             data-testid="button-toggle-sidebar"
             aria-label="Toggle sidebar"
+            className="md:hidden"
           >
             <Menu className="h-5 w-5" />
+          </Button>
+          
+          <div className="flex-1" />
+          
+          {/* Minimize Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMinimized(!isMinimized)}
+            data-testid="button-minimize-chat"
+            aria-label="Minimize chat"
+            title="Minimize chat interface"
+          >
+            <Minimize2 className="h-4 w-4" />
           </Button>
         </div>
 
         {/* Model Selector */}
         <div className="flex items-center gap-2 p-3 border-b border-cyan-200 dark:border-cyan-800/50 bg-white/20 dark:bg-black/10 flex-wrap">
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Model:</span>
-          {(['gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as ModelType[]).map((model) => (
+          {(['all-models', 'gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as ModelType[]).map((model) => (
             <Button
               key={model}
               variant={selectedModel === model ? 'default' : 'outline'}
@@ -259,9 +275,14 @@ export function ChatInterface() {
               data-testid={`button-model-${model}`}
               aria-label={`Select ${model} model`}
             >
-              {model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude' : 'Gemini'}
+              {model === 'all-models' ? '🤝 All Models' : model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude' : 'Gemini'}
             </Button>
           ))}
+          {selectedModel === 'all-models' && (
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              (Consensus Mode: All models debate & agree)
+            </span>
+          )}
         </div>
 
         {/* Messages Area */}

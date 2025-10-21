@@ -124,8 +124,13 @@ export function injectOverlayScript() {
         }
       });
 
-      // Click - select element (DIRECT CLICK, no modifier keys required)
+      // Cmd+Click (Mac) or Ctrl+Click (Windows) - select element
       document.addEventListener('click', (e) => {
+        // Only select if Cmd (Mac) or Ctrl (Windows) is pressed
+        if (!e.metaKey && !e.ctrlKey) {
+          return; // Let click pass through normally
+        }
+        
         e.preventDefault();
         e.stopPropagation();
         
