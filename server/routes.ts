@@ -70,6 +70,21 @@ import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing -
 
 import { getUserId } from "./utils/authHelper";
 
+// MB.MD Oct 21: Convert dynamic imports to static imports for ESM compatibility
+import { securityHeaders, sanitizeInput, csrfProtection, contentSecurityPolicy } from "./middleware/security";
+import { authEndpointsLimiter, registrationLimiter, passwordResetLimiter, criticalEndpointsLimiter, apiGeneralLimiter, fileUploadLimiter, reportContentLimiter, friendRequestLimiter, eventCreationLimiter, contentCreationLimiter } from "./middleware/rateLimiting";
+import { regexpProtection, inputLengthValidation, ssrfPrevention, enhancedXssProtection, requestTimeoutProtection, memoryLeakPrevention } from "./middleware/securityEnhancements";
+import { handleAiChat, getConversationHistory } from "./routes/ai-chat";
+import { handleAiChatDirect, getConversationHistoryDirect } from "./routes/ai-chat-direct";
+import integrationsRoutes from "./routes/integrations";
+import stripeWebhook from "./routes/stripeWebhook";
+import memoriesFeedRoutes from "./routes/memoriesFeedRoutes";
+import recommendationsRoutes from "./routes/recommendationsRoutes";
+import chatProjectsRoutes from "./routes/chatProjectsRoutes";
+import mediaUploadRoutes from "./routes/mediaUploadRoutes";
+import { RealTimeNotificationService } from "./services/realTimeNotifications";
+import { setupVite, log as viteLog } from "./vite";
+
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
   if (typeof value === 'string') return value;
@@ -99,11 +114,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Initialize PostHog server-side analytics
   // TODO: Fix dynamic imports - temporarily disabled
-  // const { initPostHogServer } = await import('./services/posthog.ts');
+  // const { initPostHogServer } = await import('./services/posthog');
   // initPostHogServer();
   
   // Phase 11 Parallel: Security headers and performance monitoring
-  const { securityHeaders } = await import('./middleware/security');
+  // MB.MD Oct 21: Now using static imports (see top of file)
+  // const { securityHeaders } = await import('./middleware/security');
   // const { responseTimeLogger } = await import('./middleware/responseTime'); // DISABLED - Vite HMR deletes this file
   // Note: requestValidator exports validation factory functions, not a direct middleware
   // Use validateRequest(schema), validateQuery(schema), validateParams(schema) on specific routes
@@ -120,35 +136,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const compression = (await import('compression')).default;
   app.use(compression());
   
-  // Import security middleware - Life CEO 44x21s Layer 31-40 Replit Fix
-  const { 
-    sanitizeInput,
-    csrfProtection 
-  } = await import('./middleware/security');
-  
-  // Import rate limiting middleware
-  const {
-    authEndpointsLimiter,
-    registrationLimiter,
-    passwordResetLimiter,
-    criticalEndpointsLimiter,
-    apiGeneralLimiter,
-    fileUploadLimiter,
-    reportContentLimiter,
-    friendRequestLimiter,
-    eventCreationLimiter,
-    contentCreationLimiter
-  } = await import('./middleware/rateLimiting');
-  
-  // Import ESA-44x21s comprehensive security enhancements
-  const {
-    regexpProtection,
-    inputLengthValidation,
-    ssrfPrevention,
-    enhancedXssProtection,
-    requestTimeoutProtection,
-    memoryLeakPrevention
-  } = await import('./middleware/securityEnhancements');
+  // MB.MD Oct 21: Security middleware now using static imports (see top of file)
+  // const { sanitizeInput, csrfProtection } = await import('./middleware/security');
+  // const { authEndpointsLimiter, ... } = await import('./middleware/rateLimiting');
+  // const { regexpProtection, ... } = await import('./middleware/securityEnhancements');
   
   // Apply ESA-44x21s Security Enhancements (securityHeaders already applied above)
   app.use(regexpProtection);
@@ -158,7 +149,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(requestTimeoutProtection);
   app.use(memoryLeakPrevention);
   // MB.MD S5: CSP enabled for production readiness (Replit iframe compatible)
-  const { contentSecurityPolicy } = await import('./middleware/security');
+  // const { contentSecurityPolicy } = await import('./middleware/security');
   app.use(contentSecurityPolicy); // ENABLED - frame-ancestors configured for Replit
   app.use(sanitizeInput); // Mundo Tango ESA LIFE CEO - Security restored
   
@@ -742,8 +733,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI Chat endpoints (bypass CSRF for AI functionality)
-  const { handleAiChat, getConversationHistory } = await import('./routes/ai-chat');
-  const { handleAiChatDirect, getConversationHistoryDirect } = await import('./routes/ai-chat-direct');
+  // MB.MD Oct 21: Now using static imports (see top of file)
+  // const { handleAiChat, getConversationHistory } = await import('./routes/ai-chat');
+  // const { handleAiChatDirect, getConversationHistoryDirect } = await import('./routes/ai-chat-direct');
   
   app.post('/api/ai/chat', (req, res, next) => {
     // Bypass CSRF for AI chat - critical for functionality
@@ -1313,8 +1305,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // 🎯 MB.MD S1: Integration & Payment Routes
-  const integrationsRoutes = (await import('./routes/integrations')).default;
-  const stripeWebhook = (await import('./routes/stripeWebhook')).default;
+  // MB.MD Oct 21: Now using static imports (see top of file)
+  // const integrationsRoutes = (await import('./routes/integrations')).default;
+  // const stripeWebhook = (await import('./routes/stripeWebhook')).default;
   app.use('/api/integrations', integrationsRoutes); // Integration health checks
   app.use('/api/stripe', stripeWebhook); // Stripe webhook endpoint
   
@@ -1325,8 +1318,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(postsRoutes); // Posts API: GET/POST/PUT/DELETE /api/posts (registered Oct 20, 2025)
   
   // MB.MD TRACK 1: AI Services Integration - Oct 20, 2025 (58% → 100%)
-  const memoriesFeedRoutes = (await import('./routes/memoriesFeedRoutes')).default;
-  const recommendationsRoutes = (await import('./routes/recommendationsRoutes')).default;
+  // MB.MD Oct 21: Now using static imports (see top of file)
+  // const memoriesFeedRoutes = (await import('./routes/memoriesFeedRoutes')).default;
+  // const recommendationsRoutes = (await import('./routes/recommendationsRoutes')).default;
   app.use('/api/memories', memoriesFeedRoutes); // Memories Feed: GET /api/memories/feed (AI-powered)
   app.use('/api/recommendations', recommendationsRoutes); // Recommendations: GET /api/recommendations/:context
   
@@ -1340,8 +1334,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/journeys', journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
   
   // 🚀 MB.MD Parallel Build: Multi-AI Platform Extensions (Oct 21, 2025)
-  const { default: chatProjectsRoutes } = await import('./routes/chatProjectsRoutes');
-  const { default: mediaUploadRoutes } = await import('./routes/mediaUploadRoutes');
+  // MB.MD Oct 21: Now using static imports (see top of file)
+  // const { default: chatProjectsRoutes } = await import('./routes/chatProjectsRoutes');
+  // const { default: mediaUploadRoutes } = await import('./routes/mediaUploadRoutes');
   app.use('/api/chat', chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
   app.use('/api/media', mediaUploadRoutes); // Media upload with AI analysis
   
@@ -1362,7 +1357,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const server = createServer(app);
   
   // 🎯 Mundo Tango ESA LIFE CEO - Initialize real-time notifications for 100/100 score
-  const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
+  // MB.MD Oct 21: Now using static import (see top of file)
+  // const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   
   // 🎯 MB.MD FIX: Setup Vite BEFORE error handlers so frontend can be served
@@ -1370,11 +1366,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
   
   if (isDevelopment) {
-    const { setupVite, log } = await import("./vite");
-    log('🎨 Starting Vite development server...');
-    log(`NODE_ENV: ${process.env.NODE_ENV || 'undefined (treating as development)'}`);
+    // MB.MD Oct 21: Now using static import (see top of file)
+    // const { setupVite, log } = await import("./vite");
+    viteLog('🎨 Starting Vite development server...');
+    viteLog(`NODE_ENV: ${process.env.NODE_ENV || 'undefined (treating as development)'}`);
     await setupVite(app, server);
-    log('✅ Vite development server ready - frontend accessible at /');
+    viteLog('✅ Vite development server ready - frontend accessible at /');
   } else {
     console.log('📦 Production mode: static files served by express.static in index-novite.ts');
   }

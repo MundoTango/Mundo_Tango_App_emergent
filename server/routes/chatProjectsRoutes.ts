@@ -5,7 +5,7 @@
  */
 
 import { Router, type Request, Response } from 'express';
-import { db } from '@db';
+import { db } from '../db';
 import { chatProjects, aiChatMessages, modelUsage, type InsertChatProject, type InsertAIChatMessage } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
 import { multiModelOrchestrator } from '../services/multiModelOrchestrator';

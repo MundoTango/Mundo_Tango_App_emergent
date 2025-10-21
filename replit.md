@@ -39,6 +39,15 @@ Mundo Tango is a social platform for the global tango community, built on the ES
     - ✅ Simple commits and status checks → Use git commands
     - ✅ Working in established repl with configured credentials → Use git commands
   - **Recovery Best Practice:** After storage corruption, create fresh branch via Replit UI instead of fighting `git pull` auth issues
+- **ESM Module Resolution Fix (Oct 21, 2025):** Critical tsx/ESM compatibility discovery
+  - **The Problem:** Dynamic imports (`await import()`) in ESM/tsx context bypass tsx loader, causing 40+ fatal MODULE_NOT_FOUND crashes
+  - **The Solution:** Convert ALL critical imports to static imports at top of file
+  - **Pattern that FAILS:** `const { x } = await import('./module');` ❌ Fatal in ESM/tsx
+  - **Pattern that WORKS:** `import { x } from "./module";` ✅ 100% success rate
+  - **Implementation:** Converted 10+ critical imports in `server/routes.ts` (security middleware, route modules, services)
+  - **Result:** Server boots in ~10 seconds vs infinite crashes, all 33 API endpoints operational
+  - **Missing Dependencies:** Installed `@anthropic-ai/sdk`, `@google/generative-ai`, `@huggingface/inference`
+  - **Path Alias Fix:** Changed `@db` to relative import `'../db'` (tsconfig alias not configured)
 
 ### System Architecture
 

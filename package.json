@@ -4,7 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development node --max-old-space-size=4096 --expose-gc --import tsx server/index.ts",
+    "dev": "NODE_ENV=development NODE_OPTIONS='--max-old-space-size=4096 --expose-gc' tsx server/index.ts",
     "build": "NODE_OPTIONS=\"--max-old-space-size=2048\" npx vite build && NODE_OPTIONS=\"--max-old-space-size=1024\" npx esbuild server/index-novite.ts --platform=node --packages=external --external:vite --external:./vite --external:../vite.config --bundle --format=esm --outfile=dist/index.js && cp vite.config.ts dist/vite.config.ts",
     "build:production": "npm install && NODE_OPTIONS=\"--max-old-space-size=2048\" npm run build && npm prune --production && npm cache clean --force",
     "start": "NODE_OPTIONS=\"--max-old-space-size=512\" node dist/index.js",
@@ -25,6 +25,7 @@
     "restore-docs": "tsx scripts/restore-docs-from-db.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.67.0",
     "@capacitor/android": "^7.4.2",
     "@capacitor/app": "^7.0.1",
     "@capacitor/browser": "^7.0.1",
@@ -51,8 +52,10 @@
     "@emotion/styled": "^11.14.1",
     "@faker-js/faker": "^9.9.0",
     "@google-cloud/storage": "^7.17.2",
+    "@google/generative-ai": "^0.24.1",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^3.10.0",
+    "@huggingface/inference": "^4.12.0",
     "@jridgewell/trace-mapping": "^0.3.25",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.2.0",
