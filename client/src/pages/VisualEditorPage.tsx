@@ -24,7 +24,6 @@ import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
 import { ElementInspector } from '@/components/visual-editor/ElementInspector';
-import { StyleEditor } from '@/components/visual-editor/StyleEditor';
 import { GripVertical, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
@@ -178,6 +177,29 @@ export default function VisualEditorPage() {
       if (message.type === 'ELEMENT_SELECTED') {
         setSelectedElement(message.element);
         setActiveTab('inspector');
+      } else if (message.type === 'ELEMENT_TEXT_CHANGED') {
+        // Text was edited inline
+        toast({
+          title: 'Text Updated',
+          description: 'Text changed will be reflected in generated code',
+          duration: 2000
+        });
+      } else if (message.type === 'DELETE_ELEMENT_REQUEST') {
+        // Confirm deletion
+        if (confirm(`Delete this ${message.element.tagName} element?`)) {
+          if (iframeRef.current) {
+            sendToIframe(iframeRef.current, { 
+              type: 'CONFIRM_DELETE',
+              xpath: message.element.xpath 
+            });
+            setSelectedElement(null);
+            toast({
+              title: 'Element Deleted',
+              description: 'Element removed from preview. Generate code to persist changes.',
+              duration: 3000
+            });
+          }
+        }
       } else if (message.type === 'READY' && iframeRef.current) {
         // Iframe is ready - inject overlay script
         const iframe = iframeRef.current;
@@ -189,7 +211,7 @@ export default function VisualEditorPage() {
         }
       }
     });
-  }, []);
+  }, [toast]);
 
   // Apply style mutation
   const handleApplyStyle = (mutation: StyleMutation) => {
@@ -242,7 +264,7 @@ export default function VisualEditorPage() {
           </div>
           <div>
             <h1 className="text-white font-semibold">Visual Editor</h1>
-            <p className="text-xs text-gray-400">Figma-Like Page Editor • Cmd+Click to Select</p>
+            <p className="text-xs text-gray-400">Click to Select • Double-Click to Edit • Delete to Remove</p>
           </div>
         </div>
 
@@ -304,13 +326,6 @@ export default function VisualEditorPage() {
           {/* Tab Content */}
           <div className="flex-1 overflow-auto p-4">
             {activeTab === 'inspector' && <ElementInspector selectedElement={selectedElement} />}
-            {activeTab === 'styles' && (
-              <StyleEditor
-                selectedElement={selectedElement}
-                onApplyStyle={handleApplyStyle}
-                pendingStyles={pendingStyles}
-              />
-            )}
             {activeTab === 'preview' && <PreviewTab currentPath={previewUrl} />}
             {activeTab === 'console' && <ConsoleTab />}
             {activeTab === 'deploy' && <DeployTab />}

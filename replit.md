@@ -6,7 +6,7 @@ Mundo Tango is a social platform for the global tango community, built on the ES
 ### User Preferences
 **⚠️ THE 5 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
 Every agent MUST follow these before marking ANY task complete:
-1. **VERIFY BEFORE BUILD** - Check what exists first (search codebase, read files, grep patterns) - prevents duplicate work
+1. **VERIFY BEFORE BUILD** - Complete mandatory documentation verification checklist (`docs/DOCUMENTATION_VERIFICATION.md`), read all relevant docs, summarize requirements BEFORE coding - prevents building wrong features
 2. **INTEGRATE IMMEDIATELY** - Import components as you build them, test imports work - prevents "component exists" fallacy
 3. **SCREENSHOT EVERYTHING** - Visual proof required AFTER opening modals/clicking buttons - prevents "code compiles" fallacy
 4. **TEST USER JOURNEY** - Test as regular user AND super admin, verify access controls - prevents "button exists" fallacy
@@ -14,6 +14,7 @@ Every agent MUST follow these before marking ANY task complete:
 
 Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 Full protocol: `docs/MB_MD_QA_PROTOCOL.md` (1009 lines)
+Documentation verification: `docs/DOCUMENTATION_VERIFICATION.md` (MANDATORY before building)
 
 - **Communication style:** Simple, everyday language
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work

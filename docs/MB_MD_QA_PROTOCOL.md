@@ -51,8 +51,46 @@ Every agent MUST follow these rules for EVERY task:
 **How:**
 - Read existing files first (use `read` tool)
 - Search for similar implementations (use `grep` tool)
-- Check documentation for existing solutions
+- **📋 MANDATORY: Complete documentation verification checklist** (see `docs/DOCUMENTATION_VERIFICATION.md`)
 - Verify routes/imports/integrations
+
+**ENFORCEMENT:** Before calling `write_task_list` tool, agents MUST provide documentation evidence in their response:
+
+**Step 1:** Agent searches for and reads all relevant documentation:
+```bash
+grep "visual editor" docs/ -r
+read docs/MrBlue/visual-editor-testing.md
+read docs/MB-MD-VISUAL-EDITOR-COMPLETE.md
+read docs/audits/MR_BLUE_VISUAL_EDITOR_AGENT_78_AUDIT.md
+```
+
+**Step 2:** Agent writes evidence BEFORE calling write_task_list:
+```markdown
+## Documentation Read:
+- ✅ visual-editor-testing.md (342 lines) - Element selection requirements (line 38: purple bounding box)
+- ✅ MB-MD-VISUAL-EDITOR-COMPLETE.md (313 lines) - Technical architecture
+- ✅ MR_BLUE_VISUAL_EDITOR_AGENT_78_AUDIT.md (30 lines) - Current status
+
+## Requirements Summary:
+- Direct click selection (no Cmd/Ctrl) - visual-editor-testing.md line 30
+- Purple bounding box on selection - visual-editor-testing.md line 38
+- Inline text editing - visual-editor-testing.md line 39
+- Delete key removes elements - implied from "edit" workflow
+
+## What Exists:
+- iframeOverlay.ts (requires Cmd/Ctrl, uses blue - needs fixing)
+- ElementInspector.tsx (already shows data - working)
+
+## What's Missing:
+1. Remove Cmd/Ctrl requirement
+2. Change to purple bounding box
+3. Add inline editing
+4. Add delete handler
+```
+
+**Step 3:** Then call write_task_list with specific tasks based on evidence
+
+**Architect Review Requirement:** When validating work, architect must ask "Which docs did you read?" and reject if no evidence provided in agent's response BEFORE task list creation.
 
 **Example:**
 ```bash
@@ -69,6 +107,39 @@ grep("NewFeature")  # Search for duplicates
 - Built `lib/mrBlue/chat/ChatInterface.tsx`
 - Then rebuilt chat interface inline in `MrBlueComplete.tsx`
 - Original file never used = 100% wasted effort
+
+**Correct Pattern with Documentation Evidence:**
+```markdown
+User: "Add visual editor element selection"
+
+Agent Response:
+## Documentation Read:
+- ✅ visual-editor-testing.md (342 lines) - Found element selection requirements
+- ✅ MB-MD-VISUAL-EDITOR-COMPLETE.md (313 lines) - Found technical architecture  
+- ✅ MR_BLUE_VISUAL_EDITOR_AGENT_78_AUDIT.md (30 lines) - Found completion status
+
+## Requirements Summary:
+From visual-editor-testing.md line 38:
+- "Element selection works (purple bounding box)"
+From visual-editor-testing.md line 30:
+- "Click on 'Profile' heading element" - Direct click, no Cmd/Ctrl
+From visual-editor-testing.md line 39:
+- "Inline editing updates DOM immediately"
+
+## What Already Exists:
+- ✅ iframeOverlay.ts exists but requires Cmd/Ctrl (line 129)
+- ✅ ElementInspector.tsx already shows real data (lines 27-106)
+- ❌ No purple bounding box (currently uses blue - line 137)
+- ❌ No inline text editing capability
+
+## What's Missing:
+1. Remove Cmd/Ctrl requirement from click handler
+2. Change blue highlight to purple
+3. Add double-click inline text editing
+4. Add Delete key handler
+
+[Then creates task list with specific, evidence-backed tasks]
+```
 
 ---
 

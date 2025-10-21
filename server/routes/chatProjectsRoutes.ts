@@ -114,7 +114,7 @@ router.post('/stream', async (req: Request, res: Response) => {
       .limit(20);
 
     // Build messages array with personality
-    const systemPrompt = this.getPersonalityPrompt(personality);
+    const systemPrompt = getPersonalityPrompt(personality);
     const messages = [
       { role: 'system', content: systemPrompt },
       ...history.map(m => ({ role: m.role, content: m.content })),

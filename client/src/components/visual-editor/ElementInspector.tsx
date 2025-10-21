@@ -18,7 +18,8 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
       <Card className="p-6 bg-gray-800 border-gray-700">
         <div className="text-center text-gray-400">
           <p className="text-sm">No element selected</p>
-          <p className="text-xs mt-2">Cmd/Ctrl + Click on any element to select it</p>
+          <p className="text-xs mt-2">Click any element in the preview to inspect it</p>
+          <p className="text-xs mt-1 text-gray-500">Double-click to edit text • Delete key to remove</p>
         </div>
       </Card>
     );

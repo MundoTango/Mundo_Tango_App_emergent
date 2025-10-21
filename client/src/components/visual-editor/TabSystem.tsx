@@ -21,7 +21,7 @@ import {
   Palette
 } from 'lucide-react';
 
-export type EditorTab = 'inspector' | 'styles' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets';
+export type EditorTab = 'inspector' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets';
 
 interface TabSystemProps {
   activeTab: EditorTab;
@@ -31,7 +31,6 @@ interface TabSystemProps {
 
 const TABS = [
   { id: 'inspector' as const, label: 'Inspector', icon: Inspect },
-  { id: 'styles' as const, label: 'Styles', icon: Palette },
   { id: 'ai' as const, label: 'AI', icon: Wand2 },
   { id: 'preview' as const, label: 'Preview', icon: Eye },
   { id: 'console' as const, label: 'Console', icon: ScrollText },

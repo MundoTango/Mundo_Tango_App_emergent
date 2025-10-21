@@ -18,8 +18,8 @@ export function injectOverlayScript() {
         const div = document.createElement('div');
         div.id = 'visual-editor-highlight';
         div.style.position = 'absolute';
-        div.style.border = '2px solid #3b82f6';
-        div.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+        div.style.border = '2px solid rgba(147, 51, 234, 0.5)'; // Purple for hover
+        div.style.backgroundColor = 'rgba(147, 51, 234, 0.05)';
         div.style.pointerEvents = 'none';
         div.style.zIndex = '999999';
         div.style.transition = 'all 0.15s ease';
@@ -124,28 +124,86 @@ export function injectOverlayScript() {
         }
       });
 
-      // Click - select element
+      // Click - select element (DIRECT CLICK, no modifier keys required)
       document.addEventListener('click', (e) => {
-        if (e.metaKey || e.ctrlKey) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          const element = e.target;
-          selectedElement = element;
-          
-          // Blue highlight for selected
-          highlightOverlay.style.border = '3px solid #3b82f6';
-          highlightOverlay.style.backgroundColor = 'rgba(59, 130, 246, 0.15)';
-          updateHighlight(element);
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const element = e.target;
+        selectedElement = element;
+        
+        // Purple highlight for selected (solid border)
+        highlightOverlay.style.border = '3px solid rgb(147, 51, 234)';
+        highlightOverlay.style.backgroundColor = 'rgba(147, 51, 234, 0.1)';
+        updateHighlight(element);
 
-          window.parent.postMessage({
-            type: 'ELEMENT_SELECTED',
-            element: getElementData(element)
-          }, '*');
-        }
+        window.parent.postMessage({
+          type: 'ELEMENT_SELECTED',
+          element: getElementData(element)
+        }, '*');
       }, true);
 
-      // Listen for style mutations from parent
+      // Double-click - inline text editing
+      document.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const element = e.target;
+        if (element.contentEditable === 'true') return; // Already editing
+        
+        // Make element editable
+        element.contentEditable = 'true';
+        element.focus();
+        
+        // Select all text
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        
+        // Stop editing on blur or Enter
+        const stopEditing = () => {
+          element.contentEditable = 'false';
+          element.removeEventListener('blur', stopEditing);
+          element.removeEventListener('keydown', handleEnter);
+          
+          // Notify parent of content change
+          window.parent.postMessage({
+            type: 'ELEMENT_TEXT_CHANGED',
+            element: getElementData(element),
+            newText: element.textContent
+          }, '*');
+        };
+        
+        const handleEnter = (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            element.blur();
+          }
+        };
+        
+        element.addEventListener('blur', stopEditing, { once: true });
+        element.addEventListener('keydown', handleEnter);
+      }, true);
+
+      // Delete key - remove element
+      document.addEventListener('keydown', (e) => {
+        if ((e.key === 'Delete' || e.key === 'Backspace') && selectedElement) {
+          // Don't delete if actively editing text
+          if (selectedElement.contentEditable === 'true') return;
+          
+          e.preventDefault();
+          
+          // Ask parent for confirmation
+          window.parent.postMessage({
+            type: 'DELETE_ELEMENT_REQUEST',
+            element: getElementData(selectedElement)
+          }, '*');
+        }
+      });
+
+      // Listen for messages from parent
       window.addEventListener('message', (event) => {
         if (event.data.type === 'APPLY_STYLE' && selectedElement) {
           const mutation = event.data.mutation;
@@ -154,6 +212,16 @@ export function injectOverlayScript() {
         } else if (event.data.type === 'CLEAR_HIGHLIGHT') {
           selectedElement = null;
           highlightOverlay.style.display = 'none';
+        } else if (event.data.type === 'CONFIRM_DELETE') {
+          // Find and remove element
+          const xpath = event.data.xpath;
+          const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+          const elementToDelete = result.singleNodeValue;
+          if (elementToDelete && elementToDelete.parentNode) {
+            elementToDelete.parentNode.removeChild(elementToDelete);
+            selectedElement = null;
+            highlightOverlay.style.display = 'none';
+          }
         }
       });
 
