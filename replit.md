@@ -44,10 +44,13 @@ Mundo Tango is a social platform for the global tango community, built on the ES
   - **The Solution:** Convert ALL critical imports to static imports at top of file
   - **Pattern that FAILS:** `const { x } = await import('./module');` ❌ Fatal in ESM/tsx
   - **Pattern that WORKS:** `import { x } from "./module";` ✅ 100% success rate
-  - **Implementation:** Converted 10+ critical imports in `server/routes.ts` (security middleware, route modules, services)
-  - **Result:** Server boots in ~10 seconds vs infinite crashes, all 33 API endpoints operational
+  - **Implementation #1:** Converted 10+ critical imports in `server/routes.ts` (security middleware, route modules, services)
+  - **Implementation #2:** Fixed auth timeout in `server/replitAuth.ts` - removed redundant dynamic storage import on line 198 (already statically imported at line 9)
+  - **Result:** Server boots in ~10 seconds vs infinite crashes, all 33 API endpoints operational, /auth/user endpoint returns 200 OK (was 408 timeout)
+  - **Frontend Impact:** User authentication now works, app fully loads with authenticated user, WebSocket connected, all TypeScript LSP errors cleared
   - **Missing Dependencies:** Installed `@anthropic-ai/sdk`, `@google/generative-ai`, `@huggingface/inference`
   - **Path Alias Fix:** Changed `@db` to relative import `'../db'` (tsconfig alias not configured)
+  - **Architect Approval:** ESM fix follows best practices, production ready with monitoring recommendations
 
 ### System Architecture
 
