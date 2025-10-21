@@ -1351,7 +1351,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/consensus', consensusRoutes); // Multi-AI consensus engine
   
   // 🔄 MB.MD Option A: Recursive Testing & Proactive Monitoring Routes (Oct 21, 2025)
+  const { default: visualEditorSaveRoutes } = await import('./routes/visualEditorSaveRoutes');
+  const { default: apiKeyTestRoutes } = await import('./routes/apiKeyTestRoutes');
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor Learning Loop
+  app.use('/api/visual-editor', visualEditorSaveRoutes); // Visual Editor Save System
+  app.use('/api/test', apiKeyTestRoutes); // API Key Testing
   app.use('/api/breadcrumbs', breadcrumbRoutes); // User Interaction Tracking
   app.use('/api/intent', intentRoutes); // Intent Detection & Proactive Testing
   app.use('/api/journey', journeyTestRoutes); // Journey Recursive Testing (J1-J5)

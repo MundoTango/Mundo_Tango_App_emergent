@@ -362,7 +362,7 @@ export default function VisualEditorPage() {
           </div>
           <div>
             <h1 className="text-white font-semibold">Visual Editor</h1>
-            <p className="text-xs text-gray-400">Click to Select • Double-Click to Edit • Delete to Remove</p>
+            <p className="text-xs text-gray-400">Cmd+Click to Select • Double-Click to Edit • Delete to Remove</p>
           </div>
         </div>
 
