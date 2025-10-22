@@ -181,13 +181,13 @@ router.post('/stream', async (req: any, res: Response) => {
       tokens: tokenCount,
     });
 
-    // Track usage  
-    await db.insert(modelUsage).values({
-      userId: user.id,
-      model: selectedModel,
-      tokens: tokenCount,
-      cost: tokenCount * 0.00001, // Rough estimate
-    });
+    // Track usage - TEMPORARILY DISABLED until db schema syncs
+    // await db.insert(modelUsage).values({
+    //   userId: user.id,
+    //   model: selectedModel,
+    //   tokens: tokenCount,
+    //   cost: tokenCount * 0.00001, // Rough estimate
+    // });
 
     res.write('data: [DONE]\n\n');
     res.end();
