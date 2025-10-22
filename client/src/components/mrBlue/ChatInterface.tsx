@@ -188,7 +188,7 @@ export function ChatInterface() {
       <div 
         className={`${
           isSidebarOpen ? 'w-60' : 'w-0'
-        } md:w-60 flex-shrink-0 border-r border-cyan-200 dark:border-cyan-800/50 bg-white/30 dark:bg-black/10 transition-all duration-300 overflow-hidden`}
+        } md:w-60 flex-shrink-0 border-r border-cyan-200 bg-white/30 transition-all duration-300 overflow-hidden`}
       >
         <div className="p-4 space-y-4 h-full flex flex-col">
           {/* 3D Avatar Placeholder */}
@@ -218,14 +218,14 @@ export function ChatInterface() {
                 onClick={() => setConversationId(conv.id)}
                 className={`w-full text-left p-3 rounded-lg transition-colors min-h-[44px] ${
                   conversationId === conv.id
-                    ? 'bg-cyan-100 dark:bg-cyan-900/50 border-2 border-cyan-500'
-                    : 'bg-white/50 dark:bg-black/20 hover:bg-cyan-50 dark:hover:bg-cyan-900/30'
+                    ? 'bg-cyan-100 border-2 border-cyan-500'
+                    : 'bg-white/50 hover:bg-cyan-50'
                 }`}
                 data-testid={`button-conversation-${conv.id}`}
                 aria-label={`Select conversation: ${conv.title}`}
               >
                 <div className="font-medium text-sm truncate">{conv.title}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-gray-500">
                   {new Date(conv.updatedAt).toLocaleDateString()}
                 </div>
               </button>
@@ -237,7 +237,7 @@ export function ChatInterface() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header with Controls */}
-        <div className="flex items-center justify-between p-2 border-b border-cyan-200 dark:border-cyan-800/50">
+        <div className="flex items-center justify-between p-2 border-b border-cyan-200">
           <Button
             variant="ghost"
             size="icon"
@@ -265,8 +265,8 @@ export function ChatInterface() {
         </div>
 
         {/* Model Selector */}
-        <div className="flex items-center gap-2 p-3 border-b border-cyan-200 dark:border-cyan-800/50 bg-white/20 dark:bg-black/10 flex-wrap">
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Model:</span>
+        <div className="flex items-center gap-2 p-3 border-b border-cyan-200 bg-white/20 flex-wrap">
+          <span className="text-sm font-medium text-gray-700">Model:</span>
           {(['all-models', 'gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as ModelType[]).map((model) => (
             <Button
               key={model}
@@ -276,7 +276,7 @@ export function ChatInterface() {
               className={`h-11 ${
                 selectedModel === model
                   ? 'bg-cyan-500 hover:bg-cyan-600 text-white'
-                  : 'border-cyan-300 dark:border-cyan-700'
+                  : 'border-cyan-300'
               }`}
               data-testid={`button-model-${model}`}
               aria-label={`Select ${model} model`}
@@ -285,7 +285,7 @@ export function ChatInterface() {
             </Button>
           ))}
           {selectedModel === 'all-models' && (
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-gray-500">
               (Consensus Mode: All models debate & agree)
             </span>
           )}
@@ -300,7 +300,7 @@ export function ChatInterface() {
                   <Sparkles className="h-10 w-10 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Welcome to Mr Blue</h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600">
                   Start a new conversation to begin chatting with your AI assistant
                 </p>
               </div>
@@ -324,7 +324,7 @@ export function ChatInterface() {
           ))}
 
           {sendMessage.isPending && (
-            <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+            <div className="flex items-center gap-2 text-cyan-600">
               <Loader2 className="h-4 w-4 animate-spin" />
               <span className="text-sm">Mr Blue is thinking...</span>
             </div>
@@ -334,7 +334,7 @@ export function ChatInterface() {
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-cyan-200 dark:border-cyan-800/50 bg-white/20 dark:bg-black/10 p-4 space-y-3">
+        <div className="border-t border-cyan-200 bg-white/20 p-4 space-y-3">
           <div className="flex gap-3">
             <VoiceControls 
               onTranscript={setInput}
@@ -351,7 +351,7 @@ export function ChatInterface() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message... (Shift+Enter for new line)"
-              className="flex-1 min-h-[44px] max-h-32 resize-none bg-white dark:bg-black/30"
+              className="flex-1 min-h-[44px] max-h-32 resize-none bg-white"
               data-testid="input-message"
               aria-label="Message input"
             />
