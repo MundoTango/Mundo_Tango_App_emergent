@@ -18,6 +18,9 @@ import PagesTab from './PagesTab';
 import ShellTab from './ShellTab';
 import FilesTab from './FilesTab';
 import AITab from './AITab';
+import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
+import { InlineTextEditor } from './InlineTextEditor';
+import { UniversalSaveSystem } from './UniversalSaveSystem';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -29,6 +32,15 @@ interface SelectedElement {
   xpath: string;
 }
 
+interface Change {
+  id: string;
+  timestamp: Date;
+  elementSelector: string;
+  changeType: 'style' | 'content' | 'layout' | 'delete';
+  before: any;
+  after: any;
+}
+
 export default function VisualEditorWrapper({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const { toast } = useToast();
@@ -36,6 +48,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [activeTab, setActiveTab] = useState<EditorTab>('ai');
+  const [changes, setChanges] = useState<Change[]>([]);
+  const [editingElement, setEditingElement] = useState<HTMLElement | null>(null);
+  const [selectedHTMLElement, setSelectedHTMLElement] = useState<HTMLElement | null>(null);
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
@@ -48,6 +63,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   // Element selection click handler
   const handleElementClick = useCallback((e: MouseEvent) => {
     if (!isSelectMode) return;
+    
+    // MB.MD: Require Cmd/Ctrl+Click for Figma-like UX
+    if (!e.metaKey && !e.ctrlKey) return;
     
     const target = e.target as HTMLElement;
     
@@ -94,36 +112,92 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       innerHTML: target.innerHTML?.substring(0, 100) || undefined,
       xpath: getXPath(target)
     });
+    
+    // MB.MD: Store actual HTML element for inline editing
+    setSelectedHTMLElement(target);
 
     // Visual feedback
     document.querySelectorAll('[data-visual-editor-selected]').forEach(el => {
       el.removeAttribute('data-visual-editor-selected');
       (el as HTMLElement).style.outline = '';
+      (el as HTMLElement).style.boxShadow = '';
     });
     
     target.setAttribute('data-visual-editor-selected', 'true');
-    target.style.outline = '2px solid #3b82f6';
+    // MB.MD: Purple bounding box (#a855f7) as per Figma spec
+    target.style.outline = '2px solid #a855f7';
     target.style.outlineOffset = '2px';
+    target.style.boxShadow = '0 0 0 4px rgba(168, 85, 247, 0.2)';
 
     toast({
       title: "Element Selected",
-      description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''}`,
+      description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''} • Double-click to edit text`,
       duration: 2000
     });
   }, [isSelectMode, toast]);
+
+  // MB.MD: Double-click to edit text inline
+  const handleElementDoubleClick = useCallback((e: MouseEvent) => {
+    if (!isSelectMode || !selectedHTMLElement) return;
+    
+    const target = e.target as HTMLElement;
+    
+    // Only allow text editing on selected element
+    if (target === selectedHTMLElement) {
+      e.preventDefault();
+      e.stopPropagation();
+      setEditingElement(selectedHTMLElement);
+    }
+  }, [isSelectMode, selectedHTMLElement]);
 
   // Add/remove click listener
   useEffect(() => {
     if (isSelectMode) {
       document.addEventListener('click', handleElementClick, true);
+      document.addEventListener('dblclick', handleElementDoubleClick, true);
       document.body.style.cursor = 'crosshair';
       
       return () => {
         document.removeEventListener('click', handleElementClick, true);
+        document.removeEventListener('dblclick', handleElementDoubleClick, true);
         document.body.style.cursor = '';
       };
     }
-  }, [isSelectMode, handleElementClick]);
+  }, [isSelectMode, handleElementClick, handleElementDoubleClick]);
+
+  // MB.MD: Handle inline text editing save
+  const handleSaveInlineText = (newText: string) => {
+    if (!editingElement || !selectedElement) return;
+    
+    const oldText = editingElement.textContent || '';
+    editingElement.textContent = newText;
+    
+    // Track change in Universal Save system
+    const change: Change = {
+      id: Date.now().toString(),
+      timestamp: new Date(),
+      elementSelector: selectedElement.xpath,
+      changeType: 'content',
+      before: { text: oldText },
+      after: { text: newText }
+    };
+    
+    setChanges(prev => [...prev, change]);
+    setEditingElement(null);
+  };
+
+  const handleCancelInlineEdit = () => {
+    setEditingElement(null);
+  };
+
+  const handleSaveComplete = () => {
+    setChanges([]);
+    toast({
+      title: "All Changes Saved",
+      description: "Your edits are now live!",
+      duration: 3000
+    });
+  };
 
   // AI Code Generation
   const handleGenerateCode = async (prompt: string) => {
@@ -229,12 +303,22 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     <>
       {children}
       
+      {/* MB.MD: Inline Text Editor */}
+      {editingElement && (
+        <InlineTextEditor
+          element={editingElement}
+          onSave={handleSaveInlineText}
+          onCancel={handleCancelInlineEdit}
+        />
+      )}
+
       {isEditorActive && (
         <>
           {/* Overlay hint */}
           {isSelectMode && !selectedElement && (
-            <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-40 animate-pulse">
-              <p className="text-sm font-medium">Click any element to inspect it</p>
+            <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg z-40 animate-pulse">
+              <p className="text-sm font-medium">⌘+Click (Cmd+Click) any element to inspect it</p>
+              <p className="text-xs mt-1 opacity-80">Figma-style element selection • Double-click to edit text</p>
             </div>
           )}
 
@@ -263,7 +347,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
             </div>
 
             {/* Tab Content */}
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto p-4 space-y-4">
               {activeTab === 'preview' && <PreviewTab currentPath={location} />}
               {activeTab === 'deploy' && <DeployTab />}
               {activeTab === 'git' && <GitTab />}
@@ -271,10 +355,22 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               {activeTab === 'shell' && <ShellTab />}
               {activeTab === 'files' && <FilesTab />}
               {activeTab === 'ai' && (
-                <AITab
-                  selectedElement={selectedElement}
-                  onGenerateCode={handleGenerateCode}
-                />
+                <>
+                  {/* MB.MD: Universal Save System */}
+                  <UniversalSaveSystem 
+                    changes={changes} 
+                    onSaveComplete={handleSaveComplete}
+                  />
+                  
+                  {/* MB.MD: What Does This Element Do? Panel */}
+                  <WhatDoesThisDoPanel selectedElement={selectedElement} />
+                  
+                  {/* AI Code Generation */}
+                  <AITab
+                    selectedElement={selectedElement}
+                    onGenerateCode={handleGenerateCode}
+                  />
+                </>
               )}
             </div>
 
