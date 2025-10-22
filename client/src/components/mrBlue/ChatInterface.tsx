@@ -33,6 +33,7 @@ interface Message {
   content: string;
   createdAt: string;
   model?: string;
+  toolsUsed?: string[]; // Track which tools were used
 }
 
 type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro' | 'all-models';
@@ -46,6 +47,7 @@ export function ChatInterface() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const appContext = useAppContext(); // 🎯 MB.MD: Collect context for AI awareness
@@ -339,9 +341,17 @@ export function ChatInterface() {
           ))}
 
           {sendMessage.isPending && (
-            <div className="flex items-center gap-2 text-cyan-600">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="text-sm">Mr Blue is thinking...</span>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-cyan-600">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-sm">Mr Blue is thinking...</span>
+              </div>
+              {streamingToolStatus && (
+                <div className="flex items-center gap-2 px-3 py-2 bg-cyan-50 border border-cyan-200 rounded-lg text-sm">
+                  <span className="animate-pulse">🔧</span>
+                  <span className="text-cyan-800">{streamingToolStatus}</span>
+                </div>
+              )}
             </div>
           )}
 
