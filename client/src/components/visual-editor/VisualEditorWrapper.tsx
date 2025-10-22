@@ -65,8 +65,21 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const editMode = urlParams.get('edit') === 'true';
+    // MB.MD FIX (Oct 22): Defensive URL parsing to handle double-encoding
+    let editMode = new URLSearchParams(window.location.search).get('edit') === 'true';
+    
+    // Fallback: Check if %3Fedit=true is in pathname (double-encoded "?edit=true")
+    if (!editMode && window.location.pathname.includes('%3Fedit=true')) {
+      console.warn('⚠️ [VisualEditor] URL double-encoded detected, fixing...');
+      editMode = true;
+      
+      // Fix the URL for future navigation
+      const fixedPath = window.location.pathname.replace(/%3Fedit=true.*$/, '');
+      const url = new URL(window.location.origin + fixedPath);
+      url.searchParams.set('edit', 'true');
+      window.history.replaceState({}, '', url);
+    }
+    
     setIsEditorActive(editMode);
     setIsSelectMode(editMode);
   }, [location]);

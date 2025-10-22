@@ -55,7 +55,10 @@ export default function PagesTab() {
                 className="opacity-0 group-hover:opacity-100"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.location.href = page.path + '?edit=true';
+                  // MB.MD FIX (Oct 22): Proper URL construction prevents double-encoding
+                  const url = new URL(window.location.origin + page.path);
+                  url.searchParams.set('edit', 'true');
+                  window.location.href = url.toString();
                 }}
               >
                 Edit

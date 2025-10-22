@@ -170,7 +170,12 @@ export default function PageAgentsDashboard() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => setLocation(`${agent.path}?edit=true`)}
+                        onClick={() => {
+                          // MB.MD FIX (Oct 22): Use URL API to prevent double-encoding
+                          const url = new URL(window.location.origin + agent.path);
+                          url.searchParams.set('edit', 'true');
+                          window.location.href = url.toString();
+                        }}
                         data-testid={`button-edit-${agent.pageAgentId}`}
                       >
                         <Edit className="w-4 h-4" />
