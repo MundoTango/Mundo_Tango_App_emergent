@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX, Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -16,7 +16,10 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import EnhancedMessageBubble from './EnhancedMessageBubble';
 import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
+import { VoiceSelector } from './VoiceSelector';
 import { useAppContext } from '@/hooks/useAppContext';
+import { useVisualEditor } from '@/contexts/VisualEditorContext';
+import { useVoiceOutput } from '@/hooks/useVoiceOutput';
 
 // ============ TYPES ============
 interface Conversation {
@@ -48,6 +51,7 @@ export function ChatInterface() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
+  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
   
   // 🎤 VOICE MODE: Enable ChatGPT-like voice conversation
   const [voiceModeEnabled, setVoiceModeEnabled] = useState(() => {
@@ -60,6 +64,12 @@ export function ChatInterface() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const appContext = useAppContext(); // 🎯 MB.MD: Collect context for AI awareness
+  
+  // 🎨 VISUAL EDITOR CONTEXT: See selected elements (Oct 22, 2025)
+  const { selectedElement } = useVisualEditor();
+  
+  // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
+  const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();
 
   // Load conversations (projects)
   const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
@@ -119,7 +129,10 @@ export function ChatInterface() {
           message: content,
           model: selectedModel,
           personality,
-          context: appContext // 🎯 MB.MD: Pass context to backend
+          context: {
+            ...appContext,
+            selectedElement: selectedElement || undefined // 🎨 Include Visual Editor selection
+          }
         }),
       });
 
@@ -155,7 +168,10 @@ export function ChatInterface() {
           question: content, // For consensus endpoint
           model: selectedModel,
           personality,
-          context: appContext // 🎯 MB.MD: Pass context to backend
+          context: {
+            ...appContext,
+            selectedElement: selectedElement || undefined // 🎨 Include Visual Editor selection
+          }
         }),
       });
 
@@ -294,6 +310,32 @@ export function ChatInterface() {
           
           <div className="flex-1" />
           
+          {/* 🎨 Visual Editor Context Indicator (Oct 22, 2025) */}
+          {selectedElement && (
+            <div 
+              className="flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-500 rounded-lg"
+              data-testid="visual-editor-context-indicator"
+            >
+              <Sparkles className="w-3 h-3 text-purple-400" />
+              <span className="text-xs text-purple-300">
+                &lt;{selectedElement.tagName}&gt;
+                {selectedElement.id && ` #${selectedElement.id}`}
+              </span>
+            </div>
+          )}
+          
+          {/* 🎤 Voice Settings Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowVoiceSettings(!showVoiceSettings)}
+            data-testid="button-voice-settings"
+            aria-label="Voice settings"
+            title="Voice settings"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
+          
           {/* 🎤 Voice Mode Toggle */}
           <Button
             variant={voiceModeEnabled ? "default" : "ghost"}
@@ -346,6 +388,16 @@ export function ChatInterface() {
             </span>
           )}
         </div>
+        
+        {/* 🎤 Voice Settings Panel (Oct 22, 2025) */}
+        {showVoiceSettings && (
+          <div className="p-3 border-b border-cyan-200 bg-white/30">
+            <VoiceSelector 
+              settings={voiceSettings}
+              onSettingsChange={updateVoiceSettings}
+            />
+          </div>
+        )}
 
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">

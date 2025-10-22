@@ -51,6 +51,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const [changes, setChanges] = useState<Change[]>([]);
   const [editingElement, setEditingElement] = useState<HTMLElement | null>(null);
   const [selectedHTMLElement, setSelectedHTMLElement] = useState<HTMLElement | null>(null);
+  
+  // 🔍 INSPECTOR MODE: Page vs Sidebar (Oct 22, 2025)
+  const [inspectorMode, setInspectorMode] = useState<'page' | 'sidebar'>('page');
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
@@ -68,13 +71,18 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     if (!e.metaKey && !e.ctrlKey) return;
     
     const target = e.target as HTMLElement;
+    const isSidebarElement = !!target.closest('[data-testid="visual-editor-sidebar"]');
     
-    // Check if clicking the sidebar FIRST - allow normal clicks
-    if (target.closest('[data-testid="visual-editor-sidebar"]')) {
-      return; // Don't block sidebar interactions
+    // 🔍 INSPECTOR MODE LOGIC (Oct 22, 2025)
+    if (inspectorMode === 'page') {
+      // Page mode: Skip sidebar elements (allow normal sidebar clicks)
+      if (isSidebarElement) return;
+    } else if (inspectorMode === 'sidebar') {
+      // Sidebar mode: ONLY inspect sidebar elements
+      if (!isSidebarElement) return;
     }
     
-    // NOW block the event for page elements
+    // NOW block the event for selected elements
     e.preventDefault();
     e.stopPropagation();
 
@@ -124,17 +132,20 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     });
     
     target.setAttribute('data-visual-editor-selected', 'true');
-    // MB.MD: Purple bounding box (#a855f7) as per Figma spec
-    target.style.outline = '2px solid #a855f7';
+    // MB.MD: Different colors for page vs sidebar inspection
+    const outlineColor = inspectorMode === 'sidebar' ? '#3b82f6' : '#a855f7'; // Blue for sidebar, Purple for page
+    target.style.outline = `2px solid ${outlineColor}`;
     target.style.outlineOffset = '2px';
-    target.style.boxShadow = '0 0 0 4px rgba(168, 85, 247, 0.2)';
+    target.style.boxShadow = inspectorMode === 'sidebar' 
+      ? '0 0 0 4px rgba(59, 130, 246, 0.2)' 
+      : '0 0 0 4px rgba(168, 85, 247, 0.2)';
 
     toast({
-      title: "Element Selected",
+      title: `${inspectorMode === 'sidebar' ? '🔍 Sidebar' : '📄 Page'} Element Selected`,
       description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''} • Double-click to edit text`,
       duration: 2000
     });
-  }, [isSelectMode, toast]);
+  }, [isSelectMode, inspectorMode, toast]);
 
   // MB.MD: Double-click to edit text inline
   const handleElementDoubleClick = useCallback((e: MouseEvent) => {
@@ -333,10 +344,38 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <span className="text-xl">✨</span>
                 </div>
-                <div>
+                <div className="flex-1">
                   <h2 className="font-semibold text-gray-900 dark:text-white">Visual Editor</h2>
                   <p className="text-xs text-gray-500 dark:text-gray-400">AI-Powered Page Editor</p>
                 </div>
+              </div>
+              
+              {/* 🔍 Inspector Mode Toggle (Oct 22, 2025) */}
+              <div className="flex gap-1 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                <button
+                  onClick={() => setInspectorMode('page')}
+                  className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                    inspectorMode === 'page'
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  }`}
+                  data-testid="inspector-mode-page"
+                  title="Inspect page elements (purple outline)"
+                >
+                  📄 Page
+                </button>
+                <button
+                  onClick={() => setInspectorMode('sidebar')}
+                  className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                    inspectorMode === 'sidebar'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  }`}
+                  data-testid="inspector-mode-sidebar"
+                  title="Inspect sidebar elements (blue outline)"
+                >
+                  🔍 Sidebar
+                </button>
               </div>
               
               <TabSystem
