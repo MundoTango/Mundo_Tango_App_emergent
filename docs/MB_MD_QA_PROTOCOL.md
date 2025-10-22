@@ -152,6 +152,32 @@ From visual-editor-testing.md line 39:
 - Wire up props/state
 - Test import resolves
 
+**📋 MANDATORY INTEGRATION CHECKLIST** (See `docs/INTEGRATION_PROTOCOL.md` for full details):
+
+**Before marking ANY task complete:**
+- [ ] Component built
+- [ ] **Component imported in parent** ⚠️ CRITICAL
+- [ ] **Component rendered in JSX** ⚠️ CRITICAL
+- [ ] **All props passed correctly** ⚠️ CRITICAL
+- [ ] **Event handlers wired up** ⚠️ CRITICAL
+- [ ] **Backend endpoints exist (if needed)** ⚠️ CRITICAL
+- [ ] **Tested user journey end-to-end** ⚠️ CRITICAL
+- [ ] **Screenshot taken showing feature** ⚠️ CRITICAL
+
+**Integration Score: Must be 10/10 to mark complete**
+
+**Mr Blue Specific:**
+- All new features MUST wire to `ChatInterface.tsx` or `MrBlueComplete.tsx`
+- All new tabs MUST be registered in tab list AND rendered
+- All tools MUST be added to UniversalToolOrchestrator AND tested
+- All voice features MUST wire to VoiceControls component
+
+**Visual Editor Specific:**
+- All new tabs MUST wire to `VisualEditorWrapper.tsx`
+- All new panels MUST wire to `TabSystem.tsx`
+- All code generation MUST wire to `UniversalSaveSystem.tsx`
+- All interactions MUST wire to iframe overlay system
+
 **Example:**
 ```tsx
 // WRONG: Build in isolation
