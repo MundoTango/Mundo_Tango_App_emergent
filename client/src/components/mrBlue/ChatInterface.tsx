@@ -23,6 +23,7 @@ import { ConversationHistoryPanel } from './ConversationHistoryPanel';
 import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
+import { getAgentSuggestion } from '@/lib/agentDiscovery';
 
 // ============ TYPES ============
 interface Conversation {
@@ -326,16 +327,26 @@ export function ChatInterface() {
           
           <div className="flex-1" />
           
-          {/* 🎨 Visual Editor Context Indicator (Oct 22, 2025) */}
+          {/* 🎨 Visual Editor Context Indicator with Agent Discovery (Oct 22, 2025 - STREAM 3) */}
           {selectedElement && (
             <div 
-              className="flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-500 rounded-lg"
+              className="flex flex-col gap-1 px-3 py-2 bg-purple-500/20 border border-purple-500 rounded-lg max-w-md"
               data-testid="visual-editor-context-indicator"
             >
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-xs text-purple-300">
-                &lt;{selectedElement.tagName}&gt;
-                {selectedElement.id && ` #${selectedElement.id}`}
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-3 h-3 text-purple-400" />
+                <span className="text-xs text-purple-300 font-mono">
+                  &lt;{selectedElement.tagName}&gt;
+                  {selectedElement.id && ` #${selectedElement.id}`}
+                </span>
+              </div>
+              <span className="text-xs text-purple-200 opacity-80">
+                {getAgentSuggestion({
+                  tagName: selectedElement.tagName,
+                  id: selectedElement.id,
+                  className: selectedElement.className,
+                  testId: selectedElement.attributes?.['data-testid']
+                })}
               </span>
             </div>
           )}
