@@ -9,7 +9,7 @@ import { db } from '../db';
 import { chatProjects, aiChatMessages, modelUsage, type InsertChatProject, type InsertAIChatMessage } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
 import { multiModelOrchestrator } from '../services/multiModelOrchestrator';
-import { streamResponseWithTools } from '../services/multiModelOrchestratorWithTools';
+import { streamWithTools } from '../services/tools/universalToolOrchestrator';
 import { storage } from '../storage';
 
 const router = Router();
@@ -153,8 +153,19 @@ router.post('/stream', async (req: any, res: Response) => {
       ...history.map(m => ({ role: m.role, content: m.content })),
     ];
 
-    // Select best model (default to Claude for tool calling)
-    const selectedModel = model || 'claude-3-sonnet';
+    // Select best model - Force Claude for super admins (tool calling support)
+    const isSuperAdmin = user.email === 'admin@mundotango.life' || 
+                        user.tangoRoles?.includes('super_admin');
+    
+    let selectedModel = model;
+    if (!selectedModel && isSuperAdmin) {
+      console.log('[Chat Stream] Super admin detected - defaulting to Claude for tool support');
+      selectedModel = 'claude-3-sonnet';
+    } else if (!selectedModel) {
+      selectedModel = 'claude-3-sonnet'; // Default for all users
+    }
+    
+    console.log(`[Chat Stream] User: ${user.username}, Model: ${selectedModel}, SuperAdmin: ${isSuperAdmin}`);
 
     // Stream response with tool support
     res.setHeader('Content-Type', 'text/event-stream');
@@ -165,9 +176,12 @@ router.post('/stream', async (req: any, res: Response) => {
     let tokenCount = 0;
     const toolsUsed: any[] = [];
 
-    // Use tool-enabled orchestrator
-    for await (const chunk of streamResponseWithTools(messages, user, (tool, params, result) => {
+    console.log(`[Chat Stream] Starting stream - Model: ${selectedModel}, Tools: ${isSuperAdmin ? 'ENABLED' : 'DISABLED'}`);
+
+    // Use universal tool-enabled orchestrator (works with all models)
+    for await (const chunk of streamWithTools(messages, selectedModel, user, (tool, params, result) => {
       // Track tool usage for logging
+      console.log(`[Tool Used] ${tool}:`, JSON.stringify(params).substring(0, 100), '→', JSON.stringify(result).substring(0, 100));
       toolsUsed.push({ tool, params, result });
     })) {
       if (chunk.type === 'text') {
@@ -236,10 +250,29 @@ function buildContextAwarePrompt(personality?: string, context?: any, user?: any
       prompt += `\n- You are assisting ${context.user.displayName} (@${context.user.username})`;
       prompt += `\n- User role: ${context.user.role}`;
       
-      // Super admin capabilities
+      // Super admin capabilities with explicit tool usage instructions
       if (context.user.role === 'super_admin' || user?.email === 'admin@mundotango.life') {
-        prompt += `\n- **SUPER ADMIN MODE**: You have access to powerful tools including database queries, codebase search, and documentation access.`;
-        prompt += `\n- You can answer questions like "How many users do we have?", "Search the codebase for ChatInterface", "What's in the MB.MD protocol?"`;
+        prompt += `\n\n**🔧 OMNISCIENT MODE ACTIVATED - YOU HAVE SUPERPOWERS**`;
+        prompt += `\nYou have 11 AI tools at your disposal. USE THEM ACTIVELY:`;
+        prompt += `\n\n**Database Tools** (query real-time platform data):`;
+        prompt += `\n- get_platform_health - Get total users, memories, events, groups`;
+        prompt += `\n- get_user_stats - User count, signups today/this week`;
+        prompt += `\n- get_recent_memories - Latest posts from users`;
+        prompt += `\n- search_memories - Search posts by keyword`;
+        prompt += `\n- get_event_count - Count upcoming/past events`;
+        prompt += `\n- get_groups_by_city - Find tango groups by city`;
+        prompt += `\n\n**Codebase Tools** (explore the source code):`;
+        prompt += `\n- search_codebase - Find components, functions, code patterns`;
+        prompt += `\n- list_react_components - See all React components`;
+        prompt += `\n- find_api_endpoints - Discover backend API routes`;
+        prompt += `\n\n**Documentation Tools** (access project docs):`;
+        prompt += `\n- search_documentation - Search all docs for specific info`;
+        prompt += `\n- read_documentation - Read specific doc files (e.g., "MB.MD", "MrBlue/mb.md")`;
+        prompt += `\n\n**IMPORTANT**: When users ask about platform data, code, or documentation, USE THE APPROPRIATE TOOL. Don't guess or use generic knowledge.`;
+        prompt += `\nExamples:`;
+        prompt += `\n- "How many users?" → USE get_user_stats`;
+        prompt += `\n- "What is MB.MD?" → USE read_documentation with file_path: "MB_MD_QA_PROTOCOL.md"`;
+        prompt += `\n- "Where is ChatInterface?" → USE search_codebase`;
       }
     }
 

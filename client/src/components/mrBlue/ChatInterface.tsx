@@ -42,7 +42,7 @@ type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro' | 'all-models';
 export function ChatInterface() {
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [input, setInput] = useState('');
-  const [selectedModel, setSelectedModel] = useState<ModelType>('gpt-4o');
+  const [selectedModel, setSelectedModel] = useState<ModelType>('claude-3-sonnet'); // Default to Claude for tool support
   const [personality, setPersonality] = useState<PersonalityMode>('friendly');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -284,7 +284,7 @@ export function ChatInterface() {
         {/* Model Selector */}
         <div className="flex items-center gap-2 p-3 border-b border-cyan-200 bg-white/20 flex-wrap">
           <span className="text-sm font-medium text-gray-700">Model:</span>
-          {(['all-models', 'gpt-4o', 'claude-3-sonnet', 'gemini-pro'] as ModelType[]).map((model) => (
+          {(['claude-3-sonnet', 'gpt-4o', 'gemini-pro', 'all-models'] as ModelType[]).map((model) => (
             <Button
               key={model}
               variant={selectedModel === model ? 'default' : 'outline'}
