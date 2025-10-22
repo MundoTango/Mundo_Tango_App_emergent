@@ -87,14 +87,30 @@ export function ChatInterface() {
   };
 
   // Load conversations (projects)
-  const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
+  const { data: conversations, isLoading: loadingConversations, error: conversationsError } = useQuery<Conversation[]>({
     queryKey: ['/api/chat/projects'],
     queryFn: async () => {
+      console.log('🔵 [ChatInterface] Fetching conversations from /api/chat/projects');
       const res = await fetch('/api/chat/projects', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch conversations');
-      return await res.json();
+      if (!res.ok) {
+        console.error('🔴 [ChatInterface] Failed to fetch conversations:', res.status);
+        throw new Error('Failed to fetch conversations');
+      }
+      const data = await res.json();
+      console.log('🟢 [ChatInterface] Loaded conversations:', data?.length || 0, 'conversations');
+      return data;
     },
   });
+  
+  // Debug: Log conversations state
+  useEffect(() => {
+    console.log('📊 [ChatInterface] Conversations state:', {
+      loading: loadingConversations,
+      error: conversationsError,
+      count: conversations?.length || 0,
+      data: conversations
+    });
+  }, [conversations, loadingConversations, conversationsError]);
 
   // Load messages for active conversation
   const { data: messages, isLoading: loadingMessages} = useQuery<Message[]>({
