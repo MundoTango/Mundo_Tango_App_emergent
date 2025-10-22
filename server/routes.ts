@@ -69,15 +69,14 @@ import learningRoutes from "./routes/learningRoutes"; // Agent #80 Learning Coor
 import voiceConversationRoutes from "./routes/voiceConversationRoutes"; // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
 import chatSummarizationRoutes from "./routes/chatSummarizationRoutes"; // Chat Summarization API - Unified Voice Modal - Oct 22, 2025
 import multiAgentRoutes from "./routes/multiAgentRoutes"; // Multi-Agent Orchestration API - MB.MD Phase 3R-T - Oct 21, 2025
-import gitRoutes from "./routes/gitRoutes"; // Git Integration API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import gitRoutes from "./routes/gitRoutes"; // Git Integration API - Agent #126 - MB.MD Parallel Build - Oct 22, 2025
 import filesRoutes from "./routes/filesRoutes"; // Filesystem Browser API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
-import deployRoutes from "./routes/deployRoutes"; // Deployment API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import deployRoutes from "./routes/deployRoutes"; // Deployment API - Agent #127 - MB.MD Parallel Build - Oct 22, 2025
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import adminHealthRoutes from "./routes/adminHealthRoutes"; // Admin Health Metrics API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import infrastructureRoutes from "./routes/infrastructureRoutes"; // All 13 Tracks Infrastructure - MB.MD Maximum Parallel Build - Oct 21-22, 2025
-import voiceConversationRoutes from "./routes/voiceConversationRoutes"; // Voice Conversation History API - MB.MD 4 Streams - Oct 22, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";

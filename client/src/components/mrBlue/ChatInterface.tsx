@@ -479,12 +479,13 @@ export function ChatInterface() {
         )}
       </div>
       
-      {/* 🎧 Unified Voice Modal (Oct 22, 2025) */}
+      {/* 🎧 Unified Voice Modal (Oct 22, 2025) - Agent #128 with Visual Context */}
       <UnifiedVoiceModal 
         isOpen={showVoiceModal}
         onClose={() => setShowVoiceModal(false)}
         voiceSettings={voiceSettings}
         onVoiceSettingsChange={updateVoiceSettings}
+        selectedElement={selectedElement}
       />
     </div>
   );

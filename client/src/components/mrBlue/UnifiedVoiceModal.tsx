@@ -180,12 +180,19 @@ export function UnifiedVoiceModal({
     
     setIsProcessingSummary(true);
     try {
-      // Call backend to summarize transcript
+      // Call backend to summarize transcript (Agent #128: Include visual context)
       const response = await fetch('/api/chat/summarize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ text: transcript })
+        body: JSON.stringify({ 
+          text: transcript,
+          visualContext: selectedElement ? {
+            tagName: selectedElement.tagName,
+            id: selectedElement.id,
+            className: selectedElement.className
+          } : undefined
+        })
       });
 
       if (!response.ok) throw new Error('Summarization failed');
@@ -247,6 +254,16 @@ export function UnifiedVoiceModal({
                   <span className="flex items-center gap-1 text-cyan-600">
                     <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
                     Speaking...
+                  </span>
+                )}
+                {/* Agent #128: Visual Element Context Badge */}
+                {selectedElement && (
+                  <span className="flex items-center gap-1 px-2 py-1 bg-purple-500/20 border border-purple-500 rounded-lg">
+                    <Sparkles className="h-3 w-3 text-purple-400" />
+                    <span className="text-purple-300 font-mono">
+                      &lt;{selectedElement.tagName}&gt;
+                      {selectedElement.id && ` #${selectedElement.id}`}
+                    </span>
                   </span>
                 )}
               </div>
