@@ -20,7 +20,8 @@ import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
 // ============ TYPES ============
 interface Conversation {
   id: number;
-  title: string;
+  name: string;  // API returns 'name' not 'title'
+  description: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -222,9 +223,9 @@ export function ChatInterface() {
                     : 'bg-white/50 hover:bg-cyan-50'
                 }`}
                 data-testid={`button-conversation-${conv.id}`}
-                aria-label={`Select conversation: ${conv.title}`}
+                aria-label={`Select conversation: ${conv.name}`}
               >
-                <div className="font-medium text-sm truncate">{conv.title}</div>
+                <div className="font-medium text-sm truncate">{conv.name}</div>
                 <div className="text-xs text-gray-500">
                   {new Date(conv.updatedAt).toLocaleDateString()}
                 </div>
