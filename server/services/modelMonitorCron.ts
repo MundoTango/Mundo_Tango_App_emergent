@@ -4,10 +4,10 @@
  * Schedule: Every 6 hours (6am, 12pm, 6pm, 12am)
  */
 
-import cron from 'node-cron';
+import * as cron from 'node-cron';
 import { autoUpdateDeprecatedModels, checkDeprecatedModels } from './modelAutoUpdater';
 
-let cronJob: cron.ScheduledTask | null = null;
+let cronJob: ReturnType<typeof cron.schedule> | null = null;
 
 /**
  * Start automated model monitoring (4x daily checks)
@@ -46,9 +46,6 @@ export function startModelMonitoringCron() {
     } catch (error: any) {
       console.error('[Model Monitor Cron] ❌ Error during scheduled check:', error.message);
     }
-  }, {
-    scheduled: true,
-    timezone: 'UTC'
   });
 
   cronJob.start();

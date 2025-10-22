@@ -18,10 +18,11 @@ import {
   Key,
   X,
   Inspect,
-  Palette
+  Palette,
+  Zap
 } from 'lucide-react';
 
-export type EditorTab = 'inspector' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets';
+export type EditorTab = 'inspector' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets' | 'models';
 
 interface TabSystemProps {
   activeTab: EditorTab;
@@ -36,6 +37,7 @@ const TABS = [
   { id: 'console' as const, label: 'Console', icon: ScrollText },
   { id: 'deploy' as const, label: 'Deploy', icon: Rocket },
   { id: 'git' as const, label: 'Git', icon: GitBranch },
+  { id: 'models' as const, label: 'Models', icon: Zap },
   { id: 'pages' as const, label: 'Pages', icon: FileText },
   { id: 'shell' as const, label: 'Shell', icon: Terminal },
   { id: 'files' as const, label: 'Files', icon: Folder },

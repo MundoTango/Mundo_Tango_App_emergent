@@ -239,10 +239,16 @@ const startServer = async () => {
       console.log(`  All core features: ✅ Operational`);
       console.log(`[server] listening on ${PORT}`);
       
-      // Start automated model monitoring (checks 4x daily for deprecations)
-      import('./services/modelMonitor.js')
-        .then(({ startModelMonitoring }) => startModelMonitoring())
-        .catch(error => console.warn('⚠️  Model monitoring service unavailable:', error));
+      // Start automated model monitoring (checks 4x daily for deprecations - Oct 22, 2025)
+      import('./services/modelMonitorCron.js')
+        .then((module) => {
+          if (module.start) {
+            module.start();
+          } else if (module.default?.start) {
+            module.default.start();
+          }
+        })
+        .catch(error => console.warn('⚠️  Model monitoring cron unavailable:', error));
     });
 
     // Add error handler for the server

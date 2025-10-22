@@ -20,6 +20,7 @@ import FilesTab from './FilesTab';
 import AITab from './AITab';
 import ConsoleTab from './ConsoleTab';
 import SecretsTab from './SecretsTab';
+import { ModelMonitorTab } from './ModelMonitorTab';
 import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
 import { InlineTextEditor } from './InlineTextEditor';
 import { UniversalSaveSystem } from './UniversalSaveSystem';
@@ -431,6 +432,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               {activeTab === 'preview' && <PreviewTab currentPath={location} />}
               {activeTab === 'deploy' && <DeployTab />}
               {activeTab === 'git' && <GitTab />}
+              {activeTab === 'models' && <ModelMonitorTab />}
               {activeTab === 'pages' && <PagesTab />}
               {activeTab === 'shell' && <ShellTab />}
               {activeTab === 'files' && <FilesTab />}
