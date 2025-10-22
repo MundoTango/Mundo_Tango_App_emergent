@@ -13,9 +13,20 @@ Every agent MUST follow these before marking ANY task complete:
 5. **ARCHITECT VALIDATES** - Independent review mandatory, no self-approval - prevents shipping broken features
 
 Failure at ANY step = DO NOT PROCEED. Fix the issue first.
-Full protocol: `docs/MB_MD_QA_PROTOCOL.md` (1009 lines)
-Documentation verification: `docs/DOCUMENTATION_VERIFICATION.md` (MANDATORY before building)
-**Integration protocol: `docs/INTEGRATION_PROTOCOL.md` (MANDATORY for Mr Blue & Visual Editor features)**
+
+**📚 Documentation Structure (October 22, 2025 Update):**
+- **Constitution:** `docs/MB_MD_QA_PROTOCOL.md` - The 5 Non-Negotiable Rules (what & why)
+- **Playbook:** `docs/AGENT_LEARNINGS.md` - 18 learnings organized by MB.MD phase (how & when)
+- **Enforcement:** `docs/QA_AGENT_PROTOCOL.md` - QA Agent veto power, approval/rejection templates
+- **Quick Reference:** `docs/PHASE_VERIFICATION_CHECKLISTS.md` - Copy-paste checklists per phase
+- **Evolution:** `docs/LEARNING_CAPTURE_TEMPLATE.md` - Submit new learnings as discovered
+- **Phase 1 (MAPPING):** `docs/DOCUMENTATION_VERIFICATION.md` - Read docs BEFORE building
+- **Phase 3 (MITIGATION):** `docs/INTEGRATION_PROTOCOL.md` - Wire Mr Blue/Visual Editor features
+
+**How Agents Use This:**
+1. **All Agents:** Read MB_MD_QA_PROTOCOL.md (the law)
+2. **Your Phase:** Read AGENT_LEARNINGS.md section for your phase (the tactics)
+3. **Phase 4 (QA):** QA Agent uses QA_AGENT_PROTOCOL.md (final gate with veto power)
 
 - **Communication style:** Simple, everyday language
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work
