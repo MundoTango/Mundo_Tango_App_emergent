@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -48,6 +48,15 @@ export function ChatInterface() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
+  
+  // 🎤 VOICE MODE: Enable ChatGPT-like voice conversation
+  const [voiceModeEnabled, setVoiceModeEnabled] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('mrBlue_voiceMode') === 'true';
+    }
+    return false;
+  });
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const appContext = useAppContext(); // 🎯 MB.MD: Collect context for AI awareness
@@ -178,6 +187,25 @@ export function ChatInterface() {
       setConversationId(conversations[0].id);
     }
   }, [conversations, conversationId]);
+  
+  // 🎤 Persist voice mode preference
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mrBlue_voiceMode', String(voiceModeEnabled));
+    }
+  }, [voiceModeEnabled]);
+  
+  // 🎤 Toggle voice mode handler
+  const toggleVoiceMode = () => {
+    const newMode = !voiceModeEnabled;
+    setVoiceModeEnabled(newMode);
+    toast({
+      title: newMode ? '🎤 Voice Mode ON' : '🔇 Voice Mode OFF',
+      description: newMode 
+        ? 'Mr Blue will speak responses automatically' 
+        : 'Manual speaker control only',
+    });
+  };
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -265,6 +293,19 @@ export function ChatInterface() {
           </Button>
           
           <div className="flex-1" />
+          
+          {/* 🎤 Voice Mode Toggle */}
+          <Button
+            variant={voiceModeEnabled ? "default" : "ghost"}
+            size="icon"
+            onClick={toggleVoiceMode}
+            data-testid="button-voice-mode"
+            aria-label={voiceModeEnabled ? "Disable voice mode" : "Enable voice mode"}
+            title={voiceModeEnabled ? "Voice Mode ON - AI will speak automatically" : "Voice Mode OFF - Click to enable"}
+            className={voiceModeEnabled ? "bg-cyan-500 hover:bg-cyan-600 animate-pulse" : ""}
+          >
+            {voiceModeEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+          </Button>
           
           {/* Minimize Button */}
           <Button
@@ -362,6 +403,7 @@ export function ChatInterface() {
             <VoiceControls 
               onTranscript={setInput}
               lastMessage={messages?.[messages.length - 1]?.content}
+              autoSpeak={voiceModeEnabled}
             />
             <div className="flex-1">
               <PersonalitySelector value={personality} onChange={setPersonality} />
