@@ -192,6 +192,10 @@ app.use(cspReportsRouter);
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';
 app.use(chunkedUploadRoutes);
 
+// Model Monitoring & Auto-Update Routes (Stream G - Oct 22, 2025)
+import modelMonitorRoutes from './routes/modelMonitorRoutes';
+app.use('/api/models', modelMonitorRoutes);
+
 // Mundo Tango ESA LIFE CEO - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
