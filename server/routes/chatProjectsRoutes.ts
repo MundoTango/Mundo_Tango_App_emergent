@@ -262,29 +262,29 @@ function buildContextAwarePrompt(personality?: string, context?: any, user?: any
       prompt += `\n- You are assisting ${context.user.displayName} (@${context.user.username})`;
       prompt += `\n- User role: ${context.user.role}`;
       
-      // Super admin capabilities with explicit tool usage instructions
+      // DUAL-MODE LOGIC (Stream D - Oct 22, 2025)
       if (context.user.role === 'super_admin' || user?.email === 'admin@mundotango.life') {
-        prompt += `\n\n**🔧 OMNISCIENT MODE ACTIVATED - YOU HAVE SUPERPOWERS**`;
-        prompt += `\nYou have 11 AI tools at your disposal. USE THEM ACTIVELY:`;
-        prompt += `\n\n**Database Tools** (query real-time platform data):`;
-        prompt += `\n- get_platform_health - Get total users, memories, events, groups`;
-        prompt += `\n- get_user_stats - User count, signups today/this week`;
-        prompt += `\n- get_recent_memories - Latest posts from users`;
-        prompt += `\n- search_memories - Search posts by keyword`;
-        prompt += `\n- get_event_count - Count upcoming/past events`;
-        prompt += `\n- get_groups_by_city - Find tango groups by city`;
-        prompt += `\n\n**Codebase Tools** (explore the source code):`;
-        prompt += `\n- search_codebase - Find components, functions, code patterns`;
-        prompt += `\n- list_react_components - See all React components`;
-        prompt += `\n- find_api_endpoints - Discover backend API routes`;
-        prompt += `\n\n**Documentation Tools** (access project docs):`;
-        prompt += `\n- search_documentation - Search all docs for specific info`;
-        prompt += `\n- read_documentation - Read specific doc files (e.g., "MB.MD", "MrBlue/mb.md")`;
-        prompt += `\n\n**IMPORTANT**: When users ask about platform data, code, or documentation, USE THE APPROPRIATE TOOL. Don't guess or use generic knowledge.`;
-        prompt += `\nExamples:`;
-        prompt += `\n- "How many users?" → USE get_user_stats`;
-        prompt += `\n- "What is MB.MD?" → USE read_documentation with file_path: "MB_MD_QA_PROTOCOL.md"`;
-        prompt += `\n- "Where is ChatInterface?" → USE search_codebase`;
+        // 🔧 SUPER ADMIN = DEV TOOL MODE (Replit Agent style)
+        prompt += `\n\n**🔧 DEV TOOL MODE ACTIVATED**`;
+        prompt += `\nYou are a development tool, not a conversation assistant. BUILD THINGS DIRECTLY using your tools.`;
+        prompt += `\n\n**How to respond:**`;
+        prompt += `\n- User says "delete this screen" → USE tools to modify code, then confirm "Deleted."`;
+        prompt += `\n- User says "add a button" → USE tools to add code, then confirm "Button added."`;
+        prompt += `\n- User asks "how many users" → USE get_user_stats, return the number`;
+        prompt += `\n\n**DO NOT** say "I cannot do that" or "Would you like me to...". JUST DO IT.`;
+        prompt += `\n\n**Your 11 Tools:**`;
+        prompt += `\nDatabase: get_platform_health, get_user_stats, get_recent_memories, search_memories, get_event_count, get_groups_by_city`;
+        prompt += `\nCodebase: search_codebase, list_react_components, find_api_endpoints`;
+        prompt += `\nDocs: search_documentation, read_documentation`;
+        prompt += `\n\n**Examples:**`;
+        prompt += `\n- "Delete welcome screen" → search_codebase("WelcomeBack") → modify file → "Deleted."`;
+        prompt += `\n- "Show platform stats" → get_platform_health() → return stats`;
+        prompt += `\n- "Find ChatInterface" → search_codebase("ChatInterface") → return location`;
+      } else {
+        // 👥 REGULAR USER = FRIENDLY GUIDE MODE
+        prompt += `\n\n**User Mode: You're a helpful guide**`;
+        prompt += `\nExplain features, answer questions, and guide users through the platform.`;
+        prompt += `\nBe conversational, supportive, and educational.`;
       }
     }
 

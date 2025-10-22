@@ -1,12 +1,10 @@
 /**
- * DEPLOY TAB - Deployment Dashboard (Agent #127)
- * MB.MD Phase 2A: Wire DeploymentDashboard component
- * 
- * Features: 4-tab dashboard (Overview/Logs/Resources/Analytics)
+ * DEPLOY TAB - Replit Native Deploy Integration (Stream F)
+ * Opens Replit's deployment UI + shows status
  */
 
-import { DeploymentDashboard } from '@/components/deployment/DeploymentDashboard';
+import { ReplitDeployIntegration } from './ReplitDeployIntegration';
 
 export default function DeployTab() {
-  return <DeploymentDashboard />;
+  return <ReplitDeployIntegration />;
 }

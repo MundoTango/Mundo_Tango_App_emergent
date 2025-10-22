@@ -1,12 +1,10 @@
 /**
- * GIT TAB - Git Integration Panel (Agent #126)
- * MB.MD Phase 2A: Wire GitPanePanel component
- * 
- * Features: Modified files, AI commit messages, GitHub push
+ * GIT TAB - Replit Native Git Integration (Stream G)
+ * Opens Replit's Git pane + shows git status
  */
 
-import { GitPanePanel } from '@/components/mrBlue/GitPanePanel';
+import { ReplitGitIntegration } from './ReplitGitIntegration';
 
 export default function GitTab() {
-  return <GitPanePanel />;
+  return <ReplitGitIntegration />;
 }
