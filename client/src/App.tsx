@@ -43,11 +43,11 @@ import { productionRoutes, debugRoutes, type RouteConfig } from "@/config/routes
 // Import shared queryClient with ESA Layer 14 cache configuration
 import { queryClient } from "@/lib/queryClient";
 
-// MB.MD FIX: Clear stale queries on app initialization to prevent queryFn warnings
+// MB.MD FIX: Clear ALL stale queries on app initialization to prevent queryFn warnings
 if (typeof window !== 'undefined') {
-  queryClient.removeQueries({ 
-    predicate: (query) => !query.options.queryFn && query.state.status === 'error',
-  });
+  // Clear ALL queries without queryFn (not just errored ones) to prevent cache corruption
+  queryClient.clear();
+  console.log('✅ Cleared ALL React Query cache on app init');
 }
 
 // MB.MD MINIMAL IMPORTS: Only components that exist to fix blank screen

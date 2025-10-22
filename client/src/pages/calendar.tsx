@@ -23,6 +23,11 @@ export default function CalendarPage() {
   // Fetch events
   const { data: events = [], isLoading } = useQuery<Event[]>({
     queryKey: ["/api/events"],
+    queryFn: async () => {
+      const res = await fetch('/api/events', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch events');
+      return res.json();
+    },
   });
 
   const handleDateClick = (date: Date) => {
