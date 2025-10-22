@@ -91,6 +91,9 @@ import memoriesFeedRoutes from "./routes/memoriesFeedRoutes";
 import recommendationsRoutes from "./routes/recommendationsRoutes";
 import chatProjectsRoutes from "./routes/chatProjectsRoutes";
 import mediaUploadRoutes from "./routes/mediaUploadRoutes";
+import consensusRoutes from "./routes/consensusRoutes"; // Multi-AI Consensus Engine - MB.MD Maximum Parallel Build - Oct 21, 2025
+import visualEditorSaveRoutes from "./routes/visualEditorSaveRoutes"; // Visual Editor Save System - MB.MD Option A - Oct 21, 2025
+import apiKeyTestRoutes from "./routes/apiKeyTestRoutes"; // API Key Testing - MB.MD Option A - Oct 21, 2025
 import { RealTimeNotificationService } from "./services/realTimeNotifications";
 import { lifeCeoPerformance } from "./services/lifeCeoPerformanceService";
 import { setupVite, log as viteLog } from "./vite";
@@ -1350,16 +1353,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // 🚀 MB.MD Parallel Build: Multi-AI Platform Extensions (Oct 21, 2025)
   // MB.MD Oct 21: Now using static imports (see top of file)
-  // const { default: chatProjectsRoutes } = await import('./routes/chatProjectsRoutes');
-  // const { default: mediaUploadRoutes } = await import('./routes/mediaUploadRoutes');
-  const { default: consensusRoutes } = await import('./routes/consensusRoutes');
   app.use('/api/chat', chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
   app.use('/api/media', mediaUploadRoutes); // Media upload with AI analysis
   app.use('/api/consensus', consensusRoutes); // Multi-AI consensus engine
   
   // 🔄 MB.MD Option A: Recursive Testing & Proactive Monitoring Routes (Oct 21, 2025)
-  const { default: visualEditorSaveRoutes } = await import('./routes/visualEditorSaveRoutes');
-  const { default: apiKeyTestRoutes } = await import('./routes/apiKeyTestRoutes');
+  // MB.MD Oct 21: Now using static imports (see top of file)
   app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor Learning Loop
   app.use('/api/visual-editor', visualEditorSaveRoutes); // Visual Editor Save System
   app.use('/api/test', apiKeyTestRoutes); // API Key Testing
