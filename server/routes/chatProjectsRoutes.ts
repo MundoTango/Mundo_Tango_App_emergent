@@ -58,6 +58,7 @@ router.post('/projects', async (req: any, res: Response) => {
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
     console.log(`[Chat Projects POST] User lookup result:`, user ? `User found: id=${user.id}` : 'User NOT found');
+    console.log(`[Chat Projects POST] FULL USER OBJECT:`, JSON.stringify(user, null, 2));
     
     if (!user) {
       console.error(`[Chat Projects POST] CRITICAL: User not found for replitId ${req.user.claims.sub}`);
@@ -66,7 +67,8 @@ router.post('/projects', async (req: any, res: Response) => {
 
     const { name, description } = req.body;
     
-    console.log(`[Chat Projects POST] Creating project for userId: ${user.id}`);
+    console.log(`[Chat Projects POST] About to insert - userId:`, user.id, `type:`, typeof user.id);
+    console.log(`[Chat Projects POST] Request body:`, { name, description });
 
     const [project] = await db
       .insert(chatProjects)
