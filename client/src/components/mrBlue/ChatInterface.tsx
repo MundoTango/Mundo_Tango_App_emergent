@@ -49,12 +49,12 @@ export function ChatInterface() {
 
   // Load conversations (projects)
   const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
-    queryKey: '/api/chat/projects',
+    queryKey: ['/api/chat/projects'],
   });
 
   // Load messages for active conversation
   const { data: messages, isLoading: loadingMessages} = useQuery<Message[]>({
-    queryKey: `/api/chat/projects/${conversationId}/messages`,
+    queryKey: ['/api/chat/projects', conversationId, 'messages'],
     enabled: !!conversationId,
   });
 
@@ -71,7 +71,7 @@ export function ChatInterface() {
       return await res.json();
     },
     onSuccess: (data: any) => {
-      queryClient.invalidateQueries({ queryKey: '/api/chat/projects' });
+      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
       setConversationId(data.id);
       toast({ title: 'New conversation started' });
       
@@ -101,7 +101,7 @@ export function ChatInterface() {
       if (!response.ok) throw new Error('Stream failed');
 
       queryClient.invalidateQueries({ 
-        queryKey: `/api/chat/projects/${projId}/messages`
+        queryKey: ['/api/chat/projects', projId, 'messages']
       });
       setInput('');
     } catch (error) {
@@ -140,7 +140,7 @@ export function ChatInterface() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ 
-        queryKey: `/api/chat/projects/${conversationId}/messages`
+        queryKey: ['/api/chat/projects', conversationId, 'messages']
       });
       setInput('');
     },
