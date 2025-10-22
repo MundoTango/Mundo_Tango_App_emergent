@@ -1019,4 +1019,103 @@ Question 5 - Redo work?
 
 ---
 
+### Learning #20: THE MB.MD FIX PROTOCOL - Empty AI Responses (Oct 22, 2025)
+**Problem:** Single-agent sequential fixes miss cross-dependencies and incomplete verification  
+**Real Example:** Mr Blue chat had 3 interconnected bugs causing empty AI responses  
+**Solution:** MB.MD with mandatory verification gates at each phase
+
+**What Went Wrong (Before MB.MD):**
+- Agent fixed streaming bug → Never verified database actually saved content
+- Agent added "Use mb.md:" stripping → Never restarted backend to deploy it
+- Agent routed to consensus endpoint → Never checked if it supported streams
+- Result: Bugs "fixed" but feature still broken
+
+**MB.MD Process That Worked:**
+
+**Phase 1: MAPPING** (Diagnose ALL issues first)
+```markdown
+❌ BAD: Fix issue A → Test → Fix issue B → Test → Fix issue C
+✅ GOOD: Check database → Check backend → Check routing → THEN fix all 3
+
+Actions:
+1. Query database - What's actually saved? (Revealed empty responses)
+2. Read backend code - What's deployed? (Found stripping code exists but not deployed)
+3. Trace routing - Where does request go? (Found wrong endpoint for "all-models")
+
+Result: Found 3 root causes before writing any code
+```
+
+**Phase 2: BREAKDOWN** (Fix systematically)
+```markdown
+Fix #1: Frontend routing (sendMessageToConversation checks model selection)
+Fix #2: Backend restart (deploy existing stripping code)  
+Fix #3: Response handler (support both SSE streams + JSON)
+
+Critical: Applied ALL fixes before testing ANY
+```
+
+**Phase 3: MITIGATION** (Verify complete flow)
+```markdown
+1. Restart workflow (ensure backend picks up changes)
+2. Test user journey (send message → wait for response)
+3. Query database (verify content saved correctly)
+4. Check logs (confirm correct endpoint hit)
+
+Critical: Database verification, not just "request succeeded"
+```
+
+**Phase 4: DEPLOYMENT** (Independent validation)
+```markdown
+User tested "hello" message:
+- Database proof: Content saved WITHOUT "Use mb.md:" prefix
+- Model badge: "Multi-Model Consensus" displayed correctly
+- Response: Full AI content saved (not empty)
+
+Critical: User verification, not agent self-approval
+```
+
+**Why This Worked:**
+1. ✅ Diagnosed ALL bugs before coding (prevented partial fixes)
+2. ✅ Fixed in correct order (dependencies respected)
+3. ✅ Verified complete flow (not just compilation)
+4. ✅ Database evidence (not just logs)
+5. ✅ Independent validation (user tested, not agent)
+
+**Agent Action - When Fixing Bugs:**
+```bash
+# PHASE 1: MAPPING
+execute_sql_tool # Check what's IN database
+read backend_file # Check what's DEPLOYED
+grep for routing # Check where requests GO
+
+# PHASE 2: BREAKDOWN  
+# Fix all issues systematically
+# Document: Fix #1, Fix #2, Fix #3
+
+# PHASE 3: MITIGATION
+restart_workflow # Deploy changes
+execute_sql_tool # Verify database content
+grep logs # Confirm correct behavior
+
+# PHASE 4: DEPLOYMENT
+screenshot # Visual proof
+# User tests manually
+```
+
+**Checklist:**
+- [ ] Queried database to see actual data state
+- [ ] Read deployed backend code (not just local edits)
+- [ ] Traced complete request flow (frontend → backend → database → frontend)
+- [ ] Fixed all issues before testing (not one-by-one)
+- [ ] Verified database content (not just logs)
+- [ ] Got user verification (not self-approval)
+
+**Red Flags That Indicate Skipping MB.MD:**
+- "Request sent successfully" (but response empty)
+- "Code compiles" (but backend not restarted)
+- "Fix applied" (but not tested end-to-end)
+- "Agent marked complete" (but user never tested)
+
+---
+
 **The Bottom Line:** Features aren't done when code compiles. Features are done when **QA Agent can screenshot the user successfully using them** AND **learnings are documented for future agents.**
