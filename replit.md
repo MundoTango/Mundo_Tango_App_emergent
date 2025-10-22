@@ -36,6 +36,16 @@ Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 
 ### System Architecture
 
+**AI Model Monitoring & Auto-Update System (Oct 22, 2025):**
+Comprehensive automated system prevents deprecated model failures with daily checks and one-click fixes:
+-   **Automated Detection:** `modelAutoUpdater.ts` service scans codebase for deprecated AI models (Claude, Gemini, OpenAI)
+-   **Smart Replacement:** Tests candidate models via API to find latest available versions, replaces deprecated references across all TypeScript files
+-   **API Endpoints:** `/api/models/check` (status check), `/api/models/auto-update` (trigger update - requires authentication)
+-   **Logging:** All updates tracked in `server/logs/model-updates.log` with timestamps and file details
+-   **On-Demand Trigger:** Super admins can manually run checks/updates via API or planned UI dashboard
+-   **Background Monitoring:** Cron job system ready for scheduled daily checks (4x per day recommended)
+-   **Zero-Downtime:** Service updates files without requiring server restart, HMR handles frontend updates
+
 **UI/UX Decisions:**
 The frontend uses React, TypeScript, and Vite, featuring a component-based architecture with a custom "MT Ocean" theme. It employs Tailwind CSS with teal/cyan gradients and a glassmorphic design pattern with backdrop-blur effects. The design is mobile-first, responsive, and includes full dark mode support. A Figma-like visual editor allows for click-to-select elements, an inspector panel for attributes, and a styles panel for layout/colors, with changes saved to generate code.
 
