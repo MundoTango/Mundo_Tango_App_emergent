@@ -119,25 +119,25 @@ export function setupRealtimeWebSocket(server: any) {
       openaiWs.on('open', () => {
         console.log('[Realtime] Connected to OpenAI Realtime API');
         
-        // Send session configuration
+        // Send session configuration with multi-language support
         openaiWs.send(JSON.stringify({
           type: 'session.update',
           session: {
             modalities: ['text', 'audio'],
-            instructions: 'You are Mr Blue, a friendly AI assistant for the Mundo Tango community.',
+            instructions: 'You are Mr Blue, a friendly AI assistant for the Mundo Tango community. You can speak multiple languages (English, Spanish, French, Portuguese) based on user preference.',
             voice: 'nova',
             input_audio_format: 'pcm16',
             output_audio_format: 'pcm16',
             input_audio_transcription: {
-              model: 'whisper-1'
+              model: 'whisper-1' // STREAM 4: Whisper supports 50+ languages natively
             },
-            turn_detection: {
+            turn_detection: { // STREAM 3: VAD already configured ✅
               type: 'server_vad',
               threshold: 0.5,
               prefix_padding_ms: 300,
               silence_duration_ms: 500
             },
-            tools: getRealtimeTools(), // 🎯 All 11 Omniscient Mode tools
+            tools: getRealtimeTools(), // 🎯 STREAM 1: All 11 Omniscient Mode tools
             tool_choice: 'auto',
             temperature: 0.8,
           }

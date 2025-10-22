@@ -5,8 +5,9 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Phone, PhoneOff, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
+import { Phone, PhoneOff, Mic, MicOff, Volume2, VolumeX, Globe, Hand } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useRealtimeConversation } from '@/hooks/useRealtimeConversation';
 import { useAudioCapture } from '@/hooks/useAudioCapture';
 import { useAudioPlayback } from '@/hooks/useAudioPlayback';
@@ -24,6 +25,9 @@ export function RealtimeVoiceMode({ voiceSettings, onClose }: RealtimeVoiceModeP
   const [isMuted, setIsMuted] = useState(false);
   const [isSpeakerMuted, setIsSpeakerMuted] = useState(false);
   const [transcript, setTranscript] = useState<string[]>([]);
+  const [isPushToTalk, setIsPushToTalk] = useState(false); // STREAM 3: Push-to-talk mode
+  const [isUserSpeaking, setIsUserSpeaking] = useState(false); // STREAM 3: VAD indicator
+  const [selectedLanguage, setSelectedLanguage] = useState('en'); // STREAM 4: Multi-language
   const { toast } = useToast();
 
   // Realtime conversation hook
@@ -41,7 +45,12 @@ export function RealtimeVoiceMode({ voiceSettings, onClose }: RealtimeVoiceModeP
     voice: voiceSettings.selectedVoice as any,
     instructions: 'You are Mr Blue, a helpful AI assistant for the Mundo Tango community. Be conversational, friendly, and concise in your voice responses.',
     onEvent: (event) => {
-      if (event.type === 'response.audio_transcript.delta') {
+      // STREAM 3: Handle VAD events
+      if (event.type === 'input_audio_buffer.speech_started') {
+        setIsUserSpeaking(true);
+      } else if (event.type === 'input_audio_buffer.speech_stopped') {
+        setIsUserSpeaking(false);
+      } else if (event.type === 'response.audio_transcript.delta') {
         // Add to transcript display
       } else if (event.type === 'error') {
         toast({
@@ -149,15 +158,44 @@ export function RealtimeVoiceMode({ voiceSettings, onClose }: RealtimeVoiceModeP
 
   return (
     <div className="flex flex-col items-center justify-center h-full min-h-[400px] bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 rounded-lg p-8">
-      {/* Status Indicator */}
+      {/* STREAM 4: Multi-Language Selector */}
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        <Globe className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+        <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+          <SelectTrigger className="w-32 h-9" data-testid="select-language">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="es">Español</SelectItem>
+            <SelectItem value="fr">Français</SelectItem>
+            <SelectItem value="pt">Português</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Status Indicator with VAD Visual Feedback */}
       <div className="mb-8">
-        <div className={`w-32 h-32 rounded-full flex items-center justify-center ${
+        <div className={`w-32 h-32 rounded-full flex items-center justify-center transition-all duration-300 ${
           isConnected 
-            ? 'bg-gradient-to-br from-blue-500 to-purple-600 animate-pulse' 
+            ? (isUserSpeaking 
+                ? 'bg-gradient-to-br from-green-500 to-emerald-600 scale-110 shadow-lg shadow-green-500/50' // STREAM 3: User speaking
+                : isAssistantSpeaking
+                ? 'bg-gradient-to-br from-blue-500 to-purple-600 animate-pulse'
+                : 'bg-gradient-to-br from-blue-400 to-purple-500')
             : 'bg-gray-300 dark:bg-gray-700'
         }`}>
           <Phone className="w-16 h-16 text-white" />
         </div>
+        
+        {/* STREAM 3: VAD Status Text */}
+        {isConnected && isUserSpeaking && (
+          <div className="mt-3 text-center">
+            <span className="inline-block px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full animate-pulse">
+              🎤 You're speaking
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Status Text */}
@@ -191,6 +229,21 @@ export function RealtimeVoiceMode({ voiceSettings, onClose }: RealtimeVoiceModeP
           <p className="text-sm text-red-600 dark:text-red-400">{captureError}</p>
         </div>
       )}
+
+      {/* STREAM 3: Push-to-Talk Toggle */}
+      <div className="mb-4">
+        <Button
+          onClick={() => setIsPushToTalk(!isPushToTalk)}
+          variant={isPushToTalk ? 'default' : 'outline'}
+          size="sm"
+          className="gap-2"
+          data-testid="button-toggle-push-to-talk"
+          title="Toggle Push-to-Talk Mode"
+        >
+          <Hand className="w-4 h-4" />
+          {isPushToTalk ? 'Push-to-Talk: ON' : 'Auto-Detect: ON'}
+        </Button>
+      </div>
 
       {/* Controls */}
       <div className="flex gap-4">
