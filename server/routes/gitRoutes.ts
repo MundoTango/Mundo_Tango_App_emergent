@@ -1,14 +1,27 @@
 /**
- * GIT ROUTES - Real Git Integration API
+ * GIT ROUTES - Real Git Integration API + Agent #126
  * MB.MD Build: Git status, commit, push functionality
+ * Agent #126: Validation, AI commit messages, GitHub integration
  * Completeness Law: No mock data, real git operations
  */
 
 import { Router } from 'express';
 import { execSync } from 'child_process';
 import { isAuthenticated } from '../replitAuth';
+import Anthropic from '@anthropic-ai/sdk';
+import simpleGit from 'simple-git';
 
 const router = Router();
+
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
+
+const git = simpleGit({
+  baseDir: process.cwd(),
+  binary: 'git',
+  maxConcurrentProcesses: 6
+});
 
 // GET /api/git/status - Get current git status
 router.get('/status', isAuthenticated, async (req, res) => {
@@ -151,6 +164,80 @@ router.get('/diff', isAuthenticated, async (req, res) => {
     res.status(500).json({
       success: false,
       error: error instanceof Error ? error.message : 'Failed to get diff'
+    });
+  }
+});
+
+// POST /api/git/generate-message - AI-powered commit message (Agent #126)
+router.post('/generate-message', isAuthenticated, async (req, res) => {
+  try {
+    const diff = execSync('git diff --cached', { encoding: 'utf-8' });
+    
+    if (!diff) {
+      return res.json({ message: 'chore: update files', fallback: true });
+    }
+    
+    // Use Claude to generate conventional commit message
+    const response = await anthropic.messages.create({
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: 100,
+      messages: [{
+        role: 'user',
+        content: `Generate a conventional commit message for these changes. Format: <type>(<scope>): <subject>
+
+Types: feat, fix, docs, style, refactor, test, chore
+Max 72 chars, no period at end.
+
+Diff:
+${diff.slice(0, 2000)}`
+      }]
+    });
+    
+    const content = response.content[0];
+    if (content.type !== 'text') {
+      throw new Error('Unexpected response type');
+    }
+    
+    const message = content.text.trim();
+    
+    res.json({ message, generated: true });
+  } catch (error: any) {
+    console.error('[Git] Message generation error:', error);
+    res.json({ 
+      message: 'chore: update files',
+      fallback: true,
+      error: error.message
+    });
+  }
+});
+
+// POST /api/git/push - Push to GitHub (Agent #126)
+router.post('/push', isAuthenticated, async (req, res) => {
+  try {
+    const { branch } = req.body;
+    const pushBranch = branch || 'main';
+    
+    // Push to origin
+    execSync(`git push origin ${pushBranch}`, { encoding: 'utf-8' });
+    
+    res.json({
+      success: true,
+      branch: pushBranch,
+      message: 'Pushed to GitHub successfully'
+    });
+  } catch (error: any) {
+    console.error('[Git] Push error:', error);
+    
+    let userMessage = error.message;
+    if (error.message.includes('Authentication failed')) {
+      userMessage = 'GitHub authentication failed. Add GITHUB_TOKEN to Secrets.';
+    } else if (error.message.includes('rejected')) {
+      userMessage = 'Push rejected. Pull latest changes first.';
+    }
+    
+    res.status(500).json({
+      success: false,
+      error: userMessage
     });
   }
 });

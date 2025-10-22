@@ -61,7 +61,19 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
 
       ws.onmessage = (event) => {
         try {
+          // Handle binary audio data (not JSON)
+          if (event.data instanceof Blob) {
+            event.data.arrayBuffer().then((buffer) => {
+              setAudioQueue(prev => [...prev, buffer]);
+            });
+            return;
+          }
+          
+          // Parse JSON messages
           const message = JSON.parse(event.data) as RealtimeEvent;
+          
+          // Log for debugging
+          console.log('[Realtime] Message:', message.type, message);
           
           // Handle events
           switch (message.type) {
@@ -108,6 +120,8 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
           }
         } catch (error) {
           console.error('[Realtime] Error parsing message:', error);
+          console.error('[Realtime] Raw data:', event.data);
+          console.error('[Realtime] Error details:', error);
         }
       };
 

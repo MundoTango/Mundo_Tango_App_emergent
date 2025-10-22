@@ -10,7 +10,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { X, Headphones, ChevronDown, ChevronRight, Settings } from 'lucide-react';
+import { X, Headphones, ChevronDown, ChevronRight, Settings, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,6 +19,13 @@ import { useAudioCapture } from '@/hooks/useAudioCapture';
 import { useAudioPlayback } from '@/hooks/useAudioPlayback';
 import { VoiceSelector } from './VoiceSelector';
 import { useToast } from '@/hooks/use-toast';
+
+interface SelectedElement {
+  tagName: string;
+  id?: string;
+  className?: string;
+  attributes?: Record<string, string>;
+}
 
 interface UnifiedVoiceModalProps {
   isOpen: boolean;
@@ -33,6 +40,7 @@ interface UnifiedVoiceModalProps {
     usePremium: boolean;
     speed: number;
   }>) => void;
+  selectedElement?: SelectedElement | null;
 }
 
 interface SummaryBullet {
@@ -46,7 +54,8 @@ export function UnifiedVoiceModal({
   isOpen,
   onClose,
   voiceSettings,
-  onVoiceSettingsChange
+  onVoiceSettingsChange,
+  selectedElement
 }: UnifiedVoiceModalProps) {
   const [transcript, setTranscript] = useState<string>('');
   const [summaryBullets, setSummaryBullets] = useState<SummaryBullet[]>([]);
