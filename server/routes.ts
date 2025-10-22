@@ -72,6 +72,7 @@ import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API -
 import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import deployRoutes from "./routes/deployRoutes"; // Deployment API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
+import adminHealthRoutes from "./routes/adminHealthRoutes"; // Admin Health Metrics API - MB.MD Maximum Parallel Build - Oct 21, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1381,7 +1382,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
   app.use('/api/deploy', deployRoutes); // Staging & production deployment
   app.use('/api/subscriptions', subscriptionRoutes); // Stripe subscription management
-  console.log('✅ Visual Editor Infrastructure APIs registered (6 new APIs, 24 endpoints)');
+  app.use('/api/admin', adminHealthRoutes); // Admin health & system metrics
+  console.log('✅ Visual Editor Infrastructure APIs registered (7 new APIs, 28 endpoints)');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');

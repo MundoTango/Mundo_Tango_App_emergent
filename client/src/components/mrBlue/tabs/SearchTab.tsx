@@ -28,17 +28,23 @@ export default function SearchTab() {
   const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
 
-  // Search API call
+  // REAL API: Search with actual database queries
   const { data: searchResults, isLoading, error } = useQuery<SearchResult[]>({
-    queryKey: ['/api/search/unified', searchTerm],
+    queryKey: ['/api/search/all', searchTerm],
     enabled: searchTerm.length >= 3,
   });
 
-  const recentSearches = [
-    'Milongas in Buenos Aires',
-    'Tango events this weekend',
-    'Advanced follower techniques',
-  ];
+  // REAL DATA: Get recent searches from localStorage
+  const getRecentSearches = (): string[] => {
+    try {
+      const stored = localStorage.getItem('recent_searches');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const recentSearches = getRecentSearches().slice(0, 5);
 
   const suggestedSearches = [
     { query: 'Upcoming events near me', icon: TrendingUp },
@@ -55,6 +61,16 @@ export default function SearchTab() {
       });
       return;
     }
+    
+    // Save to recent searches
+    try {
+      const recent = getRecentSearches();
+      const updated = [query, ...recent.filter(q => q !== query)].slice(0, 10);
+      localStorage.setItem('recent_searches', JSON.stringify(updated));
+    } catch (error) {
+      console.error('Failed to save recent search:', error);
+    }
+    
     setSearchTerm(query);
   };
 

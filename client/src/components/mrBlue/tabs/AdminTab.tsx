@@ -48,13 +48,24 @@ export default function AdminTab() {
     queryKey: ['/api/multiagent/orchestrate/agents'],
   });
 
+  // REAL API: Fetch system health metrics
+  const { data: systemHealth } = useQuery({
+    queryKey: ['/api/admin/health'],
+    refetchInterval: 30000, // Refresh every 30 seconds
+  });
+
+  const { data: apiStatus } = useQuery({
+    queryKey: ['/api/admin/api-status'],
+    refetchInterval: 30000,
+  });
+
   const systemHealthData = {
-    uptime: '99.9%',
-    responseTime: '130ms',
-    activeUsers: 1247,
+    uptime: systemHealth?.uptime || '...',
+    responseTime: systemHealth?.responseTime || '...',
+    activeUsers: systemHealth?.activeUsers || 0,
   };
 
-  const apiEndpoints = [
+  const apiEndpoints = apiStatus?.endpoints || [
     { name: '/api/mrblue/conversations', status: 'operational', latency: '120ms' },
     { name: '/api/multiagent/*', status: health?.success ? 'operational' : 'degraded', latency: '95ms' },
     { name: '/api/events/*', status: 'operational', latency: '145ms' },

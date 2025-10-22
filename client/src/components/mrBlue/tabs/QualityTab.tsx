@@ -1,9 +1,15 @@
-import { CheckCircle2, GraduationCap, TrendingUp, AlertTriangle } from 'lucide-react';
+import { CheckCircle2, GraduationCap, TrendingUp, AlertTriangle, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { useQuery } from '@tanstack/react-query';
 
 export default function QualityTab() {
+  // REAL API: Fetch quality metrics and learnings
+  const { data: learningsData, isLoading } = useQuery({
+    queryKey: ['/api/learning/sessions'],
+  });
+
   const qualityMetrics = [
     { name: 'Code Quality', score: 92, status: 'excellent', color: 'green' },
     { name: 'Test Coverage', score: 78, status: 'good', color: 'cyan' },
@@ -11,11 +17,7 @@ export default function QualityTab() {
     { name: 'Accessibility', score: 65, status: 'needs-work', color: 'yellow' },
   ];
 
-  const learnings = [
-    { id: 1, title: 'MB.MD Methodology Success', category: 'Process', impact: 'High', date: 'Oct 20, 2025' },
-    { id: 2, title: 'React Query Optimization Patterns', category: 'Technical', impact: 'Medium', date: 'Oct 19, 2025' },
-    { id: 3, title: 'User Journey Validation Framework', category: 'UX', impact: 'High', date: 'Oct 18, 2025' },
-  ];
+  const learnings = learningsData?.sessions || [];
 
   return (
     <div className="flex flex-col h-full bg-gradient-to-br from-white to-green-50/30 dark:from-gray-900 dark:to-green-900/10 p-6 overflow-auto">
@@ -98,22 +100,32 @@ export default function QualityTab() {
           <CardDescription>Knowledge and best practices from Agent #80</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            {learnings.map((learning) => (
-              <div key={learning.id} className="flex items-start gap-3 p-3 rounded bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer" data-testid={`learning-${learning.id}`}>
-                <div className="flex-1">
-                  <div className="font-medium text-gray-900 dark:text-white text-sm">{learning.title}</div>
-                  <div className="flex items-center gap-3 mt-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Badge variant="outline" className="text-xs">{learning.category}</Badge>
-                    <Badge variant={learning.impact === 'High' ? 'default' : 'secondary'} className="text-xs">
-                      {learning.impact} Impact
-                    </Badge>
-                    <span>{learning.date}</span>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+            </div>
+          ) : learnings.length === 0 ? (
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400 text-sm">
+              No learnings captured yet. Agent #80 will save learnings automatically.
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {learnings.slice(0, 10).map((learning: any) => (
+                <div key={learning.id} className="flex items-start gap-3 p-3 rounded bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer" data-testid={`learning-${learning.id}`}>
+                  <div className="flex-1">
+                    <div className="font-medium text-gray-900 dark:text-white text-sm">{learning.sessionName || learning.title}</div>
+                    <div className="flex items-center gap-3 mt-2 text-xs text-gray-600 dark:text-gray-400">
+                      <Badge variant="outline" className="text-xs">{learning.category || 'General'}</Badge>
+                      <Badge variant={learning.impact === 'High' ? 'default' : 'secondary'} className="text-xs">
+                        {learning.outcome || 'Learning'}
+                      </Badge>
+                      <span>{new Date(learning.timestamp).toLocaleDateString()}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
