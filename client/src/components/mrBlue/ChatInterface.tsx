@@ -135,13 +135,16 @@ export function ChatInterface() {
   // Helper function to send message using streaming API
   const sendMessageToConversation = async (projId: number, content: string) => {
     try {
+      // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" to ensure methodology adherence
+      const enhancedMessage = `Use mb.md: ${content}`;
+      
       const response = await fetch('/api/chat/stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
           projectId: projId,
-          message: content,
+          message: enhancedMessage,
           model: selectedModel,
           personality,
           context: {
@@ -170,6 +173,9 @@ export function ChatInterface() {
     mutationFn: async (content: string) => {
       if (!conversationId) throw new Error('No active conversation');
       
+      // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" to ensure methodology adherence
+      const enhancedMessage = `Use mb.md: ${content}`;
+      
       // 🤝 STREAM 2: Use multi-model consensus for 'all-models' selection
       const endpoint = selectedModel === 'all-models' 
         ? '/api/multimodel/consensus' 
@@ -181,9 +187,9 @@ export function ChatInterface() {
         credentials: 'include',
         body: JSON.stringify({
           projectId: conversationId,
-          message: content,
-          query: content, // For multi-model endpoint
-          question: content, // For consensus endpoint
+          message: enhancedMessage,
+          query: enhancedMessage, // For multi-model endpoint
+          question: enhancedMessage, // For consensus endpoint
           model: selectedModel,
           personality,
           systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,

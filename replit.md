@@ -16,12 +16,13 @@ Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 
 **📚 Documentation Structure (October 22, 2025 Update):**
 - **Constitution:** `docs/MB_MD_QA_PROTOCOL.md` - The 5 Non-Negotiable Rules (what & why)
-- **Playbook:** `docs/AGENT_LEARNINGS.md` - 18 learnings organized by MB.MD phase (how & when)
+- **Playbook:** `docs/AGENT_LEARNINGS.md` - 19 learnings organized by MB.MD phase (how & when)
 - **Enforcement:** `docs/QA_AGENT_PROTOCOL.md` - QA Agent veto power, approval/rejection templates
 - **Quick Reference:** `docs/PHASE_VERIFICATION_CHECKLISTS.md` - Copy-paste checklists per phase
 - **Evolution:** `docs/LEARNING_CAPTURE_TEMPLATE.md` - Submit new learnings as discovered
 - **Phase 1 (MAPPING):** `docs/DOCUMENTATION_VERIFICATION.md` - Read docs BEFORE building
 - **Phase 3 (MITIGATION):** `docs/INTEGRATION_PROTOCOL.md` - Wire Mr Blue/Visual Editor features
+- **Build Reports:** `docs/BUILD_SUMMARY_OCT_22_2025.md` - SIMULTANEOUS execution mode demonstration
 
 **How Agents Use This:**
 1. **All Agents:** Read MB_MD_QA_PROTOCOL.md (the law)
@@ -47,16 +48,18 @@ The frontend uses React, TypeScript, and Vite, featuring a component-based archi
 -   **Core Social Features:** Memory/Post system (rich text, hashtags, location, privacy, AI enhancement), Events management (creation, RSVP, calendar, real-time updates), Profile system (tango-specific fields, privacy), Groups/Communities (city-based auto-creation).
 -   **Unified AI Access ("Mr Blue"):** Single access point for AI features.
     -   **Omniscient Mode:** AI companion with function calling via 11 tools (Database, Codebase, Documentation) for super admins. Built on Claude 3.5 Sonnet.
+    -   **MB.MD Methodology Integration:** All chat messages automatically prefixed with "Use mb.md:" (hidden from user) to ensure AI responses follow MB.MD methodology. Implemented Oct 22, 2025.
     -   **Voice Mode:** ChatGPT/Claude-like voice conversations with auto-speak functionality. Uses browser Web Speech API (STT) and configurable TTS (browser native or premium OpenAI TTS).
     -   **Parallel Integration:** Simultaneous integration of Voice Settings UI, Visual Editor Context Bridge (connecting selected elements to AI context), and Inspector Mode Toggle for Visual Editor.
     -   **GPT-4o Realtime API:** Full two-way voice conversation system with native GPT-4o Realtime API integration (PCM16 24kHz mono audio streaming).
     -   **Unified Voice Modal:** Consolidated voice interface featuring a single headphone button, live transcript, AI summary, voice settings, and recording controls. Model selector dropdown for chat sessions.
     -   **Voice + Visual Context Coordinator (Agent #128):** Integrates voice commands with Visual Editor element selection for "point and ask" workflow, embedding visual context in AI prompts.
+    -   **Browser Automation (Oct 22, 2025):** Playwright-based automation service with Anthropic Computer Use API integration. Enables AI-powered testing via screenshot → analyze → execute action loop. Service: `server/browserAutomation.ts`.
 -   **Git Operations Specialist (Agent #126):** Replit-like Git workflow with AI-powered commit messages (Claude 3.5 Sonnet), pre-commit validation, and GitHub integration via API routes and a dedicated UI panel.
 -   **Deployment Safety Engineer (Agent #127):** Zero-downtime deployments with pre-flight validation, automatic rollback, health monitoring, and a snapshot system for backups.
 
 **System Design Choices:**
-Mundo Tango employs a comprehensive agent documentation system covering various agent types, following the MB.MD methodology. It includes 5 Customer Journey Agents (J1-J5) guiding user experiences. Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders, and automated tests for file protection.
+Mundo Tango employs a comprehensive agent documentation system covering various agent types, following the MB.MD methodology with three execution modes: (1) FOCUSED for serial complex tasks, (2) PARALLEL for independent features, (3) SIMULTANEOUS for comprehensive all-at-once builds (Learning #19, Oct 22, 2025). It includes 5 Customer Journey Agents (J1-J5) guiding user experiences. Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders, and automated tests for file protection. Visual Editor includes 10 tabs: Inspector, AI, Preview, Console (fixed Oct 22), Deploy, Git, Pages, Shell, Files, Secrets (fixed Oct 22).
 
 ### External Dependencies
 -   **PostgreSQL + Drizzle ORM**: Primary database.
@@ -64,7 +67,8 @@ Mundo Tango employs a comprehensive agent documentation system covering various 
 -   **Replit Object Storage**: Native file storage.
 -   **Socket.io**: Real-time communication.
 -   **OpenAI (GPT-4o, TTS)**: AI content enhancement, real-time voice, text-to-speech.
--   **Anthropic (Claude 3.5 Sonnet)**: AI integration (Omniscient Mode, AI commit messages, chat summarization).
+-   **Anthropic (Claude 3.5 Sonnet)**: AI integration (Omniscient Mode, AI commit messages, chat summarization, Computer Use API for browser automation).
+-   **Playwright**: Headless browser automation for AI-powered testing.
 -   **Google (Generative AI)**: AI integration.
 -   **Hugging Face**: AI integration.
 -   **Luma Labs API**: AI-powered 3D avatar generation.
