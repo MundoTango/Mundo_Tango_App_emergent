@@ -64,6 +64,15 @@ export function UnifiedVoiceModal({
   
   const transcriptRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  
+  // 🐛 PHASE 2 DEBUG: Log selectedElement prop
+  useEffect(() => {
+    if (selectedElement) {
+      console.log('🎧 [UnifiedVoiceModal] Received selectedElement prop:', selectedElement);
+    } else {
+      console.log('⚪ [UnifiedVoiceModal] No selectedElement prop (null)');
+    }
+  }, [selectedElement]);
 
   // Realtime conversation hook
   const {

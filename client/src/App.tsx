@@ -8,6 +8,7 @@ import { Sparkles } from "lucide-react";
 import { SocketProvider } from "@/contexts/socket-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TenantProvider } from "@/contexts/TenantContext";
+import { VisualEditorProvider } from "@/contexts/VisualEditorContext";
 // import { CsrfProvider } from "@/contexts/CsrfContext"; // Disabled for Phase 1 - will add CSRF endpoint later
 import { OpenReplayProvider } from "@/components/OpenReplayProvider";
 import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
@@ -788,19 +789,21 @@ function App() {
         <AuthProvider>
           <TenantProvider>
             <LocationBiasProvider>
-              {/* <PageAgentProvider> DISABLED - Vite HMR deletes this file */}
-                <SocketProvider>
-                  <TooltipProvider>
-                    <OpenReplayProvider>
-                      <MonitoringProvider>
-                        <MicroInteractionProvider>
-                          <AppContent />
+              <VisualEditorProvider>
+                {/* <PageAgentProvider> DISABLED - Vite HMR deletes this file */}
+                  <SocketProvider>
+                    <TooltipProvider>
+                      <OpenReplayProvider>
+                        <MonitoringProvider>
+                          <MicroInteractionProvider>
+                            <AppContent />
                         </MicroInteractionProvider>
                       </MonitoringProvider>
                     </OpenReplayProvider>
                   </TooltipProvider>
                 </SocketProvider>
-              {/* </PageAgentProvider> */}
+              {/* </PageAgentProvider> DISABLED - Vite HMR deletes this file */}
+              </VisualEditorProvider>
             </LocationBiasProvider>
           </TenantProvider>
         </AuthProvider>

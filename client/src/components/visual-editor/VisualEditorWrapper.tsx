@@ -23,6 +23,7 @@ import { InlineTextEditor } from './InlineTextEditor';
 import { UniversalSaveSystem } from './UniversalSaveSystem';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
+import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 
 interface SelectedElement {
   tag: string;
@@ -54,6 +55,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   
   // 🔍 INSPECTOR MODE: Page vs Sidebar (Oct 22, 2025)
   const [inspectorMode, setInspectorMode] = useState<'page' | 'sidebar'>('page');
+  
+  // 🎨 VISUAL EDITOR CONTEXT: Share selected element with Mr Blue (Phase 2 Fix - Oct 22)
+  const visualEditorContext = useVisualEditorOptional();
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
@@ -114,13 +118,41 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       return segments.length ? `/${segments.join('/')}` : '';
     };
 
-    setSelectedElement({
+    const elementData = {
       tag: target.tagName.toLowerCase(),
       id: target.id || undefined,
       className: target.className || undefined,
       innerHTML: target.innerHTML?.substring(0, 100) || undefined,
       xpath: getXPath(target)
-    });
+    };
+    
+    setSelectedElement(elementData);
+    
+    // 🎨 PHASE 2 FIX: Update Visual Editor Context for Mr Blue integration
+    if (visualEditorContext) {
+      const rect = target.getBoundingClientRect();
+      console.log('🎨 [VisualEditorWrapper] Setting selected element in context:', {
+        tagName: target.tagName.toLowerCase(),
+        id: target.id,
+        className: target.className
+      });
+      visualEditorContext.setSelectedElement({
+        tagName: target.tagName.toLowerCase(),
+        id: target.id || undefined,
+        className: target.className || undefined,
+        xpath: getXPath(target),
+        computedStyles: {},
+        boundingBox: {
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height
+        },
+        attributes: {}
+      });
+    } else {
+      console.warn('⚠️ [VisualEditorWrapper] VisualEditorContext not available - element selection will not reach Mr Blue');
+    }
     
     // MB.MD: Store actual HTML element for inline editing
     setSelectedHTMLElement(target);

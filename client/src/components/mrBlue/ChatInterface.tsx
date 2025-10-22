@@ -69,6 +69,15 @@ export function ChatInterface() {
   const visualEditorContext = useVisualEditorOptional();
   const selectedElement = visualEditorContext?.selectedElement || null;
   
+  // 🐛 PHASE 2 DEBUG: Log when selectedElement changes
+  useEffect(() => {
+    if (selectedElement) {
+      console.log('🎨 [ChatInterface] Selected element received from context:', selectedElement);
+    } else {
+      console.log('⚪ [ChatInterface] No element selected (selectedElement is null)');
+    }
+  }, [selectedElement]);
+  
   // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
   const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();
   
