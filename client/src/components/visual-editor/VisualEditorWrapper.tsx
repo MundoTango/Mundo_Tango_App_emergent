@@ -18,6 +18,8 @@ import PagesTab from './PagesTab';
 import ShellTab from './ShellTab';
 import FilesTab from './FilesTab';
 import AITab from './AITab';
+import ConsoleTab from './ConsoleTab';
+import SecretsTab from './SecretsTab';
 import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
 import { InlineTextEditor } from './InlineTextEditor';
 import { UniversalSaveSystem } from './UniversalSaveSystem';
@@ -426,6 +428,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               {activeTab === 'pages' && <PagesTab />}
               {activeTab === 'shell' && <ShellTab />}
               {activeTab === 'files' && <FilesTab />}
+              {activeTab === 'console' && <ConsoleTab />}
+              {activeTab === 'secrets' && <SecretsTab />}
               {activeTab === 'ai' && (
                 <>
                   {/* MB.MD: Universal Save System */}
