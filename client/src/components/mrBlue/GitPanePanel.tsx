@@ -104,6 +104,29 @@ export function GitPanePanel() {
     }
   });
 
+  // Checkpoint mutation (Phase 3 - Stream 1)
+  const checkpointMutation = useMutation({
+    mutationFn: async () => {
+      return await apiRequest('/api/git/checkpoint', {
+        method: 'POST',
+        body: JSON.stringify({ message: 'Auto-checkpoint: Agent work complete' })
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: 'Checkpoint created',
+        description: 'Workspace saved + Git commit created'
+      });
+      refetch();
+    },
+    onError: () => {
+      toast({
+        title: 'Checkpoint failed',
+        variant: 'destructive'
+      });
+    }
+  });
+
   const handleCommit = () => {
     if (!commitMessage.trim()) {
       toast({
@@ -238,6 +261,21 @@ export function GitPanePanel() {
               Push
             </Button>
           </div>
+
+          <Button
+            onClick={() => checkpointMutation.mutate()}
+            disabled={checkpointMutation.isPending}
+            variant="secondary"
+            className="w-full"
+            data-testid="button-checkpoint"
+          >
+            {checkpointMutation.isPending ? (
+              <Loader2 className="w-4 h-4 animate-spin mr-2" />
+            ) : (
+              <span className="mr-2">📸</span>
+            )}
+            Create Checkpoint
+          </Button>
         </div>
       )}
     </div>

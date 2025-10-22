@@ -211,11 +211,27 @@ ${diff.slice(0, 2000)}`
   }
 });
 
-// POST /api/git/push - Push to GitHub (Agent #126)
+// POST /api/git/push - Push to GitHub (Agent #126) with conflict detection
 router.post('/push', isAuthenticated, async (req, res) => {
   try {
     const { branch } = req.body;
     const pushBranch = branch || 'main';
+    
+    // PHASE 3 - STREAM 1: Conflict detection before push
+    try {
+      const remoteChanges = execSync(`git fetch origin ${pushBranch} && git log HEAD..origin/${pushBranch} --oneline`, { encoding: 'utf-8' });
+      if (remoteChanges.trim()) {
+        return res.status(409).json({
+          success: false,
+          error: 'Push rejected. Remote has changes. Pull latest changes first.',
+          conflictDetected: true,
+          remoteCommits: remoteChanges.trim().split('\n').length
+        });
+      }
+    } catch (fetchError) {
+      // Remote might not exist or other fetch error, proceed with push
+      console.warn('[Git] Fetch warning:', fetchError);
+    }
     
     // Push to origin
     execSync(`git push origin ${pushBranch}`, { encoding: 'utf-8' });
@@ -238,6 +254,37 @@ router.post('/push', isAuthenticated, async (req, res) => {
     res.status(500).json({
       success: false,
       error: userMessage
+    });
+  }
+});
+
+// POST /api/git/checkpoint - Create checkpoint (Agent #126 + Phase 3)
+router.post('/checkpoint', isAuthenticated, async (req, res) => {
+  try {
+    const { message } = req.body;
+    const checkpointMessage = message || `Checkpoint: ${new Date().toISOString()}`;
+    
+    // Add all changes
+    execSync('git add -A', { encoding: 'utf-8' });
+    
+    // Create commit
+    const commitMsg = checkpointMessage.replace(/"/g, '\\"');
+    execSync(`git commit -m "${commitMsg}"`, { encoding: 'utf-8' });
+    
+    // Get commit hash
+    const commitHash = execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim();
+    
+    res.json({
+      success: true,
+      checkpointId: `checkpoint-${Date.now()}`,
+      commit: commitHash,
+      message: 'Checkpoint created successfully'
+    });
+  } catch (error) {
+    console.error('[Git] Checkpoint error:', error);
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to create checkpoint'
     });
   }
 });

@@ -74,6 +74,7 @@ import filesRoutes from "./routes/filesRoutes"; // Filesystem Browser API - MB.M
 import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import deployRoutes from "./routes/deployRoutes"; // Deployment API - Agent #127 - MB.MD Parallel Build - Oct 22, 2025
+import qualityRoutes from "./routes/qualityRoutes"; // Quality Validation API - Agent #79 Integration - Phase 3 Stream 4 - Oct 22, 2025
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import adminHealthRoutes from "./routes/adminHealthRoutes"; // Admin Health Metrics API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import infrastructureRoutes from "./routes/infrastructureRoutes"; // All 13 Tracks Infrastructure - MB.MD Maximum Parallel Build - Oct 21-22, 2025
