@@ -23,6 +23,10 @@ export function ReplitDeployIntegration() {
   // Fetch deployment status from Replit API
   const { data: status, isLoading, refetch } = useQuery<DeploymentStatus>({
     queryKey: ['/api/deploy/status', refreshKey],
+    queryFn: async () => {
+      // Placeholder - Replit Deploy API integration pending
+      return { status: 'unknown' as const };
+    },
     refetchInterval: 10000, // Auto-refresh every 10s
   });
 

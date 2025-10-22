@@ -29,6 +29,15 @@ export function ReplitGitIntegration() {
   // Fetch Git status via shell commands
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatusResponse>({
     queryKey: ['/api/git/status', refreshKey],
+    queryFn: async () => {
+      // Placeholder - Git status API integration pending
+      return {
+        branch: 'main',
+        modifiedFiles: [],
+        ahead: 0,
+        behind: 0
+      };
+    },
     refetchInterval: 5000, // Auto-refresh every 5s
   });
 
