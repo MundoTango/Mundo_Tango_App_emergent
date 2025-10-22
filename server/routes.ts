@@ -74,6 +74,7 @@ import deployRoutes from "./routes/deployRoutes"; // Deployment API - MB.MD Maxi
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import adminHealthRoutes from "./routes/adminHealthRoutes"; // Admin Health Metrics API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import infrastructureRoutes from "./routes/infrastructureRoutes"; // All 13 Tracks Infrastructure - MB.MD Maximum Parallel Build - Oct 21-22, 2025
+import voiceConversationRoutes from "./routes/voiceConversationRoutes"; // Voice Conversation History API - MB.MD 4 Streams - Oct 22, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1349,6 +1350,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
   app.use('/api/mrblue', isAuthenticated, mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
+  app.use('/api/voice', isAuthenticated, voiceConversationRoutes); // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
   app.use('/api/luma', isAuthenticated, lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
   app.use('/api/journeys', isAuthenticated, journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
   

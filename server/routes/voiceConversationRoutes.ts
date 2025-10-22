@@ -3,9 +3,9 @@
  * RESTful endpoints for voice conversation management
  */
 
-import { Router } from 'express';
+import { Router, Request } from 'express';
 import { db } from '../db';
-import { voiceConversationTurns } from '@db/schema';
+import { voiceConversationTurns } from '../../shared/schema';
 import { eq, desc } from 'drizzle-orm';
 
 const router = Router();
@@ -14,10 +14,10 @@ const router = Router();
  * GET /api/voice/conversations/:projectId
  * Fetch all voice conversation turns for a project
  */
-router.get('/conversations/:projectId', async (req, res) => {
+router.get('/conversations/:projectId', async (req: Request, res) => {
   try {
     const projectId = parseInt(req.params.projectId);
-    const userId = req.user?.id;
+    const userId = (req as any).user?.id;
 
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -40,10 +40,10 @@ router.get('/conversations/:projectId', async (req, res) => {
  * GET /api/voice/conversations/:projectId/stats
  * Get statistics for voice conversations in a project
  */
-router.get('/conversations/:projectId/stats', async (req, res) => {
+router.get('/conversations/:projectId/stats', async (req: Request, res) => {
   try {
     const projectId = parseInt(req.params.projectId);
-    const userId = req.user?.id;
+    const userId = (req as any).user?.id;
 
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -62,7 +62,7 @@ router.get('/conversations/:projectId/stats', async (req, res) => {
     
     const toolUsage: Record<string, number> = {};
     turns.forEach(turn => {
-      turn.toolsUsed?.forEach(tool => {
+      turn.toolsUsed?.forEach((tool: string) => {
         toolUsage[tool] = (toolUsage[tool] || 0) + 1;
       });
     });
@@ -94,10 +94,10 @@ router.get('/conversations/:projectId/stats', async (req, res) => {
  * DELETE /api/voice/conversations/:projectId
  * Delete all voice conversations for a project
  */
-router.delete('/conversations/:projectId', async (req, res) => {
+router.delete('/conversations/:projectId', async (req: Request, res) => {
   try {
     const projectId = parseInt(req.params.projectId);
-    const userId = req.user?.id;
+    const userId = (req as any).user?.id;
 
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
