@@ -9,6 +9,7 @@ import { db } from '../db';
 import { chatProjects, aiChatMessages, modelUsage, type InsertChatProject, type InsertAIChatMessage } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
 import { multiModelOrchestrator } from '../services/multiModelOrchestrator';
+import { streamResponseWithTools } from '../services/multiModelOrchestratorWithTools';
 import { storage } from '../storage';
 
 const router = Router();
@@ -152,23 +153,32 @@ router.post('/stream', async (req: any, res: Response) => {
       ...history.map(m => ({ role: m.role, content: m.content })),
     ];
 
-    // Select best model
-    const selectedModel = model || multiModelOrchestrator.selectModel({
-      taskType: 'general',
-    });
+    // Select best model (default to Claude for tool calling)
+    const selectedModel = model || 'claude-3-sonnet';
 
-    // Stream response
+    // Stream response with tool support
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
     let fullResponse = '';
     let tokenCount = 0;
+    const toolsUsed: any[] = [];
 
-    for await (const chunk of multiModelOrchestrator.streamResponse(messages, selectedModel)) {
-      fullResponse += chunk;
-      tokenCount += chunk.split(' ').length;
-      res.write(`data: ${JSON.stringify({ chunk, model: selectedModel })}\n\n`);
+    // Use tool-enabled orchestrator
+    for await (const chunk of streamResponseWithTools(messages, user, (tool, params, result) => {
+      // Track tool usage for logging
+      toolsUsed.push({ tool, params, result });
+    })) {
+      if (chunk.type === 'text') {
+        fullResponse += chunk.content;
+        tokenCount += chunk.content.split(' ').length;
+        res.write(`data: ${JSON.stringify({ type: 'text', chunk: chunk.content, model: selectedModel })}\n\n`);
+      } else if (chunk.type === 'tool_use') {
+        res.write(`data: ${JSON.stringify({ type: 'tool_use', tool: chunk.tool, message: chunk.content })}\n\n`);
+      } else if (chunk.type === 'tool_result') {
+        res.write(`data: ${JSON.stringify({ type: 'tool_result', tool: chunk.tool, message: chunk.content })}\n\n`);
+      }
     }
 
     // Save assistant response
@@ -225,6 +235,12 @@ function buildContextAwarePrompt(personality?: string, context?: any, user?: any
     if (context.user) {
       prompt += `\n- You are assisting ${context.user.displayName} (@${context.user.username})`;
       prompt += `\n- User role: ${context.user.role}`;
+      
+      // Super admin capabilities
+      if (context.user.role === 'super_admin' || user?.email === 'admin@mundotango.life') {
+        prompt += `\n- **SUPER ADMIN MODE**: You have access to powerful tools including database queries, codebase search, and documentation access.`;
+        prompt += `\n- You can answer questions like "How many users do we have?", "Search the codebase for ChatInterface", "What's in the MB.MD protocol?"`;
+      }
     }
 
     // Visual Editor specific context
