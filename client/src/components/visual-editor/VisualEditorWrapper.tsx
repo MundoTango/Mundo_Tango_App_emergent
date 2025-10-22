@@ -67,8 +67,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const handleElementClick = useCallback((e: MouseEvent) => {
     if (!isSelectMode) return;
     
-    // MB.MD: Require Cmd/Ctrl+Click for Figma-like UX
-    if (!e.metaKey && !e.ctrlKey) return;
+    // MB.MD: INVERTED (Oct 22, 2025) - Default click = SELECT, Cmd+Click = NAVIGATE
+    // If Cmd/Ctrl is pressed, allow normal navigation (don't intercept)
+    if (e.metaKey || e.ctrlKey) return;
     
     const target = e.target as HTMLElement;
     const isSidebarElement = !!target.closest('[data-testid="visual-editor-sidebar"]');

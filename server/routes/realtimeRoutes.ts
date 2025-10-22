@@ -85,7 +85,7 @@ export function setupRealtimeWebSocket(server: any) {
             try {
               // Execute the function using ToolExecutor
               const toolExecutor = new ToolExecutor();
-              const result = await toolExecutor.execute(functionName, functionArgs, { isSuperAdmin: true });
+              const result = await toolExecutor.executeTool(functionName, functionArgs, { isSuperAdmin: true });
               
               // Send result back to OpenAI
               openaiWs.send(JSON.stringify({
