@@ -70,13 +70,15 @@ export function ChatInterface() {
   // NOTE: Only available when ChatInterface is inside VisualEditorWrapper
   const visualEditorContext = useVisualEditorOptional();
   const selectedElement = visualEditorContext?.selectedElement || null;
+  const previewPath = visualEditorContext?.previewPath || null; // 🎯 What page is in preview
   
   // 🐛 PHASE 2 DEBUG: Log when selectedElement changes
   useEffect(() => {
     console.log('🎨 [ChatInterface] Element selection update:', {
       hasElement: !!selectedElement,
       element: selectedElement,
-      hasContext: !!visualEditorContext
+      hasContext: !!visualEditorContext,
+      previewPath: previewPath
     });
     
     if (selectedElement) {
@@ -84,7 +86,7 @@ export function ChatInterface() {
     } else {
       console.log('⚪ [ChatInterface] No element selected (selectedElement is null)');
     }
-  }, [selectedElement, visualEditorContext]);
+  }, [selectedElement, visualEditorContext, previewPath]);
   
   // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
   const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();
@@ -205,7 +207,11 @@ export function ChatInterface() {
             ...appContext,
             visualEditorState: selectedElement ? {
               isActive: true,
-              selectedElement: selectedElement
+              selectedElement: selectedElement,
+              previewPath: previewPath || '/' // 🎯 What page is being shown in preview
+            } : previewPath ? {
+              isActive: true,
+              previewPath: previewPath // 📍 Even without element selection, tell Mr Blue which page
             } : undefined
           }
         }),
@@ -310,7 +316,11 @@ export function ChatInterface() {
             ...appContext,
             visualEditorState: selectedElement ? {
               isActive: true,
-              selectedElement: selectedElement
+              selectedElement: selectedElement,
+              previewPath: previewPath || '/' // 🎯 What page is being shown in preview
+            } : previewPath ? {
+              isActive: true,
+              previewPath: previewPath // 📍 Even without element selection, tell Mr Blue which page
             } : undefined
           }
         }),

@@ -5,9 +5,10 @@
  * Shows current page without edit mode in scrollable iframe
  */
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { RefreshCw, Monitor, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 
 interface PreviewTabProps {
   currentPath: string;
@@ -17,6 +18,16 @@ export default function PreviewTab({ currentPath }: PreviewTabProps) {
   const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [refreshKey, setRefreshKey] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const visualEditorContext = useVisualEditorOptional();
+  
+  // 🎯 SYNC PREVIEW PATH TO CONTEXT (Oct 22, 2025)
+  // This tells Mr Blue what page is being shown in the preview
+  useEffect(() => {
+    if (visualEditorContext) {
+      visualEditorContext.setPreviewPath(currentPath);
+      console.log('📍 [PreviewTab] Updated preview path in context:', currentPath);
+    }
+  }, [currentPath, visualEditorContext]);
 
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);

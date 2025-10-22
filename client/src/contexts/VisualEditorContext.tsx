@@ -1,6 +1,7 @@
 /**
  * Visual Editor Context - Bridges Visual Editor and Mr Blue
  * MB.MD Track 5 - Context Integration
+ * Oct 22, 2025: Added previewPath to track what page is shown in preview
  */
 
 import { createContext, useContext, useState, ReactNode } from 'react';
@@ -11,6 +12,9 @@ interface VisualEditorContextType {
   setSelectedElement: (element: ElementSelection | null) => void;
   pendingChangesCount: number;
   setPendingChangesCount: (count: number) => void;
+  // 🎯 PREVIEW CONTEXT: What page is being shown in the preview iframe
+  previewPath: string;
+  setPreviewPath: (path: string) => void;
 }
 
 const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
@@ -18,14 +22,21 @@ const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
 export function VisualEditorProvider({ children }: { children: ReactNode }) {
   const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
   const [pendingChangesCount, setPendingChangesCount] = useState(0);
+  const [previewPath, setPreviewPath] = useState<string>('/'); // Default to homepage
   
   // 🐛 DEBUG: Log when context updates
   const handleSetSelectedElement = (element: ElementSelection | null) => {
     console.log('🎨 [VisualEditorContext] setSelectedElement called:', {
       hasElement: !!element,
-      element: element
+      element: element,
+      previewPath: previewPath
     });
     setSelectedElement(element);
+  };
+  
+  const handleSetPreviewPath = (path: string) => {
+    console.log('📍 [VisualEditorContext] Preview path changed:', path);
+    setPreviewPath(path);
   };
 
   return (
@@ -34,7 +45,9 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
         selectedElement,
         setSelectedElement: handleSetSelectedElement,
         pendingChangesCount,
-        setPendingChangesCount
+        setPendingChangesCount,
+        previewPath,
+        setPreviewPath: handleSetPreviewPath
       }}
     >
       {children}
