@@ -206,6 +206,15 @@ export function Dashboard() {
 - ZERO imports in `MrBlueComplete.tsx`
 - Components exist but unreachable = 100% waste
 
+**New Learnings:** 
+- Provider Hierarchy Gotcha (AGENT_LEARNINGS.md #5)
+- Browser API Permissions Reality (AGENT_LEARNINGS.md #7)
+- Endpoint Testing (AGENT_LEARNINGS.md #8)
+- Wrapper Component Pattern (AGENT_LEARNINGS.md #14)
+- Import Chain Verification (AGENT_LEARNINGS.md #16)
+- File Organization (AGENT_LEARNINGS.md #17)
+- Modal Within Modal Trap (AGENT_LEARNINGS.md #18)
+
 ---
 
 ### Rule 3: SCREENSHOT EVERYTHING
@@ -216,6 +225,11 @@ export function Dashboard() {
 - Capture both light and dark mode
 - Test at mobile width (375px)
 - Save screenshots to docs/screenshots/
+
+**New Learnings:**
+- Debug Log Trap (AGENT_LEARNINGS.md #2)
+- Modal Opens ≠ Modal Works (AGENT_LEARNINGS.md #6)
+- Screenshot Debt (AGENT_LEARNINGS.md #12)
 
 **Example:**
 ```bash
@@ -244,6 +258,12 @@ screenshot("/page")  # ✅ Visual proof
 - Test with different user roles
 - Verify all tabs/modals/routes work
 - Test error states
+
+**New Learnings:**
+- 0 Errors Illusion (AGENT_LEARNINGS.md #3)
+- Conversation Feature Reality Check (AGENT_LEARNINGS.md #4)
+- Component Import Illusion (AGENT_LEARNINGS.md #10)
+- User Path vs Code Path Gap (AGENT_LEARNINGS.md #11)
 
 **Example:**
 ```markdown
@@ -295,6 +315,136 @@ architect({
 - No independent validation
 - CEO Agent #0 approved without testing
 - Result: 97.2% waste undetected
+
+---
+
+## 📋 PHASE-BASED EXECUTION
+
+The 5 Non-Negotiable Rules are organized into 4 MB.MD phases. Each phase has specific owners and checklists.
+
+### Phase Structure
+
+| Phase | Rules Applied | Primary Owner | Validator | Documentation |
+|-------|---------------|---------------|-----------|---------------|
+| **Phase 1: MAPPING** | Rule 1 (VERIFY) | Documentation Agent | Architect | `DOCUMENTATION_VERIFICATION.md` |
+| **Phase 2: BREAKDOWN** | Rule 2 (INTEGRATE planning) | Architect | Documentation Agent | `PHASE_VERIFICATION_CHECKLISTS.md` |
+| **Phase 3: MITIGATION** | Rule 2 (INTEGRATE execution) | Implementation Agent | Architect | `INTEGRATION_PROTOCOL.md` |
+| **Phase 4: DEPLOYMENT** | Rules 3, 4, 5 (SCREENSHOT, TEST, VALIDATE) | **QA Agent** | Customer Journey Agent | `QA_AGENT_PROTOCOL.md` |
+
+### Detailed Phase Guides
+
+**For complete phase-specific checklists and learnings:**
+- `docs/AGENT_LEARNINGS.md` - All 18 learnings organized by phase
+- `docs/PHASE_VERIFICATION_CHECKLISTS.md` - Copy-paste checklists
+- `docs/QA_AGENT_PROTOCOL.md` - Phase 4 enforcement with veto power
+
+### Phase 1: MAPPING (Before Writing Code)
+**Owner:** Documentation Agent  
+**Deliverable:** Evidence summary showing docs read and requirements understood
+
+**Key Activities:**
+- Read all relevant documentation
+- Map user journey (not code path)
+- Identify integration points
+- Verify what already exists
+
+**Learnings Applied:**
+- #1: Integration Fallacy
+- #11: User Path vs Code Path Gap
+
+**Checklist:** `PHASE_VERIFICATION_CHECKLISTS.md` → Phase 1
+
+---
+
+### Phase 2: BREAKDOWN (During Task Planning)
+**Owner:** Architect  
+**Deliverable:** Task list with integration tests and screenshot requirements
+
+**Key Activities:**
+- Break work into specific tasks
+- Plan parallel work with serial verification
+- Document entry points for multi-path features
+- Define screenshot requirements
+
+**Learnings Applied:**
+- #9: Parallel Completion Fallacy
+- #13: Tab Registration ≠ Tab Content Gap
+- #15: Dual Entry Points Confusion
+
+**Checklist:** `PHASE_VERIFICATION_CHECKLISTS.md` → Phase 2
+
+---
+
+### Phase 3: MITIGATION (While Building)
+**Owner:** Implementation Agent  
+**Deliverable:** Fully integrated component with Architect approval
+
+**Key Activities:**
+- Build component AND integrate immediately
+- Add context providers to App.tsx
+- Handle browser API permissions
+- Test API endpoints end-to-end
+
+**Learnings Applied:**
+- #5: Provider Hierarchy Gotcha
+- #7: Browser API Permissions Reality
+- #8: Endpoint Exists ≠ Endpoint Works
+- #14: Wrapper Component Pattern
+- #16: Import Chain Verification Miss
+- #17: File Organization Drift
+- #18: Modal Within Modal Trap
+
+**Checklist:** `PHASE_VERIFICATION_CHECKLISTS.md` → Phase 3
+
+---
+
+### Phase 4: DEPLOYMENT (Before Marking Complete)
+**Owner:** QA Agent (VETO POWER)  
+**Deliverable:** Screenshot evidence + approval OR rejection with fixes required
+
+**Key Activities:**
+- Screenshot every user action
+- Test full user journey
+- Verify browser console clean
+- Check Network tab for API success
+
+**Learnings Applied:**
+- #2: Debug Log Trap
+- #3: 0 Errors Illusion
+- #4: Conversation Feature Reality Check
+- #6: Modal Opens ≠ Modal Works Trap
+- #10: Component Import Illusion
+- #12: Screenshot Debt Problem
+
+**Checklist:** `PHASE_VERIFICATION_CHECKLISTS.md` → Phase 4  
+**Authority:** `QA_AGENT_PROTOCOL.md` - QA Agent can reject any work
+
+---
+
+### How Phases Work Together
+
+```
+User Request
+     ↓
+PHASE 1: MAPPING (Documentation Agent)
+  → Read docs, map user journey, identify integration points
+  → Architect validates evidence summary
+     ↓
+PHASE 2: BREAKDOWN (Architect)
+  → Create task list with integration tests
+  → Define screenshot requirements
+     ↓
+PHASE 3: MITIGATION (Implementation Agent)
+  → Build + Integrate IMMEDIATELY
+  → Architect reviews integration
+     ↓
+PHASE 4: DEPLOYMENT (QA Agent - FINAL GATE)
+  → Screenshot evidence REQUIRED
+  → Approve OR Reject
+     ↓
+   APPROVED → Task Complete ✅
+   REJECTED → Return to Phase 3 ❌
+```
 
 ---
 
@@ -1125,9 +1275,25 @@ bash scripts/agent-verification.sh
 
 ## 🔗 SEE ALSO
 
-- `docs/incidents/MRBLUE_BLACK_SCREEN_INCIDENT_OCT2025.md` - Full failure analysis
+### Core Documentation
+- `docs/AGENT_LEARNINGS.md` - 18 learnings organized by MB.MD phase (Playbook)
+- `docs/QA_AGENT_PROTOCOL.md` - QA Agent veto power and validation (Enforcement)
+- `docs/PHASE_VERIFICATION_CHECKLISTS.md` - Quick reference for each phase (Checklists)
+- `docs/LEARNING_CAPTURE_TEMPLATE.md` - Submit new learnings (Evolution)
+
+### Specialized Guides
+- `docs/INTEGRATION_PROTOCOL.md` - Mr Blue & Visual Editor integration specifics
+- `docs/DOCUMENTATION_VERIFICATION.md` - Phase 1 pre-work checklist
 - `docs/MB_MD_DOCUMENTATION_PHASE_MAP.md` - Which docs to read when
 - `docs/PREVENTION_GUIDE.md` - How to avoid common mistakes
+
+### Audit Reports
+- `docs/audits/MR_BLUE_VISUAL_EDITOR_HONEST_AUDIT_OCT_22.md` - Latest audit findings
+
+### Historical Context
+- `docs/incidents/MRBLUE_BLACK_SCREEN_INCIDENT_OCT2025.md` - Full failure analysis
 - `docs/AGENT_SESSION_LOG.md` - Session-to-session knowledge transfer
+
+### Automation
 - `scripts/agent-verification.sh` - Pre-work verification automation
 - `scripts/verify-completion.sh` - Post-work validation automation
