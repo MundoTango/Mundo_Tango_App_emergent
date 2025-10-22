@@ -245,7 +245,7 @@ router.post('/stream', async (req: any, res: Response) => {
  * Build context-aware system prompt (MB.MD: Context Awareness Feature)
  * Gives Mr Blue "superpowers" to understand where user is and what they're doing
  */
-function buildContextAwarePrompt(personality?: string, context?: any, user?: any): string {
+export function buildContextAwarePrompt(personality?: string, context?: any, user?: any): string {
   // Base personality
   const basePrompts: Record<string, string> = {
     professional: 'You are a professional AI assistant. Be formal, precise, and focus on delivering accurate information.',

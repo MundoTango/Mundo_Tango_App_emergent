@@ -13,7 +13,7 @@ import { streamWithTools } from '../services/tools/universalToolOrchestrator';
 import { db } from '../db';
 import { aiChatMessages } from '@shared/schema';
 import { storage } from '../storage';
-import { triggerAutoNaming } from './chatProjectsRoutes';
+import { triggerAutoNaming, buildContextAwarePrompt } from './chatProjectsRoutes';
 import { isSuperAdmin } from '../utils/auth';
 
 const router = Router();
@@ -62,6 +62,26 @@ router.post('/consensus', async (req: any, res) => {
     const hasSuperPowers = isSuperAdmin(user, context);
     console.log(`[MultiModel] User: ${user?.username}, SuperAdmin: ${hasSuperPowers}`);
     
+    // 🎨 DEBUG: Log Visual Editor context (Oct 22, 2025)
+    if (context?.visualEditorState || context?.selectedElement) {
+      console.log('🎨 [MultiModel] Visual Editor context received:', {
+        isActive: context?.visualEditorState?.isActive,
+        selectedElement: context?.visualEditorState?.selectedElement || context?.selectedElement
+      });
+    }
+    
+    // 🔧 BUILD CONTEXT-AWARE SYSTEM PROMPT (Oct 22, 2025)
+    // Use the same context builder as /api/chat/stream for consistency
+    const contextAwareSystemPrompt = buildContextAwarePrompt(
+      systemPrompt?.includes('professional') ? 'professional' :
+      systemPrompt?.includes('mentor') ? 'mentor' :
+      systemPrompt?.includes('debug') ? 'debug' : 'friendly',
+      context,
+      user
+    );
+    
+    console.log(`[MultiModel] System prompt length: ${contextAwareSystemPrompt.length} chars`);
+    
     let result;
     
     if (hasSuperPowers && projectId && userId) {
@@ -71,7 +91,7 @@ router.post('/consensus', async (req: any, res) => {
       // Execute all 3 models with tools in parallel
       const models = ['claude-3-sonnet', 'gpt-4o', 'gemini-pro'];
       const messages = [
-        { role: 'system', content: systemPrompt || 'You are Mr Blue, a helpful AI assistant with access to database, codebase, and documentation tools.' },
+        { role: 'system', content: contextAwareSystemPrompt },
         { role: 'user', content: query }
       ];
       
@@ -144,7 +164,7 @@ router.post('/consensus', async (req: any, res) => {
     } else {
       // 👥 REGULAR USER MODE: No tool access
       console.log('[MultiModel] Regular mode: No tool access');
-      result = await modelCoordinator.executeAll(query, systemPrompt);
+      result = await modelCoordinator.executeAll(query, contextAwareSystemPrompt);
     }
 
     // MB.MD FIX: Save AI response to database AFTER processing
