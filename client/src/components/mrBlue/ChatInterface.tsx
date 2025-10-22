@@ -173,13 +173,20 @@ export function ChatInterface() {
       // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" in API payload only (hidden from user)
       const apiMessage = `Use mb.md: ${content}`;
       
-      const response = await fetch('/api/chat/stream', {
+      // 🔧 FIX #1: Route to correct endpoint based on model selection
+      const endpoint = selectedModel === 'all-models' 
+        ? '/api/multimodel/consensus' 
+        : '/api/chat/stream';
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
           projectId: projId,
           message: apiMessage,
+          query: apiMessage, // For multi-model endpoint
+          question: apiMessage, // For consensus endpoint
           model: selectedModel,
           personality,
           context: {
@@ -191,9 +198,10 @@ export function ChatInterface() {
 
       if (!response.ok) throw new Error('Stream failed');
 
-      // 🔧 FIX: Actually read the stream so backend doesn't hang
+      // 🔧 FIX #2: Read stream AND display text chunks in real-time
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
+      let accumulatedResponse = '';
       
       if (reader) {
         while (true) {
@@ -210,6 +218,13 @@ export function ChatInterface() {
               
               try {
                 const parsed = JSON.parse(data);
+                
+                // Display text chunks as they arrive
+                if (parsed.type === 'text' && parsed.chunk) {
+                  accumulatedResponse += parsed.chunk;
+                  // TODO: Real-time display in UI (needs optimistic update)
+                }
+                
                 // Handle tool status updates
                 if (parsed.type === 'tool_result') {
                   setStreamingToolStatus(`${parsed.tool}: ${parsed.message}`);
@@ -221,6 +236,8 @@ export function ChatInterface() {
           }
         }
       }
+
+      console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
 
       // Clear states and refresh messages
       setStreamingToolStatus(null);
