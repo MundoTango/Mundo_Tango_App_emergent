@@ -143,6 +143,52 @@ From visual-editor-testing.md line 39:
 
 ---
 
+### Rule 1.5: DECLARE EXECUTION MODE (NEW - Oct 22, 2025)
+**What:** Choose and document how work will be executed BEFORE building  
+**Why:** Wrong execution mode causes delays (serial) or broken integration (premature parallel)  
+**How:** Every task list MUST declare one of three modes:
+
+**Mode 1: FOCUSED** (Serial Execution)
+- Complex logic with step dependencies
+- One task completes before next starts
+- Example: Refactoring authentication system
+
+**Mode 2: PARALLEL** (Independent Streams)
+- Multiple features with no dependencies
+- Separate agents work simultaneously
+- Integration step AFTER all streams complete
+- Example: Building 3 new Visual Editor tabs
+
+**Mode 3: SIMULTANEOUS** (Everything at Once)
+- Comprehensive builds requiring many agents
+- All agents receive tasks immediately
+- Real-time communication and coordination
+- Example: Full feature implementations
+
+**📋 MANDATORY EXECUTION MODE DECLARATION:**
+```markdown
+## Execution Mode: [FOCUSED / PARALLEL / SIMULTANEOUS]
+
+**Why this mode:**
+- [Explain dependencies or independence]
+
+**Parallelization Strategy:** (for PARALLEL/SIMULTANEOUS only)
+- Stream A: [Feature A] - No dependencies
+- Stream B: [Feature B] - No dependencies  
+- Integration Point: [Where/when streams merge]
+
+**Time Estimate:**
+- Serial approach: [X hours]
+- Parallel approach: [Y hours]
+- Time saved: [X - Y hours]
+```
+
+**Architect Review:** Must reject task lists missing execution mode declaration
+
+**See:** `AGENT_LEARNINGS.md` Learning #19 for full execution mode guide
+
+---
+
 ### Rule 2: INTEGRATE IMMEDIATELY
 **What:** Import and wire up components AS YOU BUILD THEM  
 **Why:** "Component exists" ≠ "User can access it"  
