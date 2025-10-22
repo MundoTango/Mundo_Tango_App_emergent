@@ -126,7 +126,7 @@ router.post('/stream', async (req: any, res: Response) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const { projectId, message, model, personality } = req.body;
+    const { projectId, message, model, personality, context } = req.body;
 
     // Save user message
     await db.insert(aiChatMessages).values({
@@ -145,8 +145,8 @@ router.post('/stream', async (req: any, res: Response) => {
       .orderBy(aiChatMessages.createdAt)
       .limit(20);
 
-    // Build messages array with personality
-    const systemPrompt = getPersonalityPrompt(personality);
+    // Build context-aware system prompt (MB.MD: Give Mr Blue "superpowers")
+    const systemPrompt = buildContextAwarePrompt(personality, context, user);
     const messages = [
       { role: 'system', content: systemPrompt },
       ...history.map(m => ({ role: m.role, content: m.content })),
@@ -198,7 +198,51 @@ router.post('/stream', async (req: any, res: Response) => {
 });
 
 /**
- * Get personality-specific system prompt
+ * Build context-aware system prompt (MB.MD: Context Awareness Feature)
+ * Gives Mr Blue "superpowers" to understand where user is and what they're doing
+ */
+function buildContextAwarePrompt(personality?: string, context?: any, user?: any): string {
+  // Base personality
+  const basePrompts: Record<string, string> = {
+    professional: 'You are a professional AI assistant. Be formal, precise, and focus on delivering accurate information.',
+    friendly: 'You are Mr Blue, a friendly AI companion for the Mundo Tango platform. Be warm, conversational, and supportive.',
+    mentor: 'You are a wise mentor. Provide thoughtful guidance, ask clarifying questions, and help users learn.',
+    debug: 'You are a technical debugging assistant. Show your reasoning, provide detailed explanations, and include code examples.',
+  };
+
+  let prompt = basePrompts[personality || 'friendly'] || basePrompts.friendly;
+
+  // Add context awareness if available
+  if (context) {
+    prompt += '\n\n**CONTEXT AWARENESS:**';
+    
+    // Current page
+    if (context.pageName) {
+      prompt += `\n- The user is currently on the "${context.pageName}" page (route: ${context.route})`;
+    }
+
+    // User identity and role
+    if (context.user) {
+      prompt += `\n- You are assisting ${context.user.displayName} (@${context.user.username})`;
+      prompt += `\n- User role: ${context.user.role}`;
+    }
+
+    // Visual Editor specific context
+    if (context.visualEditorState?.isActive) {
+      prompt += `\n- The Visual Editor is active`;
+      if (context.visualEditorState.selectedElement) {
+        prompt += ` with "${context.visualEditorState.selectedElement}" selected`;
+      }
+    }
+
+    prompt += `\n\nUse this context to provide relevant, helpful responses. You CAN see what page they're on and what they're doing.`;
+  }
+
+  return prompt;
+}
+
+/**
+ * Get personality-specific system prompt (Legacy - deprecated in favor of buildContextAwarePrompt)
  */
 function getPersonalityPrompt(personality?: string): string {
   const prompts: Record<string, string> = {

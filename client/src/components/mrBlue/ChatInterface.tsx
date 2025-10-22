@@ -16,6 +16,7 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import EnhancedMessageBubble from './EnhancedMessageBubble';
 import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
+import { useAppContext } from '@/hooks/useAppContext';
 
 // ============ TYPES ============
 interface Conversation {
@@ -47,6 +48,7 @@ export function ChatInterface() {
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const appContext = useAppContext(); // 🎯 MB.MD: Collect context for AI awareness
 
   // Load conversations (projects)
   const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
@@ -105,7 +107,8 @@ export function ChatInterface() {
           projectId: projId,
           message: content,
           model: selectedModel,
-          personality
+          personality,
+          context: appContext // 🎯 MB.MD: Pass context to backend
         }),
       });
 
@@ -142,7 +145,8 @@ export function ChatInterface() {
           message: content,
           question: content, // For consensus endpoint
           model: selectedModel,
-          personality
+          personality,
+          context: appContext // 🎯 MB.MD: Pass context to backend
         }),
       });
 
