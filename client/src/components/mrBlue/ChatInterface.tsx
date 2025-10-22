@@ -198,46 +198,55 @@ export function ChatInterface() {
 
       if (!response.ok) throw new Error('Stream failed');
 
-      // 🔧 FIX #2: Read stream AND display text chunks in real-time
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-      let accumulatedResponse = '';
+      // 🔧 FIX #2: Handle both streaming (SSE) and JSON responses
+      const contentType = response.headers.get('content-type');
       
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
-          
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              const data = line.slice(6);
-              if (data === '[DONE]') break;
-              
-              try {
-                const parsed = JSON.parse(data);
+      if (contentType?.includes('application/json')) {
+        // Multi-model consensus returns JSON
+        const result = await response.json();
+        console.log(`✅ [JSON Response] Received consensus result`);
+      } else {
+        // Standard streaming response (SSE)
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
+        let accumulatedResponse = '';
+        
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n');
+            
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                const data = line.slice(6);
+                if (data === '[DONE]') break;
                 
-                // Display text chunks as they arrive
-                if (parsed.type === 'text' && parsed.chunk) {
-                  accumulatedResponse += parsed.chunk;
-                  // TODO: Real-time display in UI (needs optimistic update)
+                try {
+                  const parsed = JSON.parse(data);
+                  
+                  // Display text chunks as they arrive
+                  if (parsed.type === 'text' && parsed.chunk) {
+                    accumulatedResponse += parsed.chunk;
+                    // TODO: Real-time display in UI (needs optimistic update)
+                  }
+                  
+                  // Handle tool status updates
+                  if (parsed.type === 'tool_result') {
+                    setStreamingToolStatus(`${parsed.tool}: ${parsed.message}`);
+                  }
+                } catch (e) {
+                  // Skip non-JSON lines
                 }
-                
-                // Handle tool status updates
-                if (parsed.type === 'tool_result') {
-                  setStreamingToolStatus(`${parsed.tool}: ${parsed.message}`);
-                }
-              } catch (e) {
-                // Skip non-JSON lines
               }
             }
           }
         }
+        
+        console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
-
-      console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
 
       // Clear states and refresh messages
       setStreamingToolStatus(null);
