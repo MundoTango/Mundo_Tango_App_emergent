@@ -51,7 +51,6 @@ export function startModelMonitoringCron() {
   cronJob.start();
   
   console.log('[Model Monitor Cron] ✅ Scheduled - Running every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)');
-  console.log('[Model Monitor Cron] Next run:', cronJob.nextDate().toString());
 }
 
 /**
@@ -69,16 +68,9 @@ export function stopModelMonitoringCron() {
  * Get cron job status
  */
 export function getModelMonitorCronStatus() {
-  if (!cronJob) {
-    return {
-      running: false,
-      nextRun: null
-    };
-  }
-
   return {
-    running: true,
-    nextRun: cronJob.nextDate().toString()
+    running: cronJob !== null,
+    schedule: '0 */6 * * * (every 6 hours at 00:00, 06:00, 12:00, 18:00 UTC)'
   };
 }
 
