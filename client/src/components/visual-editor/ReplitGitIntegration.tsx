@@ -29,6 +29,11 @@ export function ReplitGitIntegration() {
   // Fetch Git status via real backend API (Stream C - Oct 22, 2025)
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatusResponse>({
     queryKey: ['/api/git/status', refreshKey],
+    queryFn: async () => {
+      const res = await fetch('/api/git/status', { credentials: 'include' });
+      if (!res.ok) throw new Error(`Git status failed: ${res.statusText}`);
+      return res.json();
+    },
     refetchInterval: 5000, // Auto-refresh every 5s
   });
 
