@@ -191,6 +191,39 @@ export function ChatInterface() {
 
       if (!response.ok) throw new Error('Stream failed');
 
+      // 🔧 FIX: Actually read the stream so backend doesn't hang
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              if (data === '[DONE]') break;
+              
+              try {
+                const parsed = JSON.parse(data);
+                // Handle tool status updates
+                if (parsed.type === 'tool_result') {
+                  setStreamingToolStatus(`${parsed.tool}: ${parsed.message}`);
+                }
+              } catch (e) {
+                // Skip non-JSON lines
+              }
+            }
+          }
+        }
+      }
+
+      // Clear states and refresh messages
+      setStreamingToolStatus(null);
       queryClient.invalidateQueries({ 
         queryKey: [`/api/chat/projects/${projId}/messages`]
       });
