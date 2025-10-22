@@ -1119,3 +1119,39 @@ screenshot # Visual proof
 ---
 
 **The Bottom Line:** Features aren't done when code compiles. Features are done when **QA Agent can screenshot the user successfully using them** AND **learnings are documented for future agents.**
+
+---
+
+## **🔧 LEARNING #21: Standardize Auth Checks to Prevent Inconsistent Tool Access**
+**Phase:** BREAKDOWN  
+**Date:** October 22, 2025  
+**Issue:** Multi-model consensus endpoint lacked tool support for super admins. Root cause was inconsistent super admin checks across 3 different files - chatProjectsRoutes.ts used email+tangoRoles, buildContextAwarePrompt checked context.user.role, routes.ts checked email+user.id.
+
+**Solution:**
+1. Created centralized `server/utils/auth.ts` with `isSuperAdmin(user, context?)` helper
+2. Checks: `email === 'admin@mundotango.life' OR user.id === 1 OR tangoRoles includes 'super_admin' OR context.user.role === 'super_admin'`
+3. Refactored all routes to use this single source of truth
+4. Added tool support to multi-model consensus endpoint via `streamWithTools()` for super admins
+
+**Evidence:** User tested "what is mb.md in our documents?" with All Models selection → AI successfully accessed documentation tools and returned accurate methodology description
+
+**MB.MD Protocol:**
+```bash
+# PHASE 1: MAPPING
+grep "super.*admin" # Find all auth checks
+identify_inconsistencies # Different checks = fragile system
+
+# PHASE 2: BREAKDOWN  
+create_auth_utility # Single source of truth
+update_all_routes # Use standardized check
+
+# PHASE 3: MITIGATION
+test_with_user # "Ask about docs with All Models"
+verify_tools_executed # Check logs for tool usage
+
+# PHASE 4: DEPLOYMENT
+user_confirms_success # "Yes this worked!"
+document_learning # This entry
+```
+
+**Impact:** Now ALL AI endpoints (single model, multi-model consensus) have consistent super admin tool access. Dev user (user.id=1) and admin@mundotango.life both get omniscient powers.
