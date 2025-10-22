@@ -64,6 +64,10 @@ export function setupRealtimeWebSocket(server: any) {
         }
       });
 
+      // Track conversation metadata for history logging
+      let currentTranscript = '';
+      let currentToolsUsed: string[] = [];
+      
       // Forward OpenAI responses to client
       openaiWs.on('message', async (data: any) => {
         try {
@@ -76,6 +80,7 @@ export function setupRealtimeWebSocket(server: any) {
             const functionArgs = JSON.parse(message.arguments);
             
             console.log(`[Realtime] Executing tool: ${functionName}`, functionArgs);
+            currentToolsUsed.push(functionName);
             
             try {
               // Execute the function using ToolExecutor
@@ -104,6 +109,23 @@ export function setupRealtimeWebSocket(server: any) {
                 }
               }));
             }
+          }
+          
+          // 🎯 STREAM 2: Track transcripts for conversation history
+          if (message.type === 'conversation.item.input_audio_transcription.completed') {
+            currentTranscript = message.transcript;
+            console.log('[Realtime] User transcript:', currentTranscript);
+          }
+          
+          if (message.type === 'response.audio_transcript.done') {
+            console.log('[Realtime] Assistant transcript:', message.transcript);
+            // TODO: Save to voice_conversation_turns table
+            // - projectId, userId from session
+            // - role: 'user' / 'assistant'
+            // - transcript: message.transcript
+            // - toolsUsed: currentToolsUsed
+            // - model: 'gpt-4o-realtime'
+            currentToolsUsed = []; // Reset for next turn
           }
           
           // Forward to client

@@ -158,7 +158,7 @@ export function RealtimeVoiceMode({ voiceSettings, onClose }: RealtimeVoiceModeP
 
   return (
     <div className="flex flex-col items-center justify-center h-full min-h-[400px] bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 rounded-lg p-8">
-      {/* STREAM 4: Multi-Language Selector */}
+      {/* STREAM 4: Multi-Language Selector + Translation Toggle */}
       <div className="absolute top-4 right-4 flex items-center gap-2">
         <Globe className="w-4 h-4 text-gray-600 dark:text-gray-400" />
         <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
@@ -170,6 +170,8 @@ export function RealtimeVoiceMode({ voiceSettings, onClose }: RealtimeVoiceModeP
             <SelectItem value="es">Español</SelectItem>
             <SelectItem value="fr">Français</SelectItem>
             <SelectItem value="pt">Português</SelectItem>
+            <SelectItem value="it">Italiano</SelectItem>
+            <SelectItem value="de">Deutsch</SelectItem>
           </SelectContent>
         </Select>
       </div>
