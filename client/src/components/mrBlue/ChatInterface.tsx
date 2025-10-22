@@ -265,14 +265,15 @@ export function ChatInterface() {
   }, [conversations, conversationId]);
   
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
     if (!conversationId) {
       // Store message to send after conversation creation
       setPendingMessage(input);
       createConversation.mutate();
     } else {
-      sendMessage.mutate(input);
+      // Use proper streaming function instead of mutation
+      await sendMessageToConversation(conversationId, input);
     }
   };
 
