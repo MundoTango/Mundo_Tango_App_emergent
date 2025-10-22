@@ -18,6 +18,7 @@ import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
 import { VoiceSelector } from './VoiceSelector';
 import { RealtimeVoiceMode } from './RealtimeVoiceMode';
+import { CompactVoiceToggle } from './CompactVoiceToggle';
 import { ConversationHistoryPanel } from './ConversationHistoryPanel';
 import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
@@ -63,9 +64,9 @@ export function ChatInterface() {
     return false;
   });
   
-  // 🎙️ REALTIME VOICE MODE: Two-way conversation with GPT-4o Realtime API (Oct 22, 2025)
-  // DEFAULT: Always active (user request - Oct 22, 2025)
-  const [realtimeVoiceEnabled, setRealtimeVoiceEnabled] = useState(true);
+  // 🎙️ REALTIME VOICE MODE: Compact inline toggle (Oct 22, 2025)
+  // User clicks mic icon to start/stop - no modal takeover
+  const [realtimeTranscript, setRealtimeTranscript] = useState<string>('');
   
   // 📚 CONVERSATION HISTORY: Show past voice conversations (Oct 22, 2025)
   const [showConversationHistory, setShowConversationHistory] = useState(false);
@@ -166,8 +167,10 @@ export function ChatInterface() {
     mutationFn: async (content: string) => {
       if (!conversationId) throw new Error('No active conversation');
       
-      // Always use fast universal orchestrator (consensus engine is too slow)
-      const endpoint = '/api/chat/stream';
+      // 🤝 STREAM 2: Use multi-model consensus for 'all-models' selection
+      const endpoint = selectedModel === 'all-models' 
+        ? '/api/multimodel/consensus' 
+        : '/api/chat/stream';
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -176,9 +179,11 @@ export function ChatInterface() {
         body: JSON.stringify({
           projectId: conversationId,
           message: content,
+          query: content, // For multi-model endpoint
           question: content, // For consensus endpoint
           model: selectedModel,
           personality,
+          systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
           context: {
             ...appContext,
             selectedElement: selectedElement || undefined // 🎨 Include Visual Editor selection
@@ -360,18 +365,14 @@ export function ChatInterface() {
             {voiceModeEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
           </Button>
           
-          {/* 🎙️ Realtime Voice Mode Toggle (Two-way conversation) */}
-          <Button
-            variant={realtimeVoiceEnabled ? "default" : "ghost"}
-            size="icon"
-            onClick={() => setRealtimeVoiceEnabled(!realtimeVoiceEnabled)}
-            data-testid="button-realtime-voice"
-            aria-label={realtimeVoiceEnabled ? "End voice call" : "Start voice call"}
-            title={realtimeVoiceEnabled ? "LIVE: Two-way conversation active" : "Start two-way voice conversation (GPT-4o Realtime)"}
-            className={realtimeVoiceEnabled ? "bg-red-500 hover:bg-red-600 animate-pulse" : ""}
-          >
-            <Phone className="h-4 w-4" />
-          </Button>
+          {/* 🎙️ Compact Realtime Voice Toggle (Oct 22, 2025) - STREAM 1 ✅ */}
+          <CompactVoiceToggle 
+            voiceSettings={{
+              selectedVoice: voiceSettings.voice,
+              usePremiumTTS: voiceSettings.usePremium
+            }}
+            onTranscriptUpdate={setRealtimeTranscript}
+          />
           
           {/* 📚 Voice Conversation History Toggle */}
           <Button
@@ -436,18 +437,8 @@ export function ChatInterface() {
           </div>
         )}
 
-        {/* Messages Area OR Realtime Voice Mode OR Conversation History */}
-        {realtimeVoiceEnabled ? (
-          // 🎙️ REALTIME VOICE MODE: Two-way conversation with ALL NEW FEATURES
-          // ✨ Features: VAD (green glow), Language selector (6 languages), Push-to-talk, Function calling (11 tools)
-          <RealtimeVoiceMode 
-            voiceSettings={{
-              selectedVoice: voiceSettings.voice,
-              usePremiumTTS: voiceSettings.usePremium
-            }}
-            onClose={() => setRealtimeVoiceEnabled(false)}
-          />
-        ) : showConversationHistory && conversationId ? (
+        {/* Messages Area OR Conversation History */}
+        {showConversationHistory && conversationId ? (
           // 📚 CONVERSATION HISTORY PANEL: View past voice conversations
           <div className="flex-1 overflow-hidden p-4">
             <div className="flex items-center justify-between mb-4">
