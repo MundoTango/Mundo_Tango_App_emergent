@@ -104,7 +104,7 @@ export class ModelCoordinator {
     
     try {
       const response = await anthropic.messages.create({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-3-7-sonnet-20250219',
         max_tokens: 4096,
         system: systemPrompt || 'You are Mr Blue, a helpful AI assistant.',
         messages: [{
@@ -176,7 +176,7 @@ export class ModelCoordinator {
     const start = Date.now();
     
     try {
-      const model = gemini.getGenerativeModel({ model: 'gemini-1.5-pro' });
+      const model = gemini.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
       
       const prompt = systemPrompt 
         ? `${systemPrompt}\n\nUser: ${userQuery}` 
