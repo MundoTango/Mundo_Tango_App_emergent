@@ -73,9 +73,15 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const handleElementClick = useCallback((e: MouseEvent) => {
     if (!isSelectMode) return;
     
-    // MB.MD: INVERTED (Oct 22, 2025) - Default click = SELECT, Cmd+Click = NAVIGATE
-    // If Cmd/Ctrl is pressed, allow normal navigation (don't intercept)
-    if (e.metaKey || e.ctrlKey) return;
+    // MB.MD: Click = INSPECT, Cmd+Click = NORMAL (User requested Oct 22, 2025)
+    // Default click = Inspector mode (block normal behavior)
+    // Cmd/Ctrl+Click = Normal navigation (don't inspect, just navigate)
+    if (e.metaKey || e.ctrlKey) {
+      // Let the normal click behavior happen (navigation, etc.)
+      return;
+    }
+    
+    // For normal clicks without modifier keys, intercept for inspection
     
     const target = e.target as HTMLElement;
     const isSidebarElement = !!target.closest('[data-testid="visual-editor-sidebar"]');

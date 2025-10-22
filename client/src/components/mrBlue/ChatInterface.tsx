@@ -47,7 +47,7 @@ type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro' | 'all-models';
 export function ChatInterface() {
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [input, setInput] = useState('');
-  const [selectedModel, setSelectedModel] = useState<ModelType>('claude-3-sonnet'); // Default to Claude for tool support
+  const [selectedModel, setSelectedModel] = useState<ModelType>('all-models'); // Default to All Models (consensus)
   const [personality, setPersonality] = useState<PersonalityMode>('friendly');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -135,8 +135,8 @@ export function ChatInterface() {
   // Helper function to send message using streaming API
   const sendMessageToConversation = async (projId: number, content: string) => {
     try {
-      // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" to ensure methodology adherence
-      const enhancedMessage = `Use mb.md: ${content}`;
+      // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" in API payload only (hidden from user)
+      const apiMessage = `Use mb.md: ${content}`;
       
       const response = await fetch('/api/chat/stream', {
         method: 'POST',
@@ -144,7 +144,7 @@ export function ChatInterface() {
         credentials: 'include',
         body: JSON.stringify({
           projectId: projId,
-          message: enhancedMessage,
+          message: apiMessage,
           model: selectedModel,
           personality,
           context: {
@@ -173,8 +173,8 @@ export function ChatInterface() {
     mutationFn: async (content: string) => {
       if (!conversationId) throw new Error('No active conversation');
       
-      // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" to ensure methodology adherence
-      const enhancedMessage = `Use mb.md: ${content}`;
+      // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" in API payload only (hidden from user)
+      const apiMessage = `Use mb.md: ${content}`;
       
       // 🤝 STREAM 2: Use multi-model consensus for 'all-models' selection
       const endpoint = selectedModel === 'all-models' 
@@ -187,9 +187,9 @@ export function ChatInterface() {
         credentials: 'include',
         body: JSON.stringify({
           projectId: conversationId,
-          message: enhancedMessage,
-          query: enhancedMessage, // For multi-model endpoint
-          question: enhancedMessage, // For consensus endpoint
+          message: apiMessage,
+          query: apiMessage, // For multi-model endpoint
+          question: apiMessage, // For consensus endpoint
           model: selectedModel,
           personality,
           systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
