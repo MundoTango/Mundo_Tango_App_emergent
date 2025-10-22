@@ -239,7 +239,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''} • Double-click to edit text`,
       duration: 2000
     });
-  }, [isSelectMode, inspectorMode, toast]);
+  }, [isSelectMode, inspectorMode, toast, visualEditorContext, setSelectedElement, setSelectedHTMLElement]);
 
   // MB.MD: Double-click to edit text inline
   const handleElementDoubleClick = useCallback((e: MouseEvent) => {
