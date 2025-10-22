@@ -67,6 +67,7 @@ import intentRoutes from "./routes/intentRoutes"; // Intent Detection - MB.MD Op
 import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing - MB.MD Option A - Oct 21, 2025
 import learningRoutes from "./routes/learningRoutes"; // Agent #80 Learning Coordinator API - MB.MD Phase 1B - Oct 21, 2025
 import voiceConversationRoutes from "./routes/voiceConversationRoutes"; // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
+import chatSummarizationRoutes from "./routes/chatSummarizationRoutes"; // Chat Summarization API - Unified Voice Modal - Oct 22, 2025
 import multiAgentRoutes from "./routes/multiAgentRoutes"; // Multi-Agent Orchestration API - MB.MD Phase 3R-T - Oct 21, 2025
 import gitRoutes from "./routes/gitRoutes"; // Git Integration API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import filesRoutes from "./routes/filesRoutes"; // Filesystem Browser API - MB.MD Maximum Parallel Build - Oct 21, 2025
@@ -1353,6 +1354,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
   app.use('/api/mrblue', isAuthenticated, mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
   app.use('/api/voice', isAuthenticated, voiceConversationRoutes); // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
+  app.use('/api/chat', isAuthenticated, chatSummarizationRoutes); // Chat Summarization API (Unified Voice Modal - Oct 22, 2025)
   app.use('/api/multimodel', isAuthenticated, multiModelRoutes); // Multi-Model Consensus System (Stream 2 - Oct 22, 2025)
   app.use('/api/luma', isAuthenticated, lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
   app.use('/api/journeys', isAuthenticated, journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)

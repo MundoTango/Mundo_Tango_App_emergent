@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX, Settings, Phone, History
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,11 +14,9 @@ import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import EnhancedMessageBubble from './EnhancedMessageBubble';
-import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
-import { VoiceSelector } from './VoiceSelector';
-import { RealtimeVoiceMode } from './RealtimeVoiceMode';
-import { CompactVoiceToggle } from './CompactVoiceToggle';
+import { UnifiedVoiceModal } from './UnifiedVoiceModal';
+import { ModelSelector } from './ModelSelector';
 import { ConversationHistoryPanel } from './ConversationHistoryPanel';
 import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
@@ -55,19 +53,9 @@ export function ChatInterface() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
-  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
   
-  // 🎤 VOICE MODE: Enable ChatGPT-like voice conversation (TTS only)
-  const [voiceModeEnabled, setVoiceModeEnabled] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('mrBlue_voiceMode') === 'true';
-    }
-    return false;
-  });
-  
-  // 🎙️ REALTIME VOICE MODE: Compact inline toggle (Oct 22, 2025)
-  // User clicks mic icon to start/stop - no modal takeover
-  const [realtimeTranscript, setRealtimeTranscript] = useState<string>('');
+  // 🎧 UNIFIED VOICE MODAL: Single headphone button interface (Oct 22, 2025)
+  const [showVoiceModal, setShowVoiceModal] = useState(false);
   
   // 📚 CONVERSATION HISTORY: Show past voice conversations (Oct 22, 2025)
   const [showConversationHistory, setShowConversationHistory] = useState(false);
@@ -83,6 +71,11 @@ export function ChatInterface() {
   
   // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
   const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();
+  
+  // Handle model change
+  const handleModelChange = (model: ModelType) => {
+    setSelectedModel(model);
+  };
 
   // Load conversations (projects)
   const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
@@ -221,24 +214,6 @@ export function ChatInterface() {
     }
   }, [conversations, conversationId]);
   
-  // 🎤 Persist voice mode preference
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('mrBlue_voiceMode', String(voiceModeEnabled));
-    }
-  }, [voiceModeEnabled]);
-  
-  // 🎤 Toggle voice mode handler
-  const toggleVoiceMode = () => {
-    const newMode = !voiceModeEnabled;
-    setVoiceModeEnabled(newMode);
-    toast({
-      title: newMode ? '🎤 Voice Mode ON' : '🔇 Voice Mode OFF',
-      description: newMode 
-        ? 'Mr Blue will speak responses automatically' 
-        : 'Manual speaker control only',
-    });
-  };
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -351,39 +326,18 @@ export function ChatInterface() {
             </div>
           )}
           
-          {/* 🎤 Voice Settings Toggle */}
+          {/* 🎧 UNIFIED VOICE BUTTON (Oct 22, 2025) - Opens modal with transcript + summary */}
           <Button
-            variant="ghost"
+            variant={showVoiceModal ? "default" : "ghost"}
             size="icon"
-            onClick={() => setShowVoiceSettings(!showVoiceSettings)}
-            data-testid="button-voice-settings"
-            aria-label="Voice settings"
-            title="Voice settings"
+            onClick={() => setShowVoiceModal(true)}
+            data-testid="button-unified-voice"
+            aria-label="Start voice session"
+            title="Voice Session - Live transcript & AI summary"
+            className={showVoiceModal ? "bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600" : ""}
           >
-            <Settings className="h-4 w-4" />
+            <Headphones className="h-4 w-4" />
           </Button>
-          
-          {/* 🎤 Voice Mode Toggle (TTS only) */}
-          <Button
-            variant={voiceModeEnabled ? "default" : "ghost"}
-            size="icon"
-            onClick={toggleVoiceMode}
-            data-testid="button-voice-mode"
-            aria-label={voiceModeEnabled ? "Disable voice mode" : "Enable voice mode"}
-            title={voiceModeEnabled ? "Voice Mode ON - AI will speak automatically" : "Voice Mode OFF - Click to enable"}
-            className={voiceModeEnabled ? "bg-cyan-500 hover:bg-cyan-600 animate-pulse" : ""}
-          >
-            {voiceModeEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-          </Button>
-          
-          {/* 🎙️ Compact Realtime Voice Toggle (Oct 22, 2025) - STREAM 1 ✅ */}
-          <CompactVoiceToggle 
-            voiceSettings={{
-              selectedVoice: voiceSettings.voice,
-              usePremiumTTS: voiceSettings.usePremium
-            }}
-            onTranscriptUpdate={setRealtimeTranscript}
-          />
           
           {/* 📚 Voice Conversation History Toggle */}
           <Button
@@ -411,42 +365,14 @@ export function ChatInterface() {
           </Button>
         </div>
 
-        {/* Model Selector */}
-        <div className="flex items-center gap-2 p-3 border-b border-cyan-200 bg-white/20 flex-wrap">
+        {/* Model Selector - Single Dropdown (Oct 22, 2025) */}
+        <div className="flex items-center gap-3 p-3 border-b border-cyan-200 bg-white/20">
           <span className="text-sm font-medium text-gray-700">Model:</span>
-          {(['claude-3-sonnet', 'gpt-4o', 'gemini-pro', 'all-models'] as ModelType[]).map((model) => (
-            <Button
-              key={model}
-              variant={selectedModel === model ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSelectedModel(model)}
-              className={`h-11 ${
-                selectedModel === model
-                  ? 'bg-cyan-500 hover:bg-cyan-600 text-white'
-                  : 'border-cyan-300'
-              }`}
-              data-testid={`button-model-${model}`}
-              aria-label={`Select ${model} model`}
-            >
-              {model === 'all-models' ? '🤝 All Models' : model === 'gpt-4o' ? 'GPT-4o' : model === 'claude-3-sonnet' ? 'Claude' : 'Gemini'}
-            </Button>
-          ))}
-          {selectedModel === 'all-models' && (
-            <span className="text-xs text-gray-500">
-              (Consensus Mode: All models debate & agree)
-            </span>
-          )}
+          <ModelSelector 
+            selectedModel={selectedModel}
+            onModelChange={handleModelChange}
+          />
         </div>
-        
-        {/* 🎤 Voice Settings Panel (Oct 22, 2025) */}
-        {showVoiceSettings && (
-          <div className="p-3 border-b border-cyan-200 bg-white/30">
-            <VoiceSelector 
-              settings={voiceSettings}
-              onSettingsChange={updateVoiceSettings}
-            />
-          </div>
-        )}
 
         {/* Messages Area OR Conversation History */}
         {showConversationHistory && conversationId ? (
@@ -479,8 +405,8 @@ export function ChatInterface() {
                     Start a new conversation to begin chatting with your AI assistant
                   </p>
                   <p className="text-sm text-gray-500 mt-4">
-                    <Phone className="inline w-4 h-4 mr-1" />
-                    Click the phone icon above to start a two-way voice conversation
+                    <Headphones className="inline w-4 h-4 mr-1" />
+                    Click the headphone icon above to start a voice session with live transcript
                   </p>
                 </div>
               </div>
@@ -523,11 +449,6 @@ export function ChatInterface() {
           {/* Input Area */}
           <div className="border-t border-cyan-200 bg-white/20 p-4 space-y-3">
             <div className="flex gap-3">
-              <VoiceControls 
-                onTranscript={setInput}
-                lastMessage={messages?.[messages.length - 1]?.content}
-                autoSpeak={voiceModeEnabled}
-              />
               <div className="flex-1">
                 <PersonalitySelector value={personality} onChange={setPersonality} />
               </div>
@@ -557,6 +478,14 @@ export function ChatInterface() {
           </>
         )}
       </div>
+      
+      {/* 🎧 Unified Voice Modal (Oct 22, 2025) */}
+      <UnifiedVoiceModal 
+        isOpen={showVoiceModal}
+        onClose={() => setShowVoiceModal(false)}
+        voiceSettings={voiceSettings}
+        onVoiceSettingsChange={updateVoiceSettings}
+      />
     </div>
   );
 }
