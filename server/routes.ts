@@ -564,10 +564,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Check if user is super admin or in dev mode
-      const isSuperAdmin = user.email === 'admin@mundotango.life' || user.id === 1;
-      const isDev = process.env.NODE_ENV === 'development';
+      const { isSuperAdmin: checkSuperAdmin, isDevelopment } = require('./utils/auth');
+      const hasSuperPowers = checkSuperAdmin(user);
+      const isDev = isDevelopment();
       
-      if (!isDev && !isSuperAdmin) {
+      if (!isDev && !hasSuperPowers) {
         return res.status(403).json({ 
           success: false,
           message: 'Unauthorized - Admin access required'
@@ -609,9 +610,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Only allow super admins
-      const isSuperAdmin = user.email === 'admin@mundotango.life' || user.id === 1;
+      const { isSuperAdmin: checkSuperAdmin } = require('./utils/auth');
+      const hasSuperPowers = checkSuperAdmin(user);
       
-      if (!isSuperAdmin) {
+      if (!hasSuperPowers) {
         return res.status(403).json({ 
           success: false,
           message: 'Unauthorized - Admin access required for AI transformations'
