@@ -14,13 +14,25 @@ export function useAudioPlayback() {
   const nextStartTimeRef = useRef(0);
 
   // Initialize audio context
-  const initAudioContext = useCallback(() => {
+  const initAudioContext = useCallback(async () => {
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({
         sampleRate: 24000
       });
       nextStartTimeRef.current = audioContextRef.current.currentTime;
     }
+    
+    // Resume AudioContext if suspended (browser autoplay policy)
+    if (audioContextRef.current.state === 'suspended') {
+      try {
+        await audioContextRef.current.resume();
+        console.log('[AudioPlayback] AudioContext resumed');
+      } catch (error) {
+        console.error('[AudioPlayback] Failed to resume AudioContext:', error);
+        throw error;
+      }
+    }
+    
     return audioContextRef.current;
   }, []);
 
@@ -43,12 +55,20 @@ export function useAudioPlayback() {
     playingRef.current = true;
     setIsPlaying(true);
 
-    const audioContext = initAudioContext();
+    const audioContext = await initAudioContext();
 
     try {
       while (queueRef.current.length > 0) {
         const audioData = queueRef.current.shift();
         if (!audioData) continue;
+
+        // Ensure buffer length is even (Int16Array requires multiple of 2 bytes)
+        if (audioData.byteLength % 2 !== 0) {
+          console.warn('[AudioPlayback] Odd buffer size, truncating last byte:', audioData.byteLength);
+          const alignedBuffer = audioData.slice(0, audioData.byteLength - 1);
+          queueRef.current.unshift(alignedBuffer); // Put back the aligned buffer
+          continue;
+        }
 
         // Convert PCM16 to Float32
         const pcm16 = new Int16Array(audioData);
@@ -76,8 +96,13 @@ export function useAudioPlayback() {
           source.onended = resolve;
         });
       }
-    } catch (error) {
-      console.error('[AudioPlayback] Error:', error);
+    } catch (error: any) {
+      console.error('[AudioPlayback] Error:', {
+        message: error?.message || 'Unknown error',
+        name: error?.name || 'UnknownError',
+        stack: error?.stack,
+        error: error
+      });
     } finally {
       playingRef.current = false;
       setIsPlaying(false);

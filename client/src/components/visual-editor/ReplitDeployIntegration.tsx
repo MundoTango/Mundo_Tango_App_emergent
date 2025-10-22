@@ -89,9 +89,30 @@ export function ReplitDeployIntegration() {
           )}
 
           {/* Action Buttons */}
-          <div className="flex gap-2 pt-4 border-t">
+          <div className="flex flex-wrap gap-2 pt-4 border-t">
+            <Button
+              onClick={async () => {
+                try {
+                  const res = await fetch('/api/deploy/production', {
+                    method: 'POST',
+                    credentials: 'include'
+                  });
+                  if (!res.ok) throw new Error('Deploy failed');
+                  alert('✅ Deploying to production...');
+                  handleRefresh();
+                } catch (error) {
+                  alert('❌ Deployment failed. Please try again.');
+                }
+              }}
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+              data-testid="button-publish-production"
+            >
+              <CheckCircle className="w-4 h-4" />
+              Publish to Production
+            </Button>
             <Button
               onClick={openReplitDeploy}
+              variant="outline"
               className="flex items-center gap-2"
               data-testid="button-open-replit-deploy"
             >

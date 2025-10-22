@@ -37,16 +37,22 @@ export function ProjectSelector({ currentProjectId, onProjectChange }: ProjectSe
 
   const { data: projects } = useQuery<Project[]>({
     queryKey: ['/api/chat/projects'],
+    queryFn: async () => {
+      const res = await fetch('/api/chat/projects', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch projects');
+      return res.json();
+    },
   });
 
   const createProject = useMutation({
     mutationFn: async (name: string) => {
-      return apiRequest('/api/chat/projects', {
+      const res = await apiRequest('/api/chat/projects', {
         method: 'POST',
         body: JSON.stringify({ name }),
       });
+      return res.json();
     },
-    onSuccess: (newProject) => {
+    onSuccess: (newProject: Project) => {
       queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
       onProjectChange(newProject.id);
       setIsCreating(false);

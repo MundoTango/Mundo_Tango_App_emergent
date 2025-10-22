@@ -89,9 +89,30 @@ export function ReplitGitIntegration() {
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Action Buttons */}
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
+            <Button
+              onClick={async () => {
+                try {
+                  const res = await fetch('/api/git/push', {
+                    method: 'POST',
+                    credentials: 'include'
+                  });
+                  if (!res.ok) throw new Error('Push failed');
+                  alert('✅ Syncing to GitHub...');
+                  handleRefresh();
+                } catch (error) {
+                  alert('❌ Sync failed. Please try again.');
+                }
+              }}
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700"
+              data-testid="button-sync-github"
+            >
+              <GitBranch className="w-4 h-4" />
+              Sync to GitHub
+            </Button>
             <Button
               onClick={openReplitGitPane}
+              variant="outline"
               className="flex items-center gap-2"
               data-testid="button-open-replit-git"
             >

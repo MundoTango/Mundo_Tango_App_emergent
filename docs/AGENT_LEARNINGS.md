@@ -908,4 +908,115 @@ Related Documentation:
 
 ---
 
-**The Bottom Line:** Features aren't done when code compiles. Features are done when **QA Agent can screenshot the user successfully using them.**
+## 🔄 **PHASE 5: META-LEARNING (After Task Completion)**
+**Owner:** ALL Agents  
+**Validator:** Self-reflection mandatory before returning to user  
+**Implements:** Continuous improvement through systematic reflection
+
+### Learning #29: THE MANDATORY SELF-REFLECTION PROTOCOL (Oct 22, 2025)
+**Problem:** Agents complete tasks but don't capture learnings for future agents  
+**Real Example:** Same bugs repeated across sessions because no one documented the pattern  
+**Impact:** Wasted time re-discovering solutions, inconsistent quality
+
+**Agent Action - Ask These 4 Questions AFTER EVERY TASK:**
+
+```markdown
+## 🎓 MANDATORY POST-TASK REFLECTION
+
+### Question 1: What did you learn in this that you need to update?
+- What error patterns did I discover?
+- What bugs did I fix that others might encounter?
+- What integration patterns worked/failed?
+- What documentation was missing or wrong?
+
+**Action:** Update docs/AGENT_LEARNINGS.md with new patterns
+
+### Question 2: What is your troubleshooting process and how can you improve it?
+- What debugging steps did I take?
+- What worked well?
+- What wasted time?
+- What tools did I use effectively/ineffectively?
+- How can I debug faster next time?
+
+**Action:** Update docs/TROUBLESHOOTING_PROCESS_V2.md
+
+### Question 3: What is your testing process and how can you improve it?
+- What tests did I run?
+- What tests did I skip (and should have run)?
+- What bugs did testing catch?
+- What bugs slipped through?
+- How can I test more thoroughly?
+
+**Action:** Update docs/TESTING_PROCESS_V2.md
+
+### Question 4: What tech are you using and what could it do better?
+- Which tools were most helpful?
+- Which tools had limitations?
+- What workarounds did I use?
+- What new tools would help?
+- How can I use existing tools better?
+
+**Action:** Update docs/TECH_STACK_ANALYSIS_V2.md
+
+### Question 5: Do I need to redo any work with these new learnings?
+- Does this new insight reveal issues in my work?
+- Should I go back and re-test anything?
+- Are there edge cases I missed?
+- Would a different approach be better?
+
+**Action:** Re-verify work if insights reveal potential issues
+```
+
+**Real Example from Oct 22, 2025 Session:**
+```markdown
+Question 1 - What I learned:
+- React Query cache rehydration loses queryFn
+- Two-file registration pattern (create route + register in routes.ts)
+- Component definition ≠ implementation
+→ Added Learning #24-28 to AGENT_LEARNINGS.md
+
+Question 2 - Troubleshooting process:
+- Discovered: Always check logs FIRST before claiming complete
+- Discovered: Use grep over log files when truncated
+- Discovered: Test after EVERY change, not batching
+→ Created TROUBLESHOOTING_PROCESS_V2.md
+
+Question 3 - Testing process:
+- Discovered: Must test cache rehydration (page refresh)
+- Discovered: Screenshot RESULTS not just components
+- Discovered: Check logs AFTER every test
+→ Created TESTING_PROCESS_V2.md
+
+Question 4 - Tech analysis:
+- refresh_all_logs: 7/10 (truncates large logs)
+- screenshot: 6/10 (can't interact)
+- grep: 9/10 (works great!)
+→ Created TECH_STACK_ANALYSIS_V2.md
+
+Question 5 - Redo work?
+- Yes! Grep confirmed NO "No queryFn" errors after fixes
+- Comprehensive verification found 2 new P1 issues
+→ Created COMPREHENSIVE_VERIFICATION_OCT_22_2025.md
+```
+
+**Checklist - BEFORE returning to user:**
+- [ ] Answered all 4 meta-learning questions
+- [ ] Documented new learnings (if any)
+- [ ] Updated process docs (if improved)
+- [ ] Re-verified work if insights reveal issues
+- [ ] Created session summary document
+
+**When to Skip:** 
+- Trivial changes (< 10 lines)
+- Documentation-only updates
+- Following exact user instructions with no discovery
+
+**When MANDATORY:**
+- Fixed bugs (document the pattern!)
+- Built new features (document the approach!)
+- Debugged for > 30 minutes (document what worked!)
+- Discovered tool limitations (document workarounds!)
+
+---
+
+**The Bottom Line:** Features aren't done when code compiles. Features are done when **QA Agent can screenshot the user successfully using them** AND **learnings are documented for future agents.**

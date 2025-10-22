@@ -88,11 +88,17 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const handleElementClick = useCallback((e: MouseEvent) => {
     if (!isSelectMode) return;
     
-    // MB.MD: Click = INSPECT, Cmd+Click = NORMAL (User requested Oct 22, 2025)
+    // MB.MD: Click = INSPECT, Cmd+Click = MOVE (Updated Oct 22, 2025)
     // Default click = Inspector mode (block normal behavior)
-    // Cmd/Ctrl+Click = Normal navigation (don't inspect, just navigate)
+    // Cmd/Ctrl+Click = Move/drag element (future feature)
     if (e.metaKey || e.ctrlKey) {
-      // Let the normal click behavior happen (navigation, etc.)
+      e.preventDefault();
+      e.stopPropagation();
+      toast({
+        title: '🚀 Move Mode (Coming Soon)',
+        description: 'Cmd+Click will enable drag-to-move for elements',
+        duration: 3000
+      });
       return;
     }
     
