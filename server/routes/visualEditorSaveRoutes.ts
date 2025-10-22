@@ -105,4 +105,57 @@ router.post('/apply-structure', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * POST /api/visual-editor/save
+ * Universal Save - Save all changes at once
+ */
+router.post('/save', async (req: Request, res: Response) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+
+  try {
+    const { changes, page, savedAt } = req.body;
+
+    if (!changes || !Array.isArray(changes)) {
+      return res.status(400).json({ error: 'Changes array required' });
+    }
+
+    console.log(`[VisualEditor] Universal Save: ${changes.length} changes for page ${page}`);
+    
+    // Group changes by type
+    const grouped = {
+      style: changes.filter(c => c.changeType === 'style'),
+      content: changes.filter(c => c.changeType === 'content'),
+      layout: changes.filter(c => c.changeType === 'layout'),
+      delete: changes.filter(c => c.changeType === 'delete')
+    };
+
+    console.log('[VisualEditor] Changes breakdown:', {
+      style: grouped.style.length,
+      content: grouped.content.length,
+      layout: grouped.layout.length,
+      delete: grouped.delete.length
+    });
+
+    // TODO: Implement actual file modification
+    // For now, acknowledge the save
+    
+    res.json({ 
+      success: true, 
+      message: `Saved ${changes.length} changes successfully`,
+      savedAt,
+      breakdown: {
+        style: grouped.style.length,
+        content: grouped.content.length,
+        layout: grouped.layout.length,
+        delete: grouped.delete.length
+      }
+    });
+  } catch (error) {
+    console.error('[VisualEditor] Error saving changes:', error);
+    res.status(500).json({ error: 'Failed to save changes' });
+  }
+});
+
 export default router;

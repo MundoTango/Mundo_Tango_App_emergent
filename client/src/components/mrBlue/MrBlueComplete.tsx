@@ -65,7 +65,7 @@ export function MrBlueComplete() {
       {/* Modal Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className={`p-0 gap-0 border-0 flex flex-col bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 dark:from-gray-900 dark:via-blue-950 dark:to-cyan-950 ${
+          className={`p-0 gap-0 border-0 flex flex-col bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 ${
             isMaximized ? 'w-screen h-screen max-w-none' : 'w-[95vw] h-[85vh] max-w-6xl'
           }`}
           data-testid="dialog-mrblue"
@@ -76,16 +76,16 @@ export function MrBlueComplete() {
             Your intelligent AI assistant with 16 Life CEO agents, featuring chat, tours, subscriptions, search, site builder, visual editor, avatar AI, quality controls, and admin tools.
           </DialogDescription>
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-cyan-200 dark:border-cyan-800/50 bg-white/50 dark:bg-black/20 backdrop-blur-sm">
+          <div className="flex items-center justify-between p-4 border-b border-cyan-200 bg-white/50 backdrop-blur-sm">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
                   Mr Blue AI Companion
                 </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   Your intelligent assistant + 16 Life CEO agents
                 </p>
               </div>
@@ -118,7 +118,7 @@ export function MrBlueComplete() {
           <div className="flex-1 overflow-hidden flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full w-full flex flex-col">
               {/* Tab Navigation */}
-              <TabsList className="w-full justify-start rounded-none border-b border-cyan-200 dark:border-cyan-800/50 bg-white/30 dark:bg-black/10 p-2 overflow-x-auto flex-shrink-0">
+              <TabsList className="w-full justify-start rounded-none border-b border-cyan-200 bg-white/30 p-2 overflow-x-auto flex-shrink-0">
                 <TabsTrigger value="chat" className="gap-2" data-testid="tab-chat">
                   <MessageSquare className="h-4 w-4" />
                   <span className="hidden sm:inline">Chat</span>

@@ -33,20 +33,20 @@ export function WhatDoesThisDoPanel({ selectedElement }: WhatDoesThisDoPanelProp
     try {
       const response = await apiRequest('/api/chat/projects', {
         method: 'POST',
-        body: JSON.stringify({
-          message: `Analyze this HTML element and explain what it does, its purpose, and how users interact with it. Be concise and practical.
+        body: {
+          name: 'Element Analysis',
+          description: `Analyze this HTML element and explain what it does, its purpose, and how users interact with it. Be concise and practical.
           
 Element: <${selectedElement.tag}>${selectedElement.id ? ` id="${selectedElement.id}"` : ''}${selectedElement.className ? ` class="${selectedElement.className}"` : ''}
 Content preview: ${selectedElement.innerHTML?.substring(0, 200)}...
 XPath: ${selectedElement.xpath}
 
-Provide a 2-3 sentence explanation that a non-technical user can understand.`,
-          agentId: 'visual-editor-analyzer',
-          mode: 'chat'
-        })
+Provide a 2-3 sentence explanation that a non-technical user can understand.`
+        }
       });
 
-      setExplanation(response.response || 'AI analysis completed. This element is part of the page structure.');
+      const data = await response.json();
+      setExplanation(data?.description || 'AI analysis completed. This element is part of the page structure.');
     } catch (error) {
       setExplanation('Unable to analyze element. This may be a decorative or structural component.');
     } finally {

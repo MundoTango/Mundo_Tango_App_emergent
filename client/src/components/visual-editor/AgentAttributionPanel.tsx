@@ -56,7 +56,11 @@ export function AgentAttributionPanel({ selectedElement }: AgentAttributionPanel
 
         <div className="pt-2 border-t border-gray-700">
           <button 
-            className="text-xs text-blue-400 hover:text-blue-300"
+            onClick={() => {
+              // TODO: Open modal with full attribution history
+              alert(`Full History for ${selectedElement.tagName}\n\nThis will show:\n• All agents that touched this element\n• Timestamps of changes\n• Code diffs\n• Reasoning for each decision\n\n(Feature coming soon)`);
+            }}
+            className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
             data-testid="button-view-full-history"
           >
             View Full History →
