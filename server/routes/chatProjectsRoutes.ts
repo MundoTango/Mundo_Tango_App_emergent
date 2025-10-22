@@ -217,6 +217,11 @@ router.post('/stream', async (req: any, res: Response) => {
       tokens: tokenCount,
     });
 
+    // MB.MD FIX Oct 22: Trigger auto-naming after saving response
+    triggerAutoNaming(projectId).catch(err => {
+      console.error('[Chat Stream] Auto-naming trigger failed:', err);
+    });
+
     // Track usage - TEMPORARILY DISABLED until db schema syncs
     // await db.insert(modelUsage).values({
     //   userId: user.id,
@@ -314,6 +319,118 @@ function getPersonalityPrompt(personality?: string): string {
   };
 
   return prompts[personality || 'friendly'] || prompts.friendly;
+}
+
+/**
+ * POST /api/chat/projects/:id/auto-name
+ * Auto-generate conversation title from chat history
+ * MB.MD FIX Oct 22: Triggers after 3 min of chat activity
+ */
+router.post('/projects/:id/auto-name', async (req: any, res: Response) => {
+  try {
+    const projectId = parseInt(req.params.id);
+
+    // Get conversation messages
+    const messages = await db
+      .select()
+      .from(aiChatMessages)
+      .where(eq(aiChatMessages.projectId, projectId))
+      .orderBy(aiChatMessages.createdAt)
+      .limit(10); // Last 10 messages for context
+
+    if (messages.length === 0) {
+      return res.json({ name: 'New Conversation' });
+    }
+
+    // Check if conversation is at least 3 minutes old
+    const firstMessage = messages[0];
+    const createdDate = firstMessage.createdAt ? new Date(firstMessage.createdAt) : new Date();
+    const timeSinceFirst = Date.now() - createdDate.getTime();
+    const threeMinutes = 3 * 60 * 1000;
+
+    if (timeSinceFirst < threeMinutes) {
+      console.log(`[Auto-Name] Skipping - conversation only ${Math.floor(timeSinceFirst / 1000)}s old, need 180s`);
+      return res.json({ name: 'New Conversation', waiting: true });
+    }
+
+    // Get current project to check if already named
+    const [project] = await db
+      .select()
+      .from(chatProjects)
+      .where(eq(chatProjects.id, projectId))
+      .limit(1);
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    // Skip if already has a custom name
+    if (project.name !== 'New Conversation') {
+      console.log(`[Auto-Name] Skipping - already named: ${project.name}`);
+      return res.json({ name: project.name });
+    }
+
+    // Generate title using Claude
+    const Anthropic = require('@anthropic-ai/sdk').default;
+    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+    const conversationText = messages
+      .map(m => `${m.role}: ${m.content}`)
+      .join('\n');
+
+    const response = await anthropic.messages.create({
+      model: 'claude-3-7-sonnet-20250219',
+      max_tokens: 100,
+      messages: [{
+        role: 'user',
+        content: `Generate a short, descriptive title (max 5 words) for this conversation. Return ONLY the title, no quotes or extra text.
+
+Conversation:
+${conversationText}`
+      }]
+    });
+
+    const content = response.content[0];
+    if (content.type !== 'text') {
+      throw new Error('Unexpected response type');
+    }
+
+    const generatedName = content.text.trim()
+      .replace(/^["']|["']$/g, '') // Remove quotes
+      .substring(0, 50); // Limit length
+
+    // Update project name
+    await db
+      .update(chatProjects)
+      .set({ name: generatedName })
+      .where(eq(chatProjects.id, projectId));
+
+    console.log(`[Auto-Name] Project ${projectId} renamed: "${generatedName}"`);
+
+    res.json({ name: generatedName });
+  } catch (error) {
+    console.error('[Auto-Name] Error:', error);
+    res.status(500).json({ error: 'Failed to generate name' });
+  }
+});
+
+/**
+ * Trigger auto-naming for a project (call this after saving messages)
+ */
+export async function triggerAutoNaming(projectId: number) {
+  try {
+    // Make internal call to auto-naming endpoint
+    const response = await fetch(`http://localhost:5000/api/chat/projects/${projectId}/auto-name`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    
+    if (!response.ok) {
+      console.error(`[Auto-Name Trigger] Failed for project ${projectId}: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('[Auto-Name Trigger] Error:', error);
+  }
 }
 
 export default router;

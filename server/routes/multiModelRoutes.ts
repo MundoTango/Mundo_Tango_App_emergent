@@ -11,6 +11,7 @@ import { modelCoordinator } from '../services/multiModel/ModelCoordinator';
 import { db } from '../db';
 import { aiChatMessages } from '@shared/schema';
 import { storage } from '../storage';
+import { triggerAutoNaming } from './chatProjectsRoutes';
 
 const router = Router();
 
@@ -61,6 +62,11 @@ router.post('/consensus', async (req: any, res) => {
         tokens: result.finalPlan.split(' ').length, // Rough estimate
       });
       console.log(`[MultiModel] Saved AI response to project ${projectId}`);
+      
+      // MB.MD FIX Oct 22: Trigger auto-naming after 3 min
+      triggerAutoNaming(projectId).catch(err => {
+        console.error('[MultiModel] Auto-naming trigger failed:', err);
+      });
     }
     
     res.json(result);
