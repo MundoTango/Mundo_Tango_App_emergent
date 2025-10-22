@@ -25,6 +25,7 @@ import { ModelMonitorTab } from './ModelMonitorTab';
 import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
 import { InlineTextEditor } from './InlineTextEditor';
 import { UniversalSaveSystem } from './UniversalSaveSystem';
+import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
@@ -91,14 +92,20 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     // MB.MD: Click = INSPECT, Cmd+Click = INSPECT (Allow normal click through)
     // Updated Oct 22, 2025: Cmd/Ctrl+Click now ALLOWS selection without blocking clicks
     const isModifierClick = e.metaKey || e.ctrlKey;
+    const target = e.target as HTMLElement;
+    
+    // Check if target is interactive (button, link, input, etc.)
+    const isInteractive = target.closest('button, a, input, select, textarea, [role="button"], [onclick]');
     
     if (isModifierClick) {
-      // Cmd+Click: Allow element selection but let the click through (don't preventDefault)
-      console.log('🎯 [Visual Editor] Cmd+Click detected - selecting element while allowing normal click');
-      // Don't return early - continue with selection logic
+      // Cmd+Click: Allow element selection but let the click through for interactive elements
+      if (isInteractive) {
+        console.log('🎯 [Visual Editor] Cmd+Click on interactive element - allowing click through');
+        return; // Don't select, let the click happen
+      }
+      console.log('🎯 [Visual Editor] Cmd+Click detected - selecting element');
     }
     
-    const target = e.target as HTMLElement;
     const isSidebarElement = !!target.closest('[data-testid="visual-editor-sidebar"]');
     
     // 🔍 INSPECTOR MODE LOGIC (Oct 22, 2025)
@@ -110,8 +117,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       if (!isSidebarElement) return;
     }
     
-    // Block event ONLY for normal clicks (not cmd+click)
-    if (!isModifierClick) {
+    // Block event ONLY for normal clicks on non-interactive elements
+    if (!isModifierClick && !isInteractive) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -393,29 +400,29 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
 
           {/* Replit-Style Visual Editor with Tab System */}
           <div 
-            className="fixed right-0 top-0 h-screen w-[500px] bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 shadow-2xl z-50 flex flex-col"
+            className="fixed right-0 top-0 h-screen w-[500px] bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col"
             data-testid="visual-editor-sidebar"
           >
             {/* Header with Tab System */}
-            <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-3 border-b border-gray-200">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <span className="text-xl">✨</span>
                 </div>
                 <div className="flex-1">
-                  <h2 className="font-semibold text-gray-900 dark:text-white">Visual Editor</h2>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">AI-Powered Page Editor</p>
+                  <h2 className="font-semibold text-gray-900">Visual Editor</h2>
+                  <p className="text-xs text-gray-500">AI-Powered Page Editor</p>
                 </div>
               </div>
               
               {/* 🔍 Inspector Mode Toggle (Oct 22, 2025) */}
-              <div className="flex gap-1 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+              <div className="flex gap-1 mb-3 bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setInspectorMode('page')}
                   className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                     inspectorMode === 'page'
                       ? 'bg-purple-600 text-white shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                      : 'text-gray-600 hover:text-gray-900'
                   }`}
                   data-testid="inspector-mode-page"
                   title="Inspect page elements (purple outline)"
@@ -427,7 +434,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                   className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                     inspectorMode === 'sidebar'
                       ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                      : 'text-gray-600 hover:text-gray-900'
                   }`}
                   data-testid="inspector-mode-sidebar"
                   title="Inspect sidebar elements (blue outline)"
@@ -449,6 +456,11 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                 <ElementInspector 
                   selectedElement={visualEditorContext?.selectedElement ?? null} 
                 />
+              )}
+              {activeTab === 'chat' && (
+                <div className="h-full">
+                  <ChatInterface />
+                </div>
               )}
               {activeTab === 'preview' && <PreviewTab currentPath={location} />}
               {activeTab === 'deploy' && <DeployTab />}
@@ -480,8 +492,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
             </div>
 
             {/* Footer */}
-            <div className="p-3 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+            <div className="p-3 border-t border-gray-200">
+              <div className="flex items-center gap-2 text-xs text-gray-500">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 AI-powered by OpenAI GPT-4o
               </div>
