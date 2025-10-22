@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX, Settings
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX, Settings, Phone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,6 +17,7 @@ import EnhancedMessageBubble from './EnhancedMessageBubble';
 import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
 import { VoiceSelector } from './VoiceSelector';
+import { RealtimeVoiceMode } from './RealtimeVoiceMode';
 import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
@@ -53,13 +54,16 @@ export function ChatInterface() {
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
   const [showVoiceSettings, setShowVoiceSettings] = useState(false);
   
-  // 🎤 VOICE MODE: Enable ChatGPT-like voice conversation
+  // 🎤 VOICE MODE: Enable ChatGPT-like voice conversation (TTS only)
   const [voiceModeEnabled, setVoiceModeEnabled] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('mrBlue_voiceMode') === 'true';
     }
     return false;
   });
+  
+  // 🎙️ REALTIME VOICE MODE: Two-way conversation with GPT-4o Realtime API (Oct 22, 2025)
+  const [realtimeVoiceEnabled, setRealtimeVoiceEnabled] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -338,7 +342,7 @@ export function ChatInterface() {
             <Settings className="h-4 w-4" />
           </Button>
           
-          {/* 🎤 Voice Mode Toggle */}
+          {/* 🎤 Voice Mode Toggle (TTS only) */}
           <Button
             variant={voiceModeEnabled ? "default" : "ghost"}
             size="icon"
@@ -349,6 +353,19 @@ export function ChatInterface() {
             className={voiceModeEnabled ? "bg-cyan-500 hover:bg-cyan-600 animate-pulse" : ""}
           >
             {voiceModeEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+          </Button>
+          
+          {/* 🎙️ Realtime Voice Mode Toggle (Two-way conversation) */}
+          <Button
+            variant={realtimeVoiceEnabled ? "default" : "ghost"}
+            size="icon"
+            onClick={() => setRealtimeVoiceEnabled(!realtimeVoiceEnabled)}
+            data-testid="button-realtime-voice"
+            aria-label={realtimeVoiceEnabled ? "End voice call" : "Start voice call"}
+            title={realtimeVoiceEnabled ? "LIVE: Two-way conversation active" : "Start two-way voice conversation (GPT-4o Realtime)"}
+            className={realtimeVoiceEnabled ? "bg-red-500 hover:bg-red-600 animate-pulse" : ""}
+          >
+            <Phone className="h-4 w-4" />
           </Button>
           
           {/* Minimize Button */}
@@ -401,21 +418,35 @@ export function ChatInterface() {
           </div>
         )}
 
-        {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {!conversationId && (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center max-w-md">
-                <div className="h-20 w-20 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center mb-4">
-                  <Sparkles className="h-10 w-10 text-white" />
+        {/* Messages Area OR Realtime Voice Mode */}
+        {realtimeVoiceEnabled ? (
+          // 🎙️ REALTIME VOICE MODE: Two-way conversation
+          <RealtimeVoiceMode 
+            voiceSettings={{
+              selectedVoice: voiceSettings.voice,
+              usePremiumTTS: voiceSettings.usePremium
+            }}
+            onClose={() => setRealtimeVoiceEnabled(false)}
+          />
+        ) : (
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {!conversationId && (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center max-w-md">
+                  <div className="h-20 w-20 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center mb-4">
+                    <Sparkles className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Welcome to Mr Blue</h3>
+                  <p className="text-gray-600">
+                    Start a new conversation to begin chatting with your AI assistant
+                  </p>
+                  <p className="text-sm text-gray-500 mt-4">
+                    <Phone className="inline w-4 h-4 mr-1" />
+                    Click the phone icon above to start a two-way voice conversation
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Welcome to Mr Blue</h3>
-                <p className="text-gray-600">
-                  Start a new conversation to begin chatting with your AI assistant
-                </p>
               </div>
-            </div>
-          )}
+            )}
 
           {loadingMessages && (
             <div className="flex items-center justify-center h-full">
@@ -485,6 +516,7 @@ export function ChatInterface() {
             </Button>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

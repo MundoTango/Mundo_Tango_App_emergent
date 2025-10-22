@@ -182,6 +182,9 @@ app.use('/api/debug', debugRoutes);
 // OpenAI TTS routes (Oct 22, 2025 - Premium voice quality)
 app.use(ttsRoutes);
 
+// GPT-4o Realtime API routes (Oct 22, 2025 - Two-way voice conversation)
+import { setupRealtimeWebSocket } from './routes/realtimeRoutes';
+
 // MB.MD Phase 5: CSP violation reporting
 app.use(cspReportsRouter);
 
@@ -201,6 +204,10 @@ const startServer = async () => {
     console.log('🔄 Initializing database connection...');
     const httpServer = await registerRoutes(app);
     console.log('✅ Routes registered successfully');
+    
+    // Setup GPT-4o Realtime API WebSocket (Oct 22, 2025)
+    setupRealtimeWebSocket(httpServer);
+    console.log('✅ Realtime API WebSocket initialized');
     
     // IMPORTANT: Static file serving AFTER API routes to prevent HTML responses for API calls
     app.use(express.static(clientPath));
