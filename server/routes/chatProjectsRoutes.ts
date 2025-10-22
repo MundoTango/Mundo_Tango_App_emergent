@@ -183,6 +183,7 @@ router.post('/stream', async (req: any, res: Response) => {
 
     // Track usage  
     await db.insert(modelUsage).values({
+      userId: user.id,
       model: selectedModel,
       tokens: tokenCount,
       cost: tokenCount * 0.00001, // Rough estimate
