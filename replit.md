@@ -7,7 +7,7 @@ Mundo Tango is a social platform for the global tango community, built on the ES
 **⚠️ THE 5 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
 Every agent MUST follow these before marking ANY task complete:
 1. **VERIFY BEFORE BUILD** - Complete mandatory documentation verification checklist (`docs/DOCUMENTATION_VERIFICATION.md`), read all relevant docs, summarize requirements BEFORE coding - prevents building wrong features
-2. **INTEGRATE IMMEDIATELY** - Import components as you build them, test imports work - prevents "component exists" fallacy
+2. **INTEGRATE IMMEDIATELY** - Import components as you build them, test imports work - prevents "component exists" fallacy. **For Mr Blue & Visual Editor: MUST wire to parent components (ChatInterface.tsx, MrBlueComplete.tsx, VisualEditorWrapper.tsx) - See `docs/INTEGRATION_PROTOCOL.md`**
 3. **SCREENSHOT EVERYTHING** - Visual proof required AFTER opening modals/clicking buttons - prevents "code compiles" fallacy
 4. **TEST USER JOURNEY** - Test as regular user AND super admin, verify access controls - prevents "button exists" fallacy
 5. **ARCHITECT VALIDATES** - Independent review mandatory, no self-approval - prevents shipping broken features
@@ -15,6 +15,7 @@ Every agent MUST follow these before marking ANY task complete:
 Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 Full protocol: `docs/MB_MD_QA_PROTOCOL.md` (1009 lines)
 Documentation verification: `docs/DOCUMENTATION_VERIFICATION.md` (MANDATORY before building)
+**Integration protocol: `docs/INTEGRATION_PROTOCOL.md` (MANDATORY for Mr Blue & Visual Editor features)**
 
 - **Communication style:** Simple, everyday language
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work
@@ -42,6 +43,7 @@ The frontend uses React, TypeScript, and Vite, featuring a component-based archi
     - **Codebase Tools (3):** `search_codebase`, `list_react_components`, `find_api_endpoints` - Navigate and understand the codebase
     - **Documentation Tools (2):** `search_documentation`, `read_documentation` - Access project documentation and agent specs
     - Built on Claude 3.5 Sonnet with native tool support, streaming SSE responses, permission-based access control, and context-aware system prompts.
+-   **Mr Blue Voice Mode (Oct 22, 2025):** ChatGPT/Claude-like voice conversations with auto-speak functionality. Toggle button enables AI to automatically speak responses. Uses browser Web Speech API (STT) and configurable TTS (browser native or premium APIs like OpenAI TTS with 6 natural voices). Voice preferences persist via localStorage. See `docs/MrBlue/AUDIO_EXCHANGE_INTEGRATION.md` for multi-model audio patterns.
 
 **System Design Choices:**
 Mundo Tango employs a comprehensive agent documentation system covering various agent types (Foundation, Core, Business, Intelligence, Page, Algorithm, Life CEO, Mr Blue, Leadership). All documentation follows the MB.MD methodology with phase-based routing for efficient agent coordination and knowledge discovery. The platform includes 5 Customer Journey Agents (J1-J5) guiding users through progressive experiences, utilizing secure API endpoints, service functions, database tables, reusable UI components, and custom React Query hooks. Security relies on `req.user.id` from session, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (`docs/`, `scripts/`, `agents/`, `schema`), and automated tests for file protection.
