@@ -190,7 +190,7 @@ export function GitPanePanel() {
         </div>
 
         {/* Last Commit */}
-        {gitStatus?.lastCommit && (
+        {gitStatus?.lastCommit && gitStatus.lastCommit.message && (
           <div className="mt-6 p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded">
             <div className="flex items-start gap-2">
               <GitCommit className="w-4 h-4 text-cyan-600 mt-1" />
