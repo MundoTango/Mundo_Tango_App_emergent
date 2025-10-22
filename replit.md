@@ -37,6 +37,11 @@ The frontend uses React, TypeScript, and Vite, featuring a component-based archi
 -   **Profile System:** Comprehensive user profiles with tango-specific fields and privacy settings.
 -   **Groups/Communities:** Features city-based auto-group creation and assignment.
 -   **Unified AI Access:** A single "Mr Blue" button provides access to AI features, with tab visibility controlled by user roles (regular users see 5 tabs, super admins see 10).
+-   **Mr Blue Omniscient Mode (Oct 22, 2025):** AI companion with function calling capabilities, providing super admins with full platform access via 11 tools across 3 categories:
+    - **Database Tools (6):** `get_platform_health`, `get_recent_memories`, `get_user_stats`, `search_memories`, `get_event_count`, `get_groups_by_city` - Query real-time platform data
+    - **Codebase Tools (3):** `search_codebase`, `list_react_components`, `find_api_endpoints` - Navigate and understand the codebase
+    - **Documentation Tools (2):** `search_documentation`, `read_documentation` - Access project documentation and agent specs
+    - Built on Claude 3.5 Sonnet with native tool support, streaming SSE responses, permission-based access control, and context-aware system prompts.
 
 **System Design Choices:**
 Mundo Tango employs a comprehensive agent documentation system covering various agent types (Foundation, Core, Business, Intelligence, Page, Algorithm, Life CEO, Mr Blue, Leadership). All documentation follows the MB.MD methodology with phase-based routing for efficient agent coordination and knowledge discovery. The platform includes 5 Customer Journey Agents (J1-J5) guiding users through progressive experiences, utilizing secure API endpoints, service functions, database tables, reusable UI components, and custom React Query hooks. Security relies on `req.user.id` from session, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (`docs/`, `scripts/`, `agents/`, `schema`), and automated tests for file protection.
