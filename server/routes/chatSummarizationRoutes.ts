@@ -14,13 +14,19 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY
 });
 
-// POST /api/chat/summarize - Summarize transcript into bullets
+// POST /api/chat/summarize - Summarize transcript into bullets (Agent #128: Visual Context)
 router.post('/summarize', async (req, res) => {
   try {
-    const { text } = req.body;
+    const { text, visualContext } = req.body;
 
     if (!text) {
       return res.status(400).json({ error: 'Text required' });
+    }
+
+    // Agent #128: Build context-aware prompt
+    let contextNote = '';
+    if (visualContext) {
+      contextNote = `\n\nVISUAL CONTEXT: User has selected a <${visualContext.tagName}>${visualContext.id ? ` with id="${visualContext.id}"` : ''} element in the Visual Editor. Consider this element when summarizing the conversation.`;
     }
 
     // Use Claude to summarize
@@ -33,7 +39,7 @@ router.post('/summarize', async (req, res) => {
 {
   "bullets": ["Point 1", "Point 2", ...],
   "details": ["Optional expanded context for Point 1", "Context for Point 2", ...]
-}
+}${contextNote}
 
 Transcript:
 ${text}`
