@@ -2,10 +2,12 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
-// MB.MD FIX: Clear old cache BEFORE creating queryClient to prevent stale queryFn errors
+// MB.MD FIX: Clear ALL React Query caches to prevent queryFn errors
 if (typeof window !== 'undefined') {
   try {
     window.localStorage.removeItem('MUNDO_TANGO_QUERY_CACHE');
+    window.localStorage.removeItem('MUNDO_TANGO_QUERY_CACHE_V2');
+    console.log('✅ Cleared stale React Query caches');
   } catch (e) {
     console.warn('[Cache Clear] Failed:', e);
   }
@@ -163,22 +165,22 @@ export const queryClient = new QueryClient({
   },
 });
 
-// Phase 14 Batch 4: Add localStorage persistence for better cache hit rate
-if (typeof window !== 'undefined') {
-  const persister = createSyncStoragePersister({
-    storage: window.localStorage,
-    key: 'MUNDO_TANGO_QUERY_CACHE_V2', // V2: Fixed queryFn issue - Oct 22, 2025
-  });
-
-  persistQueryClient({
-    queryClient,
-    persister,
-    maxAge: 1000 * 60 * 60 * 24, // 24 hours
-    dehydrateOptions: {
-      shouldDehydrateQuery: (query) => {
-        // Only persist successful queries
-        return query.state.status === 'success';
-      },
-    },
-  });
-}
+// Phase 14 Batch 4: localStorage persistence DISABLED
+// MB.MD FIX: persistQueryClient rehydrates queries WITHOUT the default queryFn,
+// causing "No queryFn" errors. Disabling persistence until we implement proper
+// query dehydration/rehydration with queryFn preservation.
+// 
+// if (typeof window !== 'undefined') {
+//   const persister = createSyncStoragePersister({
+//     storage: window.localStorage,
+//     key: 'MUNDO_TANGO_QUERY_CACHE_V2',
+//   });
+//   persistQueryClient({
+//     queryClient,
+//     persister,
+//     maxAge: 1000 * 60 * 60 * 24,
+//     dehydrateOptions: {
+//       shouldDehydrateQuery: (query) => query.state.status === 'success',
+//     },
+//   });
+// }
