@@ -39,11 +39,14 @@ router.post('/consensus', async (req: any, res) => {
 
     // MB.MD FIX: Save user message to database BEFORE processing
     if (projectId && userId) {
+      // 🔧 FIX: Strip "Use mb.md:" prefix before saving
+      const cleanQuery = query.replace(/^Use mb\.md:\s*/i, '');
+      
       await db.insert(aiChatMessages).values({
         projectId,
         userId,
         role: 'user',
-        content: query,
+        content: cleanQuery,
         model: null,
       });
       console.log(`[MultiModel] Saved user message to project ${projectId}`);
@@ -58,7 +61,7 @@ router.post('/consensus', async (req: any, res) => {
         userId,
         role: 'assistant',
         content: result.finalPlan,
-        model: 'multi-model-consensus',
+        model: 'Multi-Model Consensus',  // 🔧 FIX: User-friendly badge name
         tokens: result.finalPlan.split(' ').length, // Rough estimate
       });
       console.log(`[MultiModel] Saved AI response to project ${projectId}`);

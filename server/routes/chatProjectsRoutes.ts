@@ -129,12 +129,15 @@ router.post('/stream', async (req: any, res: Response) => {
 
     const { projectId, message, model, personality, context } = req.body;
 
+    // 🔧 FIX: Strip "Use mb.md:" prefix before saving (frontend adds it for API only)
+    const cleanMessage = message.replace(/^Use mb\.md:\s*/i, '');
+
     // Save user message
     await db.insert(aiChatMessages).values({
       projectId,
       userId: user.id,
       role: 'user',
-      content: message,
+      content: cleanMessage,
       model: null,
     });
 

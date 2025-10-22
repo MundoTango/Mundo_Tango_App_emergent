@@ -89,7 +89,12 @@ export default function EnhancedMessageBubble({
               variant="secondary"
               className="mb-2 text-xs bg-cyan-100 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300"
             >
-              {metadata.agentMode}
+              {/* 🔧 FIX: Show friendly model names */}
+              {metadata.agentMode === 'all-models' ? 'Multi-Model Consensus' : 
+               metadata.agentMode === 'claude-3-sonnet' ? 'Claude 3.5 Sonnet' :
+               metadata.agentMode === 'gpt-4o' ? 'GPT-4o' :
+               metadata.agentMode === 'gemini-pro' ? 'Gemini Pro' :
+               metadata.agentMode}
             </Badge>
           )}
 
