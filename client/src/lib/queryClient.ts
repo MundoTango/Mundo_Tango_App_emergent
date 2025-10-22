@@ -165,6 +165,19 @@ export const queryClient = new QueryClient({
   },
 });
 
+// MB.MD FIX: Vite HMR cleanup - ensure old queryClient is disposed when this module reloads
+if (import.meta.hot) {
+  import.meta.hot.dispose(() => {
+    console.log('🔄 [HMR] Disposing old queryClient instance');
+    queryClient.clear();
+  });
+  
+  import.meta.hot.accept(() => {
+    console.log('🔄 [HMR] QueryClient module reloaded - forcing page refresh for stability');
+    window.location.reload();
+  });
+}
+
 // Phase 14 Batch 4: localStorage persistence DISABLED
 // MB.MD FIX: persistQueryClient rehydrates queries WITHOUT the default queryFn,
 // causing "No queryFn" errors. Disabling persistence until we implement proper
