@@ -1388,6 +1388,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
   app.use('/api/deploy', deployRoutes); // Staging & production deployment
+  app.use('/api/quality', qualityRoutes); // Quality validation & testing - Agent #79 - Phase 3 Stream 4
   app.use('/api/subscriptions', subscriptionRoutes); // Stripe subscription management
   app.use('/api/admin', adminHealthRoutes); // Admin health & system metrics
   app.use('/api/infrastructure', infrastructureRoutes); // All 13 Tracks Infrastructure (Analytics, Testing, Mobile, Performance, etc.)
