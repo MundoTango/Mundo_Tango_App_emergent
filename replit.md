@@ -33,68 +33,37 @@ The frontend uses React, TypeScript, and Vite, featuring a component-based archi
 -   **Data Storage:** PostgreSQL with Drizzle ORM is the primary database, utilizing JSON columns and optimized indexes. Media storage uses Replit Object Storage with ACL support. React Query handles client-side caching.
 
 **Feature Specifications:**
--   **Memory/Post System:** Supports rich text, hashtag indexing, location tagging, privacy controls, and AI content enhancement.
--   **Events Management:** Includes event creation, RSVP, recurring events, calendar view, and real-time updates.
--   **Profile System:** Comprehensive user profiles with tango-specific fields and privacy settings.
--   **Groups/Communities:** Features city-based auto-group creation and assignment.
--   **Unified AI Access:** A single "Mr Blue" button provides access to AI features, with tab visibility controlled by user roles (regular users see 5 tabs, super admins see 10).
--   **Mr Blue Omniscient Mode (Oct 22, 2025):** AI companion with function calling capabilities, providing super admins with full platform access via 11 tools across 3 categories:
-    - **Database Tools (6):** `get_platform_health`, `get_recent_memories`, `get_user_stats`, `search_memories`, `get_event_count`, `get_groups_by_city` - Query real-time platform data
-    - **Codebase Tools (3):** `search_codebase`, `list_react_components`, `find_api_endpoints` - Navigate and understand the codebase
-    - **Documentation Tools (2):** `search_documentation`, `read_documentation` - Access project documentation and agent specs
-    - Built on Claude 3.5 Sonnet with native tool support, streaming SSE responses, permission-based access control, and context-aware system prompts.
--   **Mr Blue Voice Mode (Oct 22, 2025):** ChatGPT/Claude-like voice conversations with auto-speak functionality. Toggle button enables AI to automatically speak responses. Uses browser Web Speech API (STT) and configurable TTS (browser native or premium OpenAI TTS). Professional voice quality via 6 OpenAI voices (nova, alloy, echo, fable, onyx, shimmer) with tts-1-hd model. Voice selector component with premium toggle, test playback, and localStorage persistence. Backend routes: `/api/tts/synthesize`, `/api/tts/voices`, `/api/tts/test`. Auto-fallback to browser TTS on errors. See `docs/MrBlue/AUDIO_EXCHANGE_INTEGRATION.md` for multi-model audio patterns and `docs/MrBlue/AI_MODEL_FEATURES_RECOMMENDATION.md` for future AI enhancements (GPT-4o Realtime, Claude Computer Use, Vision API).
--   **Mr Blue Parallel Integration (Oct 22, 2025):** Three major integrations completed simultaneously using MB.MD methodology in under 2 hours:
-    1. **Voice Settings UI Integration:** VoiceSelector component integrated into ChatInterface with settings toggle button, allowing users to choose from 6 professional voices, enable/disable premium TTS, and test voice playback. Settings panel appears conditionally in chat header.
-    2. **Visual Editor Context Bridge:** ChatInterface now receives Visual Editor's selected element via `useVisualEditorOptional()` hook. When user selects an element in Visual Editor (Cmd+Click), a purple badge appears in chat header showing `<tagName> #id`, and the element context is automatically included in all API calls to Mr Blue, enabling context-aware AI assistance.
-    3. **Inspector Mode Toggle:** Visual Editor sidebar header now includes a "📄 Page / 🔍 Sidebar" toggle allowing users to switch between page inspection mode (purple outline) and sidebar inspection mode (blue outline). Solves the problem of not being able to inspect sidebar elements. See `docs/MrBlue/OCT_22_PARALLEL_INTEGRATION_COMPLETE.md` for complete technical details.
--   **Mr Blue GPT-4o Realtime API (Oct 22, 2025):** Full two-way voice conversation system with native GPT-4o Realtime API integration at $0.30/minute (text + audio input/output). Features include:
-    - **Backend Infrastructure:** WebSocket server (`/api/realtime/connect`) bridges browser ↔ OpenAI Realtime API with binary audio streaming (PCM16 24kHz mono), automatic session management, and connection pooling
-    - **Frontend Audio System:** Custom hooks (`useRealtimeConversation`, `useAudioCapture`, `useAudioPlayback`) handle microphone capture with browser MediaRecorder API, real-time audio playback with Web Audio API, and automatic resampling/encoding
-    - **UI Integration:** Phone toggle button in ChatInterface switches between text chat and RealtimeVoiceMode component. Premium TTS auto-enabled by default with voice selector (6 OpenAI voices). Visual feedback for speaking/listening states
-    - **Architecture:** Server-side WebSocket (ws package) maintains persistent connection to OpenAI, forwards audio chunks bidirectionally, handles reconnection logic. Client receives audio via binary WebSocket messages, plays back in real-time with AudioContext
-    - **Future Enhancements:** Function calling bridge (11 tools from Omniscient Mode), conversation history persistence, voice activity detection, multi-language support
-    - **Cost Optimization:** Session-based billing ($0.30/min only while active), automatic cleanup, connection reuse. Compare to separate TTS ($15/1M chars) + STT ($0.006/min) + GPT-4o ($5/$15/1M tokens)
--   **Mr Blue Unified Voice Modal (Oct 22, 2025):** Consolidated voice interface featuring single headphone button that opens modal with live transcript and AI summary. Features include:
-    - **UnifiedVoiceModal Component:** Modal interface combining live transcript (auto-scrolling), AI summary panel (expandable Replit-style bullets), voice settings submenu, and recording controls in single cohesive UI
-    - **ModelSelector Dropdown:** Replaced 4 individual model buttons (Claude, GPT-4o, Gemini, All Models) with single compact dropdown in chat header, controls entire chat session
-    - **Chat Summarization API:** `/api/chat/summarize` endpoint uses Claude 3.5 Sonnet to generate real-time bullet-point summaries of voice conversations with optional expanded context
-    - **UI Consolidation:** Single 🎧 headphone button replaces 3 separate voice controls (mic toggle, speaker button, voice settings), creating cleaner, more intuitive interface
-    - **Integration Points:** VoiceSelector component integrated into modal settings, auto-speak toggle, voice playback controls, and real-time transcript streaming with OpenAI Realtime API
--   **Agent #128 - Voice + Visual Context Coordinator (Oct 22, 2025):** Seamlessly integrates voice commands with Visual Editor element selection, enabling "point and ask" workflow. When user selects an element in Visual Editor and opens voice modal, a purple badge displays `<tagName> #id` in header. Visual context automatically included in AI prompts for contextual responses. Features: WebSocket transcript streaming with binary data handling, `/api/chat/summarize` enhanced with visualContext field, bug fixes for message parsing. Agent coordinates with #79 (Quality Validator) and #80 (Learning Coordinator). Example: User clicks "Share Memory" button, asks "What does this do?", Mr Blue responds with button-specific context from codebase.
--   **Agent #126 - Git Operations Specialist (Oct 22, 2025):** Replit-like Git workflow with AI-powered commit messages, pre-commit validation, and GitHub integration. Features include:
-    - **API Routes:** `/api/git/status` (branch, modified files), `/api/git/diff` (file diffs), `/api/git/log` (commit history), `/api/git/generate-message` (AI commit messages via Claude), `/api/git/commit` (execute with validation), `/api/git/push` (GitHub push with error handling)
-    - **GitPanePanel Component:** Replit-style UI with file status indicators (M/A/D), commit message editor with AI generation button (✨), real-time status updates (5s refresh), push to GitHub with progress feedback
-    - **Pre-Commit Validation:** Secret scanning (API keys, tokens), Git config verification (user.name/email), file change detection
-    - **AI Commit Messages:** Claude 3.5 Sonnet analyzes diffs, generates conventional commits (feat/fix/docs), max 72 chars, follows industry standards
-    - **Dependencies:** simple-git Node.js library for Git operations
--   **Agent #127 - Deployment Safety Engineer (Oct 22, 2025):** Zero-downtime deployments with pre-flight validation, automatic rollback, and health monitoring. Features include:
-    - **API Routes:** `/api/deploy/preflight` (validation checks), `/api/deploy/snapshot` (pre-deploy backup), `/api/deploy/execute` (execute deployment), `/api/deploy/health/:id` (health monitoring), `/api/deploy/rollback` (rollback to snapshot), `/api/deploy/logs/:id` (real-time SSE log streaming)
-    - **Pre-Flight Validation:** Build test (npm run build), environment variable checks, package.json validation, auto-detect deployment type (Static/Autoscale/VM), cost estimation
-    - **Snapshot System:** Pre-deploy backups of workspace + database + conversation, enable instant rollback on failure
-    - **Health Monitoring:** HTTP endpoint checks (200 OK), response time validation (<500ms), error rate monitoring (<1%), CPU/RAM usage tracking
-    - **Safety Guarantees:** Never deploy without snapshot, auto-rollback on 3 consecutive health failures, user confirmation for destructive operations
+-   **Core Social Features:** Memory/Post system (rich text, hashtags, location, privacy, AI enhancement), Events management (creation, RSVP, calendar, real-time updates), Profile system (tango-specific fields, privacy), Groups/Communities (city-based auto-creation).
+-   **Unified AI Access ("Mr Blue"):** Single access point for AI features.
+    -   **Omniscient Mode:** AI companion with function calling via 11 tools (Database, Codebase, Documentation) for super admins. Built on Claude 3.5 Sonnet.
+    -   **Voice Mode:** ChatGPT/Claude-like voice conversations with auto-speak functionality. Uses browser Web Speech API (STT) and configurable TTS (browser native or premium OpenAI TTS).
+    -   **Parallel Integration:** Simultaneous integration of Voice Settings UI, Visual Editor Context Bridge (connecting selected elements to AI context), and Inspector Mode Toggle for Visual Editor.
+    -   **GPT-4o Realtime API:** Full two-way voice conversation system with native GPT-4o Realtime API integration (PCM16 24kHz mono audio streaming).
+    -   **Unified Voice Modal:** Consolidated voice interface featuring a single headphone button, live transcript, AI summary, voice settings, and recording controls. Model selector dropdown for chat sessions.
+    -   **Voice + Visual Context Coordinator (Agent #128):** Integrates voice commands with Visual Editor element selection for "point and ask" workflow, embedding visual context in AI prompts.
+-   **Git Operations Specialist (Agent #126):** Replit-like Git workflow with AI-powered commit messages (Claude 3.5 Sonnet), pre-commit validation, and GitHub integration via API routes and a dedicated UI panel.
+-   **Deployment Safety Engineer (Agent #127):** Zero-downtime deployments with pre-flight validation, automatic rollback, health monitoring, and a snapshot system for backups.
 
 **System Design Choices:**
-Mundo Tango employs a comprehensive agent documentation system covering various agent types (Foundation, Core, Business, Intelligence, Page, Algorithm, Life CEO, Mr Blue, Leadership). All documentation follows the MB.MD methodology with phase-based routing for efficient agent coordination and knowledge discovery. The platform includes 5 Customer Journey Agents (J1-J5) guiding users through progressive experiences, utilizing secure API endpoints, service functions, database tables, reusable UI components, and custom React Query hooks. Security relies on `req.user.id` from session, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders (`docs/`, `scripts/`, `agents/`, `schema`), and automated tests for file protection.
+Mundo Tango employs a comprehensive agent documentation system covering various agent types, following the MB.MD methodology. It includes 5 Customer Journey Agents (J1-J5) guiding user experiences. Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders, and automated tests for file protection.
 
 ### External Dependencies
 -   **PostgreSQL + Drizzle ORM**: Primary database.
--   **Replit OAuth**: Authentication and user session management.
+-   **Replit OAuth**: Authentication.
 -   **Replit Object Storage**: Native file storage.
--   **Socket.io**: Real-time WebSocket communication.
+-   **Socket.io**: Real-time communication.
+-   **OpenAI (GPT-4o, TTS)**: AI content enhancement, real-time voice, text-to-speech.
+-   **Anthropic (Claude 3.5 Sonnet)**: AI integration (Omniscient Mode, AI commit messages, chat summarization).
+-   **Google (Generative AI)**: AI integration.
+-   **Hugging Face**: AI integration.
 -   **Luma Labs API**: AI-powered 3D avatar generation.
--   **PostHog**: Analytics platform.
--   **Leaflet**: Open-source mapping library.
--   **React Query (TanStack)**: Server state management and caching.
--   **Notion CMS**: Internal content management system.
+-   **PostHog**: Analytics.
+-   **Leaflet**: Open-source mapping.
+-   **React Query (TanStack)**: Server state management.
+-   **Notion CMS**: Internal content management.
 -   **Sentry**: Error tracking.
 -   **OpenReplay**: Session replay.
 -   **Plausible Analytics**: Privacy-first web analytics.
 -   **Stripe**: Payment processing.
 -   **Supabase**: Alternative database layer.
--   **OpenAI GPT-4o**: AI content enhancement.
 -   **n8n**: Workflow automation.
--   **@anthropic-ai/sdk**: AI integration.
--   **@google/generative-ai**: AI integration.
--   **@huggingface/inference**: AI integration.
