@@ -225,12 +225,9 @@ const startServer = async () => {
       console.log(`[server] listening on ${PORT}`);
       
       // Start automated model monitoring (checks 4x daily for deprecations)
-      try {
-        const { startModelMonitoring } = await import('./services/modelMonitor.js');
-        startModelMonitoring();
-      } catch (error) {
-        console.warn('⚠️  Model monitoring service unavailable:', error);
-      }
+      import('./services/modelMonitor.js')
+        .then(({ startModelMonitoring }) => startModelMonitoring())
+        .catch(error => console.warn('⚠️  Model monitoring service unavailable:', error));
     });
 
     // Add error handler for the server
