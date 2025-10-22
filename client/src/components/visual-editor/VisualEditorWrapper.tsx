@@ -11,6 +11,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import TabSystem, { EditorTab } from './TabSystem';
+import { ElementInspector } from './ElementInspector';
 import PreviewTab from './PreviewTab';
 import DeployTab from './DeployTab';
 import GitTab from './GitTab';
@@ -429,6 +430,11 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
 
             {/* Tab Content */}
             <div className="flex-1 overflow-auto p-4 space-y-4">
+              {activeTab === 'inspector' && (
+                <ElementInspector 
+                  selectedElement={visualEditorContext?.selectedElement ?? null} 
+                />
+              )}
               {activeTab === 'preview' && <PreviewTab currentPath={location} />}
               {activeTab === 'deploy' && <DeployTab />}
               {activeTab === 'git' && <GitTab />}
