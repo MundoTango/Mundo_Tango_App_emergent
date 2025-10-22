@@ -133,10 +133,8 @@ export function ChatInterface() {
     mutationFn: async (content: string) => {
       if (!conversationId) throw new Error('No active conversation');
       
-      // Use consensus endpoint if "all-models" is selected
-      const endpoint = selectedModel === 'all-models' 
-        ? '/api/consensus/stream'
-        : '/api/chat/stream';
+      // Always use fast universal orchestrator (consensus engine is too slow)
+      const endpoint = '/api/chat/stream';
       
       const response = await fetch(endpoint, {
         method: 'POST',

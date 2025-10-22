@@ -46,7 +46,7 @@ const MODEL_REGISTRY: Record<string, ModelConfig> = {
     costPerToken: 0.000015,
   },
   'claude-3-sonnet': {
-    name: 'claude-3-5-sonnet-20241022',
+    name: 'claude-3-5-sonnet-20240620',
     provider: 'anthropic',
     strengths: ['balanced', 'fast', 'coding'],
     costPerToken: 0.000003,
@@ -183,11 +183,14 @@ export class MultiModelOrchestrator {
   ): AsyncGenerator<string> {
     const genModel = gemini.getGenerativeModel({ model });
 
-    // Convert messages to Gemini format
-    const history = messages.slice(0, -1).map(m => ({
-      role: m.role === 'user' ? 'user' : 'model',
-      parts: [{ text: m.content }],
-    }));
+    // Convert messages to Gemini format (exclude system messages)
+    const history = messages
+      .slice(0, -1)
+      .filter(m => m.role !== 'system')
+      .map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }],
+      }));
 
     const chat = genModel.startChat({ history });
     const lastMessage = messages[messages.length - 1].content;
