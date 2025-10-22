@@ -51,12 +51,22 @@ export function ChatInterface() {
   // Load conversations (projects)
   const { data: conversations, isLoading: loadingConversations } = useQuery<Conversation[]>({
     queryKey: ['/api/chat/projects'],
+    queryFn: async () => {
+      const res = await fetch('/api/chat/projects', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch conversations');
+      return await res.json();
+    },
   });
 
   // Load messages for active conversation
   const { data: messages, isLoading: loadingMessages} = useQuery<Message[]>({
     queryKey: [`/api/chat/projects/${conversationId}/messages`],
     enabled: !!conversationId,
+    queryFn: async () => {
+      const res = await fetch(`/api/chat/projects/${conversationId}/messages`, { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch messages');
+      return await res.json();
+    },
   });
 
   // Create new conversation mutation

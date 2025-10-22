@@ -28,6 +28,13 @@ export function LifeCeoPerformanceDashboard() {
   // Fetch performance report from Life CEO service
   const { data: report, isLoading } = useQuery<PerformanceReport>({
     queryKey: ['/api/performance/report'],
+    queryFn: async () => {
+      const res = await fetch('/api/performance/report', {
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to fetch performance report');
+      return await res.json();
+    },
     refetchInterval: 30000, // Update every 30 seconds
   });
 
