@@ -2636,6 +2636,36 @@ export const modelUsage = pgTable("model_usage", {
   index("idx_model_usage_timestamp").on(table.timestamp),
 ]);
 
+// Voice Conversation Turns (GPT-4o Realtime API history)
+// STREAM 2: Conversation History Persistence
+export const voiceConversationTurns = pgTable("voice_conversation_turns", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => chatProjects.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  role: varchar("role", { length: 20 }).notNull(), // user, assistant
+  transcript: text("transcript"), // Text transcription
+  audioUrl: text("audio_url"), // URL to audio file in object storage (optional)
+  audioDuration: integer("audio_duration"), // Duration in milliseconds
+  language: varchar("language", { length: 10 }).default('en'), // ISO 639-1 code
+  model: varchar("model", { length: 100 }).default('gpt-4o-realtime'), // AI model used
+  toolsUsed: text("tools_used").array(), // Function calls made during this turn
+  metadata: jsonb("metadata").$type<Record<string, any>>(), // VAD events, etc
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_voice_turns_project").on(table.projectId),
+  index("idx_voice_turns_user").on(table.userId),
+  index("idx_voice_turns_timestamp").on(table.createdAt),
+]);
+
+// Zod schemas for voice conversations
+export const insertVoiceConversationTurnSchema = createInsertSchema(voiceConversationTurns).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type VoiceConversationTurn = typeof voiceConversationTurns.$inferSelect;
+export type InsertVoiceConversationTurn = z.infer<typeof insertVoiceConversationTurnSchema>;
+
 // Embeddings (semantic search via HuggingFace/OpenAI)
 export const embeddings = pgTable("embeddings", {
   id: serial("id").primaryKey(),

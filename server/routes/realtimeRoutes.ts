@@ -9,6 +9,8 @@
 import { Router } from 'express';
 import { WebSocket, WebSocketServer } from 'ws';
 import OpenAI from 'openai';
+import { getRealtimeTools } from '../services/tools/realtimeToolAdapter';
+import { ToolExecutor } from '../services/tools/ToolExecutor';
 
 const router = Router();
 
@@ -63,10 +65,46 @@ export function setupRealtimeWebSocket(server: any) {
       });
 
       // Forward OpenAI responses to client
-      openaiWs.on('message', (data: any) => {
+      openaiWs.on('message', async (data: any) => {
         try {
           const message = JSON.parse(data.toString());
           console.log('[Realtime] OpenAI → Client:', message.type);
+          
+          // 🎯 STREAM 1: Handle function_call events
+          if (message.type === 'response.function_call_arguments.done') {
+            const functionName = message.name;
+            const functionArgs = JSON.parse(message.arguments);
+            
+            console.log(`[Realtime] Executing tool: ${functionName}`, functionArgs);
+            
+            try {
+              // Execute the function using ToolExecutor
+              const toolExecutor = new ToolExecutor();
+              const result = await toolExecutor.execute(functionName, functionArgs, { isSuperAdmin: true });
+              
+              // Send result back to OpenAI
+              openaiWs.send(JSON.stringify({
+                type: 'conversation.item.create',
+                item: {
+                  type: 'function_call_output',
+                  call_id: message.call_id,
+                  output: JSON.stringify(result)
+                }
+              }));
+              
+              console.log(`[Realtime] Tool ${functionName} executed successfully`);
+            } catch (error) {
+              console.error(`[Realtime] Tool execution error:`, error);
+              openaiWs.send(JSON.stringify({
+                type: 'conversation.item.create',
+                item: {
+                  type: 'function_call_output',
+                  call_id: message.call_id,
+                  output: JSON.stringify({ error: 'Tool execution failed' })
+                }
+              }));
+            }
+          }
           
           // Forward to client
           if (clientWs.readyState === WebSocket.OPEN) {
@@ -99,7 +137,7 @@ export function setupRealtimeWebSocket(server: any) {
               prefix_padding_ms: 300,
               silence_duration_ms: 500
             },
-            tools: [], // Will add Mr Blue's 11 tools here
+            tools: getRealtimeTools(), // 🎯 All 11 Omniscient Mode tools
             tool_choice: 'auto',
             temperature: 0.8,
           }
