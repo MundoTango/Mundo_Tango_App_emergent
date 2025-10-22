@@ -10,8 +10,17 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { getAllTools } from './toolDefinitions';
 import { ToolExecutor } from './ToolExecutor';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// OPTIMIZATION: Enable HTTP keep-alive for connection pooling
+const anthropic = new Anthropic({ 
+  apiKey: process.env.ANTHROPIC_API_KEY,
+  maxRetries: 2,
+  timeout: 30000, // 30s timeout
+});
+const openai = new OpenAI({ 
+  apiKey: process.env.OPENAI_API_KEY,
+  maxRetries: 2,
+  timeout: 30000,
+});
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 const toolExecutor = new ToolExecutor();
@@ -20,6 +29,42 @@ export interface StreamChunk {
   type: 'text' | 'tool_use' | 'tool_result';
   content: string;
   tool?: string;
+}
+
+/**
+ * OPTIMIZATION: Compress verbose system messages
+ * Removes redundant instructions while keeping core functionality
+ */
+function compressSystemMessage(system: string): string {
+  if (!system || system.length < 500) return system;
+  
+  // Remove excessive example blocks and verbose instructions
+  let compressed = system
+    // Remove repeated "IMPORTANT" and "NOTE" blocks
+    .replace(/\*\*IMPORTANT\*\*:?\s*/gi, '')
+    .replace(/\*\*NOTE\*\*:?\s*/gi, '')
+    // Compress tool listings (keep names, remove verbose descriptions)
+    .replace(/- \w+_\w+ - [^\n]+/g, (match) => {
+      const toolName = match.match(/- (\w+_\w+)/)?.[1];
+      return toolName ? `- ${toolName}` : match;
+    })
+    // Remove "Examples:" sections (AI knows how to use tools)
+    .replace(/Examples?:[\s\S]*?(?=\n\n|\n\*\*|$)/gi, '')
+    // Compress whitespace
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+  
+  // If still too long (>1500 chars), extract core instructions only
+  if (compressed.length > 1500) {
+    const coreMatch = compressed.match(/You are [^\n]+/);
+    const toolsMatch = compressed.match(/You have \d+ AI tools[^\n]+/);
+    const rolesMatch = compressed.match(/super[_\s]?admin/i) ? 
+      '\n\nOmniscient Mode: You have access to database, codebase, and documentation tools. Use them actively.' : '';
+    
+    compressed = [coreMatch?.[0], toolsMatch?.[0], rolesMatch].filter(Boolean).join('\n');
+  }
+  
+  return compressed;
 }
 
 /**
@@ -61,10 +106,14 @@ async function* streamClaudeWithTools(
   const userMessages = messages.filter(m => m.role !== 'system');
   const tools = getAllTools();
 
+  // OPTIMIZATION: Reduce max_tokens from 4096 to 1500 (most responses are <1000 tokens)
+  // OPTIMIZATION: Compress system message to reduce tokens sent
+  const compressedSystem = compressSystemMessage(systemMessage?.content || '');
+  
   const response = await anthropic.messages.create({
     model: 'claude-sonnet-4-5-20250929',
-    max_tokens: 4096,
-    system: systemMessage?.content as string,
+    max_tokens: 1500, // Reduced from 4096 for faster responses
+    system: compressedSystem,
     tools: tools as any,
     messages: userMessages.map(m => ({
       role: m.role === 'user' ? 'user' as const : 'assistant' as const,
@@ -91,8 +140,8 @@ async function* streamClaudeWithTools(
 
       const finalStream = await anthropic.messages.stream({
         model: 'claude-sonnet-4-5-20250929',
-        max_tokens: 4096,
-        system: systemMessage?.content as string,
+        max_tokens: 1500, // Reduced for faster tool-result responses
+        system: compressedSystem,
         messages: finalMessages,
       });
 

@@ -223,6 +223,14 @@ const startServer = async () => {
       console.log(`  Memory management: ✅ Optimized`);
       console.log(`  All core features: ✅ Operational`);
       console.log(`[server] listening on ${PORT}`);
+      
+      // Start automated model monitoring (checks 4x daily for deprecations)
+      try {
+        const { startModelMonitoring } = await import('./services/modelMonitor.js');
+        startModelMonitoring();
+      } catch (error) {
+        console.warn('⚠️  Model monitoring service unavailable:', error);
+      }
     });
 
     // Add error handler for the server

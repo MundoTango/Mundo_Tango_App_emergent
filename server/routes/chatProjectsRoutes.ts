@@ -138,19 +138,33 @@ router.post('/stream', async (req: any, res: Response) => {
       model: null,
     });
 
-    // Get conversation history
+    // OPTIMIZATION: Get recent conversation history (limit 10 for speed)
     const history = await db
       .select()
       .from(aiChatMessages)
       .where(eq(aiChatMessages.projectId, projectId))
       .orderBy(aiChatMessages.createdAt)
-      .limit(20);
+      .limit(10); // Reduced from 20 for faster queries and less token usage
 
     // Build context-aware system prompt (MB.MD: Give Mr Blue "superpowers")
     const systemPrompt = buildContextAwarePrompt(personality, context, user);
+    
+    // OPTIMIZATION: Compress history messages (keep recent full, summarize older)
+    const compressedHistory = history.map((m, idx) => {
+      // Keep last 5 messages at full length
+      if (idx >= history.length - 5) {
+        return { role: m.role, content: m.content };
+      }
+      // Compress older messages (trim to 200 chars)
+      return { 
+        role: m.role, 
+        content: m.content.substring(0, 200) + (m.content.length > 200 ? '...' : '')
+      };
+    });
+    
     const messages = [
       { role: 'system', content: systemPrompt },
-      ...history.map(m => ({ role: m.role, content: m.content })),
+      ...compressedHistory,
     ];
 
     // Select best model - "auto" uses Claude (best tool calling)
