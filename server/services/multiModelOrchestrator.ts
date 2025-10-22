@@ -46,7 +46,7 @@ const MODEL_REGISTRY: Record<string, ModelConfig> = {
     costPerToken: 0.000015,
   },
   'claude-3-sonnet': {
-    name: 'claude-3-5-sonnet-20240620',
+    name: 'claude-sonnet-4-5-20250929',
     provider: 'anthropic',
     strengths: ['balanced', 'fast', 'coding'],
     costPerToken: 0.000003,
