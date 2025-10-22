@@ -64,7 +64,8 @@ export function ChatInterface() {
   });
   
   // 🎙️ REALTIME VOICE MODE: Two-way conversation with GPT-4o Realtime API (Oct 22, 2025)
-  const [realtimeVoiceEnabled, setRealtimeVoiceEnabled] = useState(false);
+  // DEFAULT: Always active (user request - Oct 22, 2025)
+  const [realtimeVoiceEnabled, setRealtimeVoiceEnabled] = useState(true);
   
   // 📚 CONVERSATION HISTORY: Show past voice conversations (Oct 22, 2025)
   const [showConversationHistory, setShowConversationHistory] = useState(false);
