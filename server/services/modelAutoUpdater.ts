@@ -74,9 +74,9 @@ async function testGeminiModel(modelId: string): Promise<boolean> {
  */
 async function getLatestClaudeModel(): Promise<string> {
   const candidateModels = [
-    'claude-3-7-sonnet-20250219',  // Latest as of Oct 22, 2025
-    'claude-sonnet-4-5-20250929',
-    'claude-3-5-sonnet-20240620',
+    'claude-sonnet-4-5-20250929',  // Latest as of Oct 22, 2025 (Claude 4.5 Sonnet)
+    'claude-3-7-sonnet-20250219',  // Fallback
+    'claude-3-5-sonnet-20240620',  // Older fallback
   ];
 
   for (const model of candidateModels) {
@@ -94,9 +94,9 @@ async function getLatestClaudeModel(): Promise<string> {
  */
 async function getLatestGeminiModel(): Promise<string> {
   const candidateModels = [
-    'gemini-2.0-flash-exp',  // Latest as of Oct 22, 2025
-    'gemini-1.5-pro-latest',
-    'gemini-1.5-pro',
+    'gemini-2.5-pro',  // Latest stable as of Oct 22, 2025
+    'gemini-2.0-flash-exp',  // Experimental
+    'gemini-1.5-pro-latest',  // Fallback
   ];
 
   for (const model of candidateModels) {
