@@ -2,6 +2,15 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
+// MB.MD FIX: Clear old cache BEFORE creating queryClient to prevent stale queryFn errors
+if (typeof window !== 'undefined') {
+  try {
+    window.localStorage.removeItem('MUNDO_TANGO_QUERY_CACHE');
+  } catch (e) {
+    console.warn('[Cache Clear] Failed:', e);
+  }
+}
+
 // Store CSRF token
 let csrfToken: string | null = null;
 
@@ -158,7 +167,7 @@ export const queryClient = new QueryClient({
 if (typeof window !== 'undefined') {
   const persister = createSyncStoragePersister({
     storage: window.localStorage,
-    key: 'MUNDO_TANGO_QUERY_CACHE',
+    key: 'MUNDO_TANGO_QUERY_CACHE_V2', // V2: Fixed queryFn issue - Oct 22, 2025
   });
 
   persistQueryClient({
