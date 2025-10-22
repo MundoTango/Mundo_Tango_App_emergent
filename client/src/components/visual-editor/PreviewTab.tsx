@@ -20,13 +20,13 @@ export default function PreviewTab({ currentPath }: PreviewTabProps) {
 
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
-    if (iframeRef.current) {
-      iframeRef.current.src = iframeRef.current.src;
-    }
   };
 
-  // Build preview URL without edit mode
-  const previewUrl = `${window.location.origin}${currentPath}`;
+  // Build preview URL without edit mode + cache-busting timestamp
+  // MB.MD: Add refreshKey to force browser to bypass cache (Oct 22, 2025)
+  const previewUrl = `${window.location.origin}${currentPath}${
+    currentPath.includes('?') ? '&' : '?'
+  }_preview=${refreshKey}`;
 
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-900">
