@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX, Settings, Phone
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Volume2, VolumeX, Settings, Phone, History
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,6 +18,7 @@ import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
 import { VoiceSelector } from './VoiceSelector';
 import { RealtimeVoiceMode } from './RealtimeVoiceMode';
+import { ConversationHistoryPanel } from './ConversationHistoryPanel';
 import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
@@ -64,6 +65,9 @@ export function ChatInterface() {
   
   // 🎙️ REALTIME VOICE MODE: Two-way conversation with GPT-4o Realtime API (Oct 22, 2025)
   const [realtimeVoiceEnabled, setRealtimeVoiceEnabled] = useState(false);
+  
+  // 📚 CONVERSATION HISTORY: Show past voice conversations (Oct 22, 2025)
+  const [showConversationHistory, setShowConversationHistory] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -368,6 +372,19 @@ export function ChatInterface() {
             <Phone className="h-4 w-4" />
           </Button>
           
+          {/* 📚 Voice Conversation History Toggle */}
+          <Button
+            variant={showConversationHistory ? "default" : "ghost"}
+            size="icon"
+            onClick={() => setShowConversationHistory(!showConversationHistory)}
+            data-testid="button-conversation-history"
+            aria-label="View conversation history"
+            title="View past voice conversations"
+            className={showConversationHistory ? "bg-purple-500 hover:bg-purple-600" : ""}
+          >
+            <History className="h-4 w-4" />
+          </Button>
+          
           {/* Minimize Button */}
           <Button
             variant="ghost"
@@ -418,9 +435,10 @@ export function ChatInterface() {
           </div>
         )}
 
-        {/* Messages Area OR Realtime Voice Mode */}
+        {/* Messages Area OR Realtime Voice Mode OR Conversation History */}
         {realtimeVoiceEnabled ? (
-          // 🎙️ REALTIME VOICE MODE: Two-way conversation
+          // 🎙️ REALTIME VOICE MODE: Two-way conversation with ALL NEW FEATURES
+          // ✨ Features: VAD (green glow), Language selector (6 languages), Push-to-talk, Function calling (11 tools)
           <RealtimeVoiceMode 
             voiceSettings={{
               selectedVoice: voiceSettings.voice,
@@ -428,6 +446,22 @@ export function ChatInterface() {
             }}
             onClose={() => setRealtimeVoiceEnabled(false)}
           />
+        ) : showConversationHistory && conversationId ? (
+          // 📚 CONVERSATION HISTORY PANEL: View past voice conversations
+          <div className="flex-1 overflow-hidden p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900">Voice Conversation History</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowConversationHistory(false)}
+                data-testid="button-close-history"
+              >
+                Close
+              </Button>
+            </div>
+            <ConversationHistoryPanel projectId={conversationId} />
+          </div>
         ) : (
           <>
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
