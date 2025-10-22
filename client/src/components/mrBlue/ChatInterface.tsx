@@ -18,7 +18,7 @@ import VoiceControls from './VoiceControls';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
 import { VoiceSelector } from './VoiceSelector';
 import { useAppContext } from '@/hooks/useAppContext';
-import { useVisualEditor } from '@/contexts/VisualEditorContext';
+import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
 
 // ============ TYPES ============
@@ -66,7 +66,9 @@ export function ChatInterface() {
   const appContext = useAppContext(); // 🎯 MB.MD: Collect context for AI awareness
   
   // 🎨 VISUAL EDITOR CONTEXT: See selected elements (Oct 22, 2025)
-  const { selectedElement } = useVisualEditor();
+  // NOTE: Only available when ChatInterface is inside VisualEditorWrapper
+  const visualEditorContext = useVisualEditorOptional();
+  const selectedElement = visualEditorContext?.selectedElement || null;
   
   // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
   const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();

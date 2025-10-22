@@ -40,3 +40,9 @@ export function useVisualEditor() {
   }
   return context;
 }
+
+// Optional version that doesn't throw - for components that may or may not be in Visual Editor
+export function useVisualEditorOptional() {
+  const context = useContext(VisualEditorContext);
+  return context; // Returns null if not in provider
+}
