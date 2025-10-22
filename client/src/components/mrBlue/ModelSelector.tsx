@@ -1,7 +1,7 @@
 /**
- * AI Model Selector
- * Choose which AI model to use (GPT-4, Claude, Gemini, etc.)
- * MB.MD Track 2: Multi-Model UI - Oct 21, 2025
+ * AI Model Selector - Simplified to "All Models" only
+ * Uses intelligent orchestration with Claude, GPT-4, Gemini
+ * MB.MD Track 2: Multi-Model UI - Oct 22, 2025
  */
 
 import {
@@ -14,11 +14,7 @@ import {
 import { Brain } from 'lucide-react';
 
 const MODELS = [
-  { id: 'auto', name: 'Auto (Best for task)', icon: '🎯' },
-  { id: 'gpt-4o', name: 'GPT-4o (Creative)', icon: '🎨' },
-  { id: 'claude-3-sonnet', name: 'Claude Sonnet (Balanced)', icon: '⚡' },
-  { id: 'claude-3-opus', name: 'Claude Opus (Analysis)', icon: '🧠' },
-  { id: 'gemini-pro', name: 'Gemini Pro (Vision)', icon: '👁️' },
+  { id: 'auto', name: 'All Models (Intelligent)', icon: '🎯', description: 'Claude + GPT-4 + Gemini with tools' },
 ];
 
 interface ModelSelectorProps {
@@ -37,10 +33,13 @@ export function ModelSelector({ value, onChange, disabled }: ModelSelectorProps)
       <SelectContent>
         {MODELS.map((model) => (
           <SelectItem key={model.id} value={model.id} data-testid={`model-${model.id}`}>
-            <span className="flex items-center gap-2">
-              <span>{model.icon}</span>
-              <span>{model.name}</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="flex items-center gap-2">
+                <span>{model.icon}</span>
+                <span className="font-medium">{model.name}</span>
+              </span>
+              <span className="text-xs text-gray-500">{model.description}</span>
+            </div>
           </SelectItem>
         ))}
       </SelectContent>

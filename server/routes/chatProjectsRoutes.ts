@@ -153,19 +153,17 @@ router.post('/stream', async (req: any, res: Response) => {
       ...history.map(m => ({ role: m.role, content: m.content })),
     ];
 
-    // Select best model - Force Claude for super admins (tool calling support)
+    // Select best model - "auto" uses Claude (best tool calling)
     const isSuperAdmin = user.email === 'admin@mundotango.life' || 
                         user.tangoRoles?.includes('super_admin');
     
     let selectedModel = model;
-    if (!selectedModel && isSuperAdmin) {
-      console.log('[Chat Stream] Super admin detected - defaulting to Claude for tool support');
+    // Map "auto" or undefined to Claude (best tool support)
+    if (!selectedModel || selectedModel === 'auto') {
       selectedModel = 'claude-3-sonnet';
-    } else if (!selectedModel) {
-      selectedModel = 'claude-3-sonnet'; // Default for all users
     }
     
-    console.log(`[Chat Stream] User: ${user.username}, Model: ${selectedModel}, SuperAdmin: ${isSuperAdmin}`);
+    console.log(`[Chat Stream] User: ${user.username}, Model: ${selectedModel}, SuperAdmin: ${isSuperAdmin}, Original: ${model || 'auto'}`);
 
     // Stream response with tool support
     res.setHeader('Content-Type', 'text/event-stream');
