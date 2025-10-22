@@ -43,12 +43,12 @@ export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
     <div className="p-4 space-y-4">
       {/* Element Inspector */}
       <div>
-        <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Selected Element</h3>
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">Selected Element</h3>
         {selectedElement ? (
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <FileCode className="w-4 h-4 text-blue-500" />
-              <code className="text-sm font-mono text-gray-700 dark:text-gray-300">
+              <code className="text-sm font-mono text-gray-700">
                 {selectedElement.tag}
               </code>
               {selectedElement.id && (
@@ -58,7 +58,7 @@ export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
               )}
             </div>
             {selectedElement.className && (
-              <div className="text-xs text-gray-600 dark:text-gray-400">
+              <div className="text-xs text-gray-600">
                 <span className="font-medium">Classes:</span>
                 <div className="mt-1 flex flex-wrap gap-1">
                   {selectedElement.className.split(' ').map((cls, i) => (
@@ -69,15 +69,15 @@ export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
                 </div>
               </div>
             )}
-            <div className="mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">XPath</p>
-              <code className="text-xs font-mono text-gray-700 dark:text-gray-300 break-all">
+            <div className="mt-2 p-2 bg-gray-50 rounded border border-gray-200">
+              <p className="text-xs font-medium text-gray-500 mb-1">XPath</p>
+              <code className="text-xs font-mono text-gray-700 break-all">
                 {selectedElement.xpath}
               </code>
             </div>
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-8 text-gray-500">
             <Layers className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-sm">Click any element on the page to inspect it</p>
           </div>
@@ -85,14 +85,14 @@ export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
       </div>
 
       {/* AI Code Generation */}
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-        <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">AI Code Generation</h3>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+      <div className="border-t border-gray-200 pt-4">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">AI Code Generation</h3>
+        <p className="text-xs text-gray-500 mb-4">
           Describe what you want to change and AI will generate the code
         </p>
 
         <div>
-          <label className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 block">
+          <label className="text-xs font-medium text-gray-700 mb-1 block">
             What would you like to change?
           </label>
           <Textarea

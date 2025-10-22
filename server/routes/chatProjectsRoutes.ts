@@ -298,12 +298,18 @@ function buildContextAwarePrompt(personality?: string, context?: any, user?: any
       }
     }
 
-    // Visual Editor specific context
+    // Visual Editor specific context (Support both context structures)
+    const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
     if (context.visualEditorState?.isActive) {
       prompt += `\n- The Visual Editor is active`;
-      if (context.visualEditorState.selectedElement) {
-        prompt += ` with "${context.visualEditorState.selectedElement}" selected`;
+      if (selectedEl) {
+        const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
+        prompt += ` with "${elementInfo}" selected`;
       }
+    } else if (selectedEl) {
+      // Visual Editor context without explicit isActive flag
+      const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
+      prompt += `\n- Selected element: "${elementInfo}"`;
     }
 
     prompt += `\n\nUse this context to provide relevant, helpful responses. You CAN see what page they're on and what they're doing.`;
