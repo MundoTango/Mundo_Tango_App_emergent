@@ -1412,6 +1412,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   
+  // 🔍 MB.MD Stream G (Oct 22, 2025): Initialize automated model monitoring cron
+  try {
+    const { startModelMonitoringCron } = await import('./services/modelMonitorCron');
+    startModelMonitoringCron();
+    console.log('✅ Model monitoring cron initialized (runs every 6 hours)');
+  } catch (error) {
+    console.warn('⚠️ Model monitoring cron initialization failed:', error);
+  }
+  
   // 🎯 MB.MD FIX: Setup Vite BEFORE error handlers so frontend can be served
   // Development check: treat undefined NODE_ENV as development (Replit default)
   const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';

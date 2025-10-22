@@ -51,8 +51,13 @@ export function ModelMonitorTab() {
   const [updateLog, setUpdateLog] = useState<string[]>([]);
 
   // Fetch model status
-  const { data: status, isLoading, refetch } = useQuery<ModelCheckResponse>({
+  const { data: status, isLoading, refetch} = useQuery<ModelCheckResponse>({
     queryKey: ['/api/models/check'],
+    queryFn: async () => {
+      const res = await fetch('/api/models/check', { credentials: 'include' });
+      if (!res.ok) throw new Error(`Model check failed: ${res.statusText}`);
+      return res.json();
+    },
     refetchInterval: 60000, // Refresh every minute
   });
 
