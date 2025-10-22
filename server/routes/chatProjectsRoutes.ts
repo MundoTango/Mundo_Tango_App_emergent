@@ -51,15 +51,22 @@ router.post('/projects', async (req: any, res: Response) => {
   }
 
   try {
+    console.log(`[Chat Projects POST] Authenticated user replitId: ${req.user.claims.sub}`);
+    
     // Get database user from Replit ID
     const { storage } = await import('../storage');
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
+    console.log(`[Chat Projects POST] User lookup result:`, user ? `User found: id=${user.id}` : 'User NOT found');
+    
     if (!user) {
+      console.error(`[Chat Projects POST] CRITICAL: User not found for replitId ${req.user.claims.sub}`);
       return res.status(404).json({ error: 'User not found' });
     }
 
     const { name, description } = req.body;
+    
+    console.log(`[Chat Projects POST] Creating project for userId: ${user.id}`);
 
     const [project] = await db
       .insert(chatProjects)
@@ -70,6 +77,7 @@ router.post('/projects', async (req: any, res: Response) => {
       })
       .returning();
 
+    console.log(`[Chat Projects POST] Project created successfully: id=${project.id}`);
     res.json(project);
   } catch (error) {
     console.error('[Chat Projects] Error creating project:', error);

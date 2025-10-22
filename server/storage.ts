@@ -1264,14 +1264,18 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserByReplitId(id: string): Promise<User | undefined> {
+    console.log(`[getUserByReplitId] Looking for user with replitId: "${id}"`);
     const result = await db.select().from(users).where(eq(users.replitId, id)).limit(1);
+    console.log(`[getUserByReplitId] Query result:`, result.length > 0 ? `Found user ${result[0].id}` : 'No user found');
     if (result[0]) {
+      console.log(`[getUserByReplitId] Returning user: id=${result[0].id}, username=${result[0].username}, replitId=${result[0].replitId}`);
       // Map backgroundImage to coverImage for frontend compatibility
       return {
         ...result[0],
         coverImage: result[0].backgroundImage
       } as User;
     }
+    console.log(`[getUserByReplitId] Returning undefined - no user found`);
     return result[0];
   }
 
