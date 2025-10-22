@@ -26,18 +26,9 @@ interface GitStatusResponse {
 export function ReplitGitIntegration() {
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // Fetch Git status via shell commands
+  // Fetch Git status via real backend API (Stream C - Oct 22, 2025)
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatusResponse>({
     queryKey: ['/api/git/status', refreshKey],
-    queryFn: async () => {
-      // Placeholder - Git status API integration pending
-      return {
-        branch: 'main',
-        modifiedFiles: [],
-        ahead: 0,
-        behind: 0
-      };
-    },
     refetchInterval: 5000, // Auto-refresh every 5s
   });
 

@@ -52,7 +52,7 @@ const MODEL_REGISTRY: Record<string, ModelConfig> = {
     costPerToken: 0.000003,
   },
   'gemini-pro': {
-    name: 'gemini-1.5-pro-latest',
+    name: 'gemini-2.0-flash-exp',
     provider: 'google',
     strengths: ['multimodal', 'vision', 'long-context'],
     costPerToken: 0.0000035,

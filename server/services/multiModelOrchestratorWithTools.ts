@@ -46,7 +46,7 @@ export async function* streamResponseWithTools(
 
   // Call Claude with tools
   const response = await anthropic.messages.create({
-    model: 'claude-3-5-sonnet-20241022',
+    model: 'claude-3-7-sonnet-20250219',
     max_tokens: 4096,
     system: systemMessage?.content as string,
     tools: tools as any,
@@ -103,7 +103,7 @@ export async function* streamResponseWithTools(
 
       // Get Claude's final response with tool results
       const finalStream = await anthropic.messages.stream({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-3-7-sonnet-20250219',
         max_tokens: 4096,
         system: systemMessage?.content as string,
         messages: finalMessages,

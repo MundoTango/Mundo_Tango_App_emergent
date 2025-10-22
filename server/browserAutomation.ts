@@ -137,7 +137,7 @@ export class BrowserAutomation {
       // Send to Anthropic Computer Use API
       // NOTE: Computer Use API is beta - SDK types not updated yet
       const message = await this.anthropic.messages.create({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-3-7-sonnet-20250219',
         max_tokens: 1024,
         tools: [
           {

@@ -20,13 +20,9 @@ interface DeploymentStatus {
 export function ReplitDeployIntegration() {
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // Fetch deployment status from Replit API
+  // Fetch deployment status from real backend API (Stream D - Oct 22, 2025)
   const { data: status, isLoading, refetch } = useQuery<DeploymentStatus>({
     queryKey: ['/api/deploy/status', refreshKey],
-    queryFn: async () => {
-      // Placeholder - Replit Deploy API integration pending
-      return { status: 'unknown' as const };
-    },
     refetchInterval: 10000, // Auto-refresh every 10s
   });
 

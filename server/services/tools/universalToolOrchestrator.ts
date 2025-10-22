@@ -236,7 +236,7 @@ async function* streamGeminiWithTools(
 ): AsyncGenerator<StreamChunk> {
   const tools = convertToGeminiTools();
   const model = gemini.getGenerativeModel({
-    model: 'gemini-1.5-pro-latest',
+    model: 'gemini-2.0-flash-exp',
     tools: [{ functionDeclarations: tools as any }]
   });
 
