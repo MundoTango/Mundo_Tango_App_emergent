@@ -33,7 +33,8 @@ export function LifeCeoPerformanceDashboard() {
         credentials: 'include',
       });
       if (!res.ok) throw new Error('Failed to fetch performance report');
-      return await res.json();
+      const json = await res.json();
+      return json.data; // Backend wraps response in { success, data }
     },
     refetchInterval: 30000, // Update every 30 seconds
   });
