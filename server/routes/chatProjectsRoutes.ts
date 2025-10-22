@@ -9,6 +9,7 @@ import { db } from '../db';
 import { chatProjects, aiChatMessages, modelUsage, type InsertChatProject, type InsertAIChatMessage } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
 import { multiModelOrchestrator } from '../services/multiModelOrchestrator';
+import { storage } from '../storage';
 
 const router = Router();
 
@@ -22,7 +23,6 @@ router.get('/projects', async (req: any, res: Response) => {
 
   try {
     // Get database user from Replit ID
-    const { storage } = await import('../storage.js');
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
     if (!user) {
@@ -54,7 +54,6 @@ router.post('/projects', async (req: any, res: Response) => {
     console.log(`[Chat Projects POST] Authenticated user replitId: ${req.user.claims.sub}`);
     
     // Get database user from Replit ID
-    const { storage } = await import('../storage.js');
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
     console.log(`[Chat Projects POST] User lookup result:`, user ? `User found: id=${user.id}` : 'User NOT found');
@@ -121,7 +120,6 @@ router.post('/stream', async (req: any, res: Response) => {
 
   try {
     // Get database user from Replit ID
-    const { storage } = await import('../storage');
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
     if (!user) {
