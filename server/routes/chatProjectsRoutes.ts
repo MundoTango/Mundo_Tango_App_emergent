@@ -171,8 +171,8 @@ router.post('/stream', async (req: any, res: Response) => {
     ];
 
     // Select best model - "auto" uses Claude (best tool calling)
-    const isSuperAdmin = user.email === 'admin@mundotango.life' || 
-                        user.tangoRoles?.includes('super_admin');
+    const { isSuperAdmin: checkSuperAdmin } = await import('../utils/auth.js');
+    const hasSuperPowers = checkSuperAdmin(user, context);
     
     let selectedModel = model;
     // Map "auto" or undefined to Claude (best tool support)
@@ -180,7 +180,7 @@ router.post('/stream', async (req: any, res: Response) => {
       selectedModel = 'claude-3-sonnet';
     }
     
-    console.log(`[Chat Stream] User: ${user.username}, Model: ${selectedModel}, SuperAdmin: ${isSuperAdmin}, Original: ${model || 'auto'}`);
+    console.log(`[Chat Stream] User: ${user.username}, Model: ${selectedModel}, SuperAdmin: ${hasSuperPowers}, Original: ${model || 'auto'}`);
 
     // Stream response with tool support
     res.setHeader('Content-Type', 'text/event-stream');
@@ -191,7 +191,7 @@ router.post('/stream', async (req: any, res: Response) => {
     let tokenCount = 0;
     const toolsUsed: any[] = [];
 
-    console.log(`[Chat Stream] Starting stream - Model: ${selectedModel}, Tools: ${isSuperAdmin ? 'ENABLED' : 'DISABLED'}`);
+    console.log(`[Chat Stream] Starting stream - Model: ${selectedModel}, Tools: ${hasSuperPowers ? 'ENABLED' : 'DISABLED'}`);
 
     // Use universal tool-enabled orchestrator (works with all models)
     for await (const chunk of streamWithTools(messages, selectedModel, user, (tool, params, result) => {
@@ -271,7 +271,9 @@ function buildContextAwarePrompt(personality?: string, context?: any, user?: any
       prompt += `\n- User role: ${context.user.role}`;
       
       // DUAL-MODE LOGIC (Stream D - Oct 22, 2025)
-      if (context.user.role === 'super_admin' || user?.email === 'admin@mundotango.life') {
+      // Use standardized super admin check
+      const { isSuperAdmin: checkSuperAdmin } = require('../utils/auth');
+      if (checkSuperAdmin(user, context)) {
         // 🔧 SUPER ADMIN = DEV TOOL MODE (Replit Agent style)
         prompt += `\n\n**🔧 DEV TOOL MODE ACTIVATED**`;
         prompt += `\nYou are a development tool, not a conversation assistant. BUILD THINGS DIRECTLY using your tools.`;
