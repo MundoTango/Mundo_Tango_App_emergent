@@ -37,6 +37,7 @@ import uploadRoutes from "./routes/uploadRoutes";
 import debugRoutes from "./routes/debugRoutes";
 import internalUploadRoutes from "./routes/upload";
 import cspReportsRouter from "./routes/csp-reports";
+import ttsRoutes from "./routes/ttsRoutes";
 import { registerRoutes } from "./routes";
 import { streamVideo, isVideoFile } from './videoStreaming';
 import { register } from "./lib/prometheus-metrics";
@@ -177,6 +178,9 @@ app.get('/api/videos/:filename', (req: Request, res: Response) => {
 app.use('/api/upload', uploadRoutes);
 app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
+
+// OpenAI TTS routes (Oct 22, 2025 - Premium voice quality)
+app.use(ttsRoutes);
 
 // MB.MD Phase 5: CSP violation reporting
 app.use(cspReportsRouter);
