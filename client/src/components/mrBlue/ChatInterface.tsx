@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History, Trash2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -129,6 +129,25 @@ export function ChatInterface() {
         sendMessageToConversation(data.id, pendingMessage);
         setPendingMessage(null);
       }
+    },
+  });
+
+  // Delete conversation mutation (Stream C3)
+  const deleteConversation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest(`/api/chat/projects/${id}`, {
+        method: 'DELETE',
+      });
+    },
+    onSuccess: (_, deletedId) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      if (conversationId === deletedId) {
+        setConversationId(null); // Clear if active conversation was deleted
+      }
+      toast({ title: 'Conversation deleted' });
+    },
+    onError: () => {
+      toast({ title: 'Failed to delete conversation', variant: 'destructive' });
     },
   });
 
@@ -279,22 +298,42 @@ export function ChatInterface() {
               <div className="text-center text-sm text-gray-500">Loading...</div>
             )}
             {conversations?.map((conv) => (
-              <button
+              <div 
                 key={conv.id}
-                onClick={() => setConversationId(conv.id)}
-                className={`w-full text-left p-3 rounded-lg transition-colors min-h-[44px] ${
+                className={`group relative w-full rounded-lg transition-colors min-h-[44px] ${
                   conversationId === conv.id
                     ? 'bg-cyan-100 border-2 border-cyan-500'
                     : 'bg-white/50 hover:bg-cyan-50'
                 }`}
-                data-testid={`button-conversation-${conv.id}`}
-                aria-label={`Select conversation: ${conv.name}`}
               >
-                <div className="font-medium text-sm truncate">{conv.name}</div>
-                <div className="text-xs text-gray-500">
-                  {new Date(conv.updatedAt).toLocaleDateString()}
-                </div>
-              </button>
+                <button
+                  onClick={() => setConversationId(conv.id)}
+                  className="w-full text-left p-3 pr-10"
+                  data-testid={`button-conversation-${conv.id}`}
+                  aria-label={`Select conversation: ${conv.name}`}
+                >
+                  <div className="font-medium text-sm truncate">{conv.name}</div>
+                  <div className="text-xs text-gray-500">
+                    {new Date(conv.updatedAt).toLocaleDateString()}
+                  </div>
+                </button>
+                
+                {/* Delete Button (Stream C3 - Oct 22, 2025) */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (confirm(`Delete "${conv.name}"?`)) {
+                      deleteConversation.mutate(conv.id);
+                    }
+                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-100 rounded transition-all"
+                  data-testid={`button-delete-conversation-${conv.id}`}
+                  aria-label={`Delete conversation: ${conv.name}`}
+                  title="Delete conversation"
+                >
+                  <Trash2 className="h-4 w-4 text-red-600" />
+                </button>
+              </div>
             ))}
           </div>
         </div>
