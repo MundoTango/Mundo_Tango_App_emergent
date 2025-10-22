@@ -1348,24 +1348,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   console.log('✅ Stripe webhook registered at /api/stripe/webhook');
 
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
-  app.use('/api/mrblue', mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
-  app.use('/api/luma', lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
-  app.use('/api/journeys', journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
+  app.use('/api/mrblue', isAuthenticated, mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
+  app.use('/api/luma', isAuthenticated, lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
+  app.use('/api/journeys', isAuthenticated, journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
   
   // 🚀 MB.MD Parallel Build: Multi-AI Platform Extensions (Oct 21, 2025)
   // MB.MD Oct 21: Now using static imports (see top of file)
-  app.use('/api/chat', chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
-  app.use('/api/media', mediaUploadRoutes); // Media upload with AI analysis
-  app.use('/api/consensus', consensusRoutes); // Multi-AI consensus engine
+  app.use('/api/chat', isAuthenticated, chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
+  app.use('/api/media', isAuthenticated, mediaUploadRoutes); // Media upload with AI analysis
+  app.use('/api/consensus', isAuthenticated, consensusRoutes); // Multi-AI consensus engine
   
   // 🔄 MB.MD Option A: Recursive Testing & Proactive Monitoring Routes (Oct 21, 2025)
   // MB.MD Oct 21: Now using static imports (see top of file)
-  app.use('/api/visual-editor', visualEditorConfirmationRoutes); // Visual Editor Learning Loop
-  app.use('/api/visual-editor', visualEditorSaveRoutes); // Visual Editor Save System
-  app.use('/api/test', apiKeyTestRoutes); // API Key Testing
-  app.use('/api/breadcrumbs', breadcrumbRoutes); // User Interaction Tracking
-  app.use('/api/intent', intentRoutes); // Intent Detection & Proactive Testing
-  app.use('/api/journey', journeyTestRoutes); // Journey Recursive Testing (J1-J5)
+  app.use('/api/visual-editor', isAuthenticated, visualEditorConfirmationRoutes); // Visual Editor Learning Loop
+  app.use('/api/visual-editor', isAuthenticated, visualEditorSaveRoutes); // Visual Editor Save System
+  app.use('/api/test', isAuthenticated, apiKeyTestRoutes); // API Key Testing
+  app.use('/api/breadcrumbs', isAuthenticated, breadcrumbRoutes); // User Interaction Tracking
+  app.use('/api/intent', isAuthenticated, intentRoutes); // Intent Detection & Proactive Testing
+  app.use('/api/journey', isAuthenticated, journeyTestRoutes); // Journey Recursive Testing (J1-J5)
   
   // 🎓 MB.MD Phase 1B: Agent #80 Learning Coordinator & Training Certification (Oct 21, 2025)
   app.use('/api/learning', learningRoutes); // Learning sessions, distributed knowledge, agent certifications

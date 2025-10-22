@@ -15,16 +15,24 @@ const router = Router();
 /**
  * GET /api/chat/projects - Get all projects for user
  */
-router.get('/projects', async (req: Request, res: Response) => {
-  if (!req.user) {
+router.get('/projects', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
   try {
+    // Get database user from Replit ID
+    const { storage } = await import('../storage');
+    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
     const projects = await db
       .select()
       .from(chatProjects)
-      .where(eq(chatProjects.userId, req.user.id))
+      .where(eq(chatProjects.userId, user.id))
       .orderBy(desc(chatProjects.updatedAt));
 
     res.json(projects);
@@ -37,18 +45,26 @@ router.get('/projects', async (req: Request, res: Response) => {
 /**
  * POST /api/chat/projects - Create new project
  */
-router.post('/projects', async (req: Request, res: Response) => {
-  if (!req.user) {
+router.post('/projects', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
   try {
+    // Get database user from Replit ID
+    const { storage } = await import('../storage');
+    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
     const { name, description } = req.body;
 
     const [project] = await db
       .insert(chatProjects)
       .values({
-        userId: req.user.id,
+        userId: user.id,
         name,
         description,
       })
@@ -64,8 +80,8 @@ router.post('/projects', async (req: Request, res: Response) => {
 /**
  * GET /api/chat/projects/:id/messages - Get messages in project
  */
-router.get('/projects/:id/messages', async (req: Request, res: Response) => {
-  if (!req.user) {
+router.get('/projects/:id/messages', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
@@ -88,18 +104,26 @@ router.get('/projects/:id/messages', async (req: Request, res: Response) => {
 /**
  * POST /api/chat/stream - Stream AI response (multi-model)
  */
-router.post('/stream', async (req: Request, res: Response) => {
-  if (!req.user) {
+router.post('/stream', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
   try {
+    // Get database user from Replit ID
+    const { storage } = await import('../storage');
+    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
     const { projectId, message, model, personality } = req.body;
 
     // Save user message
     await db.insert(aiChatMessages).values({
       projectId,
-      userId: req.user.id,
+      userId: user.id,
       role: 'user',
       content: message,
       model: null,
@@ -142,20 +166,18 @@ router.post('/stream', async (req: Request, res: Response) => {
     // Save assistant response
     await db.insert(aiChatMessages).values({
       projectId,
-      userId: req.user.id,
+      userId: user.id,
       role: 'assistant',
       content: fullResponse,
       model: selectedModel,
       tokens: tokenCount,
     });
 
-    // Track usage
+    // Track usage  
     await db.insert(modelUsage).values({
-      userId: req.user.id,
       model: selectedModel,
       tokens: tokenCount,
       cost: tokenCount * 0.00001, // Rough estimate
-      latency: null,
     });
 
     res.write('data: [DONE]\n\n');
