@@ -74,6 +74,7 @@ import filesRoutes from "./routes/filesRoutes"; // Filesystem Browser API - MB.M
 import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import deployRoutes from "./routes/deployRoutes"; // Deployment API - Agent #127 - MB.MD Parallel Build - Oct 22, 2025
+import modelMonitorRoutes from "./routes/modelMonitorRoutes"; // Model Monitoring & Auto-Update API - MB.MD Stream G - Oct 22, 2025
 import qualityRoutes from "./routes/qualityRoutes"; // Quality Validation API - Agent #79 Integration - Phase 3 Stream 4 - Oct 22, 2025
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import adminHealthRoutes from "./routes/adminHealthRoutes"; // Admin Health Metrics API - MB.MD Maximum Parallel Build - Oct 21, 2025
@@ -1388,6 +1389,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
   app.use('/api/deploy', deployRoutes); // Staging & production deployment
+  app.use('/api/models', modelMonitorRoutes); // Model monitoring & auto-update - Stream G - Oct 22, 2025
   app.use('/api/quality', qualityRoutes); // Quality validation & testing - Agent #79 - Phase 3 Stream 4
   app.use('/api/subscriptions', subscriptionRoutes); // Stripe subscription management
   app.use('/api/admin', adminHealthRoutes); // Admin health & system metrics
