@@ -22,7 +22,7 @@ router.get('/projects', async (req: any, res: Response) => {
 
   try {
     // Get database user from Replit ID
-    const { storage } = await import('../storage');
+    const { storage } = await import('../storage.js');
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
     if (!user) {
@@ -54,7 +54,7 @@ router.post('/projects', async (req: any, res: Response) => {
     console.log(`[Chat Projects POST] Authenticated user replitId: ${req.user.claims.sub}`);
     
     // Get database user from Replit ID
-    const { storage } = await import('../storage');
+    const { storage } = await import('../storage.js');
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     
     console.log(`[Chat Projects POST] User lookup result:`, user ? `User found: id=${user.id}` : 'User NOT found');
