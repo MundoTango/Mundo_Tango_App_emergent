@@ -18,12 +18,21 @@ const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
 export function VisualEditorProvider({ children }: { children: ReactNode }) {
   const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
   const [pendingChangesCount, setPendingChangesCount] = useState(0);
+  
+  // 🐛 DEBUG: Log when context updates
+  const handleSetSelectedElement = (element: ElementSelection | null) => {
+    console.log('🎨 [VisualEditorContext] setSelectedElement called:', {
+      hasElement: !!element,
+      element: element
+    });
+    setSelectedElement(element);
+  };
 
   return (
     <VisualEditorContext.Provider 
       value={{
         selectedElement,
-        setSelectedElement,
+        setSelectedElement: handleSetSelectedElement,
         pendingChangesCount,
         setPendingChangesCount
       }}

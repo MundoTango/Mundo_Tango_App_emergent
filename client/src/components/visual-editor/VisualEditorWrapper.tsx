@@ -63,6 +63,14 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   
   // 🎨 VISUAL EDITOR CONTEXT: Share selected element with Mr Blue (Phase 2 Fix - Oct 22)
   const visualEditorContext = useVisualEditorOptional();
+  
+  // 🐛 DEBUG: Log context availability on mount
+  useEffect(() => {
+    console.log('🔍 [VisualEditorWrapper] Context availability:', {
+      hasContext: !!visualEditorContext,
+      contextValue: visualEditorContext
+    });
+  }, [visualEditorContext]);
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
@@ -87,12 +95,23 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
 
   // Element selection click handler
   const handleElementClick = useCallback((e: MouseEvent) => {
-    if (!isSelectMode) return;
+    console.log('🎯 [VisualEditorWrapper] handleElementClick fired - isSelectMode:', isSelectMode);
+    
+    if (!isSelectMode) {
+      console.log('⚠️ [VisualEditorWrapper] Select mode is OFF - ignoring click');
+      return;
+    }
     
     // MB.MD: Click = INSPECT, Cmd+Click = INSPECT (Allow normal click through)
     // Updated Oct 22, 2025: Cmd/Ctrl+Click now ALLOWS selection without blocking clicks
     const isModifierClick = e.metaKey || e.ctrlKey;
     const target = e.target as HTMLElement;
+    
+    console.log('🎯 [VisualEditorWrapper] Target element:', {
+      tag: target.tagName,
+      id: target.id,
+      className: target.className
+    });
     
     // Check if target is interactive (button, link, input, etc.)
     const isInteractive = target.closest('button, a, input, select, textarea, [role="button"], [onclick]');
@@ -111,11 +130,19 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     // 🔍 INSPECTOR MODE LOGIC (Oct 22, 2025)
     if (inspectorMode === 'page') {
       // Page mode: Skip sidebar elements (allow normal sidebar clicks)
-      if (isSidebarElement) return;
+      if (isSidebarElement) {
+        console.log('⚠️ [VisualEditorWrapper] Sidebar element in page mode - ignoring');
+        return;
+      }
     } else if (inspectorMode === 'sidebar') {
       // Sidebar mode: ONLY inspect sidebar elements
-      if (!isSidebarElement) return;
+      if (!isSidebarElement) {
+        console.log('⚠️ [VisualEditorWrapper] Page element in sidebar mode - ignoring');
+        return;
+      }
     }
+    
+    console.log('✅ [VisualEditorWrapper] Proceeding with element selection...');
     
     // Block event ONLY for normal clicks on non-interactive elements
     if (!isModifierClick && !isInteractive) {
@@ -161,6 +188,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     setSelectedElement(elementData);
     
     // 🎨 PHASE 2 FIX: Update Visual Editor Context for Mr Blue integration
+    console.log('🎨 [VisualEditorWrapper] About to update context - hasContext:', !!visualEditorContext);
+    
     if (visualEditorContext) {
       const rect = target.getBoundingClientRect();
       console.log('🎨 [VisualEditorWrapper] Setting selected element in context:', {

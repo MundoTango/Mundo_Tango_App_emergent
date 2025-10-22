@@ -73,12 +73,18 @@ export function ChatInterface() {
   
   // 🐛 PHASE 2 DEBUG: Log when selectedElement changes
   useEffect(() => {
+    console.log('🎨 [ChatInterface] Element selection update:', {
+      hasElement: !!selectedElement,
+      element: selectedElement,
+      hasContext: !!visualEditorContext
+    });
+    
     if (selectedElement) {
-      console.log('🎨 [ChatInterface] Selected element received from context:', selectedElement);
+      console.log('🎨 [ChatInterface] ✅ Selected element received from context:', selectedElement);
     } else {
       console.log('⚪ [ChatInterface] No element selected (selectedElement is null)');
     }
-  }, [selectedElement]);
+  }, [selectedElement, visualEditorContext]);
   
   // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
   const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();
