@@ -51,14 +51,14 @@ router.post('/consensus', async (req: any, res) => {
     const result = await modelCoordinator.executeAll(query, systemPrompt);
 
     // MB.MD FIX: Save AI response to database AFTER processing
-    if (projectId && userId && result.consensus) {
+    if (projectId && userId && result.finalPlan) {
       await db.insert(aiChatMessages).values({
         projectId,
         userId,
         role: 'assistant',
-        content: result.consensus,
+        content: result.finalPlan,
         model: 'multi-model-consensus',
-        tokens: result.consensus.split(' ').length, // Rough estimate
+        tokens: result.finalPlan.split(' ').length, // Rough estimate
       });
       console.log(`[MultiModel] Saved AI response to project ${projectId}`);
     }
