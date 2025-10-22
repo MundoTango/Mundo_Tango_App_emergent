@@ -53,6 +53,8 @@ export function ChatInterface() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
+  const [optimisticMessage, setOptimisticMessage] = useState<string | null>(null);
+  const [streamingResponse, setStreamingResponse] = useState<string>('');
   
   // 🎧 UNIFIED VOICE MODAL: Single headphone button interface (Oct 22, 2025)
   const [showVoiceModal, setShowVoiceModal] = useState(false);
@@ -170,6 +172,10 @@ export function ChatInterface() {
   // Helper function to send message using streaming API
   const sendMessageToConversation = async (projId: number, content: string) => {
     try {
+      // 🎯 OPTIMISTIC UI: Show user message immediately
+      setOptimisticMessage(content);
+      setStreamingResponse('');
+      
       // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" in API payload only (hidden from user)
       const apiMessage = `Use mb.md: ${content}`;
       
@@ -191,7 +197,10 @@ export function ChatInterface() {
           personality,
           context: {
             ...appContext,
-            selectedElement: selectedElement || undefined // 🎨 Include Visual Editor selection
+            visualEditorState: selectedElement ? {
+              isActive: true,
+              selectedElement: selectedElement
+            } : undefined
           }
         }),
       });
@@ -227,10 +236,10 @@ export function ChatInterface() {
                 try {
                   const parsed = JSON.parse(data);
                   
-                  // Display text chunks as they arrive
+                  // Display text chunks as they arrive - REAL-TIME STREAMING!
                   if (parsed.type === 'text' && parsed.chunk) {
                     accumulatedResponse += parsed.chunk;
-                    // TODO: Real-time display in UI (needs optimistic update)
+                    setStreamingResponse(accumulatedResponse);
                   }
                   
                   // Handle tool status updates
@@ -250,11 +259,15 @@ export function ChatInterface() {
 
       // Clear states and refresh messages
       setStreamingToolStatus(null);
+      setOptimisticMessage(null);
+      setStreamingResponse('');
       queryClient.invalidateQueries({ 
         queryKey: [`/api/chat/projects/${projId}/messages`]
       });
       setInput('');
     } catch (error) {
+      setOptimisticMessage(null);
+      setStreamingResponse('');
       toast({ 
         title: 'Failed to send message', 
         variant: 'destructive' 
@@ -289,7 +302,10 @@ export function ChatInterface() {
           systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
           context: {
             ...appContext,
-            selectedElement: selectedElement || undefined // 🎨 Include Visual Editor selection
+            visualEditorState: selectedElement ? {
+              isActive: true,
+              selectedElement: selectedElement
+            } : undefined
           }
         }),
       });
@@ -311,10 +327,10 @@ export function ChatInterface() {
     },
   });
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom (for messages AND streaming)
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, streamingResponse]);
 
   // Select first conversation on load
   useEffect(() => {
@@ -558,11 +574,25 @@ export function ChatInterface() {
             />
           ))}
 
-          {sendMessage.isPending && (
+          {/* OPTIMISTIC UI: Show user message immediately */}
+          {optimisticMessage && (
+            <EnhancedMessageBubble
+              role="user"
+              content={optimisticMessage}
+              timestamp={new Date().toLocaleTimeString()}
+            />
+          )}
+
+          {/* REPLIT-STYLE THINKING INDICATOR */}
+          {optimisticMessage && !streamingResponse && (
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-cyan-600">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                <span className="text-sm">Mr Blue is thinking...</span>
+                <div className="flex gap-1">
+                  <span className="animate-bounce" style={{ animationDelay: '0ms' }}>●</span>
+                  <span className="animate-bounce" style={{ animationDelay: '150ms' }}>●</span>
+                  <span className="animate-bounce" style={{ animationDelay: '300ms' }}>●</span>
+                </div>
+                <span className="text-sm font-medium">Mr Blue is thinking...</span>
               </div>
               {streamingToolStatus && (
                 <div className="flex items-center gap-2 px-3 py-2 bg-cyan-50 border border-cyan-200 rounded-lg text-sm">
@@ -571,6 +601,17 @@ export function ChatInterface() {
                 </div>
               )}
             </div>
+          )}
+
+          {/* STREAMING RESPONSE: Show AI response word-by-word */}
+          {streamingResponse && (
+            <EnhancedMessageBubble
+              role="assistant"
+              content={streamingResponse}
+              timestamp={new Date().toLocaleTimeString()}
+              metadata={{ agentMode: selectedModel }}
+              isStreaming={true}
+            />
           )}
 
           <div ref={messagesEndRef} />

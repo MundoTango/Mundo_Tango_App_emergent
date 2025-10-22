@@ -30,6 +30,7 @@ interface EnhancedMessageBubbleProps {
     agentMode?: string;
     confidence?: number;
   };
+  isStreaming?: boolean; // NEW: Show streaming cursor effect
   onCopy?: () => void;
   onEdit?: () => void;
   onRegenerate?: () => void;
@@ -42,6 +43,7 @@ export default function EnhancedMessageBubble({
   timestamp,
   avatar,
   metadata,
+  isStreaming = false,
   onCopy,
   onEdit,
   onRegenerate,
@@ -98,9 +100,12 @@ export default function EnhancedMessageBubble({
             </Badge>
           )}
 
-          {/* Content */}
+          {/* Content - with streaming cursor effect */}
           <div className="text-sm whitespace-pre-wrap leading-relaxed">
             {content}
+            {isStreaming && (
+              <span className="inline-block w-1 h-4 ml-1 bg-cyan-500 animate-pulse" />
+            )}
           </div>
 
           {/* Confidence Score (Assistant only) */}

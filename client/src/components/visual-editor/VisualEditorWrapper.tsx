@@ -88,21 +88,15 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const handleElementClick = useCallback((e: MouseEvent) => {
     if (!isSelectMode) return;
     
-    // MB.MD: Click = INSPECT, Cmd+Click = MOVE (Updated Oct 22, 2025)
-    // Default click = Inspector mode (block normal behavior)
-    // Cmd/Ctrl+Click = Move/drag element (future feature)
-    if (e.metaKey || e.ctrlKey) {
-      e.preventDefault();
-      e.stopPropagation();
-      toast({
-        title: '🚀 Move Mode (Coming Soon)',
-        description: 'Cmd+Click will enable drag-to-move for elements',
-        duration: 3000
-      });
-      return;
-    }
+    // MB.MD: Click = INSPECT, Cmd+Click = INSPECT (Allow normal click through)
+    // Updated Oct 22, 2025: Cmd/Ctrl+Click now ALLOWS selection without blocking clicks
+    const isModifierClick = e.metaKey || e.ctrlKey;
     
-    // For normal clicks without modifier keys, intercept for inspection
+    if (isModifierClick) {
+      // Cmd+Click: Allow element selection but let the click through (don't preventDefault)
+      console.log('🎯 [Visual Editor] Cmd+Click detected - selecting element while allowing normal click');
+      // Don't return early - continue with selection logic
+    }
     
     const target = e.target as HTMLElement;
     const isSidebarElement = !!target.closest('[data-testid="visual-editor-sidebar"]');
@@ -116,9 +110,11 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       if (!isSidebarElement) return;
     }
     
-    // NOW block the event for selected elements
-    e.preventDefault();
-    e.stopPropagation();
+    // Block event ONLY for normal clicks (not cmd+click)
+    if (!isModifierClick) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     // Get XPath
     const getXPath = (element: HTMLElement): string => {
