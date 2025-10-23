@@ -81,6 +81,8 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
   // Skip CSRF for test endpoints, AI chat, and file uploads
   if (req.path.startsWith('/api/supabase/test-') || 
       req.path.startsWith('/api/ai/') ||
+      req.path.startsWith('/api/multimodel/') || // Multi-model consensus (Mr Blue chat)
+      req.path.startsWith('/api/chat/') || // Chat API (Mr Blue streaming)
       req.path.startsWith('/api/upload/') ||
       req.path.includes('/photo') ||
       req.path.includes('/upload') ||
