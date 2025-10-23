@@ -224,6 +224,7 @@ export function ChatInterface() {
           question: apiMessage, // For consensus endpoint
           model: selectedModel,
           personality,
+          systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
           context: {
             ...appContext,
             visualEditorState: activeElement ? {
