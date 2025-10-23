@@ -74,6 +74,11 @@ export function setupRealtimeWebSocket(server: any) {
           const message = JSON.parse(data.toString());
           console.log('[Realtime] OpenAI → Client:', message.type);
           
+          // 🐛 DEBUG: Log full error details
+          if (message.type === 'error') {
+            console.error('🚨 [Realtime] FULL ERROR DETAILS:', JSON.stringify(message, null, 2));
+          }
+          
           // 🎯 STREAM 1: Handle function_call events
           if (message.type === 'response.function_call_arguments.done') {
             const functionName = message.name;
