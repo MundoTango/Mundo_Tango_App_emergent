@@ -55,8 +55,8 @@ router.post('/execute-builds', async (req: any, res: Response) => {
       .filter(m => m.metadata?.buildIntent)
       .map(m => ({
         messageId: m.id,
-        tool: m.metadata.buildIntent.tool,
-        params: m.metadata.buildIntent.params,
+        tool: (m.metadata as any).buildIntent.tool,
+        params: (m.metadata as any).buildIntent.params,
         description: m.content
       }));
 

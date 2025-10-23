@@ -20,6 +20,7 @@ import FilesTabConnected from '@/components/visual-editor/FilesTabConnected';
 import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import ConsoleTab from '@/components/visual-editor/ConsoleTab';
 import SecretsTab from '@/components/visual-editor/SecretsTab';
+import BuildApprovalModal, { type BuildIntent } from '@/components/mrBlue/BuildApprovalModal';
 import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
@@ -54,6 +55,8 @@ export default function VisualEditorPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [buildApprovalOpen, setBuildApprovalOpen] = useState(false);
+  const [pendingBuildIntents, setPendingBuildIntents] = useState<BuildIntent[]>([]);
   
   // 🎨 VISUAL EDITOR CONTEXT: Bridge to Mr Blue (Oct 23, 2025)
   const visualEditorContext = useVisualEditor();
@@ -316,7 +319,7 @@ export default function VisualEditorPage() {
     }
   };
 
-  // Save all changes via SaveOrchestrator
+  // Save all changes via SaveOrchestrator (Agent #8 Integration)
   const handleSave = async () => {
     const pendingChanges = saveOrchestrator.getPendingChanges();
     
@@ -329,6 +332,24 @@ export default function VisualEditorPage() {
       return;
     }
 
+    // 🔧 CHECK FOR AI BUILD INTENTS (Agent #8)
+    const aiBuildChanges = pendingChanges.filter(c => c.type === 'ai-build');
+    
+    if (aiBuildChanges.length > 0) {
+      // Show approval modal instead of saving directly
+      const buildIntents: BuildIntent[] = aiBuildChanges.map(change => ({
+        messageId: change.data.messageId,
+        tool: change.data.tool,
+        params: change.data.params,
+        description: change.description
+      }));
+      
+      setPendingBuildIntents(buildIntents);
+      setBuildApprovalOpen(true);
+      return; // Don't save yet - wait for approval
+    }
+
+    // No AI builds - proceed with normal save
     try {
       toast({
         title: 'Saving Changes...',
@@ -356,6 +377,20 @@ export default function VisualEditorPage() {
         description: error instanceof Error ? error.message : 'Unknown error',
         variant: 'destructive',
       });
+    }
+  };
+
+  // Handle AI build approval (Agent #8)
+  const handleApproveBuild = async (messageIds: number[]) => {
+    try {
+      await saveOrchestrator.saveAll(); // This will execute the AI builds
+      setPendingStyles([]);
+      logActivity({
+        type: 'ai-build',
+        description: `Executed ${messageIds.length} AI build intents`
+      });
+    } catch (error) {
+      throw error; // BuildApprovalModal will handle the error display
     }
   };
 
@@ -469,6 +504,14 @@ export default function VisualEditorPage() {
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}
         onTabChange={(tab) => setActiveTab(tab as EditorTab)}
+      />
+
+      {/* 🔧 BUILD APPROVAL MODAL (Agent #8 Integration) */}
+      <BuildApprovalModal
+        open={buildApprovalOpen}
+        onOpenChange={setBuildApprovalOpen}
+        buildIntents={pendingBuildIntents}
+        onApprove={handleApproveBuild}
       />
     </div>
   );

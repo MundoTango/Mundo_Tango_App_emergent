@@ -100,6 +100,7 @@ import mediaUploadRoutes from "./routes/mediaUploadRoutes";
 import consensusRoutes from "./routes/consensusRoutes"; // Multi-AI Consensus Engine - MB.MD Maximum Parallel Build - Oct 21, 2025
 import visualEditorSaveRoutes from "./routes/visualEditorSaveRoutes"; // Visual Editor Save System - MB.MD Option A - Oct 21, 2025
 import apiKeyTestRoutes from "./routes/apiKeyTestRoutes"; // API Key Testing - MB.MD Option A - Oct 21, 2025
+import executeBuildRoutes from "./routes/executeBuildRoutes"; // AI Build Intent Execution - Chat → Save → Build Workflow - Oct 23, 2025
 import { RealTimeNotificationService } from "./services/realTimeNotifications";
 import { lifeCeoPerformance } from "./services/lifeCeoPerformanceService";
 import { setupVite, log as viteLog } from "./vite";
@@ -1365,6 +1366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🚀 MB.MD Parallel Build: Multi-AI Platform Extensions (Oct 21, 2025)
   // MB.MD Oct 21: Now using static imports (see top of file)
   app.use('/api/chat', isAuthenticated, chatProjectsRoutes); // ChatGPT-style projects & multi-model orchestration
+  app.use('/api/chat', isAuthenticated, executeBuildRoutes); // AI Build Intent Execution - Chat → Save → Build Workflow
   app.use('/api/media', isAuthenticated, mediaUploadRoutes); // Media upload with AI analysis
   app.use('/api/consensus', isAuthenticated, consensusRoutes); // Multi-AI consensus engine
   
