@@ -170,7 +170,29 @@ export function UnifiedVoiceModal({
 
       console.log('[UnifiedVoiceModal] 📡 Connecting to OpenAI...');
       await connect();
-      console.log('[UnifiedVoiceModal] 🎙️ Starting audio capture...');
+      
+      // Wait for connection to be established before starting audio
+      console.log('[UnifiedVoiceModal] ⏳ Waiting for connection...');
+      await new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error('Connection timeout'));
+        }, 10000); // 10 second timeout
+        
+        const checkConnection = setInterval(() => {
+          console.log('[UnifiedVoiceModal] Checking status:', realtimeStatus);
+          if (realtimeStatus === 'connected') {
+            clearTimeout(timeout);
+            clearInterval(checkConnection);
+            resolve();
+          } else if (realtimeStatus === 'error') {
+            clearTimeout(timeout);
+            clearInterval(checkConnection);
+            reject(new Error('Connection failed'));
+          }
+        }, 100);
+      });
+      
+      console.log('[UnifiedVoiceModal] ✅ Connected! Starting audio capture...');
       await startCapture();
 
       toast({
