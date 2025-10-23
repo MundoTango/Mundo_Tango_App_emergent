@@ -69,8 +69,23 @@ export function ChatInterface() {
   // 🎨 VISUAL EDITOR CONTEXT: See selected elements (Oct 22, 2025)
   // NOTE: Only available when ChatInterface is inside VisualEditorWrapper
   const visualEditorContext = useVisualEditorOptional();
-  const selectedElement = visualEditorContext?.selectedElement || null;
-  const previewPath = visualEditorContext?.previewPath || null; // 🎯 What page is in preview
+  
+  // 🐛 FIX: Direct reference to avoid null checks failing
+  const selectedElement = visualEditorContext?.selectedElement ?? null;
+  const previewPath = visualEditorContext?.previewPath ?? null; // 🎯 What page is in preview
+  
+  // 🎯 PERSIST ELEMENT: Keep reference even when modal closes/reopens
+  const [lastKnownElement, setLastKnownElement] = useState<typeof selectedElement>(null);
+  
+  useEffect(() => {
+    if (selectedElement) {
+      console.log('💾 [ChatInterface] Persisting element to lastKnownElement');
+      setLastKnownElement(selectedElement);
+    }
+  }, [selectedElement]);
+  
+  // Use persisted element if current is null
+  const activeElement = selectedElement || lastKnownElement;
   
   // 🐛 PHASE 2 DEBUG: Log when selectedElement changes
   useEffect(() => {
@@ -79,18 +94,20 @@ export function ChatInterface() {
       element: selectedElement,
       hasContext: !!visualEditorContext,
       contextElement: visualEditorContext?.selectedElement,
+      lastKnown: lastKnownElement,
+      activeElement: activeElement,
       previewPath: previewPath
     });
     
-    if (selectedElement) {
-      console.log('🎨 [ChatInterface] ✅ Selected element received from context:', selectedElement);
+    if (activeElement) {
+      console.log('🎨 [ChatInterface] ✅ Active element:', activeElement);
     } else {
-      console.log('⚪ [ChatInterface] No element selected (selectedElement is null)');
+      console.log('⚪ [ChatInterface] No element active');
       if (visualEditorContext?.selectedElement) {
-        console.warn('⚠️ [ChatInterface] MISMATCH: Context has element but local var is null!', visualEditorContext.selectedElement);
+        console.warn('⚠️ [ChatInterface] MISMATCH: Context has element but activeElement is null!', visualEditorContext.selectedElement);
       }
     }
-  }, [selectedElement, visualEditorContext, previewPath]);
+  }, [selectedElement, visualEditorContext, previewPath, lastKnownElement, activeElement]);
   
   // 🎤 VOICE OUTPUT: Premium OpenAI TTS (Oct 22, 2025)
   const { settings: voiceSettings, updateSettings: updateVoiceSettings } = useVoiceOutput();
@@ -209,9 +226,9 @@ export function ChatInterface() {
           personality,
           context: {
             ...appContext,
-            visualEditorState: selectedElement ? {
+            visualEditorState: activeElement ? {
               isActive: true,
-              selectedElement: selectedElement,
+              selectedElement: activeElement,
               previewPath: previewPath || '/' // 🎯 What page is being shown in preview
             } : previewPath ? {
               isActive: true,
@@ -318,9 +335,9 @@ export function ChatInterface() {
           systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
           context: {
             ...appContext,
-            visualEditorState: selectedElement ? {
+            visualEditorState: activeElement ? {
               isActive: true,
-              selectedElement: selectedElement,
+              selectedElement: activeElement,
               previewPath: previewPath || '/' // 🎯 What page is being shown in preview
             } : previewPath ? {
               isActive: true,
@@ -469,7 +486,7 @@ export function ChatInterface() {
           <div className="flex-1" />
           
           {/* 🎨 Visual Editor Context Indicator with Agent Discovery (Oct 22, 2025 - STREAM 3) */}
-          {selectedElement && (
+          {activeElement && (
             <div 
               className="flex flex-col gap-1 px-3 py-2 bg-purple-500/20 border border-purple-500 rounded-lg max-w-md"
               data-testid="visual-editor-context-indicator"
@@ -477,16 +494,16 @@ export function ChatInterface() {
               <div className="flex items-center gap-2">
                 <Sparkles className="w-3 h-3 text-purple-400" />
                 <span className="text-xs text-purple-300 font-mono">
-                  &lt;{selectedElement.tagName}&gt;
-                  {selectedElement.id && ` #${selectedElement.id}`}
+                  &lt;{activeElement.tagName}&gt;
+                  {activeElement.id && ` #${activeElement.id}`}
                 </span>
               </div>
               <span className="text-xs text-purple-200 opacity-80">
                 {getAgentSuggestion({
-                  tagName: selectedElement.tagName,
-                  id: selectedElement.id,
-                  className: selectedElement.className,
-                  testId: selectedElement.attributes?.['data-testid']
+                  tagName: activeElement.tagName,
+                  id: activeElement.id,
+                  className: activeElement.className,
+                  testId: activeElement.attributes?.['data-testid']
                 })}
               </span>
             </div>
@@ -676,7 +693,7 @@ export function ChatInterface() {
         onClose={() => setShowVoiceModal(false)}
         voiceSettings={voiceSettings}
         onVoiceSettingsChange={updateVoiceSettings}
-        selectedElement={selectedElement}
+        selectedElement={activeElement}
       />
     </div>
   );
