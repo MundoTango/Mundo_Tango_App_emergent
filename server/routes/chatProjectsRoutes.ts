@@ -2,15 +2,24 @@
  * Chat Projects API Routes
  * ChatGPT-style project organization for Mr Blue
  * MB.MD Track 3: Projects System - Oct 21, 2025
+ * BATCH 2 Security Hardening (Oct 23, 2025): requireAuth + Zod validation
  */
 
 import { Router, type Request, Response } from 'express';
 import { db } from '../db';
-import { chatProjects, aiChatMessages, modelUsage, type InsertChatProject, type InsertAIChatMessage } from '@shared/schema';
+import { chatProjects, aiChatMessages, modelUsage, type InsertChatProject, type InsertAIChatMessage, insertChatProjectSchema } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
 import { multiModelOrchestrator } from '../services/multiModelOrchestrator';
 import { streamWithTools } from '../services/tools/universalToolOrchestrator';
 import { storage } from '../storage';
+import { requireAuth } from '../middleware/auth';
+import { z } from 'zod';
+
+// Zod schema for PATCH project (partial update - name and/or description)
+const updateChatProjectSchema = insertChatProjectSchema.partial().pick({
+  name: true,
+  description: true,
+});
 
 const router = Router();
 
@@ -455,24 +464,36 @@ function getPersonalityPrompt(personality?: string): string {
 /**
  * PATCH /api/chat/projects/:id - Update project name/description
  * MB.MD BATCH 1: Inline rename conversation (Oct 23, 2025)
+ * BATCH 2 Security (Oct 23, 2025): requireAuth middleware + Zod validation
  */
-router.patch('/projects/:id', async (req: any, res: Response) => {
-  if (!req.user?.claims?.sub) {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
-
+router.patch('/projects/:id', requireAuth, async (req: any, res: Response) => {
   try {
     const projectId = parseInt(req.params.id);
-    const { name, description } = req.body;
+    
+    // 🔒 BATCH 2: Validate project ID is a valid number
+    if (isNaN(projectId)) {
+      return res.status(400).json({ error: 'Invalid project ID' });
+    }
+    
+    // 🔒 BATCH 2: Validate request body with Zod
+    const validation = updateChatProjectSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(400).json({ 
+        error: 'Invalid request body', 
+        details: validation.error.errors 
+      });
+    }
+    
+    const { name, description } = validation.data;
 
-    // Get database user from Replit ID
-    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    // 🔒 BATCH 2 FIX: Use req.user.id (set by requireAuth) instead of req.user.claims.sub
+    const user = await storage.getUser(req.user.id);
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Verify user owns this project
+    // 🔒 BATCH 2: Verify ownership before update
     const [project] = await db
       .select()
       .from(chatProjects)
@@ -505,31 +526,37 @@ router.patch('/projects/:id', async (req: any, res: Response) => {
 /**
  * DELETE /api/chat/projects/:id - Delete project and all messages
  * MB.MD BATCH 1: Conversation deletion (Oct 23, 2025)
+ * BATCH 2 Security (Oct 23, 2025): requireAuth middleware + ownership verification
  */
-router.delete('/projects/:id', async (req: any, res: Response) => {
-  if (!req.user?.claims?.sub) {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
-
+router.delete('/projects/:id', requireAuth, async (req: any, res: Response) => {
   try {
     const projectId = parseInt(req.params.id);
+    
+    // 🔒 BATCH 2: Validate project ID is a valid number
+    if (isNaN(projectId)) {
+      return res.status(400).json({ error: 'Invalid project ID' });
+    }
 
-    // Get database user from Replit ID
-    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    // 🔒 BATCH 2 FIX: Use req.user.id (set by requireAuth) instead of req.user.claims.sub
+    const user = await storage.getUser(req.user.id);
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Verify user owns this project
+    // 🔒 BATCH 2: Verify ownership before deletion
     const [project] = await db
       .select()
       .from(chatProjects)
       .where(eq(chatProjects.id, projectId))
       .limit(1);
 
-    if (!project || project.userId !== user.id) {
-      return res.status(403).json({ error: 'Not authorized' });
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    if (project.userId !== user.id) {
+      return res.status(403).json({ error: 'Not authorized to delete this project' });
     }
 
     // Delete all messages first (foreign key constraint)
@@ -542,7 +569,7 @@ router.delete('/projects/:id', async (req: any, res: Response) => {
       .delete(chatProjects)
       .where(eq(chatProjects.id, projectId));
 
-    console.log(`[Chat Projects DELETE] Project ${projectId} deleted`);
+    console.log(`[Chat Projects DELETE] Project ${projectId} deleted by user ${user.id}`);
     res.json({ success: true });
   } catch (error) {
     console.error('[Chat Projects] Error deleting project:', error);
