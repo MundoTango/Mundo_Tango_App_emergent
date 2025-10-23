@@ -324,7 +324,6 @@ function ConversationItem({ conversation, isActive, onSelect, onDelete, onRename
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            onBlur={handleRename}
             className="h-6 text-sm px-2 py-0 bg-gray-800 border-gray-600"
             data-testid={`input-rename-conversation-${conversation.id}`}
           />
