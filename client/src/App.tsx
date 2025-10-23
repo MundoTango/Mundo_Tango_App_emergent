@@ -315,13 +315,10 @@ function Router() {
         <Switch>
           {/* MB.MD MINIMAL ROUTES: Only using imported components to fix blank screen */}
           
-          {/* Home/Landing - uses Landing component */}
+          {/* TEMPORARY: Redirect "/" to Visual Editor for easier debugging (Oct 23, 2025) */}
           <Route path="/">
-            {isLoading ? (
-              <LoadingFallback />
-            ) : (
-              <Landing />
-            )}
+            <Redirect to="/admin/visual-editor" />
+          
           </Route>
 
           {/* Explicit landing page route */}
