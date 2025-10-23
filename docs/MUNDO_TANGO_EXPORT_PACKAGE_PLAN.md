@@ -870,6 +870,37 @@ const { userId } = getAuth(req);
 | node_modules (not included) | ~500 MB | Reinstall with npm |
 | Git history (if included) | ~100 MB | Full repo history |
 
+### Appendix F: Documentation Files Added (Oct 23, 2025)
+
+**New User Guides:**
+1. **README_EXPORT_PACKAGE.md** (Root directory)
+   - Quick start guide for export package
+   - Complete package contents overview
+   - Essential documentation index
+   - Troubleshooting quick reference
+
+2. **docs/MR_BLUE_MBMD_USER_GUIDE.md**
+   - Complete Mr Blue AI assistant guide
+   - MB.MD methodology explained
+   - Feature guide (chat, voice, omniscient modes)
+   - Template library usage
+   - Visual Editor integration
+   - Best practices and troubleshooting
+   - **Length:** 500+ lines, comprehensive tutorial
+
+3. **docs/MUNDO_TANGO_COMPLETE_RESTORATION_GUIDE.md**
+   - Step-by-step restoration instructions
+   - Original MT Ocean design preservation
+   - Database setup (50+ tables)
+   - Environment configuration (14+ services)
+   - Design verification checklist
+   - Production deployment options
+   - Complete troubleshooting guide
+   - **Length:** 800+ lines, detailed walkthrough
+
+**Purpose:**
+These guides ensure anyone can restore Mundo Tango to 100% functionality with the original design preserved, even without prior knowledge of the platform.
+
 ---
 
 ## SUMMARY & NEXT STEPS
