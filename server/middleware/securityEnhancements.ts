@@ -102,6 +102,11 @@ export const inputLengthValidation = (req: Request, res: Response, next: NextFun
   };
   
   try {
+    // 🔍 DEBUG: Log multimodel requests
+    if (req.path.includes('multimodel')) {
+      console.log('✅ [InputValidation] Checking /multimodel request...');
+    }
+    
     // Validate query parameters
     validateLength(req.query, 'query');
     
@@ -119,8 +124,15 @@ export const inputLengthValidation = (req: Request, res: Response, next: NextFun
       }
     }
     
+    if (req.path.includes('multimodel')) {
+      console.log('✅ [InputValidation] Passed validation for /multimodel');
+    }
+    
     next();
   } catch (error: any) {
+    if (req.path.includes('multimodel')) {
+      console.log('❌ [InputValidation] FAILED:', error.message);
+    }
     res.status(400).json({
       error: 'Invalid input length',
       message: error.message
