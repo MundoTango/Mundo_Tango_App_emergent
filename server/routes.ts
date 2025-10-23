@@ -102,6 +102,7 @@ import consensusRoutes from "./routes/consensusRoutes"; // Multi-AI Consensus En
 import visualEditorSaveRoutes from "./routes/visualEditorSaveRoutes"; // Visual Editor Save System - MB.MD Option A - Oct 21, 2025
 import apiKeyTestRoutes from "./routes/apiKeyTestRoutes"; // API Key Testing - MB.MD Option A - Oct 21, 2025
 import executeBuildRoutes from "./routes/executeBuildRoutes"; // AI Build Intent Execution - Chat → Save → Build Workflow - Oct 23, 2025
+import conversationRoutes from "./routes/conversationRoutes"; // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
 import { RealTimeNotificationService } from "./services/realTimeNotifications";
 import { lifeCeoPerformance } from "./services/lifeCeoPerformanceService";
 import { setupVite, log as viteLog } from "./vite";
@@ -1429,8 +1430,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/subscriptions', subscriptionRoutes); // Stripe subscription management
   app.use('/api/admin', adminHealthRoutes); // Admin health & system metrics
   app.use('/api/infrastructure', infrastructureRoutes); // All 13 Tracks Infrastructure (Analytics, Testing, Mobile, Performance, etc.)
+  app.use('/api/conversations', isAuthenticated, conversationRoutes); // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
   console.log('✅ Visual Editor Infrastructure APIs registered (7 new APIs, 28 endpoints)');
   console.log('✅ All 13 Tracks Infrastructure APIs registered (Analytics, Testing, Mobile, Performance, Operations, Onboarding, Collaboration, DevEx, Design System, CI/CD, AI/ML, Growth)');
+  console.log('✅ Conversation Module APIs registered (Search, Export, Analytics - Tracks B, C - Oct 23, 2025)');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)
   console.log('✅ Authentication APIs registered');
