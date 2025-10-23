@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
+import { AISuggestionsPanel } from './AISuggestionsPanel';
 
 interface ElementInspectorProps {
   selectedElement: ElementSelection | null;
@@ -103,6 +104,20 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
           </div>
         </>
       )}
+
+      <Separator className="bg-gray-700" />
+
+      {/* AI Suggestions */}
+      <div>
+        <h3 className="text-sm font-semibold text-white mb-2">AI Suggestions</h3>
+        <AISuggestionsPanel
+          selectedElement={selectedElement}
+          onApplySuggestion={(prompt) => {
+            // Could trigger vibe coding here or pass up to parent
+            console.log('AI Suggestion:', prompt);
+          }}
+        />
+      </div>
     </Card>
   );
 }

@@ -29,7 +29,7 @@ export const codeToolSchemas = {
     name: 'read_file',
     description: 'Read contents of a file',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         filePath: { type: 'string', description: 'Relative file path' }
       },
@@ -41,7 +41,7 @@ export const codeToolSchemas = {
     name: 'write_file',
     description: 'Write or create a file',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         filePath: { type: 'string', description: 'Relative file path' },
         content: { type: 'string', description: 'File content' }
@@ -54,7 +54,7 @@ export const codeToolSchemas = {
     name: 'search_code',
     description: 'Search for pattern in codebase',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         pattern: { type: 'string', description: 'Search pattern/regex' },
         directory: { type: 'string', description: 'Directory to search (default: .)' },
@@ -68,7 +68,7 @@ export const codeToolSchemas = {
     name: 'replace_in_file',
     description: 'Replace text in a file',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         filePath: { type: 'string', description: 'File path' },
         searchText: { type: 'string', description: 'Text to find' },
@@ -82,7 +82,7 @@ export const codeToolSchemas = {
     name: 'get_file_tree',
     description: 'Get directory structure as tree',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         directory: { type: 'string', description: 'Root directory (default: .)' },
         maxDepth: { type: 'number', description: 'Max depth (default: 3)' }
@@ -94,7 +94,7 @@ export const codeToolSchemas = {
     name: 'run_command',
     description: 'Execute a safe shell command',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         command: { type: 'string', description: 'Command to run (whitelisted)' }
       },
@@ -106,7 +106,7 @@ export const codeToolSchemas = {
     name: 'install_package',
     description: 'Install npm package',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         packageName: { type: 'string', description: 'Package name' },
         dev: { type: 'boolean', description: 'Install as dev dependency' }
@@ -119,7 +119,7 @@ export const codeToolSchemas = {
     name: 'get_imports',
     description: 'List all imports in a file',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         filePath: { type: 'string', description: 'File path' }
       },
@@ -131,7 +131,7 @@ export const codeToolSchemas = {
     name: 'find_usages',
     description: 'Find where a symbol/function is used',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         symbol: { type: 'string', description: 'Symbol name to find' },
         directory: { type: 'string', description: 'Directory to search' }
@@ -144,7 +144,7 @@ export const codeToolSchemas = {
     name: 'refactor_rename',
     description: 'Rename symbol across multiple files',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         oldName: { type: 'string', description: 'Current symbol name' },
         newName: { type: 'string', description: 'New symbol name' },

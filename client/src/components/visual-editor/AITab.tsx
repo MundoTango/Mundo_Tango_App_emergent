@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import CostEstimateDisplay from './CostEstimateDisplay';
+import { DiffPreviewCard } from './DiffPreviewCard';
+import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
+import { useToast } from '@/hooks/use-toast';
 
 interface SelectedElement {
   tag: string;
@@ -26,17 +29,68 @@ interface AITabProps {
 export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [codeChanges, setCodeChanges] = useState<CodeChange[]>([]);
+  const { toast } = useToast();
 
   const handleGenerate = async () => {
     if (!aiPrompt.trim()) return;
     
     setIsGenerating(true);
     try {
-      await onGenerateCode(aiPrompt);
+      // Call vibe coding API with visual editor context
+      const result = await executeVibeCoding(aiPrompt, {
+        selectedElement,
+        previewPath: window.location.pathname
+      });
+
+      // Show generated code changes
+      setCodeChanges(result.codeChanges);
+      
+      toast({
+        title: 'Code Generated! ✨',
+        description: `${result.codeChanges.length} file(s) will be modified`,
+      });
+      
       setAiPrompt('');
+    } catch (error) {
+      toast({
+        title: 'Generation Failed',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive',
+      });
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleApplyChange = async (change: CodeChange) => {
+    try {
+      // Convert type - only unified_diff and search_replace are supported by applyCodeChange
+      const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
+      await applyCodeChange(change.filePath, change.diff, editType);
+      
+      toast({
+        title: 'Changes Applied! ✅',
+        description: `Updated ${change.filePath}`,
+      });
+
+      // Remove from list
+      setCodeChanges(prev => prev.filter(c => c !== change));
+    } catch (error) {
+      toast({
+        title: 'Apply Failed',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleRejectChange = (change: CodeChange) => {
+    setCodeChanges(prev => prev.filter(c => c !== change));
+    toast({
+      title: 'Change Rejected',
+      description: 'Discarded proposed changes',
+    });
   };
 
   return (
@@ -130,6 +184,23 @@ export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
             </>
           )}
         </Button>
+
+        {/* Generated Code Changes */}
+        {codeChanges.length > 0 && (
+          <div className="mt-6 space-y-4">
+            <h4 className="text-sm font-semibold text-gray-900">Generated Changes</h4>
+            {codeChanges.map((change, index) => (
+              <DiffPreviewCard
+                key={index}
+                filePath={change.filePath}
+                beforeCode="// Loading..."
+                afterCode={change.diff}
+                onApply={() => handleApplyChange(change)}
+                onReject={() => handleRejectChange(change)}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="mt-4">
           <h4 className="text-xs font-semibold text-gray-900 dark:text-white mb-2">Quick Actions</h4>

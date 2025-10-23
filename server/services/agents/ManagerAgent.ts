@@ -13,6 +13,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import type { User } from '@shared/schema';
+import { ALL_TOOL_SCHEMAS, executeTool } from '../tools/index';
 
 interface Task {
   id: string;
@@ -57,6 +58,7 @@ export class ManagerAgent {
         model: this.model,
         max_tokens: 4096,
         system: systemPrompt,
+        tools: ALL_TOOL_SCHEMAS, // Enable function calling with all 30 tools
         messages: [
           {
             role: 'user',
@@ -65,8 +67,17 @@ export class ManagerAgent {
         ]
       });
 
-      const content = response.content[0];
-      if (content.type !== 'text') {
+      // Handle tool use if Claude wants to call tools
+      if (response.stop_reason === 'tool_use') {
+        const toolUse = response.content.find(c => c.type === 'tool_use');
+        if (toolUse && toolUse.type === 'tool_use') {
+          const toolResult = await executeTool(toolUse.name, toolUse.input);
+          console.log(`[ManagerAgent] Tool executed: ${toolUse.name}`, toolResult);
+        }
+      }
+
+      const content = response.content.find(c => c.type === 'text');
+      if (!content || content.type !== 'text') {
         throw new Error('Unexpected response type from Claude');
       }
 

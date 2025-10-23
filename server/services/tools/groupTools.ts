@@ -21,7 +21,7 @@ export const groupToolSchemas = {
     name: 'create_group',
     description: 'Create a new tango community group',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         name: { type: 'string', description: 'Group name' },
         description: { type: 'string', description: 'Group description' },
@@ -45,7 +45,7 @@ export const groupToolSchemas = {
     name: 'search_groups',
     description: 'Search for tango community groups',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         query: { type: 'string', description: 'Search query' },
         city: { type: 'string', description: 'Filter by city' },
@@ -59,7 +59,7 @@ export const groupToolSchemas = {
     name: 'join_group',
     description: 'Join a tango community group',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         groupId: { type: 'number', description: 'Group ID' },
         userId: { type: 'number', description: 'User ID' }
@@ -72,7 +72,7 @@ export const groupToolSchemas = {
     name: 'get_group_members',
     description: 'Get members of a tango community',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         groupId: { type: 'number', description: 'Group ID' },
         role: {
@@ -89,11 +89,11 @@ export const groupToolSchemas = {
     name: 'update_group',
     description: 'Update tango group settings',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         groupId: { type: 'number', description: 'Group ID' },
         updates: {
-          type: 'object',
+          type: 'object' as const,
           description: 'Fields to update',
           properties: {
             name: { type: 'string' },

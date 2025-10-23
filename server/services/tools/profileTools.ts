@@ -21,7 +21,7 @@ export const profileToolSchemas = {
     name: 'get_profile',
     description: 'Get a tango dancer profile by user ID',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         userId: { type: 'number', description: 'User ID' }
       },
@@ -33,11 +33,11 @@ export const profileToolSchemas = {
     name: 'update_profile',
     description: 'Update tango dancer profile information',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         userId: { type: 'number', description: 'User ID' },
         updates: {
-          type: 'object',
+          type: 'object' as const,
           description: 'Profile fields to update',
           properties: {
             bio: { type: 'string' },
@@ -58,7 +58,7 @@ export const profileToolSchemas = {
     name: 'search_users',
     description: 'Search for tango dancers by name, city, or dance level',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         query: { type: 'string', description: 'Search query (name or username)' },
         city: { type: 'string', description: 'Filter by city' },
@@ -74,7 +74,7 @@ export const profileToolSchemas = {
     name: 'follow_user',
     description: 'Follow another tango dancer',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         followerId: { type: 'number', description: 'User ID who is following' },
         followingId: { type: 'number', description: 'User ID to follow' }
@@ -87,7 +87,7 @@ export const profileToolSchemas = {
     name: 'get_followers',
     description: 'Get list of users following a tango dancer',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         userId: { type: 'number', description: 'User ID' },
         type: { 

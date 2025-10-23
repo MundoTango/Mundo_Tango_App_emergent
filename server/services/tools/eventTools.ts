@@ -25,7 +25,7 @@ export const eventToolSchemas = {
     name: 'create_event',
     description: 'Create a new tango event (milonga, practica, workshop, or festival)',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         title: { type: 'string', description: 'Event title' },
         description: { type: 'string', description: 'Event description' },
@@ -34,14 +34,14 @@ export const eventToolSchemas = {
           enum: ['milonga', 'practica', 'workshop', 'festival', 'concert', 'social'],
           description: 'Type of tango event'
         },
-        startTime: { type: 'string', description: 'Start time (ISO 8601)' },
-        endTime: { type: 'string', description: 'End time (ISO 8601)' },
+        startDate: { type: 'string', description: 'Start time (ISO 8601)' },
+        endDate: { type: 'string', description: 'End time (ISO 8601)' },
         location: { type: 'string', description: 'Event location/venue' },
         city: { type: 'string', description: 'City name' },
         price: { type: 'number', description: 'Entry price (optional)' },
         capacity: { type: 'number', description: 'Maximum attendees (optional)' }
       },
-      required: ['title', 'eventType', 'startTime', 'location', 'city']
+      required: ['title', 'eventType', 'startDate', 'location', 'city']
     }
   },
 
@@ -49,7 +49,7 @@ export const eventToolSchemas = {
     name: 'search_events',
     description: 'Search for tango events by type, city, date range, or keywords',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         query: { type: 'string', description: 'Search keywords (optional)' },
         city: { type: 'string', description: 'Filter by city (optional)' },
@@ -65,7 +65,7 @@ export const eventToolSchemas = {
     name: 'rsvp_event',
     description: 'RSVP to a tango event',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         eventId: { type: 'number', description: 'Event ID' },
         userId: { type: 'number', description: 'User ID' },
@@ -83,7 +83,7 @@ export const eventToolSchemas = {
     name: 'get_event_details',
     description: 'Get full details of a specific tango event',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         eventId: { type: 'number', description: 'Event ID' }
       },
@@ -95,17 +95,17 @@ export const eventToolSchemas = {
     name: 'update_event',
     description: 'Update an existing tango event',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         eventId: { type: 'number', description: 'Event ID' },
         updates: {
-          type: 'object',
+          type: 'object' as const,
           description: 'Fields to update',
           properties: {
             title: { type: 'string' },
             description: { type: 'string' },
-            startTime: { type: 'string' },
-            endTime: { type: 'string' },
+            startDate: { type: 'string' },
+            endDate: { type: 'string' },
             location: { type: 'string' },
             price: { type: 'number' }
           }
@@ -126,8 +126,8 @@ export const eventTools = {
         title: params.title,
         description: params.description || '',
         eventType: params.eventType,
-        startTime: new Date(params.startTime),
-        endTime: params.endTime ? new Date(params.endTime) : null,
+        startDate: new Date(params.startDate),
+        endDate: params.endDate ? new Date(params.endDate) : null,
         location: params.location,
         city: params.city,
         price: params.price || null,
@@ -168,10 +168,10 @@ export const eventTools = {
 
       // Filter by date range
       if (params.startDate) {
-        conditions.push(gte(events.startTime, new Date(params.startDate)));
+        conditions.push(gte(events.startDate, new Date(params.startDate)));
       }
       if (params.endDate) {
-        conditions.push(lte(events.startTime, new Date(params.endDate)));
+        conditions.push(lte(events.startDate, new Date(params.endDate)));
       }
 
       // Search by keywords

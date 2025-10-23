@@ -30,7 +30,7 @@ function convertToOpenAIFunction(tool: ToolDefinition): OpenAIFunction {
     name: tool.name,
     description: tool.description,
     parameters: {
-      type: 'object',
+      type: 'object' as const,
       properties: tool.input_schema.properties,
       required: tool.input_schema.required || []
     }

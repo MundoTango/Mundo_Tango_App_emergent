@@ -21,7 +21,7 @@ export const memoryToolSchemas = {
     name: 'create_memory',
     description: 'Create a new tango memory/post (moment, achievement, event recap)',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         userId: { type: 'number', description: 'User ID' },
         content: { type: 'string', description: 'Post content/caption' },
@@ -50,7 +50,7 @@ export const memoryToolSchemas = {
     name: 'search_memories',
     description: 'Search tango memories by user, hashtag, or keyword',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         query: { type: 'string', description: 'Search query (optional)' },
         userId: { type: 'number', description: 'Filter by user (optional)' },
@@ -64,7 +64,7 @@ export const memoryToolSchemas = {
     name: 'like_memory',
     description: 'Like or unlike a tango memory',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         memoryId: { type: 'number', description: 'Memory/post ID' },
         userId: { type: 'number', description: 'User ID' },
@@ -82,7 +82,7 @@ export const memoryToolSchemas = {
     name: 'comment_on_memory',
     description: 'Add a comment to a tango memory',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         memoryId: { type: 'number', description: 'Memory/post ID' },
         userId: { type: 'number', description: 'User ID' },
@@ -96,7 +96,7 @@ export const memoryToolSchemas = {
     name: 'get_memory_feed',
     description: 'Get personalized tango memory feed for a user',
     input_schema: {
-      type: 'object',
+      type: 'object' as const,
       properties: {
         userId: { type: 'number', description: 'User ID' },
         limit: { type: 'number', description: 'Max posts (default: 20)' }
