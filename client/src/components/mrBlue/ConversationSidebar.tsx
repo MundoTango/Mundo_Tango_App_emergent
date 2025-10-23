@@ -4,11 +4,11 @@
  * MB.MD SIMULTANEOUS Build - October 23, 2025
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Search, Plus, MessageSquare, Trash2 } from 'lucide-react';
+import { Search, Plus, MessageSquare, Trash2, Edit2, Check, X } from 'lucide-react';
 import { isToday, isYesterday, subDays, format } from 'date-fns';
 
 interface Conversation {
@@ -25,6 +25,7 @@ interface ConversationSidebarProps {
   onSelectConversation: (id: number) => void;
   onNewConversation: () => void;
   onDeleteConversation?: (id: number) => void;
+  onRenameConversation?: (id: number, newName: string) => void;
   isCollapsed?: boolean;
 }
 
@@ -42,6 +43,7 @@ export function ConversationSidebar({
   onSelectConversation,
   onNewConversation,
   onDeleteConversation,
+  onRenameConversation,
   isCollapsed = false
 }: ConversationSidebarProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -146,6 +148,7 @@ export function ConversationSidebar({
               activeId={activeConversationId}
               onSelect={onSelectConversation}
               onDelete={onDeleteConversation}
+              onRename={onRenameConversation}
             />
           )}
 
@@ -157,6 +160,7 @@ export function ConversationSidebar({
               activeId={activeConversationId}
               onSelect={onSelectConversation}
               onDelete={onDeleteConversation}
+              onRename={onRenameConversation}
             />
           )}
 
@@ -168,6 +172,7 @@ export function ConversationSidebar({
               activeId={activeConversationId}
               onSelect={onSelectConversation}
               onDelete={onDeleteConversation}
+              onRename={onRenameConversation}
             />
           )}
 
@@ -179,6 +184,7 @@ export function ConversationSidebar({
               activeId={activeConversationId}
               onSelect={onSelectConversation}
               onDelete={onDeleteConversation}
+              onRename={onRenameConversation}
             />
           )}
 
@@ -190,6 +196,7 @@ export function ConversationSidebar({
               activeId={activeConversationId}
               onSelect={onSelectConversation}
               onDelete={onDeleteConversation}
+              onRename={onRenameConversation}
             />
           )}
 
@@ -223,9 +230,10 @@ interface ConversationGroupProps {
   activeId: number | null;
   onSelect: (id: number) => void;
   onDelete?: (id: number) => void;
+  onRename?: (id: number, newName: string) => void;
 }
 
-function ConversationGroup({ title, conversations, activeId, onSelect, onDelete }: ConversationGroupProps) {
+function ConversationGroup({ title, conversations, activeId, onSelect, onDelete, onRename }: ConversationGroupProps) {
   return (
     <div>
       {/* Group Title */}
@@ -242,6 +250,7 @@ function ConversationGroup({ title, conversations, activeId, onSelect, onDelete 
             isActive={conv.id === activeId}
             onSelect={onSelect}
             onDelete={onDelete}
+            onRename={onRename}
           />
         ))}
       </div>
@@ -255,45 +264,135 @@ interface ConversationItemProps {
   isActive: boolean;
   onSelect: (id: number) => void;
   onDelete?: (id: number) => void;
+  onRename?: (id: number, newName: string) => void;
 }
 
-function ConversationItem({ conversation, isActive, onSelect, onDelete }: ConversationItemProps) {
+function ConversationItem({ conversation, isActive, onSelect, onDelete, onRename }: ConversationItemProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editValue, setEditValue] = useState(conversation.name || 'New Conversation');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Focus input when editing starts
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEditing]);
+
+  const handleRename = () => {
+    if (editValue.trim() && editValue !== conversation.name && onRename) {
+      onRename(conversation.id, editValue.trim());
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditValue(conversation.name || 'New Conversation');
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleRename();
+    } else if (e.key === 'Escape') {
+      handleCancelEdit();
+    }
+  };
 
   return (
     <div
-      className={`group relative flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
+      className={`group relative flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
         isActive
           ? 'bg-[var(--chat-border)] text-white'
           : 'text-[var(--chat-sidebar-text)] hover:bg-[var(--chat-sidebar-hover)]'
-      }`}
-      onClick={() => onSelect(conversation.id)}
+      } ${!isEditing ? 'cursor-pointer' : ''}`}
+      onClick={!isEditing ? () => onSelect(conversation.id) : undefined}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-testid={`conversation-item-${conversation.id}`}
     >
       {/* Message Icon */}
-      <MessageSquare className="h-4 w-4 flex-shrink-0" />
+      {!isEditing && <MessageSquare className="h-4 w-4 flex-shrink-0" />}
 
-      {/* Conversation Name */}
-      <span className="flex-1 text-sm truncate">
-        {conversation.name || 'New Conversation'}
-      </span>
+      {/* Conversation Name or Input */}
+      {isEditing ? (
+        <div className="flex-1 flex items-center gap-1">
+          <Input
+            ref={inputRef}
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={handleRename}
+            className="h-6 text-sm px-2 py-0 bg-gray-800 border-gray-600"
+            data-testid={`input-rename-conversation-${conversation.id}`}
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRename();
+            }}
+            className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400"
+            data-testid={`button-save-rename-${conversation.id}`}
+          >
+            <Check className="h-3 w-3" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCancelEdit();
+            }}
+            className="h-6 w-6 p-0 hover:bg-red-500/20 hover:text-red-400"
+            data-testid={`button-cancel-rename-${conversation.id}`}
+          >
+            <X className="h-3 w-3" />
+          </Button>
+        </div>
+      ) : (
+        <>
+          <span className="flex-1 text-sm truncate">
+            {conversation.name || 'New Conversation'}
+          </span>
 
-      {/* Delete Button (on hover) */}
-      {isHovered && onDelete && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete(conversation.id);
-          }}
-          className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 hover:bg-red-500/20 hover:text-red-400"
-          data-testid={`button-delete-conversation-${conversation.id}`}
-        >
-          <Trash2 className="h-3 w-3" />
-        </Button>
+          {/* Edit and Delete Buttons (on hover) */}
+          {isHovered && (
+            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
+              {onRename && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsEditing(true);
+                  }}
+                  className="h-6 w-6 p-0 hover:bg-blue-500/20 hover:text-blue-400"
+                  data-testid={`button-edit-conversation-${conversation.id}`}
+                >
+                  <Edit2 className="h-3 w-3" />
+                </Button>
+              )}
+              {onDelete && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(conversation.id);
+                  }}
+                  className="h-6 w-6 p-0 hover:bg-red-500/20 hover:text-red-400"
+                  data-testid={`button-delete-conversation-${conversation.id}`}
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              )}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -256,6 +256,23 @@ export function ChatInterface() {
     },
   });
 
+  // 🚀 BATCH 1: Rename conversation mutation (Oct 23, 2025)
+  const renameConversation = useMutation({
+    mutationFn: async ({ id, newName }: { id: number; newName: string }) => {
+      await apiRequest(`/api/chat/projects/${id}`, {
+        method: 'PATCH',
+        body: { name: newName },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      toast({ title: 'Conversation renamed' });
+    },
+    onError: () => {
+      toast({ title: 'Failed to rename conversation', variant: 'destructive' });
+    },
+  });
+
   // Helper function to send message using streaming API
   const sendMessageToConversation = async (projId: number, content: string) => {
     try {
@@ -582,6 +599,9 @@ export function ChatInterface() {
               deleteConversation.mutate(id);
             }
           }}
+          onRenameConversation={(id, newName) => {
+            renameConversation.mutate({ id, newName });
+          }}
           isCollapsed={false}
         />
       )}
@@ -730,6 +750,20 @@ export function ChatInterface() {
                   ...prev,
                   [message.id]: prev[message.id]?.filter(c => c !== change) || []
                 }));
+              }}
+              onCopy={() => {
+                toast({ title: 'Copied to clipboard' });
+              }}
+              onRegenerate={async () => {
+                // Find the user message before this AI message to regenerate
+                const messageIndex = messages!.findIndex(m => m.id === message.id);
+                if (messageIndex > 0) {
+                  const userMessage = messages![messageIndex - 1];
+                  if (userMessage.role === 'user' && conversationId) {
+                    await sendMessageToConversation(conversationId, userMessage.content);
+                    toast({ title: 'Regenerating response...' });
+                  }
+                }
               }}
             />
           ))}
