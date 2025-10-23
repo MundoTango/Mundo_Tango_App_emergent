@@ -1387,7 +1387,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/voice', isAuthenticated, voiceConversationRoutes); // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
   app.use('/api/chat', isAuthenticated, chatSummarizationRoutes); // Chat Summarization API (Unified Voice Modal - Oct 22, 2025)
   // MB.MD FIX Oct 23: Temporarily removed isAuthenticated to fix auth bypass mode chat bug
+  console.log('🔧 [ROUTES] About to register /api/multimodel. Router type:', typeof multiModelRoutes, 'hasStack:', multiModelRoutes?.stack?.length);
   app.use('/api/multimodel', multiModelRoutes); // Multi-Model Consensus System (Stream 2 - Oct 22, 2025)
+  console.log('✅ [ROUTES] /api/multimodel registered successfully');
   app.use('/api/luma', isAuthenticated, lumaRoutes); // Luma Labs 3D Avatar Generation (MB.MD Track 1 - Oct 21, 2025)
   app.use('/api/journeys', isAuthenticated, journeyRoutes); // Journey Agents J1-J5 Backend API (MB.MD Track 4A - Oct 21, 2025)
   
