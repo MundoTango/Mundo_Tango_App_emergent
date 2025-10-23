@@ -269,6 +269,44 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       };
     }
   }, [isSelectMode, handleElementClick, handleElementDoubleClick]);
+  
+  // 🎯 LISTEN FOR IFRAME ELEMENT SELECTION (Oct 23, 2025)
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // Security: Only accept messages from same origin
+      if (event.origin !== window.location.origin) return;
+      
+      const message = event.data;
+      
+      if (message.type === 'ELEMENT_SELECTED' && message.element) {
+        console.log('🎯 [VisualEditorWrapper] Received ELEMENT_SELECTED from iframe:', message.element);
+        
+        // Update local state
+        setSelectedElement({
+          tag: message.element.tagName,
+          id: message.element.id,
+          className: message.element.className,
+          innerHTML: message.element.textContent?.substring(0, 100),
+          xpath: message.element.xpath
+        });
+        
+        // 🔥 UPDATE CONTEXT - This is what Mr Blue needs!
+        if (visualEditorContext) {
+          console.log('🔥 [VisualEditorWrapper] Updating VisualEditorContext with iframe element');
+          visualEditorContext.setSelectedElement(message.element);
+        }
+        
+        toast({
+          title: '📄 Page Element Selected',
+          description: `<${message.element.tagName}> ${message.element.id ? `#${message.element.id}` : ''}`,
+          duration: 2000
+        });
+      }
+    };
+    
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [visualEditorContext, toast]);
 
   // MB.MD: Handle inline text editing save
   const handleSaveInlineText = (newText: string) => {
