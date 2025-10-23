@@ -158,10 +158,13 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
   const sendAudio = useCallback((audioData: ArrayBuffer) => {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
       const base64 = arrayBufferToBase64(audioData);
+      console.log('[Realtime] Sending audio chunk:', audioData.byteLength, 'bytes');
       wsRef.current.send(JSON.stringify({
         type: 'input_audio_buffer.append',
         audio: base64
       }));
+    } else {
+      console.warn('[Realtime] Cannot send audio - WebSocket not ready. State:', wsRef.current?.readyState);
     }
   }, []);
 

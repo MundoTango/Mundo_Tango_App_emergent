@@ -107,8 +107,12 @@ export function UnifiedVoiceModal({
     checkPermission
   } = useAudioCapture({
     onAudioData: (audioData) => {
+      console.log('[VoiceModal] Audio captured:', audioData.byteLength, 'bytes, status:', realtimeStatus);
       if (realtimeStatus === 'connected') {
+        console.log('[VoiceModal] ✅ Sending audio to OpenAI...');
         sendAudio(audioData);
+      } else {
+        console.warn('[VoiceModal] ❌ Not sending - not connected. Status:', realtimeStatus);
       }
     }
   });
