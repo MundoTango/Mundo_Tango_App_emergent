@@ -32,7 +32,7 @@ import { Button } from '@/components/ui/button';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
 import { injectOverlayScript } from '@/lib/visual-editor/iframeOverlay';
 import { listenToIframe, sendToIframe, type ElementSelection, type StyleMutation } from '@/lib/visual-editor/iframeMessaging';
-import { VisualEditorProvider, useVisualEditor } from '@/contexts/VisualEditorContext';
+import { useVisualEditor } from '@/contexts/VisualEditorContext';
 
 interface SelectedElement {
   tag: string;
@@ -360,7 +360,6 @@ export default function VisualEditorPage() {
   };
 
   return (
-    <VisualEditorProvider>
       <div className="h-screen flex flex-col bg-gray-900">
       {/* Remote cursors overlay */}
       <RemoteCursors page={previewUrl} />
@@ -472,6 +471,5 @@ export default function VisualEditorPage() {
         onTabChange={(tab) => setActiveTab(tab as EditorTab)}
       />
     </div>
-    </VisualEditorProvider>
   );
 }
