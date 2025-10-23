@@ -25,6 +25,14 @@ import { getAgentSuggestion } from '@/lib/agentDiscovery';
 import { saveOrchestrator } from '@/services/SaveOrchestrator';
 import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
 
+// 🚀 SIMULTANEOUS BUILD - ALL 3 STREAMS (Oct 23, 2025)
+import { ConversationSidebar } from './ConversationSidebar';
+import { ChatEmptyState } from './ChatEmptyState';
+import { InspectorBadge } from './InspectorBadge';
+import { InspectorPromptSuggestions } from './InspectorPromptSuggestions';
+import { DiffPreviewModal } from './DiffPreviewModal';
+import { QuickCommitButton } from './QuickCommitButton';
+
 // ============ TYPES ============
 interface Conversation {
   id: number;
@@ -74,6 +82,15 @@ export function ChatInterface() {
   
   // 📚 CONVERSATION HISTORY: Show past voice conversations (Oct 22, 2025)
   const [showConversationHistory, setShowConversationHistory] = useState(false);
+  
+  // 🚀 STREAM 3: Diff Preview Modal State (Oct 23, 2025)
+  const [diffPreview, setDiffPreview] = useState<{
+    isOpen: boolean;
+    filePath?: string;
+    oldCode?: string;
+    newCode?: string;
+    diffId?: number;
+  }>({ isOpen: false });
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -129,6 +146,34 @@ export function ChatInterface() {
   const handleModelChange = (model: ModelType) => {
     setSelectedModel(model);
   };
+  
+  // 🚀 STREAM 3: Keyboard Shortcut for Quick Commit (Cmd/Ctrl+Enter) (Oct 23, 2025)
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        // ✅ FIX: Check if QuickCommitButton is mounted AND visible before clicking
+        const commitButton = document.querySelector('[data-testid="button-quick-commit"]') as HTMLButtonElement;
+        
+        // Guard: Only trigger if button exists, is visible, and not disabled
+        if (commitButton && 
+            !commitButton.disabled && 
+            commitButton.offsetParent !== null && // Check if visible (not display:none)
+            window.getComputedStyle(commitButton).visibility !== 'hidden') {
+          commitButton.click();
+          toast({
+            title: 'Quick Commit',
+            description: 'Committing changes... (Cmd+Enter)',
+          });
+        } else {
+          console.log('⌨️ [Keyboard] Cmd+Enter ignored - QuickCommitButton not available');
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, [toast]);
 
   // Load conversations (projects)
   const { data: conversations, isLoading: loadingConversations, error: conversationsError } = useQuery<Conversation[]>({
@@ -525,75 +570,21 @@ export function ChatInterface() {
 
   return (
     <div className="flex h-full">
-      {/* Sidebar - Conversations */}
-      <div 
-        className={`${
-          isSidebarOpen ? 'w-60' : 'w-0'
-        } md:w-60 flex-shrink-0 border-r border-cyan-200 bg-white/30 transition-all duration-300 overflow-hidden`}
-      >
-        <div className="p-4 space-y-4 h-full flex flex-col">
-          {/* 3D Avatar Placeholder */}
-          <div className="aspect-square w-full rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-            <Sparkles className="h-12 w-12 text-white" />
-          </div>
-
-          {/* New Chat Button */}
-          <Button
-            onClick={() => createConversation.mutate()}
-            className="w-full gap-2 min-h-[44px] bg-cyan-500 hover:bg-cyan-600"
-            data-testid="button-new-chat"
-            aria-label="Start new chat"
-          >
-            <Plus className="h-4 w-4" />
-            New Chat
-          </Button>
-
-          {/* Conversations List */}
-          <div className="flex-1 overflow-y-auto space-y-2">
-            {loadingConversations && (
-              <div className="text-center text-sm text-gray-500">Loading...</div>
-            )}
-            {conversations?.map((conv) => (
-              <div 
-                key={conv.id}
-                className={`group relative w-full rounded-lg transition-colors min-h-[44px] ${
-                  conversationId === conv.id
-                    ? 'bg-cyan-100 border-2 border-cyan-500'
-                    : 'bg-white/50 hover:bg-cyan-50'
-                }`}
-              >
-                <button
-                  onClick={() => setConversationId(conv.id)}
-                  className="w-full text-left p-3 pr-10"
-                  data-testid={`button-conversation-${conv.id}`}
-                  aria-label={`Select conversation: ${conv.name}`}
-                >
-                  <div className="font-medium text-sm truncate">{conv.name}</div>
-                  <div className="text-xs text-gray-500">
-                    {new Date(conv.updatedAt).toLocaleDateString()}
-                  </div>
-                </button>
-                
-                {/* Delete Button (Stream C3 - Oct 22, 2025) */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (confirm(`Delete "${conv.name}"?`)) {
-                      deleteConversation.mutate(conv.id);
-                    }
-                  }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-100 rounded transition-all"
-                  data-testid={`button-delete-conversation-${conv.id}`}
-                  aria-label={`Delete conversation: ${conv.name}`}
-                  title="Delete conversation"
-                >
-                  <Trash2 className="h-4 w-4 text-red-600" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* 🚀 STREAM 1: ConversationSidebar - ChatGPT-style with date grouping (Oct 23, 2025) */}
+      {!isSidebarOpen ? null : (
+        <ConversationSidebar
+          conversations={conversations || []}
+          activeConversationId={conversationId}
+          onSelectConversation={(id) => setConversationId(id)}
+          onNewConversation={() => createConversation.mutate()}
+          onDeleteConversation={(id) => {
+            if (confirm('Delete this conversation?')) {
+              deleteConversation.mutate(id);
+            }
+          }}
+          isCollapsed={false}
+        />
+      )}
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
@@ -611,30 +602,6 @@ export function ChatInterface() {
           </Button>
           
           <div className="flex-1" />
-          
-          {/* 🎨 Visual Editor Context Indicator with Agent Discovery (Oct 22, 2025 - STREAM 3) */}
-          {activeElement && (
-            <div 
-              className="flex flex-col gap-1 px-3 py-2 bg-purple-500/20 border border-purple-500 rounded-lg max-w-md"
-              data-testid="visual-editor-context-indicator"
-            >
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-3 h-3 text-purple-400" />
-                <span className="text-xs text-purple-300 font-mono">
-                  &lt;{activeElement.tagName}&gt;
-                  {activeElement.id && ` #${activeElement.id}`}
-                </span>
-              </div>
-              <span className="text-xs text-purple-200 opacity-80">
-                {getAgentSuggestion({
-                  tagName: activeElement.tagName,
-                  id: activeElement.id,
-                  className: activeElement.className,
-                  testId: activeElement.attributes?.['data-testid']
-                })}
-              </span>
-            </div>
-          )}
           
           {/* 🎧 UNIFIED VOICE BUTTON (Oct 22, 2025) - Opens modal with transcript + summary */}
           <Button
@@ -683,6 +650,21 @@ export function ChatInterface() {
             onModelChange={handleModelChange}
           />
         </div>
+        
+        {/* 🚀 STREAM 2: InspectorBadge - Shows selected element (Oct 23, 2025) */}
+        {activeElement && (
+          <InspectorBadge
+            element={activeElement}
+            onClear={() => {
+              // Clear persisted element
+              setLastKnownElement(null);
+              // Clear selection in Visual Editor if available
+              if (visualEditorContext?.setSelectedElement) {
+                visualEditorContext.setSelectedElement(null);
+              }
+            }}
+          />
+        )}
 
         {/* Messages Area OR Conversation History */}
         {showConversationHistory && conversationId ? (
@@ -704,22 +686,18 @@ export function ChatInterface() {
         ) : (
           <>
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {!conversationId && (
-              <div className="flex items-center justify-center h-full">
-                <div className="text-center max-w-md">
-                  <div className="h-20 w-20 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center mb-4">
-                    <Sparkles className="h-10 w-10 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Welcome to Mr Blue</h3>
-                  <p className="text-gray-600">
-                    Start a new conversation to begin chatting with your AI assistant
-                  </p>
-                  <p className="text-sm text-gray-500 mt-4">
-                    <Headphones className="inline w-4 h-4 mr-1" />
-                    Click the headphone icon above to start a voice session with live transcript
-                  </p>
-                </div>
-              </div>
+            {/* 🚀 STREAM 1: ChatEmptyState - Tango-specific prompts (Oct 23, 2025) */}
+            {conversationId && messages && messages.length === 0 && !loadingMessages && !streamingResponse && (
+              <ChatEmptyState 
+                onPromptClick={(prompt) => {
+                  setInput(prompt);
+                  // Auto-focus textarea
+                  setTimeout(() => {
+                    const textarea = document.querySelector('[data-testid="input-message"]') as HTMLTextAreaElement;
+                    textarea?.focus();
+                  }, 100);
+                }}
+              />
             )}
 
           {loadingMessages && (
@@ -798,6 +776,24 @@ export function ChatInterface() {
 
           <div ref={messagesEndRef} />
           </div>
+          
+          {/* 🚀 STREAM 2: InspectorPromptSuggestions - Point-and-ask prompts (Oct 23, 2025) */}
+          {activeElement && (
+            <InspectorPromptSuggestions
+              element={activeElement}
+              onPromptClick={(prompt) => {
+                setInput(prompt);
+                // Auto-focus textarea
+                setTimeout(() => {
+                  const textarea = document.querySelector('[data-testid="input-message"]') as HTMLTextAreaElement;
+                  textarea?.focus();
+                }, 100);
+              }}
+            />
+          )}
+          
+          {/* 🚀 STREAM 3: QuickCommitButton - One-click AI commit (Oct 23, 2025) */}
+          <QuickCommitButton />
 
           {/* Input Area */}
           <div className="border-t border-cyan-200 bg-white/20 p-4 space-y-3">
@@ -839,6 +835,31 @@ export function ChatInterface() {
         voiceSettings={voiceSettings}
         onVoiceSettingsChange={updateVoiceSettings}
         selectedElement={activeElement}
+      />
+      
+      {/* 🚀 STREAM 3: DiffPreviewModal - Side-by-side diff viewer (Oct 23, 2025) */}
+      <DiffPreviewModal
+        isOpen={diffPreview.isOpen}
+        onClose={() => setDiffPreview({ isOpen: false })}
+        filePath={diffPreview.filePath || ''}
+        oldCode={diffPreview.oldCode || ''}
+        newCode={diffPreview.newCode || ''}
+        onAccept={() => {
+          // TODO: Integrate with Git commit flow
+          toast({
+            title: 'Changes Applied',
+            description: 'Code changes have been accepted',
+          });
+          setDiffPreview({ isOpen: false });
+        }}
+        onReject={() => {
+          toast({
+            title: 'Changes Rejected',
+            description: 'Code changes have been discarded',
+            variant: 'destructive',
+          });
+          setDiffPreview({ isOpen: false });
+        }}
       />
     </div>
   );

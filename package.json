@@ -133,6 +133,7 @@
     "@types/node-cron": "^3.0.11",
     "@types/node-fetch": "^2.6.12",
     "@types/pino": "^7.0.4",
+    "@types/prismjs": "^1.26.5",
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-csv": "^1.1.10",
     "@types/react-image-crop": "^8.1.6",
