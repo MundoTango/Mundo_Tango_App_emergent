@@ -28,7 +28,12 @@ router.post('/consensus', async (req: any, res) => {
   try {
     const { query, projectId, systemPrompt, context } = req.body;
     
+    // 🔍 DEBUG: Log what we received
+    console.log('🔍 [MultiModel] Request body keys:', Object.keys(req.body));
+    console.log('🔍 [MultiModel] query value:', query ? `"${query.substring(0, 50)}..."` : 'MISSING');
+    
     if (!query) {
+      console.error('❌ [MultiModel] No query provided in request body:', req.body);
       return res.status(400).json({ error: 'Query is required' });
     }
 
