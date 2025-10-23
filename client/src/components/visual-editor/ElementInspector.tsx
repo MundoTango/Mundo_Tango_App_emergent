@@ -12,6 +12,7 @@ import { AISuggestionsPanel } from './AISuggestionsPanel';
 import { DiffPreviewCard } from './DiffPreviewCard';
 import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
 import { useToast } from '@/hooks/use-toast';
+import { useAppContext } from '@/hooks/useAppContext';
 
 interface ElementInspectorProps {
   selectedElement: ElementSelection | null;
@@ -21,6 +22,10 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [pendingChanges, setPendingChanges] = useState<CodeChange[]>([]);
   const { toast } = useToast();
+  const appContext = useAppContext();
+  
+  // 🔐 VIBE CODING: Super admin only (Oct 23, 2025)
+  const isSuperAdmin = appContext.user?.isSuperAdmin || false;
   
   if (!selectedElement) {
     return (
@@ -169,31 +174,37 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
 
       <Separator className="bg-gray-700" />
 
-      {/* AI Suggestions */}
-      <div>
-        <h3 className="text-sm font-semibold text-white mb-2">AI Suggestions</h3>
-        <AISuggestionsPanel
-          selectedElement={selectedElement}
-          onApplySuggestion={handleApplySuggestion}
-        />
-        
-        {/* 🚀 Show generated code changes */}
-        {pendingChanges.length > 0 && (
-          <div className="mt-4 space-y-2">
-            {pendingChanges.map((change, idx) => (
-              <DiffPreviewCard
-                key={idx}
-                filePath={change.filePath}
-                beforeCode=""
-                afterCode={change.diff}
-                diffString={change.diff}
-                onApply={() => handleApplyChange(change)}
-                onReject={() => handleRejectChange(change)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      {/* AI Suggestions - SUPER ADMIN ONLY (Oct 23, 2025) */}
+      {isSuperAdmin ? (
+        <div>
+          <h3 className="text-sm font-semibold text-white mb-2">AI Suggestions</h3>
+          <AISuggestionsPanel
+            selectedElement={selectedElement}
+            onApplySuggestion={handleApplySuggestion}
+          />
+          
+          {/* 🚀 Show generated code changes */}
+          {pendingChanges.length > 0 && (
+            <div className="mt-4 space-y-2">
+              {pendingChanges.map((change, idx) => (
+                <DiffPreviewCard
+                  key={idx}
+                  filePath={change.filePath}
+                  beforeCode=""
+                  afterCode={change.diff}
+                  diffString={change.diff}
+                  onApply={() => handleApplyChange(change)}
+                  onReject={() => handleRejectChange(change)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="text-center text-gray-500 py-4">
+          <p className="text-xs">AI suggestions available for super admins only</p>
+        </div>
+      )}
     </Card>
   );
 }

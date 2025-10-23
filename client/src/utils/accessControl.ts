@@ -8,6 +8,7 @@ interface User {
   id?: number;
   username?: string;
   email?: string;
+  role?: 'user' | 'admin' | 'super_admin'; // Oct 23, 2025: Database role field
   profile?: {
     role?: string;
     primary_role?: string;
@@ -22,17 +23,20 @@ interface User {
 export function isSuperAdmin(user: User | null | undefined): boolean {
   if (!user) return false;
 
-  // Pattern 1: Explicit super admin flag
+  // Pattern 1: Database role field (PRIMARY - Oct 23, 2025)
+  if (user.role === 'super_admin') return true;
+
+  // Pattern 2: Explicit super admin flag
   if (user.isSuperAdmin === true) return true;
 
-  // Pattern 2: Username-based (legacy)
+  // Pattern 3: Username-based (legacy)
   if (user.username === 'admin') return true;
 
-  // Pattern 3: Email-based
+  // Pattern 4: Email-based
   if (user.email === 'admin@mundotango.life') return true;
   if (user.email?.includes('admin@')) return true;
 
-  // Pattern 4: Profile role-based
+  // Pattern 5: Profile role-based
   if (user.profile?.role === 'super_admin') return true;
   if (user.profile?.primary_role === 'super_admin') return true;
 
