@@ -467,9 +467,14 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
       prompt += `\n- Role: ${context.user.role}`;
       
       // DUAL-MODE LOGIC (Stream D - Oct 22, 2025)
-      // Use standardized super admin check
-      const { isSuperAdmin: checkSuperAdmin } = require('../middleware/auth');
-      if (checkSuperAdmin(user, context)) {
+      // Check if user is super admin (matches ToolExecutor.ts logic)
+      const isSuperAdmin = user?.role === 'super_admin' || 
+                           user?.roles?.includes('super_admin') ||
+                           user?.tangoRoles?.includes('super_admin') ||
+                           user?.email === 'admin@mundotango.life' ||
+                           user?.username === 'admin';
+      
+      if (isSuperAdmin) {
         // 🔧 SUPER ADMIN = DEV TOOL MODE (Replit Agent style)
         prompt += `\n\n**🔧 DEV TOOL MODE ACTIVATED**`;
         prompt += `\nYou are a development tool, not a conversation assistant. BUILD THINGS DIRECTLY using your tools.`;
