@@ -29,6 +29,7 @@ import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
+import { listenToIframe, type IframeMessage } from '@/lib/visual-editor/iframeMessaging';
 
 interface SelectedElement {
   tag: string;
@@ -272,13 +273,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   
   // 🎯 LISTEN FOR IFRAME ELEMENT SELECTION (Oct 23, 2025)
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      // Security: Only accept messages from same origin
-      if (event.origin !== window.location.origin) return;
-      
-      const message = event.data;
-      
-      if (message.type === 'ELEMENT_SELECTED' && message.element) {
+    const cleanup = listenToIframe((message: IframeMessage) => {
+      if (message.type === 'ELEMENT_SELECTED') {
         console.log('🎯 [VisualEditorWrapper] Received ELEMENT_SELECTED from iframe:', message.element);
         
         // Update local state
@@ -302,10 +298,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
           duration: 2000
         });
       }
-    };
+    });
     
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
+    return cleanup;
   }, [visualEditorContext, toast]);
 
   // MB.MD: Handle inline text editing save
