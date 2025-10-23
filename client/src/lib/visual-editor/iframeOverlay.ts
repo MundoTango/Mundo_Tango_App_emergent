@@ -44,39 +44,80 @@ export function injectOverlayScript() {
         highlightOverlay.style.height = rect.height + 'px';
       }
 
-      // Get element data
+      // Get element data (SVG-safe serialization - Oct 23, 2025)
       function getElementData(element) {
-        const rect = element.getBoundingClientRect();
-        const computed = window.getComputedStyle(element);
-        
-        const computedStyles = {};
-        const stylesToCapture = ['display', 'position', 'width', 'height', 'margin', 'padding', 
-          'backgroundColor', 'color', 'fontSize', 'fontWeight', 'border', 'borderRadius'];
-        
-        stylesToCapture.forEach(prop => {
-          computedStyles[prop] = computed.getPropertyValue(prop);
-        });
+        try {
+          const rect = element.getBoundingClientRect();
+          const computed = window.getComputedStyle(element);
+          
+          const computedStyles = {};
+          const stylesToCapture = ['display', 'position', 'width', 'height', 'margin', 'padding', 
+            'backgroundColor', 'color', 'fontSize', 'fontWeight', 'border', 'borderRadius'];
+          
+          stylesToCapture.forEach(prop => {
+            try {
+              computedStyles[prop] = computed.getPropertyValue(prop);
+            } catch (e) {
+              computedStyles[prop] = '';
+            }
+          });
 
-        const attributes = {};
-        Array.from(element.attributes).forEach(attr => {
-          attributes[attr.name] = attr.value;
-        });
+          const attributes = {};
+          try {
+            Array.from(element.attributes).forEach(attr => {
+              // SVG attributes may have SVGAnimatedString objects - only copy strings
+              if (typeof attr.value === 'string') {
+                attributes[attr.name] = attr.value;
+              } else if (attr.value && typeof attr.value.baseVal === 'string') {
+                // Handle SVGAnimatedString (e.g., className.baseVal)
+                attributes[attr.name] = attr.value.baseVal;
+              }
+            });
+          } catch (e) {
+            // Fallback: just copy basic attributes
+          }
 
-        return {
-          xpath: getXPath(element),
-          tagName: element.tagName.toLowerCase(),
-          id: element.id || undefined,
-          className: element.className || undefined,
-          textContent: element.textContent?.slice(0, 100) || undefined,
-          computedStyles,
-          boundingBox: {
-            top: rect.top,
-            left: rect.left,
-            width: rect.width,
-            height: rect.height
-          },
-          attributes
-        };
+          // Handle SVG className (SVGAnimatedString)
+          let className = '';
+          try {
+            if (typeof element.className === 'string') {
+              className = element.className;
+            } else if (element.className && typeof element.className.baseVal === 'string') {
+              className = element.className.baseVal;
+            }
+          } catch (e) {
+            className = '';
+          }
+
+          return {
+            xpath: getXPath(element),
+            tagName: element.tagName.toLowerCase(),
+            id: element.id || undefined,
+            className: className || undefined,
+            textContent: element.textContent?.slice(0, 100) || undefined,
+            computedStyles,
+            boundingBox: {
+              top: rect.top,
+              left: rect.left,
+              width: rect.width,
+              height: rect.height
+            },
+            attributes
+          };
+        } catch (error) {
+          // Fallback for problematic elements
+          console.error('[Visual Editor] Error serializing element:', error);
+          return {
+            tagName: element.tagName || 'unknown',
+            className: '',
+            id: element.id || '',
+            textContent: '',
+            xpath: 'error',
+            attributes: {},
+            computedStyles: {},
+            boundingBox: { top: 0, left: 0, width: 0, height: 0 }
+          };
+        }
       }
 
       // Generate XPath

@@ -11,7 +11,8 @@ import {
   uuid,
   unique,
   real,
-  numeric
+  numeric,
+  pgEnum
 } from "drizzle-orm/pg-core";
 import { relations, sql, eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
@@ -22,6 +23,9 @@ export * from './multiAgentSchemas';
 
 // Re-export commonly used drizzle-orm functions
 export { eq };
+
+// User role ENUM for vibe coding and admin features (Oct 23, 2025)
+export const userRoleEnum = pgEnum('user_role', ['user', 'admin', 'super_admin']);
 
 // Users table
 export const users = pgTable("users", {
@@ -70,6 +74,8 @@ export const users = pgTable("users", {
   // Phase 0 Task 0.5: Customer Journey State (J1-J4)
   customerJourneyState: varchar("customer_journey_state", { length: 10 }).default('J1').notNull(), // 'J1' = New User, 'J2' = Active, 'J3' = Power User, 'J4' = Super Admin
   lastJourneyUpdate: timestamp("last_journey_update").defaultNow(),
+  // VIBE CODING: Role-based access control (Oct 23, 2025)
+  role: userRoleEnum('role').default('user').notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 }, (table) => [
