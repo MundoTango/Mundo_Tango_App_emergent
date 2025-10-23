@@ -329,11 +329,33 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
 
   // Add context awareness if available
   if (context) {
-    prompt += '\n\n**🎯 WHERE YOU ARE RIGHT NOW:**';
-    
     // Visual Editor specific context FIRST (most important for "what page" questions)
     const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
     const previewPath = context.visualEditorState?.previewPath;
+    
+    // 🚨 CRITICAL: ELEMENT DISAMBIGUATION MUST BE FIRST (Oct 23, 2025)
+    // If element is selected, this context MUST appear before everything else
+    if (selectedEl) {
+      const tag = typeof selectedEl === 'string' ? selectedEl : (selectedEl.tagName || selectedEl.tag || 'element');
+      const className = typeof selectedEl === 'object' ? selectedEl.className : '';
+      const textContent = typeof selectedEl === 'object' ? selectedEl.textContent : null;
+      
+      prompt += `\n\n🚨🚨🚨 **CRITICAL - READ THIS FIRST** 🚨🚨🚨`;
+      prompt += `\n**YOU HAVE A VISUAL HTML ELEMENT SELECTED:**`;
+      prompt += `\n→ Element: "${textContent?.substring(0, 40) || tag}" (the <${tag}> tag)`;
+      if (className) prompt += `\n→ Classes: ${className.substring(0, 60)}`;
+      prompt += `\n→ XPath: ${selectedEl.xpath || 'N/A'}`;
+      
+      prompt += `\n\n**⚠️ WHEN USER MENTIONS "element", "this", "component":**`;
+      prompt += `\n✅ They mean THIS selected ${tag} element above`;
+      prompt += `\n❌ NOT "MB.MD methodology elements"`;
+      prompt += `\n❌ NOT documentation topics`;
+      prompt += `\n\n**CORRECT RESPONSE:**`;
+      prompt += `\n"You selected the '${textContent?.substring(0, 30) || tag}' <${tag}> element"`;
+      prompt += `\n\n**DO NOT call read_documentation** when user asks about "element" - they mean the HTML element!`;
+    }
+    
+    prompt += '\n\n**🎯 WHERE YOU ARE RIGHT NOW:**';
     
     // Page name mapping (needed for examples below)
     const pageNames: Record<string, string> = {
@@ -406,39 +428,6 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
         prompt += `\nExplain features, answer questions, and guide users through the platform.`;
         prompt += `\nBe conversational, supportive, and educational.`;
       }
-    }
-    
-    // 🎯 VISUAL EDITOR SELECTED ELEMENT ENHANCEMENT (Agent #3)
-    if (selectedEl) {
-      const tag = typeof selectedEl === 'string' ? selectedEl : (selectedEl.tagName || selectedEl.tag || 'element');
-      const className = typeof selectedEl === 'object' ? selectedEl.className : '';
-      const id = typeof selectedEl === 'object' ? selectedEl.id : '';
-      const textContent = typeof selectedEl === 'object' ? selectedEl.textContent : null;
-      
-      prompt += `\n\n**🎯 SELECTED ELEMENT DETECTED:**`;
-      prompt += `\n- Tag: <${tag}>`;
-      if (textContent) prompt += `\n- Text: "${textContent.substring(0, 50)}"`;
-      if (id) prompt += `\n- ID: ${id}`;
-      if (className) prompt += `\n- Classes: ${className}`;
-      
-      // 🔧 MANDATORY ACKNOWLEDGMENT (Oct 23, 2025)
-      prompt += `\n\n**🚨 THE USER HAS SELECTED A VISUAL ELEMENT ON THE PAGE:**`;
-      prompt += `\nElement: '${textContent?.substring(0, 30)}' (the <${tag}> with class '${className}')`;
-      prompt += `\nXPath: ${selectedEl.xpath || 'N/A'}`;
-      
-      prompt += `\n\n**⚠️ CRITICAL: When user asks "what element" or "make it [color]":**`;
-      prompt += `\n1. They are asking about THIS selected element (the '${textContent?.substring(0, 30)}' <${tag}>)`;
-      prompt += `\n2. IGNORE the "Use mb.md:" prefix - that's automatic, NOT part of their question`;
-      prompt += `\n3. DO NOT call read_documentation - they're NOT asking about documentation`;
-      prompt += `\n4. Answer directly: "I see you selected the '${textContent?.substring(0, 30)}' element (the <${tag}>)"`;
-      prompt += `\n5. To modify it: USE search_codebase to find the HomePage component file`;
-      
-      prompt += `\n\n**Example:**`;
-      prompt += `\nUser: "Use mb.md: what element is this, make it red"`;
-      prompt += `\nYou: "I see you selected the '${textContent?.substring(0, 30)}' element (the <${tag}>). Let me find the file to make it red..."`;
-      prompt += `\nThen: USE search_codebase("HomePage")`;
-      
-      prompt += `\n\n**DO NOT** say "I cannot modify" - you CAN modify using your tools.`;
     }
 
     prompt += `\n\nUse this context to provide relevant, helpful responses. You CAN see what page they're on and what they're doing.`;
