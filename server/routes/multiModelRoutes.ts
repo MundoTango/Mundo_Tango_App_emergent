@@ -13,7 +13,7 @@ import { streamWithTools } from '../services/tools/universalToolOrchestrator';
 import { db } from '../db';
 import { aiChatMessages } from '@shared/schema';
 import { storage } from '../storage';
-import { triggerAutoNaming, buildContextAwarePrompt } from './chatProjectsRoutes';
+import { triggerAutoNaming, buildContextAwarePrompt, detectBuildIntent } from './chatProjectsRoutes';
 import { isSuperAdmin } from '../utils/auth';
 
 const router = Router();
@@ -169,6 +169,13 @@ router.post('/consensus', async (req: any, res) => {
 
     // MB.MD FIX: Save AI response to database AFTER processing
     if (projectId && userId && result.finalPlan) {
+      // 🔧 PHASE 2: Detect build intents from multi-model consensus response
+      const buildIntent = detectBuildIntent(result.finalPlan, context, result.toolsUsed || []);
+      
+      if (buildIntent) {
+        console.log('✅ [MultiModel] Build intent detected - will defer execution until user clicks Save');
+      }
+      
       await db.insert(aiChatMessages).values({
         projectId,
         userId,
@@ -176,6 +183,7 @@ router.post('/consensus', async (req: any, res) => {
         content: result.finalPlan,
         model: 'Multi-Model Consensus',  // 🔧 FIX: User-friendly badge name
         tokens: result.finalPlan.split(' ').length, // Rough estimate
+        metadata: buildIntent ? { buildIntent } : null, // 🔧 PHASE 2: Add build intent metadata
       });
       console.log(`[MultiModel] Saved AI response to project ${projectId}`);
       

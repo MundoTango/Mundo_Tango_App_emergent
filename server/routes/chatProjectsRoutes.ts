@@ -248,8 +248,9 @@ router.post('/stream', async (req: any, res: Response) => {
 /**
  * 🔧 PHASE 2: Detect build intents from AI response
  * Analyzes response to determine if code changes are deferred for user approval
+ * EXPORTED for reuse in multiModelRoutes.ts
  */
-function detectBuildIntent(response: string, context?: any, toolsUsed?: any[]): any | null {
+export function detectBuildIntent(response: string, context?: any, toolsUsed?: any[]): any | null {
   // Skip if no visual editor context with selected element
   if (!context?.visualEditorState?.selectedElement) {
     return null;
