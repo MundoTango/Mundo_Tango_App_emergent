@@ -18,6 +18,17 @@ import { isSuperAdmin } from '../utils/auth';
 
 const router = Router();
 
+// 🚨 MB.MD DEBUG: Log ALL requests that reach this router
+router.use((req, res, next) => {
+  console.log('🚨🚨🚨 [MULTIMODEL ROUTER] Request reached multimodel router!', {
+    method: req.method,
+    path: req.path,
+    url: req.url,
+    baseUrl: req.baseUrl,
+  });
+  next();
+});
+
 /**
  * POST /api/multimodel/consensus
  * Execute query across all models and return consensus
