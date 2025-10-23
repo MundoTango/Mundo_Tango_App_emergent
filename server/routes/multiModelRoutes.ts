@@ -170,7 +170,7 @@ router.post('/consensus', async (req: any, res) => {
     // MB.MD FIX: Save AI response to database AFTER processing
     if (projectId && userId && result.finalPlan) {
       // 🔧 PHASE 2: Detect build intents from multi-model consensus response
-      const buildIntent = detectBuildIntent(result.finalPlan, context, result.toolsUsed || []);
+      const buildIntent = detectBuildIntent(result.finalPlan, context, (result as any).toolsUsed || []);
       
       if (buildIntent) {
         console.log('✅ [MultiModel] Build intent detected - will defer execution until user clicks Save');
