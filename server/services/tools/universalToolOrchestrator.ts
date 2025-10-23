@@ -40,11 +40,15 @@ function compressSystemMessage(system: string): string {
   if (!system || system.length < 500) return system;
   
   // 🚨 EXTRACT CRITICAL SECTIONS FIRST (before compression destroys them)
-  const visualEditorSection = system.match(/🚨🚨🚨[\s\S]*?(?=\n\n\*\*🎯 WHERE YOU ARE|$)/)?.[0] || '';
-  const elementDisambiguationSection = system.match(/📌 \*\*MANDATORY TOOL:[\s\S]*?(?=\n\n\*\*🎯 WHERE YOU ARE|$)/)?.[0] || '';
+  // Fixed regex: Match actual prompt structure from chatProjectsRoutes.ts (Oct 23, 2025)
+  const visualEditorSection = system.match(/🚨🚨🚨[\s\S]*?(?=\n\n\*\*🎯 WHERE YOU ARE RIGHT NOW|$)/)?.[0] || '';
+  const elementDisambiguationSection = system.match(/📌 \*\*MANDATORY TOOL:[\s\S]*?(?=\n\n\*\*🎯 WHERE YOU ARE RIGHT NOW|$)/)?.[0] || '';
   
   console.log('🔍 [Compress] Visual Editor section preserved:', !!visualEditorSection);
   console.log('🔍 [Compress] Element disambiguation preserved:', !!elementDisambiguationSection);
+  if (visualEditorSection) {
+    console.log('🔍 [Compress] VE section length:', visualEditorSection.length, 'chars');
+  }
   
   // Remove excessive example blocks and verbose instructions
   let compressed = system
