@@ -4,7 +4,7 @@
  * Uses /api/mrblue/conversations (correct API endpoint)
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { 
   Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History, Trash2
 } from 'lucide-react';
@@ -15,7 +15,6 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import EnhancedMessageBubble from './EnhancedMessageBubble';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
-import { UnifiedVoiceModal } from './UnifiedVoiceModal';
 import { ModelSelector } from './ModelSelector';
 import { ConversationHistoryPanel } from './ConversationHistoryPanel';
 import { useAppContext } from '@/hooks/useAppContext';
@@ -24,13 +23,17 @@ import { useVoiceOutput } from '@/hooks/useVoiceOutput';
 import { getAgentSuggestion } from '@/lib/agentDiscovery';
 import { saveOrchestrator } from '@/services/SaveOrchestrator';
 import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
+import ErrorBoundary from '@/components/ErrorBoundary';
+
+// 🚀 BATCH 3: Lazy loading heavy components (Oct 23, 2025)
+const UnifiedVoiceModal = lazy(() => import('./UnifiedVoiceModal').then(m => ({ default: m.UnifiedVoiceModal })));
+const DiffPreviewModal = lazy(() => import('./DiffPreviewModal').then(m => ({ default: m.DiffPreviewModal })));
 
 // 🚀 SIMULTANEOUS BUILD - ALL 3 STREAMS (Oct 23, 2025)
 import { ConversationSidebar } from './ConversationSidebar';
 import { ChatEmptyState } from './ChatEmptyState';
 import { InspectorBadge } from './InspectorBadge';
 import { InspectorPromptSuggestions } from './InspectorPromptSuggestions';
-import { DiffPreviewModal } from './DiffPreviewModal';
 import { QuickCommitButton } from './QuickCommitButton';
 
 // ============ TYPES ============
@@ -587,23 +590,29 @@ export function ChatInterface() {
 
   return (
     <div className="flex h-full">
-      {/* 🚀 STREAM 1: ConversationSidebar - ChatGPT-style with date grouping (Oct 23, 2025) */}
+      {/* 🚀 STREAM 1: ConversationSidebar - BATCH 3: Wrapped in ErrorBoundary (Oct 23, 2025) */}
       {!isSidebarOpen ? null : (
-        <ConversationSidebar
-          conversations={conversations || []}
-          activeConversationId={conversationId}
-          onSelectConversation={(id) => setConversationId(id)}
-          onNewConversation={() => createConversation.mutate()}
-          onDeleteConversation={(id) => {
-            if (confirm('Delete this conversation?')) {
-              deleteConversation.mutate(id);
-            }
-          }}
-          onRenameConversation={(id, newName) => {
-            renameConversation.mutate({ id, newName });
-          }}
-          isCollapsed={false}
-        />
+        <ErrorBoundary fallback={
+          <div className="w-64 bg-gray-900 border-r border-gray-700 flex items-center justify-center p-4">
+            <p className="text-red-400 text-sm">Sidebar error. Reload page.</p>
+          </div>
+        }>
+          <ConversationSidebar
+            conversations={conversations || []}
+            activeConversationId={conversationId}
+            onSelectConversation={(id) => setConversationId(id)}
+            onNewConversation={() => createConversation.mutate()}
+            onDeleteConversation={(id) => {
+              if (confirm('Delete this conversation?')) {
+                deleteConversation.mutate(id);
+              }
+            }}
+            onRenameConversation={(id, newName) => {
+              renameConversation.mutate({ id, newName });
+            }}
+            isCollapsed={false}
+          />
+        </ErrorBoundary>
       )}
 
       {/* Main Chat Area */}
@@ -862,39 +871,47 @@ export function ChatInterface() {
         )}
       </div>
       
-      {/* 🎧 Unified Voice Modal (Oct 22, 2025) - Agent #128 with Visual Context */}
-      <UnifiedVoiceModal 
-        isOpen={showVoiceModal}
-        onClose={() => setShowVoiceModal(false)}
-        voiceSettings={voiceSettings}
-        onVoiceSettingsChange={updateVoiceSettings}
-        selectedElement={activeElement}
-      />
+      {/* 🎧 Unified Voice Modal (Oct 22, 2025) - BATCH 3: Lazy loaded with Suspense */}
+      <ErrorBoundary>
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-cyan-500" /></div>}>
+          <UnifiedVoiceModal 
+            isOpen={showVoiceModal}
+            onClose={() => setShowVoiceModal(false)}
+            voiceSettings={voiceSettings}
+            onVoiceSettingsChange={updateVoiceSettings}
+            selectedElement={activeElement}
+          />
+        </Suspense>
+      </ErrorBoundary>
       
-      {/* 🚀 STREAM 3: DiffPreviewModal - Side-by-side diff viewer (Oct 23, 2025) */}
-      <DiffPreviewModal
-        isOpen={diffPreview.isOpen}
-        onClose={() => setDiffPreview({ isOpen: false })}
-        filePath={diffPreview.filePath || ''}
-        oldCode={diffPreview.oldCode || ''}
-        newCode={diffPreview.newCode || ''}
-        onAccept={() => {
-          // TODO: Integrate with Git commit flow
-          toast({
-            title: 'Changes Applied',
-            description: 'Code changes have been accepted',
-          });
-          setDiffPreview({ isOpen: false });
-        }}
-        onReject={() => {
-          toast({
-            title: 'Changes Rejected',
-            description: 'Code changes have been discarded',
-            variant: 'destructive',
-          });
-          setDiffPreview({ isOpen: false });
-        }}
-      />
+      {/* 🚀 STREAM 3: DiffPreviewModal - BATCH 3: Lazy loaded with Suspense */}
+      <ErrorBoundary>
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-cyan-500" /></div>}>
+          <DiffPreviewModal
+            isOpen={diffPreview.isOpen}
+            onClose={() => setDiffPreview({ isOpen: false })}
+            filePath={diffPreview.filePath || ''}
+            oldCode={diffPreview.oldCode || ''}
+            newCode={diffPreview.newCode || ''}
+            onAccept={() => {
+              // TODO: Integrate with Git commit flow
+              toast({
+                title: 'Changes Applied',
+                description: 'Code changes have been accepted',
+              });
+              setDiffPreview({ isOpen: false });
+            }}
+            onReject={() => {
+              toast({
+                title: 'Changes Rejected',
+                description: 'Code changes have been discarded',
+                variant: 'destructive',
+              });
+              setDiffPreview({ isOpen: false });
+            }}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }

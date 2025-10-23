@@ -453,6 +453,104 @@ function getPersonalityPrompt(personality?: string): string {
 }
 
 /**
+ * PATCH /api/chat/projects/:id - Update project name/description
+ * MB.MD BATCH 1: Inline rename conversation (Oct 23, 2025)
+ */
+router.patch('/projects/:id', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+
+  try {
+    const projectId = parseInt(req.params.id);
+    const { name, description } = req.body;
+
+    // Get database user from Replit ID
+    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Verify user owns this project
+    const [project] = await db
+      .select()
+      .from(chatProjects)
+      .where(eq(chatProjects.id, projectId))
+      .limit(1);
+
+    if (!project || project.userId !== user.id) {
+      return res.status(403).json({ error: 'Not authorized' });
+    }
+
+    // Update project
+    const updates: any = {};
+    if (name !== undefined) updates.name = name;
+    if (description !== undefined) updates.description = description;
+
+    const [updated] = await db
+      .update(chatProjects)
+      .set(updates)
+      .where(eq(chatProjects.id, projectId))
+      .returning();
+
+    console.log(`[Chat Projects PATCH] Project ${projectId} updated:`, updates);
+    res.json(updated);
+  } catch (error) {
+    console.error('[Chat Projects] Error updating project:', error);
+    res.status(500).json({ error: 'Failed to update project' });
+  }
+});
+
+/**
+ * DELETE /api/chat/projects/:id - Delete project and all messages
+ * MB.MD BATCH 1: Conversation deletion (Oct 23, 2025)
+ */
+router.delete('/projects/:id', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+
+  try {
+    const projectId = parseInt(req.params.id);
+
+    // Get database user from Replit ID
+    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Verify user owns this project
+    const [project] = await db
+      .select()
+      .from(chatProjects)
+      .where(eq(chatProjects.id, projectId))
+      .limit(1);
+
+    if (!project || project.userId !== user.id) {
+      return res.status(403).json({ error: 'Not authorized' });
+    }
+
+    // Delete all messages first (foreign key constraint)
+    await db
+      .delete(aiChatMessages)
+      .where(eq(aiChatMessages.projectId, projectId));
+
+    // Delete project
+    await db
+      .delete(chatProjects)
+      .where(eq(chatProjects.id, projectId));
+
+    console.log(`[Chat Projects DELETE] Project ${projectId} deleted`);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('[Chat Projects] Error deleting project:', error);
+    res.status(500).json({ error: 'Failed to delete project' });
+  }
+});
+
+/**
  * POST /api/chat/projects/:id/auto-name
  * Auto-generate conversation title from chat history
  * MB.MD FIX Oct 22: Triggers after 3 min of chat activity
