@@ -87,6 +87,14 @@ export const regexpProtection = (req: Request, res: Response, next: NextFunction
 
 // Input Length Validation - prevents memory exhaustion
 export const inputLengthValidation = (req: Request, res: Response, next: NextFunction) => {
+  // 🔧 MB.MD FIX Oct 23: Skip validation for routes that need large payloads
+  if (req.path.startsWith('/api/multimodel/') || // Mr Blue chat with Visual Editor context
+      req.path.startsWith('/api/chat/') || // Chat streaming with large context
+      req.path.startsWith('/api/vibe/') || // Vibe Coding with large code context
+      req.path.startsWith('/api/ai/')) { // AI endpoints with large prompts
+    return next();
+  }
+  
   const validateLength = (obj: any, path: string = ''): void => {
     if (typeof obj === 'string' && obj.length > SECURITY_LIMITS.MAX_STRING_LENGTH) {
       throw new Error(`Input too long at ${path}: ${obj.length} chars`);
@@ -102,10 +110,6 @@ export const inputLengthValidation = (req: Request, res: Response, next: NextFun
   };
   
   try {
-    // 🔍 DEBUG: Log multimodel requests
-    if (req.path.includes('multimodel')) {
-      console.log('✅ [InputValidation] Checking /multimodel request...');
-    }
     
     // Validate query parameters
     validateLength(req.query, 'query');
