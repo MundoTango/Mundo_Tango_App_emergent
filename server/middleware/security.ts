@@ -92,8 +92,11 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
       req.headers['content-type']?.includes('multipart/form-data') ||
       (process.env.AUTH_BYPASS === 'true' && req.path === '/api/posts') || // Skip for posts in AUTH_BYPASS mode
       (req as any).skipCsrf) {
+    console.log('✅ [CSRF] Skipping CSRF for:', req.path);
     return next();
   }
+  
+  console.log('⚠️ [CSRF] NOT skipping CSRF for:', req.path);
 
   // Skip CSRF for webhook endpoints
   if (req.path.includes('/webhook')) {
