@@ -3,17 +3,25 @@
  * MB.MD Track A2 - Visual Editor Sidebar Module
  */
 
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
 import { AISuggestionsPanel } from './AISuggestionsPanel';
+import { DiffPreviewCard } from './DiffPreviewCard';
+import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
+import { useToast } from '@/hooks/use-toast';
 
 interface ElementInspectorProps {
   selectedElement: ElementSelection | null;
 }
 
 export function ElementInspector({ selectedElement }: ElementInspectorProps) {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [pendingChanges, setPendingChanges] = useState<CodeChange[]>([]);
+  const { toast } = useToast();
+  
   if (!selectedElement) {
     return (
       <Card className="p-6 bg-gray-800 border-gray-700">
@@ -25,6 +33,60 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
       </Card>
     );
   }
+  
+  // 🚀 VIBE CODING: Apply AI suggestion (Oct 23, 2025)
+  const handleApplySuggestion = async (prompt: string) => {
+    setIsGenerating(true);
+    try {
+      const result = await executeVibeCoding(prompt, {
+        selectedElement,
+        previewPath: window.location.pathname
+      });
+      
+      setPendingChanges(result.codeChanges);
+      toast({
+        title: 'Code Generated! ✨',
+        description: `${result.codeChanges.length} changes ready to apply`
+      });
+    } catch (error) {
+      toast({
+        title: 'Generation Failed',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+  
+  const handleApplyChange = async (change: CodeChange) => {
+    try {
+      const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
+      await applyCodeChange(change.filePath, change.diff, editType);
+      
+      toast({
+        title: 'Changes Applied! ✅',
+        description: `Updated ${change.filePath}`,
+      });
+
+      // Remove from pending list
+      setPendingChanges(prev => prev.filter(c => c !== change));
+    } catch (error) {
+      toast({
+        title: 'Apply Failed',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleRejectChange = (change: CodeChange) => {
+    setPendingChanges(prev => prev.filter(c => c !== change));
+    toast({
+      title: 'Change Rejected',
+      description: 'Discarded proposed changes',
+    });
+  };
 
   return (
     <Card className="p-4 bg-gray-800 border-gray-700 space-y-4">
@@ -112,11 +174,25 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
         <h3 className="text-sm font-semibold text-white mb-2">AI Suggestions</h3>
         <AISuggestionsPanel
           selectedElement={selectedElement}
-          onApplySuggestion={(prompt) => {
-            // Could trigger vibe coding here or pass up to parent
-            console.log('AI Suggestion:', prompt);
-          }}
+          onApplySuggestion={handleApplySuggestion}
         />
+        
+        {/* 🚀 Show generated code changes */}
+        {pendingChanges.length > 0 && (
+          <div className="mt-4 space-y-2">
+            {pendingChanges.map((change, idx) => (
+              <DiffPreviewCard
+                key={idx}
+                filePath={change.filePath}
+                beforeCode=""
+                afterCode={change.diff}
+                diffString={change.diff}
+                onApply={() => handleApplyChange(change)}
+                onReject={() => handleRejectChange(change)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </Card>
   );

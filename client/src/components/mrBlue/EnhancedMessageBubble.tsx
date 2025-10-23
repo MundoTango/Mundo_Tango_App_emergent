@@ -14,6 +14,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { CodeChangeCard } from './CodeChangeCard';
+import type { CodeChange } from '@/lib/vibeApi';
 
 interface MessageAction {
   label: string;
@@ -31,6 +33,9 @@ interface EnhancedMessageBubbleProps {
     confidence?: number;
   };
   isStreaming?: boolean; // NEW: Show streaming cursor effect
+  codeChanges?: CodeChange[]; // 🚀 VIBE CODING: Inline code changes (Oct 23, 2025)
+  onApplyCode?: (change: CodeChange) => Promise<void>; // 🚀 Apply code change callback
+  onRejectCode?: (change: CodeChange) => void; // 🚀 Reject code change callback
   onCopy?: () => void;
   onEdit?: () => void;
   onRegenerate?: () => void;
@@ -44,6 +49,9 @@ export default function EnhancedMessageBubble({
   avatar,
   metadata,
   isStreaming = false,
+  codeChanges,
+  onApplyCode,
+  onRejectCode,
   onCopy,
   onEdit,
   onRegenerate,
@@ -190,6 +198,29 @@ export default function EnhancedMessageBubble({
             <Edit2 className="h-3 w-3 mr-1" />
             Edit
           </Button>
+        )}
+        
+        {/* 🚀 VIBE CODING: Inline code changes (Oct 23, 2025) */}
+        {codeChanges && codeChanges.length > 0 && (
+          <div className="w-full space-y-2">
+            {codeChanges.map((change, idx) => (
+              <CodeChangeCard
+                key={idx}
+                filePath={change.filePath}
+                diff={change.diff}
+                onApply={async () => {
+                  if (onApplyCode) {
+                    await onApplyCode(change);
+                  }
+                }}
+                onReject={() => {
+                  if (onRejectCode) {
+                    onRejectCode(change);
+                  }
+                }}
+              />
+            ))}
+          </div>
         )}
       </div>
 

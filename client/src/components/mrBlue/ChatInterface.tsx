@@ -23,6 +23,7 @@ import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
 import { getAgentSuggestion } from '@/lib/agentDiscovery';
 import { saveOrchestrator } from '@/services/SaveOrchestrator';
+import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
 
 // ============ TYPES ============
 interface Conversation {
@@ -64,6 +65,9 @@ export function ChatInterface() {
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
   const [optimisticMessage, setOptimisticMessage] = useState<string | null>(null);
   const [streamingResponse, setStreamingResponse] = useState<string>('');
+  
+  // 🚀 VIBE CODING INTEGRATION: Store code changes from AI (Oct 23, 2025)
+  const [codeChangesByMessage, setCodeChangesByMessage] = useState<Record<number, CodeChange[]>>({});
   
   // 🎧 UNIFIED VOICE MODAL: Single headphone button interface (Oct 22, 2025)
   const [showVoiceModal, setShowVoiceModal] = useState(false);
@@ -311,6 +315,9 @@ export function ChatInterface() {
       // 🔧 PHASE 2: Extract build intents from AI response
       await extractAndQueueBuildIntents(projId);
       
+      // 🚀 VIBE CODING: Detect code change requests and execute (Oct 23, 2025)
+      await detectAndExecuteCodeChanges(projId, content);
+      
       setInput('');
     } catch (error) {
       setOptimisticMessage(null);
@@ -319,6 +326,61 @@ export function ChatInterface() {
         title: 'Failed to send message', 
         variant: 'destructive' 
       });
+    }
+  };
+  
+  // 🚀 VIBE CODING: Detect code requests and execute (Oct 23, 2025)
+  const detectAndExecuteCodeChanges = async (projId: number, userMessage: string) => {
+    // Only execute if we have visual editor context (element selected or preview active)
+    if (!activeElement && !previewPath) return;
+    
+    // Detect code change keywords
+    const codeKeywords = [
+      'remove', 'delete', 'add', 'create', 'modify', 'change',
+      'update', 'fix', 'build', 'implement', 'make', 'style',
+      'color', 'size', 'position', 'hide', 'show'
+    ];
+    
+    const hasCodeIntent = codeKeywords.some(kw => 
+      userMessage.toLowerCase().includes(kw)
+    );
+    
+    if (!hasCodeIntent) return;
+    
+    console.log('🚀 [Vibe] Code change detected, executing vibe coding...');
+    
+    try {
+      // Execute vibe coding with visual editor context
+      const result = await executeVibeCoding(userMessage, {
+        selectedElement: activeElement,
+        previewPath: previewPath || '/'
+      });
+      
+      console.log(`🚀 [Vibe] Generated ${result.codeChanges.length} code changes`);
+      
+      // Store code changes for the latest AI message
+      // We'll fetch messages and attach to the most recent assistant message
+      const messagesData = await queryClient.fetchQuery({
+        queryKey: [`/api/chat/projects/${projId}/messages`]
+      });
+      
+      if (messagesData && Array.isArray(messagesData) && messagesData.length > 0) {
+        const lastMessage = messagesData[messagesData.length - 1];
+        if (lastMessage.role === 'assistant') {
+          setCodeChangesByMessage(prev => ({
+            ...prev,
+            [lastMessage.id]: result.codeChanges
+          }));
+        }
+      }
+      
+      toast({
+        title: 'Code Generated! ✨',
+        description: `${result.codeChanges.length} file(s) ready to modify`,
+      });
+    } catch (error) {
+      console.error('🚀 [Vibe] Code generation failed:', error);
+      // Don't show error toast - user still got text response
     }
   };
 
@@ -673,6 +735,24 @@ export function ChatInterface() {
               content={message.content}
               timestamp={new Date(message.createdAt).toLocaleTimeString()}
               metadata={{ agentMode: message.model }}
+              codeChanges={codeChangesByMessage[message.id]}
+              onApplyCode={async (change) => {
+                // Convert type - only unified_diff and search_replace are supported
+                const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
+                await applyCodeChange(change.filePath, change.diff, editType);
+                // Remove from state after applying
+                setCodeChangesByMessage(prev => ({
+                  ...prev,
+                  [message.id]: prev[message.id]?.filter(c => c !== change) || []
+                }));
+              }}
+              onRejectCode={(change) => {
+                // Remove from state
+                setCodeChangesByMessage(prev => ({
+                  ...prev,
+                  [message.id]: prev[message.id]?.filter(c => c !== change) || []
+                }));
+              }}
             />
           ))}
 
