@@ -298,9 +298,14 @@ export async function* streamWithTools(
   messages: Array<{ role: string; content: string }>,
   model: string,
   user: any,
-  onToolUse?: (tool: string, params: any, result: any) => void
+  onToolUse?: (tool: string, params: any, result: any) => void,
+  context?: any // 🎯 Visual Editor context (Oct 23, 2025)
 ): AsyncGenerator<StreamChunk> {
   console.log(`[Universal Tools] Model: ${model}, User: ${user.username}`);
+
+  // 🎯 SET CONTEXT: Pass Visual Editor state to tool executor
+  // 🔒 SECURITY FIX (Oct 23): ALWAYS set context (even if null) to prevent stale state leakage
+  toolExecutor.setContext(context || null);
 
   switch (model) {
     case 'claude-3-sonnet':

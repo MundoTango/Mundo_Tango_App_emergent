@@ -15,6 +15,15 @@ import { join } from 'path';
 const execAsync = promisify(exec);
 
 export class ToolExecutor {
+  private context: any = null; // Store visual editor context
+
+  /**
+   * Set context for tool execution (Visual Editor state, etc.)
+   */
+  setContext(context: any) {
+    this.context = context;
+  }
+
   /**
    * Check if user has permission to execute a tool
    */
@@ -101,6 +110,10 @@ export class ToolExecutor {
           return await this.createComponent(params);
         case 'run_command':
           return await this.runCommand(params);
+        
+        // Visual Editor tools
+        case 'get_selected_element':
+          return await this.getSelectedElement();
         
         default:
           throw new Error(`Unknown tool: ${toolName}`);
@@ -543,5 +556,42 @@ export function ${params.component_name}(${params.props ? `props: ${params.compo
         stderr: error.stderr?.substring(0, 500)
       };
     }
+  }
+
+  // ============ VISUAL EDITOR TOOL IMPLEMENTATIONS ============
+
+  private async getSelectedElement() {
+    // Check if context and selected element exist
+    if (!this.context?.visualEditorState?.selectedElement) {
+      return {
+        error: false,
+        selected: false,
+        message: 'No element currently selected in the Visual Editor',
+        hint: 'User needs to click on an element in the preview first'
+      };
+    }
+
+    const element = this.context.visualEditorState.selectedElement;
+    const previewPath = this.context.visualEditorState.previewPath || '/';
+
+    return {
+      error: false,
+      selected: true,
+      element: {
+        tag: element.tagName || element.tag || 'unknown',
+        id: element.id || null,
+        className: element.className || null,
+        textContent: element.textContent || null,
+        xpath: element.xpath || null,
+        attributes: element.attributes || {},
+        computedStyles: element.computedStyles || {},
+        boundingBox: element.boundingBox || null
+      },
+      page: {
+        path: previewPath,
+        name: this.context.pageName || previewPath
+      },
+      message: `Selected: <${element.tagName || element.tag}> "${element.textContent?.substring(0, 40) || 'no text'}" on ${previewPath}`
+    };
   }
 }

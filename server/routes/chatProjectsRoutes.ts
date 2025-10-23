@@ -207,7 +207,7 @@ router.post('/stream', async (req: any, res: Response) => {
       // Track tool usage for logging
       console.log(`[Tool Used] ${tool}:`, JSON.stringify(params).substring(0, 100), '→', JSON.stringify(result).substring(0, 100));
       toolsUsed.push({ tool, params, result });
-    })) {
+    }, context)) { // 🎯 Pass Visual Editor context (Oct 23, 2025)
       if (chunk.type === 'text') {
         fullResponse += chunk.content;
         tokenCount += chunk.content.split(' ').length;

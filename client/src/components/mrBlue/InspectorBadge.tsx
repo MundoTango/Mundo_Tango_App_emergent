@@ -12,6 +12,7 @@ interface SelectedElement {
   id?: string;
   className?: string;
   textContent?: string;
+  xpath?: string;
   attributes?: Record<string, string>;
 }
 
@@ -32,25 +33,32 @@ export function InspectorBadge({ element, onClear }: InspectorBadgeProps) {
 
   return (
     <div 
-      className="flex items-center gap-2 px-4 py-3 bg-[var(--inspector-badge-bg)] border-l-4 border-[var(--inspector-badge-border)] backdrop-blur-sm"
+      className="flex items-center gap-2 px-4 py-3 bg-teal-50 dark:bg-teal-900/20 border-l-4 border-[#14B8A6] backdrop-blur-sm shadow-sm"
       data-testid="inspector-badge"
     >
       {/* Icon */}
-      <Eye className="h-4 w-4 text-[var(--mrblue-teal)] flex-shrink-0" />
+      <Eye className="h-5 w-5 text-[#14B8A6] flex-shrink-0 animate-pulse" />
       
       {/* Text */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm text-gray-600 dark:text-gray-300">
-          Inspecting:{' '}
-          <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs font-mono text-[var(--mrblue-teal)]">
+        <p className="text-sm font-semibold text-gray-900 dark:text-white">
+          Selected Element:{' '}
+          <code className="bg-teal-100 dark:bg-teal-900 px-2 py-1 rounded text-xs font-mono text-[#14B8A6]">
             {formatElement()}
           </code>
         </p>
         
         {/* Element text content preview */}
         {element.textContent && (
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
+          <p className="text-xs text-gray-700 dark:text-gray-300 mt-1 truncate font-medium">
             "{element.textContent.substring(0, 50)}{element.textContent.length > 50 ? '...' : ''}"
+          </p>
+        )}
+        
+        {/* XPath display for debugging */}
+        {element.xpath && (
+          <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 font-mono truncate">
+            {element.xpath}
           </p>
         )}
       </div>
@@ -60,7 +68,7 @@ export function InspectorBadge({ element, onClear }: InspectorBadgeProps) {
         variant="ghost"
         size="sm"
         onClick={onClear}
-        className="ml-auto flex-shrink-0 h-8 w-8 p-0 hover:bg-red-100 dark:hover:bg-red-900/20 hover:text-red-600"
+        className="ml-auto flex-shrink-0 h-8 w-8 p-0 hover:bg-red-100 dark:hover:bg-red-900/20 hover:text-red-600 transition-colors"
         data-testid="button-clear-inspector"
       >
         <X className="h-4 w-4" />

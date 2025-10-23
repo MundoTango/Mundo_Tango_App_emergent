@@ -125,7 +125,7 @@ router.post('/consensus', async (req: any, res) => {
             // Stream with tools for each model
             for await (const chunk of streamWithTools(messages, model, user, (tool) => {
               toolsUsed.push(tool);
-            })) {
+            }, context)) { // 🎯 Pass Visual Editor context
               if (chunk.type === 'text') {
                 fullResponse += chunk.content;
               }

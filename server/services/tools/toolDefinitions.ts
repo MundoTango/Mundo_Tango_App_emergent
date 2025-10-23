@@ -304,13 +304,28 @@ export const getDeveloperTools = (): ToolDefinition[] => [
   }
 ];
 
+// ============ VISUAL EDITOR TOOLS ============
+
+export const getVisualEditorTools = (): ToolDefinition[] => [
+  {
+    name: "get_selected_element",
+    description: "Get information about the currently selected HTML element in the Visual Editor. Use this when user asks 'what element', 'what component', 'what am I on', or 'describe this'",
+    input_schema: {
+      type: "object",
+      properties: {},
+      required: []
+    }
+  }
+];
+
 // ============ COMBINED TOOL SET ============
 
 export const getAllTools = (): ToolDefinition[] => [
   ...getDatabaseTools(),
   ...getCodebaseTools(),
   ...getDocumentationTools(),
-  ...getDeveloperTools()
+  ...getDeveloperTools(),
+  ...getVisualEditorTools()
 ];
 
 // ============ PERMISSION LEVELS ============
@@ -342,4 +357,7 @@ export const toolPermissions: Record<string, ToolPermissionLevel> = {
   'read_file': ToolPermissionLevel.SUPER_ADMIN,
   'create_component': ToolPermissionLevel.SUPER_ADMIN,
   'run_command': ToolPermissionLevel.SUPER_ADMIN,
+  
+  // Visual Editor tools (Context awareness)
+  'get_selected_element': ToolPermissionLevel.PUBLIC, // All users can query what they selected
 };
