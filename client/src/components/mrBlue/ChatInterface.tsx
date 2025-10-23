@@ -513,6 +513,25 @@ export function ChatInterface() {
         ? '/api/multimodel/consensus' 
         : '/api/chat/stream';
       
+      // 🐛 DEBUG: Build and log context before sending (Oct 23, 2025)
+      const contextPayload = {
+        ...appContext,
+        visualEditorState: activeElement ? {
+          isActive: true,
+          selectedElement: activeElement,
+          previewPath: previewPath || '/' // 🎯 What page is being shown in preview
+        } : previewPath ? {
+          isActive: true,
+          previewPath: previewPath // 📍 Even without element selection, tell Mr Blue which page
+        } : undefined
+      };
+      
+      console.log('🚀🚀🚀 [ChatInterface] SENDING MESSAGE DEBUG:');
+      console.log('  → Message:', content);
+      console.log('  → Active Element:', activeElement);
+      console.log('  → Preview Path:', previewPath);
+      console.log('  → Full Context Payload:', JSON.stringify(contextPayload, null, 2));
+      
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -525,17 +544,7 @@ export function ChatInterface() {
           model: selectedModel,
           personality,
           systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
-          context: {
-            ...appContext,
-            visualEditorState: activeElement ? {
-              isActive: true,
-              selectedElement: activeElement,
-              previewPath: previewPath || '/' // 🎯 What page is being shown in preview
-            } : previewPath ? {
-              isActive: true,
-              previewPath: previewPath // 📍 Even without element selection, tell Mr Blue which page
-            } : undefined
-          }
+          context: contextPayload
         }),
       });
 

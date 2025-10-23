@@ -138,6 +138,15 @@ router.post('/stream', async (req: any, res: Response) => {
     }
 
     const { projectId, message, model, personality, context } = req.body;
+    
+    // 🐛 DEBUG: Log incoming request with full context (Oct 23, 2025)
+    console.log('🔍🔍🔍 [Chat Stream] INCOMING REQUEST DEBUG:');
+    console.log('  → Message:', message.substring(0, 100));
+    console.log('  → Model:', model);
+    console.log('  → Personality:', personality);
+    console.log('  → Context received:', JSON.stringify(context, null, 2));
+    console.log('  → Selected Element:', context?.visualEditorState?.selectedElement || context?.selectedElement);
+    console.log('  → Preview Path:', context?.visualEditorState?.previewPath);
 
     // 🔧 FIX: Strip "Use mb.md:" prefix before saving (frontend adds it for API only)
     const cleanMessage = message.replace(/^Use mb\.md:\s*/i, '');
@@ -362,6 +371,15 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
 
   // Add context awareness if available
   if (context) {
+    // 🐛 DEBUG LOGGING: Track context flow (Oct 23, 2025)
+    console.log('🔍 [buildContextAwarePrompt] Context received:', {
+      hasContext: !!context,
+      hasVisualEditorState: !!context.visualEditorState,
+      selectedElement: context.visualEditorState?.selectedElement || context.selectedElement,
+      previewPath: context.visualEditorState?.previewPath,
+      user: context.user?.username
+    });
+    
     // Visual Editor specific context FIRST (most important for "what page" questions)
     const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
     const previewPath = context.visualEditorState?.previewPath;
@@ -373,19 +391,32 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
       const className = typeof selectedEl === 'object' ? selectedEl.className : '';
       const textContent = typeof selectedEl === 'object' ? selectedEl.textContent : null;
       
-      prompt += `\n\n🚨🚨🚨 **CRITICAL - READ THIS FIRST** 🚨🚨🚨`;
-      prompt += `\n**YOU HAVE A VISUAL HTML ELEMENT SELECTED:**`;
-      prompt += `\n→ Element: "${textContent?.substring(0, 40) || tag}" (the <${tag}> tag)`;
-      if (className) prompt += `\n→ Classes: ${className.substring(0, 60)}`;
-      prompt += `\n→ XPath: ${selectedEl.xpath || 'N/A'}`;
+      console.log('✅ [buildContextAwarePrompt] Adding ELEMENT disambiguation for:', tag);
       
-      prompt += `\n\n**⚠️ WHEN USER MENTIONS "element", "this", "component":**`;
-      prompt += `\n✅ They mean THIS selected ${tag} element above`;
-      prompt += `\n❌ NOT "MB.MD methodology elements"`;
-      prompt += `\n❌ NOT documentation topics`;
-      prompt += `\n\n**CORRECT RESPONSE:**`;
-      prompt += `\n"You selected the '${textContent?.substring(0, 30) || tag}' <${tag}> element"`;
-      prompt += `\n\n**DO NOT call read_documentation** when user asks about "element" - they mean the HTML element!`;
+      prompt += `\n\n🚨🚨🚨 **VISUAL EDITOR CONTEXT - READ THIS FIRST** 🚨🚨🚨`;
+      prompt += `\n**The user has selected an HTML element in the Visual Editor.**`;
+      prompt += `\n**When they ask "what element am i on?" they want info about THIS HTML element:**`;
+      prompt += `\n`;
+      prompt += `\n📌 **SELECTED ELEMENT:**`;
+      prompt += `\n   Tag: <${tag}>`;
+      if (textContent) prompt += `\n   Text: "${textContent.substring(0, 50)}"`;
+      if (className) prompt += `\n   Classes: ${className.substring(0, 60)}`;
+      prompt += `\n   XPath: ${selectedEl.xpath || 'N/A'}`;
+      
+      prompt += `\n\n🎯 **MANDATORY TOOL:** When user asks "what element?" → USE get_selected_element tool`;
+      prompt += `\n\n⚠️ **DISAMBIGUATION RULES:**`;
+      prompt += `\n   • User asks "what element am i on?" → Call get_selected_element tool`;
+      prompt += `\n   • User asks "what is this?" → Call get_selected_element tool`;
+      prompt += `\n   • User asks "describe this element" → Call get_selected_element tool`;
+      prompt += `\n   • User mentions "this element", "selected element", "current element" → They mean the <${tag}> above`;
+      prompt += `\n   • DO NOT interpret "element" as MB.MD methodology or documentation`;
+      prompt += `\n   • DO NOT call read_documentation for "element" questions`;
+      
+      prompt += `\n\n✅ **CORRECT RESPONSE PATTERN:**`;
+      prompt += `\n   User: "what element am i on?"`;
+      prompt += `\n   You: [Call get_selected_element tool] → "You selected the <${tag}> element${textContent ? ` with text '${textContent.substring(0, 20)}'` : ''}"`;
+    } else {
+      console.log('⚠️ [buildContextAwarePrompt] NO element selected');
     }
     
     prompt += '\n\n**🎯 WHERE YOU ARE RIGHT NOW:**';
