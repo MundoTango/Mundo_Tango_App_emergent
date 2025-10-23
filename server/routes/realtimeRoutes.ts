@@ -152,7 +152,7 @@ export function setupRealtimeWebSocket(server: any) {
           session: {
             modalities: ['text', 'audio'],
             instructions: 'You are Mr Blue, a friendly AI assistant for the Mundo Tango community. You can speak multiple languages (English, Spanish, French, Portuguese) based on user preference.',
-            voice: 'nova',
+            voice: 'shimmer', // 🔧 FIX Oct 23: 'nova' not supported in Realtime API
             input_audio_format: 'pcm16',
             output_audio_format: 'pcm16',
             input_audio_transcription: {
