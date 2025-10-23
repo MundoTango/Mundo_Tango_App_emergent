@@ -320,17 +320,51 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
 
   // Add context awareness if available
   if (context) {
-    prompt += '\n\n**CONTEXT AWARENESS:**';
+    prompt += '\n\n**🎯 WHERE YOU ARE RIGHT NOW:**';
     
-    // Current page
-    if (context.pageName) {
-      prompt += `\n- The user is currently on the "${context.pageName}" page (route: ${context.route})`;
+    // Visual Editor specific context FIRST (most important for "what page" questions)
+    const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
+    const previewPath = context.visualEditorState?.previewPath;
+    
+    // Page name mapping (needed for examples below)
+    const pageNames: Record<string, string> = {
+      '/': 'Homepage',
+      '/events': 'Events Page',
+      '/memories': 'Memories Page',
+      '/profile': 'Profile Page',
+      '/groups': 'Groups Page',
+      '/messages': 'Messages Page',
+    };
+    
+    // 🎯 PREVIEW PATH AWARENESS (Oct 22, 2025) - MOVED TO TOP
+    if (previewPath) {
+      const pageName = pageNames[previewPath] || previewPath;
+      prompt += `\n📄 **YOU ARE LOOKING AT:** The ${pageName} in the Visual Editor preview`;
+      prompt += `\n   (URL path: ${previewPath})`;
+    }
+    
+    // Current tool/admin page
+    if (context.pageName && context.pageName !== previewPath) {
+      prompt += `\n🛠️  **TOOL PANEL:** ${context.pageName} (Visual Editor interface)`;
+    }
+    
+    if (context.visualEditorState?.isActive) {
+      prompt += `\n✅ **Visual Editor is ACTIVE**`;
+      if (selectedEl) {
+        const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
+        prompt += ` - You have "${elementInfo}" selected`;
+      }
+    } else if (selectedEl) {
+      // Visual Editor context without explicit isActive flag
+      const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
+      prompt += `\n🎯 **Selected element:** "${elementInfo}"`;
     }
 
     // User identity and role
     if (context.user) {
-      prompt += `\n- You are assisting ${context.user.displayName} (@${context.user.username})`;
-      prompt += `\n- User role: ${context.user.role}`;
+      prompt += `\n\n**👤 WHO YOU'RE HELPING:**`;
+      prompt += `\n- ${context.user.displayName} (@${context.user.username})`;
+      prompt += `\n- Role: ${context.user.role}`;
       
       // DUAL-MODE LOGIC (Stream D - Oct 22, 2025)
       // Use standardized super admin check
@@ -340,15 +374,20 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
         prompt += `\n\n**🔧 DEV TOOL MODE ACTIVATED**`;
         prompt += `\nYou are a development tool, not a conversation assistant. BUILD THINGS DIRECTLY using your tools.`;
         prompt += `\n\n**How to respond:**`;
+        prompt += `\n- User asks "what page?" → Answer: "You're looking at the ${previewPath ? pageNames[previewPath] || previewPath : 'page'} in the Visual Editor preview"`;
+        prompt += `\n- User says "make background red" → USE search_codebase to find the page component, then tell them the file path that needs editing`;
         prompt += `\n- User says "delete this screen" → USE tools to modify code, then confirm "Deleted."`;
         prompt += `\n- User says "add a button" → USE tools to add code, then confirm "Button added."`;
         prompt += `\n- User asks "how many users" → USE get_user_stats, return the number`;
         prompt += `\n\n**DO NOT** say "I cannot do that" or "Would you like me to...". JUST DO IT.`;
+        prompt += `\n**DO NOT** read documentation files when asked "what page" - use the preview path context above!`;
         prompt += `\n\n**Your 11 Tools:**`;
         prompt += `\nDatabase: get_platform_health, get_user_stats, get_recent_memories, search_memories, get_event_count, get_groups_by_city`;
         prompt += `\nCodebase: search_codebase, list_react_components, find_api_endpoints`;
         prompt += `\nDocs: search_documentation, read_documentation`;
         prompt += `\n\n**Examples:**`;
+        prompt += `\n- "What page am I on?" → "You're looking at the Homepage (/) in the Visual Editor preview"`;
+        prompt += `\n- "Make background red" → search_codebase("HomePage") → "Found it in client/src/pages/Home.tsx - I can change the background to red"`;
         prompt += `\n- "Delete welcome screen" → search_codebase("WelcomeBack") → modify file → "Deleted."`;
         prompt += `\n- "Show platform stats" → get_platform_health() → return stats`;
         prompt += `\n- "Find ChatInterface" → search_codebase("ChatInterface") → return location`;
@@ -358,36 +397,6 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
         prompt += `\nExplain features, answer questions, and guide users through the platform.`;
         prompt += `\nBe conversational, supportive, and educational.`;
       }
-    }
-
-    // Visual Editor specific context (Support both context structures)
-    const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
-    const previewPath = context.visualEditorState?.previewPath;
-    
-    // 🎯 PREVIEW PATH AWARENESS (Oct 22, 2025)
-    if (previewPath) {
-      const pageNames: Record<string, string> = {
-        '/': 'Homepage',
-        '/events': 'Events Page',
-        '/memories': 'Memories Page',
-        '/profile': 'Profile Page',
-        '/groups': 'Groups Page',
-        '/messages': 'Messages Page',
-      };
-      const pageName = pageNames[previewPath] || previewPath;
-      prompt += `\n- **PREVIEW SHOWING:** ${pageName} (${previewPath})`;
-    }
-    
-    if (context.visualEditorState?.isActive) {
-      prompt += `\n- The Visual Editor is active`;
-      if (selectedEl) {
-        const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
-        prompt += ` with "${elementInfo}" selected`;
-      }
-    } else if (selectedEl) {
-      // Visual Editor context without explicit isActive flag
-      const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
-      prompt += `\n- Selected element: "${elementInfo}"`;
     }
     
     // 🎯 VISUAL EDITOR SELECTED ELEMENT ENHANCEMENT (Agent #3)
