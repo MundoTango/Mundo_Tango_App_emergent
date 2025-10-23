@@ -145,6 +145,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // const { initPostHogServer } = await import('./services/posthog');
   // initPostHogServer();
   
+  // 🔍 MB.MD DEBUG (Oct 23): Catch requests BEFORE middleware to diagnose 400 errors
+  app.use((req, res, next) => {
+    if (req.path.includes('multimodel')) {
+      console.log('🔍 [RAW REQUEST - BEFORE MIDDLEWARE]', {
+        path: req.path,
+        method: req.method,
+        bodySize: req.headers['content-length'] || 'unknown',
+        contentType: req.headers['content-type'],
+        hasBody: !!req.body,
+        bodyKeys: req.body ? Object.keys(req.body) : 'no body yet',
+      });
+    }
+    next();
+  });
+  
   // Phase 11 Parallel: Security headers and performance monitoring
   // MB.MD Oct 21: Now using static imports (see top of file)
   // const { securityHeaders } = await import('./middleware/security');
