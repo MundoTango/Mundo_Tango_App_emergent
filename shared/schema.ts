@@ -2886,7 +2886,7 @@ export const learningSessions = pgTable("learning_sessions", {
 ]);
 
 // Learnings Library (distributed knowledge base)
-export const learnings = pgTable("learnings", {
+export const learnings: any = pgTable("learnings", {
   id: serial("id").primaryKey(),
   sessionId: integer("session_id").references(() => learningSessions.id),
   

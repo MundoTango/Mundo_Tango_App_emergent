@@ -95,14 +95,14 @@ export function ConversationSearchModal({
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-gray-400" />
             <span className="text-sm text-gray-600 dark:text-gray-400">Filters:</span>
-            <Button variant="ghost" size="sm" className="h-7 text-xs">
+            <Button variant="ghost" size="sm" className="h-7 text-xs" data-testid="button-filter-date-range">
               <Calendar className="w-3 h-3 mr-1" />
               Date Range
             </Button>
-            <Button variant="ghost" size="sm" className="h-7 text-xs">
+            <Button variant="ghost" size="sm" className="h-7 text-xs" data-testid="button-filter-model">
               Model
             </Button>
-            <Button variant="ghost" size="sm" className="h-7 text-xs">
+            <Button variant="ghost" size="sm" className="h-7 text-xs" data-testid="button-filter-type">
               Type
             </Button>
           </div>
