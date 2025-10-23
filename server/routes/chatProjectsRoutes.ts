@@ -377,7 +377,7 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
       
       // DUAL-MODE LOGIC (Stream D - Oct 22, 2025)
       // Use standardized super admin check
-      const { isSuperAdmin: checkSuperAdmin } = require('../utils/auth');
+      const { isSuperAdmin: checkSuperAdmin } = require('../middleware/auth');
       if (checkSuperAdmin(user, context)) {
         // 🔧 SUPER ADMIN = DEV TOOL MODE (Replit Agent style)
         prompt += `\n\n**🔧 DEV TOOL MODE ACTIVATED**`;
