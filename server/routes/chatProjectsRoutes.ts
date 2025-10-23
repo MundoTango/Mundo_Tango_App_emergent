@@ -300,6 +300,22 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
 
     // Visual Editor specific context (Support both context structures)
     const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
+    const previewPath = context.visualEditorState?.previewPath;
+    
+    // 🎯 PREVIEW PATH AWARENESS (Oct 22, 2025)
+    if (previewPath) {
+      const pageNames: Record<string, string> = {
+        '/': 'Homepage',
+        '/events': 'Events Page',
+        '/memories': 'Memories Page',
+        '/profile': 'Profile Page',
+        '/groups': 'Groups Page',
+        '/messages': 'Messages Page',
+      };
+      const pageName = pageNames[previewPath] || previewPath;
+      prompt += `\n- **PREVIEW SHOWING:** ${pageName} (${previewPath})`;
+    }
+    
     if (context.visualEditorState?.isActive) {
       prompt += `\n- The Visual Editor is active`;
       if (selectedEl) {
