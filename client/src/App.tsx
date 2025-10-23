@@ -140,6 +140,9 @@ const AgentIntelligenceNetwork = lazy(() => import("@/pages/AgentIntelligenceNet
 const MrBluePage = lazy(() => import("@/pages/MrBluePage"));
 const AgentDetail = lazy(() => import("@/pages/AgentDetail"));
 
+// MB.MD Oct 23, 2025: Visual Editor Page (Agent #78)
+const VisualEditorPage = lazy(() => import("@/pages/VisualEditorPage"));
+
 // MB.MD TRACK 4B & 6: Journey Wizards + Agent Browser (Oct 21, 2025)
 const JourneyPage = lazy(() => import("@/pages/JourneyPage"));
 const AgentBrowserPage = lazy(() => import("@/components/agents/AgentBrowser"));
@@ -318,7 +321,11 @@ function Router() {
           {/* TEMPORARY: Redirect "/" to Visual Editor for easier debugging (Oct 23, 2025) */}
           <Route path="/">
             <Redirect to="/admin/visual-editor" />
-          
+          </Route>
+
+          {/* MB.MD Oct 23, 2025: Visual Editor Route - Renders OUTSIDE main app layout (no sidebar/nav) */}
+          <Route path="/admin/visual-editor">
+            <VisualEditorPage />
           </Route>
 
           {/* Explicit landing page route */}
@@ -714,16 +721,8 @@ function AppContent() {
   // MB.MD TRACK 1: Sidebar state for mobile BottomNav integration
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // MB.MD FIX: Visual Editor must render OUTSIDE main app layout (no sidebar/nav)
-  // Check window.location because useLocation requires Router context
-  if (typeof window !== 'undefined' && window.location.pathname === '/admin/visual-editor') {
-    const VisualEditorPage = lazy(() => import('@/pages/VisualEditorPage'));
-    return (
-      <Suspense fallback={<div className="flex items-center justify-center h-screen"><div className="text-lg">Loading Visual Editor...</div></div>}>
-        <VisualEditorPage />
-      </Suspense>
-    );
-  }
+  // MB.MD Oct 23, 2025: Early return REMOVED - causes duplicate mounting due to redirect race condition
+  // Visual Editor now renders via proper Route to prevent stacking windows
 
   console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
 
@@ -744,9 +743,7 @@ function AppContent() {
       {/* MB.MD Oct 21, 2025: ESAMindMap button REMOVED - features merged into MrBlueComplete Admin tab */}
       {/* MB.MD FIX: Placeholder modal REMOVED - MrBlueComplete component handles all UI */}
       <MrBlueComplete />
-      <Suspense fallback={null}>
-        <VisualEditorWrapper children={null} />
-      </Suspense>
+      {/* MB.MD Oct 23, 2025: VisualEditorWrapper REMOVED from global render - now only renders via VisualEditorPage route to prevent duplicate mounting */}
       {/* Phase 15 Batch 1: Cache monitoring display DISABLED - Vite HMR bug */}
       {/* <Suspense fallback={null}>
         <CacheMonitorDisplay />
