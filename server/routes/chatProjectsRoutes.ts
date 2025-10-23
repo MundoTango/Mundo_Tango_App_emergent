@@ -413,15 +413,23 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
       if (className) prompt += `\n- Classes: ${className}`;
       
       // 🔧 MANDATORY ACKNOWLEDGMENT (Oct 23, 2025)
-      prompt += `\n\n**⚠️ CRITICAL RULE: ALWAYS start your FIRST response with:**`;
-      prompt += `\n"I see you selected the ${textContent ? `'${textContent.substring(0, 30)}'` : tag} element${textContent ? ` (the <${tag}>)` : ''}."`;
-      prompt += `\n\n**Then immediately:**`;
-      prompt += `\n- If user asks to modify it → USE search_codebase to find the component, then explain what file needs editing`;
-      prompt += `\n- If just selected → Offer: "Would you like me to change its color, text, layout, or add an icon?"`;
-      prompt += `\n\n**⚠️ WHEN USER ASKS ABOUT THE ELEMENT:**`;
-      prompt += `\n- "what element?" or "what did I select?" → Answer directly from context above: "You selected the '${textContent?.substring(0, 30)}' element (the <${tag}> with class '${className}')."`;
-      prompt += `\n- **DO NOT** call read_documentation or search_codebase tools for this - the info is already in this prompt!`;
-      prompt += `\n\n**Important:** DO NOT say "I cannot modify" - you CAN modify using search_codebase + file editing tools.`;
+      prompt += `\n\n**🚨 THE USER HAS SELECTED A VISUAL ELEMENT ON THE PAGE:**`;
+      prompt += `\nElement: '${textContent?.substring(0, 30)}' (the <${tag}> with class '${className}')`;
+      prompt += `\nXPath: ${selectedEl.xpath || 'N/A'}`;
+      
+      prompt += `\n\n**⚠️ CRITICAL: When user asks "what element" or "make it [color]":**`;
+      prompt += `\n1. They are asking about THIS selected element (the '${textContent?.substring(0, 30)}' <${tag}>)`;
+      prompt += `\n2. IGNORE the "Use mb.md:" prefix - that's automatic, NOT part of their question`;
+      prompt += `\n3. DO NOT call read_documentation - they're NOT asking about documentation`;
+      prompt += `\n4. Answer directly: "I see you selected the '${textContent?.substring(0, 30)}' element (the <${tag}>)"`;
+      prompt += `\n5. To modify it: USE search_codebase to find the HomePage component file`;
+      
+      prompt += `\n\n**Example:**`;
+      prompt += `\nUser: "Use mb.md: what element is this, make it red"`;
+      prompt += `\nYou: "I see you selected the '${textContent?.substring(0, 30)}' element (the <${tag}>). Let me find the file to make it red..."`;
+      prompt += `\nThen: USE search_codebase("HomePage")`;
+      
+      prompt += `\n\n**DO NOT** say "I cannot modify" - you CAN modify using your tools.`;
     }
 
     prompt += `\n\nUse this context to provide relevant, helpful responses. You CAN see what page they're on and what they're doing.`;

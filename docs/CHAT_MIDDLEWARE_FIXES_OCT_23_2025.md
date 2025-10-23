@@ -265,14 +265,28 @@ body: {
 }
 ```
 
-#### 2. Explicit "What Element" Instructions
+#### 2. Explicit "What Element" Instructions + Ignore "Use mb.md:" Prefix
 **File:** `server/routes/chatProjectsRoutes.ts` - `buildContextAwarePrompt()`
 
-**Added:**
+**Root Cause:** The frontend automatically adds "Use mb.md:" prefix to all messages. When user asks "what element is this?", the AI receives "Use mb.md: what element is this?" and calls `read_documentation('MrBlue/mb.md')` thinking the user is asking about documentation!
+
+**Solution - Completely rewritten prompt:**
 ```typescript
-prompt += `\n\n**⚠️ WHEN USER ASKS ABOUT THE ELEMENT:**`;
-prompt += `\n- "what element?" or "what did I select?" → Answer directly from context above`;
-prompt += `\n- **DO NOT** call read_documentation or search_codebase tools for this - the info is already in this prompt!`;
+prompt += `\n\n**🚨 THE USER HAS SELECTED A VISUAL ELEMENT ON THE PAGE:**`;
+prompt += `\nElement: '${textContent}' (the <${tag}> with class '${className}')`;
+prompt += `\nXPath: ${selectedEl.xpath}`;
+
+prompt += `\n\n**⚠️ CRITICAL: When user asks "what element" or "make it [color]":**`;
+prompt += `\n1. They are asking about THIS selected element (the '${textContent}' <${tag}>)`;
+prompt += `\n2. IGNORE the "Use mb.md:" prefix - that's automatic, NOT part of their question`;
+prompt += `\n3. DO NOT call read_documentation - they're NOT asking about documentation`;
+prompt += `\n4. Answer directly: "I see you selected the '${textContent}' element (the <${tag}>)"`;
+prompt += `\n5. To modify it: USE search_codebase to find the HomePage component file`;
+
+prompt += `\n\n**Example:**`;
+prompt += `\nUser: "Use mb.md: what element is this, make it red"`;
+prompt += `\nYou: "I see you selected the 'Find Events' element (the <div>). Let me find the file to make it red..."`;
+prompt += `\nThen: USE search_codebase("HomePage")`;
 ```
 
 ### Impact
