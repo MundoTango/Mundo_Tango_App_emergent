@@ -8,7 +8,7 @@ import type { StyleMutation } from '@/lib/visual-editor/iframeMessaging';
 
 export interface PendingChange {
   id: string;
-  type: 'style' | 'content' | 'structure' | 'chat';
+  type: 'style' | 'content' | 'structure' | 'chat' | 'ai-build';
   description: string;
   data: any;
   timestamp: number;
@@ -53,6 +53,7 @@ export class SaveOrchestrator {
       const contentChanges = this.pendingChanges.filter(c => c.type === 'content');
       const structureChanges = this.pendingChanges.filter(c => c.type === 'structure');
       const chatChanges = this.pendingChanges.filter(c => c.type === 'chat');
+      const aiBuildChanges = this.pendingChanges.filter(c => c.type === 'ai-build');
 
       // Save style changes via AI code generation
       if (styleChanges.length > 0) {
@@ -74,13 +75,18 @@ export class SaveOrchestrator {
         await this.saveChatChanges(chatChanges);
       }
 
+      // 🔧 EXECUTE AI BUILDS (Agent #5)
+      if (aiBuildChanges.length > 0) {
+        await this.executeAIBuilds(aiBuildChanges);
+      }
+
       // Clear all changes
       this.pendingChanges = [];
       this.notifyListeners();
 
       return { 
         success: true, 
-        message: `Saved ${styleChanges.length + contentChanges.length + structureChanges.length + chatChanges.length} changes` 
+        message: `Saved ${styleChanges.length + contentChanges.length + structureChanges.length + chatChanges.length + aiBuildChanges.length} changes` 
       };
     } catch (error) {
       console.error('[SaveOrchestrator] Save failed:', error);
@@ -156,6 +162,38 @@ export class SaveOrchestrator {
     if (!response.ok) {
       throw new Error('Failed to save chat changes');
     }
+  }
+
+  /**
+   * Execute AI build intents (Agent #5)
+   * Sends pending build intents to backend for execution
+   */
+  private async executeAIBuilds(changes: PendingChange[]): Promise<void> {
+    const buildIntents = changes.map(c => c.data);
+    const messageIds = buildIntents.map((b: any) => b.messageId);
+    const projectId = buildIntents[0]?.projectId;
+
+    if (!projectId) {
+      throw new Error('No project ID found in build intents');
+    }
+
+    const response = await fetch('/api/chat/execute-builds', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ 
+        messageIds,
+        projectId 
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to execute AI builds');
+    }
+
+    const result = await response.json();
+    console.log('[SaveOrchestrator] AI builds executed:', result);
   }
 
   /**

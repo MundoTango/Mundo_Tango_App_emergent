@@ -327,6 +327,25 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
       const elementInfo = typeof selectedEl === 'string' ? selectedEl : selectedEl.tag || 'element';
       prompt += `\n- Selected element: "${elementInfo}"`;
     }
+    
+    // 🎯 VISUAL EDITOR SELECTED ELEMENT ENHANCEMENT (Agent #3)
+    if (selectedEl) {
+      prompt += `\n\n**🎯 SELECTED ELEMENT DETECTED:**`;
+      const tag = typeof selectedEl === 'string' ? selectedEl : (selectedEl.tagName || selectedEl.tag || 'element');
+      const className = typeof selectedEl === 'object' ? selectedEl.className : '';
+      const id = typeof selectedEl === 'object' ? selectedEl.id : '';
+      
+      prompt += `\n- Tag: <${tag}>`;
+      if (id) prompt += `\n- ID: ${id}`;
+      if (className) prompt += `\n- Classes: ${className}`;
+      
+      // 🔧 INSTRUCT MR BLUE TO ACKNOWLEDGE AND OFFER MODIFICATIONS
+      prompt += `\n\n**YOUR JOB:**`;
+      prompt += `\n1. ACKNOWLEDGE the selection in your response: "I see you've selected the <${tag}> element."`;
+      prompt += `\n2. OFFER to modify it: "Would you like me to change its color, add an icon, modify text, or adjust its layout?"`;
+      prompt += `\n3. If user confirms, plan the change: "I can make that change. The modification will be ready when you click Save."`;
+      prompt += `\n\n**Important:** When you plan to use developer tools (edit_file, create_component), tell the user "Click Save to apply this change." Don't execute immediately.`;
+    }
 
     prompt += `\n\nUse this context to provide relevant, helpful responses. You CAN see what page they're on and what they're doing.`;
   }
