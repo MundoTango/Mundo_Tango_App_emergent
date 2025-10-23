@@ -23,7 +23,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 
-export type EditorTab = 'inspector' | 'chat' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets' | 'models';
+export type EditorTab = 'inspector' | 'chat' | 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'console' | 'secrets' | 'models';
 
 interface TabSystemProps {
   activeTab: EditorTab;
@@ -34,7 +34,6 @@ interface TabSystemProps {
 const TABS = [
   { id: 'inspector' as const, label: 'Inspector', icon: Inspect },
   { id: 'chat' as const, label: 'Mr Blue', icon: MessageSquare },
-  { id: 'ai' as const, label: 'AI', icon: Wand2 },
   { id: 'preview' as const, label: 'Preview', icon: Eye },
   { id: 'console' as const, label: 'Console', icon: ScrollText },
   { id: 'deploy' as const, label: 'Deploy', icon: Rocket },

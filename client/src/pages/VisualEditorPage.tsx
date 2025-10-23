@@ -447,7 +447,7 @@ export default function VisualEditorPage() {
             {activeTab === 'shell' && <ShellTab />}
             {activeTab === 'files' && <FilesTabConnected />}
             {activeTab === 'secrets' && <SecretsTab />}
-            {activeTab === 'ai' && (
+            {activeTab === 'chat' && (
               <div className="h-full">
                 <ChatInterface />
               </div>
