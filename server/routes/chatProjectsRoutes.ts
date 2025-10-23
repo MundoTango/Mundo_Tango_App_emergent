@@ -401,21 +401,24 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
     
     // 🎯 VISUAL EDITOR SELECTED ELEMENT ENHANCEMENT (Agent #3)
     if (selectedEl) {
-      prompt += `\n\n**🎯 SELECTED ELEMENT DETECTED:**`;
       const tag = typeof selectedEl === 'string' ? selectedEl : (selectedEl.tagName || selectedEl.tag || 'element');
       const className = typeof selectedEl === 'object' ? selectedEl.className : '';
       const id = typeof selectedEl === 'object' ? selectedEl.id : '';
+      const textContent = typeof selectedEl === 'object' ? selectedEl.textContent : null;
       
+      prompt += `\n\n**🎯 SELECTED ELEMENT DETECTED:**`;
       prompt += `\n- Tag: <${tag}>`;
+      if (textContent) prompt += `\n- Text: "${textContent.substring(0, 50)}"`;
       if (id) prompt += `\n- ID: ${id}`;
       if (className) prompt += `\n- Classes: ${className}`;
       
-      // 🔧 INSTRUCT MR BLUE TO ACKNOWLEDGE AND OFFER MODIFICATIONS
-      prompt += `\n\n**YOUR JOB:**`;
-      prompt += `\n1. ACKNOWLEDGE the selection in your response: "I see you've selected the <${tag}> element."`;
-      prompt += `\n2. OFFER to modify it: "Would you like me to change its color, add an icon, modify text, or adjust its layout?"`;
-      prompt += `\n3. If user confirms, plan the change: "I can make that change. The modification will be ready when you click Save."`;
-      prompt += `\n\n**Important:** When you plan to use developer tools (edit_file, create_component), tell the user "Click Save to apply this change." Don't execute immediately.`;
+      // 🔧 MANDATORY ACKNOWLEDGMENT (Oct 23, 2025)
+      prompt += `\n\n**⚠️ CRITICAL RULE: ALWAYS start your FIRST response with:**`;
+      prompt += `\n"I see you selected the ${textContent ? `'${textContent.substring(0, 30)}'` : tag} element${textContent ? ` (the <${tag}>)` : ''}."`;
+      prompt += `\n\n**Then immediately:**`;
+      prompt += `\n- If user asks to modify it → USE search_codebase to find the component, then explain what file needs editing`;
+      prompt += `\n- If just selected → Offer: "Would you like me to change its color, text, layout, or add an icon?"`;
+      prompt += `\n\n**Important:** DO NOT say "I cannot modify" - you CAN modify using search_codebase + file editing tools.`;
     }
 
     prompt += `\n\nUse this context to provide relevant, helpful responses. You CAN see what page they're on and what they're doing.`;

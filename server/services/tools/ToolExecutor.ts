@@ -44,6 +44,7 @@ export class ToolExecutor {
     if (!user) return false;
     if (user.email === 'admin@mundotango.life') return true;
     if (user.username === 'admin') return true;
+    if (user.role === 'super_admin') return true; // 🔧 FIX Oct 23: Check singular role field
     if (user.roles?.includes('super_admin')) return true;
     if (user.tangoRoles?.includes('super_admin')) return true;
     return false;

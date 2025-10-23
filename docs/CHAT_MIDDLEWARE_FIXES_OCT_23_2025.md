@@ -151,3 +151,79 @@ prompt += `\n**DO NOT** read documentation files when asked "what page" - use th
 3. **Add examples** - Show the AI exactly how to use the context
 4. **Visual hierarchy** - Use emojis/formatting to make key info stand out
 5. **Negative examples** - Tell AI what NOT to do ("DON'T read docs when asked what page")
+
+---
+
+## Additional Fix #2: Tool Permissions & Element Recognition
+
+### Problem: AI Not Recognizing Selected Element + Tool Permission Errors
+
+**Symptoms:**
+- User selected "Share Memories" div in inspector
+- AI didn't acknowledge the selection
+- GPT-4o getting "Insufficient permissions to execute search_codebase" error
+- Only Claude's `read_documentation` tool worked (not useful for code modifications)
+
+### Root Causes
+1. **Tool permissions bug:** `ToolExecutor.isSuperAdmin()` checked `user.roles` (plural) but schema has `user.role` (singular)
+2. **Weak acknowledgment:** System prompt had "YOUR JOB: ACKNOWLEDGE..." but AI ignored it
+
+### Solutions ✅
+
+#### 1. Fixed Tool Permissions
+**File:** `server/services/tools/ToolExecutor.ts`
+
+**Before:**
+```typescript
+private isSuperAdmin(user: any): boolean {
+  if (!user) return false;
+  if (user.roles?.includes('super_admin')) return true; // ❌ Wrong field!
+  return false;
+}
+```
+
+**After:**
+```typescript
+private isSuperAdmin(user: any): boolean {
+  if (!user) return false;
+  if (user.role === 'super_admin') return true; // ✅ Correct field
+  if (user.roles?.includes('super_admin')) return true; // Fallback for arrays
+  return false;
+}
+```
+
+#### 2. Mandatory Element Acknowledgment
+**File:** `server/routes/chatProjectsRoutes.ts` - `buildContextAwarePrompt()`
+
+**Before:**
+```typescript
+prompt += `\n\n**YOUR JOB:**`;
+prompt += `\n1. ACKNOWLEDGE the selection in your response: "I see you've selected the <${tag}> element."`;
+```
+
+**After:**
+```typescript
+const textContent = typeof selectedEl === 'object' ? selectedEl.textContent : null;
+
+prompt += `\n\n**⚠️ CRITICAL RULE: ALWAYS start your FIRST response with:**`;
+prompt += `\n"I see you selected the '${textContent}' element (the <${tag}>)."`;
+prompt += `\n\n**Then immediately:**`;
+prompt += `\n- If user asks to modify it → USE search_codebase to find the component`;
+prompt += `\n- If just selected → Offer: "Would you like me to change its color, text, layout, or add an icon?"`;
+```
+
+### Impact
+- ✅ All 3 models (Claude, GPT-4o, Gemini) now have tool access
+- ✅ `search_codebase` tool now works for super admins
+- ✅ AI now MUST acknowledge selected elements in first response
+- ✅ Element text content included in acknowledgment ("Share Memories" not just "div")
+
+### Testing
+1. Select an element in Visual Editor (e.g., "Share Memories" div)
+2. AI should respond: "I see you selected the 'Share Memories' element (the <div>)."
+3. Ask "make this element red"
+4. AI should use `search_codebase` to find the HomePage component and explain the file path
+
+### Files Modified
+- `server/services/tools/ToolExecutor.ts` (isSuperAdmin field check)
+- `server/routes/chatProjectsRoutes.ts` (mandatory element acknowledgment)
