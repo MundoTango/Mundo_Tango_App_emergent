@@ -128,6 +128,15 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
 
 // Input sanitization middleware
 export const sanitizeInput = (req: Request, res: Response, next: NextFunction) => {
+  // 🔧 MB.MD FIX Oct 23: Skip sanitization for routes that need raw JSON (context objects with structured data)
+  if (req.path.startsWith('/api/multimodel/') || // Mr Blue chat with Visual Editor context
+      req.path.startsWith('/api/chat/') || // Chat streaming with large context
+      req.path.startsWith('/api/vibe/') || // Vibe Coding with large code context
+      req.path.startsWith('/api/ai/')) { // AI endpoints with structured data
+    console.log('✅ [Sanitize] Bypassing sanitization for:', req.path);
+    return next();
+  }
+  
   // Sanitize request body
   if (req.body && typeof req.body === 'object') {
     sanitizeObject(req.body);
