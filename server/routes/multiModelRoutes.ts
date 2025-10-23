@@ -25,6 +25,7 @@ const router = Router();
  * MB.MD FIX Oct 22 (#2): Adds tool support for super admins
  */
 router.post('/consensus', async (req: any, res) => {
+  console.log('✅✅✅ [ROUTE HANDLER] /consensus route handler EXECUTING!');
   try {
     const { query, projectId, systemPrompt, context } = req.body;
     
