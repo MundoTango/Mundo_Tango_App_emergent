@@ -151,9 +151,14 @@ export function UnifiedVoiceModal({
   }, [isOpen]);
 
   const startSession = async () => {
+    console.log('[UnifiedVoiceModal] 🎬 Starting session...');
     try {
+      console.log('[UnifiedVoiceModal] 🎤 Checking microphone permission...');
       const hasPermission = await checkPermission();
+      console.log('[UnifiedVoiceModal] Permission result:', hasPermission);
+      
       if (!hasPermission) {
+        console.error('[UnifiedVoiceModal] ❌ Microphone permission denied');
         toast({
           title: 'Microphone Required',
           description: 'Please allow microphone access to use voice mode.',
@@ -163,7 +168,9 @@ export function UnifiedVoiceModal({
         return;
       }
 
+      console.log('[UnifiedVoiceModal] 📡 Connecting to OpenAI...');
       await connect();
+      console.log('[UnifiedVoiceModal] 🎙️ Starting audio capture...');
       await startCapture();
 
       toast({
