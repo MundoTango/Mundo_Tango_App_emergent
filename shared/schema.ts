@@ -2672,6 +2672,146 @@ export const insertVoiceConversationTurnSchema = createInsertSchema(voiceConvers
 export type VoiceConversationTurn = typeof voiceConversationTurns.$inferSelect;
 export type InsertVoiceConversationTurn = z.infer<typeof insertVoiceConversationTurnSchema>;
 
+// ========================================
+// CONVERSATION MODULE ENHANCEMENTS
+// MB.MD SIMULTANEOUS BUILD - Oct 23, 2025
+// Track A: Analytics, Bookmarks, Sharing
+// ========================================
+
+// Conversation Analytics (metrics, sentiment, engagement)
+export const conversationAnalytics = pgTable("conversation_analytics", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => chatProjects.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  
+  // Message counts
+  totalMessages: integer("total_messages").default(0),
+  userMessages: integer("user_messages").default(0),
+  assistantMessages: integer("assistant_messages").default(0),
+  
+  // Token usage
+  totalTokens: integer("total_tokens").default(0),
+  totalCost: numeric("total_cost", { precision: 10, scale: 4 }).default('0'),
+  
+  // Model distribution
+  modelUsage: jsonb("model_usage").$type<Record<string, number>>(), // { "gpt-4o": 10, "claude": 5 }
+  
+  // Tool usage
+  toolsUsed: jsonb("tools_used").$type<Record<string, number>>(), // { "search_database": 3, "read_file": 5 }
+  
+  // Sentiment analysis
+  overallSentiment: real("overall_sentiment"), // -1.0 (negative) to 1.0 (positive)
+  sentimentHistory: jsonb("sentiment_history").$type<Array<{ timestamp: string; score: number }>>(),
+  
+  // Engagement metrics
+  avgResponseTime: integer("avg_response_time"), // milliseconds
+  longestConversation: integer("longest_conversation"), // number of turns
+  lastActivityAt: timestamp("last_activity_at"),
+  
+  // Language distribution
+  languages: jsonb("languages").$type<Record<string, number>>(), // { "en": 20, "es": 5 }
+  
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_analytics_project").on(table.projectId),
+  index("idx_analytics_user").on(table.userId),
+  index("idx_analytics_activity").on(table.lastActivityAt),
+]);
+
+// Conversation Bookmarks (save important moments)
+export const conversationBookmarks = pgTable("conversation_bookmarks", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => chatProjects.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  messageId: integer("message_id").references(() => aiChatMessages.id), // Text chat message
+  voiceTurnId: integer("voice_turn_id").references(() => voiceConversationTurns.id), // Voice turn
+  
+  // Bookmark details
+  title: varchar("title", { length: 255 }),
+  notes: text("notes"),
+  tags: text("tags").array(),
+  color: varchar("color", { length: 20 }).default('blue'), // UI color tag
+  
+  // Context
+  contextBefore: text("context_before"), // Snippet of conversation before
+  contextAfter: text("context_after"), // Snippet of conversation after
+  
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_bookmarks_project").on(table.projectId),
+  index("idx_bookmarks_user").on(table.userId),
+  index("idx_bookmarks_message").on(table.messageId),
+  index("idx_bookmarks_voice").on(table.voiceTurnId),
+]);
+
+// Conversation Sharing (public/private share links)
+export const conversationSharing = pgTable("conversation_sharing", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => chatProjects.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  
+  // Share link
+  shareToken: varchar("share_token", { length: 64 }).unique().notNull(), // Unique URL token
+  shareUrl: text("share_url").notNull(), // Full public URL
+  
+  // Privacy settings
+  visibility: varchar("visibility", { length: 20 }).default('private'), // private, unlisted, public
+  requiresPassword: boolean("requires_password").default(false),
+  passwordHash: text("password_hash"), // bcrypt hash if password protected
+  
+  // Access controls
+  allowedEmails: text("allowed_emails").array(), // Whitelist specific emails
+  expiresAt: timestamp("expires_at"), // Optional expiration
+  maxViews: integer("max_views"), // Optional view limit
+  currentViews: integer("current_views").default(0),
+  
+  // Content controls
+  includeMessages: boolean("include_messages").default(true),
+  includeVoice: boolean("include_voice").default(true),
+  includeTools: boolean("include_tools").default(true),
+  anonymize: boolean("anonymize").default(false), // Hide user info
+  
+  // Metadata
+  title: varchar("title", { length: 255 }),
+  description: text("description"),
+  
+  createdAt: timestamp("created_at").defaultNow(),
+  lastAccessedAt: timestamp("last_accessed_at"),
+}, (table) => [
+  index("idx_sharing_project").on(table.projectId),
+  index("idx_sharing_user").on(table.userId),
+  index("idx_sharing_token").on(table.shareToken),
+  index("idx_sharing_expires").on(table.expiresAt),
+]);
+
+// Zod schemas for new tables
+export const insertConversationAnalyticsSchema = createInsertSchema(conversationAnalytics).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertConversationBookmarkSchema = createInsertSchema(conversationBookmarks).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertConversationSharingSchema = createInsertSchema(conversationSharing).omit({
+  id: true,
+  createdAt: true,
+  lastAccessedAt: true,
+});
+
+export type ConversationAnalytics = typeof conversationAnalytics.$inferSelect;
+export type InsertConversationAnalytics = z.infer<typeof insertConversationAnalyticsSchema>;
+
+export type ConversationBookmark = typeof conversationBookmarks.$inferSelect;
+export type InsertConversationBookmark = z.infer<typeof insertConversationBookmarkSchema>;
+
+export type ConversationSharing = typeof conversationSharing.$inferSelect;
+export type InsertConversationSharing = z.infer<typeof insertConversationSharingSchema>;
+
 // Embeddings (semantic search via HuggingFace/OpenAI)
 export const embeddings = pgTable("embeddings", {
   id: serial("id").primaryKey(),
