@@ -304,6 +304,110 @@ export const getDeveloperTools = (): ToolDefinition[] => [
   }
 ];
 
+// ============ MB.MD DOCUMENTATION TOOLS ============
+
+export const getMBMDDocumentationTools = (): ToolDefinition[] => [
+  {
+    name: "read_mb_md_protocol",
+    description: "Read the complete MB.MD QA Protocol document - the methodology for preventing catastrophic failures. Contains the 5 Non-Negotiable Rules that all agents must follow.",
+    input_schema: {
+      type: "object",
+      properties: {},
+      required: []
+    }
+  },
+  {
+    name: "read_agent_learnings",
+    description: "Read Agent Learnings document with phase-based integration protocol. Contains critical lessons learned from Mr Blue and Visual Editor projects. Optionally filter by phase (1=Mapping, 2=Breakdown, 3=Mitigation, 4=Deployment).",
+    input_schema: {
+      type: "object",
+      properties: {
+        phase: {
+          type: "string",
+          enum: ["1", "2", "3", "4"],
+          description: "Optional: Filter by phase number (1=Mapping, 2=Breakdown, 3=Mitigation, 4=Deployment)"
+        }
+      },
+      required: []
+    }
+  },
+  {
+    name: "search_mb_md_docs",
+    description: "Search across all MB.MD documentation files (MB_MD*.md) for specific information using grep. Returns matching lines with file paths and line numbers.",
+    input_schema: {
+      type: "object",
+      properties: {
+        query: {
+          type: "string",
+          description: "Search query to find in MB.MD documentation"
+        }
+      },
+      required: ["query"]
+    }
+  },
+  {
+    name: "get_integration_protocol",
+    description: "Read the Integration Protocol document - mandatory checklist for wiring up components immediately after building them. Critical for avoiding the 'component exists but feature doesn't work' fallacy.",
+    input_schema: {
+      type: "object",
+      properties: {},
+      required: []
+    }
+  }
+];
+
+// ============ PLATFORM KNOWLEDGE TOOLS ============
+
+export const getPlatformKnowledgeTools = (): ToolDefinition[] => [
+  {
+    name: "get_component_registry",
+    description: "Returns a structured list of all React components in the project. Scans client/src/components/ recursively and extracts component names, file paths, and exported functions/components.",
+    input_schema: {
+      type: "object",
+      properties: {},
+      required: []
+    }
+  },
+  {
+    name: "get_api_routes",
+    description: "Returns all backend API endpoints with their HTTP methods and authentication requirements. Scans server/routes/*.ts files to extract route definitions.",
+    input_schema: {
+      type: "object",
+      properties: {
+        method: {
+          type: "string",
+          enum: ["GET", "POST", "PUT", "DELETE", "PATCH", "all"],
+          description: "Optional: Filter routes by HTTP method (default: all)"
+        }
+      },
+      required: []
+    }
+  },
+  {
+    name: "get_database_schema",
+    description: "Returns database tables with columns, types, relationships, and indexes. Parses shared/schema.ts to extract Drizzle table definitions.",
+    input_schema: {
+      type: "object",
+      properties: {
+        table_name: {
+          type: "string",
+          description: "Optional: Get schema for a specific table only"
+        }
+      },
+      required: []
+    }
+  },
+  {
+    name: "get_feature_status",
+    description: "Returns current platform feature completion status. Checks for status documentation or analyzes the codebase to determine which features are completed, in progress, or planned.",
+    input_schema: {
+      type: "object",
+      properties: {},
+      required: []
+    }
+  }
+];
+
 // ============ VISUAL EDITOR TOOLS ============
 
 export const getVisualEditorTools = (): ToolDefinition[] => [
@@ -315,7 +419,8 @@ export const getVisualEditorTools = (): ToolDefinition[] => [
       properties: {},
       required: []
     }
-  }
+  },
+  ...getMBMDDocumentationTools()
 ];
 
 // ============ COMBINED TOOL SET ============
@@ -325,7 +430,9 @@ export const getAllTools = (): ToolDefinition[] => [
   ...getCodebaseTools(),
   ...getDocumentationTools(),
   ...getDeveloperTools(),
-  ...getVisualEditorTools()
+  ...getPlatformKnowledgeTools(),
+  ...getVisualEditorTools(),
+  ...getMBMDDocumentationTools()
 ];
 
 // ============ PERMISSION LEVELS ============
@@ -360,4 +467,16 @@ export const toolPermissions: Record<string, ToolPermissionLevel> = {
   
   // Visual Editor tools (Context awareness)
   'get_selected_element': ToolPermissionLevel.PUBLIC, // All users can query what they selected
+
+  // MB.MD Documentation tools (Super Admin only - methodology access)
+  'read_mb_md_protocol': ToolPermissionLevel.SUPER_ADMIN,
+  'read_agent_learnings': ToolPermissionLevel.SUPER_ADMIN,
+  'search_mb_md_docs': ToolPermissionLevel.SUPER_ADMIN,
+  'get_integration_protocol': ToolPermissionLevel.SUPER_ADMIN,
+
+  // Platform Knowledge tools (Super Admin only - architecture analysis)
+  'get_component_registry': ToolPermissionLevel.SUPER_ADMIN,
+  'get_api_routes': ToolPermissionLevel.SUPER_ADMIN,
+  'get_database_schema': ToolPermissionLevel.SUPER_ADMIN,
+  'get_feature_status': ToolPermissionLevel.SUPER_ADMIN,
 };

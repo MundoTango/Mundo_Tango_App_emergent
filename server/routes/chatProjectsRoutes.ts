@@ -14,6 +14,7 @@ import { streamWithTools } from '../services/tools/universalToolOrchestrator';
 import { storage } from '../storage';
 import { requireAuth } from '../middleware/auth';
 import { z } from 'zod';
+import { createBuildReport, type BuildData } from '../services/autoDocumentation';
 
 // Zod schema for PATCH project (partial update - name and/or description)
 const updateChatProjectSchema = insertChatProjectSchema.partial().pick({
@@ -233,6 +234,38 @@ router.post('/stream', async (req: any, res: Response) => {
       metadata: buildIntent ? { buildIntent } : null,
     });
 
+    // 📝 STREAM E (Oct 23, 2025): Auto-Documentation System
+    // Trigger build report generation if build is complete and architect approved
+    if (buildIntent && buildIntent.status === 'completed' && buildIntent.architectApproved) {
+      try {
+        console.log('[Auto-Documentation] Build detected as complete and approved, generating report...');
+        
+        const buildData: BuildData = {
+          projectId,
+          projectName: (await db.select().from(chatProjects).where(eq(chatProjects.id, projectId)).limit(1))[0]?.name,
+          agent: 'Mr Blue AI',
+          executionMode: context?.executionMode || 'FOCUSED',
+          summary: buildIntent.summary || 'Build completed',
+          reasoning: buildIntent.reasoning,
+          tasks: buildIntent.tasks || [],
+          screenshots: buildIntent.screenshots || [],
+          codeChanges: toolsUsed.map(t => `${t.tool}: ${JSON.stringify(t.params)}`),
+          nextSteps: buildIntent.nextSteps || [],
+          timestamp: new Date(),
+        };
+
+        await createBuildReport(buildData, {
+          updateStatus: true,
+          gitCommit: false, // Disabled by default to avoid git conflicts
+        });
+
+        console.log('[Auto-Documentation] Build report generated successfully');
+      } catch (error) {
+        console.error('[Auto-Documentation] Failed to generate build report:', error);
+        // Don't fail the request if documentation fails
+      }
+    }
+
     // MB.MD FIX Oct 22: Trigger auto-naming after saving response
     triggerAutoNaming(projectId).catch(err => {
       console.error('[Chat Stream] Auto-naming trigger failed:', err);
@@ -404,6 +437,34 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
         // 🔧 SUPER ADMIN = DEV TOOL MODE (Replit Agent style)
         prompt += `\n\n**🔧 DEV TOOL MODE ACTIVATED**`;
         prompt += `\nYou are a development tool, not a conversation assistant. BUILD THINGS DIRECTLY using your tools.`;
+        
+        // 📋 MB.MD ALWAYS-ON KNOWLEDGE SYSTEM (STREAM B - Oct 23, 2025)
+        // Automatically inject MB.MD methodology for super admins
+        prompt += `\n\n**📋 MB.MD QUALITY PROTOCOL (MANDATORY):**`;
+        prompt += `\n\n**The 5 Non-Negotiable Rules:**`;
+        prompt += `\n1. **VERIFY BEFORE BUILD** - Read existing files first. Use grep/read tools to check what exists. Never build without documentation evidence.`;
+        prompt += `\n2. **INTEGRATE IMMEDIATELY** - Import and wire components AS YOU BUILD. Component exists ≠ User can access it.`;
+        prompt += `\n3. **SCREENSHOT EVERYTHING** - Use screenshot tool after every UI change. Visual proof required.`;
+        prompt += `\n4. **TEST USER JOURNEY** - Click through actual user flow. Button exists ≠ Button visible and clickable.`;
+        prompt += `\n5. **ARCHITECT VALIDATES** - Independent review before marking "done". No self-approval.`;
+        
+        prompt += `\n\n**Execution Modes (Choose ONE before starting):**`;
+        prompt += `\n• FOCUSED (Serial) - Complex logic with step dependencies. One task completes before next starts.`;
+        prompt += `\n• PARALLEL (Streams) - Multiple independent features. Work simultaneously, integrate after all complete.`;
+        prompt += `\n• SIMULTANEOUS (All-hands) - Comprehensive builds. All agents receive tasks immediately, coordinate in real-time.`;
+        
+        prompt += `\n\n**Integration Checklist (ALL 8 required before marking complete):**`;
+        prompt += `\n✓ Component built`;
+        prompt += `\n✓ Component imported in parent`;
+        prompt += `\n✓ Component rendered in JSX`;
+        prompt += `\n✓ Props passed correctly`;
+        prompt += `\n✓ Event handlers wired`;
+        prompt += `\n✓ Backend endpoints exist (if needed)`;
+        prompt += `\n✓ User journey tested end-to-end`;
+        prompt += `\n✓ Screenshot taken showing feature`;
+        
+        prompt += `\n\n**Full Protocol:** Use search_documentation("MB.MD") or read_documentation("MB_MD_QA_PROTOCOL.md") for complete details.`;
+        
         prompt += `\n\n**How to respond:**`;
         prompt += `\n- User asks "what page?" → Answer: "You're looking at the ${previewPath ? pageNames[previewPath] || previewPath : 'page'} in the Visual Editor preview"`;
         prompt += `\n- User says "make background red" → USE search_codebase to find the page component, then tell them the file path that needs editing`;
@@ -677,5 +738,97 @@ export async function triggerAutoNaming(projectId: number) {
     console.error('[Auto-Name Trigger] Error:', error);
   }
 }
+
+/**
+ * POST /api/chat/projects/:id/generate-build-report
+ * Manual trigger for build report generation (testing endpoint)
+ * STREAM E - Oct 23, 2025
+ */
+router.post('/projects/:id/generate-build-report', requireAuth, async (req: any, res: Response) => {
+  try {
+    const projectId = parseInt(req.params.id);
+    
+    if (isNaN(projectId)) {
+      return res.status(400).json({ error: 'Invalid project ID' });
+    }
+
+    // Get project details
+    const [project] = await db
+      .select()
+      .from(chatProjects)
+      .where(eq(chatProjects.id, projectId))
+      .limit(1);
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    // Get user
+    const user = await storage.getUser(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Build sample data from request or use defaults
+    const { buildData } = req.body;
+    
+    const defaultBuildData: BuildData = {
+      projectId,
+      projectName: project.name,
+      agent: 'Mr Blue AI (Manual Test)',
+      executionMode: buildData?.executionMode || 'FOCUSED',
+      summary: buildData?.summary || 'Test build report generation',
+      reasoning: buildData?.reasoning || 'Testing the auto-documentation system',
+      tasks: buildData?.tasks || [
+        {
+          id: '1',
+          description: 'Create autoDocumentation service',
+          status: 'completed',
+          architectApproved: true,
+          evidence: ['server/services/autoDocumentation.ts created']
+        },
+        {
+          id: '2',
+          description: 'Hook into chatProjectsRoutes',
+          status: 'completed',
+          architectApproved: true,
+          evidence: ['Build detection logic added']
+        },
+        {
+          id: '3',
+          description: 'Test build report generation',
+          status: 'completed',
+          architectApproved: false,
+          evidence: ['Manual testing in progress']
+        }
+      ],
+      screenshots: buildData?.screenshots || [],
+      codeChanges: buildData?.codeChanges || [
+        'server/services/autoDocumentation.ts',
+        'server/routes/chatProjectsRoutes.ts'
+      ],
+      nextSteps: buildData?.nextSteps || [
+        'Integrate with architect validation flow',
+        'Add automated testing',
+        'Configure Git commits for production'
+      ],
+      timestamp: new Date(),
+    };
+
+    const result = await createBuildReport(defaultBuildData, {
+      updateStatus: true,
+      gitCommit: false,
+    });
+
+    res.json({
+      success: true,
+      reportPath: result.filePath,
+      message: 'Build report generated successfully',
+    });
+  } catch (error) {
+    console.error('[Manual Build Report] Error:', error);
+    res.status(500).json({ error: 'Failed to generate build report' });
+  }
+});
 
 export default router;

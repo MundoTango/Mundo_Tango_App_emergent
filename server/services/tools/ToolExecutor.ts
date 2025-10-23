@@ -11,6 +11,12 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
+import { 
+  scanComponentRegistry, 
+  scanAPIRoutes, 
+  getDatabaseSchema, 
+  getFeatureStatus 
+} from './platformKnowledge';
 
 const execAsync = promisify(exec);
 
@@ -114,6 +120,26 @@ export class ToolExecutor {
         // Visual Editor tools
         case 'get_selected_element':
           return await this.getSelectedElement();
+        
+        // MB.MD Documentation tools
+        case 'read_mb_md_protocol':
+          return await this.readMBMDProtocol();
+        case 'read_agent_learnings':
+          return await this.readAgentLearnings(params);
+        case 'search_mb_md_docs':
+          return await this.searchMBMDDocs(params);
+        case 'get_integration_protocol':
+          return await this.getIntegrationProtocol();
+        
+        // Platform Knowledge tools
+        case 'get_component_registry':
+          return await this.getComponentRegistry();
+        case 'get_api_routes':
+          return await this.getAPIRoutes(params);
+        case 'get_database_schema':
+          return await this.getDatabaseSchemaInfo(params);
+        case 'get_feature_status':
+          return await this.getFeatureStatusInfo();
         
         default:
           throw new Error(`Unknown tool: ${toolName}`);
@@ -593,5 +619,298 @@ export function ${params.component_name}(${params.props ? `props: ${params.compo
       },
       message: `Selected: <${element.tagName || element.tag}> "${element.textContent?.substring(0, 40) || 'no text'}" on ${previewPath}`
     };
+  }
+
+  // ============ MB.MD DOCUMENTATION TOOL IMPLEMENTATIONS ============
+
+  private async readMBMDProtocol() {
+    try {
+      const fullPath = join(process.cwd(), 'docs', 'MB_MD_QA_PROTOCOL.md');
+      const content = await readFile(fullPath, 'utf-8');
+      
+      return {
+        file: 'MB_MD_QA_PROTOCOL.md',
+        content: content,
+        length: content.length,
+        lines: content.split('\n').length,
+        summary: 'MB.MD Quality Assurance Protocol - The 5 Non-Negotiable Rules for preventing catastrophic failures'
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        file: 'MB_MD_QA_PROTOCOL.md',
+        message: 'Failed to read MB.MD QA Protocol',
+        details: error.message
+      };
+    }
+  }
+
+  private async readAgentLearnings(params: { phase?: string }) {
+    try {
+      const fullPath = join(process.cwd(), 'docs', 'AGENT_LEARNINGS.md');
+      const content = await readFile(fullPath, 'utf-8');
+      
+      // If phase filter specified, extract only that phase
+      if (params.phase) {
+        const phaseNames: Record<string, string> = {
+          '1': 'PHASE 1: MAPPING',
+          '2': 'PHASE 2: BREAKDOWN',
+          '3': 'PHASE 3: MITIGATION',
+          '4': 'PHASE 4: DEPLOYMENT'
+        };
+        
+        const phaseName = phaseNames[params.phase];
+        if (!phaseName) {
+          return {
+            error: true,
+            message: 'Invalid phase number. Must be 1, 2, 3, or 4'
+          };
+        }
+
+        // Extract the section for this phase
+        const lines = content.split('\n');
+        const startPattern = `## 🎯 **${phaseName}`;
+        const nextPhasePattern = '## 🎯 **PHASE';
+        
+        let startIndex = -1;
+        let endIndex = lines.length;
+        
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].includes(startPattern)) {
+            startIndex = i;
+          } else if (startIndex !== -1 && i > startIndex && lines[i].includes(nextPhasePattern)) {
+            endIndex = i;
+            break;
+          }
+        }
+        
+        if (startIndex === -1) {
+          return {
+            error: true,
+            message: `Phase ${params.phase} section not found in AGENT_LEARNINGS.md`,
+            hint: 'The document structure may have changed'
+          };
+        }
+
+        const phaseContent = lines.slice(startIndex, endIndex).join('\n');
+        
+        return {
+          file: 'AGENT_LEARNINGS.md',
+          phase: params.phase,
+          phase_name: phaseName,
+          content: phaseContent,
+          length: phaseContent.length,
+          lines: phaseContent.split('\n').length,
+          summary: `Agent Learnings - ${phaseName}`
+        };
+      }
+      
+      // Return full document if no phase filter
+      return {
+        file: 'AGENT_LEARNINGS.md',
+        content: content,
+        length: content.length,
+        lines: content.split('\n').length,
+        summary: 'Agent Learnings: Phase-Based Integration Protocol (All Phases)'
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        file: 'AGENT_LEARNINGS.md',
+        message: 'Failed to read Agent Learnings',
+        details: error.message
+      };
+    }
+  }
+
+  private async searchMBMDDocs(params: { query: string }) {
+    try {
+      // Search all MB_MD*.md files in docs folder
+      const { stdout } = await execAsync(
+        `grep -r -i -n "${params.query}" docs/ --include="MB_MD*.md" | head -50`,
+        { timeout: 5000 }
+      );
+      
+      const lines = stdout.split('\n').filter(l => l.trim());
+      
+      return {
+        query: params.query,
+        matches: lines.length,
+        files_searched: 'docs/MB_MD*.md',
+        results: lines.slice(0, 50).map(line => {
+          const [filePath, lineNum, ...rest] = line.split(':');
+          return {
+            file: filePath.replace('docs/', ''),
+            line: lineNum,
+            preview: rest.join(':').substring(0, 200)
+          };
+        }),
+        hint: 'Use read_mb_md_protocol, read_agent_learnings, or get_integration_protocol to read full documents'
+      };
+    } catch (error: any) {
+      // If grep returns no matches, it exits with code 1
+      if (error.code === 1 && !error.stderr) {
+        return {
+          query: params.query,
+          matches: 0,
+          results: [],
+          message: 'No matches found in MB.MD documentation'
+        };
+      }
+      
+      return {
+        error: true,
+        query: params.query,
+        message: 'Search failed',
+        details: error.message
+      };
+    }
+  }
+
+  private async getIntegrationProtocol() {
+    try {
+      const fullPath = join(process.cwd(), 'docs', 'INTEGRATION_PROTOCOL.md');
+      const content = await readFile(fullPath, 'utf-8');
+      
+      return {
+        file: 'INTEGRATION_PROTOCOL.md',
+        content: content,
+        length: content.length,
+        lines: content.split('\n').length,
+        summary: 'Integration Protocol - Wire up everything immediately. Build + Import + Connect + Test = COMPLETE'
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        file: 'INTEGRATION_PROTOCOL.md',
+        message: 'Failed to read Integration Protocol',
+        details: error.message
+      };
+    }
+  }
+
+  // ============ PLATFORM KNOWLEDGE TOOL IMPLEMENTATIONS ============
+
+  private async getComponentRegistry() {
+    try {
+      const components = await scanComponentRegistry();
+      
+      return {
+        total_components: components.length,
+        components: components,
+        scanned_directory: 'client/src/components/',
+        timestamp: new Date().toISOString(),
+        summary: `Found ${components.length} React components across the platform`
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        message: 'Failed to scan component registry',
+        details: error.message
+      };
+    }
+  }
+
+  private async getAPIRoutes(params: { method?: string }) {
+    try {
+      const allRoutes = await scanAPIRoutes();
+      
+      // Filter by method if specified
+      const filteredRoutes = params.method && params.method !== 'all'
+        ? allRoutes.filter(r => r.method === params.method.toUpperCase())
+        : allRoutes;
+      
+      // Group by authentication type
+      const withAuth = filteredRoutes.filter(r => r.hasAuth);
+      const withoutAuth = filteredRoutes.filter(r => !r.hasAuth);
+      
+      return {
+        total_routes: filteredRoutes.length,
+        authenticated_routes: withAuth.length,
+        public_routes: withoutAuth.length,
+        routes: filteredRoutes,
+        scanned_directory: 'server/routes/',
+        filter: params.method || 'all',
+        timestamp: new Date().toISOString(),
+        summary: `Found ${filteredRoutes.length} API routes (${withAuth.length} protected, ${withoutAuth.length} public)`
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        message: 'Failed to scan API routes',
+        details: error.message
+      };
+    }
+  }
+
+  private async getDatabaseSchemaInfo(params: { table_name?: string }) {
+    try {
+      const allTables = await getDatabaseSchema();
+      
+      // Filter by table name if specified
+      const filteredTables = params.table_name
+        ? allTables.filter(t => t.name === params.table_name)
+        : allTables;
+      
+      if (params.table_name && filteredTables.length === 0) {
+        return {
+          error: true,
+          message: `Table "${params.table_name}" not found in schema`,
+          available_tables: allTables.map(t => t.name)
+        };
+      }
+      
+      return {
+        total_tables: filteredTables.length,
+        tables: filteredTables,
+        schema_file: 'shared/schema.ts',
+        filter: params.table_name || 'all',
+        timestamp: new Date().toISOString(),
+        summary: params.table_name 
+          ? `Schema for table "${params.table_name}"`
+          : `Found ${filteredTables.length} database tables in schema`
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        message: 'Failed to parse database schema',
+        details: error.message
+      };
+    }
+  }
+
+  private async getFeatureStatusInfo() {
+    try {
+      const features = await getFeatureStatus();
+      
+      // Calculate summary stats
+      const completed = features.filter(f => f.status === 'completed').length;
+      const inProgress = features.filter(f => f.status === 'in_progress').length;
+      const planned = features.filter(f => f.status === 'planned').length;
+      const blocked = features.filter(f => f.status === 'blocked').length;
+      
+      // Calculate average completion
+      const avgCompletion = features.length > 0
+        ? Math.round(features.reduce((sum, f) => sum + f.completion, 0) / features.length)
+        : 0;
+      
+      return {
+        total_features: features.length,
+        completed_count: completed,
+        in_progress_count: inProgress,
+        planned_count: planned,
+        blocked_count: blocked,
+        average_completion: avgCompletion,
+        features: features,
+        timestamp: new Date().toISOString(),
+        summary: `Platform status: ${avgCompletion}% complete (${completed} done, ${inProgress} in progress, ${planned} planned)`
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        message: 'Failed to get feature status',
+        details: error.message
+      };
+    }
   }
 }
