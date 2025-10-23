@@ -92,6 +92,17 @@ router.post('/consensus', async (req: any, res) => {
     
     // 🔧 BUILD CONTEXT-AWARE SYSTEM PROMPT (Oct 22, 2025)
     // Use the same context builder as /api/chat/stream for consistency
+    
+    // 🔍 STREAM 1: Log context BEFORE building prompt (Oct 23, 2025)
+    console.log('🔍 [STREAM 1] Context before buildContextAwarePrompt:', {
+      hasContext: !!context,
+      hasVisualEditorState: !!context?.visualEditorState,
+      selectedElement_direct: context?.selectedElement,
+      selectedElement_nested: context?.visualEditorState?.selectedElement,
+      selectedElement_type_direct: typeof context?.selectedElement,
+      selectedElement_type_nested: typeof context?.visualEditorState?.selectedElement
+    });
+    
     const contextAwareSystemPrompt = buildContextAwarePrompt(
       systemPrompt?.includes('professional') ? 'professional' :
       systemPrompt?.includes('mentor') ? 'mentor' :
@@ -101,6 +112,7 @@ router.post('/consensus', async (req: any, res) => {
     );
     
     console.log(`[MultiModel] System prompt length: ${contextAwareSystemPrompt.length} chars`);
+    console.log('🔍 [STREAM 1] Prompt includes 🚨🚨🚨?', contextAwareSystemPrompt.includes('🚨🚨🚨'));
     
     let result;
     

@@ -70,6 +70,15 @@ export class ToolExecutor {
    */
   async executeTool(toolName: string, params: any, user: any): Promise<any> {
     console.log(`[ToolExecutor] Executing: ${toolName}`, params);
+    
+    // 🔍 STREAM 4: Log get_selected_element attempts (Oct 23, 2025)
+    if (toolName === 'get_selected_element') {
+      console.log('🔍 [STREAM 4] ✅ get_selected_element tool called!');
+      console.log('🔍 [STREAM 4] Context available:', {
+        hasContext: !!this.context,
+        selectedElement: this.context?.visualEditorState?.selectedElement || this.context?.selectedElement
+      });
+    }
 
     // Check permissions
     if (!this.canExecuteTool(toolName, user)) {
