@@ -32,7 +32,7 @@ import { Button } from '@/components/ui/button';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
 import { injectOverlayScript } from '@/lib/visual-editor/iframeOverlay';
 import { listenToIframe, sendToIframe, type ElementSelection, type StyleMutation } from '@/lib/visual-editor/iframeMessaging';
-import { VisualEditorProvider } from '@/contexts/VisualEditorContext';
+import { VisualEditorProvider, useVisualEditor } from '@/contexts/VisualEditorContext';
 
 interface SelectedElement {
   tag: string;
@@ -54,6 +54,9 @@ export default function VisualEditorPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  
+  // 🎨 VISUAL EDITOR CONTEXT: Bridge to Mr Blue (Oct 23, 2025)
+  const visualEditorContext = useVisualEditor();
 
   // Cmd+K for Command Palette
   useEffect(() => {
@@ -240,6 +243,11 @@ export default function VisualEditorPage() {
     return listenToIframe((message) => {
       if (message.type === 'ELEMENT_SELECTED') {
         setSelectedElement(message.element);
+        
+        // 🔥 UPDATE CONTEXT: This makes element visible to Mr Blue! (Oct 23, 2025)
+        visualEditorContext.setSelectedElement(message.element);
+        visualEditorContext.setPreviewPath(previewUrl);
+        
         setActiveTab('inspector');
         logActivity({
           type: 'selection',
