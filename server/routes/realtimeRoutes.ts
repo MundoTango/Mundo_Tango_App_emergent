@@ -158,11 +158,11 @@ export function setupRealtimeWebSocket(server: any) {
             input_audio_transcription: {
               model: 'whisper-1' // STREAM 4: Whisper supports 50+ languages natively
             },
-            turn_detection: { // STREAM 3: VAD already configured ✅
+            turn_detection: { // STREAM 3: VAD configured for better speech detection
               type: 'server_vad',
-              threshold: 0.5,
-              prefix_padding_ms: 300,
-              silence_duration_ms: 500
+              threshold: 0.3, // Lower = more sensitive (0.3 instead of 0.5)
+              prefix_padding_ms: 500, // More context before speech (500ms instead of 300ms)
+              silence_duration_ms: 700 // More time to finish speaking (700ms instead of 500ms)
             },
             tools: getRealtimeTools(), // 🎯 STREAM 1: All 11 Omniscient Mode tools
             tool_choice: 'auto',
