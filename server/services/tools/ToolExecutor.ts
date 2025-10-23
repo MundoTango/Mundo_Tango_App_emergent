@@ -91,6 +91,16 @@ export class ToolExecutor {
         case 'read_documentation':
           return await this.readDocumentation(params);
         
+        // Developer tools (WRITE operations)
+        case 'edit_file':
+          return await this.editFile(params);
+        case 'read_file':
+          return await this.readFileContents(params);
+        case 'create_component':
+          return await this.createComponent(params);
+        case 'run_command':
+          return await this.runCommand(params);
+        
         default:
           throw new Error(`Unknown tool: ${toolName}`);
       }
@@ -346,6 +356,190 @@ export class ToolExecutor {
         file: params.file_path,
         error: 'File not found or cannot be read',
         message: error.message
+      };
+    }
+  }
+
+  // ============ DEVELOPER TOOL IMPLEMENTATIONS (WRITE OPERATIONS) ============
+
+  private async readFileContents(params: { file_path: string; start_line?: number; end_line?: number }) {
+    try {
+      const fullPath = join(process.cwd(), params.file_path);
+      const content = await readFile(fullPath, 'utf-8');
+      const lines = content.split('\n');
+      
+      // If line range specified, return only that range
+      if (params.start_line || params.end_line) {
+        const start = (params.start_line || 1) - 1; // Convert to 0-indexed
+        const end = params.end_line || lines.length;
+        const selectedLines = lines.slice(start, end);
+        
+        return {
+          file: params.file_path,
+          content: selectedLines.join('\n'),
+          total_lines: lines.length,
+          showing_lines: `${start + 1}-${end}`
+        };
+      }
+      
+      // Return full file (up to 3000 chars to avoid token overflow)
+      return {
+        file: params.file_path,
+        content: content.substring(0, 3000),
+        total_lines: lines.length,
+        truncated: content.length > 3000
+      };
+    } catch (error: any) {
+      return {
+        file: params.file_path,
+        error: 'File not found or cannot be read',
+        message: error.message
+      };
+    }
+  }
+
+  private async editFile(params: { file_path: string; old_string: string; new_string: string }) {
+    try {
+      // CRITICAL FILE PROTECTION: Block editing of critical files
+      const criticalFiles = [
+        'package.json',
+        'drizzle.config.ts',
+        'vite.config.ts',
+        'server/vite.ts',
+        '.env'
+      ];
+      
+      if (criticalFiles.some(cf => params.file_path.includes(cf))) {
+        return {
+          success: false,
+          error: 'Cannot edit critical file via AI tools',
+          file: params.file_path,
+          message: 'This file requires manual editing for safety'
+        };
+      }
+
+      const fullPath = join(process.cwd(), params.file_path);
+      const content = await readFile(fullPath, 'utf-8');
+      
+      // Check if old_string exists
+      if (!content.includes(params.old_string)) {
+        return {
+          success: false,
+          error: 'String not found',
+          file: params.file_path,
+          message: `Could not find: "${params.old_string.substring(0, 100)}"`
+        };
+      }
+
+      // Make the replacement
+      const newContent = content.replace(params.old_string, params.new_string);
+      
+      // Write back (using fs/promises writeFile)
+      const { writeFile: fsWriteFile } = await import('fs/promises');
+      await fsWriteFile(fullPath, newContent, 'utf-8');
+      
+      return {
+        success: true,
+        file: params.file_path,
+        message: 'File edited successfully',
+        changes: {
+          old: params.old_string.substring(0, 100),
+          new: params.new_string.substring(0, 100)
+        }
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: 'Failed to edit file',
+        file: params.file_path,
+        message: error.message
+      };
+    }
+  }
+
+  private async createComponent(params: { component_name: string; component_type: string; props?: string }) {
+    try {
+      const componentPath = params.component_type === 'ui' 
+        ? `client/src/components/ui/${params.component_name}.tsx`
+        : params.component_type === 'page'
+        ? `client/src/pages/${params.component_name}.tsx`
+        : `client/src/components/${params.component_name}.tsx`;
+
+      // Parse props if provided
+      let propsInterface = '';
+      if (params.props) {
+        try {
+          const propsObj = JSON.parse(params.props);
+          const propsLines = Object.entries(propsObj).map(([key, type]) => `  ${key}: ${type};`);
+          propsInterface = `\ninterface ${params.component_name}Props {\n${propsLines.join('\n')}\n}\n`;
+        } catch {
+          // Invalid JSON, skip props
+        }
+      }
+
+      const componentCode = `${propsInterface}
+export function ${params.component_name}(${params.props ? `props: ${params.component_name}Props` : ''}) {
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-bold">${params.component_name}</h2>
+      {/* TODO: Add component content */}
+    </div>
+  );
+}
+`;
+
+      const fullPath = join(process.cwd(), componentPath);
+      const { writeFile: fsWriteFile } = await import('fs/promises');
+      await fsWriteFile(fullPath, componentCode, 'utf-8');
+      
+      return {
+        success: true,
+        component: params.component_name,
+        path: componentPath,
+        message: `Component created at ${componentPath}`
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: 'Failed to create component',
+        message: error.message
+      };
+    }
+  }
+
+  private async runCommand(params: { command: string; args?: string }) {
+    try {
+      // WHITELIST: Only allow safe commands
+      const whitelisted = ['npm install', 'npm run build', 'npm test', 'npm run dev'];
+      if (!whitelisted.includes(params.command)) {
+        return {
+          success: false,
+          error: 'Command not whitelisted',
+          command: params.command,
+          message: 'Only whitelisted commands can be executed'
+        };
+      }
+
+      const fullCommand = params.args ? `${params.command} ${params.args}` : params.command;
+      const { stdout, stderr } = await execAsync(fullCommand, { 
+        timeout: 30000, // 30s timeout
+        cwd: process.cwd()
+      });
+      
+      return {
+        success: true,
+        command: fullCommand,
+        stdout: stdout.substring(0, 500),
+        stderr: stderr.substring(0, 500),
+        message: 'Command executed successfully'
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: 'Command execution failed',
+        command: params.command,
+        message: error.message,
+        stderr: error.stderr?.substring(0, 500)
       };
     }
   }

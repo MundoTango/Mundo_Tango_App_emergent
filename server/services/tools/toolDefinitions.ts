@@ -213,12 +213,104 @@ export const getDocumentationTools = (): ToolDefinition[] => [
   }
 ];
 
+// ============ DEVELOPER TOOLS (WRITE OPERATIONS) ============
+
+export const getDeveloperTools = (): ToolDefinition[] => [
+  {
+    name: "edit_file",
+    description: "Edit an existing file by replacing old content with new content. Use this to add emojis, modify text, or update code. SUPER ADMIN ONLY.",
+    input_schema: {
+      type: "object",
+      properties: {
+        file_path: {
+          type: "string",
+          description: "Path to the file to edit (e.g. 'client/src/pages/landing.tsx')"
+        },
+        old_string: {
+          type: "string",
+          description: "The exact string to find and replace (must match exactly including whitespace)"
+        },
+        new_string: {
+          type: "string",
+          description: "The new string to replace with"
+        }
+      },
+      required: ["file_path", "old_string", "new_string"]
+    }
+  },
+  {
+    name: "read_file",
+    description: "Read the contents of a file to see what's in it before editing. Always read before editing.",
+    input_schema: {
+      type: "object",
+      properties: {
+        file_path: {
+          type: "string",
+          description: "Path to the file to read (e.g. 'client/src/pages/landing.tsx')"
+        },
+        start_line: {
+          type: "number",
+          description: "Optional: Line number to start reading from (1-indexed)"
+        },
+        end_line: {
+          type: "number",
+          description: "Optional: Line number to stop reading at (1-indexed)"
+        }
+      },
+      required: ["file_path"]
+    }
+  },
+  {
+    name: "create_component",
+    description: "Create a new React component file with boilerplate code. SUPER ADMIN ONLY.",
+    input_schema: {
+      type: "object",
+      properties: {
+        component_name: {
+          type: "string",
+          description: "Name of the component (e.g. 'SmileIcon', 'WelcomeCard')"
+        },
+        component_type: {
+          type: "string",
+          enum: ["ui", "page", "feature"],
+          description: "Type of component: ui (reusable UI), page (full page), or feature (business logic)"
+        },
+        props: {
+          type: "string",
+          description: "Optional: Props interface as JSON string (e.g. '{\"text\": \"string\", \"onClick\": \"() => void\"}')"
+        }
+      },
+      required: ["component_name", "component_type"]
+    }
+  },
+  {
+    name: "run_command",
+    description: "Execute a terminal command (npm install, build, test, etc.). SUPER ADMIN ONLY. Whitelisted commands only for safety.",
+    input_schema: {
+      type: "object",
+      properties: {
+        command: {
+          type: "string",
+          enum: ["npm install", "npm run build", "npm test", "npm run dev"],
+          description: "Command to run (whitelisted for safety)"
+        },
+        args: {
+          type: "string",
+          description: "Optional: Additional arguments (e.g. package name for npm install)"
+        }
+      },
+      required: ["command"]
+    }
+  }
+];
+
 // ============ COMBINED TOOL SET ============
 
 export const getAllTools = (): ToolDefinition[] => [
   ...getDatabaseTools(),
   ...getCodebaseTools(),
-  ...getDocumentationTools()
+  ...getDocumentationTools(),
+  ...getDeveloperTools()
 ];
 
 // ============ PERMISSION LEVELS ============
@@ -244,4 +336,10 @@ export const toolPermissions: Record<string, ToolPermissionLevel> = {
   'search_codebase': ToolPermissionLevel.SUPER_ADMIN,
   'list_react_components': ToolPermissionLevel.SUPER_ADMIN,
   'find_api_endpoints': ToolPermissionLevel.SUPER_ADMIN,
+  
+  // Developer tools (WRITE OPERATIONS - Super Admin only)
+  'edit_file': ToolPermissionLevel.SUPER_ADMIN,
+  'read_file': ToolPermissionLevel.SUPER_ADMIN,
+  'create_component': ToolPermissionLevel.SUPER_ADMIN,
+  'run_command': ToolPermissionLevel.SUPER_ADMIN,
 };
