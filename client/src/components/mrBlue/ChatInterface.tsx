@@ -22,6 +22,7 @@ import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
 import { getAgentSuggestion } from '@/lib/agentDiscovery';
+import { saveOrchestrator } from '@/services/SaveOrchestrator';
 
 // ============ TYPES ============
 interface Conversation {
@@ -39,6 +40,14 @@ interface Message {
   createdAt: string;
   model?: string;
   toolsUsed?: string[]; // Track which tools were used
+  metadata?: {
+    buildIntent?: {
+      tool: string;
+      params: any;
+      status: 'pending' | 'executed' | 'failed';
+      executedAt?: string;
+    };
+  };
 }
 
 type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro' | 'all-models';
@@ -295,9 +304,13 @@ export function ChatInterface() {
       setStreamingToolStatus(null);
       setOptimisticMessage(null);
       setStreamingResponse('');
-      queryClient.invalidateQueries({ 
+      await queryClient.invalidateQueries({ 
         queryKey: [`/api/chat/projects/${projId}/messages`]
       });
+      
+      // 🔧 PHASE 2: Extract build intents from AI response
+      await extractAndQueueBuildIntents(projId);
+      
       setInput('');
     } catch (error) {
       setOptimisticMessage(null);
@@ -306,6 +319,57 @@ export function ChatInterface() {
         title: 'Failed to send message', 
         variant: 'destructive' 
       });
+    }
+  };
+
+  // 🔧 PHASE 2: Extract build intents from messages and queue in SaveOrchestrator
+  const extractAndQueueBuildIntents = async (projId: number) => {
+    try {
+      // Refetch messages to get latest with metadata
+      const messagesData = await queryClient.fetchQuery({
+        queryKey: [`/api/chat/projects/${projId}/messages`],
+      });
+
+      if (!messagesData || !Array.isArray(messagesData)) return;
+
+      // Find assistant messages with pending build intents
+      const pendingIntents = (messagesData as Message[])
+        .filter(msg => 
+          msg.role === 'assistant' && 
+          msg.metadata?.buildIntent &&
+          msg.metadata.buildIntent.status === 'pending'
+        );
+
+      if (pendingIntents.length === 0) return;
+
+      console.log(`🔧 [BuildIntent] Found ${pendingIntents.length} pending build intents`);
+
+      // Queue each build intent in SaveOrchestrator
+      for (const msg of pendingIntents) {
+        const intent = msg.metadata!.buildIntent!;
+        
+        saveOrchestrator.addChange({
+          type: 'ai-build',
+          description: msg.content.substring(0, 200), // First 200 chars as description
+          data: {
+            messageId: msg.id,
+            tool: intent.tool,
+            params: intent.params,
+            filePath: intent.params.file_path || 'unknown'
+          }
+        });
+
+        console.log(`✅ [BuildIntent] Queued: ${intent.tool} for message ${msg.id}`);
+      }
+
+      // Show toast notification
+      toast({
+        title: 'Build Intents Ready',
+        description: `${pendingIntents.length} changes ready. Click Save to review.`,
+      });
+
+    } catch (error) {
+      console.error('❌ [BuildIntent] Failed to extract intents:', error);
     }
   };
 

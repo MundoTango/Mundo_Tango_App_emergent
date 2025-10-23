@@ -210,7 +210,10 @@ router.post('/stream', async (req: any, res: Response) => {
       }
     }
 
-    // Save assistant response
+    // 🔧 PHASE 2: Detect build intents from response
+    const buildIntent = detectBuildIntent(fullResponse, context, toolsUsed);
+
+    // Save assistant response with build intent metadata
     await db.insert(aiChatMessages).values({
       projectId,
       userId: user.id,
@@ -218,6 +221,7 @@ router.post('/stream', async (req: any, res: Response) => {
       content: fullResponse,
       model: selectedModel,
       tokens: tokenCount,
+      metadata: buildIntent ? { buildIntent } : null,
     });
 
     // MB.MD FIX Oct 22: Trigger auto-naming after saving response
@@ -240,6 +244,63 @@ router.post('/stream', async (req: any, res: Response) => {
     res.status(500).json({ error: 'Failed to stream response' });
   }
 });
+
+/**
+ * 🔧 PHASE 2: Detect build intents from AI response
+ * Analyzes response to determine if code changes are deferred for user approval
+ */
+function detectBuildIntent(response: string, context?: any, toolsUsed?: any[]): any | null {
+  // Skip if no visual editor context with selected element
+  if (!context?.visualEditorState?.selectedElement) {
+    return null;
+  }
+
+  // Skip if tools were already used (already executed, not deferred)
+  if (toolsUsed && toolsUsed.length > 0) {
+    console.log('[BuildIntent] Skipping - tools already executed');
+    return null;
+  }
+
+  // Detect change keywords in response
+  const changeKeywords = [
+    'change', 'modify', 'update', 'edit', 'add', 'remove', 'delete',
+    'increase', 'decrease', 'resize', 'style', 'color', 'background',
+    'click save', 'save to apply', 'save button'
+  ];
+
+  const lowerResponse = response.toLowerCase();
+  const hasChangeKeyword = changeKeywords.some(keyword => lowerResponse.includes(keyword));
+
+  if (!hasChangeKeyword) {
+    console.log('[BuildIntent] No change keywords detected');
+    return null;
+  }
+
+  // Check if response mentions "save" or "click save"
+  const mentionsSave = lowerResponse.includes('click save') || 
+                       lowerResponse.includes('save to apply') ||
+                       lowerResponse.includes('save button');
+
+  if (!mentionsSave) {
+    console.log('[BuildIntent] No save instruction found');
+    return null;
+  }
+
+  const selectedElement = context.visualEditorState.selectedElement;
+  
+  // Create build intent for edit_file tool
+  console.log('✅ [BuildIntent] Detected deferred build - creating intent');
+  
+  return {
+    tool: 'edit_file',
+    params: {
+      file_path: selectedElement.xpath || 'unknown',
+      element_selector: `${selectedElement.tagName}${selectedElement.className ? '.' + selectedElement.className : ''}`,
+      instruction: response.substring(0, 500) // First 500 chars as instruction
+    },
+    status: 'pending'
+  };
+}
 
 /**
  * Build context-aware system prompt (MB.MD: Context Awareness Feature)
