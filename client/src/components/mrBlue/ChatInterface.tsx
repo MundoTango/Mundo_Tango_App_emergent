@@ -78,6 +78,7 @@ export function ChatInterface() {
       hasElement: !!selectedElement,
       element: selectedElement,
       hasContext: !!visualEditorContext,
+      contextElement: visualEditorContext?.selectedElement,
       previewPath: previewPath
     });
     
@@ -85,6 +86,9 @@ export function ChatInterface() {
       console.log('🎨 [ChatInterface] ✅ Selected element received from context:', selectedElement);
     } else {
       console.log('⚪ [ChatInterface] No element selected (selectedElement is null)');
+      if (visualEditorContext?.selectedElement) {
+        console.warn('⚠️ [ChatInterface] MISMATCH: Context has element but local var is null!', visualEditorContext.selectedElement);
+      }
     }
   }, [selectedElement, visualEditorContext, previewPath]);
   

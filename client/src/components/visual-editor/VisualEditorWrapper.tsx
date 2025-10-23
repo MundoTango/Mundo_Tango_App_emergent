@@ -91,13 +91,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     
     setIsEditorActive(editMode);
     setIsSelectMode(editMode);
-    
-    // 🎯 SYNC PREVIEW PATH: Always update context with current page path (Oct 22, 2025)
-    if (visualEditorContext) {
-      visualEditorContext.setPreviewPath(location);
-      console.log('📍 [VisualEditorWrapper] Current preview path:', location);
-    }
-  }, [location, visualEditorContext]);
+  }, [location]);
 
   // Element selection click handler
   const handleElementClick = useCallback((e: MouseEvent) => {
