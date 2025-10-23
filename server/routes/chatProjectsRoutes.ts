@@ -384,6 +384,11 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
     const selectedEl = context.visualEditorState?.selectedElement || context.selectedElement;
     const previewPath = context.visualEditorState?.previewPath;
     
+    // 🔍 DEBUG: Log what we extracted
+    console.log('🔍 [buildContextAwarePrompt] Extracted selectedEl:', selectedEl);
+    console.log('🔍 [buildContextAwarePrompt] Type of selectedEl:', typeof selectedEl);
+    console.log('🔍 [buildContextAwarePrompt] Is truthy?', !!selectedEl);
+    
     // 🚨 CRITICAL: ELEMENT DISAMBIGUATION MUST BE FIRST (Oct 23, 2025)
     // If element is selected, this context MUST appear before everything else
     if (selectedEl) {
