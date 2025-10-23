@@ -30,11 +30,14 @@ router.post('/consensus', async (req: any, res) => {
     
     // 🔍 DEBUG: Log what we received
     console.log('🔍 [MultiModel] Request body keys:', Object.keys(req.body));
-    console.log('🔍 [MultiModel] query value:', query ? `"${query.substring(0, 50)}..."` : 'MISSING');
+    console.log('🔍 [MultiModel] query value:', query);
+    console.log('🔍 [MultiModel] query type:', typeof query);
+    console.log('🔍 [MultiModel] query length:', query?.length);
+    console.log('🔍 [MultiModel] FULL BODY:', JSON.stringify(req.body, null, 2).substring(0, 500));
     
-    if (!query) {
-      console.error('❌ [MultiModel] No query provided in request body:', req.body);
-      return res.status(400).json({ error: 'Query is required' });
+    if (!query || query.trim() === '') {
+      console.error('❌ [MultiModel] No query provided. Body:', JSON.stringify(req.body).substring(0, 300));
+      return res.status(400).json({ error: 'Query is required and cannot be empty' });
     }
 
     // MB.MD FIX: Get user for saving messages
