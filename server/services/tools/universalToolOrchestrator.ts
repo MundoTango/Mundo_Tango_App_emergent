@@ -34,15 +34,23 @@ export interface StreamChunk {
 /**
  * OPTIMIZATION: Compress verbose system messages
  * Removes redundant instructions while keeping core functionality
+ * 🔧 FIX (Oct 23, 2025): PRESERVE Visual Editor element disambiguation
  */
 function compressSystemMessage(system: string): string {
   if (!system || system.length < 500) return system;
   
+  // 🚨 EXTRACT CRITICAL SECTIONS FIRST (before compression destroys them)
+  const visualEditorSection = system.match(/🚨🚨🚨[\s\S]*?(?=\n\n\*\*🎯 WHERE YOU ARE|$)/)?.[0] || '';
+  const elementDisambiguationSection = system.match(/📌 \*\*MANDATORY TOOL:[\s\S]*?(?=\n\n\*\*🎯 WHERE YOU ARE|$)/)?.[0] || '';
+  
+  console.log('🔍 [Compress] Visual Editor section preserved:', !!visualEditorSection);
+  console.log('🔍 [Compress] Element disambiguation preserved:', !!elementDisambiguationSection);
+  
   // Remove excessive example blocks and verbose instructions
   let compressed = system
-    // Remove repeated "IMPORTANT" and "NOTE" blocks
-    .replace(/\*\*IMPORTANT\*\*:?\s*/gi, '')
-    .replace(/\*\*NOTE\*\*:?\s*/gi, '')
+    // Remove repeated "IMPORTANT" and "NOTE" blocks (BUT NOT Visual Editor warnings)
+    .replace(/\*\*IMPORTANT\*\*(?!.*Visual Editor):?\s*/gi, '')
+    .replace(/\*\*NOTE\*\*(?!.*Visual Editor):?\s*/gi, '')
     // Compress tool listings (keep names, remove verbose descriptions)
     .replace(/- \w+_\w+ - [^\n]+/g, (match) => {
       const toolName = match.match(/- (\w+_\w+)/)?.[1];
@@ -54,14 +62,24 @@ function compressSystemMessage(system: string): string {
     .replace(/\n{3,}/g, '\n\n')
     .trim();
   
-  // If still too long (>1500 chars), extract core instructions only
+  // 🚨 CRITICAL: Never compress away Visual Editor element context!
+  // This section is MANDATORY for element awareness to work
   if (compressed.length > 1500) {
     const coreMatch = compressed.match(/You are [^\n]+/);
     const toolsMatch = compressed.match(/You have \d+ AI tools[^\n]+/);
     const rolesMatch = compressed.match(/super[_\s]?admin/i) ? 
       '\n\nOmniscient Mode: You have access to database, codebase, and documentation tools. Use them actively.' : '';
     
-    compressed = [coreMatch?.[0], toolsMatch?.[0], rolesMatch].filter(Boolean).join('\n');
+    // 🔧 ALWAYS include Visual Editor context if present
+    compressed = [
+      coreMatch?.[0], 
+      toolsMatch?.[0], 
+      rolesMatch,
+      visualEditorSection, // 🚨 PRESERVE element context
+      elementDisambiguationSection // 🚨 PRESERVE tool instructions
+    ].filter(Boolean).join('\n\n');
+    
+    console.log('🔍 [Compress] Final compressed length:', compressed.length);
   }
   
   return compressed;
