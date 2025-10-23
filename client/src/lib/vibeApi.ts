@@ -87,8 +87,8 @@ export async function applyCodeChange(
     method: 'POST',
     body: {
       filePath,
-      diff,
-      type
+      editType: type,          // 🔧 FIX Oct 23: Backend expects "editType"
+      diffContent: diff         // 🔧 FIX Oct 23: Backend expects "diffContent"
     }
   });
 

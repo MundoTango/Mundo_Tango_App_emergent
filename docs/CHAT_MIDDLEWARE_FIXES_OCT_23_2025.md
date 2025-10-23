@@ -227,3 +227,65 @@ prompt += `\n- If just selected → Offer: "Would you like me to change its colo
 ### Files Modified
 - `server/services/tools/ToolExecutor.ts` (isSuperAdmin field check)
 - `server/routes/chatProjectsRoutes.ts` (mandatory element acknowledgment)
+
+---
+
+## Additional Fix #3: Apply Button & "What Element" Questions
+
+### Problem: Apply Button Returns 400 + AI Can't Answer "What Element" Questions
+
+**Symptoms:**
+1. Clicking Apply button on code changes → 400 error on `/api/vibe/edit-file`
+2. User asks "what element did I select?" → AI calls `read_documentation` tool instead of using the context already in the system prompt
+
+### Root Causes
+1. **Field name mismatch:** Frontend sends `{ diff, type }` but backend expects `{ diffContent, editType }`
+2. **AI tool abuse:** AI calls unnecessary tools even when the answer is already in the system prompt
+
+### Solutions ✅
+
+#### 1. Fixed Apply Button Field Names
+**File:** `client/src/lib/vibeApi.ts` - `applyCodeChange()` function
+
+**Before:**
+```typescript
+body: {
+  filePath,
+  diff,      // ❌ Backend expects "diffContent"
+  type       // ❌ Backend expects "editType"
+}
+```
+
+**After:**
+```typescript
+body: {
+  filePath,
+  editType: type,       // ✅ Matches backend
+  diffContent: diff     // ✅ Matches backend
+}
+```
+
+#### 2. Explicit "What Element" Instructions
+**File:** `server/routes/chatProjectsRoutes.ts` - `buildContextAwarePrompt()`
+
+**Added:**
+```typescript
+prompt += `\n\n**⚠️ WHEN USER ASKS ABOUT THE ELEMENT:**`;
+prompt += `\n- "what element?" or "what did I select?" → Answer directly from context above`;
+prompt += `\n- **DO NOT** call read_documentation or search_codebase tools for this - the info is already in this prompt!`;
+```
+
+### Impact
+- ✅ Apply button now works correctly - applies code changes to files
+- ✅ AI answers "what element" questions directly without calling tools
+- ✅ Faster responses for simple context questions (no unnecessary tool calls)
+
+### Testing
+1. Select an element in Visual Editor
+2. Generate a code change via chat
+3. Click Apply → should apply successfully
+4. Ask "what element did I select?" → AI should answer "You selected the 'Find Events' element (the <div> with class 'flex flex-col...')"
+
+### Files Modified
+- `client/src/lib/vibeApi.ts` (Apply button field names)
+- `server/routes/chatProjectsRoutes.ts` (element question instructions)

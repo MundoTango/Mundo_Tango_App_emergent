@@ -418,6 +418,9 @@ export function buildContextAwarePrompt(personality?: string, context?: any, use
       prompt += `\n\n**Then immediately:**`;
       prompt += `\n- If user asks to modify it → USE search_codebase to find the component, then explain what file needs editing`;
       prompt += `\n- If just selected → Offer: "Would you like me to change its color, text, layout, or add an icon?"`;
+      prompt += `\n\n**⚠️ WHEN USER ASKS ABOUT THE ELEMENT:**`;
+      prompt += `\n- "what element?" or "what did I select?" → Answer directly from context above: "You selected the '${textContent?.substring(0, 30)}' element (the <${tag}> with class '${className}')."`;
+      prompt += `\n- **DO NOT** call read_documentation or search_codebase tools for this - the info is already in this prompt!`;
       prompt += `\n\n**Important:** DO NOT say "I cannot modify" - you CAN modify using search_codebase + file editing tools.`;
     }
 
