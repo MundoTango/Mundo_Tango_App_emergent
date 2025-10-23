@@ -26,6 +26,14 @@ const SECURITY_LIMITS = {
 
 // RegExp DoS Protection - prevents catastrophic backtracking
 export const regexpProtection = (req: Request, res: Response, next: NextFunction) => {
+  // 🔧 MB.MD FIX Oct 23: Skip regex validation for routes with XPath selectors (Visual Editor context)
+  if (req.path.startsWith('/api/multimodel/') || // Mr Blue chat with Visual Editor XPath selectors
+      req.path.startsWith('/api/chat/') || // Chat streaming with context
+      req.path.startsWith('/api/vibe/') || // Vibe Coding with code snippets
+      req.path.startsWith('/api/ai/')) { // AI endpoints with structured data
+    return next();
+  }
+  
   const checkRegExpComplexity = (pattern: string): boolean => {
     // Check for dangerous patterns
     const dangerousPatterns = [
