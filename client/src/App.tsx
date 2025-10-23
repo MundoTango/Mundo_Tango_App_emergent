@@ -323,10 +323,7 @@ function Router() {
             <Redirect to="/admin/visual-editor" />
           </Route>
 
-          {/* MB.MD Oct 23, 2025: Visual Editor Route - Renders OUTSIDE main app layout (no sidebar/nav) */}
-          <Route path="/admin/visual-editor">
-            <VisualEditorPage />
-          </Route>
+          {/* MB.MD Oct 23, 2025: Visual Editor Route is in routes.ts registry - no manual route needed! */}
 
           {/* Explicit landing page route */}
           <Route path="/landing">
