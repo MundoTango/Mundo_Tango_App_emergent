@@ -106,6 +106,15 @@ export class RateLimiterService {
   });
 
   /**
+   * Autonomous mode rate limiter - prevents resource abuse
+   */
+  static autonomousModeLimiter = this.createLimiter({
+    windowMs: 60 * 1000, // 1 minute
+    maxRequests: 10, // 10 autonomous requests per minute
+    message: 'Too many autonomous requests. Please wait before making more autonomous changes.'
+  });
+
+  /**
    * Get rate limit statistics
    */
   static getRateLimitStats(): any {

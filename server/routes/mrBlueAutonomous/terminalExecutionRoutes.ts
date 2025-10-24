@@ -19,11 +19,14 @@ router.post('/execute-command', async (req, res) => {
       });
     }
 
+    // Safety: Enforce maximum timeout to prevent resource abuse
+    const safeTimeout = Math.min(timeout, 120000); // Max 2 minutes
+
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('⚡ [MR BLUE - TERMINAL EXECUTION]');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('🔧 Command:', command);
-    console.log('⏱️  Timeout:', timeout, 'ms');
+    console.log('⏱️  Timeout:', safeTimeout, 'ms', timeout > 120000 ? '(capped from ' + timeout + 'ms)' : '');
     console.log('📁 CWD:', cwd || process.cwd());
 
     // Security: Validate command is in allowlist
@@ -36,10 +39,11 @@ router.post('/execute-command', async (req, res) => {
     const [cmd, ...args] = command.split(' ');
 
     // Security: shell:false prevents command injection via metacharacters
+    // Resource monitoring: enforce timeout limit
     const child = spawn(cmd, args, {
       cwd: workingDir,
       shell: false,
-      timeout
+      timeout: safeTimeout
     });
 
     let stdout = '';

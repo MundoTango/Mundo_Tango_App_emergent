@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { RateLimiterService } from '../../middleware/rateLimiter.js';
 
 // Import all autonomous agent routes
 import fileReadRoutes from './fileReadRoutes.js';
@@ -16,6 +17,9 @@ import approvalRoutes from './approvalRoutes.js';
 import orchestrationEngine from './orchestrationEngine.js';
 
 const router = Router();
+
+// Apply rate limiting to all autonomous endpoints (10 req/min per user)
+router.use(RateLimiterService.autonomousModeLimiter);
 
 console.log('🤖 [MR BLUE AUTONOMOUS] Initializing all routes...');
 

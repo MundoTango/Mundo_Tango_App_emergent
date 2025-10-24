@@ -40,11 +40,14 @@ router.post('/execute', async (req, res) => {
       });
     }
 
+    // Safety: Enforce max iterations limit to prevent infinite loops
+    const safeMaxIterations = Math.min(maxIterations, 20);
+
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('🤖 [MR BLUE - AUTONOMOUS EXECUTION]');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('📝 Task:', task);
-    console.log('🔁 Max Iterations:', maxIterations);
+    console.log('🔁 Max Iterations:', safeMaxIterations, maxIterations > 20 ? '(capped from ' + maxIterations + ')' : '');
     console.log('✋ Require Approval:', requireApproval);
 
     const taskId = `auto-${Date.now()}`;
@@ -54,14 +57,14 @@ router.post('/execute', async (req, res) => {
       description: task,
       status: 'planning',
       steps: [],
-      maxIterations,
+      maxIterations: safeMaxIterations,
       currentIteration: 0
     };
 
     activeTasks.set(taskId, autonomousTask);
 
     // Start async execution
-    executeAutonomousTask(taskId, task, maxIterations, requireApproval).catch(error => {
+    executeAutonomousTask(taskId, task, safeMaxIterations, requireApproval).catch(error => {
       console.error('❌ Autonomous task failed:', error);
       const task = activeTasks.get(taskId);
       if (task) {
