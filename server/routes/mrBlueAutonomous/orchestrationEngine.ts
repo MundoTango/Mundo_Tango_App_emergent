@@ -256,7 +256,7 @@ async function executeAutonomousTask(
  */
 async function createPlan(taskDescription: string, context: any): Promise<{ steps: string[] }> {
   const message = await anthropic.messages.create({
-    model: 'claude-3-5-sonnet-latest', // Updated from deprecated claude-3-5-sonnet-20241022 (Oct 24, 2025)
+    model: 'claude-3-5-sonnet-20241022', // Stable version - claude-3-5-sonnet-latest causes 404 (Oct 24, 2025)
     max_tokens: 1024,
     messages: [{
       role: 'user',
@@ -385,7 +385,7 @@ async function executeWriteAction(taskId: string, action: string, context: any, 
  */
 async function generateNewContent(oldContent: string, action: string, context: any): Promise<string> {
   const message = await anthropic.messages.create({
-    model: 'claude-3-5-sonnet-latest', // Updated from deprecated claude-3-5-sonnet-20241022 (Oct 24, 2025)
+    model: 'claude-3-5-sonnet-20241022', // Stable version - claude-3-5-sonnet-latest causes 404 (Oct 24, 2025)
     max_tokens: 4096,
     messages: [{
       role: 'user',
