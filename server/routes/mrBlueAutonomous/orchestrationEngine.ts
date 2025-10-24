@@ -199,16 +199,31 @@ async function executeAutonomousTask(
       });
 
       try {
-        // Execute step based on action type
-        if (step.action.includes('read') || step.action.includes('analyze')) {
+        // SMART ACTION DETECTION - detect what to do from step description
+        const actionLower = step.action.toLowerCase();
+        
+        // READ actions: search, find, identify, analyze, check, read, locate
+        if (actionLower.match(/search|find|identify|analyze|check|read|locate|understand|examine/)) {
           task.status = 'reading';
+          console.log('📖 [DETECT] READ action detected:', step.action);
           step.result = await executeReadAction(taskId, step.action, context);
-        } else if (step.action.includes('write') || step.action.includes('create') || step.action.includes('modify')) {
+        }
+        // WRITE actions: write, create, modify, change, update, save, add, remove, delete, make
+        else if (actionLower.match(/write|create|modify|change|update|save|add|remove|delete|make|edit|alter|set/)) {
           task.status = 'writing';
+          console.log('✍️  [DETECT] WRITE action detected:', step.action);
           step.result = await executeWriteAction(taskId, step.action, context, requireApproval);
-        } else if (step.action.includes('test') || step.action.includes('validate')) {
+        }
+        // TEST actions: test, validate, verify, confirm
+        else if (actionLower.match(/test|validate|verify|confirm|ensure/)) {
           task.status = 'testing';
+          console.log('🧪 [DETECT] TEST action detected:', step.action);
           step.result = await executeTestAction(taskId, step.action);
+        }
+        // DEFAULT: skip informational steps
+        else {
+          console.log('⏭️  [SKIP] Informational step:', step.action);
+          step.result = { skipped: true, reason: 'Informational step' };
         }
 
         step.status = 'completed';
