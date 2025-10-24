@@ -17,7 +17,7 @@ import GitTab from '@/components/visual-editor/GitTab';
 import PagesTab from '@/components/visual-editor/PagesTab';
 import ShellTab from '@/components/visual-editor/ShellTab';
 import FilesTabConnected from '@/components/visual-editor/FilesTabConnected';
-import { ChatInterface } from '@/components/mrBlue/ChatInterface';
+import { MrBlueVisualChat } from '@/components/visual-editor/MrBlueVisualChat';
 import ConsoleTab from '@/components/visual-editor/ConsoleTab';
 import SecretsTab from '@/components/visual-editor/SecretsTab';
 import BuildApprovalModal, { type BuildIntent } from '@/components/mrBlue/BuildApprovalModal';
@@ -484,7 +484,10 @@ export default function VisualEditorPage() {
             {activeTab === 'secrets' && <SecretsTab />}
             {activeTab === 'chat' && (
               <div className="h-full">
-                <ChatInterface />
+                <MrBlueVisualChat
+                  selectedElement={selectedElement}
+                  onGenerateCode={handleGenerateCode}
+                />
               </div>
             )}
           </div>
