@@ -33,9 +33,21 @@ const activeTasks = new Map<string, AutonomousTask>();
  */
 router.post('/execute', async (req, res) => {
   try {
+    // 🔍 DIAGNOSTIC LOGGING - MB.MD Rule #7: Diagnose Before Fix
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('📦 [DEBUG] Request received at /execute');
+    console.log('📦 [DEBUG] Request body:', JSON.stringify(req.body, null, 2));
+    console.log('📦 [DEBUG] Body type:', typeof req.body);
+    console.log('📦 [DEBUG] Task value:', req.body?.task);
+    console.log('📦 [DEBUG] Task type:', typeof req.body?.task);
+    console.log('📦 [DEBUG] Content-Type:', req.get('content-type'));
+    console.log('📦 [DEBUG] User:', (req.user as any)?.id || (req.user as any)?.claims?.sub || 'undefined');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    
     const { task, context, maxIterations = 5, requireApproval = false } = req.body; // AUTONOMOUS EXECUTION: No approval needed
 
     if (!task || typeof task !== 'string') {
+      console.error('❌ Validation failed - task missing or not string');
       return res.status(400).json({
         success: false,
         error: 'task is required and must be a string'

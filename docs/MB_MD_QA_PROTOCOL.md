@@ -362,6 +362,134 @@ screenshot("/page")  # ✅ Visual proof
 - Every UI change requires rigorous testing to ensure work ACTUALLY SHOWS
 - Changes visible after workflow restart (no manual hard refresh)
 - Screenshots prove feature renders correctly
+
+---
+
+### Rule 7: DIAGNOSE BEFORE FIX (NEW - Oct 24, 2025)
+**What:** Add diagnostic logging BEFORE attempting any fixes - never make assumption-based changes  
+**Why:** "Looks like X" ≠ "Actually is X" - prevent fixing wrong problems and breaking working code  
+**When:** ANY time something is broken, returning errors, or not working as expected
+
+**How:**
+1. **ADD LOGGING FIRST** (before any fixes):
+   ```typescript
+   // Backend: Add diagnostic console.log to see actual data
+   console.log('📦 [DEBUG] Request body:', req.body);
+   console.log('📦 [DEBUG] Headers:', req.headers);
+   
+   // Frontend: Log request and response details
+   console.error('❌ [DEBUG] Response status:', response.status);
+   console.error('❌ [DEBUG] Request payload:', payload);
+   ```
+
+2. **TEST & OBSERVE** (gather evidence):
+   - Run the failing action
+   - Read server logs for backend evidence
+   - Read browser console for frontend evidence
+   - Document EXACT error messages and values
+
+3. **ANALYZE EVIDENCE** (root cause identification):
+   - Compare expected vs actual data
+   - Identify which layer is failing (routing, validation, parsing, etc)
+   - Form hypothesis based on evidence (NOT assumptions)
+
+4. **FIX THE RIGHT PROBLEM** (evidence-based):
+   - Apply fix that addresses root cause shown in logs
+   - Keep diagnostic logging in place
+   - Test again to verify fix works
+   - Remove diagnostic logging only after confirmed working
+
+**ENFORCEMENT:**
+- Any PR with bug fixes MUST include "diagnostic evidence" section showing:
+  1. What logging was added
+  2. What the logs revealed
+  3. How the fix addresses the root cause
+- Architect will REJECT fixes that lack diagnostic evidence
+- QA Agent will REJECT any "I think it's X" without proof
+
+**Example - RIGHT WAY:**
+```markdown
+## Problem: Chat returns 400 error
+
+### Step 1: Add Diagnostic Logging
+```typescript
+// Backend: server/routes/chat.ts
+console.log('📦 Request body:', req.body);
+console.log('📦 Body type:', typeof req.body);
+
+// Frontend: client/chat.tsx
+console.error('❌ Response:', response.status, await response.text());
+console.error('❌ Sent payload:', payload);
+```
+
+### Step 2: Test & Observe
+Server logs show:
+```
+📦 Request body: undefined
+📦 Body type: undefined
+```
+
+Browser console shows:
+```
+❌ Response: 400 Bad Request
+❌ Sent payload: { task: "test message" }
+```
+
+### Step 3: Analyze Evidence
+- Frontend IS sending data: `{ task: "test message" }`
+- Backend receives: `undefined`
+- **Root Cause:** Body parser middleware not configured OR not applied to this route
+
+### Step 4: Fix
+```typescript
+// Check server/index.ts - ADD if missing:
+app.use(express.json());
+
+// OR check route mounting order - body parser MUST come before routes
+```
+
+### Step 5: Verify
+Server logs now show:
+```
+📦 Request body: { task: "test message" }
+📦 Body type: object
+✅ Chat processing successfully
+```
+```
+
+**Example - WRONG WAY:**
+```markdown
+## Problem: Chat returns 400 error
+
+"The endpoint probably isn't mounted correctly. Let me change the routing."
+
+❌ NO EVIDENCE - Just guessing
+❌ NO LOGGING - Can't see actual problem
+❌ WRONG FIX - Might break working code
+❌ NO VERIFICATION - Don't know if it worked
+```
+
+**Anti-Pattern (Oct 24, 2025 Incident):**
+- Chat returned 400 error
+- Agent assumed: "routing is wrong"
+- Agent changed: `/autonomous` → `/` mounting
+- Routing change was CORRECT but didn't fix error
+- Real problem: Different issue entirely
+- Result: Marked as "fixed" but still broken
+
+**Correct Pattern (Using Rule #7):**
+1. ✅ Add diagnostic logging to backend + frontend
+2. ✅ Test and observe actual request/response data
+3. ✅ Identify root cause from evidence (e.g., body is undefined)
+4. ✅ Fix the ACTUAL problem (e.g., add body parser)
+5. ✅ Verify fix with logs showing success
+6. ✅ Mark as fixed WITH evidence
+
+**Integration with Other Rules:**
+- **Rule #1 (VERIFY):** Verify current behavior before changing
+- **Rule #3 (SCREENSHOT):** Screenshot console logs showing evidence
+- **Rule #4 (TEST):** Test with logging to prove it works
+- **Rule #5 (ARCHITECT):** Architect reviews diagnostic evidence
 - User journey tested end-to-end (hover → click → action → result)
 - Browser console clean (no errors)
 - Network tab shows API calls succeed (200/201, not 404/500)

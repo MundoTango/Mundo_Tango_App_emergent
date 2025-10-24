@@ -218,7 +218,30 @@ export function MrBlueVisualChat({
         }),
       });
 
-      if (!response.ok) throw new Error('Failed to start autonomous execution');
+      if (!response.ok) {
+        // 🔍 DIAGNOSTIC LOGGING - MB.MD Rule #7: Diagnose Before Fix
+        const errorText = await response.text();
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.error('❌ [CHAT ERROR] Response status:', response.status);
+        console.error('❌ [CHAT ERROR] Response body:', errorText);
+        console.error('❌ [CHAT ERROR] Request payload:', JSON.stringify({
+          task: inputValue,
+          context: {
+            page: currentPage,
+            url: window.location.href,
+            selectedElement: selectedElement ? {
+              tag: selectedElement.tagName,
+              id: selectedElement.id,
+              className: selectedElement.className,
+              xpath: selectedElement.xpath,
+            } : undefined,
+          },
+          maxIterations: 20,
+          requireApproval: false,
+        }, null, 2));
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        throw new Error(`Failed to start autonomous execution: ${response.status} - ${errorText}`);
+      }
 
       const data = await response.json();
       console.log('✅ Autonomous task started:', data.data.taskId);
