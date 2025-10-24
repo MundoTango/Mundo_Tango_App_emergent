@@ -291,11 +291,14 @@ export function MrBlueVisualChat({
           context: {
             page: currentPage,
             url: window.location.href,
-            selectedElement: selectedElement ? {
-              tag: selectedElement.tagName,
-              id: selectedElement.id,
-              className: selectedElement.className,
-              xpath: selectedElement.xpath,
+            selectedComponent: selectedElement ? {
+              element: {
+                tag: selectedElement.tagName,
+                id: selectedElement.id,
+                className: selectedElement.className,
+                xpath: selectedElement.xpath,
+                textContent: selectedElement.textContent,
+              }
             } : undefined,
           },
           maxIterations: 20,
@@ -314,11 +317,14 @@ export function MrBlueVisualChat({
           context: {
             page: currentPage,
             url: window.location.href,
-            selectedElement: selectedElement ? {
-              tag: selectedElement.tagName,
-              id: selectedElement.id,
-              className: selectedElement.className,
-              xpath: selectedElement.xpath,
+            selectedComponent: selectedElement ? {
+              element: {
+                tag: selectedElement.tagName,
+                id: selectedElement.id,
+                className: selectedElement.className,
+                xpath: selectedElement.xpath,
+                textContent: selectedElement.textContent,
+              }
             } : undefined,
           },
           maxIterations: 20,
