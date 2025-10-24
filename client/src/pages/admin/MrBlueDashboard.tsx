@@ -5,7 +5,7 @@ import { Sparkles, Wand2, Globe, CreditCard, BookOpen, Shield } from 'lucide-rea
 import { AdminSuperpowers } from '@/lib/mrBlue/admin/AdminSuperpowers';
 import { AISiteBuilder } from '@/lib/mrBlue/siteBuilder/AISiteBuilder';
 import { SubscriptionManager } from '@/lib/mrBlue/subscriptions/SubscriptionManager';
-import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
+import VisualPageEditor from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 // Temporarily disabled due to React version conflict with @react-three packages
 // TODO: Fix by downgrading @react-three/fiber and @react-three/drei to React 18 compatible versions
 // import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';

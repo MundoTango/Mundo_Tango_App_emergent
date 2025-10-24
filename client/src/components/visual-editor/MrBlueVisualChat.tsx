@@ -179,6 +179,49 @@ export function MrBlueVisualChat({
     }
   }, [selectedElement]);
 
+  // INTELLIGENT INTENT DETECTION - Automatically detect Q&A vs code generation
+  const detectIntent = (message: string): 'question' | 'code_generation' => {
+    const lowerMsg = message.toLowerCase().trim();
+    
+    // Keywords that indicate CODE GENERATION intent
+    const codeKeywords = [
+      'make', 'change', 'update', 'modify', 'add', 'remove', 'delete', 'create',
+      'fix', 'build', 'generate', 'implement', 'refactor', 'style', 'color',
+      'move', 'resize', 'hide', 'show', 'animate', 'replace'
+    ];
+    
+    // Keywords that indicate QUESTION intent
+    const questionKeywords = [
+      'what', 'why', 'how', 'when', 'where', 'who', 'which', 'is', 'are',
+      'can', 'could', 'would', 'should', 'tell me', 'explain', 'describe',
+      'show me', 'help', '?'
+    ];
+    
+    // Check for question indicators first (higher priority)
+    const hasQuestionIndicator = questionKeywords.some(kw => 
+      lowerMsg.startsWith(kw + ' ') || lowerMsg.includes(' ' + kw + ' ') || lowerMsg.endsWith('?')
+    );
+    
+    // Check for code generation indicators
+    const hasCodeIndicator = codeKeywords.some(kw => 
+      lowerMsg.startsWith(kw + ' ') || lowerMsg.includes(' ' + kw + ' ')
+    );
+    
+    // If has question indicators and no code indicators = question
+    if (hasQuestionIndicator && !hasCodeIndicator) {
+      return 'question';
+    }
+    
+    // If has code indicators = code generation
+    if (hasCodeIndicator) {
+      return 'code_generation';
+    }
+    
+    // Default: if short message (< 10 words) and no code indicator = question
+    const wordCount = lowerMsg.split(/\s+/).length;
+    return wordCount < 10 ? 'question' : 'code_generation';
+  };
+
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -189,12 +232,54 @@ export function MrBlueVisualChat({
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const messageText = inputValue;
     setInputValue('');
     setIsLoading(true);
 
     try {
-      // VISUAL EDITOR = ALWAYS AUTONOMOUS (no chat mode)
-      console.log('🤖 [AUTONOMOUS] Routing to autonomous execution engine...');
+      // INTELLIGENT ROUTING - Automatically detect intent
+      const intent = detectIntent(messageText);
+      console.log('🧠 [INTENT DETECTION]:', intent, 'for message:', messageText);
+      
+      if (intent === 'question') {
+        // SIMPLE Q&A MODE - Stream conversational response
+        console.log('💬 [Q&A MODE] Using simple chat endpoint...');
+        
+        const response = await fetch('/api/visual-editor/simple-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            message: messageText,
+            context: {
+              page: currentPage,
+              selectedElement: selectedElement ? {
+                tag: selectedElement.tagName,
+                id: selectedElement.id,
+                className: selectedElement.className,
+              } : undefined,
+            }
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Chat failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: data.response || 'I understand your question. How can I help you further?',
+          timestamp: new Date(),
+        }]);
+        
+        setIsLoading(false);
+        return;
+      }
+      
+      // CODE GENERATION MODE - Use autonomous execution
+      console.log('🤖 [CODE MODE] Routing to autonomous execution engine...');
       console.log('📍 Selected Element:', selectedElement);
       
       const response = await fetch('/api/mrblue/autonomous/execute', {
