@@ -86,13 +86,14 @@ export function MrBlueVisualChat({
               action: data.step,
               status: 'pending',
               timestamp: new Date(),
+              stepId: data.stepId, // ARCHITECT FIX: Store stepId for matching
             }]);
             break;
 
           case 'stepInProgress':
             setCurrentStep(data.step);
             setAutonomousSteps(prev => prev.map(s => 
-              s.action === data.step ? { ...s, status: 'in_progress' } : s
+              s.stepId === data.stepId ? { ...s, status: 'in_progress' } : s // ARCHITECT FIX: Match by stepId
             ));
             break;
 
@@ -116,7 +117,7 @@ export function MrBlueVisualChat({
 
           case 'fileApplied':
             setAutonomousSteps(prev => prev.map(s =>
-              s.action.includes(data.filePath) ? { ...s, status: 'completed' } : s
+              s.stepId === data.stepId ? { ...s, status: 'completed' } : s // ARCHITECT FIX: Match by stepId
             ));
             setMessages(prev => [...prev, {
               role: 'assistant',
