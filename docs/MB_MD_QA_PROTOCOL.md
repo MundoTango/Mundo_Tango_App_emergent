@@ -46,13 +46,22 @@ Result: Every component proven working + documented
 Every agent MUST follow these rules for EVERY task:
 
 ### Rule 1: VERIFY BEFORE BUILD
-**What:** Check what already exists before creating anything  
-**Why:** Prevents duplicate work and wasted effort  
+**What:** Check what already exists AND inspect actual data structures before creating anything  
+**Why:** Prevents duplicate work, wasted effort, and building based on false assumptions  
 **How:**
 - Read existing files first (use `read` tool)
 - Search for similar implementations (use `grep` tool)
 - **📋 MANDATORY: Complete documentation verification checklist** (see `docs/DOCUMENTATION_VERIFICATION.md`)
 - Verify routes/imports/integrations
+- **🧪 MANDATORY: Inspect actual runtime data structures** (see `docs/TESTING_REQUIREMENTS_MANDATORY.md`)
+- **Never assume data shapes - always add temporary logs to verify reality**
+
+**NEW (Oct 24, 2025):** Before writing code touching external data:
+```typescript
+// MANDATORY: Inspect actual data structure first
+console.log('🔍 [DATA INSPECTION]:', JSON.stringify(data, null, 2));
+// Run it, see what's actually there, THEN write conditionals
+```
 
 **ENFORCEMENT:** Before calling `write_task_list` tool, agents MUST provide documentation evidence in their response:
 
@@ -264,18 +273,23 @@ export function Dashboard() {
 ---
 
 ### Rule 3: SCREENSHOT EVERYTHING
-**What:** Visual proof that feature actually renders  
-**Why:** "Code compiles" ≠ "User sees it"  
+**What:** Visual proof that feature actually renders AND test execution proof that code works  
+**Why:** "Code compiles" ≠ "User sees it" AND "Code looks correct" ≠ "Code works correctly"  
 **How:**
 - Use `screenshot` tool after every UI change
 - Capture both light and dark mode
 - Test at mobile width (375px)
 - Save screenshots to docs/screenshots/
+- **🧪 NEW: Provide test execution logs** (see `docs/TESTING_REQUIREMENTS_MANDATORY.md`)
+- **🧪 NEW: Show server/browser console logs proving no crashes**
+- **🧪 NEW: For backend changes: unit test proof before integration**
 
 **New Learnings:**
 - Debug Log Trap (AGENT_LEARNINGS.md #2)
 - Modal Opens ≠ Modal Works (AGENT_LEARNINGS.md #6)
 - Screenshot Debt (AGENT_LEARNINGS.md #12)
+- **NEW: "Looks Correct" ≠ "Works Correctly" (Oct 24, 2025 - Agent #131 Failure)**
+- **NEW: Test units before integration (TESTING_REQUIREMENTS_MANDATORY.md Checkpoint 2)**
 
 **Example:**
 ```bash
@@ -283,9 +297,12 @@ export function Dashboard() {
 edit("page.tsx", ...)
 # ❌ Assume it works
 
-# RIGHT: Screenshot proves it works
+# RIGHT: Screenshot + test logs prove it works
 edit("page.tsx", ...)
 screenshot("/page")  # ✅ Visual proof
+# ✅ Show server logs clean
+# ✅ Show browser console clean
+# ✅ Show test validation passed
 ```
 
 **Anti-Pattern (Mr Blue Failure):**
@@ -293,6 +310,12 @@ screenshot("/page")  # ✅ Visual proof
 - No screenshot of avatar rendering
 - Avatar files exist but never integrated
 - Visual regression report: 0 of 10 expected screenshots
+
+**Anti-Pattern (Agent #131 - Oct 24, 2025):**
+- Claimed "File detection working"
+- Never ran autonomous flow to verify
+- Never checked logs showing className search (should be textContent)
+- Result: 2 server crashes because assumptions were wrong
 
 ---
 

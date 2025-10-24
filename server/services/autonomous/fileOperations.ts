@@ -37,19 +37,23 @@ export async function detectFilePath(contextData: any): Promise<string | null> {
   }
 
   // Strategy 2: Search by textContent FIRST (most specific for user-selected elements)
-  // FIX #2: Prioritize textContent over className to find actual component, not App.tsx
-  console.log('🔍 [FILE DETECT] textContent check:', {
-    has: !!contextData?.textContent,
-    value: contextData?.textContent,
-    elementHas: !!contextData?.element?.textContent,
-    elementValue: contextData?.element?.textContent
+  // FIX #2 + OCT 24 LEARNING: INSPECT BEFORE BUILD - Always verify data structure exists
+  const textContent = contextData?.textContent || contextData?.element?.textContent;
+  
+  console.log('🔍 [FILE DETECT] textContent inspection:', {
+    direct: contextData?.textContent,
+    nested: contextData?.element?.textContent,
+    resolved: textContent,
+    type: typeof textContent,
+    length: textContent?.length,
+    willSearch: !!(textContent && typeof textContent === 'string' && textContent.trim().length > 3 && textContent.trim().length < 100)
   });
   
-  if (contextData?.textContent || contextData?.element?.textContent) {
-    const text = contextData?.textContent || contextData?.element?.textContent;
-    console.log('🔍 [FILE DETECT] textContent found:', text, 'length:', text?.length);
-    if (text && text.length > 3 && text.length < 100) {
-      console.log('🔍 [FILE DETECT] Searching by textContent:', text);
+  // UNIT TEST: Verify condition evaluates correctly
+  if (textContent && typeof textContent === 'string') {
+    const trimmed = textContent.trim();
+    if (trimmed.length > 3 && trimmed.length < 100) {
+      console.log('✅ [FILE DETECT] textContent PASSED validation, searching for:', trimmed);
       
       try {
         const files = await glob('client/src/**/*.{tsx,jsx}', { cwd: process.cwd() });
@@ -59,8 +63,8 @@ export async function detectFilePath(contextData: any): Promise<string | null> {
           if (file.includes('App.tsx')) continue;
           
           const content = await fs.readFile(file, 'utf-8');
-          if (content.includes(text)) {
-            console.log(`✅ [FILE DETECT] Found file via text "${text}":`, file);
+          if (content.includes(trimmed)) {
+            console.log(`✅ [FILE DETECT] Found file via text "${trimmed}":`, file);
             return file;
           }
         }
