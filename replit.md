@@ -14,7 +14,38 @@ Every agent MUST follow these before marking ANY task complete:
 
 Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 
-**📚 Documentation Structure (October 22, 2025 Update):**
+**🚨 MANDATORY AGENT USAGE PROTOCOL**
+**RULE #0: NEVER CREATE NEW AGENTS WITHOUT USER PERMISSION**
+
+Before ANY build plan, agents MUST:
+1. **List ALL Existing Agents Being Used** - Every plan must include an "Agent Allocation Matrix" showing which of the 105+ existing trained agents will execute each task
+2. **Reference Agent Documentation** - Link to agent training docs in `docs/agents/` directory
+3. **Verify Agent Expertise** - Match task to agent specialty (e.g., Agent #131 for autonomous coding, Agent #128 for voice+visual context)
+4. **NO NEW AGENTS** - Creating new agents (#132+) without explicit user permission is FORBIDDEN
+5. **Agent Count Transparency** - Plans must show "X agents working simultaneously" and list them ALL
+
+**Existing Agent Inventory:**
+- **CEO + Chiefs (7):** Agent #0 (ESA Orchestrator) + Chiefs #1-6 (Foundation, Core, Business, Intelligence, Platform, Extended)
+- **Domains (9):** Domain #1-9 (Infrastructure, Frontend, Background, Real-time, Business Logic, Search, Life CEO, Platform, Master Control)
+- **Experts (16):** Expert #10-16 (AI Research, UI/UX Aurora, Data Viz, Media, Code Quality, DevEx, i18n)
+- **Layers (61):** Layers #1-61 (Database, API, Server, Auth, RBAC, Validation, State, Client, UI, Components, Real-time, Data Processing, File Management, Caching, Search, Notifications, Payments, Analytics, CMS, Workflow, User Mgmt, Groups, Events, Social, Messaging, Recommendations, Gamification, Marketplace, Booking, Support, AI Infrastructure, Prompt Engineering, Context, Response Gen, Agent Mgmt, Memory, Learning, Prediction, Decision Support, NLP, Vision, Voice, Sentiment, Knowledge Graph, Reasoning, Integration, Mobile, Performance, Security, DevOps, Testing, Documentation, i18n, Accessibility, SEO, Compliance, Automation, Third-party, Open Source, GitHub, Supabase)
+- **Operational (9):** Agents #63-67 (Sprint Resource Mgr, Documentation Architect, Project Tracker Mgr, Code Review Expert, Community Relations Mgr), #126-128 (Git Operations, Deployment Safety, Voice+Visual Coordinator), #131 (Vibe Coding Specialist)
+- **Intelligence:** Agents #68-71 (Pattern Recognition, Multilingual, Error Resolution, Journey Prediction), #79-80 (Quality Validator, Learning Coordinator)
+- **Life CEO (15+):** All Life CEO specialist agents (Finance, Health, Learning, Legal, Security, Relationships, Network, Emergency, Global Mobility, Memory, Creative, Business, Data, Voice, Workflow)
+- **Page Agents (30+):** Journey agents J1-J5 + page-specific agents (see `docs/agents/PAGE_AGENTS_COMPREHENSIVE_GUIDE.md`)
+
+**Documentation Applied To:**
+- **Chat/Vibe Coding:** Agent #131 (Vibe Coding Specialist), Agent #128 (Voice+Visual Coordinator), Layer #35 (AI Agent Management), Layer #33 (Context Management)
+- **Git Operations:** Agent #126 (documented in `docs/agents/operational/operational-126-git-operations.md`)
+- **Deployment:** Agent #127 (documented in `docs/agents/operational/operational-127-deployment-safety.md`)
+- **Quality/Testing:** Agent #79 (Quality Validator), Agent #80 (Learning Coordinator), Layer #51 (Testing Framework)
+
+**Violation Consequences:**
+- Plans that create new agents without user permission will be REJECTED
+- Agents must self-correct and resubmit with existing agent allocation
+- Repeated violations indicate MB.MD training gap - agent must complete `docs/AGENT_LEARNINGS.md`
+
+**📚 Documentation Structure:**
 - **Constitution:** `docs/MB_MD_QA_PROTOCOL.md` - The 5 Non-Negotiable Rules (what & why)
 - **Playbook:** `docs/AGENT_LEARNINGS.md` - 19 learnings organized by MB.MD phase (how & when)
 - **Enforcement:** `docs/QA_AGENT_PROTOCOL.md` - QA Agent veto power, approval/rejection templates
@@ -36,15 +67,8 @@ Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 
 ### System Architecture
 
-**AI Model Monitoring & Auto-Update System (Oct 22, 2025):**
-Comprehensive automated system prevents deprecated model failures with daily checks and one-click fixes:
--   **Automated Detection:** `modelAutoUpdater.ts` service scans codebase for deprecated AI models (Claude, Gemini, OpenAI)
--   **Smart Replacement:** Tests candidate models via API to find latest available versions, replaces deprecated references across all TypeScript files
--   **API Endpoints:** `/api/models/check` (status check), `/api/models/auto-update` (trigger update - requires authentication)
--   **Logging:** All updates tracked in `server/logs/model-updates.log` with timestamps and file details
--   **On-Demand Trigger:** Super admins can manually run checks/updates via API or planned UI dashboard
--   **Background Monitoring:** Cron job system ready for scheduled daily checks (4x per day recommended)
--   **Zero-Downtime:** Service updates files without requiring server restart, HMR handles frontend updates
+**AI Model Monitoring & Auto-Update System:**
+An automated system detects and replaces deprecated AI models in the codebase, with features including smart replacement, API endpoints for status and updates, logging, on-demand triggering, and background monitoring, all designed for zero-downtime operation.
 
 **UI/UX Decisions:**
 The frontend uses React, TypeScript, and Vite, featuring a component-based architecture with a custom "MT Ocean" theme. It employs Tailwind CSS with teal/cyan gradients and a glassmorphic design pattern with backdrop-blur effects. The design is mobile-first, responsive, and includes full dark mode support. A Figma-like visual editor allows for click-to-select elements, an inspector panel for attributes, and a styles panel for layout/colors, with changes saved to generate code.
@@ -57,22 +81,22 @@ The frontend uses React, TypeScript, and Vite, featuring a component-based archi
 **Feature Specifications:**
 -   **Core Social Features:** Memory/Post system (rich text, hashtags, location, privacy, AI enhancement), Events management (creation, RSVP, calendar, real-time updates), Profile system (tango-specific fields, privacy), Groups/Communities (city-based auto-creation).
 -   **Unified AI Access ("Mr Blue"):** Single access point for AI features.
-    -   **Omniscient Mode:** AI companion with function calling via 11 tools (Database, Codebase, Documentation) for super admins. Built on Claude 3.5 Sonnet.
-    -   **MB.MD Methodology Integration:** All chat messages automatically prefixed with "Use mb.md:" (hidden from user) to ensure AI responses follow MB.MD methodology. Implemented Oct 22, 2025.
-    -   **Voice Mode:** ChatGPT/Claude-like voice conversations with auto-speak functionality. Uses browser Web Speech API (STT) and configurable TTS (browser native or premium OpenAI TTS).
+    -   **Omniscient Mode:** AI companion with function calling via 11 tools (Database, Codebase, Documentation) for super admins, built on Claude 3.5 Sonnet.
+    -   **MB.MD Methodology Integration:** All chat messages automatically prefixed with "Use mb.md:" (hidden from user) to ensure AI responses follow MB.MD methodology.
+    -   **Voice Mode:** ChatGPT/Claude-like voice conversations with auto-speak functionality, using browser Web Speech API (STT) and configurable TTS.
     -   **Parallel Integration:** Simultaneous integration of Voice Settings UI, Visual Editor Context Bridge (connecting selected elements to AI context), and Inspector Mode Toggle for Visual Editor.
     -   **GPT-4o Realtime API:** Full two-way voice conversation system with native GPT-4o Realtime API integration (PCM16 24kHz mono audio streaming).
-    -   **Unified Voice Modal:** Consolidated voice interface featuring a single headphone button, live transcript, AI summary, voice settings, and recording controls. Model selector dropdown for chat sessions.
+    -   **Unified Voice Modal:** Consolidated voice interface featuring a single headphone button, live transcript, AI summary, voice settings, and recording controls with a model selector dropdown.
     -   **Voice + Visual Context Coordinator (Agent #128):** Integrates voice commands with Visual Editor element selection for "point and ask" workflow, embedding visual context in AI prompts.
-    -   **Browser Automation (Oct 22, 2025):** Playwright-based automation service with Anthropic Computer Use API integration. Enables AI-powered testing via screenshot → analyze → execute action loop. Service: `server/browserAutomation.ts`.
-    -   **Chat Interface Enhancements (BATCH 1-3, Oct 23, 2025):** SIMULTANEOUS build execution mode with 3 parallel batches. BATCH 1: ChatGPT-style conversation management with inline rename (Enter/icon save, Escape cancel), copy conversation button, regenerate last AI response, conversation sidebar with drag-to-resize, empty state onboarding, inspector badge showing selected elements, prompt suggestions panel, diff preview modal for code changes, quick commit button. BATCH 2: API security hardening with requireAuth middleware on PATCH/DELETE endpoints, Zod validation for request bodies (updateChatProjectSchema), ID validation, ownership verification before mutations. BATCH 3: Performance optimizations with React.lazy lazy loading for DiffPreviewModal and UnifiedVoiceModal, Suspense fallbacks (Loader2 spinner), ErrorBoundary wrappers for all lazy components, code-split modals load only when opened. All features architect-approved with MT Ocean theme (#14B8A6 teal) consistency, 43 components with data-testid attributes for testing.
-    -   **Visual Editor Context-Aware Chat (Oct 24, 2025):** Complete integration enabling Mr Blue to respond intelligently based on selected Visual Editor elements. Backend API endpoint (`/api/visual-editor/simple-chat`) receives selectedComponent context and provides element-specific responses. When user selects button and asks "what element am I on?", Mr Blue returns element name. Ask "tell me about this element" for full details (type, ID, page). Comprehensive debug logging tracks data flow Inspector → Chat → API → Response. Frontend integration already working via `MrBlueVisualChat.tsx`. 8-scenario Playwright test suite created (blocked by environment). Manual testing guide provided. Architect-approved. Foundation for autonomous Mr Blue capabilities - enables Phase 2 (Code Reading) where AI can read source files and understand codebase. Files: `server/routes/visualEditorChatRoutes.ts`, `tests/e2e/07-visual-editor-context-chat.spec.ts`, `VISUAL_EDITOR_CHAT_TESTING_GUIDE.md`, `docs/BUILD_REPORTS/VISUAL_EDITOR_CHAT_OCT_24_2025.md`, `docs/AUTONOMOUS_MR_BLUE_ROADMAP.md`.
--   **Git Operations Specialist (Agent #126):** Replit-like Git workflow with AI-powered commit messages (Claude 3.5 Sonnet), pre-commit validation, and GitHub integration via API routes and a dedicated UI panel.
+    -   **Browser Automation:** Playwright-based automation service with Anthropic Computer Use API integration, enabling AI-powered testing via screenshot → analyze → execute action loop.
+    -   **Chat Interface Enhancements:** Includes ChatGPT-style conversation management (inline rename, copy, regenerate), a conversation sidebar, empty state onboarding, inspector badge, prompt suggestions, diff preview modal, and quick commit button. API security hardening with `requireAuth` middleware and Zod validation, and performance optimizations with `React.lazy`, `Suspense`, and `ErrorBoundary`.
+    -   **Visual Editor Context-Aware Chat:** Complete integration allowing Mr Blue to respond intelligently based on selected Visual Editor elements via a backend API endpoint (`/api/visual-editor/simple-chat`). This enables element-specific responses for inquiries about selected components.
+-   **Git Operations Specialist (Agent #126):** Replit-like Git workflow with AI-powered commit messages (Claude 3.5 Sonnet), pre-commit validation, and GitHub integration.
 -   **Deployment Safety Engineer (Agent #127):** Zero-downtime deployments with pre-flight validation, automatic rollback, health monitoring, and a snapshot system for backups.
--   **Vibe Coding Specialist (Agent #131 - Oct 23, 2025):** Autonomous full-stack application building through natural language. Features multi-agent orchestration (Manager → Editors → Verifier → Testing), 30+ specialized tools with custom DSL, proprietary Playwright-based browser testing (3x faster, 10x cheaper than Computer Use), comprehensive checkpoints (code + conversation + database + environment), Extended Thinking mode for deep analysis, and effort-based pricing. Integrates Replit Agent 3, Cursor, Windsurf, v0, and Bolt.new best practices. Enables 20-50x developer productivity through vibe coding workflows. Tango-specific tools for events, profiles, groups, and memories.
+-   **Vibe Coding Specialist (Agent #131):** Autonomous full-stack application building through natural language, featuring multi-agent orchestration, specialized tools with custom DSL, Playwright-based browser testing, comprehensive checkpoints, Extended Thinking mode, and effort-based pricing. Integrates Replit Agent 3, Cursor, Windsurf, v0, and Bolt.new best practices, enabling 20-50x developer productivity. Includes Tango-specific tools for events, profiles, groups, and memories.
 
 **System Design Choices:**
-Mundo Tango employs a comprehensive agent documentation system covering various agent types, following the MB.MD methodology with three execution modes: (1) FOCUSED for serial complex tasks, (2) PARALLEL for independent features, (3) SIMULTANEOUS for comprehensive all-at-once builds (Learning #19, Oct 22, 2025). It includes 5 Customer Journey Agents (J1-J5) guiding user experiences. Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders, and automated tests for file protection. Visual Editor includes 10 tabs: Inspector, AI, Preview, Console (fixed Oct 22), Deploy, Git, Pages, Shell, Files, Secrets (fixed Oct 22).
+Mundo Tango employs a comprehensive agent documentation system covering various agent types, following the MB.MD methodology with three execution modes: FOCUSED, PARALLEL, and SIMULTANEOUS. It includes 5 Customer Journey Agents (J1-J5) guiding user experiences. Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents, pre-commit hooks preventing deletion of critical files/folders, and automated tests for file protection. The Visual Editor includes 10 tabs: Inspector, AI, Preview, Console, Deploy, Git, Pages, Shell, Files, Secrets.
 
 ### External Dependencies
 -   **PostgreSQL + Drizzle ORM**: Primary database.

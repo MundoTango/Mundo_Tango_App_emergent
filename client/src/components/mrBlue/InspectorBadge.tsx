@@ -22,45 +22,32 @@ interface InspectorBadgeProps {
 }
 
 export function InspectorBadge({ element, onClear }: InspectorBadgeProps) {
-  // Format element for display
-  const formatElement = () => {
-    const tag = element.tagName.toLowerCase();
-    const id = element.id ? ` id="${element.id}"` : '';
-    const className = element.className ? ` class="${element.className}"` : '';
-    
-    return `<${tag}${id}${className}>`;
+  // Get element display name (ID if available, otherwise tag name)
+  const getElementName = () => {
+    if (element.id) return element.id;
+    if (element.className) {
+      const firstClass = element.className.split(' ')[0];
+      return firstClass;
+    }
+    return element.tagName.toLowerCase();
   };
 
   return (
     <div 
-      className="flex items-center gap-2 px-4 py-3 bg-teal-50 dark:bg-teal-900/20 border-l-4 border-[#14B8A6] backdrop-blur-sm shadow-sm"
+      className="flex items-center gap-2 px-3 py-2 bg-teal-50 dark:bg-teal-900/20 border-l-4 border-[#14B8A6] backdrop-blur-sm shadow-sm"
       data-testid="inspector-badge"
     >
       {/* Icon */}
-      <Eye className="h-5 w-5 text-[#14B8A6] flex-shrink-0 animate-pulse" />
+      <Eye className="h-4 w-4 text-[#14B8A6] flex-shrink-0" />
       
-      {/* Text */}
+      {/* Text - Simple "Selected: [Element]" format */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-gray-900 dark:text-white">
-          Selected Element:{' '}
-          <code className="bg-teal-100 dark:bg-teal-900 px-2 py-1 rounded text-xs font-mono text-[#14B8A6]">
-            {formatElement()}
-          </code>
+        <p className="text-sm font-medium text-gray-900 dark:text-white">
+          Selected:{' '}
+          <span className="font-semibold text-[#14B8A6]">
+            {getElementName()}
+          </span>
         </p>
-        
-        {/* Element text content preview */}
-        {element.textContent && (
-          <p className="text-xs text-gray-700 dark:text-gray-300 mt-1 truncate font-medium">
-            "{element.textContent.substring(0, 50)}{element.textContent.length > 50 ? '...' : ''}"
-          </p>
-        )}
-        
-        {/* XPath display for debugging */}
-        {element.xpath && (
-          <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 font-mono truncate">
-            {element.xpath}
-          </p>
-        )}
       </div>
       
       {/* Clear Button */}
