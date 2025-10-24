@@ -104,6 +104,7 @@ import visualEditorChatRoutes from "./routes/visualEditorChatRoutes"; // Visual 
 import apiKeyTestRoutes from "./routes/apiKeyTestRoutes"; // API Key Testing - MB.MD Option A - Oct 21, 2025
 import executeBuildRoutes from "./routes/executeBuildRoutes"; // AI Build Intent Execution - Chat → Save → Build Workflow - Oct 23, 2025
 import conversationRoutes from "./routes/conversationRoutes"; // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
+import mrBlueAutonomousRoutes from "./routes/mrBlueAutonomous/index.js"; // Autonomous Mr Blue - All 5 Phases (15 APIs) - MB.MD SIMULTANEOUS Build - Oct 24, 2025
 import { RealTimeNotificationService } from "./services/realTimeNotifications";
 import { lifeCeoPerformance } from "./services/lifeCeoPerformanceService";
 import { setupVite, log as viteLog } from "./vite";
@@ -1408,6 +1409,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/visual-editor', isAuthenticated, visualEditorConfirmationRoutes); // Visual Editor Learning Loop
   app.use('/api/visual-editor', isAuthenticated, visualEditorSaveRoutes); // Visual Editor Save System
   app.use('/api/visual-editor', isAuthenticated, visualEditorChatRoutes); // Visual Editor Context-Aware Chat
+  
+  // 🤖 MB.MD SIMULTANEOUS Build: Autonomous Mr Blue - All 5 Phases (Oct 24, 2025)
+  // 15 APIs: Code Reading (3), Writing (3), Testing (3), Safety (3), Orchestration (3)
+  app.use('/api/mrblue/autonomous', isAuthenticated, mrBlueAutonomousRoutes); // Autonomous Agent: read-file, write-file, execute-command, test-change, rollback, autonomous/execute
+  console.log('✅ Autonomous Mr Blue APIs registered (15 endpoints across 5 phases)');
+  
   app.use('/api/test', isAuthenticated, apiKeyTestRoutes); // API Key Testing
   app.use('/api/breadcrumbs', isAuthenticated, breadcrumbRoutes); // User Interaction Tracking
   app.use('/api/intent', isAuthenticated, intentRoutes); // Intent Detection & Proactive Testing
