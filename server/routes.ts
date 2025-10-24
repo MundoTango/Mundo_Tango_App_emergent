@@ -20,7 +20,7 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { randomBytes } from "crypto";
-import { db, pool } from "./db";
+import { db, pool, getConnectionStatus } from "./db";
 import { eq, sql, desc, and, isNotNull, count, inArray, gt, gte, lte, or, ilike } from "drizzle-orm";
 import { uploadChunk, completeUpload, getUploadStatus as getChunkUploadStatus } from "./middleware/chunkHandler";
 import { uploadMedia, uploadMediaWithMetadata, deleteMedia, deleteMediaWithMetadata, getSignedUrl, initializeStorageBucket } from "./services/uploadService";
@@ -144,21 +144,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: 'healthy', timestamp: new Date().toISOString() });
   });
 
-  // Database Health Check Endpoint - Critical for deployment monitoring
+  // Database Health Check - Registered early to avoid Vite intercept
   app.get('/api/health/db', async (_req, res) => {
     const startTime = Date.now();
     try {
-      const { getConnectionStatus } = await import('./db.js');
       const status = getConnectionStatus();
       
-      // Test actual database connectivity with timeout
+      // Test actual database connectivity
       let queryLatency = 0;
       try {
         const queryStart = Date.now();
         await pool.query('SELECT 1');
         queryLatency = Date.now() - queryStart;
       } catch (err) {
-        // Query failed but return status anyway for debugging
         return res.status(503).json({
           status: 'unhealthy',
           error: 'Database query failed',

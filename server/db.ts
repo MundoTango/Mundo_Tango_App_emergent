@@ -15,8 +15,8 @@ console.log('🎭 [DEMO] Using demo database configuration');
 const pool = new Pool({ 
   connectionString: DATABASE_URL,
   // Mundo Tango ESA LIFE CEO Optimized Connection Pool Settings
-  max: 20, // Balanced for deployment stability
-  min: 2, // Reduced minimum for better resource management
+  max: 100, // Production-ready: supports high concurrency under load
+  min: 20,  // Maintains warm connection pool for fast response times
   idleTimeoutMillis: 30000, // 30 seconds for better connection reuse
   connectionTimeoutMillis: 30000, // 30 seconds timeout (deployment-safe)
   statement_timeout: 60000, // 60 second query timeout for complex operations

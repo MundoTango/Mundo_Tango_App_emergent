@@ -52,6 +52,7 @@ import {
   sessionSecurityConfig 
 } from "./middleware/security";
 import { requestLogger } from "./middleware/requestLogger";
+import { getConnectionStatus, pool } from "./db";
 
 const app = express();
 
@@ -144,6 +145,49 @@ app.get('/ready', async (req: Request, res: Response) => {
   } catch (error) {
     logger.error({ error }, 'Readiness check failed');
     res.status(503).json({ status: 'not ready', error: 'Database connection failed' });
+  }
+});
+
+// Database Health Check - Critical for deployment monitoring (registered early to avoid Vite intercept)
+app.get('/api/health/db', async (req: Request, res: Response) => {
+  const startTime = Date.now();
+  try {
+    const status = getConnectionStatus();
+    
+    // Test actual database connectivity
+    let queryLatency = 0;
+    try {
+      const queryStart = Date.now();
+      await pool.query('SELECT 1');
+      queryLatency = Date.now() - queryStart;
+    } catch (err) {
+      return res.status(503).json({
+        status: 'unhealthy',
+        error: 'Database query failed',
+        message: err instanceof Error ? err.message : String(err),
+        connectionStatus: status,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    res.json({
+      status: status.isConnected ? 'healthy' : 'degraded',
+      database: {
+        connected: status.isConnected,
+        retriesAttempted: status.retriesAttempted,
+        queryLatency: `${queryLatency}ms`,
+        pool: status.poolStats
+      },
+      timestamp: new Date().toISOString(),
+      responseTime: `${Date.now() - startTime}ms`
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      error: 'Health check failed',
+      message: error instanceof Error ? error.message : String(error),
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
