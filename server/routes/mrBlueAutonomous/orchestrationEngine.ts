@@ -240,11 +240,28 @@ async function executeAutonomousTask(
           step: step.action
         });
 
-        // STREAM 2.4: Auto-rollback on error
+        // WEEK 3 STREAM 1: Auto-rollback on error with real rollback engine (Oct 24, 2025)
         const shouldRetry = task.currentIteration < maxIterations;
         if (shouldRetry) {
           console.log('🔄 Auto-rollback: Attempting to fix error and retry...');
-          // TODO: Implement actual rollback and retry logic
+          
+          // Import rollback engine dynamically to avoid circular deps
+          const { retryWithBackoff } = await import('./rollbackEngine.js');
+          
+          // Retry the step with exponential backoff
+          await retryWithBackoff(async () => {
+            // Re-execute the failed step
+            step.status = 'in_progress';
+            
+            if (actionLower.match(/write|create|modify|change|update/)) {
+              step.result = await executeWriteAction(taskId, step.action, context, requireApproval);
+            } else if (actionLower.match(/read|search|find/)) {
+              step.result = await executeReadAction(taskId, step.action, context);
+            }
+          }, 3);
+          
+          step.status = 'completed';
+          console.log('✅ Step recovered after rollback and retry');
         } else {
           throw error;
         }
@@ -367,7 +384,7 @@ async function executeWriteAction(taskId: string, action: string, context: any, 
   console.log('📝 [WRITE] Generated diff');
   emitSSEEvent(taskId, 'diffReady', { filePath, diff });
 
-  // STREAM 2.3: Per-file approval gating
+  // WEEK 3 STREAM 2: Real approval flow with WebSocket (Oct 24, 2025)
   if (requireApproval) {
     console.log('⚠️  [APPROVAL] Waiting for user approval...');
     emitSSEEvent(taskId, 'approvalRequired', {
@@ -377,10 +394,22 @@ async function executeWriteAction(taskId: string, action: string, context: any, 
       description: `Modifying ${filePath} - ${action}`
     });
 
-    // TODO: Actually wait for approval via WebSocket or polling
-    // For now, simulate approval after 1 second
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('✅ [APPROVAL] Simulated approval granted');
+    // Use real approval engine instead of simulation
+    const { requestApproval } = await import('./approvalFlowEngine.js');
+    
+    const approved = await requestApproval(
+      taskId,
+      filePath,
+      diff,
+      'medium',
+      `Modifying ${filePath} - ${action}`
+    );
+    
+    if (!approved) {
+      throw new Error('User rejected the change');
+    }
+    
+    console.log('✅ [APPROVAL] User approved the change');
   }
 
   // Write the new content

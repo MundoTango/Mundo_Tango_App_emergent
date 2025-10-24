@@ -14,6 +14,9 @@ import errorParserRoutes from './errorParserRoutes.js';
 import checkpointRoutes from './checkpointRoutes.js';
 import rollbackRoutes from './rollbackRoutes.js';
 import approvalRoutes from './approvalRoutes.js';
+import rollbackEngine from './rollbackEngine.js'; // WEEK 3 STREAM 1: Real rollback/retry
+import approvalFlowEngine from './approvalFlowEngine.js'; // WEEK 3 STREAM 2: Real approval flow
+import databaseSnapshotEngine from './databaseSnapshotEngine.js'; // WEEK 3 STREAM 3: DB snapshots
 import orchestrationEngine from './orchestrationEngine.js';
 import sseStreamRoutes from './sseStream.js';
 
@@ -55,7 +58,13 @@ router.use('/', checkpointRoutes);  // POST /create-checkpoint, GET /checkpoints
 router.use('/', rollbackRoutes);  // POST /rollback
 router.use('/', approvalRoutes);  // POST /request-approval, POST /approve/:id, GET /pending-approvals
 
+// WEEK 3: Enhanced Safety Systems (Oct 24, 2025)
+router.use('/', rollbackEngine);  // POST /rollback/:rollbackId, GET /rollback-points
+router.use('/', approvalFlowEngine);  // POST /approve/:approvalId, GET /pending-approvals, POST /bulk-approve
+router.use('/', databaseSnapshotEngine);  // POST /create-snapshot, POST /restore-snapshot/:id, GET /snapshots, DELETE /cleanup-snapshots
+
 console.log('✅ BATCH 4: Safety & Checkpoints APIs mounted');
+console.log('✅ WEEK 3: Enhanced Safety Systems mounted (Rollback, Approval, Snapshots)');
 
 // BATCH 5: Orchestration Engine
 router.use('/', orchestrationEngine);  // POST /execute, GET /status/:id

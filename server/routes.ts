@@ -1475,7 +1475,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // 🔧 MB.MD Maximum Parallel Build: Visual Editor Backend Infrastructure (Oct 21, 2025)
   app.use('/api/git', gitRoutes); // Git status, commit, log, diff
-  app.use('/api/files', filesRoutes); // Filesystem browser, read, write
+  // WEEK 2 ENHANCEMENT: Real file tree API (Oct 24, 2025)
+  const filesApiRoutes = (await import('./routes/filesApi.js')).default;
+  app.use('/api/files-v2', filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
+  app.use('/api/files', filesRoutes); // Legacy Filesystem browser, read, write
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
   app.use('/api/vibe', isAuthenticated, vibeRoutes); // Vibe Coding: edit-file, map-repository, execute (Agent #131 - Oct 23, 2025)
