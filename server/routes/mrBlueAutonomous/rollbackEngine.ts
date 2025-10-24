@@ -39,6 +39,17 @@ export async function createRollbackPoint(
     // Get current git commit hash
     const { stdout: gitHash } = await execAsync('git rev-parse HEAD');
     
+    // ARCHITECT FIX: Create actual file backups (so fallback works)
+    for (const filePath of filesAffected) {
+      try {
+        const backupPath = `${filePath}.backup-${rollbackId}`;
+        await fs.copyFile(filePath, backupPath);
+        console.log(`💾 [ROLLBACK] Backed up: ${filePath}`);
+      } catch (error) {
+        console.warn(`⚠️ [ROLLBACK] Failed to backup ${filePath}:`, error);
+      }
+    }
+    
     const rollbackPoint: RollbackPoint = {
       id: rollbackId,
       timestamp: new Date(),
@@ -93,7 +104,7 @@ export async function executeRollback(
       }
     }
     
-    // Strategy 2: File backup rollback (fallback)
+    // Strategy 2: File backup rollback (fallback) - ARCHITECT FIX: Backups now created
     const restoredFiles: string[] = [];
     
     for (const filePath of rollbackPoint.filesChanged) {
@@ -106,6 +117,9 @@ export async function executeRollback(
           await fs.copyFile(backupPath, filePath);
           restoredFiles.push(filePath);
           console.log(`✅ [ROLLBACK] Restored from backup: ${filePath}`);
+          
+          // Clean up backup after successful restore
+          await fs.unlink(backupPath).catch(() => {});
         } else {
           console.warn(`⚠️ [ROLLBACK] No backup found for: ${filePath}`);
         }

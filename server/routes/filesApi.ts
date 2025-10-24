@@ -10,6 +10,9 @@ import { glob } from 'glob';
 
 const router = Router();
 
+// SECURITY: Define project root - all operations constrained to this directory
+const PROJECT_ROOT = process.cwd();
+
 interface FileNode {
   name: string;
   path: string;
@@ -20,6 +23,33 @@ interface FileNode {
 }
 
 /**
+ * SECURITY: Validate and sanitize file paths
+ * Prevents directory traversal and absolute path attacks
+ * ARCHITECT FIX: Allow absolute paths if within PROJECT_ROOT
+ */
+function sanitizeFilePath(userPath: string): string {
+  // Normalize the path
+  const normalized = path.normalize(userPath);
+  
+  // Resolve against project root
+  const resolved = path.resolve(PROJECT_ROOT, normalized);
+  
+  // CRITICAL: Ensure resolved path is within project root
+  if (!resolved.startsWith(PROJECT_ROOT + path.sep) && resolved !== PROJECT_ROOT) {
+    throw new Error('Access denied: Path outside project root');
+  }
+  
+  // ARCHITECT FIX: Check for directory traversal in the RESOLVED path
+  // (allows absolute paths from buildFileTree, but still prevents traversal)
+  const relative = path.relative(PROJECT_ROOT, resolved);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error('Access denied: Path traversal detected');
+  }
+  
+  return resolved;
+}
+
+/**
  * GET /api/files/tree
  * Get complete file tree for project
  */
@@ -27,7 +57,10 @@ router.get('/tree', async (req, res) => {
   try {
     const { dir = '.' } = req.query;
     
-    const tree = await buildFileTree(dir as string);
+    // SECURITY: Sanitize path before using
+    const safePath = sanitizeFilePath(dir as string);
+    
+    const tree = await buildFileTree(safePath);
     
     res.json({
       success: true,
@@ -36,7 +69,7 @@ router.get('/tree', async (req, res) => {
     
   } catch (error: any) {
     console.error('[FILES API] Error:', error.message);
-    res.status(500).json({
+    res.status(403).json({
       success: false,
       error: error.message
     });
@@ -58,16 +91,10 @@ router.get('/read', async (req, res) => {
       });
     }
     
-    // Security: Prevent directory traversal
-    const normalizedPath = path.normalize(filePath);
-    if (normalizedPath.includes('..')) {
-      return res.status(403).json({
-        success: false,
-        error: 'Invalid file path'
-      });
-    }
+    // SECURITY: Sanitize path before reading
+    const safePath = sanitizeFilePath(filePath);
     
-    const content = await fs.readFile(filePath, 'utf-8');
+    const content = await fs.readFile(safePath, 'utf-8');
     
     res.json({
       success: true,
@@ -75,7 +102,7 @@ router.get('/read', async (req, res) => {
     });
     
   } catch (error: any) {
-    res.status(500).json({
+    res.status(403).json({
       success: false,
       error: error.message
     });
@@ -97,20 +124,15 @@ router.post('/write', async (req, res) => {
       });
     }
     
-    // Security: Prevent directory traversal
-    const normalizedPath = path.normalize(filePath);
-    if (normalizedPath.includes('..')) {
-      return res.status(403).json({
-        success: false,
-        error: 'Invalid file path'
-      });
-    }
+    // SECURITY: Sanitize path before writing
+    const safePath = sanitizeFilePath(filePath);
     
-    // Ensure directory exists
-    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    // Ensure directory exists (also sanitize parent dir)
+    const safeDir = path.dirname(safePath);
+    await fs.mkdir(safeDir, { recursive: true });
     
     // Write file
-    await fs.writeFile(filePath, content, 'utf-8');
+    await fs.writeFile(safePath, content, 'utf-8');
     
     res.json({
       success: true,
@@ -118,7 +140,7 @@ router.post('/write', async (req, res) => {
     });
     
   } catch (error: any) {
-    res.status(500).json({
+    res.status(403).json({
       success: false,
       error: error.message
     });
@@ -140,21 +162,16 @@ router.post('/create', async (req, res) => {
       });
     }
     
-    // Security: Prevent directory traversal
-    const normalizedPath = path.normalize(filePath);
-    if (normalizedPath.includes('..')) {
-      return res.status(403).json({
-        success: false,
-        error: 'Invalid file path'
-      });
-    }
+    // SECURITY: Sanitize path before creating
+    const safePath = sanitizeFilePath(filePath);
     
     if (type === 'directory') {
-      await fs.mkdir(filePath, { recursive: true });
+      await fs.mkdir(safePath, { recursive: true });
     } else {
       // Ensure parent directory exists
-      await fs.mkdir(path.dirname(filePath), { recursive: true });
-      await fs.writeFile(filePath, content, 'utf-8');
+      const safeDir = path.dirname(safePath);
+      await fs.mkdir(safeDir, { recursive: true });
+      await fs.writeFile(safePath, content, 'utf-8');
     }
     
     res.json({
@@ -163,7 +180,7 @@ router.post('/create', async (req, res) => {
     });
     
   } catch (error: any) {
-    res.status(500).json({
+    res.status(403).json({
       success: false,
       error: error.message
     });
@@ -185,21 +202,15 @@ router.delete('/delete', async (req, res) => {
       });
     }
     
-    // Security: Prevent directory traversal
-    const normalizedPath = path.normalize(filePath);
-    if (normalizedPath.includes('..')) {
-      return res.status(403).json({
-        success: false,
-        error: 'Invalid file path'
-      });
-    }
+    // SECURITY: Sanitize path before deleting
+    const safePath = sanitizeFilePath(filePath);
     
-    const stats = await fs.stat(filePath);
+    const stats = await fs.stat(safePath);
     
     if (stats.isDirectory()) {
-      await fs.rm(filePath, { recursive: true });
+      await fs.rm(safePath, { recursive: true });
     } else {
-      await fs.unlink(filePath);
+      await fs.unlink(safePath);
     }
     
     res.json({
@@ -208,7 +219,7 @@ router.delete('/delete', async (req, res) => {
     });
     
   } catch (error: any) {
-    res.status(500).json({
+    res.status(403).json({
       success: false,
       error: error.message
     });

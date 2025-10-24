@@ -5,13 +5,51 @@
 
 import { Router } from 'express';
 import { db } from '../../db/index.js';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 import fs from 'fs/promises';
 import path from 'path';
 
-const execAsync = promisify(exec);
 const router = Router();
+
+// SECURITY: Whitelist of allowed table names (prevent shell injection)
+const ALLOWED_TABLES_REGEX = /^[a-z_][a-z0-9_]*$/i;
+
+/**
+ * SECURITY: Validate table names to prevent shell injection
+ */
+function validateTableNames(tables: string[]): boolean {
+  return tables.every(table => ALLOWED_TABLES_REGEX.test(table));
+}
+
+/**
+ * SECURITY: Execute shell command safely using spawn (not exec)
+ */
+function spawnCommand(command: string, args: string[]): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const proc = spawn(command, args, {
+      stdio: 'pipe',
+      shell: false // CRITICAL: Disable shell to prevent injection
+    });
+    
+    let stderr = '';
+    
+    proc.stderr?.on('data', (data) => {
+      stderr += data.toString();
+    });
+    
+    proc.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Command failed with code ${code}: ${stderr}`));
+      }
+    });
+    
+    proc.on('error', (error) => {
+      reject(error);
+    });
+  });
+}
 
 interface DatabaseSnapshot {
   id: string;
@@ -67,23 +105,31 @@ export async function createDatabaseSnapshot(
   try {
     console.log('📸 [SNAPSHOT] Creating database snapshot:', snapshotId);
     
-    // Use pg_dump to create backup
+    // SECURITY: Validate table names before using
+    if (tablesToBackup && tablesToBackup.length > 0) {
+      if (!validateTableNames(tablesToBackup)) {
+        throw new Error('Invalid table names detected');
+      }
+    }
+    
+    // Use pg_dump to create backup (SAFE: using spawn, not exec)
     const DATABASE_URL = process.env.DATABASE_URL;
     
     if (!DATABASE_URL) {
       throw new Error('DATABASE_URL not configured');
     }
     
-    // Build pg_dump command
-    let dumpCommand = `pg_dump "${DATABASE_URL}" -F c -f "${backupPath}"`;
+    // Build pg_dump arguments (SAFE: array, not string interpolation)
+    const args = [DATABASE_URL, '-F', 'c', '-f', backupPath];
     
-    // If specific tables specified, add them to command
+    // If specific tables specified, add them to arguments
     if (tablesToBackup && tablesToBackup.length > 0) {
-      const tableFlags = tablesToBackup.map(t => `-t ${t}`).join(' ');
-      dumpCommand = `pg_dump "${DATABASE_URL}" -F c ${tableFlags} -f "${backupPath}"`;
+      for (const table of tablesToBackup) {
+        args.push('-t', table); // SAFE: separate arguments, no shell expansion
+      }
     }
     
-    await execAsync(dumpCommand);
+    await spawnCommand('pg_dump', args);
     
     // Get backup file size
     const stats = await fs.stat(backupPath);
@@ -128,10 +174,15 @@ export async function restoreDatabaseSnapshot(
       throw new Error('DATABASE_URL not configured');
     }
     
-    // Use pg_restore to restore backup
-    const restoreCommand = `pg_restore -d "${DATABASE_URL}" --clean --if-exists "${snapshot.backupPath}"`;
+    // Use pg_restore to restore backup (SAFE: using spawn, not exec)
+    const args = [
+      '-d', DATABASE_URL,
+      '--clean',
+      '--if-exists',
+      snapshot.backupPath
+    ];
     
-    await execAsync(restoreCommand);
+    await spawnCommand('pg_restore', args);
     
     console.log('✅ [SNAPSHOT] Database restored successfully');
     
