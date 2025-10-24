@@ -100,6 +100,7 @@ import chatProjectsRoutes from "./routes/chatProjectsRoutes";
 import mediaUploadRoutes from "./routes/mediaUploadRoutes";
 import consensusRoutes from "./routes/consensusRoutes"; // Multi-AI Consensus Engine - MB.MD Maximum Parallel Build - Oct 21, 2025
 import visualEditorSaveRoutes from "./routes/visualEditorSaveRoutes"; // Visual Editor Save System - MB.MD Option A - Oct 21, 2025
+import visualEditorChatRoutes from "./routes/visualEditorChatRoutes"; // Visual Editor Context-Aware Chat - MB.MD Visual Editor Testing - Oct 24, 2025
 import apiKeyTestRoutes from "./routes/apiKeyTestRoutes"; // API Key Testing - MB.MD Option A - Oct 21, 2025
 import executeBuildRoutes from "./routes/executeBuildRoutes"; // AI Build Intent Execution - Chat → Save → Build Workflow - Oct 23, 2025
 import conversationRoutes from "./routes/conversationRoutes"; // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
@@ -1406,6 +1407,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD Oct 21: Now using static imports (see top of file)
   app.use('/api/visual-editor', isAuthenticated, visualEditorConfirmationRoutes); // Visual Editor Learning Loop
   app.use('/api/visual-editor', isAuthenticated, visualEditorSaveRoutes); // Visual Editor Save System
+  app.use('/api/visual-editor', isAuthenticated, visualEditorChatRoutes); // Visual Editor Context-Aware Chat
   app.use('/api/test', isAuthenticated, apiKeyTestRoutes); // API Key Testing
   app.use('/api/breadcrumbs', isAuthenticated, breadcrumbRoutes); // User Interaction Tracking
   app.use('/api/intent', isAuthenticated, intentRoutes); // Intent Detection & Proactive Testing
