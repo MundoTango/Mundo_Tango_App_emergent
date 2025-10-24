@@ -22,6 +22,7 @@ export class UndoManager {
   private sessionId: string;
   private userId: number;
   private changeCountByFile: Map<string, number> = new Map();
+  private initialized: boolean = false;
 
   constructor(userId: number, sessionId?: string) {
     this.userId = userId;
@@ -29,9 +30,53 @@ export class UndoManager {
   }
 
   /**
+   * Initialize change counters from existing database history
+   * CRITICAL: Must be called before recording changes to prevent duplicate changeNumbers
+   */
+  private async initialize(): Promise<void> {
+    if (this.initialized) return;
+
+    // Load max changeNumber for each file in this session
+    const existingChanges = await db
+      .select({
+        filePath: undoHistory.filePath,
+        maxChangeNumber: db
+          .select({ max: undoHistory.changeNumber })
+          .from(undoHistory)
+          .where(
+            and(
+              eq(undoHistory.userId, this.userId),
+              eq(undoHistory.sessionId, this.sessionId)
+            )
+          )
+          .orderBy(desc(undoHistory.changeNumber))
+          .limit(1)
+      })
+      .from(undoHistory)
+      .where(
+        and(
+          eq(undoHistory.userId, this.userId),
+          eq(undoHistory.sessionId, this.sessionId)
+        )
+      )
+      .groupBy(undoHistory.filePath);
+
+    // Populate in-memory map with existing counts
+    for (const change of existingChanges) {
+      this.changeCountByFile.set(change.filePath, change.maxChangeNumber || 0);
+    }
+
+    this.initialized = true;
+    console.log(`🔄 [UndoManager] Initialized with ${existingChanges.length} files from session ${this.sessionId}`);
+  }
+
+  /**
    * Record a file change for undo
    */
   async recordChange(entry: UndoEntry): Promise<void> {
+    // CRITICAL: Initialize from database on first use
+    await this.initialize();
+
     const currentCount = this.changeCountByFile.get(entry.filePath) || 0;
     const newCount = currentCount + 1;
     this.changeCountByFile.set(entry.filePath, newCount);
@@ -131,26 +176,25 @@ export class UndoManager {
 
   /**
    * Cleanup old entries (keep max 10 per file)
+   * OPTIMIZED: Single SQL statement instead of iteration
    */
   private async cleanupOldEntries(filePath: string): Promise<void> {
-    const allChanges = await db
-      .select()
-      .from(undoHistory)
-      .where(
-        and(
-          eq(undoHistory.userId, this.userId),
-          eq(undoHistory.sessionId, this.sessionId),
-          eq(undoHistory.filePath, filePath)
-        )
+    // Delete all except the 10 most recent entries for this file
+    const result = await db.execute(sql`
+      DELETE FROM ${undoHistory}
+      WHERE id IN (
+        SELECT id FROM ${undoHistory}
+        WHERE user_id = ${this.userId}
+          AND session_id = ${this.sessionId}
+          AND file_path = ${filePath}
+        ORDER BY change_number DESC
+        OFFSET 10
       )
-      .orderBy(desc(undoHistory.changeNumber));
+    `);
 
-    if (allChanges.length > 10) {
-      const toDelete = allChanges.slice(10);
-      for (const change of toDelete) {
-        await db.delete(undoHistory).where(eq(undoHistory.id, change.id));
-      }
-      console.log(`🗑️ [UndoManager] Cleaned up ${toDelete.length} old entries for ${filePath}`);
+    const deletedCount = result.rowCount || 0;
+    if (deletedCount > 0) {
+      console.log(`🗑️ [UndoManager] Cleaned up ${deletedCount} old entries for ${filePath}`);
     }
   }
 
