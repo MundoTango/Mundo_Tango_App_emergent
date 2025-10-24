@@ -38,8 +38,16 @@ export async function detectFilePath(contextData: any): Promise<string | null> {
 
   // Strategy 2: Search by textContent FIRST (most specific for user-selected elements)
   // FIX #2: Prioritize textContent over className to find actual component, not App.tsx
+  console.log('🔍 [FILE DETECT] textContent check:', {
+    has: !!contextData?.textContent,
+    value: contextData?.textContent,
+    elementHas: !!contextData?.element?.textContent,
+    elementValue: contextData?.element?.textContent
+  });
+  
   if (contextData?.textContent || contextData?.element?.textContent) {
     const text = contextData?.textContent || contextData?.element?.textContent;
+    console.log('🔍 [FILE DETECT] textContent found:', text, 'length:', text?.length);
     if (text && text.length > 3 && text.length < 100) {
       console.log('🔍 [FILE DETECT] Searching by textContent:', text);
       
