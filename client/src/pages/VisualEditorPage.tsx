@@ -20,7 +20,7 @@ import FilesTabConnected from '@/components/visual-editor/FilesTabConnected';
 import { MrBlueVisualChat } from '@/components/visual-editor/MrBlueVisualChat';
 import ConsoleTab from '@/components/visual-editor/ConsoleTab';
 import SecretsTab from '@/components/visual-editor/SecretsTab';
-import BuildApprovalModal, { type BuildIntent } from '@/components/mrBlue/BuildApprovalModal';
+// BuildApprovalModal removed - Autonomous execution (Agent #131 - Oct 24, 2025)
 import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
@@ -55,8 +55,7 @@ export default function VisualEditorPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [buildApprovalOpen, setBuildApprovalOpen] = useState(false);
-  const [pendingBuildIntents, setPendingBuildIntents] = useState<BuildIntent[]>([]);
+  // Build approval removed - autonomous execution (Agent #131 - Oct 24, 2025)
   
   // 🎨 VISUAL EDITOR CONTEXT: Bridge to Mr Blue (Oct 23, 2025)
   const visualEditorContext = useVisualEditor();
@@ -332,24 +331,18 @@ export default function VisualEditorPage() {
       return;
     }
 
-    // 🔧 CHECK FOR AI BUILD INTENTS (Agent #8)
+    // 🤖 AUTONOMOUS EXECUTION: No approval needed (Agent #131 - Oct 24, 2025)
     const aiBuildChanges = pendingChanges.filter(c => c.type === 'ai-build');
     
     if (aiBuildChanges.length > 0) {
-      // Show approval modal instead of saving directly
-      const buildIntents: BuildIntent[] = aiBuildChanges.map(change => ({
-        messageId: change.data.messageId,
-        tool: change.data.tool,
-        params: change.data.params,
-        description: change.description
-      }));
-      
-      setPendingBuildIntents(buildIntents);
-      setBuildApprovalOpen(true);
-      return; // Don't save yet - wait for approval
+      console.log('🤖 [Autonomous] Executing', aiBuildChanges.length, 'AI builds immediately (no approval)');
+      toast({
+        title: 'Autonomous Execution',
+        description: `Mr Blue is applying ${aiBuildChanges.length} changes...`,
+      });
     }
 
-    // No AI builds - proceed with normal save
+    // Proceed with save (all changes including AI builds)
     try {
       toast({
         title: 'Saving Changes...',
@@ -380,19 +373,7 @@ export default function VisualEditorPage() {
     }
   };
 
-  // Handle AI build approval (Agent #8)
-  const handleApproveBuild = async (messageIds: number[]) => {
-    try {
-      await saveOrchestrator.saveAll(); // This will execute the AI builds
-      setPendingStyles([]);
-      logActivity({
-        type: 'ai-build',
-        description: `Executed ${messageIds.length} AI build intents`
-      });
-    } catch (error) {
-      throw error; // BuildApprovalModal will handle the error display
-    }
-  };
+  // handleApproveBuild removed - autonomous execution (Agent #131 - Oct 24, 2025)
 
   return (
       <div className="h-screen flex flex-col bg-gray-900">
@@ -509,13 +490,7 @@ export default function VisualEditorPage() {
         onTabChange={(tab) => setActiveTab(tab as EditorTab)}
       />
 
-      {/* 🔧 BUILD APPROVAL MODAL (Agent #8 Integration) */}
-      <BuildApprovalModal
-        open={buildApprovalOpen}
-        onOpenChange={setBuildApprovalOpen}
-        buildIntents={pendingBuildIntents}
-        onApprove={handleApproveBuild}
-      />
+      {/* 🤖 BUILD APPROVAL MODAL REMOVED - Autonomous execution enabled (Agent #131 - Oct 24, 2025) */}
     </div>
   );
 }

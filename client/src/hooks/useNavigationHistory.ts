@@ -71,9 +71,30 @@ export function useNavigationHistory(): UseNavigationHistoryReturn {
     };
   });
   
-  // Auto-save to localStorage whenever history changes
+  // 🔄 TASK 12: Database sync + localStorage (Layer #7 - State Management)
   useEffect(() => {
-    saveToStorage(history);
+    saveToStorage(history); // Local persistence
+    
+    // Sync to database every 5 entries
+    if (history.entries.length % 5 === 0 && history.entries.length > 0) {
+      const latestEntry = history.entries[history.currentIndex];
+      if (latestEntry) {
+        // Extract data based on entry type
+        const entryData = latestEntry.type === 'element' ? latestEntry.element :
+                         latestEntry.type === 'page' ? latestEntry.page :
+                         latestEntry.type === 'tab' ? latestEntry.tab : {};
+        
+        fetch('/api/navigation-history', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            type: latestEntry.type,
+            data: entryData,
+          }),
+        }).catch(err => console.warn('📚 [NavigationHistory] DB sync failed:', err));
+      }
+    }
   }, [history]);
   
   // Add element selection to history

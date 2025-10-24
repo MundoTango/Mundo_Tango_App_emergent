@@ -33,7 +33,7 @@ const activeTasks = new Map<string, AutonomousTask>();
  */
 router.post('/execute', async (req, res) => {
   try {
-    const { task, context, maxIterations = 5, requireApproval = true } = req.body;
+    const { task, context, maxIterations = 5, requireApproval = false } = req.body; // AUTONOMOUS EXECUTION: No approval needed
 
     if (!task || typeof task !== 'string') {
       return res.status(400).json({

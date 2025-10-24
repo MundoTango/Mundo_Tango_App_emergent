@@ -101,6 +101,7 @@ import mediaUploadRoutes from "./routes/mediaUploadRoutes";
 import consensusRoutes from "./routes/consensusRoutes"; // Multi-AI Consensus Engine - MB.MD Maximum Parallel Build - Oct 21, 2025
 import visualEditorSaveRoutes from "./routes/visualEditorSaveRoutes"; // Visual Editor Save System - MB.MD Option A - Oct 21, 2025
 import visualEditorChatRoutes from "./routes/visualEditorChatRoutes"; // Visual Editor Context-Aware Chat - MB.MD Visual Editor Testing - Oct 24, 2025
+import navigationHistoryRoutes from "./routes/navigationHistoryRoutes"; // Visual Editor Navigation History - Layer #2 API Structure - Oct 24, 2025
 import apiKeyTestRoutes from "./routes/apiKeyTestRoutes"; // API Key Testing - MB.MD Option A - Oct 21, 2025
 import executeBuildRoutes from "./routes/executeBuildRoutes"; // AI Build Intent Execution - Chat → Save → Build Workflow - Oct 23, 2025
 import conversationRoutes from "./routes/conversationRoutes"; // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
@@ -1452,6 +1453,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/visual-editor', isAuthenticated, visualEditorConfirmationRoutes); // Visual Editor Learning Loop
   app.use('/api/visual-editor', isAuthenticated, visualEditorSaveRoutes); // Visual Editor Save System
   app.use('/api/visual-editor', isAuthenticated, visualEditorChatRoutes); // Visual Editor Context-Aware Chat
+  app.use('/api/navigation-history', isAuthenticated, navigationHistoryRoutes); // Visual Editor Navigation History - Browser-style back/forward (Oct 24, 2025)
   
   // 🤖 MB.MD SIMULTANEOUS Build: Autonomous Mr Blue - All 5 Phases (Oct 24, 2025)
   // 15 APIs: Code Reading (3), Writing (3), Testing (3), Safety (3), Orchestration (3)

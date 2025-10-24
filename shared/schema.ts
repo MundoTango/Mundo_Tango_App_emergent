@@ -2605,10 +2605,21 @@ export const chatProjects = pgTable("chat_projects", {
   name: varchar("name", { length: 255 }).notNull(),
   description: text("description"),
   metadata: jsonb("metadata").$type<Record<string, any>>(),
+  // Visual Editor Integration (Oct 24, 2025)
+  visualEditorMode: boolean("visual_editor_mode").default(false), // Whether this conversation is from Visual Editor
+  lastSelectedElement: jsonb("last_selected_element").$type<{
+    tag: string;
+    id?: string;
+    className?: string;
+    xpath?: string;
+    innerHTML?: string;
+  }>(), // Last element user selected in Visual Editor
+  lastPreviewPath: varchar("last_preview_path", { length: 500 }), // Last page in preview
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 }, (table) => [
   index("idx_chat_projects_user").on(table.userId),
+  index("idx_chat_projects_visual_editor").on(table.visualEditorMode),
 ]);
 
 // AI Chat Messages (Mr Blue multi-model conversations)
@@ -2976,6 +2987,54 @@ export const agentTrainingProgress = pgTable("agent_training_progress", {
   unique("unique_agent_checklist").on(table.agentId, table.checklistItem),
 ]);
 
+// ========================================
+// VISUAL EDITOR NAVIGATION HISTORY
+// MB.MD Layer #1 - Database Architecture (Oct 24, 2025)
+// ========================================
+
+// Visual Editor Navigation History (browser-style back/forward)
+export const visualEditorNavigationHistory = pgTable("visual_editor_navigation_history", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  type: varchar("type", { length: 20 }).notNull(), // 'element', 'page', 'tab'
+  data: jsonb("data").$type<{
+    // Element type
+    tag?: string;
+    id?: string;
+    className?: string;
+    xpath?: string;
+    innerHTML?: string;
+    // Page type
+    path?: string;
+    title?: string;
+    // Tab type
+    tabName?: string;
+    tabLabel?: string;
+  }>().notNull(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+}, (table) => [
+  index("idx_nav_history_user").on(table.userId),
+  index("idx_nav_history_timestamp").on(table.timestamp),
+]);
+
+// Undo/Rollback History (file-level changes)
+export const undoHistory = pgTable("undo_history", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  sessionId: varchar("session_id", { length: 100 }).notNull(), // Group changes by session
+  filePath: varchar("file_path", { length: 500 }).notNull(),
+  changeNumber: integer("change_number").notNull(), // 1st change, 2nd change, etc
+  oldContent: text("old_content").notNull(), // File content before change
+  newContent: text("new_content").notNull(), // File content after change
+  changeDescription: text("change_description"), // What changed (AI-generated)
+  isCheckpoint: boolean("is_checkpoint").default(false), // Every 5th change
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+}, (table) => [
+  index("idx_undo_history_user_session").on(table.userId, table.sessionId),
+  index("idx_undo_history_file").on(table.filePath),
+  index("idx_undo_history_checkpoint").on(table.isCheckpoint),
+]);
+
 // Zod Schemas
 export const insertChatProjectSchema = createInsertSchema(chatProjects).omit({
   id: true,
@@ -3053,3 +3112,20 @@ export type InsertAgentCertification = z.infer<typeof insertAgentCertificationSc
 
 export type AgentTrainingProgress = typeof agentTrainingProgress.$inferSelect;
 export type InsertAgentTrainingProgress = z.infer<typeof insertAgentTrainingProgressSchema>;
+
+// Visual Editor Navigation & Undo Schemas
+export const insertNavigationHistorySchema = createInsertSchema(visualEditorNavigationHistory).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertUndoHistorySchema = createInsertSchema(undoHistory).omit({
+  id: true,
+  timestamp: true,
+});
+
+export type NavigationHistory = typeof visualEditorNavigationHistory.$inferSelect;
+export type InsertNavigationHistory = z.infer<typeof insertNavigationHistorySchema>;
+
+export type UndoHistory = typeof undoHistory.$inferSelect;
+export type InsertUndoHistory = z.infer<typeof insertUndoHistorySchema>;
