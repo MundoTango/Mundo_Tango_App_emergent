@@ -1371,6 +1371,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', profileRoutes); // Profile API: GET/PATCH /api/profile, follow/unfollow
   app.use('/api', groupRoutes); // Group API: GET/POST/PATCH /api/groups, join/leave
   app.use(postsRoutes); // Posts API: GET/POST/PUT/DELETE /api/posts (registered Oct 20, 2025)
+  app.use('/api', tenantRoutes); // Tenant API: Multi-tenant management, cross-community content
   
   // MB.MD TRACK 1: AI Services Integration - Oct 20, 2025 (58% → 100%)
   // MB.MD Oct 21: Now using static imports (see top of file)

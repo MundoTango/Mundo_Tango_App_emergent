@@ -30,7 +30,7 @@ router.get('/tenants', async (req, res) => {
 // Get user's tenants with membership info
 router.get('/tenants/user', flexibleAuth, async (req, res) => {
   try {
-    const userId = req.userId || getUserId(req);
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -65,7 +65,7 @@ router.get('/tenants/user', flexibleAuth, async (req, res) => {
       .from(tenantUsers)
       .innerJoin(tenants, eq(tenantUsers.tenant_id, tenants.id))
       .where(and(
-        eq(tenantUsers.user_id, userId),
+        eq(tenantUsers.user_id, Number(userId)),
         eq(tenants.is_active, true)
       ));
 
@@ -82,7 +82,7 @@ router.get('/tenants/user', flexibleAuth, async (req, res) => {
 // Get or create user view preferences
 router.get('/tenants/view-preferences', flexibleAuth, async (req, res) => {
   try {
-    const userId = req.userId || getUserId(req);
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -90,7 +90,7 @@ router.get('/tenants/view-preferences', flexibleAuth, async (req, res) => {
     let [preferences] = await db
       .select()
       .from(userViewPreferences)
-      .where(eq(userViewPreferences.user_id, userId))
+      .where(eq(userViewPreferences.user_id, Number(userId)))
       .limit(1);
 
     // If no preferences exist, create default ones
@@ -98,9 +98,10 @@ router.get('/tenants/view-preferences', flexibleAuth, async (req, res) => {
       const [newPreferences] = await db
         .insert(userViewPreferences)
         .values({
-          user_id: userId,
+          user_id: Number(userId),
           view_mode: 'single_community',
-          selected_tenant_ids: []
+          selected_tenant_ids: [],
+          custom_filters: {}
         })
         .returning();
       preferences = newPreferences;
@@ -119,7 +120,7 @@ router.get('/tenants/view-preferences', flexibleAuth, async (req, res) => {
 // Update user view preferences
 router.put('/tenants/view-preferences', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -136,12 +137,20 @@ router.put('/tenants/view-preferences', isAuthenticated, async (req, res) => {
     const [updatedPreferences] = await db
       .insert(userViewPreferences)
       .values({
-        user_id: userId,
-        ...data
+        user_id: Number(userId),
+        view_mode: data.view_mode || 'single_community',
+        selected_tenant_id: data.selected_tenant_id,
+        selected_tenant_ids: data.selected_tenant_ids || [],
+        custom_filters: data.custom_filters || {}
       })
       .onConflictDoUpdate({
         target: userViewPreferences.user_id,
-        set: data
+        set: {
+          view_mode: data.view_mode,
+          selected_tenant_id: data.selected_tenant_id,
+          selected_tenant_ids: data.selected_tenant_ids,
+          custom_filters: data.custom_filters
+        }
       })
       .returning();
 
@@ -158,7 +167,7 @@ router.put('/tenants/view-preferences', isAuthenticated, async (req, res) => {
 // Get cross-community content
 router.get('/tenants/cross-community/content', isAuthenticated, tenantMiddleware, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -169,68 +178,31 @@ router.get('/tenants/cross-community/content', isAuthenticated, tenantMiddleware
     const userTenantIds = await db
       .select({ tenant_id: tenantUsers.tenant_id })
       .from(tenantUsers)
-      .where(eq(tenantUsers.user_id, userId));
+      .where(eq(tenantUsers.user_id, Number(userId)));
 
     const memberTenantIds = userTenantIds.map(t => t.tenant_id);
 
     // Parse tenant_ids from query
     let queryTenantIds = memberTenantIds;
     if (tenant_ids) {
-      const requestedIds = Array.isArray(tenant_ids) ? tenant_ids : [tenant_ids];
+      const requestedIds = Array.isArray(tenant_ids) ? tenant_ids.map(id => String(id)) : [String(tenant_ids)];
       // Filter to only tenants user is a member of
       queryTenantIds = requestedIds.filter(id => memberTenantIds.includes(id));
     }
 
-    let content = [];
+    let content: any[] = [];
 
     switch (content_type) {
       case 'posts':
-        content = await db
-          .select({
-            id: posts.id,
-            content_type: sql`'post'`,
-            tenant_id: posts.tenant_id,
-            tenant_name: tenants.name,
-            user_id: posts.user_id,
-            content: posts.content,
-            created_at: posts.created_at,
-            user_name: users.name,
-            user_avatar: users.profileImage
-          })
-          .from(posts)
-          .innerJoin(tenants, eq(posts.tenant_id, tenants.id))
-          .innerJoin(users, eq(posts.user_id, users.id))
-          .where(and(
-            inArray(posts.tenant_id, queryTenantIds),
-            eq(posts.deleted_at, null)
-          ))
-          .orderBy(posts.created_at)
-          .limit(Number(limit))
-          .offset(Number(offset));
+        // Posts don't have tenant_id in the current schema
+        // This would need to be added to support multi-tenant posts
+        content = [];
         break;
 
       case 'events':
-        content = await db
-          .select({
-            id: events.id,
-            content_type: sql`'event'`,
-            tenant_id: events.tenant_id,
-            tenant_name: tenants.name,
-            title: events.title,
-            description: events.description,
-            start_date: events.start_date,
-            location_name: events.location_name,
-            image_url: events.image_url
-          })
-          .from(events)
-          .innerJoin(tenants, eq(events.tenant_id, tenants.id))
-          .where(and(
-            inArray(events.tenant_id, queryTenantIds),
-            eq(events.deleted_at, null)
-          ))
-          .orderBy(events.start_date)
-          .limit(Number(limit))
-          .offset(Number(offset));
+        // Events don't have tenant_id in the current schema
+        // This would need to be added to support multi-tenant events
+        content = [];
         break;
 
       // Memories case removed - table not yet implemented
@@ -257,7 +229,7 @@ router.get('/tenants/cross-community/content', isAuthenticated, tenantMiddleware
 // Create content sharing request
 router.post('/tenants/content/share', isAuthenticated, tenantMiddleware, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -276,7 +248,7 @@ router.post('/tenants/content/share', isAuthenticated, tenantMiddleware, async (
       .select()
       .from(tenantUsers)
       .where(and(
-        eq(tenantUsers.user_id, userId),
+        eq(tenantUsers.user_id, Number(userId)),
         eq(tenantUsers.tenant_id, data.source_tenant_id)
       ))
       .limit(1);
@@ -291,7 +263,7 @@ router.post('/tenants/content/share', isAuthenticated, tenantMiddleware, async (
       content_id: data.content_id,
       source_tenant_id: data.source_tenant_id,
       shared_tenant_id: targetId,
-      shared_by: userId,
+      shared_by: Number(userId),
       is_approved: membership.is_admin // Auto-approve if user is admin
     }));
 
@@ -314,7 +286,7 @@ router.post('/tenants/content/share', isAuthenticated, tenantMiddleware, async (
 // User journey endpoints
 router.get('/tenants/journeys', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -322,7 +294,7 @@ router.get('/tenants/journeys', isAuthenticated, async (req, res) => {
     const journeys = await db
       .select()
       .from(userJourneys)
-      .where(eq(userJourneys.user_id, userId))
+      .where(eq(userJourneys.user_id, Number(userId)))
       .orderBy(userJourneys.created_at);
 
     res.json({
@@ -337,7 +309,7 @@ router.get('/tenants/journeys', isAuthenticated, async (req, res) => {
 
 router.post('/tenants/journeys', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -345,12 +317,12 @@ router.post('/tenants/journeys', isAuthenticated, async (req, res) => {
     const journeySchema = z.object({
       title: z.string(),
       description: z.string().optional(),
-      start_date: z.string().optional(),
-      end_date: z.string().optional(),
+      startDate: z.string().optional(),
+      endDate: z.string().optional(),
       locations: z.array(z.any()).optional(),
-      tenant_ids: z.array(z.string().uuid()).optional(),
-      journey_type: z.enum(['travel', 'learning', 'experience']).optional(),
-      is_public: z.boolean().optional()
+      tenantIds: z.array(z.string().uuid()).optional(),
+      journeyType: z.enum(['travel', 'learning', 'experience']).optional(),
+      isPublic: z.boolean().optional()
     });
 
     const data = journeySchema.parse(req.body);
@@ -358,9 +330,17 @@ router.post('/tenants/journeys', isAuthenticated, async (req, res) => {
     const [journey] = await db
       .insert(userJourneys)
       .values({
-        ...data,
-        user_id: userId,
-        status: 'planning'
+        user_id: Number(userId),
+        title: data.title,
+        description: data.description,
+        start_date: data.startDate,
+        end_date: data.endDate,
+        locations: data.locations,
+        tenant_ids: data.tenantIds,
+        journey_type: data.journeyType,
+        is_public: data.isPublic ?? false,
+        status: 'planning',
+        settings: {}
       })
       .returning();
 
@@ -377,7 +357,7 @@ router.post('/tenants/journeys', isAuthenticated, async (req, res) => {
 // Journey activities
 router.post('/tenants/journeys/:journeyId/activities', isAuthenticated, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -390,7 +370,7 @@ router.post('/tenants/journeys/:journeyId/activities', isAuthenticated, async (r
       .from(userJourneys)
       .where(and(
         eq(userJourneys.id, journeyId),
-        eq(userJourneys.user_id, userId)
+        eq(userJourneys.user_id, Number(userId))
       ))
       .limit(1);
 
@@ -399,16 +379,16 @@ router.post('/tenants/journeys/:journeyId/activities', isAuthenticated, async (r
     }
 
     const activitySchema = z.object({
-      tenant_id: z.string().uuid().optional(),
-      activity_type: z.string(),
+      tenantId: z.string().uuid().optional(),
+      activityType: z.string(),
       title: z.string(),
       description: z.string().optional(),
       location: z.any().optional(),
-      start_datetime: z.string().optional(),
-      end_datetime: z.string().optional(),
-      external_url: z.string().optional(),
-      content_reference_id: z.string().uuid().optional(),
-      content_reference_type: z.string().optional()
+      startDatetime: z.string().optional(),
+      endDatetime: z.string().optional(),
+      externalUrl: z.string().optional(),
+      contentReferenceId: z.string().uuid().optional(),
+      contentReferenceType: z.string().optional()
     });
 
     const data = activitySchema.parse(req.body);
@@ -416,8 +396,18 @@ router.post('/tenants/journeys/:journeyId/activities', isAuthenticated, async (r
     const [activity] = await db
       .insert(journeyActivities)
       .values({
-        ...data,
-        journey_id: journeyId
+        journey_id: journeyId,
+        tenant_id: data.tenantId,
+        activity_type: data.activityType,
+        title: data.title,
+        description: data.description,
+        location: data.location,
+        start_datetime: data.startDatetime,
+        end_datetime: data.endDatetime,
+        external_url: data.externalUrl,
+        content_reference_id: data.contentReferenceId,
+        content_reference_type: data.contentReferenceType,
+        settings: {}
       })
       .returning();
 
