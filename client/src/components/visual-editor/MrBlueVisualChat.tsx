@@ -11,10 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { AutonomousToggle } from '../mrBlue/AutonomousToggle';
 import { AutonomousProgressPanel } from '../mrBlue/AutonomousProgressPanel';
-import { ApprovalModal } from '../mrBlue/ApprovalModal';
-import { useAutonomousMode } from '@/hooks/useAutonomousMode';
 import { useAuth } from '@/hooks/useAuth';
 import { isSuperAdmin } from '@/utils/accessControl';
 // AUTONOMOUS MR BLUE: Visual Editor integration props (Oct 24, 2025)
@@ -55,17 +52,10 @@ export function MrBlueVisualChat({
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
-  // AUTONOMOUS MODE (Visual Editor Only)
+  // AUTONOMOUS MODE - ALWAYS ON IN VISUAL EDITOR (no toggle!)
   const { user } = useAuth();
-  const isAdmin = user && isSuperAdmin(user);
-  const [isAutonomous, setIsAutonomous] = useState(false);
   const [autonomousSteps, setAutonomousSteps] = useState<any[]>([]);
   const [currentStep, setCurrentStep] = useState<string>();
-  const [checkpointCount, setCheckpointCount] = useState(0);
-  const [approvalRequest, setApprovalRequest] = useState<any>(null);
-  const [showApprovalModal, setShowApprovalModal] = useState(false);
-  
-  const autonomousMode = useAutonomousMode();
 
   // STREAM 1.2: SSE Event Listener for real-time updates
   const startSSEListener = (taskId: string) => {
@@ -109,13 +99,7 @@ export function MrBlueVisualChat({
             break;
 
           case 'approvalRequired':
-            setApprovalRequest({
-              filePath: data.filePath,
-              diff: data.diff,
-              risk: data.risk,
-              description: data.description,
-            });
-            setShowApprovalModal(true);
+            // Skip approval - always auto-approve in Visual Editor
             break;
 
           case 'fileApplied':
@@ -144,7 +128,6 @@ export function MrBlueVisualChat({
               content: `🎉 **Task complete!**\n\nAll changes have been applied. Click the Save button to commit to Git.`,
               timestamp: new Date(),
             }]);
-            setCheckpointCount(prev => prev + 1);
             eventSource.close();
             break;
 
@@ -217,76 +200,45 @@ export function MrBlueVisualChat({
     setIsLoading(true);
 
     try {
-      // STREAM 1.1: Route to autonomous execute when autonomous mode ON
-      if (isAutonomous) {
-        console.log('🤖 [AUTONOMOUS] Routing to autonomous execution engine...');
-        console.log('📍 Selected Element:', selectedElement);
-        
-        const response = await fetch('/api/mrblue/autonomous/execute', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({
-            task: inputValue,
-            context: {
-              page: currentPage,
-              url: window.location.href,
-              selectedElement: selectedElement ? {
-                tag: selectedElement.tag,
-                id: selectedElement.id,
-                className: selectedElement.className,
-                xpath: selectedElement.xpath,
-              } : undefined,
-            },
-            maxIterations: 20,
-            requireApproval: false,
-          }),
-        });
+      // VISUAL EDITOR = ALWAYS AUTONOMOUS (no chat mode)
+      console.log('🤖 [AUTONOMOUS] Routing to autonomous execution engine...');
+      console.log('📍 Selected Element:', selectedElement);
+      
+      const response = await fetch('/api/mrblue/autonomous/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          task: inputValue,
+          context: {
+            page: currentPage,
+            url: window.location.href,
+            selectedElement: selectedElement ? {
+              tag: selectedElement.tag,
+              id: selectedElement.id,
+              className: selectedElement.className,
+              xpath: selectedElement.xpath,
+            } : undefined,
+          },
+          maxIterations: 20,
+          requireApproval: false,
+        }),
+      });
 
-        if (!response.ok) throw new Error('Failed to start autonomous execution');
+      if (!response.ok) throw new Error('Failed to start autonomous execution');
 
-        const data = await response.json();
-        console.log('✅ Autonomous task started:', data.data.taskId);
+      const data = await response.json();
+      console.log('✅ Autonomous task started:', data.data.taskId);
 
-        // STREAM 1.2: Start SSE listener for real-time updates
-        const taskId = data.data.taskId;
-        startSSEListener(taskId);
+      // STREAM 1.2: Start SSE listener for real-time updates
+      const taskId = data.data.taskId;
+      startSSEListener(taskId);
 
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: `🤖 **Autonomous execution started**\n\nTask ID: ${taskId}\n\nI'm working on your request. Watch the progress panel for live updates!`,
-          timestamp: new Date(),
-        }]);
-      } else {
-        // Normal chat mode (non-autonomous)
-        const response = await fetch('/api/visual-editor/simple-chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({
-            message: inputValue,
-            context: {
-              page: currentPage,
-              url: window.location.href,
-              selectedElement: selectedElement ? {
-                tag: selectedElement.tag,
-                id: selectedElement.id,
-                className: selectedElement.className,
-              } : undefined,
-            },
-          }),
-        });
-
-        if (!response.ok) throw new Error('Failed to get response');
-
-        const data = await response.json();
-
-          setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: data.response,
-          timestamp: new Date(),
-        }]);
-      }
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `🤖 **Autonomous execution started**\n\nTask ID: ${taskId}\n\nI'm working on your request. Watch the progress panel for live updates!`,
+        timestamp: new Date(),
+      }]);
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, {
@@ -320,18 +272,9 @@ export function MrBlueVisualChat({
                 </div>
                 <div>
                   <h3 className="font-semibold">Mr Blue</h3>
-                  <p className="text-xs text-gray-500">Visual Editor AI + Autonomous Mode</p>
+                  <p className="text-xs text-gray-500">Visual Editor AI - Autonomous Mode</p>
                 </div>
               </div>
-              
-              {/* Autonomous Toggle (Visual Editor Only) */}
-              {isAdmin && (
-                <AutonomousToggle
-                  enabled={isAutonomous}
-                  onChange={setIsAutonomous}
-                  disabled={false}
-                />
-              )}
             </div>
 
             {/* Context badges */}
@@ -344,12 +287,10 @@ export function MrBlueVisualChat({
                   {selectedElement.id || selectedElement.tag}
                 </Badge>
               )}
-              {isAutonomous && (
-                <Badge variant="default" className="text-xs bg-green-600">
-                  <Zap className="w-3 h-3 mr-1" />
-                  Autonomous ON
-                </Badge>
-              )}
+              <Badge variant="default" className="text-xs bg-green-600">
+                <Zap className="w-3 h-3 mr-1" />
+                Autonomous Mode
+              </Badge>
             </div>
           </div>
 
@@ -395,7 +336,7 @@ export function MrBlueVisualChat({
                 </div>
                 <div className="flex-1">
                   <div className="inline-block px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-                    <p className="text-sm text-gray-500">{isAutonomous ? 'Executing autonomously...' : 'Thinking...'}</p>
+                    <p className="text-sm text-gray-500">Executing autonomously...</p>
                   </div>
                 </div>
               </div>
@@ -411,7 +352,7 @@ export function MrBlueVisualChat({
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={isAutonomous ? "Ask me to code autonomously..." : "Ask me anything about editing this page..."}
+                placeholder="Tell me what to change... (e.g., 'make this button red')"
                 disabled={isLoading}
                 data-testid="input-chat-message"
               />
@@ -428,69 +369,41 @@ export function MrBlueVisualChat({
               </Button>
             </div>
 
-            {/* Quick actions */}
+            {/* Quick autonomous actions */}
             <div className="flex gap-2 mt-2">
-              {!isAutonomous ? (
-                <>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-xs"
-                    onClick={() => setInputValue("What can I edit on this page?")}
-                    data-testid="button-quick-what-edit"
-                  >
-                    <Sparkles className="w-3 h-3 mr-1" />
-                    What can I edit?
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-xs"
-                    onClick={() => setInputValue("Suggest improvements")}
-                    data-testid="button-quick-suggest"
-                  >
-                    <Sparkles className="w-3 h-3 mr-1" />
-                    Suggest improvements
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-xs"
-                    onClick={() => setInputValue("Add dark mode to this component")}
-                    data-testid="button-quick-autonomous-dark"
-                  >
-                    <Zap className="w-3 h-3 mr-1" />
-                    Add dark mode
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-xs"
-                    onClick={() => setInputValue("Fix all TypeScript errors")}
-                    data-testid="button-quick-autonomous-fix"
-                  >
-                    <Zap className="w-3 h-3 mr-1" />
-                    Fix errors
-                  </Button>
-                </>
-              )}
+              <Button
+                size="sm"
+                variant="ghost"
+                className="text-xs"
+                onClick={() => setInputValue("Make this button red")}
+                data-testid="button-quick-autonomous-color"
+              >
+                <Zap className="w-3 h-3 mr-1" />
+                Change color
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="text-xs"
+                onClick={() => setInputValue("Add a loading spinner")}
+                data-testid="button-quick-autonomous-loading"
+              >
+                <Zap className="w-3 h-3 mr-1" />
+                Add spinner
+              </Button>
             </div>
           </div>
         </div>
 
-        {/* Autonomous Progress Sidebar (Visual Editor Only) */}
-        {isAutonomous && autonomousSteps.length > 0 && (
+        {/* Autonomous Progress Sidebar */}
+        {autonomousSteps.length > 0 && (
           <div className="w-80 p-4 border-l border-gray-200 dark:border-gray-700 overflow-y-auto bg-gray-50 dark:bg-gray-900">
             <AutonomousProgressPanel
-              isActive={isAutonomous}
+              isActive={true}
               currentStep={currentStep}
               steps={autonomousSteps}
-              checkpointCount={checkpointCount}
+              checkpointCount={0}
               onCancel={() => {
-                setIsAutonomous(false);
                 setAutonomousSteps([]);
                 setCurrentStep(undefined);
               }}
@@ -499,19 +412,6 @@ export function MrBlueVisualChat({
         )}
       </div>
       
-      {/* Approval Modal (Visual Editor Only) */}
-      <ApprovalModal
-        open={showApprovalModal}
-        request={approvalRequest}
-        onApprove={() => {
-          setShowApprovalModal(false);
-          setApprovalRequest(null);
-        }}
-        onReject={() => {
-          setShowApprovalModal(false);
-          setApprovalRequest(null);
-        }}
-      />
     </>
   );
 }
