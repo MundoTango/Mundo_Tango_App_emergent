@@ -357,13 +357,50 @@ screenshot("/page")  # ✅ Visual proof
 ---
 
 ### Rule 5: ARCHITECT VALIDATES
-**What:** Independent expert review before marking "done"  
-**Why:** Agents are biased, need objective validation  
+**What:** Independent expert review with BEHAVIOR proof before marking "done"  
+**Why:** Agents are biased AND code structure review misses runtime bugs  
 **How:**
 - Call `architect` tool with full git diff
 - Include all modified files
+- **🧪 NEW: Include test execution evidence** (see `docs/TESTING_REQUIREMENTS_MANDATORY.md`)
+- **🧪 NEW: Provide server/browser logs proving no crashes**
+- **🧪 NEW: Show before/after screenshots for UI changes**
 - Answer architect's questions
 - Fix issues before proceeding
+
+**📋 MANDATORY EVIDENCE PACKAGE (Oct 24, 2025):**
+```markdown
+## Architect Review Request
+
+**Changes:** [Brief description]
+
+**Evidence:**
+1. **Test Execution:**
+   - Unit tests: [X/X passed] (if complex logic)
+   - Integration test: User journey completed successfully
+   - Regression check: No breaking changes
+
+2. **Runtime Proof:**
+   - Server logs: Clean (no errors/crashes)
+   - Browser console: Clean (no warnings/errors)
+   - Data inspection: Actual structures match assumptions
+
+3. **Visual Proof** (if UI changes):
+   - Screenshot: Feature renders correctly
+   - Screenshot: Feature works (clicked/tested)
+   - Screenshot: No console errors visible
+
+**Files Modified:** [List with line counts]
+
+**Request:** Please validate implementation
+```
+
+**Anti-Pattern (Agent #131 - Oct 24, 2025):**
+- Submitted code for review without testing
+- Architect approved structure, not behavior
+- No evidence that file detection works
+- No proof that sanitization removes markdown
+- Result: Approved → deployed → crashed 2x
 
 ---
 

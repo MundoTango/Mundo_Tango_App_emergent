@@ -50,6 +50,65 @@ grep "<VisualEditorWrapper" client/src/App.tsx
 - [ ] Check existing similar features for patterns
 - [ ] Verify context providers are in App.tsx provider tree
 
+---
+
+### Learning #20: THE "INSPECT FIRST" PRINCIPLE (MANDATORY - Oct 24, 2025)
+**Problem:** Building based on assumptions about data structures instead of reality  
+**Real Example:** Agent #131 assumed `contextData.textContent` exists, never verified, built wrong conditional  
+**Impact:** File detection never executed textContent search, always fell back to className → found App.tsx → crashed server 2x
+
+**Agent Action:**
+```typescript
+// MANDATORY BEFORE building logic:
+// Step 1: Add inspection logging
+console.log('🔍 [DATA INSPECTION]:', JSON.stringify(data, null, 2));
+
+// Step 2: Run the code and observe output
+// Step 3: Capture actual structure
+// Step 4: Compare assumptions vs reality
+// Step 5: ONLY THEN write conditionals
+
+// ❌ WRONG - Assumption without verification
+if (contextData?.textContent) { ... }
+
+// ✅ RIGHT - Verified structure first
+// After seeing logs: { textContent: "Find Events", className: "..." }
+const text = contextData?.textContent;  // Now we KNOW this exists
+if (text && typeof text === 'string' && text.trim().length > 3) { ... }
+```
+
+**Checklist:**
+- [ ] Identify all external data sources (API responses, context values, props)
+- [ ] Add temporary inspection logs for each data source
+- [ ] Run code and capture actual console output
+- [ ] Screenshot or copy actual data structure
+- [ ] Compare assumptions vs reality
+- [ ] Update code to match reality, not assumptions
+- [ ] Remove temporary logs after verification
+
+**Example From Oct 24 Failure:**
+```typescript
+// Agent #131 assumed Visual Editor context shape:
+// ASSUMPTION: { selectedComponent: { element: { textContent: "..." } } }
+
+// REALITY after inspection:
+// ACTUAL: { textContent: "Find Events", className: "...", tag: "div" }
+
+// Why assumption failed:
+// - Never inspected actual data from Visual Editor
+// - Looked at orchestrationEngine.ts code (incorrect reference)
+// - Built conditional for wrong structure
+// - textContent search NEVER executed (logs proved it)
+```
+
+**Prevention:**
+- Always inspect data BEFORE writing conditionals
+- Trust logs, not assumptions
+- Verify each layer of nested data exists
+- Test with actual runtime data, not imagined structures
+
+**See:** `docs/TESTING_REQUIREMENTS_MANDATORY.md` Checkpoint 1
+
 **Example Mapping:**
 ```markdown
 User Journey: Voice conversation with visual context
@@ -265,7 +324,84 @@ Document entry points clearly:
 ## 🔧 **PHASE 3: MITIGATION (While Building)**
 **Owner:** Implementation Agent  
 **Validator:** Architect reviews before marking complete  
-**Implements:** MB.MD QA Protocol Rule 2 (INTEGRATE execution)
+**Implements:** MB.MD QA Protocol Rules 2 (INTEGRATE) + 3 (SCREENSHOT) + NEW: Testing Requirements
+
+### Learning #21: THE "UNIT TEST BEFORE INTEGRATION" MANDATE (CRITICAL - Oct 24, 2025)
+**Problem:** Building complex logic without testing individual pieces first  
+**Real Example:** Agent #131 wrote regex sanitization, never tested with sample inputs, deployed broken code  
+**Impact:** Server crashed 2x because markdown wasn't removed despite sanitization running
+
+**Agent Action:**
+```typescript
+// MANDATORY FOR COMPLEX LOGIC (>10 lines, external data, regex, parsing):
+// Step 1: Write function
+function validateAndSanitizeCode(code: string): string {
+  let sanitized = code.trim();
+  sanitized = sanitized.replace(/^```[\w]*\n?/gm, '');
+  sanitized = sanitized.replace(/\n?```$/gm, '');
+  return sanitized;
+}
+
+// Step 2: UNIT TEST with sample inputs BEFORE integration
+console.log('🧪 [UNIT TEST] Sanitization tests:');
+
+const testCases = [
+  { input: "```typescript\nimport React...", expected: "import React..." },
+  { input: "```javascript\nconst foo = 1", expected: "const foo = 1" },
+  { input: "```\nimport { useState }", expected: "import { useState }" },
+  { input: "normal code", expected: "normal code" }
+];
+
+testCases.forEach((test, idx) => {
+  const result = validateAndSanitizeCode(test.input);
+  const passed = result === test.expected;
+  console.log(`Test ${idx + 1}: ${passed ? '✅ PASS' : '❌ FAIL'}`);
+  if (!passed) {
+    console.log(`  Expected: "${test.expected}"`);
+    console.log(`  Got: "${result}"`);
+  }
+});
+
+// Step 3: Fix any failures
+// Step 4: ONLY THEN integrate into full flow
+```
+
+**Checklist:**
+- [ ] Identify complex functions (regex, parsing, data transforms)
+- [ ] Write 3-5 test cases per function
+- [ ] Test with actual sample data (not imagined inputs)
+- [ ] Verify ALL tests pass before integration
+- [ ] Include test results in architect review
+
+**Example From Oct 24 Failure:**
+```typescript
+// ❌ WRONG - No testing
+function sanitizeCode(code: string) {
+  return code.replace(/^```[\w]*\n?/gm, '');  // Deployed untested
+}
+// Result: Didn't work, crashed production
+
+// ✅ RIGHT - Test first
+function sanitizeCode(code: string) {
+  return code.replace(/^```[\w]*\n?/gm, '');
+}
+
+// Test with actual AI output:
+const testInput = "```typescript\nimport React from 'react';";
+const result = sanitizeCode(testInput);
+console.log('Starts with import?', result.startsWith('import')); // false - BUG FOUND!
+// Fix regex, test again, then deploy
+```
+
+**Prevention:**
+- Complex logic = mandatory unit tests
+- Use actual sample data (copy from logs/API)
+- Test edge cases (empty, null, malformed)
+- Fix failures before integration
+
+**See:** `docs/TESTING_REQUIREMENTS_MANDATORY.md` Checkpoint 2
+
+---
 
 ### Learning #5: THE "PROVIDER HIERARCHY" GOTCHA
 **Problem:** Context provider exists but isn't in App.tsx provider tree  
