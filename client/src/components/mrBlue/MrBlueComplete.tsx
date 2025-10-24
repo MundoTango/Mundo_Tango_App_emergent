@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { 
   Sparkles, X, Maximize2, Minimize2,
   MessageSquare, Map, CreditCard, Search, Code, Palette, Wand2, 
-  CheckCircle2, Brain, Shield, Bot
+  CheckCircle2, Brain, Shield
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -16,11 +16,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { isSuperAdmin } from '@/utils/accessControl';
 import { ChatInterface } from './ChatInterface';
-import { AutonomousToggle } from './AutonomousToggle';
-import { AutonomousProgressPanel } from './AutonomousProgressPanel';
-import { ApprovalModal } from './ApprovalModal';
-import { CheckpointViewer } from './CheckpointViewer';
-import { useAutonomousMode } from '@/hooks/useAutonomousMode';
 import ToursTab from './tabs/ToursTab';
 import SubscriptionsTab from './tabs/SubscriptionsTab';
 import SiteBuilderTab from './tabs/SiteBuilderTab';
@@ -38,16 +33,6 @@ export function MrBlueComplete() {
   const [activeTab, setActiveTab] = useState('chat');
   const { user } = useAuth();
   const isAdmin = user && isSuperAdmin(user);
-  
-  // Autonomous Mode State
-  const [isAutonomous, setIsAutonomous] = useState(false);
-  const [autonomousSteps, setAutonomousSteps] = useState<any[]>([]);
-  const [currentStep, setCurrentStep] = useState<string>();
-  const [checkpointCount, setCheckpointCount] = useState(0);
-  const [approvalRequest, setApprovalRequest] = useState<any>(null);
-  const [showApprovalModal, setShowApprovalModal] = useState(false);
-  
-  const autonomousMode = useAutonomousMode();
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -92,7 +77,7 @@ export function MrBlueComplete() {
           </DialogDescription>
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-cyan-200 bg-white/50 backdrop-blur-sm">
-            <div className="flex items-center gap-3 flex-1">
+            <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
@@ -104,17 +89,6 @@ export function MrBlueComplete() {
                   Your intelligent assistant + 16 Life CEO agents
                 </p>
               </div>
-              
-              {/* Autonomous Mode Toggle */}
-              {activeTab === 'chat' && (
-                <div className="ml-auto mr-4">
-                  <AutonomousToggle
-                    enabled={isAutonomous}
-                    onChange={setIsAutonomous}
-                    disabled={!isAdmin}
-                  />
-                </div>
-              )}
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -186,40 +160,16 @@ export function MrBlueComplete() {
                   </>
                 )}
                 {isAdmin && (
-                  <>
-                    <TabsTrigger value="admin" className="gap-2" data-testid="tab-admin">
-                      <Shield className="h-4 w-4" />
-                      <span className="hidden sm:inline">Admin</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="checkpoints" className="gap-2" data-testid="tab-checkpoints">
-                      <Bot className="h-4 w-4" />
-                      <span className="hidden sm:inline">Checkpoints</span>
-                    </TabsTrigger>
-                  </>
+                  <TabsTrigger value="admin" className="gap-2" data-testid="tab-admin">
+                    <Shield className="h-4 w-4" />
+                    <span className="hidden sm:inline">Admin</span>
+                  </TabsTrigger>
                 )}
               </TabsList>
 
               {/* Tab Content */}
-              <TabsContent value="chat" className="flex-1 m-0 p-0 min-h-[500px] flex gap-4">
-                <div className="flex-1 flex flex-col">
-                  <ChatInterface />
-                </div>
-                {/* Autonomous Progress Sidebar */}
-                {isAutonomous && autonomousSteps.length > 0 && (
-                  <div className="w-80 p-4 border-l border-cyan-200 overflow-y-auto">
-                    <AutonomousProgressPanel
-                      isActive={isAutonomous}
-                      currentStep={currentStep}
-                      steps={autonomousSteps}
-                      checkpointCount={checkpointCount}
-                      onCancel={() => {
-                        setIsAutonomous(false);
-                        setAutonomousSteps([]);
-                        setCurrentStep(undefined);
-                      }}
-                    />
-                  </div>
-                )}
+              <TabsContent value="chat" className="flex-1 m-0 p-0 min-h-[500px]">
+                <ChatInterface />
               </TabsContent>
               <TabsContent value="tours" className="flex-1 m-0 p-4 min-h-[500px] overflow-auto">
                 <ToursTab />
@@ -250,40 +200,14 @@ export function MrBlueComplete() {
                 </>
               )}
               {isAdmin && (
-                <>
-                  <TabsContent value="admin" className="flex-1 m-0 p-4 min-h-[500px] overflow-auto">
-                    <AdminTab />
-                  </TabsContent>
-                  <TabsContent value="checkpoints" className="flex-1 m-0 p-4 min-h-[500px] overflow-auto">
-                    <CheckpointViewer
-                      checkpoints={[]} // Will be populated from API
-                      onRollback={(checkpointId) => {
-                        autonomousMode.rollback.mutate({ checkpointId, includeDatabase: false });
-                      }}
-                      isLoading={autonomousMode.rollback.isPending}
-                    />
-                  </TabsContent>
-                </>
+                <TabsContent value="admin" className="flex-1 m-0 p-4 min-h-[500px] overflow-auto">
+                  <AdminTab />
+                </TabsContent>
               )}
             </Tabs>
           </div>
         </DialogContent>
       </Dialog>
-      
-      {/* Approval Modal */}
-      <ApprovalModal
-        open={showApprovalModal}
-        request={approvalRequest}
-        onApprove={() => {
-          // Handle approval logic
-          setShowApprovalModal(false);
-          setApprovalRequest(null);
-        }}
-        onReject={() => {
-          setShowApprovalModal(false);
-          setApprovalRequest(null);
-        }}
-      />
     </>
   );
 }

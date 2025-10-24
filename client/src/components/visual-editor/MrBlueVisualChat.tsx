@@ -6,11 +6,17 @@
  */
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
+import { AutonomousToggle } from '../mrBlue/AutonomousToggle';
+import { AutonomousProgressPanel } from '../mrBlue/AutonomousProgressPanel';
+import { ApprovalModal } from '../mrBlue/ApprovalModal';
+import { useAutonomousMode } from '@/hooks/useAutonomousMode';
+import { useAuth } from '@/hooks/useAuth';
+import { isSuperAdmin } from '@/utils/accessControl';
 import type { SelectedComponent } from './ComponentSelector';
 
 interface Message {
@@ -45,6 +51,18 @@ export function MrBlueVisualChat({
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  // AUTONOMOUS MODE (Visual Editor Only)
+  const { user } = useAuth();
+  const isAdmin = user && isSuperAdmin(user);
+  const [isAutonomous, setIsAutonomous] = useState(false);
+  const [autonomousSteps, setAutonomousSteps] = useState<any[]>([]);
+  const [currentStep, setCurrentStep] = useState<string>();
+  const [checkpointCount, setCheckpointCount] = useState(0);
+  const [approvalRequest, setApprovalRequest] = useState<any>(null);
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
+  
+  const autonomousMode = useAutonomousMode();
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -129,39 +147,59 @@ export function MrBlueVisualChat({
   };
 
   return (
-    <div className="h-full flex flex-col" data-testid="mr-blue-visual-chat">
-      {/* Chat header */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-            <Bot className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h3 className="font-semibold">Mr Blue</h3>
-            <p className="text-xs text-gray-500">Visual Editor AI</p>
-          </div>
-        </div>
+    <>
+      <div className="h-full flex" data-testid="mr-blue-visual-chat">
+        {/* Main Chat Area */}
+        <div className="flex-1 flex flex-col">
+          {/* Chat header */}
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Mr Blue</h3>
+                  <p className="text-xs text-gray-500">Visual Editor AI + Autonomous Mode</p>
+                </div>
+              </div>
+              
+              {/* Autonomous Toggle (Visual Editor Only) */}
+              {isAdmin && (
+                <AutonomousToggle
+                  enabled={isAutonomous}
+                  onChange={setIsAutonomous}
+                  disabled={false}
+                />
+              )}
+            </div>
 
-        {/* Context badges */}
-        <div className="flex flex-wrap gap-2 mt-3">
-          <Badge variant="secondary" className="text-xs">
-            {currentPage}
-          </Badge>
-          {selectedComponent && (
-            <Badge variant="default" className="text-xs bg-purple-600">
-              {selectedComponent.testId}
-            </Badge>
-          )}
-          {recentEdits.length > 0 && (
-            <Badge variant="outline" className="text-xs">
-              {recentEdits.length} edits
-            </Badge>
-          )}
-        </div>
-      </div>
+            {/* Context badges */}
+            <div className="flex flex-wrap gap-2 mt-3">
+              <Badge variant="secondary" className="text-xs">
+                {currentPage}
+              </Badge>
+              {selectedComponent && (
+                <Badge variant="default" className="text-xs bg-purple-600">
+                  {selectedComponent.testId}
+                </Badge>
+              )}
+              {recentEdits.length > 0 && (
+                <Badge variant="outline" className="text-xs">
+                  {recentEdits.length} edits
+                </Badge>
+              )}
+              {isAutonomous && (
+                <Badge variant="default" className="text-xs bg-green-600">
+                  <Zap className="w-3 h-3 mr-1" />
+                  Autonomous ON
+                </Badge>
+              )}
+            </div>
+          </div>
 
-      {/* Messages */}
-      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+          {/* Messages */}
+          <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         <div className="space-y-4">
           {messages.map((msg, i) => (
             <div
@@ -195,70 +233,130 @@ export function MrBlueVisualChat({
             </div>
           ))}
 
-          {isLoading && (
-            <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <Loader2 className="w-4 h-4 text-white animate-spin" />
-              </div>
-              <div className="flex-1">
-                <div className="inline-block px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-                  <p className="text-sm text-gray-500">Thinking...</p>
+            {isLoading && (
+              <div className="flex gap-3">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <Loader2 className="w-4 h-4 text-white animate-spin" />
+                </div>
+                <div className="flex-1">
+                  <div className="inline-block px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                    <p className="text-sm text-gray-500">{isAutonomous ? 'Executing autonomously...' : 'Thinking...'}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </ScrollArea>
-
-      {/* Input */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex gap-2">
-          <Input
-            ref={inputRef}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Ask me anything about editing this page..."
-            disabled={isLoading}
-            data-testid="input-chat-message"
-          />
-          <Button
-            onClick={handleSend}
-            disabled={!inputValue.trim() || isLoading}
-            data-testid="button-send-message"
-          >
-            {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Send className="w-4 h-4" />
             )}
-          </Button>
+          </div>
+          </ScrollArea>
+
+          {/* Input */}
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex gap-2">
+              <Input
+                ref={inputRef}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={isAutonomous ? "Ask me to code autonomously..." : "Ask me anything about editing this page..."}
+                disabled={isLoading}
+                data-testid="input-chat-message"
+              />
+              <Button
+                onClick={handleSend}
+                disabled={!inputValue.trim() || isLoading}
+                data-testid="button-send-message"
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
+
+            {/* Quick actions */}
+            <div className="flex gap-2 mt-2">
+              {!isAutonomous ? (
+                <>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-xs"
+                    onClick={() => setInputValue("What can I edit on this page?")}
+                    data-testid="button-quick-what-edit"
+                  >
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    What can I edit?
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-xs"
+                    onClick={() => setInputValue("Suggest improvements")}
+                    data-testid="button-quick-suggest"
+                  >
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    Suggest improvements
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-xs"
+                    onClick={() => setInputValue("Add dark mode to this component")}
+                    data-testid="button-quick-autonomous-dark"
+                  >
+                    <Zap className="w-3 h-3 mr-1" />
+                    Add dark mode
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-xs"
+                    onClick={() => setInputValue("Fix all TypeScript errors")}
+                    data-testid="button-quick-autonomous-fix"
+                  >
+                    <Zap className="w-3 h-3 mr-1" />
+                    Fix errors
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Quick actions */}
-        <div className="flex gap-2 mt-2">
-          <Button
-            size="sm"
-            variant="ghost"
-            className="text-xs"
-            onClick={() => setInputValue("What can I edit on this page?")}
-            data-testid="button-quick-what-edit"
-          >
-            <Sparkles className="w-3 h-3 mr-1" />
-            What can I edit?
-          </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="text-xs"
-            onClick={() => setInputValue("Suggest improvements")}
-            data-testid="button-quick-suggest"
-          >
-            <Sparkles className="w-3 h-3 mr-1" />
-            Suggest improvements
-          </Button>
-        </div>
+        {/* Autonomous Progress Sidebar (Visual Editor Only) */}
+        {isAutonomous && autonomousSteps.length > 0 && (
+          <div className="w-80 p-4 border-l border-gray-200 dark:border-gray-700 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+            <AutonomousProgressPanel
+              isActive={isAutonomous}
+              currentStep={currentStep}
+              steps={autonomousSteps}
+              checkpointCount={checkpointCount}
+              onCancel={() => {
+                setIsAutonomous(false);
+                setAutonomousSteps([]);
+                setCurrentStep(undefined);
+              }}
+            />
+          </div>
+        )}
       </div>
-    </div>
+      
+      {/* Approval Modal (Visual Editor Only) */}
+      <ApprovalModal
+        open={showApprovalModal}
+        request={approvalRequest}
+        onApprove={() => {
+          setShowApprovalModal(false);
+          setApprovalRequest(null);
+        }}
+        onReject={() => {
+          setShowApprovalModal(false);
+          setApprovalRequest(null);
+        }}
+      />
+    </>
   );
 }
