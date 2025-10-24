@@ -287,7 +287,7 @@ export function MrBlueVisualChat({
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
-          task: inputValue,
+          task: messageText,
           context: {
             page: currentPage,
             url: window.location.href,
@@ -310,7 +310,7 @@ export function MrBlueVisualChat({
         console.error('❌ [CHAT ERROR] Response status:', response.status);
         console.error('❌ [CHAT ERROR] Response body:', errorText);
         console.error('❌ [CHAT ERROR] Request payload:', JSON.stringify({
-          task: inputValue,
+          task: messageText,
           context: {
             page: currentPage,
             url: window.location.href,
