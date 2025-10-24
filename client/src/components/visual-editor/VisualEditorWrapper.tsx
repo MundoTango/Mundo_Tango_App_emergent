@@ -26,10 +26,13 @@ import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
 import { InlineTextEditor } from './InlineTextEditor';
 import { UniversalSaveSystem } from './UniversalSaveSystem';
 import { ChatInterface } from '@/components/mrBlue/ChatInterface';
+import { VisualEditorBreadcrumbs } from './VisualEditorBreadcrumbs';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { listenToIframe, type IframeMessage } from '@/lib/visual-editor/iframeMessaging';
+import { useNavigationHistory } from '@/hooks/useNavigationHistory';
+import type { NavigationHistoryEntry } from '@/lib/visual-editor/navigationHistory';
 
 interface SelectedElement {
   tag: string;
@@ -54,13 +57,16 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const [isEditorActive, setIsEditorActive] = useState(false);
   const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [isSelectMode, setIsSelectMode] = useState(false);
-  const [activeTab, setActiveTab] = useState<EditorTab>('ai');
+  const [activeTab, setActiveTab] = useState<EditorTab>('chat');
   const [changes, setChanges] = useState<Change[]>([]);
   const [editingElement, setEditingElement] = useState<HTMLElement | null>(null);
   const [selectedHTMLElement, setSelectedHTMLElement] = useState<HTMLElement | null>(null);
   
   // 🔍 INSPECTOR MODE: Page vs Sidebar (Oct 22, 2025)
   const [inspectorMode, setInspectorMode] = useState<'page' | 'sidebar'>('page');
+  
+  // 📚 NAVIGATION HISTORY: Browser-style breadcrumb navigation (Oct 24, 2025)
+  const navigationHistory = useNavigationHistory();
   
   // 🎨 VISUAL EDITOR CONTEXT: Share selected element with Mr Blue (Phase 2 Fix - Oct 22)
   const visualEditorContext = useVisualEditorOptional();
@@ -188,6 +194,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     
     setSelectedElement(elementData);
     
+    // 📚 ADD TO NAVIGATION HISTORY
+    navigationHistory.addElement(elementData);
+    
     // 🎨 PHASE 2 FIX: Update Visual Editor Context for Mr Blue integration
     console.log('🎨 [VisualEditorWrapper] About to update context - hasContext:', !!visualEditorContext);
     
@@ -240,7 +249,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''} • Double-click to edit text`,
       duration: 2000
     });
-  }, [isSelectMode, inspectorMode, toast, visualEditorContext, setSelectedElement, setSelectedHTMLElement]);
+  }, [isSelectMode, inspectorMode, toast, visualEditorContext, setSelectedElement, setSelectedHTMLElement, navigationHistory]);
 
   // MB.MD: Double-click to edit text inline
   const handleElementDoubleClick = useCallback((e: MouseEvent) => {
@@ -336,6 +345,68 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       duration: 3000
     });
   };
+  
+  // 📚 TAB CHANGE HANDLER: Track tab switches in breadcrumb history
+  const handleTabChange = useCallback((newTab: EditorTab) => {
+    const tabLabels: Record<EditorTab, string> = {
+      inspector: 'Inspector',
+      chat: 'Mr Blue',
+      preview: 'Preview',
+      console: 'Console',
+      deploy: 'Deploy',
+      git: 'Git',
+      models: 'Models',
+      pages: 'Pages',
+      shell: 'Shell',
+      files: 'Files',
+      secrets: 'Secrets'
+    };
+    
+    navigationHistory.addTab(newTab, tabLabels[newTab]);
+    setActiveTab(newTab);
+  }, [navigationHistory]);
+  
+  // 📚 NAVIGATION HANDLER: Handle back/forward navigation from breadcrumbs
+  const handleNavigationFromBreadcrumbs = useCallback((entry: NavigationHistoryEntry) => {
+    console.log('📚 [NavigationHistory] Navigating to:', entry);
+    
+    if (entry.type === 'element' && entry.element) {
+      // Restore element selection
+      setSelectedElement({
+        tag: entry.element.tag,
+        id: entry.element.id,
+        className: entry.element.className,
+        xpath: entry.element.xpath,
+        innerHTML: entry.element.textPreview
+      });
+      
+      // Try to find and highlight the element
+      const xpath = entry.element.xpath;
+      try {
+        const result = document.evaluate(
+          xpath,
+          document,
+          null,
+          XPathResult.FIRST_ORDERED_NODE_TYPE,
+          null
+        );
+        const element = result.singleNodeValue as HTMLElement;
+        
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.click(); // Trigger selection
+        }
+      } catch (error) {
+        console.warn('Failed to locate element from xpath:', error);
+      }
+    } else if (entry.type === 'tab' && entry.tab) {
+      // Restore tab
+      setActiveTab(entry.tab.name);
+    } else if (entry.type === 'page' && entry.page) {
+      // Restore page (not implemented yet)
+      console.log('Page navigation not implemented yet');
+    }
+  }, []);
 
   // AI Code Generation
   const handleGenerateCode = async (prompt: string) => {
@@ -505,9 +576,15 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                 </button>
               </div>
               
+              {/* 📚 BREADCRUMB NAVIGATION */}
+              <VisualEditorBreadcrumbs
+                navigationHistory={navigationHistory}
+                onNavigate={handleNavigationFromBreadcrumbs}
+              />
+              
               <TabSystem
                 activeTab={activeTab}
-                onTabChange={setActiveTab}
+                onTabChange={handleTabChange}
                 onClose={handleClose}
               />
             </div>
@@ -533,24 +610,6 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               {activeTab === 'files' && <FilesTab />}
               {activeTab === 'console' && <ConsoleTab />}
               {activeTab === 'secrets' && <SecretsTab />}
-              {activeTab === 'ai' && (
-                <>
-                  {/* MB.MD: Universal Save System */}
-                  <UniversalSaveSystem 
-                    changes={changes} 
-                    onSaveComplete={handleSaveComplete}
-                  />
-                  
-                  {/* MB.MD: What Does This Element Do? Panel */}
-                  <WhatDoesThisDoPanel selectedElement={selectedElement} />
-                  
-                  {/* AI Code Generation + AUTONOMOUS MR BLUE */}
-                  <MrBlueVisualChat
-                    selectedElement={selectedElement}
-                    onGenerateCode={handleGenerateCode}
-                  />
-                </>
-              )}
             </div>
 
             {/* Footer */}
