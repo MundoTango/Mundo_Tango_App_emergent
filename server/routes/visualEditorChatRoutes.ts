@@ -15,12 +15,21 @@ import { z } from 'zod';
 
 const router = Router();
 
-// Request schema with context
+// Request schema with context (accepts both old and new formats)
 const chatRequestSchema = z.object({
   message: z.string().min(1, 'Message is required'),
   context: z.object({
     page: z.string().optional(),
     url: z.string().optional(),
+    // NEW FORMAT: From visual editor (element data)
+    selectedElement: z.object({
+      tag: z.string().optional(),
+      className: z.string().optional(),
+      id: z.string().optional(),
+      xpath: z.string().optional(),
+      textContent: z.string().optional(),
+    }).optional(),
+    // OLD FORMAT: From component registry (keep for backward compat)
     selectedComponent: z.object({
       id: z.string(),
       name: z.string(),
@@ -52,12 +61,17 @@ router.post('/simple-chat', async (req, res) => {
     console.log(`\n📦 Context Received:`);
     console.log(`   Page: ${data.context?.page || 'N/A'}`);
     console.log(`   URL: ${data.context?.url || 'N/A'}`);
+    console.log(`   Selected Element:`, data.context?.selectedElement || 'None');
     console.log(`   Selected Component:`, data.context?.selectedComponent || 'None');
     console.log(`   Recent Edits: ${data.context?.recentEdits?.length || 0}`);
     
     // Extract context
     const { message, context } = data;
     const selectedComponent = context?.selectedComponent;
+    const selectedElement = context?.selectedElement;
+    
+    // Use element data if available (new format), fallback to component (old format)
+    const elementInfo = selectedElement || selectedComponent;
     
     // Generate context-aware response
     let response = '';
@@ -68,9 +82,10 @@ router.post('/simple-chat', async (req, res) => {
     if (messageLower.includes('what element') || messageLower.includes('which element')) {
       console.log(`\n🎯 DETECTED: Element identification query`);
       
-      if (selectedComponent) {
-        response = `**${selectedComponent.name}**`;
-        console.log(`✅ RESPONSE: Returning element name: ${selectedComponent.name}`);
+      if (elementInfo) {
+        const elementName = (elementInfo as any).name || (elementInfo as any).textContent || (elementInfo as any).tag || 'Unknown element';
+        response = `**${elementName}**`;
+        console.log(`✅ RESPONSE: Returning element name: ${elementName}`);
       } else {
         response = `No element is currently selected. Click on any element in the preview to select it.`;
         console.log(`⚠️ RESPONSE: No element selected`);
@@ -80,19 +95,26 @@ router.post('/simple-chat', async (req, res) => {
     else if (messageLower.includes('tell me about') || messageLower.includes('about this element')) {
       console.log(`\n🎯 DETECTED: Element details query`);
       
-      if (selectedComponent) {
-        response = `I can see you've selected **${selectedComponent.name}**.
+      if (elementInfo) {
+        const el = elementInfo as any;
+        const elementName = el.name || el.textContent || el.tag || 'Unknown';
+        const elementType = el.type || el.tag || 'element';
+        const elementId = el.id || 'No ID';
+        
+        response = `I can see you've selected **${elementName}**.
 
 **Element Details:**
-- **Type:** ${selectedComponent.type}
-- **Test ID:** ${selectedComponent.id}
+- **Type:** ${elementType}
+- **ID:** ${elementId}
+${el.className ? `- **Classes:** ${el.className}` : ''}
+${el.xpath ? `- **Path:** ${el.xpath}` : ''}
 - **Page:** ${context?.page || 'Unknown'}
 
-This is a ${selectedComponent.type} element on the ${context?.page || 'current page'}. What would you like to do with it? I can help you:
+What would you like to do with this element? I can help you:
 - Change its styling
 - Modify its content
 - Update its behavior
-- Generate new code for it`;
+- Delete it`;
         console.log(`✅ RESPONSE: Providing detailed element info`);
       } else {
         response = `No element is currently selected. Click on an element in the preview pane to select it, then ask me about it.`;
@@ -116,7 +138,7 @@ This is a ${selectedComponent.type} element on the ${context?.page || 'current p
 
 **Current Context:**
 - Page: ${context?.page || 'Unknown'}
-${selectedComponent ? `- Selected: **${selectedComponent.name}** (${selectedComponent.type})` : '- No element selected'}
+${elementInfo ? `- Selected: **${(elementInfo as any).name || (elementInfo as any).textContent || (elementInfo as any).tag}**` : '- No element selected'}
 ${context?.recentEdits?.length ? `- ${context.recentEdits.length} recent edits` : ''}
 
 Click on any element to select it, then ask me what you'd like to change!`;
@@ -126,8 +148,9 @@ Click on any element to select it, then ask me what you'd like to change!`;
     else {
       console.log(`\n🎯 DETECTED: General query`);
       
-      if (selectedComponent) {
-        response = `I understand you want to work with **${selectedComponent.name}**. 
+      if (elementInfo) {
+        const elementName = (elementInfo as any).name || (elementInfo as any).textContent || (elementInfo as any).tag || 'this element';
+        response = `I understand you want to work with **${elementName}**. 
 
 Could you be more specific about what you'd like to do? For example:
 - "Make this button blue"
@@ -155,6 +178,7 @@ You can try:
       success: true,
       response,
       context: {
+        selectedElementInfo: elementInfo,
         selectedComponentName: selectedComponent?.name,
         page: context?.page,
         timestamp,
