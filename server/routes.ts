@@ -1477,7 +1477,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/git', gitRoutes); // Git status, commit, log, diff
   // WEEK 2 ENHANCEMENT: Real file tree API (Oct 24, 2025)
   const filesApiRoutes = (await import('./routes/filesApi.js')).default;
-  app.use('/api/files-v2', filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
+  app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
   app.use('/api/files', filesRoutes); // Legacy Filesystem browser, read, write
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
