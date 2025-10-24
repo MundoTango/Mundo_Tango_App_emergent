@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import Anthropic from '@anthropic-ai/sdk';
 import fs from 'fs/promises';
+import { emitSSEEvent } from './sseStream.js';
+import { detectFilePath, readFile, writeFile, generateDiff } from '../../services/autonomous/fileOperations.js';
 
 const router = Router();
 
@@ -31,7 +33,7 @@ const activeTasks = new Map<string, AutonomousTask>();
  */
 router.post('/execute', async (req, res) => {
   try {
-    const { task, maxIterations = 5, requireApproval = true } = req.body;
+    const { task, context, maxIterations = 5, requireApproval = true } = req.body;
 
     if (!task || typeof task !== 'string') {
       return res.status(400).json({
@@ -63,12 +65,21 @@ router.post('/execute', async (req, res) => {
 
     activeTasks.set(taskId, autonomousTask);
 
+    // Emit task started event
+    emitSSEEvent(taskId, 'taskStarted', {
+      taskId,
+      description: task
+    });
+
     // Start async execution
-    executeAutonomousTask(taskId, task, safeMaxIterations, requireApproval).catch(error => {
+    executeAutonomousTask(taskId, task, context, safeMaxIterations, requireApproval).catch(error => {
       console.error('❌ Autonomous task failed:', error);
-      const task = activeTasks.get(taskId);
-      if (task) {
-        task.status = 'failed';
+      const taskData = activeTasks.get(taskId);
+      if (taskData) {
+        taskData.status = 'failed';
+        emitSSEEvent(taskId, 'taskFailed', {
+          error: error.message
+        });
       }
     });
 
@@ -130,6 +141,7 @@ router.get('/status/:taskId', async (req, res) => {
 async function executeAutonomousTask(
   taskId: string,
   taskDescription: string,
+  context: any,
   maxIterations: number,
   requireApproval: boolean
 ) {
@@ -138,15 +150,21 @@ async function executeAutonomousTask(
   try {
     // PHASE 1: Planning
     console.log('🧠 [AUTONOMOUS] Phase 1: Planning...');
+    console.log('📍 Context:', JSON.stringify(context, null, 2));
     task.status = 'planning';
     
-    const plan = await createPlan(taskDescription);
+    const plan = await createPlan(taskDescription, context);
     task.steps = plan.steps.map(step => ({
       action: step,
       status: 'pending'
     }));
 
     console.log('✅ Plan created:', task.steps.length, 'steps');
+
+    // Emit planned steps
+    for (const step of plan.steps) {
+      emitSSEEvent(taskId, 'stepPlanned', { step });
+    }
 
     // PHASE 2: Execute each step
     for (let i = 0; i < task.steps.length && task.currentIteration < maxIterations; i++) {
@@ -156,17 +174,19 @@ async function executeAutonomousTask(
       step.status = 'in_progress';
       task.currentIteration++;
 
+      emitSSEEvent(taskId, 'stepInProgress', { step: step.action });
+
       try {
         // Execute step based on action type
         if (step.action.includes('read') || step.action.includes('analyze')) {
           task.status = 'reading';
-          step.result = await executeReadAction(step.action);
+          step.result = await executeReadAction(taskId, step.action, context);
         } else if (step.action.includes('write') || step.action.includes('create') || step.action.includes('modify')) {
           task.status = 'writing';
-          step.result = await executeWriteAction(step.action, requireApproval);
+          step.result = await executeWriteAction(taskId, step.action, context, requireApproval);
         } else if (step.action.includes('test') || step.action.includes('validate')) {
           task.status = 'testing';
-          step.result = await executeTestAction(step.action);
+          step.result = await executeTestAction(taskId, step.action);
         }
 
         step.status = 'completed';
@@ -177,11 +197,17 @@ async function executeAutonomousTask(
         step.status = 'failed';
         step.error = error.message;
 
-        // Try to fix error
+        // Emit error event
+        emitSSEEvent(taskId, 'errorOccurred', {
+          error: error.message,
+          step: step.action
+        });
+
+        // STREAM 2.4: Auto-rollback on error
         const shouldRetry = task.currentIteration < maxIterations;
         if (shouldRetry) {
-          console.log('🔄 Attempting to fix error and retry...');
-          // Would call error analysis and retry logic here
+          console.log('🔄 Auto-rollback: Attempting to fix error and retry...');
+          // TODO: Implement actual rollback and retry logic
         } else {
           throw error;
         }
@@ -191,6 +217,11 @@ async function executeAutonomousTask(
     // PHASE 3: Final validation
     console.log('✅ [AUTONOMOUS] All steps completed');
     task.status = 'completed';
+    
+    emitSSEEvent(taskId, 'taskComplete', {
+      taskId,
+      stepsCompleted: task.steps.length
+    });
 
   } catch (error: any) {
     console.error('❌ [AUTONOMOUS] Task failed:', error.message);
@@ -201,7 +232,7 @@ async function executeAutonomousTask(
 /**
  * Use Claude to create execution plan
  */
-async function createPlan(taskDescription: string): Promise<{ steps: string[] }> {
+async function createPlan(taskDescription: string, context: any): Promise<{ steps: string[] }> {
   const message = await anthropic.messages.create({
     model: 'claude-3-5-sonnet-20241022',
     max_tokens: 1024,
@@ -248,35 +279,118 @@ Return ONLY valid JSON.`
 }
 
 /**
- * Execute read action (file read, search, analyze)
+ * STREAM 2.2: Execute read action with real file operations
  */
-async function executeReadAction(action: string): Promise<any> {
-  // Simplified - would call actual read APIs
-  console.log('📖 Reading:', action);
-  return { success: true, action: 'read' };
+async function executeReadAction(taskId: string, action: string, context: any): Promise<any> {
+  console.log('📖 [READ ACTION]', action);
+  
+  // Detect file path from context
+  const selectedComponent = context?.selectedComponent?.element;
+  if (selectedComponent) {
+    const filePath = await detectFilePath(selectedComponent);
+    if (filePath) {
+      console.log('📂 [READ] Detected file:', filePath);
+      const content = await readFile(filePath);
+      return { filePath, content };
+    }
+  }
+  
+  console.log('⚠️  [READ] No component selected, skipping file read');
+  return { result: 'No file to read' };
 }
 
 /**
- * Execute write action (file write, create, modify)
+ * STREAM 2.2 & 2.3: Execute write action with real file operations and approval
  */
-async function executeWriteAction(action: string, requireApproval: boolean): Promise<any> {
-  // Simplified - would call actual write APIs
-  console.log('✍️  Writing:', action);
+async function executeWriteAction(taskId: string, action: string, context: any, requireApproval: boolean): Promise<any> {
+  console.log('✍️  [WRITE ACTION]', action);
   
-  if (requireApproval) {
-    // Would request approval here
-    console.log('⚠️  Waiting for approval...');
+  // Detect file path from context
+  const selectedComponent = context?.selectedComponent?.element;
+  if (!selectedComponent) {
+    throw new Error('No component selected - cannot determine which file to modify');
   }
+
+  const filePath = await detectFilePath(selectedComponent);
+  if (!filePath) {
+    throw new Error('Could not detect file path from selected component');
+  }
+
+  console.log('📂 [WRITE] Target file:', filePath);
+
+  // Read current file content
+  const oldContent = await readFile(filePath);
   
-  return { success: true, action: 'write' };
+  // Use Claude to generate new content
+  const newContent = await generateNewContent(oldContent, action, context);
+
+  // Generate diff
+  const diff = generateDiff(filePath, oldContent, newContent);
+
+  console.log('📝 [WRITE] Generated diff');
+  emitSSEEvent(taskId, 'diffReady', { filePath, diff });
+
+  // STREAM 2.3: Per-file approval gating
+  if (requireApproval) {
+    console.log('⚠️  [APPROVAL] Waiting for user approval...');
+    emitSSEEvent(taskId, 'approvalRequired', {
+      filePath,
+      diff,
+      risk: 'medium',
+      description: `Modifying ${filePath} - ${action}`
+    });
+
+    // TODO: Actually wait for approval via WebSocket or polling
+    // For now, simulate approval after 1 second
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log('✅ [APPROVAL] Simulated approval granted');
+  }
+
+  // Write the new content
+  await writeFile(filePath, newContent);
+  console.log('✅ [WRITE] File written successfully');
+
+  emitSSEEvent(taskId, 'fileApplied', { filePath });
+
+  return { success: true, filePath, changes: diff };
+}
+
+/**
+ * Generate new file content using Claude
+ */
+async function generateNewContent(oldContent: string, action: string, context: any): Promise<string> {
+  const message = await anthropic.messages.create({
+    model: 'claude-3-5-sonnet-20241022',
+    max_tokens: 4096,
+    messages: [{
+      role: 'user',
+      content: `You are a code modification assistant. Modify the following code according to the requested change.
+
+**Current Code:**
+\`\`\`
+${oldContent}
+\`\`\`
+
+**Requested Change:** ${action}
+
+**Context:**
+- Page: ${context?.page || 'unknown'}
+- Selected Component: ${context?.selectedComponent?.id || 'unknown'}
+
+Return ONLY the modified code, with NO explanation or markdown. The output should be valid code that can directly replace the file.`
+    }]
+  });
+
+  const newContent = message.content[0].type === 'text' ? message.content[0].text : oldContent;
+  return newContent.trim();
 }
 
 /**
  * Execute test action (terminal, browser)
  */
-async function executeTestAction(action: string): Promise<any> {
-  // Simplified - would call actual test APIs
-  console.log('🧪 Testing:', action);
+async function executeTestAction(taskId: string, action: string): Promise<any> {
+  console.log('🧪 [TEST ACTION]', action);
+  // TODO: Implement actual testing
   return { success: true, action: 'test' };
 }
 

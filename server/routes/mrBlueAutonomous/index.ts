@@ -15,6 +15,7 @@ import checkpointRoutes from './checkpointRoutes.js';
 import rollbackRoutes from './rollbackRoutes.js';
 import approvalRoutes from './approvalRoutes.js';
 import orchestrationEngine from './orchestrationEngine.js';
+import sseStreamRoutes from './sseStream.js';
 
 const router = Router();
 
@@ -22,6 +23,11 @@ const router = Router();
 router.use(RateLimiterService.autonomousModeLimiter);
 
 console.log('🤖 [MR BLUE AUTONOMOUS] Initializing all routes...');
+
+// STREAM 2.1: SSE Streaming
+router.use('/', sseStreamRoutes);  // GET /stream/:taskId
+
+console.log('✅ SSE Streaming endpoint mounted');
 
 // BATCH 1: Code Reading APIs
 router.use('/', fileReadRoutes);  // POST /read-file

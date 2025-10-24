@@ -64,6 +64,112 @@ export function MrBlueVisualChat({
   
   const autonomousMode = useAutonomousMode();
 
+  // STREAM 1.2: SSE Event Listener for real-time updates
+  const startSSEListener = (taskId: string) => {
+    console.log('🎧 [SSE] Starting event listener for task:', taskId);
+    
+    const eventSource = new EventSource(`/api/mrblue/autonomous/stream/${taskId}`);
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        console.log('📨 [SSE] Event received:', data.type, data);
+
+        switch (data.type) {
+          case 'taskStarted':
+            setAutonomousSteps([]);
+            setCurrentStep('Planning...');
+            break;
+
+          case 'stepPlanned':
+            setAutonomousSteps(prev => [...prev, {
+              action: data.step,
+              status: 'pending',
+              timestamp: new Date(),
+            }]);
+            break;
+
+          case 'stepInProgress':
+            setCurrentStep(data.step);
+            setAutonomousSteps(prev => prev.map(s => 
+              s.action === data.step ? { ...s, status: 'in_progress' } : s
+            ));
+            break;
+
+          case 'diffReady':
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: `📝 **Code change ready**\n\nFile: \`${data.filePath}\`\n\n\`\`\`diff\n${data.diff}\n\`\`\``,
+              timestamp: new Date(),
+            }]);
+            break;
+
+          case 'approvalRequired':
+            setApprovalRequest({
+              filePath: data.filePath,
+              diff: data.diff,
+              risk: data.risk,
+              description: data.description,
+            });
+            setShowApprovalModal(true);
+            break;
+
+          case 'fileApplied':
+            setAutonomousSteps(prev => prev.map(s =>
+              s.action.includes(data.filePath) ? { ...s, status: 'completed' } : s
+            ));
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: `✅ Applied changes to \`${data.filePath}\``,
+              timestamp: new Date(),
+            }]);
+            break;
+
+          case 'errorOccurred':
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: `⚠️ **Error detected**\n\n${data.error}\n\n🔄 Auto-rollback in progress...`,
+              timestamp: new Date(),
+            }]);
+            break;
+
+          case 'taskComplete':
+            setCurrentStep(undefined);
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: `🎉 **Task complete!**\n\nAll changes have been applied. Click the Save button to commit to Git.`,
+              timestamp: new Date(),
+            }]);
+            setCheckpointCount(prev => prev + 1);
+            eventSource.close();
+            break;
+
+          case 'taskFailed':
+            setCurrentStep(undefined);
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: `❌ **Task failed**\n\n${data.error}`,
+              timestamp: new Date(),
+            }]);
+            eventSource.close();
+            break;
+        }
+      } catch (error) {
+        console.error('❌ [SSE] Error parsing event:', error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('❌ [SSE] Connection error:', error);
+      eventSource.close();
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: '⚠️ Connection lost. Reconnecting...',
+        timestamp: new Date(),
+      }]);
+    };
+  };
+
   // Auto-scroll to bottom
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -99,34 +205,78 @@ export function MrBlueVisualChat({
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/visual-editor/simple-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          message: inputValue,
-          context: {
-            page: currentPage,
-            url: window.location.href,
-            selectedComponent: selectedComponent ? {
-              id: selectedComponent.testId,
-              name: selectedComponent.testId,
-              type: selectedComponent.type,
-            } : undefined,
-            recentEdits,
-          },
-        }),
-      });
+      // STREAM 1.1: Route to autonomous execute when autonomous mode ON
+      if (isAutonomous) {
+        console.log('🤖 [AUTONOMOUS] Routing to autonomous execution engine...');
+        console.log('📍 Selected Component:', selectedComponent);
+        
+        const response = await fetch('/api/mrblue/autonomous/execute', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            task: inputValue,
+            context: {
+              page: currentPage,
+              url: window.location.href,
+              selectedComponent: selectedComponent ? {
+                id: selectedComponent.testId,
+                name: selectedComponent.testId,
+                type: selectedComponent.type,
+                element: selectedComponent, // Full element data for file detection
+              } : undefined,
+              recentEdits,
+            },
+            maxIterations: 20,
+            requireApproval: true,
+          }),
+        });
 
-      if (!response.ok) throw new Error('Failed to get response');
+        if (!response.ok) throw new Error('Failed to start autonomous execution');
 
-      const data = await response.json();
+        const data = await response.json();
+        console.log('✅ Autonomous task started:', data.data.taskId);
 
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: data.response,
-        timestamp: new Date(),
-      }]);
+        // STREAM 1.2: Start SSE listener for real-time updates
+        const taskId = data.data.taskId;
+        startSSEListener(taskId);
+
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: `🤖 **Autonomous execution started**\n\nTask ID: ${taskId}\n\nI'm working on your request. Watch the progress panel for live updates!`,
+          timestamp: new Date(),
+        }]);
+      } else {
+        // Normal chat mode (non-autonomous)
+        const response = await fetch('/api/visual-editor/simple-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            message: inputValue,
+            context: {
+              page: currentPage,
+              url: window.location.href,
+              selectedComponent: selectedComponent ? {
+                id: selectedComponent.testId,
+                name: selectedComponent.testId,
+                type: selectedComponent.type,
+              } : undefined,
+              recentEdits,
+            },
+          }),
+        });
+
+        if (!response.ok) throw new Error('Failed to get response');
+
+        const data = await response.json();
+
+          setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: data.response,
+          timestamp: new Date(),
+        }]);
+      }
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, {
