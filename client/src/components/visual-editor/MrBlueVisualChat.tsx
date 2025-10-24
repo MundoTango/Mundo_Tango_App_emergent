@@ -264,30 +264,30 @@ export function MrBlueVisualChat({
         {/* Main Chat Area */}
         <div className="flex-1 flex flex-col">
           {/* Chat header */}
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700" data-testid="chat-header">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center" data-testid="avatar-mrblue">
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">Mr Blue</h3>
-                  <p className="text-xs text-gray-500">Visual Editor AI - Autonomous Mode</p>
+                  <h3 className="font-semibold" data-testid="text-title">Mr Blue</h3>
+                  <p className="text-xs text-gray-500" data-testid="text-subtitle">Visual Editor AI - Autonomous Mode</p>
                 </div>
               </div>
             </div>
 
             {/* Context badges */}
-            <div className="flex flex-wrap gap-2 mt-3">
-              <Badge variant="secondary" className="text-xs">
+            <div className="flex flex-wrap gap-2 mt-3" data-testid="context-badges">
+              <Badge variant="secondary" className="text-xs" data-testid="badge-current-page">
                 {currentPage}
               </Badge>
               {selectedElement && (
-                <Badge variant="default" className="text-xs bg-purple-600">
+                <Badge variant="default" className="text-xs bg-purple-600" data-testid="badge-selected-element">
                   {selectedElement.id || selectedElement.tag}
                 </Badge>
               )}
-              <Badge variant="default" className="text-xs bg-green-600">
+              <Badge variant="default" className="text-xs bg-green-600" data-testid="badge-autonomous-mode">
                 <Zap className="w-3 h-3 mr-1" />
                 Autonomous Mode
               </Badge>
@@ -295,18 +295,19 @@ export function MrBlueVisualChat({
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-        <div className="space-y-4">
+          <ScrollArea className="flex-1 p-4" ref={scrollAreaRef} data-testid="chat-messages-container">
+        <div className="space-y-4" data-testid="messages-list">
           {messages.map((msg, i) => (
             <div
               key={i}
               className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+              data-testid={`message-${msg.role}-${i}`}
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                 msg.role === 'user'
                   ? 'bg-gray-200 dark:bg-gray-700'
                   : 'bg-gradient-to-br from-blue-500 to-purple-600'
-              }`}>
+              }`} data-testid={`avatar-${msg.role}`}>
                 {msg.role === 'user' ? (
                   <User className="w-4 h-4" />
                 ) : (
@@ -319,10 +320,10 @@ export function MrBlueVisualChat({
                   msg.role === 'user'
                     ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                }`}>
-                  <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                }`} data-testid={`message-bubble-${msg.role}`}>
+                  <p className="text-sm whitespace-pre-wrap" data-testid={`text-message-content-${i}`}>{msg.content}</p>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-gray-400 mt-1" data-testid={`text-timestamp-${i}`}>
                   {msg.timestamp.toLocaleTimeString()}
                 </p>
               </div>
@@ -330,13 +331,13 @@ export function MrBlueVisualChat({
           ))}
 
             {isLoading && (
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <div className="flex gap-3" data-testid="loading-indicator">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center" data-testid="avatar-loading">
                   <Loader2 className="w-4 h-4 text-white animate-spin" />
                 </div>
                 <div className="flex-1">
                   <div className="inline-block px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-                    <p className="text-sm text-gray-500">Executing autonomously...</p>
+                    <p className="text-sm text-gray-500" data-testid="text-loading-message">Executing autonomously...</p>
                   </div>
                 </div>
               </div>
@@ -345,8 +346,8 @@ export function MrBlueVisualChat({
           </ScrollArea>
 
           {/* Input */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex gap-2">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700" data-testid="chat-input-area">
+            <div className="flex gap-2" data-testid="input-controls">
               <Input
                 ref={inputRef}
                 value={inputValue}
@@ -355,28 +356,31 @@ export function MrBlueVisualChat({
                 placeholder="Tell me what to change... (e.g., 'make this button red')"
                 disabled={isLoading}
                 data-testid="input-chat-message"
+                aria-label="Chat message input"
               />
               <Button
                 onClick={handleSend}
                 disabled={!inputValue.trim() || isLoading}
                 data-testid="button-send-message"
+                aria-label="Send message"
               >
                 {isLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" data-testid="icon-loading" />
                 ) : (
-                  <Send className="w-4 h-4" />
+                  <Send className="w-4 h-4" data-testid="icon-send" />
                 )}
               </Button>
             </div>
 
             {/* Quick autonomous actions */}
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 mt-2" data-testid="quick-actions-panel">
               <Button
                 size="sm"
                 variant="ghost"
                 className="text-xs"
                 onClick={() => setInputValue("Make this button red")}
                 data-testid="button-quick-autonomous-color"
+                aria-label="Quick action: Change color"
               >
                 <Zap className="w-3 h-3 mr-1" />
                 Change color
@@ -387,6 +391,7 @@ export function MrBlueVisualChat({
                 className="text-xs"
                 onClick={() => setInputValue("Add a loading spinner")}
                 data-testid="button-quick-autonomous-loading"
+                aria-label="Quick action: Add loading spinner"
               >
                 <Zap className="w-3 h-3 mr-1" />
                 Add spinner
@@ -397,7 +402,7 @@ export function MrBlueVisualChat({
 
         {/* Autonomous Progress Sidebar */}
         {autonomousSteps.length > 0 && (
-          <div className="w-80 p-4 border-l border-gray-200 dark:border-gray-700 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+          <div className="w-80 p-4 border-l border-gray-200 dark:border-gray-700 overflow-y-auto bg-gray-50 dark:bg-gray-900" data-testid="autonomous-progress-sidebar">
             <AutonomousProgressPanel
               isActive={true}
               currentStep={currentStep}
