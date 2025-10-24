@@ -396,33 +396,87 @@ async function executeWriteAction(taskId: string, action: string, context: any, 
 }
 
 /**
- * Generate new file content using Claude
+ * FIX #4: Validate generated code has no markdown wrappers or explanations
+ */
+function validateAndSanitizeCode(code: string, originalContent: string): { valid: boolean; sanitized: string; errors: string[] } {
+  const errors: string[] = [];
+  let sanitized = code.trim();
+  
+  // FIX #2: Remove markdown code fences
+  const hasFences = sanitized.includes('```');
+  if (hasFences) {
+    console.log('🧹 [SANITIZE] Removing markdown code fences');
+    sanitized = sanitized.replace(/^```[\w]*\n?/gm, '');
+    sanitized = sanitized.replace(/\n?```$/gm, '');
+    sanitized = sanitized.trim();
+  }
+  
+  // Check for explanatory text instead of code
+  if (sanitized.match(/^(Here is|Here's|I have|I've|This is|The code)/m)) {
+    errors.push('AI returned explanation instead of pure code');
+  }
+  
+  // Verify it starts with valid code
+  if (!sanitized.match(/^(import|const|let|var|function|class|export|\/\/|\/\*|type |interface )/)) {
+    errors.push('Code does not start with valid statement');
+  }
+  
+  // If completely broken, return original
+  if (errors.length > 2) {
+    console.log('❌ [VALIDATE] Code validation failed, using original:', errors);
+    return { valid: false, sanitized: originalContent, errors };
+  }
+  
+  return { valid: true, sanitized, errors };
+}
+
+/**
+ * FIX #2 & #4: Generate new file content using Claude with better prompts and validation
  */
 async function generateNewContent(oldContent: string, action: string, context: any): Promise<string> {
+  // FIX #4: Enhanced context with specific element details
+  const elementInfo = context?.selectedComponent?.element || context?.element;
+  const targetText = elementInfo?.textContent || 'unknown';
+  const targetClasses = elementInfo?.className || 'unknown';
+  
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-5-20250929', // Claude Sonnet 4.5 - replacement for deprecated 3.5 Sonnet (Oct 24, 2025)
     max_tokens: 4096,
     messages: [{
       role: 'user',
-      content: `You are a code modification assistant. Modify the following code according to the requested change.
+      content: `You are a precise code modification assistant.
 
-**Current Code:**
-\`\`\`
+**TARGET ELEMENT TO MODIFY:**
+- Text content: "${targetText}"
+- CSS classes: ${targetClasses}
+- Element type: ${elementInfo?.tag || 'div'}
+
+**TASK:** ${action}
+
+**CURRENT FILE:**
 ${oldContent}
-\`\`\`
 
-**Requested Change:** ${action}
+**CRITICAL RULES:**
+1. Output ONLY raw code - NO markdown \`\`\` fences
+2. Find the EXACT element with text "${targetText}"
+3. Make ONLY the specific change requested: ${action}
+4. Return the COMPLETE modified file
+5. NO explanations, NO comments about what you changed
 
-**Context:**
-- Page: ${context?.page || 'unknown'}
-- Selected Component: ${context?.selectedComponent?.id || 'unknown'}
-
-Return ONLY the modified code, with NO explanation or markdown. The output should be valid code that can directly replace the file.`
+Return the modified code starting with the first import statement:`
     }]
   });
 
-  const newContent = message.content[0].type === 'text' ? message.content[0].text : oldContent;
-  return newContent.trim();
+  let newContent = message.content[0].type === 'text' ? message.content[0].text : oldContent;
+  
+  // FIX #2: Sanitize and validate
+  const validation = validateAndSanitizeCode(newContent, oldContent);
+  
+  if (!validation.valid) {
+    console.log('⚠️  [GENERATE] Validation failed:', validation.errors);
+  }
+  
+  return validation.sanitized;
 }
 
 /**

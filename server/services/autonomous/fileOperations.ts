@@ -36,7 +36,33 @@ export async function detectFilePath(contextData: any): Promise<string | null> {
     return contextData.element.filePath;
   }
 
-  // Strategy 2: Search by className (for styled components)
+  // Strategy 2: Search by textContent FIRST (most specific for user-selected elements)
+  // FIX #2: Prioritize textContent over className to find actual component, not App.tsx
+  if (contextData?.textContent || contextData?.element?.textContent) {
+    const text = contextData?.textContent || contextData?.element?.textContent;
+    if (text && text.length > 3 && text.length < 100) {
+      console.log('🔍 [FILE DETECT] Searching by textContent:', text);
+      
+      try {
+        const files = await glob('client/src/**/*.{tsx,jsx}', { cwd: process.cwd() });
+        
+        for (const file of files) {
+          // FIX #2: Skip App.tsx - we want the component that DEFINES the element, not the app that renders it
+          if (file.includes('App.tsx')) continue;
+          
+          const content = await fs.readFile(file, 'utf-8');
+          if (content.includes(text)) {
+            console.log(`✅ [FILE DETECT] Found file via text "${text}":`, file);
+            return file;
+          }
+        }
+      } catch (error) {
+        console.log('❌ [FILE DETECT] textContent search error:', error);
+      }
+    }
+  }
+
+  // Strategy 3: Search by className (for styled components) - FALLBACK
   if (contextData?.className || contextData?.element?.className) {
     const className = contextData?.className || contextData?.element?.className;
     console.log('🔍 [FILE DETECT] Searching by className:', className);
@@ -49,6 +75,9 @@ export async function detectFilePath(contextData: any): Promise<string | null> {
       
       for (const cn of classNames) {
         for (const file of files) {
+          // FIX #2: Skip App.tsx - prefer actual components
+          if (file.includes('App.tsx')) continue;
+          
           const content = await fs.readFile(file, 'utf-8');
           if (content.includes(cn)) {
             console.log(`✅ [FILE DETECT] Found file via className "${cn}":`, file);
@@ -58,28 +87,6 @@ export async function detectFilePath(contextData: any): Promise<string | null> {
       }
     } catch (error) {
       console.log('❌ [FILE DETECT] className search error:', error);
-    }
-  }
-
-  // Strategy 3: Search by textContent (for unique text)
-  if (contextData?.textContent || contextData?.element?.textContent) {
-    const text = contextData?.textContent || contextData?.element?.textContent;
-    if (text && text.length > 3 && text.length < 100) {
-      console.log('🔍 [FILE DETECT] Searching by textContent:', text);
-      
-      try {
-        const files = await glob('client/src/**/*.{tsx,jsx}', { cwd: process.cwd() });
-        
-        for (const file of files) {
-          const content = await fs.readFile(file, 'utf-8');
-          if (content.includes(text)) {
-            console.log(`✅ [FILE DETECT] Found file via text "${text}":`, file);
-            return file;
-          }
-        }
-      } catch (error) {
-        console.log('❌ [FILE DETECT] textContent search error:', error);
-      }
     }
   }
 

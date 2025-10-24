@@ -1,4 +1,3 @@
-```typescript
 import React, { useEffect, Suspense, lazy, useState } from "react";
 import { Switch, Route, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -239,4 +238,578 @@ const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
     display: 'flex', 
     alignItems: 'center', 
     justifyContent: 'center',
-    background: 'linear
+    background: 'linear-gradient(to bottom right, #f0fdfa, #ecfeff)'
+  }}>
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ 
+        width: '48px', 
+        height: '48px', 
+        border: '2px solid #14b8a6', 
+        borderTop: '2px solid transparent',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+        margin: '0 auto 16px'
+      }}></div>
+      <p style={{ color: '#6b7280' }}>{message}</p>
+    </div>
+  </div>
+);
+
+// Simple error boundary component
+class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: any}> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '20px', color: 'red' }}>
+          <h1>Something went wrong</h1>
+          <pre>{this.state.error?.toString()}</pre>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// J1 Visitor Route Guard - NO LONGER REDIRECTS (allows authenticated users to see visitor pages)
+function VisitorRoute({ children }: { children: React.ReactNode }) {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <LoadingFallback message="Loading..." />;
+  }
+
+  // J1 FIX: Show visitor pages even if user is authenticated
+  // (Allows logged-in users to view landing/discover/about pages)
+  return <>{children}</>;
+}
+
+function Router() {
+  // ESA LIFE CEO 61x21 - Registry-driven routing (Layers 21-30)
+  const currentPath = window.location.pathname;
+  const { isAuthenticated, isLoading } = useAuth();
+  console.log("🔍 Current path:", currentPath);
+
+  // Get routes from registry - debugRoutes only in development
+  const isDevelopment = import.meta.env.MODE === 'development' || import.meta.env.DEV;
+  const allRoutes = isDevelopment 
+    ? [...productionRoutes, ...debugRoutes]
+    : productionRoutes;
+
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <Switch>
+          {/* MB.MD MINIMAL ROUTES: Only using imported components to fix blank screen */}
+          
+          {/* Home/Landing - uses Landing component */}
+          <Route path="/">
+            {isLoading ? (
+              <LoadingFallback />
+            ) : (
+              <Landing />
+            )}
+          </Route>
+
+          {/* Explicit landing page route */}
+          <Route path="/landing">
+            <Landing />
+          </Route>
+
+          {/* Mundo Tango Internal CMS - Notion-style tango stories */}
+          <Route path="/notion">
+            <NotionHomePage />
+          </Route>
+
+          {/* Mundo Tango Mobile Pages - 38% → 100% Production Readiness */}
+          <Route path="/messages">
+            <MessagesMobile />
+          </Route>
+          <Route path="/notifications">
+            <NotificationsMobile />
+          </Route>
+          <Route path="/calendar">
+            <CalendarPage />
+          </Route>
+          <Route path="/profile-mobile">
+            <ProfileMobile />
+          </Route>
+          <Route path="/groups-mobile">
+            <GroupsMobile />
+          </Route>
+
+          {/* Mundo Tango Core Social Features - Phase 1A (Oct 20, 2025) */}
+          <Route path="/memories">
+            <MemoriesPage />
+          </Route>
+
+          {/* MB.MD BATCH 1: 30 High-Value Routes - Social, Events, Admin */}
+          <Route path="/events">
+            <EventsPage />
+          </Route>
+          <Route path="/event/:id">
+            <EventDetail />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
+          </Route>
+          <Route path="/group/:id">
+            <GroupPage />
+          </Route>
+          <Route path="/home">
+            <HomePage />
+          </Route>
+          <Route path="/mr-blue">
+            <MrBluePage />
+          </Route>
+          
+          {/* MB.MD TRACK 4B & 6: Journey Wizards + Agent Browser (Oct 21, 2025) */}
+          <Route path="/journey/:journeyId">
+            <JourneyPage />
+          </Route>
+          <Route path="/agents">
+            <AgentBrowserPage />
+          </Route>
+          
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+
+          {/* Admin Routes */}
+          <Route path="/admin">
+            <AdminCenter />
+          </Route>
+          <Route path="/admin/dashboard">
+            <AdminDashboard />
+          </Route>
+          <Route path="/admin/esa-mind">
+            <ESAMindPage />
+          </Route>
+          <Route path="/admin/agent-metrics">
+            <AgentMetrics />
+          </Route>
+          <Route path="/admin/platform-health">
+            <PlatformHealth />
+          </Route>
+
+          {/* Billing & Payments */}
+          <Route path="/billing">
+            <BillingDashboard />
+          </Route>
+          <Route path="/subscribe">
+            <Subscribe />
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+          <Route path="/payment-methods">
+            <PaymentMethods />
+          </Route>
+
+          {/* Enhanced Features */}
+          <Route path="/enhanced-events">
+            <EnhancedEvents />
+          </Route>
+          <Route path="/community">
+            <Community />
+          </Route>
+
+          {/* Auth Routes */}
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/reset-password">
+            <ResetPassword />
+          </Route>
+
+          {/* MB.MD BATCH 2: 40 Additional Routes (Housing, Admin Extended, Social, Analytics, Agents) */}
+          {/* Housing & Marketplace */}
+          <Route path="/housing">
+            <HousingMarketplace />
+          </Route>
+          <Route path="/host/calendar">
+            <HostCalendar />
+          </Route>
+          <Route path="/host/bookings">
+            <HostBookings />
+          </Route>
+          <Route path="/my-bookings">
+            <MyBookings />
+          </Route>
+          <Route path="/listing/:id">
+            <ListingDetail />
+          </Route>
+
+          {/* Admin Extended */}
+          <Route path="/admin/users">
+            <AdminUsers />
+          </Route>
+          <Route path="/admin/sprints">
+            <AdminSprints />
+          </Route>
+          <Route path="/admin/projects">
+            <AdminProjects />
+          </Route>
+          <Route path="/admin/tenants">
+            <TenantManagement />
+          </Route>
+          <Route path="/admin/stories">
+            <StoriesList />
+          </Route>
+          <Route path="/admin/story/:id">
+            <StoryDetail />
+          </Route>
+          <Route path="/admin/ui-subagents">
+            <UISubAgents />
+          </Route>
+          <Route path="/admin/smart-agents">
+            <SmartAgentsDashboard />
+          </Route>
+          <Route path="/admin/mr-blue">
+            <MrBlueDashboard />
+          </Route>
+          <Route path="/admin/performance">
+            <PerformanceDashboard />
+          </Route>
+          <Route path="/admin/page-state">
+            <PageStateMonitor />
+          </Route>
+          <Route path="/admin/page-agents">
+            <PageAgentsDashboard />
+          </Route>
+          <Route path="/admin/multi-ai">
+            <MultiAIDashboard />
+          </Route>
+          <Route path="/admin/multi-ai-analytics">
+            <MultiAIAnalytics />
+          </Route>
+          <Route path="/admin/health">
+            <HealthMonitor />
+          </Route>
+          <Route path="/admin/component-health">
+            <ComponentHealthDashboard />
+          </Route>
+          <Route path="/admin/autofix">
+            <AutoFixDashboard />
+          </Route>
+          <Route path="/admin/agent-coordination">
+            <AgentCoordination />
+          </Route>
+          <Route path="/admin/agent-training">
+            <AgentTrainingPage />
+          </Route>
+
+          {/* Social Pages */}
+          <Route path="/groups/discover">
+            <GroupsDiscoveryPage />
+          </Route>
+          <Route path="/groups">
+            <Groups />
+          </Route>
+          <Route path="/friends-page">
+            <FriendsPage />
+          </Route>
+          <Route path="/timeline">
+            <TimelineMinimal />
+          </Route>
+          <Route path="/timeline-debug">
+            <TimelineDebug />
+          </Route>
+          <Route path="/timeline-enhanced">
+            <EnhancedTimeline />
+          </Route>
+          <Route path="/onboarding">
+            <Onboarding />
+          </Route>
+          <Route path="/notifications-page">
+            <NotificationsPage />
+          </Route>
+          <Route path="/messages-page">
+            <MessagesPage />
+          </Route>
+          <Route path="/invitations">
+            <Invitations />
+          </Route>
+          <Route path="/tango-communities">
+            <TangoCommunities />
+          </Route>
+          <Route path="/create-community">
+            <CreateCommunity />
+          </Route>
+          <Route path="/group-detail/:id">
+            <GroupDetailPage />
+          </Route>
+          <Route path="/features">
+            <FeatureNavigation />
+          </Route>
+
+          {/* Analytics & Monitoring */}
+          <Route path="/statistics">
+            <GlobalStatistics />
+          </Route>
+          <Route path="/live-statistics">
+            <LiveGlobalStatistics />
+          </Route>
+          <Route path="/finops">
+            <FinOpsDashboard />
+          </Route>
+          <Route path="/monitoring">
+            <MonitoringDashboard />
+          </Route>
+          <Route path="/privacy-analytics">
+            <PrivacyAnalytics />
+          </Route>
+          <Route path="/subscription-analytics">
+            <SubscriptionAnalytics />
+          </Route>
+
+          {/* Agent Intelligence */}
+          <Route path="/agents">
+            <AgentIntelligenceNetwork />
+          </Route>
+          <Route path="/agent/:id">
+            <AgentDetail />
+          </Route>
+
+          {/* MB.MD BATCH 3: 25 Additional Routes (Travel, Media, User Management, Testing) */}
+          {/* Travel & Planning */}
+          <Route path="/travel">
+            <TravelPlanner />
+          </Route>
+          <Route path="/organizer">
+            <Organizer />
+          </Route>
+          <Route path="/teacher">
+            <Teacher />
+          </Route>
+          <Route path="/world-map">
+            <CommunityWorldMap />
+          </Route>
+
+          {/* Media & Streaming */}
+          <Route path="/live">
+            <LiveStreaming />
+          </Route>
+          <Route path="/media-upload">
+            <MediaUploadTest />
+          </Route>
+
+          {/* User Management */}
+          <Route path="/settings">
+            <UserSettings />
+          </Route>
+          <Route path="/profile-switcher">
+            <ProfileSwitcher />
+          </Route>
+          <Route path="/u/:username">
+            <PublicProfilePage />
+          </Route>
+          <Route path="/resume/public/:id">
+            <PublicResumePage />
+          </Route>
+          <Route path="/resume">
+            <ResumePage />
+          </Route>
+          <Route path="/role-invitations">
+            <RoleInvitations />
+          </Route>
+          <Route path="/recommendations">
+            <RecommendationsBrowsePage />
+          </Route>
+
+          {/* Subscriptions & Promo */}
+          <Route path="/subscription">
+            <SubscriptionPage />
+          </Route>
+          <Route path="/admin/promo-codes">
+            <PromoCodesAdmin />
+          </Route>
+
+          {/* Testing & Development */}
+          <Route path="/test/monitoring">
+            <MonitoringTest />
+          </Route>
+          <Route path="/mobile-dashboard">
+            <MobileAppDashboard />
+          </Route>
+          <Route path="/life-ceo">
+            <LifeCeoPerformance />
+          </Route>
+          <Route path="/projects">
+            <ProjectTracker />
+          </Route>
+          <Route path="/security">
+            <DatabaseSecurity />
+          </Route>
+          <Route path="/conduct">
+            <CodeOfConduct />
+          </Route>
+
+          {/* Stories */}
+          <Route path="/stories">
+            <TangoStories />
+          </Route>
+
+          {/* Mundo Tango ESA - Dynamic Routes from Registry (Visual Editor, Mr Blue, etc.) */}
+          {/* CRITICAL: Registry routes MUST come before /:slug to prevent greedy matching */}
+          {allRoutes.map((route: RouteConfig) => {
+            const RouteComponent = route.component;
+            return (
+              <Route key={route.path} path={route.path}>
+                <RouteComponent />
+              </Route>
+            );
+          })}
+
+          {/* Notion CMS Catch-All - MUST be AFTER registry routes */}
+          <Route path="/:slug">
+            <NotionEntryPage />
+          </Route>
+
+          {/* Fallback: 404 Not Found */}
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </Suspense>
+      
+      {/* Phase 14 Batch 1: Lazy load AI components with Suspense */}
+      <Suspense fallback={null}>
+        <AIHelpButton position="bottom-right" offset={6} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <SmartPageSuggestions position="top-center" autoHide={true} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <AIContextBar position="top" collapsible={true} />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+
+function AppContent() {
+  console.log('🎯 [AppContent] Rendering - TESTING ESA COMPONENTS');
+  
+  // MB.MD INFRA-5A: Hooks re-enabled - SAFE ✅
+  usePerformanceOptimization(); // ESA Performance Layer 50
+  useMonitoring(); // ESA Monitoring Layer 51
+  usePageTracking(); // PostHog page view tracking
+
+  // MB.MD TRACK 1: Sidebar state for mobile BottomNav integration
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // MB.MD FIX: Visual Editor must render OUTSIDE main app layout (no sidebar/nav)
+  // Check window.location because useLocation requires Router context
+  if (typeof window !== 'undefined' && window.location.pathname === '/admin/visual-editor') {
+    const VisualEditorPage = lazy(() => import('@/pages/VisualEditorPage'));
+    return (
+      <Suspense fallback={<div className="flex items-center justify-center h-screen"><div className="text-lg">Loading Visual Editor...</div></div>}>
+        <VisualEditorPage />
+      </Suspense>
+    );
+  }
+
+  console.log('🎯 [AppContent] Mr Blue AI & Visual Editor both ACTIVE ✅');
+
+  return (
+    <>
+      <Router />
+      <Toaster />
+      <TrialBanner />
+      
+      {/* MB.MD TRACK 1: Global BottomNav (Mobile <768px) - Oct 20, 2025 */}
+      {/* Production-ready: 95 lines, Aurora Tide, 56px touch targets */}
+      <BottomNav onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      
+      {/* Phase 14 Batch 1: Lazy load dev/admin tools with Suspense */}
+      <Suspense fallback={null}>
+        <SuperAdminToggle />
+      </Suspense>
+      {/* MB.MD Oct 21, 2025: ESAMindMap button REMOVED - features merged into MrBlueComplete Admin tab */}
+      {/* MB.MD FIX: Placeholder modal REMOVED - MrBlueComplete component handles all UI */}
+      <MrBlueComplete />
+      <Suspense fallback={null}>
+        <VisualEditorWrapper children={null} />
+      </Suspense>
+      {/* Phase 15 Batch 1: Cache monitoring display DISABLED - Vite HMR bug */}
+      {/* <Suspense fallback={null}>
+        <CacheMonitorDisplay />
+      </Suspense> */}
+    </>
+  );
+}
+
+function App() {
+  console.log('🚀 [App] ROOT COMPONENT RENDERING');
+  
+  useEffect(() => {
+    console.log('🚀 [App] useEffect running - setup starting');
+    // Setup global error handlers
+    setupGlobalErrorHandlers();
+    setupQueryErrorHandling(queryClient);
+    
+    // Initialize analytics
+    initAnalytics();
+    
+    // Initialize PostHog analytics
+    initPostHog();
+
+    // Life CEO Performance Optimization
+    lifeCeoPerformance.init();
+    // Performance optimizations auto-initialized
+    console.log('🚀 [App] useEffect complete - setup done');
+  }, []);
+
+  console.log('🚀 [App] About to return JSX tree');
+
+  // MB.MD INFRA-4: Testing monitoring providers (Tenant ✅, LocationBias ✅, Socket ✅)
+  // Phase 0 Task 0.4: PageAgentProvider DISABLED due to Vite HMR file deletion bug
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <TenantProvider>
+            <LocationBiasProvider>
+              <VisualEditorProvider>
+                {/* <PageAgentProvider> DISABLED - Vite HMR deletes this file */}
+                  <SocketProvider>
+                    <TooltipProvider>
+                      <OpenReplayProvider>
+                        <MonitoringProvider>
+                          <MicroInteractionProvider>
+                            <AppContent />
+                        </MicroInteractionProvider>
+                      </MonitoringProvider>
+                    </OpenReplayProvider>
+                  </TooltipProvider>
+                </SocketProvider>
+              {/* </PageAgentProvider> DISABLED - Vite HMR deletes this file */}
+              </VisualEditorProvider>
+            </LocationBiasProvider>
+          </TenantProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
+
+export default App;
