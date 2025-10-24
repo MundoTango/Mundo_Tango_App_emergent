@@ -20,21 +20,31 @@ export interface BuildIntent {
 
 interface BuildApprovalModalProps {
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
+  onOpenChange?: (open: boolean) => void;
   buildIntents: BuildIntent[];
   onApprove: (messageIds: number[]) => Promise<void>;
-  projectId: number;
+  projectId?: number;
 }
 
 export default function BuildApprovalModal({
   open,
   onClose,
+  onOpenChange,
   buildIntents,
   onApprove,
   projectId
 }: BuildApprovalModalProps) {
   const [isExecuting, setIsExecuting] = useState(false);
   const { toast } = useToast();
+
+  const handleClose = () => {
+    if (onOpenChange) {
+      onOpenChange(false);
+    } else if (onClose) {
+      onClose();
+    }
+  };
 
   const handleApprove = async () => {
     try {
@@ -45,7 +55,7 @@ export default function BuildApprovalModal({
         title: 'Build Executed',
         description: `Successfully applied ${buildIntents.length} changes`,
       });
-      onClose();
+      handleClose();
     } catch (error) {
       toast({
         title: 'Build Failed',
@@ -100,7 +110,7 @@ export default function BuildApprovalModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 border-cyan-500/20 text-white">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">

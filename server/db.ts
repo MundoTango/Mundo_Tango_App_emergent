@@ -15,12 +15,14 @@ console.log('🎭 [DEMO] Using demo database configuration');
 const pool = new Pool({ 
   connectionString: DATABASE_URL,
   // Mundo Tango ESA LIFE CEO Optimized Connection Pool Settings
-  max: 100, // Increased for high concurrency uploads
-  min: 20, // Higher minimum for better performance
+  max: 20, // Balanced for deployment stability
+  min: 2, // Reduced minimum for better resource management
   idleTimeoutMillis: 30000, // 30 seconds for better connection reuse
-  connectionTimeoutMillis: 30000, // 30 seconds for large file uploads
+  connectionTimeoutMillis: 30000, // 30 seconds timeout (deployment-safe)
   statement_timeout: 60000, // 60 second query timeout for complex operations
   query_timeout: 60000, // 60 second query timeout
+  keepAlive: true, // Enable TCP keepalive
+  keepAliveInitialDelayMillis: 10000, // 10 second keepalive delay
   // Connection string optimizations
   application_name: 'mundo-tango-40x20s',
   // SSL configuration for Replit database
@@ -33,11 +35,11 @@ pool.on('error', (err) => {
   // Don't crash the app - Layer 23: Business Continuity
 });
 
-// Layer 21: Connection health check
+// Layer 21: Connection health check with exponential backoff
 let isConnected = false;
 let connectionRetries = 0;
 const MAX_RETRIES = 5;
-const RETRY_DELAY = 2000; // 2 seconds
+const RETRY_DELAYS = [1000, 2000, 4000, 8000, 16000]; // Exponential backoff: 1s, 2s, 4s, 8s, 16s
 
 async function checkConnection() {
   try {
@@ -53,14 +55,29 @@ async function checkConnection() {
     console.error('❌ Database connection check failed:', err instanceof Error ? err.message : String(err));
     
     if (connectionRetries < MAX_RETRIES) {
+      const delay = RETRY_DELAYS[connectionRetries] || 16000;
       connectionRetries++;
-      console.log(`🔄 Retrying database connection (${connectionRetries}/${MAX_RETRIES})...`);
-      setTimeout(checkConnection, RETRY_DELAY);
+      console.log(`🔄 Retrying database connection (${connectionRetries}/${MAX_RETRIES}) in ${delay}ms...`);
+      setTimeout(checkConnection, delay);
     } else {
-      console.error('❌ Max database connection retries reached');
+      console.error('❌ Max database connection retries reached - proceeding without database');
+      // Don't crash - allow server to start for health checks
     }
     return false;
   }
+}
+
+// Export connection status for health check endpoint
+export function getConnectionStatus() {
+  return {
+    isConnected,
+    retriesAttempted: connectionRetries,
+    poolStats: {
+      total: pool.totalCount,
+      idle: pool.idleCount,
+      waiting: pool.waitingCount
+    }
+  };
 }
 
 // Initial connection check

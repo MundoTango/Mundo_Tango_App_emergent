@@ -143,6 +143,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/health', (_req, res) => {
     res.json({ status: 'healthy', timestamp: new Date().toISOString() });
   });
+
+  // Database Health Check Endpoint - Critical for deployment monitoring
+  app.get('/api/health/db', async (_req, res) => {
+    const startTime = Date.now();
+    try {
+      const { getConnectionStatus } = await import('./db.js');
+      const status = getConnectionStatus();
+      
+      // Test actual database connectivity with timeout
+      let queryLatency = 0;
+      try {
+        const queryStart = Date.now();
+        await pool.query('SELECT 1');
+        queryLatency = Date.now() - queryStart;
+      } catch (err) {
+        // Query failed but return status anyway for debugging
+        return res.status(503).json({
+          status: 'unhealthy',
+          error: 'Database query failed',
+          message: err instanceof Error ? err.message : String(err),
+          connectionStatus: status,
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      res.json({
+        status: status.isConnected ? 'healthy' : 'degraded',
+        database: {
+          connected: status.isConnected,
+          retriesAttempted: status.retriesAttempted,
+          queryLatency: `${queryLatency}ms`,
+          pool: status.poolStats
+        },
+        timestamp: new Date().toISOString(),
+        responseTime: `${Date.now() - startTime}ms`
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+        error: 'Health check failed',
+        message: error instanceof Error ? error.message : String(error),
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
   
   // Initialize PostHog server-side analytics
   // TODO: Fix dynamic imports - temporarily disabled

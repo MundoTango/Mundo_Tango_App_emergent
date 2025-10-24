@@ -29,6 +29,9 @@ export interface StyleMutation {
 export type IframeMessage =
   | { type: 'ELEMENT_SELECTED'; element: ElementSelection }
   | { type: 'ELEMENT_HOVERED'; element: ElementSelection | null }
+  | { type: 'ELEMENT_TEXT_CHANGED'; element: ElementSelection; newText: string }
+  | { type: 'DELETE_ELEMENT_REQUEST'; element: ElementSelection }
+  | { type: 'CONFIRM_DELETE'; xpath: string }
   | { type: 'APPLY_STYLE'; mutation: StyleMutation }
   | { type: 'HIGHLIGHT_ELEMENT'; xpath: string }
   | { type: 'CLEAR_HIGHLIGHT' }

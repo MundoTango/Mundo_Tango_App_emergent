@@ -10,7 +10,7 @@ import { Activity, Clock } from 'lucide-react';
 
 interface ActivityEntry {
   id: string;
-  type: 'selection' | 'edit' | 'delete' | 'style' | 'chat';
+  type: 'selection' | 'edit' | 'delete' | 'style' | 'chat' | 'ai-build';
   description: string;
   timestamp: number;
 }
@@ -107,6 +107,7 @@ function getTypeColor(type: ActivityEntry['type']): string {
     case 'delete': return 'bg-red-900 text-red-300';
     case 'style': return 'bg-purple-900 text-purple-300';
     case 'chat': return 'bg-green-900 text-green-300';
+    case 'ai-build': return 'bg-cyan-900 text-cyan-300';
     default: return 'bg-gray-700 text-gray-300';
   }
 }
