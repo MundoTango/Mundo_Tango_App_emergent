@@ -162,11 +162,18 @@ export function MrBlueVisualChat({
     eventSource.onerror = (error) => {
       console.error('❌ [SSE] Connection error:', error);
       eventSource.close();
+      
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: '⚠️ Connection lost. Reconnecting...',
         timestamp: new Date(),
       }]);
+
+      // SECURITY FIX: Actually reconnect after error
+      setTimeout(() => {
+        console.log('🔄 [SSE] Attempting reconnection...');
+        startSSEListener(taskId);
+      }, 2000);
     };
   };
 

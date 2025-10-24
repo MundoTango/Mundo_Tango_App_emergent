@@ -161,9 +161,15 @@ async function executeAutonomousTask(
 
     console.log('✅ Plan created:', task.steps.length, 'steps');
 
-    // Emit planned steps
-    for (const step of plan.steps) {
-      emitSSEEvent(taskId, 'stepPlanned', { step });
+    // Emit planned steps with unique IDs
+    for (let i = 0; i < plan.steps.length; i++) {
+      const step = plan.steps[i];
+      const stepId = `step-${i}`;
+      emitSSEEvent(taskId, 'stepPlanned', { 
+        step, 
+        stepId,
+        index: i 
+      });
     }
 
     // PHASE 2: Execute each step
@@ -174,7 +180,11 @@ async function executeAutonomousTask(
       step.status = 'in_progress';
       task.currentIteration++;
 
-      emitSSEEvent(taskId, 'stepInProgress', { step: step.action });
+      emitSSEEvent(taskId, 'stepInProgress', { 
+        step: step.action,
+        stepId: `step-${i}`,
+        index: i
+      });
 
       try {
         // Execute step based on action type
@@ -350,7 +360,10 @@ async function executeWriteAction(taskId: string, action: string, context: any, 
   await writeFile(filePath, newContent);
   console.log('✅ [WRITE] File written successfully');
 
-  emitSSEEvent(taskId, 'fileApplied', { filePath });
+  emitSSEEvent(taskId, 'fileApplied', { 
+    filePath,
+    stepId: `step-write-${filePath}` 
+  });
 
   return { success: true, filePath, changes: diff };
 }
