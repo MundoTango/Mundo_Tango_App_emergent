@@ -239,7 +239,7 @@ export function MrBlueVisualChat({
               } : undefined,
             },
             maxIterations: 20,
-            requireApproval: true,
+            requireApproval: false,
           }),
         });
 
