@@ -14,14 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { AutonomousProgressPanel } from '../mrBlue/AutonomousProgressPanel';
 import { useAuth } from '@/hooks/useAuth';
 import { isSuperAdmin } from '@/utils/accessControl';
-// AUTONOMOUS MR BLUE: Visual Editor integration props (Oct 24, 2025)
-interface SelectedElement {
-  tag: string;
-  id?: string;
-  className?: string;
-  innerHTML?: string;
-  xpath: string;
-}
+import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -30,7 +23,7 @@ interface Message {
 }
 
 interface MrBlueVisualChatProps {
-  selectedElement: SelectedElement | null;
+  selectedElement: ElementSelection | null;
   onGenerateCode: (prompt: string) => Promise<void>;
 }
 
@@ -177,7 +170,7 @@ export function MrBlueVisualChat({
   // Notify about element selection
   useEffect(() => {
     if (selectedElement) {
-      const elementLabel = selectedElement.id || selectedElement.tag;
+      const elementLabel = selectedElement.id || selectedElement.tagName;
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: `I see you selected **${elementLabel}**. What would you like to do with it?`,
@@ -214,7 +207,7 @@ export function MrBlueVisualChat({
             page: currentPage,
             url: window.location.href,
             selectedElement: selectedElement ? {
-              tag: selectedElement.tag,
+              tag: selectedElement.tagName,
               id: selectedElement.id,
               className: selectedElement.className,
               xpath: selectedElement.xpath,
@@ -284,7 +277,7 @@ export function MrBlueVisualChat({
               </Badge>
               {selectedElement && (
                 <Badge variant="default" className="text-xs bg-purple-600" data-testid="badge-selected-element">
-                  {selectedElement.id || selectedElement.tag}
+                  {selectedElement.id || selectedElement.tagName}
                 </Badge>
               )}
               <Badge variant="default" className="text-xs bg-green-600" data-testid="badge-autonomous-mode">

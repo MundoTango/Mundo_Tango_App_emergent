@@ -598,7 +598,12 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               )}
               {activeTab === 'chat' && (
                 <div className="h-full">
-                  <ChatInterface />
+                  <MrBlueVisualChat
+                    selectedElement={visualEditorContext?.selectedElement ?? null}
+                    onGenerateCode={async (prompt: string) => {
+                      console.log('🔮 [VisualEditor] Generating code:', prompt);
+                    }}
+                  />
                 </div>
               )}
               {activeTab === 'preview' && <PreviewTab currentPath={location} />}
