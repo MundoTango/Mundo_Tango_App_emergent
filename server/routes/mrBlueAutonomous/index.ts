@@ -58,7 +58,7 @@ router.use('/', approvalRoutes);  // POST /request-approval, POST /approve/:id, 
 console.log('✅ BATCH 4: Safety & Checkpoints APIs mounted');
 
 // BATCH 5: Orchestration Engine
-router.use('/autonomous', orchestrationEngine);  // POST /autonomous/execute, GET /autonomous/status/:id
+router.use('/', orchestrationEngine);  // POST /execute, GET /status/:id
 
 console.log('✅ BATCH 5: Orchestration Engine mounted');
 
@@ -95,6 +95,9 @@ console.log('━━━━━━━━━━━━━━━━━━━━━━�
  * ORCHESTRATION:
  * POST /api/mrblue/autonomous/execute
  * GET  /api/mrblue/autonomous/status/:taskId
+ * 
+ * Note: Routes are mounted at /api/mrblue/autonomous (see server/routes.ts line 1460)
+ * So '/execute' here becomes '/api/mrblue/autonomous/execute' externally
  */
 
 export default router;

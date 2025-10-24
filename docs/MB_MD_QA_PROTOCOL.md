@@ -342,6 +342,36 @@ screenshot("/page")  # ✅ Visual proof
 - Answer architect's questions
 - Fix issues before proceeding
 
+---
+
+### Rule 6: DOCUMENT WORK REAL-TIME (NEW - Oct 24, 2025)
+**What:** All agents MUST log their work in session logs as they build  
+**Why:** No accountability, no knowledge transfer, no audit trail = broken institutional memory  
+**How:**
+- Update session work log after completing each task
+- Use template: `docs/agents/work-logs/YYYY-MM/SESSION_LOG_TEMPLATE.md`
+- Include: timestamp, agent ID, task, files changed, outcome, issues found
+- Commit logs to Git before marking task complete
+
+**ENFORCEMENT:**
+- Pre-commit hook checks for updated work logs
+- QA Agent verifies documentation exists before approval
+- Manager + Architect review requires session logs
+
+**UI/UX TESTING STANDARD (MANDATORY):**
+- Every UI change requires rigorous testing to ensure work ACTUALLY SHOWS
+- Changes visible after workflow restart (no manual hard refresh)
+- Screenshots prove feature renders correctly
+- User journey tested end-to-end (hover → click → action → result)
+- Browser console clean (no errors)
+- Network tab shows API calls succeed (200/201, not 404/500)
+
+**DEPLOYMENT VERIFICATION STANDARD:**
+- After code changes, verify changes hit UI automatically
+- If changes don't show: Check cache headers, HMR, workflow restart
+- Document manual steps required (if any) for users to see changes
+- Test deployment pipeline before marking complete
+
 **Example:**
 ```typescript
 // WRONG: Self-approval
