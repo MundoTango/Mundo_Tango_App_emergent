@@ -62,6 +62,9 @@ export function UnifiedVoiceModal({
   const [showSettings, setShowSettings] = useState(false);
   const [isProcessingSummary, setIsProcessingSummary] = useState(false);
   
+  // 🎯 WEEK 0 FIX: Connection status tracking (Oct 24, 2025)
+  const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
+  
   const transcriptRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   
@@ -98,6 +101,17 @@ export function UnifiedVoiceModal({
       }
     }
   });
+  
+  // 🎯 WEEK 0 FIX: Update connection status when realtime status changes (Oct 24, 2025)
+  useEffect(() => {
+    if (realtimeStatus === 'connected') {
+      setConnectionStatus('connected');
+    } else if (realtimeStatus === 'connecting') {
+      setConnectionStatus('connecting');
+    } else {
+      setConnectionStatus('disconnected');
+    }
+  }, [realtimeStatus]);
 
   // Audio capture
   const {
@@ -107,12 +121,14 @@ export function UnifiedVoiceModal({
     checkPermission
   } = useAudioCapture({
     onAudioData: (audioData) => {
-      console.log('[VoiceModal] Audio captured:', audioData.byteLength, 'bytes, status:', realtimeStatus);
-      if (realtimeStatus === 'connected') {
+      console.log('[VoiceModal] Audio captured:', audioData.byteLength, 'bytes, status:', connectionStatus);
+      
+      // 🎯 WEEK 0 FIX: Use connectionStatus instead of realtimeStatus (Oct 24, 2025)
+      if (connectionStatus === 'connected') {
         console.log('[VoiceModal] ✅ Sending audio to OpenAI...');
         sendAudio(audioData);
       } else {
-        console.warn('[VoiceModal] ❌ Not sending - not connected. Status:', realtimeStatus);
+        console.warn('[VoiceModal] ❌ Not sending - not connected. Status:', connectionStatus);
       }
     }
   });

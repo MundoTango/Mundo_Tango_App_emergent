@@ -4,7 +4,7 @@
  * Uses /api/mrblue/conversations (correct API endpoint)
  */
 
-import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { 
   Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History, Trash2
 } from 'lucide-react';
@@ -95,7 +95,13 @@ export function ChatInterface() {
     diffId?: number;
   }>({ isOpen: false });
   
+  // 🎯 WEEK 0 UNIFICATION: Autonomous mode state (Oct 24, 2025)
+  const [autonomousSteps, setAutonomousSteps] = useState<any[]>([]);
+  const [currentStep, setCurrentStep] = useState<string>();
+  const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const sseConnectionRef = useRef<EventSource | null>(null);
   const { toast } = useToast();
   const appContext = useAppContext(); // 🎯 MB.MD: Collect context for AI awareness
   
@@ -119,6 +125,124 @@ export function ChatInterface() {
   
   // Use persisted element if current is null
   const activeElement = selectedElement || lastKnownElement;
+  
+  // 🎯 WEEK 0 UNIFICATION: Auto-enable autonomous mode in Visual Editor (Oct 24, 2025)
+  const isInVisualEditor = !!visualEditorContext;
+  const isAutonomousMode = isInVisualEditor; // Always on in Visual Editor
+  
+  // 🎯 WEEK 0 UNIFICATION: SSE Event Listener for autonomous execution (Oct 24, 2025)
+  // Copied from MrBlueVisualChat.tsx lines 79-183
+  const startSSEListener = useCallback((taskId: string) => {
+    console.log('🎧 [SSE] Starting event listener for task:', taskId);
+    
+    // Close existing connection if any
+    if (sseConnectionRef.current) {
+      sseConnectionRef.current.close();
+    }
+    
+    const eventSource = new EventSource(`/api/mrblue/autonomous/stream/${taskId}`);
+    sseConnectionRef.current = eventSource;
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        console.log('📨 [SSE] Event received:', data.type, data);
+
+        switch (data.type) {
+          case 'taskStarted':
+            setAutonomousSteps([]);
+            setCurrentStep('Planning...');
+            break;
+
+          case 'stepPlanned':
+            setAutonomousSteps(prev => [...prev, {
+              action: data.step,
+              status: 'pending',
+              timestamp: new Date(),
+              stepId: data.stepId,
+            }]);
+            break;
+
+          case 'stepInProgress':
+            setCurrentStep(data.step);
+            setAutonomousSteps(prev => prev.map(s => 
+              s.stepId === data.stepId ? { ...s, status: 'in_progress' } : s
+            ));
+            break;
+
+          case 'diffReady':
+            // Show diff in chat
+            toast({ 
+              title: "Code change ready", 
+              description: `File: ${data.filePath}` 
+            });
+            break;
+
+          case 'fileApplied':
+            setAutonomousSteps(prev => prev.map(s =>
+              s.stepId === data.stepId ? { ...s, status: 'completed' } : s
+            ));
+            toast({ 
+              title: "Changes applied", 
+              description: `Updated ${data.filePath}` 
+            });
+            break;
+
+          case 'errorOccurred':
+            toast({ 
+              title: "Error detected", 
+              description: data.error,
+              variant: "destructive" 
+            });
+            break;
+
+          case 'taskComplete':
+            setCurrentStep(undefined);
+            toast({ title: "Task complete!" });
+            eventSource.close();
+            break;
+
+          case 'taskFailed':
+            setCurrentStep(undefined);
+            toast({ 
+              title: "Task failed", 
+              description: data.error,
+              variant: "destructive" 
+            });
+            eventSource.close();
+            break;
+        }
+      } catch (error) {
+        console.error('❌ [SSE] Error parsing event:', error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('❌ [SSE] Connection error:', error);
+      eventSource.close();
+      
+      toast({ 
+        title: "Connection lost", 
+        description: "Reconnecting...",
+        variant: "destructive" 
+      });
+
+      // Auto-reconnect after 2 seconds
+      setTimeout(() => {
+        console.log('🔄 [SSE] Attempting reconnection...');
+        startSSEListener(taskId);
+      }, 2000);
+    };
+  }, [toast]);
+  
+  // Cleanup SSE connection on unmount
+  useEffect(() => {
+    return () => {
+      if (sseConnectionRef.current) {
+        sseConnectionRef.current.close();
+      }
+    };
+  }, []);
   
   // 🐛 PHASE 2 DEBUG: Log when selectedElement changes
   useEffect(() => {

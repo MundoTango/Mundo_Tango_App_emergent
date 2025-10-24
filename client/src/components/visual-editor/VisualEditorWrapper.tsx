@@ -18,7 +18,6 @@ import GitTab from './GitTab';
 import PagesTab from './PagesTab';
 import ShellTab from './ShellTab';
 import FilesTab from './FilesTab';
-import { MrBlueVisualChat } from './MrBlueVisualChat';
 import ConsoleTab from './ConsoleTab';
 import SecretsTab from './SecretsTab';
 import { ModelMonitorTab } from './ModelMonitorTab';
@@ -598,12 +597,9 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               )}
               {activeTab === 'chat' && (
                 <div className="h-full">
-                  <MrBlueVisualChat
-                    selectedElement={visualEditorContext?.selectedElement ?? null}
-                    onGenerateCode={async (prompt: string) => {
-                      console.log('🔮 [VisualEditor] Generating code:', prompt);
-                    }}
-                  />
+                  {/* 🎯 WEEK 0 UNIFICATION: Use single ChatInterface component (Oct 24, 2025) */}
+                  {/* Autonomous mode auto-enabled via Visual Editor context detection */}
+                  <ChatInterface />
                 </div>
               )}
               {activeTab === 'preview' && <PreviewTab currentPath={location} />}
