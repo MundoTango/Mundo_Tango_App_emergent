@@ -14,7 +14,7 @@ import { getVisualEditorTracker } from '@/lib/autonomy/VisualEditorTracker';
 import { useAuth } from '@/hooks/useAuth';
 import { ComponentSelector, type SelectedComponent } from './ComponentSelector';
 import { EditControls, type ComponentChanges } from './EditControls';
-import { MrBlueVisualChat } from './MrBlueVisualChat';
+import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import { DragDropHandler } from './DragDropHandler';
 
 interface VisualEditorOverlayProps {
@@ -177,11 +177,8 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
 
             {/* RIGHT PANEL: Mr Blue Visual Chat */}
             <ResizablePanel defaultSize={40} minSize={30}>
-              <MrBlueVisualChat
-                currentPage={currentUrl}
-                selectedComponent={selectedComponent}
-                recentEdits={recentEdits}
-              />
+              {/* 🎯 WEEK 0 UNIFICATION: Use single ChatInterface component (Oct 24, 2025) */}
+              <ChatInterface />
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>
