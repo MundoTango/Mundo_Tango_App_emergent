@@ -36,7 +36,7 @@ interface EditorContext {
  */
 export class EditorAgent {
   private anthropic: Anthropic;
-  private model: string = 'claude-3-5-sonnet-20241022';
+  private model: string = 'claude-sonnet-4-5-20250929'; // Claude Sonnet 4.5 - replacement for deprecated 3.5 Sonnet
   private projectRoot: string;
 
   constructor(projectRoot: string = process.cwd()) {

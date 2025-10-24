@@ -35,7 +35,7 @@ interface TestContext {
 export class TesterAgent {
   private browser: Browser | null = null;
   private anthropic: Anthropic;
-  private model: string = 'claude-3-5-sonnet-20241022';
+  private model: string = 'claude-sonnet-4-5-20250929'; // Claude Sonnet 4.5 - replacement for deprecated 3.5 Sonnet
 
   constructor() {
     if (!process.env.ANTHROPIC_API_KEY) {
