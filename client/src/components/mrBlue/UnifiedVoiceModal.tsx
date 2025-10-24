@@ -65,6 +65,9 @@ export function UnifiedVoiceModal({
   // 🎯 WEEK 0 FIX: Connection status tracking (Oct 24, 2025)
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
   
+  // 🎯 ARCHITECT FIX: Use ref for live polling access (Oct 24, 2025)
+  const connectionStatusRef = useRef<'disconnected' | 'connecting' | 'connected'>('disconnected');
+  
   const transcriptRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   
@@ -103,14 +106,20 @@ export function UnifiedVoiceModal({
   });
   
   // 🎯 WEEK 0 FIX: Update connection status when realtime status changes (Oct 24, 2025)
+  // 🎯 ARCHITECT FIX: Also update ref for live polling access (Oct 24, 2025)
   useEffect(() => {
+    let newStatus: 'disconnected' | 'connecting' | 'connected' = 'disconnected';
+    
     if (realtimeStatus === 'connected') {
-      setConnectionStatus('connected');
+      newStatus = 'connected';
     } else if (realtimeStatus === 'connecting') {
-      setConnectionStatus('connecting');
+      newStatus = 'connecting';
     } else {
-      setConnectionStatus('disconnected');
+      newStatus = 'disconnected';
     }
+    
+    setConnectionStatus(newStatus);
+    connectionStatusRef.current = newStatus; // Update ref for live polling
   }, [realtimeStatus]);
 
   // Audio capture
@@ -187,22 +196,30 @@ export function UnifiedVoiceModal({
       console.log('[UnifiedVoiceModal] 📡 Connecting to OpenAI...');
       await connect();
       
-      // Wait for connection to be established before starting audio
+      // 🎯 ARCHITECT FIX: Wait for connection via ref (live), not state (stale closure) (Oct 24, 2025)
+      // Use connectionStatusRef.current - updated by useEffect, readable in closure
       console.log('[UnifiedVoiceModal] ⏳ Waiting for connection...');
       await new Promise<void>((resolve, reject) => {
         const timeout = setTimeout(() => {
+          console.error('[UnifiedVoiceModal] ⏱️ Connection timeout after 10s, status was:', connectionStatusRef.current);
           reject(new Error('Connection timeout'));
         }, 10000); // 10 second timeout
         
+        // Check every 100ms - ref.current reads LIVE value from useEffect
         const checkConnection = setInterval(() => {
-          console.log('[UnifiedVoiceModal] Checking status:', realtimeStatus);
-          if (realtimeStatus === 'connected') {
+          const currentStatus = connectionStatusRef.current; // ✅ Reads live value
+          console.log('[UnifiedVoiceModal] 🔍 Polling live status via ref:', currentStatus);
+          
+          if (currentStatus === 'connected') {
             clearTimeout(timeout);
             clearInterval(checkConnection);
+            console.log('[UnifiedVoiceModal] ✅ Connection confirmed via ref!');
             resolve();
-          } else if (realtimeStatus === 'error') {
+          } else if (currentStatus === 'disconnected' && realtimeStatus === 'error') {
+            // Error state detected
             clearTimeout(timeout);
             clearInterval(checkConnection);
+            console.error('[UnifiedVoiceModal] ❌ Connection error detected');
             reject(new Error('Connection failed'));
           }
         }, 100);

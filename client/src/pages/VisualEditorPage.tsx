@@ -17,7 +17,7 @@ import GitTab from '@/components/visual-editor/GitTab';
 import PagesTab from '@/components/visual-editor/PagesTab';
 import ShellTab from '@/components/visual-editor/ShellTab';
 import FilesTabConnected from '@/components/visual-editor/FilesTabConnected';
-import { MrBlueVisualChat } from '@/components/visual-editor/MrBlueVisualChat';
+import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import ConsoleTab from '@/components/visual-editor/ConsoleTab';
 import SecretsTab from '@/components/visual-editor/SecretsTab';
 // BuildApprovalModal removed - Autonomous execution (Agent #131 - Oct 24, 2025)
@@ -465,10 +465,8 @@ export default function VisualEditorPage() {
             {activeTab === 'secrets' && <SecretsTab />}
             {activeTab === 'chat' && (
               <div className="h-full">
-                <MrBlueVisualChat
-                  selectedElement={selectedElement}
-                  onGenerateCode={handleGenerateCode}
-                />
+                {/* 🎯 WEEK 0 UNIFICATION: Use single ChatInterface component (Oct 24, 2025) */}
+                <ChatInterface />
               </div>
             )}
           </div>
