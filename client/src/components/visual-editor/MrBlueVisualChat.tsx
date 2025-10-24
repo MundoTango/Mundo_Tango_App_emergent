@@ -33,17 +33,42 @@ export function MrBlueVisualChat({
 }: MrBlueVisualChatProps) {
   // Extract current page from window location
   const currentPage = window.location.pathname;
-  const [messages, setMessages] = useState<Message[]>([
-    {
+  
+  // FIX #2: MESSAGE PERSISTENCE - Load from localStorage
+  const loadMessages = (): Message[] => {
+    try {
+      const saved = localStorage.getItem('mrblue-visual-chat-history');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return parsed.map((m: any) => ({
+          ...m,
+          timestamp: new Date(m.timestamp)
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to load chat history:', error);
+    }
+    return [{
       role: 'assistant',
       content: `👋 Hi! I'm Mr Blue, your Visual Editor AI assistant. I can see you're editing **${currentPage}**. How can I help you today?`,
       timestamp: new Date(),
-    },
-  ]);
+    }];
+  };
+  
+  const [messages, setMessages] = useState<Message[]>(loadMessages());
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  // FIX #2: MESSAGE PERSISTENCE - Save to localStorage on changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('mrblue-visual-chat-history', JSON.stringify(messages));
+    } catch (error) {
+      console.error('Failed to save chat history:', error);
+    }
+  }, [messages]);
   
   // AUTONOMOUS MODE - ALWAYS ON IN VISUAL EDITOR (no toggle!)
   const { user } = useAuth();

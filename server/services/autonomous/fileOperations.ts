@@ -17,63 +17,143 @@ export interface ComponentContext {
 }
 
 /**
- * Detect file path from selected component
- * Uses Visual Editor inspector data to find the component file
+ * FIX #1 & #3: Detect file path from ANY context (element, component, page, etc.)
+ * UNIVERSAL DETECTION - Works with clicks on anything
  */
-export async function detectFilePath(component: ComponentContext): Promise<string | null> {
-  console.log('🔍 [FILE DETECT] Analyzing component:', component.id);
+export async function detectFilePath(contextData: any): Promise<string | null> {
+  console.log('🔍 [FILE DETECT] Analyzing context:', contextData);
 
-  // Strategy 1: Check if component has direct file path
-  if (component.element?.filePath) {
-    console.log('✅ [FILE DETECT] Found direct file path:', component.element.filePath);
-    return component.element.filePath;
+  // FIX #3: Multiple smart detection strategies
+
+  // Strategy 1: Direct file path
+  if (contextData?.filePath) {
+    console.log('✅ [FILE DETECT] Found direct file path:', contextData.filePath);
+    return contextData.filePath;
+  }
+  
+  if (contextData?.element?.filePath) {
+    console.log('✅ [FILE DETECT] Found element file path:', contextData.element.filePath);
+    return contextData.element.filePath;
   }
 
-  // Strategy 2: Safe search for component by test-id (NO shell commands!)
-  const testId = component.id;
-  console.log('🔍 [FILE DETECT] Searching codebase for test-id:', testId);
+  // Strategy 2: Search by className (for styled components)
+  if (contextData?.className || contextData?.element?.className) {
+    const className = contextData?.className || contextData?.element?.className;
+    console.log('🔍 [FILE DETECT] Searching by className:', className);
+    
+    try {
+      const files = await glob('client/src/**/*.{tsx,jsx,ts,js}', { cwd: process.cwd() });
+      
+      // Extract unique class names (split by spaces)
+      const classNames = className.split(' ').filter((c: string) => c.length > 3);
+      
+      for (const cn of classNames) {
+        for (const file of files) {
+          const content = await fs.readFile(file, 'utf-8');
+          if (content.includes(cn)) {
+            console.log(`✅ [FILE DETECT] Found file via className "${cn}":`, file);
+            return file;
+          }
+        }
+      }
+    } catch (error) {
+      console.log('❌ [FILE DETECT] className search error:', error);
+    }
+  }
 
-  try {
-    // Security: Use safe Node API instead of shell grep
-    const files = await glob('client/src/**/*.{tsx,jsx}', { cwd: process.cwd() });
-    
-    // Search pattern (safely escaped)
-    const searchPattern = `data-testid="${testId}"`;
-    
-    for (const file of files) {
-      const content = await fs.readFile(file, 'utf-8');
-      if (content.includes(searchPattern)) {
-        console.log('✅ [FILE DETECT] Found file via safe search:', file);
-        return file;
+  // Strategy 3: Search by textContent (for unique text)
+  if (contextData?.textContent || contextData?.element?.textContent) {
+    const text = contextData?.textContent || contextData?.element?.textContent;
+    if (text && text.length > 3 && text.length < 100) {
+      console.log('🔍 [FILE DETECT] Searching by textContent:', text);
+      
+      try {
+        const files = await glob('client/src/**/*.{tsx,jsx}', { cwd: process.cwd() });
+        
+        for (const file of files) {
+          const content = await fs.readFile(file, 'utf-8');
+          if (content.includes(text)) {
+            console.log(`✅ [FILE DETECT] Found file via text "${text}":`, file);
+            return file;
+          }
+        }
+      } catch (error) {
+        console.log('❌ [FILE DETECT] textContent search error:', error);
       }
     }
-    
-    console.log('⚠️  [FILE DETECT] No direct file match found');
-  } catch (error) {
-    console.log('❌ [FILE DETECT] Search error:', error);
   }
 
-  // Strategy 3: Infer from page and component type
-  const pageName = component.element?.page || 'unknown';
-  const componentType = component.type;
-  
-  const possiblePaths = [
-    `client/src/pages/${pageName}.tsx`,
-    `client/src/components/${componentType}.tsx`,
-    `client/src/components/${componentType}/${componentType}.tsx`,
-  ];
-
-  for (const possiblePath of possiblePaths) {
+  // Strategy 4: Search by test-id (legacy)
+  const testId = contextData?.id || contextData?.element?.id;
+  if (testId) {
+    console.log('🔍 [FILE DETECT] Searching by test-id:', testId);
+    
     try {
-      await fs.access(possiblePath);
-      console.log('✅ [FILE DETECT] Found file via inference:', possiblePath);
-      return possiblePath;
-    } catch {
-      // File doesn't exist, try next
+      const files = await glob('client/src/**/*.{tsx,jsx}', { cwd: process.cwd() });
+      const searchPattern = `data-testid="${testId}"`;
+      
+      for (const file of files) {
+        const content = await fs.readFile(file, 'utf-8');
+        if (content.includes(searchPattern)) {
+          console.log('✅ [FILE DETECT] Found file via test-id:', file);
+          return file;
+        }
+      }
+    } catch (error) {
+      console.log('❌ [FILE DETECT] test-id search error:', error);
     }
   }
 
-  console.log('❌ [FILE DETECT] Could not detect file path');
+  // Strategy 5: Search by XPath to infer component location
+  if (contextData?.xpath || contextData?.element?.xpath) {
+    const xpath = contextData?.xpath || contextData?.element?.xpath;
+    // Extract component hints from xpath (e.g., /html/body/div/Card/Button → Card, Button)
+    const pathParts = xpath.split('/').filter((p: string) => p && /^[A-Z]/.test(p));
+    
+    if (pathParts.length > 0) {
+      console.log('🔍 [FILE DETECT] Inferred components from XPath:', pathParts);
+      
+      for (const componentName of pathParts) {
+        const possiblePaths = [
+          `client/src/components/${componentName}.tsx`,
+          `client/src/components/${componentName}/${componentName}.tsx`,
+          `client/src/components/ui/${componentName.toLowerCase()}.tsx`,
+        ];
+        
+        for (const possiblePath of possiblePaths) {
+          try {
+            await fs.access(possiblePath);
+            console.log('✅ [FILE DETECT] Found file via XPath inference:', possiblePath);
+            return possiblePath;
+          } catch {
+            // Continue trying
+          }
+        }
+      }
+    }
+  }
+
+  // Strategy 6: Fallback to current page
+  const pagePath = contextData?.page || contextData?.element?.page;
+  if (pagePath && pagePath !== '/') {
+    const pageName = pagePath.replace(/^\//, '').replace(/\//g, '-');
+    const possiblePaths = [
+      `client/src/pages/${pageName}.tsx`,
+      `client/src/pages/${pageName}/index.tsx`,
+    ];
+    
+    for (const possiblePath of possiblePaths) {
+      try {
+        await fs.access(possiblePath);
+        console.log('✅ [FILE DETECT] Found file via page path:', possiblePath);
+        return possiblePath;
+      } catch {
+        // Continue trying
+      }
+    }
+  }
+
+  console.log('❌ [FILE DETECT] Could not detect file path from any strategy');
   return null;
 }
 

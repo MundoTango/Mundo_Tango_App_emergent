@@ -101,6 +101,13 @@ export function AutonomousProgressPanel({
               </Badge>
             )}
           </div>
+          {/* FIX #4: VISUAL FEEDBACK - Show current action */}
+          {currentStep && isActive && (
+            <div className="flex items-center gap-2 text-xs text-teal-600 dark:text-teal-400 font-medium">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              <span>{currentStep}</span>
+            </div>
+          )}
           <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
             <Shield className="h-3 w-3" />
             <span data-testid="text-checkpoint-count">{checkpointCount} checkpoints</span>
