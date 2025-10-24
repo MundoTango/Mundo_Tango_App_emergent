@@ -36,7 +36,38 @@ The QA Agent has **absolute authority** to reject any work that:
 
 ## 📋 **PHASE 4: DEPLOYMENT VALIDATION CHECKLIST**
 
+**UPDATED:** October 24, 2025 - Added mandatory testing evidence requirements
+
 Before approving ANY task, QA Agent MUST verify:
+
+### 0. **Testing Evidence (NEW - MANDATORY)** 🧪
+*Required since Oct 24, 2025 after Agent #131 crash failures*
+
+- [ ] **Data Inspection Logs** (Checkpoint 1) - For tasks touching external data
+  - Logs showing actual data structures
+  - Proof assumptions were verified before coding
+  
+- [ ] **Unit Test Results** (Checkpoint 2) - For complex logic (regex, parsing, transforms)
+  - Test cases with sample inputs
+  - All tests passed
+  - Edge cases covered
+  
+- [ ] **Integration Test Proof** (Checkpoint 3) - For user-facing features
+  - End-to-end user journey tested
+  - Server logs clean (no errors)
+  - Browser console clean
+  
+- [ ] **Evidence Package** (Checkpoint 4) - For all tasks
+  - Required evidence varies by task complexity
+  - See `docs/ARCHITECT_EVIDENCE_CHECKLIST.md` for details
+
+**NEW Rejection Criteria:**
+- Missing data inspection logs when touching external data → REJECT
+- No unit tests for complex functions (>10 lines, regex) → REJECT
+- No integration test for user-facing features → REJECT
+- Evidence package incomplete per task level → REJECT
+
+---
 
 ### 1. Screenshot Evidence (MANDATORY)
 - [ ] Feature access screenshot (where users find it)
@@ -44,12 +75,14 @@ Before approving ANY task, QA Agent MUST verify:
 - [ ] Feature result screenshot (what users see after)
 - [ ] Error state screenshot (graceful failure)
 - [ ] All screenshots show actual browser UI (not code)
+- [ ] **NEW: No browser console errors visible in screenshots**
 
 **Rejection Criteria:**
 - No screenshots → REJECT
 - Only code screenshots → REJECT
 - Screenshots show errors → REJECT
 - Screenshots don't match claimed feature → REJECT
+- **NEW: Browser console shows errors in screenshot** → REJECT
 
 ---
 

@@ -2,15 +2,33 @@
 
 **Role:** Autonomous code generation and full-stack application building through natural language  
 **Created:** October 23, 2025  
-**Status:** 🟢 Active  
+**Updated:** October 24, 2025 (Post-Failure Testing Protocol)  
+**Status:** 🟢 Active (Enhanced with mandatory testing)  
 **Parent:** Mr Blue AI Companion  
 **Tier:** Operational (Tier 4)
 
 ---
 
+## 🚨 **CRITICAL: October 24, 2025 Failure Learnings**
+
+**This agent crashed production 2x on Oct 24 due to insufficient testing.**
+
+**MANDATORY READING before ANY autonomous execution:**
+1. `docs/TESTING_REQUIREMENTS_MANDATORY.md` - The 4 testing checkpoints
+2. `docs/LEARNING_OCT_24_2025_AGENT_131_FAILURE.md` - What went wrong and how to prevent it
+3. This updated training doc (especially Testing Protocol section below)
+
+**The New Standard:** Every autonomous modification MUST pass all 4 testing checkpoints BEFORE execution:
+1. **Data Inspection** - Verify actual Visual Editor context structure
+2. **Unit Testing** - Test markdown sanitization, file detection with sample inputs
+3. **Integration Testing** - Run complete "make it red" flow end-to-end
+4. **Evidence Collection** - Capture logs proving success before claiming completion
+
+---
+
 ## 🎯 **Mission**
 
-Enable users to build complete applications through natural language conversation by orchestrating multi-agent workflows, autonomous testing, and intelligent code generation following industry-leading vibe coding practices from Replit Agent 3, Cursor, Windsurf, v0, and Bolt.new.
+Enable users to build complete applications through natural language conversation by orchestrating multi-agent workflows, **mandatory testing protocols**, and intelligent code generation following industry-leading vibe coding practices from Replit Agent 3, Cursor, Windsurf, v0, and Bolt.new.
 
 ---
 
@@ -57,7 +75,7 @@ Enable users to build complete applications through natural language conversatio
 
 **ReAct-Style Architecture:**
 ```
-Reason → Act → Observe → Iterate
+Reason → Act → Observe → Test → Validate → Iterate
 ```
 
 **Agent Roles:**
@@ -65,12 +83,89 @@ Reason → Act → Observe → Iterate
 - **Editor Agents**: Handle specific coding tasks, file modifications
 - **Verifier Agent**: Validates code quality, enforces human feedback loop
 - **Testing Agent**: Self-tests using real browser (Playwright)
+- **NEW: Testing Validator (Agent #132)**: Automated pre-deployment validation
 
 **Task Decomposition:**
 - Each agent constrained to smallest possible task
 - Reduces error rates through specialization
 - Parallel execution where possible
 - Sequential for dependencies
+- **NEW: Mandatory testing after each task completion**
+
+---
+
+## 🧪 **MANDATORY TESTING PROTOCOL (October 24, 2025)**
+
+### **Before ANY Autonomous Execution:**
+
+#### **Checkpoint 1: Data Inspection**
+```typescript
+// REQUIRED: Inspect Visual Editor context structure
+console.log('🔍 [DATA INSPECTION] Visual Editor Context:', 
+  JSON.stringify(context, null, 2));
+
+// Run it, observe output, THEN write code
+// Never assume context shape - always verify first
+```
+
+**Validation:**
+- ✅ Actual context structure logged
+- ✅ Data matches assumptions
+- ✅ No undefined/null unexpected values
+
+#### **Checkpoint 2: Unit Testing**
+```typescript
+// REQUIRED: Test markdown sanitization
+const testCases = [
+  { input: "```typescript\nimport React...", expected: "import React..." },
+  { input: "```\nconst foo = 1", expected: "const foo = 1" },
+  { input: "normal code", expected: "normal code" }
+];
+
+testCases.forEach(test => {
+  const result = sanitizeCode(test.input);
+  console.assert(result === test.expected, `Failed: ${test.input}`);
+});
+
+// REQUIRED: Test file detection
+const mockContext = { textContent: "Find Events", className: "..." };
+const filePath = await detectFilePath(mockContext);
+console.assert(!filePath.includes('App.tsx'), 'Must not find App.tsx');
+```
+
+**Validation:**
+- ✅ All unit tests passed
+- ✅ Edge cases covered
+- ✅ No crashes during test execution
+
+#### **Checkpoint 3: Integration Testing**
+```bash
+# REQUIRED: Test complete autonomous flow
+1. Select element in Visual Editor
+2. Send command: "make this red"
+3. Observe:
+   - File detection finds correct component (not App.tsx)
+   - Markdown sanitization removes code fences
+   - Color change applied successfully
+   - No server crashes
+4. Capture logs proving success
+```
+
+**Validation:**
+- ✅ End-to-end flow completed
+- ✅ Element color actually changed
+- ✅ Server logs clean (no errors)
+- ✅ Browser console clean
+
+#### **Checkpoint 4: Evidence Package**
+**Required for architect review:**
+- [ ] Screenshot: Element selection successful
+- [ ] Screenshot: Color changed to red
+- [ ] Server logs: File detected correctly (not App.tsx)
+- [ ] Server logs: No crashes or errors
+- [ ] Test results: All validations passed
+
+**Approval:** Only proceed with autonomous execution after ALL checkpoints pass.
 
 ---
 
