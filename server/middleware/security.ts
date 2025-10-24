@@ -129,9 +129,11 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
 // Input sanitization middleware
 export const sanitizeInput = (req: Request, res: Response, next: NextFunction) => {
   // 🔧 MB.MD FIX Oct 23: Skip sanitization for routes that need raw JSON (context objects with structured data)
+  // 🔧 MB.MD FIX Oct 24: Added /api/mrblue/autonomous/ to bypass xpath blocking (Rule #7 diagnostic evidence)
   if (req.path.startsWith('/api/multimodel/') || // Mr Blue chat with Visual Editor context
       req.path.startsWith('/api/chat/') || // Chat streaming with large context
       req.path.startsWith('/api/vibe/') || // Vibe Coding with large code context
+      req.path.startsWith('/api/mrblue/autonomous/') || // Mr Blue autonomous execution with xpath context
       req.path.startsWith('/api/ai/')) { // AI endpoints with structured data
     console.log('✅ [Sanitize] Bypassing sanitization for:', req.path);
     return next();
