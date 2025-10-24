@@ -8,7 +8,7 @@
 
 import { db } from '../db';
 import { undoHistory, type InsertUndoHistory } from '@shared/schema';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc, sql, max } from 'drizzle-orm';
 import { randomBytes } from 'crypto';
 
 interface UndoEntry {
@@ -36,21 +36,11 @@ export class UndoManager {
   private async initialize(): Promise<void> {
     if (this.initialized) return;
 
-    // Load max changeNumber for each file in this session
+    // Load max changeNumber for each file in this session using aggregation
     const existingChanges = await db
       .select({
         filePath: undoHistory.filePath,
-        maxChangeNumber: db
-          .select({ max: undoHistory.changeNumber })
-          .from(undoHistory)
-          .where(
-            and(
-              eq(undoHistory.userId, this.userId),
-              eq(undoHistory.sessionId, this.sessionId)
-            )
-          )
-          .orderBy(desc(undoHistory.changeNumber))
-          .limit(1)
+        maxChangeNumber: max(undoHistory.changeNumber).as('max_change_number')
       })
       .from(undoHistory)
       .where(
@@ -63,7 +53,8 @@ export class UndoManager {
 
     // Populate in-memory map with existing counts
     for (const change of existingChanges) {
-      this.changeCountByFile.set(change.filePath, change.maxChangeNumber || 0);
+      const changeNum = Number(change.maxChangeNumber) || 0;
+      this.changeCountByFile.set(change.filePath, changeNum);
     }
 
     this.initialized = true;
@@ -181,9 +172,9 @@ export class UndoManager {
   private async cleanupOldEntries(filePath: string): Promise<void> {
     // Delete all except the 10 most recent entries for this file
     const result = await db.execute(sql`
-      DELETE FROM ${undoHistory}
+      DELETE FROM undo_history
       WHERE id IN (
-        SELECT id FROM ${undoHistory}
+        SELECT id FROM undo_history
         WHERE user_id = ${this.userId}
           AND session_id = ${this.sessionId}
           AND file_path = ${filePath}
