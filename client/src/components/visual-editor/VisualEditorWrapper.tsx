@@ -18,7 +18,7 @@ import GitTab from './GitTab';
 import PagesTab from './PagesTab';
 import ShellTab from './ShellTab';
 import FilesTab from './FilesTab';
-import AITab from './AITab';
+import { MrBlueVisualChat } from './MrBlueVisualChat';
 import ConsoleTab from './ConsoleTab';
 import SecretsTab from './SecretsTab';
 import { ModelMonitorTab } from './ModelMonitorTab';
@@ -544,8 +544,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                   {/* MB.MD: What Does This Element Do? Panel */}
                   <WhatDoesThisDoPanel selectedElement={selectedElement} />
                   
-                  {/* AI Code Generation */}
-                  <AITab
+                  {/* AI Code Generation + AUTONOMOUS MR BLUE */}
+                  <MrBlueVisualChat
                     selectedElement={selectedElement}
                     onGenerateCode={handleGenerateCode}
                   />

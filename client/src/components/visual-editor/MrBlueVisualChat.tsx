@@ -17,7 +17,14 @@ import { ApprovalModal } from '../mrBlue/ApprovalModal';
 import { useAutonomousMode } from '@/hooks/useAutonomousMode';
 import { useAuth } from '@/hooks/useAuth';
 import { isSuperAdmin } from '@/utils/accessControl';
-import type { SelectedComponent } from './ComponentSelector';
+// AUTONOMOUS MR BLUE: Visual Editor integration props (Oct 24, 2025)
+interface SelectedElement {
+  tag: string;
+  id?: string;
+  className?: string;
+  innerHTML?: string;
+  xpath: string;
+}
 
 interface Message {
   role: 'user' | 'assistant';
@@ -26,20 +33,16 @@ interface Message {
 }
 
 interface MrBlueVisualChatProps {
-  currentPage: string;
-  selectedComponent: SelectedComponent | null;
-  recentEdits: Array<{
-    type: string;
-    component: string;
-    description: string;
-  }>;
+  selectedElement: SelectedElement | null;
+  onGenerateCode: (prompt: string) => Promise<void>;
 }
 
 export function MrBlueVisualChat({
-  currentPage,
-  selectedComponent,
-  recentEdits,
+  selectedElement,
+  onGenerateCode,
 }: MrBlueVisualChatProps) {
+  // Extract current page from window location
+  const currentPage = window.location.pathname;
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -188,16 +191,17 @@ export function MrBlueVisualChat({
     }
   }, [messages]);
 
-  // Notify about component selection
+  // Notify about element selection
   useEffect(() => {
-    if (selectedComponent) {
+    if (selectedElement) {
+      const elementLabel = selectedElement.id || selectedElement.tag;
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `I see you selected **${selectedComponent.testId}**. What would you like to do with it?`,
+        content: `I see you selected **${elementLabel}**. What would you like to do with it?`,
         timestamp: new Date(),
       }]);
     }
-  }, [selectedComponent]);
+  }, [selectedElement]);
 
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
@@ -216,7 +220,7 @@ export function MrBlueVisualChat({
       // STREAM 1.1: Route to autonomous execute when autonomous mode ON
       if (isAutonomous) {
         console.log('🤖 [AUTONOMOUS] Routing to autonomous execution engine...');
-        console.log('📍 Selected Component:', selectedComponent);
+        console.log('📍 Selected Element:', selectedElement);
         
         const response = await fetch('/api/mrblue/autonomous/execute', {
           method: 'POST',
@@ -227,13 +231,12 @@ export function MrBlueVisualChat({
             context: {
               page: currentPage,
               url: window.location.href,
-              selectedComponent: selectedComponent ? {
-                id: selectedComponent.testId,
-                name: selectedComponent.testId,
-                type: selectedComponent.type,
-                element: selectedComponent, // Full element data for file detection
+              selectedElement: selectedElement ? {
+                tag: selectedElement.tag,
+                id: selectedElement.id,
+                className: selectedElement.className,
+                xpath: selectedElement.xpath,
               } : undefined,
-              recentEdits,
             },
             maxIterations: 20,
             requireApproval: true,
@@ -265,12 +268,11 @@ export function MrBlueVisualChat({
             context: {
               page: currentPage,
               url: window.location.href,
-              selectedComponent: selectedComponent ? {
-                id: selectedComponent.testId,
-                name: selectedComponent.testId,
-                type: selectedComponent.type,
+              selectedElement: selectedElement ? {
+                tag: selectedElement.tag,
+                id: selectedElement.id,
+                className: selectedElement.className,
               } : undefined,
-              recentEdits,
             },
           }),
         });
@@ -337,14 +339,9 @@ export function MrBlueVisualChat({
               <Badge variant="secondary" className="text-xs">
                 {currentPage}
               </Badge>
-              {selectedComponent && (
+              {selectedElement && (
                 <Badge variant="default" className="text-xs bg-purple-600">
-                  {selectedComponent.testId}
-                </Badge>
-              )}
-              {recentEdits.length > 0 && (
-                <Badge variant="outline" className="text-xs">
-                  {recentEdits.length} edits
+                  {selectedElement.id || selectedElement.tag}
                 </Badge>
               )}
               {isAutonomous && (
