@@ -25,14 +25,24 @@ interface AgentStatus {
 export default function LifeCEOTab() {
   const { user } = useAuth();
   
-  // Fetch real agent status from multi-agent API
+  // Fetch real agent status from multi-agent API - explicit queryFn
   const { data: agents, isLoading: agentsLoading } = useQuery<AgentStatus[]>({
     queryKey: ['/api/multiagent/orchestrate/agents'],
+    queryFn: async () => {
+      const res = await fetch('/api/multiagent/orchestrate/agents', { credentials: 'include' });
+      if (!res.ok) return [];
+      return res.json();
+    },
   });
 
-  // Fetch ML stats
+  // Fetch ML stats - explicit queryFn
   const { data: mlStats } = useQuery<{ data: { totalPredictions: number; averageAccuracy: number; predictionsToday: number; modelVersion: string } }>({
     queryKey: ['/api/multiagent/ml/stats'],
+    queryFn: async () => {
+      const res = await fetch('/api/multiagent/ml/stats', { credentials: 'include' });
+      if (!res.ok) return { data: { totalPredictions: 0, averageAccuracy: 0, predictionsToday: 0, modelVersion: 'N/A' } };
+      return res.json();
+    },
   });
   
   const journeyStates = [

@@ -30,32 +30,62 @@ interface FailurePattern {
 }
 
 export default function AdminTab() {
-  // Real API calls to health monitoring endpoints
+  // Real API calls to health monitoring endpoints - explicit queryFn
   const { data: health, isLoading: healthLoading } = useQuery<SystemHealth>({
     queryKey: ['/api/multiagent/health'],
+    queryFn: async () => {
+      const res = await fetch('/api/multiagent/health', { credentials: 'include' });
+      if (!res.ok) return { success: false, status: 'error', timestamp: new Date().toISOString(), version: 'N/A' };
+      return res.json();
+    },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 
   const { data: mlStats, isLoading: mlLoading } = useQuery<{ data: { totalPredictions: number; averageAccuracy: number; predictionsToday: number; modelVersion: string } }>({
     queryKey: ['/api/multiagent/ml/stats'],
+    queryFn: async () => {
+      const res = await fetch('/api/multiagent/ml/stats', { credentials: 'include' });
+      if (!res.ok) return { data: { totalPredictions: 0, averageAccuracy: 0, predictionsToday: 0, modelVersion: 'N/A' } };
+      return res.json();
+    },
   });
 
   const { data: failurePatterns } = useQuery<{ success: boolean; data: FailurePattern[] }>({
     queryKey: ['/api/multiagent/monitor/patterns'],
+    queryFn: async () => {
+      const res = await fetch('/api/multiagent/monitor/patterns', { credentials: 'include' });
+      if (!res.ok) return { success: false, data: [] };
+      return res.json();
+    },
   });
 
   const { data: agentStats } = useQuery<{ data: any[] }>({
     queryKey: ['/api/multiagent/orchestrate/agents'],
+    queryFn: async () => {
+      const res = await fetch('/api/multiagent/orchestrate/agents', { credentials: 'include' });
+      if (!res.ok) return { data: [] };
+      return res.json();
+    },
   });
 
-  // REAL API: Fetch system health metrics
+  // REAL API: Fetch system health metrics - explicit queryFn
   const { data: systemHealth } = useQuery<{ uptime: string; responseTime: string; activeUsers: number }>({
     queryKey: ['/api/admin/health'],
+    queryFn: async () => {
+      const res = await fetch('/api/admin/health', { credentials: 'include' });
+      if (!res.ok) return { uptime: '...', responseTime: '...', activeUsers: 0 };
+      return res.json();
+    },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 
   const { data: apiStatus } = useQuery<{ endpoints: Array<{ name: string; status: string; latency: string }> }>({
     queryKey: ['/api/admin/api-status'],
+    queryFn: async () => {
+      const res = await fetch('/api/admin/api-status', { credentials: 'include' });
+      if (!res.ok) return { endpoints: [] };
+      return res.json();
+    },
     refetchInterval: 30000,
   });
 

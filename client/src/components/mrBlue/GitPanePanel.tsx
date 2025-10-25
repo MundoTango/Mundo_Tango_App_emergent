@@ -177,7 +177,7 @@ export function GitPanePanel() {
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-2">
           <h3 className="text-sm font-semibold mb-2">
-            {hasChanges ? `${gitStatus.modifiedFiles.length} files changed` : 'No changes'}
+            {hasChanges ? `${gitStatus?.modifiedFiles.length} files changed` : 'No changes'}
           </h3>
           
           {gitStatus?.modifiedFiles.map((file, idx) => (
