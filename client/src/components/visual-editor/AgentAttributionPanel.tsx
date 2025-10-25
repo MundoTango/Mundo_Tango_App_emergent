@@ -40,13 +40,13 @@ export function AgentAttributionPanel({ selectedElement }: AgentAttributionPanel
         
         if (response.ok) {
           const data = await response.json();
-          setAgents(data.agents || getAgentsForElement(selectedElement));
+          setAgents(data.agents || []);
         } else {
-          setAgents(getAgentsForElement(selectedElement));
+          setAgents([]);
         }
       } catch (error) {
         console.error('Failed to fetch attribution:', error);
-        setAgents(getAgentsForElement(selectedElement));
+        setAgents([]);
       } finally {
         setLoading(false);
       }
@@ -67,7 +67,13 @@ export function AgentAttributionPanel({ selectedElement }: AgentAttributionPanel
 
         <div className="space-y-2">
           <div className="text-xs font-semibold text-gray-300">Built by:</div>
-          {agents.map((agent, idx) => (
+          {loading && (
+            <div className="text-xs text-gray-500">Loading attribution data...</div>
+          )}
+          {!loading && agents.length === 0 && (
+            <div className="text-xs text-gray-500">No attribution data available</div>
+          )}
+          {!loading && agents.map((agent, idx) => (
             <div 
               key={idx} 
               className="flex items-start gap-2 p-2 bg-gray-750 rounded"
@@ -108,42 +114,3 @@ export function AgentAttributionPanel({ selectedElement }: AgentAttributionPanel
   );
 }
 
-/**
- * Get agents responsible for an element (mock for now)
- */
-function getAgentsForElement(element: ElementSelection) {
-  // TODO: Query actual agent attribution from database
-  // This is mock data for demonstration
-  
-  const baseAgents = [
-    {
-      name: 'Layout Agent #12',
-      role: 'Structure & Positioning',
-      contribution: 'Created element structure and positioning'
-    }
-  ];
-
-  if (element.tagName === 'button') {
-    return [
-      ...baseAgents,
-      {
-        name: 'UI Component Agent #34',
-        role: 'Button Styling',
-        contribution: 'Applied Mundo Tango button styles and interactions'
-      }
-    ];
-  }
-
-  if (element.tagName === 'h1' || element.tagName === 'h2') {
-    return [
-      ...baseAgents,
-      {
-        name: 'Typography Agent #56',
-        role: 'Text Styling',
-        contribution: 'Applied heading styles and responsive sizing'
-      }
-    ];
-  }
-
-  return baseAgents;
-}

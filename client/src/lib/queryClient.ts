@@ -5,9 +5,27 @@ import { persistQueryClient } from '@tanstack/react-query-persist-client';
 // MB.MD FIX: Clear ALL React Query caches to prevent queryFn errors
 if (typeof window !== 'undefined') {
   try {
-    window.localStorage.removeItem('MUNDO_TANGO_QUERY_CACHE');
-    window.localStorage.removeItem('MUNDO_TANGO_QUERY_CACHE_V2');
-    console.log('✅ Cleared stale React Query caches');
+    // Remove all possible cache keys
+    const keysToRemove = [
+      'MUNDO_TANGO_QUERY_CACHE',
+      'MUNDO_TANGO_QUERY_CACHE_V2',
+      'REACT_QUERY_OFFLINE_CACHE',
+      'tanstack.query.client',
+    ];
+    
+    keysToRemove.forEach(key => {
+      window.localStorage.removeItem(key);
+    });
+    
+    // Also clear any keys that match React Query patterns
+    const allKeys = Object.keys(window.localStorage);
+    allKeys.forEach(key => {
+      if (key.includes('QUERY') || key.includes('tanstack')) {
+        window.localStorage.removeItem(key);
+      }
+    });
+    
+    console.log('✅ Cleared ALL stale React Query caches');
   } catch (e) {
     console.warn('[Cache Clear] Failed:', e);
   }
