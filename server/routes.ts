@@ -1519,7 +1519,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // 🔍 MB.MD Stream G (Oct 22, 2025): Initialize automated model monitoring cron
   try {
-    const { startModelMonitoringCron } = await import('./services/modelMonitorCron');
+    const { startModelMonitoringCron } = await import('./services/modelMonitorCron.js');
     startModelMonitoringCron();
     console.log('✅ Model monitoring cron initialized (runs every 6 hours)');
   } catch (error) {
