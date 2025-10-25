@@ -397,10 +397,22 @@ export function ChatInterface() {
 
   // Helper function to send message using streaming API
   const sendMessageToConversation = async (projId: number, content: string) => {
+    console.log('🚀 [ChatInterface] ========== SENDING MESSAGE ==========');
+    console.log('🔍 [ChatInterface] Message details:', {
+      projectId: projId,
+      userContent: content,
+      selectedModel,
+      personality,
+      hasElement: !!activeElement,
+      previewPath
+    });
+    
     try {
       // 🎯 OPTIMISTIC UI: Show user message immediately
       setOptimisticMessage(content);
       setStreamingResponse('');
+      
+      console.log('🔍 [ChatInterface] Optimistic UI states set');
       
       // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" in API payload only (hidden from user)
       const apiMessage = `Use mb.md: ${content}`;
@@ -409,6 +421,8 @@ export function ChatInterface() {
       const endpoint = selectedModel === 'all-models' 
         ? '/api/multimodel/consensus' 
         : '/api/chat/stream';
+      
+      console.log('🔍 [ChatInterface] Using endpoint:', endpoint);
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -444,12 +458,20 @@ export function ChatInterface() {
       if (contentType?.includes('application/json')) {
         // Multi-model consensus returns JSON
         const result = await response.json();
-        console.log(`✅ [JSON Response] Received consensus result`, result);
+        console.log(`✅ [JSON Response] Received consensus result:`, {
+          hasFinalPlan: !!result.finalPlan,
+          planLength: result.finalPlan?.length || 0,
+          modelsCount: result.models?.length || 0,
+          totalTime: result.totalTime || 0
+        });
         
         // 🚨 BUG FIX: Backend saves message automatically, just display it temporarily
         // The consensus endpoint returns { finalPlan, models, debate, totalTime }
         if (result.finalPlan) {
+          console.log('🔍 [ChatInterface] Setting streamingResponse to finalPlan');
           setStreamingResponse(result.finalPlan);
+        } else {
+          console.warn('⚠️ [ChatInterface] No finalPlan in response!', result);
         }
       } else {
         // Standard streaming response (SSE)
@@ -494,13 +516,30 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
+      // 🚀 ADVANCED LOGGING (Oct 25, 2025)
+      console.log('🔍 [ChatInterface] Before query invalidation:', {
+        projId,
+        optimisticMessage,
+        streamingResponseLength: streamingResponse?.length || 0,
+        timestamp: new Date().toISOString()
+      });
+      
       // MB.MD FIX: Use array segments to match query key format
       await queryClient.invalidateQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
-      // STREAM A FIX: Clear states AFTER query invalidation completes
-      // This gives React time to render the JSON consensus response before clearing
+      console.log('🔍 [ChatInterface] Query invalidated, waiting for refetch...');
+      
+      // 🔧 CRITICAL FIX (Oct 25): Wait for messages to refetch BEFORE clearing states
+      // This prevents the "chat clears everything" bug where response vanishes instantly
+      await queryClient.refetchQueries({ 
+        queryKey: ['/api/chat/projects', projId, 'messages']
+      });
+      
+      console.log('🔍 [ChatInterface] Messages refetched, now clearing temporary states');
+      
+      // Clear states AFTER messages are loaded into cache
       setStreamingToolStatus(null);
       setOptimisticMessage(null);
       setStreamingResponse('');
@@ -513,12 +552,16 @@ export function ChatInterface() {
       
       setInput('');
     } catch (error) {
+      console.error('❌ [ChatInterface] Send message failed:', error);
       setOptimisticMessage(null);
       setStreamingResponse('');
       toast({ 
         title: 'Failed to send message', 
-        variant: 'destructive' 
+        variant: 'destructive',
+        description: error instanceof Error ? error.message : 'Unknown error'
       });
+    } finally {
+      console.log('🚀 [ChatInterface] ========== MESSAGE SEND COMPLETE ==========');
     }
   };
   
