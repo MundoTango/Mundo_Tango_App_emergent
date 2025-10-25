@@ -5,26 +5,52 @@
  */
 
 import { Router } from 'express';
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import { isAuthenticated } from '../replitAuth';
 
 const router = Router();
+
+// 🔒 Security: Sanitize branch names to prevent command injection
+function sanitizeBranchName(branch: string): string {
+  // Only allow alphanumeric, hyphens, underscores, forward slashes
+  const sanitized = branch.replace(/[^a-zA-Z0-9\-_/]/g, '-');
+  // Limit length to 100 characters
+  return sanitized.substring(0, 100);
+}
 
 // POST /api/deploy/preview - Deploy to staging
 router.post('/preview', isAuthenticated, async (req, res) => {
   try {
     const { branch } = req.body;
-    const branchName = branch || `visual-edit-${Date.now()}`;
+    const unsafeBranch = branch || `visual-edit-${Date.now()}`;
+    const branchName = sanitizeBranchName(unsafeBranch);
 
-    // Create and checkout new branch
-    execSync(`git checkout -b ${branchName}`, { encoding: 'utf-8' });
+    // 🔒 Security: Use spawnSync with args array to prevent command injection
+    let checkoutResult = spawnSync('git', ['checkout', '-b', branchName], { encoding: 'utf-8' });
+    
+    // If branch already exists, checkout existing branch instead
+    if (checkoutResult.status !== 0 && checkoutResult.stderr.includes('already exists')) {
+      checkoutResult = spawnSync('git', ['checkout', branchName], { encoding: 'utf-8' });
+    }
+    
+    // Now verify checkout succeeded
+    if (checkoutResult.status !== 0) {
+      throw new Error(`Git checkout failed: ${checkoutResult.stderr}`);
+    }
 
     // Add and commit changes
-    execSync('git add -A', { encoding: 'utf-8' });
-    try {
-      execSync(`git commit -m "Visual Editor: Preview deployment ${branchName}"`, { encoding: 'utf-8' });
-    } catch {
-      // No changes to commit
+    const addResult = spawnSync('git', ['add', '-A'], { encoding: 'utf-8' });
+    if (addResult.status !== 0) {
+      throw new Error(`Git add failed: ${addResult.stderr}`);
+    }
+    
+    const commitMsg = `Visual Editor: Preview deployment ${branchName}`;
+    const commitResult = spawnSync('git', ['commit', '-m', commitMsg], { encoding: 'utf-8' });
+    // Allow "nothing to commit" (status 1), but fail on other errors
+    // Check both stdout and stderr since Git may output to either
+    const commitOutput = (commitResult.stdout || '') + (commitResult.stderr || '');
+    if (commitResult.status !== 0 && !commitOutput.includes('nothing to commit')) {
+      throw new Error(`Git commit failed: ${commitResult.stderr}`);
     }
 
     // Get Replit dev URL
@@ -52,13 +78,13 @@ router.post('/preview', isAuthenticated, async (req, res) => {
 router.post('/production', isAuthenticated, async (req, res) => {
   try {
     const { branch, runTests } = req.body;
-    const deployBranch = branch || 'main';
+    const unsafeBranch = branch || 'main';
+    const deployBranch = sanitizeBranchName(unsafeBranch);
 
     // Run tests if requested
     if (runTests) {
-      try {
-        execSync('npm test', { encoding: 'utf-8' });
-      } catch (error) {
+      const testResult = spawnSync('npm', ['test'], { encoding: 'utf-8' });
+      if (testResult.status !== 0) {
         return res.status(400).json({
           success: false,
           error: 'Tests failed. Fix issues before deploying to production.'
@@ -66,21 +92,25 @@ router.post('/production', isAuthenticated, async (req, res) => {
       }
     }
 
-    // Checkout deployment branch
-    execSync(`git checkout ${deployBranch}`, { encoding: 'utf-8' });
-
-    // Pull latest
-    try {
-      execSync('git pull origin ${deployBranch}', { encoding: 'utf-8' });
-    } catch {
-      // Might not have remote configured
+    // 🔒 Security: Use spawnSync with args array
+    const checkoutResult = spawnSync('git', ['checkout', deployBranch], { encoding: 'utf-8' });
+    if (checkoutResult.status !== 0) {
+      throw new Error(`Git checkout failed: ${checkoutResult.stderr}`);
     }
 
+    // Pull latest
+    const pullResult = spawnSync('git', ['pull', 'origin', deployBranch], { encoding: 'utf-8' });
+    // Ignore error if remote not configured
+
     // Build production bundle
-    execSync('npm run build', { encoding: 'utf-8' });
+    const buildResult = spawnSync('npm', ['run', 'build'], { encoding: 'utf-8' });
+    if (buildResult.status !== 0) {
+      throw new Error(`Build failed: ${buildResult.stderr}`);
+    }
 
     // Get deployment info
-    const commitHash = execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim();
+    const hashResult = spawnSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf-8' });
+    const commitHash = hashResult.stdout.trim();
 
     res.json({
       success: true,
@@ -101,9 +131,15 @@ router.post('/production', isAuthenticated, async (req, res) => {
 // GET /api/deploy/status - Get deployment status
 router.get('/status', isAuthenticated, async (req, res) => {
   try {
-    const branch = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
-    const commitHash = execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim();
-    const commitMessage = execSync('git log -1 --format="%s"', { encoding: 'utf-8' }).trim();
+    // 🔒 Security: Use spawnSync with args array (no user input here, but consistent pattern)
+    const branchResult = spawnSync('git', ['branch', '--show-current'], { encoding: 'utf-8' });
+    const branch = branchResult.stdout.trim();
+    
+    const hashResult = spawnSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf-8' });
+    const commitHash = hashResult.stdout.trim();
+    
+    const msgResult = spawnSync('git', ['log', '-1', '--format=%s'], { encoding: 'utf-8' });
+    const commitMessage = msgResult.stdout.trim();
 
     res.json({
       success: true,
