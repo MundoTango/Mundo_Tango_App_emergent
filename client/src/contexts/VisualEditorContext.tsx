@@ -2,10 +2,22 @@
  * Visual Editor Context - Bridges Visual Editor and Mr Blue
  * MB.MD Track 5 - Context Integration
  * Oct 22, 2025: Added previewPath to track what page is shown in preview
+ * Oct 25, 2025: Added pendingCodeChanges for vibe coding integration
  */
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
+
+export interface CodeChange {
+  id: string;
+  taskId: string;
+  filePath: string;
+  diff: string;
+  type: 'unified_diff' | 'search_replace' | 'new_file';
+  status: 'pending' | 'applied' | 'failed';
+  error?: string;
+  timestamp: Date;
+}
 
 interface VisualEditorContextType {
   selectedElement: ElementSelection | null;
@@ -15,6 +27,11 @@ interface VisualEditorContextType {
   // 🎯 PREVIEW CONTEXT: What page is being shown in the preview iframe
   previewPath: string;
   setPreviewPath: (path: string) => void;
+  // 🚀 STREAM 2: Pending code changes from vibe coding API
+  pendingCodeChanges: CodeChange[];
+  setPendingCodeChanges: (changes: CodeChange[] | ((prev: CodeChange[]) => CodeChange[])) => void;
+  addCodeChange: (change: CodeChange) => void;
+  clearCodeChanges: () => void;
 }
 
 const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
@@ -23,6 +40,7 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
   const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
   const [pendingChangesCount, setPendingChangesCount] = useState(0);
   const [previewPath, setPreviewPath] = useState<string>('/'); // Default to homepage
+  const [pendingCodeChanges, setPendingCodeChanges] = useState<CodeChange[]>([]);
   
   // 🐛 DEBUG: Log when context updates
   const handleSetSelectedElement = (element: ElementSelection | null) => {
@@ -38,6 +56,19 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
     console.log('📍 [VisualEditorContext] Preview path changed:', path);
     setPreviewPath(path);
   };
+  
+  // 🚀 STREAM 2: Code change management functions
+  const addCodeChange = (change: CodeChange) => {
+    console.log('📝 [VisualEditorContext] Adding code change:', change.filePath);
+    setPendingCodeChanges(prev => [...prev, change]);
+    setPendingChangesCount(prev => prev + 1);
+  };
+  
+  const clearCodeChanges = () => {
+    console.log('🗑️ [VisualEditorContext] Clearing all code changes');
+    setPendingCodeChanges([]);
+    setPendingChangesCount(0);
+  };
 
   return (
     <VisualEditorContext.Provider 
@@ -47,7 +78,11 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
         pendingChangesCount,
         setPendingChangesCount,
         previewPath,
-        setPreviewPath: handleSetPreviewPath
+        setPreviewPath: handleSetPreviewPath,
+        pendingCodeChanges,
+        setPendingCodeChanges,
+        addCodeChange,
+        clearCodeChanges
       }}
     >
       {children}

@@ -19,6 +19,8 @@ import { useAudioCapture } from '@/hooks/useAudioCapture';
 import { useAudioPlayback } from '@/hooks/useAudioPlayback';
 import { VoiceSelector } from './VoiceSelector';
 import { useToast } from '@/hooks/use-toast';
+import { executeVibeCoding, applyCodeChange } from '@/lib/vibeApi';
+import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 
 interface SelectedElement {
   tagName: string;
@@ -67,6 +69,11 @@ export function UnifiedVoiceModal({
   
   // 🎯 ARCHITECT FIX: Use ref for live polling access (Oct 24, 2025)
   const connectionStatusRef = useRef<'disconnected' | 'connecting' | 'connected'>('disconnected');
+  
+  // 🚀 STREAM 3: Voice-to-vibe coding integration (Oct 25, 2025)
+  const [isExecutingCode, setIsExecutingCode] = useState(false);
+  const [lastProcessedLength, setLastProcessedLength] = useState(0); // Track processed transcript
+  const visualEditorContext = useVisualEditorOptional();
   
   const transcriptRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -248,6 +255,59 @@ export function UnifiedVoiceModal({
     disconnect();
     setTranscript('');
     setSummaryBullets([]);
+    setLastProcessedLength(0); // 🔧 ARCHITECT FIX: Reset processed tracker
+  };
+
+  // 🚀 STREAM 3: Execute vibe coding from voice transcript (Oct 25, 2025)
+  // 🔧 ARCHITECT FIX: Only process NEW portion of transcript, not entire accumulation
+  const executeVibeFromVoice = async () => {
+    if (!visualEditorContext) {
+      console.log('🎧 [Voice] Not in Visual Editor - skipping vibe execution');
+      return;
+    }
+    
+    if (isExecutingCode || transcript.trim().length < 10) return;
+    
+    // 🔧 ARCHITECT FIX: Extract only the NEW command (after last processed point)
+    const newTranscript = transcript.slice(lastProcessedLength).trim();
+    if (newTranscript.length < 5) return; // Ignore very short additions
+    
+    console.log(`🎧 [Voice] Processing NEW command only: "${newTranscript}" (prev length: ${lastProcessedLength})`);
+    
+    setIsExecutingCode(true);
+    try {
+      const result = await executeVibeCoding(newTranscript, {
+        selectedElement: selectedElement || null,
+        previewPath: visualEditorContext.previewPath || '/'
+      });
+      
+      console.log(`🎧 [Voice] Generated ${result.codeChanges.length} code changes`);
+      
+      // 🚀 STREAM 3.2: Apply changes immediately (real-time)
+      for (const change of result.codeChanges) {
+        const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
+        await applyCodeChange(change.filePath, change.diff, editType);
+      }
+      
+      // 🔧 ARCHITECT FIX: Mark this portion as processed
+      setLastProcessedLength(transcript.length);
+      
+      toast({
+        title: 'Voice Command Applied! ✨',
+        description: `Modified ${result.codeChanges.length} file(s) instantly`,
+      });
+    } catch (error) {
+      console.error('🎧 [Voice] Vibe execution failed:', error);
+      toast({
+        title: 'Could not apply changes',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive'
+      });
+      // 🔧 ARCHITECT FIX: Still mark as processed to avoid retry loops
+      setLastProcessedLength(transcript.length);
+    } finally {
+      setIsExecutingCode(false);
+    }
   };
 
   const generateSummary = async () => {
@@ -289,6 +349,14 @@ export function UnifiedVoiceModal({
       setIsProcessingSummary(false);
     }
   };
+  
+  // 🚀 STREAM 3: Trigger vibe coding when user finishes speaking (Oct 25, 2025)
+  useEffect(() => {
+    if (transcript.length > 0 && transcript.endsWith('.')) {
+      // User finished a sentence - execute vibe coding
+      executeVibeFromVoice();
+    }
+  }, [transcript]);
 
   const toggleBullet = (id: string) => {
     setSummaryBullets(prev =>

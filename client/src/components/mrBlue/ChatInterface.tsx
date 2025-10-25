@@ -522,37 +522,68 @@ export function ChatInterface() {
     }
   };
   
-  // 🚀 VIBE CODING: Detect code requests and execute (Oct 23, 2025)
+  // 🚀 VIBE CODING: Detect code requests and execute (Oct 25, 2025)
+  // MB.MD STREAM 1+2: Always-on vibe mode in Visual Editor
   const detectAndExecuteCodeChanges = async (projId: number, userMessage: string) => {
-    // Only execute if we have visual editor context (element selected or preview active)
-    if (!activeElement && !previewPath) return;
+    // ✅ RELAXED: Only check if we're in Visual Editor at all
+    const isInVisualEditor = !!visualEditorContext;
+    if (!isInVisualEditor) {
+      console.log('🚀 [Vibe] Skipped - not in Visual Editor');
+      return;
+    }
     
-    // Detect code change keywords
+    // ✅ EXPANDED: More comprehensive keyword detection
     const codeKeywords = [
+      // Original keywords
       'remove', 'delete', 'add', 'create', 'modify', 'change',
       'update', 'fix', 'build', 'implement', 'make', 'style',
-      'color', 'size', 'position', 'hide', 'show'
+      'color', 'size', 'position', 'hide', 'show',
+      // New natural language patterns
+      'component', 'page', 'form', 'button', 'layout', 'design',
+      'refactor', 'improve', 'optimize', 'enhance', 'animate',
+      'gradient', 'shadow', 'border', 'padding', 'margin',
+      'responsive', 'mobile', 'hover', 'click', 'input'
     ];
     
     const hasCodeIntent = codeKeywords.some(kw => 
       userMessage.toLowerCase().includes(kw)
     );
     
-    if (!hasCodeIntent) return;
+    // ✅ ALWAYS EXECUTE: If in Visual Editor, assume coding intent
+    // Keywords are just for logging, not blocking
+    if (!hasCodeIntent) {
+      console.log('🚀 [Vibe] No keywords detected, executing anyway (Visual Editor mode)');
+    }
     
     console.log('🚀 [Vibe] Code change detected, executing vibe coding...');
     
     try {
       // Execute vibe coding with visual editor context
       const result = await executeVibeCoding(userMessage, {
-        selectedElement: activeElement,
+        selectedElement: activeElement || null,
         previewPath: previewPath || '/'
       });
       
       console.log(`🚀 [Vibe] Generated ${result.codeChanges.length} code changes`);
       
-      // Store code changes for the latest AI message
-      // We'll fetch messages and attach to the most recent assistant message
+      // 🚀 STREAM 2: Store code changes in VisualEditorContext
+      if (visualEditorContext && result.codeChanges.length > 0) {
+        result.codeChanges.forEach((change, index) => {
+          visualEditorContext.addCodeChange({
+            id: `${Date.now()}-${index}`,
+            taskId: change.taskId,
+            filePath: change.filePath,
+            diff: change.diff,
+            type: change.type,
+            status: 'pending',
+            timestamp: new Date()
+          });
+        });
+        
+        console.log(`📝 [Vibe] Added ${result.codeChanges.length} changes to Visual Editor context`);
+      }
+      
+      // Also store in message-specific state for display in chat
       const messagesData = await queryClient.fetchQuery({
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
@@ -572,7 +603,6 @@ export function ChatInterface() {
         description: `${result.codeChanges.length} file(s) ready to modify`,
       });
     } catch (error) {
-      // STREAM C FIX: Log full error details for debugging
       console.error('🚀 [Vibe] Code generation failed:', error);
       console.error('🚀 [Vibe] Error details:', {
         message: error instanceof Error ? error.message : 'Unknown error',
