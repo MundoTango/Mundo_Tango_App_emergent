@@ -55,7 +55,18 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
   const handleDragPositionChange = (x: number, y: number) => {
     // Track position change in real-time
     if (selectedComponent) {
-      tracker.trackMove(selectedComponent.testId, x - selectedComponent.bounds.left, y - selectedComponent.bounds.top);
+      tracker.recordAction({
+        type: 'move',
+        component: {
+          id: selectedComponent.testId,
+          name: selectedComponent.testId,
+          path: selectedComponent.path,
+          testId: selectedComponent.testId,
+        },
+        before: { x: selectedComponent.bounds.left, y: selectedComponent.bounds.top },
+        after: { x, y },
+        timestamp: new Date(),
+      });
     }
   };
 

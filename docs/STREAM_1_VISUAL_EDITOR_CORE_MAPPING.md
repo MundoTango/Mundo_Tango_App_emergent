@@ -183,22 +183,27 @@ export default function VisualEditorSidebar({
 
 ---
 
-### **5. VisualEditorOverlay.tsx** ⚠️ **HAS LSP ERROR**
+### **5. VisualEditorOverlay.tsx** ✅ **LSP ERROR FIXED**
 
 **File:** `client/src/components/visual-editor/VisualEditorOverlay.tsx`  
 **Lines:** 189 total  
-**Status:** ⚠️ **PARTIAL** - Code exists but has 1 LSP error
+**Status:** ✅ **LSP CLEAN** - Code exists, TypeScript errors resolved
 
 **Implementation Found:**
 - ✅ Split-screen layout (Live Preview + Mr Blue Chat)
 - ✅ Resizable panels with ResizablePanelGroup
 - ✅ Component selector overlay
 - ✅ Edit controls panel
-- ✅ Drag & drop handler
+- ✅ Drag & drop handler with position tracking
 - ✅ Super admin only access check (line 47-49)
 
-**LSP Error Detected:** ⚠️  
-*"Found 1 LSP diagnostic in 1 file: VisualEditorOverlay.tsx"*
+**LSP Error Fixed:** ✅ (Oct 25, 2025 21:20 UTC)  
+- **Issue:** Line 58 called nonexistent `tracker.trackMove()` method
+- **Root Cause:** VisualEditorTracker class doesn't have `trackMove()` method
+- **Fix:** Replaced with `tracker.recordAction()` using type: 'move'
+- **Before:** `tracker.trackMove(selectedComponent.testId, x - ..., y - ...)`
+- **After:** `tracker.recordAction({ type: 'move', component: {...}, before: {...}, after: {...}, timestamp: new Date() })`
+- **Verification:** No LSP diagnostics found after fix
 
 **Integration Points:**
 ```typescript
@@ -208,13 +213,12 @@ import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import { DragDropHandler } from './DragDropHandler';
 ```
 
-**Needs:**
-- [ ] Check LSP error details
-- [ ] Fix any TypeScript/import issues
-- [ ] Test overlay appears correctly
-- [ ] Test resizable panels work
-- [ ] Test component selection overlay
-- [ ] Test drag & drop
+**Needs Testing:**
+- [ ] Overlay activates on ?edit=true
+- [ ] Resizable panels work (drag handle between preview/chat)
+- [ ] Component selection overlay highlights elements
+- [ ] Drag & drop position tracking works
+- [ ] Move actions recorded in tracker history
 
 ---
 
@@ -459,15 +463,16 @@ User adds ?edit=true to URL
    - No button, no handler, no keyboard listener
    - **Fix in Stream 2**
 
-### **Warnings**
-2. ⚠️ **LSP Error in VisualEditorOverlay.tsx**
-   - 1 TypeScript diagnostic found
-   - Need to investigate and fix
+### **Resolved Issues** ✅
+2. ✅ **LSP Error in VisualEditorOverlay.tsx** - FIXED (Oct 25, 21:20 UTC)
+   - **Issue:** Nonexistent `tracker.trackMove()` method call on line 58
+   - **Fix:** Replaced with `tracker.recordAction({ type: 'move', ... })`
+   - **Verification:** No LSP diagnostics found
 
 ### **Unknown Status**
 3. 🚧 **7/10 Components Untested**
    - VisualEditorSidebar
-   - VisualEditorOverlay (+ has LSP error)
+   - VisualEditorOverlay (LSP fixed ✅, needs UI testing)
    - VisualEditorBreadcrumbs
    - PreviewTab
    - NavigationControls
@@ -480,10 +485,10 @@ User adds ?edit=true to URL
 
 **Next Steps (Moving to BREAKDOWN):**
 
-### **Phase 1A: Fix LSP Error (Priority: CRITICAL)**
-- [ ] Get detailed LSP diagnostics for VisualEditorOverlay.tsx
-- [ ] Fix TypeScript/import errors
-- [ ] Verify no other LSP errors in Stream 1 files
+### **Phase 1A: Fix LSP Error (Priority: CRITICAL)** ✅ COMPLETE
+- [x] Get detailed LSP diagnostics for VisualEditorOverlay.tsx
+- [x] Fix TypeScript/import errors (replaced `trackMove()` with `recordAction()`)
+- [x] Verify no other LSP errors in Stream 1 files (CLEAN)
 
 ### **Phase 1B: Create Test Plan (Priority: HIGH)**
 All 7 untested components need systematic verification:
