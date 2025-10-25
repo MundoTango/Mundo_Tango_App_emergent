@@ -132,17 +132,10 @@ export default function EventDetailPage() {
     select: (data: any) => data.data // Unwrap { success, data } response
   });
 
-  // Fetch event discussion posts with mention filtering
+  // Fetch event discussion posts with mention filtering (MB.MD SIMULTANEOUS: Use default fetcher)
   const { data: postsResponse, isLoading: postsLoading } = useQuery({
-    queryKey: [`/api/posts/mentions/event/${id}`, mentionFilter],
+    queryKey: [`/api/posts/mentions/event/${id}?filter=${mentionFilter}`],
     enabled: !!id,
-    queryFn: async () => {
-      const response = await fetch(`/api/posts/mentions/event/${id}?filter=${mentionFilter}`, {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch posts');
-      return response.json();
-    }
   });
 
   // Use shared RSVP hook (benefits from backend auth fix automatically)

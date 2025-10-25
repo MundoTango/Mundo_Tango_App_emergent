@@ -74,52 +74,29 @@ export default function AgentIntelligenceNetwork() {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedTab, setSelectedTab] = useState("overview");
 
+  // MB.MD SIMULTANEOUS: All queries use default fetcher
   const { data: stats, refetch: refetchStats } = useQuery<AgentStats>({
     queryKey: ['/api/agent-intelligence/stats'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/stats');
-      return res.json();
-    }
   });
 
   const { data: activities, refetch: refetchActivities } = useQuery<{activities: AgentActivity[], count: number}>({
-    queryKey: ['/api/agent-intelligence/activities'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/activities?limit=10');
-      return res.json();
-    }
+    queryKey: ['/api/agent-intelligence/activities?limit=10'],
   });
 
   const { data: learnings, refetch: refetchLearnings } = useQuery<{learnings: any[], count: number}>({
-    queryKey: ['/api/agent-intelligence/learnings/recent'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/learnings/recent?limit=10');
-      return res.json();
-    }
+    queryKey: ['/api/agent-intelligence/learnings/recent?limit=10'],
   });
 
   const { data: testResults, refetch: refetchTests } = useQuery<{tests: AgentTestResult[], count: number}>({
-    queryKey: ['/api/agent-intelligence/tests/recent'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/tests/recent?limit=10');
-      return res.json();
-    }
+    queryKey: ['/api/agent-intelligence/tests/recent?limit=10'],
   });
 
   const { data: messages, refetch: refetchMessages } = useQuery<{messages: any[], count: number}>({
-    queryKey: ['/api/agent-intelligence/messages/recent'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/messages/recent?limit=10');
-      return res.json();
-    }
+    queryKey: ['/api/agent-intelligence/messages/recent?limit=10'],
   });
 
   const { data: collaborations, refetch: refetchCollaborations } = useQuery<{collaborations: AgentCollaboration[], count: number}>({
-    queryKey: ['/api/agent-intelligence/collaborations/recent'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/collaborations/recent?limit=10');
-      return res.json();
-    }
+    queryKey: ['/api/agent-intelligence/collaborations/recent?limit=10'],
   });
 
   useEffect(() => {
