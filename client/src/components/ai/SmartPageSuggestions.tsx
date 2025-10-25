@@ -40,13 +40,9 @@ export function SmartPageSuggestions({
   const { user } = useAuth();
 
   // Get journey prediction - ESA Agent #71 (Journey Prediction)
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: prediction, isLoading } = useQuery<PagePrediction>({
-    queryKey: ['/api/ai-intelligence/journey/predict', currentRoute, user?.id],
-    queryFn: async () => {
-      const res = await fetch(`/api/ai-intelligence/journey/predict?route=${encodeURIComponent(currentRoute)}&userId=${user?.id || ''}`, { credentials: 'include' });
-      if (!res.ok) return null;
-      return res.json();
-    },
+    queryKey: ['/api/ai-intelligence/journey/predict', { route: currentRoute, userId: user?.id }],
     enabled: !!user && !isDismissed,
     refetchInterval: 30000, // Refresh every 30s
   });

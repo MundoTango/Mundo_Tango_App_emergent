@@ -35,13 +35,9 @@ export function ProjectSelector({ currentProjectId, onProjectChange }: ProjectSe
   const [newProjectName, setNewProjectName] = useState('');
   const { toast } = useToast();
 
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: projects } = useQuery<Project[]>({
     queryKey: ['/api/chat/projects'],
-    queryFn: async () => {
-      const res = await fetch('/api/chat/projects', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch projects');
-      return res.json();
-    },
   });
 
   const createProject = useMutation({

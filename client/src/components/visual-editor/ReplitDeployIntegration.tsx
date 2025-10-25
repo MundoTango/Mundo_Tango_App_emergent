@@ -21,13 +21,9 @@ export function ReplitDeployIntegration() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   // Fetch deployment status from real backend API (Stream D - Oct 22, 2025)
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: status, isLoading, refetch } = useQuery<DeploymentStatus>({
-    queryKey: ['/api/deploy/status', refreshKey],
-    queryFn: async () => {
-      const res = await fetch('/api/deploy/status', { credentials: 'include' });
-      if (!res.ok) throw new Error(`Deploy status failed: ${res.statusText}`);
-      return res.json();
-    },
+    queryKey: ['/api/deploy/status', { _refresh: refreshKey }],
     refetchInterval: 10000, // Auto-refresh every 10s
   });
 
