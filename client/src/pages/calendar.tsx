@@ -20,14 +20,9 @@ interface Event {
 export default function CalendarPage() {
   const [, setLocation] = useLocation();
 
-  // Fetch events
+  // Fetch events (MB.MD SIMULTANEOUS: Use default fetcher)
   const { data: events = [], isLoading } = useQuery<Event[]>({
     queryKey: ["/api/events"],
-    queryFn: async () => {
-      const res = await fetch('/api/events', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch events');
-      return res.json();
-    },
   });
 
   const handleDateClick = (date: Date) => {
