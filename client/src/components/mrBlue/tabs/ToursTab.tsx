@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Loader2, Compass } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-const InteractiveTour = lazy(() => import('@/lib/mrBlue/tours/InteractiveTour'));
+const InteractiveTour = lazy(() => import('@/lib/mrBlue/tours/InteractiveTourWrapper'));
 
 export default function ToursTab() {
   return (

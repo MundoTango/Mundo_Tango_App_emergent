@@ -10,7 +10,7 @@ export default function SubscriptionsTab() {
   const { toast } = useToast();
 
   // REAL API: Fetch subscription status and usage
-  const { data: subscription, isLoading: subLoading } = useQuery({
+  const { data: subscription, isLoading: subLoading } = useQuery<{ tier: string }>({
     queryKey: ['/api/subscriptions/status']
   });
 

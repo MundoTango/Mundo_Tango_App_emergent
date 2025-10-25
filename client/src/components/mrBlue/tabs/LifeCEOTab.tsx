@@ -31,7 +31,7 @@ export default function LifeCEOTab() {
   });
 
   // Fetch ML stats
-  const { data: mlStats } = useQuery({
+  const { data: mlStats } = useQuery<{ data: { totalPredictions: number; averageAccuracy: number; predictionsToday: number; modelVersion: string } }>({
     queryKey: ['/api/multiagent/ml/stats'],
   });
   

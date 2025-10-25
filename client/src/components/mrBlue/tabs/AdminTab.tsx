@@ -36,7 +36,7 @@ export default function AdminTab() {
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 
-  const { data: mlStats, isLoading: mlLoading } = useQuery({
+  const { data: mlStats, isLoading: mlLoading } = useQuery<{ data: { totalPredictions: number; averageAccuracy: number; predictionsToday: number; modelVersion: string } }>({
     queryKey: ['/api/multiagent/ml/stats'],
   });
 
@@ -44,17 +44,17 @@ export default function AdminTab() {
     queryKey: ['/api/multiagent/monitor/patterns'],
   });
 
-  const { data: agentStats } = useQuery({
+  const { data: agentStats } = useQuery<{ data: any[] }>({
     queryKey: ['/api/multiagent/orchestrate/agents'],
   });
 
   // REAL API: Fetch system health metrics
-  const { data: systemHealth } = useQuery({
+  const { data: systemHealth } = useQuery<{ uptime: string; responseTime: string; activeUsers: number }>({
     queryKey: ['/api/admin/health'],
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 
-  const { data: apiStatus } = useQuery({
+  const { data: apiStatus } = useQuery<{ endpoints: Array<{ name: string; status: string; latency: string }> }>({
     queryKey: ['/api/admin/api-status'],
     refetchInterval: 30000,
   });
@@ -178,7 +178,7 @@ export default function AdminTab() {
         </div>
         
         <div className="space-y-3">
-          {apiEndpoints.map((endpoint, i) => (
+          {apiEndpoints.map((endpoint: { name: string; status: string; latency: string }, i: number) => (
             <div
               key={i}
               className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg"

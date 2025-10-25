@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function QualityTab() {
   // REAL API: Fetch quality metrics and learnings
-  const { data: learningsData, isLoading } = useQuery({
+  const { data: learningsData, isLoading } = useQuery<{ sessions: any[] }>({
     queryKey: ['/api/learning/sessions'],
   });
 
