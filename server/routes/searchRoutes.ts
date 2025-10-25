@@ -217,4 +217,50 @@ router.get('/test-data', async (req, res, next: NextFunction) => {
   }
 });
 
+/**
+ * Global search endpoint (UnifiedTopBar)
+ * GET /api/user/global-search?q=query
+ * MB.MD SIMULTANEOUS Build - Stream A
+ */
+router.get('/user/global-search', async (req, res, next: NextFunction) => {
+  try {
+    const q = req.query.q as string;
+    
+    if (!q || q.trim().length < 2) {
+      return res.json(success({
+        users: [],
+        events: [],
+        groups: [],
+        memories: [],
+        totalCount: 0
+      }, 'Query too short'));
+    }
+
+    const userId = (req as any).user?.id;
+    
+    // Use the existing SearchService
+    const results = await SearchService.searchAll({
+      query: q,
+      filters: {},
+      limit: 10,
+      offset: 0,
+      userId
+    });
+
+    // Format results for UnifiedTopBar
+    const formatted = {
+      users: results.results.filter((r: any) => r.type === 'user'),
+      events: results.results.filter((r: any) => r.type === 'event'),
+      groups: results.results.filter((r: any) => r.type === 'group'),
+      memories: results.results.filter((r: any) => r.type === 'memory' || r.type === 'post'),
+      totalCount: results.total
+    };
+
+    res.json(formatted);
+  } catch (error) {
+    console.error('[Global Search] Error:', error);
+    res.status(500).json({ error: 'Search failed' });
+  }
+});
+
 export default router;

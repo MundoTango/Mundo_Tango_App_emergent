@@ -20,6 +20,12 @@ interface TripConfig {
   travelStyle: string;
 }
 
+interface TripResults {
+  events?: any[];
+  housing?: any[];
+  recommendations?: any[];
+}
+
 interface TripPlannerViewProps {
   city: string;
   country?: string;
@@ -42,13 +48,13 @@ export default function TripPlannerView({
   const [currentTravelPlanId, setCurrentTravelPlanId] = useState<number | null>(null);
 
   // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: tripResults, isLoading } = useQuery({
+  const { data: tripResults, isLoading } = useQuery<TripResults>({
     queryKey: ['/api/trip-planner/results', { 
       city, 
       startDate: tripConfig?.startDate, 
       endDate: tripConfig?.endDate, 
       budget: tripConfig?.budget, 
-      interests: tripConfig?.interests.join(',') 
+      interests: tripConfig?.interests?.join(',') || '' 
     }],
     enabled: !!tripConfig,
   });
