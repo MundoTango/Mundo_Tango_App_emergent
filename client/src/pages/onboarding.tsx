@@ -128,20 +128,11 @@ export default function Onboarding() {
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
 
-  // Fetch community roles from database
-  const { data: communityRoles, isLoading: rolesLoading } = useQuery({
+  // MB.MD SIMULTANEOUS: Use default fetcher
+  const { data: communityRolesData, isLoading: rolesLoading } = useQuery({
     queryKey: ['/api/roles/community'],
-    queryFn: async () => {
-      const response = await fetch('/api/roles/community', {
-        credentials: 'include'
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch community roles');
-      }
-      const result = await response.json();
-      return result.data.roles as CommunityRole[];
-    }
   });
+  const communityRoles = communityRolesData?.data?.roles || [];
 
   const form = useForm<OnboardingData>({
     resolver: zodResolver(onboardingSchema),

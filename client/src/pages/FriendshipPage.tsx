@@ -23,37 +23,20 @@ export default function FriendshipPage() {
   const { friendId } = useParams<{ friendId: string }>();
   const [showDanceHistoryForm, setShowDanceHistoryForm] = useState(false);
 
-  // ESA Layer 24: Social Features Agent - Friendship data fetching
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: friendship, isLoading, error } = useQuery({
     queryKey: ['/api/friendship', friendId],
-    queryFn: async () => {
-      const response = await apiRequest(`/api/friendship/${friendId}`); // Fixed: Added /api prefix
-      if (!response.ok) throw new Error('Failed to fetch friendship details');
-      return response.json();
-    },
-    enabled: !!friendId, // Only fetch if friendId is present
+    enabled: !!friendId,
   });
 
-  // ESA Layer 24: Social Features Agent - Mutual friends fetching
   const { data: mutualFriends, isLoading: isLoadingMutualFriends } = useQuery({
-    queryKey: ['/api/friendship/mutual-friends', friendId],
-    queryFn: async () => {
-      const response = await apiRequest(`/api/friendship/${friendId}/mutual-friends`);
-      if (!response.ok) throw new Error('Failed to fetch mutual friends');
-      return response.json();
-    },
-    enabled: !!friendId, // Only fetch if friendId is present
+    queryKey: ['/api/friendship', friendId, 'mutual-friends'],
+    enabled: !!friendId,
   });
 
-  // ESA Layer 24: Social Features Agent - Shared memories fetching
   const { data: sharedMemories, isLoading: isLoadingSharedMemories } = useQuery({
     queryKey: ['/api/friendship/shared-memories', friendId],
-    queryFn: async () => {
-      const response = await apiRequest(`/api/friendship/shared-memories/${friendId}`); // Fixed: Added /api prefix
-      if (!response.ok) throw new Error('Failed to fetch shared memories');
-      return response.json();
-    },
-    enabled: !!friendId, // Only fetch if friendId is present
+    enabled: !!friendId,
   });
 
   if (isLoading || isLoadingMutualFriends || isLoadingSharedMemories) {

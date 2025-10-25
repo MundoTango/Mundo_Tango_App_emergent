@@ -130,23 +130,25 @@ export default function AdminUsersPage() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showBulkActions, setShowBulkActions] = useState(false);
 
-  // Fetch users
+  // MB.MD SIMULTANEOUS: Build URL dynamically
+  const buildUsersUrl = () => {
+    const params = new URLSearchParams({
+      search: searchQuery,
+      status: filterStatus,
+      role: filterRole,
+      subscription: filterSubscription,
+      sortBy,
+      sortOrder,
+      page: page.toString(),
+      limit: '20'
+    });
+    return `/api/admin/users?${params}`;
+  };
+
   const { data: usersData, isLoading: loadingUsers, refetch: refetchUsers } = useQuery({
     queryKey: ['/api/admin/users', { searchQuery, filterStatus, filterRole, filterSubscription, sortBy, sortOrder, page }],
     queryFn: async () => {
-      const params = new URLSearchParams({
-        search: searchQuery,
-        status: filterStatus,
-        role: filterRole,
-        subscription: filterSubscription,
-        sortBy,
-        sortOrder,
-        page: page.toString(),
-        limit: '20'
-      });
-      const response = await fetch(`/api/admin/users?${params}`, {
-        credentials: 'include'
-      });
+      const response = await fetch(buildUsersUrl(), { credentials: 'include' });
       if (!response.ok) throw new Error('Failed to fetch users');
       return response.json();
     }

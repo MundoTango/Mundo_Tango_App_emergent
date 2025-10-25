@@ -60,29 +60,13 @@ export default function HostCalendar() {
   useScrollReveal('.calendar-restrictions', { delay: 0.3 });
   useScrollReveal('.calendar-main', { delay: 0.4 });
 
-  // Fetch host's properties
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: homesData, isLoading: isLoadingHomes } = useQuery<{ success: boolean; homes: HostHome[] }>({
     queryKey: ['/api/host-homes/my-properties'],
-    queryFn: async () => {
-      const response = await fetch('/api/host-homes/my-properties', {
-        credentials: 'include',
-      });
-      if (!response.ok) throw new Error('Failed to fetch properties');
-      return response.json();
-    },
   });
 
-  // Fetch availability for selected home
   const { data: availabilityData, isLoading: isLoadingAvailability } = useQuery<{ success: boolean; data: AvailabilityData }>({
     queryKey: ['/api/host-homes', selectedHomeId, 'availability'],
-    queryFn: async () => {
-      if (!selectedHomeId) throw new Error('No home selected');
-      const response = await fetch(`/api/host-homes/${selectedHomeId}/availability`, {
-        credentials: 'include',
-      });
-      if (!response.ok) throw new Error('Failed to fetch availability');
-      return response.json();
-    },
     enabled: !!selectedHomeId,
   });
 

@@ -91,15 +91,9 @@ export default function HostBookings() {
     respectReducedMotion: true,
   });
 
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: bookingsData, isLoading } = useQuery<{ success: boolean; bookings: BookingWithDetails[] }>({
-    queryKey: ['/api/bookings', { role: 'host' }],
-    queryFn: async () => {
-      const response = await fetch('/api/bookings?role=host', {
-        credentials: 'include',
-      });
-      if (!response.ok) throw new Error('Failed to fetch bookings');
-      return response.json();
-    },
+    queryKey: ['/api/bookings?role=host'],
   });
 
   const respondToBookingMutation = useMutation({

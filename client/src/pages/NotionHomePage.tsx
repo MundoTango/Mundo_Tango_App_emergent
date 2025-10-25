@@ -72,40 +72,33 @@ export function NotionHomePage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
 
-  // Fetch filter options
-  const { data: filterOptions } = useQuery<FilterOptions>({
+  // MB.MD SIMULTANEOUS: Use default fetcher
+  const { data: filterOptionsData } = useQuery<FilterOptions>({
     queryKey: ['/api/notion/filters'],
-    queryFn: async () => {
-      const response = await fetch('/api/notion/filters');
-      if (!response.ok) throw new Error('Failed to fetch filter options');
-      const result = await response.json();
-      return result.data;
-    },
   });
+  const filterOptions = filterOptionsData?.data;
 
   // Build query parameters for filtering
   const buildQueryParams = () => {
     const params = new URLSearchParams();
-    params.set('visibility', 'Public'); // Only show public entries
-    
+    params.set('visibility', 'Public');
     if (selectedType) params.set('type', selectedType);
     if (selectedTone) params.set('emotionalTone', selectedTone);
     if (selectedTags.length > 0) params.set('tags', selectedTags.join(','));
-    
     return params.toString();
   };
 
-  // Fetch entries with filters
-  const { data: entries, isLoading } = useQuery<NotionEntry[]>({
+  const buildEntriesUrl = () => `/api/notion/entries?${buildQueryParams()}`;
+  const { data: entriesData, isLoading } = useQuery<NotionEntry[]>({
     queryKey: ['/api/notion/entries', selectedType, selectedTone, selectedTags],
     queryFn: async () => {
-      const queryParams = buildQueryParams();
-      const response = await fetch(`/api/notion/entries?${queryParams}`);
+      const response = await fetch(buildEntriesUrl());
       if (!response.ok) throw new Error('Failed to fetch entries');
       const result = await response.json();
       return result.data;
     },
   });
+  const entries = entriesData || [];
 
   // Filter entries by search term (client-side)
   const filteredEntries = entries?.filter(entry =>

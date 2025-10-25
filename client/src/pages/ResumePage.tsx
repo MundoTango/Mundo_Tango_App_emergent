@@ -33,26 +33,22 @@ export default function ResumePage() {
   const [isExporting, setIsExporting] = useState(false);
   const [exportFormat, setExportFormat] = useState<'PDF' | 'CSV'>('PDF');
 
+  // MB.MD SIMULTANEOUS: Keep custom queryFn for logging
   const { data: resumeData, isLoading, error } = useQuery({
-    queryKey: ['/api/resume', user?.id],
+    queryKey: ['/api/resume'],
     queryFn: async () => {
       console.log('🎯 Fetching resume data for user:', user?.id);
       const response = await fetch('/api/resume', {
         method: 'GET',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-      
       console.log('📡 Resume API response status:', response.status);
-      
       if (!response.ok) {
         const errorText = await response.text();
         console.error('❌ Resume API error:', errorText);
         throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
-      
       const data = await response.json();
       console.log('📋 Resume data received:', data);
       return data;

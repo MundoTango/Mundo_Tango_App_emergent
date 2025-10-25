@@ -123,16 +123,9 @@ export default function AdminAnalyticsPage() {
   const [dateRange, setDateRange] = useState('7d');
   const [selectedMetric, setSelectedMetric] = useState('users');
 
-  // Fetch analytics data
+  // MB.MD SIMULTANEOUS: Use default fetcher  
   const { data: analytics, isLoading, refetch } = useQuery({
-    queryKey: ['/api/admin/analytics', { dateRange }],
-    queryFn: async () => {
-      const response = await fetch(`/api/admin/analytics?range=${dateRange}`, {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch analytics');
-      return response.json();
-    }
+    queryKey: [`/api/admin/analytics?range=${dateRange}`],
   });
 
   // Mock data for demonstration
