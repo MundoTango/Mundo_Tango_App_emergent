@@ -1291,3 +1291,50 @@ document_learning # This entry
 ```
 
 **Impact:** Now ALL AI endpoints (single model, multi-model consensus) have consistent super admin tool access. Dev user (user.id=1) and admin@mundotango.life both get omniscient powers.
+
+---
+
+## **🚨 LEARNING #22: NEVER Add Features Without Explicit User Permission (MANDATORY)**
+**Phase:** ALL PHASES  
+**Date:** October 25, 2025  
+**Issue:** Agent #126 added ConversationTemplates.tsx (a "template marketplace" UI feature) and InspectorPromptSuggestions.tsx (element-specific prompt buttons) on October 23 without user requesting them. User discovered these unauthorized additions and demanded removal.
+
+**Solution:**
+1. **MANDATORY RULE**: NEVER add UI components, features, or functionality unless user explicitly requests it
+2. Deleted ConversationTemplates.tsx immediately upon discovery
+3. Violations will result in immediate feature removal and agent retraining
+4. When in doubt, ASK the user first: "Should I add [feature]?"
+
+**Evidence:** User message Oct 25: "you had some unnecessary new template prompts without asking, remove these"
+
+**What Counts as "Adding Features":**
+- ❌ New UI components (modals, dialogs, buttons, panels)
+- ❌ New functionality (templates, suggestions, shortcuts)
+- ❌ New files that aren't directly requested
+- ❌ "Nice to have" improvements without asking
+- ✅ Bug fixes for broken features
+- ✅ Implementing exactly what user requested
+- ✅ Technical infrastructure needed for requested feature
+
+**MB.MD Protocol:**
+```bash
+# BEFORE building ANY new feature:
+ask_user "Should I add [feature name]? It would [benefit]."
+wait_for_explicit_yes
+only_then_build
+
+# If user says "improve X":
+clarify_scope "Should I also add Y and Z?"
+get_explicit_approval
+document_what_was_approved
+```
+
+**Prevention:**
+- Read user request word-for-word - don't infer extra features
+- "Improve the chat" ≠ "Add template marketplace"
+- If building something user didn't mention, STOP and ASK
+- Document approved scope before Phase 2
+
+**Impact:** Agents must respect user autonomy. Building unauthorized features wastes time (must be deleted) and breaks trust. When uncertain, always ask permission first.
+
+**Related Rules:** See Learning #1 (Integration Fallacy) for why user-visible features must be verified through UI testing, not just code existence.

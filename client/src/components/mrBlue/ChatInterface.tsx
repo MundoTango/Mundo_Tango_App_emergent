@@ -495,14 +495,16 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // Clear states and refresh messages
-      setStreamingToolStatus(null);
-      setOptimisticMessage(null);
-      setStreamingResponse('');
       // MB.MD FIX: Use array segments to match query key format
       await queryClient.invalidateQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
+      
+      // STREAM A FIX: Clear states AFTER query invalidation completes
+      // This gives React time to render the JSON consensus response before clearing
+      setStreamingToolStatus(null);
+      setOptimisticMessage(null);
+      setStreamingResponse('');
       
       // 🔧 PHASE 2: Extract build intents from AI response
       await extractAndQueueBuildIntents(projId);
@@ -571,7 +573,15 @@ export function ChatInterface() {
         description: `${result.codeChanges.length} file(s) ready to modify`,
       });
     } catch (error) {
+      // STREAM C FIX: Log full error details for debugging
       console.error('🚀 [Vibe] Code generation failed:', error);
+      console.error('🚀 [Vibe] Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        userMessage: userMessage.substring(0, 100),
+        hasElement: !!activeElement,
+        hasPreviewPath: !!previewPath
+      });
       // Don't show error toast - user still got text response
     }
   };
@@ -623,7 +633,13 @@ export function ChatInterface() {
       });
 
     } catch (error) {
+      // STREAM B FIX: Log full error details for debugging
       console.error('❌ [BuildIntent] Failed to extract intents:', error);
+      console.error('❌ [BuildIntent] Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        projectId: projId
+      });
     }
   };
 
