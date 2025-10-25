@@ -18,6 +18,8 @@ import { createCompactRepresentation } from '../services/repositoryMapping/Compa
 import { VibeGraph } from '../services/agents/VibeGraph.js';
 import { storage } from '../storage.js';
 import { getWebSocketService } from '../services/websocketService.js';
+import { db } from '../db.js';
+import { componentAttributions } from '../../shared/schema.js';
 
 const router = Router();
 
@@ -39,7 +41,7 @@ router.post('/edit-file', async (req: any, res: Response) => {
   }
 
   try {
-    const { filePath, editType, diffContent, searchString, replaceString } = req.body;
+    const { filePath, editType, diffContent, searchString, replaceString, attribution } = req.body;
 
     if (!filePath) {
       return res.status(400).json({ error: 'filePath is required' });
@@ -79,6 +81,24 @@ router.post('/edit-file', async (req: any, res: Response) => {
         title: 'Code Updated',
         message: `File ${filePath} modified successfully`
       });
+    }
+
+    // 🚀 STREAM C2: Log attribution if provided
+    if (attribution?.xpath && attribution?.agentName && attribution?.agentRole) {
+      try {
+        await db.insert(componentAttributions).values({
+          xpath: attribution.xpath,
+          agentName: attribution.agentName,
+          agentRole: attribution.agentRole,
+          contribution: attribution.contribution || `Modified ${filePath}`,
+          componentPath: filePath,
+          agentId: attribution.agentId || null // Optional integer agent ID
+        });
+        console.log('✅ [Attribution] Logged:', attribution);
+      } catch (attrError) {
+        console.error('⚠️ [Attribution] Failed to log (non-blocking):', attrError);
+        // Don't fail the request if attribution logging fails
+      }
     }
 
     res.json(result);

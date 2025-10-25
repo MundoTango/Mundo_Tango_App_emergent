@@ -18,7 +18,9 @@ const attributionSchema = z.object({
   xpath: z.string().min(1, 'xpath is required'),
   agentName: z.string().min(1, 'agentName is required'),
   agentRole: z.string().min(1, 'agentRole is required'),
-  contribution: z.string().optional()
+  contribution: z.string().optional(),
+  componentPath: z.string().optional(),
+  agentId: z.number().int().positive().optional()
 });
 
 // GET /api/components/attribution?xpath=...
@@ -114,7 +116,7 @@ router.post('/attribution', isAuthenticated, async (req, res) => {
       });
     }
 
-    const { xpath, agentName, agentRole, contribution } = validation.data;
+    const { xpath, agentName, agentRole, contribution, componentPath, agentId } = validation.data;
 
     // Insert attribution record
     const [record] = await db.insert(componentAttributions).values({
@@ -122,7 +124,8 @@ router.post('/attribution', isAuthenticated, async (req, res) => {
       agentName,
       agentRole,
       contribution: contribution || `Modified component at ${xpath}`,
-      agentId: `${agentName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`
+      componentPath: componentPath || xpath,
+      agentId: agentId || null
     }).returning();
 
     console.log('[Attribution] Created:', record);

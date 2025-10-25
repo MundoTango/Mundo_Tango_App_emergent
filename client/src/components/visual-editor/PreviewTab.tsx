@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from 'react';
 import { RefreshCw, Monitor, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
+import { useSocket } from '@/hooks/useSocket';
 
 interface PreviewTabProps {
   currentPath: string;
@@ -19,6 +20,7 @@ export default function PreviewTab({ currentPath }: PreviewTabProps) {
   const [refreshKey, setRefreshKey] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const visualEditorContext = useVisualEditorOptional();
+  const { socket, isConnected } = useSocket();
   
   // 🎯 SYNC PREVIEW PATH TO CONTEXT (Oct 22, 2025)
   // This tells Mr Blue what page is being shown in the preview
@@ -32,6 +34,24 @@ export default function PreviewTab({ currentPath }: PreviewTabProps) {
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
   };
+
+  // 🚀 STREAM B2: Auto-refresh on code updates via Socket.io
+  useEffect(() => {
+    if (!socket || !isConnected) return;
+
+    const handleCodeUpdate = (notification: any) => {
+      if (notification.type === 'code-updated') {
+        console.log('🔄 [PreviewTab] Code updated, auto-refreshing preview:', notification);
+        handleRefresh();
+      }
+    };
+
+    socket.on('notification', handleCodeUpdate);
+
+    return () => {
+      socket.off('notification', handleCodeUpdate);
+    };
+  }, [socket, isConnected]);
 
   // Build preview URL without edit mode + cache-busting timestamp
   // MB.MD: Add refreshKey to force browser to bypass cache (Oct 22, 2025)
