@@ -73,6 +73,7 @@ export function ChatInterface() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
+  const [isRefetching, setIsRefetching] = useState(false); // 🔧 Prevent clearing during refetch
   const [optimisticMessage, setOptimisticMessage] = useState<string | null>(null);
   const [streamingResponse, setStreamingResponse] = useState<string>('');
   
@@ -524,6 +525,9 @@ export function ChatInterface() {
         timestamp: new Date().toISOString()
       });
       
+      // 🔧 CRITICAL FIX (Oct 25): Set refetching flag to prevent UI clearing
+      setIsRefetching(true);
+      
       // MB.MD FIX: Use array segments to match query key format
       await queryClient.invalidateQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
@@ -537,12 +541,18 @@ export function ChatInterface() {
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
-      console.log('🔍 [ChatInterface] Messages refetched, now clearing temporary states');
+      console.log('🔍 [ChatInterface] Messages refetched successfully!');
       
-      // Clear states AFTER messages are loaded into cache
+      // 🔧 Wait additional 100ms to ensure React has rendered the new messages
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      console.log('🔍 [ChatInterface] Now clearing temporary states');
+      
+      // Clear states AFTER messages are loaded into cache AND rendered
       setStreamingToolStatus(null);
       setOptimisticMessage(null);
       setStreamingResponse('');
+      setIsRefetching(false);
       
       // 🔧 PHASE 2: Extract build intents from AI response
       await extractAndQueueBuildIntents(projId);
@@ -1002,7 +1012,8 @@ export function ChatInterface() {
           ))}
 
           {/* OPTIMISTIC UI: Show user message immediately */}
-          {optimisticMessage && (
+          {/* 🔧 Keep showing if refetching to prevent flash */}
+          {(optimisticMessage || isRefetching) && optimisticMessage && (
             <EnhancedMessageBubble
               role="user"
               content={optimisticMessage}
@@ -1011,7 +1022,7 @@ export function ChatInterface() {
           )}
 
           {/* REPLIT-STYLE THINKING INDICATOR */}
-          {optimisticMessage && !streamingResponse && (
+          {optimisticMessage && !streamingResponse && !isRefetching && (
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-cyan-600">
                 <div className="flex gap-1">
@@ -1031,13 +1042,14 @@ export function ChatInterface() {
           )}
 
           {/* STREAMING RESPONSE: Show AI response word-by-word */}
-          {streamingResponse && (
+          {/* 🔧 Keep showing if refetching to prevent flash */}
+          {(streamingResponse || isRefetching) && streamingResponse && (
             <EnhancedMessageBubble
               role="assistant"
               content={streamingResponse}
               timestamp={new Date().toLocaleTimeString()}
               metadata={{ agentMode: selectedModel }}
-              isStreaming={true}
+              isStreaming={!isRefetching} // Stop streaming animation when refetching
             />
           )}
 
