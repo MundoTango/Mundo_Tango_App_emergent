@@ -499,32 +499,18 @@ function GroupDetailPageMT() {
     enabled: !!user?.id && activeTab === 'community-hub',
   });
 
-  // User memberships and following
-  const { data: userMemberships = [] } = useQuery({
-    queryKey: ['/api/user/memberships', user?.id],
+  // MB.MD SIMULTANEOUS: Use default fetcher
+  const { data: membershipsData } = useQuery({
+    queryKey: ['/api/user/memberships'],
     enabled: !!user?.id,
-    queryFn: async () => {
-      const response = await fetch(`/api/user/memberships`, {
-        credentials: 'include',
-      });
-      if (!response.ok) return [];
-      const data = await response.json();
-      return data.data || [];
-    }
   });
+  const userMemberships = membershipsData?.data || [];
 
-  const { data: userFollowing = [] } = useQuery({
-    queryKey: ['/api/user/following', user?.id],
+  const { data: followingData } = useQuery({
+    queryKey: ['/api/user/following'],
     enabled: !!user?.id,
-    queryFn: async () => {
-      const response = await fetch(`/api/user/following`, {
-        credentials: 'include',
-      });
-      if (!response.ok) return [];
-      const data = await response.json();
-      return data.data || [];
-    }
   });
+  const userFollowing = followingData?.data || [];
 
   // Join group mutation
   const joinGroupMutation = useMutation({

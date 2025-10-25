@@ -82,31 +82,16 @@ export default function RoleInvitations() {
     message: ''
   });
 
-  // Fetch invitations
-  const { data: invitations, isLoading } = useQuery({
-    queryKey: ['/api/users/me/event-invitations', activeTab],
-    queryFn: async () => {
-      const response = await fetch(`/api/users/me/event-invitations?status=${activeTab}`, {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch invitations');
-      const result = await response.json();
-      return result.data || [];
-    }
+  // MB.MD SIMULTANEOUS: Use default fetcher
+  const { data: invitationsData, isLoading } = useQuery({
+    queryKey: [`/api/users/me/event-invitations?status=${activeTab}`],
   });
+  const invitations = invitationsData?.data || [];
 
-  // Fetch my events (for sending invitations)
-  const { data: myEvents } = useQuery({
+  const { data: myEventsData } = useQuery({
     queryKey: ['/api/users/me/events'],
-    queryFn: async () => {
-      const response = await fetch('/api/users/me/events', {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch events');
-      const result = await response.json();
-      return result.data || [];
-    }
   });
+  const myEvents = myEventsData?.data || [];
 
   // Update invitation mutation
   const updateInvitationMutation = useMutation({

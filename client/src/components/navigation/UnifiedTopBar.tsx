@@ -117,45 +117,32 @@ export default function UnifiedTopBar({
     };
   }, [user]);
 
-  // Fetch notifications count
-  const { data: notificationCount } = useQuery({
+  // MB.MD SIMULTANEOUS: Use default fetcher
+  const { data: notificationCountData } = useQuery({
     queryKey: ['/api/notifications/count'],
-    queryFn: async () => {
-      const response = await fetch('/api/notifications/count', {
-        credentials: 'include'
-      });
-      const data = await response.json();
-      return data.count || 0;
-    },
-    refetchInterval: 30000 // Refetch every 30 seconds
-  });
-
-  // Fetch messages count
-  const { data: messageCount } = useQuery({
-    queryKey: ['/api/messages/unread-count'],
-    queryFn: async () => {
-      const response = await fetch('/api/messages/unread-count', {
-        credentials: 'include'
-      });
-      const data = await response.json();
-      return data.count || 0;
-    },
     refetchInterval: 30000
   });
+  const notificationCount = notificationCountData?.count || 0;
 
-  // Global search
-  const { data: searchResults, isLoading: searchLoading } = useQuery({
+  const { data: messageCountData } = useQuery({
+    queryKey: ['/api/messages/unread-count'],
+    refetchInterval: 30000
+  });
+  const messageCount = messageCountData?.count || 0;
+
+  const buildSearchUrl = () => searchQuery.trim() ? `/api/user/global-search?q=${encodeURIComponent(searchQuery)}` : null;
+  const { data: searchResultsData, isLoading: searchLoading } = useQuery({
     queryKey: ['/api/search/global', searchQuery],
     queryFn: async () => {
-      if (!searchQuery.trim()) return null;
-      const response = await fetch(`/api/user/global-search?q=${encodeURIComponent(searchQuery)}`, {
-        credentials: 'include'
-      });
+      const url = buildSearchUrl();
+      if (!url) return null;
+      const response = await fetch(url, { credentials: 'include' });
       const result = await response.json();
       return result.data;
     },
     enabled: !!searchQuery.trim()
   });
+  const searchResults = searchResultsData || null;
 
   const handleLogout = async () => {
     try {

@@ -94,48 +94,34 @@ export const LifeCEODashboard: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [sessionId] = useState(`session-${Date.now()}`);
 
-  // Fetch available agents
-  const { data: agents, isLoading: agentsLoading } = useQuery({
+  // MB.MD SIMULTANEOUS: All queries use default fetcher
+  const { data: agentsData, isLoading: agentsLoading } = useQuery({
     queryKey: ['/api/ai/agents'],
-    queryFn: async () => {
-      const response = await fetch('/api/ai/agents');
-      const data = await response.json();
-      return data.agents as Agent[];
-    }
   });
+  const agents = agentsData?.agents || [];
 
-  // Fetch user memories
-  const { data: memories } = useQuery({
+  const buildMemoriesUrl = () => selectedAgent ? `/api/ai/memories?agentId=${selectedAgent}` : '/api/ai/memories';
+  const { data: memoriesData } = useQuery({
     queryKey: ['/api/ai/memories', selectedAgent],
     queryFn: async () => {
-      const params = selectedAgent ? `?agentId=${selectedAgent}` : '';
-      const response = await fetch(`/api/ai/memories${params}`);
+      const response = await fetch(buildMemoriesUrl());
       const data = await response.json();
       return data.memories;
     },
     enabled: !!selectedAgent
   });
+  const memories = memoriesData || [];
 
-  // Fetch recommendations
-  const { data: recommendations } = useQuery({
+  const { data: recommendationsData } = useQuery({
     queryKey: ['/api/ai/recommendations'],
-    queryFn: async () => {
-      const response = await fetch('/api/ai/recommendations');
-      const data = await response.json();
-      return data.recommendations;
-    }
   });
+  const recommendations = recommendationsData?.recommendations || [];
 
-  // Fetch intelligence metrics
-  const { data: metrics } = useQuery({
+  const { data: metricsData } = useQuery({
     queryKey: ['/api/ai/metrics'],
-    queryFn: async () => {
-      const response = await fetch('/api/ai/metrics');
-      const data = await response.json();
-      return data.metrics;
-    },
-    refetchInterval: 30000 // Refresh every 30 seconds
+    refetchInterval: 30000
   });
+  const metrics = metricsData?.metrics || {};
 
   // Chat mutation
   const chatMutation = useMutation({

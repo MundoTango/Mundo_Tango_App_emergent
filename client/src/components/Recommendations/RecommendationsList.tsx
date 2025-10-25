@@ -125,18 +125,12 @@ export default function RecommendationsList({
 
   const recommendations = apiResponse?.data || [];
 
-  // ESA Layer 24: Fetch linked post when modal is open
-  const { data: linkedPost, isLoading: isPostLoading } = useQuery({
+  // ESA Layer 24: Fetch linked post when modal is open (MB.MD SIMULTANEOUS)
+  const { data: linkedPostData, isLoading: isPostLoading } = useQuery({
     queryKey: ['/api/posts', selectedRecommendation?.postId],
-    queryFn: async () => {
-      if (!selectedRecommendation?.postId) return null;
-      const response = await fetch(`/api/posts/${selectedRecommendation.postId}`);
-      if (!response.ok) return null;
-      const result = await response.json();
-      return result.data;
-    },
     enabled: !!selectedRecommendation?.postId
   });
+  const linkedPost = linkedPostData?.data || null;
 
   const getCategoryIcon = (category: string) => {
   const { t } = useTranslation();

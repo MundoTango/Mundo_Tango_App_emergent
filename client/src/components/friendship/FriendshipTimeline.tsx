@@ -38,22 +38,13 @@ interface FriendshipTimelineProps {
 export function FriendshipTimeline({ friendId, friendName, friendImage }: FriendshipTimelineProps) {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
+  // MB.MD SIMULTANEOUS: Use default fetcher
   const { data: timeline, isLoading } = useQuery({
     queryKey: ['/api/friendship/timeline', friendId],
-    queryFn: async () => {
-      const response = await fetch(`/api/friendship/timeline/${friendId}`);
-      if (!response.ok) throw new Error('Failed to fetch timeline');
-      return response.json();
-    }
   });
 
   const { data: stats } = useQuery({
     queryKey: ['/api/friendship/stats', friendId],
-    queryFn: async () => {
-      const response = await fetch(`/api/friendship/stats/${friendId}`);
-      if (!response.ok) throw new Error('Failed to fetch stats');
-      return response.json();
-    }
   });
 
   const getEventIcon = (type: string) => {

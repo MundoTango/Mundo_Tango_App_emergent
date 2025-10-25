@@ -65,27 +65,16 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
   const [expandedComments, setExpandedComments] = useState<Set<number>>(new Set());
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Fetch comments for the post
-  const { data: comments = [], isLoading } = useQuery({
+  // MB.MD SIMULTANEOUS: Use default fetcher
+  const { data: commentsData, isLoading } = useQuery({
     queryKey: ['/api/posts', postId, 'comments'],
-    queryFn: async () => {
-      const response = await fetch(`/api/posts/${postId}/comments`);
-      if (!response.ok) throw new Error('Failed to fetch comments');
-      const result = await response.json();
-      return result.data || [];
-    }
   });
+  const comments = commentsData?.data || [];
 
-  // Fetch post reactions
-  const { data: postReactions = [] } = useQuery({
+  const { data: reactionsData } = useQuery({
     queryKey: ['/api/posts', postId, 'reactions'],
-    queryFn: async () => {
-      const response = await fetch(`/api/posts/${postId}/reactions`);
-      if (!response.ok) throw new Error('Failed to fetch reactions');
-      const result = await response.json();
-      return result.data || [];
-    }
   });
+  const postReactions = reactionsData?.data || [];
 
   // Create comment mutation
   const createCommentMutation = useMutation({
