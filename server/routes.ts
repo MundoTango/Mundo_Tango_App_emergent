@@ -128,10 +128,11 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD Phase 2A: Initialize Agent #80 Learning System
-  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // ⚠️ DISABLED: ESM import broken - seedLearnings.ts doesn't export as .js
   // try {
   //   const { initializeLearningSystem } = await import('./init/seedLearnings.js');
   //   await initializeLearningSystem();
+  //   console.log('✅ Agent #80 Learning System initialized');
   // } catch (error) {
   //   console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
   // }
@@ -548,7 +549,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   // Initialize Phase 4: Intelligent Performance Monitor
-  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // ⚠️ DISABLED: ESM import broken - intelligentPerformanceMonitor.ts doesn't export as .js
   // try {
   //   const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor.js');
   //   await intelligentMonitor.startMonitoring();
@@ -558,7 +559,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // }
 
   // Initialize Enhanced Life CEO Service with 41x21s framework
-  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // ⚠️ DISABLED: ESM import broken - lifeCeoEnhancedService.ts doesn't export as .js
   // try {
   //   const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
   //   await lifeCeoEnhanced.continuousValidation();
@@ -568,23 +569,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // }
 
   // Life CEO Enhanced API endpoints
-  // TODO: Re-enable after fixing ESM import issue
-  app.get('/api/life-ceo/pre-development-checklist', setUserContext, async (req: any, res) => {
-    try {
-      res.status(503).json({ error: 'Service temporarily unavailable - ESM import issue being fixed' });
-      return;
-      // const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-      // const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
-      res.json(result);
-    } catch (error) {
-      console.error('Error running pre-development checklist:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: 'Failed to run pre-development checklist',
-        error: error instanceof Error ? error.message : String(error)
-      });
-    }
-  });
+  // ⚠️ DISABLED: ESM import broken - lifeCeoEnhancedService.ts doesn't export as .js
+  // app.get('/api/life-ceo/pre-development-checklist', setUserContext, async (req: any, res) => {
+  //   try {
+  //     const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
+  //     const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
+  //     res.json(result);
+  //   } catch (error) {
+  //     console.error('Error running pre-development checklist:', error);
+  //     res.status(500).json({ 
+  //       success: false, 
+  //       message: 'Failed to run pre-development checklist',
+  //       error: error instanceof Error ? error.message : String(error)
+  //     });
+  //   }
+  // });
 
   app.post('/api/life-ceo/auto-fix', setUserContext, async (req: any, res) => {
     try {
@@ -1484,7 +1483,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🔧 MB.MD Maximum Parallel Build: Visual Editor Backend Infrastructure (Oct 21, 2025)
   app.use('/api/git', gitRoutes); // Git status, commit, log, diff
   // WEEK 2 ENHANCEMENT: Real file tree API (Oct 24, 2025)
-  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // ⚠️ DISABLED: ESM import broken - filesApi.ts doesn't export as .js (FATAL CRASH)
   // const filesApiRoutes = (await import('./routes/filesApi.js')).default;
   // app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
   app.use('/api/files', filesRoutes); // Legacy Filesystem browser, read, write

@@ -284,12 +284,14 @@ const startServer = async () => {
       console.log(`[server] listening on ${PORT}`);
       
       // Start automated model monitoring (checks 4x daily for deprecations - Oct 22, 2025)
+      // ✅ MB.MD FIX: Use correct export name (startModelMonitoringCron)
       import('./services/modelMonitorCron.js')
         .then((module) => {
-          if (module.start) {
-            module.start();
-          } else if (module.default?.start) {
-            module.default.start();
+          if (module.startModelMonitoringCron) {
+            module.startModelMonitoringCron();
+            console.log('✅ Model monitoring cron initialized (runs every 6 hours)');
+          } else {
+            console.warn('⚠️  Model monitoring cron: startModelMonitoringCron function not found');
           }
         })
         .catch(error => console.warn('⚠️  Model monitoring cron unavailable:', error));
