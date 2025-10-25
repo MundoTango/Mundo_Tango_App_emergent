@@ -130,22 +130,39 @@ export default function UnifiedTopBar({
     };
   }, [user]);
 
-  // MB.MD SIMULTANEOUS: Use default fetcher
+  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
   const { data: notificationCountData } = useQuery<CountData>({
     queryKey: ['/api/notifications/count'],
+    queryFn: async () => {
+      const res = await fetch('/api/notifications/count', { credentials: 'include' });
+      if (!res.ok) return { count: 0 };
+      return res.json();
+    },
     refetchInterval: 30000
   });
   const notificationCount = notificationCountData?.count || 0;
 
   const { data: messageCountData } = useQuery<CountData>({
     queryKey: ['/api/messages/unread-count'],
+    queryFn: async () => {
+      const res = await fetch('/api/messages/unread-count', { credentials: 'include' });
+      if (!res.ok) return { count: 0 };
+      return res.json();
+    },
     refetchInterval: 30000
   });
   const messageCount = messageCountData?.count || 0;
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // MB.MD SIMULTANEOUS: Explicit queryFn for search with query params
   const { data: searchResultsData, isLoading: searchLoading } = useQuery<SearchResults>({
     queryKey: ['/api/search/user/global-search', { q: searchQuery }],
+    queryFn: async () => {
+      const res = await fetch(`/api/search/user/global-search?q=${encodeURIComponent(searchQuery)}`, {
+        credentials: 'include'
+      });
+      if (!res.ok) return null;
+      return res.json();
+    },
     enabled: !!searchQuery.trim()
   });
   const searchResults = searchResultsData || null;

@@ -39,10 +39,14 @@ const TrialBanner: React.FC = () => {
     localStorage.getItem('trialBannerDismissedUntil')
   );
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
   // Fetch trial status - ESA Agent #17 (Payment Processing)
   const { data: trialStatus, isLoading } = useQuery({
     queryKey: ['/api/payments/trial-status'],
+    queryFn: async () => {
+      const res = await apiRequest('/api/payments/trial-status');
+      return res.json();
+    },
     enabled: isAuthenticated,
   });
 

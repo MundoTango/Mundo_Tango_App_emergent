@@ -48,14 +48,28 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
   const { user } = useAuth();
   const { toast } = useToast();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
   const { data: aiContext, isLoading: contextLoading } = useQuery<AIContext>({
     queryKey: ['/api/ai-intelligence/context', { userId: user?.id || '', sessionId: sessionId || '' }],
+    queryFn: async () => {
+      const res = await fetch(`/api/ai-intelligence/context?userId=${user?.id || ''}&sessionId=${sessionId || ''}`, {
+        credentials: 'include'
+      });
+      if (!res.ok) return null;
+      return res.json();
+    },
     enabled: !!user && !!sessionId && isOpen,
   });
 
   const { data: suggestions } = useQuery({
     queryKey: ['/api/ai-intelligence/suggestions', { route: currentRoute }],
+    queryFn: async () => {
+      const res = await fetch(`/api/ai-intelligence/suggestions?route=${encodeURIComponent(currentRoute)}`, {
+        credentials: 'include'
+      });
+      if (!res.ok) return null;
+      return res.json();
+    },
     enabled: !!user && isOpen,
   });
 
