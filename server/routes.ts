@@ -109,6 +109,12 @@ import mrBlueAutonomousRoutes from "./routes/mrBlueAutonomous/index.js"; // Auto
 import { RealTimeNotificationService } from "./services/realTimeNotifications";
 import { lifeCeoPerformance } from "./services/lifeCeoPerformanceService";
 import { setupVite, log as viteLog } from "./vite";
+// ✅ MB.MD SIMULTANEOUS FIX: Convert dynamic imports to static imports
+import { initializeLearningSystem } from "./init/seedLearnings"; // Agent #80 Learning System
+import { intelligentMonitor } from "./services/intelligentPerformanceMonitor"; // Phase 4 Intelligent Monitor
+import { lifeCeoEnhanced } from "./services/lifeCeoEnhancedService"; // Life CEO Enhanced Service
+import { startModelMonitoringCron } from "./services/modelMonitorCron"; // Model Monitoring Cron
+import filesApiRoutes from "./routes/filesApi"; // Enhanced Files API
 
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
@@ -127,15 +133,14 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // MB.MD Phase 2A: Initialize Agent #80 Learning System
-  // ⚠️ DISABLED: ESM import broken - seedLearnings.ts doesn't export as .js
-  // try {
-  //   const { initializeLearningSystem } = await import('./init/seedLearnings.js');
-  //   await initializeLearningSystem();
-  //   console.log('✅ Agent #80 Learning System initialized');
-  // } catch (error) {
-  //   console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
-  // }
+  // MB.MD Phase 2A: Initialize Agent #80 Learning System  
+  // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
+  try {
+    await initializeLearningSystem();
+    console.log('✅ Agent #80 Learning System initialized');
+  } catch (error) {
+    console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
+  }
 
   // MB.MD S5: Register production health endpoints FIRST (before any middleware)
   // TODO: Fix health route import - temporarily disabled to get server running
@@ -549,41 +554,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   // Initialize Phase 4: Intelligent Performance Monitor
-  // ⚠️ DISABLED: ESM import broken - intelligentPerformanceMonitor.ts doesn't export as .js
-  // try {
-  //   const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor.js');
-  //   await intelligentMonitor.startMonitoring();
-  //   console.log('🧠 Life CEO Intelligent Performance Monitor active - Phase 4 optimization enabled');
-  // } catch (error) {
-  //   console.error('Warning: Intelligent Performance Monitor initialization failed:', error);
-  // }
+  // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
+  try {
+    await intelligentMonitor.startMonitoring();
+    console.log('🧠 Life CEO Intelligent Performance Monitor active - Phase 4 optimization enabled');
+  } catch (error) {
+    console.error('Warning: Intelligent Performance Monitor initialization failed:', error);
+  }
 
   // Initialize Enhanced Life CEO Service with 41x21s framework
-  // ⚠️ DISABLED: ESM import broken - lifeCeoEnhancedService.ts doesn't export as .js
-  // try {
-  //   const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-  //   await lifeCeoEnhanced.continuousValidation();
-  //   console.log('🧠 Life CEO Enhanced Service initialized - 41x21s framework active');
-  // } catch (error) {
-  //   console.error('Warning: Life CEO Enhanced Service initialization failed:', error);
-  // }
+  // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
+  try {
+    await lifeCeoEnhanced.continuousValidation();
+    console.log('🧠 Life CEO Enhanced Service initialized - 41x21s framework active');
+  } catch (error) {
+    console.error('Warning: Life CEO Enhanced Service initialization failed:', error);
+  }
 
   // Life CEO Enhanced API endpoints
-  // ⚠️ DISABLED: ESM import broken - lifeCeoEnhancedService.ts doesn't export as .js
-  // app.get('/api/life-ceo/pre-development-checklist', setUserContext, async (req: any, res) => {
-  //   try {
-  //     const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-  //     const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
-  //     res.json(result);
-  //   } catch (error) {
-  //     console.error('Error running pre-development checklist:', error);
-  //     res.status(500).json({ 
-  //       success: false, 
-  //       message: 'Failed to run pre-development checklist',
-  //       error: error instanceof Error ? error.message : String(error)
-  //     });
-  //   }
-  // });
+  // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
+  app.get('/api/life-ceo/pre-development-checklist', setUserContext, async (req: any, res) => {
+    try {
+      const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
+      res.json(result);
+    } catch (error) {
+      console.error('Error running pre-development checklist:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to run pre-development checklist',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
 
   app.post('/api/life-ceo/auto-fix', setUserContext, async (req: any, res) => {
     try {
@@ -606,10 +608,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/life-ceo/mobile-readiness', setUserContext, async (req: any, res) => {
     try {
-      res.status(503).json({ error: 'Service temporarily unavailable - ESM import issue being fixed' });
-      return;
-      // const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-      // const result = await lifeCeoEnhanced.checkMobileReadiness();
+      // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
+      const result = await lifeCeoEnhanced.checkMobileReadiness();
       res.json(result);
     } catch (error) {
       console.error('Error checking mobile readiness:', error);
@@ -1483,9 +1483,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🔧 MB.MD Maximum Parallel Build: Visual Editor Backend Infrastructure (Oct 21, 2025)
   app.use('/api/git', gitRoutes); // Git status, commit, log, diff
   // WEEK 2 ENHANCEMENT: Real file tree API (Oct 24, 2025)
-  // ⚠️ DISABLED: ESM import broken - filesApi.ts doesn't export as .js (FATAL CRASH)
-  // const filesApiRoutes = (await import('./routes/filesApi.js')).default;
-  // app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
+  // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
+  app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
   app.use('/api/files', filesRoutes); // Legacy Filesystem browser, read, write
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
@@ -1517,8 +1516,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   RealTimeNotificationService.initialize(server);
   
   // 🔍 MB.MD Stream G (Oct 22, 2025): Initialize automated model monitoring cron
+  // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
   try {
-    const { startModelMonitoringCron } = await import('./services/modelMonitorCron.js');
     startModelMonitoringCron();
     console.log('✅ Model monitoring cron initialized (runs every 6 hours)');
   } catch (error) {

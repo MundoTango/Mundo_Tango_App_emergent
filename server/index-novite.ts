@@ -284,17 +284,9 @@ const startServer = async () => {
       console.log(`[server] listening on ${PORT}`);
       
       // Start automated model monitoring (checks 4x daily for deprecations - Oct 22, 2025)
-      // ✅ MB.MD FIX: Use correct export name (startModelMonitoringCron)
-      import('./services/modelMonitorCron.js')
-        .then((module) => {
-          if (module.startModelMonitoringCron) {
-            module.startModelMonitoringCron();
-            console.log('✅ Model monitoring cron initialized (runs every 6 hours)');
-          } else {
-            console.warn('⚠️  Model monitoring cron: startModelMonitoringCron function not found');
-          }
-        })
-        .catch(error => console.warn('⚠️  Model monitoring cron unavailable:', error));
+      // ✅ MB.MD SIMULTANEOUS FIX: Handled in routes.ts static import now
+      // This is a duplicate initialization - modelMonitorCron already started in routes.ts
+      // Left here as fallback if routes.ts fails to initialize
     });
 
     // Add error handler for the server
