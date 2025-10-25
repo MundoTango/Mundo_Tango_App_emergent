@@ -29,9 +29,14 @@ export function GitPanePanel() {
   const [commitMessage, setCommitMessage] = useState('');
   const [generatingMessage, setGeneratingMessage] = useState(false);
 
-  // Fetch Git status
+  // Fetch Git status - explicit queryFn to prevent console errors
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatus>({
     queryKey: ['/api/git/status'],
+    queryFn: async () => {
+      const res = await fetch('/api/git/status', { credentials: 'include' });
+      if (!res.ok) return null;
+      return res.json();
+    },
     refetchInterval: 5000 // Auto-refresh every 5s
   });
 

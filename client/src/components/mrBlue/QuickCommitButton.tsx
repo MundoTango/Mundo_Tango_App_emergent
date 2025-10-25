@@ -22,9 +22,14 @@ interface GitStatus {
 export function QuickCommitButton() {
   const { toast } = useToast();
 
-  // Fetch git status
+  // Fetch git status - explicit queryFn to prevent console errors
   const { data: gitStatus } = useQuery<GitStatus>({
     queryKey: ['/api/git/status'],
+    queryFn: async () => {
+      const res = await fetch('/api/git/status', { credentials: 'include' });
+      if (!res.ok) return null;
+      return res.json();
+    },
     refetchInterval: 5000, // Poll every 5 seconds
   });
 

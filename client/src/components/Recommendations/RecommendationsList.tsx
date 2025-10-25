@@ -92,7 +92,7 @@ export default function RecommendationsList({
   // Journey R4: City filter support
   const cityToUse = filters.city || city;
   
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
   const { data: apiResponse, isLoading } = useQuery({
     queryKey: ['/api/recommendations', { 
       city: cityToUse,
@@ -108,14 +108,37 @@ export default function RecommendationsList({
       minRating: filters.minRating,
       tags: filters.tags && filters.tags.length > 0 ? filters.tags.join(',') : undefined
     }],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (cityToUse) params.append('city', cityToUse);
+      if (groupSlug) params.append('groupSlug', groupSlug);
+      if (filters.connectionDegree !== 'anyone') params.append('connectionDegree', filters.connectionDegree);
+      if (filters.minClosenessScore) params.append('minClosenessScore', filters.minClosenessScore.toString());
+      if (filters.localStatus !== 'all') params.append('localStatus', filters.localStatus);
+      if (filters.originCountry) params.append('originCountry', filters.originCountry);
+      if (filters.cuisine) params.append('cuisine', filters.cuisine);
+      if (filters.categories && filters.categories.length > 0) params.append('categories', filters.categories.join(','));
+      if (!filters.categories || filters.categories.length === 0) if (filters.type) params.append('type', filters.type);
+      if (filters.priceLevel) params.append('priceLevel', filters.priceLevel);
+      if (filters.minRating) params.append('minRating', filters.minRating.toString());
+      if (filters.tags && filters.tags.length > 0) params.append('tags', filters.tags.join(','));
+      const res = await fetch(`/api/recommendations?${params}`, { credentials: 'include' });
+      if (!res.ok) return { data: [] };
+      return res.json();
+    },
     enabled: !!cityToUse || !!groupSlug
   });
 
   const recommendations = apiResponse?.data || [];
 
-  // ESA Layer 24: Fetch linked post when modal is open (MB.MD SIMULTANEOUS)
+  // ESA Layer 24: Fetch linked post when modal is open - explicit queryFn
   const { data: linkedPostData, isLoading: isPostLoading } = useQuery({
     queryKey: ['/api/posts', selectedRecommendation?.postId],
+    queryFn: async () => {
+      const res = await fetch(`/api/posts/${selectedRecommendation?.postId}`, { credentials: 'include' });
+      if (!res.ok) return { data: null };
+      return res.json();
+    },
     enabled: !!selectedRecommendation?.postId
   });
   const linkedPost = linkedPostData?.data || null;
