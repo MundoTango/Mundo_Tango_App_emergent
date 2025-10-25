@@ -777,6 +777,24 @@ export const breadcrumbs = pgTable("breadcrumbs", {
   index("idx_breadcrumbs_action").on(table.action),
 ]);
 
+// MB.MD SIMULTANEOUS: Component Attributions for Visual Editor (Oct 25, 2025)
+// Maps UI elements to the agents that built them
+export const componentAttributions = pgTable("component_attributions", {
+  id: serial("id").primaryKey(),
+  componentPath: varchar("component_path", { length: 500 }).notNull(),
+  xpath: text("xpath"),
+  testId: varchar("test_id", { length: 255 }),
+  agentId: integer("agent_id"),
+  agentName: varchar("agent_name", { length: 255 }).notNull(),
+  agentRole: varchar("agent_role", { length: 255 }).notNull(),
+  contribution: text("contribution"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_attributions_xpath").on(table.xpath),
+  index("idx_attributions_testid").on(table.testId),
+  index("idx_attributions_component").on(table.componentPath),
+]);
+
 // Follows table
 export const follows = pgTable("follows", {
   id: serial("id").primaryKey(),

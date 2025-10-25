@@ -6,6 +6,9 @@
 
 import { Router } from 'express';
 import { isAuthenticated } from '../replitAuth';
+import { db } from '../db';
+import { componentAttributions, componentHistory } from '../../shared/schema';
+import { eq, desc } from 'drizzle-orm';
 
 const router = Router();
 
@@ -18,29 +21,28 @@ router.get('/attribution', isAuthenticated, async (req, res) => {
       return res.status(400).json({ error: 'xpath parameter required' });
     }
     
-    // TODO: Query database for real agent attribution
-    // For now, return mock data based on element type
-    const agents = [
-      {
-        name: 'Layout Agent #12',
-        role: 'Structure & Positioning',
-        contribution: 'Created element structure and positioning',
-        timestamp: new Date().toISOString(),
-        agentId: 12
-      },
-      {
-        name: 'UI Component Agent #34',
-        role: 'Styling & Interactions',
-        contribution: 'Applied Mundo Tango theme and interactions',
-        timestamp: new Date().toISOString(),
-        agentId: 34
-      }
-    ];
+    // 🚀 MB.MD SIMULTANEOUS: Query real database for component attribution
+    const attributions = await db
+      .select()
+      .from(componentAttributions)
+      .where(eq(componentAttributions.xpath, xpath as string))
+      .orderBy(desc(componentAttributions.createdAt));
     
+    const agents = attributions.map(attr => ({
+      name: attr.agentName,
+      role: attr.agentRole,
+      contribution: attr.contribution || 'Built this component',
+      timestamp: attr.createdAt?.toISOString(),
+      agentId: attr.agentId
+    }));
+    
+    // If no data in database yet, show friendly message
     res.json({
       success: true,
       xpath,
-      agents
+      agents,
+      count: agents.length,
+      message: agents.length === 0 ? 'No attribution data recorded yet. Agents will log their work as they modify components.' : undefined
     });
   } catch (error) {
     console.error('[Attribution] Error:', error);
@@ -59,26 +61,29 @@ router.get('/history', isAuthenticated, async (req, res) => {
       return res.status(400).json({ error: 'xpath parameter required' });
     }
     
-    // TODO: Query database for full change history
-    const history = [
-      {
-        timestamp: new Date(Date.now() - 86400000).toISOString(),
-        agent: 'Layout Agent #12',
-        action: 'Created element',
-        diff: '+<div class="container">...</div>'
-      },
-      {
-        timestamp: new Date(Date.now() - 3600000).toISOString(),
-        agent: 'UI Component Agent #34',
-        action: 'Styled element',
-        diff: '+background: linear-gradient(...)'
-      }
-    ];
+    // 🚀 MB.MD SIMULTANEOUS: Query existing componentHistory table
+    // Note: This table tracks all component changes across the codebase
+    const historyRecords = await db
+      .select()
+      .from(componentHistory)
+      .where(eq(componentHistory.componentPath, xpath as string))
+      .orderBy(desc(componentHistory.timestamp))
+      .limit(50); // Limit to last 50 changes
+    
+    const history = historyRecords.map(record => ({
+      timestamp: record.timestamp?.toISOString(),
+      agent: record.agentId || 'Unknown Agent',
+      action: record.changeType,
+      diff: record.changeDescription || 'No description',
+      componentId: record.componentId
+    }));
     
     res.json({
       success: true,
       xpath,
-      history
+      history,
+      count: history.length,
+      message: history.length === 0 ? 'No change history recorded yet. Changes will appear here as agents modify components.' : undefined
     });
   } catch (error) {
     console.error('[Attribution] History error:', error);
