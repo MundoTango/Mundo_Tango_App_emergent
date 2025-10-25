@@ -1013,13 +1013,54 @@ export function ChatInterface() {
             filePath={diffPreview.filePath || ''}
             oldCode={diffPreview.oldCode || ''}
             newCode={diffPreview.newCode || ''}
-            onAccept={() => {
-              // TODO: Integrate with Git commit flow
-              toast({
-                title: 'Changes Applied',
-                description: 'Code changes have been accepted',
-              });
-              setDiffPreview({ isOpen: false });
+            onAccept={async () => {
+              try {
+                const { filePath, oldCode, newCode } = diffPreview;
+                if (!filePath || !newCode) return;
+                
+                // 🚀 STREAM C1: Write file using unified diff
+                const diffContent = `--- ${filePath}
++++ ${filePath}
+@@ -1,${oldCode?.split('\n').length || 0} +1,${newCode.split('\n').length} @@
+-${oldCode || ''}
++${newCode}`;
+                
+                await apiRequest('/api/vibe/edit-file', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    filePath,
+                    editType: 'unified_diff',
+                    diffContent
+                  })
+                });
+                
+                // 🚀 STREAM C2: Generate AI commit message and commit
+                const commitMsgRes = await fetch('/api/git/generate-message', {
+                  method: 'POST',
+                  credentials: 'include'
+                });
+                const { message: commitMsg } = await commitMsgRes.json();
+                
+                const commitRes: any = await apiRequest('/api/git/commit', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    message: commitMsg,
+                    files: [filePath]
+                  })
+                });
+                
+                toast({
+                  title: 'Changes Applied! ✨',
+                  description: `File written and committed: ${commitRes.commitHash?.substring(0, 7) || 'success'}`,
+                });
+                setDiffPreview({ isOpen: false });
+              } catch (error) {
+                toast({
+                  title: 'Failed to apply changes',
+                  description: error instanceof Error ? error.message : 'Unknown error',
+                  variant: 'destructive'
+                });
+              }
             }}
             onReject={() => {
               toast({

@@ -70,6 +70,7 @@ import voiceConversationRoutes from "./routes/voiceConversationRoutes"; // Voice
 import chatSummarizationRoutes from "./routes/chatSummarizationRoutes"; // Chat Summarization API - Unified Voice Modal - Oct 22, 2025
 import multiAgentRoutes from "./routes/multiAgentRoutes"; // Multi-Agent Orchestration API - MB.MD Phase 3R-T - Oct 21, 2025
 import gitRoutes from "./routes/gitRoutes"; // Git Integration API - Agent #126 - MB.MD Parallel Build - Oct 22, 2025
+import componentAttributionRoutes from "./routes/componentAttributionRoutes"; // Component Attribution API - Agent #79 - MB.MD SIMULTANEOUS - Oct 25, 2025
 import filesRoutes from "./routes/filesRoutes"; // Filesystem Browser API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
@@ -1484,6 +1485,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // 🔧 MB.MD Maximum Parallel Build: Visual Editor Backend Infrastructure (Oct 21, 2025)
   app.use('/api/git', gitRoutes); // Git status, commit, log, diff
+  app.use('/api/components', componentAttributionRoutes); // Component attribution & history - Agent #79 - MB.MD SIMULTANEOUS - Oct 25, 2025
   // WEEK 2 ENHANCEMENT: Real file tree API (Oct 24, 2025)
   // ✅ MB.MD SIMULTANEOUS FIX: Static import (no dynamic import issues)
   app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete

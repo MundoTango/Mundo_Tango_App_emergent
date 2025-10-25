@@ -4,6 +4,7 @@
  * MB.MD Track 1 - Agent Attribution
  */
 
+import { useState, useEffect } from 'react';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { Users, Code, FileText } from 'lucide-react';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
@@ -23,9 +24,36 @@ export function AgentAttributionPanel({ selectedElement }: AgentAttributionPanel
     );
   }
 
-  // TODO: Query actual agent attribution from database
-  // For now, show mock data based on element type
-  const agents = getAgentsForElement(selectedElement);
+  // 🚀 STREAM G: Query real agent attribution
+  const [agents, setAgents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    const fetchAttribution = async () => {
+      if (!selectedElement) return;
+      
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/components/attribution?xpath=${encodeURIComponent(selectedElement.xpath)}`, {
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setAgents(data.agents || getAgentsForElement(selectedElement));
+        } else {
+          setAgents(getAgentsForElement(selectedElement));
+        }
+      } catch (error) {
+        console.error('Failed to fetch attribution:', error);
+        setAgents(getAgentsForElement(selectedElement));
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchAttribution();
+  }, [selectedElement]);
 
   return (
     <CollapsiblePanel title="Agent Attribution" icon={<Users className="w-4 h-4" />}>
@@ -56,9 +84,18 @@ export function AgentAttributionPanel({ selectedElement }: AgentAttributionPanel
 
         <div className="pt-2 border-t border-gray-700">
           <button 
-            onClick={() => {
-              // TODO: Open modal with full attribution history
-              alert(`Full History for ${selectedElement.tagName}\n\nThis will show:\n• All agents that touched this element\n• Timestamps of changes\n• Code diffs\n• Reasoning for each decision\n\n(Feature coming soon)`);
+            onClick={async () => {
+              try {
+                const response = await fetch(`/api/components/history?xpath=${encodeURIComponent(selectedElement.xpath)}`, {
+                  credentials: 'include'
+                });
+                const data = await response.json();
+                console.log('Full attribution history:', data);
+                // Future: Open modal with full history
+                alert(`Full History for ${selectedElement.tagName}\n\n${data.history?.length || 0} changes found\n\nSee console for details`);
+              } catch (error) {
+                alert('Failed to load attribution history');
+              }
             }}
             className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
             data-testid="button-view-full-history"

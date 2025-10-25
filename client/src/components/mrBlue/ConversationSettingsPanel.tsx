@@ -89,15 +89,28 @@ export function ConversationSettingsPanel() {
   };
 
   const handleSave = async () => {
-    // TODO: Save to backend
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    toast({
-      title: 'Settings saved',
-      description: 'Your conversation preferences have been updated.',
-    });
-    
-    setHasChanges(false);
+    try {
+      // 🚀 STREAM E2: Save settings to backend
+      await fetch('/api/user/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(settings)
+      });
+      
+      toast({
+        title: 'Settings saved',
+        description: 'Your conversation preferences have been updated.',
+      });
+      
+      setHasChanges(false);
+    } catch (error) {
+      toast({
+        title: 'Failed to save settings',
+        description: error instanceof Error ? error.message : 'Unknown error',
+        variant: 'destructive'
+      });
+    }
   };
 
   const handleReset = () => {

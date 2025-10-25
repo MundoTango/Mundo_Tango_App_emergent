@@ -45,9 +45,43 @@ export function AISuggestionsPanel({ selectedElement, onApplySuggestion }: AISug
   const generateSuggestions = async (element: ElementSelection) => {
     setLoading(true);
 
-    // For now, generate rule-based suggestions
-    // TODO: Call Claude to generate context-aware suggestions
+    // 🚀 STREAM D: Call Claude for context-aware suggestions
     const contextualSuggestions: Suggestion[] = [];
+    
+    try {
+      const response = await fetch('/api/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          model: 'claude-3-5-sonnet-20241022',
+          messages: [{
+            role: 'user',
+            content: `Generate 3-5 practical UI/UX suggestions for this HTML element:
+
+Element: <${element.tagName.toLowerCase()}${element.id ? ` id="${element.id}"` : ''}${element.className ? ` class="${element.className}"` : ''}>
+${element.textContent ? `Text: ${element.textContent.substring(0, 100)}` : ''}
+
+For each suggestion, provide:
+1. title: Short action (e.g., "Add Hover Effect")
+2. description: What it does
+3. category: style, content, interaction, or layout
+4. prompt: Vibe coding instruction (e.g., "Add hover animation to...")
+
+Return JSON array: [{ title, description, category, prompt }]`
+          }],
+          temperature: 0.7
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        const aiSuggestions = JSON.parse(data.response || '[]');
+        contextualSuggestions.push(...aiSuggestions);
+      }
+    } catch (error) {
+      console.error('AI suggestions failed, using fallback:', error);
+    }
 
     // Style suggestions
     if (element.tagName.toLowerCase() === 'button') {

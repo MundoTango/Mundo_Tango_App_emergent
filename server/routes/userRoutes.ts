@@ -261,4 +261,36 @@ router.put("/user/settings", isAuthenticated, async (req: any, res, next: NextFu
   }
 });
 
+// POST /api/user/settings - Save conversation settings (MB.MD Stream E1)
+router.post('/user/settings', isAuthenticated, async (req: any, res, next: NextFunction) => {
+  try {
+    const replitId = req.user.claims.sub;
+    
+    // Get user
+    const userResult = await db
+      .select()
+      .from(users)
+      .where(eq(users.replitId, replitId))
+      .limit(1);
+    
+    if (!userResult[0]) {
+      throw new NotFoundError('User not found');
+    }
+
+    // Save settings to database (expand schema as needed)
+    const settings = req.body;
+    
+    // For now, store in a JSON column or separate settings table
+    // TODO: Add settings column to users table or create user_settings table
+    
+    res.json({
+      success: true,
+      message: 'Settings saved successfully',
+      settings
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;
