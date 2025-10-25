@@ -73,7 +73,6 @@ export function ChatInterface() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
-  const [isRefetching, setIsRefetching] = useState(false); // 🔧 Prevent clearing during refetch
   const [optimisticMessage, setOptimisticMessage] = useState<string | null>(null);
   const [streamingResponse, setStreamingResponse] = useState<string>('');
   
@@ -517,42 +516,21 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // 🚀 ADVANCED LOGGING (Oct 25, 2025)
-      console.log('🔍 [ChatInterface] Before query invalidation:', {
-        projId,
-        optimisticMessage,
-        streamingResponseLength: streamingResponse?.length || 0,
-        timestamp: new Date().toISOString()
-      });
+      // 🔧 CRITICAL FIX (Oct 25): DON'T CLEAR STATES - Let React Query handle display
+      // The messages from DB will naturally replace the temporary states when they render
+      // This prevents the "flash" where everything disappears momentarily
       
-      // 🔧 CRITICAL FIX (Oct 25): Set refetching flag to prevent UI clearing
-      setIsRefetching(true);
-      
-      // MB.MD FIX: Use array segments to match query key format
-      await queryClient.invalidateQueries({ 
+      // Just invalidate - React Query will refetch automatically
+      queryClient.invalidateQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
-      console.log('🔍 [ChatInterface] Query invalidated, waiting for refetch...');
-      
-      // 🔧 CRITICAL FIX (Oct 25): Wait for messages to refetch BEFORE clearing states
-      // This prevents the "chat clears everything" bug where response vanishes instantly
-      await queryClient.refetchQueries({ 
-        queryKey: ['/api/chat/projects', projId, 'messages']
-      });
-      
-      console.log('🔍 [ChatInterface] Messages refetched successfully!');
-      
-      // 🔧 Wait additional 100ms to ensure React has rendered the new messages
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      console.log('🔍 [ChatInterface] Now clearing temporary states');
-      
-      // Clear states AFTER messages are loaded into cache AND rendered
-      setStreamingToolStatus(null);
-      setOptimisticMessage(null);
-      setStreamingResponse('');
-      setIsRefetching(false);
+      // Clear states after a delay to let DB messages render first
+      setTimeout(() => {
+        setStreamingToolStatus(null);
+        setOptimisticMessage(null);
+        setStreamingResponse('');
+      }, 500); // 500ms delay ensures smooth transition
       
       // 🔧 PHASE 2: Extract build intents from AI response
       await extractAndQueueBuildIntents(projId);
@@ -1012,8 +990,7 @@ export function ChatInterface() {
           ))}
 
           {/* OPTIMISTIC UI: Show user message immediately */}
-          {/* 🔧 Keep showing if refetching to prevent flash */}
-          {(optimisticMessage || isRefetching) && optimisticMessage && (
+          {optimisticMessage && (
             <EnhancedMessageBubble
               role="user"
               content={optimisticMessage}
@@ -1022,7 +999,7 @@ export function ChatInterface() {
           )}
 
           {/* REPLIT-STYLE THINKING INDICATOR */}
-          {optimisticMessage && !streamingResponse && !isRefetching && (
+          {optimisticMessage && !streamingResponse && (
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-cyan-600">
                 <div className="flex gap-1">
@@ -1042,14 +1019,13 @@ export function ChatInterface() {
           )}
 
           {/* STREAMING RESPONSE: Show AI response word-by-word */}
-          {/* 🔧 Keep showing if refetching to prevent flash */}
-          {(streamingResponse || isRefetching) && streamingResponse && (
+          {streamingResponse && (
             <EnhancedMessageBubble
               role="assistant"
               content={streamingResponse}
               timestamp={new Date().toLocaleTimeString()}
               metadata={{ agentMode: selectedModel }}
-              isStreaming={!isRefetching} // Stop streaming animation when refetching
+              isStreaming={true}
             />
           )}
 
