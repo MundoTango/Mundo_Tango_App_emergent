@@ -33,7 +33,6 @@ const DiffPreviewModal = lazy(() => import('./DiffPreviewModal').then(m => ({ de
 import { ConversationSidebar } from './ConversationSidebar';
 import { ChatEmptyState } from './ChatEmptyState';
 import { InspectorBadge } from './InspectorBadge';
-import { InspectorPromptSuggestions } from './InspectorPromptSuggestions';
 import { QuickCommitButton } from './QuickCommitButton';
 
 // ============ TYPES ============
@@ -972,22 +971,7 @@ export function ChatInterface() {
           <div ref={messagesEndRef} />
           </div>
           
-          {/* 🚀 STREAM 2: InspectorPromptSuggestions - Point-and-ask prompts (Oct 23, 2025) */}
-          {activeElement && (
-            <InspectorPromptSuggestions
-              element={activeElement}
-              onPromptClick={(prompt) => {
-                setInput(prompt);
-                // Auto-focus textarea
-                setTimeout(() => {
-                  const textarea = document.querySelector('[data-testid="input-message"]') as HTMLTextAreaElement;
-                  textarea?.focus();
-                }, 100);
-              }}
-            />
-          )}
-          
-          {/* 🚀 STREAM 3: QuickCommitButton - One-click AI commit (Oct 23, 2025) */}
+          {/* 🚀 QuickCommitButton - One-click AI commit (Oct 23, 2025) */}
           <QuickCommitButton />
 
           {/* Input Area */}
