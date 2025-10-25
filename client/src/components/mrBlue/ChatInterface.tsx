@@ -75,6 +75,7 @@ export function ChatInterface() {
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
   const [optimisticMessage, setOptimisticMessage] = useState<string | null>(null);
   const [streamingResponse, setStreamingResponse] = useState<string>('');
+  const [lastStreamedContent, setLastStreamedContent] = useState<string>(''); // Track what we just sent
   
   // 🚀 VIBE CODING INTEGRATION: Store code changes from AI (Oct 23, 2025)
   const [codeChangesByMessage, setCodeChangesByMessage] = useState<Record<number, CodeChange[]>>({});
@@ -516,40 +517,17 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // 🔧 ARCHITECT FIX (Oct 25): Prevent 304 cache + optimistic update
-      // Problem: Server returns 304, React Query shows stale data, setTimeout clears UI = blank chat
-      // Solution: Force fresh fetch + optimistic update so UI never goes blank
+      // 🔧 NEW APPROACH (Oct 25): Don't clear manually - let useEffect watch for DB messages
+      // Save what we just sent so useEffect can detect when it appears in DB
+      setLastStreamedContent(streamingResponse);
       
-      // STEP 1: Optimistically add assistant message to cache immediately
-      const optimisticAssistantMessage = {
-        id: Date.now(), // Temporary ID until real one arrives
-        projectId: projId,
-        role: 'assistant' as const,
-        content: streamingResponse,
-        model: selectedModel,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      
-      // Get current messages
-      const currentMessages = queryClient.getQueryData<any[]>(['/api/chat/projects', projId, 'messages']) || [];
-      
-      // Add to cache (prevents blank screen)
-      queryClient.setQueryData(
-        ['/api/chat/projects', projId, 'messages'],
-        [...currentMessages, optimisticAssistantMessage]
-      );
-      
-      // STEP 2: Force fresh fetch (no 304)
-      await queryClient.refetchQueries({ 
-        queryKey: ['/api/chat/projects', projId, 'messages'],
-        type: 'active'
-      });
-      
-      // STEP 3: Clear optimistic states ONLY after real data arrives
+      // Clear tool status immediately (not related to messages)
       setStreamingToolStatus(null);
-      setOptimisticMessage(null);
-      setStreamingResponse('');
+      
+      // Invalidate to trigger refetch (DON'T clear optimistic states here)
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/chat/projects', projId, 'messages']
+      });
       
       // 🔧 PHASE 2: Extract build intents from AI response
       await extractAndQueueBuildIntents(projId);
@@ -798,6 +776,24 @@ export function ChatInterface() {
       setConversationId(conversations[0].id);
     }
   }, [conversations, conversationId]);
+  
+  // 🔧 WATCHER FIX (Oct 25): Clear optimistic states ONLY when DB message appears
+  // This prevents the "flash" where messages disappear before DB data loads
+  useEffect(() => {
+    if (!lastStreamedContent || !messages || messages.length === 0) return;
+    
+    // Check if our streamed content is now in the DB messages
+    const foundInDB = messages.some(msg => 
+      msg.role === 'assistant' && msg.content.includes(lastStreamedContent.substring(0, 50))
+    );
+    
+    if (foundInDB) {
+      console.log('✅ [ChatInterface] DB message found - clearing optimistic states');
+      setOptimisticMessage(null);
+      setStreamingResponse('');
+      setLastStreamedContent(''); // Reset tracker
+    }
+  }, [messages, lastStreamedContent]);
   
 
   const handleSend = async () => {
