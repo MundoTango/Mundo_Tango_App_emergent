@@ -160,13 +160,13 @@ router.get('/status', isAuthenticated, async (req: any, res) => {
     }
 
     // Get subscription from Stripe
-    const subscription = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
+    const subscription = await stripe.subscriptions.retrieve(user.stripeSubscriptionId) as any;
 
     res.json({
       success: true,
       status: subscription.status,
       tier: user.subscriptionTier,
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000).toISOString(),
+      currentPeriodEnd: subscription.current_period_end ? new Date(subscription.current_period_end * 1000).toISOString() : null,
       cancelAtPeriodEnd: subscription.cancel_at_period_end
     });
   } catch (error) {
