@@ -9,17 +9,17 @@ import Stripe from 'stripe';
 import { isAuthenticated } from '../replitAuth';
 import { db } from '../db';
 import { users } from '../../shared/schema';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 
 const router = Router();
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-10-28.acacia'
+  apiVersion: '2025-08-27.basil'
 });
 
 // POST /api/subscriptions/create-checkout - Create Stripe checkout session
-router.post('/create-checkout', isAuthenticated, async (req, res) => {
+router.post('/create-checkout', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user!.id;
     const { tier } = req.body; // 'basic', 'enthusiast', 'professional', 'enterprise'
@@ -98,7 +98,7 @@ router.post('/create-checkout', isAuthenticated, async (req, res) => {
 });
 
 // POST /api/subscriptions/cancel - Cancel subscription
-router.post('/cancel', isAuthenticated, async (req, res) => {
+router.post('/cancel', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user!.id;
 
@@ -136,7 +136,7 @@ router.post('/cancel', isAuthenticated, async (req, res) => {
 });
 
 // GET /api/subscriptions/status - Get subscription status
-router.get('/status', isAuthenticated, async (req, res) => {
+router.get('/status', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user!.id;
 
@@ -179,7 +179,7 @@ router.get('/status', isAuthenticated, async (req, res) => {
 });
 
 // GET /api/subscriptions/usage - Get usage metrics
-router.get('/usage', isAuthenticated, async (req, res) => {
+router.get('/usage', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user!.id;
 
