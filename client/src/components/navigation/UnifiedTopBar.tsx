@@ -38,6 +38,19 @@ interface UnifiedTopBarProps {
   showMenuButton?: boolean;
 }
 
+interface CountData {
+  count: number;
+}
+
+interface SearchResults {
+  users?: any[];
+  events?: any[];
+  groups?: any[];
+  memories?: any[];
+  posts?: any[];
+  totalCount?: number;
+}
+
 export default function UnifiedTopBar({ 
   onMenuToggle,
   theme = 'light',
@@ -118,21 +131,21 @@ export default function UnifiedTopBar({
   }, [user]);
 
   // MB.MD SIMULTANEOUS: Use default fetcher
-  const { data: notificationCountData } = useQuery({
+  const { data: notificationCountData } = useQuery<CountData>({
     queryKey: ['/api/notifications/count'],
     refetchInterval: 30000
   });
   const notificationCount = notificationCountData?.count || 0;
 
-  const { data: messageCountData } = useQuery({
+  const { data: messageCountData } = useQuery<CountData>({
     queryKey: ['/api/messages/unread-count'],
     refetchInterval: 30000
   });
   const messageCount = messageCountData?.count || 0;
 
   // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: searchResultsData, isLoading: searchLoading } = useQuery({
-    queryKey: ['/api/user/global-search', { q: searchQuery }],
+  const { data: searchResultsData, isLoading: searchLoading } = useQuery<SearchResults>({
+    queryKey: ['/api/search/user/global-search', { q: searchQuery }],
     enabled: !!searchQuery.trim()
   });
   const searchResults = searchResultsData || null;
@@ -246,7 +259,7 @@ export default function UnifiedTopBar({
               ) : searchResults ? (
                 <div className="grid grid-cols-4 gap-4 p-4">
                   {/* Posts Section */}
-                  {searchResults.posts?.length > 0 && (
+                  {searchResults.posts && searchResults.posts.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -272,7 +285,7 @@ export default function UnifiedTopBar({
                   )}
 
                   {/* Events Section */}
-                  {searchResults.events?.length > 0 && (
+                  {searchResults.events && searchResults.events.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -296,7 +309,7 @@ export default function UnifiedTopBar({
                   )}
 
                   {/* People Section */}
-                  {searchResults.users?.length > 0 && (
+                  {searchResults.users && searchResults.users.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -326,7 +339,7 @@ export default function UnifiedTopBar({
                   )}
 
                   {/* Groups Section */}
-                  {searchResults.groups?.length > 0 && (
+                  {searchResults.groups && searchResults.groups.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",

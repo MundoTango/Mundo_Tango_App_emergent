@@ -1426,6 +1426,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(postsRoutes); // Posts API: GET/POST/PUT/DELETE /api/posts (registered Oct 20, 2025)
   app.use(messagesRoutes); // Messages API: GET /api/messages, /api/messages/:roomSlug, POST /api/messages/send, GET /api/messages/unread-count, GET /api/notifications/count
   app.use('/api', tenantRoutes); // Tenant API: Multi-tenant management, cross-community content
+  app.use('/api/search', searchRouter); // MB.MD SIMULTANEOUS: Search API - GET /api/search/all, /api/search/user/global-search (Stream A - Oct 25, 2025)
   
   // MB.MD TRACK 1: AI Services Integration - Oct 20, 2025 (58% → 100%)
   // MB.MD Oct 21: Now using static imports (see top of file)
