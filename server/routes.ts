@@ -128,12 +128,13 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // MB.MD Phase 2A: Initialize Agent #80 Learning System
-  try {
-    const { initializeLearningSystem } = await import('./init/seedLearnings.js');
-    await initializeLearningSystem();
-  } catch (error) {
-    console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
-  }
+  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // try {
+  //   const { initializeLearningSystem } = await import('./init/seedLearnings.js');
+  //   await initializeLearningSystem();
+  // } catch (error) {
+  //   console.warn('⚠️ Learning system initialization skipped (will retry later):', error);
+  // }
 
   // MB.MD S5: Register production health endpoints FIRST (before any middleware)
   // TODO: Fix health route import - temporarily disabled to get server running
@@ -547,28 +548,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   // Initialize Phase 4: Intelligent Performance Monitor
-  try {
-    const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor.js');
-    await intelligentMonitor.startMonitoring();
-    console.log('🧠 Life CEO Intelligent Performance Monitor active - Phase 4 optimization enabled');
-  } catch (error) {
-    console.error('Warning: Intelligent Performance Monitor initialization failed:', error);
-  }
+  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // try {
+  //   const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor.js');
+  //   await intelligentMonitor.startMonitoring();
+  //   console.log('🧠 Life CEO Intelligent Performance Monitor active - Phase 4 optimization enabled');
+  // } catch (error) {
+  //   console.error('Warning: Intelligent Performance Monitor initialization failed:', error);
+  // }
 
   // Initialize Enhanced Life CEO Service with 41x21s framework
-  try {
-    const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-    await lifeCeoEnhanced.continuousValidation();
-    console.log('🧠 Life CEO Enhanced Service initialized - 41x21s framework active');
-  } catch (error) {
-    console.error('Warning: Life CEO Enhanced Service initialization failed:', error);
-  }
+  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // try {
+  //   const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
+  //   await lifeCeoEnhanced.continuousValidation();
+  //   console.log('🧠 Life CEO Enhanced Service initialized - 41x21s framework active');
+  // } catch (error) {
+  //   console.error('Warning: Life CEO Enhanced Service initialization failed:', error);
+  // }
 
   // Life CEO Enhanced API endpoints
+  // TODO: Re-enable after fixing ESM import issue
   app.get('/api/life-ceo/pre-development-checklist', setUserContext, async (req: any, res) => {
     try {
-      const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-      const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
+      res.status(503).json({ error: 'Service temporarily unavailable - ESM import issue being fixed' });
+      return;
+      // const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
+      // const result = await lifeCeoEnhanced.runPreDevelopmentChecklist();
       res.json(result);
     } catch (error) {
       console.error('Error running pre-development checklist:', error);
@@ -601,8 +607,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/life-ceo/mobile-readiness', setUserContext, async (req: any, res) => {
     try {
-      const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
-      const result = await lifeCeoEnhanced.checkMobileReadiness();
+      res.status(503).json({ error: 'Service temporarily unavailable - ESM import issue being fixed' });
+      return;
+      // const { lifeCeoEnhanced } = await import('./services/lifeCeoEnhancedService.js');
+      // const result = await lifeCeoEnhanced.checkMobileReadiness();
       res.json(result);
     } catch (error) {
       console.error('Error checking mobile readiness:', error);
@@ -1476,8 +1484,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🔧 MB.MD Maximum Parallel Build: Visual Editor Backend Infrastructure (Oct 21, 2025)
   app.use('/api/git', gitRoutes); // Git status, commit, log, diff
   // WEEK 2 ENHANCEMENT: Real file tree API (Oct 24, 2025)
-  const filesApiRoutes = (await import('./routes/filesApi.js')).default;
-  app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
+  // TODO: Fix ESM import issue - temporarily disabled to get server running
+  // const filesApiRoutes = (await import('./routes/filesApi.js')).default;
+  // app.use('/api/files-v2', isAuthenticated, filesApiRoutes); // Enhanced Files API: GET /tree, /read, POST /write, /create, DELETE /delete
   app.use('/api/files', filesRoutes); // Legacy Filesystem browser, read, write
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery

@@ -24,16 +24,12 @@ interface GitStatusResponse {
 }
 
 export function ReplitGitIntegration() {
-  const [refreshKey, setRefreshKey] = useState(0);
+  // MB.MD FIX: Removed refreshKey - no longer needed, refetch() handles refresh
 
   // Fetch Git status via real backend API (Stream C - Oct 22, 2025)
+  // MB.MD FIX: Use default queryFn for centralized auth/error handling
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatusResponse>({
-    queryKey: ['/api/git/status', refreshKey],
-    queryFn: async () => {
-      const res = await fetch('/api/git/status', { credentials: 'include' });
-      if (!res.ok) throw new Error(`Git status failed: ${res.statusText}`);
-      return res.json();
-    },
+    queryKey: ['/api/git/status'],
     refetchInterval: 5000, // Auto-refresh every 5s
   });
 
@@ -44,7 +40,6 @@ export function ReplitGitIntegration() {
   };
 
   const handleRefresh = () => {
-    setRefreshKey(prev => prev + 1);
     refetch();
   };
 
