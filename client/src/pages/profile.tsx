@@ -107,57 +107,23 @@ export default function Profile() {
     };
   }, []);
 
-  // Fetch user stats with retry logic
+  // Fetch user stats (MB.MD SIMULTANEOUS: Use default fetcher with retry logic)
   const { data: statsData, error: statsError } = useQuery({
     queryKey: ['/api/user/stats', user?.id],
-    queryFn: async () => {
-      const tracker = measureApiCall('/api/user/stats');
-      try {
-        const response = await withRetry(
-          () => withTimeout(
-            () => fetch(`/api/user/stats`, { credentials: 'include' }),
-            5000
-          )
-        );
-        
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const result = await response.json();
-        tracker.complete(response.status);
-        return result.data || {};
-      } catch (error) {
-        tracker.error(error);
-        throw error;
-      }
-    },
     enabled: !!user?.id,
-    retry: false
+    retry: 3, // Built-in retry instead of withRetry wrapper
+    retryDelay: 1000,
   });
 
-  // Fetch guest profile with retry logic
-  const { data: guestProfile, isLoading: guestProfileLoading, error: guestProfileError } = useQuery({
+  // Fetch guest profile (MB.MD SIMULTANEOUS: Use default fetcher with retry logic)
+  const { data: guestProfileData, isLoading: guestProfileLoading, error: guestProfileError } = useQuery({
     queryKey: ['/api/guest-profiles', user?.id],
-    queryFn: async () => {
-      const tracker = measureApiCall('/api/guest-profiles');
-      try {
-        const response = await withRetry(
-          () => withTimeout(
-            () => fetch(`/api/guest-profiles`, { credentials: 'include' }),
-            5000
-          )
-        );
-        
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const result = await response.json();
-        tracker.complete(response.status);
-        return result.data;
-      } catch (error) {
-        tracker.error(error);
-        throw error;
-      }
-    },
     enabled: !!user?.id && activeTab === 'guest-profile',
-    retry: false
+    retry: 3,
+    retryDelay: 1000,
   });
+  
+  const guestProfile = guestProfileData?.data;
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);

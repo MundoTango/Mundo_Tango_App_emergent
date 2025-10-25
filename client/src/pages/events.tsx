@@ -33,14 +33,9 @@ export default function EventsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
 
-  // Fetch events
-  const { data: events, isLoading } = useQuery<Event[]>({
+  // Fetch events (MB.MD SIMULTANEOUS: Use default fetcher)
+  const { data: events, isLoading} = useQuery<Event[]>({
     queryKey: ["/api/events"],
-    queryFn: async () => {
-      const res = await fetch('/api/events', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch events');
-      return res.json();
-    },
   });
 
   // Filter events

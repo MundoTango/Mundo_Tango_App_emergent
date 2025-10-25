@@ -59,26 +59,15 @@ function MrBlueChatInterface() {
     { id: 'start', label: 'New Chat', status: 'completed', timestamp: new Date().toLocaleTimeString() }
   ]);
 
-  // Load conversations
+  // Load conversations (MB.MD SIMULTANEOUS: Use default fetcher)
   const { data: conversationsData } = useQuery<any[]>({
     queryKey: ['/api/mrblue/conversations'],
-    queryFn: async () => {
-      const res = await fetch('/api/mrblue/conversations', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch conversations');
-      return res.json();
-    },
   });
 
-  // Load messages for current conversation
+  // Load messages for current conversation (MB.MD SIMULTANEOUS: Use default fetcher)
   const { data: messages, refetch: refetchMessages } = useQuery<any[]>({
     queryKey: ['/api/mrblue/conversations', conversationId, 'messages'],
     enabled: !!conversationId,
-    queryFn: async () => {
-      if (!conversationId) return [];
-      const res = await fetch(`/api/mrblue/conversations/${conversationId}/messages`, { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch messages');
-      return res.json();
-    },
   });
 
   const createNewConversation = async () => {

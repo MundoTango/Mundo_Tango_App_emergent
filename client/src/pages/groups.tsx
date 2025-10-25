@@ -40,22 +40,12 @@ export default function GroupsPage() {
     setSearchResults(null);
   };
 
-  // MB.MD FIX: Properly typed groups API response
+  // MB.MD SIMULTANEOUS: Use default fetcher (properly typed groups API response)
   const { data: groupsData, isLoading } = useQuery<ApiResponse<Group[]>>({
     queryKey: ['/api/groups'],
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: true,
-    queryFn: async () => {
-      const response = await fetch('/api/groups', {
-        credentials: 'include'
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: Failed to fetch groups`);
-      }
-      const data: ApiResponse<Group[]> = await response.json();
-      return data;
-    }
   });
 
   // Join group mutation

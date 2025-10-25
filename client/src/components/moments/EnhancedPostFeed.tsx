@@ -78,35 +78,31 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
   const [tagInput, setTagInput] = useState('');
 
   // Mundo Tango ESA LIFE CEO - Use passed posts or fetch memories with filters applied
+  // MB.MD SIMULTANEOUS: Build URL with params, use default fetcher
+  const buildFeedUrl = () => {
+    const params = new URLSearchParams();
+    if (filters?.filterType && filters.filterType !== 'all') {
+      params.append('filter', filters.filterType);
+    }
+    if (filters?.tags && filters.tags.length > 0) {
+      params.append('tags', filters.tags.join(','));
+    }
+    if (filters?.visibility && filters.visibility !== 'all') {
+      params.append('visibility', filters.visibility);
+    }
+    if (filters?.location) {
+      params.append('lat', filters.location.lat.toString());
+      params.append('lng', filters.location.lng.toString());
+      params.append('radius', filters.location.radius.toString());
+    }
+    return `/api/posts/feed?${params}`;
+  };
+  
   const { data: fetchedPosts, isLoading, error } = useQuery({
     queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
     enabled: !propsPosts, // ESA Framework: Only fetch if posts not provided from parent
     queryFn: async () => {
-      const params = new URLSearchParams();
-      
-      // Apply filter type
-      if (filters?.filterType && filters.filterType !== 'all') {
-        params.append('filter', filters.filterType);
-      }
-      
-      // Apply tags
-      if (filters?.tags && filters.tags.length > 0) {
-        params.append('tags', filters.tags.join(','));
-      }
-      
-      // Apply visibility
-      if (filters?.visibility && filters.visibility !== 'all') {
-        params.append('visibility', filters.visibility);
-      }
-      
-      // Apply location for nearby filter
-      if (filters?.location) {
-        params.append('lat', filters.location.lat.toString());
-        params.append('lng', filters.location.lng.toString());
-        params.append('radius', filters.location.radius.toString());
-      }
-      
-      const response = await fetch(`/api/posts/feed?${params}`, {
+      const response = await fetch(buildFeedUrl(), {
         headers: {
           'Content-Type': 'application/json'
         },
