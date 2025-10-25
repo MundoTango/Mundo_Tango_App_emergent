@@ -39,9 +39,9 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
 
   // Fetch mention data from search API
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: searchData, isLoading } = useQuery({
-    queryKey: ['/api/search/mentions', searchQuery],
-    queryFn: () => apiRequest(`/api/search/mentions?q=${encodeURIComponent(searchQuery)}`),
+    queryKey: ['/api/search/mentions', { q: searchQuery }],
     enabled: searchQuery.length >= 2,
     staleTime: 30000, // Cache for 30 seconds
   });

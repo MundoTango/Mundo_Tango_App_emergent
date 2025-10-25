@@ -72,20 +72,10 @@ export default function LiveStreaming() {
   
   const socket = useSocket();
 
-  // Get active streams (MB.MD SIMULTANEOUS: Build URL dynamically)
-  const buildActiveStreamsUrl = () => {
-    const params = selectedCategory !== "all" ? `?category=${selectedCategory}` : "";
-    return `/api/streaming/streams/active${params}`;
-  };
-  
+  // Get active streams
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: activeStreamsData, isLoading: loadingActive } = useQuery({
-    queryKey: ["/api/streaming/streams/active", selectedCategory],
-    queryFn: async () => {
-      const response = await fetch(buildActiveStreamsUrl(), { credentials: "include" });
-      if (!response.ok) throw new Error("Failed to fetch active streams");
-      const data = await response.json();
-      return data.streams;
-    },
+    queryKey: ["/api/streaming/streams/active", { category: selectedCategory }],
     refetchInterval: 30000, // Refresh every 30 seconds
   });
   

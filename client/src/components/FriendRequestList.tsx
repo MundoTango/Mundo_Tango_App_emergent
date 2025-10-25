@@ -47,12 +47,9 @@ export function FriendRequestList() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: friendRequests = [], isLoading } = useQuery({
     queryKey: ['/api/friend-requests/received'],
-    queryFn: async () => {
-      const response = await apiRequest('/api/friend-requests/received');
-      return response.data || [];
-    },
   });
 
   const acceptMutation = useMutation({

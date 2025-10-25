@@ -73,12 +73,9 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
   };
 
   // Fetch comments
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: commentsData } = useQuery({
     queryKey: [`/api/memories/${memory.id}/comments`],
-    queryFn: async () => {
-      const response = await fetch(`/api/memories/${memory.id}/comments`);
-      return response.json();
-    },
     enabled: showComments
   });
 

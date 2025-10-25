@@ -15,9 +15,9 @@ export default function EventInvitationManager() {
   const queryClient = useQueryClient();
 
   // Get user's event invitations
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: invitationsData, isLoading } = useQuery({
     queryKey: ['/api/users/me/event-invitations'],
-    queryFn: () => apiRequest('/api/users/me/event-invitations'),
   });
 
   // Update invitation status mutation

@@ -163,16 +163,11 @@ export default function PostCreator({
   const [cursorPosition, setCursorPosition] = useState(0);
 
   // Fetch users for @mention autocomplete
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: users = [] } = useQuery({
-    queryKey: ['/api/users/search', mentionSearch],
-    queryFn: async () => {
-      if (!mentionSearch || mentionSearch.length < 1) return [];
-      const response = await fetch(`/api/users/search?q=${encodeURIComponent(mentionSearch)}`);
-      if (!response.ok) return [];
-      const result = await response.json();
-      return result.data || [];
-    },
-    enabled: showMentions && mentionSearch.length > 0
+    queryKey: ['/api/users/search', { q: mentionSearch }],
+    enabled: showMentions && mentionSearch.length > 0,
+    select: (data: any) => (!mentionSearch || mentionSearch.length < 1) ? [] : (data || [])
   });
 
   // Track B: Approved tags matching backend validation (15 tags from tagValidation.ts)

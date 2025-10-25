@@ -126,20 +126,10 @@ export default function Gamification() {
   
   const userAchievements = userAchievementsData?.achievements || [];
 
-  // Get all achievements (MB.MD SIMULTANEOUS: Build URL dynamically)
-  const buildAchievementsUrl = () => {
-    const params = selectedAchievementCategory !== "all" ? `?category=${selectedAchievementCategory}` : "";
-    return `/api/gamification/achievements${params}`;
-  };
-  
+  // Get all achievements
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: allAchievementsData, isLoading: loadingAllAchievements } = useQuery({
-    queryKey: ["/api/gamification/achievements", selectedAchievementCategory],
-    queryFn: async () => {
-      const response = await fetch(buildAchievementsUrl(), { credentials: "include" });
-      if (!response.ok) throw new Error("Failed to fetch achievements");
-      const data = await response.json();
-      return data.achievements as Achievement[];
-    },
+    queryKey: ["/api/gamification/achievements", { category: selectedAchievementCategory }],
   });
   
   const allAchievements = allAchievementsData || [];

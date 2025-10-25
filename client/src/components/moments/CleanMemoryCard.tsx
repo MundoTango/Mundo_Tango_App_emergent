@@ -77,26 +77,9 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
   };
 
   // Load comments - CRITICAL FIX: Use correct API endpoint based on post type
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const commentsQuery = useQuery({
     queryKey: [`/api/posts/${post.id}/comments`],
-    queryFn: async () => {
-      // Use unified posts endpoint for all posts
-      const endpoint = `/api/posts/${post.id}/comments`;
-      console.log(`🔍 Fetching comments from: ${endpoint}`);
-      
-      const response = await fetch(endpoint, {
-        credentials: 'include'
-      });
-      
-      console.log(`📝 Comments response status: ${response.status}`);
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch comments: ${response.statusText}`);
-      }
-      const result = await response.json();
-      console.log(`📝 Comments data:`, result);
-      return result;
-    },
     enabled: showComments,
     refetchOnWindowFocus: false
   });

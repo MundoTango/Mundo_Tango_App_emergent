@@ -46,18 +46,9 @@ export default function Messages() {
   };
 
   // Fetch chat rooms
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: chatRooms = [], isLoading } = useQuery({
     queryKey: ['/api/chat/rooms'],
-    queryFn: async () => {
-      const response = await fetch('/api/chat/rooms', {
-        headers: {
-          'Authorization': `Bearer ${getAuthToken()}`,
-        },
-      });
-      if (!response.ok) throw new Error('Failed to fetch chat rooms');
-      const data = await response.json();
-      return data.data;
-    },
   });
 
   // Listen for new messages

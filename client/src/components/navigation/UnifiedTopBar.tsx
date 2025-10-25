@@ -130,16 +130,9 @@ export default function UnifiedTopBar({
   });
   const messageCount = messageCountData?.count || 0;
 
-  const buildSearchUrl = () => searchQuery.trim() ? `/api/user/global-search?q=${encodeURIComponent(searchQuery)}` : null;
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: searchResultsData, isLoading: searchLoading } = useQuery({
-    queryKey: ['/api/search/global', searchQuery],
-    queryFn: async () => {
-      const url = buildSearchUrl();
-      if (!url) return null;
-      const response = await fetch(url, { credentials: 'include' });
-      const result = await response.json();
-      return result.data;
-    },
+    queryKey: ['/api/user/global-search', { q: searchQuery }],
     enabled: !!searchQuery.trim()
   });
   const searchResults = searchResultsData || null;

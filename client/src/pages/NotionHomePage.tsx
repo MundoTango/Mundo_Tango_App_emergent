@@ -88,15 +88,9 @@ export function NotionHomePage() {
     return params.toString();
   };
 
-  const buildEntriesUrl = () => `/api/notion/entries?${buildQueryParams()}`;
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: entriesData, isLoading } = useQuery<NotionEntry[]>({
-    queryKey: ['/api/notion/entries', selectedType, selectedTone, selectedTags],
-    queryFn: async () => {
-      const response = await fetch(buildEntriesUrl());
-      if (!response.ok) throw new Error('Failed to fetch entries');
-      const result = await response.json();
-      return result.data;
-    },
+    queryKey: ['/api/notion/entries', { visibility: 'Public', type: selectedType, emotionalTone: selectedTone, tags: selectedTags.join(',') }],
   });
   const entries = entriesData || [];
 

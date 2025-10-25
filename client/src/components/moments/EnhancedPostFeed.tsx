@@ -98,74 +98,17 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
     return `/api/posts/feed?${params}`;
   };
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: fetchedPosts, isLoading, error } = useQuery({
-    queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
+    queryKey: ['/api/posts/feed', {
+      filter: filters?.filterType && filters.filterType !== 'all' ? filters.filterType : undefined,
+      tags: filters?.tags && filters.tags.length > 0 ? filters.tags.join(',') : undefined,
+      visibility: filters?.visibility && filters.visibility !== 'all' ? filters.visibility : undefined,
+      lat: filters?.location?.lat,
+      lng: filters?.location?.lng,
+      radius: filters?.location?.radius
+    }],
     enabled: !propsPosts, // ESA Framework: Only fetch if posts not provided from parent
-    queryFn: async () => {
-      const response = await fetch(buildFeedUrl(), {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include'
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch memories');
-      }
-      
-      const result = await response.json();
-      const memories = result.data || [];
-      
-      // Mundo Tango ESA LIFE CEO - Process ALL media fields from memories
-      return memories.map((memory: any) => {
-        // Processing memory media fields
-        
-        // CRITICAL FIX: Check mediaEmbeds FIRST (primary source)
-        if (memory.mediaEmbeds && memory.mediaEmbeds.length > 0) {
-          const firstMedia = memory.mediaEmbeds[0];
-          // ESA Framework Layer 13: Type-safe media URL processing
-          const isVideo = firstMedia && typeof firstMedia === 'string' && (
-            firstMedia.toLowerCase().includes('.mp4') || 
-            firstMedia.toLowerCase().includes('.mov') || 
-            firstMedia.toLowerCase().includes('.webm') ||
-            firstMedia.toLowerCase().includes('.avi') ||
-            firstMedia.toLowerCase().includes('.m4v') ||
-            firstMedia.toLowerCase().includes('.mkv')
-          );
-          
-          // Set imageUrl or videoUrl based on file type
-          if (isVideo) {
-            memory.videoUrl = firstMedia;
-          } else {
-            memory.imageUrl = firstMedia;
-          }
-        }
-        // Fallback to mediaUrls if no mediaEmbeds
-        else if (memory.mediaUrls && memory.mediaUrls.length > 0) {
-          const firstMedia = memory.mediaUrls[0];
-          // ESA Framework Layer 13: Type-safe media URL processing
-          const isVideo = firstMedia && typeof firstMedia === 'string' && (
-            firstMedia.toLowerCase().includes('.mp4') || 
-            firstMedia.toLowerCase().includes('.mov') || 
-            firstMedia.toLowerCase().includes('.webm') ||
-            firstMedia.toLowerCase().includes('.avi') ||
-            firstMedia.toLowerCase().includes('.m4v') ||
-            firstMedia.toLowerCase().includes('.mkv')
-          );
-          
-          // Set imageUrl or videoUrl based on file type
-          if (isVideo) {
-            memory.videoUrl = firstMedia;
-          } else {
-            memory.imageUrl = firstMedia;
-          }
-        }
-        
-        // Media processing complete
-        
-        return memory;
-      });
-    }
   });
   
   // ESA Framework: Use passed posts from parent or fetched posts

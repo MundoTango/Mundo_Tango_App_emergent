@@ -30,17 +30,9 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
   const mapRef = useRef<any>(null);
   
   // Fetch city groups data for search
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: cityGroups } = useQuery({
-    queryKey: ['/api/community/city-groups', 'search-data'],
-    queryFn: async () => {
-      const response = await fetch('/api/community/city-groups', {
-        credentials: 'include'
-      });
-      
-      if (!response.ok) throw new Error('Failed to fetch city groups');
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: ['/api/community/city-groups'],
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 

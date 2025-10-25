@@ -52,15 +52,9 @@ export function ProjectHierarchyTree() {
   const [selectedAgent, setSelectedAgent] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: treeData, isLoading } = useQuery({
-    queryKey: ['/api/tracker/tree', selectedAgent !== 'all' ? selectedAgent : null],
-    queryFn: async () => {
-      const url = selectedAgent !== 'all' 
-        ? `/api/tracker/tree?agentId=${selectedAgent}`
-        : '/api/tracker/tree';
-      const response = await fetch(url);
-      return response.json();
-    },
+    queryKey: ['/api/tracker/tree', { agentId: selectedAgent !== 'all' ? selectedAgent : undefined }],
   });
 
   const toggleNode = (nodeId: string) => {

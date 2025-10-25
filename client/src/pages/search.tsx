@@ -23,20 +23,9 @@ export default function SearchPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'users' | 'posts' | 'events' | 'groups'>('all');
   const debouncedQuery = useDebounce(searchQuery, 300);
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: searchResults, isLoading } = useQuery<{ results: SearchResult[] }>({
-    queryKey: ['/api/search', debouncedQuery, activeFilter],
-    queryFn: async () => {
-      if (!debouncedQuery.trim()) return { results: [] };
-      
-      const response = await apiRequest('/api/search', {
-        method: 'POST',
-        body: {
-          query: debouncedQuery,
-          filter: activeFilter
-        }
-      });
-      return response;
-    },
+    queryKey: ['/api/search', { query: debouncedQuery, filter: activeFilter }],
     enabled: debouncedQuery.length > 0
   });
 

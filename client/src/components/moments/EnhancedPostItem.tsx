@@ -122,16 +122,9 @@ function EnhancedPostItem({
   const [comments, setComments] = useState(post.comments || []);
 
   // Fetch comments when section is opened
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: fetchedComments } = useQuery({
     queryKey: [`${apiBasePath}/${post.id}/comments`],
-    queryFn: async () => {
-      const response = await fetch(`${apiBasePath}/${post.id}/comments`, {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch comments');
-      const result = await response.json();
-      return result.data || [];
-    },
     enabled: showComments && post.id != null
   });
 

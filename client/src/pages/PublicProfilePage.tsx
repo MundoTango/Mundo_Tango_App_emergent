@@ -39,22 +39,10 @@ export default function PublicProfilePage() {
   const identifier = username || userId;
   const isUserId = !username && !!userId;
 
-  // Fetch public user profile (MB.MD SIMULTANEOUS: Build URL dynamically)
-  const buildProfileUrl = () => {
-    return isUserId ? `/api/users/${identifier}` : `/api/public-profile/${identifier}`;
-  };
-  
+  // Fetch public user profile
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: userDataResponse, isLoading: userLoading, error } = useQuery({
-    queryKey: ['/api/public-profile', identifier, isUserId],
-    queryFn: async () => {
-      const response = await fetch(buildProfileUrl(), { credentials: 'include' });
-      if (!response.ok) {
-        if (response.status === 404) throw new Error('User not found');
-        throw new Error('Failed to fetch user profile');
-      }
-      const result = await response.json();
-      return result.data as PublicUser;
-    },
+    queryKey: isUserId ? ['/api/users', identifier] : ['/api/public-profile', identifier],
     enabled: !!identifier
   });
   

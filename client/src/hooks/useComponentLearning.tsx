@@ -39,22 +39,11 @@ export function useComponentLearning(componentId: string) {
   const queryClient = useQueryClient();
 
   // Fetch learning history for this component
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: learningHistory, isLoading: isLoadingHistory } = useQuery<LearningRecord[]>({
     queryKey: [`/api/component-learning/${componentId}/history`],
-    queryFn: async () => {
-      const response = await fetch(
-        `/api/component-learning/${componentId}/history`,
-        { credentials: 'include' }
-      );
-      if (!response.ok) {
-        // If endpoint doesn't exist yet, return empty array
-        if (response.status === 404) return [];
-        throw new Error('Failed to fetch learning history');
-      }
-      const result = await response.json();
-      return result.data || [];
-    },
-    retry: false
+    retry: false,
+    select: (data: any) => data || []
   });
 
   // Learn from colleagues who solved similar issues

@@ -656,12 +656,9 @@ function EsaRegistryTab() {
 // ============================================================================
 
 function AutoFixTab() {
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: autoFixes } = useQuery({
-    queryKey: ['/api/agent-intelligence/auto-fixes/recent'],
-    queryFn: async () => {
-      const res = await fetch('/api/agent-intelligence/auto-fixes/recent?limit=20');
-      return res.json();
-    }
+    queryKey: ['/api/agent-intelligence/auto-fixes/recent', { limit: 20 }],
   });
 
   const successRate = autoFixes?.successRate || 0;

@@ -126,24 +126,9 @@ export default function AdminModerationPage() {
   const [showActionDialog, setShowActionDialog] = useState(false);
   const [selectedAction, setSelectedAction] = useState('');
 
-  // MB.MD SIMULTANEOUS: Build URL dynamically
-  const buildReportsUrl = () => {
-    const params = new URLSearchParams({
-      status: selectedTab,
-      category: filterCategory,
-      severity: filterSeverity,
-      search: searchQuery
-    });
-    return `/api/admin/moderation/reports?${params}`;
-  };
-
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: reportsData, isLoading, refetch } = useQuery({
     queryKey: ['/api/admin/moderation/reports', { status: selectedTab, category: filterCategory, severity: filterSeverity, search: searchQuery }],
-    queryFn: async () => {
-      const response = await fetch(buildReportsUrl(), { credentials: 'include' });
-      if (!response.ok) throw new Error('Failed to fetch reports');
-      return response.json();
-    }
   });
 
   // Fetch moderation statistics

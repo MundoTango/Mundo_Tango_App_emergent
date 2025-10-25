@@ -56,18 +56,9 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   const queryClient = useQueryClient();
 
   // Fetch messages
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: messages = [], isLoading } = useQuery({
     queryKey: [`/api/chat/rooms/${room.slug}/messages`],
-    queryFn: async () => {
-      const response = await fetch(`/api/chat/rooms/${room.slug}/messages`, {
-        headers: {
-          'Authorization': `Bearer ${getAuthToken()}`,
-        },
-      });
-      if (!response.ok) throw new Error('Failed to fetch messages');
-      const data = await response.json();
-      return data.data.reverse(); // Reverse to show newest at bottom
-    },
   });
 
   // Send message mutation

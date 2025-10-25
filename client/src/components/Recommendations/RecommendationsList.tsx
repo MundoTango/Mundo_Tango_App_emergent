@@ -92,34 +92,22 @@ export default function RecommendationsList({
   // Journey R4: City filter support
   const cityToUse = filters.city || city;
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: apiResponse, isLoading } = useQuery({
-    queryKey: ['/api/recommendations', { city: cityToUse, groupSlug, ...filters }],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      if (cityToUse) params.append('city', cityToUse);
-      if (groupSlug) params.append('groupSlug', groupSlug);
-      if (filters.connectionDegree !== 'anyone') params.append('connectionDegree', filters.connectionDegree);
-      if (filters.minClosenessScore) params.append('minClosenessScore', filters.minClosenessScore.toString());
-      if (filters.localStatus !== 'all') params.append('localStatus', filters.localStatus);
-      if (filters.originCountry) params.append('originCountry', filters.originCountry);
-      if (filters.cuisine) params.append('cuisine', filters.cuisine); // For intelligent ranking
-      // Journey R5: Category multi-select support
-      if (filters.categories && filters.categories.length > 0) {
-        filters.categories.forEach(cat => params.append('categories', cat));
-      } else if (filters.type) {
-        // Backward compatibility with old type field
-        params.append('type', filters.type);
-      }
-      if (filters.priceLevel) params.append('priceLevel', filters.priceLevel);
-      if (filters.minRating) params.append('minRating', filters.minRating.toString());
-      if (filters.tags && filters.tags.length > 0) {
-        filters.tags.forEach(tag => params.append('tags', tag));
-      }
-      
-      const response = await fetch(`/api/recommendations?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch recommendations');
-      return await response.json();
-    },
+    queryKey: ['/api/recommendations', { 
+      city: cityToUse,
+      groupSlug,
+      connectionDegree: filters.connectionDegree !== 'anyone' ? filters.connectionDegree : undefined,
+      minClosenessScore: filters.minClosenessScore,
+      localStatus: filters.localStatus !== 'all' ? filters.localStatus : undefined,
+      originCountry: filters.originCountry,
+      cuisine: filters.cuisine,
+      categories: filters.categories && filters.categories.length > 0 ? filters.categories.join(',') : undefined,
+      type: (!filters.categories || filters.categories.length === 0) ? filters.type : undefined,
+      priceLevel: filters.priceLevel,
+      minRating: filters.minRating,
+      tags: filters.tags && filters.tags.length > 0 ? filters.tags.join(',') : undefined
+    }],
     enabled: !!cityToUse || !!groupSlug
   });
 

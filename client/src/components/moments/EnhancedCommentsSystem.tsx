@@ -73,16 +73,9 @@ export default function EnhancedCommentsSystem({
   const [moderationActions, setModerationActions] = useState<{[key: number]: boolean}>({});
 
   // Fetch comments
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: comments = [], isLoading } = useQuery({
-    queryKey: ['/api/comments', postId],
-    queryFn: async () => {
-      const response = await fetch(`/api/comments?postId=${postId}`, {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch comments');
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: ['/api/comments', { postId }],
     initialData: initialComments
   });
 

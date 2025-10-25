@@ -83,27 +83,17 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
   const queryClient = useQueryClient();
 
   // Fetch accepted roles for resume
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: acceptedRoles, isLoading: resumeLoading } = useQuery({
-    queryKey: ['/api/users', userId, 'accepted-roles'],
-    queryFn: async () => {
-      const response = await fetch(`/api/users/${userId}/accepted-roles`);
-      if (!response.ok) throw new Error('Failed to fetch accepted roles');
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: [`/api/users/${userId}/accepted-roles`],
   });
 
   // Fetch pending invitations (only for own profile)
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: pendingInvitations, isLoading: invitationsLoading } = useQuery({
-    queryKey: ['/api/users/me/event-invitations'],
-    queryFn: async () => {
-      if (!isOwnProfile) return [];
-      const response = await fetch('/api/users/me/event-invitations?status=pending');
-      if (!response.ok) throw new Error('Failed to fetch invitations');
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: ['/api/users/me/event-invitations', { status: 'pending' }],
     enabled: isOwnProfile,
+    select: (data: any) => isOwnProfile ? data : [],
   });
 
   // Accept/decline invitation mutation

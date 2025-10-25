@@ -41,27 +41,15 @@ export default function TripPlannerView({
   const [itineraryItems, setItineraryItems] = useState<any[]>([]);
   const [currentTravelPlanId, setCurrentTravelPlanId] = useState<number | null>(null);
 
-  // MB.MD SIMULTANEOUS: Build URL dynamically
-  const buildTripUrl = () => {
-    if (!tripConfig) return '';
-    const params = new URLSearchParams({
-      city,
-      startDate: tripConfig.startDate,
-      endDate: tripConfig.endDate,
-      budget: tripConfig.budget,
-      interests: tripConfig.interests.join(',')
-    });
-    return `/api/trip-planner/results?${params}`;
-  };
-
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: tripResults, isLoading } = useQuery({
-    queryKey: ['/api/trip-planner/results', tripConfig],
-    queryFn: async () => {
-      if (!tripConfig) return null;
-      const response = await fetch(buildTripUrl());
-      if (!response.ok) throw new Error('Failed to fetch trip results');
-      return response.json();
-    },
+    queryKey: ['/api/trip-planner/results', { 
+      city, 
+      startDate: tripConfig?.startDate, 
+      endDate: tripConfig?.endDate, 
+      budget: tripConfig?.budget, 
+      interests: tripConfig?.interests.join(',') 
+    }],
     enabled: !!tripConfig,
   });
 

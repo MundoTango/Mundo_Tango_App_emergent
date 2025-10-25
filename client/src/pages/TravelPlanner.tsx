@@ -79,18 +79,10 @@ const TravelPlanner: React.FC = () => {
   });
 
   // Fetch events for selected destinations
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: destinationEvents } = useQuery({
-    queryKey: ['/api/events', destinations.map(d => d.city)],
+    queryKey: ['/api/events', { cities: destinations.map(d => ({ city: d.city, startDate: d.startDate, endDate: d.endDate })) }],
     enabled: destinations.length > 0,
-    queryFn: async () => {
-      const events = await Promise.all(
-        destinations.map(dest => 
-          fetch(`/api/events?city=${dest.city}&startDate=${dest.startDate}&endDate=${dest.endDate}`)
-            .then(res => res.json())
-        )
-      );
-      return events.flat();
-    }
   });
 
   // Add destination

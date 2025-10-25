@@ -36,26 +36,10 @@ export default function Favorites() {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  // Fetch favorites from real API (MB.MD SIMULTANEOUS: Build URL dynamically)
-  const buildFavoritesUrl = () => {
-    const typeMap: { [key: string]: string } = {
-      'posts': 'post',
-      'events': 'event', 
-      'people': 'user',
-      'groups': 'group',
-      'memories': 'memory'
-    };
-    const apiType = typeMap[activeTab];
-    return activeTab === 'all' ? '/api/favorites' : `/api/favorites?type=${apiType}`;
-  };
-  
+  // Fetch favorites from real API
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: favoritesData, isLoading } = useQuery({
-    queryKey: ['/api/favorites', activeTab],
-    queryFn: async () => {
-      const response = await fetch(buildFavoritesUrl(), { credentials: 'include' });
-      const result = await response.json();
-      return result.data || [];
-    }
+    queryKey: ['/api/favorites', { type: activeTab }],
   });
   
   const favorites = favoritesData || [];

@@ -67,12 +67,9 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
   }, [value]);
   
   // Search for mentions
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: searchData } = useQuery({
-    queryKey: ['/api/search/multi', currentMention],
-    queryFn: async () => {
-      const response = await fetch(`/api/search/multi?q=${encodeURIComponent(currentMention)}&limit=10`);
-      return await response.json();
-    },
+    queryKey: ['/api/search/multi', { q: currentMention, limit: 10 }],
     enabled: currentMention.length >= 1 && showSuggestions,
     staleTime: 30000,
   });

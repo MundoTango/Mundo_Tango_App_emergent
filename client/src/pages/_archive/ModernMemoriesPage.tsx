@@ -188,14 +188,9 @@ const ModernMemoriesPage = () => {
   const [location] = useLocation();
 
   // ESA Framework: Fetch memories using React Query
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: memories = [], isLoading } = useQuery({
     queryKey: ['/api/posts'],
-    queryFn: async () => {
-      const response = await fetch('/api/posts');
-      if (!response.ok) throw new Error('Failed to fetch posts');
-      const data = await response.json();
-      return data.posts || [];
-    }
   });
 
   // ESA Framework: Create memory mutation
