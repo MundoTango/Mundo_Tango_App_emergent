@@ -45,6 +45,22 @@ Result: Every component proven working + documented
 
 Every agent MUST follow these rules for EVERY task:
 
+### Rule 0: ALWAYS USE MB.MD AGENTS
+**What:** Replit Agent must ALWAYS employ MB.MD subagents for complex work  
+**Why:** Prevents "do everything myself" errors that lead to timeouts and incomplete analysis  
+**How:**
+- Use `architect` tool for strategic analysis, planning, and root cause investigation
+- Use `start_subagent` tool for focused implementation tasks
+- NEVER try to do large investigations alone - delegate to specialist agents
+- When encountering "too large" errors, immediately switch to agent delegation
+- Parallel agent execution is MANDATORY for simultaneous builds
+
+**Example:**
+```
+❌ WRONG: Agent tries to read 10 files + analyze + plan + implement alone
+✅ RIGHT: Agent delegates to Architect for analysis, then Subagent for implementation
+```
+
 ### Rule 1: VERIFY BEFORE BUILD
 **What:** Check what already exists AND inspect actual data structures before creating anything  
 **Why:** Prevents duplicate work, wasted effort, and building based on false assumptions  

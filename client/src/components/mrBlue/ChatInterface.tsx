@@ -554,7 +554,7 @@ export function ChatInterface() {
       // Store code changes for the latest AI message
       // We'll fetch messages and attach to the most recent assistant message
       const messagesData = await queryClient.fetchQuery({
-        queryKey: [`/api/chat/projects/${projId}/messages`]
+        queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
       if (messagesData && Array.isArray(messagesData) && messagesData.length > 0) {
@@ -590,7 +590,7 @@ export function ChatInterface() {
     try {
       // Refetch messages to get latest with metadata
       const messagesData = await queryClient.fetchQuery({
-        queryKey: [`/api/chat/projects/${projId}/messages`],
+        queryKey: ['/api/chat/projects', projId, 'messages'],
       });
 
       if (!messagesData || !Array.isArray(messagesData)) return;
