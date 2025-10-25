@@ -198,10 +198,10 @@ async function executeAutonomousTask(
         index: i
       });
 
+      // SMART ACTION DETECTION - define outside try block so it's accessible in catch
+      const actionLower = step.action.toLowerCase();
+      
       try {
-        // SMART ACTION DETECTION - detect what to do from step description
-        const actionLower = step.action.toLowerCase();
-        
         // READ actions: search, find, identify, analyze, check, read, locate
         if (actionLower.match(/search|find|identify|analyze|check|read|locate|understand|examine/)) {
           task.status = 'reading';
