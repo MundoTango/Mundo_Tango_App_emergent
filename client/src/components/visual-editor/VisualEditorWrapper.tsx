@@ -80,20 +80,51 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
-    // MB.MD FIX (Oct 22): Defensive URL parsing to handle double-encoding
-    let editMode = new URLSearchParams(window.location.search).get('edit') === 'true';
+    // MB.MD FIX (Oct 25): Recursive URL decoding to handle single/double/triple encoding
+    // Handles: /?edit=true, /%3Fedit=true, /%253Fedit%253Dtrue, etc.
+    // Architect recommendation: Iteratively decode until stable to fix screenshot tool encoding
     
-    // Fallback: Check if %3Fedit=true is in pathname (double-encoded "?edit=true")
-    if (!editMode && window.location.pathname.includes('%3Fedit=true')) {
-      console.warn('⚠️ [VisualEditor] URL double-encoded detected, fixing...');
+    // Helper: Recursively decode until stable
+    const decodeRecursive = (str: string): string => {
+      let decoded = str;
+      let prev = '';
+      while (decoded !== prev) {
+        prev = decoded;
+        try {
+          decoded = decodeURIComponent(decoded);
+        } catch (e) {
+          break; // Stop on invalid encoding
+        }
+      }
+      return decoded;
+    };
+    
+    // Decode pathname and search
+    const decodedPathname = decodeRecursive(window.location.pathname);
+    const decodedSearch = decodeRecursive(window.location.search);
+    
+    // Check 1: Normal query parameter
+    let editMode = new URLSearchParams(decodedSearch).get('edit') === 'true';
+    
+    // Check 2: Encoded query in pathname (e.g., /%3Fedit=true or /%253Fedit%253Dtrue)
+    if (!editMode && decodedPathname.includes('?edit=true')) {
+      console.warn('⚠️ [VisualEditor] URL encoding detected, fixing...');
       editMode = true;
       
-      // Fix the URL for future navigation
-      const fixedPath = window.location.pathname.replace(/%3Fedit=true.*$/, '');
-      const url = new URL(window.location.origin + fixedPath);
+      // Fix the URL: Extract path before "?edit=true" and rebuild URL properly
+      const [actualPath] = decodedPathname.split('?');
+      const url = new URL(window.location.origin + actualPath);
       url.searchParams.set('edit', 'true');
       window.history.replaceState({}, '', url);
+      console.log('✅ [VisualEditor] URL fixed to:', url.toString());
     }
+    
+    console.log('🔍 [VisualEditor] Edit mode:', editMode, {
+      originalPathname: window.location.pathname,
+      originalSearch: window.location.search,
+      decodedPathname,
+      decodedSearch,
+    });
     
     setIsEditorActive(editMode);
     setIsSelectMode(editMode);
