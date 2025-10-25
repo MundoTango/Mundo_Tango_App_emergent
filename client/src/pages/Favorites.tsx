@@ -36,28 +36,29 @@ export default function Favorites() {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  // Fetch favorites from real API
-  const { data: favorites, isLoading } = useQuery({
+  // Fetch favorites from real API (MB.MD SIMULTANEOUS: Build URL dynamically)
+  const buildFavoritesUrl = () => {
+    const typeMap: { [key: string]: string } = {
+      'posts': 'post',
+      'events': 'event', 
+      'people': 'user',
+      'groups': 'group',
+      'memories': 'memory'
+    };
+    const apiType = typeMap[activeTab];
+    return activeTab === 'all' ? '/api/favorites' : `/api/favorites?type=${apiType}`;
+  };
+  
+  const { data: favoritesData, isLoading } = useQuery({
     queryKey: ['/api/favorites', activeTab],
     queryFn: async () => {
-      // Map plural tab values to singular API itemType values
-      const typeMap: { [key: string]: string } = {
-        'posts': 'post',
-        'events': 'event', 
-        'people': 'user',
-        'groups': 'group',
-        'memories': 'memory'
-      };
-      
-      const apiType = typeMap[activeTab];
-      const typeParam = activeTab === 'all' ? '' : `?type=${apiType}`;
-      const response = await fetch(`/api/favorites${typeParam}`, {
-        credentials: 'include'
-      });
+      const response = await fetch(buildFavoritesUrl(), { credentials: 'include' });
       const result = await response.json();
       return result.data || [];
     }
   });
+  
+  const favorites = favoritesData || [];
 
   // Remove from favorites mutation
   const removeFavorite = useMutation({

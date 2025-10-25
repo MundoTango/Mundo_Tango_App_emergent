@@ -110,76 +110,53 @@ export default function Gamification() {
   const [selectedLeaderboardPeriod, setSelectedLeaderboardPeriod] = useState("weekly");
   const [selectedAchievementCategory, setSelectedAchievementCategory] = useState("all");
 
-  // Get user stats
-  const { data: userStats, isLoading: loadingStats } = useQuery({
+  // Get user stats (MB.MD SIMULTANEOUS: Use default fetcher)
+  const { data: userStatsData, isLoading: loadingStats } = useQuery({
     queryKey: ["/api/gamification/users", user?.id, "stats"],
-    queryFn: async () => {
-      if (!user?.id) return null;
-      const response = await fetch(`/api/gamification/users/${user.id}/stats`, {
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch user stats");
-      const data = await response.json();
-      return data.stats as UserStats;
-    },
     enabled: !!user?.id,
   });
+  
+  const userStats = userStatsData?.stats || null;
 
-  // Get user achievements
-  const { data: userAchievements, isLoading: loadingAchievements } = useQuery({
+  // Get user achievements (MB.MD SIMULTANEOUS: Use default fetcher)
+  const { data: userAchievementsData, isLoading: loadingAchievements } = useQuery({
     queryKey: ["/api/gamification/users", user?.id, "achievements"],
-    queryFn: async () => {
-      if (!user?.id) return [];
-      const response = await fetch(`/api/gamification/users/${user.id}/achievements`, {
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch achievements");
-      const data = await response.json();
-      return data.achievements as Achievement[];
-    },
     enabled: !!user?.id,
   });
+  
+  const userAchievements = userAchievementsData?.achievements || [];
 
-  // Get all achievements
-  const { data: allAchievements, isLoading: loadingAllAchievements } = useQuery({
+  // Get all achievements (MB.MD SIMULTANEOUS: Build URL dynamically)
+  const buildAchievementsUrl = () => {
+    const params = selectedAchievementCategory !== "all" ? `?category=${selectedAchievementCategory}` : "";
+    return `/api/gamification/achievements${params}`;
+  };
+  
+  const { data: allAchievementsData, isLoading: loadingAllAchievements } = useQuery({
     queryKey: ["/api/gamification/achievements", selectedAchievementCategory],
     queryFn: async () => {
-      const params = selectedAchievementCategory !== "all" ? `?category=${selectedAchievementCategory}` : "";
-      const response = await fetch(`/api/gamification/achievements${params}`, {
-        credentials: "include",
-      });
+      const response = await fetch(buildAchievementsUrl(), { credentials: "include" });
       if (!response.ok) throw new Error("Failed to fetch achievements");
       const data = await response.json();
       return data.achievements as Achievement[];
     },
   });
+  
+  const allAchievements = allAchievementsData || [];
 
-  // Get active challenges
-  const { data: challenges, isLoading: loadingChallenges } = useQuery({
-    queryKey: ["/api/gamification/challenges"],
-    queryFn: async () => {
-      const response = await fetch("/api/gamification/challenges?status=active", {
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch challenges");
-      const data = await response.json();
-      return data.challenges as Challenge[];
-    },
+  // Get active challenges (MB.MD SIMULTANEOUS: Use default fetcher)
+  const { data: challengesData, isLoading: loadingChallenges } = useQuery({
+    queryKey: ["/api/gamification/challenges?status=active"],
   });
+  
+  const challenges = challengesData?.challenges || [];
 
-  // Get leaderboard
-  const { data: leaderboard, isLoading: loadingLeaderboard } = useQuery({
+  // Get leaderboard (MB.MD SIMULTANEOUS: Use default fetcher with dynamic path)
+  const { data: leaderboardData, isLoading: loadingLeaderboard } = useQuery({
     queryKey: ["/api/gamification/leaderboards", selectedLeaderboardType, selectedLeaderboardPeriod],
-    queryFn: async () => {
-      const response = await fetch(
-        `/api/gamification/leaderboards/${selectedLeaderboardType}/${selectedLeaderboardPeriod}`,
-        { credentials: "include" }
-      );
-      if (!response.ok) throw new Error("Failed to fetch leaderboard");
-      const data = await response.json();
-      return data.leaderboard;
-    },
   });
+  
+  const leaderboard = leaderboardData?.leaderboard || [];
 
   // Join challenge mutation
   const joinChallengeMutation = useMutation({
