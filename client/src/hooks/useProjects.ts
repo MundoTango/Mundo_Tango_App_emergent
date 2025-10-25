@@ -19,7 +19,8 @@ export function useProjects(filters?: {
       if (filters?.layer) params.append('layer', filters.layer.toString());
       if (filters?.parentId) params.append('parentId', filters.parentId);
       
-      const response = await fetch(`/api/projects?${params}`);
+      const response = await fetch(`/api/projects?${params}`, { credentials: 'include' });
+      if (!response.ok) return [] as Project[]; // Return empty array on error
       const data = await response.json();
       return data.data as Project[];
     },
