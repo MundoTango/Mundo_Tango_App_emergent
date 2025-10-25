@@ -447,10 +447,10 @@ export function ChatInterface() {
         const result = await response.json();
         console.log(`✅ [JSON Response] Received consensus result`, result);
         
-        // 🚨 BUG FIX: Add JSON response to streaming display so user sees it!
-        if (result.response || result.answer || result.finalAnswer) {
-          const responseText = result.response || result.answer || result.finalAnswer;
-          setStreamingResponse(responseText);
+        // 🚨 BUG FIX: Backend saves message automatically, just display it temporarily
+        // The consensus endpoint returns { finalPlan, models, debate, totalTime }
+        if (result.finalPlan) {
+          setStreamingResponse(result.finalPlan);
         }
       } else {
         // Standard streaming response (SSE)
