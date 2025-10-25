@@ -97,19 +97,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   // Use standard sidebar routes
   const allRoutes = [...sidebarRoutes];
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch real statistics from API
-  // MB.MD FIX: Add explicit queryFn to prevent "No queryFn" warning
   const { data: statsData } = useQuery({
     queryKey: ['/api/admin/stats'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/stats', {
-        credentials: 'include'
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch admin stats');
-      }
-      return response.json();
-    },
     refetchInterval: 60000, // Refresh every minute
   });
 

@@ -61,28 +61,10 @@ const WorldMap = forwardRef((props, ref) => {
     }
   }));
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch city groups with statistics
   const { data: cityGroups = [], isLoading } = useQuery({
-    queryKey: ['/api/community/city-groups', 'world-map-component'],
-    queryFn: async () => {
-      const response = await fetch('/api/community/city-groups', {
-        credentials: 'include'
-      });
-      
-      if (!response.ok) {
-        console.error('Failed to fetch city groups');
-        return [];
-      }
-      
-      const result = await response.json();
-      // Transform lat/lng to latitude/longitude for consistency
-      const transformed = (result.data || []).map((group: any) => ({
-        ...group,
-        latitude: parseFloat(group.lat),
-        longitude: parseFloat(group.lng)
-      }));
-      return transformed;
-    },
+    queryKey: ['/api/community/city-groups'],
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
   });

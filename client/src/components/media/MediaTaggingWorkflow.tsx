@@ -33,32 +33,18 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
   const [newTag, setNewTag] = useState('');
   const queryClient = useQueryClient();
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch user's media assets with optional tag filtering
   const { data: mediaAssets, isLoading } = useQuery({
-    queryKey: ['/api/media/user', userId, folder, selectedTags],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      if (folder) params.append('folder', folder);
-      if (selectedTags.length > 0) {
-        selectedTags.forEach(tag => params.append('tags', tag));
-      }
-      
-      const response = await fetch(`/api/media/user/${userId}?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch media');
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: [`/api/media/user/${userId}`, { 
+      folder, 
+      tags: selectedTags.length > 0 ? selectedTags : undefined 
+    }],
   });
 
   // Fetch popular tags for suggestions
   const { data: popularTags } = useQuery({
     queryKey: ['/api/media/tags/popular'],
-    queryFn: async () => {
-      const response = await fetch('/api/media/tags/popular');
-      if (!response.ok) throw new Error('Failed to fetch tags');
-      const result = await response.json();
-      return result.data || [];
-    },
   });
 
   // Add tag to media mutation

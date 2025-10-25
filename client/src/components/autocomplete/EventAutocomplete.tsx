@@ -51,23 +51,9 @@ export default function EventAutocomplete({
     setInputValue(value?.title || '');
   }, [value]);
 
-  // Search events API (MB.MD SIMULTANEOUS: Build URL, use default fetcher logic)
-  const buildEventsUrl = () => {
-    if (!debouncedSearch || debouncedSearch.length < 2) return null;
-    const params = new URLSearchParams({ search: debouncedSearch, limit: '10' });
-    return `/api/events/enhanced?${params}`;
-  };
-  
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: eventsData, isLoading } = useQuery({
-    queryKey: ['/api/events/enhanced', { search: debouncedSearch }],
-    queryFn: async () => {
-      const url = buildEventsUrl();
-      if (!url) return [];
-      const response = await fetch(url, { credentials: 'include' });
-      if (!response.ok) throw new Error('Failed to search events');
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: ['/api/events/enhanced', { search: debouncedSearch, limit: '10' }],
     enabled: debouncedSearch.length >= 2 && isOpen
   });
   

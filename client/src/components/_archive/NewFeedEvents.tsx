@@ -24,12 +24,9 @@ interface EventsData {
 }
 
 const NewFeedEvents = () => {
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: eventsData, isLoading } = useQuery({
     queryKey: ["/api/events/feed"],
-    queryFn: async () => {
-      const response = await fetch("/api/events/feed");
-      return response.json();
-    },
     // Performance optimizations
     staleTime: 5 * 60 * 1000, // Data is fresh for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes

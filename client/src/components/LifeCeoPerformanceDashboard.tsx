@@ -25,17 +25,10 @@ interface PerformanceReport {
 export function LifeCeoPerformanceDashboard() {
   const [realTimeMetrics, setRealTimeMetrics] = useState<any>({});
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch performance report from Life CEO service
   const { data: report, isLoading } = useQuery<PerformanceReport>({
     queryKey: ['/api/performance/report'],
-    queryFn: async () => {
-      const res = await fetch('/api/performance/report', {
-        credentials: 'include',
-      });
-      if (!res.ok) throw new Error('Failed to fetch performance report');
-      const json = await res.json();
-      return json.data; // Backend wraps response in { success, data }
-    },
     refetchInterval: 30000, // Update every 30 seconds
   });
 

@@ -48,26 +48,14 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
   const { user } = useAuth();
   const { toast } = useToast();
 
-  // MB.MD SIMULTANEOUS: Build URLs dynamically
-  const buildContextUrl = () => `/api/ai-intelligence/context?userId=${user?.id || ''}&sessionId=${sessionId || ''}`;
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: aiContext, isLoading: contextLoading } = useQuery<AIContext>({
-    queryKey: ['/api/ai-intelligence/context', user?.id, sessionId],
-    queryFn: async () => {
-      const res = await fetch(buildContextUrl(), { credentials: 'include' });
-      if (!res.ok) return null;
-      return res.json();
-    },
+    queryKey: ['/api/ai-intelligence/context', { userId: user?.id || '', sessionId: sessionId || '' }],
     enabled: !!user && !!sessionId && isOpen,
   });
 
-  const buildSuggestionsUrl = () => `/api/ai-intelligence/suggestions?route=${encodeURIComponent(currentRoute)}`;
   const { data: suggestions } = useQuery({
-    queryKey: ['/api/ai-intelligence/suggestions', currentRoute],
-    queryFn: async () => {
-      const res = await fetch(buildSuggestionsUrl(), { credentials: 'include' });
-      if (!res.ok) return null;
-      return res.json();
-    },
+    queryKey: ['/api/ai-intelligence/suggestions', { route: currentRoute }],
     enabled: !!user && isOpen,
   });
 

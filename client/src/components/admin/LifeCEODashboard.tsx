@@ -100,14 +100,9 @@ export const LifeCEODashboard: React.FC = () => {
   });
   const agents = agentsData?.agents || [];
 
-  const buildMemoriesUrl = () => selectedAgent ? `/api/ai/memories?agentId=${selectedAgent}` : '/api/ai/memories';
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: memoriesData } = useQuery({
-    queryKey: ['/api/ai/memories', selectedAgent],
-    queryFn: async () => {
-      const response = await fetch(buildMemoriesUrl());
-      const data = await response.json();
-      return data.memories;
-    },
+    queryKey: ['/api/ai/memories', selectedAgent ? { agentId: selectedAgent } : {}],
     enabled: !!selectedAgent
   });
   const memories = memoriesData || [];

@@ -35,20 +35,9 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
   const [view, setView] = useState<'city' | 'region'>('city');
   const [filterBy, setFilterBy] = useState<'people' | 'events'>('people');
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: rankings, isLoading } = useQuery({
-    queryKey: ['/api/community/rankings', view, filterBy],
-    queryFn: async () => {
-      const response = await fetch(`/api/community/rankings?view=${view}&filterBy=${filterBy}`, {
-        credentials: 'include'
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch rankings');
-      }
-      
-      const result = await response.json();
-      return result.data;
-    },
+    queryKey: ['/api/community/rankings', { view, filterBy }],
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
   });

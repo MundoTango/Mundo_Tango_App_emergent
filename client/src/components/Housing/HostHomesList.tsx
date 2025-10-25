@@ -63,24 +63,18 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
     }
   }, [propFriendFilter]);
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch host homes
   const { data: homes, isLoading } = useQuery({
-    queryKey: ['/api/host-homes', { city, groupSlug, ...filters }],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      if (city) params.append('city', city);
-      if (groupSlug) params.append('groupSlug', groupSlug);
-      params.append('minPrice', filters.priceRange.min.toString());
-      params.append('maxPrice', filters.priceRange.max.toString());
-      if (filters.roomType !== 'all') params.append('roomType', filters.roomType);
-      params.append('minGuests', filters.maxGuests.toString());
-      if (filters.friendFilter !== 'all') params.append('friendFilter', filters.friendFilter);
-      
-      const response = await fetch(`/api/host-homes?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch homes');
-      const data = await response.json();
-      return data.data as HostHome[];
-    },
+    queryKey: ['/api/host-homes', { 
+      city, 
+      groupSlug, 
+      minPrice: filters.priceRange.min.toString(),
+      maxPrice: filters.priceRange.max.toString(),
+      roomType: filters.roomType !== 'all' ? filters.roomType : undefined,
+      minGuests: filters.maxGuests.toString(),
+      friendFilter: filters.friendFilter !== 'all' ? filters.friendFilter : undefined,
+    }],
     enabled: !!city || !!groupSlug
   });
 

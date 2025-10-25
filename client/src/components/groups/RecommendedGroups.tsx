@@ -13,15 +13,9 @@ export default function RecommendedGroups() {
   const { toast } = useToast();
   const [showAll, setShowAll] = useState(false);
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: recommendations = [], isLoading, refetch } = useQuery({
     queryKey: ['/api/groups/recommendations'],
-    queryFn: async () => {
-      const response = await fetch('/api/groups/recommendations', {
-        credentials: 'include'
-      });
-      const data = await response.json();
-      return data.success ? data.data : [];
-    }
   });
   
   const joinGroupMutation = useMutation({

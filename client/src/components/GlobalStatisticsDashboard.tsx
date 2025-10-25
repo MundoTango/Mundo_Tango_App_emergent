@@ -57,18 +57,9 @@ export function GlobalStatisticsDashboard() {
   const { currentTenant } = useTenant();
   const [realtimeData, setRealtimeData] = useState<RealtimeStats | null>(null);
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: stats, isLoading } = useQuery<GlobalStats>({
-    queryKey: ['/api/statistics/global', currentTenant?.id],
-    queryFn: async () => {
-      const headers: any = {};
-      if (currentTenant) {
-        headers['x-tenant-id'] = currentTenant.id;
-      }
-      const response = await fetch('/api/statistics/global', { headers });
-      if (!response.ok) throw new Error('Failed to fetch statistics');
-      const result = await response.json();
-      return result.data;
-    },
+    queryKey: ['/api/statistics/global', currentTenant?.id ? { tenantId: currentTenant.id } : {}],
     refetchInterval: 30000 // Refresh every 30 seconds
   });
   

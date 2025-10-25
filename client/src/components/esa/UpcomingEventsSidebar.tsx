@@ -45,15 +45,9 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
   
   const rsvpMutation = useEventRSVP();
   
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: eventsData, isLoading } = useQuery({
-    queryKey: ['/api/events/feed'],
-    queryFn: async () => {
-      const response = await fetch('/api/events/feed?limit=20&visibility=public', {
-        credentials: 'include'
-      });
-      const result = await response.json();
-      return result.data || [];
-    },
+    queryKey: ['/api/events/feed', { limit: '20', visibility: 'public' }],
     staleTime: 0,
     structuralSharing: false
   });

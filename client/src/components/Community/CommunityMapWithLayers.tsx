@@ -73,41 +73,24 @@ export default function CommunityMapWithLayers({
     priceLevel: 'all',
   });
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch map data for the city/community
   const { data: mapData = [], isLoading } = useQuery({
-    queryKey: ['/api/community/map-data', city, country, groupSlug, filters],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      if (city) params.append('city', city);
-      if (country) params.append('country', country);
-      if (groupSlug) params.append('groupSlug', groupSlug);
-      
-      // Add filter parameters
-      if (filters.eventType !== 'all') params.append('eventType', filters.eventType);
-      if (filters.startDate) params.append('startDate', filters.startDate.toISOString());
-      if (filters.endDate) params.append('endDate', filters.endDate.toISOString());
-      if (filters.hasSpace) params.append('hasSpace', 'true');
-      
-      if (filters.roomType !== 'all') params.append('roomType', filters.roomType);
-      if (filters.minGuests !== 'all') params.append('minGuests', filters.minGuests);
-      if (filters.connectionLevel !== 'all') params.append('connectionLevel', filters.connectionLevel);
-      
-      if (filters.cuisine !== 'all') params.append('cuisine', filters.cuisine);
-      if (filters.category !== 'all') params.append('category', filters.category);
-      if (filters.priceLevel !== 'all') params.append('priceLevel', filters.priceLevel);
-      
-      const response = await fetch(`/api/community/map-data?${params}`, {
-        credentials: 'include'
-      });
-      
-      if (!response.ok) {
-        console.error('Failed to fetch map data');
-        return [];
-      }
-      
-      const result = await response.json();
-      return result.data || [];
-    }
+    queryKey: ['/api/community/map-data', { 
+      city, 
+      country, 
+      groupSlug,
+      eventType: filters.eventType !== 'all' ? filters.eventType : undefined,
+      startDate: filters.startDate?.toISOString(),
+      endDate: filters.endDate?.toISOString(),
+      hasSpace: filters.hasSpace ? 'true' : undefined,
+      roomType: filters.roomType !== 'all' ? filters.roomType : undefined,
+      minGuests: filters.minGuests !== 'all' ? filters.minGuests : undefined,
+      connectionLevel: filters.connectionLevel !== 'all' ? filters.connectionLevel : undefined,
+      cuisine: filters.cuisine !== 'all' ? filters.cuisine : undefined,
+      category: filters.category !== 'all' ? filters.category : undefined,
+      priceLevel: filters.priceLevel !== 'all' ? filters.priceLevel : undefined,
+    }],
   });
 
   // Filter data based on active layers

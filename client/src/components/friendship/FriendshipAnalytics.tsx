@@ -13,13 +13,9 @@ interface FriendshipAnalyticsProps {
 }
 
 export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: analytics, isLoading } = useQuery({
-    queryKey: ['/api/friendship/analytics', userId],
-    queryFn: async () => {
-      const response = await fetch(`/api/friendship/analytics/${userId}`);
-      if (!response.ok) throw new Error('Failed to fetch analytics');
-      return response.json();
-    }
+    queryKey: [`/api/friendship/analytics/${userId}`],
   });
 
   const colors = {

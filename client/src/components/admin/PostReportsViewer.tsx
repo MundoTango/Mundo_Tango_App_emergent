@@ -28,17 +28,10 @@ interface PostReport {
 export function PostReportsViewer() {
   const { toast } = useToast();
 
+  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch all reports
   const { data: reports = [], isLoading, refetch } = useQuery({
     queryKey: ['/api/admin/reports'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/reports', {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch reports');
-      const result = await response.json();
-      return result.data || [];
-    }
   });
 
   const handleUpdateStatus = async (reportId: number, status: string, action?: string) => {
