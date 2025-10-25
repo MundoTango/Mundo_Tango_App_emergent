@@ -303,19 +303,9 @@ export function ChatInterface() {
   }, [toast]);
 
   // Load conversations (projects)
+  // MB.MD FIX: Use default queryFn for centralized auth/error handling
   const { data: conversations, isLoading: loadingConversations, error: conversationsError } = useQuery<Conversation[]>({
     queryKey: ['/api/chat/projects'],
-    queryFn: async () => {
-      console.log('🔵 [ChatInterface] Fetching conversations from /api/chat/projects');
-      const res = await fetch('/api/chat/projects', { credentials: 'include' });
-      if (!res.ok) {
-        console.error('🔴 [ChatInterface] Failed to fetch conversations:', res.status);
-        throw new Error('Failed to fetch conversations');
-      }
-      const data = await res.json();
-      console.log('🟢 [ChatInterface] Loaded conversations:', data?.length || 0, 'conversations');
-      return data;
-    },
   });
   
   // Debug: Log conversations state
@@ -329,14 +319,10 @@ export function ChatInterface() {
   }, [conversations, loadingConversations, conversationsError]);
 
   // Load messages for active conversation
+  // MB.MD FIX: Use default queryFn + array segments for proper cache invalidation
   const { data: messages, isLoading: loadingMessages} = useQuery<Message[]>({
-    queryKey: [`/api/chat/projects/${conversationId}/messages`],
+    queryKey: ['/api/chat/projects', conversationId, 'messages'],
     enabled: !!conversationId,
-    queryFn: async () => {
-      const res = await fetch(`/api/chat/projects/${conversationId}/messages`, { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch messages');
-      return await res.json();
-    },
   });
 
   // Create new conversation mutation
@@ -497,8 +483,9 @@ export function ChatInterface() {
       setStreamingToolStatus(null);
       setOptimisticMessage(null);
       setStreamingResponse('');
+      // MB.MD FIX: Use array segments to match query key format
       await queryClient.invalidateQueries({ 
-        queryKey: [`/api/chat/projects/${projId}/messages`]
+        queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
       // 🔧 PHASE 2: Extract build intents from AI response

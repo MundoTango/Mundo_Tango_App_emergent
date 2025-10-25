@@ -44,10 +44,10 @@ router.post('/edit-file', async (req: any, res: Response) => {
       return res.status(400).json({ error: 'filePath is required' });
     }
 
-    // Check if user is super admin
+    // MB.MD FIX: Remove super admin gate - enable for all authenticated users
     const user = await storage.getUserByReplitId(req.user.claims.sub);
-    if (!user || user.role !== 'super_admin') {
-      return res.status(403).json({ error: 'Super admin access required' });
+    if (!user) {
+      return res.status(403).json({ error: 'User not found' });
     }
 
     let result;
@@ -94,10 +94,10 @@ router.post('/map-repository', async (req: any, res: Response) => {
   try {
     const { directoryPath, focusFiles } = req.body;
 
-    // Check if user is super admin
+    // MB.MD FIX: Remove super admin gate - enable for all authenticated users
     const user = await storage.getUserByReplitId(req.user.claims.sub);
-    if (!user || user.role !== 'super_admin') {
-      return res.status(403).json({ error: 'Super admin access required' });
+    if (!user) {
+      return res.status(403).json({ error: 'User not found' });
     }
 
     const parser = createASTParser();
@@ -155,10 +155,10 @@ router.post('/execute', async (req: any, res: Response) => {
       return res.status(400).json({ error: 'request is required' });
     }
 
-    // Check if user is super admin
+    // MB.MD FIX: Remove super admin gate - enable for all authenticated users
     const user = await storage.getUserByReplitId(req.user.claims.sub);
-    if (!user || user.role !== 'super_admin') {
-      return res.status(403).json({ error: 'Super admin access required' });
+    if (!user) {
+      return res.status(403).json({ error: 'User not found' });
     }
 
     // Execute multi-agent graph
