@@ -17,6 +17,7 @@ import { createASTParser } from '../services/repositoryMapping/ASTParser.js';
 import { createCompactRepresentation } from '../services/repositoryMapping/CompactRepresentation.js';
 import { VibeGraph } from '../services/agents/VibeGraph.js';
 import { storage } from '../storage.js';
+import { getWebSocketService } from '../services/websocketService.js';
 
 const router = Router();
 
@@ -68,6 +69,16 @@ router.post('/edit-file', async (req: any, res: Response) => {
       result = await editor.replaceAll(filePath, searchString, replaceString);
     } else {
       return res.status(400).json({ error: 'Invalid editType. Must be unified_diff or search_replace' });
+    }
+
+    // 🚀 STREAM B1: Emit Socket.io event for preview auto-refresh
+    const wsService = getWebSocketService();
+    if (wsService) {
+      wsService.sendNotification(user.id, {
+        type: 'code-updated',
+        title: 'Code Updated',
+        message: `File ${filePath} modified successfully`
+      });
     }
 
     res.json(result);
