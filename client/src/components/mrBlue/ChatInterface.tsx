@@ -306,6 +306,11 @@ export function ChatInterface() {
   // MB.MD FIX: Use default queryFn for centralized auth/error handling
   const { data: conversations, isLoading: loadingConversations, error: conversationsError } = useQuery<Conversation[]>({
     queryKey: ['/api/chat/projects'],
+    queryFn: async () => {
+      const res = await fetch('/api/chat/projects', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch conversations');
+      return res.json();
+    },
   });
   
   // Debug: Log conversations state
@@ -323,6 +328,11 @@ export function ChatInterface() {
   const { data: messages, isLoading: loadingMessages} = useQuery<Message[]>({
     queryKey: ['/api/chat/projects', conversationId, 'messages'],
     enabled: !!conversationId,
+    queryFn: async () => {
+      const res = await fetch(`/api/chat/projects/${conversationId}/messages`, { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch messages');
+      return res.json();
+    },
   });
 
   // Create new conversation mutation
@@ -435,7 +445,13 @@ export function ChatInterface() {
       if (contentType?.includes('application/json')) {
         // Multi-model consensus returns JSON
         const result = await response.json();
-        console.log(`✅ [JSON Response] Received consensus result`);
+        console.log(`✅ [JSON Response] Received consensus result`, result);
+        
+        // 🚨 BUG FIX: Add JSON response to streaming display so user sees it!
+        if (result.response || result.answer || result.finalAnswer) {
+          const responseText = result.response || result.answer || result.finalAnswer;
+          setStreamingResponse(responseText);
+        }
       } else {
         // Standard streaming response (SSE)
         const reader = response.body?.getReader();

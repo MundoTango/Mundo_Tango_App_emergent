@@ -31,6 +31,11 @@ export function ReplitGitIntegration() {
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatusResponse>({
     queryKey: ['/api/git/status'],
     refetchInterval: 5000, // Auto-refresh every 5s
+    queryFn: async () => {
+      const res = await fetch('/api/git/status', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch git status');
+      return res.json();
+    },
   });
 
   const openReplitGitPane = () => {
