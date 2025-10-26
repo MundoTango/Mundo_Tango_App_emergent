@@ -637,6 +637,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               {activeTab === 'chat' && (
                 <AITab 
                   selectedElement={visualEditorContext?.selectedElement ?? null}
+                  visualEditorContext={visualEditorContext ?? undefined}
                   onGenerateCode={async (prompt: string) => {
                     console.log('🤖 [VisualEditor] Generating code for prompt:', prompt);
                     // TODO: Integrate with VibeGraph for code generation

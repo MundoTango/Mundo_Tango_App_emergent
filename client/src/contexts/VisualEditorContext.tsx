@@ -19,7 +19,7 @@ export interface CodeChange {
   timestamp: Date;
 }
 
-interface VisualEditorContextType {
+export interface VisualEditorContextType {
   selectedElement: ElementSelection | null;
   setSelectedElement: (element: ElementSelection | null) => void;
   pendingChangesCount: number;
@@ -32,6 +32,9 @@ interface VisualEditorContextType {
   setPendingCodeChanges: (changes: CodeChange[] | ((prev: CodeChange[]) => CodeChange[])) => void;
   addCodeChange: (change: CodeChange) => void;
   clearCodeChanges: () => void;
+  // 🚀 ARCHITECT FIX: Pending AI prompt from Inspector "Generate Code" button
+  pendingAIPrompt: string | null;
+  setPendingAIPrompt: (prompt: string | null) => void;
 }
 
 const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
@@ -41,6 +44,7 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
   const [pendingChangesCount, setPendingChangesCount] = useState(0);
   const [previewPath, setPreviewPath] = useState<string>('/'); // Default to homepage
   const [pendingCodeChanges, setPendingCodeChanges] = useState<CodeChange[]>([]);
+  const [pendingAIPrompt, setPendingAIPrompt] = useState<string | null>(null);
   
   // 🐛 DEBUG: Log when context updates
   const handleSetSelectedElement = (element: ElementSelection | null) => {
@@ -82,7 +86,9 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
         pendingCodeChanges,
         setPendingCodeChanges,
         addCodeChange,
-        clearCodeChanges
+        clearCodeChanges,
+        pendingAIPrompt,
+        setPendingAIPrompt
       }}
     >
       {children}

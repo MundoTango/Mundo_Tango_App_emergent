@@ -16,6 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
 import { normalizeColor } from '@/lib/styleNormalization';
 import { useToast } from '@/hooks/use-toast';
+import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 
 interface InspectorPanelProps {
   selectedElement: ElementSelection | null;
@@ -30,6 +31,7 @@ export function InspectorPanel({
 }: InspectorPanelProps) {
   const [editedText, setEditedText] = useState('');
   const { toast } = useToast();
+  const visualEditorContext = useVisualEditorOptional();
 
   // ARCHITECT FIX: Reset edited text when selection changes
   useEffect(() => {
@@ -71,14 +73,14 @@ export function InspectorPanel({
           {selectedElement.xpath}
         </div>
         
-        {/* 🚀 PHASE 4: Generate Code Button (ARCHITECT FIX: Pass element context) */}
+        {/* 🚀 PHASE 4: Generate Code Button (ARCHITECT FIX v2: Use VisualEditorContext) */}
         <Button 
           className="w-full mt-3" 
           variant="default"
           size="sm"
           data-testid="button-generate-code"
           onClick={() => {
-            if (!selectedElement) {
+            if (!selectedElement || !visualEditorContext) {
               toast({
                 title: 'No Element Selected',
                 description: 'Please select an element first',
@@ -88,23 +90,17 @@ export function InspectorPanel({
             }
 
             // Build context-aware prompt
-            const prompt = `Modify the selected element: <${selectedElement.tagName}>${selectedElement.id ? ` #${selectedElement.id}` : ''}${selectedElement.className ? ` .${selectedElement.className.split(' ').join('.')}` : ''}\nXPath: ${selectedElement.xpath}\n\nWhat changes would you like to make?`;
+            const prompt = `Modify this element: <${selectedElement.tagName}>${selectedElement.id ? ` #${selectedElement.id}` : ''}${selectedElement.className ? ` .${selectedElement.className.split(' ').join('.')}` : ''}\nXPath: ${selectedElement.xpath}\n\nDescribe the changes you want:`;
             
-            // Store prompt in sessionStorage so AI Tab can read it
-            sessionStorage.setItem('visualEditor:pendingAIPrompt', prompt);
-            sessionStorage.setItem('visualEditor:selectedElementContext', JSON.stringify({
-              tag: selectedElement.tagName,
-              id: selectedElement.id,
-              className: selectedElement.className,
-              xpath: selectedElement.xpath,
-              computedStyles: selectedElement.computedStyles
-            }));
+            // ✅ ARCHITECT FIX: Use VisualEditorContext instead of sessionStorage
+            visualEditorContext.setPendingAIPrompt(prompt);
+            
+            console.log('🤖 [Inspector] Set pending AI prompt in context:', prompt);
 
             // Switch to AI Tab
             const aiTabButton = document.querySelector('[data-value="chat"]') as HTMLElement;
             if (aiTabButton) {
               aiTabButton.click();
-              console.log('🤖 [Inspector] Switched to AI tab with element context:', selectedElement);
               
               toast({
                 title: 'Switched to AI Tab',

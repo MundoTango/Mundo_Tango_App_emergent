@@ -12,6 +12,7 @@ import CostEstimateDisplay from './CostEstimateDisplay';
 import { DiffPreviewCard } from './DiffPreviewCard';
 import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
 import { useToast } from '@/hooks/use-toast';
+import type { VisualEditorContextType } from '@/contexts/VisualEditorContext';
 
 interface SelectedElement {
   tag: string;
@@ -23,29 +24,31 @@ interface SelectedElement {
 
 interface AITabProps {
   selectedElement: SelectedElement | null;
+  visualEditorContext?: VisualEditorContextType;
   onGenerateCode: (prompt: string) => Promise<void>;
 }
 
-export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
+export default function AITab({ selectedElement, visualEditorContext, onGenerateCode }: AITabProps) {
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [codeChanges, setCodeChanges] = useState<CodeChange[]>([]);
-  const { toast } = useToast();
+  const { toast} = useToast();
 
-  // 🚀 ARCHITECT FIX: Check for pending AI prompt from Inspector's "Generate Code" button
+  // ✅ ARCHITECT FIX v2: Watch VisualEditorContext for pending AI prompt (React pattern)
   useEffect(() => {
-    const pendingPrompt = sessionStorage.getItem('visualEditor:pendingAIPrompt');
-    if (pendingPrompt) {
-      console.log('🤖 [AITab] Found pending prompt from Inspector:', pendingPrompt);
-      setAiPrompt(pendingPrompt);
-      sessionStorage.removeItem('visualEditor:pendingAIPrompt'); // Clear after reading
+    if (visualEditorContext?.pendingAIPrompt) {
+      console.log('🤖 [AITab] Received pending prompt from context:', visualEditorContext.pendingAIPrompt);
+      setAiPrompt(visualEditorContext.pendingAIPrompt);
+      
+      // Clear the pending prompt after reading
+      visualEditorContext.setPendingAIPrompt(null);
       
       toast({
-        title: 'Element Context Loaded',
+        title: 'Element Context Loaded ✅',
         description: 'Edit the prompt below to describe your changes',
       });
     }
-  }, []); // Run once on mount
+  }, [visualEditorContext?.pendingAIPrompt]); // Run when pending prompt changes
 
   const handleGenerate = async () => {
     if (!aiPrompt.trim()) return;
