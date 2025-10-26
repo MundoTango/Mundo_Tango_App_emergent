@@ -6,7 +6,7 @@
  * Research: docs/research/VISUAL_EDITOR_RESEARCH.md
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Code2, Type, Palette, Layout, Box } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,11 +32,38 @@ export function InspectorPanel({
   const [editedText, setEditedText] = useState('');
   const { toast } = useToast();
   const visualEditorContext = useVisualEditorOptional();
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // ARCHITECT FIX: Reset edited text when selection changes
   useEffect(() => {
     setEditedText('');
+    // Clear any pending debounced calls when selection changes
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = null;
+    }
   }, [selectedElement]);
+
+  // 🚨 USER PREFERENCE: Auto-queue text changes (debounced, no Apply button)
+  const handleTextChange = useCallback((newText: string) => {
+    setEditedText(newText);
+    
+    // Clear existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    
+    // Debounce: Wait 800ms after user stops typing
+    debounceTimerRef.current = setTimeout(() => {
+      const oldText = selectedElement?.textContent || '';
+      
+      // Only queue if text actually changed
+      if (newText !== oldText && newText.trim() !== '') {
+        console.log('✏️ [InspectorPanel] Auto-queuing text change:', { oldText, newText });
+        onTextChange?.(newText);
+      }
+    }, 800);
+  }, [selectedElement, onTextChange]);
 
   if (!selectedElement) {
     return (
@@ -225,24 +252,14 @@ export function InspectorPanel({
                 <textarea
                   id="element-text"
                   value={editedText || selectedElement.textContent || ''}
-                  onChange={(e) => setEditedText(e.target.value)}
+                  onChange={(e) => handleTextChange(e.target.value)}
                   className="w-full min-h-[100px] px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md resize-y font-mono bg-white dark:bg-gray-800"
-                  placeholder="Element text content"
+                  placeholder="Element text content (auto-saves after you stop typing)"
                   data-testid="input-text-content"
                 />
-                {editedText && editedText !== selectedElement.textContent && (
-                  <Button
-                    onClick={() => {
-                      onTextChange?.(editedText);
-                      setEditedText('');
-                    }}
-                    size="sm"
-                    className="w-full"
-                    data-testid="button-apply-text"
-                  >
-                    Apply Changes
-                  </Button>
-                )}
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Changes queue automatically. Click SAVE to apply all.
+                </p>
               </div>
 
               {/* Attributes */}

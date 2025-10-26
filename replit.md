@@ -38,6 +38,7 @@ Before ANY build plan, agents MUST:
 - **Methodology:** MB.MD (Mapping→Breakdown→Mitigation→Deployment) for all work
 - **Priority:** Deployment stability - Files must never be deleted without safeguards
 - **Documentation Agent:** Must monitor file integrity and prevent build failures
+- **🚨 CRITICAL: Vibe Coding UX Pattern** - NO extra "Apply" buttons anywhere. All edits (text changes, deletions, AI suggestions) auto-queue immediately. Only the SAVE button in Universal Save System applies all queued changes at once. User has repeated this preference multiple times - record and follow it.
 
 ### System Architecture
 
