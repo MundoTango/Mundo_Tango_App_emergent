@@ -419,8 +419,7 @@ export const getVisualEditorTools = (): ToolDefinition[] => [
       properties: {},
       required: []
     }
-  },
-  ...getMBMDDocumentationTools()
+  }
 ];
 
 // ============ COMBINED TOOL SET ============
