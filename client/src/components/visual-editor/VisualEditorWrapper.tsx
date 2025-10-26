@@ -8,7 +8,7 @@
  * - Replit-style UX
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'wouter';
 import TabSystem, { EditorTab } from './TabSystem';
 import { InspectorPanel } from './InspectorPanel';
@@ -71,6 +71,14 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   // 🎨 VISUAL EDITOR CONTEXT: Share selected element with Mr Blue (Phase 2 Fix - Oct 22)
   const visualEditorContext = useVisualEditorOptional();
   
+  // ✅ ARCHITECT FIX: Ref to access latest selectedElement in event handler closure
+  const selectedElementRef = useRef<SelectedElement | null>(null);
+  
+  // Keep ref in sync with state
+  useEffect(() => {
+    selectedElementRef.current = selectedElement;
+  }, [selectedElement]);
+  
   // 🐛 DEBUG: Log context availability on mount
   useEffect(() => {
     console.log('🔍 [VisualEditorWrapper] Context availability:', {
@@ -79,67 +87,71 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     });
   }, [visualEditorContext]);
   
-  // 🎯 BATCH 3: Delete key handler (Oct 26, 2025)
+  // 🎯 BATCH 3: Delete key handler (Oct 26, 2025) - ARCHITECT FIX: Use ref for latest value
   useEffect(() => {
+    if (!isEditorActive) return;
+    
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Only handle Delete/Backspace when an element is selected
-      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedElement && isEditorActive) {
-        // Prevent default backspace navigation
-        e.preventDefault();
+      // ✅ ARCHITECT FIX: Access latest value via ref (not stale closure)
+      const currentSelection = selectedElementRef.current;
+      if (!currentSelection) return;
+      
+      // Only handle Delete/Backspace
+      if (e.key !== 'Delete' && e.key !== 'Backspace') return;
+      
+      // Prevent default backspace navigation
+      e.preventDefault();
+      
+      console.log('🗑️ [BATCH 3] Delete key pressed for element:', currentSelection);
+      
+      // Generate delete diff and send to context
+      if (visualEditorContext?.setPendingCodeChanges) {
+        const currentPath = visualEditorContext.previewPath || '/';
+        const elementData = {
+          tagName: currentSelection.tag,
+          id: currentSelection.id,
+          className: currentSelection.className,
+          xpath: currentSelection.xpath,
+          computedStyles: {},
+          boundingBox: { top: 0, left: 0, width: 0, height: 0 },
+          attributes: {}
+        };
         
-        console.log('🗑️ [BATCH 3] Delete key pressed for element:', selectedElement);
+        const diff = generateDeleteDiff(elementData, currentPath);
         
-        // Generate delete diff and send to context
-        if (visualEditorContext?.setPendingCodeChanges) {
-          const currentPath = visualEditorContext.previewPath || '/';
-          const elementData = {
-            tagName: selectedElement.tag,
-            id: selectedElement.id,
-            className: selectedElement.className,
-            xpath: selectedElement.xpath,
-            computedStyles: {},
-            boundingBox: { top: 0, left: 0, width: 0, height: 0 },
-            attributes: {}
-          };
-          
-          const diff = generateDeleteDiff(elementData, currentPath);
-          
-          const newChange = {
-            id: `delete-${Date.now()}`,
-            taskId: 'delete-element',
-            filePath: diff.filePath,
-            diff: diff.diff,
-            type: 'unified_diff' as const,
-            status: 'pending' as const,
-            timestamp: new Date()
-          };
-          
-          visualEditorContext.setPendingCodeChanges([
-            ...(visualEditorContext.pendingCodeChanges || []),
-            newChange
-          ]);
-          
-          console.log('✅ [BATCH 3] Delete queued in context:', newChange);
-          
-          toast({
-            title: '🗑️ Delete Queued',
-            description: `Removing <${selectedElement.tag}> - Click SAVE to apply`,
-            duration: 2000
-          });
-          
-          // Clear selection after queueing delete
-          setSelectedElement(null);
-          setSelectedHTMLElement(null);
-        }
+        const newChange = {
+          id: `delete-${Date.now()}`,
+          taskId: 'delete-element',
+          filePath: diff.filePath,
+          diff: diff.diff,
+          type: 'unified_diff' as const,
+          status: 'pending' as const,
+          timestamp: new Date()
+        };
+        
+        visualEditorContext.setPendingCodeChanges([
+          ...(visualEditorContext.pendingCodeChanges || []),
+          newChange
+        ]);
+        
+        console.log('✅ [BATCH 3] Delete queued in context:', newChange);
+        
+        toast({
+          title: '🗑️ Delete Queued',
+          description: `Removing <${currentSelection.tag}> - Click SAVE to apply`,
+          duration: 2000
+        });
+        
+        // Clear selection after queueing delete
+        setSelectedElement(null);
+        setSelectedHTMLElement(null);
       }
     };
     
-    // Only listen when editor is active
-    if (isEditorActive) {
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [selectedElement, isEditorActive, visualEditorContext, toast]);
+    // Only re-attach when editor activated/deactivated (performance optimization)
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isEditorActive, visualEditorContext, toast]); // Ref accessed inside, not in deps
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
@@ -731,8 +743,60 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                     console.log('Style change:', property, value);
                   }}
                   onTextChange={(newText) => {
-                    // TODO: Apply text change via iframe messaging
-                    console.log('Text change:', newText);
+                    // ✅ STREAM 1 FIX: Wire to context for vibe coding queue (Oct 26, 2025)
+                    if (!visualEditorContext?.selectedElement) {
+                      toast({
+                        title: 'No Element Selected',
+                        description: 'Please select an element first',
+                        variant: 'destructive'
+                      });
+                      return;
+                    }
+                    
+                    const selectedEl = visualEditorContext.selectedElement;
+                    const oldText = selectedEl.textContent || '';
+                    const currentPath = visualEditorContext.previewPath || '/';
+                    
+                    // Skip if no actual change
+                    if (oldText === newText) {
+                      console.log('⚠️ [Inspector] Text unchanged, skipping');
+                      return;
+                    }
+                    
+                    console.log('✏️ [Inspector] Text changed:', { oldText, newText });
+                    
+                    // Generate diff using code generation lib
+                    const diff = generateTextChangeDiff(
+                      selectedEl,
+                      oldText,
+                      newText,
+                      currentPath
+                    );
+                    
+                    // Create change object
+                    const newChange = {
+                      id: `inspector-text-${Date.now()}`,
+                      taskId: 'inspector-text-edit',
+                      filePath: diff.filePath,
+                      diff: diff.diff,
+                      type: 'unified_diff' as const,
+                      status: 'pending' as const,
+                      timestamp: new Date()
+                    };
+                    
+                    // Add to context queue
+                    visualEditorContext.setPendingCodeChanges([
+                      ...(visualEditorContext.pendingCodeChanges || []),
+                      newChange
+                    ]);
+                    
+                    console.log('✅ [Inspector] Text edit queued:', newChange);
+                    
+                    toast({
+                      title: '✏️ Text Edit Queued',
+                      description: `Updating "${oldText.substring(0, 20)}" → "${newText.substring(0, 20)}" - Click SAVE to apply`,
+                      duration: 3000
+                    });
                   }}
                 />
               )}
