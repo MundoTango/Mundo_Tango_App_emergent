@@ -81,6 +81,9 @@ import qualityRoutes from "./routes/qualityRoutes"; // Quality Validation API - 
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import adminHealthRoutes from "./routes/adminHealthRoutes"; // Admin Health Metrics API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import infrastructureRoutes from "./routes/infrastructureRoutes"; // All 13 Tracks Infrastructure - MB.MD Maximum Parallel Build - Oct 21-22, 2025
+import autonomousRoutes from "./routes/autonomousRoutes"; // Autonomous File Editing API - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
+import terminalRoutes from "./routes/terminalRoutes"; // Terminal Command Execution API - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
+import testingRoutes from "./routes/testingRoutes"; // DeepEval Testing API - Agent #145 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1477,8 +1480,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/admin', adminHealthRoutes); // Admin health & system metrics
   app.use('/api/infrastructure', infrastructureRoutes); // All 13 Tracks Infrastructure (Analytics, Testing, Mobile, Performance, etc.)
   app.use('/api/conversations', isAuthenticated, conversationRoutes); // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
+  app.use('/api/autonomous', autonomousRoutes); // Autonomous File Editing - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
+  app.use('/api/terminal', terminalRoutes); // Terminal Command Execution - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
+  app.use('/api/testing', testingRoutes); // DeepEval Testing - Agent #145 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
   console.log('✅ Visual Editor Infrastructure APIs registered (7 new APIs, 28 endpoints)');
   console.log('✅ All 13 Tracks Infrastructure APIs registered (Analytics, Testing, Mobile, Performance, Operations, Onboarding, Collaboration, DevEx, Design System, CI/CD, AI/ML, Growth)');
+  console.log('✅ MB.MD SIMULTANEOUS Build Phase 2 APIs registered:');
+  console.log('   - Autonomous File Editing (Agent #142 - 6 endpoints)');
+  console.log('   - Terminal Execution (Agent #142 - 5 endpoints)');
+  console.log('   - DeepEval Testing (Agent #145 - 3 endpoints)');
   console.log('✅ Conversation Module APIs registered (Search, Export, Analytics - Tracks B, C - Oct 23, 2025)');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)

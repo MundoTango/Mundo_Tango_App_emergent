@@ -11,8 +11,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import TabSystem, { EditorTab } from './TabSystem';
-import { ElementInspector } from './ElementInspector';
-import PreviewTab from './PreviewTab';
+import { InspectorPanel } from './InspectorPanel';
+import AITab from './AITab';
+import { EnhancedPreviewTab } from './EnhancedPreviewTab';
 import DeployTab from './DeployTab';
 import GitTab from './GitTab';
 import PagesTab from './PagesTab';
@@ -24,7 +25,6 @@ import { ModelMonitorTab } from './ModelMonitorTab';
 import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
 import { InlineTextEditor } from './InlineTextEditor';
 import { UniversalSaveSystem } from './UniversalSaveSystem';
-import { ChatInterface } from '@/components/mrBlue/ChatInterface';
 import { VisualEditorBreadcrumbs } from './VisualEditorBreadcrumbs';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -620,20 +620,26 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
             </div>
 
             {/* Tab Content */}
-            <div className="flex-1 overflow-auto p-4 space-y-4">
+            <div className="flex-1 overflow-hidden">
               {activeTab === 'inspector' && (
-                <ElementInspector 
-                  selectedElement={visualEditorContext?.selectedElement ?? null} 
+                <InspectorPanel 
+                  selectedElement={visualEditorContext?.selectedElement ?? null}
+                  onStyleChange={(property, value) => {
+                    // TODO: Apply style mutation via iframe messaging
+                    console.log('Style change:', property, value);
+                  }}
+                  onTextChange={(newText) => {
+                    // TODO: Apply text change via iframe messaging
+                    console.log('Text change:', newText);
+                  }}
                 />
               )}
               {activeTab === 'chat' && (
-                <div className="h-full">
-                  {/* 🎯 WEEK 0 UNIFICATION: Use single ChatInterface component (Oct 24, 2025) */}
-                  {/* Autonomous mode auto-enabled via Visual Editor context detection */}
-                  <ChatInterface />
-                </div>
+                <AITab />
               )}
-              {activeTab === 'preview' && <PreviewTab currentPath={location} />}
+              {activeTab === 'preview' && (
+                <EnhancedPreviewTab previewUrl={location} />
+              )}
               {activeTab === 'deploy' && <DeployTab />}
               {activeTab === 'git' && <GitTab />}
               {activeTab === 'models' && <ModelMonitorTab />}
