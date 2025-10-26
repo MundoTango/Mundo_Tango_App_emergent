@@ -201,23 +201,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // const { initPostHogServer } = await import('./services/posthog');
   // initPostHogServer();
   
-  // 🔍 MB.MD DEBUG (Oct 23): Catch requests BEFORE middleware to diagnose 400 errors
-  app.use((req, res, next) => {
-    if (req.path.includes('multimodel')) {
-      console.log('🔍 [RAW REQUEST - BEFORE MIDDLEWARE]', {
-        path: req.path,
-        method: req.method,
-        bodySize: req.headers['content-length'] || 'unknown',
-        contentType: req.headers['content-type'],
-        hasBody: !!req.body,
-        bodyKeys: req.body ? Object.keys(req.body) : 'no body yet',
-      });
-      // 🚨 EMERGENCY BYPASS: Skip ALL middleware for multimodel to isolate issue
-      console.log('🚨 [DEBUG] Bypassing all middleware for /multimodel');
-      return next();
-    }
-    next();
-  });
+  // 🔧 FIX (Oct 26): Removed emergency bypass - was preventing auth and causing messages to not save
   
   // Phase 11 Parallel: Security headers and performance monitoring
   // MB.MD Oct 21: Now using static imports (see top of file)
@@ -244,14 +228,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // const { regexpProtection, ... } = await import('./middleware/securityEnhancements');
   
   // Apply ESA-44x21s Security Enhancements (securityHeaders already applied above)
-  app.use((req, res, next) => {
-    // 🚨 Skip security enhancements for multimodel during debugging
-    if (req.path.includes('multimodel')) {
-      console.log('🚨 [DEBUG] Skipping security enhancements for /multimodel');
-      return next();
-    }
-    next();
-  });
+  // 🔧 FIX (Oct 26): Removed security bypass - auth middleware now applied to multimodel
   app.use(regexpProtection);
   app.use(inputLengthValidation);
   app.use(ssrfPrevention);
