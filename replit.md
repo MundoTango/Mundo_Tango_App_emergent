@@ -63,12 +63,22 @@ The frontend uses React, TypeScript, and Vite with a component-based architectur
 Mundo Tango uses a comprehensive agent documentation system adhering to the MB.MD methodology with FOCUSED, PARALLEL, and SIMULTANEOUS execution modes. It includes 5 Customer Journey Agents (J1-J5). Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents and automated tests for file protection. The Visual Editor features 10 tabs: Inspector, AI, Preview, Console, Deploy, Git, Pages, Shell, Files, Secrets.
 
 **Research & Analysis Agents (Oct 26, 2025):**
--   **Agent #132 (MCP Research Specialist):** Deep dive research on Model Context Protocol, security best practices, production implementations, and performance optimization patterns.
--   **Agent #133 (Visual Editor Research Specialist):** Analysis of Figma, Replit Agent, v0.dev, Cursor architectures; point-and-ask UX patterns; real-time preview systems.
--   **Agent #134 (Autonomous Coding Research Specialist):** Research on Replit Agent 3, Cursor Composer, Windsurf, Bolt.new; multi-agent orchestration; code quality validation.
--   **Agent #135 (Testing & Observability Specialist):** AI agent testing frameworks, OpenTelemetry for LLMs, monitoring and chaos engineering for AI systems.
--   **Agent #136 (UX Research Specialist):** Conversational UI patterns, error messaging, loading states, accessibility (WCAG) for AI interfaces.
--   **Agent #137-141 (Synthesis Agents):** Cross-research synthesis, gap analysis, and actionable recommendation generation.
+-   **Agent #132 (MCP Research Specialist):** ✅ COMPLETED - Deep dive research on Model Context Protocol, security best practices, production implementations, and performance optimization patterns. Research: `docs/research/MCP_RESEARCH.md`
+-   **Agent #133 (Visual Editor Research Specialist):** ✅ COMPLETED - Analysis of Figma, Replit Agent, v0.dev, Cursor architectures; point-and-ask UX patterns; real-time preview systems. Research: `docs/research/VISUAL_EDITOR_RESEARCH.md`
+-   **Agent #134 (Autonomous Coding Research Specialist):** ✅ COMPLETED - Research on Replit Agent 3 (200-min runtime), Cursor Composer (YOLO Mode), Windsurf Cascade (flow awareness), Bolt.new (WebContainers), v0.dev (composite models). Research: `docs/research/AUTONOMOUS_CODING_RESEARCH.md`
+-   **Agent #135 (Testing & Observability Specialist):** ✅ COMPLETED - AI agent testing frameworks (DeepEval, Arbigent), OpenTelemetry for LLMs, production platforms (Arize, Dynatrace, Galileo), monitoring patterns. Research: `docs/research/TESTING_OBSERVABILITY_RESEARCH.md`
+-   **Agent #136 (UX Research Specialist):** ✅ COMPLETED - Conversational UI patterns for non-technical users, error messaging best practices, loading states (2s min delay), accessibility (WCAG, screen readers). Research: `docs/research/UX_PATTERNS_RESEARCH.md`
+-   **Agent #137-141 (Synthesis Agents):** ✅ COMPLETED - Cross-research synthesis, gap analysis, 8-week implementation roadmap with 4 phases, cost estimates, risk mitigation. Master synthesis: `docs/research/MASTER_SYNTHESIS.md`
+
+**Key Research Findings (Oct 26, 2025):**
+- **Autonomous Runtime Target:** 200 minutes (Replit Agent 3 benchmark) via self-testing + self-healing loops
+- **Multi-Model Orchestration:** Claude (reasoning) + GPT-4 (code review) + Gemini (cost-sensitive) saves ~40% costs
+- **Self-Testing Pattern:** Playwright browser automation for test generation, execution, and self-healing
+- **Observability Standard:** OpenTelemetry with OpenLLMetry auto-instrumentation (vendor-neutral)
+- **Testing Framework:** DeepEval (LLM-as-Judge) + Monte Carlo pattern (100 runs, 90% success threshold)
+- **Guardrails:** Real-time hallucination detection at runtime (Galileo Agent Protect pattern)
+- **UX Patterns:** Conversational tone, 2s min typing delay, tiered error management, WCAG AA accessibility
+- **Implementation Timeline:** 8 weeks, 4 phases, 320 hours total, $310-670/month infrastructure costs
 
 **Replit-Style Vibe Coding Workflow (Oct 26, 2025):**
 Mr Blue now supports fully autonomous conversational coding with Replit Agent-style UX:
