@@ -8,7 +8,7 @@
  * Created: October 26, 2025
  */
 
-import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 export interface AutonomousSession {
@@ -75,6 +75,9 @@ export class SessionManager {
   constructor(userRequest: string, maxMinutes: number = 200) {
     this.checkpointDir = join(process.cwd(), '.sessions');
     
+    // 🐛 ARCHITECT FIX: Ensure checkpoint directory exists on initialization
+    this.ensureCheckpointDirectory();
+    
     this.session = {
       sessionId: this.generateSessionId(),
       userRequest,
@@ -109,6 +112,22 @@ export class SessionManager {
     
     // Start auto-checkpoint every 10 minutes
     this.startAutoCheckpoint();
+  }
+  
+  /**
+   * 🐛 ARCHITECT FIX: Ensure checkpoint directory exists
+   * Called in constructor to prevent saveCheckpoint() ENOENT failures
+   */
+  private ensureCheckpointDirectory(): void {
+    try {
+      if (!existsSync(this.checkpointDir)) {
+        mkdirSync(this.checkpointDir, { recursive: true });
+        console.log('✅ [SessionManager] Created checkpoint directory:', this.checkpointDir);
+      }
+    } catch (error) {
+      console.error('⚠️  [SessionManager] Failed to create checkpoint directory:', error);
+      // Non-blocking - will fail later if checkpoints needed
+    }
   }
   
   /**

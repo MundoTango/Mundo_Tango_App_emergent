@@ -9,7 +9,7 @@
  */
 
 import { chromium, Browser, Page, BrowserContext } from 'playwright';
-import { writeFileSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 
 export interface BrowserTestResult {
@@ -71,6 +71,24 @@ export class BrowserTesterAgent {
   
   constructor() {
     this.screenshotDir = join(process.cwd(), 'test-screenshots');
+    // 🐛 ARCHITECT FIX: Ensure screenshot directory exists on initialization
+    this.ensureScreenshotDirectory();
+  }
+  
+  /**
+   * 🐛 ARCHITECT FIX: Ensure screenshot directory exists
+   * Called in constructor to prevent Playwright screenshot() failures
+   */
+  private ensureScreenshotDirectory(): void {
+    try {
+      if (!existsSync(this.screenshotDir)) {
+        mkdirSync(this.screenshotDir, { recursive: true });
+        console.log('✅ [BrowserTester] Created screenshot directory:', this.screenshotDir);
+      }
+    } catch (error) {
+      console.error('⚠️  [BrowserTester] Failed to create screenshot directory:', error);
+      // Non-blocking - will fail later if screenshots needed
+    }
   }
   
   /**
