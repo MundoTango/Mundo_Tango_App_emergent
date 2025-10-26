@@ -4,7 +4,7 @@
  */
 
 import { Wand2, FileCode, Layers, Code2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
@@ -31,6 +31,21 @@ export default function AITab({ selectedElement, onGenerateCode }: AITabProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [codeChanges, setCodeChanges] = useState<CodeChange[]>([]);
   const { toast } = useToast();
+
+  // 🚀 ARCHITECT FIX: Check for pending AI prompt from Inspector's "Generate Code" button
+  useEffect(() => {
+    const pendingPrompt = sessionStorage.getItem('visualEditor:pendingAIPrompt');
+    if (pendingPrompt) {
+      console.log('🤖 [AITab] Found pending prompt from Inspector:', pendingPrompt);
+      setAiPrompt(pendingPrompt);
+      sessionStorage.removeItem('visualEditor:pendingAIPrompt'); // Clear after reading
+      
+      toast({
+        title: 'Element Context Loaded',
+        description: 'Edit the prompt below to describe your changes',
+      });
+    }
+  }, []); // Run once on mount
 
   const handleGenerate = async () => {
     if (!aiPrompt.trim()) return;

@@ -15,6 +15,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
 import { normalizeColor } from '@/lib/styleNormalization';
+import { useToast } from '@/hooks/use-toast';
 
 interface InspectorPanelProps {
   selectedElement: ElementSelection | null;
@@ -28,6 +29,7 @@ export function InspectorPanel({
   onTextChange 
 }: InspectorPanelProps) {
   const [editedText, setEditedText] = useState('');
+  const { toast } = useToast();
 
   // ARCHITECT FIX: Reset edited text when selection changes
   useEffect(() => {
@@ -69,23 +71,50 @@ export function InspectorPanel({
           {selectedElement.xpath}
         </div>
         
-        {/* 🚀 PHASE 4: Generate Code Button */}
+        {/* 🚀 PHASE 4: Generate Code Button (ARCHITECT FIX: Pass element context) */}
         <Button 
           className="w-full mt-3" 
           variant="default"
           size="sm"
           data-testid="button-generate-code"
           onClick={() => {
-            // Switch to AI Tab with pre-filled context
+            if (!selectedElement) {
+              toast({
+                title: 'No Element Selected',
+                description: 'Please select an element first',
+                variant: 'destructive'
+              });
+              return;
+            }
+
+            // Build context-aware prompt
+            const prompt = `Modify the selected element: <${selectedElement.tagName}>${selectedElement.id ? ` #${selectedElement.id}` : ''}${selectedElement.className ? ` .${selectedElement.className.split(' ').join('.')}` : ''}\nXPath: ${selectedElement.xpath}\n\nWhat changes would you like to make?`;
+            
+            // Store prompt in sessionStorage so AI Tab can read it
+            sessionStorage.setItem('visualEditor:pendingAIPrompt', prompt);
+            sessionStorage.setItem('visualEditor:selectedElementContext', JSON.stringify({
+              tag: selectedElement.tagName,
+              id: selectedElement.id,
+              className: selectedElement.className,
+              xpath: selectedElement.xpath,
+              computedStyles: selectedElement.computedStyles
+            }));
+
+            // Switch to AI Tab
             const aiTabButton = document.querySelector('[data-value="chat"]') as HTMLElement;
             if (aiTabButton) {
               aiTabButton.click();
-              console.log('🤖 [Inspector] Switched to AI tab for code generation');
+              console.log('🤖 [Inspector] Switched to AI tab with element context:', selectedElement);
+              
+              toast({
+                title: 'Switched to AI Tab',
+                description: 'Element context loaded - ready for code generation',
+              });
             }
           }}
         >
           <Code2 className="h-4 w-4 mr-2" />
-          Generate Code
+          Generate Code for This Element
         </Button>
       </div>
 
