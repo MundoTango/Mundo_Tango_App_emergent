@@ -57,22 +57,23 @@ router.post('/consensus', async (req: any, res) => {
     }
 
     // MB.MD FIX: Get user for saving messages
+    // 🔧 CRITICAL FIX: Middleware sets req.user with { id, email, ... } not claims.sub
     let userId: number | undefined;
     let user: any = null;
     
     console.log('🔐 [MultiModel] req.user status:', {
       hasReqUser: !!req.user,
-      hasClaims: !!req.user?.claims,
-      hasSub: !!req.user?.claims?.sub,
-      sub: req.user?.claims?.sub
+      userId: req.user?.id,
+      username: req.user?.username
     });
     
-    if (req.user?.claims?.sub) {
-      user = await storage.getUserByReplitId(req.user.claims.sub);
-      userId = user?.id;
-      console.log('✅ [MultiModel] User retrieved successfully:', { userId, username: user?.username });
+    if (req.user?.id) {
+      // User is already loaded by middleware, just use it directly
+      user = req.user;
+      userId = req.user.id;
+      console.log('✅ [MultiModel] User authenticated:', { userId, username: user.username });
     } else {
-      console.error('❌ [MultiModel] NO USER IN REQUEST - Authentication failed!');
+      console.error('❌ [MultiModel] NO USER - Authentication middleware didn\'t run!');
     }
     
     console.log('[MultiModel] Executing consensus for:', query.substring(0, 50));
