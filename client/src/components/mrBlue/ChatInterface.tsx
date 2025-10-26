@@ -516,15 +516,21 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // 🔧 FINAL FIX (Oct 26): Clear everything after streaming completes
+      // 🔧 CRITICAL FIX (Oct 26): Clear AFTER refetch, not before
       setStreamingToolStatus(null);
-      setOptimisticMessage(null);
-      setStreamingResponse('');
       
-      // Invalidate to trigger refetch
-      queryClient.invalidateQueries({ 
+      console.log('🔄 [ChatInterface] Invalidating cache and waiting for refetch...');
+      
+      // Invalidate and wait for refetch to complete
+      await queryClient.invalidateQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
+      
+      console.log('✅ [ChatInterface] Refetch complete, now clearing optimistic states');
+      
+      // NOW clear optimistic states (after DB has fresh data)
+      setOptimisticMessage(null);
+      setStreamingResponse('');
       
       // 🔧 PHASE 2: Extract build intents from AI response
       await extractAndQueueBuildIntents(projId);
