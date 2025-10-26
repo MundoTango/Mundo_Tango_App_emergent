@@ -68,6 +68,25 @@ export function InspectorPanel({
         <div className="text-xs font-mono text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded truncate">
           {selectedElement.xpath}
         </div>
+        
+        {/* 🚀 PHASE 4: Generate Code Button */}
+        <Button 
+          className="w-full mt-3" 
+          variant="default"
+          size="sm"
+          data-testid="button-generate-code"
+          onClick={() => {
+            // Switch to AI Tab with pre-filled context
+            const aiTabButton = document.querySelector('[data-value="chat"]') as HTMLElement;
+            if (aiTabButton) {
+              aiTabButton.click();
+              console.log('🤖 [Inspector] Switched to AI tab for code generation');
+            }
+          }}
+        >
+          <Code2 className="h-4 w-4 mr-2" />
+          Generate Code
+        </Button>
       </div>
 
       {/* Properties Tabs */}

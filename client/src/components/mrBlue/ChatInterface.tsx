@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { 
-  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History, Trash2
+  Sparkles, Plus, Send, Loader2, Menu, Minimize2, Headphones, History, Trash2, Save
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -914,6 +914,65 @@ export function ChatInterface() {
           >
             <History className="h-4 w-4" />
           </Button>
+          
+          {/* 🚀 PHASE 2: SAVE Button (Batch Apply) */}
+          {visualEditorContext && visualEditorContext.pendingCodeChanges && visualEditorContext.pendingCodeChanges.length > 0 && (
+            <Button
+              variant="default"
+              size="sm"
+              onClick={async () => {
+                const pendingChanges = visualEditorContext.pendingCodeChanges || [];
+                if (pendingChanges.length === 0) return;
+                
+                try {
+                  const response = await fetch('/api/vibe/apply-batch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                      changes: pendingChanges.map(c => ({
+                        filePath: c.filePath,
+                        diff: c.diff,
+                        type: c.type
+                      }))
+                    })
+                  });
+
+                  if (!response.ok) {
+                    throw new Error(`Batch apply failed: ${response.statusText}`);
+                  }
+
+                  const result = await response.json();
+                  
+                  toast({
+                    title: 'Changes Saved! ✅',
+                    description: `Applied ${result.summary.successful} change(s) - Git: ${result.gitCommitHash?.substring(0, 7) || 'N/A'}`,
+                  });
+
+                  // Clear pending changes
+                  if (visualEditorContext.clearPendingChanges) {
+                    visualEditorContext.clearPendingChanges();
+                  }
+                } catch (error) {
+                  toast({
+                    title: 'Save Failed',
+                    description: error instanceof Error ? error.message : 'Unknown error',
+                    variant: 'destructive',
+                  });
+                }
+              }}
+              data-testid="button-save-batch"
+              aria-label="Save all changes"
+              title={`Save ${visualEditorContext.pendingCodeChanges.length} pending change(s)`}
+              className="bg-green-600 hover:bg-green-700 relative"
+            >
+              <Save className="h-4 w-4 mr-2" />
+              SAVE
+              <span className="ml-2 bg-white text-green-700 rounded-full px-2 py-0.5 text-xs font-bold">
+                {visualEditorContext.pendingCodeChanges.length}
+              </span>
+            </Button>
+          )}
           
           {/* Minimize Button */}
           <Button
