@@ -125,6 +125,16 @@ app.use(requestLogger);
 app.use(securityHeaders);
 app.use(sanitizeInput);
 
+// TRACK 3B: Cache-busting middleware (MB.MD 100% Plan - Oct 26, 2025)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.path.endsWith('.js') || req.path.endsWith('.css')) {
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+  }
+  next();
+});
+
 // Initialize feature flags
 initializeFeatureFlags().catch(error => {
   logger.error({ error }, 'Failed to initialize feature flags');
@@ -242,6 +252,10 @@ app.use(chunkedUploadRoutes);
 // Model Monitoring & Auto-Update Routes (Stream G - Oct 22, 2025)
 import modelMonitorRoutes from './routes/modelMonitorRoutes';
 app.use('/api/models', modelMonitorRoutes);
+
+// VIBE CODING: File Editing Routes (MB.MD 100% Plan - Oct 26, 2025)
+import vibeEditRoutes from './routes/vibeEditRoutes';
+app.use('/api/vibe', vibeEditRoutes);
 
 // Mundo Tango ESA LIFE CEO - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));

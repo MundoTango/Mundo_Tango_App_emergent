@@ -17,6 +17,11 @@ export default defineConfig({
     port: 5000, // CRITICAL: Must be 5000 (only non-firewalled port in Replit)
     strictPort: false,
     allowedHosts: ['.replit.dev', '.replit.app'], // Allow Replit dynamic hostnames
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }
   },
   build: {
     outDir: path.resolve(__dirname, 'dist/public'),

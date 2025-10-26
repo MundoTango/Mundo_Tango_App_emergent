@@ -173,7 +173,21 @@ export function setupRealtimeWebSocket(server: any) {
 
       // Handle errors
       openaiWs.on('error', (error) => {
-        console.error('[Realtime] OpenAI WebSocket error:', error);
+        console.error('[Realtime] ❌ DETAILED OpenAI WebSocket ERROR:', {
+          message: error.message,
+          code: (error as any).code,
+          stack: error.stack,
+          apiKeyExists: !!process.env.OPENAI_API_KEY,
+          apiKeyPrefix: process.env.OPENAI_API_KEY?.substring(0, 10),
+          timestamp: new Date().toISOString()
+        });
+        
+        fetch('https://api.openai.com/v1/models', {
+          headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` }
+        })
+        .then(r => console.log('[Realtime] ✅ API Key Valid:', r.status === 200))
+        .catch(e => console.error('[Realtime] ❌ API Key Test Failed:', e.message));
+        
         clientWs.send(JSON.stringify({
           type: 'error',
           error: { message: 'OpenAI connection error' }

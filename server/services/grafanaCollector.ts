@@ -45,7 +45,7 @@ export class GrafanaCollector {
       endpoint: process.env.GRAFANA_ENDPOINT || 'https://otlp-gateway-prod-us-central-0.grafana.net/otlp',
       apiKey: process.env.GRAFANA_API_KEY || '',
       instanceId: process.env.GRAFANA_INSTANCE_ID || '',
-      enabled: process.env.ENABLE_OBSERVABILITY === 'true' && !!process.env.GRAFANA_API_KEY,
+      enabled: false,
       ...config,
     };
 
