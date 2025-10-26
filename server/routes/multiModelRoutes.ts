@@ -57,21 +57,21 @@ router.post('/consensus', async (req: any, res) => {
     }
 
     // MB.MD FIX: Get user for saving messages
-    // 🔧 CRITICAL FIX: Middleware sets req.user with { id, email, ... } not claims.sub
+    // 🔧 CRITICAL FIX: replitAuth middleware sets req.user.claims.sub in development
     let userId: number | undefined;
     let user: any = null;
     
     console.log('🔐 [MultiModel] req.user status:', {
       hasReqUser: !!req.user,
-      userId: req.user?.id,
-      username: req.user?.username
+      hasClaims: !!req.user?.claims,
+      replitId: req.user?.claims?.sub
     });
     
-    if (req.user?.id) {
-      // User is already loaded by middleware, just use it directly
-      user = req.user;
-      userId = req.user.id;
-      console.log('✅ [MultiModel] User authenticated:', { userId, username: user.username });
+    if (req.user?.claims?.sub) {
+      // Get user by Replit ID (auth bypass provides Replit ID)
+      user = await storage.getUserByReplitId(req.user.claims.sub);
+      userId = user?.id;
+      console.log('✅ [MultiModel] User authenticated:', { userId, username: user?.username, replitId: req.user.claims.sub });
     } else {
       console.error('❌ [MultiModel] NO USER - Authentication middleware didn\'t run!');
     }
