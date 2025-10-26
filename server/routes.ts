@@ -84,6 +84,8 @@ import infrastructureRoutes from "./routes/infrastructureRoutes"; // All 13 Trac
 import autonomousRoutes from "./routes/autonomousRoutes"; // Autonomous File Editing API - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
 import terminalRoutes from "./routes/terminalRoutes"; // Terminal Command Execution API - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
 import testingRoutes from "./routes/testingRoutes"; // DeepEval Testing API - Agent #145 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
+import approvalRoutes from "./routes/approvalRoutes"; // Human-in-the-Loop Approval API - Stream 2 - Oct 26, 2025
+import auditRoutes from "./routes/auditRoutes"; // Command Audit Trail API - Stream 3 - Oct 26, 2025
 
 // Mundo Tango ESA LIFE CEO - Safe route loader (DISABLED - causes Vite HMR file deletion bug)
 // import { safeLoadRoutes } from "./utils/safeRouteLoader";
@@ -1483,12 +1485,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/autonomous', autonomousRoutes); // Autonomous File Editing - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
   app.use('/api/terminal', terminalRoutes); // Terminal Command Execution - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
   app.use('/api/testing', testingRoutes); // DeepEval Testing - Agent #145 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
+  app.use('/api/approvals', approvalRoutes); // Human Approval Queue - Stream 2 - Oct 26, 2025
+  app.use('/api/audit', auditRoutes); // Command Audit Trail - Stream 3 - Oct 26, 2025
   console.log('✅ Visual Editor Infrastructure APIs registered (7 new APIs, 28 endpoints)');
   console.log('✅ All 13 Tracks Infrastructure APIs registered (Analytics, Testing, Mobile, Performance, Operations, Onboarding, Collaboration, DevEx, Design System, CI/CD, AI/ML, Growth)');
   console.log('✅ MB.MD SIMULTANEOUS Build Phase 2 APIs registered:');
   console.log('   - Autonomous File Editing (Agent #142 - 6 endpoints)');
   console.log('   - Terminal Execution (Agent #142 - 5 endpoints)');
   console.log('   - DeepEval Testing (Agent #145 - 3 endpoints)');
+  console.log('✅ MB.MD Option A - Gap Closure APIs registered:');
+  console.log('   - Approval Queue (Stream 2 - 5 endpoints)');
+  console.log('   - Audit Trail (Stream 3 - 5 endpoints)');
   console.log('✅ Conversation Module APIs registered (Search, Export, Analytics - Tracks B, C - Oct 23, 2025)');
   
   app.use('/api', authRoutes); // Authentication routes (fixes HTML response bug)

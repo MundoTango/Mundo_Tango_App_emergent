@@ -162,6 +162,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "archiver": "^7.0.1",
     "autoprefixer": "^10.4.20",
+    "axe-core": "^4.11.0",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
     "browser-image-compression": "^2.0.2",

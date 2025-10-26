@@ -31,14 +31,18 @@ interface TerminalConfig {
 }
 
 const DEFAULT_TERMINAL_CONFIG: TerminalConfig = {
-  // Safe read-only commands
+  // STREAM 3 FIX: Safe read-only commands only (removed generic npm run)
   allowedCommands: [
     'ls', 'cat', 'grep', 'find', 'head', 'tail', 'wc',
     'git status', 'git log', 'git diff', 'git branch',
     'npm list', 'npm outdated', 'npm audit',
     'node --version', 'npm --version', 'git --version',
     'echo', 'pwd', 'which', 'whoami',
-    'npm run test', 'npm run build',
+    // SPECIFIC npm scripts only (no generic 'npm run')
+    'npm run test:unit',
+    'npm run test:e2e', 
+    'npm run lint',
+    'npm run typecheck',
   ],
   // Destructive or dangerous commands
   deniedCommands: [
@@ -50,6 +54,7 @@ const DEFAULT_TERMINAL_CONFIG: TerminalConfig = {
     'chmod', 'chown', 'chgrp', // Permission changes
     'sudo', 'su', // Privilege escalation
     'eval', 'exec', // Code execution
+    'npm run', // BLOCKED: Generic npm script execution
   ],
   maxTimeout: 60 * 60 * 1000, // 60 minutes max
   workingDirectory: process.cwd(),
