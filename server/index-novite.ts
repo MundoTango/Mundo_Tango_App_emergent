@@ -54,6 +54,9 @@ import {
 import { requestLogger } from "./middleware/requestLogger";
 import { getConnectionStatus, pool } from "./db";
 
+// AGENT #143: Initialize observability (gated behind env flag)
+import { initObservability, shutdownObservability } from "./observability";
+
 const app = express();
 
 // Disable X-Powered-By header for security (Architect recommendation: Oct 20, 2025)
@@ -249,6 +252,14 @@ const clientPath = pathModule.join(process.cwd(), 'dist', 'public');
 // API routes
 const startServer = async () => {
   try {
+    // AGENT #143: Initialize observability (gated behind env flag)
+    if (process.env.ENABLE_OBSERVABILITY === 'true') {
+      console.log('📊 [Observability] Initializing OpenTelemetry...');
+      await initObservability();
+    } else {
+      console.log('📊 [Observability] Disabled (set ENABLE_OBSERVABILITY=true to enable)');
+    }
+    
     console.log('🔄 Initializing database connection...');
     const httpServer = await registerRoutes(app);
     console.log('✅ Routes registered successfully');
@@ -302,5 +313,22 @@ const startServer = async () => {
     process.exit(1);
   }
 };
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('📊 [Observability] Shutting down...');
+  if (process.env.ENABLE_OBSERVABILITY === 'true') {
+    await shutdownObservability();
+  }
+  process.exit(0);
+});
+
+process.on('SIGINT', async () => {
+  console.log('📊 [Observability] Shutting down...');
+  if (process.env.ENABLE_OBSERVABILITY === 'true') {
+    await shutdownObservability();
+  }
+  process.exit(0);
+});
 
 startServer();
