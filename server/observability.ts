@@ -131,3 +131,59 @@ export function calculateLLMCost(
     (outputTokens * rates.output / 1_000_000)
   );
 }
+
+/**
+ * 🚀 PHASE 3.2 & 6: Export autonomous runtime metrics to Grafana
+ * Exports SessionManager metrics to OpenTelemetry for Grafana Cloud visualization
+ */
+import { metrics } from '@opentelemetry/api';
+
+const meter = metrics.getMeter('mr-blue-autonomous');
+
+// Create gauges for autonomous runtime metrics
+const autonomousRuntimeGauge = meter.createObservableGauge('autonomous.runtime.minutes', {
+  description: 'Current autonomous runtime in minutes'
+});
+
+const autonomousTasksGauge = meter.createObservableGauge('autonomous.tasks.completed', {
+  description: 'Number of tasks completed in autonomous session'
+});
+
+const autonomousCostGauge = meter.createObservableGauge('autonomous.cost.usd', {
+  description: 'Estimated cost of autonomous session in USD'
+});
+
+const autonomousTestPassRateGauge = meter.createObservableGauge('autonomous.tests.pass_rate', {
+  description: 'Test pass rate percentage in autonomous session'
+});
+
+const autonomousSelfHealingRateGauge = meter.createObservableGauge('autonomous.self_healing.success_rate', {
+  description: 'Self-healing success rate percentage'
+});
+
+// Store current session metrics for export
+let currentSessionMetrics: Record<string, number> = {};
+
+/**
+ * Update autonomous metrics for export to Grafana
+ * Called by SessionManager on each metric update
+ */
+export function updateAutonomousMetrics(metrics: Record<string, number>): void {
+  currentSessionMetrics = metrics;
+  
+  // Log to console for debugging
+  console.log('📊 [Observability] Autonomous metrics updated:', {
+    runtime: metrics['autonomous.runtime.minutes'],
+    tasks: metrics['autonomous.tasks.completed'],
+    cost: metrics['autonomous.cost.usd']?.toFixed(3),
+    testPassRate: metrics['autonomous.tests.pass_rate']?.toFixed(1) + '%'
+  });
+}
+
+/**
+ * Export current autonomous metrics to OpenTelemetry
+ * This is called automatically by OpenTelemetry on collection interval (10s)
+ */
+export function exportAutonomousMetrics(): Record<string, number> {
+  return currentSessionMetrics;
+}

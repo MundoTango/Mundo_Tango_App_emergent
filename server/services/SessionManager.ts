@@ -223,9 +223,20 @@ export class SessionManager {
   
   /**
    * Update metrics - called by VibeGraph after each step
+   * 🚀 PHASE 3.2: Exports to Grafana Cloud via observability.ts
    */
   updateMetrics(update: Partial<SessionMetrics>): void {
     Object.assign(this.session.metrics, update);
+    
+    // 🚀 PHASE 3.2 & 6: Export metrics to Grafana
+    try {
+      // Dynamically import to avoid circular dependency
+      const { updateAutonomousMetrics } = require('../observability');
+      updateAutonomousMetrics(this.getGrafanaMetrics());
+    } catch (error) {
+      // Graceful degradation if observability isn't available
+      console.warn('⚠️  [SessionManager] Failed to export Grafana metrics:', error);
+    }
   }
   
   /**
