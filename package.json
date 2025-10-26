@@ -25,7 +25,7 @@
     "restore-docs": "tsx scripts/restore-docs-from-db.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.67.0",
+    "@anthropic-ai/sdk": "^0.37.0",
     "@axe-core/playwright": "^4.11.0",
     "@babel/parser": "^7.28.5",
     "@babel/traverse": "^7.28.5",

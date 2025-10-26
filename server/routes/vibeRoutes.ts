@@ -11,6 +11,7 @@
  */
 
 import { Router, type Request, Response } from 'express';
+import { execSync } from 'child_process';
 import { createDiffEditor } from '../services/fileEditing/UnifiedDiffEditor.js';
 import { createSearchReplaceEditor } from '../services/fileEditing/SearchReplaceEditor.js';
 import { createASTParser } from '../services/repositoryMapping/ASTParser.js';
@@ -19,7 +20,8 @@ import { VibeGraph } from '../services/agents/VibeGraph.js';
 import { storage } from '../storage.js';
 import { getWebSocketService } from '../services/websocketService.js';
 import { db } from '../db.js';
-import { componentAttributions } from '../../shared/schema.js';
+import { componentAttributions, codeChanges } from '../../shared/schema.js';
+import { eq } from 'drizzle-orm';
 
 const router = Router();
 
@@ -98,6 +100,50 @@ router.post('/edit-file', async (req: any, res: Response) => {
       } catch (attrError) {
         console.error('⚠️ [Attribution] Failed to log (non-blocking):', attrError);
         // Don't fail the request if attribution logging fails
+      }
+    }
+
+    // 🚀 TRACK B: Git commit integration (Oct 26, 2025)
+    if (result.success) {
+      try {
+        // Stage the modified file
+        execSync(`git add "${filePath}"`, { cwd: process.cwd() });
+        
+        // Create commit message
+        const commitMsg = attribution?.contribution 
+          ? `[Mr Blue] ${attribution.contribution}\n\nUser: ${user.name} (#${user.id})\nFile: ${filePath}`
+          : `[Mr Blue] Modified ${filePath}\n\nUser: ${user.name} (#${user.id})`;
+        
+        // Commit the change
+        execSync(`git commit -m "${commitMsg.replace(/"/g, '\\"')}"`, { cwd: process.cwd() });
+        
+        // Get commit hash
+        const gitHash = execSync('git rev-parse HEAD', { cwd: process.cwd() }).toString().trim();
+        
+        console.log(`✅ [Git] Committed ${filePath} → ${gitHash.substring(0, 7)}`);
+        
+        // Update code_changes table if changeId provided
+        if (attribution?.changeId) {
+          try {
+            await db.update(codeChanges)
+              .set({ 
+                gitCommitHash: gitHash,
+                status: 'applied',
+                appliedAt: new Date()
+              })
+              .where(eq(codeChanges.id, attribution.changeId));
+            console.log(`✅ [DB] Updated code_changes record ${attribution.changeId}`);
+          } catch (dbError) {
+            console.error('⚠️ [DB] Failed to update code_changes (non-blocking):', dbError);
+          }
+        }
+        
+        // Add git hash to response
+        result.gitCommitHash = gitHash;
+        
+      } catch (gitError) {
+        console.error('⚠️ [Git] Commit failed (non-blocking):', gitError);
+        // Don't fail the request if git commit fails
       }
     }
 

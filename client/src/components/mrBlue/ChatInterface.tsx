@@ -592,11 +592,57 @@ export function ChatInterface() {
       console.log('🚀 [Vibe] No keywords detected, executing anyway (Visual Editor mode)');
     }
     
-    console.log('🚀 [Vibe] Code change detected - DISABLED (VibeGraph is stub, using direct AI responses instead)');
+    console.log('🚀 [Vibe] Executing vibe coding request...');
     
-    // 🚨 TEMPORARY DISABLE: VibeGraph is just a placeholder that returns filePath:"unknown"
-    // For now, Mr Blue's text responses guide the user. Future: Implement real autonomous coding
-    return;
+    try {
+      // Execute vibe coding with Visual Editor context
+      const result = await executeVibeCoding(userMessage, {
+        selectedElement: activeElement,
+        previewPath: previewPath || '/'
+      });
+      
+      console.log('✅ [Vibe] Execution complete:', result);
+      
+      // Check if we got code changes
+      if (result.codeChanges && result.codeChanges.length > 0) {
+        console.log(`🎯 [Vibe] Got ${result.codeChanges.length} code change(s)`);
+        
+        // Open diff preview for the first change
+        const firstChange = result.codeChanges[0];
+        
+        setDiffPreview({
+          isOpen: true,
+          filePath: firstChange.filePath,
+          newCode: firstChange.diff,
+          diffId: projId // Use project ID as identifier
+        });
+        
+        toast({
+          title: 'Code Changes Ready',
+          description: `${result.codeChanges.length} change(s) generated. Review and apply?`
+        });
+        
+        // Store changes for this message (future: support multiple changes)
+        // For now, just showing the first one
+      } else if (result.status === 'failed') {
+        console.error('❌ [Vibe] Execution failed:', result.errors);
+        toast({
+          title: 'Code Generation Failed',
+          description: result.errors?.join(', ') || 'Unknown error',
+          variant: 'destructive'
+        });
+      } else {
+        console.warn('⚠️ [Vibe] No code changes generated');
+      }
+      
+    } catch (error) {
+      console.error('❌ [Vibe] Execution error:', error);
+      toast({
+        title: 'Vibe Coding Error',
+        description: error instanceof Error ? error.message : 'Failed to execute',
+        variant: 'destructive'
+      });
+    }
   };
 
   // 🔧 PHASE 2: Extract build intents from messages and queue in SaveOrchestrator
@@ -1050,46 +1096,29 @@ export function ChatInterface() {
             newCode={diffPreview.newCode || ''}
             onAccept={async () => {
               try {
-                const { filePath, oldCode, newCode } = diffPreview;
+                const { filePath, newCode } = diffPreview;
                 if (!filePath || !newCode) return;
                 
-                // 🚀 STREAM C1: Write file using unified diff
-                const diffContent = `--- ${filePath}
-+++ ${filePath}
-@@ -1,${oldCode?.split('\n').length || 0} +1,${newCode.split('\n').length} @@
--${oldCode || ''}
-+${newCode}`;
+                console.log('✅ [DiffPreview] Applying changes to', filePath);
                 
-                await apiRequest('/api/vibe/edit-file', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    filePath,
-                    editType: 'unified_diff',
-                    diffContent
-                  })
-                });
+                // Apply code change via vibe API (handles git commit automatically)
+                const result = await applyCodeChange(filePath, newCode, 'unified_diff');
                 
-                // 🚀 STREAM C2: Generate AI commit message and commit
-                const commitMsgRes = await fetch('/api/git/generate-message', {
-                  method: 'POST',
-                  credentials: 'include'
-                });
-                const { message: commitMsg } = await commitMsgRes.json();
+                console.log('✅ [DiffPreview] Apply result:', result);
                 
-                const commitRes: any = await apiRequest('/api/git/commit', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    message: commitMsg,
-                    files: [filePath]
-                  })
-                });
+                // Invalidate preview cache to show changes
+                queryClient.invalidateQueries({ queryKey: ['/api/preview'] });
                 
                 toast({
                   title: 'Changes Applied! ✨',
-                  description: `File written and committed: ${commitRes.commitHash?.substring(0, 7) || 'success'}`,
+                  description: result.gitCommitHash 
+                    ? `File updated and committed: ${result.gitCommitHash.substring(0, 7)}`
+                    : `File updated: ${filePath}`,
                 });
+                
                 setDiffPreview({ isOpen: false });
               } catch (error) {
+                console.error('❌ [DiffPreview] Apply error:', error);
                 toast({
                   title: 'Failed to apply changes',
                   description: error instanceof Error ? error.message : 'Unknown error',
