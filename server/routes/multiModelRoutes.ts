@@ -14,9 +14,12 @@ import { db } from '../db';
 import { aiChatMessages } from '@shared/schema';
 import { storage } from '../storage';
 import { triggerAutoNaming, buildContextAwarePrompt, detectBuildIntent } from './chatProjectsRoutes';
-import { isSuperAdmin } from '../utils/auth';
+import { isSuperAdmin, isAuthenticated } from '../utils/auth';
 
 const router = Router();
+
+// 🔐 CRITICAL FIX: Add authentication middleware
+router.use(isAuthenticated);
 
 // 🚨 MB.MD DEBUG: Log ALL requests that reach this router
 router.use((req, res, next) => {
