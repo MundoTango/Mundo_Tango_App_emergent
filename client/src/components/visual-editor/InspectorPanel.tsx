@@ -57,8 +57,9 @@ export function InspectorPanel({
     debounceTimerRef.current = setTimeout(() => {
       const oldText = selectedElement?.textContent || '';
       
-      // Only queue if text actually changed
-      if (newText !== oldText && newText.trim() !== '') {
+      // ✅ ARCHITECT FIX: Allow empty strings (text deletions)
+      // Only skip if text is unchanged
+      if (newText !== oldText) {
         console.log('✏️ [InspectorPanel] Auto-queuing text change:', { oldText, newText });
         onTextChange?.(newText);
       }
