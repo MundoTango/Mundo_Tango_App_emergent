@@ -42,6 +42,11 @@ interface VibeState {
   };
   user: User;
 
+  // 🎯 REPLIT-STYLE: Clarification & Conversation Mode
+  needsClarification: boolean;
+  clarificationQuestion?: string;
+  conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }>;
+
   // Planning (Manager Agent)
   tasks: Task[];
   currentTaskIndex: number;
@@ -63,7 +68,7 @@ interface VibeState {
   maxRetries: number;
 
   // Status
-  status: 'planning' | 'editing' | 'verifying' | 'testing' | 'complete' | 'failed';
+  status: 'planning' | 'editing' | 'verifying' | 'testing' | 'complete' | 'failed' | 'needs_clarification';
 }
 
 interface Task {
@@ -113,6 +118,8 @@ export class VibeGraph {
       userRequest,
       user,
       visualEditorContext: context,
+      needsClarification: false,
+      conversationHistory: [{ role: 'user', content: userRequest }],
       tasks: [],
       currentTaskIndex: 0,
       codeChanges: [],
@@ -203,31 +210,44 @@ export class VibeGraph {
         contextInfo += `Current page: ${this.state.visualEditorContext.previewPath}\n\n`;
       }
       
-      const prompt = `You are a code planning assistant. Analyze this request and create a task plan.
+      const prompt = `You are a Replit-style AI coding assistant. Analyze this request and decide if you need clarification or can proceed.
 
 ${contextInfo}
 
-Based on the request and context, determine:
-1. What files need to be modified (be specific, e.g., "client/src/pages/landing.tsx")
-2. What changes are needed
-3. Priority level
+Conversation so far:
+${this.state.conversationHistory.map(m => `${m.role}: ${m.content}`).join('\n')}
 
-Common file patterns:
-- Landing page: client/src/pages/landing.tsx
-- Home page: client/src/pages/home.tsx  
-- Components: client/src/components/
-- Styles: CSS classes in the component files
+Your job:
+1. If the request is AMBIGUOUS or UNCLEAR, ask a clarifying question
+2. If the request is CLEAR, create a task plan
 
-Return ONLY a JSON object with this structure:
+Examples of ambiguous requests:
+- "make it red" → Ask: "Which element do you want red? The background, button, or heading?"
+- "add a smiley face" → Ask: "Where should I add the smiley? In the heading, next to a button, or as decoration?"
+- "change the color" → Ask: "Which color should I change, and what color would you like?"
+
+Examples of clear requests:
+- "change the background to red and add a smiley face emoji to the welcome heading" → Proceed
+- "make the button blue with rounded corners" → Proceed
+
+Return ONLY a JSON object:
 {
+  "needsClarification": true/false,
+  "clarificationQuestion": "Your question here" (only if needsClarification is true),
   "tasks": [
     {
       "description": "Clear description of what to do",
       "files": ["path/to/file.tsx"],
       "priority": "high|medium|low"
     }
-  ]
-}`;
+  ] (only if needsClarification is false)
+}
+
+Common file patterns for tasks:
+- Landing page: client/src/pages/landing.tsx
+- Home page: client/src/pages/home.tsx  
+- Components: client/src/components/
+- Styles: CSS classes in the component files`;
 
       const response = await anthropic.messages.create({
         model: DEFAULT_MODEL_STR,
@@ -248,6 +268,15 @@ Return ONLY a JSON object with this structure:
       }
       
       const plan = JSON.parse(jsonMatch[0]);
+      
+      // 🎯 REPLIT-STYLE: Check if AI needs clarification
+      if (plan.needsClarification) {
+        this.state.needsClarification = true;
+        this.state.clarificationQuestion = plan.clarificationQuestion;
+        this.state.status = 'needs_clarification';
+        console.log('❓ [VibeGraph] Needs clarification:', plan.clarificationQuestion);
+        return; // Don't create tasks yet
+      }
       
       // Convert to Task objects
       this.state.tasks = plan.tasks.map((t: any, i: number) => ({
@@ -440,6 +469,10 @@ Rules:
    * Get current state
    */
   getState(): VibeState {
-    return this.state;
+    return {
+      ...this.state,
+      needsClarification: this.state.needsClarification,
+      clarificationQuestion: this.state.clarificationQuestion
+    };
   }
 }

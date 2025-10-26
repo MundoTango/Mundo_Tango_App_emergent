@@ -40,59 +40,54 @@ export function UniversalSaveSystem({ onSaveComplete }: UniversalSaveSystemProps
 
     setIsSaving(true);
     setSaveStatus('saving');
-    
-    let successCount = 0;
-    let errorCount = 0;
-    const errors: string[] = [];
+    setCurrentFile(`Preparing ${pendingChanges.length} change(s)...`);
 
     try {
-      // Apply each code change sequentially
-      for (let i = 0; i < pendingChanges.length; i++) {
-        const change = pendingChanges[i];
-        setCurrentFile(`${i + 1}/${pendingChanges.length}: ${change.filePath}`);
-        
-        try {
-          // Convert type for API (new_file becomes unified_diff)
-          const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
-          
-          console.log(`📝 [Save] Applying change ${i + 1}/${pendingChanges.length}:`, change.filePath);
-          
-          await applyCodeChange(change.filePath, change.diff, editType);
-          
-          // 🔧 ARCHITECT FIX: Mark successful change
-          change.status = 'applied';
-          successCount++;
-        } catch (error) {
-          // 🔧 ARCHITECT FIX: Mark failed change but keep it
-          change.status = 'failed';
-          change.error = error instanceof Error ? error.message : 'Unknown error';
-          errorCount++;
-          const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-          errors.push(`${change.filePath}: ${errorMsg}`);
-          console.error(`❌ [Save] Failed to apply change to ${change.filePath}:`, error);
-        }
+      // 🚀 REPLIT-STYLE: Use batch API for single git commit
+      const response = await fetch('/api/vibe/apply-batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          changes: pendingChanges.map(c => ({
+            filePath: c.filePath,
+            diff: c.diff,
+            type: c.type
+          }))
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Batch apply failed: ${response.statusText}`);
       }
+
+      const result = await response.json();
       
-      // 🔧 ARCHITECT FIX: Only clear SUCCESSFUL changes, keep failed ones
+      console.log('✅ [Save] Batch apply complete:', result);
+
+      const { summary, gitCommitHash, errors } = result;
+      
+      // Clear all changes (batch handles everything)
       if (visualEditorContext) {
-        const failedChanges = pendingChanges.filter(c => c.status === 'failed');
-        visualEditorContext.setPendingCodeChanges(failedChanges);
+        visualEditorContext.setPendingCodeChanges([]);
       }
       
       setLastSaveTime(new Date());
       
-      if (errorCount === 0) {
+      if (summary.failed === 0) {
         setSaveStatus('success');
         toast({
-          title: "All Changes Applied! ✅",
-          description: `Successfully modified ${successCount} file(s)`,
+          title: "✅ All Changes Applied & Committed!",
+          description: gitCommitHash 
+            ? `${summary.successful} file(s) → commit ${gitCommitHash.substring(0, 7)}`
+            : `Successfully applied ${summary.successful} file(s)`,
           duration: 5000
         });
       } else {
         setSaveStatus('error');
         toast({
           title: `Partial Success`,
-          description: `${successCount} succeeded, ${errorCount} failed. Check console for details.`,
+          description: `${summary.successful} succeeded, ${summary.failed} failed`,
           variant: "destructive",
           duration: 5000
         });

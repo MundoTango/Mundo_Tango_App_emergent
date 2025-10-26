@@ -43,13 +43,14 @@ export interface TestResult {
 }
 
 export interface VibeResponse {
-  request: string;
+  status: 'planning' | 'editing' | 'verifying' | 'testing' | 'complete' | 'failed' | 'needs_clarification';
+  request?: string;
   tasks: Task[];
   codeChanges: CodeChange[];
-  testResults: TestResult[];
-  currentPhase: 'planning' | 'editing' | 'verifying' | 'testing' | 'complete';
-  retryCount: number;
+  testResults?: TestResult;
   errors: string[];
+  needsClarification?: boolean;
+  clarificationQuestion?: string;
 }
 
 /**

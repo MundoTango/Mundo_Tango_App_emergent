@@ -242,16 +242,149 @@ router.post('/execute', async (req: any, res: Response) => {
     const graph = new VibeGraph(request, user, visualEditorContext);
     const result = await graph.execute();
 
+    // 🎯 REPLIT-STYLE: Return clarification info if needed
     res.json({
       status: result.status,
       tasks: result.tasks,
       codeChanges: result.codeChanges,
       testResults: result.testResults,
-      errors: result.errors
+      errors: result.errors,
+      needsClarification: result.needsClarification,
+      clarificationQuestion: result.clarificationQuestion
     });
   } catch (error) {
     console.error('[Vibe] Execution error:', error);
     res.status(500).json({ error: 'Failed to execute vibe coding request' });
+  }
+});
+
+/**
+ * POST /api/vibe/apply-batch - Apply all pending changes (SAVE button)
+ * 
+ * Body:
+ * {
+ *   changes: Array<{ filePath: string, diff: string, type: string }>
+ * }
+ */
+router.post('/apply-batch', async (req: any, res: Response) => {
+  if (!req.user?.claims?.sub) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+
+  try {
+    const { changes } = req.body;
+
+    if (!changes || !Array.isArray(changes)) {
+      return res.status(400).json({ error: 'changes array is required' });
+    }
+
+    const user = await storage.getUserByReplitId(req.user.claims.sub);
+    if (!user) {
+      return res.status(403).json({ error: 'User not found' });
+    }
+
+    console.log(`🚀 [Vibe Batch] Applying ${changes.length} change(s)...`);
+
+    const results = [];
+    const errors = [];
+
+    // Apply each change sequentially
+    for (let i = 0; i < changes.length; i++) {
+      const change = changes[i];
+      const { filePath, diff, type } = change;
+
+      try {
+        console.log(`📝 [Batch ${i + 1}/${changes.length}] Applying ${filePath}...`);
+
+        // Apply the diff using UnifiedDiffEditor
+        const editor = createDiffEditor();
+        const result = await editor.applyDiff(filePath, diff);
+
+        results.push({
+          filePath,
+          success: true,
+          message: result.message
+        });
+
+      } catch (error) {
+        console.error(`❌ [Batch ${i + 1}/${changes.length}] Failed:`, error);
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+        
+        results.push({
+          filePath,
+          success: false,
+          error: errorMsg
+        });
+
+        errors.push(`${filePath}: ${errorMsg}`);
+      }
+    }
+
+    // 🚀 TRACK B: Create single git commit for all changes
+    if (results.some(r => r.success)) {
+      try {
+        const successfulFiles = results.filter(r => r.success).map(r => r.filePath);
+
+        // Stage all successful files
+        for (const file of successfulFiles) {
+          execSync(`git add "${file}"`, { cwd: process.cwd() });
+        }
+
+        // Create batch commit message
+        const commitMsg = `[Mr Blue Batch] Applied ${successfulFiles.length} vibe coding change(s)
+
+User: ${user.name} (#${user.id})
+Files: ${successfulFiles.join(', ')}`;
+
+        // Commit
+        execSync(`git commit -m "${commitMsg.replace(/"/g, '\\"')}"`, { cwd: process.cwd() });
+
+        // Get commit hash
+        const gitHash = execSync('git rev-parse HEAD', { cwd: process.cwd() }).toString().trim();
+
+        console.log(`✅ [Git Batch] Committed ${successfulFiles.length} files → ${gitHash.substring(0, 7)}`);
+
+        res.json({
+          success: true,
+          results,
+          errors: errors.length > 0 ? errors : undefined,
+          gitCommitHash: gitHash,
+          summary: {
+            total: changes.length,
+            successful: results.filter(r => r.success).length,
+            failed: results.filter(r => !r.success).length
+          }
+        });
+
+      } catch (gitError) {
+        console.error('⚠️ [Git Batch] Commit failed:', gitError);
+        res.json({
+          success: true,
+          results,
+          errors: [...errors, 'Git commit failed (changes still applied)'],
+          summary: {
+            total: changes.length,
+            successful: results.filter(r => r.success).length,
+            failed: results.filter(r => !r.success).length
+          }
+        });
+      }
+    } else {
+      res.status(500).json({
+        success: false,
+        results,
+        errors,
+        summary: {
+          total: changes.length,
+          successful: 0,
+          failed: changes.length
+        }
+      });
+    }
+
+  } catch (error) {
+    console.error('[Vibe Batch] Error:', error);
+    res.status(500).json({ error: 'Failed to apply batch' });
   }
 });
 
@@ -264,7 +397,8 @@ router.get('/health', (req: Request, res: Response) => {
     services: {
       fileEditing: 'available',
       repositoryMapping: 'available',
-      multiAgent: 'available'
+      multiAgent: 'available',
+      batchApply: 'available'
     },
     timestamp: new Date().toISOString()
   });

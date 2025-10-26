@@ -592,7 +592,7 @@ export function ChatInterface() {
       console.log('🚀 [Vibe] No keywords detected, executing anyway (Visual Editor mode)');
     }
     
-    console.log('🚀 [Vibe] Executing vibe coding request...');
+    console.log('🚀 [Vibe] REPLIT-STYLE: Preparing changes (not applying)...');
     
     try {
       // Execute vibe coding with Visual Editor context
@@ -603,36 +603,71 @@ export function ChatInterface() {
       
       console.log('✅ [Vibe] Execution complete:', result);
       
-      // Check if we got code changes
-      if (result.codeChanges && result.codeChanges.length > 0) {
-        console.log(`🎯 [Vibe] Got ${result.codeChanges.length} code change(s)`);
+      // 🎯 REPLIT-STYLE: Handle clarification questions
+      if (result.status === 'needs_clarification' && result.clarificationQuestion) {
+        console.log('❓ [Vibe] AI needs clarification');
         
-        // Open diff preview for the first change
-        const firstChange = result.codeChanges[0];
-        
-        setDiffPreview({
-          isOpen: true,
-          filePath: firstChange.filePath,
-          newCode: firstChange.diff,
-          diffId: projId // Use project ID as identifier
-        });
-        
+        // Show clarification question as an AI message (will be saved by backend)
         toast({
-          title: 'Code Changes Ready',
-          description: `${result.codeChanges.length} change(s) generated. Review and apply?`
+          title: '❓ Need more details',
+          description: result.clarificationQuestion,
+          duration: 5000
         });
         
-        // Store changes for this message (future: support multiple changes)
-        // For now, just showing the first one
+        // AI response will appear in chat automatically
+        return;
+      }
+      
+      // 🎯 REPLIT-STYLE: Queue changes in SaveOrchestrator (don't apply yet!)
+      if (result.codeChanges && result.codeChanges.length > 0) {
+        console.log(`🎯 [Vibe] Queueing ${result.codeChanges.length} change(s) for SAVE`);
+        
+        // Add each change to SaveOrchestrator queue
+        for (const change of result.codeChanges) {
+          saveOrchestrator.addChange({
+            type: 'ai-build',
+            description: `Vibe Coding: ${userMessage.substring(0, 100)}`,
+            data: {
+              filePath: change.filePath,
+              diff: change.diff,
+              editType: change.type,
+              vibe: true // Mark as vibe coding change
+            }
+          });
+        }
+        
+        // Update Visual Editor context with pending changes
+        if (visualEditorContext?.setPendingCodeChanges) {
+          const vibeChanges = result.codeChanges.map((change, index) => ({
+            id: `vibe-${Date.now()}-${index}`,
+            filePath: change.filePath,
+            diff: change.diff,
+            type: change.type as any,
+            status: 'pending' as const
+          }));
+          
+          visualEditorContext.setPendingCodeChanges([
+            ...(visualEditorContext.pendingCodeChanges || []),
+            ...vibeChanges
+          ]);
+        }
+        
+        // Show subtle notification (no modal!)
+        toast({
+          title: `✨ ${result.codeChanges.length} Change${result.codeChanges.length > 1 ? 's' : ''} Prepared`,
+          description: 'Click SAVE in Visual Editor to apply',
+          duration: 3000
+        });
+        
       } else if (result.status === 'failed') {
         console.error('❌ [Vibe] Execution failed:', result.errors);
         toast({
-          title: 'Code Generation Failed',
-          description: result.errors?.join(', ') || 'Unknown error',
+          title: 'Planning Failed',
+          description: result.errors?.join(', ') || 'Could not plan changes',
           variant: 'destructive'
         });
       } else {
-        console.warn('⚠️ [Vibe] No code changes generated');
+        console.log('💬 [Vibe] AI responded conversationally (no code changes)');
       }
       
     } catch (error) {
