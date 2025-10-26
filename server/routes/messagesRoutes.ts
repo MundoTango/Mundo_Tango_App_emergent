@@ -81,6 +81,42 @@ router.get('/api/messages', isAuthenticated, async (req: any, res, next: NextFun
   }
 });
 
+// MB.MD SIMULTANEOUS P0: Get unread messages count for UnifiedTopBar
+// NOTE: This MUST come BEFORE the /:roomSlug route to avoid matching "unread-count" as a roomSlug
+router.get('/api/messages/unread-count', isAuthenticated, async (req: any, res, next: NextFunction) => {
+  try {
+    const replitId = req.user.claims.sub;
+    const userResult = await db.select().from(users).where(eq(users.replitId, replitId)).limit(1);
+    if (!userResult[0]) throw new AuthenticationError('User not found');
+    
+    const userSlug = userResult[0].username || `user_${userResult[0].id}`;
+    
+    // Count messages in rooms where user is participant AND message is after their last read
+    // For now, return total unread messages count across all rooms
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(chatMessages)
+      .innerJoin(chatRoomUsers, eq(chatRoomUsers.chatRoomSlug, chatMessages.chatRoomSlug))
+      .where(
+        and(
+          eq(chatRoomUsers.userSlug, userSlug),
+          eq(chatRoomUsers.isLeaved, false),
+          eq(chatRoomUsers.isKicked, false),
+          // Message not from current user
+          sql`${chatMessages.userSlug} != ${userSlug}`,
+          // Message created after user's last read (for now, we'll use a simple approach)
+          // TODO: Add lastReadAt field to chatRoomUsers schema in future
+          sql`${chatMessages.createdAt} > ${chatRoomUsers.createdAt}`
+        )
+      );
+    
+    const count = result[0]?.count || 0;
+    res.json({ count: Number(count) });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Get messages in a specific chat room
 router.get('/api/messages/:roomSlug', isAuthenticated, async (req: any, res, next: NextFunction) => {
   try {
@@ -233,41 +269,6 @@ router.post('/api/messages', isAuthenticated, async (req: any, res, next: NextFu
     } else {
       next(error);
     }
-  }
-});
-
-// MB.MD SIMULTANEOUS P0: Get unread messages count for UnifiedTopBar
-router.get('/api/messages/unread-count', isAuthenticated, async (req: any, res, next: NextFunction) => {
-  try {
-    const replitId = req.user.claims.sub;
-    const userResult = await db.select().from(users).where(eq(users.replitId, replitId)).limit(1);
-    if (!userResult[0]) throw new AuthenticationError('User not found');
-    
-    const userSlug = userResult[0].username || `user_${userResult[0].id}`;
-    
-    // Count messages in rooms where user is participant AND message is after their last read
-    // For now, return total unread messages count across all rooms
-    const result = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(chatMessages)
-      .innerJoin(chatRoomUsers, eq(chatRoomUsers.chatRoomSlug, chatMessages.chatRoomSlug))
-      .where(
-        and(
-          eq(chatRoomUsers.userSlug, userSlug),
-          eq(chatRoomUsers.isLeaved, false),
-          eq(chatRoomUsers.isKicked, false),
-          // Message not from current user
-          sql`${chatMessages.userSlug} != ${userSlug}`,
-          // Message created after user's last read (for now, we'll use a simple approach)
-          // TODO: Add lastReadAt field to chatRoomUsers schema in future
-          sql`${chatMessages.createdAt} > ${chatRoomUsers.createdAt}`
-        )
-      );
-    
-    const count = result[0]?.count || 0;
-    res.json({ count: Number(count) });
-  } catch (error) {
-    next(error);
   }
 });
 
