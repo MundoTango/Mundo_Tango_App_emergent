@@ -804,6 +804,8 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                     tag: visualEditorContext.selectedElement.tagName,
                     id: visualEditorContext.selectedElement.id,
                     className: visualEditorContext.selectedElement.className,
+                    xpath: visualEditorContext.selectedElement.xpath,
+                    innerHTML: visualEditorContext.selectedElement.textContent,
                   } : null}
                   visualEditorContext={visualEditorContext ?? undefined}
                   onGenerateCode={async (prompt: string) => {
