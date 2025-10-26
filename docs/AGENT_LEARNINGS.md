@@ -1,9 +1,72 @@
 # Agent Learnings: Phase-Based Integration Protocol
-**Version:** 2.0  
+**Version:** 2.1
+**Last Updated:** October 26, 2025  
 **Created:** October 22, 2025  
-**Source:** Mr Blue & Visual Editor Integration Audit  
+**Source:** Mr Blue & Visual Editor Integration Audit + Critical Bug Fixes  
 **Status:** 🔴 MANDATORY for ALL agents  
 **Implements:** MB.MD QA Protocol Rules 1-5
+
+---
+
+## 🚨 **CRITICAL BUG FIX: Oct 26, 2025 - Authentication Middleware Mix-up**
+
+### The Bug
+Chat messages sent through Mr Blue disappeared immediately. AI response came back but conversation history wouldn't persist.
+
+### Root Cause  
+**Wrong authentication middleware imported** in `server/routes/multiModelRoutes.ts`:
+- ❌ Used `server/middleware/auth.ts` (strict JWT, NO dev bypass)
+- ✅ Should use `server/replitAuth.ts` (has development auth bypass)
+
+### Why This Matters
+There are TWO `isAuthenticated` middlewares:
+1. **server/replitAuth.ts** - Replit OAuth + dev bypass (sets `req.user.claims.sub = "44164221"`)
+2. **server/middleware/auth.ts** - Strict JWT (throws error if no token found)
+
+**The Wrong Import Chain:**
+```
+Frontend sends message (no JWT token)
+   ↓
+multiModelRoutes uses strict middleware
+   ↓
+No token → Authentication throws error
+   ↓
+req.user = undefined → Message never saved
+```
+
+### The Fix
+```typescript
+// ❌ WRONG - Causes authentication failure in development
+import { isAuthenticated } from '../middleware/auth';
+
+// ✅ CORRECT - Allows development auth bypass
+import { isAuthenticated } from '../replitAuth';
+```
+
+### How Architect Tool Helped
+Standard debugging failed. Architect tool identified:
+1. Middleware WAS running (no import errors)
+2. But schema mismatch: middleware sets `req.user = { id, email }`, code expected `req.user.claims.sub`
+3. Led to discovering wrong middleware import
+
+### Verification Test
+```bash
+# 1. Send message in Mr Blue chat
+# 2. Check server logs for:
+✅ [MultiModel] User authenticated: { userId: 1, username: 'elena_tango' }
+
+# 3. Refresh page
+# 4. Messages should persist (not disappear)
+```
+
+### Key Lesson for ALL Agents
+**Before assuming middleware works:**
+1. Check WHICH middleware is imported (filename, not just function name)
+2. Verify `req.user` is populated correctly (add logging)
+3. Use architect tool when standard debugging fails
+4. Two files with same export name = HIGH RISK for wrong import
+
+**Files Changed:** `server/routes/multiModelRoutes.ts` (line 21)
 
 ---
 
