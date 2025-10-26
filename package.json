@@ -26,6 +26,8 @@
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "test:all": "npm run test:integration && npm run test:smoke && npm run test:e2e",
+    "test:grafana": "tsx tests/smoke/grafana-observability.test.ts",
+    "verify:observability": "tsx scripts/verify-observability.ts",
     "backup-docs": "tsx scripts/backup-docs-to-db.ts",
     "restore-drill": "tsx scripts/restore-drill.ts",
     "restore-drill:auto": "tsx scripts/restore-drill.ts --auto",
