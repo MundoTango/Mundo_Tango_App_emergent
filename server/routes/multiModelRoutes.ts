@@ -14,7 +14,8 @@ import { db } from '../db';
 import { aiChatMessages } from '@shared/schema';
 import { storage } from '../storage';
 import { triggerAutoNaming, buildContextAwarePrompt, detectBuildIntent } from './chatProjectsRoutes';
-import { isSuperAdmin, isAuthenticated } from '../utils/auth';
+import { isSuperAdmin } from '../utils/auth';
+import { isAuthenticated } from '../middleware/auth';
 
 const router = Router();
 
@@ -59,9 +60,19 @@ router.post('/consensus', async (req: any, res) => {
     let userId: number | undefined;
     let user: any = null;
     
+    console.log('🔐 [MultiModel] req.user status:', {
+      hasReqUser: !!req.user,
+      hasClaims: !!req.user?.claims,
+      hasSub: !!req.user?.claims?.sub,
+      sub: req.user?.claims?.sub
+    });
+    
     if (req.user?.claims?.sub) {
       user = await storage.getUserByReplitId(req.user.claims.sub);
       userId = user?.id;
+      console.log('✅ [MultiModel] User retrieved successfully:', { userId, username: user?.username });
+    } else {
+      console.error('❌ [MultiModel] NO USER IN REQUEST - Authentication failed!');
     }
     
     console.log('[MultiModel] Executing consensus for:', query.substring(0, 50));
