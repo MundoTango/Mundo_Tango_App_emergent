@@ -77,21 +77,29 @@ test.describe('Visual Editor - E2E Tests', () => {
     console.log('✅ Mr Blue chat tab verified (AI prompt interface)');
   });
 
-  test('should have universal save button when changes pending', async ({ page }) => {
+  test('should verify save functionality is available', async ({ page }) => {
     await page.goto('http://localhost:5000/');
     
     // Open Mr Blue
     await page.locator('[data-testid="button-open-mrblue"]').click();
     await expect(page.locator('[data-testid="dialog-mrblue"]')).toBeVisible();
     
-    // Universal Save button should exist somewhere in the interface
-    // It may not be visible until changes are pending
-    const saveButton = page.locator('[data-testid="button-universal-save"]');
+    // Go to Visual Editor where save functionality lives
+    await page.locator('[data-testid="tab-visualeditor"]').click();
     
-    // Check if button exists in DOM (may be hidden until needed)
-    const existsInDom = await saveButton.count() > 0;
+    // STRICT: Universal Save System component should be in the visual editor
+    // Even if the button isn't visible yet (no changes pending), the system must exist
     
-    console.log(`ℹ️  Universal Save button: ${existsInDom ? 'exists in DOM' : 'rendered on-demand'}`);
+    // Wait a moment for tab to fully load
+    await page.waitForTimeout(1000);
+    
+    // Look for any save-related UI elements
+    const saveExists = await page.locator('[data-testid="button-universal-save"]').count() > 0;
+    
+    // STRICT: Assert save system is present
+    expect(saveExists).toBe(true);
+    
+    console.log('✅ Save functionality verified in Visual Editor');
   });
 
   test('should test page load performance', async ({ page }) => {

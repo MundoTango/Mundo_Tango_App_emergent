@@ -16,6 +16,7 @@
     "test:patterns": "tsx test-life-ceo-patterns.ts",
     "test": "playwright test",
     "test:e2e": "playwright test tests/e2e",
+    "test:e2e:critical": "playwright test tests/e2e/critical-workflow.spec.ts",
     "test:integration": "tsx tests/integration/**/*.test.ts",
     "test:integration:approval": "tsx tests/integration/approval-flow.test.ts",
     "test:integration:terminal": "tsx tests/integration/terminal-security.test.ts",
