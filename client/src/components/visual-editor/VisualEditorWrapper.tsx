@@ -800,7 +800,11 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
               )}
               {activeTab === 'chat' && (
                 <AITab 
-                  selectedElement={visualEditorContext?.selectedElement ?? null}
+                  selectedElement={visualEditorContext?.selectedElement ? {
+                    tag: visualEditorContext.selectedElement.tagName,
+                    id: visualEditorContext.selectedElement.id,
+                    className: visualEditorContext.selectedElement.className,
+                  } : null}
                   visualEditorContext={visualEditorContext ?? undefined}
                   onGenerateCode={async (prompt: string) => {
                     console.log('🤖 [VisualEditor] Generating code for prompt:', prompt);

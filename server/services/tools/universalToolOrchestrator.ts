@@ -286,7 +286,12 @@ async function* streamGeminiWithTools(
   }));
 
   // Gemini requires system instruction as a string or undefined
-  const systemInstruction = systemMessage?.content;
+  // 🔧 FIX (Oct 26, 2025): Truncate system instruction to avoid 400 Bad Request
+  let systemInstruction = systemMessage?.content;
+  if (systemInstruction && systemInstruction.length > 30000) {
+    console.log(`⚠️  [Gemini] System instruction too long (${systemInstruction.length} chars), truncating to 30k`);
+    systemInstruction = systemInstruction.substring(0, 30000) + '\n\n[System message truncated for API limits]';
+  }
 
   const chat = model.startChat({
     history,
