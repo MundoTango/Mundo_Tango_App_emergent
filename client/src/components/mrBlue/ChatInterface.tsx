@@ -640,10 +640,12 @@ export function ChatInterface() {
         if (visualEditorContext?.setPendingCodeChanges) {
           const vibeChanges = result.codeChanges.map((change, index) => ({
             id: `vibe-${Date.now()}-${index}`,
+            taskId: change.taskId,
             filePath: change.filePath,
             diff: change.diff,
             type: change.type as any,
-            status: 'pending' as const
+            status: 'pending' as const,
+            timestamp: new Date()
           }));
           
           visualEditorContext.setPendingCodeChanges([
@@ -1146,8 +1148,8 @@ export function ChatInterface() {
                 
                 toast({
                   title: 'Changes Applied! ✨',
-                  description: result.gitCommitHash 
-                    ? `File updated and committed: ${result.gitCommitHash.substring(0, 7)}`
+                  description: (result as any).gitCommitHash 
+                    ? `File updated and committed: ${(result as any).gitCommitHash.substring(0, 7)}`
                     : `File updated: ${filePath}`,
                 });
                 

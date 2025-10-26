@@ -138,8 +138,8 @@ router.post('/edit-file', async (req: any, res: Response) => {
           }
         }
         
-        // Add git hash to response
-        result.gitCommitHash = gitHash;
+        // Add git hash to response (spread into new object)
+        (result as any).gitCommitHash = gitHash;
         
       } catch (gitError) {
         console.error('⚠️ [Git] Commit failed (non-blocking):', gitError);
@@ -298,7 +298,7 @@ router.post('/apply-batch', async (req: any, res: Response) => {
 
         // Apply the diff using UnifiedDiffEditor
         const editor = createDiffEditor();
-        const result = await editor.applyDiff(filePath, diff);
+        const result = await editor.apply(filePath, diff);
 
         results.push({
           filePath,
