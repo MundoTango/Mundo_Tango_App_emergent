@@ -1,15 +1,17 @@
-# Upcoming Work - Master List
+# Upcoming Work - Master List (UPDATED)
 **MB.MD Methodology - Complete Task Queue**
 
 **Date**: October 26, 2025  
 **Status**: 🟡 RESEARCH COMPLETE - AWAITING BUILD APPROVAL  
-**Total Estimated Time**: 175 minutes (~3 hours)
+**Total Estimated Time**: 265 minutes (~4.5 hours)
 
 ---
 
 ## 🎯 WORK ORGANIZATION
 
 All tasks organized by priority (P0-P2) with time estimates and dependencies.
+
+**NEW TASK ADDED**: Task #10 - Visual Editor Save Implementation (P0)
 
 ---
 
@@ -106,6 +108,73 @@ All tasks organized by priority (P0-P2) with time estimates and dependencies.
 
 ---
 
+### 10. Visual Editor Save Functionality ⚡ CRITICAL **NEW**
+**Time**: 90 minutes  
+**Research**: `docs/VISUAL_EDITOR_SAVE_MISSING_RESEARCH.md`
+
+**User Report**: "I just tried to delete an element and changed the text of another, not able to save."
+
+**Problem**: Visual Editor has NO WAY to save manual edits to files
+
+**Root Cause**:
+- `handleSaveInlineText` function **REFERENCED but NOT DEFINED** (line 549)
+- `handleCancelInlineEdit` function **REFERENCED but NOT DEFINED** (line 550)
+- Text changes only update DOM (not source files)
+- Delete key handler **COMPLETELY MISSING**
+- No code generation for DOM edits
+- No integration with save queue
+
+**Evidence from Code**:
+```typescript
+// Line 549 in VisualEditorWrapper.tsx:
+<InlineTextEditor
+  element={editingElement}
+  onSave={handleSaveInlineText}  // ❌ FUNCTION DOESN'T EXIST!
+  onCancel={handleCancelInlineEdit}  // ❌ FUNCTION DOESN'T EXIST!
+/>
+```
+
+**Fix Strategy**:
+
+**Part 1: Define Missing Functions** (20 min)
+1. Create `handleSaveInlineText` function
+2. Create `handleCancelInlineEdit` function
+3. Generate code diff from DOM change
+4. Queue change in VisualEditorContext
+
+**Part 2: Implement Delete Key** (20 min)
+1. Add keydown event listener for Delete
+2. Generate delete code diff
+3. Queue delete change
+
+**Part 3: Code Generation Layer** (40 min)
+1. Create JSX parser utility
+2. Map DOM elements to source files
+3. Generate unified diffs for changes
+4. Preserve formatting/indentation
+
+**Part 4: Integration with Save Queue** (10 min)
+1. Connect to VisualEditorContext.pendingCodeChanges
+2. Update badge with count
+3. Wire to UniversalSaveSystem
+
+**Files to Create/Modify**:
+- `client/src/components/visual-editor/VisualEditorWrapper.tsx` (add missing functions)
+- `client/src/lib/visual-editor/codeGeneration.ts` (NEW - code gen utilities)
+- `server/lib/jsxParser.ts` (NEW - JSX parsing with @babel/parser)
+
+**Testing**:
+- [ ] Double-click element → edit text
+- [ ] Click Save → change queued
+- [ ] Badge shows "1 change queued"
+- [ ] Select element → press Delete
+- [ ] Badge shows "2 changes queued"
+- [ ] Click SAVE button
+- [ ] Both changes applied to files
+- [ ] Refresh page → changes persist
+
+---
+
 ## 🟡 P1 - HIGH PRIORITY (Needed for Replit Parity)
 
 ### 4. Grafana OpenTelemetry Setup ⚠️ AUTH FAILING
@@ -120,7 +189,7 @@ All tasks organized by priority (P0-P2) with time estimates and dependencies.
 - Not using official OpenTelemetry SDK ❌
 
 **Fix Strategy**:
-1. Install `@opentelemetry/sdk-node` and protobuf exporters
+1. Install `@opentelemetry/sdk-node` + protobuf exporters
 2. Create `server/telemetry.ts` with auto-configuration
 3. Add user's Grafana Cloud environment variables to Secrets
 4. Remove old `GrafanaCollector.ts` (deprecated)
@@ -129,7 +198,7 @@ All tasks organized by priority (P0-P2) with time estimates and dependencies.
 **Environment Variables to Add**:
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp-gateway-prod-us-east-2.grafana.net/otlp
-OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic MTQxNzIwNzpnbGNfZXlKdklqb2lNVFUzTURrME1pSXNJbTRpT2lKdGRXNWtieTEwWVc1bmJ5SXNJbXNpT2lKeFUxVTNNV2syU2pWc05EUkdXRGx3ZDFnNGVETTBUV1lpTENKdElqcDdJbklpT2lKd2NtOWtMWFZ6TFdWaGMzUXRNQ0o5ZlE9PQ==
+OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic MTQxNzIwNzpnbGNfZXlKdklqb2lNVFUzTURrME1pSXNJbTRpT2lKdGRXNWtieTEwWVc1bmJ5SXNJbXNpT2lKeFUxVTNNV2syU2pWc05EUkdXRGx3ZDFnNGVETTBUV1ppTENKdElqcDdJbklpT2lKd2NtOWtMWFZ6TFdWaGMzUXRNQ0o5ZlE9PQ==
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_SERVICE_NAME=mundo-tango
 OTEL_RESOURCE_ATTRIBUTES=service.namespace=mundo-tango-app,deployment.environment=production
@@ -144,6 +213,10 @@ OTEL_RESOURCE_ATTRIBUTES=service.namespace=mundo-tango-app,deployment.environmen
 - [ ] No more 401 errors in logs
 - [ ] Metrics export silently every 10 seconds
 - [ ] Grafana Cloud Explore shows metrics within 1 minute
+
+**Grafana Loki**: ❌ **NOT NEEDED** (researched in `docs/GRAFANA_LOKI_RESEARCH.md`)
+- Logs automatically sent via OTEL to Grafana Cloud Loki
+- No separate configuration required
 
 ---
 
@@ -249,14 +322,16 @@ OTEL_RESOURCE_ATTRIBUTES=service.namespace=mundo-tango-app,deployment.environmen
 
 ## 📋 COMPLETE IMPLEMENTATION SEQUENCE
 
-### Phase 1: Fix Critical Blockers (90 minutes)
+### Phase 1: Fix Critical Blockers (180 minutes)
 **Order**:
 1. Voice Modal (20 min) - Independent
-2. Mr Blue Code Generation (45 min) - Blocks batch save
-3. Batch Save Endpoint (25 min) - Depends on #2
+2. Visual Editor Save (90 min) - Blocks user manual edits **NEW**
+3. Mr Blue Code Generation (45 min) - Blocks AI edits
+4. Batch Save Endpoint (25 min) - Depends on #2 and #3
 
 **Why This Order**:
 - Voice modal independent - can do anytime
+- Visual Editor save FIRST - user actively trying to use it
 - Mr Blue must generate code BEFORE batch save can work
 - Batch save needs code to apply
 
@@ -291,6 +366,12 @@ OTEL_RESOURCE_ATTRIBUTES=service.namespace=mundo-tango-app,deployment.environmen
 - ✅ Recording starts successfully
 - ✅ No crash loop
 
+**Visual Editor Save**: **NEW**
+- ✅ Text edits save to files
+- ✅ Delete key removes elements from files
+- ✅ Changes persist after page refresh
+- ✅ Integrated with SAVE button
+
 **Mr Blue Code Generation**:
 - ✅ Generates code (not just clarifications)
 - ✅ Code queued in VisualEditorContext
@@ -308,11 +389,13 @@ OTEL_RESOURCE_ATTRIBUTES=service.namespace=mundo-tango-app,deployment.environmen
 - ✅ Metrics visible in Grafana Cloud
 - ✅ Dashboard shows real-time data
 - ✅ Custom vibe metrics tracked
+- ✅ Logs flowing to Loki automatically
 
 **Overall System**:
 - ✅ 100% wiring complete
 - ✅ All features functional
 - ✅ User can code via Mr Blue like Replit Agent 3
+- ✅ User can manually edit via Visual Editor
 - ✅ Full observability
 
 ---
@@ -321,16 +404,16 @@ OTEL_RESOURCE_ATTRIBUTES=service.namespace=mundo-tango-app,deployment.environmen
 
 | Priority | Tasks | Total Time |
 |----------|-------|------------|
-| P0 (Critical) | 3 tasks | 90 minutes |
+| P0 (Critical) | 4 tasks | 180 minutes |
 | P1 (High) | 3 tasks | 75 minutes |
 | P2 (Medium) | 3 tasks | 15 minutes |
-| **TOTAL** | **9 tasks** | **180 minutes (~3 hours)** |
+| **TOTAL** | **10 tasks** | **270 minutes (~4.5 hours)** |
 
 **Parallelization Opportunities**:
 - Voice Modal + Grafana OTEL (independent) = 65 min → 45 min if parallel
 - Badge + SAVE Button (independent) = 10 min → 5 min if parallel
 
-**Optimized Total**: ~150 minutes (~2.5 hours)
+**Optimized Total**: ~240 minutes (~4 hours)
 
 ---
 
@@ -341,6 +424,8 @@ All research complete and documented:
 2. ✅ `docs/VOICE_MODAL_PERMISSION_RESEARCH.md` - Permission crash analysis
 3. ✅ `docs/MRBLUE_EXECUTION_GAP_PLAN.md` - Code generation fix
 4. ✅ `docs/GRAFANA_OTEL_SETUP_RESEARCH.md` - Observability setup
+5. ✅ `docs/GRAFANA_LOKI_RESEARCH.md` - Loki not needed ✅
+6. ✅ `docs/VISUAL_EDITOR_SAVE_MISSING_RESEARCH.md` - Save functionality missing **NEW**
 
 ---
 
@@ -354,12 +439,13 @@ All research complete and documented:
 **Next Step**: User approval to proceed with build
 
 **Recommended Build Order**:
-1. **Start with P0** - Fix critical blockers first (90 min)
+1. **Start with P0** - Fix critical blockers first (180 min)
 2. **Then P1** - Grafana observability (60 min)
 3. **Finally P2** - Polish UX (15 min)
 
 **Expected Outcome After All Fixes**:
 - 🎤 Voice modal works (no crash)
+- ✏️ Visual Editor saves manual edits to files **NEW**
 - 🤖 Mr Blue generates code like Replit Agent 3
 - 💾 Batch save applies all changes + git commit
 - 📊 Grafana dashboards show real-time metrics
