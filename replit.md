@@ -54,13 +54,23 @@ The frontend uses React, TypeScript, and Vite with a component-based architectur
 
 **Feature Specifications:**
 -   **Core Social Features:** Memory/Post system (rich text, AI enhancement), Events management, Profile system, Groups/Communities.
--   **Unified AI Access ("Mr Blue"):** Single access point for AI features including Omniscient Mode (AI companion with function calling via tools for super admins, Claude 3.5 Sonnet), MB.MD methodology integration, Voice Mode (GPT-4o Realtime API for two-way voice conversations), Unified Voice Modal, Voice + Visual Context Coordinator (Agent #128) for "point and ask" workflow, Browser Automation (Playwright-based with Anthropic Computer Use API), Chat Interface Enhancements (conversation management, diff preview), and Visual Editor Context-Aware Chat.
+-   **Unified AI Access ("Mr Blue"):** Single access point for AI features including Omniscient Mode (AI companion with function calling via tools for super admins, Claude 3.5 Sonnet), MB.MD methodology integration, Voice Mode (GPT-4o Realtime API for two-way voice conversations), Unified Voice Modal, Voice + Visual Context Coordinator (Agent #128) for "point and ask" workflow, Browser Automation (Playwright-based with Anthropic Computer Use API), Chat Interface Enhancements (conversation management, diff preview), Visual Editor Context-Aware Chat, and **Replit-Style Vibe Coding** (conversational UI changes with change queueing, clarifying questions, batch git commits).
 -   **Git Operations Specialist (Agent #126):** Replit-like Git workflow with AI-powered commit messages (Claude 3.5 Sonnet) and pre-commit validation.
 -   **Deployment Safety Engineer (Agent #127):** Zero-downtime deployments with pre-flight validation, automatic rollback, and health monitoring.
 -   **Vibe Coding Specialist (Agent #131):** Autonomous full-stack application building through natural language, multi-agent orchestration, specialized tools, Playwright-based browser testing, and comprehensive checkpoints. Integrates Replit Agent 3, Cursor, Windsurf, v0, and Bolt.new best practices for 20-50x developer productivity.
 
 **System Design Choices:**
 Mundo Tango uses a comprehensive agent documentation system adhering to the MB.MD methodology with FOCUSED, PARALLEL, and SIMULTANEOUS execution modes. It includes 5 Customer Journey Agents (J1-J5). Security relies on `req.user.id`, Zod validation, and admin role verification. A multi-layer file protection system includes a Critical File Registry, pre-deployment checks, real-time file integrity monitoring, automated Git recovery, and PostgreSQL backups for markdown files. Agent safety protocols include 8 critical rules for AI agents and automated tests for file protection. The Visual Editor features 10 tabs: Inspector, AI, Preview, Console, Deploy, Git, Pages, Shell, Files, Secrets.
+
+**Replit-Style Vibe Coding Workflow (Oct 26, 2025):**
+Mr Blue now supports fully autonomous conversational coding with Replit Agent-style UX:
+1. **Conversational Queueing**: Chat naturally about UI changes - "make this red and add a smiley". Changes queue without immediate application (no modal popups).
+2. **Clarifying Questions**: VibeGraph (Claude 3.5 Sonnet) detects ambiguity and asks multi-turn questions - "Which element should be red? The background or button?"
+3. **Batch Git Commits**: Click SAVE button to apply ALL queued changes with single git commit via `/api/vibe/apply-batch` endpoint.
+4. **Visual Feedback**: Toast notifications show "X Change(s) Prepared", SAVE button badge shows pending count, success toast includes commit hash.
+5. **Error Handling**: Per-file success/failure tracking, partial apply support, frontend shows which files succeeded/failed.
+
+Implementation files: `ChatInterface.tsx`, `VibeGraph.ts`, `vibeRoutes.ts` (batch endpoint), `UniversalSaveSystem.tsx`, `VisualEditorContext.tsx`.
 
 ### External Dependencies
 -   **PostgreSQL + Drizzle ORM**: Primary database.
