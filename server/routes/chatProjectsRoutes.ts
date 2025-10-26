@@ -105,6 +105,11 @@ router.get('/projects/:id/messages', async (req: any, res: Response) => {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
+  // 🔧 CRITICAL FIX (Oct 26): Prevent caching to ensure fresh messages
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   try {
     const projectId = parseInt(req.params.id);
 
@@ -114,6 +119,7 @@ router.get('/projects/:id/messages', async (req: any, res: Response) => {
       .where(eq(aiChatMessages.projectId, projectId))
       .orderBy(aiChatMessages.createdAt);
 
+    console.log(`[GET /projects/${projectId}/messages] Returning ${messages.length} messages`);
     res.json(messages);
   } catch (error) {
     console.error('[Chat Projects] Error fetching messages:', error);
