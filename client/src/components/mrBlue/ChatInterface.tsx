@@ -75,7 +75,6 @@ export function ChatInterface() {
   const [streamingToolStatus, setStreamingToolStatus] = useState<string | null>(null);
   const [optimisticMessage, setOptimisticMessage] = useState<string | null>(null);
   const [streamingResponse, setStreamingResponse] = useState<string>('');
-  const [lastStreamedContent, setLastStreamedContent] = useState<string>(''); // Track what we just sent
   
   // 🚀 VIBE CODING INTEGRATION: Store code changes from AI (Oct 23, 2025)
   const [codeChangesByMessage, setCodeChangesByMessage] = useState<Record<number, CodeChange[]>>({});
@@ -517,14 +516,12 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // 🔧 NEW APPROACH (Oct 25): Don't clear manually - let useEffect watch for DB messages
-      // Save what we just sent so useEffect can detect when it appears in DB
-      setLastStreamedContent(streamingResponse);
-      
-      // Clear tool status immediately (not related to messages)
+      // 🔧 FINAL FIX (Oct 26): Clear everything after streaming completes
       setStreamingToolStatus(null);
+      setOptimisticMessage(null);
+      setStreamingResponse('');
       
-      // Invalidate to trigger refetch (DON'T clear optimistic states here)
+      // Invalidate to trigger refetch
       queryClient.invalidateQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
@@ -583,74 +580,11 @@ export function ChatInterface() {
       console.log('🚀 [Vibe] No keywords detected, executing anyway (Visual Editor mode)');
     }
     
-    console.log('🚀 [Vibe] Code change detected, executing vibe coding...');
+    console.log('🚀 [Vibe] Code change detected - DISABLED (VibeGraph is stub, using direct AI responses instead)');
     
-    try {
-      // Execute vibe coding with visual editor context
-      const result = await executeVibeCoding(userMessage, {
-        selectedElement: activeElement || null,
-        previewPath: previewPath || '/'
-      });
-      
-      console.log(`🚀 [Vibe] Generated ${result.codeChanges.length} code changes`);
-      
-      // 🚀 STREAM 2: Store code changes in VisualEditorContext AND apply them immediately
-      if (visualEditorContext && result.codeChanges.length > 0) {
-        for (const change of result.codeChanges) {
-          // Add to context for tracking
-          visualEditorContext.addCodeChange({
-            id: `${Date.now()}-${Math.random()}`,
-            taskId: change.taskId,
-            filePath: change.filePath,
-            diff: change.diff,
-            type: change.type,
-            status: 'pending',
-            timestamp: new Date()
-          });
-          
-          // 🔥 CRITICAL FIX: Apply the change immediately
-          try {
-            const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
-            await applyCodeChange(change.filePath, change.diff, editType);
-            console.log(`✅ [Vibe] Applied change to ${change.filePath}`);
-          } catch (error) {
-            console.error(`❌ [Vibe] Failed to apply ${change.filePath}:`, error);
-          }
-        }
-        
-        console.log(`📝 [Vibe] Added & applied ${result.codeChanges.length} changes`);
-      }
-      
-      // Also store in message-specific state for display in chat
-      const messagesData = await queryClient.fetchQuery({
-        queryKey: ['/api/chat/projects', projId, 'messages']
-      });
-      
-      if (messagesData && Array.isArray(messagesData) && messagesData.length > 0) {
-        const lastMessage = messagesData[messagesData.length - 1];
-        if (lastMessage.role === 'assistant') {
-          setCodeChangesByMessage(prev => ({
-            ...prev,
-            [lastMessage.id]: result.codeChanges
-          }));
-        }
-      }
-      
-      toast({
-        title: 'Code Generated! ✨',
-        description: `${result.codeChanges.length} file(s) ready to modify`,
-      });
-    } catch (error) {
-      console.error('🚀 [Vibe] Code generation failed:', error);
-      console.error('🚀 [Vibe] Error details:', {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined,
-        userMessage: userMessage.substring(0, 100),
-        hasElement: !!activeElement,
-        hasPreviewPath: !!previewPath
-      });
-      // Don't show error toast - user still got text response
-    }
+    // 🚨 TEMPORARY DISABLE: VibeGraph is just a placeholder that returns filePath:"unknown"
+    // For now, Mr Blue's text responses guide the user. Future: Implement real autonomous coding
+    return;
   };
 
   // 🔧 PHASE 2: Extract build intents from messages and queue in SaveOrchestrator
@@ -787,24 +721,13 @@ export function ChatInterface() {
     }
   }, [conversations, conversationId]);
   
-  // 🔧 WATCHER FIX (Oct 25): Clear optimistic states ONLY when our EXACT message appears in DB
-  // This prevents clearing ALL messages - we only clear when we find our specific content
+  // 🔧 FINAL FIX (Oct 26): Only clear optimistic states when streaming is ACTUALLY complete
+  // Don't watch messages array - that causes clearing on navigation/refetch
+  // Just clear when we explicitly finish streaming
   useEffect(() => {
-    if (!lastStreamedContent || !messages || messages.length === 0) return;
-    
-    // CRITICAL: Only match on first 100 chars to avoid partial matches clearing everything
-    const searchSnippet = lastStreamedContent.substring(0, 100);
-    
-    // Find the EXACT message we just sent (must be the LAST assistant message)
-    const lastAssistantMsg = messages.filter(m => m.role === 'assistant').pop();
-    
-    if (lastAssistantMsg && lastAssistantMsg.content.includes(searchSnippet)) {
-      console.log('✅ [ChatInterface] Our DB message found - clearing optimistic states');
-      setOptimisticMessage(null);
-      setStreamingResponse('');
-      setLastStreamedContent(''); // Reset tracker
-    }
-  }, [messages, lastStreamedContent]);
+    // This effect intentionally left minimal - clearing happens in sendMessageToConversation
+    // after stream completes, not based on message array changes
+  }, []);
   
 
   const handleSend = async () => {
