@@ -68,7 +68,7 @@ export class SelfHealerAgent {
    * 3. Generate code fix with Claude
    * 4. Return fix with confidence score
    */
-  async analyzeFail ure(
+  async analyzeFailure(
     testResult: BrowserTestResult,
     codeContext?: string
   ): Promise<BugFix> {
