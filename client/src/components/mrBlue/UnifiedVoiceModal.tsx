@@ -75,6 +75,9 @@ export function UnifiedVoiceModal({
   const [lastProcessedLength, setLastProcessedLength] = useState(0); // Track processed transcript
   const visualEditorContext = useVisualEditorOptional();
   
+  // 🎯 BATCH 1 FIX: Manual start button for permission request (Oct 26, 2025)
+  const [sessionState, setSessionState] = useState<'idle' | 'starting' | 'active' | 'error'>('idle');
+  
   const transcriptRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   
@@ -173,33 +176,23 @@ export function UnifiedVoiceModal({
     }
   }, [transcript]);
 
-  // Start session when modal opens
+  // 🎯 BATCH 1 FIX: DON'T auto-start - wait for user click (Oct 26, 2025)
+  // Clean up when modal closes
   useEffect(() => {
-    if (isOpen) {
-      startSession();
-    } else {
+    if (!isOpen) {
       endSession();
+      setSessionState('idle');
     }
   }, [isOpen]);
 
+  // 🎯 BATCH 1 FIX: Request permission via getUserMedia (Oct 26, 2025)
   const startSession = async () => {
     console.log('[UnifiedVoiceModal] 🎬 Starting session...');
+    setSessionState('starting');
+    
     try {
-      console.log('[UnifiedVoiceModal] 🎤 Checking microphone permission...');
-      const hasPermission = await checkPermission();
-      console.log('[UnifiedVoiceModal] Permission result:', hasPermission);
-      
-      if (!hasPermission) {
-        console.error('[UnifiedVoiceModal] ❌ Microphone permission denied');
-        toast({
-          title: 'Microphone Required',
-          description: 'Please allow microphone access to use voice mode.',
-          variant: 'destructive'
-        });
-        onClose();
-        return;
-      }
-
+      // ✅ FIX: Request permission by calling startCapture (triggers getUserMedia)
+      // This shows the browser permission popup
       console.log('[UnifiedVoiceModal] 📡 Connecting to OpenAI...');
       await connect();
       
@@ -235,18 +228,19 @@ export function UnifiedVoiceModal({
       console.log('[UnifiedVoiceModal] ✅ Connected! Starting audio capture...');
       await startCapture();
 
+      setSessionState('active');
       toast({
         title: '🎧 Voice Session Started',
         description: 'Speak naturally - I\'m listening and taking notes!'
       });
     } catch (error: any) {
       console.error('[UnifiedVoiceModal] Error starting session:', error);
+      setSessionState('error');
       toast({
         title: 'Voice Session Failed',
         description: error.message || 'Could not start voice mode',
         variant: 'destructive'
       });
-      onClose();
     }
   };
 
@@ -512,15 +506,51 @@ export function UnifiedVoiceModal({
         {/* Footer - Session Controls */}
         <div className="p-4 border-t border-cyan-200 bg-white flex items-center justify-between">
           <div className="text-xs text-gray-500">
-            💡 Tip: AI summarizes in real-time. Expand bullets for details.
+            {sessionState === 'idle' && '🎤 Click "Start" to begin voice conversation'}
+            {sessionState === 'starting' && '⏳ Requesting microphone permission...'}
+            {sessionState === 'active' && '💡 Tip: AI summarizes in real-time. Expand bullets for details.'}
+            {sessionState === 'error' && '❌ Failed to start - try again'}
           </div>
-          <Button
-            variant="destructive"
-            onClick={onClose}
-            data-testid="button-end-session"
-          >
-            End Session
-          </Button>
+          <div className="flex items-center gap-2">
+            {/* 🎯 BATCH 1 FIX: Manual start button (Oct 26, 2025) */}
+            {sessionState === 'idle' && (
+              <Button
+                onClick={startSession}
+                className="bg-teal-600 hover:bg-teal-700 text-white"
+                data-testid="button-start-voice"
+              >
+                <Headphones className="h-4 w-4 mr-2" />
+                Start Voice Conversation
+              </Button>
+            )}
+            {sessionState === 'starting' && (
+              <Button
+                disabled
+                className="bg-gray-400 text-white"
+                data-testid="button-starting-voice"
+              >
+                Starting...
+              </Button>
+            )}
+            {sessionState === 'error' && (
+              <Button
+                onClick={startSession}
+                variant="destructive"
+                data-testid="button-retry-voice"
+              >
+                Retry
+              </Button>
+            )}
+            {sessionState === 'active' && (
+              <Button
+                variant="destructive"
+                onClick={onClose}
+                data-testid="button-end-session"
+              >
+                End Session
+              </Button>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
