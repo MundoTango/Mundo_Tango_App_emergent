@@ -949,10 +949,8 @@ export function ChatInterface() {
                     description: `Applied ${result.summary.successful} change(s) - Git: ${result.gitCommitHash?.substring(0, 7) || 'N/A'}`,
                   });
 
-                  // Clear pending changes
-                  if (visualEditorContext.clearPendingChanges) {
-                    visualEditorContext.clearPendingChanges();
-                  }
+                  // Note: Pending changes are managed by VisualEditorContext
+                  // They will be cleared automatically after successful apply
                 } catch (error) {
                   toast({
                     title: 'Save Failed',
