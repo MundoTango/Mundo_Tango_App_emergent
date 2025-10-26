@@ -516,19 +516,25 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // 🔧 CRITICAL FIX (Oct 26): Clear AFTER refetch, not before
+      // 🔧 ULTIMATE FIX (Oct 26): Use refetchQueries instead of invalidateQueries
+      // invalidateQueries can clear data during refetch, causing flicker
       setStreamingToolStatus(null);
       
-      console.log('🔄 [ChatInterface] Invalidating cache and waiting for refetch...');
+      console.log('🔄 [ChatInterface] Refetching messages (keeping existing data)...');
       
-      // Invalidate and wait for refetch to complete
-      await queryClient.invalidateQueries({ 
+      // Use refetchQueries to refetch without clearing existing data
+      const refetchResult = await queryClient.refetchQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
-      console.log('✅ [ChatInterface] Refetch complete, now clearing optimistic states');
+      console.log('✅ [ChatInterface] Refetch complete. Waiting for render...');
       
-      // NOW clear optimistic states (after DB has fresh data)
+      // Small delay to ensure React has rendered the new messages
+      await new Promise(resolve => setTimeout(resolve, 50));
+      
+      console.log('🧹 [ChatInterface] Clearing optimistic states now');
+      
+      // NOW clear optimistic states (after DB has fresh data AND rendered)
       setOptimisticMessage(null);
       setStreamingResponse('');
       
