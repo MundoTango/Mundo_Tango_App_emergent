@@ -18,6 +18,7 @@ import { BrowserTesterAgent, type BrowserTestResult, type TestSpec } from './Bro
 import { SelfHealerAgent, type BugFix } from './SelfHealerAgent';
 import { SessionManager } from '../SessionManager';
 import { routeToModel, classifyTask } from '../modelRouter';
+import { applyTextReplacement, generateUnifiedDiff } from '../../lib/jsxParser.js';
 
 /*
 <important_code_snippet_instructions>
@@ -445,15 +446,19 @@ Common file patterns for tasks:
         console.warn(`⚠️ [VibeGraph] Could not read ${targetFile}, assuming new file`);
       }
       
-      // Build prompt for code generation
+      // 🎯 BATCH 2: Enhanced element context (Oct 26, 2025)
       let contextInfo = '';
       if (this.state.visualEditorContext?.selectedElement) {
         const el = this.state.visualEditorContext.selectedElement;
-        contextInfo = `\n\nSelected element context:
-- Tag: ${el.tag}
+        contextInfo = `\n\nSelected element context (user already clicked this element):
+- Tag: <${el.tagName || el.tag}>
 - ID: ${el.id || 'none'}
 - Classes: ${el.className || 'none'}
-- Text content: ${el.innerText?.substring(0, 100) || 'none'}`;
+- Text content: "${el.innerText?.substring(0, 100) || 'none'}"
+- Preview path: ${this.state.visualEditorContext.previewPath || '/'}
+
+IMPORTANT: User has ALREADY selected this element. Do NOT ask clarifying questions about "which element". 
+Generate the code change directly for this specific element.`;
       }
       
       const prompt = `You are a code editor. Generate a unified diff to accomplish this task:

@@ -560,6 +560,7 @@ export function ChatInterface() {
   };
   
   // 🚀 VIBE CODING: Detect code requests and execute (Oct 25, 2025)
+  // 🎯 BATCH 2: Wire to Visual Editor context (Oct 26, 2025)
   // MB.MD STREAM 1+2: Always-on vibe mode in Visual Editor
   const detectAndExecuteCodeChanges = async (projId: number, userMessage: string) => {
     // ✅ RELAXED: Only check if we're in Visual Editor at all
@@ -568,6 +569,8 @@ export function ChatInterface() {
       console.log('🚀 [Vibe] Skipped - not in Visual Editor');
       return;
     }
+    
+    console.log('🎯 [BATCH 2] Visual Editor context available:', !!visualEditorContext);
     
     // ✅ EXPANDED: More comprehensive keyword detection
     const codeKeywords = [

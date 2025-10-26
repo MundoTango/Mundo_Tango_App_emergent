@@ -49,7 +49,7 @@ export function setupTelemetry() {
     });
 
     sdk = new NodeSDK({
-      resource,
+      resource: resource as any,
       traceExporter,
       metricReader,
       instrumentations: [
