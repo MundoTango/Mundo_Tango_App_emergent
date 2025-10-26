@@ -68,7 +68,7 @@ export function generateDeleteDiff(
 ): CodeChange {
   const filePath = detectSourceFile(previewPath);
   
-  // ✅ FIX #4: More flexible search - use MOST specific available identifier
+  // ✅ FIX #5: More flexible search - use MOST specific available identifier
   // Backend will search for ANY of these patterns (not requiring all)
   let searchText: string;
   
@@ -80,8 +80,9 @@ export function generateDeleteDiff(
     const firstClass = element.className.split(' ')[0];
     searchText = `className="${firstClass}"`;
   } else {
-    // Fallback: Just the tag name (least specific, but better than nothing)
-    searchText = `<${element.tagName}`;
+    // ✅ FIX #5: Normalize tagName to lowercase (DOM returns uppercase, JSX uses lowercase)
+    // e.g., DOM "DIV" → JSX "div"
+    searchText = `<${element.tagName.toLowerCase()}`;
   }
   
   const instruction = JSON.stringify({

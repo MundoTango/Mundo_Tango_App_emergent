@@ -192,8 +192,9 @@ function checkElementMatches(
     }
   }
   
-  // Fallback: Check if search is for tag name
-  if (searchText.includes(`<${elementName}`)) {
+  // ✅ FIX #5: Fallback to tag name matching (case-insensitive)
+  // Frontend sends lowercase from DOM, JSX is also lowercase
+  if (searchText.includes(`<${elementName.toLowerCase()}`)) {
     return true;
   }
   
