@@ -146,6 +146,9 @@ async function* streamClaudeWithTools(
   if (response.stop_reason === 'tool_use') {
     const toolBlocks = response.content.filter(block => block.type === 'tool_use') as any[];
     
+    // 🔧 FIX (Oct 26): Collect ALL tool results before sending (fixes multi-tool call bug)
+    const toolResults: any[] = [];
+    
     for (const toolBlock of toolBlocks) {
       yield { type: 'tool_use', content: `🔧 Using ${toolBlock.name}`, tool: toolBlock.name };
       
@@ -153,24 +156,32 @@ async function* streamClaudeWithTools(
       onToolUse?.(toolBlock.name, toolBlock.input, toolResult);
       
       yield { type: 'tool_result', content: `📊 ${JSON.stringify(toolResult).substring(0, 100)}...`, tool: toolBlock.name };
-
-      const finalMessages: any[] = [
-        ...userMessages,
-        { role: 'assistant', content: response.content },
-        { role: 'user', content: [{ type: 'tool_result', tool_use_id: toolBlock.id, content: JSON.stringify(toolResult) }] }
-      ];
-
-      const finalStream = await anthropic.messages.stream({
-        model: 'claude-sonnet-4-5-20250929',
-        max_tokens: 1500, // Reduced for faster tool-result responses
-        system: compressedSystem,
-        messages: finalMessages,
+      
+      // Collect result instead of sending immediately
+      toolResults.push({
+        type: 'tool_result',
+        tool_use_id: toolBlock.id,
+        content: JSON.stringify(toolResult)
       });
+    }
 
-      for await (const chunk of finalStream) {
-        if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
-          yield { type: 'text', content: chunk.delta.text };
-        }
+    // Send ONE message with ALL tool results
+    const finalMessages: any[] = [
+      ...userMessages,
+      { role: 'assistant', content: response.content },
+      { role: 'user', content: toolResults }
+    ];
+
+    const finalStream = await anthropic.messages.stream({
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 1500,
+      system: compressedSystem,
+      messages: finalMessages,
+    });
+
+    for await (const chunk of finalStream) {
+      if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+        yield { type: 'text', content: chunk.delta.text };
       }
     }
   } else {
@@ -203,6 +214,9 @@ async function* streamOpenAIWithTools(
 
   // Check if GPT wants to use tools
   if (message.tool_calls && message.tool_calls.length > 0) {
+    // 🔧 FIX (Oct 26): Collect ALL tool results before sending (fixes multi-tool call bug)
+    const toolMessages: any[] = [];
+    
     for (const toolCall of message.tool_calls) {
       if (toolCall.type !== 'function') continue;
       
@@ -216,28 +230,31 @@ async function* streamOpenAIWithTools(
       
       yield { type: 'tool_result', content: `📊 ${JSON.stringify(toolResult).substring(0, 100)}...`, tool: toolName };
 
-      // Send tool result back to GPT
-      const followUpMessages: any[] = [
-        ...messages,
-        message,
-        {
-          role: 'tool',
-          tool_call_id: toolCall.id,
-          content: JSON.stringify(toolResult)
-        }
-      ];
-
-      const finalResponse = await openai.chat.completions.create({
-        model: 'gpt-4o',
-        messages: followUpMessages,
-        stream: true,
+      // Collect result instead of sending immediately
+      toolMessages.push({
+        role: 'tool',
+        tool_call_id: toolCall.id,
+        content: JSON.stringify(toolResult)
       });
+    }
 
-      for await (const chunk of finalResponse) {
-        const delta = chunk.choices[0]?.delta?.content;
-        if (delta) {
-          yield { type: 'text', content: delta };
-        }
+    // Send ONE message with ALL tool results
+    const followUpMessages: any[] = [
+      ...messages,
+      message,
+      ...toolMessages
+    ];
+
+    const finalResponse = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: followUpMessages,
+      stream: true,
+    });
+
+    for await (const chunk of finalResponse) {
+      const delta = chunk.choices[0]?.delta?.content;
+      if (delta) {
+        yield { type: 'text', content: delta };
       }
     }
   } else {
@@ -283,6 +300,9 @@ async function* streamGeminiWithTools(
   // Check for function calls
   const functionCalls = response.functionCalls();
   if (functionCalls && functionCalls.length > 0) {
+    // 🔧 FIX (Oct 26): Collect ALL tool results before sending (fixes multi-tool call bug)
+    const functionResponses: any[] = [];
+    
     for (const call of functionCalls) {
       yield { type: 'tool_use', content: `🔧 Using ${call.name}`, tool: call.name };
       
@@ -291,18 +311,21 @@ async function* streamGeminiWithTools(
       
       yield { type: 'tool_result', content: `📊 ${JSON.stringify(toolResult).substring(0, 100)}...`, tool: call.name };
 
-      // Send function result back
-      const finalResult = await chat.sendMessage([{
+      // Collect result instead of sending immediately
+      functionResponses.push({
         functionResponse: {
           name: call.name,
           response: toolResult
         }
-      }]);
+      });
+    }
 
-      const text = finalResult.response.text();
-      if (text) {
-        yield { type: 'text', content: text };
-      }
+    // Send ONE message with ALL function results
+    const finalResult = await chat.sendMessage(functionResponses);
+
+    const text = finalResult.response.text();
+    if (text) {
+      yield { type: 'text', content: text };
     }
   } else {
     // No function calls - return text
