@@ -594,11 +594,12 @@ export function ChatInterface() {
       
       console.log(`🚀 [Vibe] Generated ${result.codeChanges.length} code changes`);
       
-      // 🚀 STREAM 2: Store code changes in VisualEditorContext
+      // 🚀 STREAM 2: Store code changes in VisualEditorContext AND apply them immediately
       if (visualEditorContext && result.codeChanges.length > 0) {
-        result.codeChanges.forEach((change, index) => {
+        for (const change of result.codeChanges) {
+          // Add to context for tracking
           visualEditorContext.addCodeChange({
-            id: `${Date.now()}-${index}`,
+            id: `${Date.now()}-${Math.random()}`,
             taskId: change.taskId,
             filePath: change.filePath,
             diff: change.diff,
@@ -606,9 +607,18 @@ export function ChatInterface() {
             status: 'pending',
             timestamp: new Date()
           });
-        });
+          
+          // 🔥 CRITICAL FIX: Apply the change immediately
+          try {
+            const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
+            await applyCodeChange(change.filePath, change.diff, editType);
+            console.log(`✅ [Vibe] Applied change to ${change.filePath}`);
+          } catch (error) {
+            console.error(`❌ [Vibe] Failed to apply ${change.filePath}:`, error);
+          }
+        }
         
-        console.log(`📝 [Vibe] Added ${result.codeChanges.length} changes to Visual Editor context`);
+        console.log(`📝 [Vibe] Added & applied ${result.codeChanges.length} changes`);
       }
       
       // Also store in message-specific state for display in chat
@@ -777,18 +787,19 @@ export function ChatInterface() {
     }
   }, [conversations, conversationId]);
   
-  // 🔧 WATCHER FIX (Oct 25): Clear optimistic states ONLY when DB message appears
-  // This prevents the "flash" where messages disappear before DB data loads
+  // 🔧 WATCHER FIX (Oct 25): Clear optimistic states ONLY when our EXACT message appears in DB
+  // This prevents clearing ALL messages - we only clear when we find our specific content
   useEffect(() => {
     if (!lastStreamedContent || !messages || messages.length === 0) return;
     
-    // Check if our streamed content is now in the DB messages
-    const foundInDB = messages.some(msg => 
-      msg.role === 'assistant' && msg.content.includes(lastStreamedContent.substring(0, 50))
-    );
+    // CRITICAL: Only match on first 100 chars to avoid partial matches clearing everything
+    const searchSnippet = lastStreamedContent.substring(0, 100);
     
-    if (foundInDB) {
-      console.log('✅ [ChatInterface] DB message found - clearing optimistic states');
+    // Find the EXACT message we just sent (must be the LAST assistant message)
+    const lastAssistantMsg = messages.filter(m => m.role === 'assistant').pop();
+    
+    if (lastAssistantMsg && lastAssistantMsg.content.includes(searchSnippet)) {
+      console.log('✅ [ChatInterface] Our DB message found - clearing optimistic states');
       setOptimisticMessage(null);
       setStreamingResponse('');
       setLastStreamedContent(''); // Reset tracker
