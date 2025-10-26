@@ -21,7 +21,6 @@ import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
 import { getAgentSuggestion } from '@/lib/agentDiscovery';
-import { saveOrchestrator } from '@/services/SaveOrchestrator';
 import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
@@ -621,40 +620,28 @@ export function ChatInterface() {
         return;
       }
       
-      // 🎯 REPLIT-STYLE: Queue changes in SaveOrchestrator (don't apply yet!)
+      // 🎯 REPLIT-STYLE: Queue changes in VisualEditorContext (for UniversalSaveSystem)
       if (result.codeChanges && result.codeChanges.length > 0) {
         console.log(`🎯 [Vibe] Queueing ${result.codeChanges.length} change(s) for SAVE`);
         
-        // Add each change to SaveOrchestrator queue
-        for (const change of result.codeChanges) {
-          saveOrchestrator.addChange({
-            type: 'ai-build',
-            description: `Vibe Coding: ${userMessage.substring(0, 100)}`,
-            data: {
-              filePath: change.filePath,
-              diff: change.diff,
-              editType: change.type,
-              vibe: true // Mark as vibe coding change
-            }
-          });
-        }
-        
-        // Update Visual Editor context with pending changes
+        // ✅ FIX (Oct 26): Use VisualEditorContext instead of SaveOrchestrator
         if (visualEditorContext?.setPendingCodeChanges) {
-          const vibeChanges = result.codeChanges.map((change, index) => ({
+          const formattedChanges = result.codeChanges.map((change, index) => ({
             id: `vibe-${Date.now()}-${index}`,
-            taskId: change.taskId,
+            taskId: change.taskId || `vibe-task-${index}`,
             filePath: change.filePath,
             diff: change.diff,
-            type: change.type as any,
+            type: change.type as 'unified_diff' | 'search_replace',
             status: 'pending' as const,
             timestamp: new Date()
           }));
           
           visualEditorContext.setPendingCodeChanges([
             ...(visualEditorContext.pendingCodeChanges || []),
-            ...vibeChanges
+            ...formattedChanges
           ]);
+        } else {
+          console.error('❌ [Vibe] VisualEditorContext not available - cannot queue changes');
         }
         
         // Show subtle notification (no modal!)
@@ -707,29 +694,10 @@ export function ChatInterface() {
 
       console.log(`🔧 [BuildIntent] Found ${pendingIntents.length} pending build intents`);
 
-      // Queue each build intent in SaveOrchestrator
-      for (const msg of pendingIntents) {
-        const intent = msg.metadata!.buildIntent!;
-        
-        saveOrchestrator.addChange({
-          type: 'ai-build',
-          description: msg.content.substring(0, 200), // First 200 chars as description
-          data: {
-            messageId: msg.id,
-            tool: intent.tool,
-            params: intent.params,
-            filePath: intent.params.file_path || 'unknown'
-          }
-        });
-
-        console.log(`✅ [BuildIntent] Queued: ${intent.tool} for message ${msg.id}`);
-      }
-
-      // Show toast notification
-      toast({
-        title: 'Build Intents Ready',
-        description: `${pendingIntents.length} changes ready. Click Save to review.`,
-      });
+      // ⚠️ DEPRECATED (Oct 26, 2025): SaveOrchestrator removed, using vibe coding flow instead
+      console.log('ℹ️  [BuildIntent] Build intents now handled via vibe coding flow');
+      // Build intents are now automatically handled by the vibe coding system
+      // which queues changes to visualEditorContext.setPendingCodeChanges
 
     } catch (error) {
       // STREAM B FIX: Log full error details for debugging
