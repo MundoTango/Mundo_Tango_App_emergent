@@ -201,6 +201,7 @@ export default function EnhancedMessageBubble({
         )}
         
         {/* 🚀 VIBE CODING: Inline code changes (Oct 23, 2025) */}
+        {/* ⚠️ FIX (Oct 26): Removed onApply/onReject - changes auto-queue */}
         {codeChanges && codeChanges.length > 0 && (
           <div className="w-full space-y-2">
             {codeChanges.map((change, idx) => (
@@ -208,16 +209,6 @@ export default function EnhancedMessageBubble({
                 key={idx}
                 filePath={change.filePath}
                 diff={change.diff}
-                onApply={async () => {
-                  if (onApplyCode) {
-                    await onApplyCode(change);
-                  }
-                }}
-                onReject={() => {
-                  if (onRejectCode) {
-                    onRejectCode(change);
-                  }
-                }}
               />
             ))}
           </div>

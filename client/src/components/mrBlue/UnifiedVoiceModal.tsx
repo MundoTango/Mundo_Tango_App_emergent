@@ -515,7 +515,12 @@ export function UnifiedVoiceModal({
             {/* 🎯 BATCH 1 FIX: Manual start button (Oct 26, 2025) */}
             {sessionState === 'idle' && (
               <Button
-                onClick={startSession}
+                onClick={() => {
+                  console.log('🎤 [DEBUG] Start Voice button clicked!');
+                  console.log('🎤 [DEBUG] Current sessionState:', sessionState);
+                  console.log('🎤 [DEBUG] Connection status:', connectionStatus);
+                  startSession();
+                }}
                 className="bg-teal-600 hover:bg-teal-700 text-white"
                 data-testid="button-start-voice"
               >

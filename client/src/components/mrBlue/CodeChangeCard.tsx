@@ -11,54 +11,26 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Check, X, ChevronDown, ChevronUp, FileCode } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { ChevronDown, ChevronUp, FileCode } from 'lucide-react';
 
 interface CodeChangeCardProps {
   filePath: string;
   diff: string;
-  onApply: () => Promise<void>;
-  onReject: () => void;
-  isApplying?: boolean;
+  // ⚠️ FIX (Oct 26): Removed onApply/onReject - changes auto-queue to SAVE button
+  // onApply: () => Promise<void>;
+  // onReject: () => void;
+  // isApplying?: boolean;
 }
 
 export function CodeChangeCard({
   filePath,
-  diff,
-  onApply,
-  onReject,
-  isApplying = false
+  diff
 }: CodeChangeCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [isApplyingLocal, setIsApplyingLocal] = useState(false);
-  const { toast } = useToast();
-
-  const handleApply = async () => {
-    setIsApplyingLocal(true);
-    try {
-      await onApply();
-      toast({
-        title: 'Changes applied! ✅',
-        description: `Updated ${filePath}`,
-      });
-    } catch (error) {
-      toast({
-        title: 'Failed to apply changes',
-        description: error instanceof Error ? error.message : 'Unknown error',
-        variant: 'destructive'
-      });
-    } finally {
-      setIsApplyingLocal(false);
-    }
-  };
-
-  const handleReject = () => {
-    toast({
-      title: 'Changes rejected',
-      description: 'No modifications were made'
-    });
-    onReject();
-  };
+  
+  // ⚠️ FIX (Oct 26): Removed Apply/Reject handlers
+  // Changes now auto-queue to main SAVE button via VisualEditorContext
+  // No need for inline "Apply" button - confusing UX
 
   // Parse diff to highlight additions/deletions
   const renderDiff = (diffString: string) => {
@@ -126,30 +98,12 @@ export function CodeChangeCard({
             </pre>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2 px-3 py-2 bg-gray-800/80 border-t border-gray-700">
-            <Button
-              size="sm"
-              variant="default"
-              className="flex-1 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white"
-              onClick={handleApply}
-              disabled={isApplying || isApplyingLocal}
-              data-testid="button-apply-code"
-            >
-              <Check className="w-4 h-4 mr-1" />
-              {isApplying || isApplyingLocal ? 'Applying...' : 'Apply'}
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              className="flex-1 border-red-500/50 text-red-400 hover:bg-red-500/10"
-              onClick={handleReject}
-              disabled={isApplying || isApplyingLocal}
-              data-testid="button-reject-code"
-            >
-              <X className="w-4 h-4 mr-1" />
-              Reject
-            </Button>
+          {/* ⚠️ FIX (Oct 26): Removed Apply/Reject buttons */}
+          {/* Changes auto-queue to main SAVE button - no inline actions needed */}
+          <div className="px-3 py-2 bg-gray-800/80 border-t border-gray-700">
+            <p className="text-xs text-gray-400">
+              💡 This change is queued. Click <span className="font-semibold text-teal-400">SAVE</span> (top right) to apply.
+            </p>
           </div>
         </>
       )}

@@ -77,7 +77,7 @@ export default function Landing() {
                     {/* Welcome Header */}
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-turquoise-200 to-cyan-300 rounded-3xl blur-2xl opacity-30" />
-                      <div className="relative p-8 rounded-3xl bg-gradient-to-r from-turquoise-50 via-cyan-50 to-blue-50 shadow-xl border-2 border-turquoise-200/50 backdrop-blur-sm">
+                      <div className="relative p-8 rounded-3xl bg-red-500 shadow-xl border-2 border-turquoise-200/50 backdrop-blur-sm">
                         <div className="flex items-center gap-4 mb-2">
                           <div className="p-3 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-xl animate-float shadow-lg">
                             <Music className="h-6 w-6 text-white" />
