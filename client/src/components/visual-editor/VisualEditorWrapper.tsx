@@ -32,6 +32,7 @@ import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { listenToIframe, type IframeMessage } from '@/lib/visual-editor/iframeMessaging';
 import { useNavigationHistory } from '@/hooks/useNavigationHistory';
 import type { NavigationHistoryEntry } from '@/lib/visual-editor/navigationHistory';
+import { generateTextChangeDiff, generateDeleteDiff, detectSourceFile } from '@/lib/visual-editor/codeGeneration';
 
 interface SelectedElement {
   tag: string;
@@ -77,6 +78,68 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       contextValue: visualEditorContext
     });
   }, [visualEditorContext]);
+  
+  // 🎯 BATCH 3: Delete key handler (Oct 26, 2025)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle Delete/Backspace when an element is selected
+      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedElement && isEditorActive) {
+        // Prevent default backspace navigation
+        e.preventDefault();
+        
+        console.log('🗑️ [BATCH 3] Delete key pressed for element:', selectedElement);
+        
+        // Generate delete diff and send to context
+        if (visualEditorContext?.setPendingCodeChanges) {
+          const currentPath = visualEditorContext.previewPath || '/';
+          const elementData = {
+            tagName: selectedElement.tag,
+            id: selectedElement.id,
+            className: selectedElement.className,
+            xpath: selectedElement.xpath,
+            computedStyles: {},
+            boundingBox: { top: 0, left: 0, width: 0, height: 0 },
+            attributes: {}
+          };
+          
+          const diff = generateDeleteDiff(elementData, currentPath);
+          
+          const newChange = {
+            id: `delete-${Date.now()}`,
+            taskId: 'delete-element',
+            filePath: diff.filePath,
+            diff: diff.diff,
+            type: 'unified_diff' as const,
+            status: 'pending' as const,
+            timestamp: new Date()
+          };
+          
+          visualEditorContext.setPendingCodeChanges([
+            ...(visualEditorContext.pendingCodeChanges || []),
+            newChange
+          ]);
+          
+          console.log('✅ [BATCH 3] Delete queued in context:', newChange);
+          
+          toast({
+            title: '🗑️ Delete Queued',
+            description: `Removing <${selectedElement.tag}> - Click SAVE to apply`,
+            duration: 2000
+          });
+          
+          // Clear selection after queueing delete
+          setSelectedElement(null);
+          setSelectedHTMLElement(null);
+        }
+      }
+    };
+    
+    // Only listen when editor is active
+    if (isEditorActive) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [selectedElement, isEditorActive, visualEditorContext, toast]);
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
@@ -342,12 +405,51 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     return cleanup;
   }, [visualEditorContext, toast]);
 
-  // MB.MD: Handle inline text editing save
+  // 🎯 BATCH 3: Wire manual text edits to context (Oct 26, 2025)
   const handleSaveInlineText = (newText: string) => {
     if (!editingElement || !selectedElement) return;
     
     const oldText = editingElement.textContent || '';
     editingElement.textContent = newText;
+    
+    // 🎯 BATCH 3: Generate code diff and send to context
+    if (visualEditorContext?.setPendingCodeChanges) {
+      const currentPath = visualEditorContext.previewPath || '/';
+      const elementData = {
+        tagName: selectedElement.tag,
+        id: selectedElement.id,
+        className: selectedElement.className,
+        xpath: selectedElement.xpath,
+        computedStyles: {},
+        boundingBox: { top: 0, left: 0, width: 0, height: 0 },
+        attributes: {}
+      };
+      
+      const diff = generateTextChangeDiff(elementData, oldText, newText, currentPath);
+      
+      const newChange = {
+        id: `manual-${Date.now()}`,
+        taskId: 'manual-edit',
+        filePath: diff.filePath,
+        diff: diff.diff,
+        type: 'unified_diff' as const,
+        status: 'pending' as const,
+        timestamp: new Date()
+      };
+      
+      visualEditorContext.setPendingCodeChanges([
+        ...(visualEditorContext.pendingCodeChanges || []),
+        newChange
+      ]);
+      
+      console.log('✅ [BATCH 3] Text edit queued in context:', newChange);
+      
+      toast({
+        title: '✏️ Edit Queued',
+        description: 'Click SAVE to apply changes',
+        duration: 2000
+      });
+    }
     
     // Track change in Universal Save system
     const change: Change = {
