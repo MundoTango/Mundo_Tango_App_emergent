@@ -70,6 +70,109 @@ Standard debugging failed. Architect tool identified:
 
 ---
 
+## 🚨 **CRITICAL BUG FIX: Oct 26, 2025 - Multi-Tool Call Error**
+
+### The Bug
+When AI models called MULTIPLE tools in one response, error occurred: `tool_use ids were found without tool_result blocks`. This broke multi-model consensus mode when tools were used.
+
+### Root Cause  
+**Sequential tool result handling instead of batch collection**:
+- ❌ Loop through tools, send result for EACH tool immediately
+- ✅ Collect ALL tool results, send ONE message with all results
+
+### Why This Matters
+All three AI model APIs (Claude, GPT-4o, Gemini) expect tool results to be sent in a SINGLE follow-up message when multiple tools are called. Sending them one-at-a-time causes API errors.
+
+**The Wrong Pattern:**
+```typescript
+for (const tool of tools) {
+  const result = await executeTool(tool);
+  
+  // ❌ Send immediately - WRONG for multi-tool calls
+  await sendFollowUp([...messages, { tool_result: result }]);
+}
+```
+
+**The Correct Pattern:**
+```typescript
+// ✅ Collect ALL results first
+const allResults = [];
+for (const tool of tools) {
+  const result = await executeTool(tool);
+  allResults.push(result);
+}
+
+// Send ONE message with ALL results
+await sendFollowUp([...messages, { tool_results: allResults }]);
+```
+
+### The Fix (Applied to All 3 Models)
+
+**Claude (Anthropic):**
+```typescript
+// Collect all tool results
+const toolResults: any[] = [];
+for (const toolBlock of toolBlocks) {
+  const result = await toolExecutor.executeTool(...);
+  toolResults.push({ type: 'tool_result', tool_use_id: toolBlock.id, content: result });
+}
+
+// Send ONE message with ALL results
+const finalMessages = [
+  ...userMessages,
+  { role: 'assistant', content: response.content },
+  { role: 'user', content: toolResults } // All results in one message
+];
+```
+
+**GPT-4o (OpenAI):**
+```typescript
+// Collect all tool messages
+const toolMessages: any[] = [];
+for (const toolCall of message.tool_calls) {
+  const result = await toolExecutor.executeTool(...);
+  toolMessages.push({ role: 'tool', tool_call_id: toolCall.id, content: result });
+}
+
+// Send with ALL tool results
+const followUpMessages = [...messages, message, ...toolMessages];
+```
+
+**Gemini:**
+```typescript
+// Collect all function responses
+const functionResponses: any[] = [];
+for (const call of functionCalls) {
+  const result = await toolExecutor.executeTool(...);
+  functionResponses.push({ functionResponse: { name: call.name, response: result }});
+}
+
+// Send ONE message with ALL responses
+await chat.sendMessage(functionResponses);
+```
+
+### Verification Test
+```bash
+# 1. Enable Omniscient Mode (super admin only)
+# 2. Ask question that requires multiple tools (e.g., "What files exist and what's in the database?")
+# 3. Check server logs for:
+✅ [Universal Tools] Executing tool: read_file
+✅ [Universal Tools] Executing tool: execute_sql
+✅ [MultiModel] Tools used: read_file, execute_sql
+# 4. No error: "tool_use without tool_result"
+```
+
+### Key Lesson for ALL Agents
+**When implementing AI tool calling:**
+1. ALWAYS collect ALL tool results in a loop first
+2. Send ONE follow-up request with all results together
+3. Never send individual follow-up requests per tool
+4. This applies to Claude, GPT-4o, Gemini, and any future AI model integrations
+
+**Files Changed:** `server/services/tools/universalToolOrchestrator.ts` (lines 152-189 Claude, 220-262 GPT-4o, 306-332 Gemini)
+
+---
+
 ## 📖 **How to Use This Document**
 
 **Agents:** Read the section for your current phase  
