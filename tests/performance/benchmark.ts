@@ -145,17 +145,15 @@ async function runAllBenchmarks() {
   return results;
 }
 
-// Run if executed directly
-if (require.main === module) {
-  runAllBenchmarks()
-    .then(() => {
-      console.log('\n✅ Benchmarks complete!');
-      process.exit(0);
-    })
-    .catch((error) => {
-      console.error('❌ Benchmark failed:', error);
-      process.exit(1);
-    });
-}
+// Run if executed directly (ESM compatible)
+runAllBenchmarks()
+  .then(() => {
+    console.log('\n✅ Benchmarks complete!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('❌ Benchmark failed:', error);
+    process.exit(1);
+  });
 
 export { benchmarkEndpoint, runAllBenchmarks };

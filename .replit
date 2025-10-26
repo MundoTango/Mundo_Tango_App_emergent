@@ -74,6 +74,7 @@ outputType = "webview"
 
 [nix]
 channel = "stable-25_05"
+packages = ["glib", "nss", "nspr", "atk", "at-spi2-atk", "cups", "dbus", "libdrm", "gtk3", "pango", "cairo", "libxkbcommon", "mesa"]
 
 [deployment]
 deploymentTarget = "autoscale"
