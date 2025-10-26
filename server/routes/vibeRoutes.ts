@@ -22,6 +22,7 @@ import { getWebSocketService } from '../services/websocketService.js';
 import { db } from '../db.js';
 import { componentAttributions, codeChanges } from '../../shared/schema.js';
 import { eq } from 'drizzle-orm';
+import { findElementByText, generateUnifiedDiff, applyTextReplacement, deleteElementByText } from '../lib/jsxParser.js';
 
 const router = Router();
 
@@ -296,9 +297,49 @@ router.post('/apply-batch', async (req: any, res: Response) => {
       try {
         console.log(`📝 [Batch ${i + 1}/${changes.length}] Applying ${filePath}...`);
 
-        // Apply the diff using UnifiedDiffEditor
-        const editor = createDiffEditor();
-        const result = await editor.applyUnifiedDiff(filePath, diff);
+        let result;
+
+        // ✅ FIX: Check if this is an edit instruction (from manual edits)
+        if (diff.startsWith('EDIT_INSTRUCTION:')) {
+          const instructionJson = diff.replace('EDIT_INSTRUCTION: ', '');
+          const instruction = JSON.parse(instructionJson);
+
+          console.log(`🔧 [Batch] Processing edit instruction:`, instruction.operation);
+
+          if (instruction.operation === 'replace_text') {
+            // Use jsxParser to apply text replacement
+            const success = await applyTextReplacement(
+              filePath,
+              instruction.searchText,
+              instruction.replaceWith
+            );
+
+            result = {
+              success,
+              error: success ? undefined : 'Text not found in file'
+            };
+
+          } else if (instruction.operation === 'delete_element') {
+            // Use jsxParser to delete element
+            const success = await deleteElementByText(
+              filePath,
+              instruction.searchText
+            );
+
+            result = {
+              success,
+              error: success ? undefined : 'Element not found in file'
+            };
+
+          } else {
+            throw new Error(`Unknown edit instruction: ${instruction.operation}`);
+          }
+
+        } else {
+          // Apply the diff using UnifiedDiffEditor (for AI-generated diffs)
+          const editor = createDiffEditor();
+          result = await editor.applyUnifiedDiff(filePath, diff);
+        }
 
         // Check if apply was actually successful
         if (result.success) {

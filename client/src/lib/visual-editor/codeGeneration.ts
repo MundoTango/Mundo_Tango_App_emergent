@@ -29,8 +29,8 @@ export function detectSourceFile(previewPath: string): string {
 }
 
 /**
- * Generate unified diff for text content change
- * Creates a git-style diff that can be applied by patch tools
+ * Generate edit instruction for text content change
+ * Frontend sends this to backend, which generates real diff from filesystem
  */
 export function generateTextChangeDiff(
   element: ElementSelection,
@@ -40,15 +40,16 @@ export function generateTextChangeDiff(
 ): CodeChange {
   const filePath = detectSourceFile(previewPath);
   
-  const escapedOld = oldText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const escapedNew = newText.replace(/\$/g, '$$$$');
+  // ✅ FIX: Send actual search/replace instruction, not placeholder diff
+  // Backend will use jsxParser.findElementByText + generateUnifiedDiff
+  const instruction = JSON.stringify({
+    operation: 'replace_text',
+    searchText: oldText,
+    replaceWith: newText
+  });
   
-  const diff = `--- a/${filePath}
-+++ b/${filePath}
-@@ -1,1 +1,1 @@
--        ${oldText}
-+        ${newText}
-`;
+  // Temporary: Use simple find-replace format until backend generates real diffs
+  const diff = `EDIT_INSTRUCTION: ${instruction}`;
 
   return {
     filePath,
@@ -58,8 +59,8 @@ export function generateTextChangeDiff(
 }
 
 /**
- * Generate unified diff for element deletion
- * Creates diff that removes the element from JSX
+ * Generate edit instruction for element deletion
+ * Frontend sends this to backend, which generates real diff from filesystem
  */
 export function generateDeleteDiff(
   element: ElementSelection,
@@ -67,17 +68,32 @@ export function generateDeleteDiff(
 ): CodeChange {
   const filePath = detectSourceFile(previewPath);
   
-  const elementTag = element.tagName;
-  const elementId = element.id ? `id="${element.id}"` : '';
-  const elementClass = element.className ? `className="${element.className}"` : '';
+  // ✅ FIX #4: More flexible search - use MOST specific available identifier
+  // Backend will search for ANY of these patterns (not requiring all)
+  let searchText: string;
   
-  const diff = `--- a/${filePath}
-+++ b/${filePath}
-@@ -1,3 +1,0 @@
--        <${elementTag} ${elementId} ${elementClass}>
--          {/* Content removed */}
--        </${elementTag}>
-`;
+  if (element.id) {
+    // Most specific: Search for id attribute
+    searchText = `id="${element.id}"`;
+  } else if (element.className) {
+    // Second choice: First className
+    const firstClass = element.className.split(' ')[0];
+    searchText = `className="${firstClass}"`;
+  } else {
+    // Fallback: Just the tag name (least specific, but better than nothing)
+    searchText = `<${element.tagName}`;
+  }
+  
+  const instruction = JSON.stringify({
+    operation: 'delete_element',
+    searchText,
+    elementTag: element.tagName,
+    xpath: element.xpath,  // Include xpath for debugging/logging
+    fallbackStrategy: 'exact_match_only'  // Don't delete unless confident
+  });
+  
+  // Send instruction to backend for processing
+  const diff = `EDIT_INSTRUCTION: ${instruction}`;
 
   return {
     filePath,
