@@ -22,7 +22,8 @@ import { getWebSocketService } from '../services/websocketService.js';
 import { db } from '../db.js';
 import { componentAttributions, codeChanges } from '../../shared/schema.js';
 import { eq } from 'drizzle-orm';
-import { findElementByText, generateUnifiedDiff, applyTextReplacement, deleteElementByText } from '../lib/jsxParser.js';
+// ✅ FIX #5: Use AST-based parser instead of regex
+import { applyTextReplacementAST, deleteElementByTextAST } from '../lib/jsxParserAST.js';
 
 const router = Router();
 
@@ -299,16 +300,16 @@ router.post('/apply-batch', async (req: any, res: Response) => {
 
         let result;
 
-        // ✅ FIX: Check if this is an edit instruction (from manual edits)
+        // ✅ FIX #5: Check if this is an edit instruction (from manual edits)
         if (diff.startsWith('EDIT_INSTRUCTION:')) {
           const instructionJson = diff.replace('EDIT_INSTRUCTION: ', '');
           const instruction = JSON.parse(instructionJson);
 
-          console.log(`🔧 [Batch] Processing edit instruction:`, instruction.operation);
+          console.log(`🔧 [Batch] Processing edit instruction (AST-based):`, instruction.operation);
 
           if (instruction.operation === 'replace_text') {
-            // Use jsxParser to apply text replacement
-            const success = await applyTextReplacement(
+            // ✅ Use AST-based parser for proper JSX text replacement
+            const success = await applyTextReplacementAST(
               filePath,
               instruction.searchText,
               instruction.replaceWith
@@ -320,8 +321,8 @@ router.post('/apply-batch', async (req: any, res: Response) => {
             };
 
           } else if (instruction.operation === 'delete_element') {
-            // Use jsxParser to delete element
-            const success = await deleteElementByText(
+            // ✅ Use AST-based parser for proper JSX element deletion
+            const success = await deleteElementByTextAST(
               filePath,
               instruction.searchText
             );
