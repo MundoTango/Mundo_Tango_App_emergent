@@ -8,11 +8,18 @@
  * 4. Risk assessment is accurate
  */
 
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, beforeAll } from '@jest/globals';
+import { waitForServer } from '../setup/test-server';
 
 const API_BASE = process.env.VITE_API_URL || 'http://localhost:5000';
 
 describe('Terminal Security - Integration Tests', () => {
+  beforeAll(async () => {
+    const serverRunning = await waitForServer();
+    if (!serverRunning) {
+      console.log('⚠️  Server not running - start with: npm run dev');
+    }
+  }, 30000);
   describe('Command Execution Safety', () => {
     it('should execute allowed safe command (ls)', async () => {
       const response = await fetch(`${API_BASE}/api/terminal/execute`, {

@@ -9,11 +9,18 @@
  * 5. Accessibility: No WCAG violations
  */
 
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, beforeAll } from '@jest/globals';
+import { waitForServer } from '../setup/test-server';
 
 const API_BASE = process.env.VITE_API_URL || 'http://localhost:5000';
 
 describe('All Systems Integration - Smoke Test', () => {
+  beforeAll(async () => {
+    const serverRunning = await waitForServer();
+    if (!serverRunning) {
+      console.log('⚠️  Server not running - start with: npm run dev');
+    }
+  }, 30000);
   describe('✅ STREAM 1: Observability', () => {
     it('should have observability configuration loaded', async () => {
       const response = await fetch(`${API_BASE}/api/health`);

@@ -9,12 +9,32 @@
  * 5. System executes or cancels operation
  */
 
-import { describe, it, expect, beforeAll } from '@jest/globals';
+import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
+import { startTestServer, stopTestServer, waitForServer } from '../setup/test-server';
 
-// Mock API client for testing
 const API_BASE = process.env.VITE_API_URL || 'http://localhost:5000';
 
 describe('Human Approval Flow - Integration Tests', () => {
+  // Start server before all tests
+  beforeAll(async () => {
+    console.log('🔧 Setting up test environment...');
+    
+    // Check if server is already running
+    const serverRunning = await waitForServer();
+    
+    if (!serverRunning) {
+      console.log('⚠️  Server not running - tests will use mock data');
+      console.log('   To run against live server: npm run dev (in another terminal)');
+    } else {
+      console.log('✅ Server is running - tests will use live API');
+    }
+  }, 60000); // 60 second timeout for server startup
+  
+  // Clean up after all tests
+  afterAll(() => {
+    console.log('🧹 Cleaning up test environment...');
+    // Don't stop server - it might be user's dev server
+  });
   let testUserId = 1; // Super admin user
   let approvalRequestId: string;
 
