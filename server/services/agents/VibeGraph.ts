@@ -17,6 +17,7 @@ import { join } from 'path';
 import { BrowserTesterAgent, type BrowserTestResult, type TestSpec } from './BrowserTesterAgent';
 import { SelfHealerAgent, type BugFix } from './SelfHealerAgent';
 import { SessionManager } from '../SessionManager';
+import { routeToModel, classifyTask } from '../modelRouter';
 
 /*
 <important_code_snippet_instructions>
@@ -273,12 +274,29 @@ export class VibeGraph {
 
   /**
    * Manager Node - Plan tasks from user request
-   * Uses Claude Sonnet 4 for intelligent task planning
+   * 🚀 PHASE 3: Uses ModelRouter to select Claude/GPT-4/Gemini based on task type
    */
   private async managerNode(): Promise<void> {
     this.state.status = 'planning';
     
     try {
+      // 🚀 PHASE 3: Route to optimal model for planning
+      const taskType = classifyTask(this.state.userRequest, {
+        hasVisualElement: !!this.state.visualEditorContext?.selectedElement
+      });
+      const routing = routeToModel(taskType === 'chat' ? 'planning' : taskType);
+      
+      console.log(`🧠 [VibeGraph] Manager using ${routing.provider}/${routing.model} (${routing.reason})`);
+      
+      // Track model usage in session
+      if (this.sessionManager) {
+        this.sessionManager.trackModelCall(
+          routing.provider === 'openai' ? 'gpt4' : routing.provider,
+          1500, // Estimated input tokens
+          800   // Estimated output tokens
+        );
+      }
+      
       // Build context for AI
       let contextInfo = `User request: "${this.state.userRequest}"\n\n`;
       
@@ -390,7 +408,7 @@ Common file patterns for tasks:
 
   /**
    * Editor Node - Generate code changes
-   * Uses Claude Sonnet 4 for intelligent code generation
+   * 🚀 PHASE 3: Uses ModelRouter to select optimal model for code generation
    */
   private async editorNode(): Promise<void> {
     this.state.status = 'editing';
@@ -401,6 +419,19 @@ Common file patterns for tasks:
     currentTask.status = 'in_progress';
 
     try {
+      // 🚀 PHASE 3: Route to optimal model for code generation
+      const routing = routeToModel('code_generation');
+      console.log(`✏️  [VibeGraph] Editor using ${routing.provider}/${routing.model} (${routing.reason})`);
+      
+      // Track model usage in session
+      if (this.sessionManager) {
+        this.sessionManager.trackModelCall(
+          routing.provider === 'openai' ? 'gpt4' : routing.provider,
+          2000, // Estimated input tokens (including code context)
+          1500  // Estimated output tokens (diff)
+        );
+      }
+      
       const targetFile = currentTask.filesPaths[0];
       if (!targetFile) {
         throw new Error('No target file specified');
