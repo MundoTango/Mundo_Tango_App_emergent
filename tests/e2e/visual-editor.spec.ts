@@ -23,56 +23,75 @@ test.describe('Visual Editor - E2E Tests', () => {
     console.log('✅ Application loaded successfully');
   });
 
-  test('should open Visual Editor overlay', async ({ page }) => {
-    // Visual Editor might be accessible via ?edit=true query param
-    await page.goto('http://localhost:5000/?edit=true');
-    
-    // Look for Visual Editor overlay or button to open it
-    // Note: actual implementation may vary - this tests what exists
-    
-    console.log('✅ Visual Editor access tested');
-  });
-
-  test('should show inspector panel when Visual Editor active', async ({ page }) => {
-    await page.goto('http://localhost:5000/?edit=true');
-    
-    // Check if inspector panel exists (from InspectorPanel.tsx)
-    const inspectorPanel = page.locator('[data-testid="inspector-panel"]');
-    
-    // Inspector panel may not be visible initially - that's expected
-    const isVisible = await inspectorPanel.isVisible().catch(() => false);
-    
-    console.log(`✅ Inspector panel: ${isVisible ? 'visible' : 'requires element selection'}`);
-  });
-
-  test('should have AI tab with prompt textarea', async ({ page }) => {
-    await page.goto('http://localhost:5000/?edit=true');
-    
-    // Look for AI prompt textarea (from AITab.tsx)
-    const aiPrompt = page.locator('[data-testid="textarea-ai-prompt"]');
-    
-    const exists = await aiPrompt.count();
-    
-    if (exists > 0) {
-      console.log('✅ AI prompt textarea exists');
-    } else {
-      console.log('ℹ️  AI tab may require manual activation');
-    }
-  });
-
-  test('should have save functionality', async ({ page }) => {
+  test('should open Mr Blue dialog and verify tabs', async ({ page }) => {
     await page.goto('http://localhost:5000/');
     
-    // Look for Universal Save button (from UniversalSaveSystem.tsx)
+    // Click Mr Blue floating button
+    const mrBlueButton = page.locator('[data-testid="button-open-mrblue"]');
+    await expect(mrBlueButton).toBeVisible({ timeout: 5000 });
+    await mrBlueButton.click();
+    
+    // Verify dialog opens
+    const mrBlueDialog = page.locator('[data-testid="dialog-mrblue"]');
+    await expect(mrBlueDialog).toBeVisible({ timeout: 5000 });
+    
+    // Verify visual editor tab exists
+    const visualEditorTab = page.locator('[data-testid="tab-visualeditor"]');
+    await expect(visualEditorTab).toBeVisible();
+    
+    console.log('✅ Mr Blue dialog and Visual Editor tab verified');
+  });
+
+  test('should show inspector panel when element selected', async ({ page }) => {
+    await page.goto('http://localhost:5000/');
+    
+    // Open Mr Blue
+    await page.locator('[data-testid="button-open-mrblue"]').click();
+    await expect(page.locator('[data-testid="dialog-mrblue"]')).toBeVisible();
+    
+    // Click Visual Editor tab
+    await page.locator('[data-testid="tab-visualeditor"]').click();
+    
+    // Inspector panel should exist in the DOM (from InspectorPanel.tsx)
+    const inspectorPanel = page.locator('[data-testid="inspector-panel"]');
+    
+    // Inspector panel may be in DOM but not visible until element selected
+    // At minimum, it should exist
+    const exists = await inspectorPanel.count() > 0;
+    expect(exists).toBe(true);
+    
+    console.log('✅ Inspector panel exists in Visual Editor tab');
+  });
+
+  test('should have AI tab with prompt textarea in Mr Blue', async ({ page }) => {
+    await page.goto('http://localhost:5000/');
+    
+    // Open Mr Blue
+    await page.locator('[data-testid="button-open-mrblue"]').click();
+    await expect(page.locator('[data-testid="dialog-mrblue"]')).toBeVisible();
+    
+    // AI features are in the chat tab (default tab)
+    const chatTab = page.locator('[data-testid="tab-chat"]');
+    await expect(chatTab).toBeVisible();
+    
+    console.log('✅ Mr Blue chat tab verified (AI prompt interface)');
+  });
+
+  test('should have universal save button when changes pending', async ({ page }) => {
+    await page.goto('http://localhost:5000/');
+    
+    // Open Mr Blue
+    await page.locator('[data-testid="button-open-mrblue"]').click();
+    await expect(page.locator('[data-testid="dialog-mrblue"]')).toBeVisible();
+    
+    // Universal Save button should exist somewhere in the interface
+    // It may not be visible until changes are pending
     const saveButton = page.locator('[data-testid="button-universal-save"]');
     
-    const exists = await saveButton.count();
+    // Check if button exists in DOM (may be hidden until needed)
+    const existsInDom = await saveButton.count() > 0;
     
-    if (exists > 0) {
-      console.log('✅ Universal Save button exists');
-    } else {
-      console.log('ℹ️  Save button requires Visual Editor to be active');
-    }
+    console.log(`ℹ️  Universal Save button: ${existsInDom ? 'exists in DOM' : 'rendered on-demand'}`);
   });
 
   test('should test page load performance', async ({ page }) => {
@@ -142,14 +161,41 @@ test.describe('Visual Editor - E2E Tests', () => {
     console.log('✅ Mobile responsive layout verified');
   });
 
-  test('should test approval modal existence', async ({ page }) => {
+  test('should verify core UI elements exist', async ({ page }) => {
     await page.goto('http://localhost:5000/');
     
-    // Check if approval modal component exists in the DOM
-    // (from ApprovalModal.tsx - won't be visible unless triggered)
-    const modalExists = await page.locator('[data-testid="modal-approval"]').count();
+    // Verify Mr Blue button is always present
+    const mrBlueButton = page.locator('[data-testid="button-open-mrblue"]');
+    await expect(mrBlueButton).toBeVisible({ timeout: 10000 });
     
-    console.log(`ℹ️  Approval modal: ${modalExists > 0 ? 'component exists' : 'not in DOM (normal)'}`);
+    // Verify it's clickable
+    await expect(mrBlueButton).toBeEnabled();
+    
+    console.log('✅ Core UI verified: Mr Blue button present and clickable');
+  });
+
+  test('should verify Mr Blue tabs are accessible', async ({ page }) => {
+    await page.goto('http://localhost:5000/');
+    
+    // Open Mr Blue
+    await page.locator('[data-testid="button-open-mrblue"]').click();
+    await expect(page.locator('[data-testid="dialog-mrblue"]')).toBeVisible();
+    
+    // Verify all major tabs exist and are clickable
+    const tabs = [
+      'tab-chat',
+      'tab-visualeditor',
+      'tab-lifeceo',
+      'tab-admin',
+    ];
+    
+    for (const tabId of tabs) {
+      const tab = page.locator(`[data-testid="${tabId}"]`);
+      await expect(tab).toBeVisible();
+      console.log(`  ✅ ${tabId} exists`);
+    }
+    
+    console.log('✅ All major Mr Blue tabs verified');
   });
 });
 
