@@ -315,25 +315,53 @@ export class VibeGraph {
         contextInfo += `Current page: ${this.state.visualEditorContext.previewPath}\n\n`;
       }
       
-      const prompt = `You are a Replit-style AI coding assistant. Analyze this request and decide if you need clarification or can proceed.
+      // 🚀 FIX: Conditional prompt based on selected element (Oct 26, 2025)
+      // If element is selected, SKIP clarification and build immediately (Replit-style vibe coding)
+      const hasSelectedElement = !!this.state.visualEditorContext?.selectedElement;
+      
+      let systemPrompt: string;
+      let examples: string;
+      
+      if (hasSelectedElement) {
+        // Element selected → BUILD MODE (no clarification questions)
+        systemPrompt = `You are a Replit-style AI coding assistant. The user has ALREADY SELECTED an element in the Visual Editor.
+
+🚨 CRITICAL RULE: Do NOT ask clarifying questions. Generate code immediately.
+
+All requests modify the selected element unless explicitly stated otherwise. Make reasonable assumptions and build.`;
+
+        examples = `Examples of requests WITH selected element:
+- "make it red" → Change selected element background to red (NO QUESTIONS!)
+- "add a smiley face" → Add 😊 emoji to selected element's text content (NO QUESTIONS!)
+- "bigger" → Increase selected element's size or font
+- "blue border" → Add blue border to selected element
+- "make background red and add smiley" → TWO tasks: (1) red background, (2) add emoji
+
+Return JSON with needsClarification: false and tasks array. Be decisive!`;
+
+      } else {
+        // No element selected → CLARIFICATION MODE (can ask questions)
+        systemPrompt = `You are a Replit-style AI coding assistant. Analyze this request and decide if you need clarification or can proceed.`;
+
+        examples = `Examples of ambiguous requests (NO element selected):
+- "make it red" → Ask: "Please select an element first by Cmd+clicking it, or tell me which component to modify"
+- "add a smiley face" → Ask: "Where should I add the smiley? Please select an element or describe the location"
+
+Examples of clear requests (NO element selected):
+- "create a new button with red background in the header" → Proceed
+- "add a heading that says Welcome to the landing page" → Proceed
+
+Return JSON with needsClarification: true/false based on clarity.`;
+      }
+
+      const prompt = `${systemPrompt}
 
 ${contextInfo}
 
 Conversation so far:
 ${this.state.conversationHistory.map(m => `${m.role}: ${m.content}`).join('\n')}
 
-Your job:
-1. If the request is AMBIGUOUS or UNCLEAR, ask a clarifying question
-2. If the request is CLEAR, create a task plan
-
-Examples of ambiguous requests:
-- "make it red" → Ask: "Which element do you want red? The background, button, or heading?"
-- "add a smiley face" → Ask: "Where should I add the smiley? In the heading, next to a button, or as decoration?"
-- "change the color" → Ask: "Which color should I change, and what color would you like?"
-
-Examples of clear requests:
-- "change the background to red and add a smiley face emoji to the welcome heading" → Proceed
-- "make the button blue with rounded corners" → Proceed
+${examples}
 
 Return ONLY a JSON object:
 {

@@ -13,7 +13,6 @@ import { useLocation } from 'wouter';
 import TabSystem, { EditorTab } from './TabSystem';
 import { InspectorPanel } from './InspectorPanel';
 import AITab from './AITab';
-import { EnhancedPreviewTab } from './EnhancedPreviewTab';
 import DeployTab from './DeployTab';
 import GitTab from './GitTab';
 import PagesTab from './PagesTab';
@@ -495,7 +494,6 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     const tabLabels: Record<EditorTab, string> = {
       inspector: 'Inspector',
       chat: 'Mr Blue',
-      preview: 'Preview',
       console: 'Console',
       deploy: 'Deploy',
       git: 'Git',
@@ -813,9 +811,6 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
                     });
                   }}
                 />
-              )}
-              {activeTab === 'preview' && (
-                <EnhancedPreviewTab previewUrl={location} />
               )}
               {activeTab === 'deploy' && <DeployTab />}
               {activeTab === 'git' && <GitTab />}
