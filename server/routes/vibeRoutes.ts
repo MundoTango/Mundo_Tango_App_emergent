@@ -298,13 +298,18 @@ router.post('/apply-batch', async (req: any, res: Response) => {
 
         // Apply the diff using UnifiedDiffEditor
         const editor = createDiffEditor();
-        const result = await editor.apply(filePath, diff);
+        const result = await editor.applyUnifiedDiff(filePath, diff);
 
-        results.push({
-          filePath,
-          success: true,
-          message: result.message
-        });
+        // Check if apply was actually successful
+        if (result.success) {
+          results.push({
+            filePath,
+            success: true,
+            message: `Applied to ${filePath}`
+          });
+        } else {
+          throw new Error(result.error || 'Apply failed');
+        }
 
       } catch (error) {
         console.error(`❌ [Batch ${i + 1}/${changes.length}] Failed:`, error);
