@@ -56,7 +56,7 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
   const [isEditorActive, setIsEditorActive] = useState(false);
   const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [isSelectMode, setIsSelectMode] = useState(false);
-  const [activeTab, setActiveTab] = useState<EditorTab>('chat');
+  const [activeTab, setActiveTab] = useState<EditorTab>('chat'); // DEFAULT: Mr Blue (chat), NOT inspector
   const [changes, setChanges] = useState<Change[]>([]);
   const [editingElement, setEditingElement] = useState<HTMLElement | null>(null);
   const [selectedHTMLElement, setSelectedHTMLElement] = useState<HTMLElement | null>(null);
