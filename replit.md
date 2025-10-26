@@ -75,10 +75,11 @@ Implementation files: `ChatInterface.tsx`, `VibeGraph.ts`, `vibeRoutes.ts` (batc
 ### External Dependencies
 -   **PostgreSQL + Drizzle ORM**: Primary database.
 -   **Replit OAuth**: Authentication.
--   **Replit Object Storage**: Native file storage.
+-   **Replit Object Storage**: Native file storage for vibe coding assets (code backups, screenshots, generated files).
 -   **Socket.io**: Real-time communication.
 -   **OpenAI (GPT-4o, TTS)**: AI content enhancement, real-time voice, text-to-speech.
 -   **Anthropic (Claude 3.5 Sonnet)**: AI integration (Omniscient Mode, AI commit messages, chat summarization, Computer Use API for browser automation).
+-   **Model Context Protocol (MCP)**: Connects AI to external tools (Gmail, Slack, GitHub) via JSON-RPC 2.0 using @modelcontextprotocol/sdk.
 -   **Playwright**: Headless browser automation.
 -   **Google (Generative AI)**: AI integration.
 -   **Hugging Face**: AI integration.
