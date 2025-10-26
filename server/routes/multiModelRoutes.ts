@@ -15,7 +15,7 @@ import { aiChatMessages } from '@shared/schema';
 import { storage } from '../storage';
 import { triggerAutoNaming, buildContextAwarePrompt, detectBuildIntent } from './chatProjectsRoutes';
 import { isSuperAdmin } from '../utils/auth';
-import { isAuthenticated } from '../middleware/auth';
+import { isAuthenticated } from '../replitAuth'; // 🔧 CRITICAL FIX: Use the one with dev auth bypass!
 
 const router = Router();
 
