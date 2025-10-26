@@ -8,6 +8,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { logger } from '../lib/logger';
+import { approvalQueue } from './approvalQueue'; // STREAM 2 INTEGRATION - Human-in-the-Loop gates
 
 export interface FileEdit {
   filePath: string;
@@ -153,8 +154,9 @@ export class AutonomousFileEditor {
 
   /**
    * Execute file edit with safety checks
+   * STREAM 2 INTEGRATION: Human approval required for high-risk edits
    */
-  async executeEdit(edit: FileEdit, override: boolean = false): Promise<EditResult> {
+  async executeEdit(edit: FileEdit, userId?: number, override: boolean = false): Promise<EditResult> {
     const { filePath, operation, content, reason } = edit;
 
     // Safety check: Is file allowed?
@@ -165,6 +167,29 @@ export class AutonomousFileEditor {
         operation,
         error: 'File path not allowed by safety config',
       };
+    }
+
+    // STREAM 2: Human-in-the-loop gate for high-risk operations
+    if (!this.config.yoloMode && userId && this.requiresHumanApproval(edit)) {
+      const approval = await approvalQueue.createRequest(
+        'file_edit',
+        `${operation} ${filePath}`,
+        { filePath, operation, content: content?.substring(0, 500), reason },
+        userId,
+        this.assessEditRisk(edit)
+      );
+
+      logger.info({ approvalId: approval.id, filePath }, '[AutonomousEditor] Queued for approval');
+
+      const decision = await approvalQueue.waitForDecision(approval.id, 300000);
+      if (decision !== 'approved') {
+        return {
+          success: false,
+          filePath,
+          operation,
+          error: decision === 'rejected' ? 'Admin rejected edit' : 'Approval timeout',
+        };
+      }
     }
 
     // Safety check: File size (for updates)
@@ -291,6 +316,29 @@ export class AutonomousFileEditor {
    */
   getConfig(): SafetyConfig {
     return { ...this.config };
+  }
+
+  /**
+   * Check if edit requires human approval (STREAM 2 INTEGRATION)
+   */
+  private requiresHumanApproval(edit: FileEdit): boolean {
+    if (edit.operation === 'delete') return true;
+    if (edit.filePath.includes('package.json')) return true;
+    if (edit.filePath.includes('drizzle.config')) return true;
+    if (edit.filePath.includes('.env')) return true;
+    return false;
+  }
+
+  /**
+   * Assess risk level of edit (STREAM 2 INTEGRATION)
+   */
+  private assessEditRisk(edit: FileEdit): 'low' | 'medium' | 'high' | 'critical' {
+    if (edit.operation === 'delete') return 'critical';
+    if (edit.filePath.includes('package.json')) return 'critical';
+    if (edit.filePath.includes('drizzle.config')) return 'high';
+    if (edit.filePath.includes('.env')) return 'high';
+    if (edit.filePath.includes('server/')) return 'medium';
+    return 'low';
   }
 }
 
