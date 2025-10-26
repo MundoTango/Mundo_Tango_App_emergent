@@ -103,12 +103,23 @@ export class GrafanaCollector {
       // Convert to OpenTelemetry format
       const payload = this.convertMetricsToOTLP(batch);
 
-      // Send to Grafana Cloud (mock for now)
-      logger.info(`[GrafanaCollector] Flushing ${batch.length} metrics to Grafana Cloud`);
+      // Send to Grafana Cloud via OTLP HTTP
+      const authHeader = `Basic ${Buffer.from(`${this.config.instanceId}:${this.config.apiKey}`).toString('base64')}`;
       
-      // In production, would POST to:
-      // `${this.config.endpoint}/v1/metrics`
-      // with Authorization: `Basic ${base64(instanceId:apiKey)}`
+      const response = await fetch(`${this.config.endpoint}/v1/metrics`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': authHeader,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+      }
+
+      logger.info(`[GrafanaCollector] Successfully flushed ${batch.length} metrics to Grafana Cloud`);
       
     } catch (error) {
       logger.error({ error }, '[GrafanaCollector] Failed to flush metrics');
@@ -130,10 +141,23 @@ export class GrafanaCollector {
       // Convert to OpenTelemetry format
       const payload = this.convertTracesToOTLP(batch);
 
-      logger.info(`[GrafanaCollector] Flushing ${batch.length} traces to Grafana Cloud`);
+      // Send to Grafana Cloud via OTLP HTTP
+      const authHeader = `Basic ${Buffer.from(`${this.config.instanceId}:${this.config.apiKey}`).toString('base64')}`;
       
-      // In production, would POST to:
-      // `${this.config.endpoint}/v1/traces`
+      const response = await fetch(`${this.config.endpoint}/v1/traces`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': authHeader,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+      }
+
+      logger.info(`[GrafanaCollector] Successfully flushed ${batch.length} traces to Grafana Cloud`);
       
     } catch (error) {
       logger.error({ error }, '[GrafanaCollector] Failed to flush traces');

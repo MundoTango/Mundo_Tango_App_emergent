@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { grafanaCollector } from '../services/grafanaCollector';
 
 /**
  * MB.MD Phase 5: Production Request Logging Middleware
@@ -63,6 +64,26 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction) =
       userAgent: req.headers['user-agent'] || 'unknown',
       userId: (req as any).user?.id
     };
+    
+    // Send metrics to Grafana Cloud
+    grafanaCollector.recordMetric('http_request_count', 1, {
+      method: req.method,
+      path: req.path,
+      status: String(res.statusCode),
+    });
+    
+    grafanaCollector.recordMetric('http_request_duration_ms', duration, {
+      method: req.method,
+      path: req.path,
+    });
+    
+    if (res.statusCode >= 400) {
+      grafanaCollector.recordMetric('http_request_errors', 1, {
+        method: req.method,
+        path: req.path,
+        status: String(res.statusCode),
+      });
+    }
     
     // Log based on status code
     if (res.statusCode >= 500) {
