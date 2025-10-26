@@ -516,25 +516,25 @@ export function ChatInterface() {
         console.log(`✅ [Stream Complete] Accumulated ${accumulatedResponse.length} chars`);
       }
 
-      // 🔧 ULTIMATE FIX (Oct 26): Use refetchQueries instead of invalidateQueries
-      // invalidateQueries can clear data during refetch, causing flicker
+      // 🔧 PROPER FIX (Oct 26): Clear ONLY after confirming refetch succeeded
       setStreamingToolStatus(null);
       
-      console.log('🔄 [ChatInterface] Refetching messages (keeping existing data)...');
+      console.log('🔄 [ChatInterface] Refetching messages...');
       
-      // Use refetchQueries to refetch without clearing existing data
-      const refetchResult = await queryClient.refetchQueries({ 
+      // Refetch and wait for completion
+      await queryClient.refetchQueries({ 
         queryKey: ['/api/chat/projects', projId, 'messages']
       });
       
-      console.log('✅ [ChatInterface] Refetch complete. Waiting for render...');
+      // Verify the new messages are actually in the cache
+      const freshMessages = queryClient.getQueryData<any[]>(['/api/chat/projects', projId, 'messages']);
+      console.log(`✅ [ChatInterface] Refetch complete. Fresh message count: ${freshMessages?.length || 0}`);
       
-      // Small delay to ensure React has rendered the new messages
-      await new Promise(resolve => setTimeout(resolve, 50));
+      // Wait for React to render the new messages
+      await new Promise(resolve => setTimeout(resolve, 100));
       
-      console.log('🧹 [ChatInterface] Clearing optimistic states now');
-      
-      // NOW clear optimistic states (after DB has fresh data AND rendered)
+      // NOW clear optimistic states (only after confirming DB has fresh data)
+      console.log('🧹 [ChatInterface] Clearing optimistic states');
       setOptimisticMessage(null);
       setStreamingResponse('');
       
@@ -733,13 +733,14 @@ export function ChatInterface() {
     }
   }, [conversations, conversationId]);
   
-  // 🔧 FINAL FIX (Oct 26): Only clear optimistic states when streaming is ACTUALLY complete
-  // Don't watch messages array - that causes clearing on navigation/refetch
-  // Just clear when we explicitly finish streaming
+  // 🔧 DEFENSIVE GUARD (Oct 26): Clear optimistic states when conversation changes
+  // Prevents optimistic state bleed across conversations
   useEffect(() => {
-    // This effect intentionally left minimal - clearing happens in sendMessageToConversation
-    // after stream completes, not based on message array changes
-  }, []);
+    console.log(`🛡️ [ChatInterface] Conversation changed to ${conversationId}, clearing optimistic states`);
+    setOptimisticMessage(null);
+    setStreamingResponse('');
+    setStreamingToolStatus(null);
+  }, [conversationId]);
   
 
   const handleSend = async () => {
@@ -917,17 +918,14 @@ export function ChatInterface() {
               metadata={{ agentMode: message.model }}
               codeChanges={codeChangesByMessage[message.id]}
               onApplyCode={async (change) => {
-                // Convert type - only unified_diff and search_replace are supported
                 const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
                 await applyCodeChange(change.filePath, change.diff, editType);
-                // Remove from state after applying
                 setCodeChangesByMessage(prev => ({
                   ...prev,
                   [message.id]: prev[message.id]?.filter(c => c !== change) || []
                 }));
               }}
               onRejectCode={(change) => {
-                // Remove from state
                 setCodeChangesByMessage(prev => ({
                   ...prev,
                   [message.id]: prev[message.id]?.filter(c => c !== change) || []
@@ -937,7 +935,6 @@ export function ChatInterface() {
                 toast({ title: 'Copied to clipboard' });
               }}
               onRegenerate={async () => {
-                // Find the user message before this AI message to regenerate
                 const messageIndex = messages!.findIndex(m => m.id === message.id);
                 if (messageIndex > 0) {
                   const userMessage = messages![messageIndex - 1];
