@@ -258,6 +258,31 @@ router.post('/push', isAuthenticated, async (req, res) => {
   }
 });
 
+// POST /api/git/rollback - Instant rollback (Auto-Commit Service)
+router.post('/rollback', isAuthenticated, async (req, res) => {
+  try {
+    const { commitHash } = req.body;
+    
+    if (commitHash) {
+      execSync(`git reset --hard ${commitHash}`, { encoding: 'utf-8' });
+    } else {
+      execSync('git reset --hard HEAD', { encoding: 'utf-8' });
+      execSync('git clean -fd', { encoding: 'utf-8' });
+    }
+    
+    res.json({
+      success: true,
+      message: commitHash ? `Rolled back to ${commitHash}` : 'Rolled back to HEAD'
+    });
+  } catch (error) {
+    console.error('[Git] Rollback error:', error);
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to rollback'
+    });
+  }
+});
+
 // POST /api/git/checkpoint - Create checkpoint (Agent #126 + Phase 3)
 router.post('/checkpoint', isAuthenticated, async (req, res) => {
   try {

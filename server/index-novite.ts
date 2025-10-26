@@ -257,6 +257,9 @@ app.use('/api/models', modelMonitorRoutes);
 import vibeEditRoutes from './routes/vibeEditRoutes';
 app.use('/api/vibe', vibeEditRoutes);
 
+// TRACK 3A: Hot Reload Routes (MB.MD 100% Plan - Oct 26, 2025)
+import { createHotReloadRoutes } from './routes/hotReloadRoutes';
+
 // Mundo Tango ESA LIFE CEO - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
@@ -281,6 +284,16 @@ const startServer = async () => {
     // Setup GPT-4o Realtime API WebSocket (Oct 22, 2025)
     setupRealtimeWebSocket(httpServer);
     console.log('✅ Realtime API WebSocket initialized');
+    
+    // TRACK 3A: Initialize Hot Reload Manager (MB.MD 100% Plan - Oct 26, 2025)
+    const io = require('./routes').io; // Get Socket.io instance from routes
+    if (io) {
+      const { HotReloadManager } = await import('./services/preview/hotReloadManager');
+      const hotReloadManager = new HotReloadManager(io);
+      hotReloadManager.start();
+      app.use('/api/hot-reload', createHotReloadRoutes(io));
+      console.log('✅ Hot Reload Manager initialized (<500ms target)');
+    }
     
     // IMPORTANT: Static file serving AFTER API routes to prevent HTML responses for API calls
     app.use(express.static(clientPath));
