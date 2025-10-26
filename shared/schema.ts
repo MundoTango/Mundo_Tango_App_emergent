@@ -2656,6 +2656,33 @@ export const aiChatMessages = pgTable("ai_chat_messages", {
   index("idx_ai_chat_messages_user").on(table.userId),
 ]);
 
+// Code Changes (Vibe Coding System) - Track all AI-generated code modifications
+// MB.MD Vibe Coding - Oct 26, 2025
+export const codeChanges = pgTable("code_changes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  projectId: integer("project_id").references(() => chatProjects.id).notNull(),
+  messageId: integer("message_id").references(() => aiChatMessages.id), // Link to AI message that generated this change
+  filePath: text("file_path").notNull(),
+  diff: text("diff").notNull(),
+  intent: varchar("intent", { length: 100 }).notNull(), // UI_MODIFICATION, CODE_FIX, FEATURE_ADD, etc.
+  status: varchar("status", { length: 50 }).notNull().default('pending_approval'), // pending_approval, approved, rejected, applied, failed
+  gitCommitHash: varchar("git_commit_hash", { length: 100 }),
+  appliedAt: timestamp("applied_at"),
+  metadata: jsonb("metadata").$type<{
+    visualEditorContext?: any;
+    selectedElement?: any;
+    aiModel?: string;
+    retryCount?: number;
+  }>(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_code_changes_user").on(table.userId),
+  index("idx_code_changes_project").on(table.projectId),
+  index("idx_code_changes_status").on(table.status),
+  index("idx_code_changes_created").on(table.createdAt),
+]);
+
 // Model Usage Tracking (cost/performance analytics)
 export const modelUsage = pgTable("model_usage", {
   id: serial("id").primaryKey(),
@@ -3086,6 +3113,14 @@ export type InsertChatProject = z.infer<typeof insertChatProjectSchema>;
 
 export type AIChatMessage = typeof aiChatMessages.$inferSelect;
 export type InsertAIChatMessage = z.infer<typeof insertAIChatMessageSchema>;
+
+export const insertCodeChangeSchema = createInsertSchema(codeChanges).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type CodeChange = typeof codeChanges.$inferSelect;
+export type InsertCodeChange = z.infer<typeof insertCodeChangeSchema>;
 
 export type ModelUsage = typeof modelUsage.$inferSelect;
 export type InsertModelUsage = z.infer<typeof insertModelUsageSchema>;
