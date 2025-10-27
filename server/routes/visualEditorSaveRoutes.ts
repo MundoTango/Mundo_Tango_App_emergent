@@ -108,7 +108,10 @@ router.post('/apply-styles', async (req: Request, res: Response) => {
 
     // ✅ FIX #2 (Oct 27): Implement real file mutations using AST parser
     // ✅ SECURITY FIX (Oct 27): Validate paths and use execFileSync to prevent command injection
+    // ✅ HTTP STATUS FIX (Oct 27): Return 400/403 for validation errors instead of 200
     const results = [];
+    let hasValidationError = false;
+    
     for (const mutation of mutations) {
       const { filePath, oldValue, newValue } = mutation;
       
@@ -128,15 +131,31 @@ router.post('/apply-styles', async (req: Request, res: Response) => {
         }
       } catch (error) {
         console.error(`[VisualEditor] Failed to apply style to ${filePath}:`, error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
+        // Check if this is a security validation error
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        
         results.push({ 
           filePath, 
           success: false, 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+          error: errorMessage
         });
       }
     }
 
     const successCount = results.filter(r => r.success).length;
+    
+    // If all mutations failed due to validation errors, return 403
+    if (hasValidationError && successCount === 0) {
+      return res.status(403).json({
+        error: 'Invalid file paths detected',
+        message: 'One or more file paths failed security validation',
+        results
+      });
+    }
 
     res.json({ 
       success: successCount > 0, 
@@ -169,7 +188,10 @@ router.post('/apply-content', async (req: Request, res: Response) => {
 
     // ✅ FIX #2 (Oct 27): Implement real content changes using AST parser
     // ✅ SECURITY FIX (Oct 27): Validate paths and use execFileSync to prevent command injection
+    // ✅ HTTP STATUS FIX (Oct 27): Return 400/403 for validation errors instead of 200
     const results = [];
+    let hasValidationError = false;
+    
     for (const change of changes) {
       const { filePath, oldText, newText } = change;
       
@@ -187,15 +209,31 @@ router.post('/apply-content', async (req: Request, res: Response) => {
         }
       } catch (error) {
         console.error(`[VisualEditor] Failed to apply content to ${filePath}:`, error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
+        // Check if this is a security validation error
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        
         results.push({ 
           filePath, 
           success: false, 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+          error: errorMessage
         });
       }
     }
 
     const successCount = results.filter(r => r.success).length;
+    
+    // If all changes failed due to validation errors, return 403
+    if (hasValidationError && successCount === 0) {
+      return res.status(403).json({
+        error: 'Invalid file paths detected',
+        message: 'One or more file paths failed security validation',
+        results
+      });
+    }
 
     res.json({ 
       success: successCount > 0, 
@@ -228,7 +266,10 @@ router.post('/apply-structure', async (req: Request, res: Response) => {
 
     // ✅ FIX #2 (Oct 27): Implement structural changes (deletions via AST)
     // ✅ SECURITY FIX (Oct 27): Validate paths and use execFileSync to prevent command injection
+    // ✅ HTTP STATUS FIX (Oct 27): Return 400/403 for validation errors instead of 200
     const results = [];
+    let hasValidationError = false;
+    
     for (const change of changes) {
       const { filePath, operation, elementText } = change;
       
@@ -256,16 +297,32 @@ router.post('/apply-structure', async (req: Request, res: Response) => {
         }
       } catch (error) {
         console.error(`[VisualEditor] Failed to apply structure change to ${filePath}:`, error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
+        // Check if this is a security validation error
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        
         results.push({ 
           filePath, 
           operation,
           success: false, 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+          error: errorMessage
         });
       }
     }
 
     const successCount = results.filter(r => r.success).length;
+    
+    // If all changes failed due to validation errors, return 403
+    if (hasValidationError && successCount === 0) {
+      return res.status(403).json({
+        error: 'Invalid file paths detected',
+        message: 'One or more file paths failed security validation',
+        results
+      });
+    }
 
     res.json({ 
       success: successCount > 0, 
