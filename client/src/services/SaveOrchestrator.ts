@@ -80,13 +80,17 @@ export class SaveOrchestrator {
         await this.executeAIBuilds(aiBuildChanges);
       }
 
+      // ✅ FIX #4 (Oct 27): Reload preview iframe after save
+      console.log('[SaveOrchestrator] Triggering preview reload...');
+      window.dispatchEvent(new CustomEvent('visual-editor-reload'));
+      
       // Clear all changes
       this.pendingChanges = [];
       this.notifyListeners();
 
       return { 
         success: true, 
-        message: `Saved ${styleChanges.length + contentChanges.length + structureChanges.length + chatChanges.length + aiBuildChanges.length} changes` 
+        message: `Saved ${styleChanges.length + contentChanges.length + structureChanges.length + chatChanges.length + aiBuildChanges.length} changes to Git` 
       };
     } catch (error) {
       console.error('[SaveOrchestrator] Save failed:', error);

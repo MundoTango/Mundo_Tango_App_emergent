@@ -636,7 +636,18 @@ export function ChatInterface() {
       if (result.codeChanges && result.codeChanges.length > 0) {
         console.log(`🎯 [Vibe] Queueing ${result.codeChanges.length} change(s) for SAVE`);
         
-        // ✅ FIX (Oct 27): Wire to SaveOrchestrator so SAVE button shows badge
+        // ✅ FIX #3 (Oct 27): Apply changes to preview immediately, then queue for Git commit
+        for (const change of result.codeChanges) {
+          try {
+            const editType = change.type === 'new_file' ? 'unified_diff' : (change.type || 'unified_diff');
+            await applyCodeChange(change.filePath, change.diff, editType);
+            console.log(`✅ [Vibe] Applied ${change.filePath} to preview`);
+          } catch (error) {
+            console.error(`❌ [Vibe] Failed to apply ${change.filePath}:`, error);
+          }
+        }
+        
+        // Now queue for Git commit via SaveOrchestrator
         const saveOrch = visualEditorContext?.saveOrchestrator;
         if (saveOrch) {
           result.codeChanges.forEach((change) => {

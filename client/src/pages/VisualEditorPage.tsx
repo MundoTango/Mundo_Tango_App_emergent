@@ -270,27 +270,18 @@ export default function VisualEditorPage() {
           description: `Edited text in ${message.element.tagName}`
         });
         
-        // 🔧 FIX #2: Queue text change for SAVE button (Oct 27, 2025)
-        const newChange = {
-          id: `text-edit-${Date.now()}`,
-          taskId: 'inline-text-edit',
-          filePath: 'inline-edit',
-          diff: `Text changed to: "${message.newText}"`,
-          type: 'search_replace' as const,
-          status: 'pending' as const,
-          timestamp: new Date(),
-          metadata: {
+        // ✅ FIX #2 (Oct 27): Queue text change to SaveOrchestrator (not visualEditorContext!)
+        saveOrchestrator.addChange({
+          type: 'content',
+          description: `Edit text in ${message.element.tagName}`,
+          data: {
             xpath: message.element.xpath,
             tagName: message.element.tagName,
             oldText: message.element.textContent || '',
             newText: message.newText
           }
-        };
-        
-        visualEditorContext.setPendingCodeChanges([
-          ...(visualEditorContext.pendingCodeChanges || []),
-          newChange
-        ]);
+        });
+        console.log(`✅ [Direct Edit] Queued text change, badge now shows ${saveOrchestrator.getPendingChanges().length}`);
         
         toast({
           title: 'Text Updated',
@@ -306,9 +297,22 @@ export default function VisualEditorPage() {
               xpath: message.element.xpath 
             });
             setSelectedElement(null);
+            
+            // ✅ FIX #2 (Oct 27): Queue deletion to SaveOrchestrator
+            saveOrchestrator.addChange({
+              type: 'structure',
+              description: `Delete ${message.element.tagName}`,
+              data: {
+                xpath: message.element.xpath,
+                tagName: message.element.tagName,
+                operation: 'delete'
+              }
+            });
+            console.log(`✅ [Direct Edit] Queued deletion, badge now shows ${saveOrchestrator.getPendingChanges().length}`);
+            
             toast({
               title: 'Element Deleted',
-              description: 'Element removed from preview. Generate code to persist changes.',
+              description: 'Click SAVE to commit deletion',
               duration: 3000
             });
           }
@@ -422,7 +426,7 @@ export default function VisualEditorPage() {
           </div>
         </div>
         
-        {/* 🔧 FIX #2: SAVE Button (Oct 27, 2025) */}
+        {/* ✅ FIX #1 (Oct 27): Single SAVE button - removed duplicate */}
         <Button 
           onClick={handleSave}
           disabled={saveOrchestrator.getPendingChanges().length === 0}
@@ -438,19 +442,7 @@ export default function VisualEditorPage() {
           )}
         </Button>
         
-        <div className="flex items-center gap-3">
-        </div>
-
         <div className="flex items-center gap-4">
-          <Button
-            onClick={handleSave}
-            disabled={saveOrchestrator.getPendingChanges().length === 0}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-            data-testid="button-save-changes"
-          >
-            <Save className="w-4 h-4 mr-2" />
-            Save {saveOrchestrator.getPendingChanges().length > 0 && `(${saveOrchestrator.getPendingChanges().length})`}
-          </Button>
           <MultiplayerPresence page={previewUrl} />
           <div className="text-sm text-gray-400">
             Preview: <span className="text-white font-mono">{previewUrl}</span>
