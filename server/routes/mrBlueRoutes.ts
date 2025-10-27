@@ -48,14 +48,13 @@ const router = express.Router();
 // Get all conversations for current user
 router.get("/conversations", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
-    const conversations = await storage.getUserMrBlueConversations(userIdNum, limit);
+    const conversations = await storage.getUserMrBlueConversations(userId, limit);
     
     res.json(conversations);
   } catch (error) {
@@ -67,16 +66,14 @@ router.get("/conversations", async (req: Request, res: Response) => {
 // Create new conversation
 router.post("/conversations", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-
-    const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     
     // Create conversation data (userId enforced from session)
     const conversationData = {
-      userId: userIdNum,
+      userId: userId,
       title: req.body.title || 'New Conversation',
       context: req.body.context || null,
       agentMode: req.body.agentMode || 'chat'
@@ -99,12 +96,11 @@ router.post("/conversations", async (req: Request, res: Response) => {
 // Get single conversation
 router.get("/conversations/:id", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     const conversationId = parseInt(req.params.id);
     const conversation = await storage.getMrBlueConversation(conversationId);
 
@@ -113,7 +109,7 @@ router.get("/conversations/:id", async (req: Request, res: Response) => {
     }
 
     // Verify ownership
-    if (conversation.userId !== userIdNum) {
+    if (conversation.userId !== userId) {
       return res.status(403).json({ error: "Forbidden" });
     }
 
@@ -127,7 +123,7 @@ router.get("/conversations/:id", async (req: Request, res: Response) => {
 // Update conversation
 router.put("/conversations/:id", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -163,7 +159,7 @@ router.put("/conversations/:id", async (req: Request, res: Response) => {
 // Delete conversation
 router.delete("/conversations/:id", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -194,7 +190,7 @@ router.delete("/conversations/:id", async (req: Request, res: Response) => {
 // Get messages for conversation
 router.get("/conversations/:id/messages", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -225,7 +221,7 @@ router.get("/conversations/:id/messages", async (req: Request, res: Response) =>
 // Send message (non-streaming)
 router.post("/conversations/:id/messages", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -275,7 +271,7 @@ router.post("/conversations/:id/messages", async (req: Request, res: Response) =
 // Streaming chat endpoint with AI integration
 router.post("/stream", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -425,7 +421,7 @@ router.post('/chat', async (req, res) => {
       });
     }
 
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     const userIdNum = userId ? (typeof userId === 'string' ? parseInt(userId) : userId) : 0;
 
     // MB.MD Phase 3F: Check for self-awareness queries first
@@ -510,7 +506,7 @@ router.post('/chat', async (req, res) => {
 // Create breadcrumb (track user action)
 router.post("/breadcrumbs", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -557,7 +553,7 @@ router.post("/breadcrumbs", async (req: Request, res: Response) => {
 // Get user breadcrumbs (for ML/analytics)
 router.get("/breadcrumbs", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -577,7 +573,7 @@ router.get("/breadcrumbs", async (req: Request, res: Response) => {
 // Get session breadcrumbs (for journey visualization)
 router.get("/breadcrumbs/session/:sessionId", async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }

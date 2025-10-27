@@ -4,30 +4,62 @@ import { eq, and } from 'drizzle-orm';
 
 /**
  * Unified authentication helper to handle multiple auth patterns
+ * ✅ FIX (Oct 27): Returns database primary key ID, not Replit ID
  */
-export const getUserId = (req: any): number | string | null => {
+export const getUserId = async (req: any): Promise<number | null> => {
   // ESA Framework Layer 13: Systematic authentication with retro fixes
   
   // Primary authentication patterns
   if (req.user?.id) {
     console.log('🔐 ESA Auth: Found req.user.id:', req.user.id);
-    return req.user.id;
+    return typeof req.user.id === 'string' ? parseInt(req.user.id) : req.user.id;
   }
   
+  // ✅ FIX: Look up database user from Replit ID
   if (req.user?.claims?.sub) {
-    console.log('🔐 ESA Auth: Found req.user.claims.sub:', req.user.claims.sub);
-    return req.user.claims.sub;
+    console.log('🔐 ESA Auth: Found req.user.claims.sub (Replit ID):', req.user.claims.sub);
+    try {
+      const user = await db.select({ id: users.id })
+        .from(users)
+        .where(eq(users.replitId, req.user.claims.sub))
+        .limit(1);
+      
+      if (user.length > 0) {
+        console.log('🔐 ESA Auth: Mapped Replit ID to database user ID:', user[0].id);
+        return user[0].id;
+      }
+      console.error('❌ ESA Auth: No user found for Replit ID:', req.user.claims.sub);
+      return null;
+    } catch (error) {
+      console.error('❌ ESA Auth: Error looking up user:', error);
+      return null;
+    }
   }
   
-  // Session-based authentication
+  // Session-based authentication  
   if (req.session?.passport?.user?.id) {
     console.log('🔐 ESA Auth: Found session user id:', req.session.passport.user.id);
-    return req.session.passport.user.id;
+    return typeof req.session.passport.user.id === 'string' ? parseInt(req.session.passport.user.id) : req.session.passport.user.id;
   }
   
   if (req.session?.passport?.user?.claims?.sub) {
-    console.log('🔐 ESA Auth: Found session claims sub:', req.session.passport.user.claims.sub);
-    return req.session.passport.user.claims.sub;
+    console.log('🔐 ESA Auth: Found session claims sub (Replit ID):', req.session.passport.user.claims.sub);
+    try {
+      const user = await db.select({ id: users.id })
+        .from(users)
+        .where(eq(users.replitId, req.session.passport.user.claims.sub))
+        .limit(1);
+      
+      if (user.length > 0) {
+        console.log('🔐 ESA Auth: Mapped session Replit ID to database user ID:', user[0].id);
+        return user[0].id;
+      }
+      console.error('❌ ESA Auth: No user found for session Replit ID:', req.session.passport.user.claims.sub);
+      return null;
+    } catch (error) {
+      console.error('❌ ESA Auth: Error looking up session user:', error);
+      return null;
+    }
   }
   
   // Development fallback with enhanced logging
@@ -82,7 +114,7 @@ export const checkSuperAdminRole = async (userId: number | string): Promise<bool
  * Super admin middleware
  */
 export const requireSuperAdmin = async (req: any, res: any, next: any) => {
-  const userId = getUserId(req);
+  const userId = await getUserId(req);
   if (!userId) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -103,11 +135,9 @@ export const requireSuperAdmin = async (req: any, res: any, next: any) => {
  * Flexible authentication middleware - ESA Layer 13 Enhanced
  */
 export const flexibleAuth = async (req: any, res: any, next: any) => {
-  const userId = getUserId(req);
+  const userId = await getUserId(req);
   if (userId) {
-    // Convert to number for consistency
-    const numericUserId = typeof userId === 'string' ? parseInt(userId, 10) : userId;
-    req.userId = isNaN(numericUserId) ? userId : numericUserId;
+    req.userId = userId;
     
     // Check if super admin
     req.isSuperAdmin = await checkSuperAdminRole(userId);
