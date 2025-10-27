@@ -557,6 +557,16 @@ export function ChatInterface() {
       const freshMessages = queryClient.getQueryData<any[]>(['/api/mrblue/conversations', projId, 'messages']);
       console.log(`✅ [ChatInterface] Refetch complete. Fresh message count: ${freshMessages?.length || 0}`);
       
+      // 🎯 CRITICAL FIX (Oct 27): Track the assistant message ID that was just created
+      // This is the message we want to attach diff cards to
+      if (freshMessages && freshMessages.length > 0) {
+        const lastMessage = freshMessages[freshMessages.length - 1];
+        if (lastMessage.role === 'assistant') {
+          currentAssistantMessageId.current = lastMessage.id;
+          console.log(`🎯 [ChatInterface] Tracking assistant message ID: ${lastMessage.id}`);
+        }
+      }
+      
       // Wait for React to render the new messages
       await new Promise(resolve => setTimeout(resolve, 100));
       
@@ -773,12 +783,13 @@ export function ChatInterface() {
         });
         
         // ✅ FIX (Oct 27): Show diff cards in chat UI
-        // Associate code changes with the last assistant message so they render as diff cards
-        if (messages && messages.length > 0) {
-          const lastMessageId = messages[messages.length - 1].id;
+        // 🎯 CRITICAL FIX: Use tracked assistant message ID, not messages array
+        // The messages array may not be updated yet when vibe coding completes
+        const targetMessageId = currentAssistantMessageId.current;
+        if (targetMessageId) {
           setCodeChangesByMessage(prev => ({
             ...prev,
-            [lastMessageId]: result.codeChanges.map(change => ({
+            [targetMessageId]: result.codeChanges.map(change => ({
               taskId: change.taskId,
               filePath: change.filePath,
               diff: change.diff,
@@ -786,7 +797,9 @@ export function ChatInterface() {
               status: change.status || 'pending'
             }))
           }));
-          console.log(`🎨 [Vibe] Added ${result.codeChanges.length} diff cards to message ${lastMessageId}`);
+          console.log(`🎨 [Vibe] Added ${result.codeChanges.length} diff cards to message ${targetMessageId}`);
+        } else {
+          console.warn('⚠️ [Vibe] No tracked assistant message ID - diff cards not displayed');
         }
         
       } else if (result.status === 'failed') {
@@ -809,6 +822,9 @@ export function ChatInterface() {
       });
     }
   };
+
+  // 🎯 CRITICAL FIX (Oct 27): Track current assistant message ID for diff cards
+  const currentAssistantMessageId = useRef<number | null>(null);
 
   // 🔧 PHASE 2: Extract build intents from messages and queue in SaveOrchestrator
   const extractAndQueueBuildIntents = async (projId: number) => {
