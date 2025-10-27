@@ -638,7 +638,7 @@ export function ChatInterface() {
         
         // ✅ FIX #3 (Oct 27): Apply changes to preview immediately, then queue for Git commit
         // ✅ FIX #3 INTEGRATION: Emit SSE events for AI Work Feed (live activity stream)
-        const sessionId = currentConversation?.id?.toString() || 'default';
+        const sessionId = conversationId?.toString() || 'default';
         
         for (const change of result.codeChanges) {
           try {
