@@ -294,10 +294,23 @@ router.post("/stream", async (req: Request, res: Response) => {
     const streamSchema = z.object({
       conversationId: z.number(),
       message: z.string().min(1),
-      model: z.string().optional().default('gpt-4o')
+      model: z.string().optional().default('gpt-4o'),
+      // 🚨 MB.MD FIX (Oct 27): Accept selected element context from frontend
+      selectedElement: z.any().optional(),
+      previewPath: z.string().optional()
     });
     
-    const { conversationId, message, model } = streamSchema.parse(req.body);
+    const { conversationId, message, model, selectedElement, previewPath } = streamSchema.parse(req.body);
+    
+    // 🔍 DEBUG: Log received element context
+    if (selectedElement) {
+      console.log('🎯 [Stream] Received selected element:', {
+        tag: selectedElement.tagName,
+        className: selectedElement.className,
+        xpath: selectedElement.xpath,
+        previewPath
+      });
+    }
 
     // Verify conversation ownership
     const conversation = await storage.getMrBlueConversation(conversationId);
@@ -353,11 +366,34 @@ router.post("/stream", async (req: Request, res: Response) => {
     // Get conversation history for context
     const messageHistory = await storage.getMrBlueMessagesByConversation(conversationId, 10);
     
+    // 🚨 MB.MD FIX (Oct 27): Build Visual Editor context string
+    let visualEditorContext = '';
+    if (selectedElement) {
+      visualEditorContext = `\n\n🎨 VISUAL EDITOR CONTEXT:
+You are currently helping the user edit their website. They have selected an element:
+
+**Selected Element:**
+- Tag: <${selectedElement.tagName || 'unknown'}>
+- Class: ${selectedElement.className || 'No classes'}
+- ID: ${selectedElement.id || 'No ID'}
+- Text Content: "${selectedElement.textContent || 'No text'}"
+- Page: ${previewPath || 'Unknown'}
+- XPath: ${selectedElement.xpath || 'Unknown'}
+
+**When the user asks "what element am I on?"**, tell them about THIS selected element above.
+
+**Important:**
+- The user has clicked on this specific element in the Visual Editor
+- They want to know about THIS element or make changes to it
+- Be specific about which element they selected
+- Use the element's actual properties (tag, class, text) in your response`;
+    }
+    
     // Build AI messages
     const aiMessages = [
       {
         role: 'system' as const,
-        content: `You are Mr. Blue, powered by ${targetAgent}. ${agentDescription}${userContext}
+        content: `You are Mr. Blue, powered by ${targetAgent}. ${agentDescription}${userContext}${visualEditorContext}
 
 IMPORTANT: You have access to the user's profile above. Use their name when appropriate and maintain context of who they are across conversations.
 

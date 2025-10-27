@@ -458,6 +458,9 @@ export function ChatInterface() {
           conversationId: projId,  // Mr Blue endpoint expects conversationId
           message: content,  // Use original content, not apiMessage
           model: selectedModel === 'all-models' ? 'gpt-4o' : selectedModel,
+          // 🚨 MB.MD FIX (Oct 27): Send selected element context to backend
+          selectedElement: activeElement,
+          previewPath: previewPath || '/',
         }),
       });
 
