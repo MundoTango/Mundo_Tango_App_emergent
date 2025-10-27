@@ -73,6 +73,31 @@ router.post('/evidence/upload', async (req: any, res) => {
 });
 
 /**
+ * POST /api/mbmd/evidence/upload-file
+ * Get presigned URL for file upload (screenshots, logs)
+ */
+router.post('/evidence/upload-file', async (req: any, res) => {
+  try {
+    // Use Object Storage for file uploads
+    const { ObjectStorageService } = await import('../objectStorage');
+    const objectStorageService = new ObjectStorageService();
+    
+    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    
+    res.json({
+      success: true,
+      uploadURL
+    });
+  } catch (error: any) {
+    console.error('[MB.MD] File upload URL generation error:', error);
+    res.status(500).json({ 
+      error: 'Failed to generate upload URL',
+      details: error.message 
+    });
+  }
+});
+
+/**
  * POST /api/mbmd/review/request
  * Request a review (architect or QA)
  */
