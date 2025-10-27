@@ -7,6 +7,7 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
+import type { SaveOrchestrator } from '@/services/SaveOrchestrator';
 
 export interface CodeChange {
   id: string;
@@ -35,11 +36,18 @@ export interface VisualEditorContextType {
   // 🚀 ARCHITECT FIX: Pending AI prompt from Inspector "Generate Code" button
   pendingAIPrompt: string | null;
   setPendingAIPrompt: (prompt: string | null) => void;
+  // 🔧 FIX #2 (Oct 27): SaveOrchestrator instance for SAVE button integration (optional - only in Visual Editor)
+  saveOrchestrator?: SaveOrchestrator;
 }
 
 const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
 
-export function VisualEditorProvider({ children }: { children: ReactNode }) {
+interface VisualEditorProviderProps {
+  children: ReactNode;
+  saveOrchestrator?: SaveOrchestrator; // ✅ FIX (Oct 27): Optional - only set in Visual Editor routes
+}
+
+export function VisualEditorProvider({ children, saveOrchestrator }: VisualEditorProviderProps) {
   const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
   const [pendingChangesCount, setPendingChangesCount] = useState(0);
   const [previewPath, setPreviewPath] = useState<string>('/'); // Default to homepage
@@ -88,7 +96,8 @@ export function VisualEditorProvider({ children }: { children: ReactNode }) {
         addCodeChange,
         clearCodeChanges,
         pendingAIPrompt,
-        setPendingAIPrompt
+        setPendingAIPrompt,
+        saveOrchestrator // ✅ FIX (Oct 27): Pass SaveOrchestrator to context
       }}
     >
       {children}

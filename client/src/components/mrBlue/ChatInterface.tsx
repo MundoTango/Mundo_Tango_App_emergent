@@ -32,7 +32,7 @@ const DiffPreviewModal = lazy(() => import('./DiffPreviewModal').then(m => ({ de
 import { ConversationSidebar } from './ConversationSidebar';
 import { ChatEmptyState } from './ChatEmptyState';
 import { InspectorBadge } from './InspectorBadge';
-import { QuickCommitButton } from './QuickCommitButton';
+// Removed: import { QuickCommitButton } from './QuickCommitButton'; // Oct 27 - Replaced by SAVE button
 
 // ============ TYPES ============
 interface Conversation {
@@ -632,34 +632,35 @@ export function ChatInterface() {
         return;
       }
       
-      // 🎯 REPLIT-STYLE: Queue changes in VisualEditorContext (for UniversalSaveSystem)
+      // 🎯 REPLIT-STYLE: Queue changes in SaveOrchestrator (for SAVE button)
       if (result.codeChanges && result.codeChanges.length > 0) {
         console.log(`🎯 [Vibe] Queueing ${result.codeChanges.length} change(s) for SAVE`);
         
-        // ✅ FIX (Oct 26): Use VisualEditorContext instead of SaveOrchestrator
-        if (visualEditorContext?.setPendingCodeChanges) {
-          const formattedChanges = result.codeChanges.map((change, index) => ({
-            id: `vibe-${Date.now()}-${index}`,
-            taskId: change.taskId || `vibe-task-${index}`,
-            filePath: change.filePath,
-            diff: change.diff,
-            type: change.type as 'unified_diff' | 'search_replace',
-            status: 'pending' as const,
-            timestamp: new Date()
-          }));
+        // ✅ FIX (Oct 27): Wire to SaveOrchestrator so SAVE button shows badge
+        const saveOrch = visualEditorContext?.saveOrchestrator;
+        if (saveOrch) {
+          result.codeChanges.forEach((change) => {
+            saveOrch.addChange({
+              type: 'ai-build',
+              description: `Edit ${change.filePath}`,
+              data: {
+                filePath: change.filePath,
+                diff: change.diff,
+                taskId: change.taskId
+              }
+            });
+          });
           
-          visualEditorContext.setPendingCodeChanges([
-            ...(visualEditorContext.pendingCodeChanges || []),
-            ...formattedChanges
-          ]);
+          console.log(`✅ [Vibe] Added ${result.codeChanges.length} changes to SaveOrchestrator`);
+          console.log(`🔢 [Vibe] SaveOrchestrator now has ${saveOrch.getPendingChanges().length} pending changes`);
         } else {
-          console.error('❌ [Vibe] VisualEditorContext not available - cannot queue changes');
+          console.error('❌ [Vibe] SaveOrchestrator not available via VisualEditorContext');
         }
         
         // Show subtle notification (no modal!)
         toast({
           title: `✨ ${result.codeChanges.length} Change${result.codeChanges.length > 1 ? 's' : ''} Prepared`,
-          description: 'Click SAVE in Visual Editor to apply',
+          description: 'Click SAVE button to apply',
           duration: 3000
         });
         
@@ -1062,8 +1063,10 @@ export function ChatInterface() {
           <div ref={messagesEndRef} />
           </div>
           
-          {/* 🚀 QuickCommitButton - One-click AI commit (Oct 23, 2025) */}
-          <QuickCommitButton />
+          {/* 🚫 REMOVED QuickCommitButton - Replaced by SAVE button (Oct 27, 2025)
+               REASON: Conflicts with SaveOrchestrator system, confuses users with two save buttons
+               ALL changes now go through SaveOrchestrator → SAVE button in Visual Editor header
+          */}
 
           {/* Input Area */}
           <div className="border-t border-cyan-200 bg-white/20 p-4 space-y-3">

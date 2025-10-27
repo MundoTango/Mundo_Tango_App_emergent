@@ -59,6 +59,14 @@ export default function VisualEditorPage() {
   
   // 🎨 VISUAL EDITOR CONTEXT: Bridge to Mr Blue (Oct 23, 2025)
   const visualEditorContext = useVisualEditor();
+  
+  // 🔧 FIX #2 (Oct 27): Inject SaveOrchestrator into context for ChatInterface
+  useEffect(() => {
+    if (visualEditorContext && !visualEditorContext.saveOrchestrator) {
+      // Monkey-patch the context to add saveOrchestrator
+      (visualEditorContext as any).saveOrchestrator = saveOrchestrator;
+    }
+  }, [visualEditorContext, saveOrchestrator]);
 
   // Cmd+K for Command Palette
   useEffect(() => {
