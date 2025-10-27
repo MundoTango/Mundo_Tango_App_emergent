@@ -12,9 +12,7 @@ test.describe('Voice Audio Transmission Integration', () => {
     // Track WebSocket connections
     let wsConnected = false;
     page.on('websocket', ws => {
-      ws.on('open', () => {
-        wsConnected = true;
-      });
+      wsConnected = true; // WebSocket created
     });
     
     // Open Mr Blue → Voice

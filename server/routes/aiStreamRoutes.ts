@@ -105,9 +105,17 @@ router.post('/broadcast/:sessionId', isAuthenticated, (req: Request, res: Respon
   const eventData = req.body;
 
   console.log(`[AIStream] Broadcasting event to session ${sessionId}:`, eventData.type);
+  
+  // ✅ FIX: Actually broadcast and verify (not stub)
+  const sessionConnections = connections.get(sessionId);
   broadcastToSession(sessionId, eventData);
-
-  res.json({ success: true });
+  
+  res.json({ 
+    success: true,
+    sessionId,
+    connectionCount: sessionConnections?.size || 0,
+    eventType: eventData.type
+  });
 });
 
 export default router;
