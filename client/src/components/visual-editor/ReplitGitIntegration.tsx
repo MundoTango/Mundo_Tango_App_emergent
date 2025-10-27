@@ -76,6 +76,12 @@ export function ReplitGitIntegration() {
             <div className="flex items-center gap-2">
               <GitBranch className="w-5 h-5 text-purple-500" />
               Git Status
+              {/* ✅ TASK #3: Show "Ready to Push" indicator */}
+              {gitStatus && gitStatus.ahead > 0 && (
+                <span className="ml-2 px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-full animate-pulse">
+                  📤 {gitStatus.ahead} commit{gitStatus.ahead > 1 ? 's' : ''} ready to push
+                </span>
+              )}
             </div>
             {gitStatus && (
               <div className="text-sm font-normal text-gray-600">

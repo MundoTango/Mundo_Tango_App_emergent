@@ -152,6 +152,21 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isEditorActive, visualEditorContext, toast]); // Ref accessed inside, not in deps
 
+  // ✅ TASK #2: Listen for save success events and show toast
+  useEffect(() => {
+    const handleSaveSuccess = (event: CustomEvent) => {
+      const { message, commitHash, filesChanged } = event.detail;
+      toast({
+        title: '✓ Saved & Committed',
+        description: `${filesChanged} file(s) committed to Git (${commitHash?.substring(0, 7)})`,
+        duration: 3000
+      });
+    };
+
+    window.addEventListener('save-success', handleSaveSuccess as EventListener);
+    return () => window.removeEventListener('save-success', handleSaveSuccess as EventListener);
+  }, [toast]);
+
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
     // MB.MD FIX (Oct 25): Recursive URL decoding to handle single/double/triple encoding

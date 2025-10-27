@@ -380,7 +380,17 @@ Common file patterns for tasks:
 - Landing page: client/src/pages/landing.tsx
 - Home page: client/src/pages/home.tsx  
 - Components: client/src/components/
-- Styles: CSS classes in the component files`;
+- Styles: CSS classes in the component files
+- Documentation: docs/ folder (create new .md files as needed)
+- Config files: Root directory (.env, package.json, etc.)
+
+✅ TASK #5: You CAN create new files (documents, configs, components)!
+When user requests:
+- "Create a README explaining X" → Create docs/README.md
+- "Add a config for Y" → Create config/Y.json or .env entries
+- "Make a new component Z" → Create client/src/components/Z.tsx
+
+Return tasks that include file creation operations.`;
 
       const response = await anthropic.messages.create({
         model: DEFAULT_MODEL_STR,

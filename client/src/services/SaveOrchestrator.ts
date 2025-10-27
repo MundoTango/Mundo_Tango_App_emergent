@@ -115,13 +115,29 @@ export class SaveOrchestrator {
       console.log('[SaveOrchestrator] Triggering preview reload...');
       window.dispatchEvent(new CustomEvent('visual-editor-reload'));
       
+      // ✅ ARCHITECT FIX: Store count BEFORE clearing
+      const changeCount = this.pendingChanges.length;
+      const filesChangedCount = result.filesChanged || changeCount;
+      
       // Clear all changes
       this.pendingChanges = [];
       this.notifyListeners();
 
+      // ✅ TASK #2: Show success notification
+      console.log('✅ [SaveOrchestrator] Saved & Committed:', result.commitHash?.substring(0, 7));
+      
+      // Emit event for UI to show success message
+      window.dispatchEvent(new CustomEvent('save-success', {
+        detail: {
+          message: `✓ Saved & Committed`,
+          commitHash: result.commitHash,
+          filesChanged: filesChangedCount
+        }
+      }));
+
       return { 
         success: true, 
-        message: `Saved ${result.filesChanged || this.pendingChanges.length} changes to Git`,
+        message: `Saved ${filesChangedCount} changes to Git`,
         commitHash: result.commitHash
       };
     } catch (error) {
