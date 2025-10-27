@@ -13,6 +13,7 @@
     "predeploy": "tsx scripts/pre-deploy-check.ts",
     "integrity-check": "tsx scripts/pre-deploy-check.ts",
     "validate:imports": "tsx scripts/validate-imports.ts",
+    "check:stubs": "tsx scripts/check-stub-endpoints.ts",
     "test:patterns": "tsx test-life-ceo-patterns.ts",
     "test": "playwright test",
     "test:e2e": "playwright test tests/e2e",

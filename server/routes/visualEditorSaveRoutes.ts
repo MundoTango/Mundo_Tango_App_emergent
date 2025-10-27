@@ -371,7 +371,8 @@ router.post('/save', async (req: Request, res: Response) => {
       diff: grouped.diff.length
     });
 
-    // ✅ FIX #3 (Oct 27): Apply all changes using existing endpoints logic
+    // ✅ FIX #3 (Oct 27): Apply all changes with SERVER-SIDE VALIDATION
+    // 🚨 SECURITY: Never trust client diffs - re-verify against current file state
     const results = [];
     let hasValidationError = false;
     let totalSuccess = 0;
@@ -380,6 +381,19 @@ router.post('/save', async (req: Request, res: Response) => {
     for (const change of grouped.style) {
       try {
         const validatedPath = validateFilePath(change.filePath);
+        
+        // 🔒 SECURITY: Verify oldValue matches current file state
+        const currentContent = await readFile(validatedPath, 'utf-8');
+        if (!currentContent.includes(change.oldValue)) {
+          results.push({ 
+            filePath: change.filePath, 
+            changeType: 'style',
+            success: false, 
+            error: 'Stale change - old value not found in current file (client out of sync)'
+          });
+          continue;
+        }
+        
         const success = await applyTextReplacementAST(
           validatedPath, 
           change.oldValue, 
@@ -411,6 +425,19 @@ router.post('/save', async (req: Request, res: Response) => {
     for (const change of grouped.content) {
       try {
         const validatedPath = validateFilePath(change.filePath);
+        
+        // 🔒 SECURITY: Verify oldText matches current file state
+        const currentContent = await readFile(validatedPath, 'utf-8');
+        if (!currentContent.includes(change.oldText)) {
+          results.push({ 
+            filePath: change.filePath, 
+            changeType: 'content',
+            success: false, 
+            error: 'Stale change - old text not found in current file (client out of sync)'
+          });
+          continue;
+        }
+        
         const success = await applyTextReplacementAST(
           validatedPath, 
           change.oldText, 
@@ -442,6 +469,19 @@ router.post('/save', async (req: Request, res: Response) => {
     for (const change of grouped.delete) {
       try {
         const validatedPath = validateFilePath(change.filePath);
+        
+        // 🔒 SECURITY: Verify elementText exists in current file state
+        const currentContent = await readFile(validatedPath, 'utf-8');
+        if (!currentContent.includes(change.elementText)) {
+          results.push({ 
+            filePath: change.filePath, 
+            changeType: 'delete',
+            success: false, 
+            error: 'Stale change - element not found in current file (client out of sync)'
+          });
+          continue;
+        }
+        
         const success = await deleteElementByTextAST(
           validatedPath, 
           change.elementText
