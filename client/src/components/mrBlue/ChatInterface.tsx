@@ -51,16 +51,17 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   createdAt: string;
-  model?: string;
   toolsUsed?: string[]; // Track which tools were used
   metadata?: {
+    agent?: string;
+    model?: string;
     buildIntent?: {
       tool: string;
       params: any;
       status: 'pending' | 'executed' | 'failed';
       executedAt?: string;
     };
-  };
+  } | null;
 }
 
 type ModelType = 'gpt-4o' | 'claude-3-sonnet' | 'gemini-pro' | 'all-models';
@@ -347,6 +348,16 @@ export function ChatInterface() {
       return res.json();
     },
   });
+  
+  // 🔍 DEBUG: Log messages state
+  useEffect(() => {
+    console.log('💬 [ChatInterface] Messages state:', {
+      conversationId,
+      loading: loadingMessages,
+      count: messages?.length || 0,
+      messages: messages?.map(m => ({ id: m.id, role: m.role, content: m.content.substring(0, 30) }))
+    });
+  }, [messages, loadingMessages, conversationId]);
 
   // Create new conversation mutation
   // ✅ FIX (Oct 27): Use correct Mr Blue endpoint
@@ -1045,7 +1056,7 @@ export function ChatInterface() {
               role={message.role}
               content={message.content}
               timestamp={new Date(message.createdAt).toLocaleTimeString()}
-              metadata={{ agentMode: message.model }}
+              metadata={{ agentMode: message.metadata?.model }}
               codeChanges={codeChangesByMessage[message.id]}
               onApplyCode={async (change) => {
                 const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
