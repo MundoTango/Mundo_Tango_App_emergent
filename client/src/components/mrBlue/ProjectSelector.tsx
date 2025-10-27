@@ -19,10 +19,15 @@ import { Plus, FolderOpen, Check } from 'lucide-react';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 
+// ✅ FIX (Oct 27): Match backend schema (mrBlueConversations)
 interface Project {
   id: number;
-  name: string;
-  description: string | null;
+  title: string;  // Backend returns 'title' not 'name'
+  context?: any | null;  // Backend uses 'context' JSON field, not 'description'
+  agentMode?: string;
+  userId?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface ProjectSelectorProps {
@@ -56,7 +61,7 @@ export function ProjectSelector({ currentProjectId, onProjectChange }: ProjectSe
       setNewProjectName('');
       toast({
         title: 'Project Created',
-        description: `Created "${newProject.name}"`,
+        description: `Created "${newProject.title}"`,
       });
     },
   });
@@ -75,7 +80,7 @@ export function ProjectSelector({ currentProjectId, onProjectChange }: ProjectSe
         <Button variant="outline" className="w-full justify-between" data-testid="button-project-selector">
           <span className="flex items-center gap-2">
             <FolderOpen className="h-4 w-4" />
-            {currentProject?.name || 'Select Project'}
+            {currentProject?.title || 'Select Project'}
           </span>
         </Button>
       </DropdownMenuTrigger>
@@ -87,7 +92,7 @@ export function ProjectSelector({ currentProjectId, onProjectChange }: ProjectSe
             className="flex items-center justify-between"
             data-testid={`project-${project.id}`}
           >
-            <span>{project.name}</span>
+            <span>{project.title}</span>
             {project.id === currentProjectId && <Check className="h-4 w-4 text-cyan-500" />}
           </DropdownMenuItem>
         ))}

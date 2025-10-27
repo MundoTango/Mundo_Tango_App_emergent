@@ -140,12 +140,8 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
         }
       };
 
-      // ✅ FIX (Oct 27): Removed duplicate ws.onerror handler (was defined twice at lines 64 and 143)
-
-      ws.onclose = () => {
-        console.log('[Realtime] Disconnected');
-        setStatus('disconnected');
-      };
+      // ✅ FIX (Oct 27): Removed duplicate ws.onerror and ws.onclose handlers
+      // ws.onclose is now only defined once at line 70 with detailed event logging
 
     } catch (error) {
       console.error('[Realtime] Connection error:', error);
