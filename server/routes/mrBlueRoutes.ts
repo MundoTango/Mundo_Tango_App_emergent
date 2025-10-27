@@ -393,7 +393,7 @@ router.post("/stream", async (req: Request, res: Response) => {
         done: true,
         fullContent,
         agent: targetAgent,
-        model: response.model
+        model: model  // Use model from schema parse (not undefined response)
       })}\n\n`);
 
     } catch (aiError) {
