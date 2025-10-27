@@ -35,10 +35,13 @@ import { InspectorBadge } from './InspectorBadge';
 // Removed: import { QuickCommitButton } from './QuickCommitButton'; // Oct 27 - Replaced by SAVE button
 
 // ============ TYPES ============
+// ✅ FIX (Oct 27): Match backend schema (mrBlueConversations)
 interface Conversation {
   id: number;
-  name: string;  // API returns 'name' not 'title'
-  description: string | null;
+  title: string;  // Backend returns 'title' (mrBlueConversations.title)
+  context?: any | null;  // JSON context field
+  agentMode?: string;
+  userId: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -313,11 +316,11 @@ export function ChatInterface() {
   }, [toast]);
 
   // Load conversations (projects)
-  // MB.MD FIX: Use default queryFn for centralized auth/error handling
+  // ✅ FIX (Oct 27): Use correct Mr Blue endpoint
   const { data: conversations, isLoading: loadingConversations, error: conversationsError } = useQuery<Conversation[]>({
-    queryKey: ['/api/chat/projects'],
+    queryKey: ['/api/mrblue/conversations'],
     queryFn: async () => {
-      const res = await fetch('/api/chat/projects', { credentials: 'include' });
+      const res = await fetch('/api/mrblue/conversations', { credentials: 'include' });
       if (!res.ok) throw new Error('Failed to fetch conversations');
       return res.json();
     },
@@ -334,31 +337,32 @@ export function ChatInterface() {
   }, [conversations, loadingConversations, conversationsError]);
 
   // Load messages for active conversation
-  // MB.MD FIX: Use default queryFn + array segments for proper cache invalidation
+  // ✅ FIX (Oct 27): Use correct Mr Blue endpoint
   const { data: messages, isLoading: loadingMessages} = useQuery<Message[]>({
-    queryKey: ['/api/chat/projects', conversationId, 'messages'],
+    queryKey: ['/api/mrblue/conversations', conversationId, 'messages'],
     enabled: !!conversationId,
     queryFn: async () => {
-      const res = await fetch(`/api/chat/projects/${conversationId}/messages`, { credentials: 'include' });
+      const res = await fetch(`/api/mrblue/conversations/${conversationId}/messages`, { credentials: 'include' });
       if (!res.ok) throw new Error('Failed to fetch messages');
       return res.json();
     },
   });
 
   // Create new conversation mutation
+  // ✅ FIX (Oct 27): Use correct Mr Blue endpoint
   const createConversation = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest('/api/chat/projects', {
+      const res = await apiRequest('/api/mrblue/conversations', {
         method: 'POST',
         body: { 
-          name: 'New Conversation',
-          description: 'Chat with Mr Blue'
+          title: 'New Conversation', // Backend expects 'title' not 'name'
+          agentMode: 'chat'
         },
       });
       return await res.json();
     },
     onSuccess: (data: any) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations'] });
       setConversationId(data.id);
       toast({ title: 'New conversation started' });
       
@@ -371,14 +375,15 @@ export function ChatInterface() {
   });
 
   // Delete conversation mutation (Stream C3)
+  // ✅ FIX (Oct 27): Use correct Mr Blue endpoint
   const deleteConversation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest(`/api/chat/projects/${id}`, {
+      await apiRequest(`/api/mrblue/conversations/${id}`, {
         method: 'DELETE',
       });
     },
     onSuccess: (_, deletedId) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations'] });
       if (conversationId === deletedId) {
         setConversationId(null); // Clear if active conversation was deleted
       }
@@ -390,15 +395,16 @@ export function ChatInterface() {
   });
 
   // 🚀 BATCH 1: Rename conversation mutation (Oct 23, 2025)
+  // ✅ FIX (Oct 27): Use correct Mr Blue endpoint
   const renameConversation = useMutation({
     mutationFn: async ({ id, newName }: { id: number; newName: string }) => {
-      await apiRequest(`/api/chat/projects/${id}`, {
-        method: 'PATCH',
-        body: { name: newName },
+      await apiRequest(`/api/mrblue/conversations/${id}`, {
+        method: 'PUT',
+        body: { title: newName }, // Backend expects 'title' not 'name'
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations'] });
       toast({ title: 'Conversation renamed' });
     },
     onError: () => {
@@ -428,10 +434,8 @@ export function ChatInterface() {
       // 🎯 MB.MD INTEGRATION: Prepend "Use mb.md" in API payload only (hidden from user)
       const apiMessage = `Use mb.md: ${content}`;
       
-      // 🔧 FIX #1: Route to correct endpoint based on model selection
-      const endpoint = selectedModel === 'all-models' 
-        ? '/api/multimodel/consensus' 
-        : '/api/chat/stream';
+      // ✅ FIX (Oct 27): Use correct Mr Blue streaming endpoint
+      const endpoint = '/api/mrblue/stream';
       
       console.log('🔍 [ChatInterface] Using endpoint:', endpoint);
       
@@ -440,24 +444,9 @@ export function ChatInterface() {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
-          projectId: projId,
-          message: apiMessage,
-          query: apiMessage, // For multi-model endpoint
-          question: apiMessage, // For consensus endpoint
-          model: selectedModel,
-          personality,
-          systemPrompt: `You are Mr Blue, a ${personality} AI assistant for the Mundo Tango community.`,
-          context: {
-            ...appContext,
-            visualEditorState: activeElement ? {
-              isActive: true,
-              selectedElement: activeElement,
-              previewPath: previewPath || '/' // 🎯 What page is being shown in preview
-            } : previewPath ? {
-              isActive: true,
-              previewPath: previewPath // 📍 Even without element selection, tell Mr Blue which page
-            } : undefined
-          }
+          conversationId: projId,  // Mr Blue endpoint expects conversationId
+          message: content,  // Use original content, not apiMessage
+          model: selectedModel === 'all-models' ? 'gpt-4o' : selectedModel,
         }),
       });
 
@@ -532,13 +521,13 @@ export function ChatInterface() {
       
       console.log('🔄 [ChatInterface] Refetching messages...');
       
-      // Refetch and wait for completion
+      // ✅ FIX (Oct 27): Use correct Mr Blue query key
       await queryClient.refetchQueries({ 
-        queryKey: ['/api/chat/projects', projId, 'messages']
+        queryKey: ['/api/mrblue/conversations', projId, 'messages']
       });
       
       // Verify the new messages are actually in the cache
-      const freshMessages = queryClient.getQueryData<any[]>(['/api/chat/projects', projId, 'messages']);
+      const freshMessages = queryClient.getQueryData<any[]>(['/api/mrblue/conversations', projId, 'messages']);
       console.log(`✅ [ChatInterface] Refetch complete. Fresh message count: ${freshMessages?.length || 0}`);
       
       // Wait for React to render the new messages
@@ -754,9 +743,9 @@ export function ChatInterface() {
   // 🔧 PHASE 2: Extract build intents from messages and queue in SaveOrchestrator
   const extractAndQueueBuildIntents = async (projId: number) => {
     try {
-      // Refetch messages to get latest with metadata
+      // ✅ FIX (Oct 27): Use correct Mr Blue query key
       const messagesData = await queryClient.fetchQuery({
-        queryKey: ['/api/chat/projects', projId, 'messages'],
+        queryKey: ['/api/mrblue/conversations', projId, 'messages'],
       });
 
       if (!messagesData || !Array.isArray(messagesData)) return;
@@ -841,8 +830,9 @@ export function ChatInterface() {
       return response;
     },
     onSuccess: () => {
+      // ✅ FIX (Oct 27): Use correct Mr Blue query key
       queryClient.invalidateQueries({ 
-        queryKey: [`/api/chat/projects/${conversationId}/messages`]
+        queryKey: [`/api/mrblue/conversations/${conversationId}/messages`]
       });
       setInput('');
     },

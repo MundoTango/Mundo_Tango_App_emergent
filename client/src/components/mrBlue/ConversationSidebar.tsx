@@ -11,10 +11,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Search, Plus, MessageSquare, Trash2, Edit2, Check, X } from 'lucide-react';
 import { isToday, isYesterday, subDays, format } from 'date-fns';
 
+// ✅ FIX (Oct 27): Match backend schema (mrBlueConversations)
 interface Conversation {
   id: number;
-  name: string;
-  description: string | null;
+  title: string;  // Backend returns 'title' not 'name'
+  context?: any | null;  // JSON context field
+  agentMode?: string;
+  userId?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -65,8 +68,7 @@ export function ConversationSidebar({
     // Filter by search query first
     const filtered = conversations.filter(conv =>
       searchQuery === '' ||
-      conv.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      conv.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      conv.title?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     // Sort by most recent first
@@ -270,7 +272,7 @@ interface ConversationItemProps {
 function ConversationItem({ conversation, isActive, onSelect, onDelete, onRename }: ConversationItemProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(conversation.name || 'New Conversation');
+  const [editValue, setEditValue] = useState(conversation.title || 'New Conversation');
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Focus input when editing starts
@@ -282,14 +284,14 @@ function ConversationItem({ conversation, isActive, onSelect, onDelete, onRename
   }, [isEditing]);
 
   const handleRename = () => {
-    if (editValue.trim() && editValue !== conversation.name && onRename) {
+    if (editValue.trim() && editValue !== conversation.title && onRename) {
       onRename(conversation.id, editValue.trim());
     }
     setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
-    setEditValue(conversation.name || 'New Conversation');
+    setEditValue(conversation.title || 'New Conversation');
     setIsEditing(false);
   };
 
@@ -355,7 +357,7 @@ function ConversationItem({ conversation, isActive, onSelect, onDelete, onRename
       ) : (
         <>
           <span className="flex-1 text-sm truncate">
-            {conversation.name || 'New Conversation'}
+            {conversation.title || 'New Conversation'}
           </span>
 
           {/* Edit and Delete Buttons (on hover) */}
