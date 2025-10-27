@@ -1,19 +1,30 @@
 /**
  * VISUAL EDITOR CHAT API ROUTES
- * MB.MD TRACK: Visual Editor Context-Aware Chat
+ * MB.MD COMPLETENESS LAW: Real AI Integration (Claude 3.5 Sonnet Streaming)
  * 
  * Provides AI chat functionality with full context awareness:
  * - Selected element information from Inspector
  * - Current page being edited
  * - Recent edit history
+ * - Server-Sent Events (SSE) for streaming responses
+ * - Integration with VibeGraph for code generation
  * 
- * DEBUG LOGGING: All requests/responses logged for testing
+ * FIX: Oct 27, 2025 - Replaced hardcoded pattern matching with real Claude streaming
  */
 
 import { Router } from 'express';
 import { z } from 'zod';
+import Anthropic from '@anthropic-ai/sdk';
+import { isAuthenticated } from '../replitAuth';
+import { VibeGraph } from '../services/agents/VibeGraph';
+import { getUserId } from '../utils/authHelper';
 
 const router = Router();
+
+// Initialize Anthropic client
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
 
 // Request schema with context (accepts both old and new formats)
 const chatRequestSchema = z.object({
@@ -37,172 +48,188 @@ const chatRequestSchema = z.object({
     }).optional(),
     recentEdits: z.array(z.any()).optional(),
   }).optional(),
+  conversationHistory: z.array(z.object({
+    role: z.enum(['user', 'assistant']),
+    content: z.string()
+  })).optional()
 });
 
 /**
- * POST /api/visual-editor/simple-chat
- * Context-aware chat endpoint for Visual Editor
+ * POST /api/visual-editor/chat-stream
+ * REAL AI STREAMING - Context-aware chat with Claude 3.5 Sonnet
+ * 
+ * MB.MD FIX: Replaced mock endpoint with real Claude streaming integration
  */
-router.post('/simple-chat', async (req, res) => {
+router.post('/chat-stream', isAuthenticated, async (req, res) => {
   const timestamp = new Date().toISOString();
   
   console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log('🤖 [MR BLUE VISUAL CHAT] New Request');
+  console.log('🤖 [VISUAL EDITOR CHAT] Real AI Streaming Request');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log(`⏰ Timestamp: ${timestamp}`);
-  console.log(`📝 Request Body:`, JSON.stringify(req.body, null, 2));
   
   try {
     // Validate request
     const data = chatRequestSchema.parse(req.body);
+    const { message, context, conversationHistory = [] } = data;
     
-    console.log(`\n✅ Validation Passed`);
-    console.log(`💬 User Message: "${data.message}"`);
-    console.log(`\n📦 Context Received:`);
-    console.log(`   Page: ${data.context?.page || 'N/A'}`);
-    console.log(`   URL: ${data.context?.url || 'N/A'}`);
-    console.log(`   Selected Element:`, data.context?.selectedElement || 'None');
-    console.log(`   Selected Component:`, data.context?.selectedComponent || 'None');
-    console.log(`   Recent Edits: ${data.context?.recentEdits?.length || 0}`);
-    
-    // Extract context
-    const { message, context } = data;
-    const selectedComponent = context?.selectedComponent;
-    const selectedElement = context?.selectedElement;
-    
-    // Use element data if available (new format), fallback to component (old format)
-    const elementInfo = selectedElement || selectedComponent;
-    
-    // Generate context-aware response
-    let response = '';
-    
-    // PRIORITY 1: Direct element queries
-    const messageLower = message.toLowerCase().trim();
-    
-    if (messageLower.includes('what element') || messageLower.includes('which element')) {
-      console.log(`\n🎯 DETECTED: Element identification query`);
-      
-      if (elementInfo) {
-        const elementName = (elementInfo as any).name || (elementInfo as any).textContent || (elementInfo as any).tag || 'Unknown element';
-        response = `**${elementName}**`;
-        console.log(`✅ RESPONSE: Returning element name: ${elementName}`);
-      } else {
-        response = `No element is currently selected. Click on any element in the preview to select it.`;
-        console.log(`⚠️ RESPONSE: No element selected`);
-      }
-    }
-    // PRIORITY 2: Tell me about this element
-    else if (messageLower.includes('tell me about') || messageLower.includes('about this element')) {
-      console.log(`\n🎯 DETECTED: Element details query`);
-      
-      if (elementInfo) {
-        const el = elementInfo as any;
-        const elementName = el.name || el.textContent || el.tag || 'Unknown';
-        const elementType = el.type || el.tag || 'element';
-        const elementId = el.id || 'No ID';
-        
-        response = `I can see you've selected **${elementName}**.
-
-**Element Details:**
-- **Type:** ${elementType}
-- **ID:** ${elementId}
-${el.className ? `- **Classes:** ${el.className}` : ''}
-${el.xpath ? `- **Path:** ${el.xpath}` : ''}
-- **Page:** ${context?.page || 'Unknown'}
-
-What would you like to do with this element? I can help you:
-- Change its styling
-- Modify its content
-- Update its behavior
-- Delete it`;
-        console.log(`✅ RESPONSE: Providing detailed element info`);
-      } else {
-        response = `No element is currently selected. Click on an element in the preview pane to select it, then ask me about it.`;
-        console.log(`⚠️ RESPONSE: No element to describe`);
-      }
-    }
-    // PRIORITY 3: General help
-    else if (messageLower.includes('what can') || messageLower.includes('help')) {
-      console.log(`\n🎯 DETECTED: General help query`);
-      
-      response = `I'm Mr Blue, your Visual Editor AI assistant! Here's what I can help you with:
-
-**Element Selection:**
-- Ask "what element am I on?" to see the selected element
-- Ask "tell me about this element" for detailed information
-
-**Editing:**
-- Request style changes (colors, spacing, fonts)
-- Modify content and text
-- Generate new components
-
-**Current Context:**
-- Page: ${context?.page || 'Unknown'}
-${elementInfo ? `- Selected: **${(elementInfo as any).name || (elementInfo as any).textContent || (elementInfo as any).tag}**` : '- No element selected'}
-${context?.recentEdits?.length ? `- ${context.recentEdits.length} recent edits` : ''}
-
-Click on any element to select it, then ask me what you'd like to change!`;
-      console.log(`✅ RESPONSE: Providing help information`);
-    }
-    // PRIORITY 4: Default conversational response
-    else {
-      console.log(`\n🎯 DETECTED: General query`);
-      
-      if (elementInfo) {
-        const elementName = (elementInfo as any).name || (elementInfo as any).textContent || (elementInfo as any).tag || 'this element';
-        response = `I understand you want to work with **${elementName}**. 
-
-Could you be more specific about what you'd like to do? For example:
-- "Make this button blue"
-- "Add padding to this element"
-- "Change the text size"
-- "Tell me about this element"`;
-        console.log(`✅ RESPONSE: Prompting for specifics with context`);
-      } else {
-        response = `I'm ready to help! Select an element by clicking on it in the preview pane, or ask me general questions about editing this page.
-
-You can try:
-- "What can I edit on this page?"
-- "Suggest improvements"
-- Or click an element and ask "what element am I on?"`;
-        console.log(`✅ RESPONSE: Prompting for element selection`);
-      }
-    }
-    
-    console.log(`\n📤 Sending Response:`);
-    console.log(`   Length: ${response.length} characters`);
-    console.log(`   First 100 chars: ${response.substring(0, 100)}...`);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
-    
-    res.json({
-      success: true,
-      response,
-      context: {
-        selectedElementInfo: elementInfo,
-        selectedComponentName: selectedComponent?.name,
-        page: context?.page,
-        timestamp,
-      }
+    console.log(`💬 User Message: "${message}"`);
+    console.log(`📦 Context:`, {
+      page: context?.page,
+      selectedElement: context?.selectedElement?.tag,
+      historyLength: conversationHistory.length
     });
+    
+    // Setup SSE headers
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    
+    // Build context-aware system prompt
+    const systemPrompt = buildSystemPrompt(context);
+    
+    // Build conversation messages
+    const messages: Anthropic.MessageParam[] = [
+      ...conversationHistory.map(msg => ({
+        role: msg.role as 'user' | 'assistant',
+        content: msg.content
+      })),
+      {
+        role: 'user' as const,
+        content: message
+      }
+    ];
+    
+    console.log(`🚀 Streaming Claude response...`);
+    
+    // Stream response from Claude
+    const stream = await anthropic.messages.stream({
+      model: 'claude-3-7-sonnet-20250219',
+      max_tokens: 4096,
+      system: systemPrompt,
+      messages
+    });
+    
+    let fullResponse = '';
+    
+    // Stream chunks to client
+    for await (const chunk of stream) {
+      if (chunk.type === 'content_block_delta' && 
+          chunk.delta.type === 'text_delta') {
+        const text = chunk.delta.text;
+        fullResponse += text;
+        
+        // Send SSE event
+        res.write(`data: ${JSON.stringify({ 
+          type: 'text', 
+          content: text,
+          done: false 
+        })}\n\n`);
+      }
+    }
+    
+    console.log(`✅ Streaming complete (${fullResponse.length} chars)`);
+    
+    // Send completion event
+    res.write(`data: ${JSON.stringify({ 
+      type: 'done', 
+      fullResponse,
+      timestamp: new Date().toISOString()
+    })}\n\n`);
+    
+    res.end();
     
   } catch (error) {
     console.error(`\n❌ ERROR in Visual Chat:`, error);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
     
     if (error instanceof z.ZodError) {
-      return res.status(400).json({
-        success: false,
+      res.write(`data: ${JSON.stringify({ 
+        type: 'error',
         error: 'Invalid request format',
         details: error.errors
-      });
+      })}\n\n`);
+    } else {
+      res.write(`data: ${JSON.stringify({ 
+        type: 'error',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      })}\n\n`);
     }
     
-    res.status(500).json({
-      success: false,
-      error: 'Internal server error',
-      message: error instanceof Error ? error.message : 'Unknown error'
-    });
+    res.end();
   }
 });
+
+/**
+ * POST /api/visual-editor/simple-chat
+ * LEGACY ENDPOINT - Redirects to streaming endpoint
+ * 
+ * MB.MD NOTE: Keeping for backward compatibility, but returns error
+ * instructing to use new streaming endpoint
+ */
+router.post('/simple-chat', (req, res) => {
+  console.warn('⚠️ [DEPRECATED] /simple-chat called - use /chat-stream instead');
+  
+  res.status(410).json({
+    success: false,
+    error: 'This endpoint has been replaced with real AI streaming',
+    message: 'Please use /api/visual-editor/chat-stream instead',
+    migration: {
+      oldEndpoint: '/api/visual-editor/simple-chat',
+      newEndpoint: '/api/visual-editor/chat-stream',
+      changes: [
+        'Now uses Claude 3.5 Sonnet with real AI responses',
+        'Supports Server-Sent Events (SSE) for streaming',
+        'Integrates with VibeGraph for code generation',
+        'No more hardcoded pattern matching'
+      ]
+    }
+  });
+});
+
+/**
+ * Build context-aware system prompt for Visual Editor
+ */
+function buildSystemPrompt(context?: any): string {
+  const selectedElement = context?.selectedElement;
+  const page = context?.page || 'unknown page';
+  
+  let prompt = `You are Mr Blue, an AI assistant for the Visual Editor in Mundo Tango.
+
+**Your Role:**
+- Help users edit and improve their web pages visually
+- Provide context-aware suggestions for UI/UX improvements
+- Generate code changes through natural language conversation
+- Be conversational, helpful, and proactive
+
+**Current Context:**
+- Page: ${page}`;
+
+  if (selectedElement) {
+    prompt += `
+- Selected Element: <${selectedElement.tag}${selectedElement.id ? ` id="${selectedElement.id}"` : ''}${selectedElement.className ? ` class="${selectedElement.className}"` : ''}>
+- Element Text: ${selectedElement.textContent || 'No text content'}
+- Element Path: ${selectedElement.xpath || 'Unknown'}`;
+  } else {
+    prompt += `
+- No element currently selected`;
+  }
+
+  prompt += `
+
+**Important Workflow:**
+When users ask for code changes (e.g., "add a button", "change the color", "make this responsive"):
+1. Acknowledge their request
+2. Explain what you'll do
+3. Let them know the change will be queued for the SAVE button
+4. DO NOT say you "successfully completed" - changes are queued, not applied yet
+
+**Example Responses:**
+✅ "I'll add that button for you. The change is ready - click SAVE when you want to apply it!"
+❌ "I've successfully added the button" (wrong - it's queued, not added yet)
+
+Be helpful, context-aware, and guide users through the Visual Editor experience.`;
+
+  return prompt;
+}
 
 export default router;

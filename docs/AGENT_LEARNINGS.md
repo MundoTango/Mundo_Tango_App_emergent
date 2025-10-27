@@ -1504,3 +1504,144 @@ document_what_was_approved
 **Impact:** Agents must respect user autonomy. Building unauthorized features wastes time (must be deleted) and breaks trust. When uncertain, always ask permission first.
 
 **Related Rules:** See Learning #1 (Integration Fallacy) for why user-visible features must be verified through UI testing, not just code existence.
+
+---
+
+## **🚨 LEARNING #23: NEVER Use Mock Data in Production Paths (COMPLETENESS LAW)**
+**Phase:** ALL PHASES  
+**Date:** October 27, 2025  
+**Issue:** Visual Editor chat endpoint (`/api/visual-editor/simple-chat`) was implemented with ZERO AI integration - just hardcoded if/else pattern matching returning canned responses. Users thought they were talking to AI, but it was completely fake.
+
+**Root Cause:**
+Agent created a "temporary" mock endpoint meant for testing, then never upgraded it to real AI. This violated MB.MD Completeness Law: "No mock data in production paths unless explicitly requested."
+
+**The Broken Code:**
+```typescript
+// ❌ FORBIDDEN - Mock responder masquerading as AI
+router.post('/simple-chat', async (req, res) => {
+  const messageLower = message.toLowerCase();
+  
+  if (messageLower.includes('what element')) {
+    response = `**${elementName}**`; // HARDCODED!
+  } else if (messageLower.includes('help')) {
+    response = `I'm Mr Blue...`; // HARDCODED!
+  } else {
+    response = `I'm ready to help!`; // HARDCODED!
+  }
+  
+  res.json({ response }); // NO AI CALL, NO STREAMING
+});
+```
+
+**Why This is Critical:**
+1. User thinks they're getting AI assistance → Trust violation
+2. Pattern matching can't handle complex requests → Feature unusable
+3. No streaming → Poor UX for AI interactions
+4. Blocks VibeGraph integration → Code generation broken
+
+**The Correct Pattern:**
+```typescript
+// ✅ REQUIRED - Real AI with streaming
+router.post('/chat-stream', isAuthenticated, async (req, res) => {
+  // Setup SSE headers for streaming
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  
+  // Call real AI model
+  const stream = await anthropic.messages.stream({
+    model: 'claude-3-7-sonnet-20250219',
+    max_tokens: 4096,
+    system: systemPrompt,
+    messages
+  });
+  
+  // Stream real-time responses
+  for await (const chunk of stream) {
+    if (chunk.type === 'content_block_delta') {
+      res.write(`data: ${JSON.stringify({ 
+        type: 'text', 
+        content: chunk.delta.text 
+      })}\n\n`);
+    }
+  }
+  
+  res.end();
+});
+```
+
+**MB.MD Protocol:**
+```bash
+# PHASE 1: MAPPING - Audit for Mock Data
+grep -r "if.*includes.*toLowerCase" server/routes/
+grep -r "mock|Mock|placeholder|coming soon" server/routes/
+search_codebase "hardcoded responses, pattern matching, mock data"
+
+# PHASE 2: BREAKDOWN - Replace All Mock Endpoints
+# For each mock endpoint found:
+1. Implement real AI integration (Claude/GPT-4o/Gemini)
+2. Add SSE streaming for real-time responses
+3. Wire to existing services (VibeGraph, SaveOrchestrator)
+4. Add proper error handling (fail loudly, not silently)
+
+# PHASE 3: MITIGATION - Gate Test Data
+# For legitimate test routes:
+const isDev = process.env.NODE_ENV === 'development';
+router.use((req, res, next) => {
+  if (!isDev) {
+    return res.status(403).json({ 
+      error: 'Test data disabled in production' 
+    });
+  }
+  next();
+});
+
+# PHASE 4: DEPLOYMENT - Verify Real AI
+screenshot # Show streaming AI responses
+user_test # Confirm AI works, not canned responses
+```
+
+**What Counts as "Mock Data":**
+- ❌ Hardcoded if/else response logic
+- ❌ Pattern matching instead of AI calls
+- ❌ "Coming soon" fallback messages
+- ❌ Test data served in production
+- ❌ Silent fallbacks to fake responses
+- ✅ AI model fallbacks (Claude → GPT-4o if unavailable)
+- ✅ Loading states while waiting for real data
+- ✅ Error messages with retry logic
+- ✅ Test data ONLY in development (gated by NODE_ENV)
+
+**How to Detect:**
+```bash
+# Red flags in code review:
+- No AI SDK import (no Anthropic, OpenAI, Google AI)
+- Pattern matching: if (message.includes('...'))
+- Static responses: response = "I can help you with..."
+- No streaming setup: res.json() instead of res.write()
+- No API keys checked: no process.env.ANTHROPIC_API_KEY
+- "Fallback" that returns fake data instead of throwing error
+```
+
+**Exception: When Mock Data is Allowed:**
+1. **User explicitly requests it:** "Create mock data for testing"
+2. **Development/test environments only:** Gated by `NODE_ENV === 'development'`
+3. **Clearly labeled as mock:** Console logs say "⚠️ DEV MODE: Mock data"
+4. **Fails in production:** Returns 403 error if accessed outside dev
+
+**Prevention Checklist:**
+- [ ] Every endpoint calls real AI model (Claude/GPT-4o/Gemini)
+- [ ] Streaming implemented via SSE or WebSocket
+- [ ] No if/else pattern matching for responses
+- [ ] Test data routes gated by NODE_ENV
+- [ ] Fallbacks throw errors, don't return fake data
+- [ ] Screenshot proof shows streaming AI text
+
+**Related Fixes (Oct 27, 2025):**
+1. Replaced `/api/visual-editor/simple-chat` with `/api/visual-editor/chat-stream`
+2. Gated `/api/posts/feed` mock data behind `NODE_ENV === 'development'`
+3. Changed Mr Blue fallback from silent mock to loud error
+
+**Impact:** Trust is everything. Users must know when they're talking to real AI vs mock data. Mock endpoints waste development time building features that don't actually work.
+
+**Agent Accountability:** Any agent that creates mock endpoints without explicit user permission has violated MB.MD Completeness Law and must document the learning.

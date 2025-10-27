@@ -32,17 +32,24 @@ try {
   getAgentByName = lifeCEORouter.getAgentByName;
   getAllAgents = lifeCEORouter.getAllAgents;
 } catch (e) {
-  // Services not yet available, will implement in Phase 2
-  console.log('AI services not yet loaded, using fallback implementations');
-  routeToLifeCEOAgent = (message: string) => 'general';
-  getAgentByName = (name: string) => ({ name, description: 'AI Assistant' });
-  getAllAgents = () => [];
+  // 🚨 MB.MD FIX (Oct 27, 2025): Fail loudly instead of returning mock data
+  console.error('❌ CRITICAL: AI services failed to load:', e);
+  console.error('❌ Mr Blue will not function without AI services');
+  
+  // Throw error instead of silently falling back to mock data
+  routeToLifeCEOAgent = (message: string) => {
+    throw new Error('AI services not available - check aiModelService and lifeCEORouter');
+  };
+  getAgentByName = (name: string) => {
+    throw new Error('AI services not available - check aiModelService and lifeCEORouter');
+  };
+  getAllAgents = () => {
+    throw new Error('AI services not available - check aiModelService and lifeCEORouter');
+  };
   aiModelService = {
-    callAI: async (messages: any[], model: string) => ({
-      content: "Mr Blue AI integration coming soon!",
-      model,
-      usage: {}
-    })
+    callAI: async (messages: any[], model: string) => {
+      throw new Error('AI services not available - aiModelService failed to initialize');
+    }
   };
 }
 
