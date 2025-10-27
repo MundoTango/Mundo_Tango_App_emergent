@@ -166,7 +166,7 @@ this.config = {
 **Found in env**:
 ```bash
 GRAFANA_INSTANCE_ID=https://mundotango.grafana.net/  # ❌ WRONG - should be numeric ID, not URL
-GRAFANA_API_KEY=glc_eyJvIjoiMTU3MDk0MiIsIm4iOiJtdW5kby10YW5nbyIsImsiOiJxU1U3MWk2SjVsNDRGWDlwd1g4eDM0TWYiLCJtIjp7InIiOiJwcm9kLXVzLWVhc3QtMCJ9fQ==
+GRAFANA_API_KEY=[REDACTED - Use Secrets tab to set this]
 ```
 
 ### Fix Options
