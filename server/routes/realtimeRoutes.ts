@@ -35,9 +35,13 @@ export function setupRealtimeWebSocket(server: any) {
   });
 
   wss.on('connection', async (clientWs: WebSocket) => {
-    console.log('[Realtime] Client connected');
+    console.log('✅ [Realtime] Client WebSocket connected to backend');
+    console.log('🔗 [Realtime] Client readyState:', clientWs.readyState);
 
     try {
+      console.log('🔗 [Realtime] Connecting to OpenAI Realtime API...');
+      console.log('🔑 [Realtime] OPENAI_API_KEY exists:', !!process.env.OPENAI_API_KEY);
+      
       // Connect to OpenAI Realtime API
       const openaiWs = new WebSocket(
         'wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-10-01',
@@ -49,18 +53,35 @@ export function setupRealtimeWebSocket(server: any) {
         }
       );
 
+      openaiWs.on('open', () => {
+        console.log('✅ [Realtime] Connected to OpenAI Realtime API');
+      });
+
+      openaiWs.on('error', (error) => {
+        console.error('❌ [Realtime] OpenAI WebSocket ERROR:', error);
+      });
+
+      openaiWs.on('close', (code, reason) => {
+        console.warn('⚠️ [Realtime] OpenAI WebSocket CLOSED:', code, reason.toString());
+      });
+
       // Forward client messages to OpenAI
       clientWs.on('message', (data: any) => {
         try {
           const message = JSON.parse(data.toString());
-          console.log('[Realtime] Client → OpenAI:', message.type);
+          console.log('📤 [Realtime] Client → OpenAI:', message.type);
+          console.log('🔗 [Realtime] OpenAI readyState:', openaiWs.readyState, '(1=OPEN)');
           
           // Forward to OpenAI
           if (openaiWs.readyState === WebSocket.OPEN) {
             openaiWs.send(JSON.stringify(message));
+            console.log('✅ [Realtime] Message forwarded to OpenAI');
+          } else {
+            console.error('❌ [Realtime] Cannot forward - OpenAI not connected!');
+            console.error('   ReadyState:', openaiWs.readyState);
           }
         } catch (error) {
-          console.error('[Realtime] Error forwarding client message:', error);
+          console.error('❌ [Realtime] Error forwarding client message:', error);
         }
       });
 
@@ -72,7 +93,7 @@ export function setupRealtimeWebSocket(server: any) {
       openaiWs.on('message', async (data: any) => {
         try {
           const message = JSON.parse(data.toString());
-          console.log('[Realtime] OpenAI → Client:', message.type);
+          console.log('📥 [Realtime] OpenAI → Client:', message.type);
           
           // 🐛 DEBUG: Log full error details
           if (message.type === 'error') {

@@ -140,14 +140,18 @@ export function UnifiedVoiceModal({
     checkPermission
   } = useAudioCapture({
     onAudioData: (audioData) => {
-      console.log('[VoiceModal] Audio captured:', audioData.byteLength, 'bytes, status:', connectionStatus);
+      console.log('🎤 [VoiceModal] Audio captured:', audioData.byteLength, 'bytes');
+      console.log('🔗 [VoiceModal] Connection status:', connectionStatus);
+      console.log('🔗 [VoiceModal] Realtime status:', realtimeStatus);
       
       // 🎯 WEEK 0 FIX: Use connectionStatus instead of realtimeStatus (Oct 24, 2025)
       if (connectionStatus === 'connected') {
-        console.log('[VoiceModal] ✅ Sending audio to OpenAI...');
+        console.log('✅ [VoiceModal] Sending audio to WebSocket...');
         sendAudio(audioData);
       } else {
-        console.warn('[VoiceModal] ❌ Not sending - not connected. Status:', connectionStatus);
+        console.error('❌ [VoiceModal] NOT sending audio - WebSocket not connected!');
+        console.error('   Current status:', connectionStatus);
+        console.error('   Realtime status:', realtimeStatus);
       }
     }
   });

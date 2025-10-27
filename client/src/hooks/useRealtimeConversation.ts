@@ -55,14 +55,29 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
       wsRef.current = ws;
 
       ws.onopen = () => {
-        console.log('[Realtime] Connected');
+        console.log('✅ [Realtime] WebSocket CONNECTED to backend');
+        console.log('🔗 [Realtime] WebSocket URL:', wsUrl);
+        console.log('🔗 [Realtime] ReadyState:', ws.readyState);
         setStatus('connected');
+      };
+
+      ws.onerror = (error) => {
+        console.error('❌ [Realtime] WebSocket ERROR:', error);
+        console.error('🔗 [Realtime] WebSocket state:', ws.readyState);
+        setStatus('error');
+      };
+
+      ws.onclose = (event) => {
+        console.warn('⚠️ [Realtime] WebSocket CLOSED:', event.code, event.reason);
+        console.log('🔗 [Realtime] Was clean close?', event.wasClean);
+        setStatus('disconnected');
       };
 
       ws.onmessage = (event) => {
         try {
           // Handle binary audio data (not JSON)
           if (event.data instanceof Blob) {
+            console.log('🎵 [Realtime] Received audio blob:', event.data.size, 'bytes');
             event.data.arrayBuffer().then((buffer) => {
               setAudioQueue(prev => [...prev, buffer]);
             });
@@ -73,7 +88,7 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
           const message = JSON.parse(event.data) as RealtimeEvent;
           
           // Log for debugging
-          console.log('[Realtime] Message:', message.type, message);
+          console.log('📨 [Realtime] Message:', message.type, message);
           
           // Handle events
           switch (message.type) {
