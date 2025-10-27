@@ -3182,3 +3182,80 @@ export type InsertNavigationHistory = z.infer<typeof insertNavigationHistorySche
 
 export type UndoHistory = typeof undoHistory.$inferSelect;
 export type InsertUndoHistory = z.infer<typeof insertUndoHistorySchema>;
+
+// ========================================
+// MB.MD EVIDENCE SYSTEM TABLES
+// Phase 0: Shared Infrastructure - Oct 27, 2025
+// ========================================
+
+// MB.MD Session tracking - Stores information about each MB.MD workflow execution
+export const mbmdSessions = pgTable("mbmd_sessions", {
+  id: serial("id").primaryKey(),
+  feature: varchar("feature", { length: 255 }).notNull(), // 'vibe_coding', 'chat', 'voice', etc
+  userId: integer("user_id").references(() => users.id),
+  startedAt: timestamp("started_at").defaultNow(),
+  completedAt: timestamp("completed_at"),
+  status: varchar("status", { length: 50 }).notNull(), // 'mapping', 'breakdown', 'mitigation', 'deployment', 'complete', 'failed'
+  executionMode: varchar("execution_mode", { length: 50 }), // 'FOCUSED', 'PARALLEL', 'SIMULTANEOUS'
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
+}, (table) => [
+  index("idx_mbmd_sessions_user").on(table.userId),
+  index("idx_mbmd_sessions_feature").on(table.feature),
+  index("idx_mbmd_sessions_status").on(table.status),
+]);
+
+// MB.MD Evidence storage - Stores artifacts from each phase
+export const mbmdEvidence = pgTable("mbmd_evidence", {
+  id: serial("id").primaryKey(),
+  sessionId: integer("session_id").references(() => mbmdSessions.id).notNull(),
+  phase: varchar("phase", { length: 50 }).notNull(), // 'MAPPING', 'BREAKDOWN', 'MITIGATION', 'DEPLOYMENT'
+  evidenceType: varchar("evidence_type", { length: 50 }).notNull(), // 'screenshot', 'log', 'test', 'document', 'bundle'
+  evidencePath: text("evidence_path"), // Path to stored file/screenshot
+  evidenceData: jsonb("evidence_data").$type<Record<string, any>>(), // Inline data for logs, test results
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
+  timestamp: timestamp("timestamp").defaultNow(),
+}, (table) => [
+  index("idx_mbmd_evidence_session").on(table.sessionId),
+  index("idx_mbmd_evidence_phase").on(table.phase),
+  index("idx_mbmd_evidence_type").on(table.evidenceType),
+]);
+
+// MB.MD Review tracking - Stores architect and QA reviews
+export const mbmdReviews = pgTable("mbmd_reviews", {
+  id: serial("id").primaryKey(),
+  sessionId: integer("session_id").references(() => mbmdSessions.id).notNull(),
+  reviewer: varchar("reviewer", { length: 50 }).notNull(), // 'architect', 'qa_agent', 'test_lead'
+  phase: varchar("phase", { length: 50 }).notNull(), // Which phase was reviewed
+  approved: boolean("approved").notNull(),
+  feedback: text("feedback"),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
+  reviewedAt: timestamp("reviewed_at").defaultNow(),
+}, (table) => [
+  index("idx_mbmd_reviews_session").on(table.sessionId),
+  index("idx_mbmd_reviews_reviewer").on(table.reviewer),
+]);
+
+// Insert schemas and types for MB.MD tables
+export const insertMbmdSessionSchema = createInsertSchema(mbmdSessions).omit({
+  id: true,
+  startedAt: true,
+});
+
+export const insertMbmdEvidenceSchema = createInsertSchema(mbmdEvidence).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertMbmdReviewSchema = createInsertSchema(mbmdReviews).omit({
+  id: true,
+  reviewedAt: true,
+});
+
+export type MbmdSession = typeof mbmdSessions.$inferSelect;
+export type InsertMbmdSession = z.infer<typeof insertMbmdSessionSchema>;
+
+export type MbmdEvidence = typeof mbmdEvidence.$inferSelect;
+export type InsertMbmdEvidence = z.infer<typeof insertMbmdEvidenceSchema>;
+
+export type MbmdReview = typeof mbmdReviews.$inferSelect;
+export type InsertMbmdReview = z.infer<typeof insertMbmdReviewSchema>;
