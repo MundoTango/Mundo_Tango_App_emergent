@@ -27,6 +27,21 @@ import { applyTextReplacementAST, deleteElementByTextAST } from '../lib/jsxParse
 
 const router = Router();
 
+// ✅ FIX #4 (Oct 27): Backend idempotency cache to prevent duplicate executions
+// Tracks recent requests by hash to deduplicate identical concurrent requests
+const requestCache = new Map<string, { promise: Promise<any>; timestamp: number }>();
+const CACHE_TTL = 10000; // 10 seconds
+
+// Cleanup expired cache entries every 30 seconds
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of requestCache.entries()) {
+    if (now - value.timestamp > CACHE_TTL) {
+      requestCache.delete(key);
+    }
+  }
+}, 30000);
+
 /**
  * POST /api/vibe/edit-file - Apply file edits
  * 
@@ -51,31 +66,55 @@ router.post('/edit-file', async (req: any, res: Response) => {
       return res.status(400).json({ error: 'filePath is required' });
     }
 
-    // MB.MD FIX: Remove super admin gate - enable for all authenticated users
+    // ✅ SECURITY: Validate user BEFORE checking cache (prevents authorization bypass)
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     if (!user) {
       return res.status(403).json({ error: 'User not found' });
     }
 
-    let result;
-
-    if (editType === 'unified_diff') {
-      if (!diffContent) {
-        return res.status(400).json({ error: 'diffContent is required for unified_diff' });
-      }
-
-      const editor = createDiffEditor();
-      result = await editor.applyUnifiedDiff(filePath, diffContent);
-    } else if (editType === 'search_replace') {
-      if (!searchString || replaceString === undefined) {
-        return res.status(400).json({ error: 'searchString and replaceString are required' });
-      }
-
-      const editor = createSearchReplaceEditor();
-      result = await editor.replaceAll(filePath, searchString, replaceString);
-    } else {
-      return res.status(400).json({ error: 'Invalid editType. Must be unified_diff or search_replace' });
+    // ✅ FIX #4: Deduplicate identical concurrent requests (per-user)
+    // Generate cache key with FULL content hash to prevent collisions
+    const contentHash = diffContent 
+      ? `diff:${diffContent}` 
+      : `search:${searchString}:${replaceString}`;
+    const cacheKey = `edit-file:${user.id}:${filePath}:${editType}:${contentHash}`;
+    const cached = requestCache.get(cacheKey);
+    
+    if (cached) {
+      console.log(`⏭️ [Vibe] Deduplicating edit-file request for ${filePath} (user ${user.id})`);
+      const result = await cached.promise;
+      return res.json(result);
     }
+
+    // ✅ FIX #4: Wrap execution in promise and cache it
+    const executionPromise = (async () => {
+      let result;
+
+      if (editType === 'unified_diff') {
+        if (!diffContent) {
+          throw new Error('diffContent is required for unified_diff');
+        }
+
+        const editor = createDiffEditor();
+        result = await editor.applyUnifiedDiff(filePath, diffContent);
+      } else if (editType === 'search_replace') {
+        if (!searchString || replaceString === undefined) {
+          throw new Error('searchString and replaceString are required');
+        }
+
+        const editor = createSearchReplaceEditor();
+        result = await editor.replaceAll(filePath, searchString, replaceString);
+      } else {
+        throw new Error('Invalid editType. Must be unified_diff or search_replace');
+      }
+      
+      return result;
+    })();
+    
+    // Cache the execution promise
+    requestCache.set(cacheKey, { promise: executionPromise, timestamp: Date.now() });
+    
+    const result = await executionPromise;
 
     // 🚀 STREAM B1: Emit Socket.io event for preview auto-refresh
     const wsService = getWebSocketService();
@@ -234,15 +273,42 @@ router.post('/execute', async (req: any, res: Response) => {
       return res.status(400).json({ error: 'request is required' });
     }
 
-    // MB.MD FIX: Remove super admin gate - enable for all authenticated users
+    // ✅ SECURITY: Validate user BEFORE checking cache (prevents authorization bypass)
     const user = await storage.getUserByReplitId(req.user.claims.sub);
     if (!user) {
       return res.status(403).json({ error: 'User not found' });
     }
 
-    // Execute multi-agent graph
-    const graph = new VibeGraph(request, user, visualEditorContext);
-    const result = await graph.execute();
+    // ✅ FIX #4: Deduplicate identical concurrent execute requests (per-user)
+    const elementXPath = visualEditorContext?.selectedElement?.xpath || 'no-element';
+    const previewPath = visualEditorContext?.previewPath || '/';
+    const cacheKey = `execute:${user.id}:${request.trim()}:${elementXPath}:${previewPath}`;
+    const cached = requestCache.get(cacheKey);
+    
+    if (cached) {
+      console.log(`⏭️ [Vibe] Deduplicating execute request for user ${user.id}: "${request.substring(0, 50)}..."`);
+      const result = await cached.promise;
+      return res.json({
+        status: result.status,
+        tasks: result.tasks,
+        codeChanges: result.codeChanges,
+        testResults: result.testResults,
+        errors: result.errors,
+        needsClarification: result.needsClarification,
+        clarificationQuestion: result.clarificationQuestion
+      });
+    }
+
+    // Execute multi-agent graph (wrapped in promise for caching)
+    const executionPromise = (async () => {
+      const graph = new VibeGraph(request, user, visualEditorContext);
+      return await graph.execute();
+    })();
+    
+    // Cache the execution promise
+    requestCache.set(cacheKey, { promise: executionPromise, timestamp: Date.now() });
+    
+    const result = await executionPromise;
 
     // 🎯 REPLIT-STYLE: Return clarification info if needed
     res.json({

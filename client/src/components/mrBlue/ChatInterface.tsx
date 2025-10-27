@@ -574,6 +574,8 @@ export function ChatInterface() {
   // 🎯 BATCH 2: Wire to Visual Editor context (Oct 26, 2025)
   // MB.MD STREAM 1+2: Always-on vibe mode in Visual Editor
   // ✅ FIX #1 (Oct 27): Remove Visual Editor gate - execute vibe coding from any chat context
+  // ✅ FIX #4 (Oct 27): Add deduplication to prevent double-execution
+  const vibeExecutionCache = useRef<Map<string, Promise<any>>>(new Map());
   const detectAndExecuteCodeChanges = async (projId: number, userMessage: string) => {
     // ✅ EXPANDED: More comprehensive keyword detection
     const codeKeywords = [
@@ -599,18 +601,36 @@ export function ChatInterface() {
       return;
     }
     
+    // ✅ FIX #4: Deduplicate vibe executions using request cache
+    // Generate cache key from message + context
     const isInVisualEditor = !!visualEditorContext;
-    console.log(`🚀 [Vibe] Executing with${isInVisualEditor ? '' : 'out'} Visual Editor context`);
+    const cacheKey = `${userMessage.trim()}_${isInVisualEditor}_${activeElement?.xpath || 'no-element'}`;
     
+    // Check if already executing this exact request
+    if (vibeExecutionCache.current.has(cacheKey)) {
+      console.log('⏭️ [Vibe] Skipping duplicate execution (cache hit)');
+      return vibeExecutionCache.current.get(cacheKey);
+    }
+    
+    console.log(`🚀 [Vibe] Executing with${isInVisualEditor ? '' : 'out'} Visual Editor context`);
     console.log('🚀 [Vibe] REPLIT-STYLE: Preparing changes (not applying)...');
     
     try {
       // Execute vibe coding with optional Visual Editor context
-      const result = await executeVibeCoding(userMessage, {
+      // ✅ FIX #4: Cache the promise to deduplicate concurrent requests
+      const executionPromise = executeVibeCoding(userMessage, {
         selectedElement: isInVisualEditor ? activeElement : null,
         previewPath: isInVisualEditor ? (previewPath || '/') : '/'
       });
       
+      vibeExecutionCache.current.set(cacheKey, executionPromise);
+      
+      // Auto-cleanup cache after 5 seconds
+      setTimeout(() => {
+        vibeExecutionCache.current.delete(cacheKey);
+      }, 5000);
+      
+      const result = await executionPromise;
       console.log('✅ [Vibe] Execution complete:', result);
       
       // 🎯 REPLIT-STYLE: Handle clarification questions
