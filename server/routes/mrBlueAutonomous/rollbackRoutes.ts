@@ -53,6 +53,10 @@ router.post('/rollback', async (req, res) => {
     if (statusOutput.trim()) {
       console.log('⚠️  Uncommitted changes detected - creating safety commit...');
       
+      // Configure Git identity if not set
+      await execAsync('git config user.name "Mr Blue AI"', { cwd: process.cwd() }).catch(() => {});
+      await execAsync('git config user.email "mrblue@mundotango.life"', { cwd: process.cwd() }).catch(() => {});
+      
       await execAsync('git add -A', { cwd: process.cwd() });
       await execAsync(
         `git commit -m "[MR BLUE SAFETY] Pre-rollback backup at ${new Date().toISOString()}"`,

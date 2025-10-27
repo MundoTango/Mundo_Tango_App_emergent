@@ -147,6 +147,16 @@ router.post('/edit-file', async (req: any, res: Response) => {
     // 🚀 TRACK B: Git commit integration (Oct 26, 2025)
     if (result.success) {
       try {
+        // Configure Git identity if not set (prevents "Author identity unknown" errors)
+        try {
+          execSync('git config user.name || git config user.name "Mr Blue AI"', { cwd: process.cwd(), shell: '/bin/bash' });
+          execSync('git config user.email || git config user.email "mrblue@mundotango.life"', { cwd: process.cwd(), shell: '/bin/bash' });
+        } catch (configError) {
+          // If config check fails, force set it
+          execSync('git config user.name "Mr Blue AI"', { cwd: process.cwd() });
+          execSync('git config user.email "mrblue@mundotango.life"', { cwd: process.cwd() });
+        }
+        
         // Stage the modified file
         execSync(`git add "${filePath}"`, { cwd: process.cwd() });
         

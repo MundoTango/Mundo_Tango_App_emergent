@@ -38,6 +38,10 @@ router.post('/preview', isAuthenticated, async (req, res) => {
       throw new Error(`Git checkout failed: ${checkoutResult.stderr}`);
     }
 
+    // Configure Git identity if not set (prevents "Author identity unknown" errors)
+    spawnSync('git', ['config', 'user.name', 'Mr Blue AI'], { encoding: 'utf-8' });
+    spawnSync('git', ['config', 'user.email', 'mrblue@mundotango.life'], { encoding: 'utf-8' });
+    
     // Add and commit changes
     const addResult = spawnSync('git', ['add', '-A'], { encoding: 'utf-8' });
     if (addResult.status !== 0) {
