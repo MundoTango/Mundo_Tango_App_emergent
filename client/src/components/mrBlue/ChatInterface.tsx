@@ -1050,43 +1050,50 @@ export function ChatInterface() {
             </div>
           )}
 
-          {messages?.map((message) => (
-            <EnhancedMessageBubble
-              key={message.id}
-              role={message.role}
-              content={message.content}
-              timestamp={new Date(message.createdAt).toLocaleTimeString()}
-              metadata={{ agentMode: message.metadata?.model }}
-              codeChanges={codeChangesByMessage[message.id]}
-              onApplyCode={async (change) => {
-                const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
-                await applyCodeChange(change.filePath, change.diff, editType);
-                setCodeChangesByMessage(prev => ({
-                  ...prev,
-                  [message.id]: prev[message.id]?.filter(c => c !== change) || []
-                }));
-              }}
-              onRejectCode={(change) => {
-                setCodeChangesByMessage(prev => ({
-                  ...prev,
-                  [message.id]: prev[message.id]?.filter(c => c !== change) || []
-                }));
-              }}
-              onCopy={() => {
-                toast({ title: 'Copied to clipboard' });
-              }}
-              onRegenerate={async () => {
-                const messageIndex = messages!.findIndex(m => m.id === message.id);
-                if (messageIndex > 0) {
-                  const userMessage = messages![messageIndex - 1];
-                  if (userMessage.role === 'user' && conversationId) {
-                    await sendMessageToConversation(conversationId, userMessage.content);
-                    toast({ title: 'Regenerating response...' });
+          {messages?.map((message) => {
+            console.log('🎨 [ChatInterface] Rendering message:', {
+              id: message.id,
+              role: message.role,
+              content: message.content.substring(0, 30)
+            });
+            return (
+              <EnhancedMessageBubble
+                key={message.id}
+                role={message.role}
+                content={message.content}
+                timestamp={new Date(message.createdAt).toLocaleTimeString()}
+                metadata={{ agentMode: message.metadata?.model }}
+                codeChanges={codeChangesByMessage[message.id]}
+                onApplyCode={async (change) => {
+                  const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
+                  await applyCodeChange(change.filePath, change.diff, editType);
+                  setCodeChangesByMessage(prev => ({
+                    ...prev,
+                    [message.id]: prev[message.id]?.filter(c => c !== change) || []
+                  }));
+                }}
+                onRejectCode={(change) => {
+                  setCodeChangesByMessage(prev => ({
+                    ...prev,
+                    [message.id]: prev[message.id]?.filter(c => c !== change) || []
+                  }));
+                }}
+                onCopy={() => {
+                  toast({ title: 'Copied to clipboard' });
+                }}
+                onRegenerate={async () => {
+                  const messageIndex = messages!.findIndex(m => m.id === message.id);
+                  if (messageIndex > 0) {
+                    const userMessage = messages![messageIndex - 1];
+                    if (userMessage.role === 'user' && conversationId) {
+                      await sendMessageToConversation(conversationId, userMessage.content);
+                      toast({ title: 'Regenerating response...' });
+                    }
                   }
-                }
-              }}
-            />
-          ))}
+                }}
+              />
+            );
+          })}
 
           {/* OPTIMISTIC UI: Show user message immediately */}
           {optimisticMessage && (
