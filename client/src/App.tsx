@@ -108,6 +108,7 @@ const ComponentHealthDashboard = lazy(() => import("@/pages/admin/ComponentHealt
 const AutoFixDashboard = lazy(() => import("@/pages/admin/AutoFixDashboard"));
 const AgentCoordination = lazy(() => import("@/pages/admin/AgentCoordination"));
 const AgentTrainingPage = lazy(() => import("@/pages/AgentTrainingPage"));
+const MBMDDashboard = lazy(() => import("@/pages/MBMDDashboard")); // MB.MD Evidence System - Phase 0 - Oct 27, 2025
 
 // Social Pages
 const Groups = lazy(() => import("@/pages/groups"));
@@ -516,6 +517,11 @@ function Router() {
           </Route>
           <Route path="/admin/agent-training">
             <AgentTrainingPage />
+          </Route>
+
+          {/* MB.MD Evidence System Dashboard - Phase 0 - Oct 27, 2025 */}
+          <Route path="/admin/mbmd-dashboard">
+            <MBMDDashboard />
           </Route>
 
           {/* Social Pages */}
