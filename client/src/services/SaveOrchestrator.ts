@@ -40,6 +40,32 @@ export class SaveOrchestrator {
   }
 
   /**
+   * Remove a specific pending change by ID
+   */
+  removeChange(changeId: string): boolean {
+    const initialLength = this.pendingChanges.length;
+    this.pendingChanges = this.pendingChanges.filter(c => c.id !== changeId);
+    const removed = this.pendingChanges.length < initialLength;
+    
+    if (removed) {
+      console.log(`[SaveOrchestrator] Removed change: ${changeId}`);
+      this.notifyListeners();
+    }
+    
+    return removed;
+  }
+
+  /**
+   * Clear all pending changes
+   */
+  clearAllChanges(): void {
+    const count = this.pendingChanges.length;
+    this.pendingChanges = [];
+    console.log(`[SaveOrchestrator] Cleared ${count} pending changes`);
+    this.notifyListeners();
+  }
+
+  /**
    * Save all pending changes
    */
   async saveAll(): Promise<{ success: boolean; message: string; commitHash?: string }> {
@@ -263,21 +289,6 @@ export class SaveOrchestrator {
     this.listeners.forEach(listener => listener(this.getPendingChanges()));
   }
 
-  /**
-   * Clear all pending changes
-   */
-  clear() {
-    this.pendingChanges = [];
-    this.notifyListeners();
-  }
-
-  /**
-   * Remove specific change
-   */
-  removeChange(id: string) {
-    this.pendingChanges = this.pendingChanges.filter(c => c.id !== id);
-    this.notifyListeners();
-  }
 }
 
 // Singleton instance
