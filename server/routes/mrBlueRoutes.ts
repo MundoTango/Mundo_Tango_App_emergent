@@ -349,8 +349,9 @@ router.post("/stream", async (req: Request, res: Response) => {
       for (let i = 0; i < fullContent.length; i++) {
         const chunk = fullContent[i];
         res.write(`data: ${JSON.stringify({ 
-          messageId: aiMessage.id,
+          type: 'text',
           chunk,
+          messageId: aiMessage.id,
           done: false 
         })}\n\n`);
         
