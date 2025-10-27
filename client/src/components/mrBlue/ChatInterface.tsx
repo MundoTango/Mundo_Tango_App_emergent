@@ -637,13 +637,55 @@ export function ChatInterface() {
         console.log(`🎯 [Vibe] Queueing ${result.codeChanges.length} change(s) for SAVE`);
         
         // ✅ FIX #3 (Oct 27): Apply changes to preview immediately, then queue for Git commit
+        // ✅ FIX #3 INTEGRATION: Emit SSE events for AI Work Feed (live activity stream)
+        const sessionId = currentConversation?.id?.toString() || 'default';
+        
         for (const change of result.codeChanges) {
           try {
+            // Emit "file edit starting" event
+            fetch(`/api/ai/broadcast/${sessionId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({
+                type: 'file_edit',
+                title: `Editing ${change.filePath}`,
+                file: change.filePath,
+                status: 'running'
+              })
+            }).catch(console.error);
+            
             const editType = change.type === 'new_file' ? 'unified_diff' : (change.type || 'unified_diff');
             await applyCodeChange(change.filePath, change.diff, editType);
             console.log(`✅ [Vibe] Applied ${change.filePath} to preview`);
+            
+            // Emit "file edit success" event
+            fetch(`/api/ai/broadcast/${sessionId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({
+                type: 'file_edit',
+                title: `Updated ${change.filePath}`,
+                file: change.filePath,
+                status: 'success'
+              })
+            }).catch(console.error);
           } catch (error) {
             console.error(`❌ [Vibe] Failed to apply ${change.filePath}:`, error);
+            
+            // Emit error event
+            fetch(`/api/ai/broadcast/${sessionId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({
+                type: 'error',
+                title: `Failed to edit ${change.filePath}`,
+                file: change.filePath,
+                details: error instanceof Error ? error.message : 'Unknown error'
+              })
+            }).catch(console.error);
           }
         }
         

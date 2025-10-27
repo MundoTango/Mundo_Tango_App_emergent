@@ -96,4 +96,18 @@ export function emitAIEvent(sessionId: string, type: string, data: any) {
   });
 }
 
+/**
+ * POST /api/ai/broadcast/:sessionId
+ * HTTP endpoint for broadcasting events (called from frontend)
+ */
+router.post('/broadcast/:sessionId', isAuthenticated, (req: Request, res: Response) => {
+  const { sessionId } = req.params;
+  const eventData = req.body;
+
+  console.log(`[AIStream] Broadcasting event to session ${sessionId}:`, eventData.type);
+  broadcastToSession(sessionId, eventData);
+
+  res.json({ success: true });
+});
+
 export default router;
