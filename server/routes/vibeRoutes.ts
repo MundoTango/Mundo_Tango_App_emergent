@@ -262,6 +262,10 @@ router.post('/map-repository', async (req: any, res: Response) => {
  * }
  */
 router.post('/execute', async (req: any, res: Response) => {
+  // ⏰ CRITICAL: Increase timeout for multi-agent execution (30s → 90s)
+  // VibeGraph (Manager → Editor → Verifier → Tester) takes 25-40 seconds
+  req.setTimeout(90000); // 90 seconds
+
   if (!req.user?.claims?.sub) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
@@ -288,15 +292,20 @@ router.post('/execute', async (req: any, res: Response) => {
     if (cached) {
       console.log(`⏭️ [Vibe] Deduplicating execute request for user ${user.id}: "${request.substring(0, 50)}..."`);
       const result = await cached.promise;
-      return res.json({
-        status: result.status,
-        tasks: result.tasks,
-        codeChanges: result.codeChanges,
-        testResults: result.testResults,
-        errors: result.errors,
-        needsClarification: result.needsClarification,
-        clarificationQuestion: result.clarificationQuestion
-      });
+      
+      // ✅ FIX: Check if response already sent (prevents "headers already sent" crash)
+      if (!res.headersSent) {
+        return res.json({
+          status: result.status,
+          tasks: result.tasks,
+          codeChanges: result.codeChanges,
+          testResults: result.testResults,
+          errors: result.errors,
+          needsClarification: result.needsClarification,
+          clarificationQuestion: result.clarificationQuestion
+        });
+      }
+      return;
     }
 
     // Execute multi-agent graph (wrapped in promise for caching)
@@ -310,19 +319,27 @@ router.post('/execute', async (req: any, res: Response) => {
     
     const result = await executionPromise;
 
-    // 🎯 REPLIT-STYLE: Return clarification info if needed
-    res.json({
-      status: result.status,
-      tasks: result.tasks,
-      codeChanges: result.codeChanges,
-      testResults: result.testResults,
-      errors: result.errors,
-      needsClarification: result.needsClarification,
-      clarificationQuestion: result.clarificationQuestion
-    });
+    // ✅ FIX: Check if response already sent (prevents "headers already sent" crash)
+    if (!res.headersSent) {
+      // 🎯 REPLIT-STYLE: Return clarification info if needed
+      res.json({
+        status: result.status,
+        tasks: result.tasks,
+        codeChanges: result.codeChanges,
+        testResults: result.testResults,
+        errors: result.errors,
+        needsClarification: result.needsClarification,
+        clarificationQuestion: result.clarificationQuestion
+      });
+    } else {
+      console.warn('⚠️  [Vibe] Response already sent (timeout?), skipping JSON response');
+    }
   } catch (error) {
     console.error('[Vibe] Execution error:', error);
-    res.status(500).json({ error: 'Failed to execute vibe coding request' });
+    // ✅ FIX: Check if response already sent
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Failed to execute vibe coding request' });
+    }
   }
 });
 
