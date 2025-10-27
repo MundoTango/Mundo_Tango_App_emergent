@@ -521,10 +521,10 @@ export function ChatInterface() {
                   if (parsed.type === 'text' && parsed.chunk) {
                     accumulatedResponse += parsed.chunk;
                     setStreamingResponse(accumulatedResponse);
-                    // Clear status when text starts streaming
+                    // Keep status visible longer so user can see MB.MD phases
                     if (accumulatedResponse.length === parsed.chunk.length) {
-                      // First chunk, keep status visible a bit longer
-                      setTimeout(() => setStreamingToolStatus(null), 500);
+                      // First chunk, keep status visible for 2 seconds
+                      setTimeout(() => setStreamingToolStatus(null), 2000);
                     }
                   }
                   
