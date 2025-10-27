@@ -35,21 +35,22 @@ export function ProjectSelector({ currentProjectId, onProjectChange }: ProjectSe
   const [newProjectName, setNewProjectName] = useState('');
   const { toast } = useToast();
 
-  // MB.MD SIMULTANEOUS: Use default fetcher
+  // ✅ FIX (Oct 27): Migrate from /api/chat/projects to /api/mrblue/conversations
+  // NOTE: This component uses "projects" terminology but backend uses "conversations"
   const { data: projects } = useQuery<Project[]>({
-    queryKey: ['/api/chat/projects'],
+    queryKey: ['/api/mrblue/conversations'],
   });
 
   const createProject = useMutation({
     mutationFn: async (name: string) => {
-      const res = await apiRequest('/api/chat/projects', {
+      const res = await apiRequest('/api/mrblue/conversations', {
         method: 'POST',
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ title: name }), // Backend expects 'title'
       });
       return res.json();
     },
     onSuccess: (newProject: Project) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/chat/projects'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations'] });
       onProjectChange(newProject.id);
       setIsCreating(false);
       setNewProjectName('');

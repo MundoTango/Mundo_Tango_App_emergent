@@ -787,9 +787,10 @@ export function ChatInterface() {
       const apiMessage = `Use mb.md: ${content}`;
       
       // 🤝 STREAM 2: Use multi-model consensus for 'all-models' selection
+      // ✅ FIX (Oct 27): Use correct Mr Blue streaming endpoint
       const endpoint = selectedModel === 'all-models' 
         ? '/api/multimodel/consensus' 
-        : '/api/chat/stream';
+        : '/api/mrblue/stream';
       
       // 🐛 DEBUG: Build and log context before sending (Oct 23, 2025)
       const contextPayload = {

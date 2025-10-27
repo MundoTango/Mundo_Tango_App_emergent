@@ -140,10 +140,7 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
         }
       };
 
-      ws.onerror = (error) => {
-        console.error('[Realtime] WebSocket error:', error);
-        setStatus('error');
-      };
+      // ✅ FIX (Oct 27): Removed duplicate ws.onerror handler (was defined twice at lines 64 and 143)
 
       ws.onclose = () => {
         console.log('[Realtime] Disconnected');
