@@ -90,7 +90,7 @@ export default function Landing() {
                     </div>
 
                     {/* Quick Actions Grid */}
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-6">😊
                       {/* Name Display */}
                       <div className="col-span-full mb-4">
                         <div className="p-4 bg-white/60 rounded-xl border border-turquoise-200/30">
