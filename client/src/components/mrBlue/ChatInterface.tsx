@@ -643,9 +643,12 @@ export function ChatInterface() {
         for (const change of result.codeChanges) {
           try {
             // Emit "file edit starting" event
-            fetch(`/api/ai/broadcast/${sessionId}`, {
+            await fetch(`/api/ai/broadcast/${sessionId}`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
               credentials: 'include',
               body: JSON.stringify({
                 type: 'file_edit',
@@ -653,16 +656,19 @@ export function ChatInterface() {
                 file: change.filePath,
                 status: 'running'
               })
-            }).catch(console.error);
+            }).catch(err => console.error('[SSE] Broadcast failed:', err));
             
             const editType = change.type === 'new_file' ? 'unified_diff' : (change.type || 'unified_diff');
             await applyCodeChange(change.filePath, change.diff, editType);
             console.log(`✅ [Vibe] Applied ${change.filePath} to preview`);
             
             // Emit "file edit success" event
-            fetch(`/api/ai/broadcast/${sessionId}`, {
+            await fetch(`/api/ai/broadcast/${sessionId}`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
               credentials: 'include',
               body: JSON.stringify({
                 type: 'file_edit',
@@ -670,14 +676,17 @@ export function ChatInterface() {
                 file: change.filePath,
                 status: 'success'
               })
-            }).catch(console.error);
+            }).catch(err => console.error('[SSE] Broadcast failed:', err));
           } catch (error) {
             console.error(`❌ [Vibe] Failed to apply ${change.filePath}:`, error);
             
             // Emit error event
-            fetch(`/api/ai/broadcast/${sessionId}`, {
+            await fetch(`/api/ai/broadcast/${sessionId}`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
               credentials: 'include',
               body: JSON.stringify({
                 type: 'error',
@@ -685,7 +694,7 @@ export function ChatInterface() {
                 file: change.filePath,
                 details: error instanceof Error ? error.message : 'Unknown error'
               })
-            }).catch(console.error);
+            }).catch(err => console.error('[SSE] Broadcast failed:', err));
           }
         }
         

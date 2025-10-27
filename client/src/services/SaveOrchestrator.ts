@@ -59,16 +59,39 @@ export class SaveOrchestrator {
       const chatChanges = this.pendingChanges.filter(c => c.type === 'chat');
       const aiBuildChanges = this.pendingChanges.filter(c => c.type === 'ai-build');
 
-      // ✅ CRITICAL: Write changes to disk FIRST (vibe coding already does this)
-      // Style/content/structure changes need to be applied via visual editor endpoints
-      // AI-build changes are already applied to disk by applyCodeChange()
+      // ✅ ARCHITECT FIX (Oct 27): Write ALL changes to disk before Git commit
+      // - AI-build changes: Already on disk via applyCodeChange() 
+      // - Style/content/structure: Must be persisted NOW via file writes
       
-      // Note: For now, we skip applying style/content/structure changes 
-      // because they need backend endpoints. Vibe coding changes are already on disk.
-      // TODO: Implement /api/visual-editor/apply-styles etc. if needed
+      console.log(`[SaveOrchestrator] ${aiBuildChanges.length} vibe coding changes already on disk (via applyCodeChange)`);
       
-      console.log(`[SaveOrchestrator] Skipping ${styleChanges.length + contentChanges.length + structureChanges.length} visual editor changes (already on disk via direct edit)`);
-      console.log(`[SaveOrchestrator] ${aiBuildChanges.length} vibe coding changes already on disk`);
+      // ✅ FIX: Persist visual editor changes to disk NOW
+      if (styleChanges.length > 0 || contentChanges.length > 0 || structureChanges.length > 0) {
+        console.log(`[SaveOrchestrator] Persisting ${styleChanges.length + contentChanges.length + structureChanges.length} visual editor changes to disk...`);
+        
+        try {
+          // Apply style changes (generates code and writes to disk)
+          if (styleChanges.length > 0) {
+            await this.saveStyleChanges(styleChanges);
+            console.log(`[SaveOrchestrator] ✅ ${styleChanges.length} style changes written to disk`);
+          }
+          
+          // Apply content changes (modifies HTML/JSX and writes to disk)
+          if (contentChanges.length > 0) {
+            await this.saveContentChanges(contentChanges);
+            console.log(`[SaveOrchestrator] ✅ ${contentChanges.length} content changes written to disk`);
+          }
+          
+          // Apply structure changes (modifies DOM structure and writes to disk)
+          if (structureChanges.length > 0) {
+            await this.saveStructureChanges(structureChanges);
+            console.log(`[SaveOrchestrator] ✅ ${structureChanges.length} structure changes written to disk`);
+          }
+        } catch (error) {
+          console.error('[SaveOrchestrator] Failed to persist visual editor changes:', error);
+          throw new Error(`Failed to write changes to disk: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+      }
       
       // ✅ NOW commit everything to Git
       const response = await fetch('/api/git/commit-changes', {
