@@ -336,9 +336,19 @@ router.post("/stream", async (req: Request, res: Response) => {
       streaming: false
     });
 
-    // Route to appropriate Life CEO agent
-    const targetAgent = conversation.agentMode || routeToLifeCEOAgent(message);
-    const agentDetails = getAgentByName(targetAgent);
+    // 🚨 MB.MD FIX (Oct 27): Bypass broken lifeCEORouter, use direct agent name
+    // The streaming works via MultiModelOrchestrator (line 408), these are just for prompt
+    let targetAgent = 'Mr Blue';
+    let agentDescription = 'A friendly AI assistant for Mundo Tango';
+    
+    try {
+      targetAgent = conversation.agentMode || routeToLifeCEOAgent(message);
+      const agentDetails = getAgentByName(targetAgent);
+      agentDescription = agentDetails?.description || agentDescription;
+    } catch (e) {
+      // AI services not loaded, use fallback (doesn't affect streaming)
+      console.log('⚠️ [Stream] lifeCEORouter not available, using fallback agent name');
+    }
 
     // Get conversation history for context
     const messageHistory = await storage.getMrBlueMessagesByConversation(conversationId, 10);
@@ -347,7 +357,7 @@ router.post("/stream", async (req: Request, res: Response) => {
     const aiMessages = [
       {
         role: 'system' as const,
-        content: `You are Mr. Blue, powered by ${targetAgent}. ${agentDetails?.description || 'A friendly AI assistant for Mundo Tango.'}${userContext}
+        content: `You are Mr. Blue, powered by ${targetAgent}. ${agentDescription}${userContext}
 
 IMPORTANT: You have access to the user's profile above. Use their name when appropriate and maintain context of who they are across conversations.
 
