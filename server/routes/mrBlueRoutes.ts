@@ -20,6 +20,9 @@ let getAllAgents: any;
 import { agentCeo } from '../services/agentCeoOrchestrator';
 import { selfAwarenessSystem } from '../services/selfAwarenessSystem';
 
+// DIRECT AI ORCHESTRATOR IMPORT (bypasses broken require fallback)
+import { MultiModelOrchestrator } from '../services/multiModelOrchestrator';
+
 try {
   aiModelService = require('../services/aiModelService').aiModelService;
   const lifeCEORouter = require('../services/lifeCEORouter');
@@ -341,10 +344,15 @@ router.post("/stream", async (req: Request, res: Response) => {
     });
 
     try {
-      // Call AI orchestrator directly (bypass broken require)
-      console.log(`🤖 [Stream] Calling ${model} AI with ${aiMessages.length} messages`);
+      // Validate API keys before calling AI
+      if (!process.env.ANTHROPIC_API_KEY && !process.env.OPENAI_API_KEY) {
+        throw new Error('No AI API keys configured - please set ANTHROPIC_API_KEY or OPENAI_API_KEY');
+      }
       
-      const { MultiModelOrchestrator } = await import('../services/multiModelOrchestrator.js');
+      console.log(`🤖 [Stream] Calling ${model} AI with ${aiMessages.length} messages`);
+      console.log(`🔑 [Stream] API Keys available: ANTHROPIC=${!!process.env.ANTHROPIC_API_KEY}, OPENAI=${!!process.env.OPENAI_API_KEY}`);
+      
+      // Direct instantiation (static import at top of file)
       const orchestrator = new MultiModelOrchestrator();
       
       let fullContent = '';
