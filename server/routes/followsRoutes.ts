@@ -16,7 +16,7 @@ const router = Router();
 // Get user's followers (Phase 11: Updated with pagination and error handling)
 router.get('/api/follows/followers', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     
     if (!userId) {
       throw new AuthenticationError();
@@ -51,7 +51,7 @@ router.get('/api/follows/followers', async (req: Request, res: Response, next: N
 // Get who user is following (Phase 11: Updated with pagination and error handling)
 router.get('/api/follows/following', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     
     if (!userId) {
       throw new AuthenticationError();
@@ -86,7 +86,7 @@ router.get('/api/follows/following', async (req: Request, res: Response, next: N
 // Get all follows (Phase 11: Updated with error handling)
 router.get('/api/follows', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     
     if (!userId) {
       throw new AuthenticationError();

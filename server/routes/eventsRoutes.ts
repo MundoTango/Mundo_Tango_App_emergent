@@ -193,7 +193,7 @@ router.post('/api/events/recurring', isAuthenticated, async (req: any, res: Resp
 // Get event admins
 router.get('/api/events/:eventId/admins', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const eventId = parseInt(req.params.eventId);
@@ -232,7 +232,7 @@ router.get('/api/events/:eventId/admins', async (req: Request, res: Response) =>
 // Add event admin
 router.post('/api/events/:eventId/admins', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const eventId = parseInt(req.params.eventId);
@@ -295,7 +295,7 @@ router.post('/api/events/:eventId/admins', async (req: Request, res: Response) =
 // Remove event admin
 router.delete('/api/events/:eventId/admins/:adminId', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const eventId = parseInt(req.params.eventId);
@@ -325,7 +325,7 @@ router.delete('/api/events/:eventId/admins/:adminId', async (req: Request, res: 
 // Update admin permissions
 router.put('/api/events/:eventId/admins/:adminId/permissions', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const eventId = parseInt(req.params.eventId);
@@ -358,7 +358,7 @@ router.put('/api/events/:eventId/admins/:adminId/permissions', async (req: Reque
 // Get user's events
 router.get('/api/events/my-events', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const myEvents = await db.select()

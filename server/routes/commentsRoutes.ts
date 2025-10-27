@@ -91,7 +91,7 @@ router.get('/api/comments', async (req: Request, res: Response, next: NextFuncti
 // Create a comment (Phase 11: Updated with validation and error handling)
 router.post('/api/posts/:postId/comments', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     const postId = parseInt(req.params.postId);
     const { content, parentId, mentions, gifUrl, imageUrl } = req.body;
     
@@ -133,7 +133,7 @@ router.post('/api/posts/:postId/comments', async (req: Request, res: Response, n
 // Update a comment (Phase 11: Updated with validation and error handling)
 router.put('/api/comments/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     const commentId = parseInt(req.params.id);
     const { content } = req.body;
     
@@ -181,7 +181,7 @@ router.put('/api/comments/:id', async (req: Request, res: Response, next: NextFu
 // Delete a comment (Phase 11: Updated with error handling)
 router.delete('/api/comments/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     const commentId = parseInt(req.params.id);
     
     if (!userId) {

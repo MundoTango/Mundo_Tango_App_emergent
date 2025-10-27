@@ -30,7 +30,7 @@ router.get('/tenants', async (req, res) => {
 // Get user's tenants with membership info
 router.get('/tenants/user', flexibleAuth, async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }

@@ -15,7 +15,7 @@ router.delete('/api/posts/:id', isAuthenticated, async (req: any, res) => {
   
   try {
     const postId = parseInt(req.params.id);
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     
     if (!userId) {
       return res.status(401).json({ 
@@ -88,7 +88,7 @@ router.patch('/api/posts/:id', isAuthenticated, async (req: any, res) => {
   
   try {
     const postId = parseInt(req.params.id);
-    const userId = getUserId(req);
+    const userId = await getUserId(req);
     const { content } = req.body;
     
     if (!userId) {

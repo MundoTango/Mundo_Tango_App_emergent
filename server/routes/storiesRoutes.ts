@@ -10,7 +10,7 @@ const router = Router();
 // Get active stories
 router.get('/api/stories', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     
     // Get stories that haven't expired
     const activeStories = await db
@@ -30,7 +30,7 @@ router.get('/api/stories', async (req: Request, res: Response) => {
 // Create a new story
 router.post('/api/stories', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     const { mediaUrl, mediaType, caption } = req.body;
     
     const newStory = await db
@@ -54,7 +54,7 @@ router.post('/api/stories', async (req: Request, res: Response) => {
 // Mark story as viewed
 router.post('/api/stories/:id/view', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     const storyId = parseInt(req.params.id);
     
     // Add view record

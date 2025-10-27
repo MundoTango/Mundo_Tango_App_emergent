@@ -9,7 +9,7 @@ const router = Router();
 // Get user's friends
 router.get('/api/friends', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     
     // Get all accepted friends
     const userFriends = await db
@@ -33,7 +33,7 @@ router.get('/api/friends', async (req: Request, res: Response) => {
 // Get pending friend requests
 router.get('/api/friends/requests', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     
     const requests = await db
       .select()
@@ -56,7 +56,7 @@ router.get('/api/friends/requests', async (req: Request, res: Response) => {
 // Send friend request
 router.post('/api/friends/request', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     const { friendId } = req.body;
     
     const newRequest = await db
@@ -78,7 +78,7 @@ router.post('/api/friends/request', async (req: Request, res: Response) => {
 // Accept/reject friend request
 router.put('/api/friends/request/:id', async (req: Request, res: Response) => {
   try {
-    const userId = getUserId(req) || 7;
+    const userId = await getUserId(req) || 7;
     const { id } = req.params;
     const { status } = req.body; // 'accepted' or 'rejected'
     
