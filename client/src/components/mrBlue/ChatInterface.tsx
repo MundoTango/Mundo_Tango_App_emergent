@@ -772,6 +772,23 @@ export function ChatInterface() {
           duration: 3000
         });
         
+        // ✅ FIX (Oct 27): Show diff cards in chat UI
+        // Associate code changes with the last assistant message so they render as diff cards
+        if (messages && messages.length > 0) {
+          const lastMessageId = messages[messages.length - 1].id;
+          setCodeChangesByMessage(prev => ({
+            ...prev,
+            [lastMessageId]: result.codeChanges.map(change => ({
+              taskId: change.taskId,
+              filePath: change.filePath,
+              diff: change.diff,
+              type: change.type || 'unified_diff',
+              status: change.status || 'pending'
+            }))
+          }));
+          console.log(`🎨 [Vibe] Added ${result.codeChanges.length} diff cards to message ${lastMessageId}`);
+        }
+        
       } else if (result.status === 'failed') {
         console.error('❌ [Vibe] Execution failed:', result.errors);
         toast({
