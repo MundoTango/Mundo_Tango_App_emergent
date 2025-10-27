@@ -47,7 +47,7 @@ interface SelectedElement {
 export default function VisualEditorPage() {
   const [location, navigate] = useLocation();
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState<EditorTab>('inspector');
+  const [activeTab, setActiveTab] = useState<EditorTab>('chat'); // 🔧 FIX #1: Mr Blue first!
   const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
   const [pendingStyles, setPendingStyles] = useState<StyleMutation[]>([]);
   const [previewUrl, setPreviewUrl] = useState('/');
@@ -250,7 +250,8 @@ export default function VisualEditorPage() {
         visualEditorContext.setSelectedElement(message.element);
         visualEditorContext.setPreviewPath(previewUrl);
         
-        setActiveTab('inspector');
+        // 🔧 FIX #1: Don't auto-switch tabs - keep user on current tab
+        // setActiveTab('inspector');
         logActivity({
           type: 'selection',
           description: `Selected ${message.element.tagName}${message.element.id ? '#' + message.element.id : ''}`
@@ -260,10 +261,32 @@ export default function VisualEditorPage() {
           type: 'edit',
           description: `Edited text in ${message.element.tagName}`
         });
-        // Text was edited inline
+        
+        // 🔧 FIX #2: Queue text change for SAVE button (Oct 27, 2025)
+        const newChange = {
+          id: `text-edit-${Date.now()}`,
+          taskId: 'inline-text-edit',
+          filePath: message.element.filePath || 'unknown',
+          diff: `Text changed to: "${message.newText}"`,
+          type: 'text_edit' as const,
+          status: 'pending' as const,
+          timestamp: new Date(),
+          metadata: {
+            xpath: message.element.xpath,
+            tagName: message.element.tagName,
+            oldText: message.element.textContent || '',
+            newText: message.newText
+          }
+        };
+        
+        visualEditorContext.setPendingCodeChanges([
+          ...(visualEditorContext.pendingCodeChanges || []),
+          newChange
+        ]);
+        
         toast({
           title: 'Text Updated',
-          description: 'Text changed will be reflected in generated code',
+          description: 'Click SAVE to apply changes',
           duration: 2000
         });
       } else if (message.type === 'DELETE_ELEMENT_REQUEST') {

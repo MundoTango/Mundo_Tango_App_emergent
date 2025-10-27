@@ -196,8 +196,8 @@ router.post('/stream', async (req: any, res: Response) => {
     ];
 
     // Select best model - "auto" uses Claude (best tool calling)
-    const { isSuperAdmin: checkSuperAdmin } = await import('../utils/auth.js');
-    const hasSuperPowers = checkSuperAdmin(user, context);
+    const { isSuperAdmin } = await import('../utils/auth.js');
+    const hasSuperPowers = isSuperAdmin(user, context); // 🔧 FIX #3: Use correct function name
     
     let selectedModel = model;
     // Map "auto" or undefined to Claude (best tool support)
