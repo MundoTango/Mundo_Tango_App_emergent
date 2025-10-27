@@ -108,6 +108,7 @@ router.post('/commit', isAuthenticated, async (req, res) => {
 
 // POST /api/git/commit-changes - SaveOrchestrator unified commit endpoint (Agent #126)
 // ✅ FIX #2 (Oct 27, FINAL): Single endpoint for all SaveOrchestrator changes
+// ✅ FIX #5 (Oct 27): Handle empty staging area gracefully
 router.post('/commit-changes', isAuthenticated, async (req, res) => {
   try {
     const { changes, message } = req.body;
@@ -123,6 +124,19 @@ router.post('/commit-changes', isAuthenticated, async (req, res) => {
 
     // Add all changes to git (vibe coding already applied them to disk)
     execSync('git add -A', { encoding: 'utf-8' });
+
+    // Check if there are actually staged changes
+    const gitStatus = execSync('git status --porcelain', { encoding: 'utf-8' }).trim();
+    
+    if (!gitStatus) {
+      console.log('[Git] ⚠️ No staged changes - skipping commit');
+      return res.json({
+        success: true,
+        commitHash: null,
+        filesChanged: 0,
+        message: 'No file changes to commit (changes may have been applied already)'
+      });
+    }
 
     // Generate commit message with change summary
     const changeTypes = changes.reduce((acc, c) => {

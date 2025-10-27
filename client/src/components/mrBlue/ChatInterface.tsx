@@ -573,16 +573,8 @@ export function ChatInterface() {
   // 🚀 VIBE CODING: Detect code requests and execute (Oct 25, 2025)
   // 🎯 BATCH 2: Wire to Visual Editor context (Oct 26, 2025)
   // MB.MD STREAM 1+2: Always-on vibe mode in Visual Editor
+  // ✅ FIX #1 (Oct 27): Remove Visual Editor gate - execute vibe coding from any chat context
   const detectAndExecuteCodeChanges = async (projId: number, userMessage: string) => {
-    // ✅ RELAXED: Only check if we're in Visual Editor at all
-    const isInVisualEditor = !!visualEditorContext;
-    if (!isInVisualEditor) {
-      console.log('🚀 [Vibe] Skipped - not in Visual Editor');
-      return;
-    }
-    
-    console.log('🎯 [BATCH 2] Visual Editor context available:', !!visualEditorContext);
-    
     // ✅ EXPANDED: More comprehensive keyword detection
     const codeKeywords = [
       // Original keywords
@@ -600,19 +592,23 @@ export function ChatInterface() {
       userMessage.toLowerCase().includes(kw)
     );
     
-    // ✅ ALWAYS EXECUTE: If in Visual Editor, assume coding intent
-    // Keywords are just for logging, not blocking
+    // ✅ RELAXED: Execute if keywords detected, regardless of Visual Editor state
+    // Visual Editor context is optional (enhances accuracy if available)
     if (!hasCodeIntent) {
-      console.log('🚀 [Vibe] No keywords detected, executing anyway (Visual Editor mode)');
+      console.log('🚀 [Vibe] No code keywords detected - skipping vibe execution');
+      return;
     }
+    
+    const isInVisualEditor = !!visualEditorContext;
+    console.log(`🚀 [Vibe] Executing with${isInVisualEditor ? '' : 'out'} Visual Editor context`);
     
     console.log('🚀 [Vibe] REPLIT-STYLE: Preparing changes (not applying)...');
     
     try {
-      // Execute vibe coding with Visual Editor context
+      // Execute vibe coding with optional Visual Editor context
       const result = await executeVibeCoding(userMessage, {
-        selectedElement: activeElement,
-        previewPath: previewPath || '/'
+        selectedElement: isInVisualEditor ? activeElement : null,
+        previewPath: isInVisualEditor ? (previewPath || '/') : '/'
       });
       
       console.log('✅ [Vibe] Execution complete:', result);
