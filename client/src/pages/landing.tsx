@@ -90,7 +90,7 @@ export default function Landing() {
                     </div>
 
                     {/* Quick Actions Grid */}
-                    <div className="grid md:grid-cols-2 gap-6">😊
+                    <div className="grid md:grid-cols-3 gap-6">
                       {/* Name Display */}
                       <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
                         <CardHeader className="text-center">
