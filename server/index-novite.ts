@@ -254,8 +254,8 @@ import modelMonitorRoutes from './routes/modelMonitorRoutes';
 app.use('/api/models', modelMonitorRoutes);
 
 // VIBE CODING: File Editing Routes (MB.MD 100% Plan - Oct 26, 2025)
-import vibeEditRoutes from './routes/vibeEditRoutes';
-app.use('/api/vibe', vibeEditRoutes);
+// ❌ OLD: vibeEditRoutes removed - use vibeRoutes instead (Oct 27, 2025)
+// VIBE routes are registered in routes.ts now
 
 // TRACK 3A: Hot Reload Routes (MB.MD 100% Plan - Oct 26, 2025)
 import { createHotReloadRoutes } from './routes/hotReloadRoutes';
