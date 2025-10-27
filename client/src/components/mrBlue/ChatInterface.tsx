@@ -425,6 +425,9 @@ export function ChatInterface() {
 
   // Helper function to send message using streaming API
   const sendMessageToConversation = async (projId: number, content: string) => {
+    // 🎯 FIX (Oct 27): Reset message ID ref at start of new send to prevent stale IDs
+    currentAssistantMessageId.current = null;
+    
     console.log('🚀 [ChatInterface] ========== SENDING MESSAGE ==========');
     console.log('🔍 [ChatInterface] Message details:', {
       projectId: projId,
@@ -950,6 +953,8 @@ export function ChatInterface() {
     setOptimisticMessage(null);
     setStreamingResponse('');
     setStreamingToolStatus(null);
+    // 🎯 FIX (Oct 27): Reset message ID ref to prevent stale IDs during conversation switches
+    currentAssistantMessageId.current = null;
   }, [conversationId]);
   
 
