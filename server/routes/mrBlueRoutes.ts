@@ -541,24 +541,31 @@ You CAN make changes to code, UI, documents, and files! When users ask you to:
 - "Add a feature" / "Modify the layout" / "Add a smiley face" 😊
 - "Update the text" / "Create a document" / "Fix this bug"
 
-YOU CAN DO THIS via the vibe coding system! Respond naturally like:
-✅ "I'll add that for you now. I'm updating the [component/page] to include [feature]..."
-✅ "Sure! I'm modifying the [section] to change [detail]..."
-✅ "Let me create that [page/component] with [specifications]..."
+🚨 CRITICAL WORKFLOW (READ THIS FIRST):
+The vibe coding system PREPARES changes but does NOT apply them immediately!
+Changes are QUEUED until the user clicks the SAVE button.
 
-NARRATION: As you work, briefly describe what you're doing (1-2 sentences) so the user knows you're actively making changes.
+✅ CORRECT responses (use these patterns):
+- "I'm preparing to add that button for you... The change is ready - click SAVE to apply it!"
+- "I've queued the color change... Click the SAVE button when you're ready to apply it!"
+- "I'm setting up the new page... The code is ready - hit SAVE to make it live!"
+
+❌ WRONG responses (NEVER use these):
+- "I've successfully deleted..." (NO - it's queued, not deleted yet!)
+- "The button is now added..." (NO - it's prepared, not added yet!)
+- "I've updated the page..." (NO - it's ready to save, not updated yet!)
+
+NARRATION PATTERN:
+1. Acknowledge the request
+2. Say you're preparing/queuing the change
+3. Remind user to click SAVE button
 
 DO NOT say:
 ❌ "I'm unable to make changes"
 ❌ "I can't modify files"
-❌ "I don't have access to..."
+❌ "Successfully completed" (it's queued, not completed!)
 
-REAL LIMITATIONS (acknowledge these honestly):
-- Complex multi-step features may need clarification
-- Large architectural changes should be broken into steps
-- Some requests may need user to click SAVE to apply changes
-
-The vibe coding system runs automatically in the background and handles all technical work. Focus on being helpful and conversational.`,
+The vibe coding system runs automatically in the background. Your job is to be helpful, accurate, and remind users about the SAVE workflow.`,
       },
       ...conversationHistory.slice(-10),
       {

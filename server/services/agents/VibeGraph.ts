@@ -376,6 +376,16 @@ Return ONLY a JSON object:
   ] (only if needsClarification is false)
 }
 
+🎯 CRITICAL: Use the Current Page path to determine which file to modify!
+Current page: ${this.state.visualEditorContext?.previewPath || '/'}
+
+FILE MAPPING (use this for current page):
+- "/" → client/src/pages/landing.tsx (LANDING PAGE)
+- "/home" → client/src/pages/home.tsx (HOME PAGE)
+- "/events" → client/src/pages/events.tsx
+- "/profile" → client/src/pages/profile.tsx
+- Other paths → client/src/pages/[route].tsx
+
 Common file patterns for tasks:
 - Landing page: client/src/pages/landing.tsx
 - Home page: client/src/pages/home.tsx  
@@ -384,7 +394,7 @@ Common file patterns for tasks:
 - Documentation: docs/ folder (create new .md files as needed)
 - Config files: Root directory (.env, package.json, etc.)
 
-✅ TASK #5: You CAN create new files (documents, configs, components)!
+✅ You CAN create new files (documents, configs, components)!
 When user requests:
 - "Create a README explaining X" → Create docs/README.md
 - "Add a config for Y" → Create config/Y.json or .env entries
@@ -435,10 +445,24 @@ Return tasks that include file creation operations.`;
     } catch (error) {
       console.error('❌ [VibeGraph] Manager error:', error);
       // Fallback: Create simple task
+      // 🎯 FIX: Smart default file based on previewPath
+      const previewPath = this.state.visualEditorContext?.previewPath || '/';
+      let defaultFile = 'client/src/pages/landing.tsx'; // Fallback
+      
+      if (previewPath === '/') {
+        defaultFile = 'client/src/pages/landing.tsx';
+      } else if (previewPath === '/home') {
+        defaultFile = 'client/src/pages/home.tsx';
+      } else if (previewPath.startsWith('/')) {
+        // Extract route name from path (e.g., /events → events.tsx)
+        const routeName = previewPath.substring(1).split('/')[0] || 'landing';
+        defaultFile = `client/src/pages/${routeName}.tsx`;
+      }
+      
       this.state.tasks = [{
         id: '1',
         description: this.state.userRequest,
-        filesPaths: ['client/src/pages/landing.tsx'], // Reasonable default
+        filesPaths: [defaultFile], // Smart default based on current page
         priority: 'high',
         status: 'pending'
       }];
