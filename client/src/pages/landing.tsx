@@ -92,11 +92,6 @@ export default function Landing() {
                     {/* Quick Actions Grid */}
                     <div className="grid md:grid-cols-2 gap-6">😊
                       {/* Name Display */}
-                      <div className="col-span-full mb-4">
-                        <div className="p-4 bg-white/60 rounded-xl border border-turquoise-200/30">
-                          <p className="text-gray-700 font-medium">{user?.name ? `Your name is ${user.name}` : 'Please set your name in profile settings'}</p>
-                        </div>
-                      </div>
                       <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-turquoise-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
