@@ -266,9 +266,9 @@ export default function VisualEditorPage() {
         const newChange = {
           id: `text-edit-${Date.now()}`,
           taskId: 'inline-text-edit',
-          filePath: message.element.filePath || 'unknown',
+          filePath: 'inline-edit',
           diff: `Text changed to: "${message.newText}"`,
-          type: 'text_edit' as const,
+          type: 'search_replace' as const,
           status: 'pending' as const,
           timestamp: new Date(),
           metadata: {
@@ -478,7 +478,6 @@ export default function VisualEditorPage() {
                 <ActivityLogPanel />
               </>
             )}
-            {activeTab === 'preview' && <PreviewTab currentPath={previewUrl} />}
             {activeTab === 'console' && <ConsoleTab />}
             {activeTab === 'deploy' && <DeployTab />}
             {activeTab === 'git' && <GitTab />}
