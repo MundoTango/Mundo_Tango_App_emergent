@@ -594,16 +594,22 @@ export function ChatInterface() {
       userMessage.toLowerCase().includes(kw)
     );
     
-    // ✅ RELAXED: Execute if keywords detected, regardless of Visual Editor state
-    // Visual Editor context is optional (enhances accuracy if available)
-    if (!hasCodeIntent) {
-      console.log('🚀 [Vibe] No code keywords detected - skipping vibe execution');
+    // 🎯 FIX #5 (Oct 27): Bypass keyword filter when Inspector context exists
+    // If user clicked an element, ALWAYS execute vibe coding (Replit-style)
+    const isInVisualEditor = !!visualEditorContext;
+    const hasSelectedElement = !!activeElement;
+    
+    if (!hasCodeIntent && !hasSelectedElement) {
+      console.log('🚀 [Vibe] No code keywords detected and no element selected - skipping vibe execution');
       return;
     }
     
+    if (hasSelectedElement && !hasCodeIntent) {
+      console.log('🎯 [Vibe] Element selected - bypassing keyword filter (Inspector context)');
+    }
+    
     // ✅ FIX #4: Deduplicate vibe executions using request cache
-    // Generate cache key from message + context
-    const isInVisualEditor = !!visualEditorContext;
+    // Generate cache key from message + context  
     const cacheKey = `${userMessage.trim()}_${isInVisualEditor}_${activeElement?.xpath || 'no-element'}`;
     
     // Check if already executing this exact request

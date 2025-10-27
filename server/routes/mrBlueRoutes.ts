@@ -7,8 +7,10 @@
 import express, { Request, Response } from "express";
 import { storage } from "../storage";
 import { getUserId } from "../utils/authHelper";
-import { insertMrBlueConversationSchema, insertMrBlueMessageSchema, insertBreadcrumbSchema } from "../../shared/schema";
+import { insertMrBlueConversationSchema, insertMrBlueMessageSchema, insertBreadcrumbSchema, users } from "../../shared/schema";
 import { z } from "zod";
+import { db } from "../db";
+import { eq } from "drizzle-orm";
 
 // AI service imports (services exist in codebase)
 let aiModelService: any;
@@ -279,11 +281,6 @@ router.post("/stream", async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    // Set headers for SSE
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
-    res.setHeader("Connection", "keep-alive");
-
     const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
     
     // Validate stream request inputs
@@ -298,10 +295,31 @@ router.post("/stream", async (req: Request, res: Response) => {
     // Verify conversation ownership
     const conversation = await storage.getMrBlueConversation(conversationId);
     if (!conversation || conversation.userId !== userIdNum) {
-      res.write(`data: ${JSON.stringify({ error: "Unauthorized" })}\n\n`);
-      res.end();
-      return;
+      return res.status(403).json({ error: "Unauthorized" });
     }
+
+    // 🎯 FIX #6 (Oct 27): Load user profile BEFORE streaming starts
+    // This prevents "headers already sent" errors if profile fetch fails
+    const userProfile = await db
+      .select({
+        name: users.name,
+        email: users.email,
+        role: users.role,
+        nickname: users.nickname,
+        bio: users.bio,
+        subscriptionTier: users.subscriptionTier
+      })
+      .from(users)
+      .where(eq(users.id, userIdNum))
+      .limit(1);
+    
+    const user = userProfile[0];
+    const userContext = user ? `\n\nUser Profile:\n- Name: ${user.name}${user.nickname ? ` (${user.nickname})` : ''}\n- Email: ${user.email}\n- Role: ${user.role}\n- Subscription: ${user.subscriptionTier}${user.bio ? `\n- Bio: ${user.bio}` : ''}` : '';
+
+    // NOW set headers for SSE (after all DB operations that can fail)
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
 
     // Save user message
     const userMessage = await storage.createMrBlueMessage({
@@ -322,7 +340,7 @@ router.post("/stream", async (req: Request, res: Response) => {
     const aiMessages = [
       {
         role: 'system' as const,
-        content: `You are Mr. Blue, powered by ${targetAgent}. ${agentDetails?.description || 'A friendly AI assistant for Mundo Tango.'}`,
+        content: `You are Mr. Blue, powered by ${targetAgent}. ${agentDetails?.description || 'A friendly AI assistant for Mundo Tango.'}${userContext}\n\nIMPORTANT: You have access to the user's profile above. Use their name when appropriate and maintain context of who they are across conversations.`,
       },
       ...messageHistory.slice(-8).map(m => ({
         role: m.role as 'user' | 'assistant',
