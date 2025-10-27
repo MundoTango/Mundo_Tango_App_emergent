@@ -109,9 +109,13 @@ interface TestResult {
 }
 
 /**
- * VibeGraph - LangGraph-inspired state orchestrator
+ * VibeGraph - LangGraph-inspired state orchestrator with MB.MD Integration
  * 
- * Flow:
+ * MB.MD Flow:
+ * MAPPING → BREAKDOWN → MITIGATION → DEPLOYMENT
+ * mappingNode → managerNode → editorNode → architectNode → testerNode → deploymentNode
+ * 
+ * Original Flow (preserved):
  * Manager → Editor → Verifier → (if approved) Tester → Complete
  *                              → (if rejected) Editor (retry)
  *                              → (if test fails) Editor (fix)
