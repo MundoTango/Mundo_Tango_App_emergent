@@ -192,13 +192,17 @@ export function UnifiedVoiceModal({
   // 🎯 BATCH 1 FIX: Request permission via getUserMedia (Oct 26, 2025)
   const startSession = async () => {
     console.log('[UnifiedVoiceModal] 🎬 Starting session...');
+    console.log('[UnifiedVoiceModal] 🔍 Debug - connect function exists?', typeof connect === 'function');
+    console.log('[UnifiedVoiceModal] 🔍 Debug - realtime status before connect:', realtimeStatus);
     setSessionState('starting');
     
     try {
       // ✅ FIX: Request permission by calling startCapture (triggers getUserMedia)
       // This shows the browser permission popup
       console.log('[UnifiedVoiceModal] 📡 Connecting to OpenAI...');
+      console.log('[UnifiedVoiceModal] 📡 About to call connect()...');
       await connect();
+      console.log('[UnifiedVoiceModal] 📡 connect() returned successfully');
       
       // 🎯 ARCHITECT FIX: Wait for connection via ref (live), not state (stale closure) (Oct 24, 2025)
       // Use connectionStatusRef.current - updated by useEffect, readable in closure
@@ -238,7 +242,11 @@ export function UnifiedVoiceModal({
         description: 'Speak naturally - I\'m listening and taking notes!'
       });
     } catch (error: any) {
-      console.error('[UnifiedVoiceModal] Error starting session:', error);
+      console.error('[UnifiedVoiceModal] ❌ Error starting session:', error);
+      console.error('[UnifiedVoiceModal] ❌ Error type:', error?.constructor?.name);
+      console.error('[UnifiedVoiceModal] ❌ Error message:', error?.message);
+      console.error('[UnifiedVoiceModal] ❌ Error stack:', error?.stack);
+      console.error('[UnifiedVoiceModal] ❌ Full error object:', JSON.stringify(error, null, 2));
       setSessionState('error');
       toast({
         title: 'Voice Session Failed',

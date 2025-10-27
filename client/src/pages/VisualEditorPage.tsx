@@ -413,6 +413,25 @@ export default function VisualEditorPage() {
             <p className="text-xs text-gray-400">Cmd+Click to Select • Double-Click to Edit • Delete to Remove</p>
           </div>
         </div>
+        
+        {/* 🔧 FIX #2: SAVE Button (Oct 27, 2025) */}
+        <Button 
+          onClick={handleSave}
+          disabled={saveOrchestrator.getPendingChanges().length === 0}
+          className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          data-testid="button-save-all"
+        >
+          <Save className="h-4 w-4 mr-2" />
+          SAVE
+          {saveOrchestrator.getPendingChanges().length > 0 && (
+            <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold">
+              {saveOrchestrator.getPendingChanges().length}
+            </span>
+          )}
+        </Button>
+        
+        <div className="flex items-center gap-3">
+        </div>
 
         <div className="flex items-center gap-4">
           <Button

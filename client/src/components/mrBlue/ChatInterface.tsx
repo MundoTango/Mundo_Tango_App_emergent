@@ -116,13 +116,25 @@ export function ChatInterface() {
   
   useEffect(() => {
     if (selectedElement) {
-      console.log('💾 [ChatInterface] Persisting element to lastKnownElement');
+      console.log('💾 [ChatInterface] Persisting element to lastKnownElement:', selectedElement);
       setLastKnownElement(selectedElement);
+    } else {
+      console.log('⚪ [ChatInterface] No selectedElement, using lastKnownElement:', lastKnownElement);
     }
-  }, [selectedElement]);
+  }, [selectedElement, lastKnownElement]);
   
-  // Use persisted element if current is null
+  // 🔧 FIX #3: Use persisted element if current is null (Oct 27, 2025)
   const activeElement = selectedElement || lastKnownElement;
+  
+  // Debug: Log activeElement whenever it changes
+  useEffect(() => {
+    console.log('🎯 [ChatInterface] activeElement updated:', {
+      hasSelectedElement: !!selectedElement,
+      hasLastKnownElement: !!lastKnownElement,
+      hasActiveElement: !!activeElement,
+      activeElement
+    });
+  }, [selectedElement, lastKnownElement, activeElement]);
   
   // 🎯 WEEK 0 UNIFICATION: Auto-enable autonomous mode in Visual Editor (Oct 24, 2025)
   const isInVisualEditor = !!visualEditorContext;
