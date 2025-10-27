@@ -4,12 +4,15 @@
  * Opens Replit's Git pane + shows git status via shell commands
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ExternalLink, GitBranch, RefreshCw, Loader2, FileText } from 'lucide-react';
+import { PendingChangesDropdown } from './PendingChangesDropdown';
+import { saveOrchestrator } from '@/services/SaveOrchestrator';
+import { useToast } from '@/hooks/use-toast';
 
 interface GitFileChange {
   status: string;
@@ -24,10 +27,23 @@ interface GitStatusResponse {
 }
 
 export function ReplitGitIntegration() {
-  // MB.MD FIX: Removed refreshKey - no longer needed, refetch() handles refresh
+  const { toast } = useToast();
+  const [pendingCount, setPendingCount] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Subscribe to SaveOrchestrator changes
+  useEffect(() => {
+    const updatePendingCount = (changes: any[]) => {
+      setPendingCount(changes.length);
+    };
+
+    const unsubscribe = saveOrchestrator.subscribe(updatePendingCount);
+    setPendingCount(saveOrchestrator.getPendingChanges().length);
+
+    return unsubscribe;
+  }, []);
 
   // Fetch Git status via real backend API (Stream C - Oct 22, 2025)
-  // MB.MD FIX: Use default queryFn for centralized auth/error handling
   const { data: gitStatus, isLoading, refetch } = useQuery<GitStatusResponse>({
     queryKey: ['/api/git/status'],
     refetchInterval: 5000, // Auto-refresh every 5s
@@ -46,6 +62,49 @@ export function ReplitGitIntegration() {
 
   const handleRefresh = () => {
     refetch();
+  };
+
+  const handleSave = async () => {
+    if (pendingCount === 0) {
+      toast({
+        title: "No Changes",
+        description: "There are no changes to save",
+        duration: 2000
+      });
+      return;
+    }
+
+    setIsSaving(true);
+
+    try {
+      const result = await saveOrchestrator.saveAll();
+
+      if (result.success) {
+        toast({
+          title: "✅ Changes Saved!",
+          description: result.commitHash 
+            ? `Committed to Git: ${result.commitHash.substring(0, 7)}`
+            : result.message,
+          duration: 5000
+        });
+        refetch(); // Refresh Git status
+      } else {
+        toast({
+          title: "Save Failed",
+          description: result.message,
+          variant: "destructive",
+          duration: 5000
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Save Failed",
+        description: error instanceof Error ? error.message : "Unknown error",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -96,6 +155,13 @@ export function ReplitGitIntegration() {
         <CardContent className="space-y-4">
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-2">
+            {/* ✅ NEW: SAVE button with pending changes dropdown */}
+            <PendingChangesDropdown
+              pendingCount={pendingCount}
+              onSave={handleSave}
+              disabled={isSaving}
+            />
+
             <Button
               onClick={async () => {
                 try {
