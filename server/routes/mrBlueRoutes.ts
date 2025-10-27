@@ -450,8 +450,36 @@ The vibe coding system runs automatically in the background and handles all tech
       console.log(`🤖 [Stream] Calling ${model} AI with ${aiMessages.length} messages`);
       console.log(`🔑 [Stream] API Keys available: ANTHROPIC=${!!process.env.ANTHROPIC_API_KEY}, OPENAI=${!!process.env.OPENAI_API_KEY}`);
       
+      // 🚀 REPLIT-STYLE STREAMING: Send MB.MD phase updates
+      const sendStatus = (phase: string, message: string, icon: string = '🔍') => {
+        res.write(`data: ${JSON.stringify({
+          type: 'status',
+          phase,
+          message,
+          icon,
+          messageId: aiMessage.id
+        })}\n\n`);
+      };
+      
+      // MB.MD PHASE 1: MAPPING
+      sendStatus('MAPPING', 'Analyzing your request...', '🔍');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      if (selectedElement) {
+        sendStatus('MAPPING', `Examining selected element: <${selectedElement.tagName}> with class "${selectedElement.className}"`, '🎯');
+        await new Promise(resolve => setTimeout(resolve, 300));
+      }
+      
+      // MB.MD PHASE 2: BREAKDOWN
+      sendStatus('BREAKDOWN', 'Planning response and identifying required actions...', '📋');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
       // Direct instantiation (static import at top of file)
       const orchestrator = new MultiModelOrchestrator();
+      
+      // MB.MD PHASE 3: MITIGATION (AI Response)
+      sendStatus('MITIGATION', `Consulting ${model.includes('claude') ? 'Claude' : 'GPT'} AI...`, '🤖');
+      await new Promise(resolve => setTimeout(resolve, 200));
       
       let fullContent = '';
       let charCount = 0;
@@ -475,6 +503,10 @@ The vibe coding system runs automatically in the background and handles all tech
       }
       
       console.log(`✅ [Stream] AI response complete: ${fullContent.substring(0, 100)}...`);
+      
+      // MB.MD PHASE 4: DEPLOYMENT (Saving to database)
+      sendStatus('DEPLOYMENT', 'Saving response to conversation history...', '💾');
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       // Update final message
       await storage.updateMrBlueMessage(aiMessage.id, {
@@ -484,6 +516,8 @@ The vibe coding system runs automatically in the background and handles all tech
 
       // Update conversation timestamp
       await storage.updateMrBlueConversation(conversationId, { updatedAt: new Date() });
+      
+      sendStatus('COMPLETE', 'Response complete! Changes queued for SAVE button.', '✅');
 
       // Send completion event
       res.write(`data: ${JSON.stringify({ 

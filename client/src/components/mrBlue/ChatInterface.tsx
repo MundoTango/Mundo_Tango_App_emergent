@@ -509,10 +509,23 @@ export function ChatInterface() {
                 try {
                   const parsed = JSON.parse(data);
                   
+                  // 🚀 REPLIT-STYLE: Handle MB.MD phase status updates
+                  if (parsed.type === 'status') {
+                    const phaseEmoji = parsed.icon || '🔍';
+                    const statusMessage = `${phaseEmoji} **${parsed.phase}:** ${parsed.message}`;
+                    console.log(`📡 [Stream Status] ${statusMessage}`);
+                    setStreamingToolStatus(statusMessage);
+                  }
+                  
                   // Display text chunks as they arrive - REAL-TIME STREAMING!
                   if (parsed.type === 'text' && parsed.chunk) {
                     accumulatedResponse += parsed.chunk;
                     setStreamingResponse(accumulatedResponse);
+                    // Clear status when text starts streaming
+                    if (accumulatedResponse.length === parsed.chunk.length) {
+                      // First chunk, keep status visible a bit longer
+                      setTimeout(() => setStreamingToolStatus(null), 500);
+                    }
                   }
                   
                   // Handle tool status updates
@@ -1145,9 +1158,19 @@ export function ChatInterface() {
                 <span className="text-sm font-medium">Mr Blue is thinking...</span>
               </div>
               {streamingToolStatus && (
-                <div className="flex items-center gap-2 px-3 py-2 bg-cyan-50 border border-cyan-200 rounded-lg text-sm">
-                  <span className="animate-pulse">🔧</span>
-                  <span className="text-cyan-800">{streamingToolStatus}</span>
+                <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-300 rounded-lg text-sm shadow-sm">
+                  {/* Extract emoji from status message if present */}
+                  <span className="animate-pulse text-base">
+                    {streamingToolStatus.match(/^(🔍|🎯|📋|🤖|💾|✅)/)?.[0] || '🔧'}
+                  </span>
+                  <span 
+                    className="text-cyan-900 font-medium"
+                    dangerouslySetInnerHTML={{ 
+                      __html: streamingToolStatus
+                        .replace(/^\S+\s+/, '') // Remove leading emoji
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold syntax
+                    }}
+                  />
                 </div>
               )}
             </div>
