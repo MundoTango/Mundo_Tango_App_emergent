@@ -341,13 +341,20 @@ router.post("/stream", async (req: Request, res: Response) => {
     });
 
     try {
-      // Call AI service (streaming)
-      const response = await aiModelService.callAI(aiMessages, model);
-      const fullContent = response.content;
-
-      // Stream response character by character
-      for (let i = 0; i < fullContent.length; i++) {
-        const chunk = fullContent[i];
+      // Call AI orchestrator directly (bypass broken require)
+      console.log(`🤖 [Stream] Calling ${model} AI with ${aiMessages.length} messages`);
+      
+      const { MultiModelOrchestrator } = await import('../services/multiModelOrchestrator.js');
+      const orchestrator = new MultiModelOrchestrator();
+      
+      let fullContent = '';
+      let charCount = 0;
+      
+      // Stream response in real-time from AI
+      for await (const chunk of orchestrator.streamResponse(aiMessages, model)) {
+        fullContent += chunk;
+        charCount++;
+        
         res.write(`data: ${JSON.stringify({ 
           type: 'text',
           chunk,
@@ -355,9 +362,13 @@ router.post("/stream", async (req: Request, res: Response) => {
           done: false 
         })}\n\n`);
         
-        // Simulate typing delay (30ms per character)
-        await new Promise(resolve => setTimeout(resolve, 30));
+        // Small delay for smoother streaming (10ms)
+        if (charCount % 5 === 0) {
+          await new Promise(resolve => setTimeout(resolve, 10));
+        }
       }
+      
+      console.log(`✅ [Stream] AI response complete: ${fullContent.substring(0, 100)}...`);
 
       // Update final message
       await storage.updateMrBlueMessage(aiMessage.id, {
