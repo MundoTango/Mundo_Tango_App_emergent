@@ -9,10 +9,6 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 33369
-externalPort = 8080
-
-[[ports]]
 localPort = 34105
 externalPort = 3003
 
@@ -85,6 +81,6 @@ channel = "stable-25_05"
 packages = ["glib", "nss", "nspr", "atk", "at-spi2-atk", "cups", "dbus", "libdrm", "gtk3", "pango", "cairo", "libxkbcommon", "mesa", "libgbm"]
 
 [deployment]
-deploymentTarget = "autoscale"
-run = ["npm", "start"]
+deploymentTarget = "vm"
+run = ["node", "dist/index.js"]
 build = ["npm", "run", "build"]
