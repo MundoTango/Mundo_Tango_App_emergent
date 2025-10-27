@@ -54,19 +54,33 @@ export function useRealtimeConversation(options: RealtimeOptions = {}) {
       const ws = new WebSocket(wsUrl);
       wsRef.current = ws;
 
-      ws.onopen = () => {
-        console.log('✅ [Realtime] WebSocket CONNECTED to backend');
-        console.log('🔗 [Realtime] WebSocket URL:', wsUrl);
-        console.log('🔗 [Realtime] ReadyState:', ws.readyState);
-        setStatus('connected');
-      };
+      // ✅ FIX (Oct 27): Wait for WebSocket to actually connect before resolving
+      await new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          console.error('[Realtime] ❌ Connection timeout after 10s');
+          ws.close();
+          reject(new Error('WebSocket connection timeout'));
+        }, 10000);
 
-      ws.onerror = (error) => {
-        console.error('❌ [Realtime] WebSocket ERROR:', error);
-        console.error('🔗 [Realtime] WebSocket state:', ws.readyState);
-        setStatus('error');
-      };
+        ws.onopen = () => {
+          clearTimeout(timeout);
+          console.log('✅ [Realtime] WebSocket CONNECTED to backend');
+          console.log('🔗 [Realtime] WebSocket URL:', wsUrl);
+          console.log('🔗 [Realtime] ReadyState:', ws.readyState);
+          setStatus('connected');
+          resolve();
+        };
 
+        ws.onerror = (error) => {
+          clearTimeout(timeout);
+          console.error('❌ [Realtime] WebSocket ERROR:', error);
+          console.error('🔗 [Realtime] WebSocket state:', ws.readyState);
+          setStatus('error');
+          reject(new Error('WebSocket connection failed'));
+        };
+      });
+
+      // Set remaining handlers after connection is established
       ws.onclose = (event) => {
         console.warn('⚠️ [Realtime] WebSocket CLOSED:', event.code, event.reason);
         console.log('🔗 [Realtime] Was clean close?', event.wasClean);
