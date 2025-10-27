@@ -710,7 +710,13 @@ export function ChatInterface() {
             }).catch(err => console.error('[SSE] Broadcast failed:', err));
             
             const editType = change.type === 'new_file' ? 'unified_diff' : (change.type || 'unified_diff');
-            await applyCodeChange(change.filePath, change.diff, editType);
+            const applyResult = await applyCodeChange(change.filePath, change.diff, editType);
+            
+            if (!applyResult.success) {
+              console.error(`❌ [Vibe] Failed to apply ${change.filePath}:`, applyResult.error);
+              throw new Error(`Failed to apply ${change.filePath}: ${applyResult.error}`);
+            }
+            
             console.log(`✅ [Vibe] Applied ${change.filePath} to preview`);
             
             // Emit "file edit success" event
@@ -1146,11 +1152,26 @@ export function ChatInterface() {
                 codeChanges={codeChangesByMessage[message.id]}
                 onApplyCode={async (change) => {
                   const editType = change.type === 'new_file' ? 'unified_diff' : change.type;
-                  await applyCodeChange(change.filePath, change.diff, editType);
+                  const result = await applyCodeChange(change.filePath, change.diff, editType);
+                  
+                  if (!result.success) {
+                    toast({
+                      title: 'Failed to apply change',
+                      description: result.error || 'Unknown error',
+                      variant: 'destructive'
+                    });
+                    return;
+                  }
+                  
                   setCodeChangesByMessage(prev => ({
                     ...prev,
                     [message.id]: prev[message.id]?.filter(c => c !== change) || []
                   }));
+                  
+                  toast({
+                    title: 'Change applied',
+                    description: `Successfully updated ${change.filePath}`
+                  });
                 }}
                 onRejectCode={(change) => {
                   setCodeChangesByMessage(prev => ({

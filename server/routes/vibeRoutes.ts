@@ -116,14 +116,16 @@ router.post('/edit-file', async (req: any, res: Response) => {
     
     const result = await executionPromise;
 
-    // 🚀 STREAM B1: Emit Socket.io event for preview auto-refresh
+    // 🚀 STREAM B1: Emit Socket.io event for preview auto-refresh (ONLY if successful)
     const wsService = getWebSocketService();
-    if (wsService) {
+    if (wsService && result.success) {
       wsService.sendNotification(user.id, {
         type: 'code-updated',
         title: 'Code Updated',
         message: `File ${filePath} modified successfully`
       });
+    } else if (!result.success) {
+      console.error(`❌ [Vibe] Failed to apply edit to ${filePath}:`, result.error);
     }
 
     // 🚀 STREAM C2: Log attribution if provided
