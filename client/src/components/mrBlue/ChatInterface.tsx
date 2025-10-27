@@ -647,6 +647,14 @@ export function ChatInterface() {
           }
         }
         
+        // ✅ FIX #1 (Oct 27, FINAL): Reload preview iframe after vibe coding applies changes
+        console.log('[Vibe] Triggering preview reload...');
+        window.dispatchEvent(new CustomEvent('visual-editor-reload'));
+        toast({ 
+          title: '✨ Changes Applied', 
+          description: `Updated ${result.codeChanges.length} file(s) - preview reloaded` 
+        });
+        
         // Now queue for Git commit via SaveOrchestrator
         const saveOrch = visualEditorContext?.saveOrchestrator;
         if (saveOrch) {

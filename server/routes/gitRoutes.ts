@@ -106,6 +106,59 @@ router.post('/commit', isAuthenticated, async (req, res) => {
   }
 });
 
+// POST /api/git/commit-changes - SaveOrchestrator unified commit endpoint (Agent #126)
+// ✅ FIX #2 (Oct 27, FINAL): Single endpoint for all SaveOrchestrator changes
+router.post('/commit-changes', isAuthenticated, async (req, res) => {
+  try {
+    const { changes, message } = req.body;
+
+    if (!changes || !Array.isArray(changes) || changes.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'No changes provided'
+      });
+    }
+
+    console.log(`[Git] Committing ${changes.length} SaveOrchestrator changes...`);
+
+    // Add all changes to git (vibe coding already applied them to disk)
+    execSync('git add -A', { encoding: 'utf-8' });
+
+    // Generate commit message with change summary
+    const changeTypes = changes.reduce((acc, c) => {
+      acc[c.type] = (acc[c.type] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const summary = Object.entries(changeTypes)
+      .map(([type, count]) => `${count} ${type}`)
+      .join(', ');
+
+    const commitMsg = message || `Visual Editor: ${summary}`;
+    const escapedMsg = commitMsg.replace(/"/g, '\\"');
+    
+    execSync(`git commit -m "${escapedMsg}"`, { encoding: 'utf-8' });
+
+    // Get commit hash
+    const commitHash = execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim();
+
+    console.log(`[Git] ✅ Commit ${commitHash.substring(0, 7)}: ${commitMsg}`);
+
+    res.json({
+      success: true,
+      commitHash,
+      filesChanged: changes.length,
+      message: 'Changes committed successfully'
+    });
+  } catch (error) {
+    console.error('[Git] Commit error:', error);
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to commit changes'
+    });
+  }
+});
+
 // GET /api/git/log - Get commit history
 router.get('/log', isAuthenticated, async (req, res) => {
   try {

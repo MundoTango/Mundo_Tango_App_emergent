@@ -103,9 +103,13 @@ export function UnifiedVoiceModal({
     voice: voiceSettings.voice as any,
     instructions: 'You are Mr Blue, a helpful AI assistant for the Mundo Tango community. Be conversational, friendly, and concise in your voice responses.',
     onEvent: (event) => {
+      // ✅ FIX #5 (Oct 27, FINAL): Add comprehensive debug logging
+      console.log('🎤 [Voice] Realtime event:', event.type, event);
+      
       if (event.type === 'response.audio_transcript.delta') {
         setTranscript(prev => prev + event.delta);
       } else if (event.type === 'error') {
+        console.error('🎤 [Voice] ERROR event received:', event.error);
         toast({
           title: 'Voice Error',
           description: event.error.message,

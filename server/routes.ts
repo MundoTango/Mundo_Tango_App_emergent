@@ -121,6 +121,7 @@ import { intelligentMonitor } from "./services/intelligentPerformanceMonitor"; /
 import { lifeCeoEnhanced } from "./services/lifeCeoEnhancedService"; // Life CEO Enhanced Service
 import { startModelMonitoringCron } from "./services/modelMonitorCron"; // Model Monitoring Cron
 import filesApiRoutes from "./routes/filesApi"; // Enhanced Files API
+import aiStreamRoutes from "./routes/aiStreamRoutes"; // AI Work Feed SSE Streaming - MB.MD SIMULTANEOUS Build - Oct 27, 2025
 
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
@@ -1475,6 +1476,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
   app.use('/api/vibe', isAuthenticated, vibeRoutes); // Vibe Coding: edit-file, map-repository, execute (Agent #131 - Oct 23, 2025)
+  app.use('/api/ai', isAuthenticated, aiStreamRoutes); // AI Work Feed SSE Streaming - Real-time activity feed (MB.MD SIMULTANEOUS - Oct 27, 2025)
   app.use('/api/deploy', deployRoutes); // Staging & production deployment
   app.use('/api/models', modelMonitorRoutes); // Model monitoring & auto-update - Stream G - Oct 22, 2025
   app.use('/api/quality', qualityRoutes); // Quality validation & testing - Agent #79 - Phase 3 Stream 4
