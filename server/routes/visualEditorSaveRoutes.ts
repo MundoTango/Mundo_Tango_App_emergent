@@ -338,6 +338,7 @@ router.post('/apply-structure', async (req: Request, res: Response) => {
 /**
  * POST /api/visual-editor/save
  * Universal Save - Save all changes at once
+ * ✅ FIX #3 (Oct 27): Implement real file I/O using unified diff editor
  */
 router.post('/save', async (req: Request, res: Response) => {
   if (!req.user) {
@@ -355,32 +356,169 @@ router.post('/save', async (req: Request, res: Response) => {
     
     // Group changes by type
     const grouped = {
-      style: changes.filter(c => c.changeType === 'style'),
-      content: changes.filter(c => c.changeType === 'content'),
-      layout: changes.filter(c => c.changeType === 'layout'),
-      delete: changes.filter(c => c.changeType === 'delete')
+      style: changes.filter((c: any) => c.changeType === 'style'),
+      content: changes.filter((c: any) => c.changeType === 'content'),
+      layout: changes.filter((c: any) => c.changeType === 'layout'),
+      delete: changes.filter((c: any) => c.changeType === 'delete'),
+      diff: changes.filter((c: any) => c.changeType === 'diff' || c.type === 'unified_diff')
     };
 
     console.log('[VisualEditor] Changes breakdown:', {
       style: grouped.style.length,
       content: grouped.content.length,
       layout: grouped.layout.length,
-      delete: grouped.delete.length
+      delete: grouped.delete.length,
+      diff: grouped.diff.length
     });
 
-    // TODO: Implement actual file modification
-    // For now, acknowledge the save
+    // ✅ FIX #3 (Oct 27): Apply all changes using existing endpoints logic
+    const results = [];
+    let hasValidationError = false;
+    let totalSuccess = 0;
+    
+    // Apply style changes
+    for (const change of grouped.style) {
+      try {
+        const validatedPath = validateFilePath(change.filePath);
+        const success = await applyTextReplacementAST(
+          validatedPath, 
+          change.oldValue, 
+          change.newValue
+        );
+        
+        if (success) {
+          execFileSync('git', ['add', validatedPath], { cwd: process.cwd() });
+          results.push({ filePath: change.filePath, changeType: 'style', success: true });
+          totalSuccess++;
+        } else {
+          results.push({ filePath: change.filePath, changeType: 'style', success: false, error: 'Text not found' });
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        results.push({ 
+          filePath: change.filePath, 
+          changeType: 'style',
+          success: false, 
+          error: errorMessage
+        });
+      }
+    }
+    
+    // Apply content changes
+    for (const change of grouped.content) {
+      try {
+        const validatedPath = validateFilePath(change.filePath);
+        const success = await applyTextReplacementAST(
+          validatedPath, 
+          change.oldText, 
+          change.newText
+        );
+        
+        if (success) {
+          execFileSync('git', ['add', validatedPath], { cwd: process.cwd() });
+          results.push({ filePath: change.filePath, changeType: 'content', success: true });
+          totalSuccess++;
+        } else {
+          results.push({ filePath: change.filePath, changeType: 'content', success: false, error: 'Text not found' });
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        results.push({ 
+          filePath: change.filePath, 
+          changeType: 'content',
+          success: false, 
+          error: errorMessage
+        });
+      }
+    }
+    
+    // Apply delete changes
+    for (const change of grouped.delete) {
+      try {
+        const validatedPath = validateFilePath(change.filePath);
+        const success = await deleteElementByTextAST(
+          validatedPath, 
+          change.elementText
+        );
+        
+        if (success) {
+          execFileSync('git', ['add', validatedPath], { cwd: process.cwd() });
+          results.push({ filePath: change.filePath, changeType: 'delete', success: true });
+          totalSuccess++;
+        } else {
+          results.push({ filePath: change.filePath, changeType: 'delete', success: false, error: 'Element not found' });
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        results.push({ 
+          filePath: change.filePath, 
+          changeType: 'delete',
+          success: false, 
+          error: errorMessage
+        });
+      }
+    }
+    
+    // Apply unified diff changes
+    for (const change of grouped.diff) {
+      try {
+        const validatedPath = validateFilePath(change.filePath);
+        const editor = createDiffEditor();
+        const result = await editor.applyUnifiedDiff(validatedPath, change.diff);
+        
+        if (result.success) {
+          execFileSync('git', ['add', validatedPath], { cwd: process.cwd() });
+          results.push({ filePath: change.filePath, changeType: 'diff', success: true });
+          totalSuccess++;
+        } else {
+          results.push({ filePath: change.filePath, changeType: 'diff', success: false, error: result.error });
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        if (errorMessage.includes('Invalid file') || errorMessage.includes('not allowed')) {
+          hasValidationError = true;
+        }
+        results.push({ 
+          filePath: change.filePath, 
+          changeType: 'diff',
+          success: false, 
+          error: errorMessage
+        });
+      }
+    }
+    
+    // If all changes failed due to validation errors, return 403
+    if (hasValidationError && totalSuccess === 0) {
+      return res.status(403).json({
+        error: 'Invalid file paths detected',
+        message: 'One or more file paths failed security validation',
+        results
+      });
+    }
+    
+    console.log(`[VisualEditor] ✅ Universal Save complete: ${totalSuccess}/${changes.length} changes applied`);
     
     res.json({ 
-      success: true, 
-      message: `Saved ${changes.length} changes successfully`,
+      success: totalSuccess > 0, 
+      message: `Saved ${totalSuccess}/${changes.length} changes successfully`,
       savedAt,
       breakdown: {
         style: grouped.style.length,
         content: grouped.content.length,
         layout: grouped.layout.length,
-        delete: grouped.delete.length
-      }
+        delete: grouped.delete.length,
+        diff: grouped.diff.length
+      },
+      results
     });
   } catch (error) {
     console.error('[VisualEditor] Error saving changes:', error);

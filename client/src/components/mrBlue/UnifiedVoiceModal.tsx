@@ -64,11 +64,7 @@ export function UnifiedVoiceModal({
   const [showSettings, setShowSettings] = useState(false);
   const [isProcessingSummary, setIsProcessingSummary] = useState(false);
   
-  // 🎯 WEEK 0 FIX: Connection status tracking (Oct 24, 2025)
-  const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
-  
-  // 🎯 ARCHITECT FIX: Use ref for live polling access (Oct 24, 2025)
-  const connectionStatusRef = useRef<'disconnected' | 'connecting' | 'connected'>('disconnected');
+  // ✅ FIX #1 (Oct 27): Removed duplicate state - use realtimeStatus directly from hook
   
   // 🚀 STREAM 3: Voice-to-vibe coding integration (Oct 25, 2025)
   const [isExecutingCode, setIsExecutingCode] = useState(false);
@@ -119,22 +115,7 @@ export function UnifiedVoiceModal({
     }
   });
   
-  // 🎯 WEEK 0 FIX: Update connection status when realtime status changes (Oct 24, 2025)
-  // 🎯 ARCHITECT FIX: Also update ref for live polling access (Oct 24, 2025)
-  useEffect(() => {
-    let newStatus: 'disconnected' | 'connecting' | 'connected' = 'disconnected';
-    
-    if (realtimeStatus === 'connected') {
-      newStatus = 'connected';
-    } else if (realtimeStatus === 'connecting') {
-      newStatus = 'connecting';
-    } else {
-      newStatus = 'disconnected';
-    }
-    
-    setConnectionStatus(newStatus);
-    connectionStatusRef.current = newStatus; // Update ref for live polling
-  }, [realtimeStatus]);
+  // ✅ FIX #1 (Oct 27): Removed state sync useEffect - using realtimeStatus directly
 
   // Audio capture
   const {
@@ -145,16 +126,14 @@ export function UnifiedVoiceModal({
   } = useAudioCapture({
     onAudioData: (audioData) => {
       console.log('🎤 [VoiceModal] Audio captured:', audioData.byteLength, 'bytes');
-      console.log('🔗 [VoiceModal] Connection status:', connectionStatus);
       console.log('🔗 [VoiceModal] Realtime status:', realtimeStatus);
       
-      // 🎯 WEEK 0 FIX: Use connectionStatus instead of realtimeStatus (Oct 24, 2025)
-      if (connectionStatus === 'connected') {
+      // ✅ FIX #1 (Oct 27): Use realtimeStatus directly - single source of truth
+      if (realtimeStatus === 'connected') {
         console.log('✅ [VoiceModal] Sending audio to WebSocket...');
         sendAudio(audioData);
       } else {
         console.error('❌ [VoiceModal] NOT sending audio - WebSocket not connected!');
-        console.error('   Current status:', connectionStatus);
         console.error('   Realtime status:', realtimeStatus);
       }
     }
@@ -208,27 +187,24 @@ export function UnifiedVoiceModal({
       await connect();
       console.log('[UnifiedVoiceModal] 📡 connect() returned successfully');
       
-      // 🎯 ARCHITECT FIX: Wait for connection via ref (live), not state (stale closure) (Oct 24, 2025)
-      // Use connectionStatusRef.current - updated by useEffect, readable in closure
+      // ✅ FIX #1 (Oct 27): Poll realtimeStatus directly - no ref needed
       console.log('[UnifiedVoiceModal] ⏳ Waiting for connection...');
       await new Promise<void>((resolve, reject) => {
         const timeout = setTimeout(() => {
-          console.error('[UnifiedVoiceModal] ⏱️ Connection timeout after 10s, status was:', connectionStatusRef.current);
+          console.error('[UnifiedVoiceModal] ⏱️ Connection timeout after 10s, status was:', realtimeStatus);
           reject(new Error('Connection timeout'));
         }, 10000); // 10 second timeout
         
-        // Check every 100ms - ref.current reads LIVE value from useEffect
+        // Check every 100ms - realtimeStatus updated by hook
         const checkConnection = setInterval(() => {
-          const currentStatus = connectionStatusRef.current; // ✅ Reads live value
-          console.log('[UnifiedVoiceModal] 🔍 Polling live status via ref:', currentStatus);
+          console.log('[UnifiedVoiceModal] 🔍 Polling realtime status:', realtimeStatus);
           
-          if (currentStatus === 'connected') {
+          if (realtimeStatus === 'connected') {
             clearTimeout(timeout);
             clearInterval(checkConnection);
-            console.log('[UnifiedVoiceModal] ✅ Connection confirmed via ref!');
+            console.log('[UnifiedVoiceModal] ✅ Connection confirmed!');
             resolve();
-          } else if (currentStatus === 'disconnected' && realtimeStatus === 'error') {
-            // Error state detected
+          } else if (realtimeStatus === 'error') {
             clearTimeout(timeout);
             clearInterval(checkConnection);
             console.error('[UnifiedVoiceModal] ❌ Connection error detected');
@@ -534,7 +510,7 @@ export function UnifiedVoiceModal({
                 onClick={() => {
                   console.log('🎤 [DEBUG] Start Voice button clicked!');
                   console.log('🎤 [DEBUG] Current sessionState:', sessionState);
-                  console.log('🎤 [DEBUG] Connection status:', connectionStatus);
+                  console.log('🎤 [DEBUG] Realtime status:', realtimeStatus);
                   startSession();
                 }}
                 className="bg-teal-600 hover:bg-teal-700 text-white"
