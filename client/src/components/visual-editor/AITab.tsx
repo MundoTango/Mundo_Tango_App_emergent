@@ -58,17 +58,39 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
     
     setIsGenerating(true);
     try {
-      // Call vibe coding API with visual editor context
+      // 🎯 EXECUTION MODE INTEGRATION (Oct 28, 2025)
+      if (executionMode === 'plan') {
+        // Plan mode: Show what will be done, ask for clarification
+        toast({
+          title: '📋 Planning Mode Active',
+          description: 'AI will analyze your request and ask clarifying questions before generating code',
+          duration: 3000,
+        });
+      }
+      
+      // Call vibe coding API with visual editor context AND execution mode
       const result = await executeVibeCoding(aiPrompt, {
         selectedElement,
-        previewPath: window.location.pathname
+        previewPath: window.location.pathname,
+        executionMode: executionMode, // Pass mode to backend
       });
+
+      // 🎯 PLAN MODE: If AI needs clarification, show question
+      if (executionMode === 'plan' && result.status === 'needs_clarification') {
+        toast({
+          title: '❓ Clarification Needed',
+          description: result.clarificationQuestion || 'Please provide more details',
+          duration: 5000,
+        });
+        setAiPrompt(result.clarificationQuestion || '');
+        return; // Don't generate code yet
+      }
 
       // Show generated code changes
       setCodeChanges(result.codeChanges);
       
       toast({
-        title: 'Code Generated! ✨',
+        title: executionMode === 'plan' ? 'Plan Complete! ✨' : 'Code Generated! ✨',
         description: `${result.codeChanges.length} file(s) will be modified`,
       });
       

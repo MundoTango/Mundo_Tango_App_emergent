@@ -283,7 +283,8 @@ router.post('/execute', async (req: any, res: Response) => {
   }
 
   try {
-    const { request, visualEditorContext } = req.body;
+    // 🎯 EXECUTION MODE (Oct 28, 2025): Support planning/building modes
+    const { request, visualEditorContext, executionMode = 'build' } = req.body;
 
     if (!request) {
       return res.status(400).json({ error: 'request is required' });
@@ -294,6 +295,26 @@ router.post('/execute', async (req: any, res: Response) => {
     if (!user) {
       return res.status(403).json({ error: 'User not found' });
     }
+
+    // 🎯 PLAN MODE (Oct 28, 2025): Return clarification questions before executing
+    if (executionMode === 'plan') {
+      console.log(`📋 [Vibe Plan] Analyzing request for clarification: "${request.substring(0, 50)}..."`);
+      
+      // Generate clarification question based on request
+      const clarificationQuestion = `I understand you want to: "${request}"\n\nBefore I make these changes, can you confirm:\n1. Which specific ${visualEditorContext?.selectedElement ? 'element' : 'component'} should I modify?\n2. Should this change apply to just this page or throughout the app?\n3. Any specific design preferences (colors, spacing, etc.)?`;
+      
+      return res.json({
+        status: 'needs_clarification',
+        clarificationQuestion,
+        codeChanges: [],
+        tasks: [],
+        testResults: null,
+        errors: []
+      });
+    }
+
+    // 🚀 BUILD MODE (Oct 28, 2025): Execute immediately
+    console.log(`🚀 [Vibe Build] Executing immediately: "${request.substring(0, 50)}..."`);
 
     // ✅ FIX #4: Deduplicate identical concurrent execute requests (per-user)
     const elementXPath = visualEditorContext?.selectedElement?.xpath || 'no-element';

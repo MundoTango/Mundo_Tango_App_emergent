@@ -468,6 +468,8 @@ export function ChatInterface() {
           // 🚨 MB.MD FIX (Oct 27): Send selected element context to backend
           selectedElement: activeElement,
           previewPath: previewPath || '/',
+          // 🎯 EXECUTION MODE (Oct 28, 2025): Send mode to backend
+          executionMode: executionMode, // 'plan' or 'build'
         }),
       });
 
@@ -1300,14 +1302,15 @@ export function ChatInterface() {
               </span>
               
               {/* 🎯 AUTO-QUEUE BADGE: Show queued changes (Oct 28, 2025) */}
-              {visualEditorContext?.pendingChangesCount > 0 && (
+              {visualEditorContext && visualEditorContext.pendingChangesCount > 0 && (
                 <div className="ml-auto">
                   <AutoQueueBadge 
                     count={visualEditorContext.pendingChangesCount}
                     onClick={() => {
                       // Open save dialog or show changes
+                      const count = visualEditorContext.pendingChangesCount;
                       toast({
-                        title: `${visualEditorContext.pendingChangesCount} changes queued`,
+                        title: `${count} changes queued`,
                         description: 'Click SAVE button to commit all changes',
                       });
                     }}

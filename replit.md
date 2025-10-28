@@ -49,6 +49,24 @@ Before ANY build plan, agents MUST:
 - **Forbidden Claims:** "Logs show working", "Code compiles", "State updated" - ONLY visual UI proof acceptable
 - **See:** `docs/UPGRADED_UI_TESTING_PROTOCOL.md` for mandatory verification steps
 
+### Recent Updates (October 28, 2025)
+
+**MB.MD Autonomous Mode - Phase 1 Rollout (Super Admin Only):**
+- ✅ **Rule 7 Added** - Intensive comprehensive testing now mandatory (`docs/MB_MD_QA_PROTOCOL.md`)
+- ✅ **Planning/Building Mode** - Toggle added to Mr Blue Chat AND Visual Editor AITab
+  - "Plan" mode: AI asks clarifying questions before execution
+  - "Build" mode: Immediate execution to preview
+  - executionMode sent to backend for processing
+- ✅ **Purple Bounding Box** - Element selection visual indicator (Playwright test-ready)
+- ✅ **Auto-Queue Badge** - Shows queued changes count, wired to Universal Save System
+- ✅ **Feature Flags API** - `/admin/feature-flags` endpoints for management (super admin only)
+- ✅ **Autonomous Features Enabled** - Controlled Phase 1 rollout:
+  - `mbmd-autonomous` - enabled for super_admin group
+  - `mbmd-voice-evidence` - enabled for super_admin group
+  - `mbmd-architect-review` - enabled for super_admin group
+- ✅ **MB.MD Routes Registered** - `/api/mbmd/*` session management API integrated
+- ✅ **Comprehensive Testing** - 6 Playwright projects, 8 specs, evidence collection system
+
 ### System Architecture
 
 **UI/UX Decisions:**

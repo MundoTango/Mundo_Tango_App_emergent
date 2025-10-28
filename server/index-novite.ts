@@ -265,6 +265,10 @@ app.use('/api/voice', voiceRoutes);
 import barkRoutes from './routes/barkRoutes';
 app.use('/api/bark', barkRoutes);
 
+// MB.MD Session Management API (Oct 28, 2025)
+import mbmdRoutes from './routes/mbmdRoutes';
+app.use('/api/mbmd', mbmdRoutes);
+
 // VIBE CODING: File Editing Routes (MB.MD 100% Plan - Oct 26, 2025)
 // ❌ OLD: vibeEditRoutes removed - use vibeRoutes instead (Oct 27, 2025)
 // VIBE routes are registered in routes.ts now
