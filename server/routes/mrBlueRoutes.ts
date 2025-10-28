@@ -57,6 +57,43 @@ const router = express.Router();
 
 // ==================== CONVERSATION MANAGEMENT ====================
 
+// 🎯 PHASE 2B: Get or create Visual Editor conversation (idempotent)
+router.get("/visual-editor/conversation", async (req: Request, res: Response) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const userIdNum = typeof userId === 'string' ? parseInt(userId) : userId;
+
+    // Check if Visual Editor conversation exists (by context pattern)
+    const existingConversations = await storage.getUserMrBlueConversations(userIdNum, 100);
+    const veConversation = existingConversations.find(c => 
+      c.context && typeof c.context === 'object' && (c.context as any).source === 'visual-editor'
+    );
+
+    if (veConversation) {
+      console.log(`✅ [VE Conversation] Found existing conversation ${veConversation.id} for user ${userIdNum}`);
+      return res.json(veConversation);
+    }
+
+    // Create new Visual Editor conversation
+    const newConversation = await storage.createMrBlueConversation({
+      userId: userIdNum,
+      title: 'Visual Editor Workspace',
+      context: { source: 'visual-editor', createdAt: new Date().toISOString() },
+      agentMode: 'chat'
+    });
+
+    console.log(`✨ [VE Conversation] Created new conversation ${newConversation.id} for user ${userIdNum}`);
+    res.json(newConversation);
+  } catch (error) {
+    console.error("Error getting/creating Visual Editor conversation:", error);
+    res.status(500).json({ error: "Failed to get Visual Editor conversation" });
+  }
+});
+
 // Get all conversations for current user
 router.get("/conversations", async (req: Request, res: Response) => {
   try {

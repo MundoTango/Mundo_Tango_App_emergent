@@ -38,6 +38,10 @@ export interface VisualEditorContextType {
   setPendingAIPrompt: (prompt: string | null) => void;
   // 🔧 FIX #2 (Oct 27): SaveOrchestrator instance for SAVE button integration (optional - only in Visual Editor)
   saveOrchestrator?: SaveOrchestrator;
+  // 🎯 PHASE 2B (Oct 28): Mr Blue conversation ID for Visual Editor AI features
+  activeConversationId: number | null;
+  setActiveConversationId: (id: number | null) => void;
+  isLoadingConversation: boolean;
 }
 
 const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
@@ -53,6 +57,9 @@ export function VisualEditorProvider({ children, saveOrchestrator }: VisualEdito
   const [previewPath, setPreviewPath] = useState<string>('/'); // Default to homepage
   const [pendingCodeChanges, setPendingCodeChanges] = useState<CodeChange[]>([]);
   const [pendingAIPrompt, setPendingAIPrompt] = useState<string | null>(null);
+  // 🎯 PHASE 2B: Mr Blue conversation state
+  const [activeConversationId, setActiveConversationId] = useState<number | null>(null);
+  const [isLoadingConversation, setIsLoadingConversation] = useState(false);
   
   // 🐛 DEBUG: Log when context updates
   const handleSetSelectedElement = (element: ElementSelection | null) => {
@@ -97,7 +104,11 @@ export function VisualEditorProvider({ children, saveOrchestrator }: VisualEdito
         clearCodeChanges,
         pendingAIPrompt,
         setPendingAIPrompt,
-        saveOrchestrator // ✅ FIX (Oct 27): Pass SaveOrchestrator to context
+        saveOrchestrator, // ✅ FIX (Oct 27): Pass SaveOrchestrator to context
+        // 🎯 PHASE 2B: Mr Blue conversation integration
+        activeConversationId,
+        setActiveConversationId,
+        isLoadingConversation
       }}
     >
       {children}

@@ -43,17 +43,20 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
   const handleApplySuggestion = async (prompt: string) => {
     setIsGenerating(true);
     try {
-      // 🎯 PHASE 1 FIX: ElementInspector needs Mr Blue conversation integration
+      // 🎯 PHASE 2B: Use Visual Editor conversation (requires context from wrapper)
+      // Note: This component is called from multiple places, not all have VE context
+      // For now, show helpful message directing to proper flow
       toast({
-        title: 'Integration Required',
-        description: 'Please use Mr Blue Chat for AI suggestions. Element Inspector AI integration coming soon.',
-        variant: 'destructive'
+        title: 'Use Visual Editor AI Tab',
+        description: 'For AI-powered suggestions, use the AI tab in Visual Editor panel.',
+        variant: 'default',
+        duration: 4000
       });
       setIsGenerating(false);
       return;
       
-      // TODO: Integrate with Mr Blue conversations
-      // const conversationId = getMrBlueConversation();
+      // TODO: Wire VisualEditorContext to ElementInspector usage sites
+      // const conversationId = visualEditorContext?.activeConversationId;
       // const result = await executeVibeCoding(conversationId, prompt, { ... });
       
       setPendingChanges(result.codeChanges);

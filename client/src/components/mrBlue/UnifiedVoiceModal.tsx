@@ -21,6 +21,7 @@ import { VoiceSelector } from './VoiceSelector';
 import { useToast } from '@/hooks/use-toast';
 import { executeVibeCoding, applyCodeChange } from '@/lib/vibeApi';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
+import { useVisualEditorConversation } from '@/hooks/useVisualEditorConversation';
 
 interface SelectedElement {
   tagName: string;
@@ -70,6 +71,9 @@ export function UnifiedVoiceModal({
   const [isExecutingCode, setIsExecutingCode] = useState(false);
   const [lastProcessedLength, setLastProcessedLength] = useState(0); // Track processed transcript
   const visualEditorContext = useVisualEditorOptional();
+  
+  // 🎯 PHASE 2B: Load Visual Editor conversation on mount
+  useVisualEditorConversation();
   
   // 🎯 BATCH 1 FIX: Manual start button for permission request (Oct 26, 2025)
   const [sessionState, setSessionState] = useState<'idle' | 'starting' | 'active' | 'error'>('idle');
@@ -262,20 +266,24 @@ export function UnifiedVoiceModal({
     
     setIsExecutingCode(true);
     try {
-      // 🎯 PHASE 1 FIX: Voice modal needs active Mr Blue conversation
-      // For now, skip execution until proper integration
-      console.warn('⚠️ [Voice] Skipping code execution - requires Mr Blue conversation integration');
-      toast({
-        title: 'Integration Required',
-        description: 'Voice-to-code requires an active Mr Blue conversation. Coming soon!',
-        variant: 'destructive'
-      });
-      setIsExecutingCode(false);
-      return;
+      // 🎯 PHASE 2B: Use Visual Editor conversation from context
+      if (!visualEditorContext?.activeConversationId) {
+        console.warn('⚠️ [Voice] No active conversation - skipping execution');
+        toast({
+          title: 'Loading AI Context',
+          description: 'AI workspace still initializing...',
+          variant: 'default'
+        });
+        setIsExecutingCode(false);
+        return;
+      }
+
+      const conversationId = visualEditorContext.activeConversationId;
       
-      // TODO: Get conversation ID from Mr Blue context
-      // const conversationId = mrBlueContext?.activeConversationId;
-      // const result = await executeVibeCoding(conversationId, newTranscript, { ... });
+      const result = await executeVibeCoding(conversationId, newTranscript, {
+        selectedElement: selectedElement || null,
+        previewPath: visualEditorContext.previewPath || '/'
+      });
       
       console.log(`🎧 [Voice] Generated ${result.codeChanges.length} code changes`);
       

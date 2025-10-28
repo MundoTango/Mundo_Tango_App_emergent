@@ -13,6 +13,7 @@ import { DiffPreviewCard } from './DiffPreviewCard';
 import { executeVibeCoding, applyCodeChange, type CodeChange } from '@/lib/vibeApi';
 import { useToast } from '@/hooks/use-toast';
 import type { VisualEditorContextType } from '@/contexts/VisualEditorContext';
+import { useVisualEditorConversation } from '@/hooks/useVisualEditorConversation';
 
 interface SelectedElement {
   tag: string;
@@ -36,6 +37,9 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
   
   // 🎯 PLANNING/BUILDING MODE: User can clarify work before execution (Oct 28, 2025)
   const [executionMode, setExecutionMode] = useState<'plan' | 'build'>('plan');
+  
+  // 🎯 PHASE 2B: Load Visual Editor conversation on mount
+  useVisualEditorConversation();
 
   // ✅ ARCHITECT FIX v2: Watch VisualEditorContext for pending AI prompt (React pattern)
   useEffect(() => {
@@ -68,19 +72,28 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
         });
       }
       
-      // 🎯 PHASE 1 FIX: AITab needs Mr Blue conversation integration
-      // For now, show error until proper integration is complete
-      toast({
-        title: 'Integration Required',
-        description: 'Please use Mr Blue Chat for AI-powered code generation. Visual Editor AI integration coming soon.',
-        variant: 'destructive',
-        duration: 5000
-      });
-      return;
+      // 🎯 PHASE 2B: Use Visual Editor conversation from context
+      if (!visualEditorContext?.activeConversationId) {
+        toast({
+          title: 'Loading AI Context',
+          description: 'Please wait while AI workspace initializes...',
+          variant: 'default'
+        });
+        return;
+      }
+
+      const conversationId = visualEditorContext.activeConversationId;
       
-      // TODO: Integrate with Mr Blue to get conversationId
-      // const conversationId = getMrBlueConversation(); 
-      // const result = await executeVibeCoding(conversationId, aiPrompt, { ... });
+      // Call vibe coding API with visual editor context AND execution mode
+      const result = await executeVibeCoding(
+        conversationId,
+        aiPrompt,
+        {
+          selectedElement,
+          previewPath: window.location.pathname,
+          executionMode
+        }
+      );
 
       // 🎯 PLAN MODE: If AI needs clarification, show question
       if (executionMode === 'plan' && result.status === 'needs_clarification') {
