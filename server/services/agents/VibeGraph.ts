@@ -146,6 +146,8 @@ export class VibeGraph {
   private enableAutonomousMode: boolean;
   private documentationAgent: DocumentationAgent;
   private mbmdLogger = createMBMDLogger('vibe-graph', undefined);
+  // WS1: MB.MD session tracking (Oct 28, 2025)
+  private mbmdSessionId: number | null = null;
 
   constructor(
     userRequest: string,
@@ -193,6 +195,15 @@ export class VibeGraph {
    */
   async execute(): Promise<VibeState> {
     try {
+      // WS1: Start MB.MD session (Oct 28, 2025)
+      const { mbmdSessionManager } = await import('../mbmd/SessionManager.js');
+      this.mbmdSessionId = await mbmdSessionManager.startSession({
+        feature: 'vibe_coding',
+        userId: this.state.user.id,
+        executionMode: this.state.executionMode || 'FOCUSED'
+      });
+      console.log(`🎯 [VibeGraph] MB.MD Session started: ${this.mbmdSessionId}`);
+
       // 🚀 PHASE 1: Initialize session tracking
       if (this.sessionManager) {
         this.sessionManager.updateMetrics({
@@ -682,35 +693,53 @@ Generate unified diffs to complete this task. Wrap each diff in \`\`\`diff block
     console.log(`🏛️  [VibeGraph] Architect reviewing ${changes.length} code changes...`);
 
     try {
-      // For now, use simplified review logic
-      // TODO: Integrate with ArchitectReviewService
+      // WS1: Real ArchitectAgent review (Oct 28, 2025)
+      // Replaces auto-approve stub
+      const architectAgent = new ArchitectAgent();
       
-      const allApproved = true; // Simplified for MVP
-      const issues: string[] = [];
-      const suggestions: string[] = [];
+      // Build evidence package
+      const evidencePackage = {
+        codeChanges: changes.map(c => ({
+          filePath: c.filePath,
+          diff: c.diff,
+          type: c.type
+        })),
+        screenshots: [], // TODO: Integrate screenshot capture
+        serverLogs: [], // TODO: Capture server logs
+        browserLogs: [], // TODO: Capture browser logs
+        testResults: this.state.testResults ? {
+          passed: this.state.testResults.passed,
+          errors: this.state.testResults.failures.map(f => ({ message: f })),
+          screenshots: this.state.testResults.screenshots,
+          duration: 0
+        } : undefined
+      };
 
-      for (const change of changes) {
-        // Basic validation: check if diff is well-formed
-        if (!change.diff.includes('---') || !change.diff.includes('+++')) {
-          issues.push(`Invalid diff format in ${change.filePath}`);
-        }
-      }
+      // Call ArchitectAgent for review
+      const review = await architectAgent.review(
+        {
+          taskDescription: task.description,
+          evidencePackage,
+          executionMode: this.state.executionMode
+        },
+        task.id
+      );
 
       this.state.architectReviews.push({
         changeId: task.id,
-        approved: issues.length === 0,
-        issues,
-        suggestions,
-        severity: issues.length > 0 ? 'major' : 'minor'
+        approved: review.approved,
+        issues: review.issues,
+        suggestions: review.suggestions,
+        severity: review.severity
       });
 
-      this.state.allApproved = issues.length === 0;
+      this.state.allApproved = review.approved;
 
       if (this.state.allApproved) {
         task.status = 'completed';
         console.log(`✅ [VibeGraph] Architect approved changes for task: ${task.description}`);
       } else {
-        console.log(`❌ [VibeGraph] Architect rejected changes: ${issues.join(', ')}`);
+        console.log(`❌ [VibeGraph] Architect rejected changes (score: ${this.state.architectReviews[this.state.architectReviews.length - 1]?.issues.join(', ')})`);
       }
 
     } catch (error) {
@@ -950,5 +979,32 @@ Generate unified diffs to complete this task. Wrap each diff in \`\`\`diff block
       needsClarification: this.state.needsClarification,
       clarificationQuestion: this.state.clarificationQuestion
     };
+  }
+
+  /**
+   * WS1: Get MB.MD session ID (Oct 28, 2025)
+   */
+  getSessionId(): number | null {
+    return this.mbmdSessionId;
+  }
+
+  /**
+   * WS1: Get current status (Oct 28, 2025)
+   * FIX: Map internal status to MB.MD phase names (Architect feedback Oct 28)
+   */
+  getStatus(): 'mapping' | 'breakdown' | 'mitigation' | 'deployment' | 'complete' | 'failed' {
+    // Map VibeGraph internal statuses to MB.MD phase names
+    const statusMap: Record<string, 'mapping' | 'breakdown' | 'mitigation' | 'deployment' | 'complete' | 'failed'> = {
+      'mapping': 'mapping',
+      'planning': 'breakdown',
+      'editing': 'mitigation',
+      'reviewing': 'mitigation',
+      'testing': 'deployment',
+      'deploying': 'deployment',
+      'complete': 'complete',
+      'failed': 'failed'
+    };
+
+    return statusMap[this.state.status] || 'mapping';
   }
 }

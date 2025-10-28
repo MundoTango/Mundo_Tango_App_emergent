@@ -3261,6 +3261,39 @@ export type MbmdReview = typeof mbmdReviews.$inferSelect;
 export type InsertMbmdReview = z.infer<typeof insertMbmdReviewSchema>;
 
 // ========================================
+// MB.MD AUTONOMOUS MODE API SCHEMAS
+// WS2: API Contracts - Oct 28, 2025
+// ========================================
+
+// Request schema for /api/mrblue/build
+export const buildRequestSchema = z.object({
+  conversationId: z.number(),
+  userRequest: z.string(),
+  visualContext: z.object({
+    selectedElement: z.any(),
+    previewPath: z.string()
+  }).optional(),
+  featureTag: z.enum(['chat', 'visual-editor', 'voice-mode']).optional()
+});
+
+export type BuildRequest = z.infer<typeof buildRequestSchema>;
+
+// Response schema for /api/mrblue/build
+export const buildResponseSchema = z.object({
+  sessionId: z.number(),
+  status: z.enum(['mapping', 'breakdown', 'mitigation', 'deployment', 'complete', 'failed']),
+  mappingSummary: z.any().optional(),
+  progress: z.array(z.object({
+    phase: z.string(),
+    message: z.string(),
+    timestamp: z.string()
+  })).optional(),
+  error: z.string().optional()
+});
+
+export type BuildResponse = z.infer<typeof buildResponseSchema>;
+
+// ========================================
 // OPEN SOURCE AGENT MONITORING TABLES
 // Layer 59: Open Source Management - Oct 28, 2025
 // ========================================

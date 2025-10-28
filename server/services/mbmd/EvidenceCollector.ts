@@ -158,6 +158,47 @@ export class EvidenceCollector {
     });
   }
 
+  /**
+   * Collect voice transcripts as evidence
+   * WS3: Voice Mode integration (Oct 28, 2025)
+   */
+  async collectVoiceTranscript(transcript: {
+    text: string;
+    timestamp: Date;
+    audioLength: number;
+    user?: any;
+  }): Promise<number> {
+    return await this.collect({
+      type: 'log',
+      phase: 'MAPPING',
+      data: {
+        transcript: transcript.text,
+        audioLength: transcript.audioLength,
+        userId: transcript.user?.id,
+      },
+      metadata: {
+        source: 'voice',
+        transcriptLength: transcript.text.length,
+        timestamp: transcript.timestamp.toISOString(),
+      },
+    });
+  }
+
+  /**
+   * Add voice evidence (alias for collectVoiceTranscript)
+   */
+  async addVoiceEvidence(voiceData: {
+    transcript: string;
+    timestamp: Date;
+    audioLength: number;
+  }): Promise<number> {
+    return await this.collectVoiceTranscript({
+      text: voiceData.transcript,
+      timestamp: voiceData.timestamp,
+      audioLength: voiceData.audioLength,
+    });
+  }
+
   getEvidenceDir(): string {
     return this.evidenceDir;
   }

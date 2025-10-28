@@ -776,6 +776,77 @@ router.get("/breadcrumbs/session/:sessionId", async (req: Request, res: Response
   }
 });
 
+// ==================== MB.MD AUTONOMOUS MODE ====================
+// WS2: New endpoint for autonomous coding with MB.MD protocol
+// Created: October 28, 2025
+
+router.post("/build", async (req: Request, res: Response) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    // FIX #1: Use Zod schema validation (Architect feedback Oct 28)
+    const { buildRequestSchema } = await import('@shared/schema');
+    const validatedBody = buildRequestSchema.parse(req.body);
+    const { conversationId, userRequest, visualContext, featureTag } = validatedBody;
+
+    // Verify conversation ownership
+    const conversation = await storage.getMrBlueConversation(conversationId);
+    if (!conversation) {
+      return res.status(404).json({ error: "Conversation not found" });
+    }
+    if (conversation.userId !== userId) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
+    // Get user object for VibeGraph
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, userId)
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Import VibeGraph (lazy import to avoid circular dependencies)
+    const { VibeGraph } = await import('../services/agents/VibeGraph.js');
+
+    // FIX #2: Use 200-minute autonomous runtime (Architect feedback Oct 28)
+    const vibeGraph = new VibeGraph(
+      userRequest,
+      user,
+      visualContext,
+      { autonomousMode: true, maxMinutes: 200 }
+    );
+
+    // Execute VibeGraph (this will trigger MAPPING → BREAKDOWN → MITIGATION → DEPLOYMENT)
+    const result = await vibeGraph.execute();
+
+    // Extract session info and serialize with Zod schema (Architect feedback Oct 28)
+    const sessionId = vibeGraph.getSessionId();
+    const status = vibeGraph.getStatus();
+
+    const { buildResponseSchema } = await import('@shared/schema');
+    const response = buildResponseSchema.parse({
+      sessionId: sessionId || 0,
+      status: status || 'complete',
+      mappingSummary: result.mapping,
+      progress: result.progress || []
+    });
+
+    res.json(response);
+
+  } catch (error: any) {
+    console.error("Error executing build:", error);
+    res.status(500).json({ 
+      error: "Failed to execute build",
+      message: error.message 
+    });
+  }
+});
+
 // ==================== LIFE CEO AGENTS ====================
 
 // Get all Life CEO agents

@@ -161,6 +161,25 @@ export const featureFlags: Map<string, FeatureFlag> = new Map([
     enabled: false,
     rolloutPercentage: 0,
   }],
+  // MB.MD Autonomous Mode Flags (Oct 28, 2025)
+  ['mbmd-autonomous', {
+    key: 'mbmd-autonomous',
+    description: 'MB.MD Autonomous Mode - Full autonomous coding with MB.MD protocol',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
+  ['mbmd-voice-evidence', {
+    key: 'mbmd-voice-evidence',
+    description: 'Voice transcript evidence collection',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
+  ['mbmd-architect-review', {
+    key: 'mbmd-architect-review',
+    description: 'Architect Agent review before deployment',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
 ]);
 
 // Check if a feature is enabled for a user

@@ -15,6 +15,8 @@ import { BarkService } from './BarkService';
 // TODO: Install groq-sdk package
 // import Groq from 'groq-sdk';
 import type { User } from '@shared/schema';
+import { EvidenceCollector } from '../mbmd/EvidenceCollector';
+import { isFeatureEnabled } from '../../lib/feature-flags';
 
 // Temporary type until groq-sdk installed
 type Groq = any;
@@ -54,13 +56,19 @@ export interface VoiceResponse {
 export class UnifiedVoicePipeline {
   private barkService: BarkService;
   private groqClient?: Groq;
+  private evidenceCollector?: EvidenceCollector;
 
-  constructor() {
+  constructor(sessionId?: number) {
     this.barkService = new BarkService();
     
     // Initialize Groq if API key available
     if (process.env.GROQ_API_KEY) {
       this.groqClient = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    }
+
+    // Initialize evidence collector if sessionId provided
+    if (sessionId) {
+      this.evidenceCollector = new EvidenceCollector(sessionId);
     }
   }
 
@@ -79,6 +87,17 @@ export class UnifiedVoicePipeline {
     const transcript = await this.transcribeAudio(message.audioInput);
     const sttDuration = Date.now() - sttStart;
     console.log(`✅ [STT] Transcript: "${transcript}" (${sttDuration}ms)`);
+
+    // WS3: Capture voice transcript as evidence (Oct 28, 2025)
+    if (this.evidenceCollector && isFeatureEnabled('mbmd-voice-evidence')) {
+      await this.evidenceCollector.collectVoiceTranscript({
+        text: transcript,
+        timestamp: new Date(),
+        audioLength: message.audioInput.length,
+        user: message.user
+      });
+      console.log(`📝 [Voice Evidence] Transcript captured for MB.MD session`);
+    }
 
     // STEP 2: AI Processing (Groq Llama 3.3 70B)
     const llmStart = Date.now();
@@ -205,6 +224,6 @@ export class UnifiedVoicePipeline {
 /**
  * Factory function
  */
-export function createUnifiedVoicePipeline(): UnifiedVoicePipeline {
-  return new UnifiedVoicePipeline();
+export function createUnifiedVoicePipeline(sessionId?: number): UnifiedVoicePipeline {
+  return new UnifiedVoicePipeline(sessionId);
 }
