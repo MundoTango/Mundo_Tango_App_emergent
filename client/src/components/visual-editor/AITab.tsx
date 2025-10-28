@@ -68,15 +68,19 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
         });
       }
       
+      // 🎯 TODO: Get conversationId from Mr Blue context (using placeholder 0 for now)
+      // This component needs refactoring to work with Mr Blue conversations
+      const conversationId = 0; // Placeholder - AITab needs Mr Blue integration
+      
       // Call vibe coding API with visual editor context AND execution mode
-      // 🎯 FIX (Oct 28): executionMode goes at top level, not inside visualEditorContext
       const result = await executeVibeCoding(
+        conversationId,
         aiPrompt,
         {
           selectedElement,
           previewPath: window.location.pathname,
-        },
-        executionMode // Pass mode separately to match backend expectations
+          executionMode
+        }
       );
 
       // 🎯 PLAN MODE: If AI needs clarification, show question

@@ -59,23 +59,27 @@ export interface VibeResponse {
  * Execute vibe coding workflow
  * Natural language request → working code
  * 
- * 🎯 MB.MD PHASE 1 (Oct 28): Added executionMode parameter for plan/build toggle
+ * 🎯 MB.MD PHASE 1 (Oct 28): Fixed payload to match unified endpoint
  */
 export async function executeVibeCoding(
-  request: string,
-  visualEditorContext?: {
+  conversationId: number,
+  message: string,
+  options?: {
     selectedElement?: any;
     previewPath?: string;
-  },
-  executionMode?: 'plan' | 'build'
+    executionMode?: 'plan' | 'build';
+    model?: string;
+  }
 ): Promise<VibeResponse> {
   const response = await apiRequest('/api/mrblue/unified', {
     method: 'POST',
     body: {
-      request,
-      visualEditorContext,
-      // 🎯 Send executionMode at top level (backend expects it there)
-      executionMode: executionMode || 'build'
+      conversationId,
+      message,
+      selectedElement: options?.selectedElement,
+      previewPath: options?.previewPath || '/',
+      executionMode: options?.executionMode || 'build',
+      model: options?.model || 'claude-sonnet-4'
     }
   });
 

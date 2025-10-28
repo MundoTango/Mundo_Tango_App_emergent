@@ -262,7 +262,10 @@ export function UnifiedVoiceModal({
     
     setIsExecutingCode(true);
     try {
-      const result = await executeVibeCoding(newTranscript, {
+      // 🎯 TODO: Get conversationId from active conversation (using placeholder 0 for now)
+      const conversationId = 0; // Placeholder - Voice modal needs Mr Blue integration
+      
+      const result = await executeVibeCoding(conversationId, newTranscript, {
         selectedElement: selectedElement || null,
         previewPath: visualEditorContext.previewPath || '/'
       });

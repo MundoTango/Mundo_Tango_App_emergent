@@ -449,7 +449,7 @@ export function ChatInterface() {
         console.log(`⚙️ [ChatInterface] ${executionMode.toUpperCase()} MODE - Triggering vibe execution FIRST`);
         
         try {
-          const vibeResult = await executeVibeCoding(content, {
+          const vibeResult = await executeVibeCoding(projId, content, {
             selectedElement: activeElement,
             previewPath: previewPath || '/',
             executionMode: executionMode // Pass mode to backend

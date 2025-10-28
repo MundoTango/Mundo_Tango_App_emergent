@@ -43,7 +43,10 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
   const handleApplySuggestion = async (prompt: string) => {
     setIsGenerating(true);
     try {
-      const result = await executeVibeCoding(prompt, {
+      // 🎯 TODO: Get conversationId from Mr Blue context (using placeholder 0 for now)
+      const conversationId = 0; // Placeholder - ElementInspector needs Mr Blue integration
+      
+      const result = await executeVibeCoding(conversationId, prompt, {
         selectedElement,
         previewPath: window.location.pathname
       });
