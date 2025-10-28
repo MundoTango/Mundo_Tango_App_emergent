@@ -444,75 +444,9 @@ export function ChatInterface() {
     });
     
     try {
-      // 🎯 PLANNING/BUILDING MODE FIX (Oct 28): Call vibe API BEFORE streaming
-      if (executionMode) {
-        console.log(`⚙️ [ChatInterface] ${executionMode.toUpperCase()} MODE - Triggering vibe execution FIRST`);
-        
-        // 🛡️ ARCHITECT FIX: Verify conversation exists before calling unified endpoint
-        if (!projId || projId === 0) {
-          console.error('❌ [ChatInterface] No valid conversation ID - cannot execute vibe coding');
-          toast({
-            title: 'Conversation Error',
-            description: 'Please create a conversation first',
-            variant: 'destructive'
-          });
-          return;
-        }
-        
-        try {
-          const vibeResult = await executeVibeCoding(projId, content, {
-            selectedElement: activeElement,
-            previewPath: previewPath || '/',
-            executionMode: executionMode // Pass mode to backend
-          });
-          
-          console.log('✅ [Vibe] Execution result:', vibeResult);
-          
-          // Handle clarification questions (PLAN mode)
-          if (vibeResult.status === 'needs_clarification' && vibeResult.clarificationQuestion) {
-            console.log('❓ [Plan Mode] AI needs clarification');
-            setOptimisticMessage(content);
-            setStreamingResponse(vibeResult.clarificationQuestion);
-            
-            // Refetch messages to show clarification in chat
-            await queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations', projId, 'messages'] });
-            
-            toast({
-              title: '❓ Clarifying question',
-              description: vibeResult.clarificationQuestion.substring(0, 100) + '...',
-              duration: 5000
-            });
-            
-            // Don't proceed to streaming - just show clarification
-            setOptimisticMessage(null);
-            return;
-          }
-          
-          // Handle code changes (BUILD mode)
-          if (vibeResult.codeChanges && vibeResult.codeChanges.length > 0) {
-            console.log(`🚀 [Build Mode] Applying ${vibeResult.codeChanges.length} change(s)`);
-            
-            for (const change of vibeResult.codeChanges) {
-              await applyCodeChange(change.filePath, change.diff, change.type || 'unified_diff');
-            }
-            
-            toast({
-              title: '✅ Changes applied',
-              description: `Updated ${vibeResult.codeChanges.length} file(s)`,
-              duration: 3000
-            });
-          }
-          
-        } catch (vibeError) {
-          console.error('❌ [Vibe] Execution failed:', vibeError);
-          toast({
-            title: 'Vibe coding failed',
-            description: vibeError instanceof Error ? vibeError.message : 'Unknown error',
-            variant: 'destructive'
-          });
-          // Continue to streaming as fallback
-        }
-      }
+      // 🚨 DISABLED (Oct 28): executeVibeCoding was trying to parse SSE as JSON → crashing chat
+      // TODO: Fix in Phase 2 - backend unified endpoint needs to handle vibe_result events properly
+      // For now, all vibe coding happens via backend streaming endpoint
       
       // 🎯 OPTIMISTIC UI: Show user message immediately
       setOptimisticMessage(content);
