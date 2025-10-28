@@ -5393,11 +5393,15 @@ export class DatabaseStorage implements IStorage {
 
   // Mr Blue Message operations
   async createMrBlueMessage(message: InsertMrBlueMessage): Promise<MrBlueMessage> {
-    // 🚨 MB.MD FIX (Oct 28): Prevent empty assistant messages from being saved
+    // 🚨 MB.MD FIX (Oct 28): Prevent empty assistant messages from corrupting conversation history
     // Empty messages cause Claude API 400 errors: "all messages must have non-empty content"
-    if (message.role === 'assistant' && (!message.content || message.content.trim().length === 0)) {
-      console.warn('⚠️ [Storage] Attempted to create empty assistant message - blocked');
-      throw new Error('Assistant messages must have non-empty content');
+    // EXCEPTION: Allow empty content when streaming=true (streaming placeholder), reject when streaming=false (final message)
+    const isEmptyContent = !message.content || message.content.trim().length === 0;
+    const isStreamingPlaceholder = message.streaming === true;
+    
+    if (message.role === 'assistant' && isEmptyContent && !isStreamingPlaceholder) {
+      console.warn('⚠️ [Storage] Attempted to create empty assistant message (streaming=false) - blocked');
+      throw new Error('Final assistant messages must have non-empty content');
     }
     
     const [newMessage] = await db
