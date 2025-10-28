@@ -106,13 +106,29 @@ export class BarkService {
     // 3. Audio file generation
     // 4. Format conversion (WAV -> MP3 if needed)
 
-    // PLACEHOLDER: Return empty audio buffer
-    // Real implementation will execute Python Bark script
-    const placeholderText = `Bark TTS not yet installed. Text would be: ${text}`;
-    console.warn(`⚠️  [BarkService] ${placeholderText}`);
+    // WEEK 2 PLACEHOLDER: Return empty audio buffer with warning
+    // Real implementation pending: Python Bark installation + subprocess execution
+    const placeholderText = `⚠️  PLACEHOLDER: Bark TTS Week 2 not complete. Synthesizing: "${text.substring(0, 50)}..."`;
+    console.warn(`[BarkService] ${placeholderText}`);
     
-    // Return empty buffer as placeholder
-    return Buffer.from([]);
+    // Return minimal WAV header (44 bytes) to prevent binary errors downstream
+    // Real Bark audio will replace this in Week 2 implementation
+    const wavHeader = Buffer.alloc(44);
+    wavHeader.write('RIFF', 0);
+    wavHeader.writeUInt32LE(36, 4); // Chunk size
+    wavHeader.write('WAVE', 8);
+    wavHeader.write('fmt ', 12);
+    wavHeader.writeUInt32LE(16, 16); // Subchunk1Size
+    wavHeader.writeUInt16LE(1, 20); // AudioFormat (PCM)
+    wavHeader.writeUInt16LE(1, 22); // NumChannels (mono)
+    wavHeader.writeUInt32LE(sampleRate, 24); // SampleRate
+    wavHeader.writeUInt32LE(sampleRate * 2, 28); // ByteRate
+    wavHeader.writeUInt16LE(2, 32); // BlockAlign
+    wavHeader.writeUInt16LE(16, 34); // BitsPerSample
+    wavHeader.write('data', 36);
+    wavHeader.writeUInt32LE(0, 40); // Subchunk2Size
+    
+    return wavHeader;
   }
 
   /**

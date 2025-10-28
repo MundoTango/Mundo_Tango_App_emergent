@@ -24,6 +24,8 @@ import { routeToModel, classifyTask } from '../modelRouter';
 import { applyTextReplacement, generateUnifiedDiff } from '../../lib/jsxParser.js';
 import { DocumentationAgent } from './DocumentationAgent';
 import { createMBMDLogger } from '../mbmd/Logger';
+import { MappingPhaseAgent } from './MappingPhaseAgent';
+import { ArchitectAgent } from './ArchitectAgent';
 
 /*
 <important_code_snippet_instructions>
@@ -308,19 +310,26 @@ export class VibeGraph {
 
   /**
    * 🎯 MB.MD Phase 1: MAPPING Node
-   * Verify requirements BEFORE planning
+   * Uses MappingPhaseAgent for comprehensive documentation verification
    */
   private async mappingNode(): Promise<void> {
     this.state.status = 'mapping';
-    this.mbmdLogger.mapping('Starting MAPPING phase', { request: this.state.userRequest });
+    this.mbmdLogger.mapping('Starting MAPPING phase with MappingPhaseAgent', { request: this.state.userRequest });
 
     try {
-      // Use DocumentationAgent to verify requirements
-      const mappingResult = await this.documentationAgent.verifyRequirements(this.state.userRequest);
+      // Use MappingPhaseAgent for comprehensive analysis
+      const mappingAgent = new MappingPhaseAgent();
+      const mappingResult = await mappingAgent.performMapping(
+        this.state.userRequest,
+        this.sessionManager || undefined
+      );
 
       // Store documentation that was read
-      this.state.documentationRead = mappingResult.relevantDocs;
-      this.mbmdLogger.mapping('Documentation verified', { docsRead: mappingResult.relevantDocs.length });
+      this.state.documentationRead = mappingResult.documentationRead;
+      this.mbmdLogger.mapping('MappingPhaseAgent complete', { 
+        docsRead: mappingResult.documentationRead.length,
+        docs: this.state.documentationRead 
+      });
 
       // Determine execution mode
       this.state.executionMode = mappingResult.executionMode;
@@ -328,7 +337,7 @@ export class VibeGraph {
 
       // Mark mapping complete
       this.state.mappingComplete = true;
-      this.mbmdLogger.phaseComplete('MAPPING', `Docs read: ${mappingResult.relevantDocs.length}, Mode: ${this.state.executionMode}`);
+      this.mbmdLogger.phaseComplete('MAPPING', `Docs read: ${mappingResult.documentationRead.length}, Mode: ${this.state.executionMode}`);
 
     } catch (error) {
       console.error('❌ [VibeGraph] MAPPING node error:', error);

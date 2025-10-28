@@ -9,10 +9,15 @@
  * Created: October 28, 2025
  */
 
-import { nodewhisper } from 'nodejs-whisper';
+// TODO: Install dependencies when Week 3 begins
+// import { nodewhisper } from 'nodejs-whisper';
 import { BarkService } from './BarkService';
-import Groq from 'groq-sdk';
+// TODO: Install groq-sdk package
+// import Groq from 'groq-sdk';
 import type { User } from '@shared/schema';
+
+// Temporary type until groq-sdk installed
+type Groq = any;
 
 export interface VoiceMessage {
   audioInput: Buffer;
