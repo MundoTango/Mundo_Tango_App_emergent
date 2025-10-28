@@ -5,7 +5,7 @@
  * Oct 25, 2025: Added pendingCodeChanges for vibe coding integration
  */
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useRef, ReactNode } from 'react';
 import type { ElementSelection } from '@/lib/visual-editor/iframeMessaging';
 import type { SaveOrchestrator } from '@/services/SaveOrchestrator';
 
@@ -42,6 +42,9 @@ export interface VisualEditorContextType {
   activeConversationId: number | null;
   setActiveConversationId: (id: number | null) => void;
   isLoadingConversation: boolean;
+  setIsLoadingConversation: (loading: boolean) => void; // 🚨 ARCHITECT FIX: Prevent race conditions
+  // 🚨 ARCHITECT FIX v2: Shared promise ref to prevent concurrent fetches
+  conversationPromiseRef: React.MutableRefObject<Promise<number> | null>;
 }
 
 const VisualEditorContext = createContext<VisualEditorContextType | null>(null);
@@ -60,6 +63,15 @@ export function VisualEditorProvider({ children, saveOrchestrator }: VisualEdito
   // 🎯 PHASE 2B: Mr Blue conversation state
   const [activeConversationId, setActiveConversationId] = useState<number | null>(null);
   const [isLoadingConversation, setIsLoadingConversation] = useState(false);
+  
+  // 🚨 ARCHITECT FIX v2: Shared promise ref - ensures only ONE fetch happens even with simultaneous mounts
+  const conversationPromiseRef = useRef<Promise<number> | null>(null);
+  
+  // 🚨 ARCHITECT FIX: Expose setter for loading state to prevent race conditions
+  const handleSetLoadingConversation = (loading: boolean) => {
+    console.log('🔄 [VE Context] Setting isLoadingConversation:', loading);
+    setIsLoadingConversation(loading);
+  };
   
   // 🐛 DEBUG: Log when context updates
   const handleSetSelectedElement = (element: ElementSelection | null) => {
@@ -108,7 +120,9 @@ export function VisualEditorProvider({ children, saveOrchestrator }: VisualEdito
         // 🎯 PHASE 2B: Mr Blue conversation integration
         activeConversationId,
         setActiveConversationId,
-        isLoadingConversation
+        isLoadingConversation,
+        setIsLoadingConversation: handleSetLoadingConversation, // 🚨 ARCHITECT FIX: Expose setter
+        conversationPromiseRef // 🚨 ARCHITECT FIX v2: Shared promise for synchronization
       }}
     >
       {children}

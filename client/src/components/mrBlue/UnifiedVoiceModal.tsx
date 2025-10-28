@@ -72,7 +72,7 @@ export function UnifiedVoiceModal({
   const [lastProcessedLength, setLastProcessedLength] = useState(0); // Track processed transcript
   const visualEditorContext = useVisualEditorOptional();
   
-  // 🎯 PHASE 2B: Load Visual Editor conversation on mount
+  // 🎯 PHASE 2B: Load Visual Editor conversation (hook handles missing context gracefully)
   useVisualEditorConversation();
   
   // 🎯 BATCH 1 FIX: Manual start button for permission request (Oct 26, 2025)
