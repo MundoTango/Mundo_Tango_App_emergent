@@ -139,8 +139,20 @@ export default function AdminTab() {
         </div>
       </div>
 
-      {/* System Health Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <Tabs defaultValue="overview" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsTrigger value="overview" data-testid="tab-overview">
+            System Overview
+          </TabsTrigger>
+          <TabsTrigger value="opensourceagent" data-testid="tab-opensourceagent">
+            <Sparkles className="h-4 w-4 mr-2" />
+            Open Source Agent
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="space-y-6">
+          {/* System Health Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3 mb-2">
             <Activity className="h-5 w-5 text-green-500" />
@@ -300,6 +312,12 @@ export default function AdminTab() {
           </div>
         )}
       </Card>
+        </TabsContent>
+
+        <TabsContent value="opensourceagent" className="space-y-6">
+          <OpenSourceAgentTab />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
