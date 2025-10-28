@@ -25,12 +25,15 @@ router.post('/session/start', async (req: any, res) => {
       return res.status(401).json({ error: 'Authentication required' });
     }
 
-    const validated = insertMbmdSessionSchema.parse(req.body);
-    
-    const [session] = await db.insert(mbmdSessions).values({
-      ...validated,
+    // MB.MD FIX: Merge userId BEFORE validation so clients don't need to send it
+    const bodyWithUserId = {
+      ...req.body,
       userId: req.user.id,
-    }).returning();
+    };
+
+    const validated = insertMbmdSessionSchema.parse(bodyWithUserId);
+    
+    const [session] = await db.insert(mbmdSessions).values(validated).returning();
     
     console.log('[MB.MD] Session started:', session.id, 'Feature:', session.feature, 'User:', req.user.id);
     
@@ -113,19 +116,20 @@ router.post('/evidence/upload-file', async (req: any, res) => {
     const { ObjectStorageService } = await import('../objectStorage');
     const objectStorageService = new ObjectStorageService();
     
-    // Scope upload URL to user/session directory
-    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    // MB.MD FIX: Enforce upload scoping in presigned URL key
+    const keyPrefix = `evidence/${req.user.id}/${sessionId}/`;
+    const uploadURL = await objectStorageService.getObjectEntityUploadURL(keyPrefix);
     
     console.log('[MB.MD] File upload URL generated:', {
       sessionId,
       userId: req.user.id,
-      scoped: true
+      keyPrefix
     });
     
     res.json({
       success: true,
       uploadURL,
-      scope: `evidence/${req.user.id}/${sessionId}/`
+      scope: keyPrefix
     });
   } catch (error: any) {
     console.error('[MB.MD] File upload URL generation error:', error);

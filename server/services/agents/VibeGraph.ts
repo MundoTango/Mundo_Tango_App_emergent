@@ -484,6 +484,19 @@ Return JSON in this format:
       console.log(`📋 [VibeGraph] Generated ${this.state.tasks.length} tasks`);
       this.mbmdLogger.phaseComplete('BREAKDOWN', `Generated ${this.state.tasks.length} tasks`);
 
+      // MB.MD FIX: Record evidence for BREAKDOWN phase
+      if (this.sessionManager) {
+        await this.sessionManager.recordEvidence({
+          phase: 'BREAKDOWN',
+          evidenceType: 'task_plan',
+          content: JSON.stringify({ tasks: this.state.tasks, executionMode: this.state.executionMode }),
+          metadata: {
+            taskCount: this.state.tasks.length,
+            executionMode: this.state.executionMode
+          }
+        });
+      }
+
     } catch (error) {
       console.error('❌ [VibeGraph] Manager node error:', error);
       this.state.errors.push(error instanceof Error ? error.message : 'Planning failed');
@@ -622,6 +635,22 @@ Generate unified diffs to complete this task. Wrap each diff in \`\`\`diff block
 
       console.log(`📝 [VibeGraph] Generated ${this.state.codeChanges.filter(c => c.taskId === task.id).length} code changes`);
       this.mbmdLogger.phaseComplete('MITIGATION', `Generated code changes for task: ${task.description}`);
+
+      // MB.MD FIX: Record evidence for MITIGATION phase
+      if (this.sessionManager) {
+        await this.sessionManager.recordEvidence({
+          phase: 'MITIGATION',
+          evidenceType: 'code_changes',
+          content: JSON.stringify({
+            taskId: task.id,
+            changes: this.state.codeChanges.filter(c => c.taskId === task.id)
+          }),
+          metadata: {
+            taskDescription: task.description,
+            filesModified: this.state.codeChanges.filter(c => c.taskId === task.id).length
+          }
+        });
+      }
 
     } catch (error) {
       console.error('❌ [VibeGraph] Editor node error:', error);
@@ -873,6 +902,23 @@ Generate unified diffs to complete this task. Wrap each diff in \`\`\`diff block
       if (this.state.qaValidationPassed) {
         console.log(`✅ [VibeGraph] DEPLOYMENT phase PASSED`);
         this.mbmdLogger.phaseComplete('DEPLOYMENT', 'All QA checks passed');
+
+        // MB.MD FIX: Record evidence for DEPLOYMENT phase
+        if (this.sessionManager) {
+          await this.sessionManager.recordEvidence({
+            phase: 'DEPLOYMENT',
+            evidenceType: 'qa_validation',
+            content: JSON.stringify({
+              qaChecks,
+              testResults: this.state.testResults,
+              screenshots: this.state.testResults?.screenshots || []
+            }),
+            metadata: {
+              testsPass: qaChecks.testsPass,
+              architectApproved: qaChecks.architectApproved
+            }
+          });
+        }
       } else {
         console.log(`❌ [VibeGraph] DEPLOYMENT phase FAILED`);
         this.mbmdLogger.deployment('QA validation failed', { checks: qaChecks });

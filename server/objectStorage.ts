@@ -223,6 +223,35 @@ export class ObjectStorageService {
       return [];
     }
   }
+
+  /**
+   * Get presigned upload URL with enforced key prefix
+   * MB.MD FIX: Security - enforce upload scoping to prevent sandbox escapes
+   */
+  async getObjectEntityUploadURL(keyPrefix: string): Promise<string> {
+    const vibeDir = this.getVibeCodeDir();
+    if (!vibeDir) {
+      throw new Error('Object storage not configured - PRIVATE_OBJECT_DIR not set');
+    }
+
+    // Generate unique filename with enforced prefix
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const fileId = randomUUID();
+    const fullPath = `${vibeDir}/${keyPrefix}${timestamp}-${fileId}`;
+
+    const { bucketName, objectName } = parseObjectPath(fullPath);
+    
+    // Generate presigned PUT URL (15 minute expiry)
+    const signedURL = await signObjectURL({
+      bucketName,
+      objectName,
+      method: 'PUT',
+      ttlSec: 900 // 15 minutes
+    });
+
+    console.log(`✅ [ObjectStorage] Generated upload URL with prefix: ${keyPrefix}`);
+    return signedURL;
+  }
 }
 
 function parseObjectPath(path: string): {
