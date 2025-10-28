@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { 
   Sparkles, X, Maximize2, Minimize2,
   MessageSquare, Map, CreditCard, Search, Code, Palette, Wand2, 
-  CheckCircle2, Brain, Shield
+  CheckCircle2, Brain, Shield, DollarSign
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -25,6 +25,7 @@ import QualityTab from './tabs/QualityTab';
 import SearchTab from './tabs/SearchTab';
 import LifeCEOTab from './tabs/LifeCEOTab';
 import AdminTab from './tabs/AdminTab';
+import CostMetricsTab from './tabs/CostMetricsTab';
 
 // ============ MAIN COMPONENT ============
 export function MrBlueComplete() {
@@ -95,11 +96,12 @@ export function MrBlueComplete() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMaximized(!isMaximized)}
-                className="h-8 w-8"
+                className="h-9 w-9 hover:bg-cyan-100 hover:scale-110 transition-all duration-200"
                 data-testid="button-toggle-maximize"
                 aria-label={isMaximized ? "Minimize window" : "Maximize window"}
+                title={isMaximized ? "Minimize to interact with preview" : "Maximize for full screen"}
               >
-                {isMaximized ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                {isMaximized ? <Minimize2 className="h-5 w-5 text-cyan-600" /> : <Maximize2 className="h-5 w-5 text-cyan-600" />}
               </Button>
               <Button
                 variant="ghost"
@@ -141,6 +143,10 @@ export function MrBlueComplete() {
                 </TabsTrigger>
                 {isAdmin && (
                   <>
+                    <TabsTrigger value="cost-metrics" className="gap-2" data-testid="tab-cost-metrics">
+                      <DollarSign className="h-4 w-4" />
+                      <span className="hidden sm:inline">Cost Metrics</span>
+                    </TabsTrigger>
                     <TabsTrigger value="site-builder" className="gap-2" data-testid="tab-sitebuilder">
                       <Code className="h-4 w-4" />
                       <span className="hidden sm:inline">Site Builder</span>
@@ -185,6 +191,9 @@ export function MrBlueComplete() {
               </TabsContent>
               {isAdmin && (
                 <>
+                  <TabsContent value="cost-metrics" className="flex-1 m-0 p-0 min-h-[500px] overflow-auto">
+                    <CostMetricsTab />
+                  </TabsContent>
                   <TabsContent value="site-builder" className="flex-1 m-0 p-4 min-h-[500px] overflow-auto">
                     <SiteBuilderTab />
                   </TabsContent>

@@ -69,7 +69,7 @@ export async function executeVibeCoding(
   },
   executionMode?: 'plan' | 'build'
 ): Promise<VibeResponse> {
-  const response = await apiRequest('/api/vibe/execute', {
+  const response = await apiRequest('/api/mrblue/unified', {
     method: 'POST',
     body: {
       request,
