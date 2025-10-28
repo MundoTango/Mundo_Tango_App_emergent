@@ -90,10 +90,13 @@ Respond naturally like: "I'll add that for you now. I'm updating the component t
 
 The vibe coding system handles all technical work in the background.`
       },
-      ...messageHistory.slice(-8).map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content
-      })),
+      // 🚨 MB.MD FIX (Oct 28): Filter out empty messages to prevent Claude API 400 errors
+      ...messageHistory.slice(-8)
+        .filter(m => m.content && m.content.trim().length > 0)
+        .map(m => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content
+        })),
       {
         role: 'user' as const,
         content: message

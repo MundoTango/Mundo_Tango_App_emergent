@@ -730,9 +730,16 @@ export function ChatInterface() {
     try {
       // Execute vibe coding with optional Visual Editor context
       // ✅ FIX #4: Cache the promise to deduplicate concurrent requests
-      const executionPromise = executeVibeCoding(userMessage, {
+      // 🚨 MB.MD FIX (Oct 28): Pass conversationId + executionMode to unified endpoint
+      if (!projId) {
+        console.error('❌ [Vibe] No conversation ID available');
+        return;
+      }
+      
+      const executionPromise = executeVibeCoding(projId, userMessage, {
         selectedElement: isInVisualEditor ? activeElement : null,
-        previewPath: isInVisualEditor ? (previewPath || '/') : '/'
+        previewPath: isInVisualEditor ? (previewPath || '/') : '/',
+        executionMode // 🎯 Pass plan/build mode to backend
       });
       
       vibeExecutionCache.current.set(cacheKey, executionPromise);
@@ -915,10 +922,8 @@ export function ChatInterface() {
   // 🔧 PHASE 2: Extract build intents from messages and queue in SaveOrchestrator
   const extractAndQueueBuildIntents = async (projId: number) => {
     try {
-      // ✅ FIX (Oct 27): Use correct Mr Blue query key
-      const messagesData = await queryClient.fetchQuery({
-        queryKey: ['/api/mrblue/conversations', projId, 'messages'],
-      });
+      // 🚨 MB.MD FIX (Oct 28): Use getQueryData instead of fetchQuery (no queryFn needed)
+      const messagesData = queryClient.getQueryData<Message[]>(['/api/mrblue/conversations', projId, 'messages']);
 
       if (!messagesData || !Array.isArray(messagesData)) return;
 
