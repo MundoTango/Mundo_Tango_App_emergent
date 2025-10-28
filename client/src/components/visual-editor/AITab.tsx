@@ -33,6 +33,9 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
   const [isGenerating, setIsGenerating] = useState(false);
   const [codeChanges, setCodeChanges] = useState<CodeChange[]>([]);
   const { toast} = useToast();
+  
+  // 🎯 PLANNING/BUILDING MODE: User can clarify work before execution (Oct 28, 2025)
+  const [executionMode, setExecutionMode] = useState<'plan' | 'build'>('plan');
 
   // ✅ ARCHITECT FIX v2: Watch VisualEditorContext for pending AI prompt (React pattern)
   useEffect(() => {
@@ -163,6 +166,38 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
           Describe what you want to change and AI will generate the code
         </p>
 
+        {/* 🎯 PLANNING/BUILDING MODE TOGGLE (Oct 28, 2025) */}
+        <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-lg mb-4">
+          <span className="text-xs font-medium text-cyan-900">Mode:</span>
+          <div className="flex gap-1 bg-white rounded-md p-0.5 shadow-sm">
+            <button
+              onClick={() => setExecutionMode('plan')}
+              className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+                executionMode === 'plan' 
+                  ? 'bg-cyan-500 text-white shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+              data-testid="button-ve-mode-plan"
+            >
+              📋 Plan
+            </button>
+            <button
+              onClick={() => setExecutionMode('build')}
+              className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+                executionMode === 'build' 
+                  ? 'bg-green-500 text-white shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+              data-testid="button-ve-mode-build"
+            >
+              🚀 Build
+            </button>
+          </div>
+          <span className="text-xs text-gray-600">
+            {executionMode === 'plan' ? 'Clarify first' : 'Execute now'}
+          </span>
+        </div>
+
         <div>
           <label className="text-xs font-medium text-gray-700 mb-1 block">
             What would you like to change?
@@ -170,7 +205,9 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
           <Textarea
             value={aiPrompt}
             onChange={(e) => setAiPrompt(e.target.value)}
-            placeholder="e.g., Add a blue border and make the text larger"
+            placeholder={executionMode === 'plan' 
+              ? "Describe your changes... (I'll ask clarifying questions first)" 
+              : "e.g., Add a blue border and make the text larger"}
             className="min-h-[120px] resize-none"
             data-testid="textarea-ai-prompt"
           />
@@ -187,7 +224,11 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
         <Button
           onClick={handleGenerate}
           disabled={!aiPrompt.trim() || isGenerating || !selectedElement}
-          className="w-full mt-4"
+          className={`w-full mt-4 ${
+            executionMode === 'plan' 
+              ? 'bg-cyan-500 hover:bg-cyan-600' 
+              : 'bg-green-500 hover:bg-green-600'
+          }`}
           data-testid="button-generate-code"
         >
           {isGenerating ? (
@@ -198,7 +239,7 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
           ) : (
             <>
               <Wand2 className="w-4 h-4 mr-2" />
-              Generate Code
+              {executionMode === 'plan' ? 'Plan Changes' : 'Generate Code'}
             </>
           )}
         </Button>

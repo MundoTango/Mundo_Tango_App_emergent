@@ -162,23 +162,27 @@ export const featureFlags: Map<string, FeatureFlag> = new Map([
     rolloutPercentage: 0,
   }],
   // MB.MD Autonomous Mode Flags (Oct 28, 2025)
+  // 🎯 PHASE 1 ROLLOUT: Super admin only (controlled rollout)
   ['mbmd-autonomous', {
     key: 'mbmd-autonomous',
     description: 'MB.MD Autonomous Mode - Full autonomous coding with MB.MD protocol',
-    enabled: false,
-    rolloutPercentage: 0,
+    enabled: true,  // ✅ ENABLED for Phase 1
+    rolloutPercentage: 100,
+    userGroups: ['super_admin'],  // 🔒 Super admin only
   }],
   ['mbmd-voice-evidence', {
     key: 'mbmd-voice-evidence',
     description: 'Voice transcript evidence collection',
-    enabled: false,
-    rolloutPercentage: 0,
+    enabled: true,  // ✅ ENABLED for Phase 1
+    rolloutPercentage: 100,
+    userGroups: ['super_admin'],  // 🔒 Super admin only
   }],
   ['mbmd-architect-review', {
     key: 'mbmd-architect-review',
     description: 'Architect Agent review before deployment',
-    enabled: false,
-    rolloutPercentage: 0,
+    enabled: true,  // ✅ ENABLED for Phase 1
+    rolloutPercentage: 100,
+    userGroups: ['super_admin'],  // 🔒 Super admin only
   }],
 ]);
 

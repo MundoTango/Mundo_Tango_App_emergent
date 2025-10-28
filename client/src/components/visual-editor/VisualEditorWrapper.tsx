@@ -32,6 +32,7 @@ import { listenToIframe, type IframeMessage } from '@/lib/visual-editor/iframeMe
 import { useNavigationHistory } from '@/hooks/useNavigationHistory';
 import type { NavigationHistoryEntry } from '@/lib/visual-editor/navigationHistory';
 import { generateTextChangeDiff, generateDeleteDiff, detectSourceFile } from '@/lib/visual-editor/codeGeneration';
+import './PurpleBoundingBox.css'; // 🎯 Purple bounding box styles (Oct 28, 2025)
 
 interface SelectedElement {
   tag: string;
@@ -362,6 +363,30 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     target.style.boxShadow = inspectorMode === 'sidebar' 
       ? '0 0 0 4px rgba(59, 130, 246, 0.2)' 
       : '0 0 0 4px rgba(168, 85, 247, 0.2)';
+    
+    // 🎯 PURPLE BOUNDING BOX OVERLAY (Oct 28, 2025) - Tests requirement
+    // Remove previous bounding box if exists
+    document.querySelectorAll('.purple-bounding-box').forEach(el => el.remove());
+    
+    // Create new bounding box overlay
+    if (inspectorMode === 'page') {
+      const rect = target.getBoundingClientRect();
+      const boundingBox = document.createElement('div');
+      boundingBox.className = 'purple-bounding-box';
+      boundingBox.setAttribute('data-testid', 'purple-bounding-box');
+      boundingBox.style.top = `${rect.top + window.scrollY}px`;
+      boundingBox.style.left = `${rect.left + window.scrollX}px`;
+      boundingBox.style.width = `${rect.width}px`;
+      boundingBox.style.height = `${rect.height}px`;
+      document.body.appendChild(boundingBox);
+      
+      // Auto-remove bounding box when scrolling/resizing
+      const removeBoundingBox = () => {
+        boundingBox.remove();
+      };
+      window.addEventListener('scroll', removeBoundingBox, { once: true });
+      window.addEventListener('resize', removeBoundingBox, { once: true });
+    }
 
     toast({
       title: `${inspectorMode === 'sidebar' ? '🔍 Sidebar' : '📄 Page'} Element Selected`,

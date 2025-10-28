@@ -4,8 +4,62 @@ import { requireAdmin } from '../middleware/roleAuth';
 import { db } from '../db';
 import { eq, sql, desc, count } from 'drizzle-orm';
 import { users, posts, events, groups } from '../../shared/schema';
+import { getAllFeatureFlags, updateFeatureFlag, type FeatureFlag } from '../lib/feature-flags';
 
 const router = Router();
+
+// ✅ MB.MD FEATURE FLAGS API (Oct 28, 2025)
+// Get all feature flags (super admin only)
+router.get('/admin/feature-flags', requireAdmin, async (req, res) => {
+  try {
+    const flags = getAllFeatureFlags();
+    res.json(flags);
+  } catch (error) {
+    console.error('[Admin] Get feature flags error:', error);
+    res.status(500).json({ error: 'Failed to get feature flags' });
+  }
+});
+
+// Toggle feature flag (super admin only)
+router.post('/admin/feature-flags/toggle', requireAdmin, async (req, res) => {
+  try {
+    const { flagKey, enabled } = req.body;
+    
+    if (!flagKey) {
+      return res.status(400).json({ error: 'Flag key is required' });
+    }
+    
+    const updated = updateFeatureFlag(flagKey, { enabled });
+    
+    if (!updated) {
+      return res.status(404).json({ error: 'Feature flag not found' });
+    }
+    
+    res.json({ success: true, flagKey, enabled });
+  } catch (error) {
+    console.error('[Admin] Toggle feature flag error:', error);
+    res.status(500).json({ error: 'Failed to toggle feature flag' });
+  }
+});
+
+// Update feature flag settings (super admin only)
+router.patch('/admin/feature-flags/:flagKey', requireAdmin, async (req, res) => {
+  try {
+    const { flagKey } = req.params;
+    const updates: Partial<FeatureFlag> = req.body;
+    
+    const updated = updateFeatureFlag(flagKey, updates);
+    
+    if (!updated) {
+      return res.status(404).json({ error: 'Feature flag not found' });
+    }
+    
+    res.json({ success: true, flagKey, updates });
+  } catch (error) {
+    console.error('[Admin] Update feature flag error:', error);
+    res.status(500).json({ error: 'Failed to update feature flag' });
+  }
+});
 
 // Admin statistics endpoint
 router.get('/admin/stats', requireAdmin, async (req, res) => {

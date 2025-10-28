@@ -1553,6 +1553,125 @@ bash scripts/agent-verification.sh
 
 ---
 
+---
+
+## 🧪 RULE 7: INTENSIVE COMPREHENSIVE TESTING (Added Oct 28, 2025)
+
+**What:** Before ANY feature rollout, comprehensive end-to-end testing with visual evidence collection  
+**Why:** Non-engineer users cannot access logs/code - they need UI proof  
+**How:** Playwright-based testing with screenshots, videos, traces for 100% confidence
+
+### The Comprehensive Testing Approach
+
+**Testing Infrastructure Requirements:**
+1. **Feature-Based Test Projects** - Separate test suites per feature (Visual Editor, Mr Blue Chat, Voice Pipeline, etc.)
+2. **Evidence Collection System** - Auto-capture screenshots, videos, Playwright traces at EVERY step
+3. **Parallel Execution** - Multiple test workers running simultaneously (4+ workers)
+4. **Automatic Retries** - Failed tests retry automatically to catch flaky behavior
+5. **Role-Based Access Tests** - Verify super admin vs regular user permissions
+6. **CI/CD Integration** - GitHub Actions workflow runs ALL tests on every push
+
+**Testing Workflow (MB.MD Style):**
+```
+1. Build Test Infrastructure FIRST
+   → 6+ feature-based test projects
+   → Page object models for ALL features
+   → Evidence collection helpers
+   → Feature flag fixtures
+
+2. Write Test Specs Simultaneously
+   → Element selection tests
+   → Vibe coding tests
+   → Voice pipeline tests
+   → Streaming sync tests
+   → Universal save tests
+   → Role-based access tests
+
+3. Execute Tests in Parallel
+   → npx playwright test (runs all 6 projects)
+   → 4+ workers execute simultaneously
+   → Screenshots captured automatically
+   → Videos recorded for streaming behavior
+   → Traces saved for click-to-replay
+
+4. Review Evidence
+   → npx playwright show-report (interactive)
+   → View all screenshots
+   → Watch recorded videos
+   → Replay traces to debug failures
+   → Check console logs
+
+5. Fix Issues & Rerun
+   → Build missing UI features
+   → Fix failing tests
+   → Rerun until ALL tests pass
+   → Collect final evidence
+
+6. Deploy with Confidence
+   → 100% test pass rate
+   → Visual proof for non-engineers
+   → Evidence artifacts uploaded to CI/CD
+```
+
+**Evidence Types Required:**
+- **Screenshots** - Before/after UI state at each test step
+- **Videos** - Real-time streaming behavior (chat, voice, preview sync)
+- **Playwright Traces** - Click-to-replay browser recordings
+- **Console Logs** - Frontend errors and warnings
+- **Network Activity** - API calls and responses
+- **Test Manifests** - JSON summary of test results
+
+**Example Test Structure:**
+```typescript
+test('Visual Editor - Element Selection', async ({ page }) => {
+  // 1. Setup: Login as super admin, enable feature flags
+  await setupFeatureFlags(page, { 'mbmd-autonomous': true });
+  
+  // 2. Navigate to Visual Editor
+  await page.goto('/visual-editor');
+  await page.waitForSelector('[data-testid="visual-editor-canvas"]');
+  
+  // 3. EVIDENCE: Screenshot before action
+  await collectEvidence(page, 'before-selection');
+  
+  // 4. Perform action: Click element
+  await page.click('[data-testid="example-button"]');
+  
+  // 5. EVIDENCE: Screenshot after action
+  await collectEvidence(page, 'after-selection');
+  
+  // 6. Assert: Purple bounding box visible
+  await expect(page.locator('.purple-bounding-box')).toBeVisible();
+  
+  // 7. Assert: Inspector panel shows data
+  await expect(page.locator('[data-testid="inspector-element-tag"]')).toHaveText('button');
+});
+```
+
+**Why This Matters:**
+- **Non-Engineer Users** - Can't access server logs or code, need UI proof
+- **Prevents "Code Compiles" Fallacy** - Code may compile but UI is broken
+- **Prevents "Button Exists" Fallacy** - Button may render but workflow is broken
+- **Catches Integration Gaps** - Component built but never imported/wired
+- **Role-Based Access Validation** - Super admin sees features, regular users don't
+- **Evidence-Based Deployment** - Visual proof before production rollout
+
+**MANDATORY Before Production:**
+- ✅ All 6+ test projects passing
+- ✅ 100+ screenshots collected
+- ✅ 10+ videos of streaming behavior
+- ✅ Role-based access verified
+- ✅ CI/CD pipeline green
+- ✅ Evidence uploaded to artifacts
+
+**See Also:**
+- `docs/COMPREHENSIVE_TESTING_GUIDE.md` - Full testing documentation
+- `playwright.config.ts` - Test configuration
+- `tests/e2e/` - All test specs
+- `.github/workflows/e2e-comprehensive.yml` - CI/CD workflow
+
+---
+
 ## 🔗 SEE ALSO
 
 ### Core Documentation
@@ -1560,6 +1679,7 @@ bash scripts/agent-verification.sh
 - `docs/QA_AGENT_PROTOCOL.md` - QA Agent veto power and validation (Enforcement)
 - `docs/PHASE_VERIFICATION_CHECKLISTS.md` - Quick reference for each phase (Checklists)
 - `docs/LEARNING_CAPTURE_TEMPLATE.md` - Submit new learnings (Evolution)
+- `docs/COMPREHENSIVE_TESTING_GUIDE.md` - Intensive testing approach (Oct 28, 2025)
 
 ### Specialized Guides
 - `docs/INTEGRATION_PROTOCOL.md` - Mr Blue & Visual Editor integration specifics

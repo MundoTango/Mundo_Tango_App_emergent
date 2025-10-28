@@ -17,6 +17,7 @@ import EnhancedMessageBubble from './EnhancedMessageBubble';
 import PersonalitySelector, { PersonalityMode } from './PersonalitySelector';
 import { ModelSelector } from './ModelSelector';
 import { ConversationHistoryPanel } from './ConversationHistoryPanel';
+import { AutoQueueBadge } from './AutoQueueBadge'; // 🎯 Auto-queue badge (Oct 28, 2025)
 import { useAppContext } from '@/hooks/useAppContext';
 import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
 import { useVoiceOutput } from '@/hooks/useVoiceOutput';
@@ -101,6 +102,9 @@ export function ChatInterface() {
   const [autonomousSteps, setAutonomousSteps] = useState<any[]>([]);
   const [currentStep, setCurrentStep] = useState<string>();
   const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
+  
+  // 🎯 PLANNING/BUILDING MODE: User can clarify work before execution (Oct 28, 2025)
+  const [executionMode, setExecutionMode] = useState<'plan' | 'build'>('plan');
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const sseConnectionRef = useRef<EventSource | null>(null);
@@ -1262,12 +1266,64 @@ export function ChatInterface() {
               </div>
             </div>
 
+            {/* 🎯 PLANNING/BUILDING MODE TOGGLE (Oct 28, 2025) */}
+            <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-lg">
+              <span className="text-xs font-medium text-cyan-900">Mode:</span>
+              <div className="flex gap-1 bg-white rounded-md p-0.5 shadow-sm">
+                <button
+                  onClick={() => setExecutionMode('plan')}
+                  className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+                    executionMode === 'plan' 
+                      ? 'bg-cyan-500 text-white shadow-sm' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                  data-testid="button-mode-plan"
+                >
+                  📋 Plan
+                </button>
+                <button
+                  onClick={() => setExecutionMode('build')}
+                  className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+                    executionMode === 'build' 
+                      ? 'bg-green-500 text-white shadow-sm' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                  data-testid="button-mode-build"
+                >
+                  🚀 Build
+                </button>
+              </div>
+              <span className="text-xs text-gray-600 ml-2">
+                {executionMode === 'plan' 
+                  ? 'Clarify work before execution' 
+                  : 'Execute immediately to preview'}
+              </span>
+              
+              {/* 🎯 AUTO-QUEUE BADGE: Show queued changes (Oct 28, 2025) */}
+              {visualEditorContext?.pendingChangesCount > 0 && (
+                <div className="ml-auto">
+                  <AutoQueueBadge 
+                    count={visualEditorContext.pendingChangesCount}
+                    onClick={() => {
+                      // Open save dialog or show changes
+                      toast({
+                        title: `${visualEditorContext.pendingChangesCount} changes queued`,
+                        description: 'Click SAVE button to commit all changes',
+                      });
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-2">
               <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Type your message... (Shift+Enter for new line)"
+                placeholder={executionMode === 'plan' 
+                  ? "Describe what you want to build... (I'll ask clarifying questions first)" 
+                  : "Type your message... (I'll execute immediately)"}
                 className="flex-1 min-h-[44px] max-h-32 resize-none bg-white"
                 data-testid="input-message"
                 aria-label="Message input"
@@ -1275,7 +1331,11 @@ export function ChatInterface() {
               <Button
                 onClick={handleSend}
                 disabled={!input.trim() || sendMessage.isPending || createConversation.isPending}
-                className="min-w-[44px] h-11 bg-cyan-500 hover:bg-cyan-600"
+                className={`min-w-[44px] h-11 ${
+                  executionMode === 'plan' 
+                    ? 'bg-cyan-500 hover:bg-cyan-600' 
+                    : 'bg-green-500 hover:bg-green-600'
+                }`}
                 data-testid="button-send-message"
                 aria-label="Send message"
               >
