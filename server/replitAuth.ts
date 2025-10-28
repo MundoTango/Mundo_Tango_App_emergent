@@ -203,6 +203,7 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
     
     // Set default user for development - CRITICAL FIX: Use Scott's actual Replit ID + super admin flag
     req.user = {
+      id: 7, // 🚨 FIX (Oct 28): Add user ID directly so getUserId doesn't need DB lookup
       claims: {
         sub: "44164221" // Scott Boddye's actual Replit ID
       },
