@@ -112,12 +112,12 @@ export class EnhancedModelRouter {
   /**
    * Route to cheap commercial model (LOW COST)
    * Updated Oct 28: Prioritize Gemini 2.5 Flash/Pro for 15x cost reduction
-   * Fixed: Restored 'reasoning' and 'planning' task types to match classifier output
+   * Fixed: Added 'chat' to match actual classifier output (TaskType includes 'chat')
    */
   private routeToCheap(taskType: TaskType): EnhancedRoutingDecision {
     // PRIORITY 1: Gemini Flash for simple/cheap tasks (150x cheaper than Claude)
-    // Match existing task classifier outputs: reasoning, planning, cost_sensitive
-    if (taskType === 'cost_sensitive' || taskType === 'reasoning' || taskType === 'planning') {
+    // Match ALL simple task types: reasoning, planning, cost_sensitive, AND chat
+    if (taskType === 'cost_sensitive' || taskType === 'reasoning' || taskType === 'planning' || taskType === 'chat') {
       return {
         provider: 'google' as any,
         model: 'gemini-2.0-flash-exp',
