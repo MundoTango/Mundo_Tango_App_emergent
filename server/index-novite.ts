@@ -253,6 +253,10 @@ app.use(chunkedUploadRoutes);
 import modelMonitorRoutes from './routes/modelMonitorRoutes';
 app.use('/api/models', modelMonitorRoutes);
 
+// Open Source Agent Routes (Layer 59 - Oct 28, 2025)
+import openSourceRoutes from './routes/openSourceRoutes';
+app.use('/api/open-source', openSourceRoutes);
+
 // VIBE CODING: File Editing Routes (MB.MD 100% Plan - Oct 26, 2025)
 // ❌ OLD: vibeEditRoutes removed - use vibeRoutes instead (Oct 27, 2025)
 // VIBE routes are registered in routes.ts now
@@ -320,6 +324,19 @@ const startServer = async () => {
       console.log(`  Memory management: ✅ Optimized`);
       console.log(`  All core features: ✅ Operational`);
       console.log(`[server] listening on ${PORT}`);
+      
+      // Start Open Source Agent cron jobs (Layer 59 - Oct 28, 2025)
+      import('./services/openSource/CronScheduler.js')
+        .then(({ cronScheduler }) => {
+          console.log('🤖 [Open Source Agent] Cron scheduler initialized');
+          console.log('   - Model discovery: Every 6 hours');
+          console.log('   - Model evaluation: Daily at 2 AM');
+          console.log('   - Cost reporting: Daily at 8 AM');
+          console.log('   - Security scan: Weekly on Sunday');
+        })
+        .catch(error => {
+          logger.error({ error }, 'Failed to initialize Open Source Agent cron scheduler');
+        });
       
       // Start automated model monitoring (checks 4x daily for deprecations - Oct 22, 2025)
       // ✅ MB.MD SIMULTANEOUS FIX: Handled in routes.ts static import now

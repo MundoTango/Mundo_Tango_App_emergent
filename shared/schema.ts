@@ -3259,3 +3259,162 @@ export type InsertMbmdEvidence = z.infer<typeof insertMbmdEvidenceSchema>;
 
 export type MbmdReview = typeof mbmdReviews.$inferSelect;
 export type InsertMbmdReview = z.infer<typeof insertMbmdReviewSchema>;
+
+// ========================================
+// OPEN SOURCE AGENT MONITORING TABLES
+// Layer 59: Open Source Management - Oct 28, 2025
+// ========================================
+
+// Open Source AI Models - Tracks discovered models and their evaluations
+export const openSourceModels = pgTable("open_source_models", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(), // 'Llama 3.1 405B', 'Qwen 2.5 Coder 32B'
+  provider: varchar("provider", { length: 100 }).notNull(), // 'Meta', 'Alibaba', 'Mistral'
+  category: varchar("category", { length: 50 }).notNull(), // 'text_generation', 'code', 'voice_stt', 'voice_tts', 'vision'
+  modelSize: varchar("model_size", { length: 50 }), // '405B', '70B', '32B'
+  contextWindow: integer("context_window"), // 128000, 32000, etc
+  homepage: text("homepage"), // Hugging Face, GitHub URL
+  license: varchar("license", { length: 100 }), // 'MIT', 'Apache 2.0', 'Llama 3.1 License'
+  status: varchar("status", { length: 50 }).notNull(), // 'discovered', 'evaluating', 'approved', 'rejected', 'in_production'
+  discoveredAt: timestamp("discovered_at").defaultNow(),
+  lastEvaluatedAt: timestamp("last_evaluated_at"),
+  metadata: jsonb("metadata").$type<{
+    stars?: number;
+    downloads?: number;
+    benchmarks?: Record<string, number>;
+    hostingOptions?: string[];
+  }>(),
+}, (table) => [
+  index("idx_open_source_models_category").on(table.category),
+  index("idx_open_source_models_status").on(table.status),
+  unique("unique_open_source_model_name").on(table.name),
+]);
+
+// Model Evaluations - Benchmark results and security scans
+export const modelEvaluations = pgTable("model_evaluations", {
+  id: serial("id").primaryKey(),
+  modelId: integer("model_id").references(() => openSourceModels.id).notNull(),
+  evaluationType: varchar("evaluation_type", { length: 50 }).notNull(), // 'benchmark', 'security', 'cost', 'quality'
+  passed: boolean("passed").notNull(),
+  score: real("score"), // 0.0 to 1.0
+  details: jsonb("details").$type<{
+    comparedTo?: string; // 'Claude Sonnet', 'GPT-4o'
+    performanceRatio?: number; // 0.85 = 85% of baseline
+    costSavings?: number; // USD per month
+    securityIssues?: string[];
+    testResults?: Record<string, any>;
+  }>(),
+  evaluatedBy: varchar("evaluated_by", { length: 100 }), // 'Agent #132', 'Security Agent'
+  evaluatedAt: timestamp("evaluated_at").defaultNow(),
+}, (table) => [
+  index("idx_model_evaluations_model").on(table.modelId),
+  index("idx_model_evaluations_type").on(table.evaluationType),
+]);
+
+// Model Integrations - Track implementation and rollout
+export const modelIntegrations = pgTable("model_integrations", {
+  id: serial("id").primaryKey(),
+  modelId: integer("model_id").references(() => openSourceModels.id).notNull(),
+  feature: varchar("feature", { length: 100 }).notNull(), // 'chat', 'vibe_coding', 'voice_mode'
+  routingPercentage: integer("routing_percentage").default(0), // 0-100%
+  status: varchar("status", { length: 50 }).notNull(), // 'planned', 'testing', 'rolling_out', 'production', 'disabled'
+  adapterPath: text("adapter_path"), // Path to adapter code
+  configOverrides: jsonb("config_overrides").$type<Record<string, any>>(),
+  implementedBy: integer("implemented_by").references(() => users.id),
+  implementedAt: timestamp("implemented_at"),
+  lastRolloutAt: timestamp("last_rollout_at"),
+  metadata: jsonb("metadata").$type<{
+    monthlyRequests?: number;
+    costSavings?: number;
+    errorRate?: number;
+    p95Latency?: number;
+  }>(),
+}, (table) => [
+  index("idx_model_integrations_model").on(table.modelId),
+  index("idx_model_integrations_feature").on(table.feature),
+  index("idx_model_integrations_status").on(table.status),
+]);
+
+// Agent Cron Jobs - Track scheduled tasks for Agent #132
+export const agentCronJobs = pgTable("agent_cron_jobs", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 50 }).notNull(), // 'agent_132', 'layer_59'
+  jobName: varchar("job_name", { length: 255 }).notNull(), // 'discover_new_models', 'security_scan', 'cost_report'
+  schedule: varchar("schedule", { length: 100 }).notNull(), // '0 */6 * * *' (every 6 hours)
+  enabled: boolean("enabled").default(true),
+  lastRunAt: timestamp("last_run_at"),
+  lastStatus: varchar("last_status", { length: 50 }), // 'success', 'failed', 'running'
+  lastError: text("last_error"),
+  nextRunAt: timestamp("next_run_at"),
+  runCount: integer("run_count").default(0),
+  metadata: jsonb("metadata").$type<{
+    discoveries?: number;
+    recommendations?: number;
+    alerts?: number;
+  }>(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_agent_cron_jobs_agent").on(table.agentId),
+  index("idx_agent_cron_jobs_enabled").on(table.enabled),
+  unique("unique_agent_cron_job").on(table.agentId, table.jobName),
+]);
+
+// Cost Tracking - Monitor API spending and savings
+export const costTracking = pgTable("cost_tracking", {
+  id: serial("id").primaryKey(),
+  date: timestamp("date").notNull(), // Daily snapshot
+  provider: varchar("provider", { length: 50 }).notNull(), // 'claude', 'openai', 'gemini', 'groq', 'self_hosted'
+  model: varchar("model", { length: 100 }).notNull(), // 'claude-3-5-sonnet', 'gpt-4o', 'llama-3.1-405b'
+  requestCount: integer("request_count").default(0),
+  tokenCount: integer("token_count").default(0),
+  estimatedCost: numeric("estimated_cost", { precision: 10, scale: 4 }).default(sql`0`), // USD
+  actualCost: numeric("actual_cost", { precision: 10, scale: 4 }), // USD if available from API
+  metadata: jsonb("metadata").$type<{
+    feature?: string; // 'chat', 'vibe_coding', 'voice'
+    userCount?: number;
+    errorRate?: number;
+  }>(),
+}, (table) => [
+  index("idx_cost_tracking_date").on(table.date),
+  index("idx_cost_tracking_provider").on(table.provider),
+]);
+
+// Insert schemas and types for Open Source Agent tables
+export const insertOpenSourceModelSchema = createInsertSchema(openSourceModels).omit({
+  id: true,
+  discoveredAt: true,
+});
+
+export const insertModelEvaluationSchema = createInsertSchema(modelEvaluations).omit({
+  id: true,
+  evaluatedAt: true,
+});
+
+export const insertModelIntegrationSchema = createInsertSchema(modelIntegrations).omit({
+  id: true,
+  implementedAt: true,
+});
+
+export const insertAgentCronJobSchema = createInsertSchema(agentCronJobs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCostTrackingSchema = createInsertSchema(costTracking).omit({
+  id: true,
+});
+
+export type OpenSourceModel = typeof openSourceModels.$inferSelect;
+export type InsertOpenSourceModel = z.infer<typeof insertOpenSourceModelSchema>;
+
+export type ModelEvaluation = typeof modelEvaluations.$inferSelect;
+export type InsertModelEvaluation = z.infer<typeof insertModelEvaluationSchema>;
+
+export type ModelIntegration = typeof modelIntegrations.$inferSelect;
+export type InsertModelIntegration = z.infer<typeof insertModelIntegrationSchema>;
+
+export type AgentCronJob = typeof agentCronJobs.$inferSelect;
+export type InsertAgentCronJob = z.infer<typeof insertAgentCronJobSchema>;
+
+export type CostTracking = typeof costTracking.$inferSelect;
+export type InsertCostTracking = z.infer<typeof insertCostTrackingSchema>;
