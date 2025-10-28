@@ -461,10 +461,13 @@ REAL LIMITATIONS (acknowledge these honestly):
 
 The vibe coding system runs automatically in the background and handles all technical work. Focus on being helpful and conversational.`,
       },
-      ...messageHistory.slice(-8).map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content,
-      })),
+      // 🚨 MB.MD FIX (Oct 28): Filter out empty messages to prevent Claude API 400 errors
+      ...messageHistory.slice(-8)
+        .filter(m => m.content && m.content.trim().length > 0)
+        .map(m => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content,
+        })),
       {
         role: 'user' as const,
         content: message,
