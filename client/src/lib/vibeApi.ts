@@ -98,12 +98,16 @@ export async function applyCodeChange(
   diff: string,
   type: 'unified_diff' | 'search_replace' = 'unified_diff'
 ): Promise<{ success: boolean; message?: string; error?: string }> {
-  const response = await apiRequest('/api/vibe/edit-file', {
+  // 🚨 MB.MD CRITICAL FIX (Oct 28): Correct endpoint is /api/mrblue/autonomous/write-file
+  // Previous endpoint /api/vibe/edit-file didn't exist → 404 errors → NO files were ever modified!
+  // This was causing ALL "change button color" requests to fail silently
+  const response = await apiRequest('/api/mrblue/autonomous/write-file', {
     method: 'POST',
     body: {
       filePath,
-      editType: type,          // 🔧 FIX Oct 23: Backend expects "editType"
-      diffContent: diff         // 🔧 FIX Oct 23: Backend expects "diffContent"
+      content: diff,  // Backend expects "content" not "diffContent"
+      validate: true,
+      backup: true
     }
   });
 
