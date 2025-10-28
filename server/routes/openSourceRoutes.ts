@@ -135,7 +135,7 @@ router.get('/metrics', async (req, res) => {
       monthlyProjection: totalCost || 10000,
       freeModelUsage: Math.round(freeModelUsage) || 80,
       premiumModelUsage: Math.round(premiumModelUsage) || 5,
-      averageCostPerUser: totalCost > 0 ? (totalCost / 10000).toFixed(2) : '0.25'
+      averageCostPerUser: totalCost > 0 ? Number((totalCost / 10000).toFixed(2)) : 0.25
     });
   } catch (error) {
     console.error('[OpenSourceAPI] Metrics failed:', error);
@@ -145,7 +145,7 @@ router.get('/metrics', async (req, res) => {
       monthlyProjection: 10000,
       freeModelUsage: 80,
       premiumModelUsage: 5,
-      averageCostPerUser: '0.25'
+      averageCostPerUser: 0.25
     });
   }
 });

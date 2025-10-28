@@ -57,9 +57,10 @@ export function OpenSourceAgentTab() {
   const [selectedModel, setSelectedModel] = useState<OpenSourceModel | null>(null);
 
   // Fetch discovered models
-  const { data: models = [], isLoading: modelsLoading } = useQuery<OpenSourceModel[]>({
+  const { data: modelsResponse, isLoading: modelsLoading } = useQuery<{ models: OpenSourceModel[] }>({
     queryKey: ['/api/open-source/models'],
   });
+  const models = modelsResponse?.models ?? [];
 
   // Fetch cost metrics
   const { data: costMetrics, isLoading: metricsLoading } = useQuery<CostMetrics>({
