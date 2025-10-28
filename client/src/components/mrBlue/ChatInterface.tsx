@@ -439,10 +439,70 @@ export function ChatInterface() {
       selectedModel,
       personality,
       hasElement: !!activeElement,
-      previewPath
+      previewPath,
+      executionMode
     });
     
     try {
+      // 🎯 PLANNING/BUILDING MODE FIX (Oct 28): Call vibe API BEFORE streaming
+      if (executionMode) {
+        console.log(`⚙️ [ChatInterface] ${executionMode.toUpperCase()} MODE - Triggering vibe execution FIRST`);
+        
+        try {
+          const vibeResult = await executeVibeCoding(content, {
+            selectedElement: activeElement,
+            previewPath: previewPath || '/',
+            executionMode: executionMode // Pass mode to backend
+          });
+          
+          console.log('✅ [Vibe] Execution result:', vibeResult);
+          
+          // Handle clarification questions (PLAN mode)
+          if (vibeResult.status === 'needs_clarification' && vibeResult.clarificationQuestion) {
+            console.log('❓ [Plan Mode] AI needs clarification');
+            setOptimisticMessage(content);
+            setStreamingResponse(vibeResult.clarificationQuestion);
+            
+            // Refetch messages to show clarification in chat
+            await queryClient.invalidateQueries({ queryKey: ['/api/mrblue/conversations', projId, 'messages'] });
+            
+            toast({
+              title: '❓ Clarifying question',
+              description: vibeResult.clarificationQuestion.substring(0, 100) + '...',
+              duration: 5000
+            });
+            
+            // Don't proceed to streaming - just show clarification
+            setOptimisticMessage(null);
+            return;
+          }
+          
+          // Handle code changes (BUILD mode)
+          if (vibeResult.codeChanges && vibeResult.codeChanges.length > 0) {
+            console.log(`🚀 [Build Mode] Applying ${vibeResult.codeChanges.length} change(s)`);
+            
+            for (const change of vibeResult.codeChanges) {
+              await applyCodeChange(change.filePath, change.diff, change.type || 'unified_diff');
+            }
+            
+            toast({
+              title: '✅ Changes applied',
+              description: `Updated ${vibeResult.codeChanges.length} file(s)`,
+              duration: 3000
+            });
+          }
+          
+        } catch (vibeError) {
+          console.error('❌ [Vibe] Execution failed:', vibeError);
+          toast({
+            title: 'Vibe coding failed',
+            description: vibeError instanceof Error ? vibeError.message : 'Unknown error',
+            variant: 'destructive'
+          });
+          // Continue to streaming as fallback
+        }
+      }
+      
       // 🎯 OPTIMISTIC UI: Show user message immediately
       setOptimisticMessage(content);
       setStreamingResponse('');
