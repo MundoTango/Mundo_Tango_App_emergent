@@ -79,11 +79,83 @@ export class EvidenceCollector {
     return filePath;
   }
 
-  async saveScreenshot(filename: string, buffer: Buffer): Promise<string> {
+  async saveScreenshot(filename: string, buffer: Buffer, phase: 'MAPPING' | 'BREAKDOWN' | 'MITIGATION' | 'DEPLOYMENT' = 'DEPLOYMENT'): Promise<string> {
     const filePath = path.join(this.evidenceDir, filename);
     await fs.writeFile(filePath, buffer);
     console.log('[EvidenceCollector] Saved screenshot:', filePath);
+    
+    // CRITICAL FIX (Oct 28, 2025): Persist screenshot to database
+    await this.collect({
+      type: 'screenshot',
+      phase,
+      path: filePath,
+      metadata: {
+        filename,
+        size: buffer.length,
+      },
+    });
+    
     return filePath;
+  }
+
+  /**
+   * Collect browser console logs
+   * Enhanced: October 28, 2025
+   */
+  async collectBrowserLogs(logs: string[]): Promise<number> {
+    const logsString = logs.join('\n');
+    const filePath = await this.saveFile('browser-console.log', logsString);
+    
+    return await this.collect({
+      type: 'log',
+      phase: 'DEPLOYMENT',
+      path: filePath,
+      metadata: {
+        source: 'browser',
+        lineCount: logs.length,
+      },
+    });
+  }
+
+  /**
+   * Collect server logs
+   * Enhanced: October 28, 2025
+   */
+  async collectServerLogs(logs: string[]): Promise<number> {
+    const logsString = logs.join('\n');
+    const filePath = await this.saveFile('server.log', logsString);
+    
+    return await this.collect({
+      type: 'log',
+      phase: 'DEPLOYMENT',
+      path: filePath,
+      metadata: {
+        source: 'server',
+        lineCount: logs.length,
+      },
+    });
+  }
+
+  /**
+   * Collect test results
+   * Enhanced: October 28, 2025
+   */
+  async collectTestResults(results: {
+    passed: number;
+    failed: number;
+    skipped: number;
+    total: number;
+    failures?: string[];
+  }): Promise<number> {
+    return await this.collect({
+      type: 'test',
+      phase: 'MITIGATION',
+      data: results,
+      metadata: {
+        passRate: (results.passed / results.total) * 100,
+        hasFailures: results.failed > 0,
+      },
+    });
   }
 
   getEvidenceDir(): string {

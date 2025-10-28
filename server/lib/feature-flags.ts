@@ -135,6 +135,32 @@ export const featureFlags: Map<string, FeatureFlag> = new Map([
     enabled: false,
     rolloutPercentage: 0,
   }],
+  
+  // Voice Mode Migration Flags (Week 4)
+  ['voice-open-source-stt', {
+    key: 'voice-open-source-stt',
+    description: 'Open-source Speech-to-Text (Whisper)',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
+  ['voice-open-source-llm', {
+    key: 'voice-open-source-llm',
+    description: 'Open-source LLM (Groq Llama 3.3 70B)',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
+  ['voice-open-source-tts', {
+    key: 'voice-open-source-tts',
+    description: 'Open-source Text-to-Speech (Bark)',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
+  ['voice-migration-active', {
+    key: 'voice-migration-active',
+    description: 'Voice Mode migration from OpenAI to Open Source',
+    enabled: false,
+    rolloutPercentage: 0,
+  }],
 ]);
 
 // Check if a feature is enabled for a user
