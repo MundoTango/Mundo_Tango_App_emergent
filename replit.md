@@ -4,13 +4,14 @@
 Mundo Tango is a social platform for the global tango community, built on the ESA (Emergent Software Architecture) LIFE CEO framework. It integrates social networking features (memories/posts, events, profiles, groups) with an AI agent ecosystem for life management. The platform aims for 100% functionality and stability, with a strong focus on quality assurance and an accelerated timeline. The project's business vision centers on its market potential and ambitions within the tango community.
 
 ### User Preferences
-**⚠️ THE 5 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
+**⚠️ THE 6 NON-NEGOTIABLE RULES - ALL AGENTS READ FIRST**
 Every agent MUST follow these before marking ANY task complete:
 1. **VERIFY BEFORE BUILD** - Complete mandatory documentation verification checklist (`docs/DOCUMENTATION_VERIFICATION.md`), read all relevant docs, summarize requirements BEFORE coding - prevents building wrong features
 2. **INTEGRATE IMMEDIATELY** - Import components as you build them, test imports work - prevents "component exists" fallacy. **For Mr Blue & Visual Editor: MUST wire to parent components (ChatInterface.tsx, MrBlueComplete.tsx, VisualEditorWrapper.tsx) - See `docs/INTEGRATION_PROTOCOL.md`**
 3. **SCREENSHOT EVERYTHING** - Visual proof required AFTER opening modals/clicking buttons - prevents "code compiles" fallacy
 4. **TEST USER JOURNEY** - Test as regular user AND super admin, verify access controls - prevents "button exists" fallacy
 5. **ARCHITECT VALIDATES** - Independent review mandatory, no self-approval - prevents shipping broken features
+6. **CONTROLLED ROLLOUT REQUIRED** - Never ship to production at 100% immediately. Use staged rollout: Phase 1 (super admin only) → Phase 2 (10% beta users) → Phase 3 (100% production). Feature flags must gate all new autonomous/AI features - prevents production incidents
 
 Failure at ANY step = DO NOT PROCEED. Fix the issue first.
 
