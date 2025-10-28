@@ -43,13 +43,18 @@ export function ElementInspector({ selectedElement }: ElementInspectorProps) {
   const handleApplySuggestion = async (prompt: string) => {
     setIsGenerating(true);
     try {
-      // 🎯 TODO: Get conversationId from Mr Blue context (using placeholder 0 for now)
-      const conversationId = 0; // Placeholder - ElementInspector needs Mr Blue integration
-      
-      const result = await executeVibeCoding(conversationId, prompt, {
-        selectedElement,
-        previewPath: window.location.pathname
+      // 🎯 PHASE 1 FIX: ElementInspector needs Mr Blue conversation integration
+      toast({
+        title: 'Integration Required',
+        description: 'Please use Mr Blue Chat for AI suggestions. Element Inspector AI integration coming soon.',
+        variant: 'destructive'
       });
+      setIsGenerating(false);
+      return;
+      
+      // TODO: Integrate with Mr Blue conversations
+      // const conversationId = getMrBlueConversation();
+      // const result = await executeVibeCoding(conversationId, prompt, { ... });
       
       setPendingChanges(result.codeChanges);
       toast({

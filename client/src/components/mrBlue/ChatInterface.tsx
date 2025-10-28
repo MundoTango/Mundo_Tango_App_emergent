@@ -448,6 +448,17 @@ export function ChatInterface() {
       if (executionMode) {
         console.log(`⚙️ [ChatInterface] ${executionMode.toUpperCase()} MODE - Triggering vibe execution FIRST`);
         
+        // 🛡️ ARCHITECT FIX: Verify conversation exists before calling unified endpoint
+        if (!projId || projId === 0) {
+          console.error('❌ [ChatInterface] No valid conversation ID - cannot execute vibe coding');
+          toast({
+            title: 'Conversation Error',
+            description: 'Please create a conversation first',
+            variant: 'destructive'
+          });
+          return;
+        }
+        
         try {
           const vibeResult = await executeVibeCoding(projId, content, {
             selectedElement: activeElement,

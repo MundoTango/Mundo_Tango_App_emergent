@@ -262,13 +262,20 @@ export function UnifiedVoiceModal({
     
     setIsExecutingCode(true);
     try {
-      // 🎯 TODO: Get conversationId from active conversation (using placeholder 0 for now)
-      const conversationId = 0; // Placeholder - Voice modal needs Mr Blue integration
-      
-      const result = await executeVibeCoding(conversationId, newTranscript, {
-        selectedElement: selectedElement || null,
-        previewPath: visualEditorContext.previewPath || '/'
+      // 🎯 PHASE 1 FIX: Voice modal needs active Mr Blue conversation
+      // For now, skip execution until proper integration
+      console.warn('⚠️ [Voice] Skipping code execution - requires Mr Blue conversation integration');
+      toast({
+        title: 'Integration Required',
+        description: 'Voice-to-code requires an active Mr Blue conversation. Coming soon!',
+        variant: 'destructive'
       });
+      setIsExecutingCode(false);
+      return;
+      
+      // TODO: Get conversation ID from Mr Blue context
+      // const conversationId = mrBlueContext?.activeConversationId;
+      // const result = await executeVibeCoding(conversationId, newTranscript, { ... });
       
       console.log(`🎧 [Voice] Generated ${result.codeChanges.length} code changes`);
       

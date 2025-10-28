@@ -68,20 +68,19 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
         });
       }
       
-      // 🎯 TODO: Get conversationId from Mr Blue context (using placeholder 0 for now)
-      // This component needs refactoring to work with Mr Blue conversations
-      const conversationId = 0; // Placeholder - AITab needs Mr Blue integration
+      // 🎯 PHASE 1 FIX: AITab needs Mr Blue conversation integration
+      // For now, show error until proper integration is complete
+      toast({
+        title: 'Integration Required',
+        description: 'Please use Mr Blue Chat for AI-powered code generation. Visual Editor AI integration coming soon.',
+        variant: 'destructive',
+        duration: 5000
+      });
+      return;
       
-      // Call vibe coding API with visual editor context AND execution mode
-      const result = await executeVibeCoding(
-        conversationId,
-        aiPrompt,
-        {
-          selectedElement,
-          previewPath: window.location.pathname,
-          executionMode
-        }
-      );
+      // TODO: Integrate with Mr Blue to get conversationId
+      // const conversationId = getMrBlueConversation(); 
+      // const result = await executeVibeCoding(conversationId, aiPrompt, { ... });
 
       // 🎯 PLAN MODE: If AI needs clarification, show question
       if (executionMode === 'plan' && result.status === 'needs_clarification') {
