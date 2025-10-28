@@ -59,11 +59,21 @@ test.describe('MB.MD Plan/Build Modes', () => {
     await messageInput.fill('Change the button color');
     await page.click('[data-testid="button-send-message"]');
 
-    // Step 5: Verify correct endpoint called
+    // Step 5: Verify correct endpoint called with CORRECT PAYLOAD FORMAT
     const request = await requestPromise;
     const postData = JSON.parse(request.postData() || '{}');
-    expect(postData.executionMode).toBe('plan');
+    
+    // ✅ PHASE 1 FIX: Verify payload matches backend schema
+    expect(postData).toHaveProperty('conversationId'); // Required field
+    expect(postData).toHaveProperty('message'); // Required field
+    expect(postData.executionMode).toBe('plan'); // Optional but should be set
     expect(request.url()).toContain('/api/mrblue/unified');
+    
+    // ✅ Verify response is 200 (not 400 error)
+    const response = await page.waitForResponse(response => 
+      response.url().includes('/api/mrblue/unified')
+    );
+    expect(response.status()).toBe(200);
 
     // Step 6: ✅ FIX: Wait for assistant response (not just any message)
     await page.waitForSelector('[data-role="assistant"]', { timeout: 15000 });
@@ -119,11 +129,21 @@ test.describe('MB.MD Plan/Build Modes', () => {
     await messageInput.fill('Change this to red');
     await page.click('[data-testid="button-send-message"]');
 
-    // Step 9: Verify correct endpoint and mode
+    // Step 9: Verify correct endpoint and mode with CORRECT PAYLOAD
     const request = await requestPromise;
     const postData = JSON.parse(request.postData() || '{}');
+    
+    // ✅ PHASE 1 FIX: Verify payload structure
+    expect(postData).toHaveProperty('conversationId');
+    expect(postData).toHaveProperty('message');
     expect(postData.executionMode).toBe('build');
     expect(request.url()).toContain('/api/mrblue/unified');
+    
+    // ✅ Verify response is 200 (not 400 error)
+    const response = await page.waitForResponse(response => 
+      response.url().includes('/api/mrblue/unified')
+    );
+    expect(response.status()).toBe(200);
 
     // Step 10: Verify auto-queue badge appears (changes queued)
     // await expect(page.locator('[data-testid="auto-queue-badge"]')).toBeVisible({ timeout: 5000 });
