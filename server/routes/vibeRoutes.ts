@@ -296,20 +296,33 @@ router.post('/execute', async (req: any, res: Response) => {
       return res.status(403).json({ error: 'User not found' });
     }
 
-    // 🎯 PLAN MODE (Oct 28, 2025): Return clarification questions before executing
+    // 🎯 PLAN MODE (Oct 28, 2025): Use REAL Gemini AI for clarification questions
     if (executionMode === 'plan') {
-      console.log(`📋 [Vibe Plan] Analyzing request for clarification: "${request.substring(0, 50)}..."`);
+      console.log(`📋 [Vibe Plan] Using Gemini AI to analyze request: "${request.substring(0, 50)}..."`);
       
-      // Generate clarification question based on request
-      const clarificationQuestion = `I understand you want to: "${request}"\n\nBefore I make these changes, can you confirm:\n1. Which specific ${visualEditorContext?.selectedElement ? 'element' : 'component'} should I modify?\n2. Should this change apply to just this page or throughout the app?\n3. Any specific design preferences (colors, spacing, etc.)?`;
+      const { VibeCodeEngine } = await import('../services/gemini/VibeCodeEngine.js');
+      const geminiEngine = new VibeCodeEngine();
+      
+      const result = await geminiEngine.generateClarifications({
+        userRequest: request,
+        visualEditorContext,
+        executionMode: 'plan'
+      });
+      
+      console.log(`🤖 [Vibe Plan] Gemini decision: needsClarification=${result.needsClarification}, model=${result.modelUsed}, cost=$${result.costEstimate}`);
       
       return res.json({
-        status: 'needs_clarification',
-        clarificationQuestion,
+        status: result.needsClarification ? 'needs_clarification' : 'ready',
+        clarificationQuestion: result.clarificationQuestion,
         codeChanges: [],
         tasks: [],
         testResults: null,
-        errors: []
+        errors: [],
+        aiMetadata: {
+          modelUsed: result.modelUsed,
+          costEstimate: result.costEstimate,
+          reasoning: result.reasoning
+        }
       });
     }
 

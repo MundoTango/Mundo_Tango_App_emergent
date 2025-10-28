@@ -110,21 +110,39 @@ export class EnhancedModelRouter {
   
   /**
    * Route to cheap commercial model (LOW COST)
+   * Updated Oct 28: Prioritize Gemini 2.5 Flash/Pro for 15x cost reduction
    */
   private routeToCheap(taskType: TaskType): EnhancedRoutingDecision {
-    if (taskType === 'code_generation' || taskType === 'code_review') {
+    // PRIORITY 1: Gemini 2.5 Flash for simple tasks (150x cheaper than Claude)
+    if (taskType === 'chat' || taskType === 'simple_query') {
       return {
-        provider: 'claude',
-        model: 'claude-3-haiku-20240307',
-        reason: 'Cost-optimized for code tasks',
-        estimatedCost: 'low',
+        provider: 'google' as any,
+        model: 'gemini-2.5-flash',
+        reason: 'Ultra cost-optimized with Gemini Flash ($0.001/request)',
+        estimatedCost: 'free', // Practically free
         openSource: false
       };
     }
+
+    // PRIORITY 2: Gemini 2.5 Pro for code tasks (15x cheaper than Claude)
+    if (taskType === 'code_generation' || taskType === 'code_review') {
+      return {
+        provider: 'google' as any,
+        model: 'gemini-2.5-pro',
+        reason: 'Cost-optimized for code tasks with Gemini Pro ($0.01/request)',
+        estimatedCost: 'low',
+        openSource: false,
+        fallback: {
+          provider: 'claude',
+          model: 'claude-3-haiku-20240307'
+        }
+      };
+    }
     
+    // FALLBACK: Claude Haiku
     return {
-      provider: 'openai',
-      model: 'gpt-4o-mini',
+      provider: 'claude',
+      model: 'claude-3-haiku-20240307',
       reason: 'Cost-optimized general purpose',
       estimatedCost: 'low',
       openSource: false
@@ -153,10 +171,14 @@ export class EnhancedModelRouter {
   async trackRouting(decision: EnhancedRoutingDecision, tokens: { input: number; output: number }) {
     const costPerMillion = {
       'claude-3-5-sonnet-20241022': { input: 3, output: 15 },
+      'claude-sonnet-4-20250514': { input: 3, output: 15 },
       'claude-3-haiku-20240307': { input: 0.25, output: 1.25 },
       'gpt-4o-2024-11-20': { input: 10, output: 30 },
       'gpt-4o-mini': { input: 0.15, output: 0.6 },
       'gemini-pro': { input: 1.25, output: 5 },
+      // Gemini 2.5 (Oct 28, 2025 - 15x cheaper!)
+      'gemini-2.5-flash': { input: 0.01, output: 0.01 }, // $0.001/request
+      'gemini-2.5-pro': { input: 0.1, output: 0.1 }, // $0.01/request
       // Open source models (Groq free tier)
       'llama-3.1-405b-reasoning': { input: 0, output: 0 },
       'llama-3.1-70b-versatile': { input: 0, output: 0 },

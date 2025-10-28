@@ -483,13 +483,18 @@ Return JSON in this format:
 
       const response = JSON.parse(jsonMatch[0]);
 
-      // Check if clarification needed
-      if (response.needsClarification) {
+      // 🚀 FIX (Oct 28): Skip clarification if element selected OR executionMode='build'
+      const shouldSkipClarification = hasSelectedElement || this.state.executionMode === 'FOCUSED';
+      
+      // Check if clarification needed (but respect skip logic)
+      if (response.needsClarification && !shouldSkipClarification) {
         this.state.needsClarification = true;
         this.state.clarificationQuestion = response.clarificationQuestion;
         this.state.status = 'needs_clarification';
         console.log(`🤔 [VibeGraph] Needs clarification: ${response.clarificationQuestion}`);
         return;
+      } else if (response.needsClarification && shouldSkipClarification) {
+        console.log(`⏭️ [VibeGraph] AI wanted clarification but skipping (element selected OR build mode)`);
       }
 
       // Parse tasks

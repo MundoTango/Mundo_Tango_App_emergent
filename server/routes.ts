@@ -56,6 +56,7 @@ import aiRoutes from "./routes/ai"; // Mundo Tango ESA LIFE CEO - Intelligence I
 import agentRoutes from "./routes/agentRoutes"; // Mundo Tango ESA LIFE CEO - Agent System routes (All 61 layers)
 // MB.MD BUILD: Routes now active - backend storage layer complete
 import mrBlueRoutes from "./routes/mrBlueRoutes"; // Mr Blue AI Chat (mb.md lines 1030-1051) - Agents #73-80
+import mrBlueUnifiedRoutes from "./routes/mrBlueUnifiedRoutes"; // Mr Blue Unified Chat + Vibe Coding - Oct 28, 2025
 // import visualEditorRoutes from "./routes/visualEditorRoutes"; // Visual Editor (mb.md lines 1038-1042) - Agent #78 (coming in Phase 2)
 import authRoutes from "./routes/authRoutes"; // Authentication routes - /api/auth/*
 import lumaRoutes from "./routes/lumaRoutes"; // Luma Labs 3D Avatar Generation - MB.MD Track 1 - Oct 21, 2025
@@ -1428,6 +1429,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // 🎯 MB.MD Build: Mr Blue & Visual Editor API Routes (mb.md lines 1030-1051)
   app.use('/api/mrblue', isAuthenticated, mrBlueRoutes); // Mr Blue: Conversations, Messages, Streaming Chat, Breadcrumb Tracking
+  app.use('/api/mrblue', isAuthenticated, mrBlueUnifiedRoutes); // Mr Blue Unified: Chat + Vibe Coding (Oct 28, 2025)
   app.use('/api/voice', isAuthenticated, voiceConversationRoutes); // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
   app.use('/api/chat', isAuthenticated, chatSummarizationRoutes); // Chat Summarization API (Unified Voice Modal - Oct 22, 2025)
   // MB.MD FIX Oct 23: Temporarily removed isAuthenticated to fix auth bypass mode chat bug
