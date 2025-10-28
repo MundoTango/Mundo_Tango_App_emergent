@@ -128,6 +128,6 @@ export default defineConfig({
     stderr: 'pipe',
   },
   
-  // Global setup for test data seeding
-  globalSetup: require.resolve('./tests/setup/global-setup.ts'),
+  // Global setup for test data seeding (optional - comment out if not needed)
+  // globalSetup: './tests/setup/global-setup.ts',
 });
