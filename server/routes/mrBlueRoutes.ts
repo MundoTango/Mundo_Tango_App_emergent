@@ -297,10 +297,12 @@ router.post("/stream", async (req: Request, res: Response) => {
       model: z.string().optional().default('gpt-4o'),
       // 🚨 MB.MD FIX (Oct 27): Accept selected element context from frontend
       selectedElement: z.any().optional(),
-      previewPath: z.string().optional()
+      previewPath: z.string().optional(),
+      // 🎯 MB.MD PHASE 1 (Oct 28): Accept execution mode from frontend
+      executionMode: z.enum(['plan', 'build']).optional().default('build')
     });
     
-    const { conversationId, message, model, selectedElement, previewPath } = streamSchema.parse(req.body);
+    const { conversationId, message, model, selectedElement, previewPath, executionMode } = streamSchema.parse(req.body);
     
     // 🔍 DEBUG: Log received element context
     if (selectedElement) {
