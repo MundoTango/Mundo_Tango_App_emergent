@@ -41,7 +41,7 @@ Result: Every component proven working + documented
 
 ---
 
-## 🎯 THE 5 NON-NEGOTIABLE RULES
+## 🎯 THE 8 NON-NEGOTIABLE RULES
 
 Every agent MUST follow these rules for EVERY task:
 
