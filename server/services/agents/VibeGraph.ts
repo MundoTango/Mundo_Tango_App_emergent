@@ -19,7 +19,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { BrowserTesterAgent, type BrowserTestResult, type TestSpec } from './BrowserTesterAgent';
 import { SelfHealerAgent, type BugFix } from './SelfHealerAgent';
-import { SessionManager } from '../SessionManager';
+import { SessionManager } from '../mbmd/SessionManager.js';
 import { routeToModel, classifyTask } from '../modelRouter';
 import { applyTextReplacement, generateUnifiedDiff } from '../../lib/jsxParser.js';
 import { DocumentationAgent } from './DocumentationAgent';
